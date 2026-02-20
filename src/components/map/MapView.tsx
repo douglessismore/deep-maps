@@ -101,7 +101,7 @@ function MapController({
       marker.bindTooltip(
         `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
           <strong>${location.name}</strong>
-          <div style="font-size:11px;color:#a3a3a3;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+          <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
         </div>`,
         {
           direction: 'top',
@@ -162,7 +162,7 @@ function MapController({
     if (allCoords.length > 0) {
       map.flyToBounds(L.latLngBounds(allCoords), {
         padding: [60, 60],
-        maxZoom: 6,
+        maxZoom: 7,
         duration: 1.8,
       });
     }
@@ -236,7 +236,7 @@ export function MapView(props: MapViewProps) {
     <div className="relative h-full w-full">
       <MapContainer
         bounds={bounds}
-        boundsOptions={{ padding: [40, 40], maxZoom: 6 }}
+        boundsOptions={{ padding: [40, 40], maxZoom: 7 }}
         className="h-full w-full"
         zoomControl={true}
         attributionControl={true}

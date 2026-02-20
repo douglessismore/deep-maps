@@ -4,7 +4,6 @@ import { CATEGORIES } from '../../lib/categories';
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
 import { LocationCard } from './LocationCard';
-import { StoryCard } from './StoryCard';
 import { WikiPanel } from './WikiPanel';
 
 type StoryTab = 'locations' | 'wiki';
@@ -15,6 +14,7 @@ interface StoryPanelProps {
   onLocationSelect: (location: StoryLocation) => void;
   onBackToExplore: () => void;
   onRelatedStoryClick: (story: Story) => void;
+  onTagClick?: (tag: string) => void;
   allStories: Story[];
 }
 
@@ -24,6 +24,7 @@ export function StoryPanel({
   onLocationSelect,
   onBackToExplore,
   onRelatedStoryClick,
+  onTagClick,
   allStories,
 }: StoryPanelProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -82,14 +83,15 @@ export function StoryPanel({
     };
   }, [story, onLocationSelect, scrollActiveId]);
 
-  // Related stories
+  // Related stories (explicit cross-links)
   const relatedStories = (story.relatedStoryIds || [])
     .map((id) => allStories.find((s) => s.id === id))
     .filter((s): s is Story => s !== undefined);
 
-  // Stories that share nearby locations (within ~50 miles)
+  // Stories that share nearby locations (within ~50 miles), excluding already-related
+  const relatedIds = new Set(relatedStories.map((s) => s.id));
   const nearbyStories = allStories.filter((other) => {
-    if (other.id === story.id) return false;
+    if (other.id === story.id || relatedIds.has(other.id)) return false;
     return story.locations.some((storyLoc) =>
       other.locations.some((otherLoc) => {
         const dlat = storyLoc.lat - otherLoc.lat;
@@ -98,6 +100,9 @@ export function StoryPanel({
       })
     );
   });
+
+  // All connected stories for the rabbit trail strip
+  const connectedStories = [...relatedStories, ...nearbyStories];
 
   const currentActiveId = activeLocation?.id || scrollActiveId;
 
@@ -149,17 +154,18 @@ export function StoryPanel({
           {story.description}
         </p>
 
-        {/* Tags — hidden on mobile when collapsed */}
+        {/* Tags — hidden on mobile when collapsed, clickable to filter */}
         <div className={`flex-wrap gap-1 mt-3 ${
           !headerExpanded ? 'hidden lg:flex' : 'flex'
         }`}>
           {story.tags.map((tag) => (
-            <span
+            <button
               key={tag}
-              className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)]"
+              onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+              className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
             >
               #{tag}
-            </span>
+            </button>
           ))}
         </div>
 
@@ -177,6 +183,45 @@ export function StoryPanel({
           </svg>
         </button>
       </div>
+
+      {/* Connected Stories — rabbit trail strip */}
+      {connectedStories.length > 0 && (
+        <div className="shrink-0 border-b border-[var(--border-subtle)]">
+          <div className="px-4 pt-2 pb-1">
+            <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+              Rabbit Trails ({connectedStories.length})
+            </h3>
+          </div>
+          <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
+            {connectedStories.map((s) => {
+              const sCat = CATEGORIES[s.category];
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => onRelatedStoryClick(s)}
+                  className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[200px]"
+                >
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ backgroundColor: sCat.color }}
+                  />
+                  <div className="min-w-0 text-left">
+                    <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">
+                      {s.name}
+                    </p>
+                    <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                      {s.locations.length} {s.locations.length === 1 ? 'location' : 'locations'} · {s.years}
+                    </p>
+                  </div>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                    <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Tab bar — Locations | Wiki */}
       {hasWiki && (
@@ -235,37 +280,6 @@ export function StoryPanel({
               ))}
             </div>
           </div>
-
-          {/* Related Stories */}
-          {(relatedStories.length > 0 || nearbyStories.length > 0) && (
-            <div className="p-4 border-t border-[var(--border-subtle)]">
-              {relatedStories.length > 0 && (
-                <>
-                  <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
-                    Related Stories
-                  </h3>
-                  <div className="space-y-2 mb-4">
-                    {relatedStories.map((s) => (
-                      <StoryCard key={s.id} story={s} onClick={onRelatedStoryClick} compact />
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {nearbyStories.length > 0 && (
-                <>
-                  <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
-                    Also In This Area
-                  </h3>
-                  <div className="space-y-2">
-                    {nearbyStories.map((s) => (
-                      <StoryCard key={s.id} story={s} onClick={onRelatedStoryClick} compact />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
 
           <div className="h-8" />
         </div>
