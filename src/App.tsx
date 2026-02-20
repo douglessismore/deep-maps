@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Route, Switch } from 'wouter';
 import { MapView } from './components/map/MapView';
 import { ExplorePanel } from './components/panel/ExplorePanel';
