@@ -78,12 +78,13 @@ export function Header({
           {mode === 'story' && (
             <button
               onClick={onBackToExplore}
-              className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1 rounded-md text-xs font-mono transition-colors flex items-center gap-1.5"
+              className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5"
               title="Back to full map with all stories"
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
                 <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
+              <span className="sm:hidden">Back</span>
               <span className="hidden sm:inline">All Stories</span>
             </button>
           )}

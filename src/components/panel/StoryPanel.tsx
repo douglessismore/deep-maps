@@ -22,6 +22,7 @@ export function StoryPanel({
   story,
   activeLocation,
   onLocationSelect,
+  onBackToExplore,
   onRelatedStoryClick,
   allStories,
 }: StoryPanelProps) {
@@ -32,6 +33,7 @@ export function StoryPanel({
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
+  const [headerExpanded, setHeaderExpanded] = useState(false);
 
   const cat = CATEGORIES[story.category];
   const hasWiki = !!story.wikipediaSlug;
@@ -107,9 +109,20 @@ export function StoryPanel({
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      {/* Story Header — always visible */}
+      {/* Mobile back link — prominent, within the panel */}
+      <button
+        onClick={onBackToExplore}
+        className="lg:hidden shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-mono text-[var(--text-muted)] hover:text-white transition-colors border-b border-[var(--border-subtle)]"
+      >
+        <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+          <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        Back to all stories
+      </button>
+
+      {/* Story Header — always visible, compact on mobile */}
       <div className="shrink-0 p-4 border-b border-[var(--border-subtle)]">
-        <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
+        <div className="h-1 rounded-full mb-2 lg:mb-4" style={{ backgroundColor: cat.color }} />
         <h2 className="font-serif text-xl font-bold text-white">
           {story.name}
         </h2>
@@ -118,23 +131,28 @@ export function StoryPanel({
             {story.nickname}
           </p>
         )}
-        <div className="flex items-center gap-2 mt-3">
+        <div className="flex items-center gap-2 mt-2 lg:mt-3">
           <CategoryBadge category={story.category} />
           <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
         </div>
 
+        {/* Content warning — hidden on mobile when collapsed */}
         {story.contentWarning && (
-          <div className="mt-3">
+          <div className={`mt-3 ${!headerExpanded ? 'hidden lg:block' : ''}`}>
             <ContentWarning warning={story.contentWarning} />
           </div>
         )}
 
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">
+        <p className={`text-sm text-[var(--text-secondary)] leading-relaxed mt-2 lg:mt-4 ${
+          !headerExpanded ? 'line-clamp-2 lg:line-clamp-none' : ''
+        }`}>
           {story.description}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 mt-3">
+        {/* Tags — hidden on mobile when collapsed */}
+        <div className={`flex-wrap gap-1 mt-3 ${
+          !headerExpanded ? 'hidden lg:flex' : 'flex'
+        }`}>
           {story.tags.map((tag) => (
             <span
               key={tag}
@@ -144,6 +162,20 @@ export function StoryPanel({
             </span>
           ))}
         </div>
+
+        {/* Mobile expand/collapse toggle */}
+        <button
+          onClick={() => setHeaderExpanded(!headerExpanded)}
+          className="lg:hidden flex items-center gap-1 mt-2 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+        >
+          {headerExpanded ? 'Show less' : 'Show more'}
+          <svg
+            width="10" height="10" viewBox="0 0 10 10" fill="none"
+            className={`transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+          >
+            <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
 
       {/* Tab bar — Locations | Wiki */}

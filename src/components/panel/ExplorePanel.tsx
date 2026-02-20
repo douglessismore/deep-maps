@@ -51,6 +51,13 @@ export function ExplorePanel({
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
 
+  // Auto-switch to stories tab when a collection is selected
+  useEffect(() => {
+    if (activeCollection) {
+      setActiveTab('stories');
+    }
+  }, [activeCollection]);
+
   // Filter stories by search + category
   const filteredStories = useMemo(() => {
     let result = stories;
