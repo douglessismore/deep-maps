@@ -161,22 +161,13 @@ function MapController({
   }, [activeLocation, activeStory, mode, map, categoryFilter, stories]);
 
   // Zoom out to show all pins when resetViewKey changes (back-to-explore)
+  // Uses hardcoded US center instead of flyToBounds to prevent intermittent Africa bug
   const prevResetKey = useRef(resetViewKey);
   useEffect(() => {
     if (resetViewKey === prevResetKey.current) return;
     prevResetKey.current = resetViewKey;
-
-    const allCoords = stories.flatMap((s) =>
-      s.locations.map((l) => [l.lat, l.lng] as [number, number])
-    );
-    if (allCoords.length > 0) {
-      map.flyToBounds(L.latLngBounds(allCoords), {
-        padding: [60, 60],
-        maxZoom: 7,
-        duration: 1.8,
-      });
-    }
-  }, [resetViewKey, stories, map]);
+    map.flyTo([39.5, -98.5], 4, { duration: 1.5 });
+  }, [resetViewKey, map]);
 
   return null;
 }

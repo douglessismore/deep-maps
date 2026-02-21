@@ -48,6 +48,7 @@ export function ExplorePanel({
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
 
@@ -177,6 +178,48 @@ export function ExplorePanel({
     [onLocationSelect]
   );
 
+  // Scroll-driven location navigation (Locations tab)
+  useEffect(() => {
+    if (activeTab !== 'locations' || !mapInstance) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      const containerRect = container.getBoundingClientRect();
+      const centerY = containerRect.top + containerRect.height * 0.4;
+      let closestKey: string | null = null;
+      let closestDist = Infinity;
+
+      locationCardRefs.current.forEach((el, key) => {
+        const rect = el.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(cardCenter - centerY);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestKey = key;
+        }
+      });
+
+      if (closestKey) {
+        // Key format is "storyId-locationId"
+        const vl = viewportLocations.find(
+          (v) => `${v.story.id}-${v.location.id}` === closestKey
+        );
+        if (vl) {
+          setActiveLocationId(vl.location.id);
+          onScrollHighlight(vl.location);
+          mapInstance.panTo([vl.location.lat, vl.location.lng], {
+            animate: true,
+            duration: 0.6,
+          });
+        }
+      }
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
+
   // Stories tab: show viewport stories if available, else filtered stories
   const displayStories = useMemo(() => {
     if (searchQuery.trim()) return filteredStories;
@@ -287,16 +330,23 @@ export function ExplorePanel({
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
-            viewportLocations.map((vl) => (
-              <LocationCard
-                key={`${vl.story.id}-${vl.location.id}`}
-                location={vl.location}
-                story={vl.story}
-                isActive={activeLocationId === vl.location.id}
-                onClick={(loc) => handleLocationClick(loc, vl.story)}
-                showStoryName
-              />
-            ))
+            viewportLocations.map((vl) => {
+              const key = `${vl.story.id}-${vl.location.id}`;
+              return (
+                <LocationCard
+                  key={key}
+                  ref={(el) => {
+                    if (el) locationCardRefs.current.set(key, el);
+                    else locationCardRefs.current.delete(key);
+                  }}
+                  location={vl.location}
+                  story={vl.story}
+                  isActive={activeLocationId === vl.location.id}
+                  onClick={(loc) => handleLocationClick(loc, vl.story)}
+                  showStoryName
+                />
+              );
+            })
           )
         ) : displayStories.length === 0 ? (
           <EmptyState

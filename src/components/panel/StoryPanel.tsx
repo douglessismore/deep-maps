@@ -12,7 +12,6 @@ interface StoryPanelProps {
   story: Story;
   activeLocation: StoryLocation | null;
   onLocationSelect: (location: StoryLocation) => void;
-  onBackToExplore: () => void;
   onRelatedStoryClick: (story: Story) => void;
   onTagClick?: (tag: string) => void;
   allStories: Story[];
@@ -22,7 +21,6 @@ export function StoryPanel({
   story,
   activeLocation,
   onLocationSelect,
-  onBackToExplore,
   onRelatedStoryClick,
   onTagClick,
   allStories,
@@ -83,6 +81,23 @@ export function StoryPanel({
     };
   }, [story, onLocationSelect, scrollActiveId]);
 
+  // Scroll correction: when the active card changes, the collapsing card above shifts content up.
+  // If the newly active card's title gets pushed above the scroll container, nudge it back into view.
+  useEffect(() => {
+    if (!scrollActiveId) return;
+    const el = locationRefs.current.get(scrollActiveId);
+    const container = scrollContainerRef.current;
+    if (el && container) {
+      requestAnimationFrame(() => {
+        const elRect = el.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        if (elRect.top < containerRect.top) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  }, [scrollActiveId]);
+
   // Related stories (explicit cross-links)
   const relatedStories = (story.relatedStoryIds || [])
     .map((id) => allStories.find((s) => s.id === id))
@@ -135,79 +150,118 @@ export function StoryPanel({
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      {/* Mobile back link — prominent, within the panel */}
-      <button
-        onClick={onBackToExplore}
-        className="lg:hidden shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-mono text-[var(--text-muted)] hover:text-white transition-colors border-b border-[var(--border-subtle)]"
-      >
-        <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-          <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        Back to all stories
-      </button>
-
-      {/* Story Header — always visible, compact on mobile */}
-      <div className="shrink-0 p-4 border-b border-[var(--border-subtle)]">
-        <div className="h-1 rounded-full mb-2 lg:mb-4" style={{ backgroundColor: cat.color }} />
-        <h2 className="font-serif text-xl font-bold text-white">
-          {story.name}
-        </h2>
-        {story.nickname && (
-          <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">
-            {story.nickname}
-          </p>
-        )}
-        <div className="flex items-center gap-2 mt-2 lg:mt-3">
-          <CategoryBadge category={story.category} />
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
-        </div>
-
-        {/* Content warning — hidden on mobile when collapsed */}
-        {story.contentWarning && (
-          <div className={`mt-3 ${!headerExpanded ? 'hidden lg:block' : ''}`}>
-            <ContentWarning warning={story.contentWarning} />
-          </div>
-        )}
-
-        <p className={`text-sm text-[var(--text-secondary)] leading-relaxed mt-2 lg:mt-4 ${
-          !headerExpanded ? 'line-clamp-2 lg:line-clamp-none' : ''
-        }`}>
-          {story.description}
-        </p>
-
-        {/* Tags — hidden on mobile when collapsed, clickable to filter */}
-        <div className={`flex-wrap gap-1 mt-3 ${
-          !headerExpanded ? 'hidden lg:flex' : 'flex'
-        }`}>
-          {story.tags.map((tag) => (
-            <button
-              key={tag}
-              onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
-              className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
-            >
-              #{tag}
-            </button>
-          ))}
-        </div>
-
-        {/* Mobile expand/collapse toggle */}
-        <button
-          onClick={() => setHeaderExpanded(!headerExpanded)}
-          className="lg:hidden flex items-center gap-1 mt-2 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-        >
-          {headerExpanded ? 'Show less' : 'Show more'}
-          <svg
-            width="10" height="10" viewBox="0 0 10 10" fill="none"
-            className={`transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+      {/* Story Header — ultra-compact on mobile, full on desktop */}
+      <div className="shrink-0 border-b border-[var(--border-subtle)]">
+        {/* Mobile: compact single-row header */}
+        <div className="lg:hidden">
+          <button
+            onClick={() => setHeaderExpanded(!headerExpanded)}
+            className="w-full flex items-center gap-2 px-4 py-2.5"
           >
-            <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+            <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+            <h2 className="font-serif text-sm font-bold text-white truncate">
+              {story.name}
+            </h2>
+            <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
+            <svg
+              width="10" height="10" viewBox="0 0 10 10" fill="none"
+              className={`shrink-0 ml-auto text-[var(--text-muted)] transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+            >
+              <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Expanded content — synopsis, tags, rabbit trails (mobile only) */}
+          {headerExpanded && (
+            <div className="px-4 pb-3 space-y-2">
+              {story.nickname && (
+                <p className="text-xs text-[var(--text-muted)] font-mono italic">{story.nickname}</p>
+              )}
+              <div className="flex items-center gap-2">
+                <CategoryBadge category={story.category} />
+              </div>
+              {story.contentWarning && (
+                <ContentWarning warning={story.contentWarning} />
+              )}
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                {story.description}
+              </p>
+              <div className="flex flex-wrap gap-1">
+                {story.tags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+                    className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
+              {/* Rabbit trails — inside expanded header on mobile */}
+              {connectedStories.length > 0 && (
+                <div>
+                  <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
+                    Rabbit Trails ({connectedStories.length})
+                  </h3>
+                  <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
+                    {connectedStories.map((s) => {
+                      const sCat = CATEGORIES[s.category];
+                      return (
+                        <button
+                          key={s.id}
+                          onClick={(e) => { e.stopPropagation(); onRelatedStoryClick(s); }}
+                          className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[200px]"
+                        >
+                          <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
+                          <div className="min-w-0 text-left">
+                            <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
+                            <p className="text-[10px] font-mono text-[var(--text-muted)]">{s.locations.length} loc · {s.years}</p>
+                          </div>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                            <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Desktop: full header (unchanged) */}
+        <div className="hidden lg:block p-4">
+          <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
+          <h2 className="font-serif text-xl font-bold text-white">{story.name}</h2>
+          {story.nickname && (
+            <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
+          )}
+          <div className="flex items-center gap-2 mt-3">
+            <CategoryBadge category={story.category} />
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
+          </div>
+          {story.contentWarning && (
+            <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
+          )}
+          <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">{story.description}</p>
+          <div className="flex flex-wrap gap-1 mt-3">
+            {story.tags.map((tag) => (
+              <button
+                key={tag}
+                onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+                className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+              >
+                #{tag}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Connected Stories — rabbit trail strip */}
+      {/* Connected Stories — rabbit trail strip (desktop only, mobile has it inside expanded header) */}
       {connectedStories.length > 0 && (
-        <div className="shrink-0 border-b border-[var(--border-subtle)]">
+        <div className="hidden lg:block shrink-0 border-b border-[var(--border-subtle)]">
           <div className="px-4 pt-2 pb-1">
             <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
               Rabbit Trails ({connectedStories.length})
@@ -222,17 +276,10 @@ export function StoryPanel({
                   onClick={() => onRelatedStoryClick(s)}
                   className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[200px]"
                 >
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ backgroundColor: sCat.color }}
-                  />
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
                   <div className="min-w-0 text-left">
-                    <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">
-                      {s.name}
-                    </p>
-                    <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                      {s.locations.length} {s.locations.length === 1 ? 'location' : 'locations'} · {s.years}
-                    </p>
+                    <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
+                    <p className="text-[10px] font-mono text-[var(--text-muted)]">{s.locations.length} {s.locations.length === 1 ? 'location' : 'locations'} · {s.years}</p>
                   </div>
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
                     <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
