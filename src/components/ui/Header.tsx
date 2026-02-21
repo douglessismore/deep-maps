@@ -96,9 +96,9 @@ export function Header({
             className="bg-[var(--accent-red)] hover:bg-[#ef4444] text-white px-2.5 sm:px-3 py-1 rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 shadow-sm"
             title="Go somewhere unexpected"
           >
-            <span className="sm:hidden text-sm leading-none">&#x2728;</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="hidden sm:block">
-              <path d="M6 1v2M6 9v2M1 6h2M9 6h2M2.5 2.5l1.4 1.4M8.1 8.1l1.4 1.4M9.5 2.5L8.1 3.9M3.9 8.1L2.5 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            {/* Shuffle arrows icon — "take me somewhere random" */}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 4h3.5c1.5 0 2.5 1 3.5 3s2 3 3.5 3H13m0 0l-2-2m2 2l-2 2M1 10h3.5c1 0 1.8-.5 2.5-1.2M13 4h-1.5c-1 0-1.8.5-2.5 1.2M13 4l-2-2m2 2l-2 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <span className="hidden sm:inline">Surprise Me</span>
           </button>

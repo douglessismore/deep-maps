@@ -52,6 +52,9 @@ export function StoryPanel({
       const containerRect = container.getBoundingClientRect();
       const centerY = containerRect.top + containerRect.height * 0.4;
 
+      // If scrolled near bottom, activate the last card (it can't reach center)
+      const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+
       let closestId: string | null = null;
       let closestDist = Infinity;
 
@@ -64,6 +67,11 @@ export function StoryPanel({
           closestId = id;
         }
       });
+
+      // Near bottom of scroll: pick the last location
+      if (isNearBottom && story.locations.length > 0) {
+        closestId = story.locations[story.locations.length - 1].id;
+      }
 
       if (closestId && closestId !== scrollActiveId) {
         setScrollActiveId(closestId);
