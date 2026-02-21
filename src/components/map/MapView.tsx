@@ -64,6 +64,16 @@ function MapController({
     onMapReady(map);
   }, [map, onMapReady]);
 
+  // Invalidate Leaflet when container resizes (mobile map collapse/expand)
+  useEffect(() => {
+    const container = map.getContainer();
+    const observer = new ResizeObserver(() => {
+      setTimeout(() => map.invalidateSize(), 350);
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [map]);
+
   useMapEvents({
     dragstart: () => { isUserDragging.current = true; },
     dragend: () => { setTimeout(() => { isUserDragging.current = false; }, 300); },
@@ -225,7 +235,7 @@ export function MapView(props: MapViewProps) {
     <div className="relative h-full w-full">
       <MapContainer
         center={[39.5, -98.5]}
-        zoom={5}
+        zoom={4}
         className="h-full w-full"
         zoomControl={true}
         attributionControl={true}

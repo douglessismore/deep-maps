@@ -17,10 +17,12 @@ interface LocationCardProps {
   showStoryName?: boolean;
   index?: number;
   onWikiJump?: (section?: string) => void;
+  intersectingStories?: Array<{ story: Story; location: StoryLocation }>;
+  onStoryClick?: (story: Story) => void;
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
-  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump }, ref) {
+  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, intersectingStories, onStoryClick }, ref) {
     const cat = CATEGORIES[story.category];
 
     return (
@@ -131,6 +133,40 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                   <path d="M3 2l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
+            )}
+            {/* Location-level rabbit trails — other stories at this same place */}
+            {intersectingStories && intersectingStories.length > 0 && onStoryClick && (
+              <div className="pt-2 border-t border-[var(--border-subtle)]">
+                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                  Also at this location
+                </p>
+                <div className="space-y-1">
+                  {intersectingStories.map(({ story: otherStory }) => {
+                    const otherCat = CATEGORIES[otherStory.category];
+                    return (
+                      <button
+                        key={otherStory.id}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onStoryClick(otherStory);
+                        }}
+                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all group text-left"
+                      >
+                        <span
+                          className="w-2 h-2 rounded-full shrink-0"
+                          style={{ backgroundColor: otherCat.color }}
+                        />
+                        <span className="text-xs font-serif font-semibold text-[var(--text-secondary)] group-hover:text-white transition-colors truncate">
+                          {otherStory.name}
+                        </span>
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 ml-auto text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                          <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             )}
             {location.media && location.media.length > 0 && (
               <MediaDisplay media={location.media} />

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Story, StoryLocation } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { CategoryBadge } from '../ui/CategoryBadge';
@@ -103,6 +103,27 @@ export function StoryPanel({
 
   // All connected stories for the rabbit trail strip
   const connectedStories = [...relatedStories, ...nearbyStories];
+
+  // Location-level intersections: which other stories share a location with each of ours?
+  const locationIntersections = useMemo(() => {
+    const result = new Map<string, Array<{ story: Story; location: StoryLocation }>>();
+    for (const loc of story.locations) {
+      const matches: Array<{ story: Story; location: StoryLocation }> = [];
+      for (const other of allStories) {
+        if (other.id === story.id) continue;
+        for (const otherLoc of other.locations) {
+          const dlat = loc.lat - otherLoc.lat;
+          const dlng = loc.lng - otherLoc.lng;
+          if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.01) {
+            matches.push({ story: other, location: otherLoc });
+            break;
+          }
+        }
+      }
+      if (matches.length > 0) result.set(loc.id, matches);
+    }
+    return result;
+  }, [story, allStories]);
 
   const currentActiveId = activeLocation?.id || scrollActiveId;
 
@@ -276,6 +297,8 @@ export function StoryPanel({
                   onClick={onLocationSelect}
                   index={i}
                   onWikiJump={hasWiki ? handleWikiJump : undefined}
+                  intersectingStories={locationIntersections.get(location.id)}
+                  onStoryClick={onRelatedStoryClick}
                 />
               ))}
             </div>
