@@ -219,24 +219,13 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
 export function MapView(props: MapViewProps) {
   const [tileStyle, setTileStyle] = useState<TileStyle>('dark');
 
-  const allCoords = useMemo(() => {
-    return props.stories.flatMap((s) =>
-      s.locations.map((l) => [l.lat, l.lng] as [number, number])
-    );
-  }, [props.stories]);
-
-  const bounds = useMemo(() => {
-    if (allCoords.length === 0) return undefined;
-    return L.latLngBounds(allCoords);
-  }, [allCoords]);
-
   const tile = TILE_URLS[tileStyle];
 
   return (
     <div className="relative h-full w-full">
       <MapContainer
-        bounds={bounds}
-        boundsOptions={{ padding: [40, 40], maxZoom: 7 }}
+        center={[39.5, -98.5]}
+        zoom={5}
         className="h-full w-full"
         zoomControl={true}
         attributionControl={true}

@@ -116,7 +116,7 @@ function App() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Map — collapses on mobile in story mode to give panel more room */}
         <div className={`${
-          mobileMapExpanded ? 'h-[45vh]' : 'h-12'
+          !mobileMapExpanded ? 'h-12' : mode === 'story' ? 'h-[30vh]' : 'h-[45vh]'
         } lg:h-full lg:flex-1 relative transition-[height] duration-300 overflow-hidden`}>
           <MapView
             stories={displayStories}
