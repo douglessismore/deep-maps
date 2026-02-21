@@ -59,6 +59,12 @@ export function ExplorePanel({
     }
   }, [activeCollection]);
 
+  // Filter collections to only those with at least one story in the (timeline-filtered) stories prop
+  const filteredCollections = useMemo(() => {
+    const storyIdSet = new Set(stories.map((s) => s.id));
+    return collections.filter((c) => c.storyIds.some((id) => storyIdSet.has(id)));
+  }, [stories, collections]);
+
   // Filter stories by search + category (timeline filtering already done in App.tsx)
   const filteredStories = useMemo(() => {
     let result = stories;
@@ -296,7 +302,7 @@ export function ExplorePanel({
           }`}
         >
           Collections
-          <span className="ml-1 text-[10px] text-[var(--text-muted)]">({collections.length})</span>
+          <span className="ml-1 text-[10px] text-[var(--text-muted)]">({filteredCollections.length})</span>
           {activeTab === 'collections' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
@@ -306,10 +312,10 @@ export function ExplorePanel({
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
         {activeTab === 'collections' ? (
-          collections.length === 0 ? (
-            <EmptyState message="No collections yet" onSurpriseMe={onSurpriseMe} />
+          filteredCollections.length === 0 ? (
+            <EmptyState message="No collections match this time period" onSurpriseMe={onSurpriseMe} />
           ) : (
-            collections.map((collection) => {
+            filteredCollections.map((collection) => {
               const resolvedStories = collection.storyIds
                 .map(id => stories.find(s => s.id === id))
                 .filter((s): s is Story => s !== undefined);

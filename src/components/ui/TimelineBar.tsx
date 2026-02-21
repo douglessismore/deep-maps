@@ -4,6 +4,7 @@ import { CATEGORIES } from '../../lib/categories';
 import {
   getTimelinePoints,
   getDataRange,
+  getDenseRange,
   getTickYears,
   formatYear,
   type TimelinePoint,
@@ -13,29 +14,30 @@ interface TimelineBarProps {
   stories: Story[];
   categoryFilter: StoryCategory | null;
   onStorySelect: (story: Story) => void;
-  onViewRangeChange: (range: [number, number] | null) => void;
+  onFilterRangeChange: (range: [number, number] | null) => void;
+  highlightedStoryId?: string | null;
 }
 
-const BAR_HEIGHT = 68;
-const DOT_Y = 20;
-const LABEL_Y = 44;
-const SLIDER_Y = 56; // center of the slider track
+const BAR_HEIGHT = 72;
+const DOT_Y = 22;
+const LABEL_Y = 46;
+const SLIDER_Y = 60;
 const SLIDER_TRACK_H = 6;
 const DOT_RADIUS = 3.5;
 const DOT_HOVER_RADIUS = 5.5;
-const HANDLE_W = 8;
-const HANDLE_H = 14;
-const HANDLE_HIT = 20;
-const MIN_VIEW_SPAN = 20;
-const ZOOM_FACTOR = 1.4;
+const HANDLE_W = 12;
+const HANDLE_H = 18;
+const HANDLE_HIT = 30;
+const MIN_SPAN = 20;
 
-type DragState = 'none' | 'pan' | 'handle-left' | 'handle-right';
+type DragState = 'none' | 'pan' | 'filter-left' | 'filter-right';
 
 export function TimelineBar({
   stories,
   categoryFilter,
   onStorySelect,
-  onViewRangeChange,
+  onFilterRangeChange,
+  highlightedStoryId,
 }: TimelineBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -43,26 +45,48 @@ export function TimelineBar({
   const allPoints = useMemo(() => getTimelinePoints(stories), [stories]);
   const fullRange = useMemo(() => getDataRange(allPoints), [allPoints]);
   const fullSpan = fullRange[1] - fullRange[0];
+  const initialRange = useMemo(() => getDenseRange(allPoints), [allPoints]);
 
-  // View range — ref + state combo for responsive zoom
-  const [viewRange, setViewRange] = useState<[number, number]>(fullRange);
-  const viewRangeRef = useRef<[number, number]>(fullRange);
-  const setViewRangeBoth = useCallback(
-    (range: [number, number]) => {
-      viewRangeRef.current = range;
-      setViewRange(range);
-      // Notify parent: null when at full range, otherwise the range
-      const atFull = range[0] <= fullRange[0] + 1 && range[1] >= fullRange[1] - 1;
-      onViewRangeChange(atFull ? null : range);
+  // ── View range: what dots are visible (zoom/pan). Internal only — does NOT filter. ──
+  const [viewRange, setViewRange] = useState<[number, number]>(initialRange);
+  const viewRangeRef = useRef<[number, number]>(initialRange);
+  const setViewRangeBoth = useCallback((range: [number, number]) => {
+    viewRangeRef.current = range;
+    setViewRange(range);
+  }, []);
+
+  // ── Filter range: slider handles. When active, filters map + stories. ──
+  const [filterRange, setFilterRange] = useState<[number, number] | null>(null);
+  const setFilterRangeBoth = useCallback(
+    (range: [number, number] | null) => {
+      // If handles are dragged back to extremes, clear filter
+      if (range && Math.abs(range[0] - fullRange[0]) < 5 && Math.abs(range[1] - fullRange[1]) < 5) {
+        setFilterRange(null);
+        onFilterRangeChange(null);
+      } else {
+        setFilterRange(range);
+        onFilterRangeChange(range);
+      }
     },
-    [fullRange, onViewRangeChange]
+    [fullRange, onFilterRangeChange]
   );
-  const isZoomed = viewRange[0] > fullRange[0] + 1 || viewRange[1] < fullRange[1] - 1;
 
+  // Reset on data change
   useEffect(() => {
-    viewRangeRef.current = fullRange;
-    setViewRange(fullRange);
-  }, [fullRange]);
+    const dr = getDenseRange(allPoints);
+    viewRangeRef.current = dr;
+    setViewRange(dr);
+    setFilterRange(null);
+  }, [allPoints]);
+
+  const canPan = viewRange[0] > fullRange[0] + 1 || viewRange[1] < fullRange[1] - 1;
+  const isAtInitialView =
+    Math.abs(viewRange[0] - initialRange[0]) < 2 && Math.abs(viewRange[1] - initialRange[1]) < 2;
+  const showReset = !isAtInitialView || filterRange !== null;
+
+  // Effective filter handle positions (when no filter, handles sit at full range extremes)
+  const efLeft = filterRange ? filterRange[0] : fullRange[0];
+  const efRight = filterRange ? filterRange[1] : fullRange[1];
 
   // Interaction state
   const [dragState, setDragState] = useState<DragState>('none');
@@ -74,7 +98,18 @@ export function TimelineBar({
     return allPoints.filter((p) => p.category === categoryFilter);
   }, [allPoints, categoryFilter]);
 
-  // Measure container
+  // Dots outside the current view (for "← N ancient" indicators)
+  const { leftOutCount, rightOutCount } = useMemo(() => {
+    let left = 0;
+    let right = 0;
+    for (const pt of visiblePoints) {
+      if (pt.startYear < viewRange[0]) left++;
+      if (pt.startYear > viewRange[1]) right++;
+    }
+    return { leftOutCount: left, rightOutCount: right };
+  }, [visiblePoints, viewRange]);
+
+  // ── Measure container ──
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -86,7 +121,7 @@ export function TimelineBar({
     return () => observer.disconnect();
   }, []);
 
-  // Coordinate transforms (view range → screen)
+  // ── Coordinate transforms ──
   const yearToX = useCallback(
     (year: number) => {
       if (containerWidth === 0) return 0;
@@ -95,7 +130,6 @@ export function TimelineBar({
     [viewRange, containerWidth]
   );
 
-  // Full range → screen (for the slider track)
   const fullYearToX = useCallback(
     (year: number) => {
       if (containerWidth === 0 || fullSpan === 0) return 0;
@@ -115,21 +149,27 @@ export function TimelineBar({
   const clampViewRange = useCallback(
     (start: number, end: number): [number, number] => {
       let span = end - start;
-      if (span < MIN_VIEW_SPAN) {
+      if (span < MIN_SPAN) {
         const center = (start + end) / 2;
-        start = center - MIN_VIEW_SPAN / 2;
-        end = center + MIN_VIEW_SPAN / 2;
-        span = MIN_VIEW_SPAN;
+        start = center - MIN_SPAN / 2;
+        end = center + MIN_SPAN / 2;
+        span = MIN_SPAN;
       }
       if (span > fullSpan) return [...fullRange] as [number, number];
-      if (start < fullRange[0]) { start = fullRange[0]; end = start + span; }
-      if (end > fullRange[1]) { end = fullRange[1]; start = end - span; }
+      if (start < fullRange[0]) {
+        start = fullRange[0];
+        end = start + span;
+      }
+      if (end > fullRange[1]) {
+        end = fullRange[1];
+        start = end - span;
+      }
       return [start, end];
     },
     [fullRange, fullSpan]
   );
 
-  // Wheel zoom — ref-based to avoid stale closure
+  // ── Wheel zoom ──
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -141,17 +181,21 @@ export function TimelineBar({
       const mouseX = e.clientX - rect.left;
       const vr = viewRangeRef.current;
       const mouseYear = vr[0] + (mouseX / w) * (vr[1] - vr[0]);
-      const zoomDir = e.deltaY > 0 ? ZOOM_FACTOR : 1 / ZOOM_FACTOR;
+      const absDelta = Math.abs(e.deltaY);
+      const zoomAmount = 1 + Math.min(absDelta / 300, 0.5);
+      const zoomDir = e.deltaY > 0 ? zoomAmount : 1 / zoomAmount;
       const currentSpan = vr[1] - vr[0];
       const newSpan = currentSpan * zoomDir;
       const mouseRatio = (mouseYear - vr[0]) / currentSpan;
-      setViewRangeBoth(clampViewRange(mouseYear - mouseRatio * newSpan, mouseYear - mouseRatio * newSpan + newSpan));
+      setViewRangeBoth(
+        clampViewRange(mouseYear - mouseRatio * newSpan, mouseYear - mouseRatio * newSpan + newSpan)
+      );
     };
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
   }, [clampViewRange, setViewRangeBoth]);
 
-  // Pinch zoom (touch)
+  // ── Pinch zoom + prevent browser back-swipe ──
   const lastPinchRef = useRef<{ dist: number; center: number } | null>(null);
   useEffect(() => {
     const el = containerRef.current;
@@ -162,8 +206,15 @@ export function TimelineBar({
         const rect = el.getBoundingClientRect();
         lastPinchRef.current = {
           dist: Math.abs(e.touches[0].clientX - e.touches[1].clientX),
-          center: ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left,
+          center: (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left,
         };
+      } else if (e.touches.length === 1) {
+        // Prevent browser back/forward gesture on horizontal swipes in the slider zone
+        const rect = el.getBoundingClientRect();
+        const y = e.touches[0].clientY - rect.top;
+        if (y > SLIDER_Y - HANDLE_HIT) {
+          e.preventDefault();
+        }
       }
     };
     const onTouchMove = (e: TouchEvent) => {
@@ -173,25 +224,70 @@ export function TimelineBar({
         if (w === 0) return;
         const rect = el.getBoundingClientRect();
         const newDist = Math.abs(e.touches[0].clientX - e.touches[1].clientX);
-        const newCenter = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
+        const newCenter = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
         const vr = viewRangeRef.current;
         const scale = lastPinchRef.current.dist / Math.max(newDist, 1);
         const centerYear = vr[0] + (newCenter / w) * (vr[1] - vr[0]);
         const currentSpan = vr[1] - vr[0];
         const newSpan = currentSpan * scale;
         const centerRatio = (centerYear - vr[0]) / currentSpan;
-        setViewRangeBoth(clampViewRange(centerYear - centerRatio * newSpan, centerYear - centerRatio * newSpan + newSpan));
+        setViewRangeBoth(
+          clampViewRange(
+            centerYear - centerRatio * newSpan,
+            centerYear - centerRatio * newSpan + newSpan
+          )
+        );
         lastPinchRef.current = { dist: newDist, center: newCenter };
       }
     };
-    const onTouchEnd = () => { lastPinchRef.current = null; };
+    const onTouchEnd = () => {
+      lastPinchRef.current = null;
+    };
     el.addEventListener('touchstart', onTouchStart, { passive: false });
     el.addEventListener('touchmove', onTouchMove, { passive: false });
     el.addEventListener('touchend', onTouchEnd);
-    return () => { el.removeEventListener('touchstart', onTouchStart); el.removeEventListener('touchmove', onTouchMove); el.removeEventListener('touchend', onTouchEnd); };
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+    };
   }, [clampViewRange, setViewRangeBoth]);
 
-  // Pointer handlers
+  // ── Zoom button handlers ──
+  const handleZoomIn = useCallback(() => {
+    const vr = viewRangeRef.current;
+    const center = (vr[0] + vr[1]) / 2;
+    const newSpan = (vr[1] - vr[0]) / 1.5;
+    setViewRangeBoth(clampViewRange(center - newSpan / 2, center + newSpan / 2));
+  }, [clampViewRange, setViewRangeBoth]);
+
+  const handleZoomOut = useCallback(() => {
+    const vr = viewRangeRef.current;
+    const center = (vr[0] + vr[1]) / 2;
+    const newSpan = (vr[1] - vr[0]) * 1.5;
+    setViewRangeBoth(clampViewRange(center - newSpan / 2, center + newSpan / 2));
+  }, [clampViewRange, setViewRangeBoth]);
+
+  // ── Pan to off-screen stories ──
+  const handlePanLeft = useCallback(() => {
+    const leftMost = Math.min(...visiblePoints.map((p) => p.startYear));
+    const span = viewRangeRef.current[1] - viewRangeRef.current[0];
+    setViewRangeBoth(clampViewRange(leftMost - span * 0.1, leftMost - span * 0.1 + span));
+  }, [visiblePoints, clampViewRange, setViewRangeBoth]);
+
+  const handlePanRight = useCallback(() => {
+    const rightMost = Math.max(...visiblePoints.map((p) => p.startYear));
+    const span = viewRangeRef.current[1] - viewRangeRef.current[0];
+    setViewRangeBoth(clampViewRange(rightMost - span * 0.9, rightMost - span * 0.9 + span));
+  }, [visiblePoints, clampViewRange, setViewRangeBoth]);
+
+  // ── Reset: back to initial view + clear filter ──
+  const handleReset = useCallback(() => {
+    setViewRangeBoth([...initialRange] as [number, number]);
+    setFilterRangeBoth(null);
+  }, [initialRange, setViewRangeBoth, setFilterRangeBoth]);
+
+  // ── Pointer handlers ──
   const getPointerX = (e: React.PointerEvent) => {
     const rect = containerRef.current!.getBoundingClientRect();
     return e.clientX - rect.left;
@@ -202,23 +298,23 @@ export function TimelineBar({
     const x = getPointerX(e);
     const y = e.clientY - containerRef.current!.getBoundingClientRect().top;
 
-    // Slider area: check if clicking a handle
-    if (y > SLIDER_Y - HANDLE_H && containerWidth > 0) {
-      const leftHandleX = fullYearToX(viewRange[0]);
-      const rightHandleX = fullYearToX(viewRange[1]);
+    // Slider area: check filter handles
+    if (y > SLIDER_Y - HANDLE_HIT && containerWidth > 0) {
+      const leftHandleX = fullYearToX(efLeft);
+      const rightHandleX = fullYearToX(efRight);
       if (Math.abs(x - leftHandleX) < HANDLE_HIT) {
-        setDragState('handle-left');
+        setDragState('filter-left');
         dragStartRef.current = { x, viewRange: [...viewRange] as [number, number] };
         (e.target as Element).setPointerCapture(e.pointerId);
         return;
       }
       if (Math.abs(x - rightHandleX) < HANDLE_HIT) {
-        setDragState('handle-right');
+        setDragState('filter-right');
         dragStartRef.current = { x, viewRange: [...viewRange] as [number, number] };
         (e.target as Element).setPointerCapture(e.pointerId);
         return;
       }
-      // Click on slider track → jump to that position (center view there)
+      // Click on slider track → pan view there
       if (y > SLIDER_Y - SLIDER_TRACK_H) {
         const clickYear = fullXToYear(x);
         const span = viewRange[1] - viewRange[0];
@@ -232,12 +328,15 @@ export function TimelineBar({
       const dotX = yearToX(pt.startYear);
       if (Math.abs(x - dotX) < 10 && Math.abs(y - DOT_Y) < 12) {
         const story = stories.find((s) => s.id === pt.storyId);
-        if (story) { onStorySelect(story); return; }
+        if (story) {
+          onStorySelect(story);
+          return;
+        }
       }
     }
 
-    // Pan (only when zoomed)
-    if (isZoomed) {
+    // Pan (available when view is narrower than full range)
+    if (canPan) {
       setDragState('pan');
       dragStartRef.current = { x, viewRange: [...viewRange] as [number, number] };
       (e.target as Element).setPointerCapture(e.pointerId);
@@ -250,13 +349,16 @@ export function TimelineBar({
     if (dragState === 'none') {
       // Hover detection on dots
       const y = e.clientY - containerRef.current!.getBoundingClientRect().top;
-      if (y < SLIDER_Y - HANDLE_H) {
+      if (y < SLIDER_Y - HANDLE_HIT) {
         let closest: string | null = null;
         let closestDist = 12;
         for (const pt of visiblePoints) {
           const dotX = yearToX(pt.startYear);
           const dist = Math.abs(x - dotX);
-          if (dist < closestDist) { closestDist = dist; closest = pt.storyId; }
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = pt.storyId;
+          }
         }
         setHoveredPoint(closest);
       } else {
@@ -271,32 +373,41 @@ export function TimelineBar({
       const deltaYears = (deltaX / containerWidth) * span;
       const orig = dragStartRef.current.viewRange;
       setViewRangeBoth(clampViewRange(orig[0] - deltaYears, orig[1] - deltaYears));
-    } else if (dragState === 'handle-left') {
+    } else if (dragState === 'filter-left') {
       const year = fullXToYear(x);
-      const clamped = Math.min(year, viewRange[1] - MIN_VIEW_SPAN);
-      setViewRangeBoth(clampViewRange(clamped, viewRange[1]));
-    } else if (dragState === 'handle-right') {
+      const maxYear = efRight - MIN_SPAN;
+      const clamped = Math.max(fullRange[0], Math.min(year, maxYear));
+      setFilterRangeBoth([clamped, efRight]);
+    } else if (dragState === 'filter-right') {
       const year = fullXToYear(x);
-      const clamped = Math.max(year, viewRange[0] + MIN_VIEW_SPAN);
-      setViewRangeBoth(clampViewRange(viewRange[0], clamped));
+      const minYear = efLeft + MIN_SPAN;
+      const clamped = Math.min(fullRange[1], Math.max(year, minYear));
+      setFilterRangeBoth([efLeft, clamped]);
     }
   };
 
   const handlePointerUp = () => setDragState('none');
 
-  const handleResetZoom = () => setViewRangeBoth([...fullRange] as [number, number]);
-
   const ticks = useMemo(() => getTickYears(viewRange[0], viewRange[1]), [viewRange]);
-
-  const hoveredData = hoveredPoint ? visiblePoints.find((p) => p.storyId === hoveredPoint) : null;
+  const hoveredData = hoveredPoint
+    ? visiblePoints.find((p) => p.storyId === hoveredPoint)
+    : null;
 
   if (containerWidth === 0) {
-    return <div ref={containerRef} className="shrink-0 bg-[var(--bg-card)] border-y border-[var(--border-subtle)]" style={{ height: BAR_HEIGHT }} />;
+    return (
+      <div
+        ref={containerRef}
+        className="shrink-0"
+        style={{ height: BAR_HEIGHT, background: 'rgba(35,35,35,0.98)' }}
+      />
+    );
   }
 
-  // Slider handle positions (in full-range coordinates)
-  const sliderLeftX = fullYearToX(viewRange[0]);
-  const sliderRightX = fullYearToX(viewRange[1]);
+  // Slider positions
+  const filterLeftX = fullYearToX(efLeft);
+  const filterRightX = fullYearToX(efRight);
+  const vpLeftX = fullYearToX(viewRange[0]);
+  const vpRightX = fullYearToX(viewRange[1]);
 
   return (
     <div
@@ -305,50 +416,105 @@ export function TimelineBar({
       style={{
         height: BAR_HEIGHT,
         touchAction: 'none',
-        background: 'linear-gradient(180deg, rgba(30,30,30,0.95) 0%, rgba(20,20,20,0.98) 100%)',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        overscrollBehaviorX: 'none',
+        background: 'linear-gradient(180deg, rgba(44,44,44,0.98) 0%, rgba(30,30,30,0.99) 100%)',
+        borderTop: '1px solid rgba(255,255,255,0.15)',
+        borderBottom: '1px solid rgba(255,255,255,0.10)',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 6px rgba(0,0,0,0.4)',
       }}
     >
       <svg
         width={containerWidth}
         height={BAR_HEIGHT}
         className="block"
-        style={{ cursor: dragState === 'pan' ? 'grabbing' : isZoomed ? 'grab' : 'default' }}
+        style={{ cursor: dragState === 'pan' ? 'grabbing' : canPan ? 'grab' : 'default' }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        onPointerLeave={() => { if (dragState === 'none') setHoveredPoint(null); }}
+        onPointerLeave={() => {
+          if (dragState === 'none') setHoveredPoint(null);
+        }}
       >
         {/* Story range bars when zoomed in */}
         {viewRange[1] - viewRange[0] < 500 &&
           visiblePoints
             .filter((pt) => pt.endYear - pt.startYear > 0)
-            .map((pt) => (
-              <line
-                key={`range-${pt.storyId}`}
-                x1={yearToX(pt.startYear)} y1={DOT_Y}
-                x2={yearToX(pt.endYear)} y2={DOT_Y}
-                stroke={CATEGORIES[pt.category].color}
-                strokeWidth={1.5} opacity={0.3} strokeLinecap="round"
-              />
-            ))}
+            .map((pt) => {
+              const inFilter =
+                !filterRange ||
+                (pt.startYear <= filterRange[1] && pt.endYear >= filterRange[0]);
+              return (
+                <line
+                  key={`range-${pt.storyId}`}
+                  x1={yearToX(pt.startYear)}
+                  y1={DOT_Y}
+                  x2={yearToX(pt.endYear)}
+                  y2={DOT_Y}
+                  stroke={CATEGORIES[pt.category].color}
+                  strokeWidth={1.5}
+                  opacity={inFilter ? 0.3 : 0.08}
+                  strokeLinecap="round"
+                />
+              );
+            })}
 
         {/* Dots */}
         {visiblePoints.map((pt) => {
           const cx = yearToX(pt.startYear);
           if (cx < -10 || cx > containerWidth + 10) return null;
           const isHovered = hoveredPoint === pt.storyId;
-          const r = isHovered ? DOT_HOVER_RADIUS : DOT_RADIUS;
+          const isScrollHL = highlightedStoryId === pt.storyId;
+          const isActive = isHovered || isScrollHL;
+          const inFilter =
+            !filterRange ||
+            (pt.startYear <= filterRange[1] && pt.endYear >= filterRange[0]);
+          const r = isActive ? DOT_HOVER_RADIUS : DOT_RADIUS;
+          const dotOpacity = inFilter ? 1 : 0.15;
+          const color = CATEGORIES[pt.category].color;
           return (
             <g key={pt.storyId}>
-              {isHovered && (
-                <circle cx={cx} cy={DOT_Y} r={r + 4} fill="none"
-                  stroke={CATEGORIES[pt.category].color} strokeWidth={1} opacity={0.4} />
+              {isActive && (
+                <circle
+                  cx={cx}
+                  cy={DOT_Y}
+                  r={r + 4}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={1}
+                  opacity={0.5}
+                />
               )}
-              <circle cx={cx} cy={DOT_Y} r={r}
-                fill={CATEGORIES[pt.category].color} opacity={0.9}
-                style={{ transition: 'r 0.15s' }} />
+              {isScrollHL && !isHovered && (
+                <circle cx={cx} cy={DOT_Y} r={r + 7} fill="none" stroke={color} strokeWidth={0.5}>
+                  <animate
+                    attributeName="r"
+                    from={String(r + 4)}
+                    to={String(r + 12)}
+                    dur="1.2s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    from="0.4"
+                    to="0"
+                    dur="1.2s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              )}
+              <circle
+                cx={cx}
+                cy={DOT_Y}
+                r={r}
+                fill={color}
+                opacity={dotOpacity}
+                style={{
+                  transition: 'r 0.15s, opacity 0.2s',
+                  filter: isActive
+                    ? `drop-shadow(0 0 5px ${color})`
+                    : `drop-shadow(0 0 1.5px ${color}50)`,
+                }}
+              />
             </g>
           );
         })}
@@ -356,77 +522,164 @@ export function TimelineBar({
         {/* Tick labels */}
         {ticks.map((year) => {
           const x = yearToX(year);
-          if (x < 25 || x > containerWidth - 25) return null;
+          if (x < 30 || x > containerWidth - 30) return null;
           return (
             <g key={`tick-${year}`}>
-              <line x1={x} y1={DOT_Y + 10} x2={x} y2={DOT_Y + 14}
-                stroke="var(--text-muted)" strokeWidth={0.5} opacity={0.3} />
-              <text x={x} y={LABEL_Y} textAnchor="middle" fill="var(--text-muted)"
-                fontSize={9} fontFamily="var(--font-mono, monospace)" opacity={0.5}>
+              <line
+                x1={x}
+                y1={DOT_Y + 10}
+                x2={x}
+                y2={DOT_Y + 15}
+                stroke="rgba(255,255,255,0.25)"
+                strokeWidth={0.5}
+              />
+              <text
+                x={x}
+                y={LABEL_Y}
+                textAnchor="middle"
+                fill="rgba(255,255,255,0.55)"
+                fontSize={10}
+                fontFamily="var(--font-mono, monospace)"
+              >
                 {formatYear(year)}
               </text>
             </g>
           );
         })}
 
-        {/* ── Range slider track ── */}
-        {/* Full track */}
-        <rect x={0} y={SLIDER_Y - SLIDER_TRACK_H / 2} width={containerWidth} height={SLIDER_TRACK_H}
-          rx={3} fill="rgba(255,255,255,0.06)" />
-        {/* Active range highlight */}
+        {/* ── Slider track ── */}
+        {/* Full track background */}
         <rect
-          x={sliderLeftX} y={SLIDER_Y - SLIDER_TRACK_H / 2}
-          width={Math.max(0, sliderRightX - sliderLeftX)} height={SLIDER_TRACK_H}
-          rx={3} fill="rgba(255,255,255,0.2)"
+          x={0}
+          y={SLIDER_Y - SLIDER_TRACK_H / 2}
+          width={containerWidth}
+          height={SLIDER_TRACK_H}
+          rx={3}
+          fill="rgba(255,255,255,0.07)"
         />
-        {/* Left handle */}
-        <rect x={sliderLeftX - HANDLE_W / 2} y={SLIDER_Y - HANDLE_H / 2}
-          width={HANDLE_W} height={HANDLE_H} rx={3}
-          fill="rgba(255,255,255,0.7)" stroke="rgba(255,255,255,0.9)" strokeWidth={0.5}
-          style={{ cursor: 'ew-resize' }} />
-        {/* Right handle */}
-        <rect x={sliderRightX - HANDLE_W / 2} y={SLIDER_Y - HANDLE_H / 2}
-          width={HANDLE_W} height={HANDLE_H} rx={3}
-          fill="rgba(255,255,255,0.7)" stroke="rgba(255,255,255,0.9)" strokeWidth={0.5}
-          style={{ cursor: 'ew-resize' }} />
-
-        {/* Slider range year labels */}
-        {isZoomed && (
-          <>
-            <text x={sliderLeftX} y={SLIDER_Y + HANDLE_H / 2 + 9} textAnchor="middle"
-              fill="var(--text-muted)" fontSize={8} fontFamily="var(--font-mono, monospace)" opacity={0.6}>
-              {formatYear(Math.round(viewRange[0]))}
-            </text>
-            <text x={sliderRightX} y={SLIDER_Y + HANDLE_H / 2 + 9} textAnchor="middle"
-              fill="var(--text-muted)" fontSize={8} fontFamily="var(--font-mono, monospace)" opacity={0.6}>
-              {formatYear(Math.round(viewRange[1]))}
-            </text>
-          </>
+        {/* Viewport indicator — shows where the view is within the full range */}
+        <rect
+          x={vpLeftX}
+          y={SLIDER_Y - SLIDER_TRACK_H / 2}
+          width={Math.max(3, vpRightX - vpLeftX)}
+          height={SLIDER_TRACK_H}
+          rx={3}
+          fill="rgba(255,255,255,0.18)"
+        />
+        {/* Filter range highlight (red tint when filter is active) */}
+        {filterRange && (
+          <rect
+            x={filterLeftX}
+            y={SLIDER_Y - SLIDER_TRACK_H / 2}
+            width={Math.max(0, filterRightX - filterLeftX)}
+            height={SLIDER_TRACK_H}
+            rx={3}
+            fill="rgba(239,68,68,0.25)"
+          />
         )}
+
+        {/* Filter handles */}
+        <rect
+          x={filterLeftX - HANDLE_W / 2}
+          y={SLIDER_Y - HANDLE_H / 2}
+          width={HANDLE_W}
+          height={HANDLE_H}
+          rx={4}
+          fill={filterRange ? 'rgba(239,130,130,0.9)' : 'rgba(255,255,255,0.5)'}
+          stroke={filterRange ? 'rgba(239,68,68,1)' : 'rgba(255,255,255,0.7)'}
+          strokeWidth={0.5}
+          style={{ cursor: 'ew-resize' }}
+        />
+        <rect
+          x={filterRightX - HANDLE_W / 2}
+          y={SLIDER_Y - HANDLE_H / 2}
+          width={HANDLE_W}
+          height={HANDLE_H}
+          rx={4}
+          fill={filterRange ? 'rgba(239,130,130,0.9)' : 'rgba(255,255,255,0.5)'}
+          stroke={filterRange ? 'rgba(239,68,68,1)' : 'rgba(255,255,255,0.7)'}
+          strokeWidth={0.5}
+          style={{ cursor: 'ew-resize' }}
+        />
       </svg>
 
-      {/* Tooltip — rendered as HTML div above the SVG for no clipping */}
+      {/* Tooltip */}
       {hoveredData && (
-        <TooltipOverlay point={hoveredData} x={yearToX(hoveredData.startYear)} containerWidth={containerWidth} />
+        <TooltipOverlay
+          point={hoveredData}
+          x={yearToX(hoveredData.startYear)}
+          containerWidth={containerWidth}
+        />
       )}
 
-      {/* Reset button */}
-      {isZoomed && (
+      {/* "← N ancient" indicator */}
+      {leftOutCount > 0 && (
         <button
-          onClick={(e) => { e.stopPropagation(); handleResetZoom(); }}
-          className="absolute top-1 right-2 px-2 py-0.5 rounded text-[10px] font-mono bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.12)] text-[var(--text-muted)] hover:text-white hover:bg-[rgba(255,255,255,0.15)] transition-colors"
-          title="Reset zoom"
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePanLeft();
+          }}
+          className="absolute text-[10px] font-mono text-[rgba(255,255,255,0.45)] hover:text-white transition-colors"
+          style={{ top: DOT_Y - 7, left: 4 }}
         >
-          Reset
+          ← {leftOutCount} ancient
         </button>
       )}
 
-      {/* Hint text */}
-      {!isZoomed && visiblePoints.length > 0 && (
-        <div className="absolute top-1 right-2 text-[9px] font-mono text-[var(--text-muted)] opacity-40 pointer-events-none">
-          scroll to zoom · drag handles to filter
-        </div>
+      {/* "N more →" indicator */}
+      {rightOutCount > 0 && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePanRight();
+          }}
+          className="absolute text-[10px] font-mono text-[rgba(255,255,255,0.45)] hover:text-white transition-colors"
+          style={{ top: DOT_Y - 7, right: showReset ? 120 : 56 }}
+        >
+          {rightOutCount} more →
+        </button>
       )}
+
+      {/* Top-right: zoom buttons + reset/hint */}
+      <div className="absolute top-1 right-2 flex items-center gap-1">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleZoomIn();
+          }}
+          className="w-6 h-6 flex items-center justify-center rounded text-sm font-mono text-[rgba(255,255,255,0.45)] hover:text-white hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+          title="Zoom in"
+        >
+          +
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleZoomOut();
+          }}
+          className="w-6 h-6 flex items-center justify-center rounded text-sm font-mono text-[rgba(255,255,255,0.45)] hover:text-white hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+          title="Zoom out"
+        >
+          −
+        </button>
+        {showReset && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleReset();
+            }}
+            className="ml-1 px-2 py-0.5 rounded text-[10px] font-mono bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.15)] text-[rgba(255,255,255,0.55)] hover:text-white hover:bg-[rgba(255,255,255,0.18)] transition-colors"
+            title="Reset view and filter"
+          >
+            Reset
+          </button>
+        )}
+        {!showReset && visiblePoints.length > 0 && (
+          <span className="ml-1 text-[9px] font-mono text-[rgba(255,255,255,0.3)] pointer-events-none">
+            scroll to zoom · drag handles to filter
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -446,7 +699,6 @@ function TooltipOverlay({
       ? formatYear(point.startYear)
       : `${formatYear(point.startYear)}–${formatYear(point.endYear)}`;
 
-  // Clamp position
   const left = Math.max(8, Math.min(x, containerWidth - 8));
 
   return (
@@ -470,9 +722,7 @@ function TooltipOverlay({
         <span style={{ color: CATEGORIES[point.category].color, fontWeight: 500 }}>
           {point.name}
         </span>
-        <span style={{ color: 'var(--text-muted)', marginLeft: 6 }}>
-          {years}
-        </span>
+        <span style={{ color: 'rgba(255,255,255,0.5)', marginLeft: 6 }}>{years}</span>
       </div>
     </div>
   );

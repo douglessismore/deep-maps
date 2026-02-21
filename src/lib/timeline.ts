@@ -137,6 +137,35 @@ export function formatYear(year: number): string {
 }
 
 /**
+ * Compute the densest range containing ~80% of dots (tightest window).
+ * Used for the smart default zoom so the timeline starts showing
+ * the most interesting cluster instead of mostly empty space.
+ */
+export function getDenseRange(points: TimelinePoint[]): [number, number] {
+  if (points.length <= 3) return getDataRange(points);
+
+  const years = points.map((p) => p.startYear).sort((a, b) => a - b);
+  const windowSize = Math.max(2, Math.ceil(years.length * 0.8));
+
+  let bestStart = years[0];
+  let bestEnd = years[years.length - 1];
+  let bestSpan = bestEnd - bestStart;
+
+  for (let i = 0; i <= years.length - windowSize; i++) {
+    const span = years[i + windowSize - 1] - years[i];
+    if (span < bestSpan) {
+      bestSpan = span;
+      bestStart = years[i];
+      bestEnd = years[i + windowSize - 1];
+    }
+  }
+
+  // Add padding (10% of span, min 30 years)
+  const pad = Math.max(bestSpan * 0.1, 30);
+  return [bestStart - pad, bestEnd + pad];
+}
+
+/**
  * Compute the full data range across all stories (with padding).
  */
 export function getDataRange(points: TimelinePoint[]): [number, number] {

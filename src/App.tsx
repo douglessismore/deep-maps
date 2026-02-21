@@ -21,7 +21,7 @@ function App() {
   const [scrollHighlight, setScrollHighlight] = useState<StoryLocation | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
-  const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
+  const [timelineFilterRange, setTimelineFilterRange] = useState<[number, number] | null>(null);
   // No more mobileMapExpanded — map is always visible at 30vh (story) or 45vh (explore)
 
   // When a collection is active, filter stories to only those in the collection
@@ -31,15 +31,21 @@ function App() {
     return stories.filter(s => idSet.has(s.id));
   }, [activeCollection]);
 
-  // Filter stories by timeline view range (when zoomed)
+  // Filter stories by timeline filter range (when slider handles are active)
   const timelineFilteredStories = useMemo(() => {
-    if (!timelineViewRange) return displayStories;
-    const [rangeStart, rangeEnd] = timelineViewRange;
+    if (!timelineFilterRange) return displayStories;
+    const [rangeStart, rangeEnd] = timelineFilterRange;
     return displayStories.filter((s) => {
       const [start, end] = parseYears(s.years);
       return end >= rangeStart && start <= rangeEnd;
     });
-  }, [displayStories, timelineViewRange]);
+  }, [displayStories, timelineFilterRange]);
+
+  // Derive which story is currently scroll-highlighted (for timeline dot pulse)
+  const scrollHighlightStoryId = useMemo(() => {
+    if (!scrollHighlight) return null;
+    return stories.find((s) => s.locations.some((l) => l.id === scrollHighlight.id))?.id ?? null;
+  }, [scrollHighlight]);
 
   const handleStorySelect = useCallback((story: Story) => {
     setActiveStory(story);
@@ -132,7 +138,8 @@ function App() {
           stories={stories}
           categoryFilter={categoryFilter}
           onStorySelect={handleStorySelect}
-          onViewRangeChange={setTimelineViewRange}
+          onFilterRangeChange={setTimelineFilterRange}
+          highlightedStoryId={scrollHighlightStoryId}
         />
       )}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
