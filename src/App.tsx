@@ -4,8 +4,10 @@ import { MapView } from './components/map/MapView';
 import { ExplorePanel } from './components/panel/ExplorePanel';
 import { StoryPanel } from './components/panel/StoryPanel';
 import { Header } from './components/ui/Header';
+import { TimelineBar } from './components/ui/TimelineBar';
 import { stories } from './data/stories';
 import { collections } from './data/collections';
+import { parseYears } from './lib/timeline';
 import type { Story, StoryLocation, StoryCategory, StoryCollection, InteractionMode } from './types';
 import type { Map as LeafletMap } from 'leaflet';
 
@@ -19,6 +21,7 @@ function App() {
   const [scrollHighlight, setScrollHighlight] = useState<StoryLocation | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
+  const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
   // No more mobileMapExpanded — map is always visible at 30vh (story) or 45vh (explore)
 
   // When a collection is active, filter stories to only those in the collection
@@ -27,6 +30,16 @@ function App() {
     const idSet = new Set(activeCollection.storyIds);
     return stories.filter(s => idSet.has(s.id));
   }, [activeCollection]);
+
+  // Filter stories by timeline view range (when zoomed)
+  const timelineFilteredStories = useMemo(() => {
+    if (!timelineViewRange) return displayStories;
+    const [rangeStart, rangeEnd] = timelineViewRange;
+    return displayStories.filter((s) => {
+      const [start, end] = parseYears(s.years);
+      return end >= rangeStart && start <= rangeEnd;
+    });
+  }, [displayStories, timelineViewRange]);
 
   const handleStorySelect = useCallback((story: Story) => {
     setActiveStory(story);
@@ -114,13 +127,21 @@ function App() {
         onCategoryFilter={handleCategoryFilter}
         onSurpriseMe={handleSurpriseMe}
       />
+      {mode !== 'story' && (
+        <TimelineBar
+          stories={stories}
+          categoryFilter={categoryFilter}
+          onStorySelect={handleStorySelect}
+          onViewRangeChange={setTimelineViewRange}
+        />
+      )}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Map — always visible: 30vh in story mode, 45vh in explore */}
         <div className={`${
           mode === 'story' ? 'h-[30vh]' : 'h-[45vh]'
         } lg:h-full lg:flex-1 relative transition-[height] duration-300 overflow-hidden`}>
           <MapView
-            stories={displayStories}
+            stories={timelineFilteredStories}
             activeStory={activeStory}
             activeLocation={activeLocation}
             scrollHighlight={scrollHighlight}
@@ -148,7 +169,7 @@ function App() {
                 />
               ) : (
                 <ExplorePanel
-                  stories={displayStories}
+                  stories={timelineFilteredStories}
                   collections={collections}
                   activeCollection={activeCollection}
                   mapInstance={mapInstance}

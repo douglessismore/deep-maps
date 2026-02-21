@@ -59,7 +59,7 @@ export function ExplorePanel({
     }
   }, [activeCollection]);
 
-  // Filter stories by search + category
+  // Filter stories by search + category (timeline filtering already done in App.tsx)
   const filteredStories = useMemo(() => {
     let result = stories;
     if (categoryFilter) {
