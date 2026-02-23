@@ -1084,7 +1084,7 @@ export const stories: Story[] = [
     description: 'On April 4, 1968, Martin Luther King Jr. was shot on the balcony of the Lorraine Motel in Memphis, Tennessee. He had come to support striking sanitation workers. His death sparked riots in over 100 cities and transformed the civil rights movement forever.',
     tags: ['assassination', 'civil-rights', 'memphis', 'racial-violence'],
     contentWarning: 'Contains references to assassination and racial violence.',
-    relatedStoryIds: ['lincoln-assassination', 'jfk-assassination', 'tulsa-race-massacre'],
+    relatedStoryIds: ['lincoln-assassination', 'jfk-assassination', 'tulsa-race-massacre', 'mlk-life'],
     wikipediaSlug: 'Assassination_of_Martin_Luther_King_Jr.',
     locations: [
       {

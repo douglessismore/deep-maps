@@ -14,7 +14,7 @@ interface TimelineBarProps {
   stories: Story[];
   categoryFilter: StoryCategory | null;
   onStorySelect: (story: Story) => void;
-  onFilterRangeChange: (range: [number, number] | null) => void;
+  onViewRangeChange: (range: [number, number] | null) => void;
   highlightedStoryId?: string | null;
 }
 
@@ -25,18 +25,15 @@ const SLIDER_Y = 60;
 const SLIDER_TRACK_H = 6;
 const DOT_RADIUS = 3.5;
 const DOT_HOVER_RADIUS = 5.5;
-const HANDLE_W = 12;
-const HANDLE_H = 18;
-const HANDLE_HIT = 30;
 const MIN_SPAN = 20;
 
-type DragState = 'none' | 'pan' | 'filter-left' | 'filter-right';
+type DragState = 'none' | 'pan';
 
 export function TimelineBar({
   stories,
   categoryFilter,
   onStorySelect,
-  onFilterRangeChange,
+  onViewRangeChange,
   highlightedStoryId,
 }: TimelineBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,28 +44,32 @@ export function TimelineBar({
   const fullSpan = fullRange[1] - fullRange[0];
   const initialRange = useMemo(() => getDenseRange(allPoints), [allPoints]);
 
-  // ── View range: what dots are visible (zoom/pan). Internal only — does NOT filter. ──
+  // ── View range: what dots are visible. Also filters map+stories when hasInteracted. ──
   const [viewRange, setViewRange] = useState<[number, number]>(initialRange);
   const viewRangeRef = useRef<[number, number]>(initialRange);
-  const setViewRangeBoth = useCallback((range: [number, number]) => {
-    viewRangeRef.current = range;
-    setViewRange(range);
+
+  // ── Interaction flag: no filtering until user intentionally zooms/pans ──
+  const hasInteractedRef = useRef(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  const markInteracted = useCallback(() => {
+    if (!hasInteractedRef.current) {
+      hasInteractedRef.current = true;
+      setHasInteracted(true);
+    }
   }, []);
 
-  // ── Filter range: slider handles. When active, filters map + stories. ──
-  const [filterRange, setFilterRange] = useState<[number, number] | null>(null);
-  const setFilterRangeBoth = useCallback(
-    (range: [number, number] | null) => {
-      // If handles are dragged back to extremes, clear filter
-      if (range && Math.abs(range[0] - fullRange[0]) < 5 && Math.abs(range[1] - fullRange[1]) < 5) {
-        setFilterRange(null);
-        onFilterRangeChange(null);
-      } else {
-        setFilterRange(range);
-        onFilterRangeChange(range);
+  const setViewRangeBoth = useCallback(
+    (range: [number, number]) => {
+      viewRangeRef.current = range;
+      setViewRange(range);
+      if (hasInteractedRef.current) {
+        // If view encompasses nearly the full range, treat as no filter
+        const coversAll = range[0] <= fullRange[0] + 5 && range[1] >= fullRange[1] - 5;
+        onViewRangeChange(coversAll ? null : range);
       }
     },
-    [fullRange, onFilterRangeChange]
+    [onViewRangeChange, fullRange]
   );
 
   // Reset on data change
@@ -76,17 +77,13 @@ export function TimelineBar({
     const dr = getDenseRange(allPoints);
     viewRangeRef.current = dr;
     setViewRange(dr);
-    setFilterRange(null);
-  }, [allPoints]);
+    hasInteractedRef.current = false;
+    setHasInteracted(false);
+    onViewRangeChange(null);
+  }, [allPoints, onViewRangeChange]);
 
   const canPan = viewRange[0] > fullRange[0] + 1 || viewRange[1] < fullRange[1] - 1;
-  const isAtInitialView =
-    Math.abs(viewRange[0] - initialRange[0]) < 2 && Math.abs(viewRange[1] - initialRange[1]) < 2;
-  const showReset = !isAtInitialView || filterRange !== null;
-
-  // Effective filter handle positions (when no filter, handles sit at full range extremes)
-  const efLeft = filterRange ? filterRange[0] : fullRange[0];
-  const efRight = filterRange ? filterRange[1] : fullRange[1];
+  const showReset = hasInteracted;
 
   // Interaction state
   const [dragState, setDragState] = useState<DragState>('none');
@@ -175,6 +172,7 @@ export function TimelineBar({
     if (!el) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
+      markInteracted();
       const w = el.clientWidth;
       if (w === 0) return;
       const rect = el.getBoundingClientRect();
@@ -193,33 +191,28 @@ export function TimelineBar({
     };
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
-  }, [clampViewRange, setViewRangeBoth]);
+  }, [clampViewRange, setViewRangeBoth, markInteracted]);
 
-  // ── Pinch zoom + prevent browser back-swipe ──
+  // ── Pinch zoom + prevent browser back-swipe on ALL touches ──
   const lastPinchRef = useRef<{ dist: number; center: number } | null>(null);
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const onTouchStart = (e: TouchEvent) => {
+      // Prevent browser back/forward gesture for ALL touches in the timeline
+      e.preventDefault();
       if (e.touches.length === 2) {
-        e.preventDefault();
         const rect = el.getBoundingClientRect();
         lastPinchRef.current = {
           dist: Math.abs(e.touches[0].clientX - e.touches[1].clientX),
           center: (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left,
         };
-      } else if (e.touches.length === 1) {
-        // Prevent browser back/forward gesture on horizontal swipes in the slider zone
-        const rect = el.getBoundingClientRect();
-        const y = e.touches[0].clientY - rect.top;
-        if (y > SLIDER_Y - HANDLE_HIT) {
-          e.preventDefault();
-        }
       }
     };
     const onTouchMove = (e: TouchEvent) => {
       if (e.touches.length === 2 && lastPinchRef.current) {
         e.preventDefault();
+        markInteracted();
         const w = el.clientWidth;
         if (w === 0) return;
         const rect = el.getBoundingClientRect();
@@ -251,41 +244,49 @@ export function TimelineBar({
       el.removeEventListener('touchmove', onTouchMove);
       el.removeEventListener('touchend', onTouchEnd);
     };
-  }, [clampViewRange, setViewRangeBoth]);
+  }, [clampViewRange, setViewRangeBoth, markInteracted]);
 
   // ── Zoom button handlers ──
   const handleZoomIn = useCallback(() => {
+    markInteracted();
     const vr = viewRangeRef.current;
     const center = (vr[0] + vr[1]) / 2;
     const newSpan = (vr[1] - vr[0]) / 1.5;
     setViewRangeBoth(clampViewRange(center - newSpan / 2, center + newSpan / 2));
-  }, [clampViewRange, setViewRangeBoth]);
+  }, [clampViewRange, setViewRangeBoth, markInteracted]);
 
   const handleZoomOut = useCallback(() => {
+    markInteracted();
     const vr = viewRangeRef.current;
     const center = (vr[0] + vr[1]) / 2;
     const newSpan = (vr[1] - vr[0]) * 1.5;
     setViewRangeBoth(clampViewRange(center - newSpan / 2, center + newSpan / 2));
-  }, [clampViewRange, setViewRangeBoth]);
+  }, [clampViewRange, setViewRangeBoth, markInteracted]);
 
   // ── Pan to off-screen stories ──
   const handlePanLeft = useCallback(() => {
+    markInteracted();
     const leftMost = Math.min(...visiblePoints.map((p) => p.startYear));
     const span = viewRangeRef.current[1] - viewRangeRef.current[0];
     setViewRangeBoth(clampViewRange(leftMost - span * 0.1, leftMost - span * 0.1 + span));
-  }, [visiblePoints, clampViewRange, setViewRangeBoth]);
+  }, [visiblePoints, clampViewRange, setViewRangeBoth, markInteracted]);
 
   const handlePanRight = useCallback(() => {
+    markInteracted();
     const rightMost = Math.max(...visiblePoints.map((p) => p.startYear));
     const span = viewRangeRef.current[1] - viewRangeRef.current[0];
     setViewRangeBoth(clampViewRange(rightMost - span * 0.9, rightMost - span * 0.9 + span));
-  }, [visiblePoints, clampViewRange, setViewRangeBoth]);
+  }, [visiblePoints, clampViewRange, setViewRangeBoth, markInteracted]);
 
   // ── Reset: back to initial view + clear filter ──
   const handleReset = useCallback(() => {
-    setViewRangeBoth([...initialRange] as [number, number]);
-    setFilterRangeBoth(null);
-  }, [initialRange, setViewRangeBoth, setFilterRangeBoth]);
+    hasInteractedRef.current = false;
+    setHasInteracted(false);
+    const range = [...initialRange] as [number, number];
+    viewRangeRef.current = range;
+    setViewRange(range);
+    onViewRangeChange(null);
+  }, [initialRange, onViewRangeChange]);
 
   // ── Pointer handlers ──
   const getPointerX = (e: React.PointerEvent) => {
@@ -298,29 +299,13 @@ export function TimelineBar({
     const x = getPointerX(e);
     const y = e.clientY - containerRef.current!.getBoundingClientRect().top;
 
-    // Slider area: check filter handles
-    if (y > SLIDER_Y - HANDLE_HIT && containerWidth > 0) {
-      const leftHandleX = fullYearToX(efLeft);
-      const rightHandleX = fullYearToX(efRight);
-      if (Math.abs(x - leftHandleX) < HANDLE_HIT) {
-        setDragState('filter-left');
-        dragStartRef.current = { x, viewRange: [...viewRange] as [number, number] };
-        (e.target as Element).setPointerCapture(e.pointerId);
-        return;
-      }
-      if (Math.abs(x - rightHandleX) < HANDLE_HIT) {
-        setDragState('filter-right');
-        dragStartRef.current = { x, viewRange: [...viewRange] as [number, number] };
-        (e.target as Element).setPointerCapture(e.pointerId);
-        return;
-      }
-      // Click on slider track → pan view there
-      if (y > SLIDER_Y - SLIDER_TRACK_H) {
-        const clickYear = fullXToYear(x);
-        const span = viewRange[1] - viewRange[0];
-        setViewRangeBoth(clampViewRange(clickYear - span / 2, clickYear + span / 2));
-        return;
-      }
+    // Slider track: click to pan view to that position
+    if (y > SLIDER_Y - SLIDER_TRACK_H - 4) {
+      markInteracted();
+      const clickYear = fullXToYear(x);
+      const span = viewRangeRef.current[1] - viewRangeRef.current[0];
+      setViewRangeBoth(clampViewRange(clickYear - span / 2, clickYear + span / 2));
+      return;
     }
 
     // Dot area: check dot clicks
@@ -337,6 +322,7 @@ export function TimelineBar({
 
     // Pan (available when view is narrower than full range)
     if (canPan) {
+      markInteracted();
       setDragState('pan');
       dragStartRef.current = { x, viewRange: [...viewRange] as [number, number] };
       (e.target as Element).setPointerCapture(e.pointerId);
@@ -349,7 +335,7 @@ export function TimelineBar({
     if (dragState === 'none') {
       // Hover detection on dots
       const y = e.clientY - containerRef.current!.getBoundingClientRect().top;
-      if (y < SLIDER_Y - HANDLE_HIT) {
+      if (y < SLIDER_Y - 8) {
         let closest: string | null = null;
         let closestDist = 12;
         for (const pt of visiblePoints) {
@@ -373,16 +359,6 @@ export function TimelineBar({
       const deltaYears = (deltaX / containerWidth) * span;
       const orig = dragStartRef.current.viewRange;
       setViewRangeBoth(clampViewRange(orig[0] - deltaYears, orig[1] - deltaYears));
-    } else if (dragState === 'filter-left') {
-      const year = fullXToYear(x);
-      const maxYear = efRight - MIN_SPAN;
-      const clamped = Math.max(fullRange[0], Math.min(year, maxYear));
-      setFilterRangeBoth([clamped, efRight]);
-    } else if (dragState === 'filter-right') {
-      const year = fullXToYear(x);
-      const minYear = efLeft + MIN_SPAN;
-      const clamped = Math.min(fullRange[1], Math.max(year, minYear));
-      setFilterRangeBoth([efLeft, clamped]);
     }
   };
 
@@ -404,8 +380,6 @@ export function TimelineBar({
   }
 
   // Slider positions
-  const filterLeftX = fullYearToX(efLeft);
-  const filterRightX = fullYearToX(efRight);
   const vpLeftX = fullYearToX(viewRange[0]);
   const vpRightX = fullYearToX(viewRange[1]);
 
@@ -435,14 +409,13 @@ export function TimelineBar({
           if (dragState === 'none') setHoveredPoint(null);
         }}
       >
-        {/* Story range bars when zoomed in */}
+        {/* Story range bars when zoomed in — grayscale default, color on hover/highlight */}
         {viewRange[1] - viewRange[0] < 500 &&
           visiblePoints
             .filter((pt) => pt.endYear - pt.startYear > 0)
             .map((pt) => {
-              const inFilter =
-                !filterRange ||
-                (pt.startYear <= filterRange[1] && pt.endYear >= filterRange[0]);
+              const isActive =
+                hoveredPoint === pt.storyId || highlightedStoryId === pt.storyId;
               return (
                 <line
                   key={`range-${pt.storyId}`}
@@ -450,27 +423,31 @@ export function TimelineBar({
                   y1={DOT_Y}
                   x2={yearToX(pt.endYear)}
                   y2={DOT_Y}
-                  stroke={CATEGORIES[pt.category].color}
+                  stroke={
+                    isActive
+                      ? CATEGORIES[pt.category].color
+                      : 'rgba(180,185,190,0.25)'
+                  }
                   strokeWidth={1.5}
-                  opacity={inFilter ? 0.3 : 0.08}
+                  opacity={isActive ? 0.4 : 0.15}
                   strokeLinecap="round"
                 />
               );
             })}
 
-        {/* Dots */}
+        {/* Dots — grayscale by default, category color on hover/highlight */}
         {visiblePoints.map((pt) => {
           const cx = yearToX(pt.startYear);
           if (cx < -10 || cx > containerWidth + 10) return null;
           const isHovered = hoveredPoint === pt.storyId;
           const isScrollHL = highlightedStoryId === pt.storyId;
           const isActive = isHovered || isScrollHL;
-          const inFilter =
-            !filterRange ||
-            (pt.startYear <= filterRange[1] && pt.endYear >= filterRange[0]);
           const r = isActive ? DOT_HOVER_RADIUS : DOT_RADIUS;
-          const dotOpacity = inFilter ? 1 : 0.15;
           const color = CATEGORIES[pt.category].color;
+          const dotFill = isActive ? color : 'rgba(180,185,190,0.55)';
+          const dotFilter = isActive
+            ? `drop-shadow(0 0 5px ${color})`
+            : 'drop-shadow(0 0 1.5px rgba(255,255,255,0.2))';
           return (
             <g key={pt.storyId}>
               {isActive && (
@@ -506,13 +483,11 @@ export function TimelineBar({
                 cx={cx}
                 cy={DOT_Y}
                 r={r}
-                fill={color}
-                opacity={dotOpacity}
+                fill={dotFill}
+                opacity={1}
                 style={{
-                  transition: 'r 0.15s, opacity 0.2s',
-                  filter: isActive
-                    ? `drop-shadow(0 0 5px ${color})`
-                    : `drop-shadow(0 0 1.5px ${color}50)`,
+                  transition: 'r 0.15s, fill 0.2s',
+                  filter: dotFilter,
                 }}
               />
             </g>
@@ -547,8 +522,7 @@ export function TimelineBar({
           );
         })}
 
-        {/* ── Slider track ── */}
-        {/* Full track background */}
+        {/* ── Slider track (mini-map) ── */}
         <rect
           x={0}
           y={SLIDER_Y - SLIDER_TRACK_H / 2}
@@ -557,49 +531,14 @@ export function TimelineBar({
           rx={3}
           fill="rgba(255,255,255,0.07)"
         />
-        {/* Viewport indicator — shows where the view is within the full range */}
+        {/* Viewport indicator — warm gold when filtering is active */}
         <rect
           x={vpLeftX}
           y={SLIDER_Y - SLIDER_TRACK_H / 2}
           width={Math.max(3, vpRightX - vpLeftX)}
           height={SLIDER_TRACK_H}
           rx={3}
-          fill="rgba(255,255,255,0.18)"
-        />
-        {/* Filter range highlight (red tint when filter is active) */}
-        {filterRange && (
-          <rect
-            x={filterLeftX}
-            y={SLIDER_Y - SLIDER_TRACK_H / 2}
-            width={Math.max(0, filterRightX - filterLeftX)}
-            height={SLIDER_TRACK_H}
-            rx={3}
-            fill="rgba(239,68,68,0.25)"
-          />
-        )}
-
-        {/* Filter handles */}
-        <rect
-          x={filterLeftX - HANDLE_W / 2}
-          y={SLIDER_Y - HANDLE_H / 2}
-          width={HANDLE_W}
-          height={HANDLE_H}
-          rx={4}
-          fill={filterRange ? 'rgba(239,130,130,0.9)' : 'rgba(255,255,255,0.5)'}
-          stroke={filterRange ? 'rgba(239,68,68,1)' : 'rgba(255,255,255,0.7)'}
-          strokeWidth={0.5}
-          style={{ cursor: 'ew-resize' }}
-        />
-        <rect
-          x={filterRightX - HANDLE_W / 2}
-          y={SLIDER_Y - HANDLE_H / 2}
-          width={HANDLE_W}
-          height={HANDLE_H}
-          rx={4}
-          fill={filterRange ? 'rgba(239,130,130,0.9)' : 'rgba(255,255,255,0.5)'}
-          stroke={filterRange ? 'rgba(239,68,68,1)' : 'rgba(255,255,255,0.7)'}
-          strokeWidth={0.5}
-          style={{ cursor: 'ew-resize' }}
+          fill={hasInteracted ? 'rgba(234,179,8,0.35)' : 'rgba(255,255,255,0.18)'}
         />
       </svg>
 
@@ -647,7 +586,7 @@ export function TimelineBar({
             e.stopPropagation();
             handleZoomIn();
           }}
-          className="w-6 h-6 flex items-center justify-center rounded text-sm font-mono text-[rgba(255,255,255,0.45)] hover:text-white hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded text-base font-mono text-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.08)] hover:text-white hover:bg-[rgba(255,255,255,0.15)] transition-colors border border-[rgba(255,255,255,0.12)]"
           title="Zoom in"
         >
           +
@@ -657,7 +596,7 @@ export function TimelineBar({
             e.stopPropagation();
             handleZoomOut();
           }}
-          className="w-6 h-6 flex items-center justify-center rounded text-sm font-mono text-[rgba(255,255,255,0.45)] hover:text-white hover:bg-[rgba(255,255,255,0.1)] transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded text-base font-mono text-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.08)] hover:text-white hover:bg-[rgba(255,255,255,0.15)] transition-colors border border-[rgba(255,255,255,0.12)]"
           title="Zoom out"
         >
           −
@@ -669,14 +608,14 @@ export function TimelineBar({
               handleReset();
             }}
             className="ml-1 px-2 py-0.5 rounded text-[10px] font-mono bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.15)] text-[rgba(255,255,255,0.55)] hover:text-white hover:bg-[rgba(255,255,255,0.18)] transition-colors"
-            title="Reset view and filter"
+            title="Reset view and show all stories"
           >
             Reset
           </button>
         )}
         {!showReset && visiblePoints.length > 0 && (
           <span className="ml-1 text-[9px] font-mono text-[rgba(255,255,255,0.3)] pointer-events-none">
-            scroll to zoom · drag handles to filter
+            scroll to zoom · drag to pan
           </span>
         )}
       </div>

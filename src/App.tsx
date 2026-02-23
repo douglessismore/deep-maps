@@ -21,7 +21,7 @@ function App() {
   const [scrollHighlight, setScrollHighlight] = useState<StoryLocation | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
-  const [timelineFilterRange, setTimelineFilterRange] = useState<[number, number] | null>(null);
+  const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
   // No more mobileMapExpanded — map is always visible at 30vh (story) or 45vh (explore)
 
   // When a collection is active, filter stories to only those in the collection
@@ -31,15 +31,15 @@ function App() {
     return stories.filter(s => idSet.has(s.id));
   }, [activeCollection]);
 
-  // Filter stories by timeline filter range (when slider handles are active)
+  // Filter stories by timeline view range (when user has interacted with timeline)
   const timelineFilteredStories = useMemo(() => {
-    if (!timelineFilterRange) return displayStories;
-    const [rangeStart, rangeEnd] = timelineFilterRange;
+    if (!timelineViewRange) return displayStories;
+    const [rangeStart, rangeEnd] = timelineViewRange;
     return displayStories.filter((s) => {
       const [start, end] = parseYears(s.years);
       return end >= rangeStart && start <= rangeEnd;
     });
-  }, [displayStories, timelineFilterRange]);
+  }, [displayStories, timelineViewRange]);
 
   // Derive which story is currently scroll-highlighted (for timeline dot pulse)
   const scrollHighlightStoryId = useMemo(() => {
@@ -47,18 +47,25 @@ function App() {
     return stories.find((s) => s.locations.some((l) => l.id === scrollHighlight.id))?.id ?? null;
   }, [scrollHighlight]);
 
+  // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
+    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+      setActiveCollection(null);
+    }
     setActiveStory(story);
     setActiveLocation(null);
     setCategoryFilter(null);
     setMode('story');
-  }, []);
+  }, [activeCollection]);
 
   const handleLocationSelect = useCallback((location: StoryLocation, story: Story) => {
+    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+      setActiveCollection(null);
+    }
     setActiveStory(story);
     setActiveLocation(location);
     setMode('story');
-  }, []);
+  }, [activeCollection]);
 
   // Back from story → keeps active collection if there was one
   const handleBackFromStory = useCallback(() => {
@@ -138,7 +145,7 @@ function App() {
           stories={stories}
           categoryFilter={categoryFilter}
           onStorySelect={handleStorySelect}
-          onFilterRangeChange={setTimelineFilterRange}
+          onViewRangeChange={setTimelineViewRange}
           highlightedStoryId={scrollHighlightStoryId}
         />
       )}
