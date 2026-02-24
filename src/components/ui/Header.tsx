@@ -5,24 +5,34 @@ interface HeaderProps {
   mode: InteractionMode;
   activeStory: Story | null;
   onBackToExplore: () => void;
-  onBackFromStory?: () => void;
+  onBack?: () => void;
+  backLabel?: string;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
   onSurpriseMe: () => void;
+  onNearMe?: () => void;
+  geoLoading?: boolean;
+  geoError?: string | null;
+  userLocation?: { lat: number; lng: number } | null;
 }
 
 export function Header({
   mode,
   activeStory,
   onBackToExplore,
-  onBackFromStory,
+  onBack,
+  backLabel,
   searchQuery,
   onSearchChange,
   categoryFilter,
   onCategoryFilter,
   onSurpriseMe,
+  onNearMe,
+  geoLoading,
+  geoError,
+  userLocation,
 }: HeaderProps) {
   return (
     <header className="shrink-0 z-10 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
@@ -79,18 +89,50 @@ export function Header({
           {/* Back to Explore — explicit button in story mode */}
           {mode === 'story' && (
             <button
-              onClick={onBackFromStory || onBackToExplore}
-              className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5"
-              title="Back"
+              onClick={onBack || onBackToExplore}
+              className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
+              title={backLabel ? `Back to ${backLabel}` : 'Back'}
             >
-              <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="none" className="shrink-0">
                 <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>Back</span>
+              <span className="truncate">{backLabel || 'Back'}</span>
             </button>
           )}
 
-          {/* Surprise Me — always visible for endless rabbit trail */}
+          {/* Near Me — geolocation, explore mode only */}
+          {mode !== 'story' && onNearMe && (
+            <button
+              onClick={onNearMe}
+              disabled={geoLoading}
+              className={`px-2.5 sm:px-3 py-1 rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 shadow-sm border ${
+                userLocation
+                  ? 'bg-blue-600 hover:bg-blue-500 text-white border-blue-500'
+                  : geoError
+                  ? 'bg-[var(--bg-card)] text-red-400 border-red-400/30'
+                  : 'bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] hover:text-white border-[var(--border-subtle)]'
+              }`}
+              title={geoError || (userLocation ? 'Showing stories near you' : 'Find stories near you')}
+            >
+              {geoLoading ? (
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="animate-spin">
+                  <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" opacity="0.3"/>
+                  <path d="M12.5 7a5.5 5.5 0 00-5.5-5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="2" stroke="currentColor" strokeWidth="1.3"/>
+                  <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.3" strokeDasharray="2 2"/>
+                  <circle cx="7" cy="7" r="1" fill="currentColor"/>
+                </svg>
+              )}
+              <span className="hidden sm:inline">
+                {geoError || (geoLoading ? 'Locating…' : userLocation ? 'Near Me' : 'Near Me')}
+              </span>
+            </button>
+          )}
+
+          {/* Surprise Me — always visible for endless discovery */}
           <button
             onClick={onSurpriseMe}
             className="bg-[var(--accent-red)] hover:bg-[#ef4444] text-white px-2.5 sm:px-3 py-1 rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 shadow-sm"

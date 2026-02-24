@@ -124,7 +124,7 @@ export function StoryPanel({
     );
   });
 
-  // All connected stories for the rabbit trail strip
+  // All connected stories for the navigation strip
   const connectedStories = [...relatedStories, ...nearbyStories];
 
   // Location-level intersections: which other stories share a location with each of ours?
@@ -171,15 +171,18 @@ export function StoryPanel({
               {story.name}
             </h2>
             <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+              {headerExpanded ? 'Less' : 'More'}
+            </span>
             <svg
               width="10" height="10" viewBox="0 0 10 10" fill="none"
-              className={`shrink-0 ml-auto text-[var(--text-muted)] transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+              className={`shrink-0 text-[var(--text-muted)] transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
             >
               <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
 
-          {/* Expanded content — synopsis, tags, rabbit trails (mobile only) */}
+          {/* Expanded content — synopsis, tags (mobile only) */}
           {headerExpanded && (
             <div className="px-4 pb-3 space-y-2">
               {story.nickname && (
@@ -205,35 +208,6 @@ export function StoryPanel({
                   </button>
                 ))}
               </div>
-              {/* Rabbit trails — inside expanded header on mobile */}
-              {connectedStories.length > 0 && (
-                <div>
-                  <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
-                    Rabbit Trails ({connectedStories.length})
-                  </h3>
-                  <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
-                    {connectedStories.map((s) => {
-                      const sCat = CATEGORIES[s.category];
-                      return (
-                        <button
-                          key={s.id}
-                          onClick={(e) => { e.stopPropagation(); onRelatedStoryClick(s); }}
-                          className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[200px]"
-                        >
-                          <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
-                          <div className="min-w-0 text-left">
-                            <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
-                            <p className="text-[10px] font-mono text-[var(--text-muted)]">{s.locations.length} loc · {s.years}</p>
-                          </div>
-                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                            <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>
@@ -267,12 +241,12 @@ export function StoryPanel({
         </div>
       </div>
 
-      {/* Connected Stories — rabbit trail strip (desktop only, mobile has it inside expanded header) */}
+      {/* Connected Stories — always visible strip for story-to-story navigation */}
       {connectedStories.length > 0 && (
-        <div className="hidden lg:block shrink-0 border-b border-[var(--border-subtle)]">
+        <div className="shrink-0 border-b border-[var(--border-subtle)]">
           <div className="px-4 pt-2 pb-1">
             <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-              Rabbit Trails ({connectedStories.length})
+              Connected Stories ({connectedStories.length})
             </h3>
           </div>
           <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">

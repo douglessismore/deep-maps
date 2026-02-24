@@ -22,9 +22,26 @@ interface ExplorePanelProps {
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
   onSurpriseMe: () => void;
+  userLocation?: { lat: number; lng: number } | null;
 }
 
 type PanelTab = 'locations' | 'stories' | 'collections';
+
+/** Haversine distance in miles between two lat/lng points */
+function distanceMiles(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 3959; // Earth radius in miles
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/** Get the nearest location distance from a story to a point */
+function nearestDistance(story: Story, lat: number, lng: number): number {
+  return Math.min(...story.locations.map((l) => distanceMiles(lat, lng, l.lat, l.lng)));
+}
 
 export function ExplorePanel({
   stories,
@@ -40,6 +57,7 @@ export function ExplorePanel({
   searchQuery,
   categoryFilter,
   onSurpriseMe,
+  userLocation,
 }: ExplorePanelProps) {
   const [activeTab, setActiveTab] = useState<PanelTab>('stories');
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
@@ -227,11 +245,22 @@ export function ExplorePanel({
   }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
 
   // Stories tab: show viewport stories if available, else filtered stories
+  // When geolocated, sort by nearest distance
   const displayStories = useMemo(() => {
-    if (searchQuery.trim()) return filteredStories;
-    if (viewportStories.length > 0) return viewportStories;
-    return filteredStories;
-  }, [filteredStories, viewportStories, searchQuery]);
+    let result: Story[];
+    if (searchQuery.trim()) result = filteredStories;
+    else if (viewportStories.length > 0) result = viewportStories;
+    else result = filteredStories;
+
+    if (userLocation) {
+      return [...result].sort(
+        (a, b) =>
+          nearestDistance(a, userLocation.lat, userLocation.lng) -
+          nearestDistance(b, userLocation.lat, userLocation.lng)
+      );
+    }
+    return result;
+  }, [filteredStories, viewportStories, searchQuery, userLocation]);
 
   return (
     <div className="flex flex-col h-full">
@@ -368,7 +397,15 @@ export function ExplorePanel({
                 else cardRefs.current.delete(story.id);
               }}
             >
-              <StoryCard story={story} onClick={onStorySelect} />
+              <StoryCard
+                story={story}
+                onClick={onStorySelect}
+                distanceMi={
+                  userLocation
+                    ? nearestDistance(story, userLocation.lat, userLocation.lng)
+                    : undefined
+                }
+              />
             </div>
           ))
         )}

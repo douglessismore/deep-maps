@@ -38,6 +38,7 @@ export function TimelineBar({
 }: TimelineBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const isMobile = containerWidth > 0 && containerWidth < 640;
 
   const allPoints = useMemo(() => getTimelinePoints(stories), [stories]);
   const fullRange = useMemo(() => getDataRange(allPoints), [allPoints]);
@@ -193,11 +194,11 @@ export function TimelineBar({
     return () => el.removeEventListener('wheel', onWheel);
   }, [clampViewRange, setViewRangeBoth, markInteracted]);
 
-  // ── Pinch zoom + prevent browser back-swipe on ALL touches ──
+  // ── Pinch zoom + prevent browser back-swipe on ALL touches (desktop only) ──
   const lastPinchRef = useRef<{ dist: number; center: number } | null>(null);
   useEffect(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el || isMobile) return;
     const onTouchStart = (e: TouchEvent) => {
       // Prevent browser back/forward gesture for ALL touches in the timeline
       e.preventDefault();
@@ -244,7 +245,7 @@ export function TimelineBar({
       el.removeEventListener('touchmove', onTouchMove);
       el.removeEventListener('touchend', onTouchEnd);
     };
-  }, [clampViewRange, setViewRangeBoth, markInteracted]);
+  }, [clampViewRange, setViewRangeBoth, markInteracted, isMobile]);
 
   // ── Zoom button handlers ──
   const handleZoomIn = useCallback(() => {
@@ -389,7 +390,7 @@ export function TimelineBar({
       className="shrink-0 relative select-none"
       style={{
         height: BAR_HEIGHT,
-        touchAction: 'none',
+        touchAction: isMobile ? 'manipulation' : 'none',
         overscrollBehaviorX: 'none',
         background: 'linear-gradient(180deg, rgba(44,44,44,0.98) 0%, rgba(30,30,30,0.99) 100%)',
         borderTop: '1px solid rgba(255,255,255,0.15)',
@@ -401,11 +402,11 @@ export function TimelineBar({
         width={containerWidth}
         height={BAR_HEIGHT}
         className="block"
-        style={{ cursor: dragState === 'pan' ? 'grabbing' : canPan ? 'grab' : 'default' }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={() => {
+        style={{ cursor: isMobile ? 'default' : dragState === 'pan' ? 'grabbing' : canPan ? 'grab' : 'default' }}
+        onPointerDown={isMobile ? undefined : handlePointerDown}
+        onPointerMove={isMobile ? undefined : handlePointerMove}
+        onPointerUp={isMobile ? undefined : handlePointerUp}
+        onPointerLeave={isMobile ? undefined : () => {
           if (dragState === 'none') setHoveredPoint(null);
         }}
       >
@@ -542,6 +543,39 @@ export function TimelineBar({
         />
       </svg>
 
+      {/* Mobile native range input — replaces custom SVG drag for reliable touch panning */}
+      {isMobile && (
+        <input
+          type="range"
+          min={fullRange[0]}
+          max={fullRange[1]}
+          step={1}
+          value={Math.round((viewRange[0] + viewRange[1]) / 2)}
+          onChange={(e) => {
+            markInteracted();
+            const newCenter = Number(e.target.value);
+            const span = viewRange[1] - viewRange[0];
+            setViewRangeBoth(clampViewRange(newCenter - span / 2, newCenter + span / 2));
+          }}
+          className="mobile-timeline-range"
+          style={{
+            position: 'absolute',
+            left: 8,
+            right: 8,
+            bottom: 4,
+            width: 'calc(100% - 16px)',
+            height: 20,
+            zIndex: 5,
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            background: 'transparent',
+            outline: 'none',
+            margin: 0,
+            padding: 0,
+          }}
+        />
+      )}
+
       {/* Tooltip */}
       {hoveredData && (
         <TooltipOverlay
@@ -615,7 +649,7 @@ export function TimelineBar({
         )}
         {!showReset && visiblePoints.length > 0 && (
           <span className="ml-1 text-[9px] font-mono text-[rgba(255,255,255,0.3)] pointer-events-none">
-            scroll to zoom · drag to pan
+            {isMobile ? '+/− to zoom · slide to pan' : 'scroll to zoom · drag to pan'}
           </span>
         )}
       </div>

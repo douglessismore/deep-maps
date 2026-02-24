@@ -6,9 +6,10 @@ interface StoryCardProps {
   story: Story;
   onClick: (story: Story) => void;
   compact?: boolean;
+  distanceMi?: number; // Distance in miles from user location
 }
 
-export function StoryCard({ story, onClick, compact = false }: StoryCardProps) {
+export function StoryCard({ story, onClick, compact = false, distanceMi }: StoryCardProps) {
   const cat = CATEGORIES[story.category];
   const locationCount = story.locations.length;
 
@@ -51,9 +52,20 @@ export function StoryCard({ story, onClick, compact = false }: StoryCardProps) {
           {/* Footer */}
           <div className="flex items-center justify-between mt-3 gap-2">
             <CategoryBadge category={story.category} />
-            <span className="text-[10px] text-[var(--text-muted)] font-mono">
-              {locationCount} {locationCount === 1 ? 'location' : 'locations'}
-            </span>
+            <div className="flex items-center gap-2">
+              {typeof distanceMi === 'number' && (
+                <span className="text-[10px] text-blue-400 font-mono">
+                  {distanceMi < 1
+                    ? '< 1 mi'
+                    : distanceMi < 100
+                    ? `${Math.round(distanceMi)} mi`
+                    : `${Math.round(distanceMi).toLocaleString()} mi`}
+                </span>
+              )}
+              <span className="text-[10px] text-[var(--text-muted)] font-mono">
+                {locationCount} {locationCount === 1 ? 'location' : 'locations'}
+              </span>
+            </div>
           </div>
         </div>
       </div>

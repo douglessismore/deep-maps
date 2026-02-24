@@ -30,6 +30,7 @@ interface MapViewProps {
   onMapReady: (map: L.Map) => void;
   onLocationClick: (location: StoryLocation, story: Story) => void;
   onStoryClick: (story: Story) => void;
+  userLocation?: { lat: number; lng: number } | null;
 }
 
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean): L.DivIcon {
@@ -55,6 +56,7 @@ function MapController({
   resetViewKey,
   onMapReady,
   onLocationClick,
+  userLocation,
 }: MapViewProps) {
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
@@ -168,6 +170,32 @@ function MapController({
     prevResetKey.current = resetViewKey;
     map.flyTo([39.5, -98.5], 4, { duration: 1.5 });
   }, [resetViewKey, map]);
+
+  // User location marker (blue pulsing dot)
+  const userMarkerRef = useRef<L.Marker | null>(null);
+  useEffect(() => {
+    if (userMarkerRef.current) {
+      map.removeLayer(userMarkerRef.current);
+      userMarkerRef.current = null;
+    }
+    if (userLocation) {
+      const icon = L.divIcon({
+        className: '',
+        html: '<div class="geo-marker"></div>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+      const marker = L.marker([userLocation.lat, userLocation.lng], { icon, interactive: false });
+      marker.addTo(map);
+      userMarkerRef.current = marker;
+    }
+    return () => {
+      if (userMarkerRef.current) {
+        map.removeLayer(userMarkerRef.current);
+        userMarkerRef.current = null;
+      }
+    };
+  }, [userLocation, map]);
 
   return null;
 }

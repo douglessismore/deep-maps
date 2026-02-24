@@ -11,6 +11,14 @@ import { parseYears } from './lib/timeline';
 import type { Story, StoryLocation, StoryCategory, StoryCollection, InteractionMode } from './types';
 import type { Map as LeafletMap } from 'leaflet';
 
+type NavEntry = {
+  mode: InteractionMode;
+  activeStory: Story | null;
+  activeLocation: StoryLocation | null;
+  activeCollection: StoryCollection | null;
+  categoryFilter: StoryCategory | null;
+};
+
 function App() {
   const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
   const [mode, setMode] = useState<InteractionMode>('explore');
@@ -22,7 +30,10 @@ function App() {
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
-  // No more mobileMapExpanded — map is always visible at 30vh (story) or 45vh (explore)
+  const [navHistory, setNavHistory] = useState<NavEntry[]>([]);
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [geoError, setGeoError] = useState<string | null>(null);
+  const [geoLoading, setGeoLoading] = useState(false);
 
   // When a collection is active, filter stories to only those in the collection
   const displayStories = useMemo(() => {
@@ -47,8 +58,18 @@ function App() {
     return stories.find((s) => s.locations.some((l) => l.id === scrollHighlight.id))?.id ?? null;
   }, [scrollHighlight]);
 
+  // Push current state onto navigation history before changing
+  const pushNav = useCallback(() => {
+    setNavHistory((prev) => {
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeCollection, categoryFilter };
+      const next = [...prev, entry];
+      return next.length > 10 ? next.slice(-10) : next;
+    });
+  }, [mode, activeStory, activeLocation, activeCollection, categoryFilter]);
+
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
+    pushNav();
     if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
       setActiveCollection(null);
     }
@@ -56,43 +77,63 @@ function App() {
     setActiveLocation(null);
     setCategoryFilter(null);
     setMode('story');
-  }, [activeCollection]);
+  }, [activeCollection, pushNav]);
 
   const handleLocationSelect = useCallback((location: StoryLocation, story: Story) => {
+    pushNav();
     if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
       setActiveCollection(null);
     }
     setActiveStory(story);
     setActiveLocation(location);
     setMode('story');
-  }, [activeCollection]);
+  }, [activeCollection, pushNav]);
 
-  // Back from story → keeps active collection if there was one
-  const handleBackFromStory = useCallback(() => {
-    setActiveStory(null);
-    setActiveLocation(null);
-    setCategoryFilter(null);
-    setMode('explore');
-    setResetViewKey((k) => k + 1);
+  // Back: pop from navigation history, or fall back to explore
+  const handleBack = useCallback(() => {
+    setNavHistory((prev) => {
+      if (prev.length === 0) {
+        // No history — go to explore
+        setActiveStory(null);
+        setActiveLocation(null);
+        setCategoryFilter(null);
+        setMode('explore');
+        setResetViewKey((k) => k + 1);
+        return prev;
+      }
+      const next = [...prev];
+      const entry = next.pop()!;
+      setMode(entry.mode === 'scroll' ? 'explore' : entry.mode);
+      setActiveStory(entry.activeStory);
+      setActiveLocation(entry.activeLocation);
+      setActiveCollection(entry.activeCollection);
+      setCategoryFilter(entry.categoryFilter);
+      if (!entry.activeStory) {
+        setResetViewKey((k) => k + 1);
+      }
+      return next;
+    });
   }, []);
 
-  // Full reset → clears everything including collection
+  // Full reset → clears everything including collection and history
   const handleBackToExplore = useCallback(() => {
     setActiveStory(null);
     setActiveLocation(null);
     setCategoryFilter(null);
     setActiveCollection(null);
+    setNavHistory([]);
     setMode('explore');
     setResetViewKey((k) => k + 1);
   }, []);
 
   const handleCollectionSelect = useCallback((collection: StoryCollection) => {
+    pushNav();
     setActiveCollection(collection);
     setCategoryFilter(null);
     setActiveStory(null);
     setActiveLocation(null);
     setMode('explore');
-  }, []);
+  }, [pushNav]);
 
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);
@@ -118,14 +159,62 @@ function App() {
     setMode('explore');
   }, []);
 
+  const handleNearMe = useCallback(() => {
+    if (!navigator.geolocation) {
+      setGeoError('Geolocation is not supported by your browser');
+      return;
+    }
+    setGeoLoading(true);
+    setGeoError(null);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        setGeoLoading(false);
+        setGeoError(null);
+      },
+      (error) => {
+        setGeoLoading(false);
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setGeoError('Location access denied');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setGeoError('Location unavailable');
+            break;
+          case error.TIMEOUT:
+            setGeoError('Location request timed out');
+            break;
+          default:
+            setGeoError('Could not get location');
+        }
+        // Clear error after 3 seconds
+        setTimeout(() => setGeoError(null), 3000);
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+    );
+  }, []);
+
   const handleSurpriseMe = useCallback(() => {
+    pushNav();
     const randomStory = stories[Math.floor(Math.random() * stories.length)];
     const randomLoc = randomStory.locations[Math.floor(Math.random() * randomStory.locations.length)];
     setCategoryFilter(null);
     setActiveStory(randomStory);
     setActiveLocation(randomLoc);
     setMode('story');
-  }, []);
+  }, [pushNav]);
+
+  // Contextual back label from navigation history
+  const backLabel = useMemo(() => {
+    if (navHistory.length === 0) return 'Stories';
+    const prev = navHistory[navHistory.length - 1];
+    if (prev.activeStory) return prev.activeStory.name;
+    if (prev.activeCollection) return prev.activeCollection.name;
+    return 'Stories';
+  }, [navHistory]);
 
   return (
     <div className="h-full flex flex-col">
@@ -133,12 +222,17 @@ function App() {
         mode={mode}
         activeStory={activeStory}
         onBackToExplore={handleBackToExplore}
-        onBackFromStory={handleBackFromStory}
+        onBack={handleBack}
+        backLabel={backLabel}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         categoryFilter={categoryFilter}
         onCategoryFilter={handleCategoryFilter}
         onSurpriseMe={handleSurpriseMe}
+        onNearMe={handleNearMe}
+        geoLoading={geoLoading}
+        geoError={geoError}
+        userLocation={userLocation}
       />
       {mode !== 'story' && (
         <TimelineBar
@@ -165,6 +259,7 @@ function App() {
             onMapReady={setMapInstance}
             onLocationClick={handleLocationSelect}
             onStoryClick={handleStorySelect}
+            userLocation={userLocation}
           />
         </div>
 
@@ -198,6 +293,7 @@ function App() {
                   categoryFilter={categoryFilter}
                   onCategoryFilter={handleCategoryFilter}
                   onSurpriseMe={handleSurpriseMe}
+                  userLocation={userLocation}
                 />
               )}
             </Route>

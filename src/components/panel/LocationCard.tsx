@@ -134,7 +134,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </svg>
               </button>
             )}
-            {/* Location-level rabbit trails — other stories at this same place */}
+            {/* Location-level connected stories — other stories at this same place */}
             {intersectingStories && intersectingStories.length > 0 && onStoryClick && (
               <div className="pt-2 border-t border-[var(--border-subtle)]">
                 <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
