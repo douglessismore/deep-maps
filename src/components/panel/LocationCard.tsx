@@ -138,7 +138,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             {intersectingStories && intersectingStories.length > 0 && onStoryClick && (
               <div className="pt-2 border-t border-[var(--border-subtle)]">
                 <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                  Also at this location
+                  Also Here
                 </p>
                 <div className="space-y-1">
                   {intersectingStories.map(({ story: otherStory }) => {

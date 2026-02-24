@@ -12,18 +12,26 @@ interface StoryPanelProps {
   story: Story;
   activeLocation: StoryLocation | null;
   onLocationSelect: (location: StoryLocation) => void;
+  onScrollLocationSelect: (location: StoryLocation) => void;
   onRelatedStoryClick: (story: Story) => void;
   onTagClick?: (tag: string) => void;
   allStories: Story[];
+  onBack?: () => void;
+  backLabel?: string;
+  onHome?: () => void;
 }
 
 export function StoryPanel({
   story,
   activeLocation,
   onLocationSelect,
+  onScrollLocationSelect,
   onRelatedStoryClick,
   onTagClick,
   allStories,
+  onBack,
+  backLabel,
+  onHome,
 }: StoryPanelProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const locationRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -32,17 +40,28 @@ export function StoryPanel({
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
-  const [headerExpanded, setHeaderExpanded] = useState(false);
+  const [headerExpanded, setHeaderExpanded] = useState(true);
+  const lastScrollTopRef = useRef(0);
 
   const cat = CATEGORIES[story.category];
   const hasWiki = !!story.wikipediaSlug;
 
-  // Scroll-driven location navigation
+  // Scroll-driven location navigation + header auto-collapse
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     const onScroll = () => {
+      // Auto-collapse header on scroll down, expand on scroll to top
+      const scrollTop = container.scrollTop;
+      if (scrollTop > 60 && scrollTop > lastScrollTopRef.current) {
+        setHeaderExpanded(false);
+      }
+      if (scrollTop < 20) {
+        setHeaderExpanded(true);
+      }
+      lastScrollTopRef.current = scrollTop;
+
       isScrollDriving.current = true;
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = window.setTimeout(() => {
@@ -77,7 +96,7 @@ export function StoryPanel({
         setScrollActiveId(closestId);
         const location = story.locations.find((l) => l.id === closestId);
         if (location) {
-          onLocationSelect(location);
+          onScrollLocationSelect(location);
         }
       }
     };
@@ -87,7 +106,7 @@ export function StoryPanel({
       container.removeEventListener('scroll', onScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, [story, onLocationSelect, scrollActiveId]);
+  }, [story, onScrollLocationSelect, scrollActiveId]);
 
   // Scroll correction: when the active card changes, the collapsing card above shifts content up.
   // If the newly active card's title gets pushed above the scroll container, nudge it back into view.
@@ -124,8 +143,11 @@ export function StoryPanel({
     );
   });
 
-  // All connected stories for the navigation strip
-  const connectedStories = [...relatedStories, ...nearbyStories];
+  // All connected stories with reason labels for the navigation strip
+  const connectedEntries = [
+    ...relatedStories.map(s => ({ story: s, reason: 'related' as const })),
+    ...nearbyStories.map(s => ({ story: s, reason: 'nearby' as const })),
+  ];
 
   // Location-level intersections: which other stories share a location with each of ours?
   const locationIntersections = useMemo(() => {
@@ -158,6 +180,32 @@ export function StoryPanel({
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Mobile breadcrumb — positioned near thumb for easy reach */}
+      {onBack && (
+        <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors"
+          >
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            {backLabel || 'Stories'}
+          </button>
+          {onHome && (
+            <button
+              onClick={onHome}
+              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1.5 5L5 1.5L8.5 5M3 4v4h1.5V6.5h3V8H9V4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Home
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Story Header — ultra-compact on mobile, full on desktop */}
       <div className="shrink-0 border-b border-[var(--border-subtle)]">
         {/* Mobile: compact single-row header */}
@@ -182,9 +230,9 @@ export function StoryPanel({
             </svg>
           </button>
 
-          {/* Expanded content — synopsis, tags (mobile only) */}
+          {/* Expanded content — synopsis, tags (mobile only). Max height ensures moments peek below */}
           {headerExpanded && (
-            <div className="px-4 pb-3 space-y-2">
+            <div className="px-4 pb-3 space-y-2 max-h-[35vh] overflow-y-auto">
               {story.nickname && (
                 <p className="text-xs text-[var(--text-muted)] font-mono italic">{story.nickname}</p>
               )}
@@ -241,31 +289,37 @@ export function StoryPanel({
         </div>
       </div>
 
-      {/* Connected Stories — always visible strip for story-to-story navigation */}
-      {connectedStories.length > 0 && (
+      {/* Explore Further — story-to-story navigation with reason labels */}
+      {connectedEntries.length > 0 && (
         <div className="shrink-0 border-b border-[var(--border-subtle)]">
           <div className="px-4 pt-2 pb-1">
             <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-              Connected Stories ({connectedStories.length})
+              Explore Further
             </h3>
           </div>
           <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
-            {connectedStories.map((s) => {
+            {connectedEntries.map(({ story: s, reason }) => {
               const sCat = CATEGORIES[s.category];
               return (
                 <button
                   key={s.id}
                   onClick={() => onRelatedStoryClick(s)}
-                  className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[200px]"
+                  className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
                 >
                   <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
                   <div className="min-w-0 text-left">
                     <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
-                    <p className="text-[10px] font-mono text-[var(--text-muted)]">{s.locations.length} {s.locations.length === 1 ? 'location' : 'locations'} · {s.years}</p>
+                    <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                      {s.locations.length} {s.locations.length === 1 ? 'moment' : 'moments'} · {s.years}
+                    </p>
                   </div>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                    <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <span className={`shrink-0 text-[8px] font-mono px-1.5 py-0.5 rounded-full ${
+                    reason === 'related'
+                      ? 'bg-[rgba(96,165,250,0.12)] text-blue-400'
+                      : 'bg-[rgba(234,179,8,0.12)] text-yellow-500'
+                  }`}>
+                    {reason === 'related' ? 'Related' : 'Nearby'}
+                  </span>
                 </button>
               );
             })}
@@ -287,7 +341,7 @@ export function StoryPanel({
               borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
             }}
           >
-            📍 Locations ({story.locations.length})
+            📍 Moments ({story.locations.length})
           </button>
           <button
             onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
@@ -310,7 +364,7 @@ export function StoryPanel({
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
           <div className="p-4">
             <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
-              Locations ({story.locations.length})
+              Moments ({story.locations.length})
             </h3>
             <div className="space-y-2">
               {story.locations.map((location, i) => (

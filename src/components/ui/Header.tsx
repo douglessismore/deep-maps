@@ -86,18 +86,29 @@ export function Header({
 
         {/* Right side actions */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Back to Explore — explicit button in story mode */}
+          {/* Back + Home — story mode navigation */}
           {mode === 'story' && (
-            <button
-              onClick={onBack || onBackToExplore}
-              className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
-              title={backLabel ? `Back to ${backLabel}` : 'Back'}
-            >
-              <svg width="14" height="14" viewBox="0 0 12 12" fill="none" className="shrink-0">
-                <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <span className="truncate">{backLabel || 'Back'}</span>
-            </button>
+            <>
+              <button
+                onClick={onBack || onBackToExplore}
+                className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
+                title={backLabel ? `Back to ${backLabel}` : 'Back'}
+              >
+                <svg width="14" height="14" viewBox="0 0 12 12" fill="none" className="shrink-0">
+                  <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="truncate">{backLabel || 'Back'}</span>
+              </button>
+              <button
+                onClick={onBackToExplore}
+                className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-2 py-1.5 min-h-[36px] rounded-md transition-colors flex items-center"
+                title="Home — back to full map"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2.5 7L7 2.5L11.5 7M4 5.5V11.5h2.5V9h3v2.5H12V5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </>
           )}
 
           {/* Near Me — geolocation, explore mode only */}

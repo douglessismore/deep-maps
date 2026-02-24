@@ -89,6 +89,16 @@ function App() {
     setMode('story');
   }, [activeCollection, pushNav]);
 
+  // Scroll-driven location select — no history push (avoids back-button pollution)
+  const handleScrollLocationSelect = useCallback((location: StoryLocation, story: Story) => {
+    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+      setActiveCollection(null);
+    }
+    setActiveStory(story);
+    setActiveLocation(location);
+    setMode('story');
+  }, [activeCollection]);
+
   // Back: pop from navigation history, or fall back to explore
   const handleBack = useCallback(() => {
     setNavHistory((prev) => {
@@ -272,9 +282,13 @@ function App() {
                   story={activeStory}
                   activeLocation={activeLocation}
                   onLocationSelect={(loc) => handleLocationSelect(loc, activeStory)}
+                  onScrollLocationSelect={(loc) => handleScrollLocationSelect(loc, activeStory)}
                   onRelatedStoryClick={handleStorySelect}
                   onTagClick={handleTagClick}
                   allStories={stories}
+                  onBack={handleBack}
+                  backLabel={backLabel}
+                  onHome={handleBackToExplore}
                 />
               ) : (
                 <ExplorePanel

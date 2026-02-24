@@ -63,7 +63,7 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
                 </span>
               )}
               <span className="text-[10px] text-[var(--text-muted)] font-mono">
-                {locationCount} {locationCount === 1 ? 'location' : 'locations'}
+                {locationCount} {locationCount === 1 ? 'moment' : 'moments'}
               </span>
             </div>
           </div>

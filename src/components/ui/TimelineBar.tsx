@@ -532,14 +532,14 @@ export function TimelineBar({
           rx={3}
           fill="rgba(255,255,255,0.07)"
         />
-        {/* Viewport indicator — warm gold when filtering is active */}
+        {/* Viewport indicator — warm gold when filtering is active, thicker on mobile */}
         <rect
           x={vpLeftX}
-          y={SLIDER_Y - SLIDER_TRACK_H / 2}
+          y={SLIDER_Y - (isMobile ? 5 : SLIDER_TRACK_H / 2)}
           width={Math.max(3, vpRightX - vpLeftX)}
-          height={SLIDER_TRACK_H}
-          rx={3}
-          fill={hasInteracted ? 'rgba(234,179,8,0.35)' : 'rgba(255,255,255,0.18)'}
+          height={isMobile ? 10 : SLIDER_TRACK_H}
+          rx={isMobile ? 5 : 3}
+          fill={hasInteracted ? 'rgba(234,179,8,0.45)' : 'rgba(255,255,255,0.22)'}
         />
       </svg>
 
@@ -560,10 +560,10 @@ export function TimelineBar({
           className="mobile-timeline-range"
           style={{
             position: 'absolute',
-            left: 8,
-            right: 8,
+            left: 16,
+            right: 16,
             bottom: 4,
-            width: 'calc(100% - 16px)',
+            width: 'calc(100% - 32px)',
             height: 20,
             zIndex: 5,
             appearance: 'none',
@@ -607,7 +607,7 @@ export function TimelineBar({
             handlePanRight();
           }}
           className="absolute text-[10px] font-mono text-[rgba(255,255,255,0.45)] hover:text-white transition-colors"
-          style={{ top: DOT_Y - 7, right: showReset ? 120 : 56 }}
+          style={{ top: DOT_Y - 7, right: showReset ? 180 : 120 }}
         >
           {rightOutCount} more →
         </button>
@@ -647,9 +647,14 @@ export function TimelineBar({
             Reset
           </button>
         )}
-        {!showReset && visiblePoints.length > 0 && (
-          <span className="ml-1 text-[9px] font-mono text-[rgba(255,255,255,0.3)] pointer-events-none">
-            {isMobile ? '+/− to zoom · slide to pan' : 'scroll to zoom · drag to pan'}
+        {visiblePoints.length > 0 && (
+          <span className="ml-1 text-[9px] font-mono text-[rgba(255,255,255,0.35)] pointer-events-none whitespace-nowrap">
+            {formatYear(Math.round(viewRange[0]))} — {formatYear(Math.round(viewRange[1]))}
+            {!showReset && (
+              <span className="text-[rgba(255,255,255,0.25)]">
+                {isMobile ? ' · slide to explore' : ' · scroll to zoom'}
+              </span>
+            )}
           </span>
         )}
       </div>

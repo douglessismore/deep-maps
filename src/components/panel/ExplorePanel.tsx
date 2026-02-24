@@ -298,7 +298,7 @@ export function ExplorePanel({
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
-          Locations
+          Moments
           {viewportLocations.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportLocations.length})</span>
           )}
@@ -361,7 +361,7 @@ export function ExplorePanel({
         ) : activeTab === 'locations' ? (
           viewportLocations.length === 0 ? (
             <EmptyState
-              message="Pan or zoom the map to see story points in this area"
+              message="Pan or zoom the map to see moments in this area"
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
