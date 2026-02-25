@@ -29,6 +29,16 @@ const MIN_SPAN = 20;
 
 type DragState = 'none' | 'pan';
 
+const ERAS = [
+  { label: 'Origins', start: -25000, end: -3000 },
+  { label: 'Ancient', start: -3000, end: 500 },
+  { label: 'Medieval', start: 500, end: 1500 },
+  { label: 'Early Modern', start: 1500, end: 1800 },
+  { label: 'Industrial', start: 1800, end: 1914 },
+  { label: '20th Century', start: 1914, end: 2000 },
+  { label: 'Now', start: 2000, end: 2030 },
+] as const;
+
 export function TimelineBar({
   stories,
   categoryFilter,
@@ -52,8 +62,10 @@ export function TimelineBar({
   // ── Interaction flag: no filtering until user intentionally zooms/pans ──
   const hasInteractedRef = useRef(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [activeEra, setActiveEra] = useState<string | null>(null);
 
   const markInteracted = useCallback(() => {
+    setActiveEra(null); // Manual interaction clears era preset
     if (!hasInteractedRef.current) {
       hasInteractedRef.current = true;
       setHasInteracted(true);
@@ -281,6 +293,7 @@ export function TimelineBar({
 
   // ── Reset: back to initial view + clear filter ──
   const handleReset = useCallback(() => {
+    setActiveEra(null);
     hasInteractedRef.current = false;
     setHasInteracted(false);
     const range = [...initialRange] as [number, number];
@@ -288,6 +301,33 @@ export function TimelineBar({
     setViewRange(range);
     onViewRangeChange(null);
   }, [initialRange, onViewRangeChange]);
+
+  // ── Era quick-filter: snap to predefined time period ──
+  const handleEraClick = useCallback((era: typeof ERAS[number]) => {
+    if (activeEra === era.label) {
+      // Toggle off — reset to default
+      handleReset();
+      return;
+    }
+    // Set era view range (markInteracted clears activeEra, so set it after)
+    if (!hasInteractedRef.current) {
+      hasInteractedRef.current = true;
+      setHasInteracted(true);
+    }
+    setActiveEra(era.label);
+    setViewRangeBoth(clampViewRange(era.start, era.end));
+  }, [activeEra, handleReset, setViewRangeBoth, clampViewRange]);
+
+  // Story counts per era (for pill badges)
+  const eraStoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const era of ERAS) {
+      counts[era.label] = allPoints.filter(
+        (pt) => pt.startYear >= era.start && pt.startYear < era.end
+      ).length;
+    }
+    return counts;
+  }, [allPoints]);
 
   // ── Pointer handlers ──
   const getPointerX = (e: React.PointerEvent) => {
@@ -385,6 +425,7 @@ export function TimelineBar({
   const vpRightX = fullYearToX(viewRange[1]);
 
   return (
+    <>
     <div
       ref={containerRef}
       className="shrink-0 relative select-none"
@@ -659,6 +700,34 @@ export function TimelineBar({
         )}
       </div>
     </div>
+
+    {/* Era quick-filters — snap to predefined time periods */}
+    <div className="shrink-0 flex items-center gap-1 px-3 py-1 overflow-x-auto bg-[rgba(26,26,26,0.98)] border-b border-[rgba(255,255,255,0.08)]">
+      {ERAS.map((era) => {
+        const count = eraStoryCounts[era.label];
+        const isActive = activeEra === era.label;
+        return (
+          <button
+            key={era.label}
+            onClick={() => handleEraClick(era)}
+            disabled={count === 0}
+            className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-mono transition-colors whitespace-nowrap ${
+              isActive
+                ? 'bg-[rgba(234,179,8,0.25)] text-[rgba(234,179,8,0.9)] border border-[rgba(234,179,8,0.4)]'
+                : count === 0
+                ? 'text-[rgba(255,255,255,0.15)] cursor-default'
+                : 'text-[rgba(255,255,255,0.45)] hover:text-white bg-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.12)] border border-transparent'
+            }`}
+          >
+            {era.label}
+            {count > 0 && (
+              <span className="ml-1 text-[8px] opacity-50">({count})</span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+    </>
   );
 }
 

@@ -40,7 +40,7 @@ export function StoryPanel({
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
-  const [headerExpanded, setHeaderExpanded] = useState(true);
+  const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
   const lastScrollTopRef = useRef(0);
 
   const cat = CATEGORIES[story.category];
