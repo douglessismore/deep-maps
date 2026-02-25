@@ -41,6 +41,8 @@ export function StoryPanel({
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+  const headerExpandedRef = useRef(headerExpanded);
+  headerExpandedRef.current = headerExpanded;
   const lastScrollTopRef = useRef(0);
 
   const cat = CATEGORIES[story.category];
@@ -53,8 +55,12 @@ export function StoryPanel({
 
     const onScroll = () => {
       // Auto-collapse header on scroll down (manual tap to re-expand)
+      // When expanded: collapse on any downward scroll (5px threshold to avoid accidental)
+      // When collapsed: only collapse past 60px (prevents jitter near top)
       const scrollTop = container.scrollTop;
-      if (scrollTop > 60 && scrollTop > lastScrollTopRef.current) {
+      const isScrollingDown = scrollTop > lastScrollTopRef.current;
+      const threshold = headerExpandedRef.current ? 5 : 60;
+      if (isScrollingDown && scrollTop > threshold) {
         setHeaderExpanded(false);
       }
       lastScrollTopRef.current = scrollTop;
