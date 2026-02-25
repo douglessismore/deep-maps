@@ -41,9 +41,6 @@ export function StoryPanel({
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
-  const headerExpandedRef = useRef(headerExpanded);
-  headerExpandedRef.current = headerExpanded;
-  const lastScrollTopRef = useRef(0);
 
   const cat = CATEGORIES[story.category];
   const hasWiki = !!story.wikipediaSlug;
@@ -54,17 +51,6 @@ export function StoryPanel({
     if (!container) return;
 
     const onScroll = () => {
-      // Auto-collapse header on scroll down (manual tap to re-expand)
-      // When expanded: collapse on any downward scroll (5px threshold to avoid accidental)
-      // When collapsed: only collapse past 60px (prevents jitter near top)
-      const scrollTop = container.scrollTop;
-      const isScrollingDown = scrollTop > lastScrollTopRef.current;
-      const threshold = headerExpandedRef.current ? 5 : 60;
-      if (isScrollingDown && scrollTop > threshold) {
-        setHeaderExpanded(false);
-      }
-      lastScrollTopRef.current = scrollTop;
-
       isScrollDriving.current = true;
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = window.setTimeout(() => {
@@ -183,7 +169,7 @@ export function StoryPanel({
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      {/* Mobile breadcrumb — positioned near thumb for easy reach */}
+      {/* Mobile breadcrumb — stays fixed outside scroll */}
       {onBack && (
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
@@ -209,50 +195,83 @@ export function StoryPanel({
         </div>
       )}
 
-      {/* Story Header — ultra-compact on mobile, full on desktop */}
-      <div className="shrink-0 border-b border-[var(--border-subtle)]">
-        {/* Mobile: compact single-row header */}
-        <div className="lg:hidden">
-          <button
-            onClick={() => setHeaderExpanded(!headerExpanded)}
-            className="w-full flex items-center gap-2 px-4 py-2.5"
-          >
-            <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-            <h2 className="font-serif text-sm font-bold text-white truncate">
-              {story.name}
-            </h2>
-            <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
-            <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
-              headerExpanded
-                ? 'text-[var(--text-muted)]'
-                : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
-            }`}>
-              {headerExpanded ? 'Less' : 'More'}
-              <svg
-                width="10" height="10" viewBox="0 0 10 10" fill="none"
-                className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+      {/* Locations tab: single scroll container — header, explore further, moments all scroll together */}
+      {activeTab === 'locations' && (
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
+          {/* Story Header — scrolls with content */}
+          <div className="border-b border-[var(--border-subtle)]">
+            {/* Mobile: compact toggle header */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setHeaderExpanded(!headerExpanded)}
+                className="w-full flex items-center gap-2 px-4 py-2.5"
               >
-                <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </span>
-          </button>
+                <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                <h2 className="font-serif text-sm font-bold text-white truncate">
+                  {story.name}
+                </h2>
+                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
+                <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
+                  headerExpanded
+                    ? 'text-[var(--text-muted)]'
+                    : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
+                }`}>
+                  {headerExpanded ? 'Less' : 'More'}
+                  <svg
+                    width="10" height="10" viewBox="0 0 10 10" fill="none"
+                    className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+                  >
+                    <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+              </button>
 
-          {/* Expanded content — synopsis, tags (mobile only). Max height ensures moments peek below */}
-          {headerExpanded && (
-            <div className="px-4 pb-3 space-y-2 max-h-[35vh] overflow-y-auto">
-              {story.nickname && (
-                <p className="text-xs text-[var(--text-muted)] font-mono italic">{story.nickname}</p>
+              {/* Expanded content — flows naturally in scroll, no max-height constraint */}
+              {headerExpanded && (
+                <div className="px-4 pb-3 space-y-2">
+                  {story.nickname && (
+                    <p className="text-xs text-[var(--text-muted)] font-mono italic">{story.nickname}</p>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <CategoryBadge category={story.category} />
+                  </div>
+                  {story.contentWarning && (
+                    <ContentWarning warning={story.contentWarning} />
+                  )}
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                    {story.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {story.tags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+                      >
+                        #{tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               )}
-              <div className="flex items-center gap-2">
+            </div>
+
+            {/* Desktop: full header (always visible) */}
+            <div className="hidden lg:block p-4">
+              <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
+              <h2 className="font-serif text-xl font-bold text-white">{story.name}</h2>
+              {story.nickname && (
+                <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
+              )}
+              <div className="flex items-center gap-2 mt-3">
                 <CategoryBadge category={story.category} />
+                <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
               </div>
               {story.contentWarning && (
-                <ContentWarning warning={story.contentWarning} />
+                <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
               )}
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                {story.description}
-              </p>
-              <div className="flex flex-wrap gap-1">
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">{story.description}</p>
+              <div className="flex flex-wrap gap-1 mt-3">
                 {story.tags.map((tag) => (
                   <button
                     key={tag}
@@ -264,111 +283,79 @@ export function StoryPanel({
                 ))}
               </div>
             </div>
-          )}
-        </div>
-
-        {/* Desktop: full header (unchanged) */}
-        <div className="hidden lg:block p-4">
-          <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
-          <h2 className="font-serif text-xl font-bold text-white">{story.name}</h2>
-          {story.nickname && (
-            <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
-          )}
-          <div className="flex items-center gap-2 mt-3">
-            <CategoryBadge category={story.category} />
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
           </div>
-          {story.contentWarning && (
-            <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
+
+          {/* Explore Further — scrolls with content */}
+          {connectedEntries.length > 0 && (
+            <div className="border-b border-[var(--border-subtle)]">
+              <div className="px-4 pt-2 pb-1">
+                <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+                  Explore Further
+                </h3>
+              </div>
+              <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
+                {connectedEntries.map(({ story: s, reason }) => {
+                  const sCat = CATEGORIES[s.category];
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => onRelatedStoryClick(s)}
+                      className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
+                    >
+                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
+                      <div className="min-w-0 text-left">
+                        <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
+                        <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                          {s.locations.length} {s.locations.length === 1 ? 'moment' : 'moments'} · {s.years}
+                        </p>
+                      </div>
+                      <span className={`shrink-0 text-[8px] font-mono px-1.5 py-0.5 rounded-full ${
+                        reason === 'related'
+                          ? 'bg-[rgba(96,165,250,0.12)] text-blue-400'
+                          : 'bg-[rgba(234,179,8,0.12)] text-yellow-500'
+                      }`}>
+                        {reason === 'related' ? 'Related' : 'Nearby'}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           )}
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">{story.description}</p>
-          <div className="flex flex-wrap gap-1 mt-3">
-            {story.tags.map((tag) => (
+
+          {/* Tab bar — sticky so it stays accessible while scrolling moments */}
+          {hasWiki && (
+            <div className="sticky top-0 z-10 flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
               <button
-                key={tag}
-                onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
-                className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+                onClick={() => setActiveTab('locations')}
+                className={`flex-1 py-2 text-xs font-mono transition-colors ${
+                  activeTab === 'locations'
+                    ? 'text-white border-b-2'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                }`}
+                style={{
+                  borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
+                }}
               >
-                #{tag}
+                📍 Moments ({story.locations.length})
               </button>
-            ))}
-          </div>
-        </div>
-      </div>
+              <button
+                onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
+                className={`flex-1 py-2 text-xs font-mono transition-colors ${
+                  activeTab === 'wiki'
+                    ? 'text-white border-b-2'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                }`}
+                style={{
+                  borderBottomColor: activeTab === 'wiki' ? cat.color : 'transparent',
+                }}
+              >
+                📖 Wikipedia
+              </button>
+            </div>
+          )}
 
-      {/* Explore Further — story-to-story navigation with reason labels */}
-      {connectedEntries.length > 0 && (
-        <div className="shrink-0 border-b border-[var(--border-subtle)]">
-          <div className="px-4 pt-2 pb-1">
-            <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-              Explore Further
-            </h3>
-          </div>
-          <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
-            {connectedEntries.map(({ story: s, reason }) => {
-              const sCat = CATEGORIES[s.category];
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => onRelatedStoryClick(s)}
-                  className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
-                >
-                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
-                  <div className="min-w-0 text-left">
-                    <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
-                    <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                      {s.locations.length} {s.locations.length === 1 ? 'moment' : 'moments'} · {s.years}
-                    </p>
-                  </div>
-                  <span className={`shrink-0 text-[8px] font-mono px-1.5 py-0.5 rounded-full ${
-                    reason === 'related'
-                      ? 'bg-[rgba(96,165,250,0.12)] text-blue-400'
-                      : 'bg-[rgba(234,179,8,0.12)] text-yellow-500'
-                  }`}>
-                    {reason === 'related' ? 'Related' : 'Nearby'}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Tab bar — Locations | Wiki */}
-      {hasWiki && (
-        <div className="shrink-0 flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
-          <button
-            onClick={() => setActiveTab('locations')}
-            className={`flex-1 py-2 text-xs font-mono transition-colors ${
-              activeTab === 'locations'
-                ? 'text-white border-b-2'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-            }`}
-            style={{
-              borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
-            }}
-          >
-            📍 Moments ({story.locations.length})
-          </button>
-          <button
-            onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
-            className={`flex-1 py-2 text-xs font-mono transition-colors ${
-              activeTab === 'wiki'
-                ? 'text-white border-b-2'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-            }`}
-            style={{
-              borderBottomColor: activeTab === 'wiki' ? cat.color : 'transparent',
-            }}
-          >
-            📖 Wikipedia
-          </button>
-        </div>
-      )}
-
-      {/* Content: Locations tab */}
-      {activeTab === 'locations' && (
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
+          {/* Moments */}
           <div className="p-4">
             <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
               Moments ({story.locations.length})
@@ -398,14 +385,55 @@ export function StoryPanel({
         </div>
       )}
 
-      {/* Content: Wiki tab */}
+      {/* Wiki tab: separate layout — header stays fixed, wiki panel handles own scroll */}
       {activeTab === 'wiki' && (
-        <WikiPanel
-          story={story}
-          activeLocation={activeLocation}
-          onLocationSelect={onLocationSelect}
-          initialSection={wikiInitialSection}
-        />
+        <>
+          <div className="shrink-0 border-b border-[var(--border-subtle)]">
+            <div className="lg:hidden px-4 py-2.5">
+              <div className="flex items-center gap-2">
+                <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                <h2 className="font-serif text-sm font-bold text-white truncate">{story.name}</h2>
+              </div>
+            </div>
+            <div className="hidden lg:block px-4 py-3">
+              <h2 className="font-serif text-lg font-bold text-white">{story.name}</h2>
+            </div>
+          </div>
+          <div className="shrink-0 flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+            <button
+              onClick={() => setActiveTab('locations')}
+              className={`flex-1 py-2 text-xs font-mono transition-colors ${
+                activeTab === 'locations'
+                  ? 'text-white border-b-2'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              }`}
+              style={{
+                borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
+              }}
+            >
+              📍 Moments ({story.locations.length})
+            </button>
+            <button
+              onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
+              className={`flex-1 py-2 text-xs font-mono transition-colors ${
+                activeTab === 'wiki'
+                  ? 'text-white border-b-2'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              }`}
+              style={{
+                borderBottomColor: activeTab === 'wiki' ? cat.color : 'transparent',
+              }}
+            >
+              📖 Wikipedia
+            </button>
+          </div>
+          <WikiPanel
+            story={story}
+            activeLocation={activeLocation}
+            onLocationSelect={onLocationSelect}
+            initialSection={wikiInitialSection}
+          />
+        </>
       )}
     </div>
   );
