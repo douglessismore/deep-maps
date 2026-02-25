@@ -52,13 +52,10 @@ export function StoryPanel({
     if (!container) return;
 
     const onScroll = () => {
-      // Auto-collapse header on scroll down, expand on scroll to top
+      // Auto-collapse header on scroll down (manual tap to re-expand)
       const scrollTop = container.scrollTop;
       if (scrollTop > 60 && scrollTop > lastScrollTopRef.current) {
         setHeaderExpanded(false);
-      }
-      if (scrollTop < 20) {
-        setHeaderExpanded(true);
       }
       lastScrollTopRef.current = scrollTop;
 
@@ -219,15 +216,19 @@ export function StoryPanel({
               {story.name}
             </h2>
             <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
-            <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+            <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
+              headerExpanded
+                ? 'text-[var(--text-muted)]'
+                : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
+            }`}>
               {headerExpanded ? 'Less' : 'More'}
+              <svg
+                width="10" height="10" viewBox="0 0 10 10" fill="none"
+                className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+              >
+                <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </span>
-            <svg
-              width="10" height="10" viewBox="0 0 10 10" fill="none"
-              className={`shrink-0 text-[var(--text-muted)] transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
-            >
-              <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
           </button>
 
           {/* Expanded content — synopsis, tags (mobile only). Max height ensures moments peek below */}

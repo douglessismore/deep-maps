@@ -9,6 +9,7 @@ import { stories } from './data/stories';
 import { collections } from './data/collections';
 import { parseYears } from './lib/timeline';
 import type { Story, StoryLocation, StoryCategory, StoryCollection, InteractionMode } from './types';
+import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 
 type NavEntry = {
@@ -143,7 +144,18 @@ function App() {
     setActiveStory(null);
     setActiveLocation(null);
     setMode('explore');
-  }, [pushNav]);
+
+    // Zoom map to fit all collection story locations
+    if (mapInstance) {
+      const collectionStories = stories.filter(s => collection.storyIds.includes(s.id));
+      const coords = collectionStories.flatMap(s =>
+        s.locations.map(l => [l.lat, l.lng] as [number, number])
+      );
+      if (coords.length > 0) {
+        mapInstance.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+      }
+    }
+  }, [pushNav, mapInstance]);
 
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);
