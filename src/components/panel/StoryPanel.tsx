@@ -167,6 +167,39 @@ export function StoryPanel({
     setActiveTab('wiki');
   };
 
+  // Tab bar rendered as function to avoid TS control-flow narrowing issues
+  // (inside `activeTab === 'locations'` block, TS knows activeTab can't be 'wiki')
+  const renderTabBar = (sticky?: boolean) => (
+    <div className={`flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)] ${sticky ? 'sticky top-0 z-10' : ''}`}>
+      <button
+        onClick={() => setActiveTab('locations')}
+        className={`flex-1 py-2 text-xs font-mono transition-colors ${
+          activeTab === 'locations'
+            ? 'text-white border-b-2'
+            : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+        }`}
+        style={{
+          borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
+        }}
+      >
+        📍 Moments ({story.locations.length})
+      </button>
+      <button
+        onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
+        className={`flex-1 py-2 text-xs font-mono transition-colors ${
+          activeTab === 'wiki'
+            ? 'text-white border-b-2'
+            : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+        }`}
+        style={{
+          borderBottomColor: activeTab === 'wiki' ? cat.color : 'transparent',
+        }}
+      >
+        📖 Wikipedia
+      </button>
+    </div>
+  );
+
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Mobile breadcrumb — stays fixed outside scroll */}
@@ -324,36 +357,7 @@ export function StoryPanel({
           )}
 
           {/* Tab bar — sticky so it stays accessible while scrolling moments */}
-          {hasWiki && (
-            <div className="sticky top-0 z-10 flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
-              <button
-                onClick={() => setActiveTab('locations')}
-                className={`flex-1 py-2 text-xs font-mono transition-colors ${
-                  activeTab === 'locations'
-                    ? 'text-white border-b-2'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                }`}
-                style={{
-                  borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
-                }}
-              >
-                📍 Moments ({story.locations.length})
-              </button>
-              <button
-                onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
-                className={`flex-1 py-2 text-xs font-mono transition-colors ${
-                  activeTab === 'wiki'
-                    ? 'text-white border-b-2'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                }`}
-                style={{
-                  borderBottomColor: activeTab === 'wiki' ? cat.color : 'transparent',
-                }}
-              >
-                📖 Wikipedia
-              </button>
-            </div>
-          )}
+          {hasWiki && renderTabBar(true)}
 
           {/* Moments */}
           <div className="p-4">
@@ -399,33 +403,8 @@ export function StoryPanel({
               <h2 className="font-serif text-lg font-bold text-white">{story.name}</h2>
             </div>
           </div>
-          <div className="shrink-0 flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
-            <button
-              onClick={() => setActiveTab('locations')}
-              className={`flex-1 py-2 text-xs font-mono transition-colors ${
-                activeTab === 'locations'
-                  ? 'text-white border-b-2'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-              }`}
-              style={{
-                borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
-              }}
-            >
-              📍 Moments ({story.locations.length})
-            </button>
-            <button
-              onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
-              className={`flex-1 py-2 text-xs font-mono transition-colors ${
-                activeTab === 'wiki'
-                  ? 'text-white border-b-2'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-              }`}
-              style={{
-                borderBottomColor: activeTab === 'wiki' ? cat.color : 'transparent',
-              }}
-            >
-              📖 Wikipedia
-            </button>
+          <div className="shrink-0">
+            {renderTabBar()}
           </div>
           <WikiPanel
             story={story}
