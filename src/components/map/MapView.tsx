@@ -171,6 +171,40 @@ function MapController({
     map.flyTo([39.5, -98.5], 4, { duration: 1.5 });
   }, [resetViewKey, map]);
 
+  // Auto-zoom to user location on first load: show nearest ~20 moments
+  const hasAutoZoomed = useRef(false);
+  useEffect(() => {
+    if (hasAutoZoomed.current || !userLocation || mode !== 'explore') return;
+    hasAutoZoomed.current = true;
+
+    // Collect all moment coordinates
+    const allCoords = stories.flatMap(s =>
+      s.locations.map(l => ({
+        lat: l.lat,
+        lng: l.lng,
+        dist: Math.sqrt(
+          (l.lat - userLocation.lat) ** 2 + (l.lng - userLocation.lng) ** 2
+        ),
+      }))
+    );
+    allCoords.sort((a, b) => a.dist - b.dist);
+    const nearest = allCoords.slice(0, 20);
+
+    if (nearest.length > 0) {
+      const points: [number, number][] = [
+        [userLocation.lat, userLocation.lng],
+        ...nearest.map(c => [c.lat, c.lng] as [number, number]),
+      ];
+      map.flyToBounds(L.latLngBounds(points), {
+        padding: [40, 40],
+        maxZoom: 12,
+        duration: 1.5,
+      });
+    } else {
+      map.flyTo([userLocation.lat, userLocation.lng], 8, { duration: 1.5 });
+    }
+  }, [userLocation, stories, map, mode]);
+
   // User location marker (blue pulsing dot)
   const userMarkerRef = useRef<L.Marker | null>(null);
   useEffect(() => {

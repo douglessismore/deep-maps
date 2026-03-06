@@ -148,7 +148,7 @@ export function StoryPanel({
         for (const otherLoc of other.locations) {
           const dlat = loc.lat - otherLoc.lat;
           const dlng = loc.lng - otherLoc.lng;
-          if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.01) {
+          if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.002) {
             matches.push({ story: other, location: otherLoc });
             break;
           }

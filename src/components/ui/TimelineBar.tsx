@@ -701,32 +701,34 @@ export function TimelineBar({
       </div>
     </div>
 
-    {/* Era quick-filters — snap to predefined time periods */}
-    <div className="shrink-0 flex items-center gap-1 px-3 py-1 overflow-x-auto bg-[rgba(26,26,26,0.98)] border-b border-[rgba(255,255,255,0.08)]">
-      {ERAS.map((era) => {
-        const count = eraStoryCounts[era.label];
-        const isActive = activeEra === era.label;
-        return (
-          <button
-            key={era.label}
-            onClick={() => handleEraClick(era)}
-            disabled={count === 0}
-            className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-mono transition-colors whitespace-nowrap ${
-              isActive
-                ? 'bg-[rgba(234,179,8,0.25)] text-[rgba(234,179,8,0.9)] border border-[rgba(234,179,8,0.4)]'
-                : count === 0
-                ? 'text-[rgba(255,255,255,0.15)] cursor-default'
-                : 'text-[rgba(255,255,255,0.45)] hover:text-white bg-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.12)] border border-transparent'
-            }`}
-          >
-            {era.label}
-            {count > 0 && (
-              <span className="ml-1 text-[8px] opacity-50">({count})</span>
-            )}
-          </button>
-        );
-      })}
-    </div>
+    {/* Era quick-filters — hidden on mobile to save vertical space */}
+    {!isMobile && (
+      <div className="shrink-0 flex items-center gap-1 px-3 py-1 overflow-x-auto bg-[rgba(26,26,26,0.98)] border-b border-[rgba(255,255,255,0.08)]">
+        {ERAS.map((era) => {
+          const count = eraStoryCounts[era.label];
+          const isActive = activeEra === era.label;
+          return (
+            <button
+              key={era.label}
+              onClick={() => handleEraClick(era)}
+              disabled={count === 0}
+              className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-mono transition-colors whitespace-nowrap ${
+                isActive
+                  ? 'bg-[rgba(234,179,8,0.25)] text-[rgba(234,179,8,0.9)] border border-[rgba(234,179,8,0.4)]'
+                  : count === 0
+                  ? 'text-[rgba(255,255,255,0.15)] cursor-default'
+                  : 'text-[rgba(255,255,255,0.45)] hover:text-white bg-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.12)] border border-transparent'
+              }`}
+            >
+              {era.label}
+              {count > 0 && (
+                <span className="ml-1 text-[8px] opacity-50">({count})</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    )}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { Route, Switch } from 'wouter';
 import { MapView } from './components/map/MapView';
 import { ExplorePanel } from './components/panel/ExplorePanel';
@@ -35,6 +35,25 @@ function App() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [geoLoading, setGeoLoading] = useState(false);
+  const autoGeoRequested = useRef(false);
+
+  // Auto-request geolocation on first load
+  useEffect(() => {
+    if (autoGeoRequested.current || !navigator.geolocation) return;
+    autoGeoRequested.current = true;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      () => {
+        // Silently fail — user denied or timed out, fall back to default view
+      },
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+    );
+  }, []);
 
   // When a collection is active, filter stories to only those in the collection
   const displayStories = useMemo(() => {
