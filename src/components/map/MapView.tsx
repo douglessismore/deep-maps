@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import type { Story, StoryLocation, StoryCategory, InteractionMode, TileStyle } from '../../types';
@@ -31,6 +31,8 @@ interface MapViewProps {
   onLocationClick: (location: StoryLocation, story: Story) => void;
   onStoryClick: (story: Story) => void;
   userLocation?: { lat: number; lng: number } | null;
+  nearMeZoomKey?: number;
+  restoreView?: { center: [number, number]; zoom: number } | null;
 }
 
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean): L.DivIcon {
@@ -57,6 +59,8 @@ function MapController({
   onMapReady,
   onLocationClick,
   userLocation,
+  nearMeZoomKey,
+  restoreView,
 }: MapViewProps) {
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
@@ -171,20 +175,13 @@ function MapController({
     map.flyTo([39.5, -98.5], 4, { duration: 1.5 });
   }, [resetViewKey, map]);
 
-  // Auto-zoom to user location on first load: show nearest ~20 moments
-  const hasAutoZoomed = useRef(false);
-  useEffect(() => {
-    if (hasAutoZoomed.current || !userLocation || mode !== 'explore') return;
-    hasAutoZoomed.current = true;
-
-    // Collect all moment coordinates
+  // Zoom to nearest ~20 moments around user location
+  const zoomToNearestMoments = useCallback((loc: { lat: number; lng: number }) => {
     const allCoords = stories.flatMap(s =>
       s.locations.map(l => ({
         lat: l.lat,
         lng: l.lng,
-        dist: Math.sqrt(
-          (l.lat - userLocation.lat) ** 2 + (l.lng - userLocation.lng) ** 2
-        ),
+        dist: Math.sqrt((l.lat - loc.lat) ** 2 + (l.lng - loc.lng) ** 2),
       }))
     );
     allCoords.sort((a, b) => a.dist - b.dist);
@@ -192,7 +189,7 @@ function MapController({
 
     if (nearest.length > 0) {
       const points: [number, number][] = [
-        [userLocation.lat, userLocation.lng],
+        [loc.lat, loc.lng],
         ...nearest.map(c => [c.lat, c.lng] as [number, number]),
       ];
       map.flyToBounds(L.latLngBounds(points), {
@@ -201,9 +198,35 @@ function MapController({
         duration: 1.5,
       });
     } else {
-      map.flyTo([userLocation.lat, userLocation.lng], 8, { duration: 1.5 });
+      map.flyTo([loc.lat, loc.lng], 8, { duration: 1.5 });
     }
-  }, [userLocation, stories, map, mode]);
+  }, [stories, map]);
+
+  // Auto-zoom to user location on first load
+  const hasAutoZoomed = useRef(false);
+  useEffect(() => {
+    if (hasAutoZoomed.current || !userLocation || mode !== 'explore') return;
+    hasAutoZoomed.current = true;
+    zoomToNearestMoments(userLocation);
+  }, [userLocation, mode, zoomToNearestMoments]);
+
+  // Near Me button: zoom to nearest 20 on every click (key increments)
+  const prevNearMeKey = useRef(nearMeZoomKey);
+  useEffect(() => {
+    if (nearMeZoomKey === prevNearMeKey.current) return;
+    prevNearMeKey.current = nearMeZoomKey;
+    if (userLocation) {
+      zoomToNearestMoments(userLocation);
+    }
+  }, [nearMeZoomKey, userLocation, zoomToNearestMoments]);
+
+  // Restore map view when navigating back (instead of resetting to US center)
+  const prevRestoreView = useRef(restoreView);
+  useEffect(() => {
+    if (restoreView === prevRestoreView.current || !restoreView) return;
+    prevRestoreView.current = restoreView;
+    map.flyTo(restoreView.center, restoreView.zoom, { duration: 1.2 });
+  }, [restoreView, map]);
 
   // User location marker (blue pulsing dot)
   const userMarkerRef = useRef<L.Marker | null>(null);

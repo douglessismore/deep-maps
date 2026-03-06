@@ -12,12 +12,15 @@ import type { Story, StoryLocation, StoryCategory, StoryCollection, InteractionM
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 
+type SavedMapView = { center: [number, number]; zoom: number };
+
 type NavEntry = {
   mode: InteractionMode;
   activeStory: Story | null;
   activeLocation: StoryLocation | null;
   activeCollection: StoryCollection | null;
   categoryFilter: StoryCategory | null;
+  savedMapView?: SavedMapView;
 };
 
 function App() {
@@ -35,6 +38,8 @@ function App() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [geoLoading, setGeoLoading] = useState(false);
+  const [nearMeZoomKey, setNearMeZoomKey] = useState(0);
+  const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
   const autoGeoRequested = useRef(false);
 
   // Auto-request geolocation on first load
@@ -51,7 +56,7 @@ function App() {
       () => {
         // Silently fail — user denied or timed out, fall back to default view
       },
-      { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+      { enableHighAccuracy: false, timeout: 30000, maximumAge: 300000 }
     );
   }, []);
 
@@ -80,12 +85,15 @@ function App() {
 
   // Push current state onto navigation history before changing
   const pushNav = useCallback(() => {
+    const savedMapView: SavedMapView | undefined = mapInstance
+      ? { center: [mapInstance.getCenter().lat, mapInstance.getCenter().lng], zoom: mapInstance.getZoom() }
+      : undefined;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeCollection, categoryFilter };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeCollection, categoryFilter, savedMapView };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
-  }, [mode, activeStory, activeLocation, activeCollection, categoryFilter]);
+  }, [mode, activeStory, activeLocation, activeCollection, categoryFilter, mapInstance]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -139,7 +147,12 @@ function App() {
       setActiveCollection(entry.activeCollection);
       setCategoryFilter(entry.categoryFilter);
       if (!entry.activeStory) {
-        setResetViewKey((k) => k + 1);
+        // Restore saved map view if available, otherwise reset to US center
+        if (entry.savedMapView) {
+          setRestoreView(entry.savedMapView);
+        } else {
+          setResetViewKey((k) => k + 1);
+        }
       }
       return next;
     });
@@ -213,6 +226,7 @@ function App() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
+        setNearMeZoomKey((k) => k + 1);
         setGeoLoading(false);
         setGeoError(null);
       },
@@ -301,6 +315,8 @@ function App() {
             onLocationClick={handleLocationSelect}
             onStoryClick={handleStorySelect}
             userLocation={userLocation}
+            nearMeZoomKey={nearMeZoomKey}
+            restoreView={restoreView}
           />
         </div>
 

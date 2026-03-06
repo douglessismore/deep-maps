@@ -64,6 +64,17 @@ export function ExplorePanel({
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
 
+  // Compact cards on mobile to show more stories below the map
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < 640
+  );
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 639px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -400,6 +411,7 @@ export function ExplorePanel({
               <StoryCard
                 story={story}
                 onClick={onStorySelect}
+                compact={isMobile}
                 distanceMi={
                   userLocation
                     ? nearestDistance(story, userLocation.lat, userLocation.lng)

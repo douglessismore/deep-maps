@@ -36,6 +36,7 @@ export function StoryPanel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const locationRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const isScrollDriving = useRef(false);
+  const isProgrammaticScroll = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
@@ -51,6 +52,9 @@ export function StoryPanel({
     if (!container) return;
 
     const onScroll = () => {
+      // Skip if this scroll was triggered by our own scrollIntoView correction
+      if (isProgrammaticScroll.current) return;
+
       isScrollDriving.current = true;
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = window.setTimeout(() => {
@@ -99,6 +103,7 @@ export function StoryPanel({
 
   // Scroll correction: when the active card changes, the collapsing card above shifts content up.
   // If the newly active card's title gets pushed above the scroll container, nudge it back into view.
+  // Uses 'instant' behavior + a guard ref to prevent feedback loops with the scroll handler.
   useEffect(() => {
     if (!scrollActiveId) return;
     const el = locationRefs.current.get(scrollActiveId);
@@ -108,7 +113,12 @@ export function StoryPanel({
         const elRect = el.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
         if (elRect.top < containerRect.top) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          isProgrammaticScroll.current = true;
+          el.scrollIntoView({ behavior: 'instant', block: 'start' });
+          // Clear the guard after a frame so user scrolling resumes normally
+          requestAnimationFrame(() => {
+            isProgrammaticScroll.current = false;
+          });
         }
       });
     }
