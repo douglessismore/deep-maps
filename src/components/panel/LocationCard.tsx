@@ -17,12 +17,14 @@ interface LocationCardProps {
   showStoryName?: boolean;
   index?: number;
   onWikiJump?: (section?: string) => void;
+  narrativeGlue?: string;
+  alsoInStories?: Story[];
   intersectingStories?: Array<{ story: Story; location: Moment }>;
   onStoryClick?: (story: Story) => void;
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
-  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, intersectingStories, onStoryClick }, ref) {
+  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, intersectingStories, onStoryClick }, ref) {
     const cat = CATEGORIES[story.category];
 
     return (
@@ -91,6 +93,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         {/* Description (collapsed when not active) */}
         {isActive && (
           <div className="mt-3 space-y-3">
+            {narrativeGlue && (
+              <p className="text-sm italic text-[var(--text-secondary)] leading-relaxed mb-2">
+                {narrativeGlue}
+              </p>
+            )}
             <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
               {location.description}
             </p>
@@ -134,14 +141,14 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </svg>
               </button>
             )}
-            {/* Location-level connected stories — other stories at this same place */}
-            {intersectingStories && intersectingStories.length > 0 && onStoryClick && (
+            {/* Also In — same moment in different stories */}
+            {alsoInStories && alsoInStories.length > 0 && onStoryClick && (
               <div className="pt-2 border-t border-[var(--border-subtle)]">
                 <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                  Also Here
+                  Also In
                 </p>
                 <div className="space-y-1">
-                  {intersectingStories.map(({ story: otherStory }) => {
+                  {alsoInStories.map((otherStory) => {
                     const otherCat = CATEGORIES[otherStory.category];
                     return (
                       <button
@@ -165,6 +172,45 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                       </button>
                     );
                   })}
+                </div>
+              </div>
+            )}
+            {/* Location-level connected stories — other stories at this same place */}
+            {intersectingStories && intersectingStories.length > 0 && onStoryClick && (
+              <div className="pt-2 border-t border-[var(--border-subtle)]">
+                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                  Also Here
+                </p>
+                <div className="space-y-1">
+                  {intersectingStories.slice(0, 5).map(({ story: otherStory }) => {
+                    const otherCat = CATEGORIES[otherStory.category];
+                    return (
+                      <button
+                        key={otherStory.id}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onStoryClick(otherStory);
+                        }}
+                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all group text-left"
+                      >
+                        <span
+                          className="w-2 h-2 rounded-full shrink-0"
+                          style={{ backgroundColor: otherCat.color }}
+                        />
+                        <span className="text-xs font-serif font-semibold text-[var(--text-secondary)] group-hover:text-white transition-colors truncate">
+                          {otherStory.name}
+                        </span>
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 ml-auto text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                          <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                    );
+                  })}
+                  {intersectingStories.length > 5 && (
+                    <p className="text-[10px] font-mono text-[var(--text-muted)] pl-2">
+                      and {intersectingStories.length - 5} more
+                    </p>
+                  )}
                 </div>
               </div>
             )}

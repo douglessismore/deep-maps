@@ -211,7 +211,7 @@ function App() {
   }, []);
 
   const handleTagClick = useCallback((tag: string) => {
-    setSearchQuery(tag);
+    setSearchQuery(`#${tag}`);
     setActiveStory(null);
     setActiveLocation(null);
     setMode('explore');

@@ -167,7 +167,7 @@ export function StoryPanel({
         for (const otherLoc of otherLocs) {
           const dlat = loc.lat - otherLoc.lat;
           const dlng = loc.lng - otherLoc.lng;
-          if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.002) {
+          if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.0008) {
             matches.push({ story: other, location: otherLoc });
             break;
           }
@@ -176,6 +176,23 @@ export function StoryPanel({
       if (matches.length > 0) result.set(loc.id, matches);
     }
     return result;
+  }, [story, allStories]);
+
+  // Cross-story moment map: for each momentId in this story, which OTHER stories also reference it?
+  const momentStoryMap = useMemo(() => {
+    const map = new Map<string, Story[]>();
+    const storyMomentIds = new Set(story.moments.map((sm) => sm.momentId));
+    for (const other of allStories) {
+      if (other.id === story.id) continue;
+      for (const sm of other.moments) {
+        if (storyMomentIds.has(sm.momentId)) {
+          const list = map.get(sm.momentId) || [];
+          list.push(other);
+          map.set(sm.momentId, list);
+        }
+      }
+    }
+    return map;
   }, [story, allStories]);
 
   const currentActiveId = activeLocation?.id || scrollActiveId;
@@ -286,6 +303,11 @@ export function StoryPanel({
                   )}
                   <div className="flex items-center gap-2">
                     <CategoryBadge category={story.category} />
+                    {story.storyType && story.storyType !== 'incident' && (
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
+                        {story.storyType}
+                      </span>
+                    )}
                   </div>
                   {story.contentWarning && (
                     <ContentWarning warning={story.contentWarning} />
@@ -317,6 +339,11 @@ export function StoryPanel({
               )}
               <div className="flex items-center gap-2 mt-3">
                 <CategoryBadge category={story.category} />
+                {story.storyType && story.storyType !== 'incident' && (
+                  <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
+                    {story.storyType}
+                  </span>
+                )}
                 <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
               </div>
               {story.contentWarning && (
@@ -384,23 +411,28 @@ export function StoryPanel({
               Moments ({story.moments.length})
             </h3>
             <div className="space-y-2">
-              {resolveLocationsFromMap(story, momentMap).map((location, i) => (
-                <LocationCard
-                  key={location.id}
-                  ref={(el) => {
-                    if (el) locationRefs.current.set(location.id, el);
-                    else locationRefs.current.delete(location.id);
-                  }}
-                  location={location}
-                  story={story}
-                  isActive={currentActiveId === location.id}
-                  onClick={onLocationSelect}
-                  index={i}
-                  onWikiJump={hasWiki ? handleWikiJump : undefined}
-                  intersectingStories={locationIntersections.get(location.id)}
-                  onStoryClick={onRelatedStoryClick}
-                />
-              ))}
+              {resolveLocationsFromMap(story, momentMap).map((location, i) => {
+                const storyMoment = story.moments.find((sm) => sm.momentId === location.id);
+                return (
+                  <LocationCard
+                    key={location.id}
+                    ref={(el) => {
+                      if (el) locationRefs.current.set(location.id, el);
+                      else locationRefs.current.delete(location.id);
+                    }}
+                    location={location}
+                    story={story}
+                    isActive={currentActiveId === location.id}
+                    onClick={onLocationSelect}
+                    index={i}
+                    onWikiJump={hasWiki ? handleWikiJump : undefined}
+                    narrativeGlue={storyMoment?.narrativeGlue}
+                    alsoInStories={momentStoryMap.get(location.id)}
+                    intersectingStories={locationIntersections.get(location.id)}
+                    onStoryClick={onRelatedStoryClick}
+                  />
+                );
+              })}
             </div>
           </div>
 

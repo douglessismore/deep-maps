@@ -51,7 +51,14 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
 
           {/* Footer */}
           <div className="flex items-center justify-between mt-3 gap-2">
-            <CategoryBadge category={story.category} />
+            <div className="flex items-center gap-2">
+              <CategoryBadge category={story.category} />
+              {story.storyType && story.storyType !== 'incident' && (
+                <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
+                  {story.storyType}
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-2">
               {typeof distanceMi === 'number' && (
                 <span className="text-[10px] text-blue-400 font-mono">

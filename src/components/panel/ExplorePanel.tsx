@@ -105,15 +105,22 @@ export function ExplorePanel({
       result = result.filter((s) => s.category === categoryFilter);
     }
     if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (s) =>
-          s.name.toLowerCase().includes(q) ||
-          s.nickname?.toLowerCase().includes(q) ||
-          s.description.toLowerCase().includes(q) ||
-          s.tags.some((t) => t.includes(q)) ||
-          resolveLocationsFromMap(s, momentMap).some((l) => l.name.toLowerCase().includes(q))
-      );
+      const raw = searchQuery.trim();
+      if (raw.startsWith('#')) {
+        // Exact tag match — "#janis-joplin" matches tag "janis-joplin"
+        const tagQuery = raw.slice(1).toLowerCase();
+        result = result.filter((s) => s.tags.some((t) => t === tagQuery));
+      } else {
+        const q = raw.toLowerCase();
+        result = result.filter(
+          (s) =>
+            s.name.toLowerCase().includes(q) ||
+            s.nickname?.toLowerCase().includes(q) ||
+            s.description.toLowerCase().includes(q) ||
+            s.tags.some((t) => t.includes(q)) ||
+            resolveLocationsFromMap(s, momentMap).some((l) => l.name.toLowerCase().includes(q))
+        );
+      }
     }
     return result;
   }, [stories, searchQuery, categoryFilter]);
