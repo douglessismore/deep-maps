@@ -1,0 +1,452 @@
+[
+  {
+    "id": "tlatelolco-church-sanctuary",
+    "currentName": "Santiago Tlatelolco Church",
+    "currentSubtitle": "Where the wounded were dragged across Aztec stones",
+    "currentDescription": "Protesters tried to flee into the colonial-era church, but the doors were locked. The blood of the students pooled on the same ground where the Aztec empire made its final stand against Cortés in 1521. For decades, the government claimed only 20-30 died; eye-witnesses and later investigations suggest the toll was in the hundreds.",
+    "year": 1968,
+    "type": "religious_site",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "tlatelolco-massacre-1968",
+        "name": "The Night of Tlatelolco"
+      }
+    ]
+  },
+  {
+    "id": "annihilator-mollie-smith",
+    "currentName": "Murder of Mollie Smith",
+    "currentSubtitle": "The first blood drawn on New Year's Eve",
+    "currentDescription": "On December 30, 1884, a servant named Mollie Smith was dragged from her bed and murdered with an axe in the backyard of the Hallie Powell home. The crime occurred near the current site of the Scoot Inn. This was the first of eight brutal murders that would paralyze the city for a year, with the killer eventually striking multiple times in a single night.",
+    "year": 1884,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "servant-girl-annihilator",
+        "name": "The Servant Girl Annihilator"
+      }
+    ]
+  },
+  {
+    "id": "annihilator-christmas-massacre",
+    "currentName": "The Christmas Eve Double Murder",
+    "currentSubtitle": "The panic peaks as two wealthy women are targeted",
+    "currentDescription": "On Christmas Eve 1885, the killer struck two separate households within an hour. Susan Hancock and Eula Phillips were both killed in their homes near the downtown core. These were the first white victims, and the public outcry forced the city to take drastic measures, including hiring the Pinkerton Detective Agency and lighting the entire city with \"artificial moonlight.\"",
+    "year": 1885,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "servant-girl-annihilator",
+        "name": "The Servant Girl Annihilator"
+      }
+    ]
+  },
+  {
+    "id": "annihilator-moonlight-tower",
+    "currentName": "The Moonlight Tower",
+    "currentSubtitle": "A solution born of terror",
+    "currentDescription": "In 1894, the city purchased 31 165-foot towers to illuminate the streets and deny the \"Annihilator\" the cover of darkness. While the murders had stopped years earlier, the trauma remained. Austin is now the only city in the world that still operates these towers, a haunting architectural legacy of a 19th-century serial killer.",
+    "year": 1894,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "servant-girl-annihilator",
+        "name": "The Servant Girl Annihilator"
+      }
+    ]
+  },
+  {
+    "id": "annihilator-eliza-shelley",
+    "currentName": "The Murder of Eliza Shelley",
+    "currentSubtitle": "The second victim proves a pattern of madness",
+    "currentDescription": "On May 7, 1885, the peace of a quiet Austin spring was shattered when Eliza Shelley, a Black cook, was found brutally murdered in her cabin behind the Hancock house. She had been struck with an axe, her face mutilated with chilling precision. While the earlier murder of Mollie Smith had been dismissed by many as an isolated domestic tragedy, Shelley's death sent a wave of terror through the city. It was the moment Austin realized it wasn't dealing with a common criminal, but a predator stalking the night.",
+    "year": 1885,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "servant-girl-annihilator",
+        "name": "The Servant Girl Annihilator"
+      }
+    ]
+  },
+  {
+    "id": "annihilator-o-henry-letter",
+    "currentName": "O. Henry Names the Killer",
+    "currentSubtitle": "A literary legend coins a terrifying moniker",
+    "currentDescription": "Living just blocks from the scenes of the carnage, a young bank clerk named William Sydney Porter—later the world-famous author O. Henry—watched the city descend into hysteria. In a letter to his friend Dave Hall dated May 10, 1885, he wrote: \"Town is fearfully dull... except for the frequent raids of the Servant Girl Annihilators who make things lively in the dull hours of the night.\" This offhand remark in a private letter gave birth to one of America's first true serial killer nicknames.",
+    "year": 1885,
+    "type": "historic_home",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "servant-girl-annihilator",
+        "name": "The Servant Girl Annihilator"
+      }
+    ]
+  },
+  {
+    "id": "annihilator-gracie-vance",
+    "currentName": "The Attack on Gracie Vance",
+    "currentSubtitle": "A community in exile from its own streets",
+    "currentDescription": "On the night of August 30, 1885, the killer's boldness reached a new peak. Gracie Vance was murdered with an axe while her companion, Orange Washington, was also viciously attacked. By this point, the African American community was in a state of total siege; businesses closed at sunset, and groups of armed men patrolled the neighborhoods. The failure of the police to make an arrest led to accusations of systemic neglect, and many Black residents abandoned their homes in Austin entirely.",
+    "year": 1885,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "servant-girl-annihilator",
+        "name": "The Servant Girl Annihilator"
+      }
+    ]
+  },
+  {
+    "id": "archive-war-land-office",
+    "currentName": "The General Land Office",
+    "currentSubtitle": "Where the \"secret\" move began in the dead of night",
+    "currentDescription": "Under orders from President Sam Houston, a team of men arrived at the Land Office to load the Republic's archives into wagons. Houston believed Austin was too vulnerable to Mexican attack and wanted the records moved to the city of Houston. The local residents, who saw the archives as the soul of the city, were prepared to fight to keep them.",
+    "year": 1842,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "archive-war-1842",
+        "name": "The Archive War of 1842"
+      }
+    ]
+  },
+  {
+    "id": "archive-war-cannon-site",
+    "currentName": "Eberly's Cannon",
+    "currentSubtitle": "A single shot that saved the capital",
+    "currentDescription": "Angelina Eberly, an innkeeper at 6th and Congress, spotted the wagons leaving. She rushed to a six-pound cannon parked in the middle of Congress Avenue—kept there for defense against Native American raids—and fired it at the Land Office. The shot hit the building and alerted the town, who chased the wagons down and retrieved the archives at gunpoint.",
+    "year": 1842,
+    "type": "battlefield",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "archive-war-1842",
+        "name": "The Archive War of 1842"
+      }
+    ]
+  },
+  {
+    "id": "janis-ut-campus",
+    "currentName": "University of Texas Campus",
+    "currentSubtitle": "Voted \"Ugliest Man\" by a fraternity prank",
+    "currentDescription": "In 1962, a fraternity at UT Austin nominated Joplin for the \"Ugliest Man on Campus\" contest. The incident was a deeply public humiliation that friends say haunted her for the rest of her life. She was often seen carrying her autoharp across the Main Mall, singing for anyone who would listen.",
+    "year": 1962,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "janis-joplin-austin",
+        "name": "Janis Joplin's Austin Years"
+      }
+    ]
+  },
+  {
+    "id": "janis-threadgills",
+    "currentName": "Threadgill's",
+    "currentSubtitle": "The first female rock and roll superstar's first stage",
+    "currentDescription": "Joplin developed her signature sound at Kenneth Threadgill's converted Gulf gas station. Threadgill, who held Austin's first beer license after Prohibition, hosted \"hootenannies\" where Joplin would sing for a pitcher of beer. Her performances here became the stuff of local legend before she moved to San Francisco in 1963.",
+    "year": 1963,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "janis-joplin-austin",
+        "name": "Janis Joplin's Austin Years"
+      }
+    ]
+  },
+  {
+    "id": "janis-pink-palace",
+    "currentName": "The Pink Palace",
+    "currentSubtitle": "The \"Ghetto Mansion\" of the 60s counterculture",
+    "currentDescription": "During her time in Austin, Joplin lived at a rooming house known as the \"Pink Palace\" or the \"Ghetto Mansion.\" It was a hub for the local folk and blues scene, where musicians lived in squalor but constant creative collaboration. The building was a Victorian house that has since been a central point of Austin music pilgrimages.",
+    "year": 1962,
+    "type": "residence",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "janis-joplin-austin",
+        "name": "Janis Joplin's Austin Years"
+      }
+    ]
+  },
+  {
+    "id": "armadillo-wooldridge-poster",
+    "currentName": "Wooldridge Square Benefit",
+    "currentSubtitle": "Where the Armadillo logo was born",
+    "currentDescription": "Local musicians held a benefit at Wooldridge Square to raise money for a new venue. Artist Jim Franklin designed a poster featuring an armadillo, which became the instantly recognizable mascot for the city's counter-culture. This event inspired Eddie Wilson to name his new venue \"The Armadillo World Headquarters.\"",
+    "year": 1968,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "armadillo-world-hq",
+        "name": "Armadillo World Headquarters"
+      }
+    ]
+  },
+  {
+    "id": "armadillo-venue-site",
+    "currentName": "The Armadillo Venue",
+    "currentSubtitle": "Where hippies and rednecks finally got along",
+    "currentDescription": "Opened in 1970 in an old armory, the venue became a cultural phenomenon. It was the only place where you could see Frank Zappa, AC/DC, and Willie Nelson in the same room. The venue's closure in 1980 to make way for a high-rise office building is often cited as the moment \"Old Austin\" began its slow decline into commercialization.",
+    "year": 1970,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "armadillo-world-hq",
+        "name": "Armadillo World Headquarters"
+      }
+    ]
+  },
+  {
+    "id": "armadillo-willie-1972",
+    "currentName": "Willie Nelson's 1972 Performance",
+    "currentSubtitle": "The night the \"Cosmic Cowboy\" was born",
+    "currentDescription": "On August 12, 1972, Willie Nelson stepped onto the stage at the Armadillo World Headquarters and changed the trajectory of American music. Before this night, country music and rock and roll were on opposite sides of a cultural war. Willie, having fled the rigid hierarchies of Nashville, appeared with long hair and a beat-up guitar, bridging the gap between conservative cowboys and hippie counterculture. For the first time, rednecks and longhairs shared the same dance floor, giving birth to the \"cosmic cowboy\" movement.",
+    "year": 1972,
+    "type": "cultural_venue",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "armadillo-world-hq",
+        "name": "Armadillo World Headquarters"
+      }
+    ]
+  },
+  {
+    "id": "armadillo-final-concert",
+    "currentName": "The Final Concert & Demolition",
+    "currentSubtitle": "The end of an era on New Year's Eve",
+    "currentDescription": "On New Year's Eve 1980, the Armadillo World Headquarters held its last show. Asleep at the Wheel and Commander Cody played until the sun rose, as a crowd of thousands mourned the loss of the city's cultural heart. The building, a former National Guard armory, was demolished in 1981 to make way for a high-rise office tower. Its closure signaled the beginning of Austin's transition from a sleepy college town to a commercialized tech hub.",
+    "year": 1980,
+    "type": "cultural_venue",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "armadillo-world-hq",
+        "name": "Armadillo World Headquarters"
+      }
+    ]
+  },
+  {
+    "id": "treaty-oak-site",
+    "currentName": "Treaty Oak Park",
+    "currentSubtitle": "A lethal dose of Velpar under the moon",
+    "currentDescription": "In early 1989, Paul Cullen poured enough herbicide around the base of the Treaty Oak to kill 100 trees. He later claimed he was performing a magic ritual to protect a woman he loved. The tree, which had survived 500 years of floods and fires, began to die, prompting a massive rescue effort involving giant sunscreens and filtered water.",
+    "year": 1989,
+    "type": "natural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "treaty-oak-poisoning",
+        "name": "The Poisoning of Treaty Oak"
+      }
+    ]
+  },
+  {
+    "id": "treaty-oak-lab",
+    "currentName": "Texas A&M Forestry Lab",
+    "currentSubtitle": "Forensic evidence of a dendrological murder",
+    "currentDescription": "Samples from the tree were rushed to laboratories where the chemical Velpar was identified. The concentration was so high it was described as an \"execution.\" Cullen was eventually arrested after boasting about the act in a local bookstore. He was sentenced to nine years in prison for criminal mischief.",
+    "year": 1989,
+    "type": "institution",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "treaty-oak-poisoning",
+        "name": "The Poisoning of Treaty Oak"
+      }
+    ]
+  },
+  {
+    "id": "plan-city-hall",
+    "currentName": "Old City Hall",
+    "currentSubtitle": "Where the 1928 Master Plan was codified into law",
+    "currentDescription": "The Austin City Council formally adopted the plan created by Koch & Fowler, which recommended the creation of a 'Negro District.' By concentrating all schools and services for Black residents in East Austin, the city found a way to enforce segregation without technically passing illegal racial zoning laws.",
+    "year": 1928,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "austin-1928-plan",
+        "name": "The 1928 Master Plan"
+      }
+    ]
+  },
+  {
+    "id": "plan-east-avenue",
+    "currentName": "East Avenue Boundary",
+    "currentSubtitle": "The physical line where the city cut off services",
+    "currentDescription": "East Avenue (now I-35) became the hard border for the new district. Families who refused to move East found their water and electricity disconnected by the city. This forced migration was designed to empty thriving communities like Wheatville and Clarksville to make way for white development.",
+    "year": 1928,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "austin-1928-plan",
+        "name": "The 1928 Master Plan"
+      }
+    ]
+  },
+  {
+    "id": "plan-wheatville-school",
+    "currentName": "Wheatville School",
+    "currentSubtitle": "The closure of a community anchor",
+    "currentDescription": "To force the migration, the city closed the Wheatville School, the primary educational center for Black families in West Austin. With no local school and no municipal services, the residents were left with no choice but to abandon their property and move to the designated district.",
+    "year": 1928,
+    "type": "cultural_site",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "austin-1928-plan",
+        "name": "The 1928 Master Plan"
+      }
+    ]
+  },
+  {
+    "id": "btw-capitol-refusal",
+    "currentName": "Texas State Capitol",
+    "currentSubtitle": "The site of the official refusal by Governor Colquitt",
+    "currentDescription": "Governor Oscar Colquitt formally refused to host Washington, stating that a Black man should not be allowed to speak from the Capitol stand. The snub was intended to humiliate Washington, but it only served to mobilize the city's residents in protest.",
+    "year": 1911,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-snub",
+        "name": "The Booker T. Washington Snub"
+      }
+    ]
+  },
+  {
+    "id": "btw-wooldridge-square",
+    "currentName": "Wooldridge Square",
+    "currentSubtitle": "5,000 people gather at a former landfill to hear the truth",
+    "currentDescription": "A crowd of over 5,000 people—nearly 20% of Austin's total population at the time—crammed into the square to hear Washington speak. The event was racially integrated, a rare occurrence in 1911, and the speech from the bandstand became a landmark moment in Austin's civil rights history.",
+    "year": 1911,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-snub",
+        "name": "The Booker T. Washington Snub"
+      }
+    ]
+  },
+  {
+    "id": "dam-powerhouse-explosion",
+    "currentName": "The Power House Explosion",
+    "currentSubtitle": "Where the dam breached and eight workers died",
+    "currentDescription": "On April 7, 1900, after days of torrential rain, a massive section of the granite dam gave way. The resulting wall of water obliterated the power house, killing eight workers instantly and destroying the city's municipal power and water systems. Chunks of granite the size of houses were carried miles downstream.",
+    "year": 1900,
+    "type": "industrial_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "1900-granite-dam-disaster",
+        "name": "The 1900 Great Granite Dam Disaster"
+      }
+    ]
+  },
+  {
+    "id": "dam-red-bud-isle",
+    "currentName": "Red Bud Isle",
+    "currentSubtitle": "Massive chunks of the original dam still sit in the river",
+    "currentDescription": "The ruins of the 1900 dam are still visible at Red Bud Isle. Massive, smooth granite blocks—remnants of the \"world's greatest dam\"—remain scattered in the water, serving as a permanent grave for the city's 19th-century industrial ambitions.",
+    "year": 1900,
+    "type": "natural_site",
+    "importance": "contextual",
+    "parentStories": [
+      {
+        "id": "1900-granite-dam-disaster",
+        "name": "The 1900 Great Granite Dam Disaster"
+      }
+    ]
+  },
+  {
+    "id": "ohenry-first-national-bank",
+    "currentName": "First National Bank",
+    "currentSubtitle": "The scene of the $854.08 shortage",
+    "currentDescription": "Porter worked as a teller at 6th and Congress. When federal bank examiners found a shortage in his accounts, he was accused of embezzlement. Porter panicked and fled to New Orleans, then Honduras, before the illness of his wife forced him to return to Austin to face trial.",
+    "year": 1894,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "o-henry-embezzlement",
+        "name": "The O. Henry Embezzlement Mystery"
+      }
+    ]
+  },
+  {
+    "id": "ohenry-austin-jail",
+    "currentName": "Travis County Jail",
+    "currentSubtitle": "Where William Sydney Porter became 'O. Henry'",
+    "currentDescription": "Porter was held here after his arrest. While awaiting sentencing, he began writing short stories to support his daughter. He adopted the pen name 'O. Henry' to hide his criminal past from editors, a name that would soon become more famous than his own.",
+    "year": 1898,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "o-henry-embezzlement",
+        "name": "The O. Henry Embezzlement Mystery"
+      }
+    ]
+  },
+  {
+    "id": "ohenry-morley-brothers",
+    "currentName": "The Morley Brothers Drug Store",
+    "currentSubtitle": "Where a pharmacist began sketching the world",
+    "currentDescription": "When William Sydney Porter arrived in Austin in 1884, he was a 21-year-old pharmacist looking for a fresh start. He found it at Morley Brothers on East 8th Street. Between filling prescriptions, he was an obsessive observer, sketching the town's gamblers, cowboys, and elite who frequented the shop. The conversations he eavesdropped on here became the raw material for his early humorous writing.",
+    "year": 1884,
+    "type": "workplace",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "o-henry-embezzlement",
+        "name": "The O. Henry Embezzlement Mystery"
+      }
+    ]
+  },
+  {
+    "id": "ohenry-land-office",
+    "currentName": "The General Land Office",
+    "currentSubtitle": "Drafting the boundaries of a literary career",
+    "currentDescription": "In 1887, Porter took a job as a draftsman at the Texas General Land Office, now the oldest state office building in Texas. He spent four years here mapping the wild geography of the state. The thick stone walls and bureaucratic atmosphere left a deep impression, later serving as the setting for his story \"Bexar Scrip No. 2692.\" This was a period of stability where he married Athol Estes and began his humor magazine, The Rolling Stone.",
+    "year": 1887,
+    "type": "workplace",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "o-henry-embezzlement",
+        "name": "The O. Henry Embezzlement Mystery"
+      }
+    ]
+  },
+  {
+    "id": "ohenry-scholz-garden",
+    "currentName": "Scholz Beer Garden",
+    "currentSubtitle": "The Hill City Quartette's favorite stage",
+    "currentDescription": "Porter was a fixture at Scholz Garden, Austin's oldest biergarten and political hub. He was a gifted singer and a member of the Hill City Quartette, which performed German lieder and folk songs for the regulars. Scholz was more than a bar; it was where the town's German heritage and Texas politics collided. The museum still displays the chair and table he used, a physical link to the bohemian lifestyle he enjoyed before the embezzlement charges forced him into exile and prison.",
+    "year": 1886,
+    "type": "cultural_venue",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "o-henry-embezzlement",
+        "name": "The O. Henry Embezzlement Mystery"
+      }
+    ]
+  }
+]

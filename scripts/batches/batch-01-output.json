@@ -1,0 +1,302 @@
+[
+  {
+    "id": "gein-farm",
+    "name": "Police Uncover Gein's House of Horrors",
+    "subtitle": "A search for a missing shopkeeper reveals bone furniture and skull bowls",
+    "kind": "event",
+    "entityIds": ["ed-gein", "bernice-worden"],
+    "descriptionRewrite": null,
+    "storyTypeFlags": {
+      "ed-gein": "biography"
+    }
+  },
+  {
+    "id": "gein-worden-store",
+    "name": "Antifreeze Receipt Leads Police to Gein's Abduction Victim",
+    "subtitle": "Hardware store owner Bernice Worden is shot and kidnapped on a Saturday morning",
+    "kind": "event",
+    "entityIds": ["ed-gein", "bernice-worden", "worden-hardware-store"],
+    "descriptionRewrite": "On November 16, 1957, Ed Gein entered Worden's Hardware Store and shot owner Bernice Worden with a .22 caliber rifle. He loaded her body into her own delivery truck and drove it to his farm. A receipt for antifreeze in Gein's name found at the scene led police to his farmhouse that same day.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "gein-cemetery",
+    "name": "Gein Robs Graves by Moonlight — Then Is Buried Here Himself",
+    "subtitle": "Nocturnal exhumations of women who resembled the killer's mother",
+    "kind": "event",
+    "entityIds": ["ed-gein", "plainfield-cemetery"],
+    "descriptionRewrite": "Ed Gein made dozens of nocturnal visits to Plainfield Cemetery, exhuming recently buried women who resembled his mother. He would read obituaries in the local paper, then visit the graves at night to steal remains. Ironically, when Gein died in 1984, he was buried here — his gravestone was repeatedly vandalized and eventually stolen in 2000.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "gein-school",
+    "name": "Young Ed Gein Laughs Alone at Plainfield School",
+    "subtitle": "Classmates recall a shy boy whose mother forbade friendships as sinful",
+    "kind": "presence",
+    "entityIds": ["ed-gein", "plainfield-school"],
+    "descriptionRewrite": "Ed Gein attended school here as a boy, where classmates remembered him as shy and odd, sometimes bursting into laughter for no apparent reason. His domineering mother, Augusta, discouraged him from making friends at school, believing other children were sinful influences.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "gein-tavern",
+    "name": "Mary Hogan Disappears from Her Tavern",
+    "subtitle": "Police later discover the owner's skull in Gein's house of horrors",
+    "kind": "event",
+    "entityIds": ["ed-gein", "mary-hogan", "mary-hogan-tavern"],
+    "descriptionRewrite": "On December 8, 1954, tavern owner Mary Hogan disappeared from her place of business. A pool of blood and a spent .32 caliber cartridge were found on the floor. When Ed Gein was arrested three years later, Mary Hogan's skull was found in his farmhouse; he had shot her and transported her remains to his farm.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "gein-mendota",
+    "name": "Gein Declared Insane, Confined Until Death",
+    "subtitle": "A model patient dies at 77 — his car sold to a carnival sideshow",
+    "kind": "milestone",
+    "entityIds": ["ed-gein", "mendota-mental-health"],
+    "descriptionRewrite": "After being found not guilty by reason of insanity in 1957 for the murder of Bernice Worden, Ed Gein was committed to the Mendota Mental Health Institute. He was a model patient, quiet and cooperative, until he died there of respiratory failure on July 26, 1984. His estate was later auctioned off, and his car was sold to a sideshow operator who charged admission to see it.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "dahmer-apartment",
+    "name": "Escapee Leads Police to 11 Victims in Dahmer's Apartment",
+    "subtitle": "A handcuffed man flags down officers and reveals a refrigerator of remains",
+    "kind": "event",
+    "entityIds": ["jeffrey-dahmer", "tracy-edwards", "oxford-apartments"],
+    "descriptionRewrite": "At the Oxford Apartments (924 North 25th Street), Jeffrey Dahmer lured victims to apartment 213 between 1990 and 1991. On July 22, 1991, Tracy Edwards escaped from the apartment with a handcuff dangling from his wrist and flagged down police. Officers found photographs of dismembered bodies, a severed head in the refrigerator, and the remains of 11 victims inside.",
+    "storyTypeFlags": {
+      "dahmer": "biography"
+    }
+  },
+  {
+    "id": "dahmer-chocolate-factory",
+    "name": "Dahmer Works the Night Shift at Ambrosia Chocolate",
+    "subtitle": "Serial killer blends into the workforce while committing murders by day",
+    "kind": "presence",
+    "entityIds": ["jeffrey-dahmer", "ambrosia-chocolate-factory"],
+    "descriptionRewrite": "Jeffrey Dahmer worked as a mixer at the Ambrosia Chocolate Factory on the night shift, a job that gave him unsupervised time during the day to commit murders. Co-workers noted his quiet demeanor and the thermos of what he claimed was his 'special drink.' The factory operated normally while Dahmer lived his double life just blocks away.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "dahmer-first-victim",
+    "name": "Dahmer Commits First Murder at His Parents' Home",
+    "subtitle": "An 18-year-old kills a hitchhiker and keeps the secret for nine years",
+    "kind": "event",
+    "entityIds": ["jeffrey-dahmer", "steven-hicks"],
+    "descriptionRewrite": "In June 1978, just weeks after graduating high school, Jeffrey Dahmer picked up hitchhiker Steven Hicks and brought him to this house in Bath Township, Ohio, where his parents lived. When Hicks tried to leave, Dahmer struck him with a dumbbell. He buried the remains in the backyard, later crushing the bones with a sledgehammer.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "dahmer-columbia-prison",
+    "name": "Christopher Scarver Bludgeons Dahmer to Death in Prison Gym",
+    "subtitle": "A metal bar ends the life of the Milwaukee Cannibal",
+    "kind": "milestone",
+    "entityIds": ["jeffrey-dahmer", "christopher-scarver", "columbia-correctional-institution"],
+    "descriptionRewrite": "On November 28, 1994, Jeffrey Dahmer was bludgeoned to death by fellow inmate Christopher Scarver with a metal bar while on a work detail in the prison gymnasium. Scarver, who also killed another inmate that day, later said Dahmer would taunt other prisoners by shaping his food into severed limbs.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "baca-standoff",
+    "name": "Elfego Baca Survives 4,000 Rounds in a 33-Hour Standoff",
+    "subtitle": "A 19-year-old deputy holds off 80 Texas cowboys from an adobe hut",
+    "kind": "event",
+    "entityIds": ["elfego-baca"],
+    "descriptionRewrite": "In October 1884, 19-year-old Elfego Baca arrested a drunken cowboy terrorizing the village of Frisco (now Reserve). When 80 Texas cowboys rode in to free their comrade, Baca took shelter in a small jacal (adobe hut). For 33 hours, the cowboys poured an estimated 4,000 rounds into the building. When Baca emerged, he was completely unharmed. The door of the jacal, riddled with bullet holes, was later exhibited as evidence at his trial.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "roswell-debris-field",
+    "name": "Mac Brazel Finds Unidentifiable Debris on Foster Ranch",
+    "subtitle": "Scattered metallic strips and lightweight beams launch the UFO age",
+    "kind": "event",
+    "entityIds": ["mac-brazel", "foster-ranch"],
+    "descriptionRewrite": "In early July 1947, rancher W.W. 'Mac' Brazel discovered a field of unusual debris scattered across his pasture — metallic strips, chunks of plastic-like material, and lightweight beams. The Roswell Army Air Field initially issued a press release stating they had recovered a 'flying disc.' The next day, the military changed the story to a weather balloon, launching decades of controversy.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "roswell-airfield",
+    "name": "Military Announces — then Retracts — Recovery of a Flying Disc",
+    "subtitle": "A press release from Roswell Army Air Field shocks the world",
+    "kind": "event",
+    "entityIds": ["roswell-army-air-field", "roger-ramey"],
+    "descriptionRewrite": "On July 8, 1947, the public information office at Roswell Army Air Field issued a press release stating that personnel had recovered a 'flying disc.' Within hours, Brigadier General Roger Ramey held a press conference in Fort Worth, Texas, displaying weather balloon debris and claiming that was all that had been found. The base is now Walker Air Force Base.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "btk-courthouse-escape",
+    "name": "Billy the Kid Escapes Lincoln County Jail in a Daring Breakout",
+    "subtitle": "The Kid kills two deputies and, still shackled, rides out on a stolen horse",
+    "kind": "event",
+    "entityIds": ["billy-the-kid", "james-bell", "bob-olinger", "lincoln-county-courthouse"],
+    "descriptionRewrite": "On April 28, 1881, Billy the Kid was being held under sentence of death in the Lincoln County Courthouse. While being escorted to the outhouse, he somehow obtained a pistol and shot Deputy James Bell on the stairs, then grabbed a shotgun and killed Deputy Bob Olinger from a second-floor window. Billy spent an hour freeing himself from his shackles before riding out of town on a stolen horse.",
+    "storyTypeFlags": {
+      "billy-the-kid": "biography"
+    }
+  },
+  {
+    "id": "btk-death",
+    "name": "Pat Garrett Shoots Billy the Kid in a Darkened Bedroom",
+    "subtitle": "The last words of the legendary outlaw: Who is there?",
+    "kind": "milestone",
+    "entityIds": ["billy-the-kid", "pat-garrett", "pete-maxwell", "maxwell-house"],
+    "descriptionRewrite": "On the night of July 14, 1881, Sheriff Pat Garrett waited in the darkened bedroom of Pete Maxwell's house in Fort Sumner. Billy the Kid entered to cut meat from a hanging deer carcass and noticed a figure in the darkness. He asked who was there. Garrett fired twice, killing Billy at age 21. The Kid's grave in the old Fort Sumner cemetery is now behind iron bars to prevent theft.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "btk-tunstall-store",
+    "name": "Lincoln County War Erupts After Tunstall Is Murdered",
+    "subtitle": "Billy the Kid vows revenge for the death of his English employer",
+    "kind": "event",
+    "entityIds": ["billy-the-kid", "john-tunstall", "tunstall-store"],
+    "descriptionRewrite": "John Henry Tunstall, a young English rancher and merchant, operated this store in competition with the powerful Murphy-Dolan faction. On February 18, 1878, Tunstall was murdered by a posse of Murphy-Dolan men. Billy the Kid, who worked for Tunstall and considered him a friend, allegedly vowed revenge, sparking the bloody Lincoln County War.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "geronimo-skeleton-canyon",
+    "name": "Geronimo Surrenders, Ending the Apache Wars Forever",
+    "subtitle": "The last free Native force in the American Southwest lays down arms",
+    "kind": "milestone",
+    "entityIds": ["geronimo", "nelson-miles", "skeleton-canyon"],
+    "descriptionRewrite": "On September 4, 1886, Geronimo and his band of 23 Chiricahua Apache — the last free Native force in the American Southwest — surrendered to General Nelson Miles in remote Skeleton Canyon. Geronimo was sent to Florida as a prisoner of war and never returned to his homeland.",
+    "storyTypeFlags": {
+      "geronimo": "biography"
+    }
+  },
+  {
+    "id": "lanl-lab",
+    "name": "U.S. Army Builds the Secret City of Los Alamos",
+    "subtitle": "A remote school becomes the hidden nerve center of the Manhattan Project",
+    "kind": "presence",
+    "entityIds": ["robert-oppenheimer", "los-alamos-national-laboratory", "manhattan-project"],
+    "descriptionRewrite": "In 1943, the U.S. Army selected the remote Los Alamos Ranch School as the site for the Manhattan Project's weapons laboratory. Scientists including Robert Oppenheimer, Enrico Fermi, and Richard Feynman worked in total secrecy. Mail was addressed to 'P.O. Box 1663, Santa Fe,' and the town didn't appear on maps until 1957.",
+    "storyTypeFlags": {
+      "los-alamos": "place"
+    }
+  },
+  {
+    "id": "trinity-site",
+    "name": "Atomic Age Begins with the First Nuclear Detonation",
+    "subtitle": "A blinding flash in the Jornada del Muerto desert changes the world",
+    "kind": "event",
+    "entityIds": ["robert-oppenheimer", "manhattan-project", "trinity-site"],
+    "descriptionRewrite": "At 5:29:45 AM on July 16, 1945, the world's first nuclear device was detonated at the Trinity Site in the Jornada del Muerto desert. The blast was visible 200 miles away. Robert Oppenheimer famously quoted the Bhagavad Gita: 'Now I am become Death, the destroyer of worlds.' The sand at ground zero fused into a mildly radioactive glass called trinitite.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "carlsbad-entrance",
+    "name": "Jim White Discovers Carlsbad Caverns While Chasing Smoke",
+    "subtitle": "A column of bats reveals a cave large enough to hold the U.S. Capitol",
+    "kind": "event",
+    "entityIds": ["jim-white", "carlsbad-caverns"],
+    "descriptionRewrite": "In 1898, 16-year-old cowboy Jim White was riding fence in the Guadalupe Mountains when he saw what appeared to be a column of smoke rising from the desert. Riding closer, he discovered not a fire but an immense swirling column of hundreds of thousands of bats pouring from a hole in the earth at dusk. He discovered a cavern system with chambers large enough to hold the U.S. Capitol building.",
+    "storyTypeFlags": {
+      "carlsbad-caverns": "place"
+    }
+  },
+  {
+    "id": "columbus-raid",
+    "name": "Pancho Villa Invades Columbus, New Mexico",
+    "subtitle": "The last armed invasion of the continental United States",
+    "kind": "event",
+    "entityIds": ["pancho-villa", "john-pershing"],
+    "descriptionRewrite": "Before dawn on March 9, 1916, approximately 500 of Pancho Villa's Villistas crossed the border and attacked the small town of Columbus, burning buildings and killing 18 Americans. The U.S. retaliated with the Punitive Expedition, sending 10,000 troops under General John 'Black Jack' Pershing into Mexico. Pancho Villa was never caught.",
+    "storyTypeFlags": {
+      "pancho-villa-raid": "incident"
+    }
+  },
+  {
+    "id": "white-sands-prints",
+    "name": "23,000-Year-Old Footprints Rewrite American History",
+    "subtitle": "Evidence of human life in the Americas during the Last Glacial Maximum",
+    "kind": "event",
+    "entityIds": ["white-sands-national-park"],
+    "descriptionRewrite": "In 2021, researchers confirmed that fossilized human footprints found along the shores of an ancient lake in White Sands National Park dated to approximately 23,000 years ago — during the Last Glacial Maximum. This pushed back the accepted date of human arrival in the Americas by thousands of years and included prints from children and teenagers.",
+    "storyTypeFlags": {
+      "white-sands-footprints": "place"
+    }
+  },
+  {
+    "id": "okeeffe-abiquiu",
+    "name": "Georgia O'Keeffe Settles in Abiquiu Adobe Home",
+    "subtitle": "Painting the red cliffs and black patio door that defined modernism",
+    "kind": "presence",
+    "entityIds": ["georgia-okeeffe", "abiquiu"],
+    "descriptionRewrite": "Georgia O'Keeffe first visited New Mexico in 1929 and was captivated by the landscape. She purchased this adobe house in Abiquiu in 1945 and made it her permanent home. For four decades, she painted the surrounding cliffs, mesas, and desert from her studio, defining a new era of American modernism.",
+    "storyTypeFlags": {
+      "georgia-okeeffe": "biography"
+    }
+  },
+  {
+    "id": "okeeffe-ghost-ranch",
+    "name": "O'Keeffe Paints Her Private Mountain at Ghost Ranch",
+    "subtitle": "The red and yellow cliffs of Piedra Lumbre inspire a master",
+    "kind": "presence",
+    "entityIds": ["georgia-okeeffe", "ghost-ranch"],
+    "descriptionRewrite": "Georgia O'Keeffe maintained a second home at Ghost Ranch, where the red and yellow cliffs of the Piedra Lumbre basin provided endless inspiration. She painted Cerro Pedernal so often she once said, 'It's my private mountain. God told me if I painted it enough, I could have it.'",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "pueblo-palace",
+    "name": "Pueblo Warriors Seize the Palace of the Governors",
+    "subtitle": "Coordinated uprising forces Spanish retreat from Santa Fe for 12 years",
+    "kind": "event",
+    "entityIds": ["pope-tewa", "antonio-de-otermin", "palace-of-the-governors", "pueblo-revolt"],
+    "descriptionRewrite": "On August 10, 1680, coordinated by the Tewa leader Pope, thousands of Pueblo warriors besieged Santa Fe. Governor Antonio de Otermin retreated to the Palace of the Governors with 1,000 settlers. After the water supply was cut, the Spanish fled south. The Pueblo people held the palace and all of New Mexico for 12 years until the Spanish returned in 1692.",
+    "storyTypeFlags": {
+      "pueblo-revolt": "incident"
+    }
+  },
+  {
+    "id": "toc-downtown",
+    "name": "Hot Springs Votes to Rename Itself After a Radio Game Show",
+    "subtitle": "A town votes 1,294 to 295 to become Truth or Consequences",
+    "kind": "milestone",
+    "entityIds": ["ralph-edwards", "truth-or-consequences-nm"],
+    "descriptionRewrite": "In March 1950, NBC radio host Ralph Edwards announced that the show Truth or Consequences would broadcast its 10th anniversary from the first town to rename itself after the program. The town of Hot Springs, NM, held a vote and 1,294 to 295 voted in favor. Edwards visited every year for decades, and multiple attempts to change the name back have failed.",
+    "storyTypeFlags": {
+      "truth-or-consequences": "place"
+    }
+  },
+  {
+    "id": "pueblo-bonito",
+    "name": "Ancestral Puebloans Build the Largest Structure in North America",
+    "subtitle": "A 600-room great house aligned to solar events in Chaco Canyon",
+    "kind": "presence",
+    "entityIds": ["chaco-canyon", "ancestral-puebloans", "pueblo-bonito"],
+    "descriptionRewrite": "Built between 850 and 1150 AD, Pueblo Bonito was a massive, D-shaped great house in Chaco Canyon with over 600 rooms and 40 kivas. Its walls were precisely aligned to cardinal directions and solar events. Around 1150, the canyon was largely abandoned, leaving behind evidence of a vast trade network involving macaw feathers and turquoise.",
+    "storyTypeFlags": {
+      "chaco-canyon": "place"
+    }
+  },
+  {
+    "id": "vla-site",
+    "name": "27 Radio Dishes Listen to the Universe at the VLA",
+    "subtitle": "230-ton antennas ride railroad tracks to image black holes",
+    "kind": "presence",
+    "entityIds": ["very-large-array", "karl-jansky"],
+    "descriptionRewrite": "Each of the 27 antennas at the Karl G. Jansky Very Large Array is 82 feet in diameter and weighs 230 tons. They move along railroad tracks in a Y-shaped configuration to function as a single radio telescope. The VLA has discovered water on Mercury, imaged the surface of distant asteroids, and contributed to the first image of a black hole.",
+    "storyTypeFlags": {
+      "vla": "place"
+    }
+  },
+  {
+    "id": "hopper-taos",
+    "name": "Dennis Hopper Turns Taos into a Counterculture Mecca",
+    "subtitle": "Wild parties at the Mabel Dodge Luhan House after Easy Rider",
+    "kind": "presence",
+    "entityIds": ["dennis-hopper", "mabel-dodge-luhan-house"],
+    "descriptionRewrite": "After directing Easy Rider (1969), Dennis Hopper moved to Taos in 1970, buying the historic Mabel Dodge Luhan house. He threw wild parties and attracted a stream of celebrities and counterculture figures, catalyzing Taos's transformation from a quiet artists' colony into a full-blown counterculture destination.",
+    "storyTypeFlags": {
+      "dennis-hopper-taos": "biography"
+    }
+  },
+  {
+    "id": "blackwater-draw",
+    "name": "Teenager Finds Spear Points Embedded in Mammoth Bones",
+    "subtitle": "Clovis points at Blackwater Draw rewrite the timeline of human migration",
+    "kind": "event",
+    "entityIds": ["ridgley-whiteman", "blackwater-draw", "clovis-culture"],
+    "descriptionRewrite": "In 1929, a teenager named Ridgley Whiteman found ancient bones eroding from the banks of a dried-up waterhole at Blackwater Draw. Archaeologists eventually discovered distinctive fluted spear points embedded in mammoth bones — proof that humans hunted megafauna here 13,000 years ago. These 'Clovis points' became the benchmark for the earliest human presence in the Americas.",
+    "storyTypeFlags": {
+      "clovis-points": "era"
+    }
+  }
+]

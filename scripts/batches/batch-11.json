@@ -1,0 +1,17 @@
+[
+  {
+    "id": "ohenry-new-york-death",
+    "currentName": "New York — The Final Act",
+    "currentSubtitle": "The master of the twist ending dies in the dark",
+    "currentDescription": "After prison, Porter moved to New York City in 1902 and entered a period of staggering productivity, writing a story a week for the New York World. He became a celebrity, known for his reclusive habits. He died at age 47 in a New York hotel room from cirrhosis. His last words were a final touch of O. Henry irony: \"Turn up the lights. I don't want to go home in the dark.\"",
+    "year": 1910,
+    "type": "residence",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "o-henry-life",
+        "name": "O. Henry — The Fugitive Writer"
+      }
+    ]
+  }
+]

@@ -1,0 +1,452 @@
+[
+  {
+    "id": "junk-cathedral-site",
+    "currentName": "The Cathedral",
+    "currentSubtitle": "60 tons of tires, bathtubs, and a Buddha leaf",
+    "currentDescription": "Vince Hannemann began building the cathedral in 1988. It features vaulted ceilings of bicycle wheels and a \"throne\" of electronics. The structure includes a leaf from the Buddha's tree of enlightenment encased in a specific chamber, making it a bizarre spiritual hub made of recycled waste.",
+    "year": 1988,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "cathedral-of-junk",
+        "name": "The Cathedral of Junk"
+      }
+    ]
+  },
+  {
+    "id": "junk-city-hall-hearing",
+    "currentName": "Austin City Hall",
+    "currentSubtitle": "The legal battle to save a mountain of trash",
+    "currentDescription": "In 2010, the city nearly demolished the Cathedral after neighbor complaints. Hannemann mobilized engineers to prove the junk was structurally sound. After a high-stakes hearing and massive public support, the city issued a permit, officially legitimizing the junk as art.",
+    "year": 2010,
+    "type": "government",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "cathedral-of-junk",
+        "name": "The Cathedral of Junk"
+      }
+    ]
+  },
+  {
+    "id": "dell-dobie-room",
+    "currentName": "Dobie Center Room 2713",
+    "currentSubtitle": "The literal birthplace of PC's Limited",
+    "currentDescription": "While a freshman, Michael Dell began upgrading computers and selling them directly to customers. The fire marshal eventually intervened when Dell had stacked so many cardboard boxes in the hallway that it became a fire hazard, forcing him to move his business off-campus.",
+    "year": 1984,
+    "type": "residence",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "michael-dell-startup",
+        "name": "Michael Dell's Startup Crisis"
+      }
+    ]
+  },
+  {
+    "id": "dell-braker-office",
+    "currentName": "Braker Lane Office",
+    "currentSubtitle": "The first \"adult\" office where the company nearly died",
+    "currentDescription": "Following the Dobie Center eviction, Dell moved to this office. The growth was so explosive that the company struggled to manage inventory, nearly collapsing under its own weight before a pivot to custom-built machines saved the future empire.",
+    "year": 1984,
+    "type": "industrial_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "michael-dell-startup",
+        "name": "Michael Dell's Startup Crisis"
+      }
+    ]
+  },
+  {
+    "id": "uttower-observation-deck",
+    "currentName": "Tower Observation Deck",
+    "currentSubtitle": "Where Charles Whitman held the campus hostage",
+    "currentDescription": "Whitman reached the 28th floor with a footlocker of rifles. From the 231-foot vantage point, he began picking off students and faculty below. The observation deck was eventually breached by Officers Ramiro Martinez and Houston McCoy, who ended the siege.",
+    "year": 1966,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "ut-tower-shooting",
+        "name": "The UT Tower Shooting"
+      }
+    ]
+  },
+  {
+    "id": "uttower-main-mall",
+    "currentName": "The Main Mall",
+    "currentSubtitle": "The \"dead zone\" where civilians fired back",
+    "currentDescription": "The mall south of the tower was a killing field. Realizing the police were outgunned, local Austin citizens grabbed deer rifles from their trucks and began firing back at the tower. This improvised civilian response pinned Whitman down and prevented a higher death toll.",
+    "year": 1966,
+    "type": "battlefield",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "ut-tower-shooting",
+        "name": "The UT Tower Shooting"
+      }
+    ]
+  },
+  {
+    "id": "srv-antones-6th",
+    "currentName": "Antone's (Original)",
+    "currentSubtitle": "Where a teenage Stevie sat at the feet of Muddy Waters",
+    "currentDescription": "Clifford Antone's original blues club on 6th Street was Vaughan's home. He spent his youth watching legends like Muddy Waters and Albert King, eventually developing the explosive, heavy-stringed style that would change rock history.",
+    "year": 1975,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "stevie-ray-vaughan",
+        "name": "Stevie Ray Vaughan"
+      }
+    ]
+  },
+  {
+    "id": "srv-auditorium-shores",
+    "currentName": "Stevie Ray Vaughan Statue",
+    "currentSubtitle": "The permanent pilgrimage site for guitarists",
+    "currentDescription": "The bronze statue at Auditorium Shores commemorates Vaughan's legacy. Fans from around the world leave flowers at his feet, and the statue is a central point for Austin music pilgrimages, standing near the site of many of his most famous performances.",
+    "year": 1990,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "stevie-ray-vaughan",
+        "name": "Stevie Ray Vaughan"
+      }
+    ]
+  },
+  {
+    "id": "bats-congress-bridge",
+    "currentName": "Congress Avenue Bridge",
+    "currentSubtitle": "1.5 million residents who eat 20,000 lbs of bugs a night",
+    "currentDescription": "The bridge's 18-inch-deep crevices are the perfect temperature for Mexican free-tailed bats. In the early 80s, residents called for their extermination until Dr. Merlin Tuttle of Bat Conservation International moved to Austin to save the colony, proving they were a massive benefit to the city.",
+    "year": 1980,
+    "type": "natural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "congress-avenue-bats",
+        "name": "The Congress Avenue Bats"
+      }
+    ]
+  },
+  {
+    "id": "bats-accidental-joints",
+    "currentName": "The Accidental Discovery",
+    "currentSubtitle": "An engineering fluke creates a bat sanctuary",
+    "currentDescription": "When the Congress Avenue Bridge was reconstructed in 1980, engineers had no idea they were building a massive incubator. The 18-inch-deep expansion joints used in the design were accidentally the perfect temperature and width for Mexican free-tailed bats. By 1984, the population exploded to 750,000, and a city-wide panic ensued. Local newspapers ran sensationalist headlines about \"rabid invaders,\" and petrified residents petitioned the city to exterminate the colony.",
+    "year": 1980,
+    "type": "natural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "congress-avenue-bats",
+        "name": "The Congress Avenue Bats"
+      }
+    ]
+  },
+  {
+    "id": "bats-bci-saves-colony",
+    "currentName": "BCI Saves the Colony",
+    "currentSubtitle": "Dr. Merlin Tuttle turns fear into tourism",
+    "currentDescription": "In 1986, bat expert Dr. Merlin Tuttle made a bold move: he relocated the headquarters of Bat Conservation International to Austin specifically to save the Congress Avenue colony. He launched a massive public education campaign, explaining that the bats eat 20,000 pounds of insects every single night. The panic turned into pride. Today, the colony has grown to 1.5 million bats, making it the largest urban colony in North America.",
+    "year": 1986,
+    "type": "organization_hq",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "congress-avenue-bats",
+        "name": "The Congress Avenue Bats"
+      }
+    ]
+  },
+  {
+    "id": "sos-barton-springs",
+    "currentName": "Barton Springs Pool",
+    "currentSubtitle": "The 68-degree heart of Austin environmentalism",
+    "currentDescription": "The natural springs were the catalyst for Austin's modern environmental laws. The springs are home to the endangered Barton Springs Salamander, which became the legal centerpiece of the fight to stop the Barton Creek PUD development.",
+    "year": 1990,
+    "type": "natural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "barton-springs-sos",
+        "name": "The Barton Springs Development Fights"
+      }
+    ]
+  },
+  {
+    "id": "sos-city-hall-hearing",
+    "currentName": "Old City Hall",
+    "currentSubtitle": "The 15-hour \"All-Night Public Hearing\"",
+    "currentDescription": "On June 7, 1990, a record-breaking crowd flooded the council chamber. Residents spoke until the sun rose, successfully pressuring the city to reject the massive development plan. This event remains the benchmark for political activism in Austin.",
+    "year": 1990,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "barton-springs-sos",
+        "name": "The Barton Springs Development Fights"
+      }
+    ]
+  },
+  {
+    "id": "lbj-driskill-date",
+    "currentName": "Driskill Hotel Lobby",
+    "currentSubtitle": "Where LBJ had his first date with Lady Bird",
+    "currentDescription": "In 1934, LBJ met Claudia 'Lady Bird' Taylor for breakfast at the Driskill. He proposed shortly after. The hotel remained his political HQ throughout his career, including the night he watched the returns of his 1948 Senate race.",
+    "year": 1934,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lbj-lady-bird-austin",
+        "name": "LBJ and Lady Bird's Austin"
+      }
+    ]
+  },
+  {
+    "id": "lbj-lady-bird-lake",
+    "currentName": "Lady Bird Lake",
+    "currentSubtitle": "A beautification project that replaced trash with trails",
+    "currentDescription": "In the 1970s, Lady Bird led a massive project to clean up the banks of Town Lake. Her influence replaced trash-strewn banks with thousands of flowering trees and the hike-and-bike trails that define downtown Austin today.",
+    "year": 1970,
+    "type": "natural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lbj-lady-bird-austin",
+        "name": "LBJ and Lady Bird's Austin"
+      }
+    ]
+  },
+  {
+    "id": "driskill-poker-loss",
+    "currentName": "The Driskill Lobby",
+    "currentSubtitle": "Jesse Driskill loses a $400,000 hotel in a poker game",
+    "currentDescription": "Just two years after building the finest hotel in Texas, Jesse Driskill, an inveterate gambler, lost the entire building in a high-stakes poker game. He died bankrupt shortly after, and his spirit is said to haunt the halls to this day.",
+    "year": 1888,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "driskill-hotel",
+        "name": "The Driskill Hotel"
+      }
+    ]
+  },
+  {
+    "id": "driskill-room-525",
+    "currentName": "Room 525",
+    "currentSubtitle": "The site of the \"Suicide Brides\"",
+    "currentDescription": "In Room 525, two separate brides committed suicide in the same bathtub, exactly 20 years apart to the day. The room was sealed for years before being reopened, and remains a central point for reported paranormal activity.",
+    "year": 1991,
+    "type": "residence",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "driskill-hotel",
+        "name": "The Driskill Hotel"
+      }
+    ]
+  },
+  {
+    "id": "orph-st-marys-site",
+    "currentName": "St. Mary's Orphan Asylum Site",
+    "currentSubtitle": "Where ten nuns and 90 children formed a human chain",
+    "currentDescription": "As the storm surge breached the dormitory, the Sisters of Charity tied themselves to the children with clotheslines. They sang 'Queen of the Waves' to calm the orphans until the building collapsed. Only three boys survived by clinging to a salt cedar tree. The site is now occupied by a Walmart Supercenter.",
+    "year": 1900,
+    "type": "discovery_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "galveston-orphanage-stand",
+        "name": "The 1900 Storm Orphanage Stand"
+      }
+    ]
+  },
+  {
+    "id": "orph-survivor-tree",
+    "currentName": "The Survivor Tree",
+    "currentSubtitle": "The only sanctuary for the three boys who escaped",
+    "currentDescription": "The salt cedar tree located on the orphanage grounds was the only thing that didn't wash away. Three orphans—Will Murney, Frank Madera, and Albert Campbell—clung to its branches through the night, witnessing the destruction of the asylum and the loss of their peers and the sisters.",
+    "year": 1900,
+    "type": "natural_site",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "galveston-orphanage-stand",
+        "name": "The 1900 Storm Orphanage Stand"
+      }
+    ]
+  },
+  {
+    "id": "enron-smith-street",
+    "currentName": "Enron Complex",
+    "currentSubtitle": "The headquarters where \"Death Star\" strategies were born",
+    "currentDescription": "Traders in the 50-story north tower coordinated artificial power outages in California while mocking \"Grandma Millie\" on recorded phone lines. The memos found here after the collapse described a sophisticated system of market manipulation that prioritized quarterly earnings over human safety.",
+    "year": 2001,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "enron-death-star",
+        "name": "The Enron \"Death Star\" Memos"
+      }
+    ]
+  },
+  {
+    "id": "enron-logo-auction",
+    "currentName": "Tilted \"E\" Auction Site",
+    "currentSubtitle": "Where a symbol of global power was sold to a waste management firm",
+    "currentDescription": "Following Enron's bankruptcy filing, the iconic tilted \"E\" sign outside the headquarters was sold at auction for $44,000. It served as a visceral visual end to the company that once claimed to be \"The World's Leading Company.\" The logo was eventually purchased by a local scrap and waste company.",
+    "year": 2002,
+    "type": "landmark",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "enron-death-star",
+        "name": "The Enron \"Death Star\" Memos"
+      }
+    ]
+  },
+  {
+    "id": "apollo-mission-control",
+    "currentName": "NASA Mission Control",
+    "currentSubtitle": "The windowless room where the \"Mail Slot\" fix was designed",
+    "currentDescription": "On April 13, 1970, the words \"Houston, we've had a problem\" echoed through this room. Engineers here worked for three days straight, building the prototype for the CO2 scrubber adapter using only a plastic bag, cardboard, and duct tape to match the items the astronauts had on board.",
+    "year": 1970,
+    "type": "institution",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "apollo-13-houston",
+        "name": "\"Houston, We Have a Problem\""
+      }
+    ]
+  },
+  {
+    "id": "apollo-lunar-lab",
+    "currentName": "Lunar Module Simulation Lab",
+    "currentSubtitle": "Where the power-up sequence was calculated",
+    "currentDescription": "Because the Lunar Module was never meant to be a long-term lifeboat, engineers in this facility had to rewrite the spacecraft's entire operating manual in real-time. They calculated exactly how much battery power could be diverted to the heating systems without killing the crew's re-entry guidance.",
+    "year": 1970,
+    "type": "discovery_site",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "apollo-13-houston",
+        "name": "\"Houston, We Have a Problem\""
+      }
+    ]
+  },
+  {
+    "id": "free-balinese-room",
+    "currentName": "The Balinese Room",
+    "currentSubtitle": "A pier-based casino that outran the Texas Rangers",
+    "currentDescription": "The Balinese Room was built on a 600-foot pier over the Gulf. Whenever the Texas Rangers raided, they had to walk the entire length of the pier. By the time they reached the casino floor, the staff had pushed buttons to flip gambling tables into ordinary buffets and hide the bands' instruments.",
+    "year": 1941,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "galveston-free-state",
+        "name": "The Galveston \"Free State\" Era"
+      }
+    ]
+  },
+  {
+    "id": "free-maceo-hq",
+    "currentName": "The Maceo Headquarters",
+    "currentSubtitle": "Where the \"Free State\" was managed by the mob",
+    "currentDescription": "Sam and Rosario Maceo managed their empire from this location. Their influence was so absolute that the city's police chief and local government were openly on their payroll. The \"Free State\" provided a Depression-era economic boom that the rest of Texas lacked.",
+    "year": 1930,
+    "type": "government",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "galveston-free-state",
+        "name": "The Galveston \"Free State\" Era"
+      }
+    ]
+  },
+  {
+    "id": "tc-explosion-pier",
+    "currentName": "Pier O",
+    "currentSubtitle": "Where the SS Grandcamp detonated",
+    "currentDescription": "On April 16, 1947, a fire broke out on the SS Grandcamp, carrying 2,300 tons of ammonium nitrate. A crowd gathered to watch the orange smoke, unaware that a massive detonation was imminent. The blast leveled the nearby Monsanto plant and killed over 500 people instantly.",
+    "year": 1947,
+    "type": "crash_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "texas-city-disaster",
+        "name": "The Texas City Disaster"
+      }
+    ]
+  },
+  {
+    "id": "tc-anchor-monument",
+    "currentName": "The Two-Ton Anchor",
+    "currentSubtitle": "Launched 1.6 miles by the force of the blast",
+    "currentDescription": "This specific two-ton anchor was found embedded in the mud over a mile away from the explosion site. It stands today exactly where it landed, a visceral marker of the pressure wave that shattered windows 40 miles away in Houston.",
+    "year": 1947,
+    "type": "discovery_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "texas-city-disaster",
+        "name": "The Texas City Disaster"
+      }
+    ]
+  },
+  {
+    "id": "marfa-viewing-area",
+    "currentName": "Marfa Lights Observation Area",
+    "currentSubtitle": "Where rancher Robert Reed Ellison first recorded the orbs",
+    "currentDescription": "Ellison reported the lights while driving a herd of cattle in 1883, initially fearing they were Apache signal fires. Today, the state-funded viewing area attracts thousands who witness the lights darting across the horizon in areas where no roads or power lines exist.",
+    "year": 1883,
+    "type": "natural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "marfa-lights",
+        "name": "The Marfa Lights"
+      }
+    ]
+  },
+  {
+    "id": "goat-trading-post",
+    "currentName": "Lajitas Trading Post",
+    "currentSubtitle": "Where Clay Henry I held court and drank longnecks",
+    "currentDescription": "The original Mayor, Clay Henry, was a local celebrity who won a mock election in 1986. He became a global news sensation for his ability to drink an entire bottle of beer in seconds. The trading post served as his \"office\" for years.",
+    "year": 1986,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lajitas-goat-mayor",
+        "name": "The Goat Mayor of Lajitas"
+      }
+    ]
+  },
+  {
+    "id": "goat-henry-statue",
+    "currentName": "Clay Henry III Monument",
+    "currentSubtitle": "The memorial to a castrated political leader",
+    "currentDescription": "In 2002, the mayor's successor, Clay Henry III, was at the center of a legal scandal when a man was arrested for \"castrating the mayor\" in a drunken rage. A bronze statue now stands in Lajitas to commemorate the animal mayors of the Big Bend.",
+    "year": 2002,
+    "type": "landmark",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "lajitas-goat-mayor",
+        "name": "The Goat Mayor of Lajitas"
+      }
+    ]
+  }
+]

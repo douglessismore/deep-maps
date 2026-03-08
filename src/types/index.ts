@@ -96,6 +96,7 @@ export interface Moment {
   type: string;                        // 'crime_scene', 'cultural_venue', etc.
   importance: LocationImportance;
   accuracy: LocationAccuracy;
+  kind?: MomentKind;                   // 'event' | 'milestone' | 'presence' — defaults to 'event' if omitted
   year?: number;
   date?: string;
   address?: string;
@@ -127,3 +128,10 @@ export interface Entity {
 
 /** Story taxonomy — what kind of narrative thread is this? */
 export type StoryType = 'incident' | 'biography' | 'place' | 'era';
+
+/** Moment taxonomy — what kind of moment is this?
+ *  - event: A dramatic happening — "Police Discover Gein's Farmhouse"
+ *  - milestone: A life event (birth/death/marriage) — "O. Henry Born in Greensboro"
+ *  - presence: Ongoing association with a place — "O. Henry Works at the Land Office"
+ *  Defaults to 'event' if omitted. */
+export type MomentKind = 'event' | 'milestone' | 'presence';

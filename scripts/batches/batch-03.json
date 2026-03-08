@@ -1,0 +1,452 @@
+[
+  {
+    "id": "wac-courthouse",
+    "currentName": "Waco Federal Courthouse",
+    "currentSubtitle": "Where the survivors of the inferno faced trial",
+    "currentDescription": "The legal aftermath of the siege played out in this historic courthouse, where eleven Branch Davidians were tried for the deaths of ATF agents. The trial exposed deep divisions in public opinion regarding government overreach and religious freedom.",
+    "year": 1994,
+    "type": "government",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "waco-siege",
+        "name": "The Branch Davidian Siege"
+      }
+    ]
+  },
+  {
+    "id": "wac-ranger-museum",
+    "currentName": "Texas Ranger Hall of Fame and Museum",
+    "currentSubtitle": "Where the artifacts of the siege are preserved for history",
+    "currentDescription": "The Texas Rangers played a key role in the investigation following the fire. This museum houses detailed records and items from the standoff, providing a clinical look at the tactical and investigative efforts that followed one of the most controversial events in Texas history.",
+    "year": 1993,
+    "type": "institution",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "waco-siege",
+        "name": "The Branch Davidian Siege"
+      }
+    ]
+  },
+  {
+    "id": "bac-filling-station",
+    "currentName": "Barrow Family Filling Station",
+    "currentSubtitle": "Where Clyde Barrow grew up in the shadow of the law",
+    "currentDescription": "This small brick building served as both the Barrow family's business and home during the early 1930s. Clyde and his brother Buck used the station as a base for their early crimes. It remains one of the few standing structures in Dallas directly tied to the gang's origins.",
+    "year": 1932,
+    "type": "residence",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "bonnie-and-clyde",
+        "name": "Bonnie and Clyde"
+      }
+    ]
+  },
+  {
+    "id": "bac-grapevine-site",
+    "currentName": "Grapevine Killings Site",
+    "currentSubtitle": "The Easter Sunday murders that turned the public against the gang",
+    "currentDescription": "On April 1, 1934, Bonnie, Clyde, and Henry Methvin pulled over on the side of the road to rest. When two patrolmen approached to offer assistance, the outlaws opened fire. The cold-blooded killing of the officers shocked the nation and accelerated the manhunt that would eventually end their lives.",
+    "year": 1934,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "bonnie-and-clyde",
+        "name": "Bonnie and Clyde"
+      }
+    ]
+  },
+  {
+    "id": "bac-western-heights",
+    "currentName": "Western Heights Cemetery",
+    "currentSubtitle": "Where Clyde Barrow rests — separated from Bonnie even in death",
+    "currentDescription": "Clyde was buried here next to his brother Buck after the 1934 ambush. His family chose this site over a public funeral to avoid the massive crowds. Despite his request to be buried next to Bonnie, her family refused, burying her across town in Crown Hill Memorial Park.",
+    "year": 1934,
+    "type": "burial",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "bonnie-and-clyde",
+        "name": "Bonnie and Clyde"
+      }
+    ]
+  },
+  {
+    "id": "tb-chi-omega",
+    "currentName": "Chi Omega Sorority House",
+    "currentSubtitle": "Where Bundy's final, frantic rampage terrorized a university campus",
+    "currentDescription": "In the early hours of January 15, 1978, Bundy broke into the Chi Omega house at Florida State University. In less than 15 minutes, he attacked four women in their sleep, killing two. This location remains a private sorority residence and stands as the site of his most notorious act of violence.",
+    "year": 1978,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "ted-bundy",
+        "name": "Ted Bundy"
+      }
+    ]
+  },
+  {
+    "id": "tb-lake-sammamish",
+    "currentName": "Lake Sammamish State Park",
+    "currentSubtitle": "Where two women vanished in broad daylight on a single afternoon",
+    "currentDescription": "On July 14, 1974, Bundy approached several women at this crowded beach, his arm in a fake sling, asking for help loading a boat. He successfully abducted and murdered Janice Ott and Denise Naslund just hours apart. The park remains a popular recreation area, hiding the history of the day a predator operated in plain sight.",
+    "year": 1974,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "ted-bundy",
+        "name": "Ted Bundy"
+      }
+    ]
+  },
+  {
+    "id": "tb-florida-prison",
+    "currentName": "Florida State Prison",
+    "currentSubtitle": "Where the man who charmed a nation met the electric chair",
+    "currentDescription": "Bundy spent his final years here on death row before his execution in 'Old Sparky' on January 24, 1989. While he was being executed inside, hundreds of people gathered to celebrate, marking one of the most televised finales of a criminal career in US history.",
+    "year": 1989,
+    "type": "institution",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "ted-bundy",
+        "name": "Ted Bundy"
+      }
+    ]
+  },
+  {
+    "id": "zk-blue-rock",
+    "currentName": "Blue Rock Springs Park",
+    "currentSubtitle": "Where a late-night drive turned into a terrifying ambush",
+    "currentDescription": "Near the parking lot of this Vallejo park, the Zodiac fired into a car containing Darlene Ferrin and Michael Mageau on July 4, 1969. Mageau survived to describe the attacker, but the Zodiac famously called the police from a phone booth just blocks away to claim credit for the crime.",
+    "year": 1969,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "zodiac-killer",
+        "name": "The Zodiac Killer"
+      }
+    ]
+  },
+  {
+    "id": "zk-lake-berryessa",
+    "currentName": "Lake Berryessa (Oak Knoll)",
+    "currentSubtitle": "Where a hooded figure brought a nightmare to a sunny lakeshore",
+    "currentDescription": "On a remote peninsula known as Oak Knoll, two students were approached by a man wearing a black executioner-style hood with the Zodiac symbol. He tied them up and attacked them with a knife. Before leaving, he wrote the dates of his previous attacks on the door of their car.",
+    "year": 1969,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "zodiac-killer",
+        "name": "The Zodiac Killer"
+      }
+    ]
+  },
+  {
+    "id": "zk-stine-murder",
+    "currentName": "Washington and Cherry Street",
+    "currentSubtitle": "The urban murder that proved the Zodiac could strike anywhere",
+    "currentDescription": "In the upscale Presidio Heights neighborhood of San Francisco, the Zodiac shot cab driver Paul Stine. This was the first time he struck in a densely populated area. He famously tore a piece of Stine's blood-stained shirt and mailed it to the San Francisco Chronicle to prove he was the killer.",
+    "year": 1969,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "zodiac-killer",
+        "name": "The Zodiac Killer"
+      }
+    ]
+  },
+  {
+    "id": "jwg-house-site",
+    "currentName": "Gacy House Site",
+    "currentSubtitle": "Where a suburban nightmare was buried beneath the floorboards",
+    "currentDescription": "Gacy lived in a ranch-style house at this address where he murdered and buried 29 of his 33 victims in a 4-foot crawlspace. The house was demolished in 1979 during the investigation; today, a new residence stands on the lot, but the location remains the ultimate symbol of the 'hidden monster' in suburbia.",
+    "year": 1978,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "john-wayne-gacy",
+        "name": "John Wayne Gacy"
+      }
+    ]
+  },
+  {
+    "id": "jwg-greyhound",
+    "currentName": "Chicago Greyhound Bus Terminal",
+    "currentSubtitle": "The hunting ground for vulnerable young men in the city",
+    "currentDescription": "Gacy frequently visited this terminal and the surrounding Loop area to find his victims, often luring them with promises of construction work. He used his status as a business owner to build trust with young men who were traveling or looking for a new start in Chicago.",
+    "year": 1975,
+    "type": "landmark",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "john-wayne-gacy",
+        "name": "John Wayne Gacy"
+      }
+    ]
+  },
+  {
+    "id": "jwg-des-plaines-bridge",
+    "currentName": "I-55 Des Plaines River Bridge",
+    "currentSubtitle": "Where the final victims were committed to the water",
+    "currentDescription": "When Gacy ran out of room in his crawlspace, he began dumping bodies over the side of this bridge into the Des Plaines River. The discovery of these bodies eventually led investigators back to his home.",
+    "year": 1978,
+    "type": "natural_feature",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "john-wayne-gacy",
+        "name": "John Wayne Gacy"
+      }
+    ]
+  },
+  {
+    "id": "wkm-monument",
+    "currentName": "Wounded Knee Battlefield Monument",
+    "currentSubtitle": "Where the Ghost Dance ended in a hail of Hotchkiss guns",
+    "currentDescription": "On the morning of December 29, 1890, the 7th Cavalry attempted to disarm a band of Lakota. A scuffle broke out, a shot was fired, and the cavalry opened fire from the ridges above. Today, a stone monument and a quiet cemetery overlook the creek where the dream of a restored indigenous world was violently suppressed.",
+    "year": 1890,
+    "type": "battlefield",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "wounded-knee-massacre",
+        "name": "The Wounded Knee Massacre"
+      }
+    ]
+  },
+  {
+    "id": "wkm-mass-grave",
+    "currentName": "Sacred Heart Cemetery Mass Grave",
+    "currentSubtitle": "Where the frozen victims were buried in a single trench",
+    "currentDescription": "Days after the massacre, a burial party arrived to find the victims frozen in the snow. They dug a single, long trench atop a hill overlooking the killing field and interred nearly 150 bodies. The concrete border of the grave remains one of the most somber sights on the Pine Ridge Reservation.",
+    "year": 1890,
+    "type": "burial",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "wounded-knee-massacre",
+        "name": "The Wounded Knee Massacre"
+      }
+    ]
+  },
+  {
+    "id": "wkm-pine-ridge-agency",
+    "currentName": "Old Pine Ridge Agency Site",
+    "currentSubtitle": "Where survivors sought refuge in a blizzard of chaos",
+    "currentDescription": "Following the first shots, survivors and those fleeing the violence scrambled toward the Red Cloud Agency. The agency became a scene of frantic medical care and military tension as the news of the massacre rippled through the region.",
+    "year": 1890,
+    "type": "institution",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "wounded-knee-massacre",
+        "name": "The Wounded Knee Massacre"
+      }
+    ]
+  },
+  {
+    "id": "scm-historic-site",
+    "currentName": "Sand Creek National Historic Site",
+    "currentSubtitle": "Where white flags of peace were ignored for a massacre disguised as battle",
+    "currentDescription": "At dawn on November 29, 1864, Colonel John Chivington led 675 men in an attack on Black Kettle's village. Despite a white flag and an American flag being raised by the chief, the cavalry spent hours killing and mutilating inhabitants. The site is now a protected National Historic Site, preserved in its stark, desolate beauty.",
+    "year": 1864,
+    "type": "battlefield",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "sand-creek-massacre",
+        "name": "The Sand Creek Massacre"
+      }
+    ]
+  },
+  {
+    "id": "scm-denver-capitol",
+    "currentName": "Colorado State Capitol",
+    "currentSubtitle": "Where trophies of the slaughter were displayed to a cheering crowd",
+    "currentDescription": "Returning from the massacre, Chivington's men paraded through the streets of Denver, displaying human remains as trophies at the Apollo Theater. A memorial at the Capitol now acknowledges the event as a tragedy, not a victory.",
+    "year": 1864,
+    "type": "government",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "sand-creek-massacre",
+        "name": "The Sand Creek Massacre"
+      }
+    ]
+  },
+  {
+    "id": "scm-chivington-town",
+    "currentName": "The Ghost Town of Chivington",
+    "currentSubtitle": "A town named after a man history tried to forget",
+    "currentDescription": "Located miles south of the massacre site, this nearly abandoned town was named in honor of the Colonel before the full details of the massacre reached the public. As Chivington's reputation fell into disgrace, the town languished — a dusty reminder of a legacy built on blood.",
+    "year": 1887,
+    "type": "landmark",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "sand-creek-massacre",
+        "name": "The Sand Creek Massacre"
+      }
+    ]
+  },
+  {
+    "id": "rwm-wright-house",
+    "currentName": "The John Wright House",
+    "currentSubtitle": "The lone survivor of a town burned to the ground",
+    "currentDescription": "This private residence is the only structure still standing from the original town of Rosewood. During the week-long violence in January 1923, John Wright, a white store owner, hid Black residents in his home and helped them escape. The house stands as a silent sentinel on a quiet stretch of Highway 24.",
+    "year": 1923,
+    "type": "residence",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "rosewood-massacre",
+        "name": "The Rosewood Massacre"
+      }
+    ]
+  },
+  {
+    "id": "rwm-sumner-mill",
+    "currentName": "Sumner Turpentine Mill Site",
+    "currentSubtitle": "Where a false accusation ignited a week of fire",
+    "currentDescription": "The violence began here, in the nearby town of Sumner, after a white woman falsely accused a Black man from Rosewood of assault. Mob mentality quickly took hold at the local mill, and men armed themselves before marching on Rosewood.",
+    "year": 1923,
+    "type": "discovery_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "rosewood-massacre",
+        "name": "The Rosewood Massacre"
+      }
+    ]
+  },
+  {
+    "id": "rwm-cedar-key-rail",
+    "currentName": "Cedar Key Railroad Siding",
+    "currentSubtitle": "Where a midnight train rescued the children of Rosewood",
+    "currentDescription": "On the fourth night of the massacre, a train conductor slowed his steam locomotive as it passed Rosewood, allowing dozens of women and children hiding in the swamps to scramble aboard. They were whisked away to safety in Gainesville, leaving behind a town that would soon be reduced to ash.",
+    "year": 1923,
+    "type": "landmark",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "rosewood-massacre",
+        "name": "The Rosewood Massacre"
+      }
+    ]
+  },
+  {
+    "id": "jro-berkeley",
+    "currentName": "LeConte Hall, UC Berkeley",
+    "currentSubtitle": "Where the Oppenheimer School of theoretical physics began",
+    "currentDescription": "In the 1930s, Oppenheimer transformed this building into the premier center for theoretical physics in America. It was here that he gathered the elite team of scientists who would later follow him to the New Mexico desert to build the first atomic bomb.",
+    "year": 1929,
+    "type": "institution",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "j-robert-oppenheimer",
+        "name": "J. Robert Oppenheimer"
+      }
+    ]
+  },
+  {
+    "id": "jro-tech-area",
+    "currentName": "The Tech Area (Site Y)",
+    "currentSubtitle": "Where Oppenheimer managed the world's most dangerous secret",
+    "currentDescription": "This high-security cluster of buildings served as the administrative and scientific nerve center of Los Alamos. From his office here, Oppenheimer managed thousands of scientists and personnel, balancing the immense technical challenges of the bomb with the crushing weight of military secrecy.",
+    "year": 1943,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "j-robert-oppenheimer",
+        "name": "J. Robert Oppenheimer"
+      }
+    ]
+  },
+  {
+    "id": "jro-princeton-ias",
+    "currentName": "Institute for Advanced Study",
+    "currentSubtitle": "Where the Father of the Bomb sought intellectual refuge and faced exile",
+    "currentDescription": "After the war, Oppenheimer directed this prestigious institute, working alongside Albert Einstein. However, it was also the backdrop for the 1954 security hearing that stripped him of his security clearance, effectively exiling him from the government he had helped save.",
+    "year": 1947,
+    "type": "institution",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "j-robert-oppenheimer",
+        "name": "J. Robert Oppenheimer"
+      }
+    ]
+  },
+  {
+    "id": "lho-beckley-rooming",
+    "currentName": "1026 N Beckley Rooming House",
+    "currentSubtitle": "Where Oswald's final flight began after the shots rang out",
+    "currentDescription": "Shortly after the assassination, Oswald rushed back to his rented room here to retrieve a jacket and a revolver. The housekeeper noted his frantic pace before he slipped back out into the Dallas afternoon, beginning the final hour of his freedom.",
+    "year": 1963,
+    "type": "residence",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lee-harvey-oswald",
+        "name": "Lee Harvey Oswald"
+      }
+    ]
+  },
+  {
+    "id": "lho-tippit-site",
+    "currentName": "Intersection of 10th and Patton",
+    "currentSubtitle": "Where the flight of an assassin turned into a second murder",
+    "currentDescription": "At 1:15 PM, Officer J.D. Tippit pulled over to speak with Oswald. Without warning, Oswald fired four shots, killing Tippit instantly. This event triggered the massive manhunt that would lead to the Texas Theatre just blocks away.",
+    "year": 1963,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lee-harvey-oswald",
+        "name": "Lee Harvey Oswald"
+      }
+    ]
+  },
+  {
+    "id": "lho-police-hq",
+    "currentName": "Old Dallas Police Headquarters",
+    "currentSubtitle": "Where an assassin was silenced on national television",
+    "currentDescription": "In the basement of this building, as Oswald was being transferred to the county jail, nightclub owner Jack Ruby stepped from a crowd of reporters and fired a single shot. The world watched live as the primary suspect was himself silenced forever.",
+    "year": 1963,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lee-harvey-oswald",
+        "name": "Lee Harvey Oswald"
+      }
+    ]
+  },
+  {
+    "id": "lrn-central-high",
+    "currentName": "Little Rock Central High School",
+    "currentSubtitle": "Where the battle for integrated education became a national standoff",
+    "currentDescription": "In September 1957, the Arkansas National Guard, on orders from the Governor, blocked the students from entering. It wasn't until President Eisenhower sent in the 101st Airborne that the students were finally escorted into the building, a moment etched in the history of American civil rights.",
+    "year": 1957,
+    "type": "institution",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "little-rock-nine",
+        "name": "The Little Rock Nine"
+      }
+    ]
+  }
+]

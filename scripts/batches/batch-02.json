@@ -1,0 +1,452 @@
+[
+  {
+    "id": "norman-petty-studios",
+    "currentName": "Norman Petty Studios",
+    "currentSubtitle": "Where Buddy Holly recorded his greatest hits before his final tour",
+    "currentDescription": "Norman Petty's studio in Clovis was where Buddy Holly and the Crickets recorded \"That'll Be the Day,\" \"Peggy Sue,\" and other rock and roll classics. Holly's connection to Clovis was central to his career. The studio still stands and operates as a museum.",
+    "year": 1957,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "buddy-holly-clovis",
+        "name": "Buddy Holly's Last Concert"
+      }
+    ]
+  },
+  {
+    "id": "hawikku",
+    "currentName": "Hawikku Pueblo",
+    "currentSubtitle": "Where the myth of the Seven Cities of Gold died on contact with reality",
+    "currentDescription": "When Coronado's expedition finally reached Hawikku in July 1540, expecting streets paved with gold, they found a modest Zuni pueblo of perhaps 700 people. Coronado was wounded in the assault on the village. He wrote to the Viceroy of New Spain: \"The Seven Cities are seven little villages.\" The expedition continued east, eventually reaching Kansas before turning back — having found no gold, no silver, and no glory.",
+    "year": 1540,
+    "type": "cultural_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "coronado-cibola",
+        "name": "Coronado's Quest for Cíbola"
+      }
+    ]
+  },
+  {
+    "id": "palace-santa-fe",
+    "currentName": "Palace of the Governors",
+    "currentSubtitle": "Four centuries, four flags — the oldest public building in America",
+    "currentDescription": "Built in 1610 as the seat of Spanish colonial government, this adobe structure has served under the flags of Spain, the Pueblo people (1680-1692), Mexico (1821-1846), the Confederacy (briefly in 1862), and the United States. Native artisans have sold jewelry and pottery under its portal since the 1880s — a tradition protected by city ordinance today.",
+    "year": 1610,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "palace-of-governors",
+        "name": "Palace of the Governors"
+      }
+    ]
+  },
+  {
+    "id": "mesilla-plaza",
+    "currentName": "Mesilla Plaza",
+    "currentSubtitle": "Where the Confederate flag flew over the Rio Grande in 1862",
+    "currentDescription": "In 1861, Confederate sympathizers in the Mesilla Valley declared their allegiance to the South. When Confederate Colonel John Baylor arrived with his Texas Mounted Rifles, Mesilla became the capital of the newly declared Confederate Territory of Arizona. The rebel flag flew over this plaza until Union forces reclaimed the territory after the Battle of Glorieta Pass in March 1862 — sometimes called the \"Gettysburg of the West.\"",
+    "year": 1862,
+    "type": "government",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "confederate-mesilla",
+        "name": "The Confederate West"
+      }
+    ]
+  },
+  {
+    "id": "tulsa-greenwood",
+    "currentName": "Greenwood District",
+    "currentSubtitle": "Where America's most prosperous Black community was burned to the ground in 1921",
+    "currentDescription": "Before the massacre, Greenwood was home to Black-owned businesses, law offices, restaurants, hotels, theaters, and a hospital. On May 31-June 1, 1921, mobs of white residents — some deputized by city officials — attacked the district. Airplanes dropped firebombs. By the end, 35 blocks were destroyed. Bodies were dumped in mass graves. Insurance claims were denied. For decades, Oklahoma history textbooks didn't mention it. The search for mass graves continues today.",
+    "year": 1921,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "tulsa-race-massacre",
+        "name": "Tulsa Race Massacre"
+      }
+    ]
+  },
+  {
+    "id": "tulsa-drexel",
+    "currentName": "Drexel Building",
+    "currentSubtitle": "Where the spark that ignited the massacre began — a chance encounter in an elevator",
+    "currentDescription": "On May 30, 1921, 19-year-old Dick Rowland, a Black shoe shiner, entered the Drexel Building to use the only nearby restroom available to Black people. He shared an elevator with Sarah Page, a 17-year-old white elevator operator. Exactly what happened is unknown — Rowland may have tripped and grabbed her arm — but Page screamed, and Rowland fled. A newspaper article the next day headlined a near-assault. The mob formed that evening.",
+    "year": 1921,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "tulsa-race-massacre",
+        "name": "Tulsa Race Massacre"
+      }
+    ]
+  },
+  {
+    "id": "dean-crash-site",
+    "currentName": "Cholame Junction",
+    "currentSubtitle": "Where James Dean died at 24 — a desolate intersection that became a pilgrimage site",
+    "currentDescription": "At 5:59 PM on September 30, 1955, Dean's silver Porsche 550 Spyder (\"Little Bastard\") collided with a 1950 Ford Tudor at the junction of Routes 466 and 41. Dean had been speeding toward a race in Salinas. His mechanic survived; Dean died almost instantly. He was 24. A memorial near the site reads simply: \"James Dean 1931 Feb 8 - 1955 Sep 30pm 5:59.\" The car's wreckage allegedly cursed everyone who came into contact with it.",
+    "year": 1955,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "james-dean-crash",
+        "name": "James Dean's Fatal Crash"
+      }
+    ]
+  },
+  {
+    "id": "dennys-google-meeting",
+    "currentName": "Denny's on El Camino Real",
+    "currentSubtitle": "The Denny's parking lot where a trillion-dollar company was born over breakfast",
+    "currentDescription": "In August 1998, Larry Page and Sergey Brin met Sun Microsystems co-founder Andy Bechtolsheim at this Denny's. Bechtolsheim was so impressed by their search engine demo that he wrote a check for $100,000 on the spot — made out to \"Google Inc.,\" a company that didn't legally exist yet. Page and Brin had to incorporate before they could cash it. The rest is history. The Denny's is still there.",
+    "year": 1998,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "dennys-google",
+        "name": "The Denny's Where Google Was Born"
+      }
+    ]
+  },
+  {
+    "id": "tri-ground-zero",
+    "currentName": "Trinity Site Ground Zero",
+    "currentSubtitle": "Where the desert sand turned to radioactive green glass",
+    "currentDescription": "At 5:29 AM on July 16, 1945, 'The Gadget' detonated with the energy of 21 kilotons of TNT. The heat was so intense it vaporized the 100-foot steel tower and fused the surrounding silica into a mildly radioactive green glass called 'trinitite.' A small lava-rock obelisk now marks the exact spot of the crater.",
+    "year": 1945,
+    "type": "discovery_site",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "trinity-test",
+        "name": "The Trinity Test"
+      }
+    ]
+  },
+  {
+    "id": "tri-mcdonald-ranch",
+    "currentName": "McDonald Ranch House",
+    "currentSubtitle": "Where the plutonium core of the world's first bomb was assembled",
+    "currentDescription": "Located two miles from ground zero, this abandoned farmhouse became the final assembly point for the bomb's nuclear core. Scientists worked in a makeshift 'clean room' inside the master bedroom, carefully handling the plutonium hemispheres that would change history just days later.",
+    "year": 1945,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "trinity-test",
+        "name": "The Trinity Test"
+      }
+    ]
+  },
+  {
+    "id": "tri-control-bunker",
+    "currentName": "S-10,000 Control Bunker",
+    "currentSubtitle": "Where Oppenheimer waited in the darkness for the world to change",
+    "currentDescription": "Located exactly 10,000 yards south of the tower, this concrete-reinforced bunker served as the nerve center for the test. It was here that scientists crouched on the floor, counting down the final seconds until the blinding flash revealed they had successfully 'unlocked' the power of the atom.",
+    "year": 1945,
+    "type": "government",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "trinity-test",
+        "name": "The Trinity Test"
+      }
+    ]
+  },
+  {
+    "id": "hnb-hiroshima-hypocenter",
+    "currentName": "Hiroshima Hypocenter",
+    "currentSubtitle": "Where the first atomic bomb used in war detonated 1,900 feet above the city",
+    "currentDescription": "At 8:15 AM on August 6, 1945, the bomb 'Little Boy' exploded directly above the Shima Hospital. Today, a simple stone monument marks the hypocenter, located just meters from the Genbaku Dome — one of the few buildings to partially survive the blast and now a haunting memorial.",
+    "year": 1945,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "hiroshima-nagasaki-bombings",
+        "name": "The Atomic Bombings of Japan"
+      }
+    ]
+  },
+  {
+    "id": "hnb-nagasaki-hypocenter",
+    "currentName": "Nagasaki Hypocenter Park",
+    "currentSubtitle": "Where the second detonation occurred due to thick cloud cover over the primary target",
+    "currentDescription": "Three days after Hiroshima, the 'Fat Man' plutonium bomb was dropped on Nagasaki. The original target was Kokura, but heavy clouds forced the pilot to divert. The black stone monolith in this park marks the exact point where the thermal heat and pressure waves radiated outward.",
+    "year": 1945,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "hiroshima-nagasaki-bombings",
+        "name": "The Atomic Bombings of Japan"
+      }
+    ]
+  },
+  {
+    "id": "hnb-tinian-island",
+    "currentName": "North Field, Tinian",
+    "currentSubtitle": "Where the B-29s took off for the most destructive missions in history",
+    "currentDescription": "Part of the Northern Mariana Islands, Tinian became the largest airbase in the world during WWII. It was from Runway No. 1 that the Enola Gay and Bockscar took off with their secret cargos, carrying the weapons that would force a global surrender and end the war.",
+    "year": 1945,
+    "type": "battlefield",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "hiroshima-nagasaki-bombings",
+        "name": "The Atomic Bombings of Japan"
+      }
+    ]
+  },
+  {
+    "id": "dtm-silo-site",
+    "currentName": "Titan II Missile Silo 374-7",
+    "currentSubtitle": "Where a dropped tool almost wiped out central Arkansas",
+    "currentDescription": "During routine maintenance, a technician dropped a 3-lb socket that fell 70 feet, punctured the missile's fuel tank, and caused a massive leak. Hours later, the fuel exploded, launching the 740-ton silo door 600 feet into the air and ejecting the nuclear warhead into a nearby ditch.",
+    "year": 1980,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "damascus-titan-mishap",
+        "name": "The Damascus Titan II Mishap"
+      }
+    ]
+  },
+  {
+    "id": "dtm-warhead-impact",
+    "currentName": "The Warhead Impact Site",
+    "currentSubtitle": "Where the world's most powerful nuclear warhead landed in a ditch",
+    "currentDescription": "The explosion launched the W53 warhead out of the silo and into a nearby field. It was found several hours later in a ditch, its skin dented but its core miraculously intact. If it had detonated, the blast would have vaporized everything for miles, including nearby Little Rock.",
+    "year": 1980,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "damascus-titan-mishap",
+        "name": "The Damascus Titan II Mishap"
+      }
+    ]
+  },
+  {
+    "id": "dtm-little-rock-afb",
+    "currentName": "Little Rock Air Force Base",
+    "currentSubtitle": "The hub of the emergency response to a nuclear nightmare",
+    "currentDescription": "As the crisis unfolded, the base became the command center for the 'Propellant Transfer Team' and military leaders. It was from here that the orders were given to evacuate the surrounding countryside, as officials realized they were facing a potential multi-megaton detonation on US soil.",
+    "year": 1980,
+    "type": "institution",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "damascus-titan-mishap",
+        "name": "The Damascus Titan II Mishap"
+      }
+    ]
+  },
+  {
+    "id": "la-fords-theatre",
+    "currentName": "Ford's Theatre",
+    "currentSubtitle": "Where America's greatest president was shot while watching a comedy",
+    "currentDescription": "At approximately 10:15 PM on April 14, 1865, John Wilkes Booth entered the presidential box during the third act of \"Our American Cousin.\" He fired a .44-caliber Derringer into the back of Lincoln's head, slashed Major Henry Rathbone with a knife, and leapt to the stage — reportedly shouting \"Sic semper tyrannis!\" He broke his leg in the fall but escaped on horseback through the back alley.",
+    "year": 1865,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lincoln-assassination",
+        "name": "The Lincoln Assassination"
+      }
+    ]
+  },
+  {
+    "id": "la-petersen-house",
+    "currentName": "The Petersen House",
+    "currentSubtitle": "Where Lincoln spent his final hours in a bed too short for his frame",
+    "currentDescription": "Soldiers carried the mortally wounded president across 10th Street to this boarding house. Lincoln was placed diagonally on a bed too short for his 6'4\" frame. He never regained consciousness. At 7:22 AM on April 15, Secretary of War Edwin Stanton reportedly said, \"Now he belongs to the ages.\" Lincoln was 56 years old.",
+    "year": 1865,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lincoln-assassination",
+        "name": "The Lincoln Assassination"
+      }
+    ]
+  },
+  {
+    "id": "la-garrett-farm",
+    "currentName": "Garrett's Farm",
+    "currentSubtitle": "Where Booth's 12-day run ended in a burning tobacco barn",
+    "currentDescription": "After 12 days on the run, Booth and co-conspirator David Herold were tracked to Richard Garrett's farm south of Port Royal, Virginia. Soldiers surrounded the tobacco barn where they hid. Herold surrendered, but Booth refused. The barn was set on fire. Sergeant Boston Corbett shot Booth through a gap in the slats. Booth was dragged out and died on the porch, reportedly whispering \"Useless, useless\" as he looked at his hands.",
+    "year": 1865,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "lincoln-assassination",
+        "name": "The Lincoln Assassination"
+      }
+    ]
+  },
+  {
+    "id": "jfk-dealey-plaza",
+    "currentName": "Dealey Plaza",
+    "currentSubtitle": "Where three shots from a sixth-floor window ended Camelot",
+    "currentDescription": "At 12:30 PM on November 22, 1963, shots rang out as the presidential motorcade passed through Dealey Plaza. Kennedy was struck in the head and back. Governor John Connally was also hit. The limousine raced to Parkland Hospital, but it was too late. An X on the road still marks the approximate spot of the fatal shot. Thousands visit the grassy knoll and the sixth-floor window of the former Texas School Book Depository every year.",
+    "year": 1963,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "jfk-assassination",
+        "name": "The JFK Assassination"
+      }
+    ]
+  },
+  {
+    "id": "jfk-parkland",
+    "currentName": "Parkland Memorial Hospital",
+    "currentSubtitle": "Where doctors fought to save Kennedy — and where Oswald died two days later",
+    "currentDescription": "Kennedy arrived at Parkland's Trauma Room 1 at 12:38 PM, just eight minutes after being shot. Despite desperate efforts, he was pronounced dead at 1:00 PM. In a grim coincidence, Lee Harvey Oswald was brought to the same hospital two days later after being shot by Jack Ruby, and died in the same emergency department.",
+    "year": 1963,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "jfk-assassination",
+        "name": "The JFK Assassination"
+      }
+    ]
+  },
+  {
+    "id": "jfk-texas-theatre",
+    "currentName": "Texas Theatre",
+    "currentSubtitle": "Where Oswald hid in the dark watching a war movie as police closed in",
+    "currentDescription": "After allegedly shooting Officer J.D. Tippit, Lee Harvey Oswald ducked into this movie theatre on Jefferson Boulevard without paying. A shoe store manager saw him slip in and alerted the box office. Police arrived and found Oswald in the darkened auditorium. When confronted, Oswald reportedly said \"Well, it's all over now\" and pulled a revolver, but was subdued after a brief struggle. The theatre is still open today.",
+    "year": 1963,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "jfk-assassination",
+        "name": "The JFK Assassination"
+      }
+    ]
+  },
+  {
+    "id": "mlk-lorraine-motel",
+    "currentName": "Lorraine Motel",
+    "currentSubtitle": "Where King was shot on a balcony while joking with friends below",
+    "currentDescription": "At 6:01 PM on April 4, 1968, King stepped onto the second-floor balcony of room 306. He was chatting with musician Ben Branch in the parking lot below, asking him to play \"Take My Hand, Precious Lord\" at that evening's event. A single .30-06 rifle bullet struck him in the jaw and severed his spinal cord. He was pronounced dead at 7:05 PM at St. Joseph's Hospital. He was 39 years old. The motel is now the National Civil Rights Museum.",
+    "year": 1968,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "mlk-assassination",
+        "name": "The Assassination of Martin Luther King Jr."
+      }
+    ]
+  },
+  {
+    "id": "mlk-sniper-nest",
+    "currentName": "The Sniper's Rooming House",
+    "currentSubtitle": "Where James Earl Ray fired the shot from a shared bathroom window",
+    "currentDescription": "James Earl Ray rented a room at Bessie Brewer's rooming house at 422½ South Main Street under the alias \"John Willard.\" He fired from the shared bathroom window, which had a clear line of sight across the courtyard to the Lorraine Motel's second-floor balcony. Ray fled immediately, dropping a bundle containing the rifle and other belongings outside a storefront. He wasn't captured until two months later at London's Heathrow Airport.",
+    "year": 1968,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "mlk-assassination",
+        "name": "The Assassination of Martin Luther King Jr."
+      }
+    ]
+  },
+  {
+    "id": "mlk-clayborn-temple",
+    "currentName": "Clayborn Temple",
+    "currentSubtitle": "Where the sanitation workers gathered with their iconic \"I AM A MAN\" signs",
+    "currentDescription": "This historic church served as the organizing headquarters for the Memphis sanitation workers' strike that brought King to Memphis. Workers gathered here before marching downtown carrying their simple, devastating signs reading \"I AM A MAN.\" King's final speech — the prophetic \"I've Been to the Mountaintop\" — was delivered at Mason Temple, but Clayborn Temple was where the movement lived and breathed.",
+    "year": 1968,
+    "type": "landmark",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "mlk-assassination",
+        "name": "The Assassination of Martin Luther King Jr."
+      }
+    ]
+  },
+  {
+    "id": "ala-shrine",
+    "currentName": "The Alamo Shrine",
+    "currentSubtitle": "Where the final stand turned a mission into a monument",
+    "currentDescription": "The mission's chapel was the last point of retreat for the defenders on March 6, 1836. It was here that the legendary figures like Davy Crockett and James Bowie made their final stand. Today, it serves as the 'shrine' of the complex, though most of the original 4-acre compound has been lost to the city's growth.",
+    "year": 1836,
+    "type": "battlefield",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "battle-of-the-alamo",
+        "name": "The Battle of the Alamo"
+      }
+    ]
+  },
+  {
+    "id": "ala-long-barrack",
+    "currentName": "The Long Barrack",
+    "currentSubtitle": "Where the bloodiest room-to-room fighting took place",
+    "currentDescription": "A two-story stone building where the majority of the Texian defenders retreated as the Mexican army breached the outer walls. The fighting here was brutal and close-quarters, marking the most lethal phase of the battle. It is the oldest standing structure in San Antonio today.",
+    "year": 1836,
+    "type": "landmark",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "battle-of-the-alamo",
+        "name": "The Battle of the Alamo"
+      }
+    ]
+  },
+  {
+    "id": "ala-san-fernando",
+    "currentName": "San Fernando Cathedral",
+    "currentSubtitle": "Where the ashes of the Alamo heroes are reportedly interred",
+    "currentDescription": "Located blocks from the mission, this cathedral's bell tower was used by Santa Anna's forces to fly the red 'no quarter' flag during the siege. Inside, a marble sarcophagus near the entrance is said to contain the charred remains of Travis, Bowie, and Crockett, recovered from the pyres after the battle.",
+    "year": 1836,
+    "type": "burial",
+    "importance": "minor",
+    "parentStories": [
+      {
+        "id": "battle-of-the-alamo",
+        "name": "The Battle of the Alamo"
+      }
+    ]
+  },
+  {
+    "id": "wac-mt-carmel",
+    "currentName": "Mount Carmel Center Site",
+    "currentSubtitle": "Where the apocalyptic vision of David Koresh ended in fire",
+    "currentDescription": "On April 19, 1993, after weeks of negotiations, the FBI launched a gas assault to end the siege. The compound caught fire and burned to the ground in minutes. Today, a new small chapel and memorial markers stand on the quiet, rural property, far from the chaotic media circus that once surrounded it.",
+    "year": 1993,
+    "type": "crime_scene",
+    "importance": "major",
+    "parentStories": [
+      {
+        "id": "waco-siege",
+        "name": "The Branch Davidian Siege"
+      }
+    ]
+  }
+]
