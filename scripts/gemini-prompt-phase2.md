@@ -19,7 +19,7 @@ The name should describe what HAPPENED, not what the place IS called.
 
 **GOOD (verb-driven):**
 - "Police Uncover Gein's House of Horrors"
-- "Gein Robs Graves by Moonlight — Then Is Buried Here Himself"
+- "Gein Robs Graves for a Decade at Plainfield Cemetery"
 - "Buddy Holly Records 'That'll Be the Day' in a Garage Studio"
 - "Billy the Kid's Employer Is Gunned Down at His Own Store"
 - "A Cattle Baron Loses His Hotel in a Poker Game"
@@ -30,6 +30,13 @@ The name should describe what HAPPENED, not what the place IS called.
 - Include the most surprising/interesting detail
 - Keep under ~60 characters when possible (80 max)
 - Should make someone say "wait, WHAT?" when they see it on a map pin
+- **Tone: Wikipedia, not novel.** Be factual and specific. Let the facts be surprising — don't editorialize or add poetic flourishes.
+  - BAD: "Young Ed Gein Laughs Alone at Plainfield School" (novelistic, weird)
+  - GOOD: "Ed Gein Grows Up Isolated at Plainfield School" (factual, clear)
+  - BAD: "Shadows Fall Over the Old Mill" (creative writing)
+  - GOOD: "Fire Destroys the Old Mill, Killing 14 Workers" (specific, factual)
+
+**Splitting moments:** If a moment conflates two events separated by significant time (e.g., "grave robbing 1947–1957" AND "burial in 1984"), flag it for splitting. In your output, set `"splitSuggestion": "description of the split"` instead of just rewriting.
 
 ### 2. Classify the `kind`
 

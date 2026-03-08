@@ -1,0 +1,359 @@
+[
+  {
+    "id": "tlatelolco-church-sanctuary",
+    "name": "Protesters Are Locked Out of Santiago Tlatelolco Church During Massacre",
+    "subtitle": "Trapped students face military fire on ground that saw the fall of the Aztecs",
+    "kind": "event",
+    "entityIds": [
+      "tlatelolco-massacre",
+      "santiago-tlatelolco-church"
+    ],
+    "descriptionRewrite": "During the 1968 Tlatelolco Massacre, protesters tried to flee into the colonial-era Church of Santiago Tlatelolco, but the doors were locked. The blood of the victims pooled on the same ground where the Aztec empire made its final stand against Cort\u00e9s in 1521. For decades, the Mexican government claimed only 20 to 30 people died; eye-witnesses and later investigations suggest the toll was in the hundreds.",
+    "splitSuggestion": "Split into: 1) Protesters trapped at church doors in 1968 2) Aztec empire fall at this site in 1521.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "annihilator-mollie-smith",
+    "name": "Mollie Smith Is Murdered in Her Bed on New Year's Eve",
+    "subtitle": "The first blood is drawn in a year-long serial murder spree",
+    "kind": "event",
+    "entityIds": [
+      "servant-girl-annihilator",
+      "mollie-smith"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "annihilator-christmas-massacre",
+    "name": "Serial Killer Murders Two Women on Christmas Eve",
+    "subtitle": "A double murder in the downtown core triggers a city-wide panic",
+    "kind": "event",
+    "entityIds": [
+      "servant-girl-annihilator",
+      "susan-hancock",
+      "eula-phillips"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "annihilator-moonlight-tower",
+    "name": "Austin Installs 165-Foot 'Moonlight Towers' to Deter Serial Killer",
+    "subtitle": "The world's only surviving moonlight tower system was built to deter an axe murderer",
+    "kind": "event",
+    "entityIds": [
+      "servant-girl-annihilator",
+      "moonlight-towers"
+    ],
+    "descriptionRewrite": "In 1894, the city of Austin purchased 31 165-foot towers to illuminate the streets and deny the 'Servant Girl Annihilator' serial killer the cover of darkness. While the murders had stopped years earlier, the trauma remained. Austin is now the only city in the world that still operates these moonlight towers, which serve as a haunting architectural legacy of the 1884\u20131885 crime spree.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "annihilator-eliza-shelley",
+    "name": "Eliza Shelley Is Murdered by Axe in Her Cabin",
+    "subtitle": "A second brutal attack proves a pattern of serial violence is unfolding",
+    "kind": "event",
+    "entityIds": [
+      "servant-girl-annihilator",
+      "eliza-shelley"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "annihilator-o-henry-letter",
+    "name": "William Sydney Porter Coins the Name 'Servant Girl Annihilators'",
+    "subtitle": "An Austin bank clerk provides the moniker that defines the case",
+    "kind": "event",
+    "entityIds": [
+      "o-henry",
+      "servant-girl-annihilator"
+    ],
+    "descriptionRewrite": "Living just blocks from the scenes of the Servant Girl Annihilator murders in 1885, Austin bank clerk William Sydney Porter\u2014later famous as O. Henry\u2014coined the term 'Annihilator.' In a letter to his friend Dave Hall, he wrote: 'Town is fearfully dull... except for the frequent raids of the Servant Girl Annihilators who make things lively in the dull hours of the night.' This offhand remark became one of the first American serial killer nicknames.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "annihilator-gracie-vance",
+    "name": "Serial Killer Attacks Gracie Vance and Orange Washington",
+    "subtitle": "A community goes into hiding as the killer strikes residential neighborhoods",
+    "kind": "event",
+    "entityIds": [
+      "servant-girl-annihilator",
+      "gracie-vance",
+      "orange-washington"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "archive-war-land-office",
+    "name": "President Sam Houston Orders the Secret Removal of Republic Archives",
+    "subtitle": "A midnight wagon team attempts to relocate the soul of the capital",
+    "kind": "event",
+    "entityIds": [
+      "sam-houston",
+      "republic-of-texas"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "archive-war-cannon-site",
+    "name": "Angelina Eberly Fires a Six-Pound Cannon to Stop Archive Removal",
+    "subtitle": "A single shot alerts the town and saves Austin as the capital",
+    "kind": "event",
+    "entityIds": [
+      "angelina-eberly",
+      "sam-houston"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "janis-ut-campus",
+    "name": "Janis Joplin Is Voted 'Ugliest Man on Campus' at UT Austin",
+    "subtitle": "A cruel fraternity prank haunts a future rock legend during her art school days",
+    "kind": "event",
+    "entityIds": [
+      "janis-joplin",
+      "ut-austin"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": {
+      "janis-joplin-austin": "biography"
+    }
+  },
+  {
+    "id": "janis-threadgills",
+    "name": "Janis Joplin Performs at Kenneth Threadgill's Weekly Hootenannies",
+    "subtitle": "A future superstar hones her bluesy wail at a converted gas station",
+    "kind": "presence",
+    "entityIds": [
+      "janis-joplin",
+      "kenneth-threadgill",
+      "threadgills"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "janis-pink-palace",
+    "name": "Janis Joplin Lives at the 'Pink Palace' Victorian Rooming House",
+    "subtitle": "A hub for counterculture musicians during Joplin's Austin years",
+    "kind": "presence",
+    "entityIds": [
+      "janis-joplin"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "armadillo-wooldridge-poster",
+    "name": "Jim Franklin Designs Armadillo Poster for Wooldridge Square Benefit",
+    "subtitle": "A local artist creates the mascot for Austin's counterculture",
+    "kind": "event",
+    "entityIds": [
+      "jim-franklin",
+      "armadillo-world-hq"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": {
+      "armadillo-world-hq": "place"
+    }
+  },
+  {
+    "id": "armadillo-venue-site",
+    "name": "Eddie Wilson Opens the Armadillo World Headquarters in an Old Armory",
+    "subtitle": "A cultural epicenter is born inside a National Guard facility",
+    "kind": "milestone",
+    "entityIds": [
+      "eddie-wilson",
+      "armadillo-world-hq"
+    ],
+    "descriptionRewrite": "Opened in 1970 in an old National Guard armory, the Armadillo World Headquarters became an Austin cultural phenomenon. It was a venue where diverse acts like Frank Zappa, AC/DC, and Willie Nelson performed in the same room. The venue's closure in 1980 to make way for a high-rise office building is often cited as the moment 'Old Austin' began its transition into commercialization.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "armadillo-willie-1972",
+    "name": "Willie Nelson Unites Hippies and Cowboys at the Armadillo",
+    "subtitle": "The 'Cosmic Cowboy' movement begins with a landmark performance",
+    "kind": "event",
+    "entityIds": [
+      "willie-nelson",
+      "armadillo-world-hq"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "armadillo-final-concert",
+    "name": "Armadillo World Headquarters Hosts Final Concert Before Demolition",
+    "subtitle": "Asleep at the Wheel plays until sunrise at the end of an era",
+    "kind": "event",
+    "entityIds": [
+      "armadillo-world-hq"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "treaty-oak-site",
+    "name": "Paul Cullen Poisons the 500-Year-Old Treaty Oak with Herbicide",
+    "subtitle": "A man performs a ritual that nearly kills a sacred Austin icon",
+    "kind": "event",
+    "entityIds": [
+      "treaty-oak",
+      "paul-cullen"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "treaty-oak-lab",
+    "name": "Forensic Analysis Confirms Poisoning of Treaty Oak",
+    "subtitle": "Scientists identify lethal concentrations of Velpar in the tree's system",
+    "kind": "event",
+    "entityIds": [
+      "treaty-oak"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "plan-city-hall",
+    "name": "Austin City Council Adopts 1928 Master Plan Creating a 'Negro District'",
+    "subtitle": "A document codifies segregation and reshapes the city's geography",
+    "kind": "event",
+    "entityIds": [
+      "austin-1928-plan"
+    ],
+    "descriptionRewrite": "The Austin City Council formally adopted the 1928 Master Plan, which recommended the creation of a 'Negro District.' By concentrating all schools and services for Black residents in East Austin, the city effectively enforced racial segregation without passing illegal zoning laws. This document permanently reshaped the city's geography and displaced thriving Black communities in the West.",
+    "storyTypeFlags": {
+      "austin-1928-plan": "era"
+    }
+  },
+  {
+    "id": "plan-east-avenue",
+    "name": "City Disconnects Services to Force Migration East of East Avenue",
+    "subtitle": "Bureaucratic pressure forces families to relocate to the segregated district",
+    "kind": "event",
+    "entityIds": [
+      "austin-1928-plan"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "plan-wheatville-school",
+    "name": "City Closes Wheatville School to Displace Black Residents",
+    "subtitle": "The removal of community anchors enforces the segregated Master Plan",
+    "kind": "event",
+    "entityIds": [
+      "austin-1928-plan"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "btw-capitol-refusal",
+    "name": "Governor Colquitt Refuses to Let Booker T. Washington Speak at the Capitol",
+    "subtitle": "Racist state leadership denies the nation's most famous Black educator",
+    "kind": "event",
+    "entityIds": [
+      "booker-t-washington",
+      "oscar-colquitt"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "btw-wooldridge-square",
+    "name": "Booker T. Washington Addresses Racially Integrated Crowd at Wooldridge Square",
+    "subtitle": "5,000 people gather at a park bandstand after the Capitol snub",
+    "kind": "event",
+    "entityIds": [
+      "booker-t-washington"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "dam-powerhouse-explosion",
+    "name": "Great Granite Dam Explodes During Storm, Killing Eight Workers",
+    "subtitle": "The world's largest dam fails, bankrupting the city and causing total darkness",
+    "kind": "event",
+    "entityIds": [
+      "1900-austin-dam-failure"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "dam-red-bud-isle",
+    "name": "Granite Blocks from Exploded Dam Settle at Red Bud Isle",
+    "subtitle": "Remnants of the 1900 disaster remain visible in the river today",
+    "kind": "presence",
+    "entityIds": [
+      "1900-austin-dam-failure"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "ohenry-first-national-bank",
+    "name": "William Sydney Porter Is Accused of Embezzling from First National Bank",
+    "subtitle": "A bank shortage leads to the indictment of the future 'O. Henry'",
+    "kind": "event",
+    "entityIds": [
+      "o-henry"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "ohenry-austin-jail",
+    "name": "William Sydney Porter Is Detained While Awaiting Sentencing",
+    "subtitle": "A future literary legend begins writing stories from his cell",
+    "kind": "presence",
+    "entityIds": [
+      "o-henry"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "ohenry-morley-brothers",
+    "name": "William Sydney Porter Works as a Pharmacist at Morley Brothers",
+    "subtitle": "A young clerk observes the frontier characters who will fill his stories",
+    "kind": "presence",
+    "entityIds": [
+      "o-henry"
+    ],
+    "descriptionRewrite": "When William Sydney Porter arrived in Austin in 1884, he worked as a pharmacist at the Morley Brothers Drug Store on East 8th Street. It was here that he began sketching local characters and eavesdropping on conversations that would later fuel his short stories. At the time, Austin was a growing frontier town of 11,000 people, providing the young Porter with a wealth of narrative inspiration.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "ohenry-land-office",
+    "name": "William Sydney Porter Works as a Draftsman at the General Land Office",
+    "subtitle": "Porter spends four years mapping Texas and finding literary inspiration",
+    "kind": "presence",
+    "entityIds": [
+      "o-henry"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  },
+  {
+    "id": "ohenry-scholz-garden",
+    "name": "William Sydney Porter Sings with the Hill City Quartette at Scholz Garden",
+    "subtitle": "Bohemian life and German beer at Austin's oldest continuously operated bar",
+    "kind": "presence",
+    "entityIds": [
+      "o-henry",
+      "scholz-garden"
+    ],
+    "descriptionRewrite": null,
+    "storyTypeFlags": null
+  }
+]
