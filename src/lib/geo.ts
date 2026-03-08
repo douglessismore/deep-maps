@@ -1,5 +1,9 @@
 import type { LatLngBounds } from 'leaflet';
 import type { Story, ViewportLocation } from '../types';
+import { moments } from '../data/moments';
+import { buildMomentMap, resolveLocationsFromMap } from './storyHelpers';
+
+const momentMap = buildMomentMap(moments);
 
 export function distanceFromCenter(
   lat: number,
@@ -28,7 +32,7 @@ export function getLocationsInBounds(
   const results: ViewportLocation[] = [];
 
   for (const story of stories) {
-    for (const location of story.locations) {
+    for (const location of resolveLocationsFromMap(story, momentMap)) {
       if (bounds.contains([location.lat, location.lng])) {
         results.push({
           location,
@@ -52,6 +56,6 @@ export function getStoriesInBounds(
   bounds: LatLngBounds
 ): Story[] {
   return stories.filter((story) =>
-    story.locations.some((loc) => bounds.contains([loc.lat, loc.lng]))
+    resolveLocationsFromMap(story, momentMap).some((loc) => bounds.contains([loc.lat, loc.lng]))
   );
 }

@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import type { StoryLocation, Story, LocationAccuracy } from '../../types';
+import type { Moment, Story, LocationAccuracy } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { MediaDisplay } from './MediaDisplay';
 
@@ -10,14 +10,14 @@ const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string;
 };
 
 interface LocationCardProps {
-  location: StoryLocation;
+  location: Moment;
   story: Story;
   isActive: boolean;
-  onClick: (location: StoryLocation) => void;
+  onClick: (location: Moment) => void;
   showStoryName?: boolean;
   index?: number;
   onWikiJump?: (section?: string) => void;
-  intersectingStories?: Array<{ story: Story; location: StoryLocation }>;
+  intersectingStories?: Array<{ story: Story; location: Moment }>;
   onStoryClick?: (story: Story) => void;
 }
 

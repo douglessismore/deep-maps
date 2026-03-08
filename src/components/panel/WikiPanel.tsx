@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import type { Story, StoryLocation } from '../../types';
+import type { Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
+import { moments } from '../../data/moments';
+import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+
+const momentMap = buildMomentMap(moments);
 import {
   fetchWikiArticle,
   cleanWikiHtml,
@@ -10,14 +14,14 @@ import {
 
 interface WikiPanelProps {
   story: Story;
-  activeLocation: StoryLocation | null;
-  onLocationSelect: (location: StoryLocation) => void;
+  activeLocation: Moment | null;
+  onLocationSelect: (location: Moment) => void;
   initialSection?: string; // Section anchor to scroll to on mount
 }
 
 /** A geo-linked storypoint with its wiki section info */
 interface GeoAnchor {
-  location: StoryLocation;
+  location: Moment;
   sectionAnchor: string;
   sectionHeading: string;
 }
@@ -46,13 +50,13 @@ export function WikiPanel({
 
   // Build the geo-anchor map: locations that have wikiSection fields
   // Use both a ref (for callbacks) and a memo (for stable identity)
-  const sectionToLocation = useRef(new Map<string, StoryLocation>());
+  const sectionToLocation = useRef(new Map<string, Moment>());
   const geoSectionAnchors = useRef(new Set<string>());
 
   useEffect(() => {
-    const map = new Map<string, StoryLocation>();
+    const map = new Map<string, Moment>();
     const anchors = new Set<string>();
-    story.locations.forEach(loc => {
+    resolveLocationsFromMap(story, momentMap).forEach(loc => {
       if (loc.wikiSection) {
         map.set(loc.wikiSection, loc);
         anchors.add(loc.wikiSection);
@@ -63,7 +67,7 @@ export function WikiPanel({
   }, [story]);
 
   // Build ordered list of geo-anchors (storypoints that map to wiki sections)
-  const geoAnchors: GeoAnchor[] = story.locations
+  const geoAnchors: GeoAnchor[] = resolveLocationsFromMap(story, momentMap)
     .filter(loc => loc.wikiSection)
     .map(loc => ({
       location: loc,

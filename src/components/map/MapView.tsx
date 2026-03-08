@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
-import type { Story, StoryLocation, StoryCategory, InteractionMode, TileStyle } from '../../types';
+import type { Story, Moment, StoryCategory, InteractionMode, TileStyle } from '../../types';
 import { CATEGORIES, IMPORTANCE_SIZE } from '../../lib/categories';
+import { moments } from '../../data/moments';
+import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+
+const momentMap = buildMomentMap(moments);
 
 const TILE_URLS: Record<TileStyle, { url: string; attribution: string }> = {
   dark: {
@@ -22,13 +26,13 @@ const TILE_URLS: Record<TileStyle, { url: string; attribution: string }> = {
 interface MapViewProps {
   stories: Story[];
   activeStory: Story | null;
-  activeLocation: StoryLocation | null;
-  scrollHighlight?: StoryLocation | null; // Lightweight highlight during explore scroll (no zoom)
+  activeLocation: Moment | null;
+  scrollHighlight?: Moment | null; // Lightweight highlight during explore scroll (no zoom)
   mode: InteractionMode;
   categoryFilter: StoryCategory | null;
   resetViewKey?: number; // Incremented to trigger zoom-out to all pins
   onMapReady: (map: L.Map) => void;
-  onLocationClick: (location: StoryLocation, story: Story) => void;
+  onLocationClick: (location: Moment, story: Story) => void;
   onStoryClick: (story: Story) => void;
   userLocation?: { lat: number; lng: number } | null;
   nearMeZoomKey?: number;
@@ -88,14 +92,14 @@ function MapController({
   // Determine which locations to show
   const visibleLocations = useMemo(() => {
     if (mode === 'story' && activeStory) {
-      return activeStory.locations.map((loc) => ({ location: loc, story: activeStory }));
+      return resolveLocationsFromMap(activeStory, momentMap).map((loc) => ({ location: loc, story: activeStory }));
     }
     // Filter by category if set
     const filteredStories = categoryFilter
       ? stories.filter((s) => s.category === categoryFilter)
       : stories;
     return filteredStories.flatMap((story) =>
-      story.locations.map((loc) => ({ location: loc, story }))
+      resolveLocationsFromMap(story, momentMap).map((loc) => ({ location: loc, story }))
     );
   }, [stories, activeStory, mode, categoryFilter]);
 
@@ -152,13 +156,13 @@ function MapController({
       map.flyTo([activeLocation.lat, activeLocation.lng], 14, { duration: 2.0 });
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
-        activeStory.locations.map((loc) => [loc.lat, loc.lng] as [number, number])
+        resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
       map.flyToBounds(bounds, { padding: [60, 60], maxZoom: 14, duration: 1.8 });
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
-        s.locations.map((l) => [l.lat, l.lng] as [number, number])
+        resolveLocationsFromMap(s, momentMap).map((l) => [l.lat, l.lng] as [number, number])
       );
       if (coords.length > 0) {
         map.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 10, duration: 1.8 });
@@ -178,7 +182,7 @@ function MapController({
   // Zoom to nearest ~20 moments around user location
   const zoomToNearestMoments = useCallback((loc: { lat: number; lng: number }) => {
     const allCoords = stories.flatMap(s =>
-      s.locations.map(l => ({
+      resolveLocationsFromMap(s, momentMap).map(l => ({
         lat: l.lat,
         lng: l.lng,
         dist: Math.sqrt((l.lat - loc.lat) ** 2 + (l.lng - loc.lng) ** 2),

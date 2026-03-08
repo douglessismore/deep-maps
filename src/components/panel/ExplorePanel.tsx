@@ -1,7 +1,11 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
-import type { Story, StoryLocation, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
+import type { Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
+import { moments } from '../../data/moments';
+import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+
+const momentMap = buildMomentMap(moments);
 import { StoryCard } from './StoryCard';
 import { LocationCard } from './LocationCard';
 import { CollectionCard } from './CollectionCard';
@@ -12,10 +16,10 @@ interface ExplorePanelProps {
   activeCollection: StoryCollection | null;
   mapInstance: LeafletMap | null;
   onStorySelect: (story: Story) => void;
-  onLocationSelect: (location: StoryLocation, story: Story) => void;
+  onLocationSelect: (location: Moment, story: Story) => void;
   onCollectionSelect: (collection: StoryCollection) => void;
   onClearCollection: () => void;
-  onScrollHighlight: (location: StoryLocation | null) => void;
+  onScrollHighlight: (location: Moment | null) => void;
   onModeChange: (mode: InteractionMode) => void;
   mode: InteractionMode;
   searchQuery: string;
@@ -40,7 +44,7 @@ function distanceMiles(lat1: number, lng1: number, lat2: number, lng2: number): 
 
 /** Get the nearest location distance from a story to a point */
 function nearestDistance(story: Story, lat: number, lng: number): number {
-  return Math.min(...story.locations.map((l) => distanceMiles(lat, lng, l.lat, l.lng)));
+  return Math.min(...resolveLocationsFromMap(story, momentMap).map((l) => distanceMiles(lat, lng, l.lat, l.lng)));
 }
 
 export function ExplorePanel({
@@ -108,7 +112,7 @@ export function ExplorePanel({
           s.nickname?.toLowerCase().includes(q) ||
           s.description.toLowerCase().includes(q) ||
           s.tags.some((t) => t.includes(q)) ||
-          s.locations.some((l) => l.name.toLowerCase().includes(q))
+          resolveLocationsFromMap(s, momentMap).some((l) => l.name.toLowerCase().includes(q))
       );
     }
     return result;
@@ -171,12 +175,13 @@ export function ExplorePanel({
 
       if (closestId) {
         const story = displayStories.find((s) => s.id === closestId);
-        if (story && story.locations.length > 0) {
+        if (story && story.moments.length > 0) {
           onModeChange('scroll');
 
           // Find the first location of this story that's in the current viewport
           const mapBounds = mapInstance.getBounds();
-          const locsInView = story.locations.filter((l) =>
+          const resolved = resolveLocationsFromMap(story, momentMap);
+          const locsInView = resolved.filter((l) =>
             mapBounds.contains([l.lat, l.lng])
           );
 
@@ -206,7 +211,7 @@ export function ExplorePanel({
   }, [activeTab, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
 
   const handleLocationClick = useCallback(
-    (location: StoryLocation, story: Story) => {
+    (location: Moment, story: Story) => {
       setActiveLocationId(location.id);
       onLocationSelect(location, story);
     },

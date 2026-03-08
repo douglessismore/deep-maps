@@ -10,7 +10,7 @@ interface CollectionCardProps {
 export function CollectionCard({ collection, stories, onClick }: CollectionCardProps) {
   // Gather unique categories for color dots
   const categorySet = new Set(stories.map(s => s.category));
-  const locationCount = stories.reduce((sum, s) => sum + s.locations.length, 0);
+  const locationCount = stories.reduce((sum, s) => sum + s.moments.length, 0);
 
   return (
     <button

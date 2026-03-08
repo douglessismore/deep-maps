@@ -11,7 +11,7 @@ interface StoryCardProps {
 
 export function StoryCard({ story, onClick, compact = false, distanceMi }: StoryCardProps) {
   const cat = CATEGORIES[story.category];
-  const locationCount = story.locations.length;
+  const locationCount = story.moments.length;
 
   return (
     <button

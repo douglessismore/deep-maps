@@ -17,6 +17,7 @@ export interface StoryMedia {
   caption?: string;
 }
 
+/** @deprecated Use Moment instead. Kept during migration for backward compatibility. */
 export interface StoryLocation {
   id: string;
   name: string;
@@ -41,10 +42,11 @@ export interface Story {
   nickname?: string;
   years: string;
   category: StoryCategory;
+  storyType: StoryType;                // NEW: incident | biography | place | era
   description: string;
   tags: string[];
   contentWarning?: string;
-  locations: StoryLocation[];
+  moments: StoryMoment[];              // NEW: ordered moment references
   relatedStoryIds?: string[];
   wikipediaSlug?: string; // Wikipedia article slug (e.g., "Ed_Gein", "Jeffrey_Dahmer")
 }
@@ -52,7 +54,7 @@ export interface Story {
 export type InteractionMode = 'explore' | 'scroll' | 'story';
 
 export interface ViewportLocation {
-  location: StoryLocation;
+  location: Moment;
   story: Story;
   distance: number;
 }
@@ -78,3 +80,50 @@ export interface LocationLink {
   url: string;
   type: 'affiliate' | 'wiki' | 'source' | 'tour' | 'stay';
 }
+
+// ─── V2 Architecture: Moments-First Model ───────────────────────────
+
+/** The atomic unit — something that happened at a place and time.
+ *  Moments are VERBS: "O. Henry Coins 'Servant Girl Annihilator'"
+ *  They have standalone descriptions that make sense without any story context. */
+export interface Moment {
+  id: string;                          // e.g. 'ohenry-coins-annihilator'
+  name: string;                        // VERB-DRIVEN: "O. Henry Coins 'Servant Girl Annihilator'"
+  subtitle: string;                    // Hook: "A bank clerk's letter names America's first serial killer"
+  description: string;                 // STANDALONE — must make sense without any story context
+  lat: number;
+  lng: number;
+  type: string;                        // 'crime_scene', 'cultural_venue', etc.
+  importance: LocationImportance;
+  accuracy: LocationAccuracy;
+  year?: number;
+  date?: string;
+  address?: string;
+  entityIds?: string[];                // References to Entity.id: ['o-henry', 'annihilator-case']
+  media?: StoryMedia[];
+  wikiSection?: string;                // Wikipedia section anchor (e.g., "Crimes", "Early_life")
+  links?: LocationLink[];              // External links (affiliates, tours, stays, sources)
+}
+
+/** A story's reference to a shared moment, with optional narrative framing.
+ *  narrativeGlue provides story-specific context before the moment's standalone description.
+ *  Example: "While the city reeled from the latest axe attack, a keen observer was watching..." */
+export interface StoryMoment {
+  momentId: string;                    // Reference to Moment.id
+  narrativeGlue?: string;             // Story-specific intro sentence
+}
+
+/** A person, place, organization, or concept that appears across moments and stories.
+ *  Entities are NOUNS: "O. Henry", "The Broken Spoke", "FBI" */
+export interface Entity {
+  id: string;                          // e.g. 'o-henry', 'broken-spoke', 'fbi'
+  name: string;                        // Display name: 'O. Henry', 'The Broken Spoke'
+  type: 'person' | 'place' | 'organization' | 'concept';
+  years?: string;                      // For people: '1862–1910'
+  description?: string;                // Brief bio/description
+  canonicalStoryId?: string;           // Their "main" story: 'o-henry-life'
+  wikipediaSlug?: string;              // Entity's own Wikipedia article
+}
+
+/** Story taxonomy — what kind of narrative thread is this? */
+export type StoryType = 'incident' | 'biography' | 'place' | 'era';

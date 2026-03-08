@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { Story, StoryLocation } from '../../types';
+import type { Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
+import { moments } from '../../data/moments';
+import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+
+const momentMap = buildMomentMap(moments);
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
 import { LocationCard } from './LocationCard';
@@ -10,9 +14,9 @@ type StoryTab = 'locations' | 'wiki';
 
 interface StoryPanelProps {
   story: Story;
-  activeLocation: StoryLocation | null;
-  onLocationSelect: (location: StoryLocation) => void;
-  onScrollLocationSelect: (location: StoryLocation) => void;
+  activeLocation: Moment | null;
+  onLocationSelect: (location: Moment) => void;
+  onScrollLocationSelect: (location: Moment) => void;
   onRelatedStoryClick: (story: Story) => void;
   onTagClick?: (tag: string) => void;
   allStories: Story[];
@@ -81,13 +85,14 @@ export function StoryPanel({
       });
 
       // Near bottom of scroll: pick the last location
-      if (isNearBottom && story.locations.length > 0) {
-        closestId = story.locations[story.locations.length - 1].id;
+      const storyLocations = resolveLocationsFromMap(story, momentMap);
+      if (isNearBottom && storyLocations.length > 0) {
+        closestId = storyLocations[storyLocations.length - 1].id;
       }
 
       if (closestId && closestId !== scrollActiveId) {
         setScrollActiveId(closestId);
-        const location = story.locations.find((l) => l.id === closestId);
+        const location = storyLocations.find((l) => l.id === closestId);
         if (location) {
           onScrollLocationSelect(location);
         }
@@ -133,8 +138,10 @@ export function StoryPanel({
   const relatedIds = new Set(relatedStories.map((s) => s.id));
   const nearbyStories = allStories.filter((other) => {
     if (other.id === story.id || relatedIds.has(other.id)) return false;
-    return story.locations.some((storyLoc) =>
-      other.locations.some((otherLoc) => {
+    const storyLocs = resolveLocationsFromMap(story, momentMap);
+    const otherLocs = resolveLocationsFromMap(other, momentMap);
+    return storyLocs.some((storyLoc) =>
+      otherLocs.some((otherLoc) => {
         const dlat = storyLoc.lat - otherLoc.lat;
         const dlng = storyLoc.lng - otherLoc.lng;
         return Math.sqrt(dlat * dlat + dlng * dlng) < 1; // ~70 miles
@@ -150,12 +157,14 @@ export function StoryPanel({
 
   // Location-level intersections: which other stories share a location with each of ours?
   const locationIntersections = useMemo(() => {
-    const result = new Map<string, Array<{ story: Story; location: StoryLocation }>>();
-    for (const loc of story.locations) {
-      const matches: Array<{ story: Story; location: StoryLocation }> = [];
+    const result = new Map<string, Array<{ story: Story; location: Moment }>>();
+    const storyLocs = resolveLocationsFromMap(story, momentMap);
+    for (const loc of storyLocs) {
+      const matches: Array<{ story: Story; location: Moment }> = [];
       for (const other of allStories) {
         if (other.id === story.id) continue;
-        for (const otherLoc of other.locations) {
+        const otherLocs = resolveLocationsFromMap(other, momentMap);
+        for (const otherLoc of otherLocs) {
           const dlat = loc.lat - otherLoc.lat;
           const dlng = loc.lng - otherLoc.lng;
           if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.002) {
@@ -192,7 +201,7 @@ export function StoryPanel({
           borderBottomColor: activeTab === 'locations' ? cat.color : 'transparent',
         }}
       >
-        📍 Moments ({story.locations.length})
+        📍 Moments ({story.moments.length})
       </button>
       <button
         onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
@@ -349,7 +358,7 @@ export function StoryPanel({
                       <div className="min-w-0 text-left">
                         <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
                         <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                          {s.locations.length} {s.locations.length === 1 ? 'moment' : 'moments'} · {s.years}
+                          {s.moments.length} {s.moments.length === 1 ? 'moment' : 'moments'} · {s.years}
                         </p>
                       </div>
                       <span className={`shrink-0 text-[8px] font-mono px-1.5 py-0.5 rounded-full ${
@@ -372,10 +381,10 @@ export function StoryPanel({
           {/* Moments */}
           <div className="p-4">
             <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
-              Moments ({story.locations.length})
+              Moments ({story.moments.length})
             </h3>
             <div className="space-y-2">
-              {story.locations.map((location, i) => (
+              {resolveLocationsFromMap(story, momentMap).map((location, i) => (
                 <LocationCard
                   key={location.id}
                   ref={(el) => {

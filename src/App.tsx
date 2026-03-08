@@ -7,17 +7,21 @@ import { Header } from './components/ui/Header';
 import { TimelineBar } from './components/ui/TimelineBar';
 import { stories } from './data/stories';
 import { collections } from './data/collections';
+import { moments } from './data/moments';
 import { parseYears } from './lib/timeline';
-import type { Story, StoryLocation, StoryCategory, StoryCollection, InteractionMode } from './types';
+import { buildMomentMap, resolveLocationsFromMap } from './lib/storyHelpers';
+import type { Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
+
+const momentMap = buildMomentMap(moments);
 
 type SavedMapView = { center: [number, number]; zoom: number };
 
 type NavEntry = {
   mode: InteractionMode;
   activeStory: Story | null;
-  activeLocation: StoryLocation | null;
+  activeLocation: Moment | null;
   activeCollection: StoryCollection | null;
   categoryFilter: StoryCategory | null;
   savedMapView?: SavedMapView;
@@ -27,10 +31,10 @@ function App() {
   const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
   const [mode, setMode] = useState<InteractionMode>('explore');
   const [activeStory, setActiveStory] = useState<Story | null>(null);
-  const [activeLocation, setActiveLocation] = useState<StoryLocation | null>(null);
+  const [activeLocation, setActiveLocation] = useState<Moment | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
-  const [scrollHighlight, setScrollHighlight] = useState<StoryLocation | null>(null);
+  const [scrollHighlight, setScrollHighlight] = useState<Moment | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
@@ -80,7 +84,7 @@ function App() {
   // Derive which story is currently scroll-highlighted (for timeline dot pulse)
   const scrollHighlightStoryId = useMemo(() => {
     if (!scrollHighlight) return null;
-    return stories.find((s) => s.locations.some((l) => l.id === scrollHighlight.id))?.id ?? null;
+    return stories.find((s) => resolveLocationsFromMap(s, momentMap).some((l) => l.id === scrollHighlight.id))?.id ?? null;
   }, [scrollHighlight]);
 
   // Push current state onto navigation history before changing
@@ -107,7 +111,7 @@ function App() {
     setMode('story');
   }, [activeCollection, pushNav]);
 
-  const handleLocationSelect = useCallback((location: StoryLocation, story: Story) => {
+  const handleLocationSelect = useCallback((location: Moment, story: Story) => {
     pushNav();
     if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
       setActiveCollection(null);
@@ -118,7 +122,7 @@ function App() {
   }, [activeCollection, pushNav]);
 
   // Scroll-driven location select — no history push (avoids back-button pollution)
-  const handleScrollLocationSelect = useCallback((location: StoryLocation, story: Story) => {
+  const handleScrollLocationSelect = useCallback((location: Moment, story: Story) => {
     if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
       setActiveCollection(null);
     }
@@ -181,7 +185,7 @@ function App() {
     if (mapInstance) {
       const collectionStories = stories.filter(s => collection.storyIds.includes(s.id));
       const coords = collectionStories.flatMap(s =>
-        s.locations.map(l => [l.lat, l.lng] as [number, number])
+        resolveLocationsFromMap(s, momentMap).map(l => [l.lat, l.lng] as [number, number])
       );
       if (coords.length > 0) {
         mapInstance.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
@@ -195,7 +199,7 @@ function App() {
     if (newMode === 'story') setScrollHighlight(null);
   }, []);
 
-  const handleScrollHighlight = useCallback((location: StoryLocation | null) => {
+  const handleScrollHighlight = useCallback((location: Moment | null) => {
     setScrollHighlight(location);
   }, []);
 
@@ -255,7 +259,8 @@ function App() {
   const handleSurpriseMe = useCallback(() => {
     pushNav();
     const randomStory = stories[Math.floor(Math.random() * stories.length)];
-    const randomLoc = randomStory.locations[Math.floor(Math.random() * randomStory.locations.length)];
+    const resolved = resolveLocationsFromMap(randomStory, momentMap);
+    const randomLoc = resolved[Math.floor(Math.random() * resolved.length)];
     setCategoryFilter(null);
     setActiveStory(randomStory);
     setActiveLocation(randomLoc);
