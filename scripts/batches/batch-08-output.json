@@ -1,0 +1,374 @@
+[
+  {
+    "id": "junk-cathedral-site",
+    "name": "Vince Hannemann Begins Constructing a Three-Story Cathedral of Junk",
+    "subtitle": "A backyard project using 60 tons of tires, bathtubs, and electronics",
+    "kind": "milestone",
+    "entityIds": [
+      "vince-hannemann"
+    ],
+    "descriptionRewrite": "Vince Hannemann began building the Cathedral of Junk in his South Austin backyard in 1988. The structure features vaulted ceilings of bicycle wheels, a \"throne\" of electronics, and a leaf from the Buddha's tree of enlightenment encased in a specific chamber. It evolved over thirty years into a multi-story spiritual hub and landmark made entirely of recycled waste.",
+    "storyTypeFlags": {
+      "cathedral-of-junk": "place"
+    }
+  },
+  {
+    "id": "junk-city-hall-hearing",
+    "name": "City Hall Issues a Permit to Legitimize Junk as a Permanent Work of Art",
+    "subtitle": "A volunteer army of engineers helps save the mountain of trash from demolition",
+    "kind": "event",
+    "entityIds": [
+      "vince-hannemann"
+    ],
+    "descriptionRewrite": "In 2010, the city of Austin nearly demolished the Cathedral of Junk after neighbor complaints. Owner Vince Hannemann mobilized a volunteer army of engineers and architects to prove the structure was sound. After a high-stakes hearing and massive public support, the city issued a permit, officially recognizing the collection of trash as a legitimate piece of architectural heritage.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "dell-dobie-room",
+    "name": "Fire Marshal Threatens to Evict Michael Dell for Creating a Fire Hazard",
+    "subtitle": "Stacks of IBM boxes in a freshman dorm room launch a tech empire",
+    "kind": "event",
+    "entityIds": [
+      "michael-dell",
+      "ut-austin"
+    ],
+    "descriptionRewrite": "While a freshman at the University of Texas, Michael Dell began upgrading computers and selling them directly to customers from his room in the Dobie Center. The building's fire marshal eventually intervened when Dell had stacked so many IBM cardboard boxes in the hallway that it became a hazard. This \"box crisis\" forced the 19-year-old to move his business, PC's Limited, off-campus and drop out of school.",
+    "storyTypeFlags": {
+      "michael-dell-startup": "biography"
+    }
+  },
+  {
+    "id": "dell-braker-office",
+    "name": "PC's Limited Moves to an Industrial Park to Prevent Growth Collapse",
+    "subtitle": "Michael Dell transitions from a dorm room operation to a professional office",
+    "kind": "presence",
+    "entityIds": [
+      "michael-dell",
+      "dell"
+    ],
+    "descriptionRewrite": "Following his eviction from the Dobie Center dorms, Michael Dell moved his company to this professional office space. The business, then known as PC's Limited, experienced such explosive growth that it struggled to manage inventory. The company nearly collapsed under its own weight before a pivot to custom-built machines saved the future Dell empire.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "uttower-observation-deck",
+    "name": "Charles Whitman Sniper Attack Kills 14 from the Tower Observation Deck",
+    "subtitle": "A former Marine holds the university campus hostage for 96 minutes",
+    "kind": "event",
+    "entityIds": [
+      "charles-whitman",
+      "ut-austin"
+    ],
+    "descriptionRewrite": "On August 1, 1966, former Marine Charles Whitman reached the 28th-floor observation deck of the University of Texas Tower with a footlocker of rifles. From the 231-foot vantage point, he began firing at students and faculty below. The 96-minute siege was eventually ended when Officers Ramiro Martinez and Houston McCoy breached the deck and killed the sniper.",
+    "storyTypeFlags": {
+      "ut-tower-shooting": "incident"
+    }
+  },
+  {
+    "id": "uttower-main-mall",
+    "name": "Civilians Use Personal Deer Rifles to Pin Down the Tower Sniper",
+    "subtitle": "An improvised counter-siege prevents a higher death toll on the killing field",
+    "kind": "event",
+    "entityIds": [
+      "charles-whitman",
+      "ut-austin"
+    ],
+    "descriptionRewrite": "The main mall south of the University of Texas Tower became a primary killing field during the 1966 sniper attack. Realizing the police were outgunned, local Austin citizens grabbed deer rifles from their trucks and began firing back at the tower. This improvised civilian counter-siege pinned Charles Whitman behind the limestone walls and allowed officers to reach the top of the building.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "srv-antones-6th",
+    "name": "Stevie Ray Vaughan Hones an Explosive Blues Style at Antone's",
+    "subtitle": "A teenage guitarist sits at the feet of legends like Muddy Waters",
+    "kind": "presence",
+    "entityIds": [
+      "stevie-ray-vaughan",
+      "antones"
+    ],
+    "descriptionRewrite": "Stevie Ray Vaughan was a fixture at Clifford Antone's original blues club on 6th Street. He spent his youth watching legends like Muddy Waters and Albert King perform, eventually developing the explosive, heavy-stringed style that would change rock history. The club served as his primary musical education and the home of the Austin blues resurgence.",
+    "storyTypeFlags": {
+      "stevie-ray-vaughan": "biography"
+    }
+  },
+  {
+    "id": "srv-auditorium-shores",
+    "name": "Austin Memorializes Stevie Ray Vaughan with a Bronze Statue",
+    "subtitle": "A permanent pilgrimage site near the venue of his final performances",
+    "kind": "presence",
+    "entityIds": [
+      "stevie-ray-vaughan"
+    ],
+    "descriptionRewrite": "The bronze statue at Auditorium Shores commemorates the legacy of Stevie Ray Vaughan. Following his death in a 1990 helicopter crash, the site became a central point for music pilgrimages. It stands near the location of many of his most famous performances, where fans from around the world gather to pay their respects to the guitar legend.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "bats-congress-bridge",
+    "name": "Bridge Refurbishment Accidentally Creates a Massive Bat Incubator",
+    "subtitle": "Crevices in the 1980 design prove perfect for Mexican free-tailed bats",
+    "kind": "event",
+    "entityIds": [
+      "mexican-free-tailed-bats"
+    ],
+    "descriptionRewrite": "When the city refurbished the Congress Avenue Bridge in 1980, engineers accidentally created 18-inch-deep crevices that were the perfect temperature for Mexican free-tailed bats. Within months, 1.5 million bats moved in, creating the largest urban bat colony in North America. The colony now eats approximately 20,000 pounds of insects every single night.",
+    "storyTypeFlags": {
+      "congress-avenue-bats": "place"
+    }
+  },
+  {
+    "id": "bats-accidental-joints",
+    "name": "Rabies Scare Triggers Mass Hysteria and Petitions to Exterminate the Bats",
+    "subtitle": "A 1984 panic leads to newspapers labeling the colony a public health hazard",
+    "kind": "event",
+    "entityIds": [
+      "mexican-free-tailed-bats"
+    ],
+    "descriptionRewrite": "By 1984, the Congress Avenue bat population had exploded, and many horrified Austinites demanded their removal. Local newspapers ran headlines about \"rabid invaders,\" and petrified residents petitioned the city to exterminate the colony. It was a period of peak public fear before scientific education helped the city embrace the bats as biological allies and a tourism asset.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "bats-bci-saves-colony",
+    "name": "Dr. Merlin Tuttle Moves BCI to Austin to Protect the Bridge Colony",
+    "subtitle": "Scientific education transforms public fear into a multi-million dollar tourism industry",
+    "kind": "milestone",
+    "entityIds": [
+      "merlin-tuttle",
+      "bat-conservation-international"
+    ],
+    "descriptionRewrite": "In 1986, bat expert Dr. Merlin Tuttle moved the headquarters of Bat Conservation International (BCI) to Austin specifically to save the Congress Avenue colony. He launched a public education campaign that countered the rabies panic and demonstrated the economic benefits of the bats. His work turned a potential disaster into a major tourism draw that now attracts 100,000 visitors annually.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "sos-barton-springs",
+    "name": "Environmentalists Fight Development to Save the Barton Springs Salamander",
+    "subtitle": "Natural springs become the catalyst for Austin's strict environmental laws",
+    "kind": "presence",
+    "entityIds": [
+      "barton-springs-salamander",
+      "save-our-springs-alliance"
+    ],
+    "descriptionRewrite": "The natural Barton Springs Pool became the legal centerpiece of a fight to stop a massive corporate development called Barton Creek PUD. Conservationists leveraged the endangered status of the Barton Springs Salamander to push for new water-quality regulations. This conflict forever defined Austin as a city that would engage in intense political warfare to protect its natural resources.",
+    "storyTypeFlags": {
+      "barton-springs-sos": "era"
+    }
+  },
+  {
+    "id": "sos-city-hall-hearing",
+    "name": "Eight Hundred Citizens Flood an All-Night Public Hearing at City Hall",
+    "subtitle": "Residents speak for 15 hours straight to successfully reject a development plan",
+    "kind": "event",
+    "entityIds": [
+      "save-our-springs-alliance"
+    ],
+    "descriptionRewrite": "On June 7, 1990, over 800 citizens flooded a City Council meeting in what became known as \"The All-Night Public Hearing.\" Residents spoke against the Barton Creek development for 15 straight hours until the sun rose. This grassroots explosion birthed the Save Our Springs (SOS) Alliance and successfully pressured the city to reject the massive construction project.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "lbj-driskill-date",
+    "name": "Lyndon B. Johnson and Claudia \"Lady Bird\" Taylor Have Their First Date",
+    "subtitle": "The beginning of a political partnership in the hotel lobby",
+    "kind": "event",
+    "entityIds": [
+      "lyndon-b-johnson",
+      "lady-bird-johnson",
+      "driskill-hotel"
+    ],
+    "descriptionRewrite": "In 1934, Lyndon B. Johnson met Claudia \"Lady Bird\" Taylor for breakfast at the Driskill Hotel. He proposed shortly after their first meeting. The hotel remained LBJ's political headquarters throughout his career, and it was the same location where he watched the returns of his 1948 Senate race.",
+    "storyTypeFlags": {
+      "lbj-lady-bird-austin": "biography"
+    }
+  },
+  {
+    "id": "lbj-lady-bird-lake",
+    "name": "Lady Bird Johnson Launches Project to Beautify Trash-Strewn Town Lake",
+    "subtitle": "A first lady replaces riverbank debris with hike-and-bike trails",
+    "kind": "event",
+    "entityIds": [
+      "lady-bird-johnson"
+    ],
+    "descriptionRewrite": "In the 1970s, Lady Bird Johnson led a massive project to clean up the banks of Town Lake (now Lady Bird Lake). She used her influence to replace the trash-strewn banks with thousands of flowering trees and the hike-and-bike trails that now define downtown Austin. Her legacy ensured the preservation of the landscape against the encroachment of heavy industry.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "driskill-poker-loss",
+    "name": "Cattle Baron Jesse Driskill Loses His Entire Hotel in a Poker Game",
+    "subtitle": "The finest hotel in Texas changes hands in a high-stakes gamble",
+    "kind": "event",
+    "entityIds": [
+      "jesse-driskill",
+      "driskill-hotel"
+    ],
+    "descriptionRewrite": "In 1886, cattle baron Jesse Driskill spent a fortune to build the finest hotel south of St. Louis. Just two years later, he lost the entire building in a high-stakes poker game. Driskill died bankrupt shortly after, and his spirit is said to haunt the halls of the hotel to this day, often accompanied by the phantom scent of his cigars.",
+    "storyTypeFlags": {
+      "driskill-hotel": "place"
+    }
+  },
+  {
+    "id": "driskill-room-525",
+    "name": "Two Brides Commit Suicide 20 Years Apart to the Day in Room 525",
+    "subtitle": "A tragic pattern in the hotel's most notorious room leads to its temporary sealing",
+    "kind": "event",
+    "entityIds": [
+      "driskill-hotel"
+    ],
+    "descriptionRewrite": "The Driskill Hotel's Room 525 was the site of a double tragedy where two separate brides on their honeymoons committed suicide in the same bathtub. The events allegedly took place exactly 20 years apart to the day. The room was sealed for a period of years and remains a central point for reported paranormal activity and apparitions of women in Victorian gowns.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "orph-st-marys-site",
+    "name": "Nuns Tie Themselves to Ninety Children to Survive the 1900 Hurricane",
+    "subtitle": "A human chain perishes together in the deadliest natural disaster in U.S. history",
+    "kind": "event",
+    "entityIds": [
+      "sisters-of-charity",
+      "1900-galveston-hurricane"
+    ],
+    "descriptionRewrite": "During the Great Galveston Hurricane of 1900, the Sisters of Charity at St. Mary's Orphan Asylum realized their beachfront dormitory was disintegrating. Ten nuns tied themselves to 90 children with clotheslines to keep from being swept away. Rescuers later found the bodies of the sisters and children still tethered together in the sand. The site of the orphanage is now occupied by a Walmart.",
+    "storyTypeFlags": {
+      "galveston-orphanage-stand": "incident"
+    }
+  },
+  {
+    "id": "orph-survivor-tree",
+    "name": "Three Orphans Cling to a Salt Cedar Tree During the Asylum Collapse",
+    "subtitle": "The only sanctuary for survivors witnessing the destruction of the human chain",
+    "kind": "event",
+    "entityIds": [
+      "1900-galveston-hurricane"
+    ],
+    "descriptionRewrite": "The salt cedar tree located on the St. Mary's Orphan Asylum grounds was one of the few structures that did not wash away during the 1900 storm. Three orphans—Will Murney, Frank Madera, and Albert Campbell—clung to its branches through the night. They were the only survivors from the asylum, witnessing the loss of their peers and the sisters who had formed the human chain.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "enron-smith-street",
+    "name": "Enron Traders Orchestrate Power Outages and Market Manipulation",
+    "subtitle": "The 50-story north tower becomes the headquarters for corporate psychopathy",
+    "kind": "presence",
+    "entityIds": [
+      "enron"
+    ],
+    "descriptionRewrite": "At the height of the 2000–2001 California energy crisis, Enron traders at the Smith Street headquarters coordinated artificial power outages. Internal memos with names like \"Death Star\" detailed how to move energy out of the state to create fake shortages for profit. Recorded phone calls later revealed traders mocking citizens while they manipulated the grid for billions in gain.",
+    "storyTypeFlags": {
+      "enron-death-star": "incident"
+    }
+  },
+  {
+    "id": "enron-logo-auction",
+    "name": "Iconic Enron Logo Sign Sells for $44,000 at Sidewalk Bankruptcy Auction",
+    "subtitle": "A visceral end to a symbol of global power sold to a waste management firm",
+    "kind": "event",
+    "entityIds": [
+      "enron"
+    ],
+    "descriptionRewrite": "Following Enron's absolute collapse in 2001, the iconic tilted \"E\" logo outside the Smith Street headquarters was sold at a sidewalk bankruptcy auction. The sign, once a symbol of the world's most innovative company, was purchased for $44,000 by a local scrap and waste company. The sale served as a final public marker of the company's downfall.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "apollo-mission-control",
+    "name": "NASA Engineers Fashion a DIY Carbon Dioxide Filter to Save the Crew",
+    "subtitle": "Inventing a way to fit a square peg into a round hole with duct tape",
+    "kind": "event",
+    "entityIds": [
+      "nasa"
+    ],
+    "descriptionRewrite": "On April 13, 1970, an oxygen tank explosion crippled the Apollo 13 spacecraft. In the Mission Control Center in Houston, engineers worked to solve the problem of incompatible carbon dioxide scrubbers. They had to invent a way to fit square filters into round sockets using only items available to the astronauts: a plastic bag, cardboard from a flight plan, and duct tape.",
+    "storyTypeFlags": {
+      "apollo-13-houston": "incident"
+    }
+  },
+  {
+    "id": "apollo-lunar-lab",
+    "name": "Engineers Rewrite the Spacecraft Operating Manual Under Critical Pressure",
+    "subtitle": "Calculating a power-up sequence to turn a lunar module into a long-term lifeboat",
+    "kind": "event",
+    "entityIds": [
+      "nasa"
+    ],
+    "descriptionRewrite": "Because the Apollo 13 Lunar Module was never designed to be a long-term lifeboat, NASA engineers in this laboratory had to rewrite the spacecraft's entire operating manual in real-time. They calculated exactly how much battery power could be diverted to heating systems without losing re-entry guidance, proving that the mission could be saved through analytical grit and ingenuity.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "free-balinese-room",
+    "name": "Casino Staff Flip Tables into Buffets to Evade Texas Ranger Raids",
+    "subtitle": "The \"Ranger Run\" allows enough time to hide evidence of gambling on the pier",
+    "kind": "presence",
+    "entityIds": [
+      "texas-rangers",
+      "maceo-syndicate"
+    ],
+    "descriptionRewrite": "During the \"Free State of Galveston\" era, the Balinese Room operated as a high-stakes casino on a 600-foot pier. Whenever Texas Rangers attempted a raid, the length of the pier gave staff enough time to push buttons that flipped gambling tables into ordinary buffets. Slot machines were hidden in secret wall panels, making it impossible for the Rangers to find evidence of crime.",
+    "storyTypeFlags": {
+      "galveston-free-state": "era"
+    }
+  },
+  {
+    "id": "free-maceo-hq",
+    "name": "The Maceo Syndicate Governs a Wide-Open Bootlegging and Gambling Empire",
+    "subtitle": "Local police and officials remain on the mob's payroll for thirty years",
+    "kind": "presence",
+    "entityIds": [
+      "maceo-syndicate"
+    ],
+    "descriptionRewrite": "Sam and Rosario Maceo managed their gambling and bootlegging empire from this headquarters in Galveston. Their influence was so absolute that the city's police chief and local government were openly on their payroll. This \"Free State\" provided a Depression-era economic boom to the island while the syndicate ignored federal Prohibition and state gambling laws.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "tc-explosion-pier",
+    "name": "Ammonium Nitrate Detonation on the SS Grandcamp Levels the Waterfront",
+    "subtitle": "A ship fire triggers the deadliest industrial accident in U.S. history",
+    "kind": "event",
+    "entityIds": [
+      "ss-grandcamp"
+    ],
+    "descriptionRewrite": "On April 16, 1947, a fire broke out on the SS Grandcamp, which was carrying 2,300 tons of ammonium nitrate fertilizer. A crowd gathered at the dock to watch the orange smoke, unaware the ship had become a massive bomb. When it detonated, the blast leveled the Monsanto Chemical plant and triggered a 15-foot tidal wave, killing over 500 people.",
+    "storyTypeFlags": {
+      "texas-city-disaster": "incident"
+    }
+  },
+  {
+    "id": "tc-anchor-monument",
+    "name": "A Two-Ton Ship Anchor Crushes the Earth 1.6 Miles from the Explosion",
+    "subtitle": "A visceral marker of the pressure wave that shattered windows 40 miles away",
+    "kind": "event",
+    "entityIds": [
+      "ss-grandcamp"
+    ],
+    "descriptionRewrite": "The 1947 Texas City ship explosion was so powerful that a two-ton anchor from the SS Grandcamp was launched into the air. It traveled 1.6 miles before crashing into the mud. The anchor remains in a quiet park today exactly where it landed, serving as a permanent monument to the day the sky turned orange and the waterfront was destroyed.",
+    "storyTypeFlags": null
+  },
+  {
+    "id": "marfa-viewing-area",
+    "name": "Rancher Robert Reed Ellison Records Mysterious Glowing Orbs",
+    "subtitle": "Basketball-sized lights hover and merge across a desert with no energy source",
+    "kind": "event",
+    "entityIds": [
+      "robert-reed-ellison"
+    ],
+    "descriptionRewrite": "The Marfa Lights were first recorded by rancher Robert Reed Ellison in 1883, who initially feared they were Apache signal fires. The lights appear as glowing spheres that hover, split, and dart across the horizon. While many sightings are reflections of car headlights, a percentage of the lights remain unexplained, appearing in areas where no roads or power lines exist.",
+    "storyTypeFlags": {
+      "marfa-lights": "place"
+    }
+  },
+  {
+    "id": "goat-trading-post",
+    "name": "Lajitas Citizens Elect a Beer-Drinking Goat Named Clay Henry as Mayor",
+    "subtitle": "A local animal chugs longnecks to welcome tourists to the Big Bend",
+    "kind": "milestone",
+    "entityIds": [
+      "clay-henry"
+    ],
+    "descriptionRewrite": "In the 1980s, the resort town of Lajitas held a mock election where a local goat named Clay Henry was the clear winner. The goat became a global sensation for his ability to drink an entire bottle of beer in seconds. He \"served\" as mayor for years, greeting tourists at the local trading post and beginning a multi-generational animal political dynasty.",
+    "storyTypeFlags": {
+      "lajitas-goat-mayor": "incident"
+    }
+  },
+  {
+    "id": "goat-henry-statue",
+    "name": "Clay Henry III Castration Triggers a Legal Scandal and Memorial Statue",
+    "subtitle": "A bronze monument commemorates the end of a unique animal dynasty",
+    "kind": "event",
+    "entityIds": [
+      "clay-henry"
+    ],
+    "descriptionRewrite": "In 2002, the mayor's successor, Clay Henry III, was at the center of a legal scandal when a local man was arrested for \"castrating the mayor\" in a drunken rage. The event drew international media attention to the small town of Lajitas. A bronze statue now stands at the site to commemorate the animal mayors and the bizarre political history of the Big Bend region.",
+    "storyTypeFlags": null
+  }
+]
