@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
-import type { Moment, Story, LocationAccuracy } from '../../types';
+import type { Entity, Moment, Story, LocationAccuracy } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
+import { entityMap } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
@@ -19,12 +20,12 @@ interface LocationCardProps {
   onWikiJump?: (section?: string) => void;
   narrativeGlue?: string;
   alsoInStories?: Story[];
-  intersectingStories?: Array<{ story: Story; location: Moment }>;
   onStoryClick?: (story: Story) => void;
+  onEntityClick?: (entity: Entity) => void;
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
-  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, intersectingStories, onStoryClick }, ref) {
+  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
     const cat = CATEGORIES[story.category];
 
     return (
@@ -89,6 +90,28 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             </>
           )}
         </div>
+
+        {/* Entity pills — always visible when entityIds exist */}
+        {location.entityIds && location.entityIds.length > 0 && onEntityClick && (
+          <div className="flex flex-wrap gap-1 mt-1.5">
+            {location.entityIds.map((eid) => {
+              const entity = entityMap.get(eid);
+              if (!entity) return null;
+              return (
+                <button
+                  key={eid}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEntityClick(entity);
+                  }}
+                  className="px-1.5 py-0.5 rounded border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-secondary)] hover:text-white hover:border-[var(--border-hover)] transition-colors"
+                >
+                  {entity.name}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* Description (collapsed when not active) */}
         {isActive && (
@@ -172,45 +195,6 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                       </button>
                     );
                   })}
-                </div>
-              </div>
-            )}
-            {/* Location-level connected stories — other stories at this same place */}
-            {intersectingStories && intersectingStories.length > 0 && onStoryClick && (
-              <div className="pt-2 border-t border-[var(--border-subtle)]">
-                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                  Also Here
-                </p>
-                <div className="space-y-1">
-                  {intersectingStories.slice(0, 5).map(({ story: otherStory }) => {
-                    const otherCat = CATEGORIES[otherStory.category];
-                    return (
-                      <button
-                        key={otherStory.id}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onStoryClick(otherStory);
-                        }}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all group text-left"
-                      >
-                        <span
-                          className="w-2 h-2 rounded-full shrink-0"
-                          style={{ backgroundColor: otherCat.color }}
-                        />
-                        <span className="text-xs font-serif font-semibold text-[var(--text-secondary)] group-hover:text-white transition-colors truncate">
-                          {otherStory.name}
-                        </span>
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 ml-auto text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                          <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </button>
-                    );
-                  })}
-                  {intersectingStories.length > 5 && (
-                    <p className="text-[10px] font-mono text-[var(--text-muted)] pl-2">
-                      and {intersectingStories.length - 5} more
-                    </p>
-                  )}
                 </div>
               </div>
             )}

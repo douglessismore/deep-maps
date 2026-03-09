@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { Story, Moment } from '../../types';
+import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
@@ -23,6 +23,7 @@ interface StoryPanelProps {
   onBack?: () => void;
   backLabel?: string;
   onHome?: () => void;
+  onEntityClick?: (entity: Entity) => void;
 }
 
 export function StoryPanel({
@@ -36,6 +37,7 @@ export function StoryPanel({
   onBack,
   backLabel,
   onHome,
+  onEntityClick,
 }: StoryPanelProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const locationRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -154,29 +156,6 @@ export function StoryPanel({
     ...relatedStories.map(s => ({ story: s, reason: 'related' as const })),
     ...nearbyStories.map(s => ({ story: s, reason: 'nearby' as const })),
   ];
-
-  // Location-level intersections: which other stories share a location with each of ours?
-  const locationIntersections = useMemo(() => {
-    const result = new Map<string, Array<{ story: Story; location: Moment }>>();
-    const storyLocs = resolveLocationsFromMap(story, momentMap);
-    for (const loc of storyLocs) {
-      const matches: Array<{ story: Story; location: Moment }> = [];
-      for (const other of allStories) {
-        if (other.id === story.id) continue;
-        const otherLocs = resolveLocationsFromMap(other, momentMap);
-        for (const otherLoc of otherLocs) {
-          const dlat = loc.lat - otherLoc.lat;
-          const dlng = loc.lng - otherLoc.lng;
-          if (Math.sqrt(dlat * dlat + dlng * dlng) < 0.0008) {
-            matches.push({ story: other, location: otherLoc });
-            break;
-          }
-        }
-      }
-      if (matches.length > 0) result.set(loc.id, matches);
-    }
-    return result;
-  }, [story, allStories]);
 
   // Cross-story moment map: for each momentId in this story, which OTHER stories also reference it?
   const momentStoryMap = useMemo(() => {
@@ -428,8 +407,8 @@ export function StoryPanel({
                     onWikiJump={hasWiki ? handleWikiJump : undefined}
                     narrativeGlue={storyMoment?.narrativeGlue}
                     alsoInStories={momentStoryMap.get(location.id)}
-                    intersectingStories={locationIntersections.get(location.id)}
                     onStoryClick={onRelatedStoryClick}
+                    onEntityClick={onEntityClick}
                   />
                 );
               })}

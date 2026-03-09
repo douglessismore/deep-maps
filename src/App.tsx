@@ -3,6 +3,7 @@ import { Route, Switch } from 'wouter';
 import { MapView } from './components/map/MapView';
 import { ExplorePanel } from './components/panel/ExplorePanel';
 import { StoryPanel } from './components/panel/StoryPanel';
+import { EntityPanel } from './components/panel/EntityPanel';
 import { Header } from './components/ui/Header';
 import { TimelineBar } from './components/ui/TimelineBar';
 import { stories } from './data/stories';
@@ -10,7 +11,8 @@ import { collections } from './data/collections';
 import { moments } from './data/moments';
 import { parseYears } from './lib/timeline';
 import { buildMomentMap, resolveLocationsFromMap } from './lib/storyHelpers';
-import type { Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
+import { getEntityLocations } from './lib/entityHelpers';
+import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 
@@ -22,6 +24,7 @@ type NavEntry = {
   mode: InteractionMode;
   activeStory: Story | null;
   activeLocation: Moment | null;
+  activeEntity: Entity | null;
   activeCollection: StoryCollection | null;
   categoryFilter: StoryCategory | null;
   savedMapView?: SavedMapView;
@@ -36,6 +39,7 @@ function App() {
   const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
   const [scrollHighlight, setScrollHighlight] = useState<Moment | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
+  const [activeEntity, setActiveEntity] = useState<Entity | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
   const [navHistory, setNavHistory] = useState<NavEntry[]>([]);
@@ -93,11 +97,11 @@ function App() {
       ? { center: [mapInstance.getCenter().lat, mapInstance.getCenter().lng], zoom: mapInstance.getZoom() }
       : undefined;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeCollection, categoryFilter, savedMapView };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
-  }, [mode, activeStory, activeLocation, activeCollection, categoryFilter, mapInstance]);
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -107,6 +111,7 @@ function App() {
     }
     setActiveStory(story);
     setActiveLocation(null);
+    setActiveEntity(null);
     setCategoryFilter(null);
     setMode('story');
   }, [activeCollection, pushNav]);
@@ -118,6 +123,7 @@ function App() {
     }
     setActiveStory(story);
     setActiveLocation(location);
+    setActiveEntity(null);
     setMode('story');
   }, [activeCollection, pushNav]);
 
@@ -138,6 +144,7 @@ function App() {
         // No history — go to explore
         setActiveStory(null);
         setActiveLocation(null);
+        setActiveEntity(null);
         setCategoryFilter(null);
         setMode('explore');
         setResetViewKey((k) => k + 1);
@@ -148,9 +155,10 @@ function App() {
       setMode(entry.mode === 'scroll' ? 'explore' : entry.mode);
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
+      setActiveEntity(entry.activeEntity);
       setActiveCollection(entry.activeCollection);
       setCategoryFilter(entry.categoryFilter);
-      if (!entry.activeStory) {
+      if (!entry.activeStory && !entry.activeEntity) {
         // Restore saved map view if available, otherwise reset to US center
         if (entry.savedMapView) {
           setRestoreView(entry.savedMapView);
@@ -166,6 +174,7 @@ function App() {
   const handleBackToExplore = useCallback(() => {
     setActiveStory(null);
     setActiveLocation(null);
+    setActiveEntity(null);
     setCategoryFilter(null);
     setActiveCollection(null);
     setNavHistory([]);
@@ -267,10 +276,26 @@ function App() {
     setMode('story');
   }, [pushNav]);
 
+  const handleEntitySelect = useCallback((entity: Entity) => {
+    pushNav();
+    setActiveEntity(entity);
+    setActiveStory(null);
+    setActiveLocation(null);
+    setCategoryFilter(null);
+    setMode('entity');
+  }, [pushNav]);
+
+  // Entity locations for map display
+  const entityLocations = useMemo(() => {
+    if (mode !== 'entity' || !activeEntity) return undefined;
+    return getEntityLocations(activeEntity.id);
+  }, [mode, activeEntity]);
+
   // Contextual back label from navigation history
   const backLabel = useMemo(() => {
     if (navHistory.length === 0) return 'Stories';
     const prev = navHistory[navHistory.length - 1];
+    if (prev.activeEntity) return prev.activeEntity.name;
     if (prev.activeStory) return prev.activeStory.name;
     if (prev.activeCollection) return prev.activeCollection.name;
     return 'Stories';
@@ -281,6 +306,7 @@ function App() {
       <Header
         mode={mode}
         activeStory={activeStory}
+        activeEntity={activeEntity}
         onBackToExplore={handleBackToExplore}
         onBack={handleBack}
         backLabel={backLabel}
@@ -294,7 +320,7 @@ function App() {
         geoError={geoError}
         userLocation={userLocation}
       />
-      {mode !== 'story' && (
+      {mode !== 'story' && mode !== 'entity' && (
         <TimelineBar
           stories={stories}
           categoryFilter={categoryFilter}
@@ -306,7 +332,7 @@ function App() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Map — always visible: 30vh in story mode, 45vh in explore */}
         <div className={`${
-          mode === 'story' ? 'h-[30vh]' : 'h-[45vh]'
+          mode === 'story' || mode === 'entity' ? 'h-[30vh]' : 'h-[45vh]'
         } lg:h-full lg:flex-1 relative transition-[height] duration-300 overflow-hidden`}>
           <MapView
             stories={timelineFilteredStories}
@@ -322,6 +348,7 @@ function App() {
             userLocation={userLocation}
             nearMeZoomKey={nearMeZoomKey}
             restoreView={restoreView}
+            entityLocations={entityLocations}
           />
         </div>
 
@@ -329,7 +356,17 @@ function App() {
         <div className="flex-1 lg:w-[420px] lg:flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)]">
           <Switch>
             <Route path="/">
-              {mode === 'story' && activeStory ? (
+              {mode === 'entity' && activeEntity ? (
+                <EntityPanel
+                  entity={activeEntity}
+                  onMomentClick={handleLocationSelect}
+                  onStoryClick={handleStorySelect}
+                  onBack={handleBack}
+                  backLabel={backLabel}
+                  onHome={handleBackToExplore}
+                  allStories={stories}
+                />
+              ) : mode === 'story' && activeStory ? (
                 <StoryPanel
                   story={activeStory}
                   activeLocation={activeLocation}
@@ -341,6 +378,7 @@ function App() {
                   onBack={handleBack}
                   backLabel={backLabel}
                   onHome={handleBackToExplore}
+                  onEntityClick={handleEntitySelect}
                 />
               ) : (
                 <ExplorePanel

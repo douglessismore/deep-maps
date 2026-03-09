@@ -1,9 +1,10 @@
-import type { Story, StoryCategory, InteractionMode } from '../../types';
+import type { Entity, Story, StoryCategory, InteractionMode } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 
 interface HeaderProps {
   mode: InteractionMode;
   activeStory: Story | null;
+  activeEntity?: Entity | null;
   onBackToExplore: () => void;
   onBack?: () => void;
   backLabel?: string;
@@ -21,6 +22,7 @@ interface HeaderProps {
 export function Header({
   mode,
   activeStory,
+  activeEntity,
   onBackToExplore,
   onBack,
   backLabel,
@@ -58,7 +60,7 @@ export function Header({
               <h1 className="font-serif text-lg font-bold tracking-tight leading-none">
                 <span className="text-[var(--accent-red)]">Deep</span><span className="text-white group-hover:text-[var(--text-secondary)] transition-colors">Maps</span>
               </h1>
-              {mode !== 'story' && (
+              {mode !== 'story' && mode !== 'entity' && (
                 <p className="hidden sm:block text-[9px] font-mono text-[var(--text-muted)] tracking-widest uppercase leading-none mt-0.5">
                   Everything that ever happened happened somewhere
                 </p>
@@ -82,12 +84,29 @@ export function Header({
               )}
             </>
           )}
+
+          {/* Entity breadcrumb — shown when in entity mode */}
+          {mode === 'entity' && activeEntity && (
+            <>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-[var(--text-muted)] opacity-40 shrink-0">
+                <path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <h2 className="font-serif text-sm font-semibold truncate text-[var(--text-primary)]">
+                {activeEntity.name}
+              </h2>
+              {activeEntity.years && (
+                <span className="text-[var(--text-muted)] text-xs font-mono hidden sm:inline">
+                  {activeEntity.years}
+                </span>
+              )}
+            </>
+          )}
         </div>
 
         {/* Right side actions */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Back + Home — story mode navigation */}
-          {mode === 'story' && (
+          {/* Back + Home — story/entity mode navigation */}
+          {(mode === 'story' || mode === 'entity') && (
             <>
               <button
                 onClick={onBack || onBackToExplore}
@@ -112,7 +131,7 @@ export function Header({
           )}
 
           {/* Near Me — geolocation, explore mode only */}
-          {mode !== 'story' && onNearMe && (
+          {mode !== 'story' && mode !== 'entity' && onNearMe && (
             <button
               onClick={onNearMe}
               disabled={geoLoading}
@@ -156,7 +175,7 @@ export function Header({
             <span className="hidden sm:inline">Surprise Me</span>
           </button>
 
-          {mode !== 'story' && (
+          {mode !== 'story' && mode !== 'entity' && (
             <>
               {/* Search */}
               <div className="relative">
@@ -184,7 +203,7 @@ export function Header({
       </div>
 
       {/* Category filter bar — only in explore mode */}
-      {mode !== 'story' && (
+      {mode !== 'story' && mode !== 'entity' && (
         <div className="flex items-center gap-1 px-4 pb-2 overflow-x-auto">
           <button
             onClick={() => onCategoryFilter(null)}

@@ -37,6 +37,7 @@ interface MapViewProps {
   userLocation?: { lat: number; lng: number } | null;
   nearMeZoomKey?: number;
   restoreView?: { center: [number, number]; zoom: number } | null;
+  entityLocations?: Array<{ location: Moment; story: Story }>;
 }
 
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean): L.DivIcon {
@@ -65,6 +66,7 @@ function MapController({
   userLocation,
   nearMeZoomKey,
   restoreView,
+  entityLocations,
 }: MapViewProps) {
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
@@ -91,6 +93,9 @@ function MapController({
 
   // Determine which locations to show
   const visibleLocations = useMemo(() => {
+    if (mode === 'entity' && entityLocations) {
+      return entityLocations;
+    }
     if (mode === 'story' && activeStory) {
       return resolveLocationsFromMap(activeStory, momentMap).map((loc) => ({ location: loc, story: activeStory }));
     }
@@ -101,7 +106,7 @@ function MapController({
     return filteredStories.flatMap((story) =>
       resolveLocationsFromMap(story, momentMap).map((loc) => ({ location: loc, story }))
     );
-  }, [stories, activeStory, mode, categoryFilter]);
+  }, [stories, activeStory, mode, categoryFilter, entityLocations]);
 
   // Render markers
   useEffect(() => {
@@ -147,13 +152,16 @@ function MapController({
     };
   }, [visibleLocations, activeLocation, scrollHighlight, map, onLocationClick]);
 
-  // Fly to active location or fit story/category bounds
+  // Fly to active location or fit story/entity/category bounds
   useEffect(() => {
     if (isUserDragging.current) return;
 
     if (activeLocation) {
       // Slow enough for satellite tiles to load and for the journey to feel intentional
       map.flyTo([activeLocation.lat, activeLocation.lng], 14, { duration: 2.0 });
+    } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
+      const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
+      map.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
@@ -168,7 +176,7 @@ function MapController({
         map.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 10, duration: 1.8 });
       }
     }
-  }, [activeLocation, activeStory, mode, map, categoryFilter, stories]);
+  }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations]);
 
   // Zoom out to show all pins when resetViewKey changes (back-to-explore)
   // Uses hardcoded US center instead of flyToBounds to prevent intermittent Africa bug

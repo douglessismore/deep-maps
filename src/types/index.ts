@@ -51,7 +51,7 @@ export interface Story {
   wikipediaSlug?: string; // Wikipedia article slug (e.g., "Ed_Gein", "Jeffrey_Dahmer")
 }
 
-export type InteractionMode = 'explore' | 'scroll' | 'story';
+export type InteractionMode = 'explore' | 'scroll' | 'story' | 'entity';
 
 export interface ViewportLocation {
   location: Moment;

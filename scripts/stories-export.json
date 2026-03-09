@@ -1,0 +1,2137 @@
+[
+  {
+    "id": "ed-gein",
+    "name": "Ed Gein",
+    "nickname": "The Butcher of Plainfield",
+    "years": "1954–1957",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A quiet handyman in rural Wisconsin whose farmhouse concealed one of the most disturbing crime scenes in American history. Gein's crimes inspired Psycho, The Texas Chain Saw Massacre, and The Silence of the Lambs.",
+    "tags": [
+      "serial-killer",
+      "grave-robbery",
+      "wisconsin",
+      "true-crime"
+    ],
+    "momentCount": 6
+  },
+  {
+    "id": "dahmer",
+    "name": "Jeffrey Dahmer",
+    "nickname": "The Milwaukee Cannibal",
+    "years": "1978–1991",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "Between 1978 and 1991, Jeffrey Dahmer murdered 17 men and boys. His crimes went undetected for over a decade in Milwaukee, exposing catastrophic failures in policing and a pattern of ignoring victims from marginalized communities.",
+    "tags": [
+      "serial-killer",
+      "milwaukee",
+      "wisconsin",
+      "true-crime"
+    ],
+    "momentCount": 4
+  },
+  {
+    "id": "elfego-baca",
+    "name": "Elfego Baca",
+    "nickname": "The Man Who Could Not Be Killed",
+    "years": "1884",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "A 19-year-old self-appointed deputy held off 80 cowboys for 33 hours in a tiny adobe building, surviving over 4,000 rounds fired at him. He later became a lawyer, politician, and legend.",
+    "tags": [
+      "old-west",
+      "new-mexico",
+      "last-stand",
+      "frontier-justice"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "roswell",
+    "name": "The Roswell Incident",
+    "nickname": "The UFO Capital of the World",
+    "years": "1947",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "In July 1947, rancher Mac Brazel found debris on his property near Roswell. The Army initially announced recovery of a \"flying disc\" before retracting the statement — launching the world's most famous and enduring UFO legend.",
+    "tags": [
+      "ufo",
+      "new-mexico",
+      "conspiracy",
+      "cold-war"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "billy-the-kid",
+    "name": "Billy the Kid",
+    "nickname": "William H. Bonney",
+    "years": "1878–1881",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "Billy the Kid killed his first man at 17 and died at 21. In between, he escaped jail twice, killed at least eight men, and became the most famous outlaw of the American West. His grave has been stolen, his death debated, and his legend never faded.",
+    "tags": [
+      "old-west",
+      "new-mexico",
+      "outlaw",
+      "lincoln-county-war"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "geronimo",
+    "name": "Geronimo",
+    "nickname": "The Last Free Apache",
+    "years": "1850–1886",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "For 25 years, Geronimo led Apache resistance against Mexican and American forces. His final surrender in 1886 ended the last major armed resistance of Native peoples in the American Southwest and closed the frontier forever.",
+    "tags": [
+      "native-american",
+      "apache",
+      "new-mexico",
+      "frontier-wars"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "los-alamos",
+    "name": "Los Alamos",
+    "nickname": "The Secret City",
+    "years": "1943–1957",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "For 14 years, this town did not officially exist. Scientists lived under assumed names, mail was addressed to a P.O. box in Santa Fe, and residents built the weapon that ended World War II and changed human history forever.",
+    "tags": [
+      "manhattan-project",
+      "nuclear",
+      "new-mexico",
+      "wwii",
+      "cold-war"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "carlsbad-caverns",
+    "name": "Carlsbad Caverns",
+    "nickname": "The Bat Cave Discovery",
+    "years": "1898",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "A teenage cowboy followed what he thought was a volcano's smoke across the desert — and discovered one of the largest cave systems on Earth. It was actually millions of bats spiraling out at dusk.",
+    "tags": [
+      "caves",
+      "discovery",
+      "new-mexico",
+      "natural-wonder"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "pancho-villa-raid",
+    "name": "Pancho Villa's Raid",
+    "nickname": "The Last Invasion of America",
+    "years": "1916",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "On March 9, 1916, Mexican revolutionary Pancho Villa led 500 raiders across the border into Columbus, New Mexico — the last armed invasion of the continental United States by a foreign power.",
+    "tags": [
+      "mexican-revolution",
+      "new-mexico",
+      "border",
+      "military"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "white-sands-footprints",
+    "name": "White Sands Footprints",
+    "nickname": "Rewriting American Prehistory",
+    "years": "~21,000 BC",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "Fossilized human footprints at White Sands were dated to 23,000 years ago in 2021, proving humans arrived in the Americas thousands of years earlier than previously believed — rewriting the entire timeline of human migration.",
+    "tags": [
+      "archaeology",
+      "new-mexico",
+      "prehistoric",
+      "discovery"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "georgia-okeeffe",
+    "name": "Georgia O'Keeffe",
+    "nickname": "The Mother of American Modernism",
+    "years": "1929–1986",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Georgia O'Keeffe spent 40 years painting the red cliffs, bleached bones, and vast skies of northern New Mexico. Her work defined American modernism and transformed how the world saw the American Southwest.",
+    "tags": [
+      "art",
+      "modernism",
+      "new-mexico",
+      "painting"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "pueblo-revolt",
+    "name": "The Pueblo Revolt",
+    "nickname": "The First American Revolution",
+    "years": "1680",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "In 1680 — nearly a century before the American Revolution — Pueblo peoples united across language barriers and hundreds of miles to drive the Spanish Empire entirely out of New Mexico. It remains the most successful Native uprising in North American history.",
+    "tags": [
+      "native-american",
+      "pueblo",
+      "new-mexico",
+      "rebellion",
+      "colonial"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "truth-or-consequences",
+    "name": "Truth or Consequences",
+    "nickname": "The Town Named After a Game Show",
+    "years": "1950",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "In 1950, the town of Hot Springs, New Mexico, voted to rename itself \"Truth or Consequences\" after a radio game show promised to broadcast from the first town brave enough to take its name. They're still the only U.S. town named after a game show.",
+    "tags": [
+      "weird-history",
+      "new-mexico",
+      "pop-culture"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "chaco-canyon",
+    "name": "Chaco Canyon",
+    "nickname": "The Ancient Metropolis",
+    "years": "850–1150 AD",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "Pueblo Bonito in Chaco Canyon contained over 600 rooms and was the largest building in North America until the 1800s. The canyon was the center of a vast trade network and aligned with celestial events with astonishing precision.",
+    "tags": [
+      "archaeology",
+      "native-american",
+      "new-mexico",
+      "ancient"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "vla",
+    "name": "Very Large Array",
+    "nickname": "Listening for Alien Signals",
+    "years": "1980–present",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "Twenty-seven massive radio dishes arranged in a Y-shape on the Plains of San Agustin have been listening to the cosmos since 1980. They've imaged the surfaces of distant planets, detected water in space, and served as humanity's ear turned toward the stars.",
+    "tags": [
+      "astronomy",
+      "new-mexico",
+      "space",
+      "science"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "dennis-hopper-taos",
+    "name": "Dennis Hopper in Taos",
+    "nickname": "Easy Rider Goes to Ground",
+    "years": "1970",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "After Easy Rider made him a countercultural icon, Dennis Hopper retreated to Taos and joined a hippie commune. His presence transformed the quiet adobe town into a countercultural haven that attracted artists, musicians, and dropouts from mainstream America.",
+    "tags": [
+      "counterculture",
+      "new-mexico",
+      "film",
+      "1970s"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "clovis-points",
+    "name": "Clovis Culture",
+    "nickname": "The First Americans",
+    "years": "~11,000 BC",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "Blackwater Draw near Clovis revealed the oldest widespread human artifacts in the Americas — distinctive spear points dating back 13,000 years. For decades, \"Clovis First\" was the dominant theory of how humans reached the New World.",
+    "tags": [
+      "archaeology",
+      "prehistoric",
+      "new-mexico",
+      "discovery"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "buddy-holly-clovis",
+    "name": "Buddy Holly's Last Concert",
+    "nickname": "The Day the Music Died",
+    "years": "1959",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "Buddy Holly, Ritchie Valens, and the Big Bopper played their final concert before departing from Clovis on February 2, 1959. Hours later, their plane crashed in an Iowa cornfield — \"the day the music died.\"",
+    "tags": [
+      "music",
+      "tragedy",
+      "new-mexico",
+      "rock-and-roll"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "coronado-cibola",
+    "name": "Coronado's Quest for Cíbola",
+    "nickname": "The Cities of Gold That Never Existed",
+    "years": "1540",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "In 1540, Francisco Vásquez de Coronado marched an army of 300 Spaniards and 1,000 Native allies into the desert, seeking the fabled Seven Cities of Gold. When he arrived at Hawikku, he found only adobe villages. The greatest treasure hunt in American history ended in disappointment.",
+    "tags": [
+      "colonial",
+      "exploration",
+      "new-mexico",
+      "spanish"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "palace-of-governors",
+    "name": "Palace of the Governors",
+    "nickname": "The Oldest Public Building in America",
+    "years": "1610–present",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "Built in 1610, the Palace of the Governors is the oldest continuously occupied public building in the United States. It has seen Spanish, Pueblo, Mexican, and American flags fly overhead across four centuries of dramatic history.",
+    "tags": [
+      "colonial",
+      "government",
+      "new-mexico",
+      "santa-fe"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "confederate-mesilla",
+    "name": "The Confederate West",
+    "nickname": "When the Confederacy Reached the Rio Grande",
+    "years": "1862",
+    "category": "political-drama",
+    "currentStoryType": "era",
+    "description": "In 1862, the Confederate flag flew over Mesilla when it briefly served as the capital of the Confederate Territory of Arizona. The Confederacy's westernmost ambitions reached deep into the New Mexico desert before being turned back at Glorieta Pass.",
+    "tags": [
+      "civil-war",
+      "new-mexico",
+      "confederacy"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "tulsa-race-massacre",
+    "name": "Tulsa Race Massacre",
+    "nickname": "The Destruction of Black Wall Street",
+    "years": "1921",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "On May 31, 1921, a white mob attacked the prosperous Black neighborhood of Greenwood in Tulsa, Oklahoma. Over two days, they burned 35 blocks, killed an estimated 100-300 people, and destroyed what was known as \"Black Wall Street.\" The massacre was largely erased from history books for decades.",
+    "tags": [
+      "racial-violence",
+      "oklahoma",
+      "jim-crow",
+      "cover-up"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "james-dean-crash",
+    "name": "James Dean's Fatal Crash",
+    "nickname": "The Last Ride",
+    "years": "1955",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "On September 30, 1955, James Dean was killed in a car crash at a desolate California intersection while driving his Porsche 550 Spyder to a race in Salinas. He was 24 years old and had completed only three films. The crash site became an instant pilgrimage destination.",
+    "tags": [
+      "hollywood",
+      "california",
+      "car-crash",
+      "celebrity"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "dennys-google",
+    "name": "The Denny's Where Google Was Born",
+    "nickname": "Silicon Valley's Greasy Spoon Origin",
+    "years": "1998",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "Before Google was Google, it was two Stanford PhD students who needed funding. Their first investor meeting — the one that launched a trillion-dollar company — happened over breakfast at a Denny's on El Camino Real.",
+    "tags": [
+      "silicon-valley",
+      "tech",
+      "california",
+      "startup"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "trinity-test",
+    "name": "The Trinity Test",
+    "nickname": "The Gadget",
+    "years": "1945",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "The site of the world's first nuclear explosion, where the Manhattan Project's secret efforts culminated in a flash visible 200 miles away, forever changing the nature of warfare.",
+    "tags": [
+      "manhattan-project",
+      "nuclear",
+      "new-mexico",
+      "science"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "hiroshima-nagasaki-bombings",
+    "name": "The Atomic Bombings of Japan",
+    "nickname": "Little Boy and Fat Man",
+    "years": "1945",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "The only two instances of nuclear weapons used in conflict, resulting in unprecedented destruction and the eventual surrender of Imperial Japan.",
+    "tags": [
+      "wwii",
+      "japan",
+      "nuclear",
+      "dark-history"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "damascus-titan-mishap",
+    "name": "The Damascus Titan II Mishap",
+    "nickname": "The 1980 Damascus Accident",
+    "years": "1980",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A terrifying near-miss in rural Arkansas where a dropped socket wrench led to an explosion that nearly detonated a nine-megaton nuclear warhead on American soil.",
+    "tags": [
+      "cold-war",
+      "arkansas",
+      "near-miss",
+      "nuclear"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "lincoln-assassination",
+    "name": "The Lincoln Assassination",
+    "nickname": "Our American Brutus",
+    "years": "1865",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "On the night of April 14, 1865, just five days after the Civil War ended, John Wilkes Booth shot Abraham Lincoln at Ford's Theatre. The president was carried across the street to a boarding house, where he died the next morning. The 12-day manhunt for Booth ended in a burning barn in Virginia.",
+    "tags": [
+      "assassination",
+      "civil-war",
+      "washington-dc",
+      "presidential"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "jfk-assassination",
+    "name": "The JFK Assassination",
+    "nickname": "The Shot That Changed America",
+    "years": "1963",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "At 12:30 PM on November 22, 1963, President John F. Kennedy was shot while riding in a motorcade through Dallas. His death spawned decades of conspiracy theories and permanently scarred the American psyche.",
+    "tags": [
+      "assassination",
+      "cold-war",
+      "dallas",
+      "presidential",
+      "conspiracy"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "mlk-assassination",
+    "name": "The Assassination of Martin Luther King Jr.",
+    "nickname": "The Dreamer Silenced",
+    "years": "1968",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "On April 4, 1968, Martin Luther King Jr. was shot on the balcony of the Lorraine Motel in Memphis, Tennessee. He had come to support striking sanitation workers. His death sparked riots in over 100 cities and transformed the civil rights movement forever.",
+    "tags": [
+      "assassination",
+      "civil-rights",
+      "memphis",
+      "racial-violence"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "battle-of-the-alamo",
+    "name": "The Battle of the Alamo",
+    "nickname": "The Shrine of Texas Liberty",
+    "years": "1836",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "A 13-day siege that became a global symbol of heroic resistance. A small band of Texian defenders held out against thousands of Mexican troops, creating a rallying cry that birthed a Republic.",
+    "tags": [
+      "texas-revolution",
+      "san-antonio",
+      "frontier",
+      "military-history"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "waco-siege",
+    "name": "The Branch Davidian Siege",
+    "nickname": "Mount Carmel",
+    "years": "1993",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A 51-day standoff between federal agents and a religious sect that ended in a televised inferno, killing 76 people and fueling the rise of the modern anti-government movement.",
+    "tags": [
+      "cult",
+      "texas",
+      "fbi",
+      "atf",
+      "1990s"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "bonnie-and-clyde",
+    "name": "Bonnie and Clyde",
+    "nickname": "The Barrow Gang",
+    "years": "1932–1934",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "The Great Depression's most infamous outlaws. Their violent two-year run through the American South turned a pair of Dallas lovers into folk heroes and public enemies, ending in a hail of 130 bullets.",
+    "tags": [
+      "outlaw",
+      "dallas",
+      "depression-era",
+      "crime"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "ted-bundy",
+    "name": "Ted Bundy",
+    "nickname": null,
+    "years": "1974–1978",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "The charismatic law student who became one of America's most prolific serial killers, committing a cross-country spree that changed how the public perceived the 'boy next door.'",
+    "tags": [
+      "serial-killer",
+      "true-crime",
+      "1970s",
+      "fbi-most-wanted"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "zodiac-killer",
+    "name": "The Zodiac Killer",
+    "nickname": null,
+    "years": "1968–1969",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A self-proclaimed executioner who terrorized Northern California with random attacks and taunting, coded letters that remain some of the most famous unsolved puzzles in history.",
+    "tags": [
+      "serial-killer",
+      "unsolved",
+      "true-crime",
+      "california",
+      "mystery"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "john-wayne-gacy",
+    "name": "John Wayne Gacy",
+    "nickname": "The Killer Clown",
+    "years": "1972–1978",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A prominent community member and part-time entertainer whose suburban Chicago home hid the remains of 33 young men, concealed beneath the floorboards of a quiet crawlspace.",
+    "tags": [
+      "serial-killer",
+      "true-crime",
+      "chicago",
+      "1970s"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "wounded-knee-massacre",
+    "name": "The Wounded Knee Massacre",
+    "nickname": null,
+    "years": "1890",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "The tragic climax of the Indian Wars, where a peaceful gathering for a Ghost Dance turned into a slaughter of hundreds of Lakota men, women, and children by the U.S. 7th Cavalry.",
+    "tags": [
+      "indigenous-history",
+      "south-dakota",
+      "military-history",
+      "tragedy"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "sand-creek-massacre",
+    "name": "The Sand Creek Massacre",
+    "nickname": "Chivington's Raid",
+    "years": "1864",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A brutal surprise attack by Colorado Territory volunteer cavalry on a peaceful village of Cheyenne and Arapaho who had been promised safety by the U.S. Army.",
+    "tags": [
+      "colorado",
+      "indigenous-history",
+      "civil-war-era",
+      "last-stands"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "rosewood-massacre",
+    "name": "The Rosewood Massacre",
+    "nickname": null,
+    "years": "1923",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A racially motivated conflict that led to the total destruction of a prosperous Black town in Florida, leaving it erased from the map for nearly seventy years.",
+    "tags": [
+      "florida",
+      "forgotten-massacres",
+      "1920s",
+      "civil-rights"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "j-robert-oppenheimer",
+    "name": "J. Robert Oppenheimer",
+    "nickname": "The Father of the Atomic Bomb",
+    "years": "1904–1967",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "The brilliant and conflicted physicist who led the Manhattan Project. His journey from the lecture halls of Berkeley to the high-pressure labs of Los Alamos redefined science and global security.",
+    "tags": [
+      "manhattan-project",
+      "physics",
+      "cold-war",
+      "science"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "lee-harvey-oswald",
+    "name": "Lee Harvey Oswald",
+    "nickname": "The Lone Gunman",
+    "years": "1939–1963",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "The enigmatic figure whose actions in Dallas triggered a global mystery. His final hours are a minute-by-minute trail of chaos across the streets of Oak Cliff.",
+    "tags": [
+      "assassination",
+      "true-crime",
+      "dallas",
+      "1960s"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "little-rock-nine",
+    "name": "The Little Rock Nine",
+    "nickname": null,
+    "years": "1957",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The nine Black students who tested the promise of Brown v. Board of Education, triggering a constitutional crisis that forced federal troops to intervene in a segregated South.",
+    "tags": [
+      "civil-rights",
+      "arkansas",
+      "education",
+      "activism"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "lincoln-life",
+    "name": "Abraham Lincoln",
+    "nickname": "Honest Abe",
+    "years": "1809–1865",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The 16th President's journey from a windowless log cabin to the White House. His life is a trail of resilience, self-education, and the political grit that held a fracturing nation together.",
+    "tags": [
+      "president",
+      "civil-war",
+      "leadership",
+      "illinois"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "jfk-life",
+    "name": "John F. Kennedy",
+    "nickname": "The Architect of Camelot",
+    "years": "1917–1963",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The architect of the New Frontier and the space race. Beyond Dealey Plaza, Kennedy's life was a meticulously curated path of privilege, military service, and political theater.",
+    "tags": [
+      "president",
+      "cold-war",
+      "navy",
+      "massachusetts"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "mlk-life",
+    "name": "Martin Luther King Jr.",
+    "nickname": "The Dreamer",
+    "years": "1929–1968",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The theological and strategic mind behind the Civil Rights Movement. From his childhood in Jim Crow Atlanta to his global influence, King's footprint is the map of modern American conscience.",
+    "tags": [
+      "civil-rights",
+      "activism",
+      "religion",
+      "georgia"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "rosa-parks",
+    "name": "Rosa Parks",
+    "nickname": "Mother of the Civil Rights Movement",
+    "years": "1913–2005",
+    "category": "political-drama",
+    "currentStoryType": "place",
+    "description": "The woman whose single act of defiance on a city bus ignited a revolution. Her life was a persistent, decades-long battle against systemic injustice that moved from Alabama to the heart of Detroit.",
+    "tags": [
+      "civil-rights",
+      "activism",
+      "montgomery",
+      "detroit"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "wright-brothers",
+    "name": "The Wright Brothers",
+    "nickname": "The Fathers of Modern Aviation",
+    "years": "1867–1948",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "The self-taught engineers who conquered the sky. From a bicycle shop in Ohio to the wind-swept dunes of North Carolina, they solved the riddle of controlled flight and shrunk the world forever.",
+    "tags": [
+      "aviation",
+      "invention",
+      "ohio",
+      "north-carolina"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "harriet-tubman",
+    "name": "Harriet Tubman",
+    "nickname": "Moses",
+    "years": "1822–1913",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The 'Moses' of her people. After escaping slavery herself, she returned to the South 13 times to lead hundreds to freedom, later becoming the first woman to lead an armed assault in the Civil War.",
+    "tags": [
+      "civil-rights",
+      "abolitionist",
+      "underground-railroad",
+      "hero"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "malcolm-x",
+    "name": "Malcolm X",
+    "nickname": "El-Hajj Malik El-Shabazz",
+    "years": "1925–1965",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The fiery voice of Black Nationalism whose journey from prison to Mecca transformed him into a global human rights icon. His life is a trail of constant evolution, ended by an assassin's bullet in Harlem.",
+    "tags": [
+      "civil-rights",
+      "activism",
+      "islam",
+      "new-york"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "amelia-earhart",
+    "name": "Amelia Earhart",
+    "nickname": "Lady Lindy",
+    "years": "1897–1937",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "The aviation pioneer who broke gender barriers and records alike. Her disappearance during an attempt to circumnavigate the globe remains the most enduring mystery in the history of flight.",
+    "tags": [
+      "aviation",
+      "mystery",
+      "feminism",
+      "explorer"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "twa-flight-800",
+    "name": "TWA Flight 800",
+    "nickname": null,
+    "years": "1996",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "One of the most investigated aviation disasters in history. A Boeing 747 exploded shortly after takeoff from JFK, sparking years of conspiracy theories before a mechanical cause was determined.",
+    "tags": [
+      "aviation",
+      "disaster",
+      "new-york",
+      "conspiracy"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "valujet-592",
+    "name": "ValuJet Flight 592",
+    "nickname": null,
+    "years": "1996",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A catastrophic fire in the Everglades caused by illegally shipped oxygen generators. The crash exposed the dark side of the low-cost airline boom and led to a total overhaul of aviation safety regulations.",
+    "tags": [
+      "aviation",
+      "florida",
+      "everglades",
+      "safety"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "flight-93",
+    "name": "United Flight 93",
+    "nickname": null,
+    "years": "2001",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "The only one of the four hijacked 9/11 flights that failed to reach its target. The passengers and crew fought back, forcing the plane into a field in Pennsylvania and saving the U.S. Capitol from a devastating blow.",
+    "tags": [
+      "9-11",
+      "pennsylvania",
+      "heroism",
+      "terrorism"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "vicente-guerrero-betrayal",
+    "name": "The Betrayal of Vicente Guerrero",
+    "nickname": "The Sale of a President",
+    "years": "1831",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "A sitting president is lured onto a private ship for a \"friendly lunch\" only to be kidnapped and sold to his enemies for 50,000 pesos. The resulting execution on a monastery floor shatters the young Mexican Republic and remains one of the most cold-blooded betrayals in Latin American history.",
+    "tags": [
+      "huatulco",
+      "independence",
+      "oaxaca",
+      "assassination"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "maria-sabina",
+    "name": "Maria Sabina and the \"Holy Children\"",
+    "nickname": "The Mushroom Mother",
+    "years": "1955–1985",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "A quiet indigenous healer shares the sacred \"holy children\" mushrooms with a Western banker, accidentally sparking the global psychedelic movement. Her act of generosity leads to a celebrity invasion, police harassment, and the burning of her home.",
+    "tags": [
+      "psychedelic",
+      "oaxaca",
+      "shamanism",
+      "indigenous"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "tomb-7-treasure",
+    "name": "The Great Tomb 7 Treasure",
+    "nickname": "Mexico's King Tut",
+    "years": "1932",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "An archaeologist unseals a stone slab to find the richest hoard of gold and jewels ever discovered in the Americas. The find proves that the Mixtecs had repurposed a 1,000-year-old Zapotec tomb for their own elite.",
+    "tags": [
+      "archaeology",
+      "gold",
+      "oaxaca",
+      "zapotec",
+      "mixtec"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "siege-of-guiengola",
+    "name": "The Siege of Guiengola",
+    "nickname": "The Fortress in the Clouds",
+    "years": "~1496",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "A Zapotec king and an Aztec emperor engage in a seven-month guerrilla war on a mountain top that ends in a royal marriage instead of a massacre. The Zapotec defenses are so impenetrable that the Aztecs are forced to sue for peace for the first time.",
+    "tags": [
+      "aztec",
+      "zapotec",
+      "military",
+      "oaxaca"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "brad-will-murder",
+    "name": "The Murder of Brad Will",
+    "nickname": "The Last Footage",
+    "years": "2006",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "An American filmmaker records his own assassination on camera while documenting a city-wide teacher's strike in Oaxaca. The footage shows the gunmen and the moment of impact, yet the case remains a decade-long scandal of government cover-ups.",
+    "tags": [
+      "oaxaca",
+      "journalism",
+      "protest",
+      "murder"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "subcomandante-marcos",
+    "name": "The Identity of Subcomandante Marcos",
+    "nickname": "The Masked Professor",
+    "years": "1994–1995",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The charismatic leader of the Zapatista uprising is \"unmasked\" by the government as a university professor. The move intended to strip away his mystique, but it only made him a global icon of indigenous resistance.",
+    "tags": [
+      "zapatista",
+      "chiapas",
+      "marcos",
+      "revolution"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "pakals-tomb",
+    "name": "The Tomb of Pakal the Great",
+    "nickname": "The Maya Astronaut",
+    "years": "1952",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "An archaeologist descends into a hidden chamber to find a king buried in a sarcophagus lid that looks like a cockpit. While scientists see a ritual journey, the public sees an \"ancient astronaut\" in a rocket ship.",
+    "tags": [
+      "maya",
+      "palenque",
+      "archaeology",
+      "ancient-aliens"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "porfirio-diaz-escape",
+    "name": "The Escape of Porfirio Díaz",
+    "nickname": "The Great Escape of 1865",
+    "years": "1865",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "The future dictator escapes a French-occupied city by rappelling down the side of a stone convent in the middle of the night. This \"action hero\" moment allowed him to raise the army that would eventually retake the country.",
+    "tags": [
+      "oaxaca",
+      "escape",
+      "military",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "coyame-ufo",
+    "name": "The Coyame UFO Crash",
+    "nickname": "Mexico's Roswell",
+    "years": "1974",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A mid-air collision between a plane and a metallic disc leads to a secret military recovery operation where the entire team supposedly dies from a toxic leak. The U.S. allegedly entered Mexican territory to retrieve the wreckage.",
+    "tags": [
+      "ufo",
+      "crash",
+      "chihuahua",
+      "military"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "1991-eclipse-ufo",
+    "name": "The 1991 Eclipse Mass Sighting",
+    "nickname": null,
+    "years": "1991",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "During a total solar eclipse, tens of thousands of people in Mexico City film the same metallic object in the darkened sky. It is the most recorded UFO event in history, with hundreds of different camera angles of the same disc.",
+    "tags": [
+      "ufo",
+      "mexico-city",
+      "eclipse",
+      "sighting"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "mexican-air-force-flir",
+    "name": "The Mexican Air Force FLIR Encounter",
+    "nickname": "The Invisible Eleven",
+    "years": "2004",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A military patrol finds themselves surrounded by 11 invisible-to-the-eye objects that only show up on thermal cameras. The government's voluntary release of the footage remains a watershed moment for official UAP recognition.",
+    "tags": [
+      "ufo",
+      "military",
+      "air-force",
+      "campeche"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "jacobo-grinberg",
+    "name": "The Disappearance of Jacobo Grinberg",
+    "nickname": "The Einstein of Consciousness",
+    "years": "1994",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A world-renowned neuroscientist studying telepathy vanishes days before revealing his findings to the UN. His lab was found intact, but his research notes on \"The Lattice\" were missing.",
+    "tags": [
+      "scientist",
+      "mystery",
+      "unam",
+      "consciousness"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "zone-of-silence",
+    "name": "The Zone of Silence",
+    "nickname": "Mexico's Bermuda Triangle",
+    "years": "1970",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A US rocket carrying radioactive isotopes veers hundreds of miles off course and crashes in a desert where radio signals stop working. The cleanup involved building a secret railroad to haul away contaminated dirt.",
+    "tags": [
+      "nasa",
+      "ufo",
+      "desert",
+      "radiation"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "bermeja-island",
+    "name": "The Disappearance of Bermeja Island",
+    "nickname": "The Island that Wasn't",
+    "years": "1997–2009",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "An island that appeared on maps for 400 years suddenly vanishes when it is needed to determine oil rights. The Navy found nothing but deep ocean, leading to theories that the CIA destroyed it to shift borders.",
+    "tags": [
+      "mystery",
+      "ocean",
+      "oil",
+      "cartography"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "aluxes-cancun-bridge",
+    "name": "The Aluxes and the Cancun Bridge",
+    "nickname": "The Spirits of the Lagoon",
+    "years": "1970–present",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "place",
+    "description": "Engineers report their equipment being sabotaged by 3-foot-tall beings until they build them a tiny stone house. The \"Aluxes\" are so culturally accepted that the bridge has a permanent shrine built underneath it.",
+    "tags": [
+      "cancun",
+      "maya",
+      "spirits",
+      "engineering"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "halleys-comet-panic",
+    "name": "The 1910 Halley's Comet Panic",
+    "nickname": "The Cyanogen Panic",
+    "years": "1910",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "As the comet approaches, rumors spread that the tail is made of toxic \"cyanogen gas.\" In the Mexican countryside, this leads to ritual suicides and families sealing themselves in caves to wait for the end.",
+    "tags": [
+      "comet",
+      "astronomy",
+      "panic",
+      "oaxaca"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "cannibal-of-roma",
+    "name": "The Cannibal of the Roma",
+    "nickname": "The Poet Cannibal",
+    "years": "2007",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A handsome poet and aspiring horror novelist is discovered to be a real-life monster when police enter his apartment to find human remains seasoned with lemon. The case shocks Mexico City, revealing a trail of missing women and a manuscript that mirrored his crimes.",
+    "tags": [
+      "crime",
+      "mexico-city",
+      "serial-killer",
+      "roma-norte"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "white-stranger-huatulco",
+    "name": "The Legend of the White Stranger",
+    "nickname": "The Holy Cross Prophet",
+    "years": "AD 50–1587",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "Centuries before the Spanish arrived, a white, bearded man allegedly appeared on the shores of Huatulco to plant a massive wooden cross and preach peace. The artifact remained a local deity for 1,500 years, resisting all attempts at destruction by pirates and colonizers alike.",
+    "tags": [
+      "huatulco",
+      "mystery",
+      "prophecy",
+      "ancient-history",
+      "pirates"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "execution-of-maximilian",
+    "name": "The Execution of Emperor Maximilian",
+    "nickname": "The End of the Empire",
+    "years": "1867",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "A Habsburg prince, lured to Mexico by conservative elites and Napoleon III, finds himself abandoned and facing a firing squad on a dusty hill. His final words, \"I forgive everyone,\" mark the definitive end of European monarchy in the Americas.",
+    "tags": [
+      "history",
+      "revolution",
+      "queretaro",
+      "empire",
+      "military"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "monchito-phantom-boy",
+    "name": "The \"Monchito\" Phantom",
+    "nickname": "The Ghost of the 1985 Earthquake",
+    "years": "1985",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "In the rubble of the devastating 1985 earthquake, rescue teams hear the taps of a small boy trapped beneath a collapsed building. For weeks, the nation watches as the navy digs for \"Monchito,\" only to discover a terrifying truth: the boy might never have existed at all.",
+    "tags": [
+      "earthquake",
+      "mystery",
+      "1985",
+      "mexico-city",
+      "paranormal"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "torreon-massacre",
+    "name": "The Massacre of the Chinese",
+    "nickname": "Mexico's Forgotten Pogrom",
+    "years": "1911",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "In the midst of the Mexican Revolution, Maderista troops enter the city of Torreón and commit the most violent anti-Chinese massacre in the history of the Americas. Over 300 peaceful residents are slaughtered in a few hours of racial frenzy.",
+    "tags": [
+      "revolution",
+      "racism",
+      "dark-history",
+      "torreon",
+      "china"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "carlos-diaz-ufo",
+    "name": "The Carlos Diaz Light Ships",
+    "nickname": "The Ajusco Abduction",
+    "years": "1981–present",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A photographer capturing sunrise over a volcano ends up with some of the most analyzed and \"un-debunkable\" UFO footage in history. Carlos Diaz claims he was not just a witness, but was invited inside \"ships of light\" that utilize biological technology.",
+    "tags": [
+      "ufo",
+      "abduction",
+      "mexico-city",
+      "volcano",
+      "aliens"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "guanajuato-mummies",
+    "name": "The Mummies of Guanajuato",
+    "nickname": "The Accidental Immortals",
+    "years": "1865–1950",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "When the city of Guanajuato began enforcing a \"grave tax,\" they dug up the bodies of those whose families couldn't pay. To their horror, they found the soil and climate had naturally mummified the corpses, many with expressions of terror suggesting they had been buried alive.",
+    "tags": [
+      "mummies",
+      "guanajuato",
+      "death",
+      "science",
+      "history"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "colosio-assassination",
+    "name": "The Assassination of Luis Donaldo Colosio",
+    "nickname": "Mexico's JFK",
+    "years": "1994",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "The man destined to be Mexico's next president is shot at point-blank range during a campaign rally while a specific song, \"La Culebra,\" blares from the speakers. The murder is captured from multiple angles, yet most Mexicans believe the \"lone gunman\" was a decoy for a state-sponsored hit.",
+    "tags": [
+      "assassination",
+      "politics",
+      "tijuana",
+      "conspiracy",
+      "pri"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "cobalt-60-accident",
+    "name": "The Radioactive Rebar Crisis",
+    "nickname": "Mexico's Chernobyl",
+    "years": "1983–1984",
+    "category": "dark-history",
+    "currentStoryType": "place",
+    "description": "A stolen cancer therapy machine is sold for scrap, accidentally releasing 6,000 pellets of radioactive Cobalt-60. The material is melted into 6,000 tons of construction rebar, which is used to build houses and playgrounds across Mexico and the United States before anyone notices.",
+    "tags": [
+      "radiation",
+      "disaster",
+      "juarez",
+      "cold-war",
+      "crime"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "teotihuacan-mercury-lake",
+    "name": "The Mercury Underworld of Teotihuacán",
+    "nickname": "The Tlalocan Tunnel",
+    "years": "~250 BC",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "Archaeologists using a robot discovered a 330-foot secret tunnel beneath the Temple of the Feathered Serpent. At the end, they found a miniature landscape of mountains and a lake made of liquid mercury, designed to represent the entrance to the Aztec underworld.",
+    "tags": [
+      "archaeology",
+      "teotihuacan",
+      "mercury",
+      "mystery",
+      "underworld"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "atizapan-cannibal",
+    "name": "The Cannibal of Atizapán",
+    "nickname": "The Butcher of Women",
+    "years": "1990–2021",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A 72-year-old local community leader is arrested after the wife of a police officer vanishes. When investigators raid his non-descript home, they find 17 bodies buried under the kitchen floor and a logbook detailing how he allegedly fed his victims to unsuspecting neighbors.",
+    "tags": [
+      "crime",
+      "serial-killer",
+      "atizapan",
+      "dark-history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "cavendish-huatulco-siege",
+    "name": "The Desecration of Huatulco",
+    "nickname": "The Pirate vs. The Cross",
+    "years": "1587",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "English privateer Thomas Cavendish raids the port of Huatulco, looting the town and attempting to destroy its legendary Holy Cross. When the wood resists fire and blades, he attempts to pull it down with his ship, launching a miracle legend that defined the region for centuries.",
+    "tags": [
+      "huatulco",
+      "pirates",
+      "oaxaca",
+      "colonial",
+      "miracle"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "tlatelolco-massacre-1968",
+    "name": "The Night of Tlatelolco",
+    "nickname": "The Flare of Death",
+    "years": "1968",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "Ten days before the 1968 Olympics, the Mexican military opens fire on a peaceful student rally. The massacre is coordinated via green flares fired from a helicopter, with snipers positioned in modern apartment buildings shooting both protesters and their own soldiers to trigger a chaotic crossfire.",
+    "tags": [
+      "massacre",
+      "mexico-city",
+      "1968",
+      "protest",
+      "military"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "servant-girl-annihilator",
+    "name": "The Servant Girl Annihilator",
+    "nickname": "Austin's Jack the Ripper",
+    "years": "1884–1885",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "Three years before Jack the Ripper terrorized London, a serial killer stalked the moonlight-shadowed streets of Austin. The \"Annihilator\" murdered eight people with an axe, targeting domestic servants and sparking a panic that led to the construction of Austin's iconic Moonlight Towers.",
+    "tags": [
+      "austin",
+      "serial-killer",
+      "mystery",
+      "1880s",
+      "crime"
+    ],
+    "momentCount": 6
+  },
+  {
+    "id": "archive-war-1842",
+    "name": "The Archive War of 1842",
+    "nickname": "Angelina's Cannon",
+    "years": "1842",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "An innkeeper named Angelina Eberly fired a six-pound cannon at the General Land Office to stop the secret, middle-of-the-night removal of the Republic of Texas archives. Her actions prevented President Sam Houston from moving the capital back to Houston.",
+    "tags": [
+      "austin",
+      "history",
+      "revolution",
+      "sam-houston",
+      "archives"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "janis-joplin-austin",
+    "name": "Janis Joplin's Austin Years",
+    "nickname": "The Ugliest Man on Campus",
+    "years": "1962–1963",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Before becoming a global icon, Janis Joplin was a student at the University of Texas where she was cruelly voted \"Ugliest Man on Campus\" by a fraternity. She honed her brassy style at local bars and converted gas stations, eventually fleeing to San Francisco to find fame.",
+    "tags": [
+      "austin",
+      "music",
+      "janis-joplin",
+      "ut-austin",
+      "history"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "armadillo-world-hq",
+    "name": "Armadillo World Headquarters",
+    "nickname": "The Cosmic Cowboy Birthplace",
+    "years": "1970–1980",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "A converted National Guard armory became the \"hippie\" epicenter of Austin, famously bridging the gap between local hippies and conservative cowboys. It was here that Willie Nelson and the \"Cosmic Cowboy\" movement were born, defining the city's musical identity.",
+    "tags": [
+      "austin",
+      "music",
+      "willie-nelson",
+      "armadillo",
+      "counter-culture"
+    ],
+    "momentCount": 4
+  },
+  {
+    "id": "treaty-oak-poisoning",
+    "name": "The Poisoning of Treaty Oak",
+    "nickname": "The Execution of a Tree",
+    "years": "1989",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "A 500-year-old sacred tree was \"executed\" with a massive dose of herbicide by a man performing a bizarre occult ritual. The city went into mourning as Ross Perot and other benefactors spent millions attempting a \"medical\" intervention to save the icon.",
+    "tags": [
+      "austin",
+      "nature",
+      "crime",
+      "mystery",
+      "occult"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "austin-1928-plan",
+    "name": "The 1928 Master Plan",
+    "nickname": "The Great Segregation",
+    "years": "1928",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "A single city-commissioned document legally forced an entire population to migrate to one side of the highway, intentionally creating the 'East Side' and destroying flourishing Black communities in the West. This bureaucratic erasure permanently etched segregation into Austin's asphalt.",
+    "tags": [
+      "austin",
+      "civil-rights",
+      "urban-planning",
+      "segregation",
+      "history"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "booker-t-washington-snub",
+    "name": "The Booker T. Washington Snub",
+    "nickname": null,
+    "years": "1911",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "Denied the right to speak at the Texas Capitol by a racist administration, the most famous Black educator in America drew a crowd of over 5,000—nearly 20% of Austin's population—to a public park. The snub backfired, creating a monumental demonstration for civil discourse.",
+    "tags": [
+      "austin",
+      "civil-rights",
+      "history",
+      "black-history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "1900-granite-dam-disaster",
+    "name": "The 1900 Great Granite Dam Disaster",
+    "nickname": null,
+    "years": "1900",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "Austin's pride—the world's largest granite dam—exploded during a storm, sending a 40-foot wall of water into the city and leaving Austin in total darkness for months. The disaster bankrupted the city and remains the deadliest flood in its history.",
+    "tags": [
+      "austin",
+      "disaster",
+      "flood",
+      "engineering",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "o-henry-embezzlement",
+    "name": "The O. Henry Embezzlement Mystery",
+    "nickname": null,
+    "years": "1894–1898",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Before he was the world-famous short story writer O. Henry, William Sydney Porter was a bumbling bank teller who fled to Honduras after being accused of stealing $854.08. He turned his eventual jail time into a literary career.",
+    "tags": [
+      "austin",
+      "literature",
+      "o-henry",
+      "crime",
+      "history"
+    ],
+    "momentCount": 5
+  },
+  {
+    "id": "cathedral-of-junk",
+    "name": "The Cathedral of Junk",
+    "nickname": "The Golem of Austin",
+    "years": "1988–present",
+    "category": "arts-culture",
+    "currentStoryType": "place",
+    "description": "A man spent 30 years building a three-story fortress out of 60 tons of trash in his backyard. It survived a legal war with the city to become an officially recognized piece of Austin's architectural heritage.",
+    "tags": [
+      "austin",
+      "art",
+      "weird-austin",
+      "architecture"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "michael-dell-startup",
+    "name": "Michael Dell's Startup Crisis",
+    "nickname": null,
+    "years": "1984",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "A 19-year-old freshman started a multibillion-dollar empire in a 12x12 dorm room. He dropped out only after the building's fire marshal threatened him for blocking the hallways with hundreds of IBM computer boxes.",
+    "tags": [
+      "austin",
+      "technology",
+      "dell",
+      "ut-austin",
+      "entrepreneur"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "ut-tower-shooting",
+    "name": "The UT Tower Shooting",
+    "nickname": null,
+    "years": "1966",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "In the first modern mass shooting in American history, a former Marine held the UT campus hostage for 96 minutes. The massacre only ended when two police officers and a civilian counter-besieged the tower.",
+    "tags": [
+      "austin",
+      "crime",
+      "ut-austin",
+      "military",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "stevie-ray-vaughan",
+    "name": "Stevie Ray Vaughan",
+    "nickname": null,
+    "years": "1975–1990",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Stevie Ray Vaughan didn't just play the blues; he resurrected them from a dive bar on 6th Street. Mesmerizing David Bowie at a festival, he became a global superstar before his tragic death in a 1990 helicopter crash.",
+    "tags": [
+      "austin",
+      "music",
+      "blues",
+      "srv",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "congress-avenue-bats",
+    "name": "The Congress Avenue Bats",
+    "nickname": null,
+    "years": "1980–present",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "place",
+    "description": "When the city refurbished the Congress Avenue Bridge, it accidentally created the perfect crevice for 1.5 million bats. What started as a public health panic became the largest urban bat colony in North America and a multi-million dollar tourism industry.",
+    "tags": [
+      "austin",
+      "nature",
+      "bats",
+      "conservation",
+      "history"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "barton-springs-sos",
+    "name": "The Barton Springs Development Fights",
+    "nickname": "The Soul of Austin",
+    "years": "1990",
+    "category": "political-drama",
+    "currentStoryType": "place",
+    "description": "In a single night, 800 citizens spoke at a city council meeting for 15 straight hours to save a swimming hole from corporate development. This grassroots explosion birthed the Save Our Springs (SOS) Alliance.",
+    "tags": [
+      "austin",
+      "environment",
+      "protest",
+      "barton-springs"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "lbj-lady-bird-austin",
+    "name": "LBJ and Lady Bird's Austin",
+    "nickname": null,
+    "years": "1934–1970",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "Before he was President, Lyndon B. Johnson used Austin as his political laboratory. While LBJ built political power at the Driskill Hotel, Lady Bird reshaped the city's landscape with thousands of flowering trees and hike-and-bike trails.",
+    "tags": [
+      "austin",
+      "politics",
+      "lbj",
+      "lady-bird",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "driskill-hotel",
+    "name": "The Driskill Hotel",
+    "nickname": "Austin's Haunted Grand Dame",
+    "years": "1886–present",
+    "category": "mystery-unexplained",
+    "currentStoryType": "place",
+    "description": "Built by a cattle baron who lost the building in a high-stakes poker game, the hotel is Austin's most active paranormal hotspot. Its history is marked by the suicide of two brides in the same room, exactly 20 years apart.",
+    "tags": [
+      "austin",
+      "paranormal",
+      "haunted",
+      "hotel",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "galveston-orphanage-stand",
+    "name": "The 1900 Storm Orphanage Stand",
+    "nickname": null,
+    "years": "1900",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "During the deadliest natural disaster in U.S. history, ten nuns tied themselves to 90 orphans with clotheslines to keep from being swept away. When morning came, they were found still tethered together in the sand, having perished as a single human chain.",
+    "tags": [
+      "galveston",
+      "disaster",
+      "hurricane",
+      "last-stand",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "enron-death-star",
+    "name": "The Enron \"Death Star\" Memos",
+    "nickname": null,
+    "years": "2000–2001",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "In a gleaming Houston skyscraper, executives authored memos with names like \"Death Star\" and \"Fat Boy\" detailing how to intentionally crash California's power grid for profit. The corporate fallout was so absolute that the company's iconic \"E\" logo was sold at a sidewalk auction for pennies.",
+    "tags": [
+      "houston",
+      "crime",
+      "scandal",
+      "enron",
+      "corporate"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "apollo-13-houston",
+    "name": "\"Houston, We Have a Problem\"",
+    "nickname": null,
+    "years": "1970",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "After an oxygen tank exploded 200,000 miles from Earth, engineers in a windowless room had to \"invent\" a way to fit a square peg into a round hole using only duct tape and cardboard. It remains the ultimate survival story where the battlefield was a slide rule and a teleprinter.",
+    "tags": [
+      "houston",
+      "space",
+      "nasa",
+      "science",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "galveston-free-state",
+    "name": "The Galveston \"Free State\" Era",
+    "nickname": null,
+    "years": "1920–1957",
+    "category": "dark-history",
+    "currentStoryType": "era",
+    "description": "For thirty years, an island in Texas operated as a wide-open \"Sin City\" where the mob ran high-stakes casinos and brothels in plain sight. It only ended when Texas Rangers staged a massive raid that dumped hundreds of slot machines into the Gulf.",
+    "tags": [
+      "galveston",
+      "crime",
+      "mafia",
+      "history",
+      "prohibition"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "texas-city-disaster",
+    "name": "The Texas City Disaster",
+    "nickname": null,
+    "years": "1947",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "A ship full of fertilizer exploded with such force that its two-ton anchor was launched into the air, traveling 1.6 miles before crashing into the ground. It remains the deadliest industrial accident in U.S. history.",
+    "tags": [
+      "texas-city",
+      "disaster",
+      "industrial",
+      "history",
+      "explosion"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "marfa-lights",
+    "name": "The Marfa Lights",
+    "nickname": null,
+    "years": "1883–present",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "Since 1883, basketball-sized orbs of light have danced across the Mitchell Flat, changing color and merging at will. Despite military drone tests and scientific expeditions, the \"ghost fires\" remain an unexplained phenomenon.",
+    "tags": [
+      "marfa",
+      "ufo",
+      "paranormal",
+      "mystery",
+      "desert"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "lajitas-goat-mayor",
+    "name": "The Goat Mayor of Lajitas",
+    "nickname": null,
+    "years": "1986–present",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "incident",
+    "description": "A tiny border town in the Big Bend elected a beer-drinking goat named Clay Henry as its mayor. The \"political dynasty\" lasted for generations, with the goat famously chugging longnecks to welcome tourists.",
+    "tags": [
+      "big-bend",
+      "weird-texas",
+      "humor",
+      "politics",
+      "animals"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "spindletop-gusher",
+    "name": "The Spindletop Gusher",
+    "nickname": null,
+    "years": "1901",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "A drilling rig hit a pocket of oil that shot 150 feet into the air, raining 100,000 barrels a day for nine days. It didn't just find oil; it shifted the global economy from coal to petroleum in a single afternoon.",
+    "tags": [
+      "beaumont",
+      "east-texas",
+      "oil",
+      "science",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "san-elizario-salt-war",
+    "name": "The Salt War of San Elizario",
+    "nickname": null,
+    "years": "1877",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "A war broke out in 1877 over who owned ancient salt deposits, leading to a siege of the Texas Rangers by an angry mob. It remains the only time in history a mob forced an entire unit of Texas Rangers to surrender.",
+    "tags": [
+      "el-paso",
+      "border",
+      "war",
+      "history",
+      "revolt"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "chamizal-border-shift",
+    "name": "The Chamizal Border Shift",
+    "nickname": null,
+    "years": "1864–1963",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "Because the Rio Grande shifted its course after a flood, a 600-acre piece of land \"migrated\" to the U.S., causing a 100-year international dispute. It was finally settled when both countries agreed to physically concrete the river into a permanent channel.",
+    "tags": [
+      "el-paso",
+      "border",
+      "politics",
+      "diplomacy",
+      "history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "laredo-smuggling-tunnels",
+    "name": "The Laredo Smuggling Tunnels",
+    "nickname": null,
+    "years": "1910–present",
+    "category": "mystery-unexplained",
+    "currentStoryType": "incident",
+    "description": "A secret network of tunnels under the historic San Agustin Plaza was used to smuggle silver and weapons during the Mexican Revolution. The tunnels are still there, occasionally causing sidewalks to sink or collapse.",
+    "tags": [
+      "laredo",
+      "border",
+      "mystery",
+      "smuggling",
+      "revolution"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "cadillac-ranch-amarillo",
+    "name": "Cadillac Ranch",
+    "nickname": null,
+    "years": "1974–present",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "An eccentric billionaire buried ten Cadillacs nose-first in a wheat field at the exact angle of the Great Pyramid of Giza. It was intended as a tribute to the tailfin, but it became a global site for sanctioned vandalism.",
+    "tags": [
+      "amarillo",
+      "art",
+      "route-66",
+      "weird-texas",
+      "history"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "palo-duro-final-stand",
+    "name": "The Palo Duro Canyon Final Stand",
+    "nickname": null,
+    "years": "1874",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "In a surprise dawn attack, U.S. Cavalry trapped the last of the free Southern Plains tribes and, instead of fighting them, slaughtered 1,400 of their horses to force their surrender.",
+    "tags": [
+      "canyon",
+      "war",
+      "comanche",
+      "history",
+      "last-stand"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "waco-horror-lynching",
+    "name": "The Waco Horror",
+    "nickname": null,
+    "years": "1916",
+    "category": "dark-history",
+    "currentStoryType": "incident",
+    "description": "A crowd of 15,000 gathered to watch the public execution of Jesse Washington, a Black teenager. The photos of the event were sold as postcards, horrifying the world and launching the modern anti-lynching movement.",
+    "tags": [
+      "waco",
+      "civil-rights",
+      "crime",
+      "history",
+      "dark-history"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "wonder-world-cave",
+    "name": "The San Marcos Wonder World Cave",
+    "nickname": null,
+    "years": "1893–present",
+    "category": "discovery-science",
+    "currentStoryType": "incident",
+    "description": "An earthquake in prehistoric times cracked open a dry cave that sits directly on top of the Balcones Fault. It is the only place where you can walk through a physical crack in the Earth's crust caused by a single seismic event.",
+    "tags": [
+      "san-marcos",
+      "science",
+      "geology",
+      "nature",
+      "discovery"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "new-braunfels-adelsverein",
+    "name": "The New Braunfels Adelsverein Migration",
+    "nickname": null,
+    "years": "1845",
+    "category": "last-stands",
+    "currentStoryType": "incident",
+    "description": "A group of German princes bought land in Texas sight-unseen, hoping to create a \"New Germany.\" When the money ran out, settlers were forced to live in \"Sophienburg\" holes dug into the hillside to survive the winter.",
+    "tags": [
+      "new-braunfels",
+      "history",
+      "migration",
+      "germany",
+      "last-stand"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "menger-hotel-rough-riders",
+    "name": "The Menger Hotel & Rough Riders",
+    "nickname": null,
+    "years": "1898",
+    "category": "mystery-unexplained",
+    "currentStoryType": "place",
+    "description": "Teddy Roosevelt recruited the \"Rough Riders\" in the bar of this hotel, allegedly buying them enough whiskey to convince them to charge up San Juan Hill. Patrons still report seeing a man in a Victorian uniform sitting in the corner.",
+    "tags": [
+      "san-antonio",
+      "history",
+      "military",
+      "paranormal",
+      "haunted"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "milam-park-chile-queens",
+    "name": "The Chile Queens of Milam Park",
+    "nickname": null,
+    "years": "1860–1930",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "place",
+    "description": "For a century, women set up massive outdoor kitchens in the city squares, inventing \"Chili con Carne\" as we know it while serenading tourists. They were eventually shut down by the health department as San Antonio modernized.",
+    "tags": [
+      "san-antonio",
+      "food",
+      "culture",
+      "history",
+      "women"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "dallas-fire-1860",
+    "name": "The 1860 Dallas Fire Conspiracy",
+    "nickname": null,
+    "years": "1860",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "A devastating fire that leveled downtown Dallas was blamed on an \"Abolitionist Plot,\" leading to a state-wide panic and the lynching of three Black men on the banks of the Trinity River.",
+    "tags": [
+      "dallas",
+      "civil-war",
+      "crime",
+      "history",
+      "conspiracy"
+    ],
+    "momentCount": 2
+  },
+  {
+    "id": "clyde-barrow-grave",
+    "name": "The Grave of Clyde Barrow",
+    "nickname": null,
+    "years": "1934",
+    "category": "dark-history",
+    "currentStoryType": "place",
+    "description": "Public Enemy Number One is buried in a quiet Dallas cemetery because his family refused to let him be buried next to Bonnie Parker. His headstone, which he picked himself, reads \"Gone but not forgotten.\"",
+    "tags": [
+      "dallas",
+      "crime",
+      "outlaw",
+      "history",
+      "death"
+    ],
+    "momentCount": 1
+  },
+  {
+    "id": "willie-nelson-austin",
+    "name": "Willie Nelson's Austin",
+    "nickname": null,
+    "years": "1972–present",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Willie Nelson is THE defining figure of Austin music. After failing in Nashville, he returned to Texas and staged a 1972 performance at the Armadillo that fused redneck and hippie cultures into the \"cosmic cowboy\" movement. His annual 4th of July picnics and his \"Luck\" ranch have turned these coordinates into sacred sites of Texas outlaw country.",
+    "tags": [
+      "austin",
+      "music",
+      "country",
+      "outlaw-country",
+      "cosmic-cowboy",
+      "texas"
+    ],
+    "momentCount": 4
+  },
+  {
+    "id": "victory-grill-chitlin",
+    "name": "The Victory Grill & Austin's Chitlin' Circuit",
+    "nickname": null,
+    "years": "1945–present",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "During the era of legal segregation, the Victory Grill was THE anchor of Austin's African American music scene. Opened on V-J Day in 1945, it became a mandatory stop on the legendary \"Chitlin' Circuit,\" hosting everyone from B.B. King to Billie Holiday. It remains a rare surviving monument to the vibrant Black culture of East Austin.",
+    "tags": [
+      "austin",
+      "music",
+      "civil-rights",
+      "african-american",
+      "blues",
+      "segregation"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "broken-spoke-austin",
+    "name": "The Broken Spoke",
+    "nickname": null,
+    "years": "1964–present",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Known as the \"last of the true Texas dance halls,\" the Broken Spoke is an iconic honky-tonk that has refused to change even as luxury condos surrounded it on all sides. George Strait launched his career here, and Willie Nelson is a regular. James White, the legendary owner, turned down millions from developers to keep the sawdust on the floor.",
+    "tags": [
+      "austin",
+      "music",
+      "country",
+      "honky-tonk",
+      "preservation",
+      "texas"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "paramount-theatre-austin",
+    "name": "The Paramount Theatre",
+    "nickname": null,
+    "years": "1915–present",
+    "category": "arts-culture",
+    "currentStoryType": "place",
+    "description": "Austin's oldest surviving theater is a portal into the city's evolving soul. From vaudeville acts and Houdini escapes to psychedelic rock and world film premieres, the Paramount has survived near-death and urban neglect to become the center of Austin's modern cultural revival.",
+    "tags": [
+      "austin",
+      "theater",
+      "film",
+      "preservation",
+      "vaudeville",
+      "architecture"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "scholz-garden-austin",
+    "name": "Scholz Garden — Austin's Oldest Bar",
+    "nickname": null,
+    "years": "1866–present",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "place",
+    "description": "Opened just after the Civil War, Scholz Garden is the oldest continuously operated business in Austin and the oldest bar in Texas. It has survived Prohibition, the rise and fall of political dynasties, and 150 years of UT football. For generations, it has served as the unofficial headquarters of Texas Democratic politics.",
+    "tags": [
+      "austin",
+      "beer",
+      "german-heritage",
+      "politics",
+      "preservation",
+      "texas"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "texas-state-cemetery",
+    "name": "Texas State Cemetery",
+    "nickname": null,
+    "years": "1851–present",
+    "category": "political-drama",
+    "currentStoryType": "place",
+    "description": "Known as the \"Arlington of Texas,\" this 22-acre site is the final resting place for the Republic's greatest heroes and its most controversial figures. From Stephen F. Austin and Barbara Jordan to Confederate generals and modern governors, the cemetery is a physical compressed history of the state.",
+    "tags": [
+      "austin",
+      "texas",
+      "cemetery",
+      "republic-of-texas",
+      "civil-rights",
+      "governors"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "mount-bonnell-austin",
+    "name": "Mt. Bonnell",
+    "nickname": null,
+    "years": "1840–present",
+    "category": "everyday-extraordinary",
+    "currentStoryType": "place",
+    "description": "Austin's most iconic viewpoint is a 240-million-year-old limestone ridge that has served as a sanctuary and a lover's leap for centuries. From prehistoric settlements to 19th-century steamboat picnics, Mt. Bonnell is the city's oldest tourist destination. Its 775-foot summit offers a panorama of the Hill Country.",
+    "tags": [
+      "austin",
+      "nature",
+      "landmark",
+      "geology",
+      "romance",
+      "texas"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "dazed-and-confused-austin",
+    "name": "Dazed and Confused — Austin on Film",
+    "nickname": null,
+    "years": "1993",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "Richard Linklater's 1993 cult classic perfectly captured the soul of 1970s Austin. Filmed entirely in the city, the movie used local landmarks like Top Notch Hamburgers and a real moonlight tower to create a world that felt more authentic than the 70s themselves. Matthew McConaughey's breakout role as Wooderson cemented Austin's status as the independent film capital of the South.",
+    "tags": [
+      "austin",
+      "film",
+      "1970s",
+      "coming-of-age",
+      "linklater",
+      "mcconaughey"
+    ],
+    "momentCount": 3
+  },
+  {
+    "id": "booker-t-washington-life",
+    "name": "Booker T. Washington — From Slavery to the White House",
+    "nickname": null,
+    "years": "1856–1915",
+    "category": "political-drama",
+    "currentStoryType": "incident",
+    "description": "Booker T. Washington's life is one of the most remarkable arcs in American history. Born into slavery on a Virginia tobacco plantation, he walked hundreds of miles to gain an education and eventually founded the Tuskegee Institute. As the most powerful Black leader in America, he advised presidents and faced volcanic backlash for his \"Atlanta Compromise\" speech.",
+    "tags": [
+      "civil-rights",
+      "education",
+      "slavery",
+      "reconstruction",
+      "texas",
+      "virginia",
+      "alabama"
+    ],
+    "momentCount": 5
+  },
+  {
+    "id": "o-henry-life",
+    "name": "O. Henry — The Fugitive Writer",
+    "nickname": null,
+    "years": "1862–1910",
+    "category": "arts-culture",
+    "currentStoryType": "incident",
+    "description": "William Sydney Porter's life was more dramatic than any of the stories he wrote. From an orphan pharmacist in North Carolina to an Austin bohemian, he went from a fugitive in Honduras to a convict in the Ohio Penitentiary. It was behind bars that \"O. Henry\" was born, writing the twist-ending stories that would make him the most beloved author in America.",
+    "tags": [
+      "literature",
+      "austin",
+      "crime",
+      "prison",
+      "texas",
+      "new-york",
+      "fugitive"
+    ],
+    "momentCount": 4
+  }
+]
