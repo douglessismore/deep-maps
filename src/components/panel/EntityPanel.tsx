@@ -1,35 +1,139 @@
 import type { Entity, Moment, Story } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { getEntityMomentStories } from '../../lib/entityHelpers';
-import { useMemo } from 'react';
+import { entityMap, getEntityMomentStories, getNotableFigures } from '../../lib/entityHelpers';
+import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 
 interface EntityPanelProps {
   entity: Entity;
-  onMomentClick: (moment: Moment, story: Story) => void;
-  onStoryClick: (story: Story) => void;
+  onStoryClick: (story: Story, moment?: Moment) => void;
+  onEntityClick: (entity: Entity) => void;
+  onScrollLocationActive?: (moment: Moment, story: Story) => void;
+  activeLocationId?: string | null;
   onBack?: () => void;
   backLabel?: string;
   onHome?: () => void;
-  allStories: Story[];
 }
 
 export function EntityPanel({
   entity,
-  onMomentClick,
   onStoryClick,
+  onEntityClick,
+  onScrollLocationActive,
+  activeLocationId,
   onBack,
   backLabel,
   onHome,
-  allStories,
 }: EntityPanelProps) {
   const momentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
     [entity.id]
   );
 
-  const canonicalStory = entity.canonicalStoryId
-    ? allStories.find((s) => s.id === entity.canonicalStoryId)
-    : null;
+  // Notable figures for place entities
+  const notableFigures = useMemo(
+    () => (entity.type === 'place' ? getNotableFigures(entity.id) : []),
+    [entity.id, entity.type]
+  );
+
+  // ─── Scroll-driven map highlighting ──────────────────────────────
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
+  const isProgrammaticScroll = useRef(false);
+
+  // Set initial active to first moment
+  useEffect(() => {
+    if (momentEntries.length > 0 && !scrollActiveId) {
+      const first = momentEntries[0];
+      setScrollActiveId(first.moment.id);
+      if (onScrollLocationActive && first.stories.length > 0) {
+        onScrollLocationActive(first.moment, first.stories[0]);
+      }
+    }
+  }, [momentEntries, scrollActiveId, onScrollLocationActive]);
+
+  // External sync: when map pin is clicked, scroll to that moment
+  useEffect(() => {
+    if (!activeLocationId || activeLocationId === scrollActiveId) return;
+    const el = momentRefs.current.get(activeLocationId);
+    if (el) {
+      isProgrammaticScroll.current = true;
+      setScrollActiveId(activeLocationId);
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          isProgrammaticScroll.current = false;
+        });
+      });
+    }
+  }, [activeLocationId, scrollActiveId]);
+
+  // Scroll handler — find moment closest to 40% viewport line
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      if (isProgrammaticScroll.current) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const centerY = containerRect.top + containerRect.height * 0.4;
+
+      // Near bottom → pick last moment
+      const isNearBottom =
+        container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+
+      let closestId: string | null = null;
+      let closestDist = Infinity;
+
+      momentRefs.current.forEach((el, id) => {
+        const rect = el.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(cardCenter - centerY);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestId = id;
+        }
+      });
+
+      if (isNearBottom && momentEntries.length > 0) {
+        closestId = momentEntries[momentEntries.length - 1].moment.id;
+      }
+
+      if (closestId && closestId !== scrollActiveId) {
+        setScrollActiveId(closestId);
+        const entry = momentEntries.find((e) => e.moment.id === closestId);
+        if (entry && onScrollLocationActive && entry.stories.length > 0) {
+          onScrollLocationActive(entry.moment, entry.stories[0]);
+        }
+      }
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [momentEntries, scrollActiveId, onScrollLocationActive]);
+
+  // Click a moment card → highlight it + tell map
+  const handleMomentClick = useCallback(
+    (moment: Moment, stories: Story[]) => {
+      setScrollActiveId(moment.id);
+      if (onScrollLocationActive && stories.length > 0) {
+        onScrollLocationActive(moment, stories[0]);
+      }
+      // Scroll card into view
+      const el = momentRefs.current.get(moment.id);
+      if (el) {
+        isProgrammaticScroll.current = true;
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            isProgrammaticScroll.current = false;
+          });
+        });
+      }
+    },
+    [onScrollLocationActive]
+  );
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -60,7 +164,7 @@ export function EntityPanel({
       )}
 
       {/* Scroll container */}
-      <div className="flex-1 overflow-y-auto custom-scrollbar">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
         {/* Entity header */}
         <div className="p-4 border-b border-[var(--border-subtle)]">
           {/* Accent bar */}
@@ -88,30 +192,6 @@ export function EntityPanel({
             </p>
           )}
 
-          {/* Main Story button */}
-          {canonicalStory && (
-            <button
-              onClick={() => onStoryClick(canonicalStory)}
-              className="w-full mt-3 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2.5 transition-all group"
-            >
-              <span
-                className="w-2 h-2 rounded-full shrink-0"
-                style={{ backgroundColor: CATEGORIES[canonicalStory.category].color }}
-              />
-              <div className="min-w-0 text-left flex-1">
-                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-                  Main Story
-                </p>
-                <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">
-                  {canonicalStory.name}
-                </p>
-              </div>
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          )}
-
           {/* Wikipedia link */}
           {entity.wikipediaSlug && (
             <a
@@ -132,7 +212,42 @@ export function EntityPanel({
           )}
         </div>
 
-        {/* Moments section */}
+        {/* Notable Figures — for place entities only */}
+        {notableFigures.length > 0 && (
+          <div className="border-b border-[var(--border-subtle)]">
+            <div className="px-4 pt-3 pb-1">
+              <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+                Notable Figures
+              </h3>
+            </div>
+            <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
+              {notableFigures.map((figure) => (
+                <button
+                  key={figure.id}
+                  onClick={() => onEntityClick(figure)}
+                  className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[200px]"
+                >
+                  <span className="text-sm shrink-0 opacity-60">👤</span>
+                  <div className="min-w-0 text-left">
+                    <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">
+                      {figure.name}
+                    </p>
+                    {figure.years && (
+                      <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                        {figure.years}
+                      </p>
+                    )}
+                  </div>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                    <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Moments section — compact cards with inline navigation chips */}
         <div className="p-4">
           <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
             Moments ({momentEntries.length})
@@ -141,41 +256,86 @@ export function EntityPanel({
           {momentEntries.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)] italic">No moments tagged yet</p>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1">
               {momentEntries.map(({ moment, stories }) => {
-                const primaryStory = stories[0];
-                if (!primaryStory) return null;
-                const cat = CATEGORIES[primaryStory.category];
+                const isActive = scrollActiveId === moment.id;
+                // Entities on this moment (excluding the one we're viewing)
+                const otherEntities = (moment.entityIds ?? [])
+                  .map((eid) => (eid !== entity.id ? entityMap.get(eid) : null))
+                  .filter((e): e is Entity => e != null);
+
                 return (
-                  <button
+                  <div
                     key={moment.id}
-                    onClick={() => onMomentClick(moment, primaryStory)}
-                    className="w-full text-left cursor-pointer transition-all duration-200 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border-l-2 border-l-transparent hover:border-l-[var(--accent-red)] rounded-r-lg py-3 pl-3 pr-4"
+                    ref={(el) => {
+                      if (el) momentRefs.current.set(moment.id, el);
+                      else momentRefs.current.delete(moment.id);
+                    }}
+                    onClick={() => handleMomentClick(moment, stories)}
+                    className={`cursor-pointer transition-all duration-200 rounded-r-lg py-2.5 pl-3 pr-3 border-l-2 ${
+                      isActive
+                        ? 'bg-[var(--bg-card-hover)] border-l-[var(--accent-red)]'
+                        : 'bg-[var(--bg-card)] border-l-transparent hover:bg-[var(--bg-card-hover)]'
+                    }`}
                   >
-                    <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)]">
-                      {moment.name}
-                    </h4>
-                    <p className="text-xs text-[var(--text-secondary)] mt-0.5 leading-relaxed font-serif italic">
-                      {moment.subtitle}
-                    </p>
-                    <div className="flex items-center gap-2 mt-1.5 text-[10px] font-mono text-[var(--text-muted)]">
-                      {moment.year && <span>{moment.year}</span>}
-                      {moment.year && <span>·</span>}
-                      <span className="flex items-center gap-1">
-                        <span
-                          className="w-1.5 h-1.5 rounded-full inline-block"
-                          style={{ backgroundColor: cat.color }}
-                        />
-                        {primaryStory.name}
-                      </span>
-                      {stories.length > 1 && (
-                        <>
-                          <span>·</span>
-                          <span>+{stories.length - 1} more</span>
-                        </>
+                    {/* Name + year */}
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)] leading-tight">
+                        {moment.name}
+                      </h4>
+                      {moment.year && (
+                        <span className="shrink-0 text-[10px] font-mono text-[var(--text-muted)]">
+                          {moment.year}
+                        </span>
                       )}
                     </div>
-                  </button>
+
+                    {/* Story chips — which stories contain this moment */}
+                    {stories.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {stories.map((s) => {
+                          const sCat = CATEGORIES[s.category];
+                          return (
+                            <button
+                              key={s.id}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onStoryClick(s, moment);
+                              }}
+                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-white bg-[var(--bg-primary)] hover:bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors truncate max-w-[180px]"
+                            >
+                              <span
+                                className="w-1.5 h-1.5 rounded-full shrink-0 inline-block"
+                                style={{ backgroundColor: sCat.color }}
+                              />
+                              <span className="truncate">{s.name}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Go Deeper — other entity chips on this moment */}
+                    {otherEntities.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {otherEntities.map((otherEntity) => (
+                          <button
+                            key={otherEntity.id}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onEntityClick(otherEntity);
+                            }}
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-white bg-[var(--bg-primary)] hover:bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors"
+                          >
+                            <span className="opacity-60">
+                              {otherEntity.type === 'person' ? '👤' : '📍'}
+                            </span>
+                            <span className="truncate max-w-[140px]">{otherEntity.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>

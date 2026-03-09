@@ -3881,7 +3881,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1851,
     address: '909 Navasota St, Austin, TX 78702',
-    entityIds: ['texas-state-cemetery'],
+    entityIds: ['texas-state-cemetery', 'stephen-f-austin'],
   },
   {
     id: 'cemetery-barbara-jordan',
@@ -3894,7 +3894,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1996,
-    entityIds: ['texas-state-cemetery'],
+    entityIds: ['texas-state-cemetery', 'barbara-jordan'],
   },
   {
     id: 'cemetery-1994-restoration',

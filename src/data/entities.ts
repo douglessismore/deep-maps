@@ -153,4 +153,20 @@ export const entities: Entity[] = [
     canonicalStoryId: 'willie-nelson-austin',
     wikipediaSlug: 'Willie_Nelson',
   },
+  {
+    id: 'barbara-jordan',
+    name: 'Barbara Jordan',
+    type: 'person',
+    years: '1936–1996',
+    description: 'The first Southern Black woman elected to the U.S. Congress. Her booming oratory during the Watergate hearings made her a national icon. She later became a professor at UT Austin and a champion of ethics in government.',
+    wikipediaSlug: 'Barbara_Jordan',
+  },
+  {
+    id: 'stephen-f-austin',
+    name: 'Stephen F. Austin',
+    type: 'person',
+    years: '1793–1836',
+    description: 'The "Father of Texas" who led the colonization of the region, negotiated with Mexico, and helped forge the Republic. He died penniless just months after Texas won independence.',
+    wikipediaSlug: 'Stephen_F._Austin',
+  },
 ];

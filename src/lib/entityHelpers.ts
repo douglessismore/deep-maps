@@ -58,6 +58,22 @@ export function getEntityMomentStories(
   });
 }
 
+/** For place entities: collect all person-type entities that appear on the same moments.
+ *  Returns unique person entities sorted alphabetically, excluding the place itself. */
+export function getNotableFigures(placeEntityId: string): Entity[] {
+  const entityMoments = getEntityMomentStories(placeEntityId);
+  const personIds = new Set<string>();
+  for (const { moment } of entityMoments) {
+    for (const eid of moment.entityIds ?? []) {
+      if (eid !== placeEntityId) personIds.add(eid);
+    }
+  }
+  return Array.from(personIds)
+    .map((id) => entityMap.get(id))
+    .filter((e): e is Entity => e != null && e.type === 'person')
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 /** All entity locations for map display: moment + first parent story. */
 export function getEntityLocations(
   entityId: string

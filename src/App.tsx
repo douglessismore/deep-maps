@@ -285,6 +285,33 @@ function App() {
     setMode('entity');
   }, [pushNav]);
 
+  // Entity-mode scroll → highlight map marker without exiting entity mode
+  const handleEntityScrollLocationActive = useCallback((moment: Moment, _story: Story) => {
+    setActiveLocation(moment);
+  }, []);
+
+  // Entity-mode story click → navigate to story with optional moment active
+  const handleEntityStoryClick = useCallback((story: Story, moment?: Moment) => {
+    pushNav();
+    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+      setActiveCollection(null);
+    }
+    setActiveStory(story);
+    setActiveLocation(moment ?? null);
+    setActiveEntity(null);
+    setMode('story');
+  }, [activeCollection, pushNav]);
+
+  // Map pin click — in entity mode, stay in entity mode; otherwise normal behavior
+  const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
+    if (mode === 'entity') {
+      // Just highlight — EntityPanel reacts via activeLocationId
+      setActiveLocation(location);
+    } else {
+      handleLocationSelect(location, story);
+    }
+  }, [mode, handleLocationSelect]);
+
   // Entity locations for map display
   const entityLocations = useMemo(() => {
     if (mode !== 'entity' || !activeEntity) return undefined;
@@ -343,7 +370,7 @@ function App() {
             categoryFilter={categoryFilter}
             resetViewKey={resetViewKey}
             onMapReady={setMapInstance}
-            onLocationClick={handleLocationSelect}
+            onLocationClick={handleMapLocationClick}
             onStoryClick={handleStorySelect}
             userLocation={userLocation}
             nearMeZoomKey={nearMeZoomKey}
@@ -359,12 +386,13 @@ function App() {
               {mode === 'entity' && activeEntity ? (
                 <EntityPanel
                   entity={activeEntity}
-                  onMomentClick={handleLocationSelect}
-                  onStoryClick={handleStorySelect}
+                  onStoryClick={handleEntityStoryClick}
+                  onEntityClick={handleEntitySelect}
+                  onScrollLocationActive={handleEntityScrollLocationActive}
+                  activeLocationId={activeLocation?.id ?? null}
                   onBack={handleBack}
                   backLabel={backLabel}
                   onHome={handleBackToExplore}
-                  allStories={stories}
                 />
               ) : mode === 'story' && activeStory ? (
                 <StoryPanel
