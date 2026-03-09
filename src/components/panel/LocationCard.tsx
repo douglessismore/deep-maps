@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import type { Entity, Moment, Story, LocationAccuracy } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { entityMap } from '../../lib/entityHelpers';
+import { entityMap, getEntityMomentStories } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
@@ -27,6 +27,22 @@ interface LocationCardProps {
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
   function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
     const cat = CATEGORIES[story.category];
+
+    // Resolve entities for "Go Deeper" cards (only computed when active to avoid unnecessary work)
+    const resolvedEntities = useMemo(() => {
+      if (!isActive || !location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
+      return location.entityIds
+        .map((eid) => {
+          const entity = entityMap.get(eid);
+          if (!entity) return null;
+          // Skip entity whose canonical story is the one we're already viewing
+          if (entity.canonicalStoryId === story.id) return null;
+          const entries = getEntityMomentStories(eid);
+          const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
+          return { entity, momentCount: entries.length, storyCount: storyIds.size };
+        })
+        .filter((e): e is NonNullable<typeof e> => e != null);
+    }, [isActive, location.entityIds, story.id, onEntityClick]);
 
     return (
       <div
@@ -91,28 +107,6 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           )}
         </div>
 
-        {/* Entity pills — always visible when entityIds exist */}
-        {location.entityIds && location.entityIds.length > 0 && onEntityClick && (
-          <div className="flex flex-wrap gap-1 mt-1.5">
-            {location.entityIds.map((eid) => {
-              const entity = entityMap.get(eid);
-              if (!entity) return null;
-              return (
-                <button
-                  key={eid}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onEntityClick(entity);
-                  }}
-                  className="px-1.5 py-0.5 rounded border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-secondary)] hover:text-white hover:border-[var(--border-hover)] transition-colors"
-                >
-                  {entity.name}
-                </button>
-              );
-            })}
-          </div>
-        )}
-
         {/* Description (collapsed when not active) */}
         {isActive && (
           <div className="mt-3 space-y-3">
@@ -163,6 +157,41 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                   <path d="M3 2l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
+            )}
+            {/* Go Deeper — entity navigation cards (person timelines, place hubs) */}
+            {resolvedEntities.length > 0 && onEntityClick && (
+              <div className="pt-2 border-t border-[var(--border-subtle)]">
+                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                  Go Deeper
+                </p>
+                <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
+                  {resolvedEntities.map(({ entity, momentCount, storyCount }) => (
+                    <button
+                      key={entity.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEntityClick(entity);
+                      }}
+                      className="shrink-0 flex items-center gap-2 bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
+                    >
+                      <span className="text-sm shrink-0 opacity-60">
+                        {entity.type === 'person' ? '👤' : entity.type === 'place' ? '📍' : '◆'}
+                      </span>
+                      <div className="min-w-0 text-left">
+                        <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">
+                          {entity.name}
+                        </p>
+                        <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                          {momentCount} {momentCount === 1 ? 'moment' : 'moments'} · {storyCount} {storyCount === 1 ? 'story' : 'stories'}
+                        </p>
+                      </div>
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                        <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
             {/* Also In — same moment in different stories */}
             {alsoInStories && alsoInStories.length > 0 && onStoryClick && (

@@ -21,12 +21,36 @@ export function getMomentsForEntity(entityId: string): Moment[] {
 }
 
 /** All moments for an entity, each paired with the stories that reference it.
- *  Sorted by year ascending. */
+ *  Merges entityId-tagged moments with canonicalStory moments (safety net for
+ *  untagged moments). Sorted by year ascending, nulls at end. */
 export function getEntityMomentStories(
   entityId: string
 ): Array<{ moment: Moment; stories: Story[] }> {
-  const entityMoments = getMomentsForEntity(entityId);
-  return entityMoments.map((moment) => {
+  // Primary source: moments explicitly tagged with this entityId
+  const taggedMoments = getMomentsForEntity(entityId);
+  const seenIds = new Set(taggedMoments.map((m) => m.id));
+
+  // Secondary source: moments from the canonical story (catches untagged moments)
+  const entity = entityMap.get(entityId);
+  const canonicalStory = entity?.canonicalStoryId
+    ? stories.find((s) => s.id === entity.canonicalStoryId)
+    : null;
+
+  const canonicalMoments = canonicalStory
+    ? canonicalStory.moments
+        .map((sm) => moments.find((m) => m.id === sm.momentId))
+        .filter((m): m is Moment => m != null && !seenIds.has(m.id))
+    : [];
+
+  // Merge and sort chronologically
+  const allMoments = [...taggedMoments, ...canonicalMoments].sort((a, b) => {
+    if (a.year == null && b.year == null) return 0;
+    if (a.year == null) return 1;
+    if (b.year == null) return -1;
+    return a.year - b.year;
+  });
+
+  return allMoments.map((moment) => {
     const parentStories = stories.filter((s) =>
       s.moments.some((sm) => sm.momentId === moment.id)
     );
