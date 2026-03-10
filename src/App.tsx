@@ -16,6 +16,7 @@ import type { Entity, Story, Moment, StoryCategory, StoryCollection, Interaction
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 
+
 const momentMap = buildMomentMap(moments);
 
 type SavedMapView = { center: [number, number]; zoom: number };
@@ -37,7 +38,7 @@ function App() {
   const [activeLocation, setActiveLocation] = useState<Moment | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
-  const [scrollHighlight, setScrollHighlight] = useState<Moment | null>(null);
+  const [scrollHighlight, setScrollHighlight] = useState<Moment[]>([]);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [activeEntity, setActiveEntity] = useState<Entity | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
@@ -87,8 +88,9 @@ function App() {
 
   // Derive which story is currently scroll-highlighted (for timeline dot pulse)
   const scrollHighlightStoryId = useMemo(() => {
-    if (!scrollHighlight) return null;
-    return stories.find((s) => resolveLocationsFromMap(s, momentMap).some((l) => l.id === scrollHighlight.id))?.id ?? null;
+    if (scrollHighlight.length === 0) return null;
+    const highlightIds = new Set(scrollHighlight.map(m => m.id));
+    return stories.find((s) => resolveLocationsFromMap(s, momentMap).some((l) => highlightIds.has(l.id)))?.id ?? null;
   }, [scrollHighlight]);
 
   // Push current state onto navigation history before changing
@@ -205,11 +207,11 @@ function App() {
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);
     // Clear scroll highlight when entering story mode (full location select takes over)
-    if (newMode === 'story') setScrollHighlight(null);
+    if (newMode === 'story') setScrollHighlight([]);
   }, []);
 
-  const handleScrollHighlight = useCallback((location: Moment | null) => {
-    setScrollHighlight(location);
+  const handleScrollHighlight = useCallback((locations: Moment[]) => {
+    setScrollHighlight(locations);
   }, []);
 
   const handleCategoryFilter = useCallback((category: StoryCategory | null) => {

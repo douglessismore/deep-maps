@@ -28,9 +28,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
   function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
     const cat = CATEGORIES[story.category];
 
-    // Resolve entities for "Go Deeper" cards (only computed when active to avoid unnecessary work)
+    // Resolve entities for "Go Deeper" chips/cards — always computed for strottability
     const resolvedEntities = useMemo(() => {
-      if (!isActive || !location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
+      if (!location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
       return location.entityIds
         .map((eid) => {
           const entity = entityMap.get(eid);
@@ -42,7 +42,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
         })
         .filter((e): e is NonNullable<typeof e> => e != null);
-    }, [isActive, location.entityIds, story.id, onEntityClick]);
+    }, [location.entityIds, story.id, onEntityClick]);
 
     return (
       <div
@@ -106,6 +106,27 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             </>
           )}
         </div>
+
+        {/* Entity chips — visible even when collapsed for strottability */}
+        {!isActive && resolvedEntities.length > 0 && onEntityClick && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {resolvedEntities.map(({ entity }) => (
+              <button
+                key={entity.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEntityClick(entity, location);
+                }}
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              >
+                <span className="opacity-60 text-[9px]">
+                  {entity.type === 'person' ? '👤' : '📍'}
+                </span>
+                <span className="truncate max-w-[120px]">{entity.name}</span>
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Description (collapsed when not active) */}
         {isActive && (

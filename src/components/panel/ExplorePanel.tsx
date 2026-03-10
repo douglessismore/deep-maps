@@ -5,7 +5,7 @@ import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
 import { stories as allStories } from '../../data/stories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, getInitial, groupAlphabetically, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, getInitial, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
 import { StoryCard } from './StoryCard';
 import { CollectionCard } from './CollectionCard';
 
@@ -20,7 +20,7 @@ interface ExplorePanelProps {
   onLocationSelect: (location: Moment, story: Story) => void;
   onCollectionSelect: (collection: StoryCollection) => void;
   onClearCollection: () => void;
-  onScrollHighlight: (location: Moment | null) => void;
+  onScrollHighlight: (locations: Moment[]) => void;
   onModeChange: (mode: InteractionMode) => void;
   mode: InteractionMode;
   searchQuery: string;
@@ -71,7 +71,7 @@ export function ExplorePanel({
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
-  const [directoryFilter, setDirectoryFilter] = useState<'person' | 'place' | null>(null);
+  const [directoryFilter, setDirectoryFilter] = useState<'person' | 'place'>('person');
   const [collectionsOpen, setCollectionsOpen] = useState(false);
 
   // Compact cards on mobile to show more stories below the map
@@ -88,6 +88,7 @@ export function ExplorePanel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const directoryCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
 
@@ -183,22 +184,21 @@ export function ExplorePanel({
         if (story && story.moments.length > 0) {
           onModeChange('scroll');
 
-          const mapBounds = mapInstance.getBounds();
+          // Highlight ALL story pins on the map
           const resolved = resolveLocationsFromMap(story, momentMap);
+          onScrollHighlight(resolved);
+
+          // Pan to first in-view pin (or first pin overall)
+          const mapBounds = mapInstance.getBounds();
           const locsInView = resolved.filter((l) =>
             mapBounds.contains([l.lat, l.lng])
           );
-
-          const highlightLoc = locsInView[0] || null;
-
-          if (highlightLoc) {
-            onScrollHighlight(highlightLoc);
-            mapInstance.panTo([highlightLoc.lat, highlightLoc.lng], {
+          const panTarget = locsInView[0] || resolved[0];
+          if (panTarget) {
+            mapInstance.panTo([panTarget.lat, panTarget.lng], {
               animate: true,
               duration: 0.6,
             });
-          } else {
-            onScrollHighlight(null);
           }
         }
       }
@@ -239,7 +239,7 @@ export function ExplorePanel({
         );
         if (vl) {
           setActiveLocationId(vl.location.id);
-          onScrollHighlight(vl.location);
+          onScrollHighlight([vl.location]);
           mapInstance.panTo([vl.location.lat, vl.location.lng], {
             animate: true,
             duration: 0.6,
@@ -286,7 +286,6 @@ export function ExplorePanel({
   }, [viewportLocations, searchQuery]);
 
   const directoryEntities = useMemo(() => {
-    if (directoryFilter === null) return viewportEntities;
     return viewportEntities.filter((e) => e.entity.type === directoryFilter);
   }, [viewportEntities, directoryFilter]);
 
@@ -303,6 +302,40 @@ export function ExplorePanel({
     () => viewportEntities.filter((e) => e.entity.type === 'place').length,
     [viewportEntities]
   );
+
+  // Scroll-driven entity highlighting (Directory tab)
+  // NOTE: Must be after directoryEntities useMemo to avoid TDZ
+  useEffect(() => {
+    if (activeTab !== 'directory' || !mapInstance) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      const containerRect = container.getBoundingClientRect();
+      const centerY = containerRect.top + containerRect.height * 0.4;
+      let closestId: string | null = null;
+      let closestDist = Infinity;
+
+      directoryCardRefs.current.forEach((el, id) => {
+        const rect = el.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(cardCenter - centerY);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestId = id;
+        }
+      });
+
+      if (closestId) {
+        // Highlight ALL moments for this entity on the map
+        const entityMoments = getMomentsForEntity(closestId);
+        onScrollHighlight(entityMoments);
+      }
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [activeTab, mapInstance, directoryEntities, onScrollHighlight]);
 
   return (
     <div className="flex flex-col h-full relative">
@@ -364,22 +397,48 @@ export function ExplorePanel({
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
-        <button
-          onClick={() => setActiveTab('directory')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-            activeTab === 'directory'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Directory
-          {viewportEntities.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportEntities.length})</span>
-          )}
-          {activeTab === 'directory' && (
+        {activeTab === 'directory' ? (
+          /* When Directory is active, show inline People/Places toggles */
+          <div className="flex flex-1 relative">
+            <button
+              onClick={() => setDirectoryFilter('person')}
+              className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
+                directoryFilter === 'person'
+                  ? 'text-[rgba(167,139,250,1)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              }`}
+            >
+              People
+              {personCount > 0 && (
+                <span className="ml-1 text-[10px] text-[var(--text-muted)]">({personCount})</span>
+              )}
+            </button>
+            <button
+              onClick={() => setDirectoryFilter('place')}
+              className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
+                directoryFilter === 'place'
+                  ? 'text-[rgba(96,165,250,1)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              }`}
+            >
+              Places
+              {placeCount > 0 && (
+                <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeCount})</span>
+              )}
+            </button>
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
-        </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setActiveTab('directory')}
+            className="flex-1 py-2.5 text-xs font-mono transition-colors relative text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+          >
+            Directory
+            {viewportEntities.length > 0 && (
+              <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportEntities.length})</span>
+            )}
+          </button>
+        )}
         {/* Collections button */}
         <button
           onClick={() => setCollectionsOpen(!collectionsOpen)}
@@ -464,7 +523,7 @@ export function ExplorePanel({
                     onClick={() => {
                       setExpandedLocationKey(isExpanded ? null : key);
                       setActiveLocationId(vl.location.id);
-                      onScrollHighlight(vl.location);
+                      onScrollHighlight([vl.location]);
                       if (mapInstance) {
                         mapInstance.panTo([vl.location.lat, vl.location.lng], {
                           animate: true,
@@ -559,41 +618,19 @@ export function ExplorePanel({
             />
           ) : (
             <div>
-              {/* Filter pills — People | Places (no "All") */}
-              {(personCount > 0 && placeCount > 0) && (
-                <div className="flex gap-1.5 mb-3 sticky top-0 z-10 bg-[var(--bg-secondary)] py-1.5 -mt-1">
-                  <button
-                    onClick={() => setDirectoryFilter(directoryFilter === 'person' ? null : 'person')}
-                    className={`px-2.5 py-1 rounded text-[10px] font-mono transition-colors ${
-                      directoryFilter === 'person'
-                        ? 'bg-[rgba(139,92,246,0.25)] text-[rgba(167,139,250,1)] ring-1 ring-[rgba(139,92,246,0.4)]'
-                        : 'text-[var(--text-muted)] hover:text-white bg-[var(--bg-card)] border border-[var(--border-subtle)]'
-                    }`}
-                  >
-                    People ({personCount})
-                  </button>
-                  <button
-                    onClick={() => setDirectoryFilter(directoryFilter === 'place' ? null : 'place')}
-                    className={`px-2.5 py-1 rounded text-[10px] font-mono transition-colors ${
-                      directoryFilter === 'place'
-                        ? 'bg-[rgba(59,130,246,0.25)] text-[rgba(96,165,250,1)] ring-1 ring-[rgba(59,130,246,0.4)]'
-                        : 'text-[var(--text-muted)] hover:text-white bg-[var(--bg-card)] border border-[var(--border-subtle)]'
-                    }`}
-                  >
-                    Places ({placeCount})
-                  </button>
-                </div>
-              )}
-
               {/* Alphabetical entity list */}
               {Array.from(alphabeticalGroups.entries()).map(([letter, items]) => (
                 <div key={letter}>
-                  <div className="sticky top-8 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
+                  <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
                     {letter}
                   </div>
                   {items.map(({ entity, momentCount }) => (
                     <button
                       key={entity.id}
+                      ref={(el) => {
+                        if (el) directoryCardRefs.current.set(entity.id, el);
+                        else directoryCardRefs.current.delete(entity.id);
+                      }}
                       onClick={() => onEntityClick?.(entity)}
                       className="w-full flex items-center gap-2.5 px-1 py-2 text-left transition-colors group hover:bg-[var(--bg-card)] rounded"
                     >
@@ -635,6 +672,8 @@ export function ExplorePanel({
                   ))}
                 </div>
               ))}
+              {/* Bottom padding for scroll detection */}
+              <div className="h-[30vh]" />
             </div>
           )
         ) : displayStories.length === 0 ? (

@@ -14,9 +14,9 @@ function degreeDistance(a: [number, number], b: [number, number]): number {
 }
 
 /**
- * Distance-AND-zoom-aware flyTo.
- * Large zoom deltas (e.g. 14→4) need animation so tiles can stream in.
- * Large distances at similar zoom can be instant.
+ * Distance-aware flyTo — simplified for honest transitions.
+ * Far = instant snap (clean chapter break). Near = smooth pan.
+ * Mid-range = animated with duration scaled by distance.
  */
 export function smartFlyTo(
   map: L.Map,
@@ -27,27 +27,23 @@ export function smartFlyTo(
   const center = map.getCenter();
   const tll = L.latLng(target);
   const dist = degreeDistance([center.lat, center.lng], [tll.lat, tll.lng]);
-  const zoomDelta = Math.abs(map.getZoom() - zoom);
 
-  if (zoomDelta >= 6) {
-    // Huge zoom change (e.g. street→country): always animate so tiles stream in
-    map.flyTo(target, zoom, { duration: 3.5 });
-  } else if (dist > 8 && zoomDelta < 3) {
-    // Cross-country at similar zoom: instant jump is fine
+  if (dist > 5) {
+    // Cross-country: instant snap — no choppy tile loading
     map.setView(target, zoom);
-  } else if (dist > 3 || zoomDelta >= 3) {
-    // Medium distance or moderate zoom change: slower fly
-    const duration = Math.min(baseDuration * 1.5 + zoomDelta * 0.15, 4.0);
+  } else if (dist > 1.5) {
+    // Mid-range (cross-city or nearby state): animate with scaled duration
+    const duration = Math.min(baseDuration + dist * 0.25, 2.8);
     map.flyTo(target, zoom, { duration });
   } else {
-    // Nearby, similar zoom: normal smooth fly
+    // Nearby (within city): smooth pan
     map.flyTo(target, zoom, { duration: baseDuration });
   }
 }
 
 /**
- * Distance-AND-zoom-aware flyToBounds.
- * Estimates target zoom via getBoundsZoom to determine zoom delta.
+ * Distance-aware flyToBounds — simplified for honest transitions.
+ * Far = instant snap. Near = smooth animation.
  */
 export function smartFlyToBounds(
   map: L.Map,
@@ -58,24 +54,19 @@ export function smartFlyToBounds(
   const tc = bounds.getCenter();
   const dist = degreeDistance([center.lat, center.lng], [tc.lat, tc.lng]);
   const baseDuration = options.duration ?? 1.8;
-  const targetZoom = map.getBoundsZoom(bounds, false, options.padding ? undefined : L.point(60, 60));
-  const zoomDelta = Math.abs(map.getZoom() - targetZoom);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { duration: _, ...fitOpts } = options;
 
-  if (zoomDelta >= 6) {
-    // Huge zoom change: animate so tiles stream in
-    map.flyToBounds(bounds, { ...fitOpts, duration: 3.5 });
-  } else if (dist > 8 && zoomDelta < 3) {
-    // Cross-country at similar zoom: instant
+  if (dist > 5) {
+    // Cross-country: instant snap
     map.fitBounds(bounds, { ...fitOpts, animate: false });
-  } else if (dist > 3 || zoomDelta >= 3) {
-    // Medium distance or moderate zoom change
-    const duration = Math.min(baseDuration * 1.5 + zoomDelta * 0.15, 4.0);
+  } else if (dist > 1.5) {
+    // Mid-range: animate with scaled duration
+    const duration = Math.min(baseDuration + dist * 0.25, 2.8);
     map.flyToBounds(bounds, { ...fitOpts, duration });
   } else {
-    // Nearby, similar zoom: normal
+    // Nearby: smooth animation
     map.flyToBounds(bounds, { ...fitOpts, duration: baseDuration });
   }
 }
@@ -99,7 +90,7 @@ interface MapViewProps {
   stories: Story[];
   activeStory: Story | null;
   activeLocation: Moment | null;
-  scrollHighlight?: Moment | null; // Lightweight highlight during explore scroll (no zoom)
+  scrollHighlight?: Moment[]; // Lightweight highlight during explore scroll (no zoom)
   mode: InteractionMode;
   categoryFilter: StoryCategory | null;
   resetViewKey?: number; // Incremented to trigger zoom-out to all pins
@@ -189,7 +180,7 @@ function MapController({
       const cat = CATEGORIES[story.category];
       const size = IMPORTANCE_SIZE[location.importance] || 10;
       const isActive = activeLocation?.id === location.id;
-      const isScrollHighlighted = scrollHighlight?.id === location.id;
+      const isScrollHighlighted = scrollHighlight?.some(m => m.id === location.id) ?? false;
       const icon = createMarkerIcon(cat.color, size, isActive, isScrollHighlighted);
 
       const marker = L.marker([location.lat, location.lng], { icon });
@@ -204,7 +195,7 @@ function MapController({
           direction: 'top',
           offset: [0, -displaySize / 2 - 4],
           className: 'dark-tooltip',
-          permanent: isScrollHighlighted, // Auto-show tooltip for scroll-highlighted marker
+          permanent: isScrollHighlighted && (scrollHighlight?.length ?? 0) === 1, // Only show tooltip for single-pin focus, not multi-pin geographic scope
         }
       );
 
