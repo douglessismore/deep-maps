@@ -82,3 +82,52 @@ export function getEntityLocations(
     .filter(({ stories: s }) => s.length > 0)
     .map(({ moment, stories: s }) => ({ location: moment, story: s[0] }));
 }
+
+/** All unique stories that contain moments for this entity. Sorted by earliest year. */
+export function getEntityStories(entityId: string): Story[] {
+  const entries = getEntityMomentStories(entityId);
+  const seenIds = new Set<string>();
+  const result: Story[] = [];
+  for (const { stories: parentStories } of entries) {
+    for (const s of parentStories) {
+      if (!seenIds.has(s.id)) {
+        seenIds.add(s.id);
+        result.push(s);
+      }
+    }
+  }
+  return result.sort((a, b) => {
+    const aYear = a.years ? parseInt(a.years) : Infinity;
+    const bYear = b.years ? parseInt(b.years) : Infinity;
+    return aYear - bYear;
+  });
+}
+
+export interface EntityWithCounts {
+  entity: Entity;
+  momentCount: number;
+  storyCount: number;
+}
+
+/** Entities that have moments in the given set of moment IDs. Sorted by moment count desc. */
+export function getViewportEntities(
+  viewportMomentIds: Set<string>
+): EntityWithCounts[] {
+  const result: EntityWithCounts[] = [];
+  for (const entity of entities) {
+    const entries = getEntityMomentStories(entity.id);
+    const inViewport = entries.filter(({ moment }) =>
+      viewportMomentIds.has(moment.id)
+    );
+    if (inViewport.length === 0) continue;
+    const storyIds = new Set(
+      entries.flatMap(({ stories: s }) => s.map((st) => st.id))
+    );
+    result.push({
+      entity,
+      momentCount: entries.length,
+      storyCount: storyIds.size,
+    });
+  }
+  return result.sort((a, b) => b.momentCount - a.momentCount);
+}

@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
-import type { Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
+import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+import { getViewportEntities, type EntityWithCounts } from '../../lib/entityHelpers';
 
 const momentMap = buildMomentMap(moments);
 import { StoryCard } from './StoryCard';
@@ -27,6 +28,7 @@ interface ExplorePanelProps {
   onCategoryFilter: (category: StoryCategory | null) => void;
   onSurpriseMe: () => void;
   userLocation?: { lat: number; lng: number } | null;
+  onEntityClick?: (entity: Entity) => void;
 }
 
 type PanelTab = 'locations' | 'stories' | 'collections';
@@ -62,6 +64,7 @@ export function ExplorePanel({
   categoryFilter,
   onSurpriseMe,
   userLocation,
+  onEntityClick,
 }: ExplorePanelProps) {
   const [activeTab, setActiveTab] = useState<PanelTab>('stories');
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
@@ -285,6 +288,23 @@ export function ExplorePanel({
     return result;
   }, [filteredStories, viewportStories, searchQuery, userLocation]);
 
+  // Entities with moments in the viewport (filtered by search when active)
+  const viewportEntities: EntityWithCounts[] = useMemo(() => {
+    if (!onEntityClick || viewportLocations.length === 0) return [];
+    const ids = new Set(viewportLocations.map((vl) => vl.location.id));
+    let result = getViewportEntities(ids);
+    // Filter by search query if active
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      result = result.filter(
+        ({ entity }) =>
+          entity.name.toLowerCase().includes(q) ||
+          entity.description?.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [viewportLocations, onEntityClick, searchQuery]);
+
   return (
     <div className="flex flex-col h-full">
       {/* Active collection banner */}
@@ -338,8 +358,8 @@ export function ExplorePanel({
           }`}
         >
           Stories
-          {viewportStories.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({displayStories.length})</span>
+          {(viewportStories.length > 0 || viewportEntities.length > 0) && (
+            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({displayStories.length + viewportEntities.length})</span>
           )}
           {activeTab === 'stories' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
@@ -406,32 +426,74 @@ export function ExplorePanel({
               );
             })
           )
-        ) : displayStories.length === 0 ? (
+        ) : displayStories.length === 0 && viewportEntities.length === 0 ? (
           <EmptyState
             message={searchQuery ? 'No stories match your search' : 'No stories in this area — zoom out or pan around'}
             onSurpriseMe={onSurpriseMe}
           />
         ) : (
-          displayStories.map((story) => (
-            <div
-              key={story.id}
-              ref={(el) => {
-                if (el) cardRefs.current.set(story.id, el);
-                else cardRefs.current.delete(story.id);
-              }}
-            >
-              <StoryCard
-                story={story}
-                onClick={onStorySelect}
-                compact={isMobile}
-                distanceMi={
-                  userLocation
-                    ? nearestDistance(story, userLocation.lat, userLocation.lng)
-                    : undefined
-                }
-              />
-            </div>
-          ))
+          <>
+            {/* Entity cards — People & Places in this area */}
+            {viewportEntities.length > 0 && onEntityClick && (
+              <>
+                {viewportEntities.map(({ entity, momentCount, storyCount }) => (
+                  <button
+                    key={entity.id}
+                    onClick={() => onEntityClick(entity)}
+                    className="w-full flex items-start gap-3 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2.5 transition-all group text-left"
+                  >
+                    <span className="text-lg shrink-0 mt-0.5 opacity-60">
+                      {entity.type === 'person' ? '👤' : '📍'}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors truncate leading-tight">
+                          {entity.name}
+                        </p>
+                        <span className="shrink-0 text-[9px] font-mono text-[var(--text-muted)] capitalize px-1 py-0.5 rounded bg-[var(--bg-primary)] border border-[var(--border-subtle)]">
+                          {entity.type}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-0.5 text-[10px] font-mono text-[var(--text-muted)]">
+                        {entity.years && <span>{entity.years}</span>}
+                        {entity.years && <span>·</span>}
+                        <span>{momentCount} {momentCount === 1 ? 'moment' : 'moments'}</span>
+                        <span>·</span>
+                        <span>{storyCount} {storyCount === 1 ? 'story' : 'stories'}</span>
+                      </div>
+                    </div>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 mt-1 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                      <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                ))}
+                {displayStories.length > 0 && (
+                  <div className="border-t border-[var(--border-subtle)] -mx-3" />
+                )}
+              </>
+            )}
+            {/* Story cards */}
+            {displayStories.map((story) => (
+              <div
+                key={story.id}
+                ref={(el) => {
+                  if (el) cardRefs.current.set(story.id, el);
+                  else cardRefs.current.delete(story.id);
+                }}
+              >
+                <StoryCard
+                  story={story}
+                  onClick={onStorySelect}
+                  compact={isMobile}
+                  distanceMi={
+                    userLocation
+                      ? nearestDistance(story, userLocation.lat, userLocation.lng)
+                      : undefined
+                  }
+                />
+              </div>
+            ))}
+          </>
         )}
       </div>
     </div>

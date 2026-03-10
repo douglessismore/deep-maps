@@ -21,7 +21,7 @@ interface LocationCardProps {
   narrativeGlue?: string;
   alsoInStories?: Story[];
   onStoryClick?: (story: Story) => void;
-  onEntityClick?: (entity: Entity) => void;
+  onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
@@ -170,7 +170,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                       key={entity.id}
                       onClick={(e) => {
                         e.stopPropagation();
-                        onEntityClick(entity);
+                        onEntityClick(entity, location);
                       }}
                       className="shrink-0 flex items-center gap-2 bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
                     >

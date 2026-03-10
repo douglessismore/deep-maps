@@ -23,7 +23,7 @@ interface StoryPanelProps {
   onBack?: () => void;
   backLabel?: string;
   onHome?: () => void;
-  onEntityClick?: (entity: Entity) => void;
+  onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
 }
 
 export function StoryPanel({

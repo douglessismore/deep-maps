@@ -276,11 +276,11 @@ function App() {
     setMode('story');
   }, [pushNav]);
 
-  const handleEntitySelect = useCallback((entity: Entity) => {
+  const handleEntitySelect = useCallback((entity: Entity, fromMoment?: Moment) => {
     pushNav();
     setActiveEntity(entity);
     setActiveStory(null);
-    setActiveLocation(null);
+    setActiveLocation(fromMoment ?? null);
     setCategoryFilter(null);
     setMode('entity');
   }, [pushNav]);
@@ -426,6 +426,7 @@ function App() {
                   onCategoryFilter={handleCategoryFilter}
                   onSurpriseMe={handleSurpriseMe}
                   userLocation={userLocation}
+                  onEntityClick={handleEntitySelect}
                 />
               )}
             </Route>
