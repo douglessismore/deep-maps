@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { Route, Switch } from 'wouter';
-import { MapView } from './components/map/MapView';
+import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel } from './components/panel/ExplorePanel';
 import { StoryPanel } from './components/panel/StoryPanel';
 import { EntityPanel } from './components/panel/EntityPanel';
@@ -197,7 +197,7 @@ function App() {
         resolveLocationsFromMap(s, momentMap).map(l => [l.lat, l.lng] as [number, number])
       );
       if (coords.length > 0) {
-        mapInstance.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+        smartFlyToBounds(mapInstance, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
       }
     }
   }, [pushNav, mapInstance]);

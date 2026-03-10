@@ -3,11 +3,13 @@ import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
+import { stories as allStories } from '../../data/stories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { EntityRibbon } from './EntityRibbon';
+import { getViewportEntities, getInitial, groupAlphabetically, type EntityWithCounts } from '../../lib/entityHelpers';
+import { StoryCard } from './StoryCard';
+import { CollectionCard } from './CollectionCard';
 
 const momentMap = buildMomentMap(moments);
-import { StoryCard } from './StoryCard';
 
 interface ExplorePanelProps {
   stories: Story[];
@@ -29,7 +31,7 @@ interface ExplorePanelProps {
   onEntityClick?: (entity: Entity) => void;
 }
 
-type PanelTab = 'moments' | 'stories';
+type PanelTab = 'moments' | 'stories' | 'directory';
 
 /** Haversine distance in miles between two lat/lng points */
 function distanceMiles(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -49,12 +51,12 @@ function nearestDistance(story: Story, lat: number, lng: number): number {
 
 export function ExplorePanel({
   stories,
-  collections: _collections,
+  collections,
   activeCollection,
   mapInstance,
   onStorySelect,
   onLocationSelect,
-  onCollectionSelect: _onCollectionSelect,
+  onCollectionSelect,
   onClearCollection,
   onScrollHighlight,
   onModeChange,
@@ -69,6 +71,8 @@ export function ExplorePanel({
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
+  const [directoryFilter, setDirectoryFilter] = useState<'person' | 'place' | null>(null);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
 
   // Compact cards on mobile to show more stories below the map
   const [isMobile, setIsMobile] = useState(() =>
@@ -91,6 +95,7 @@ export function ExplorePanel({
   useEffect(() => {
     if (activeCollection) {
       setActiveTab('stories');
+      setCollectionsOpen(false);
     }
   }, [activeCollection]);
 
@@ -145,9 +150,6 @@ export function ExplorePanel({
   }, [mapInstance, updateViewport]);
 
   // Scroll-driven navigation (Stories tab)
-  // When the user is zoomed into an area and scrolling through story cards,
-  // we should NOT fly the map to the full story bounds (which could be across the state).
-  // Instead, we only fly if the story's locations fit within or near the current viewport.
   useEffect(() => {
     if (activeTab !== 'stories' || !mapInstance) return;
     const container = scrollContainerRef.current;
@@ -181,25 +183,21 @@ export function ExplorePanel({
         if (story && story.moments.length > 0) {
           onModeChange('scroll');
 
-          // Find the first location of this story that's in the current viewport
           const mapBounds = mapInstance.getBounds();
           const resolved = resolveLocationsFromMap(story, momentMap);
           const locsInView = resolved.filter((l) =>
             mapBounds.contains([l.lat, l.lng])
           );
 
-          // Pick the "primary" location to highlight: first in-view, or first overall
           const highlightLoc = locsInView[0] || null;
 
           if (highlightLoc) {
-            // Enlarge + pulse this marker, and gently pan to keep it centered
             onScrollHighlight(highlightLoc);
             mapInstance.panTo([highlightLoc.lat, highlightLoc.lng], {
               animate: true,
               duration: 0.6,
             });
           } else {
-            // Story has no locations in view — clear highlight, don't pan
             onScrollHighlight(null);
           }
         }
@@ -213,7 +211,7 @@ export function ExplorePanel({
     };
   }, [activeTab, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
 
-  // Scroll-driven location navigation (Locations tab)
+  // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
     if (activeTab !== 'moments' || !mapInstance) return;
     const container = scrollContainerRef.current;
@@ -236,7 +234,6 @@ export function ExplorePanel({
       });
 
       if (closestKey) {
-        // Key format is "storyId-locationId"
         const vl = viewportLocations.find(
           (v) => `${v.story.id}-${v.location.id}` === closestKey
         );
@@ -256,7 +253,6 @@ export function ExplorePanel({
   }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
 
   // Stories tab: show viewport stories if available, else filtered stories
-  // When geolocated, sort by nearest distance
   const displayStories = useMemo(() => {
     let result: Story[];
     if (searchQuery.trim()) result = filteredStories;
@@ -273,8 +269,43 @@ export function ExplorePanel({
     return result;
   }, [filteredStories, viewportStories, searchQuery, userLocation]);
 
+  // Directory tab: viewport entities
+  const viewportEntities: EntityWithCounts[] = useMemo(() => {
+    if (viewportLocations.length === 0) return [];
+    const ids = new Set(viewportLocations.map((vl) => vl.location.id));
+    let result = getViewportEntities(ids);
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      result = result.filter(
+        ({ entity }) =>
+          entity.name.toLowerCase().includes(q) ||
+          entity.description?.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [viewportLocations, searchQuery]);
+
+  const directoryEntities = useMemo(() => {
+    if (directoryFilter === null) return viewportEntities;
+    return viewportEntities.filter((e) => e.entity.type === directoryFilter);
+  }, [viewportEntities, directoryFilter]);
+
+  const alphabeticalGroups = useMemo(
+    () => groupAlphabetically(directoryEntities),
+    [directoryEntities]
+  );
+
+  const personCount = useMemo(
+    () => viewportEntities.filter((e) => e.entity.type === 'person').length,
+    [viewportEntities]
+  );
+  const placeCount = useMemo(
+    () => viewportEntities.filter((e) => e.entity.type === 'place').length,
+    [viewportEntities]
+  );
+
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full relative">
       {/* Active collection banner */}
       {activeCollection && (
         <div className="shrink-0 px-3 py-2.5 bg-[var(--bg-card)] border-b border-[var(--border-subtle)] flex items-center gap-2.5">
@@ -299,17 +330,7 @@ export function ExplorePanel({
         </div>
       )}
 
-      {/* Entity Ribbon — above tabs, always visible */}
-      {onEntityClick && (
-        <EntityRibbon
-          viewportLocations={viewportLocations}
-          searchQuery={searchQuery}
-          onEntityClick={onEntityClick}
-          mapInstance={mapInstance}
-        />
-      )}
-
-      {/* Tabs */}
+      {/* Tabs + Collections button */}
       <div className="flex border-b border-[var(--border-subtle)] shrink-0">
         <button
           onClick={() => setActiveTab('moments')}
@@ -343,7 +364,81 @@ export function ExplorePanel({
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
+        <button
+          onClick={() => setActiveTab('directory')}
+          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+            activeTab === 'directory'
+              ? 'text-[var(--text-primary)]'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+          }`}
+        >
+          Directory
+          {viewportEntities.length > 0 && (
+            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportEntities.length})</span>
+          )}
+          {activeTab === 'directory' && (
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+          )}
+        </button>
+        {/* Collections button */}
+        <button
+          onClick={() => setCollectionsOpen(!collectionsOpen)}
+          className={`shrink-0 px-2.5 py-2.5 text-xs font-mono transition-colors border-l border-[var(--border-subtle)] ${
+            activeCollection
+              ? 'text-[var(--accent-red)]'
+              : collectionsOpen
+                ? 'text-[var(--text-primary)] bg-[var(--bg-card)]'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+          }`}
+          title="Browse curated collections"
+        >
+          <span className="flex items-center gap-1">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
+              <rect x="1" y="2" width="12" height="2" rx="0.5" stroke="currentColor" strokeWidth="1"/>
+              <rect x="2" y="5.5" width="10" height="2" rx="0.5" stroke="currentColor" strokeWidth="1"/>
+              <rect x="3" y="9" width="8" height="2" rx="0.5" stroke="currentColor" strokeWidth="1"/>
+            </svg>
+            <span className="hidden sm:inline">Collections</span>
+          </span>
+        </button>
       </div>
+
+      {/* Collections popover */}
+      {collectionsOpen && (
+        <div className="absolute left-0 right-0 z-20 bg-[var(--bg-secondary)] border-b border-[var(--border-subtle)] shadow-lg max-h-[50vh] overflow-y-auto custom-scrollbar p-3 space-y-2"
+          style={{ top: activeCollection ? '92px' : '41px' }}
+        >
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="text-xs font-mono font-semibold text-[var(--text-primary)]">
+              Curated Collections
+            </h3>
+            <button
+              onClick={() => setCollectionsOpen(false)}
+              className="text-[var(--text-muted)] hover:text-white text-xs p-1"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
+          {collections.map((collection) => {
+            const collectionStories = allStories.filter((s) =>
+              collection.storyIds.includes(s.id)
+            );
+            return (
+              <CollectionCard
+                key={collection.id}
+                collection={collection}
+                stories={collectionStories}
+                onClick={(c) => {
+                  onCollectionSelect(c);
+                  setCollectionsOpen(false);
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
 
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
@@ -369,7 +464,6 @@ export function ExplorePanel({
                     onClick={() => {
                       setExpandedLocationKey(isExpanded ? null : key);
                       setActiveLocationId(vl.location.id);
-                      // Highlight on map (pan to pin) without navigating to story
                       onScrollHighlight(vl.location);
                       if (mapInstance) {
                         mapInstance.panTo([vl.location.lat, vl.location.lng], {
@@ -456,6 +550,92 @@ export function ExplorePanel({
               {/* Bottom padding for scroll detection */}
               <div className="h-[30vh]" />
             </>
+          )
+        ) : activeTab === 'directory' ? (
+          viewportEntities.length === 0 ? (
+            <EmptyState
+              message="Pan or zoom the map to see people and places in this area"
+              onSurpriseMe={onSurpriseMe}
+            />
+          ) : (
+            <div>
+              {/* Filter pills — People | Places (no "All") */}
+              {(personCount > 0 && placeCount > 0) && (
+                <div className="flex gap-1.5 mb-3 sticky top-0 z-10 bg-[var(--bg-secondary)] py-1.5 -mt-1">
+                  <button
+                    onClick={() => setDirectoryFilter(directoryFilter === 'person' ? null : 'person')}
+                    className={`px-2.5 py-1 rounded text-[10px] font-mono transition-colors ${
+                      directoryFilter === 'person'
+                        ? 'bg-[rgba(139,92,246,0.25)] text-[rgba(167,139,250,1)] ring-1 ring-[rgba(139,92,246,0.4)]'
+                        : 'text-[var(--text-muted)] hover:text-white bg-[var(--bg-card)] border border-[var(--border-subtle)]'
+                    }`}
+                  >
+                    People ({personCount})
+                  </button>
+                  <button
+                    onClick={() => setDirectoryFilter(directoryFilter === 'place' ? null : 'place')}
+                    className={`px-2.5 py-1 rounded text-[10px] font-mono transition-colors ${
+                      directoryFilter === 'place'
+                        ? 'bg-[rgba(59,130,246,0.25)] text-[rgba(96,165,250,1)] ring-1 ring-[rgba(59,130,246,0.4)]'
+                        : 'text-[var(--text-muted)] hover:text-white bg-[var(--bg-card)] border border-[var(--border-subtle)]'
+                    }`}
+                  >
+                    Places ({placeCount})
+                  </button>
+                </div>
+              )}
+
+              {/* Alphabetical entity list */}
+              {Array.from(alphabeticalGroups.entries()).map(([letter, items]) => (
+                <div key={letter}>
+                  <div className="sticky top-8 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
+                    {letter}
+                  </div>
+                  {items.map(({ entity, momentCount }) => (
+                    <button
+                      key={entity.id}
+                      onClick={() => onEntityClick?.(entity)}
+                      className="w-full flex items-center gap-2.5 px-1 py-2 text-left transition-colors group hover:bg-[var(--bg-card)] rounded"
+                    >
+                      {/* Avatar/icon */}
+                      <span className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
+                        entity.type === 'person'
+                          ? 'bg-[rgba(139,92,246,0.12)] ring-1 ring-[rgba(139,92,246,0.3)]'
+                          : 'bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)]'
+                      }`}>
+                        {entity.type === 'person' ? (
+                          <span className="text-[11px] font-serif font-bold text-[rgba(139,92,246,0.8)]">
+                            {getInitial(entity.name)}
+                          </span>
+                        ) : (
+                          <svg width="11" height="11" viewBox="0 0 14 14" fill="none" className="text-[rgba(59,130,246,0.7)]">
+                            <path d="M7 1C4.24 1 2 3.24 2 6c0 3.5 5 7 5 7s5-3.5 5-7c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5z" fill="currentColor"/>
+                          </svg>
+                        )}
+                      </span>
+                      {/* Name */}
+                      <span className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors truncate flex-1">
+                        {entity.name}
+                      </span>
+                      {/* Years */}
+                      {entity.years && (
+                        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
+                          {entity.years}
+                        </span>
+                      )}
+                      {/* Moment count */}
+                      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
+                        {momentCount}m
+                      </span>
+                      {/* Chevron */}
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50">
+                        <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
           )
         ) : displayStories.length === 0 ? (
           <EmptyState

@@ -13,8 +13,12 @@ function degreeDistance(a: [number, number], b: [number, number]): number {
   return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
 }
 
-/** Distance-aware flyTo: instant for cross-country, animated for nearby. */
-function smartFlyTo(
+/**
+ * Distance-AND-zoom-aware flyTo.
+ * Large zoom deltas (e.g. 14→4) need animation so tiles can stream in.
+ * Large distances at similar zoom can be instant.
+ */
+export function smartFlyTo(
   map: L.Map,
   target: L.LatLngExpression,
   zoom: number,
@@ -23,21 +27,29 @@ function smartFlyTo(
   const center = map.getCenter();
   const tll = L.latLng(target);
   const dist = degreeDistance([center.lat, center.lng], [tll.lat, tll.lng]);
+  const zoomDelta = Math.abs(map.getZoom() - zoom);
 
-  if (dist > 8) {
-    // Cross-country: instant jump avoids choppy tile loading
+  if (zoomDelta >= 6) {
+    // Huge zoom change (e.g. street→country): always animate so tiles stream in
+    map.flyTo(target, zoom, { duration: 3.5 });
+  } else if (dist > 8 && zoomDelta < 3) {
+    // Cross-country at similar zoom: instant jump is fine
     map.setView(target, zoom);
-  } else if (dist > 3) {
-    // Medium distance: slower fly so tiles can keep up
-    map.flyTo(target, zoom, { duration: Math.min(baseDuration * 1.5, 3.5) });
+  } else if (dist > 3 || zoomDelta >= 3) {
+    // Medium distance or moderate zoom change: slower fly
+    const duration = Math.min(baseDuration * 1.5 + zoomDelta * 0.15, 4.0);
+    map.flyTo(target, zoom, { duration });
   } else {
-    // Nearby: normal smooth fly
+    // Nearby, similar zoom: normal smooth fly
     map.flyTo(target, zoom, { duration: baseDuration });
   }
 }
 
-/** Distance-aware flyToBounds: instant for cross-country, animated for nearby. */
-function smartFlyToBounds(
+/**
+ * Distance-AND-zoom-aware flyToBounds.
+ * Estimates target zoom via getBoundsZoom to determine zoom delta.
+ */
+export function smartFlyToBounds(
   map: L.Map,
   bounds: L.LatLngBounds,
   options: L.FitBoundsOptions & { duration?: number } = {}
@@ -46,15 +58,25 @@ function smartFlyToBounds(
   const tc = bounds.getCenter();
   const dist = degreeDistance([center.lat, center.lng], [tc.lat, tc.lng]);
   const baseDuration = options.duration ?? 1.8;
+  const targetZoom = map.getBoundsZoom(bounds, false, options.padding ? undefined : L.point(60, 60));
+  const zoomDelta = Math.abs(map.getZoom() - targetZoom);
 
-  if (dist > 8) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { duration: _, ...fitOpts } = options;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { duration: _, ...fitOpts } = options;
+
+  if (zoomDelta >= 6) {
+    // Huge zoom change: animate so tiles stream in
+    map.flyToBounds(bounds, { ...fitOpts, duration: 3.5 });
+  } else if (dist > 8 && zoomDelta < 3) {
+    // Cross-country at similar zoom: instant
     map.fitBounds(bounds, { ...fitOpts, animate: false });
-  } else if (dist > 3) {
-    map.flyToBounds(bounds, { ...options, duration: Math.min(baseDuration * 1.5, 3.5) });
+  } else if (dist > 3 || zoomDelta >= 3) {
+    // Medium distance or moderate zoom change
+    const duration = Math.min(baseDuration * 1.5 + zoomDelta * 0.15, 4.0);
+    map.flyToBounds(bounds, { ...fitOpts, duration });
   } else {
-    map.flyToBounds(bounds, { ...options, duration: baseDuration });
+    // Nearby, similar zoom: normal
+    map.flyToBounds(bounds, { ...fitOpts, duration: baseDuration });
   }
 }
 

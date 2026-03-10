@@ -148,3 +148,30 @@ export function getViewportEntities(
   }
   return result.sort((a, b) => b.momentCount - a.momentCount);
 }
+
+/** Get a single display initial from entity name — "O. Henry" → "H", "Texas State Cemetery" → "T" */
+export function getInitial(name: string): string {
+  const words = name.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/);
+  if (words.length >= 2) {
+    // If first word is a single initial (e.g. "O."), use second word
+    if (words[0].length <= 2) return words[1][0].toUpperCase();
+    return words[0][0].toUpperCase();
+  }
+  return words[0][0].toUpperCase();
+}
+
+/** Group entities alphabetically by first letter of name. */
+export function groupAlphabetically(
+  entities: EntityWithCounts[]
+): Map<string, EntityWithCounts[]> {
+  const groups = new Map<string, EntityWithCounts[]>();
+  const sorted = [...entities].sort((a, b) =>
+    a.entity.name.localeCompare(b.entity.name)
+  );
+  for (const item of sorted) {
+    const letter = item.entity.name[0].toUpperCase();
+    if (!groups.has(letter)) groups.set(letter, []);
+    groups.get(letter)!.push(item);
+  }
+  return groups;
+}
