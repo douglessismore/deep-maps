@@ -8,6 +8,56 @@ import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers'
 
 const momentMap = buildMomentMap(moments);
 
+/** Approximate distance in degrees between two lat/lng points. */
+function degreeDistance(a: [number, number], b: [number, number]): number {
+  return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
+}
+
+/** Distance-aware flyTo: instant for cross-country, animated for nearby. */
+function smartFlyTo(
+  map: L.Map,
+  target: L.LatLngExpression,
+  zoom: number,
+  baseDuration: number = 1.8
+) {
+  const center = map.getCenter();
+  const tll = L.latLng(target);
+  const dist = degreeDistance([center.lat, center.lng], [tll.lat, tll.lng]);
+
+  if (dist > 8) {
+    // Cross-country: instant jump avoids choppy tile loading
+    map.setView(target, zoom);
+  } else if (dist > 3) {
+    // Medium distance: slower fly so tiles can keep up
+    map.flyTo(target, zoom, { duration: Math.min(baseDuration * 1.5, 3.5) });
+  } else {
+    // Nearby: normal smooth fly
+    map.flyTo(target, zoom, { duration: baseDuration });
+  }
+}
+
+/** Distance-aware flyToBounds: instant for cross-country, animated for nearby. */
+function smartFlyToBounds(
+  map: L.Map,
+  bounds: L.LatLngBounds,
+  options: L.FitBoundsOptions & { duration?: number } = {}
+) {
+  const center = map.getCenter();
+  const tc = bounds.getCenter();
+  const dist = degreeDistance([center.lat, center.lng], [tc.lat, tc.lng]);
+  const baseDuration = options.duration ?? 1.8;
+
+  if (dist > 8) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { duration: _, ...fitOpts } = options;
+    map.fitBounds(bounds, { ...fitOpts, animate: false });
+  } else if (dist > 3) {
+    map.flyToBounds(bounds, { ...options, duration: Math.min(baseDuration * 1.5, 3.5) });
+  } else {
+    map.flyToBounds(bounds, { ...options, duration: baseDuration });
+  }
+}
+
 const TILE_URLS: Record<TileStyle, { url: string; attribution: string }> = {
   dark: {
     url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
@@ -157,23 +207,22 @@ function MapController({
     if (isUserDragging.current) return;
 
     if (activeLocation) {
-      // Slow enough for satellite tiles to load and for the journey to feel intentional
-      map.flyTo([activeLocation.lat, activeLocation.lng], 14, { duration: 2.0 });
+      smartFlyTo(map, [activeLocation.lat, activeLocation.lng], 14, 2.0);
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      map.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+      smartFlyToBounds(map, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
-      map.flyToBounds(bounds, { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+      smartFlyToBounds(map, bounds, { padding: [60, 60], maxZoom: 14, duration: 1.8 });
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
         resolveLocationsFromMap(s, momentMap).map((l) => [l.lat, l.lng] as [number, number])
       );
       if (coords.length > 0) {
-        map.flyToBounds(L.latLngBounds(coords), { padding: [60, 60], maxZoom: 10, duration: 1.8 });
+        smartFlyToBounds(map, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 10, duration: 1.8 });
       }
     }
   }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations]);
@@ -184,7 +233,7 @@ function MapController({
   useEffect(() => {
     if (resetViewKey === prevResetKey.current) return;
     prevResetKey.current = resetViewKey;
-    map.flyTo([39.5, -98.5], 4, { duration: 1.5 });
+    smartFlyTo(map, [39.5, -98.5], 4, 1.5);
   }, [resetViewKey, map]);
 
   // Zoom to nearest ~20 moments around user location
@@ -204,13 +253,13 @@ function MapController({
         [loc.lat, loc.lng],
         ...nearest.map(c => [c.lat, c.lng] as [number, number]),
       ];
-      map.flyToBounds(L.latLngBounds(points), {
+      smartFlyToBounds(map, L.latLngBounds(points), {
         padding: [40, 40],
         maxZoom: 12,
         duration: 1.5,
       });
     } else {
-      map.flyTo([loc.lat, loc.lng], 8, { duration: 1.5 });
+      smartFlyTo(map, [loc.lat, loc.lng], 8, 1.5);
     }
   }, [stories, map]);
 
@@ -237,7 +286,7 @@ function MapController({
   useEffect(() => {
     if (restoreView === prevRestoreView.current || !restoreView) return;
     prevRestoreView.current = restoreView;
-    map.flyTo(restoreView.center, restoreView.zoom, { duration: 1.2 });
+    smartFlyTo(map, restoreView.center, restoreView.zoom, 1.2);
   }, [restoreView, map]);
 
   // User location marker (blue pulsing dot)
@@ -315,7 +364,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
 }
 
 export function MapView(props: MapViewProps) {
-  const [tileStyle, setTileStyle] = useState<TileStyle>('dark');
+  const [tileStyle, setTileStyle] = useState<TileStyle>('light');
 
   const tile = TILE_URLS[tileStyle];
 

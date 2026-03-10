@@ -661,7 +661,7 @@ export function TimelineBar({
             e.stopPropagation();
             handleZoomIn();
           }}
-          className="w-8 h-8 flex items-center justify-center rounded text-base font-mono text-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.08)] hover:text-white hover:bg-[rgba(255,255,255,0.15)] transition-colors border border-[rgba(255,255,255,0.12)]"
+          className="w-9 h-9 flex items-center justify-center rounded text-base font-mono font-semibold text-[rgba(255,255,255,0.85)] bg-[rgba(255,255,255,0.15)] hover:text-white hover:bg-[rgba(255,255,255,0.25)] transition-colors border border-[rgba(255,255,255,0.25)]"
           title="Zoom in"
         >
           +
@@ -671,7 +671,7 @@ export function TimelineBar({
             e.stopPropagation();
             handleZoomOut();
           }}
-          className="w-8 h-8 flex items-center justify-center rounded text-base font-mono text-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.08)] hover:text-white hover:bg-[rgba(255,255,255,0.15)] transition-colors border border-[rgba(255,255,255,0.12)]"
+          className="w-9 h-9 flex items-center justify-center rounded text-base font-mono font-semibold text-[rgba(255,255,255,0.85)] bg-[rgba(255,255,255,0.15)] hover:text-white hover:bg-[rgba(255,255,255,0.25)] transition-colors border border-[rgba(255,255,255,0.25)]"
           title="Zoom out"
         >
           −

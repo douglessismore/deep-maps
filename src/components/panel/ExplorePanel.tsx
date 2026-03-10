@@ -4,12 +4,10 @@ import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLoc
 import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, type EntityWithCounts } from '../../lib/entityHelpers';
+import { EntityRibbon } from './EntityRibbon';
 
 const momentMap = buildMomentMap(moments);
 import { StoryCard } from './StoryCard';
-import { LocationCard } from './LocationCard';
-import { CollectionCard } from './CollectionCard';
 
 interface ExplorePanelProps {
   stories: Story[];
@@ -31,7 +29,7 @@ interface ExplorePanelProps {
   onEntityClick?: (entity: Entity) => void;
 }
 
-type PanelTab = 'locations' | 'stories' | 'collections';
+type PanelTab = 'moments' | 'stories';
 
 /** Haversine distance in miles between two lat/lng points */
 function distanceMiles(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -51,12 +49,12 @@ function nearestDistance(story: Story, lat: number, lng: number): number {
 
 export function ExplorePanel({
   stories,
-  collections,
+  collections: _collections,
   activeCollection,
   mapInstance,
   onStorySelect,
   onLocationSelect,
-  onCollectionSelect,
+  onCollectionSelect: _onCollectionSelect,
   onClearCollection,
   onScrollHighlight,
   onModeChange,
@@ -67,6 +65,7 @@ export function ExplorePanel({
   onEntityClick,
 }: ExplorePanelProps) {
   const [activeTab, setActiveTab] = useState<PanelTab>('stories');
+  const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
@@ -94,12 +93,6 @@ export function ExplorePanel({
       setActiveTab('stories');
     }
   }, [activeCollection]);
-
-  // Filter collections to only those with at least one story in the (timeline-filtered) stories prop
-  const filteredCollections = useMemo(() => {
-    const storyIdSet = new Set(stories.map((s) => s.id));
-    return collections.filter((c) => c.storyIds.some((id) => storyIdSet.has(id)));
-  }, [stories, collections]);
 
   // Filter stories by search + category (timeline filtering already done in App.tsx)
   const filteredStories = useMemo(() => {
@@ -220,17 +213,9 @@ export function ExplorePanel({
     };
   }, [activeTab, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
 
-  const handleLocationClick = useCallback(
-    (location: Moment, story: Story) => {
-      setActiveLocationId(location.id);
-      onLocationSelect(location, story);
-    },
-    [onLocationSelect]
-  );
-
   // Scroll-driven location navigation (Locations tab)
   useEffect(() => {
-    if (activeTab !== 'locations' || !mapInstance) return;
+    if (activeTab !== 'moments' || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -288,23 +273,6 @@ export function ExplorePanel({
     return result;
   }, [filteredStories, viewportStories, searchQuery, userLocation]);
 
-  // Entities with moments in the viewport (filtered by search when active)
-  const viewportEntities: EntityWithCounts[] = useMemo(() => {
-    if (!onEntityClick || viewportLocations.length === 0) return [];
-    const ids = new Set(viewportLocations.map((vl) => vl.location.id));
-    let result = getViewportEntities(ids);
-    // Filter by search query if active
-    if (searchQuery.trim()) {
-      const q = searchQuery.trim().toLowerCase();
-      result = result.filter(
-        ({ entity }) =>
-          entity.name.toLowerCase().includes(q) ||
-          entity.description?.toLowerCase().includes(q)
-      );
-    }
-    return result;
-  }, [viewportLocations, onEntityClick, searchQuery]);
-
   return (
     <div className="flex flex-col h-full">
       {/* Active collection banner */}
@@ -331,12 +299,22 @@ export function ExplorePanel({
         </div>
       )}
 
+      {/* Entity Ribbon — above tabs, always visible */}
+      {onEntityClick && (
+        <EntityRibbon
+          viewportLocations={viewportLocations}
+          searchQuery={searchQuery}
+          onEntityClick={onEntityClick}
+          mapInstance={mapInstance}
+        />
+      )}
+
       {/* Tabs */}
       <div className="flex border-b border-[var(--border-subtle)] shrink-0">
         <button
-          onClick={() => setActiveTab('locations')}
+          onClick={() => setActiveTab('moments')}
           className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-            activeTab === 'locations'
+            activeTab === 'moments'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
@@ -345,7 +323,7 @@ export function ExplorePanel({
           {viewportLocations.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportLocations.length})</span>
           )}
-          {activeTab === 'locations' && (
+          {activeTab === 'moments' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
@@ -358,24 +336,10 @@ export function ExplorePanel({
           }`}
         >
           Stories
-          {(viewportStories.length > 0 || viewportEntities.length > 0) && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({displayStories.length + viewportEntities.length})</span>
+          {viewportStories.length > 0 && (
+            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({displayStories.length})</span>
           )}
           {activeTab === 'stories' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
-        </button>
-        <button
-          onClick={() => setActiveTab('collections')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-            activeTab === 'collections'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Collections
-          <span className="ml-1 text-[10px] text-[var(--text-muted)]">({filteredCollections.length})</span>
-          {activeTab === 'collections' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
@@ -383,95 +347,123 @@ export function ExplorePanel({
 
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
-        {activeTab === 'collections' ? (
-          filteredCollections.length === 0 ? (
-            <EmptyState message="No collections match this time period" onSurpriseMe={onSurpriseMe} />
-          ) : (
-            filteredCollections.map((collection) => {
-              const resolvedStories = collection.storyIds
-                .map(id => stories.find(s => s.id === id))
-                .filter((s): s is Story => s !== undefined);
-              return (
-                <CollectionCard
-                  key={collection.id}
-                  collection={collection}
-                  stories={resolvedStories}
-                  onClick={onCollectionSelect}
-                />
-              );
-            })
-          )
-        ) : activeTab === 'locations' ? (
+        {activeTab === 'moments' ? (
           viewportLocations.length === 0 ? (
             <EmptyState
               message="Pan or zoom the map to see moments in this area"
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
-            viewportLocations.map((vl) => {
-              const key = `${vl.story.id}-${vl.location.id}`;
-              return (
-                <LocationCard
-                  key={key}
-                  ref={(el) => {
-                    if (el) locationCardRefs.current.set(key, el);
-                    else locationCardRefs.current.delete(key);
-                  }}
-                  location={vl.location}
-                  story={vl.story}
-                  isActive={activeLocationId === vl.location.id}
-                  onClick={(loc) => handleLocationClick(loc, vl.story)}
-                  showStoryName
-                />
-              );
-            })
+            <>
+              {viewportLocations.map((vl) => {
+                const key = `${vl.story.id}-${vl.location.id}`;
+                const isActive = activeLocationId === vl.location.id;
+                const isExpanded = expandedLocationKey === key;
+                return (
+                  <div
+                    key={key}
+                    ref={(el) => {
+                      if (el) locationCardRefs.current.set(key, el);
+                      else locationCardRefs.current.delete(key);
+                    }}
+                    onClick={() => {
+                      setExpandedLocationKey(isExpanded ? null : key);
+                      setActiveLocationId(vl.location.id);
+                      // Highlight on map (pan to pin) without navigating to story
+                      onScrollHighlight(vl.location);
+                      if (mapInstance) {
+                        mapInstance.panTo([vl.location.lat, vl.location.lng], {
+                          animate: true,
+                          duration: 0.6,
+                        });
+                      }
+                    }}
+                    className={`cursor-pointer transition-all duration-200 rounded-r-lg py-2.5 pl-3 pr-3 border-l-2 ${
+                      isActive
+                        ? 'bg-[var(--bg-card-hover)] border-l-[var(--accent-red)]'
+                        : 'bg-[var(--bg-card)] border-l-transparent hover:bg-[var(--bg-card-hover)]'
+                    }`}
+                  >
+                    {/* Title + year */}
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)] leading-tight">
+                        {vl.location.name}
+                      </h4>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {vl.location.year && (
+                          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                            {vl.location.year}
+                          </span>
+                        )}
+                        <svg
+                          width="10" height="10" viewBox="0 0 10 10" fill="none"
+                          className={`text-[var(--text-muted)] transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                        >
+                          <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    {/* Story name chip */}
+                    <p className="text-[10px] font-mono text-[var(--text-muted)] mt-0.5 truncate">
+                      {vl.story.name}
+                    </p>
+                    {/* Expanded content */}
+                    {isExpanded && (
+                      <div className="mt-3 space-y-2.5">
+                        {vl.location.description && (
+                          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                            {vl.location.description}
+                          </p>
+                        )}
+                        {vl.location.address && (
+                          <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                            &#128205; {vl.location.address}
+                          </p>
+                        )}
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${vl.location.lat},${vl.location.lng}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M6 1C3.79 1 2 2.79 2 5c0 3 4 6 4 6s4-3 4-6c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/>
+                          </svg>
+                          Open in Google Maps
+                          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                            <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </a>
+                        {/* Navigate to story */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onLocationSelect(vl.location, vl.story);
+                          }}
+                          className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-white transition-colors"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          Read Story
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              {/* Bottom padding for scroll detection */}
+              <div className="h-[30vh]" />
+            </>
           )
-        ) : displayStories.length === 0 && viewportEntities.length === 0 ? (
+        ) : displayStories.length === 0 ? (
           <EmptyState
             message={searchQuery ? 'No stories match your search' : 'No stories in this area — zoom out or pan around'}
             onSurpriseMe={onSurpriseMe}
           />
         ) : (
           <>
-            {/* Entity cards — People & Places in this area */}
-            {viewportEntities.length > 0 && onEntityClick && (
-              <>
-                {viewportEntities.map(({ entity, momentCount, storyCount }) => (
-                  <button
-                    key={entity.id}
-                    onClick={() => onEntityClick(entity)}
-                    className="w-full flex items-start gap-3 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2.5 transition-all group text-left"
-                  >
-                    <span className="text-lg shrink-0 mt-0.5 opacity-60">
-                      {entity.type === 'person' ? '👤' : '📍'}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors truncate leading-tight">
-                          {entity.name}
-                        </p>
-                        <span className="shrink-0 text-[9px] font-mono text-[var(--text-muted)] capitalize px-1 py-0.5 rounded bg-[var(--bg-primary)] border border-[var(--border-subtle)]">
-                          {entity.type}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 mt-0.5 text-[10px] font-mono text-[var(--text-muted)]">
-                        {entity.years && <span>{entity.years}</span>}
-                        {entity.years && <span>·</span>}
-                        <span>{momentCount} {momentCount === 1 ? 'moment' : 'moments'}</span>
-                        <span>·</span>
-                        <span>{storyCount} {storyCount === 1 ? 'story' : 'stories'}</span>
-                      </div>
-                    </div>
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 mt-1 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                      <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                ))}
-                {displayStories.length > 0 && (
-                  <div className="border-t border-[var(--border-subtle)] -mx-3" />
-                )}
-              </>
-            )}
             {/* Story cards */}
             {displayStories.map((story) => (
               <div

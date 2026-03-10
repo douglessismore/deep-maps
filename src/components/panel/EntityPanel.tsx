@@ -5,6 +5,7 @@ import {
   getEntityMomentStories,
   getEntityStories,
   getNotableFigures,
+  getKeyLocations,
 } from '../../lib/entityHelpers';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 
@@ -19,7 +20,7 @@ interface EntityPanelProps {
   onHome?: () => void;
 }
 
-type EntityTab = 'moments' | 'stories' | 'figures';
+type EntityTab = 'moments' | 'connections' | 'stories';
 
 export function EntityPanel({
   entity,
@@ -36,16 +37,16 @@ export function EntityPanel({
     [entity.id]
   );
 
-  // Notable figures for place entities
-  const notableFigures = useMemo(
-    () => (entity.type === 'place' ? getNotableFigures(entity.id) : []),
+  // Connections: place → Notable Figures (people), person → Key Locations (places)
+  const connections = useMemo(
+    () => (entity.type === 'place' ? getNotableFigures(entity.id) : getKeyLocations(entity.id)),
     [entity.id, entity.type]
   );
 
-  // Stories for person entities
+  // Stories — always computed for all entity types
   const entityStories = useMemo(
-    () => (entity.type === 'person' ? getEntityStories(entity.id) : []),
-    [entity.id, entity.type]
+    () => getEntityStories(entity.id),
+    [entity.id]
   );
 
   // ─── Tabs ─────────────────────────────────────────────────────────
@@ -56,15 +57,12 @@ export function EntityPanel({
     setActiveTab('moments');
   }, [entity.id]);
 
-  // Determine second tab based on entity type
-  const secondTab: { key: EntityTab; label: string; count: number } | null =
-    useMemo(() => {
-      if (entity.type === 'place' && notableFigures.length > 0)
-        return { key: 'figures', label: 'Notable Figures', count: notableFigures.length };
-      if (entity.type === 'person' && entityStories.length > 0)
-        return { key: 'stories', label: 'Stories', count: entityStories.length };
-      return null;
-    }, [entity.type, notableFigures.length, entityStories.length]);
+  // Determine which tabs are visible (hide empty, single tab = no bar)
+  const connectionsLabel = entity.type === 'place' ? 'Notable Figures' : 'Key Places';
+  const connectionsIcon = entity.type === 'place' ? '👤' : '📍';
+  const showConnections = connections.length > 0;
+  const showStories = entityStories.length > 0;
+  const tabCount = 1 + (showConnections ? 1 : 0) + (showStories ? 1 : 0);
 
   // ─── Expandable moments ───────────────────────────────────────────
   const [expandedMomentId, setExpandedMomentId] = useState<string | null>(null);
@@ -185,48 +183,34 @@ export function EntityPanel({
   );
 
   // ─── Render helpers ───────────────────────────────────────────────
+  const renderTabButton = (key: EntityTab, label: string, icon: string, count: number) => (
+    <button
+      key={key}
+      onClick={() => setActiveTab(key)}
+      className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+        activeTab === key
+          ? 'text-[var(--text-primary)]'
+          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+      }`}
+    >
+      <span className="inline-flex items-center gap-1">
+        <span className="text-sm">{icon}</span>
+        {label}
+        <span className="text-[10px] text-[var(--text-muted)]">({count})</span>
+      </span>
+      {activeTab === key && (
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+      )}
+    </button>
+  );
+
   const renderTabBar = () => {
-    if (!secondTab) return null;
+    if (tabCount <= 1) return null;
     return (
       <div className="flex border-b border-[var(--border-subtle)] shrink-0 sticky top-0 z-10 bg-[var(--bg-secondary)]">
-        <button
-          onClick={() => setActiveTab('moments')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-            activeTab === 'moments'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          <span className="inline-flex items-center gap-1">
-            <span className="text-sm">📍</span>
-            Moments
-            <span className="text-[10px] text-[var(--text-muted)]">
-              ({momentEntries.length})
-            </span>
-          </span>
-          {activeTab === 'moments' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
-        </button>
-        <button
-          onClick={() => setActiveTab(secondTab.key)}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-            activeTab === secondTab.key
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          <span className="inline-flex items-center gap-1">
-            <span className="text-sm">{secondTab.key === 'figures' ? '👤' : '📖'}</span>
-            {secondTab.label}
-            <span className="text-[10px] text-[var(--text-muted)]">
-              ({secondTab.count})
-            </span>
-          </span>
-          {activeTab === secondTab.key && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
-        </button>
+        {renderTabButton('moments', 'Moments', '📍', momentEntries.length)}
+        {showConnections && renderTabButton('connections', connectionsLabel, connectionsIcon, connections.length)}
+        {showStories && renderTabButton('stories', 'Stories', '📖', entityStories.length)}
       </div>
     );
   };
@@ -432,34 +416,37 @@ export function EntityPanel({
     </div>
   );
 
-  const renderFiguresTab = () => (
+  const renderConnectionsTab = () => (
     <div className="p-4 space-y-2">
-      {notableFigures.map((figure) => {
-        // Count moments this figure shares with this place
+      {connections.map((connEntity) => {
+        // Count shared moments
         const sharedMoments = momentEntries.filter(({ moment }) =>
-          moment.entityIds?.includes(figure.id)
+          moment.entityIds?.includes(connEntity.id)
         ).length;
+        const sharedLabel = entity.type === 'place' ? 'here' : 'shared';
         return (
           <button
-            key={figure.id}
-            onClick={() => onEntityClick(figure)}
+            key={connEntity.id}
+            onClick={() => onEntityClick(connEntity)}
             className="w-full flex items-start gap-3 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2.5 transition-all group text-left"
           >
-            <span className="text-lg shrink-0 opacity-60 mt-0.5">👤</span>
+            <span className="text-lg shrink-0 opacity-60 mt-0.5">
+              {connEntity.type === 'person' ? '👤' : '📍'}
+            </span>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors leading-tight">
-                {figure.name}
+                {connEntity.name}
               </p>
               <div className="flex items-center gap-2 mt-1 text-[10px] font-mono text-[var(--text-muted)]">
-                {figure.years && <span>{figure.years}</span>}
+                {connEntity.years && <span>{connEntity.years}</span>}
                 <span>·</span>
                 <span>
-                  {sharedMoments} {sharedMoments === 1 ? 'moment' : 'moments'} here
+                  {sharedMoments} {sharedMoments === 1 ? 'moment' : 'moments'} {sharedLabel}
                 </span>
               </div>
-              {figure.description && (
+              {connEntity.description && (
                 <p className="text-xs text-[var(--text-secondary)] mt-1.5 leading-relaxed line-clamp-2">
-                  {figure.description}
+                  {connEntity.description}
                 </p>
               )}
             </div>
@@ -567,10 +554,10 @@ export function EntityPanel({
             {/* Bottom padding so last moments can reach the 40% scroll detection line */}
             <div className="h-[40vh]" />
           </div>
+        ) : activeTab === 'connections' ? (
+          renderConnectionsTab()
         ) : activeTab === 'stories' ? (
           renderStoriesTab()
-        ) : activeTab === 'figures' ? (
-          renderFiguresTab()
         ) : null}
       </div>
     </div>

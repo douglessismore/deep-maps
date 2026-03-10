@@ -131,6 +131,23 @@ export function StoryPanel({
     }
   }, [scrollActiveId]);
 
+  // Auto-scroll to activeLocation on mount (e.g. arriving from entity page with moment context)
+  useEffect(() => {
+    if (!activeLocation) return;
+    requestAnimationFrame(() => {
+      const el = locationRefs.current.get(activeLocation.id);
+      if (el) {
+        isProgrammaticScroll.current = true;
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            isProgrammaticScroll.current = false;
+          });
+        });
+      }
+    });
+  }, [story.id]); // Only on story mount/change
+
   // Related stories (explicit cross-links)
   const relatedStories = (story.relatedStoryIds || [])
     .map((id) => allStories.find((s) => s.id === id))

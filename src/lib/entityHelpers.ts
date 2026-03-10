@@ -74,6 +74,23 @@ export function getNotableFigures(placeEntityId: string): Entity[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+/** For person entities: collect all place-type entities that appear on the same moments.
+ *  Returns unique place entities sorted alphabetically, excluding the person itself.
+ *  Mirrors getNotableFigures — but person → place direction. */
+export function getKeyLocations(personEntityId: string): Entity[] {
+  const entityMoments = getEntityMomentStories(personEntityId);
+  const placeIds = new Set<string>();
+  for (const { moment } of entityMoments) {
+    for (const eid of moment.entityIds ?? []) {
+      if (eid !== personEntityId) placeIds.add(eid);
+    }
+  }
+  return Array.from(placeIds)
+    .map((id) => entityMap.get(id))
+    .filter((e): e is Entity => e != null && e.type === 'place')
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 /** All entity locations for map display: moment + first parent story. */
 export function getEntityLocations(
   entityId: string
