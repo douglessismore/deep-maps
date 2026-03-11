@@ -3921,6 +3921,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1840,
     address: '3800 Mt Bonnell Rd, Austin, TX 78731',
+    entityIds: ['mount-bonnell-austin'],
   },
   {
     id: 'bonnell-picnic-tradition',
@@ -3933,6 +3934,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1860,
+    entityIds: ['mount-bonnell-austin'],
   },
   {
     id: 'bonnell-lady-bird-view',
@@ -3945,6 +3947,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'exact',
     year: 1970,
+    entityIds: ['mount-bonnell-austin'],
   },
   {
     id: 'dazed-top-notch',

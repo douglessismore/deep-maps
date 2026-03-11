@@ -298,8 +298,16 @@ function App() {
     if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
       setActiveCollection(null);
     }
+    // Validate moment exists in target story before setting as active
+    let targetMoment: Moment | null = null;
+    if (moment) {
+      const storyMomentIds = new Set(story.moments.map(sm => sm.momentId));
+      if (storyMomentIds.has(moment.id)) {
+        targetMoment = moment;
+      }
+    }
     setActiveStory(story);
-    setActiveLocation(moment ?? null);
+    setActiveLocation(targetMoment);
     setActiveEntity(null);
     setMode('story');
   }, [activeCollection, pushNav]);

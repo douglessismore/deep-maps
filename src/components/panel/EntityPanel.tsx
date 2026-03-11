@@ -8,6 +8,7 @@ import {
   getKeyLocations,
 } from '../../lib/entityHelpers';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
+import { GoDeeperCard } from './GoDeeperCard';
 
 interface EntityPanelProps {
   entity: Entity;
@@ -334,7 +335,7 @@ export function EntityPanel({
                     e.stopPropagation();
                     onStoryClick(s, moment);
                   }}
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-white bg-[var(--bg-primary)] hover:bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors truncate max-w-[180px]"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all truncate max-w-[180px]"
                 >
                   <span
                     className="w-1.5 h-1.5 rounded-full shrink-0 inline-block"
@@ -357,7 +358,7 @@ export function EntityPanel({
                   e.stopPropagation();
                   onEntityClick(otherEntity, moment);
                 }}
-                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-white bg-[var(--bg-primary)] hover:bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors"
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all"
               >
                 <span className="opacity-60">
                   {otherEntity.type === 'person' ? '👤' : '📍'}
@@ -375,42 +376,19 @@ export function EntityPanel({
     <div className="p-4 space-y-2">
       {entityStories.map((story) => {
         const sCat = CATEGORIES[story.category];
-        // Count how many of this entity's moments are in this story
         const entityMomentCount = momentEntries.filter(({ stories: s }) =>
           s.some((ps) => ps.id === story.id)
         ).length;
+        const storyTypeLabel = story.storyType && story.storyType !== 'incident' ? ` · ${story.storyType}` : '';
         return (
-          <button
+          <GoDeeperCard
             key={story.id}
+            variant="full-width"
+            label={story.name}
+            sublabel={`${story.years || ''}${storyTypeLabel} · ${entityMomentCount} ${entityMomentCount === 1 ? 'moment' : 'moments'}`}
+            icon={<span className="w-2.5 h-2.5 rounded-full shrink-0 mt-0.5" style={{ backgroundColor: sCat.color }} />}
             onClick={() => onStoryClick(story)}
-            className="w-full flex items-start gap-3 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2.5 transition-all group text-left"
-          >
-            <span
-              className="w-2.5 h-2.5 rounded-full shrink-0 mt-1"
-              style={{ backgroundColor: sCat.color }}
-            />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors leading-tight">
-                {story.name}
-              </p>
-              <div className="flex items-center gap-2 mt-1 text-[10px] font-mono text-[var(--text-muted)]">
-                {story.years && <span>{story.years}</span>}
-                {story.storyType && story.storyType !== 'incident' && (
-                  <>
-                    <span>·</span>
-                    <span className="capitalize">{story.storyType}</span>
-                  </>
-                )}
-                <span>·</span>
-                <span>
-                  {entityMomentCount} {entityMomentCount === 1 ? 'moment' : 'moments'}
-                </span>
-              </div>
-            </div>
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 mt-1 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-              <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+          />
         );
       })}
     </div>
@@ -419,41 +397,20 @@ export function EntityPanel({
   const renderConnectionsTab = () => (
     <div className="p-4 space-y-2">
       {connections.map((connEntity) => {
-        // Count shared moments
         const sharedMoments = momentEntries.filter(({ moment }) =>
           moment.entityIds?.includes(connEntity.id)
         ).length;
         const sharedLabel = entity.type === 'place' ? 'here' : 'shared';
         return (
-          <button
+          <GoDeeperCard
             key={connEntity.id}
+            variant="full-width"
+            label={connEntity.name}
+            sublabel={`${connEntity.years || ''} · ${sharedMoments} ${sharedMoments === 1 ? 'moment' : 'moments'} ${sharedLabel}`}
+            icon={<span className="text-lg opacity-60">{connEntity.type === 'person' ? '👤' : '📍'}</span>}
             onClick={() => onEntityClick(connEntity)}
-            className="w-full flex items-start gap-3 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2.5 transition-all group text-left"
-          >
-            <span className="text-lg shrink-0 opacity-60 mt-0.5">
-              {connEntity.type === 'person' ? '👤' : '📍'}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors leading-tight">
-                {connEntity.name}
-              </p>
-              <div className="flex items-center gap-2 mt-1 text-[10px] font-mono text-[var(--text-muted)]">
-                {connEntity.years && <span>{connEntity.years}</span>}
-                <span>·</span>
-                <span>
-                  {sharedMoments} {sharedMoments === 1 ? 'moment' : 'moments'} {sharedLabel}
-                </span>
-              </div>
-              {connEntity.description && (
-                <p className="text-xs text-[var(--text-secondary)] mt-1.5 leading-relaxed line-clamp-2">
-                  {connEntity.description}
-                </p>
-              )}
-            </div>
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 mt-1 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-              <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+            description={connEntity.description}
+          />
         );
       })}
     </div>

@@ -169,4 +169,21 @@ export const entities: Entity[] = [
     description: 'The "Father of Texas" who led the colonization of the region, negotiated with Mexico, and helped forge the Republic. He died penniless just months after Texas won independence.',
     wikipediaSlug: 'Stephen_F._Austin',
   },
+  {
+    id: 'stevie-ray-vaughan',
+    name: 'Stevie Ray Vaughan',
+    type: 'person',
+    years: '1954–1990',
+    description: 'Texas blues guitar legend who resurrected the blues from Austin\'s dive bars. His incendiary playing at Antone\'s led to discovery by David Bowie, global stardom, and a legacy cut short by a helicopter crash at age 35.',
+    canonicalStoryId: 'stevie-ray-vaughan',
+    wikipediaSlug: 'Stevie_Ray_Vaughan',
+  },
+  {
+    id: 'antones',
+    name: 'Antone\'s Nightclub',
+    type: 'place',
+    years: '1975–present',
+    description: 'Austin\'s "Home of the Blues," founded by Clifford Antone. The club launched the careers of Stevie Ray Vaughan, Gary Clark Jr., and countless others while hosting legends like Muddy Waters and B.B. King.',
+    wikipediaSlug: 'Antone%27s',
+  },
 ];

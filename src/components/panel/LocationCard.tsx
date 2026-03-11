@@ -3,6 +3,7 @@ import type { Entity, Moment, Story, LocationAccuracy } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
+import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
   exact: { label: 'Exact', color: '#22c55e', title: 'Coordinates pinpoint the actual location' },
@@ -35,8 +36,6 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         .map((eid) => {
           const entity = entityMap.get(eid);
           if (!entity) return null;
-          // Skip entity whose canonical story is the one we're already viewing
-          if (entity.canonicalStoryId === story.id) return null;
           const entries = getEntityMomentStories(eid);
           const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
@@ -179,74 +178,31 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </svg>
               </button>
             )}
-            {/* Go Deeper — entity navigation cards (person timelines, place hubs) */}
-            {resolvedEntities.length > 0 && onEntityClick && (
-              <div className="pt-2 border-t border-[var(--border-subtle)]">
-                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                  Go Deeper
-                </p>
-                <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
-                  {resolvedEntities.map(({ entity, momentCount, storyCount }) => (
-                    <button
-                      key={entity.id}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onEntityClick(entity, location);
-                      }}
-                      className="shrink-0 flex items-center gap-2 bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
-                    >
-                      <span className="text-sm shrink-0 opacity-60">
-                        {entity.type === 'person' ? '👤' : entity.type === 'place' ? '📍' : '◆'}
-                      </span>
-                      <div className="min-w-0 text-left">
-                        <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">
-                          {entity.name}
-                        </p>
-                        <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                          {momentCount} {momentCount === 1 ? 'moment' : 'moments'} · {storyCount} {storyCount === 1 ? 'story' : 'stories'}
-                        </p>
-                      </div>
-                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                        <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-            {/* Also In — same moment in different stories */}
-            {alsoInStories && alsoInStories.length > 0 && onStoryClick && (
-              <div className="pt-2 border-t border-[var(--border-subtle)]">
-                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                  Also In
-                </p>
-                <div className="space-y-1">
-                  {alsoInStories.map((otherStory) => {
-                    const otherCat = CATEGORIES[otherStory.category];
-                    return (
-                      <button
-                        key={otherStory.id}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onStoryClick(otherStory);
-                        }}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all group text-left"
-                      >
-                        <span
-                          className="w-2 h-2 rounded-full shrink-0"
-                          style={{ backgroundColor: otherCat.color }}
-                        />
-                        <span className="text-xs font-serif font-semibold text-[var(--text-secondary)] group-hover:text-white transition-colors truncate">
-                          {otherStory.name}
-                        </span>
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 ml-auto text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                          <path d="M3.5 2L7 5l-3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+            {/* Go Deeper — unified entity + cross-story navigation */}
+            {(resolvedEntities.length > 0 || (alsoInStories && alsoInStories.length > 0)) && (
+              <GoDeeperSection>
+                {resolvedEntities.map(({ entity, momentCount, storyCount }) => (
+                  <GoDeeperCard
+                    key={entity.id}
+                    label={entity.name}
+                    sublabel={`${momentCount} ${momentCount === 1 ? 'moment' : 'moments'} · ${storyCount} ${storyCount === 1 ? 'story' : 'stories'}`}
+                    icon={<span className="text-sm opacity-60">{entity.type === 'person' ? '👤' : '📍'}</span>}
+                    onClick={() => onEntityClick!(entity, location)}
+                  />
+                ))}
+                {alsoInStories?.map((otherStory) => {
+                  const otherCat = CATEGORIES[otherStory.category];
+                  return (
+                    <GoDeeperCard
+                      key={otherStory.id}
+                      label={otherStory.name}
+                      sublabel={`${otherStory.moments.length} ${otherStory.moments.length === 1 ? 'moment' : 'moments'} · ${otherStory.years}`}
+                      icon={<span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: otherCat.color }} />}
+                      onClick={() => onStoryClick!(otherStory)}
+                    />
+                  );
+                })}
+              </GoDeeperSection>
             )}
             {location.media && location.media.length > 0 && (
               <MediaDisplay media={location.media} />

@@ -120,6 +120,32 @@ export function getEntityStories(entityId: string): Story[] {
   });
 }
 
+/** All unique entities referenced by a story's moments, sorted by frequency desc. */
+export function getStoryEntities(storyId: string): Array<{ entity: Entity; momentCount: number; storyCount: number }> {
+  const story = stories.find(s => s.id === storyId);
+  if (!story) return [];
+
+  const entityCounts = new Map<string, number>();
+  for (const sm of story.moments) {
+    const moment = moments.find(m => m.id === sm.momentId);
+    if (!moment?.entityIds) continue;
+    for (const eid of moment.entityIds) {
+      entityCounts.set(eid, (entityCounts.get(eid) || 0) + 1);
+    }
+  }
+
+  const result: Array<{ entity: Entity; momentCount: number; storyCount: number }> = [];
+  for (const [eid, count] of entityCounts) {
+    const entity = entityMap.get(eid);
+    if (!entity) continue;
+    const entries = getEntityMomentStories(eid);
+    const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
+    result.push({ entity, momentCount: count, storyCount: storyIds.size });
+  }
+
+  return result.sort((a, b) => b.momentCount - a.momentCount);
+}
+
 export interface EntityWithCounts {
   entity: Entity;
   momentCount: number;

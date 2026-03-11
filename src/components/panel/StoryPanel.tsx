@@ -3,12 +3,14 @@ import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+import { getStoryEntities } from '../../lib/entityHelpers';
 
 const momentMap = buildMomentMap(moments);
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
 import { LocationCard } from './LocationCard';
 import { WikiPanel } from './WikiPanel';
+import { GoDeeperCard } from './GoDeeperCard';
 
 type StoryTab = 'locations' | 'wiki';
 
@@ -173,6 +175,9 @@ export function StoryPanel({
     ...relatedStories.map(s => ({ story: s, reason: 'related' as const })),
     ...nearbyStories.map(s => ({ story: s, reason: 'nearby' as const })),
   ];
+
+  // Story-level entities for GO DEEPER header section
+  const storyEntities = useMemo(() => getStoryEntities(story.id), [story.id]);
 
   // Cross-story moment map: for each momentId in this story, which OTHER stories also reference it?
   const momentStoryMap = useMemo(() => {
@@ -360,38 +365,35 @@ export function StoryPanel({
             </div>
           </div>
 
-          {/* Explore Further — scrolls with content */}
-          {connectedEntries.length > 0 && (
+          {/* Go Deeper — story-level entities + related stories */}
+          {(storyEntities.length > 0 || connectedEntries.length > 0) && (
             <div className="border-b border-[var(--border-subtle)]">
               <div className="px-4 pt-2 pb-1">
                 <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-                  Explore Further
+                  Go Deeper
                 </h3>
               </div>
               <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
+                {storyEntities.map(({ entity, momentCount, storyCount }) => (
+                  <GoDeeperCard
+                    key={entity.id}
+                    label={entity.name}
+                    sublabel={`${momentCount} ${momentCount === 1 ? 'moment' : 'moments'} · ${storyCount} ${storyCount === 1 ? 'story' : 'stories'}`}
+                    icon={<span className="text-sm opacity-60">{entity.type === 'person' ? '👤' : '📍'}</span>}
+                    onClick={() => onEntityClick?.(entity)}
+                  />
+                ))}
                 {connectedEntries.map(({ story: s, reason }) => {
                   const sCat = CATEGORIES[s.category];
                   return (
-                    <button
+                    <GoDeeperCard
                       key={s.id}
+                      label={s.name}
+                      sublabel={`${s.moments.length} ${s.moments.length === 1 ? 'moment' : 'moments'} · ${s.years}`}
+                      icon={<span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />}
                       onClick={() => onRelatedStoryClick(s)}
-                      className="shrink-0 flex items-center gap-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg px-3 py-2 transition-all group max-w-[220px]"
-                    >
-                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />
-                      <div className="min-w-0 text-left">
-                        <p className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors">{s.name}</p>
-                        <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                          {s.moments.length} {s.moments.length === 1 ? 'moment' : 'moments'} · {s.years}
-                        </p>
-                      </div>
-                      <span className={`shrink-0 text-[8px] font-mono px-1.5 py-0.5 rounded-full ${
-                        reason === 'related'
-                          ? 'bg-[rgba(96,165,250,0.12)] text-blue-400'
-                          : 'bg-[rgba(234,179,8,0.12)] text-yellow-500'
-                      }`}>
-                        {reason === 'related' ? 'Related' : 'Nearby'}
-                      </span>
-                    </button>
+                      badge={reason === 'related' ? { text: 'Related', color: 'blue' } : { text: 'Nearby', color: 'yellow' }}
+                    />
                   );
                 })}
               </div>
