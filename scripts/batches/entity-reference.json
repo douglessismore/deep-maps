@@ -1,0 +1,642 @@
+[
+  {
+    "id": "rosa-parks",
+    "name": "Rosa Parks",
+    "type": "person"
+  },
+  {
+    "id": "aluxes-cancun-bridge",
+    "name": "The Aluxes and the Cancun Bridge",
+    "type": "place"
+  },
+  {
+    "id": "cobalt-60-accident",
+    "name": "The Radioactive Rebar Crisis",
+    "type": "place"
+  },
+  {
+    "id": "cathedral-of-junk",
+    "name": "The Cathedral of Junk",
+    "type": "place"
+  },
+  {
+    "id": "congress-avenue-bats",
+    "name": "The Congress Avenue Bats",
+    "type": "place"
+  },
+  {
+    "id": "barton-springs-sos",
+    "name": "The Barton Springs Development Fights",
+    "type": "place"
+  },
+  {
+    "id": "driskill-hotel",
+    "name": "The Driskill Hotel",
+    "type": "place"
+  },
+  {
+    "id": "menger-hotel-rough-riders",
+    "name": "The Menger Hotel & Rough Riders",
+    "type": "place"
+  },
+  {
+    "id": "milam-park-chile-queens",
+    "name": "The Chile Queens of Milam Park",
+    "type": "place"
+  },
+  {
+    "id": "clyde-barrow-grave",
+    "name": "The Grave of Clyde Barrow",
+    "type": "place"
+  },
+  {
+    "id": "paramount-theatre-austin",
+    "name": "The Paramount Theatre",
+    "type": "place"
+  },
+  {
+    "id": "scholz-garden-austin",
+    "name": "Scholz Garden — Austin's Oldest Bar",
+    "type": "place"
+  },
+  {
+    "id": "texas-state-cemetery",
+    "name": "Texas State Cemetery",
+    "type": "place"
+  },
+  {
+    "id": "mount-bonnell-austin",
+    "name": "Mt. Bonnell",
+    "type": "place"
+  },
+  {
+    "id": "o-henry",
+    "name": "O. Henry",
+    "type": "person"
+  },
+  {
+    "id": "janis-joplin",
+    "name": "Janis Joplin",
+    "type": "person"
+  },
+  {
+    "id": "willie-nelson",
+    "name": "Willie Nelson",
+    "type": "person"
+  },
+  {
+    "id": "barbara-jordan",
+    "name": "Barbara Jordan",
+    "type": "person"
+  },
+  {
+    "id": "stephen-f-austin",
+    "name": "Stephen F. Austin",
+    "type": "person"
+  },
+  {
+    "id": "stevie-ray-vaughan",
+    "name": "Stevie Ray Vaughan",
+    "type": "person"
+  },
+  {
+    "id": "antones",
+    "name": "Antone's Nightclub",
+    "type": "place"
+  },
+  {
+    "id": "ed-gein",
+    "name": "Ed Gein",
+    "type": "person"
+  },
+  {
+    "id": "jeffrey-dahmer",
+    "name": "Jeffrey Dahmer",
+    "type": "person"
+  },
+  {
+    "id": "charles-whitman",
+    "name": "Charles Whitman",
+    "type": "person"
+  },
+  {
+    "id": "bernice-worden",
+    "name": "Bernice Worden",
+    "type": "person"
+  },
+  {
+    "id": "mary-hogan",
+    "name": "Mary Hogan",
+    "type": "person"
+  },
+  {
+    "id": "steven-hicks",
+    "name": "Steven Hicks",
+    "type": "person"
+  },
+  {
+    "id": "christopher-scarver",
+    "name": "Christopher Scarver",
+    "type": "person"
+  },
+  {
+    "id": "tracy-edwards",
+    "name": "Tracy Edwards",
+    "type": "person"
+  },
+  {
+    "id": "mollie-smith",
+    "name": "Mollie Smith",
+    "type": "person"
+  },
+  {
+    "id": "susan-hancock",
+    "name": "Susan Hancock",
+    "type": "person"
+  },
+  {
+    "id": "eula-phillips",
+    "name": "Eula Phillips",
+    "type": "person"
+  },
+  {
+    "id": "eliza-shelley",
+    "name": "Eliza Shelley",
+    "type": "person"
+  },
+  {
+    "id": "gracie-vance",
+    "name": "Gracie Vance",
+    "type": "person"
+  },
+  {
+    "id": "orange-washington",
+    "name": "Orange Washington",
+    "type": "person"
+  },
+  {
+    "id": "billy-the-kid",
+    "name": "Billy the Kid",
+    "type": "person"
+  },
+  {
+    "id": "pat-garrett",
+    "name": "Pat Garrett",
+    "type": "person"
+  },
+  {
+    "id": "pete-maxwell",
+    "name": "Pete Maxwell",
+    "type": "person"
+  },
+  {
+    "id": "james-bell",
+    "name": "James Bell",
+    "type": "person"
+  },
+  {
+    "id": "bob-olinger",
+    "name": "Bob Olinger",
+    "type": "person"
+  },
+  {
+    "id": "john-tunstall",
+    "name": "John Tunstall",
+    "type": "person"
+  },
+  {
+    "id": "elfego-baca",
+    "name": "Elfego Baca",
+    "type": "person"
+  },
+  {
+    "id": "geronimo",
+    "name": "Geronimo",
+    "type": "person"
+  },
+  {
+    "id": "nelson-miles",
+    "name": "Nelson Miles",
+    "type": "person"
+  },
+  {
+    "id": "pancho-villa",
+    "name": "Pancho Villa",
+    "type": "person"
+  },
+  {
+    "id": "john-pershing",
+    "name": "John \"Black Jack\" Pershing",
+    "type": "person"
+  },
+  {
+    "id": "robert-oppenheimer",
+    "name": "J. Robert Oppenheimer",
+    "type": "person"
+  },
+  {
+    "id": "jim-white",
+    "name": "Jim White",
+    "type": "person"
+  },
+  {
+    "id": "karl-jansky",
+    "name": "Karl Jansky",
+    "type": "person"
+  },
+  {
+    "id": "ridgley-whiteman",
+    "name": "Ridgley Whiteman",
+    "type": "person"
+  },
+  {
+    "id": "merlin-tuttle",
+    "name": "Merlin Tuttle",
+    "type": "person"
+  },
+  {
+    "id": "mac-brazel",
+    "name": "Mac Brazel",
+    "type": "person"
+  },
+  {
+    "id": "roger-ramey",
+    "name": "Roger Ramey",
+    "type": "person"
+  },
+  {
+    "id": "sam-houston",
+    "name": "Sam Houston",
+    "type": "person"
+  },
+  {
+    "id": "lyndon-b-johnson",
+    "name": "Lyndon B. Johnson",
+    "type": "person"
+  },
+  {
+    "id": "lady-bird-johnson",
+    "name": "Lady Bird Johnson",
+    "type": "person"
+  },
+  {
+    "id": "booker-t-washington",
+    "name": "Booker T. Washington",
+    "type": "person"
+  },
+  {
+    "id": "oscar-colquitt",
+    "name": "Oscar Branch Colquitt",
+    "type": "person"
+  },
+  {
+    "id": "angelina-eberly",
+    "name": "Angelina Eberly",
+    "type": "person"
+  },
+  {
+    "id": "pope-tewa",
+    "name": "Popé",
+    "type": "person"
+  },
+  {
+    "id": "antonio-de-otermin",
+    "name": "Antonio de Otermín",
+    "type": "person"
+  },
+  {
+    "id": "ralph-edwards",
+    "name": "Ralph Edwards",
+    "type": "person"
+  },
+  {
+    "id": "jesse-driskill",
+    "name": "Jesse Driskill",
+    "type": "person"
+  },
+  {
+    "id": "robert-reed-ellison",
+    "name": "Robert Reed Ellison",
+    "type": "person"
+  },
+  {
+    "id": "georgia-okeeffe",
+    "name": "Georgia O'Keeffe",
+    "type": "person"
+  },
+  {
+    "id": "dennis-hopper",
+    "name": "Dennis Hopper",
+    "type": "person"
+  },
+  {
+    "id": "kenneth-threadgill",
+    "name": "Kenneth Threadgill",
+    "type": "person"
+  },
+  {
+    "id": "jim-franklin",
+    "name": "Jim Franklin",
+    "type": "person"
+  },
+  {
+    "id": "eddie-wilson",
+    "name": "Eddie Wilson",
+    "type": "person"
+  },
+  {
+    "id": "vince-hannemann",
+    "name": "Vince Hannemann",
+    "type": "person"
+  },
+  {
+    "id": "michael-dell",
+    "name": "Michael Dell",
+    "type": "person"
+  },
+  {
+    "id": "paul-cullen",
+    "name": "Paul Cullen",
+    "type": "person"
+  },
+  {
+    "id": "plainfield-cemetery",
+    "name": "Plainfield Cemetery",
+    "type": "place"
+  },
+  {
+    "id": "plainfield-school",
+    "name": "Plainfield School",
+    "type": "place"
+  },
+  {
+    "id": "worden-hardware-store",
+    "name": "Worden Hardware Store",
+    "type": "place"
+  },
+  {
+    "id": "mary-hogan-tavern",
+    "name": "Mary Hogan's Tavern",
+    "type": "place"
+  },
+  {
+    "id": "mendota-mental-health",
+    "name": "Mendota Mental Health Institute",
+    "type": "place"
+  },
+  {
+    "id": "oxford-apartments",
+    "name": "Oxford Apartments",
+    "type": "place"
+  },
+  {
+    "id": "ambrosia-chocolate-factory",
+    "name": "Ambrosia Chocolate Factory",
+    "type": "place"
+  },
+  {
+    "id": "columbia-correctional-institution",
+    "name": "Columbia Correctional Institution",
+    "type": "place"
+  },
+  {
+    "id": "foster-ranch",
+    "name": "Foster Ranch",
+    "type": "place"
+  },
+  {
+    "id": "roswell-army-air-field",
+    "name": "Roswell Army Air Field",
+    "type": "place"
+  },
+  {
+    "id": "lincoln-county-courthouse",
+    "name": "Lincoln County Courthouse",
+    "type": "place"
+  },
+  {
+    "id": "maxwell-house",
+    "name": "Maxwell House",
+    "type": "place"
+  },
+  {
+    "id": "tunstall-store",
+    "name": "Tunstall Store",
+    "type": "place"
+  },
+  {
+    "id": "skeleton-canyon",
+    "name": "Skeleton Canyon",
+    "type": "place"
+  },
+  {
+    "id": "los-alamos-national-laboratory",
+    "name": "Los Alamos National Laboratory",
+    "type": "place"
+  },
+  {
+    "id": "trinity-site",
+    "name": "Trinity Site",
+    "type": "place"
+  },
+  {
+    "id": "carlsbad-caverns",
+    "name": "Carlsbad Caverns",
+    "type": "place"
+  },
+  {
+    "id": "white-sands-national-park",
+    "name": "White Sands National Park",
+    "type": "place"
+  },
+  {
+    "id": "abiquiu",
+    "name": "Abiquiú",
+    "type": "place"
+  },
+  {
+    "id": "ghost-ranch",
+    "name": "Ghost Ranch",
+    "type": "place"
+  },
+  {
+    "id": "palace-of-the-governors",
+    "name": "Palace of the Governors",
+    "type": "place"
+  },
+  {
+    "id": "truth-or-consequences-nm",
+    "name": "Truth or Consequences",
+    "type": "place"
+  },
+  {
+    "id": "chaco-canyon",
+    "name": "Chaco Canyon",
+    "type": "place"
+  },
+  {
+    "id": "pueblo-bonito",
+    "name": "Pueblo Bonito",
+    "type": "place"
+  },
+  {
+    "id": "very-large-array",
+    "name": "Very Large Array",
+    "type": "place"
+  },
+  {
+    "id": "blackwater-draw",
+    "name": "Blackwater Draw",
+    "type": "place"
+  },
+  {
+    "id": "mabel-dodge-luhan-house",
+    "name": "Mabel Dodge Luhan House",
+    "type": "place"
+  },
+  {
+    "id": "armadillo-world-hq",
+    "name": "Armadillo World Headquarters",
+    "type": "place"
+  },
+  {
+    "id": "treaty-oak",
+    "name": "Treaty Oak",
+    "type": "place"
+  },
+  {
+    "id": "moonlight-towers",
+    "name": "Moonlight Towers",
+    "type": "place"
+  },
+  {
+    "id": "threadgills",
+    "name": "Threadgill's",
+    "type": "place"
+  },
+  {
+    "id": "scholz-garden",
+    "name": "Scholz Garden",
+    "type": "place"
+  },
+  {
+    "id": "santiago-tlatelolco-church",
+    "name": "Templo de Santiago Tlatelolco",
+    "type": "place"
+  },
+  {
+    "id": "ut-austin",
+    "name": "University of Texas at Austin",
+    "type": "organization"
+  },
+  {
+    "id": "save-our-springs-alliance",
+    "name": "Save Our Springs Alliance",
+    "type": "organization"
+  },
+  {
+    "id": "enron",
+    "name": "Enron Corporation",
+    "type": "organization"
+  },
+  {
+    "id": "nasa",
+    "name": "NASA",
+    "type": "organization"
+  },
+  {
+    "id": "maceo-syndicate",
+    "name": "The Maceo Syndicate",
+    "type": "organization"
+  },
+  {
+    "id": "bat-conservation-international",
+    "name": "Bat Conservation International",
+    "type": "organization"
+  },
+  {
+    "id": "dell",
+    "name": "Dell Technologies",
+    "type": "organization"
+  },
+  {
+    "id": "texas-rangers",
+    "name": "Texas Rangers",
+    "type": "organization"
+  },
+  {
+    "id": "sisters-of-charity",
+    "name": "Sisters of Charity",
+    "type": "organization"
+  },
+  {
+    "id": "servant-girl-annihilator",
+    "name": "The Servant Girl Annihilator",
+    "type": "concept"
+  },
+  {
+    "id": "austin-1928-plan",
+    "name": "Austin 1928 Master Plan",
+    "type": "concept"
+  },
+  {
+    "id": "manhattan-project",
+    "name": "The Manhattan Project",
+    "type": "concept"
+  },
+  {
+    "id": "mexican-free-tailed-bats",
+    "name": "Mexican Free-Tailed Bats",
+    "type": "concept"
+  },
+  {
+    "id": "barton-springs-salamander",
+    "name": "Barton Springs Salamander",
+    "type": "concept"
+  },
+  {
+    "id": "1900-austin-dam-failure",
+    "name": "The Great Granite Dam Failure",
+    "type": "concept"
+  },
+  {
+    "id": "1900-galveston-hurricane",
+    "name": "The Great Galveston Hurricane",
+    "type": "concept"
+  },
+  {
+    "id": "ss-grandcamp",
+    "name": "SS Grandcamp",
+    "type": "concept"
+  },
+  {
+    "id": "clay-henry",
+    "name": "Clay Henry",
+    "type": "concept"
+  },
+  {
+    "id": "republic-of-texas",
+    "name": "Republic of Texas",
+    "type": "concept"
+  },
+  {
+    "id": "pueblo-revolt",
+    "name": "The Pueblo Revolt",
+    "type": "concept"
+  },
+  {
+    "id": "tlatelolco-massacre",
+    "name": "Tlatelolco Massacre",
+    "type": "concept"
+  },
+  {
+    "id": "clovis-culture",
+    "name": "Clovis Culture",
+    "type": "concept"
+  },
+  {
+    "id": "ancestral-puebloans",
+    "name": "Ancestral Puebloans",
+    "type": "concept"
+  }
+]

@@ -1,0 +1,422 @@
+[
+  {
+    "id": "zone-silence-ceballos",
+    "name": "Ceballos Railway Station",
+    "subtitle": "The ghost rail built for radioactive dirt",
+    "description": "The US Air Force built a temporary rail spur here to excavate and move tons of radioactive soil back to the US. The station became the logistical hub for one of the most bizarre \"border incursions\" in US-Mexico history.",
+    "year": 1970,
+    "type": "military_site",
+    "parentStories": [
+      {
+        "id": "zone-of-silence",
+        "name": "The Zone of Silence (Mexico's Bermuda Triangle)"
+      }
+    ]
+  },
+  {
+    "id": "bermeja-mapped-existence",
+    "name": "Mapped by the Spanish",
+    "subtitle": "400 years of documented existence",
+    "description": "Starting in 1535, Bermeja is marked as a reddish island 100 miles off the Yucatan. It appears on British and Mexican maps for centuries and was used to calculate Mexico's 200-mile Exclusive Economic Zone.",
+    "year": 1535,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "bermeja-island",
+        "name": "The Disappearance of Bermeja Island (The Island that Wasn't)"
+      }
+    ]
+  },
+  {
+    "id": "bermeja-navy-search",
+    "name": "Searched by the Justo Sierra",
+    "subtitle": "1,400 meters of water and no island",
+    "description": "In 2009, a research ship reaches the coordinates to settle an oil dispute. They find a flat seafloor a mile deep with no evidence of a sunken island. Mexico loses a massive portion of the \"Doughnut Hole\" oil fields to the US.",
+    "year": 2009,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "bermeja-island",
+        "name": "The Disappearance of Bermeja Island (The Island that Wasn't)"
+      }
+    ]
+  },
+  {
+    "id": "alux-bridge-sabotage",
+    "name": "Collapsed the bridge",
+    "subtitle": "The construction that wouldn't stay built",
+    "description": "During construction over the Nichupté Lagoon, workers found their work destroyed each morning. After three collapses with no explanation, Mayan elders said they were \"disturbing the guardians.\" The builders decided to negotiate.",
+    "year": 1970,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "aluxes-cancun-bridge",
+        "name": "The Aluxes and the Cancun Bridge (The Spirits of the Lagoon)"
+      }
+    ]
+  },
+  {
+    "id": "alux-stone-house",
+    "name": "Built the Alux House",
+    "subtitle": "A contract with the supernatural",
+    "description": "The company built a tiny pyramid-shaped house under the bridge. A priest performed a ceremony to ask permission. The bridge hasn't had an issue since, and the house remains a permanent fixture of Cancun's infrastructure.",
+    "year": 1991,
+    "type": "religious_site",
+    "parentStories": [
+      {
+        "id": "aluxes-cancun-bridge",
+        "name": "The Aluxes and the Cancun Bridge (The Spirits of the Lagoon)"
+      }
+    ]
+  },
+  {
+    "id": "halley-tacubaya-observatory",
+    "name": "Tacubaya Observatory",
+    "subtitle": "The National Observatory confirms the \"gas\"",
+    "description": "In 1910, the observatory monitors the comet. When news of the \"toxic tail\" hits the tabloids, it sparks hysteria. People began buying \"anti-comet pills\" and \"gas-proof\" umbrellas in the Zócalo.",
+    "year": 1910,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "halleys-comet-panic",
+        "name": "The 1910 Halley's Comet Panic (The Cyanogen Panic)"
+      }
+    ]
+  },
+  {
+    "id": "halley-tlaxiaco-ritual",
+    "name": "Tlaxiaco Ritual Site",
+    "subtitle": "A family chooses death over suffocation",
+    "description": "In the Mixteca region, reports emerged of families taking their own lives to avoid the \"poisoned air.\" In Tlaxiaco, a group sealed themselves in a cave to escape the comet's tail, dying of carbon monoxide poisoning from their own fires.",
+    "year": 1910,
+    "type": "burial",
+    "parentStories": [
+      {
+        "id": "halleys-comet-panic",
+        "name": "The 1910 Halley's Comet Panic (The Cyanogen Panic)"
+      }
+    ]
+  },
+  {
+    "id": "cannibal-roma-apartment",
+    "name": "Police raid the Condominium",
+    "subtitle": "A smell of \"rotting meat\" leads to a horrific discovery",
+    "description": "On October 8, 2007, police enter Apartment 16 on Calle Alvaro Obregón looking for a missing woman. They find Jose Luis Calva Mercado calmly writing at his desk. In the kitchen, they discover human remains in the refrigerator and a cereal bowl containing cooked flesh seasoned with lemon. Calva tries to escape by jumping from the balcony, only to be hit by a car in the street below.",
+    "year": 2007,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "cannibal-of-roma",
+        "name": "The Cannibal of the Roma (The Poet Cannibal)"
+      }
+    ]
+  },
+  {
+    "id": "cannibal-tlatelolco-dump",
+    "name": "Dumped in the ruins",
+    "subtitle": "The scattered remains of the \"Poet's\" victims",
+    "description": "Investigation reveals Calva had been disposing of remains in the desolate corners of the Tlatelolco housing complex and nearby waste sites. Forensic teams recover suitcases containing dismembered parts, linking him to at least three murders. His unfinished novel, \"Instincts of a Killer,\" was found to be a literal blueprint for his actions.",
+    "year": 2007,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "cannibal-of-roma",
+        "name": "The Cannibal of the Roma (The Poet Cannibal)"
+      }
+    ]
+  },
+  {
+    "id": "stranger-planting-site",
+    "name": "Planted the Holy Cross",
+    "subtitle": "A mysterious traveler arrives on the Pacific coast",
+    "description": "Local Zapotec oral history tells of a man in a white robe who arrived from the sea. He erected a massive cross of \"madero\" wood on the beach at Santa Cruz and told the locals that \"one day, men from the east would come to claim this sign.\" For over a millennium, the locals worshipped the site as \"Cuahtolco\"—the place where wood is adored.",
+    "year": 50,
+    "type": "religious_site",
+    "parentStories": [
+      {
+        "id": "white-stranger-huatulco",
+        "name": "The Legend of the White Stranger (The Holy Cross Prophet)"
+      }
+    ]
+  },
+  {
+    "id": "stranger-vatican-relic",
+    "name": "Relic of the \"True\" Cross",
+    "subtitle": "Where the miracle wood ended its journey",
+    "description": "After the cross survived the pirate Cavendish's fires in 1587, it was broken into fragments to satisfy the demand for relics. The largest remaining piece was sent to the Vatican, while other shards were placed in the Oaxaca Cathedral. Scientists who examined the wood in the 17th century noted it was a species not found in the region, yet it had not rotted despite 1,500 years of sea air.",
+    "year": 1612,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "white-stranger-huatulco",
+        "name": "The Legend of the White Stranger (The Holy Cross Prophet)"
+      }
+    ]
+  },
+  {
+    "id": "maximilian-convent-prison",
+    "name": "Convent of la Cruz",
+    "subtitle": "The Emperor's final headquarters turned cell",
+    "description": "During the 100-day Siege of Querétaro, Maximilian makes this stone convent his base. When the city falls due to betrayal, he is arrested in his room and held here during his trial. He famously spends his final days battling dysentery and writing letters to his wife, Charlotte, who is losing her mind in Europe.",
+    "year": 1867,
+    "type": "military_site",
+    "parentStories": [
+      {
+        "id": "execution-of-maximilian",
+        "name": "The Execution of Emperor Maximilian (The End of the Empire)"
+      }
+    ]
+  },
+  {
+    "id": "maximilian-firing-squad",
+    "name": "Cerro de las Campanas",
+    "subtitle": "Where the Habsburg dream died in the dust",
+    "description": "On the morning of June 19, 1867, Maximilian is led to this hill alongside his two generals. He gives each member of the firing squad a gold coin and asks them to aim for his heart, not his face, so his mother can recognize him. The shots ring out at 7:05 AM, signaling the triumph of Benito Juárez and the Republic.",
+    "year": 1867,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "execution-of-maximilian",
+        "name": "The Execution of Emperor Maximilian (The End of the Empire)"
+      }
+    ]
+  },
+  {
+    "id": "monchito-rubble-site",
+    "name": "The Search at Venustiano Carranza",
+    "subtitle": "The sound of rhythmic tapping beneath 20 tons of concrete",
+    "description": "Three weeks after the quake, specialized sensors detect a heartbeat and rhythmic tapping at this site. Rescuers identify the survivor as 9-year-old Luis Ramón \"Monchito\" Nafarrete. The President of Mexico and international media descend on the site. However, after 20 days of digging, they find only a safe full of money and no evidence of a child, leading to theories of a \"collective auditory hallucination\" or a massive insurance fraud distraction.",
+    "year": 1985,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "monchito-phantom-boy",
+        "name": "The \"Monchito\" Phantom (The Ghost of the 1985 Earthquake)"
+      }
+    ]
+  },
+  {
+    "id": "torreon-plaza-massacre",
+    "name": "Torreón Main Plaza",
+    "subtitle": "A prosperous community destroyed in a morning",
+    "description": "On May 15, 1911, revolutionary forces take the city. Fuelled by racist rhetoric that Chinese immigrants were \"taking Mexican jobs,\" soldiers and local mobs begin a systematic slaughter. Chinese laundry owners and gardeners are dragged into the streets and killed. The violence is so extreme that the Chinese government eventually demands a formal apology and reparations from the Mexican state.",
+    "year": 1911,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "torreon-massacre",
+        "name": "The Massacre of the Chinese (Mexico's Forgotten Pogrom)"
+      }
+    ]
+  },
+  {
+    "id": "diaz-ajusco-sighting",
+    "name": "Captured the \"Light Ship\"",
+    "subtitle": "A photographer meets a craft made of plasma",
+    "description": "Carlos Diaz is sitting in his car in the Ajusco forest when a glowing, orange, dome-shaped object hovers directly in front of him. He captures a series of incredible photographs that have been analyzed by NASA scientists and photographic experts worldwide, who were unable to find any evidence of fraud or manipulation. Diaz claims the craft was \"alive\" and organic.",
+    "year": 1981,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "carlos-diaz-ufo",
+        "name": "The Carlos Diaz Light Ships (The Ajusco Abduction)"
+      }
+    ]
+  },
+  {
+    "id": "diaz-press-demonstration",
+    "name": "Televisa Studio Reveal",
+    "subtitle": "Proof of the impossible on national television",
+    "description": "After years of skepticism, Diaz provides video footage of the craft to journalist Jaime Maussan. The footage shows a craft that appears to \"blink\" in and out of existence, matching the descriptions of thousands of other witnesses in the Mexico City area. This event turns the Ajusco mountains into a global hotspot for UFO tourism.",
+    "year": 1993,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "carlos-diaz-ufo",
+        "name": "The Carlos Diaz Light Ships (The Ajusco Abduction)"
+      }
+    ]
+  },
+  {
+    "id": "guanajuato-cemetery-exhumation",
+    "name": "Santa Paula Cemetery",
+    "subtitle": "Evicted from the grave for failing to pay taxes",
+    "description": "In 1865, cemetery workers exhume the body of Dr. Remigio Leroy, a French physician. They find him perfectly preserved. Over the next few decades, hundreds of bodies are removed. The most terrifying is \"La China,\" a woman found with her hands over her face and her mouth open in a scream—forensic analysis later suggested she was buried in a state of catalepsy while still alive.",
+    "year": 1865,
+    "type": "burial",
+    "parentStories": [
+      {
+        "id": "guanajuato-mummies",
+        "name": "The Mummies of Guanajuato (The Accidental Immortals)"
+      }
+    ]
+  },
+  {
+    "id": "colosio-lomas-taurinas",
+    "name": "The Lomas Taurinas Rally",
+    "subtitle": "The shots heard across the Republic",
+    "description": "On March 23, 1994, Colosio is walking through a densely packed crowd in a poor Tijuana neighborhood. Mario Aburto Martínez presses a .38 Taurus against the candidate's temple and fires. A second shot hits him in the abdomen. The chaotic footage of the crowd surging as the music continues to play remains one of the most traumatizing images in Mexican political history.",
+    "year": 1994,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "colosio-assassination",
+        "name": "The Assassination of Luis Donaldo Colosio (Mexico's JFK)"
+      }
+    ]
+  },
+  {
+    "id": "cobalt-medical-theft",
+    "name": "Stole the Picker C-3000",
+    "subtitle": "A maintenance worker steals a \"paperweight\" worth of death",
+    "description": "Vicente Sotelo Alardín, a maintenance worker at a private clinic, decides to sell a decommissioned cancer therapy machine for scrap. He and a friend load the heavy lead-shielded head into an old Datsun pickup. They have no idea it contains 450 curies of Cobalt-60 in the form of thousands of tiny metallic pellets.",
+    "year": 1983,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "cobalt-60-accident",
+        "name": "The Radioactive Rebar Crisis (Mexico's Chernobyl)"
+      }
+    ]
+  },
+  {
+    "id": "cobalt-junkyard-crush",
+    "name": "The Junkyard Breach",
+    "subtitle": "Where the \"silent killer\" was released into the air",
+    "description": "Sotelo takes the machine to the Yonke Fénix junkyard. To get to the valuable lead, the machine is punctured and crushed. Thousands of radioactive pellets spill into the yard, clinging to the magnets of cranes and the soles of workers' shoes. The Datsun pickup, now a mobile radiation source, is parked in a residential street for weeks, exposing neighbors to massive doses.",
+    "year": 1983,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "cobalt-60-accident",
+        "name": "The Radioactive Rebar Crisis (Mexico's Chernobyl)"
+      }
+    ]
+  },
+  {
+    "id": "cobalt-foundry-melting",
+    "name": "Aceros de Chihuahua",
+    "subtitle": "Where the radiation was forged into a nation's infrastructure",
+    "description": "The contaminated scrap is sold to a foundry where it is melted down to produce rebar and table legs. The radioactive steel is shipped to 20 Mexican states and over 40 US states. The accident is only discovered months later when a delivery truck takes a wrong turn and triggers radiation sensors at Los Alamos National Laboratory in New Mexico.",
+    "year": 1984,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "cobalt-60-accident",
+        "name": "The Radioactive Rebar Crisis (Mexico's Chernobyl)"
+      }
+    ]
+  },
+  {
+    "id": "teotihuacan-tunnel-entrance",
+    "name": "The Robot's Descent",
+    "subtitle": "A sinkhole reveals a 2,000-year-old secret",
+    "description": "In 2003, heavy rains opened a small sinkhole at the foot of the Temple of the Feathered Serpent. Archaeologist Sergio Gómez descended by rope to find a perfectly cylindrical shaft leading to a blocked tunnel. In 2010, the robot \"Tlaloc II-TC\" was sent in, navigating through the mud to reveal chambers that hadn't been seen since the city was abandoned.",
+    "year": 2010,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "teotihuacan-mercury-lake",
+        "name": "The Mercury Underworld of Teotihuacán (The Tlalocan Tunnel)"
+      }
+    ]
+  },
+  {
+    "id": "teotihuacan-mercury-chamber",
+    "name": "The Lake of Liquid Metal",
+    "subtitle": "Standing at the threshold of the underworld",
+    "description": "At the tunnel's deepest point, archaeologists found a large pool of liquid mercury. The toxic metal was used to create a shimmering, reflective \"lake\" that mimicked the cosmic sea of the afterlife. The walls were dusted with pyrite (fool's gold) to make the tunnel look like it was filled with stars when viewed by torchlight.",
+    "year": 2014,
+    "type": "religious_site",
+    "parentStories": [
+      {
+        "id": "teotihuacan-mercury-lake",
+        "name": "The Mercury Underworld of Teotihuacán (The Tlalocan Tunnel)"
+      }
+    ]
+  },
+  {
+    "id": "atizapan-house-horrors",
+    "name": "The House on Calle Margaritas",
+    "subtitle": "A butcher's shop hidden in a suburban kitchen",
+    "description": "On May 15, 2021, police enter the home of Andrés Mendoza after he is linked to the disappearance of a 34-year-old woman. Beneath the floorboards of his kitchen and bedroom, they find thousands of bone fragments. Mendoza, a former butcher, had meticulously dismembered his victims and preserved their remains in salt.",
+    "year": 2021,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "atizapan-cannibal",
+        "name": "The Cannibal of Atizapán (The Butcher of Women)"
+      }
+    ]
+  },
+  {
+    "id": "atizapan-market-stall",
+    "name": "The Lomas de San Miguel Market",
+    "subtitle": "Where \"carnitas\" were sold with a dark secret",
+    "description": "During his confession, Mendoza claimed he would often cook the flesh of his victims and offer it to neighbors or sell it as pork \"carnitas\" at local markets. For years, he was seen as a friendly, helpful older man who regularly participated in local political campaigns, using his public persona to hide his predatory nature.",
+    "year": 2021,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "atizapan-cannibal",
+        "name": "The Cannibal of Atizapán (The Butcher of Women)"
+      }
+    ]
+  },
+  {
+    "id": "huatulco-pirate-landing",
+    "name": "Sacked the Port",
+    "subtitle": "Cavendish brings the war of the empires to the Pacific",
+    "description": "In July 1587, Thomas Cavendish sails into Santa Cruz Bay with his ship \"Desire.\" He burns the town to the ground and loots the customs house. His crew, fueled by Protestant fervor, sets their sights on the large wooden cross that dominates the shoreline, viewing it as a symbol of Spanish Catholic idolatry.",
+    "year": 1587,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "cavendish-huatulco-siege",
+        "name": "The Desecration of Huatulco (The Pirate vs. The Cross)"
+      }
+    ]
+  },
+  {
+    "id": "huatulco-cross-struggle",
+    "name": "The Unbreakable Wood",
+    "subtitle": "A ship versus a single beam of timber",
+    "description": "Cavendish orders his men to chop down the cross, but their axes bounce off the wood. They pile pitch-soaked wood at the base and set it ablaze, but the cross remains uncharred. Finally, they tie thick cables from the cross to the \"Desire\" and attempt to drag it into the sea. The ropes snap, and the ship is nearly pulled toward the shore, forcing Cavendish to retreat in frustration.",
+    "year": 1587,
+    "type": "religious_site",
+    "parentStories": [
+      {
+        "id": "cavendish-huatulco-siege",
+        "name": "The Desecration of Huatulco (The Pirate vs. The Cross)"
+      }
+    ]
+  },
+  {
+    "id": "tlatelolco-flare-signal",
+    "name": "The Green Flare Signal",
+    "subtitle": "The sky turns green as the shooting begins",
+    "description": "At 6:10 PM on October 2, 1968, a helicopter circles over the Plaza de las Tres Culturas and fires two green flares. This is the signal for the \"Batallón Olimpia\"—a secret paramilitary unit wearing white gloves—to begin arresting student leaders and for snipers in the surrounding buildings to open fire.",
+    "year": 1968,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "tlatelolco-massacre-1968",
+        "name": "The Night of Tlatelolco (The Flare of Death)"
+      }
+    ]
+  },
+  {
+    "id": "tlatelolco-chihuahua-snipers",
+    "name": "The Chihuahua Building",
+    "subtitle": "Snipers in the windows of \"modernity\"",
+    "description": "The tallest apartment complex overlooking the plaza, the Edificio Chihuahua, was filled with snipers from the Presidential Guard. They fired into the crowd below and at the regular army troops entering the plaza, tricking the soldiers into believing the students were armed. The resulting return fire trapped thousands of civilians in a killing zone.",
+    "year": 1968,
+    "type": "military_site",
+    "parentStories": [
+      {
+        "id": "tlatelolco-massacre-1968",
+        "name": "The Night of Tlatelolco (The Flare of Death)"
+      }
+    ]
+  }
+]

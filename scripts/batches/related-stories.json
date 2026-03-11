@@ -1,0 +1,2519 @@
+[
+  {
+    "id": "ed-gein",
+    "name": "Ed Gein",
+    "nickname": "The Butcher of Plainfield",
+    "category": "dark-history",
+    "storyType": "biography",
+    "tags": [
+      "serial-killer",
+      "grave-robbery",
+      "wisconsin",
+      "true-crime"
+    ],
+    "years": "1954–1957",
+    "momentCount": 7,
+    "existingRelated": [
+      "dahmer"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "dahmer",
+    "name": "Jeffrey Dahmer",
+    "nickname": "The Milwaukee Cannibal",
+    "category": "dark-history",
+    "storyType": "biography",
+    "tags": [
+      "serial-killer",
+      "milwaukee",
+      "wisconsin",
+      "true-crime"
+    ],
+    "years": "1978–1991",
+    "momentCount": 4,
+    "existingRelated": [
+      "ed-gein"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "elfego-baca",
+    "name": "Elfego Baca",
+    "nickname": "The Man Who Could Not Be Killed",
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "old-west",
+      "new-mexico",
+      "last-stand",
+      "frontier-justice"
+    ],
+    "years": "1884",
+    "momentCount": 1,
+    "existingRelated": [
+      "billy-the-kid"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "roswell",
+    "name": "The Roswell Incident",
+    "nickname": "The UFO Capital of the World",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "ufo",
+      "new-mexico",
+      "conspiracy",
+      "cold-war"
+    ],
+    "years": "1947",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "billy-the-kid",
+    "name": "Billy the Kid",
+    "nickname": "William H. Bonney",
+    "category": "last-stands",
+    "storyType": "biography",
+    "tags": [
+      "old-west",
+      "new-mexico",
+      "outlaw",
+      "lincoln-county-war"
+    ],
+    "years": "1878–1881",
+    "momentCount": 3,
+    "existingRelated": [
+      "elfego-baca",
+      "geronimo"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "geronimo",
+    "name": "Geronimo",
+    "nickname": "The Last Free Apache",
+    "category": "last-stands",
+    "storyType": "biography",
+    "tags": [
+      "native-american",
+      "apache",
+      "new-mexico",
+      "frontier-wars"
+    ],
+    "years": "1850–1886",
+    "momentCount": 1,
+    "existingRelated": [
+      "billy-the-kid"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "los-alamos",
+    "name": "Los Alamos",
+    "nickname": "The Secret City",
+    "category": "discovery-science",
+    "storyType": "place",
+    "tags": [
+      "manhattan-project",
+      "nuclear",
+      "new-mexico",
+      "wwii",
+      "cold-war"
+    ],
+    "years": "1943–1957",
+    "momentCount": 2,
+    "existingRelated": [
+      "white-sands-footprints",
+      "vla",
+      "trinity-test",
+      "hiroshima-nagasaki-bombings",
+      "damascus-titan-mishap"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "carlsbad-caverns",
+    "name": "Carlsbad Caverns",
+    "nickname": "The Bat Cave Discovery",
+    "category": "discovery-science",
+    "storyType": "place",
+    "tags": [
+      "caves",
+      "discovery",
+      "new-mexico",
+      "natural-wonder"
+    ],
+    "years": "1898",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "pancho-villa-raid",
+    "name": "Pancho Villa's Raid",
+    "nickname": "The Last Invasion of America",
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "mexican-revolution",
+      "new-mexico",
+      "border",
+      "military"
+    ],
+    "years": "1916",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "white-sands-footprints",
+    "name": "White Sands Footprints",
+    "nickname": "Rewriting American Prehistory",
+    "category": "discovery-science",
+    "storyType": "place",
+    "tags": [
+      "archaeology",
+      "new-mexico",
+      "prehistoric",
+      "discovery"
+    ],
+    "years": "~21,000 BC",
+    "momentCount": 1,
+    "existingRelated": [
+      "clovis-points",
+      "los-alamos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "georgia-okeeffe",
+    "name": "Georgia O'Keeffe",
+    "nickname": "The Mother of American Modernism",
+    "category": "arts-culture",
+    "storyType": "biography",
+    "tags": [
+      "art",
+      "modernism",
+      "new-mexico",
+      "painting"
+    ],
+    "years": "1929–1986",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "pueblo-revolt",
+    "name": "The Pueblo Revolt",
+    "nickname": "The First American Revolution",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "native-american",
+      "pueblo",
+      "new-mexico",
+      "rebellion",
+      "colonial"
+    ],
+    "years": "1680",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "truth-or-consequences",
+    "name": "Truth or Consequences",
+    "nickname": "The Town Named After a Game Show",
+    "category": "everyday-extraordinary",
+    "storyType": "place",
+    "tags": [
+      "weird-history",
+      "new-mexico",
+      "pop-culture"
+    ],
+    "years": "1950",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "chaco-canyon",
+    "name": "Chaco Canyon",
+    "nickname": "The Ancient Metropolis",
+    "category": "discovery-science",
+    "storyType": "place",
+    "tags": [
+      "archaeology",
+      "native-american",
+      "new-mexico",
+      "ancient"
+    ],
+    "years": "850–1150 AD",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "vla",
+    "name": "Very Large Array",
+    "nickname": "Listening for Alien Signals",
+    "category": "discovery-science",
+    "storyType": "place",
+    "tags": [
+      "astronomy",
+      "new-mexico",
+      "space",
+      "science"
+    ],
+    "years": "1980–present",
+    "momentCount": 1,
+    "existingRelated": [
+      "los-alamos",
+      "roswell"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "dennis-hopper-taos",
+    "name": "Dennis Hopper in Taos",
+    "nickname": "Easy Rider Goes to Ground",
+    "category": "arts-culture",
+    "storyType": "biography",
+    "tags": [
+      "counterculture",
+      "new-mexico",
+      "film",
+      "1970s"
+    ],
+    "years": "1970",
+    "momentCount": 1,
+    "existingRelated": [
+      "georgia-okeeffe"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "clovis-points",
+    "name": "Clovis Culture",
+    "nickname": "The First Americans",
+    "category": "discovery-science",
+    "storyType": "era",
+    "tags": [
+      "archaeology",
+      "prehistoric",
+      "new-mexico",
+      "discovery"
+    ],
+    "years": "~11,000 BC",
+    "momentCount": 1,
+    "existingRelated": [
+      "white-sands-footprints"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "buddy-holly-clovis",
+    "name": "Buddy Holly's Last Concert",
+    "nickname": "The Day the Music Died",
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "music",
+      "tragedy",
+      "new-mexico",
+      "rock-and-roll"
+    ],
+    "years": "1959",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "coronado-cibola",
+    "name": "Coronado's Quest for Cíbola",
+    "nickname": "The Cities of Gold That Never Existed",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "colonial",
+      "exploration",
+      "new-mexico",
+      "spanish"
+    ],
+    "years": "1540",
+    "momentCount": 1,
+    "existingRelated": [
+      "pueblo-revolt"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "palace-of-governors",
+    "name": "Palace of the Governors",
+    "nickname": "The Oldest Public Building in America",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "colonial",
+      "government",
+      "new-mexico",
+      "santa-fe"
+    ],
+    "years": "1610–present",
+    "momentCount": 1,
+    "existingRelated": [
+      "pueblo-revolt"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "confederate-mesilla",
+    "name": "The Confederate West",
+    "nickname": "When the Confederacy Reached the Rio Grande",
+    "category": "political-drama",
+    "storyType": "era",
+    "tags": [
+      "civil-war",
+      "new-mexico",
+      "confederacy"
+    ],
+    "years": "1862",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "tulsa-race-massacre",
+    "name": "Tulsa Race Massacre",
+    "nickname": "The Destruction of Black Wall Street",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "racial-violence",
+      "oklahoma",
+      "jim-crow",
+      "cover-up"
+    ],
+    "years": "1921",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "james-dean-crash",
+    "name": "James Dean's Fatal Crash",
+    "nickname": "The Last Ride",
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "hollywood",
+      "california",
+      "car-crash",
+      "celebrity"
+    ],
+    "years": "1955",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "dennys-google",
+    "name": "The Denny's Where Google Was Born",
+    "nickname": "Silicon Valley's Greasy Spoon Origin",
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "silicon-valley",
+      "tech",
+      "california",
+      "startup"
+    ],
+    "years": "1998",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "trinity-test",
+    "name": "The Trinity Test",
+    "nickname": "The Gadget",
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "manhattan-project",
+      "nuclear",
+      "new-mexico",
+      "science"
+    ],
+    "years": "1945",
+    "momentCount": 3,
+    "existingRelated": [
+      "los-alamos",
+      "hiroshima-nagasaki-bombings"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "hiroshima-nagasaki-bombings",
+    "name": "The Atomic Bombings of Japan",
+    "nickname": "Little Boy and Fat Man",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "wwii",
+      "japan",
+      "nuclear",
+      "dark-history"
+    ],
+    "years": "1945",
+    "momentCount": 3,
+    "existingRelated": [
+      "trinity-test",
+      "los-alamos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "damascus-titan-mishap",
+    "name": "The Damascus Titan II Mishap",
+    "nickname": "The 1980 Damascus Accident",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "cold-war",
+      "arkansas",
+      "near-miss",
+      "nuclear"
+    ],
+    "years": "1980",
+    "momentCount": 3,
+    "existingRelated": [
+      "trinity-test",
+      "los-alamos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "lincoln-assassination",
+    "name": "The Lincoln Assassination",
+    "nickname": "Our American Brutus",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "assassination",
+      "civil-war",
+      "washington-dc",
+      "presidential"
+    ],
+    "years": "1865",
+    "momentCount": 3,
+    "existingRelated": [
+      "jfk-assassination",
+      "mlk-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "jfk-assassination",
+    "name": "The JFK Assassination",
+    "nickname": "The Shot That Changed America",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "assassination",
+      "cold-war",
+      "dallas",
+      "presidential",
+      "conspiracy"
+    ],
+    "years": "1963",
+    "momentCount": 3,
+    "existingRelated": [
+      "lincoln-assassination",
+      "mlk-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "mlk-assassination",
+    "name": "The Assassination of Martin Luther King Jr.",
+    "nickname": "The Dreamer Silenced",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "assassination",
+      "civil-rights",
+      "memphis",
+      "racial-violence"
+    ],
+    "years": "1968",
+    "momentCount": 3,
+    "existingRelated": [
+      "lincoln-assassination",
+      "jfk-assassination",
+      "tulsa-race-massacre",
+      "mlk-life"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "battle-of-the-alamo",
+    "name": "The Battle of the Alamo",
+    "nickname": "The Shrine of Texas Liberty",
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "texas-revolution",
+      "san-antonio",
+      "frontier",
+      "military-history"
+    ],
+    "years": "1836",
+    "momentCount": 3,
+    "existingRelated": [
+      "billy-the-kid",
+      "geronimo",
+      "pueblo-revolt"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "waco-siege",
+    "name": "The Branch Davidian Siege",
+    "nickname": "Mount Carmel",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "cult",
+      "texas",
+      "fbi",
+      "atf",
+      "1990s"
+    ],
+    "years": "1993",
+    "momentCount": 3,
+    "existingRelated": [
+      "jfk-assassination",
+      "tulsa-race-massacre"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "bonnie-and-clyde",
+    "name": "Bonnie and Clyde",
+    "nickname": "The Barrow Gang",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "outlaw",
+      "dallas",
+      "depression-era",
+      "crime"
+    ],
+    "years": "1932–1934",
+    "momentCount": 3,
+    "existingRelated": [
+      "billy-the-kid",
+      "james-dean-crash"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "ted-bundy",
+    "name": "Ted Bundy",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "serial-killer",
+      "true-crime",
+      "1970s",
+      "fbi-most-wanted"
+    ],
+    "years": "1974–1978",
+    "momentCount": 3,
+    "existingRelated": [
+      "ed-gein",
+      "dahmer",
+      "john-wayne-gacy",
+      "zodiac-killer"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "zodiac-killer",
+    "name": "The Zodiac Killer",
+    "nickname": null,
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "serial-killer",
+      "unsolved",
+      "true-crime",
+      "california",
+      "mystery"
+    ],
+    "years": "1968–1969",
+    "momentCount": 3,
+    "existingRelated": [
+      "ted-bundy",
+      "dahmer"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "john-wayne-gacy",
+    "name": "John Wayne Gacy",
+    "nickname": "The Killer Clown",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "serial-killer",
+      "true-crime",
+      "chicago",
+      "1970s"
+    ],
+    "years": "1972–1978",
+    "momentCount": 3,
+    "existingRelated": [
+      "dahmer",
+      "ted-bundy",
+      "ed-gein"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "wounded-knee-massacre",
+    "name": "The Wounded Knee Massacre",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "indigenous-history",
+      "south-dakota",
+      "military-history",
+      "tragedy"
+    ],
+    "years": "1890",
+    "momentCount": 3,
+    "existingRelated": [
+      "geronimo",
+      "pueblo-revolt",
+      "sand-creek-massacre"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "sand-creek-massacre",
+    "name": "The Sand Creek Massacre",
+    "nickname": "Chivington's Raid",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "colorado",
+      "indigenous-history",
+      "civil-war-era",
+      "last-stands"
+    ],
+    "years": "1864",
+    "momentCount": 3,
+    "existingRelated": [
+      "wounded-knee-massacre",
+      "tulsa-race-massacre"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "rosewood-massacre",
+    "name": "The Rosewood Massacre",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "florida",
+      "forgotten-massacres",
+      "1920s",
+      "civil-rights"
+    ],
+    "years": "1923",
+    "momentCount": 3,
+    "existingRelated": [
+      "tulsa-race-massacre",
+      "mlk-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "j-robert-oppenheimer",
+    "name": "J. Robert Oppenheimer",
+    "nickname": "The Father of the Atomic Bomb",
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "manhattan-project",
+      "physics",
+      "cold-war",
+      "science"
+    ],
+    "years": "1904–1967",
+    "momentCount": 3,
+    "existingRelated": [
+      "los-alamos",
+      "trinity-test",
+      "hiroshima-nagasaki-bombings"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "lee-harvey-oswald",
+    "name": "Lee Harvey Oswald",
+    "nickname": "The Lone Gunman",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "assassination",
+      "true-crime",
+      "dallas",
+      "1960s"
+    ],
+    "years": "1939–1963",
+    "momentCount": 3,
+    "existingRelated": [
+      "jfk-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "little-rock-nine",
+    "name": "The Little Rock Nine",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "civil-rights",
+      "arkansas",
+      "education",
+      "activism"
+    ],
+    "years": "1957",
+    "momentCount": 3,
+    "existingRelated": [
+      "mlk-assassination",
+      "tulsa-race-massacre",
+      "rosewood-massacre"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "lincoln-life",
+    "name": "Abraham Lincoln",
+    "nickname": "Honest Abe",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "president",
+      "civil-war",
+      "leadership",
+      "illinois"
+    ],
+    "years": "1809–1865",
+    "momentCount": 3,
+    "existingRelated": [
+      "lincoln-assassination",
+      "confederate-mesilla"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "jfk-life",
+    "name": "John F. Kennedy",
+    "nickname": "The Architect of Camelot",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "president",
+      "cold-war",
+      "navy",
+      "massachusetts"
+    ],
+    "years": "1917–1963",
+    "momentCount": 3,
+    "existingRelated": [
+      "jfk-assassination",
+      "lee-harvey-oswald"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "mlk-life",
+    "name": "Martin Luther King Jr.",
+    "nickname": "The Dreamer",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "civil-rights",
+      "activism",
+      "religion",
+      "georgia"
+    ],
+    "years": "1929–1968",
+    "momentCount": 3,
+    "existingRelated": [
+      "mlk-assassination",
+      "little-rock-nine",
+      "rosa-parks"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "rosa-parks",
+    "name": "Rosa Parks",
+    "nickname": "Mother of the Civil Rights Movement",
+    "category": "political-drama",
+    "storyType": "place",
+    "tags": [
+      "civil-rights",
+      "activism",
+      "montgomery",
+      "detroit"
+    ],
+    "years": "1913–2005",
+    "momentCount": 3,
+    "existingRelated": [
+      "mlk-life",
+      "little-rock-nine",
+      "mlk-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "wright-brothers",
+    "name": "The Wright Brothers",
+    "nickname": "The Fathers of Modern Aviation",
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "aviation",
+      "invention",
+      "ohio",
+      "north-carolina"
+    ],
+    "years": "1867–1948",
+    "momentCount": 3,
+    "existingRelated": [
+      "amelia-earhart",
+      "dennys-google"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "harriet-tubman",
+    "name": "Harriet Tubman",
+    "nickname": "Moses",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "civil-rights",
+      "abolitionist",
+      "underground-railroad",
+      "hero"
+    ],
+    "years": "1822–1913",
+    "momentCount": 3,
+    "existingRelated": [
+      "mlk-life",
+      "little-rock-nine",
+      "rosa-parks"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "malcolm-x",
+    "name": "Malcolm X",
+    "nickname": "El-Hajj Malik El-Shabazz",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "civil-rights",
+      "activism",
+      "islam",
+      "new-york"
+    ],
+    "years": "1925–1965",
+    "momentCount": 2,
+    "existingRelated": [
+      "mlk-life",
+      "mlk-assassination",
+      "lincoln-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "amelia-earhart",
+    "name": "Amelia Earhart",
+    "nickname": "Lady Lindy",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "aviation",
+      "mystery",
+      "feminism",
+      "explorer"
+    ],
+    "years": "1897–1937",
+    "momentCount": 3,
+    "existingRelated": [
+      "wright-brothers",
+      "roswell"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "twa-flight-800",
+    "name": "TWA Flight 800",
+    "nickname": null,
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "aviation",
+      "disaster",
+      "new-york",
+      "conspiracy"
+    ],
+    "years": "1996",
+    "momentCount": 3,
+    "existingRelated": [
+      "amelia-earhart",
+      "flight-93"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "valujet-592",
+    "name": "ValuJet Flight 592",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "aviation",
+      "florida",
+      "everglades",
+      "safety"
+    ],
+    "years": "1996",
+    "momentCount": 3,
+    "existingRelated": [
+      "twa-flight-800",
+      "flight-93"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "flight-93",
+    "name": "United Flight 93",
+    "nickname": null,
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "9-11",
+      "pennsylvania",
+      "heroism",
+      "terrorism"
+    ],
+    "years": "2001",
+    "momentCount": 3,
+    "existingRelated": [
+      "battle-of-the-alamo",
+      "lincoln-assassination"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "vicente-guerrero-betrayal",
+    "name": "The Betrayal of Vicente Guerrero",
+    "nickname": "The Sale of a President",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "huatulco",
+      "independence",
+      "oaxaca",
+      "assassination"
+    ],
+    "years": "1831",
+    "momentCount": 3,
+    "existingRelated": [
+      "porfirio-diaz-escape"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "maria-sabina",
+    "name": "Maria Sabina and the \"Holy Children\"",
+    "nickname": "The Mushroom Mother",
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "psychedelic",
+      "oaxaca",
+      "shamanism",
+      "indigenous"
+    ],
+    "years": "1955–1985",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "tomb-7-treasure",
+    "name": "The Great Tomb 7 Treasure",
+    "nickname": "Mexico's King Tut",
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "archaeology",
+      "gold",
+      "oaxaca",
+      "zapotec",
+      "mixtec"
+    ],
+    "years": "1932",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "siege-of-guiengola",
+    "name": "The Siege of Guiengola",
+    "nickname": "The Fortress in the Clouds",
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "aztec",
+      "zapotec",
+      "military",
+      "oaxaca"
+    ],
+    "years": "~1496",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "brad-will-murder",
+    "name": "The Murder of Brad Will",
+    "nickname": "The Last Footage",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "oaxaca",
+      "journalism",
+      "protest",
+      "murder"
+    ],
+    "years": "2006",
+    "momentCount": 2,
+    "existingRelated": [
+      "subcomandante-marcos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "subcomandante-marcos",
+    "name": "The Identity of Subcomandante Marcos",
+    "nickname": "The Masked Professor",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "zapatista",
+      "chiapas",
+      "marcos",
+      "revolution"
+    ],
+    "years": "1994–1995",
+    "momentCount": 2,
+    "existingRelated": [
+      "brad-will-murder"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "pakals-tomb",
+    "name": "The Tomb of Pakal the Great",
+    "nickname": "The Maya Astronaut",
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "maya",
+      "palenque",
+      "archaeology",
+      "ancient-aliens"
+    ],
+    "years": "1952",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "porfirio-diaz-escape",
+    "name": "The Escape of Porfirio Díaz",
+    "nickname": "The Great Escape of 1865",
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "oaxaca",
+      "escape",
+      "military",
+      "history"
+    ],
+    "years": "1865",
+    "momentCount": 2,
+    "existingRelated": [
+      "vicente-guerrero-betrayal"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "coyame-ufo",
+    "name": "The Coyame UFO Crash",
+    "nickname": "Mexico's Roswell",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "ufo",
+      "crash",
+      "chihuahua",
+      "military"
+    ],
+    "years": "1974",
+    "momentCount": 2,
+    "existingRelated": [
+      "roswell"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "1991-eclipse-ufo",
+    "name": "The 1991 Eclipse Mass Sighting",
+    "nickname": null,
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "ufo",
+      "mexico-city",
+      "eclipse",
+      "sighting"
+    ],
+    "years": "1991",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "mexican-air-force-flir",
+    "name": "The Mexican Air Force FLIR Encounter",
+    "nickname": "The Invisible Eleven",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "ufo",
+      "military",
+      "air-force",
+      "campeche"
+    ],
+    "years": "2004",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "jacobo-grinberg",
+    "name": "The Disappearance of Jacobo Grinberg",
+    "nickname": "The Einstein of Consciousness",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "scientist",
+      "mystery",
+      "unam",
+      "consciousness"
+    ],
+    "years": "1994",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "zone-of-silence",
+    "name": "The Zone of Silence",
+    "nickname": "Mexico's Bermuda Triangle",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "nasa",
+      "ufo",
+      "desert",
+      "radiation"
+    ],
+    "years": "1970",
+    "momentCount": 2,
+    "existingRelated": [
+      "white-sands-footprints"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "bermeja-island",
+    "name": "The Disappearance of Bermeja Island",
+    "nickname": "The Island that Wasn't",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "mystery",
+      "ocean",
+      "oil",
+      "cartography"
+    ],
+    "years": "1997–2009",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "aluxes-cancun-bridge",
+    "name": "The Aluxes and the Cancun Bridge",
+    "nickname": "The Spirits of the Lagoon",
+    "category": "everyday-extraordinary",
+    "storyType": "place",
+    "tags": [
+      "cancun",
+      "maya",
+      "spirits",
+      "engineering"
+    ],
+    "years": "1970–present",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "halleys-comet-panic",
+    "name": "The 1910 Halley's Comet Panic",
+    "nickname": "The Cyanogen Panic",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "comet",
+      "astronomy",
+      "panic",
+      "oaxaca"
+    ],
+    "years": "1910",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "cannibal-of-roma",
+    "name": "The Cannibal of the Roma",
+    "nickname": "The Poet Cannibal",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "crime",
+      "mexico-city",
+      "serial-killer",
+      "roma-norte"
+    ],
+    "years": "2007",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "white-stranger-huatulco",
+    "name": "The Legend of the White Stranger",
+    "nickname": "The Holy Cross Prophet",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "huatulco",
+      "mystery",
+      "prophecy",
+      "ancient-history",
+      "pirates"
+    ],
+    "years": "AD 50–1587",
+    "momentCount": 2,
+    "existingRelated": [
+      "vicente-guerrero-betrayal"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "execution-of-maximilian",
+    "name": "The Execution of Emperor Maximilian",
+    "nickname": "The End of the Empire",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "history",
+      "revolution",
+      "queretaro",
+      "empire",
+      "military"
+    ],
+    "years": "1867",
+    "momentCount": 2,
+    "existingRelated": [
+      "porfirio-diaz-escape"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "monchito-phantom-boy",
+    "name": "The \"Monchito\" Phantom",
+    "nickname": "The Ghost of the 1985 Earthquake",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "earthquake",
+      "mystery",
+      "1985",
+      "mexico-city",
+      "paranormal"
+    ],
+    "years": "1985",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "torreon-massacre",
+    "name": "The Massacre of the Chinese",
+    "nickname": "Mexico's Forgotten Pogrom",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "revolution",
+      "racism",
+      "dark-history",
+      "torreon",
+      "china"
+    ],
+    "years": "1911",
+    "momentCount": 1,
+    "existingRelated": [
+      "pancho-villa-raid"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "carlos-diaz-ufo",
+    "name": "The Carlos Diaz Light Ships",
+    "nickname": "The Ajusco Abduction",
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "ufo",
+      "abduction",
+      "mexico-city",
+      "volcano",
+      "aliens"
+    ],
+    "years": "1981–present",
+    "momentCount": 2,
+    "existingRelated": [
+      "1991-eclipse-ufo"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "guanajuato-mummies",
+    "name": "The Mummies of Guanajuato",
+    "nickname": "The Accidental Immortals",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "mummies",
+      "guanajuato",
+      "death",
+      "science",
+      "history"
+    ],
+    "years": "1865–1950",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "colosio-assassination",
+    "name": "The Assassination of Luis Donaldo Colosio",
+    "nickname": "Mexico's JFK",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "assassination",
+      "politics",
+      "tijuana",
+      "conspiracy",
+      "pri"
+    ],
+    "years": "1994",
+    "momentCount": 1,
+    "existingRelated": [
+      "subcomandante-marcos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "cobalt-60-accident",
+    "name": "The Radioactive Rebar Crisis",
+    "nickname": "Mexico's Chernobyl",
+    "category": "dark-history",
+    "storyType": "place",
+    "tags": [
+      "radiation",
+      "disaster",
+      "juarez",
+      "cold-war",
+      "crime"
+    ],
+    "years": "1983–1984",
+    "momentCount": 3,
+    "existingRelated": [
+      "los-alamos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "teotihuacan-mercury-lake",
+    "name": "The Mercury Underworld of Teotihuacán",
+    "nickname": "The Tlalocan Tunnel",
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "archaeology",
+      "teotihuacan",
+      "mercury",
+      "mystery",
+      "underworld"
+    ],
+    "years": "~250 BC",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "atizapan-cannibal",
+    "name": "The Cannibal of Atizapán",
+    "nickname": "The Butcher of Women",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "crime",
+      "serial-killer",
+      "atizapan",
+      "dark-history"
+    ],
+    "years": "1990–2021",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "cavendish-huatulco-siege",
+    "name": "The Desecration of Huatulco",
+    "nickname": "The Pirate vs. The Cross",
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "huatulco",
+      "pirates",
+      "oaxaca",
+      "colonial",
+      "miracle"
+    ],
+    "years": "1587",
+    "momentCount": 2,
+    "existingRelated": [
+      "white-stranger-huatulco"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "tlatelolco-massacre-1968",
+    "name": "The Night of Tlatelolco",
+    "nickname": "The Flare of Death",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "massacre",
+      "mexico-city",
+      "1968",
+      "protest",
+      "military"
+    ],
+    "years": "1968",
+    "momentCount": 3,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "servant-girl-annihilator",
+    "name": "The Servant Girl Annihilator",
+    "nickname": "Austin's Jack the Ripper",
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "serial-killer",
+      "mystery",
+      "1880s",
+      "crime"
+    ],
+    "years": "1884–1885",
+    "momentCount": 6,
+    "existingRelated": [
+      "treaty-oak-poisoning",
+      "dazed-and-confused-austin",
+      "o-henry-life"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "archive-war-1842",
+    "name": "The Archive War of 1842",
+    "nickname": "Angelina's Cannon",
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "history",
+      "revolution",
+      "sam-houston",
+      "archives"
+    ],
+    "years": "1842",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "janis-joplin-austin",
+    "name": "Janis Joplin's Austin Years",
+    "nickname": "The Ugliest Man on Campus",
+    "category": "arts-culture",
+    "storyType": "biography",
+    "tags": [
+      "austin",
+      "music",
+      "janis-joplin",
+      "ut-austin",
+      "history"
+    ],
+    "years": "1962–1963",
+    "momentCount": 3,
+    "existingRelated": [
+      "armadillo-world-hq"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "armadillo-world-hq",
+    "name": "Armadillo World Headquarters",
+    "nickname": "The Cosmic Cowboy Birthplace",
+    "category": "arts-culture",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "music",
+      "willie-nelson",
+      "armadillo",
+      "counter-culture"
+    ],
+    "years": "1970–1980",
+    "momentCount": 4,
+    "existingRelated": [
+      "janis-joplin-austin",
+      "willie-nelson-austin",
+      "broken-spoke-austin"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "treaty-oak-poisoning",
+    "name": "The Poisoning of Treaty Oak",
+    "nickname": "The Execution of a Tree",
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "nature",
+      "crime",
+      "mystery",
+      "occult"
+    ],
+    "years": "1989",
+    "momentCount": 2,
+    "existingRelated": [
+      "servant-girl-annihilator"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "austin-1928-plan",
+    "name": "The 1928 Master Plan",
+    "nickname": "The Great Segregation",
+    "category": "political-drama",
+    "storyType": "era",
+    "tags": [
+      "austin",
+      "civil-rights",
+      "urban-planning",
+      "segregation",
+      "history"
+    ],
+    "years": "1928",
+    "momentCount": 3,
+    "existingRelated": [
+      "booker-t-washington-snub"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "booker-t-washington-snub",
+    "name": "The Booker T. Washington Snub",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "civil-rights",
+      "history",
+      "black-history"
+    ],
+    "years": "1911",
+    "momentCount": 2,
+    "existingRelated": [
+      "austin-1928-plan"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "1900-granite-dam-disaster",
+    "name": "The 1900 Great Granite Dam Disaster",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "disaster",
+      "flood",
+      "engineering",
+      "history"
+    ],
+    "years": "1900",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "o-henry-embezzlement",
+    "name": "The O. Henry Embezzlement Mystery",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "literature",
+      "o-henry",
+      "crime",
+      "history"
+    ],
+    "years": "1894–1898",
+    "momentCount": 6,
+    "existingRelated": [
+      "o-henry-life",
+      "scholz-garden-austin",
+      "servant-girl-annihilator"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "cathedral-of-junk",
+    "name": "The Cathedral of Junk",
+    "nickname": "The Golem of Austin",
+    "category": "arts-culture",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "art",
+      "weird-austin",
+      "architecture"
+    ],
+    "years": "1988–present",
+    "momentCount": 2,
+    "existingRelated": [
+      "treaty-oak-poisoning"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "michael-dell-startup",
+    "name": "Michael Dell's Startup Crisis",
+    "nickname": null,
+    "category": "discovery-science",
+    "storyType": "biography",
+    "tags": [
+      "austin",
+      "technology",
+      "dell",
+      "ut-austin",
+      "entrepreneur"
+    ],
+    "years": "1984",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "ut-tower-shooting",
+    "name": "The UT Tower Shooting",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "crime",
+      "ut-austin",
+      "military",
+      "history"
+    ],
+    "years": "1966",
+    "momentCount": 2,
+    "existingRelated": [
+      "servant-girl-annihilator"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "stevie-ray-vaughan",
+    "name": "Stevie Ray Vaughan",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "biography",
+    "tags": [
+      "austin",
+      "music",
+      "blues",
+      "srv",
+      "history"
+    ],
+    "years": "1975–1990",
+    "momentCount": 2,
+    "existingRelated": [
+      "armadillo-world-hq"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "congress-avenue-bats",
+    "name": "The Congress Avenue Bats",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "nature",
+      "bats",
+      "conservation",
+      "history"
+    ],
+    "years": "1980–present",
+    "momentCount": 3,
+    "existingRelated": [
+      "barton-springs-sos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "barton-springs-sos",
+    "name": "The Barton Springs Development Fights",
+    "nickname": "The Soul of Austin",
+    "category": "political-drama",
+    "storyType": "era",
+    "tags": [
+      "austin",
+      "environment",
+      "protest",
+      "barton-springs"
+    ],
+    "years": "1990",
+    "momentCount": 2,
+    "existingRelated": [
+      "congress-avenue-bats"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "lbj-lady-bird-austin",
+    "name": "LBJ and Lady Bird's Austin",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "biography",
+    "tags": [
+      "austin",
+      "politics",
+      "lbj",
+      "lady-bird",
+      "history"
+    ],
+    "years": "1934–1970",
+    "momentCount": 2,
+    "existingRelated": [
+      "driskill-hotel"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "driskill-hotel",
+    "name": "The Driskill Hotel",
+    "nickname": "Austin's Haunted Grand Dame",
+    "category": "mystery-unexplained",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "paranormal",
+      "haunted",
+      "hotel",
+      "history"
+    ],
+    "years": "1886–present",
+    "momentCount": 2,
+    "existingRelated": [
+      "lbj-lady-bird-austin"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "galveston-orphanage-stand",
+    "name": "The 1900 Storm Orphanage Stand",
+    "nickname": null,
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "galveston",
+      "disaster",
+      "hurricane",
+      "last-stand",
+      "history"
+    ],
+    "years": "1900",
+    "momentCount": 2,
+    "existingRelated": [
+      "galveston-free-state"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "enron-death-star",
+    "name": "The Enron \"Death Star\" Memos",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "houston",
+      "crime",
+      "scandal",
+      "enron",
+      "corporate"
+    ],
+    "years": "2000–2001",
+    "momentCount": 2,
+    "existingRelated": [
+      "apollo-13-houston"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "apollo-13-houston",
+    "name": "\"Houston, We Have a Problem\"",
+    "nickname": null,
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "houston",
+      "space",
+      "nasa",
+      "science",
+      "history"
+    ],
+    "years": "1970",
+    "momentCount": 2,
+    "existingRelated": [
+      "enron-death-star"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "galveston-free-state",
+    "name": "The Galveston \"Free State\" Era",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "era",
+    "tags": [
+      "galveston",
+      "crime",
+      "mafia",
+      "history",
+      "prohibition"
+    ],
+    "years": "1920–1957",
+    "momentCount": 2,
+    "existingRelated": [
+      "galveston-orphanage-stand"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "texas-city-disaster",
+    "name": "The Texas City Disaster",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "texas-city",
+      "disaster",
+      "industrial",
+      "history",
+      "explosion"
+    ],
+    "years": "1947",
+    "momentCount": 2,
+    "existingRelated": [
+      "galveston-orphanage-stand"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "marfa-lights",
+    "name": "The Marfa Lights",
+    "nickname": null,
+    "category": "mystery-unexplained",
+    "storyType": "place",
+    "tags": [
+      "marfa",
+      "ufo",
+      "paranormal",
+      "mystery",
+      "desert"
+    ],
+    "years": "1883–present",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "lajitas-goat-mayor",
+    "name": "The Goat Mayor of Lajitas",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "incident",
+    "tags": [
+      "big-bend",
+      "weird-texas",
+      "humor",
+      "politics",
+      "animals"
+    ],
+    "years": "1986–present",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "spindletop-gusher",
+    "name": "The Spindletop Gusher",
+    "nickname": null,
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "beaumont",
+      "east-texas",
+      "oil",
+      "science",
+      "history"
+    ],
+    "years": "1901",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "san-elizario-salt-war",
+    "name": "The Salt War of San Elizario",
+    "nickname": null,
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "el-paso",
+      "border",
+      "war",
+      "history",
+      "revolt"
+    ],
+    "years": "1877",
+    "momentCount": 2,
+    "existingRelated": [
+      "chamizal-border-shift"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "chamizal-border-shift",
+    "name": "The Chamizal Border Shift",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "el-paso",
+      "border",
+      "politics",
+      "diplomacy",
+      "history"
+    ],
+    "years": "1864–1963",
+    "momentCount": 2,
+    "existingRelated": [
+      "san-elizario-salt-war"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "laredo-smuggling-tunnels",
+    "name": "The Laredo Smuggling Tunnels",
+    "nickname": null,
+    "category": "mystery-unexplained",
+    "storyType": "incident",
+    "tags": [
+      "laredo",
+      "border",
+      "mystery",
+      "smuggling",
+      "revolution"
+    ],
+    "years": "1910–present",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "cadillac-ranch-amarillo",
+    "name": "Cadillac Ranch",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "amarillo",
+      "art",
+      "route-66",
+      "weird-texas",
+      "history"
+    ],
+    "years": "1974–present",
+    "momentCount": 3,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "palo-duro-final-stand",
+    "name": "The Palo Duro Canyon Final Stand",
+    "nickname": null,
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "canyon",
+      "war",
+      "comanche",
+      "history",
+      "last-stand"
+    ],
+    "years": "1874",
+    "momentCount": 2,
+    "existingRelated": [
+      "new-braunfels-adelsverein"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "waco-horror-lynching",
+    "name": "The Waco Horror",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "incident",
+    "tags": [
+      "waco",
+      "civil-rights",
+      "crime",
+      "history",
+      "dark-history"
+    ],
+    "years": "1916",
+    "momentCount": 2,
+    "existingRelated": [
+      "waco-siege"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "wonder-world-cave",
+    "name": "The San Marcos Wonder World Cave",
+    "nickname": null,
+    "category": "discovery-science",
+    "storyType": "incident",
+    "tags": [
+      "san-marcos",
+      "science",
+      "geology",
+      "nature",
+      "discovery"
+    ],
+    "years": "1893–present",
+    "momentCount": 1,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "new-braunfels-adelsverein",
+    "name": "The New Braunfels Adelsverein Migration",
+    "nickname": null,
+    "category": "last-stands",
+    "storyType": "incident",
+    "tags": [
+      "new-braunfels",
+      "history",
+      "migration",
+      "germany",
+      "last-stand"
+    ],
+    "years": "1845",
+    "momentCount": 3,
+    "existingRelated": [
+      "palo-duro-final-stand"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "menger-hotel-rough-riders",
+    "name": "The Menger Hotel & Rough Riders",
+    "nickname": null,
+    "category": "mystery-unexplained",
+    "storyType": "place",
+    "tags": [
+      "san-antonio",
+      "history",
+      "military",
+      "paranormal",
+      "haunted"
+    ],
+    "years": "1898",
+    "momentCount": 3,
+    "existingRelated": [
+      "battle-of-the-alamo"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "milam-park-chile-queens",
+    "name": "The Chile Queens of Milam Park",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "place",
+    "tags": [
+      "san-antonio",
+      "food",
+      "culture",
+      "history",
+      "women"
+    ],
+    "years": "1860–1930",
+    "momentCount": 2,
+    "existingRelated": [],
+    "needsRelated": true
+  },
+  {
+    "id": "dallas-fire-1860",
+    "name": "The 1860 Dallas Fire Conspiracy",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "dallas",
+      "civil-war",
+      "crime",
+      "history",
+      "conspiracy"
+    ],
+    "years": "1860",
+    "momentCount": 2,
+    "existingRelated": [
+      "clyde-barrow-grave"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "clyde-barrow-grave",
+    "name": "The Grave of Clyde Barrow",
+    "nickname": null,
+    "category": "dark-history",
+    "storyType": "place",
+    "tags": [
+      "dallas",
+      "crime",
+      "outlaw",
+      "history",
+      "death"
+    ],
+    "years": "1934",
+    "momentCount": 1,
+    "existingRelated": [
+      "bonnie-and-clyde",
+      "dallas-fire-1860"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "willie-nelson-austin",
+    "name": "Willie Nelson's Austin",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "music",
+      "country",
+      "outlaw-country",
+      "cosmic-cowboy",
+      "texas"
+    ],
+    "years": "1972–present",
+    "momentCount": 5,
+    "existingRelated": [
+      "armadillo-world-hq",
+      "janis-joplin-austin",
+      "broken-spoke-austin"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "victory-grill-chitlin",
+    "name": "The Victory Grill & Austin's Chitlin' Circuit",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "music",
+      "civil-rights",
+      "african-american",
+      "blues",
+      "segregation"
+    ],
+    "years": "1945–present",
+    "momentCount": 3,
+    "existingRelated": [
+      "stevie-ray-vaughan",
+      "armadillo-world-hq",
+      "austin-1928-plan"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "broken-spoke-austin",
+    "name": "The Broken Spoke",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "music",
+      "country",
+      "honky-tonk",
+      "preservation",
+      "texas"
+    ],
+    "years": "1964–present",
+    "momentCount": 3,
+    "existingRelated": [
+      "armadillo-world-hq",
+      "willie-nelson-austin"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "paramount-theatre-austin",
+    "name": "The Paramount Theatre",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "theater",
+      "film",
+      "preservation",
+      "vaudeville",
+      "architecture"
+    ],
+    "years": "1915–present",
+    "momentCount": 3,
+    "existingRelated": [
+      "dazed-and-confused-austin",
+      "cathedral-of-junk"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "scholz-garden-austin",
+    "name": "Scholz Garden — Austin's Oldest Bar",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "beer",
+      "german-heritage",
+      "politics",
+      "preservation",
+      "texas"
+    ],
+    "years": "1866–present",
+    "momentCount": 4,
+    "existingRelated": [
+      "o-henry-embezzlement",
+      "lbj-lady-bird-austin"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "texas-state-cemetery",
+    "name": "Texas State Cemetery — The Arlington of Texas",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "texas",
+      "cemetery",
+      "republic-of-texas",
+      "civil-rights",
+      "governors"
+    ],
+    "years": "1851–present",
+    "momentCount": 8,
+    "existingRelated": [
+      "battle-of-the-alamo",
+      "lbj-lady-bird-austin",
+      "booker-t-washington-snub"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "mount-bonnell-austin",
+    "name": "Mt. Bonnell",
+    "nickname": null,
+    "category": "everyday-extraordinary",
+    "storyType": "place",
+    "tags": [
+      "austin",
+      "nature",
+      "landmark",
+      "geology",
+      "romance",
+      "texas"
+    ],
+    "years": "1840–present",
+    "momentCount": 3,
+    "existingRelated": [
+      "lbj-lady-bird-austin",
+      "treaty-oak-poisoning",
+      "barton-springs-sos"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "dazed-and-confused-austin",
+    "name": "Dazed and Confused — Austin on Film",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "incident",
+    "tags": [
+      "austin",
+      "film",
+      "1970s",
+      "coming-of-age",
+      "linklater",
+      "mcconaughey"
+    ],
+    "years": "1993",
+    "momentCount": 3,
+    "existingRelated": [
+      "servant-girl-annihilator",
+      "paramount-theatre-austin"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "booker-t-washington-life",
+    "name": "Booker T. Washington — From Slavery to the White House",
+    "nickname": null,
+    "category": "political-drama",
+    "storyType": "incident",
+    "tags": [
+      "civil-rights",
+      "education",
+      "slavery",
+      "reconstruction",
+      "texas",
+      "virginia",
+      "alabama"
+    ],
+    "years": "1856–1915",
+    "momentCount": 5,
+    "existingRelated": [
+      "booker-t-washington-snub",
+      "austin-1928-plan"
+    ],
+    "needsRelated": false
+  },
+  {
+    "id": "o-henry-life",
+    "name": "O. Henry — Life & Legacy",
+    "nickname": null,
+    "category": "arts-culture",
+    "storyType": "biography",
+    "tags": [
+      "literature",
+      "austin",
+      "crime",
+      "prison",
+      "texas",
+      "new-york",
+      "fugitive"
+    ],
+    "years": "1862–1910",
+    "momentCount": 17,
+    "existingRelated": [
+      "o-henry-embezzlement",
+      "servant-girl-annihilator",
+      "scholz-garden-austin",
+      "driskill-hotel"
+    ],
+    "needsRelated": false
+  }
+]

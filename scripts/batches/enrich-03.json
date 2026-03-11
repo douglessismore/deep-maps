@@ -1,0 +1,422 @@
+[
+  {
+    "id": "lrn-bates-house",
+    "name": "Daisy Bates House",
+    "subtitle": "The command center for the Little Rock integration battle",
+    "description": "This home served as the strategy center and sanctuary for the nine students. Daisy Bates, head of the state NAACP, used the house to prepare the students for the daily abuse they faced, making it a target for numerous threats.",
+    "year": 1957,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "little-rock-nine",
+        "name": "The Little Rock Nine"
+      }
+    ]
+  },
+  {
+    "id": "lrn-capitol-standoff",
+    "name": "Arkansas State Capitol",
+    "subtitle": "Where a Governor defied the Supreme Court and triggered a crisis",
+    "description": "From these halls, Governor Orval Faubus issued the orders that initially blocked the integration of Central High. His defiance forced the first use of federal troops to enforce civil rights in the South since Reconstruction.",
+    "year": 1957,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "little-rock-nine",
+        "name": "The Little Rock Nine"
+      }
+    ]
+  },
+  {
+    "id": "lin-birthplace",
+    "name": "Sinking Spring Farm",
+    "subtitle": "Where the Great Emancipator was born in a one-room log cabin",
+    "description": "On February 12, 1809, Lincoln was born here in a 16-by-18-foot cabin on the Kentucky frontier. The symbolic birthplace cabin is now housed inside a massive neoclassical memorial building, representing the humble origins of America's most transformative leader.",
+    "year": 1809,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "lincoln-life",
+        "name": "Abraham Lincoln (Honest Abe)"
+      }
+    ]
+  },
+  {
+    "id": "lin-new-salem",
+    "name": "Lincoln's New Salem",
+    "subtitle": "Where a young Honest Abe failed as a storekeeper and found his voice",
+    "description": "Lincoln lived in this pioneer village for six years, working as a rail-splitter, store clerk, and postmaster. It was here that he began studying law by candlelight and made his first unsuccessful run for the Illinois General Assembly.",
+    "year": 1831,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "lincoln-life",
+        "name": "Abraham Lincoln (Honest Abe)"
+      }
+    ]
+  },
+  {
+    "id": "lin-state-capitol",
+    "name": "Old State Capitol",
+    "subtitle": "Where the House Divided speech set the stage for the Civil War",
+    "description": "In 1858, Lincoln stood in the Hall of Representatives here and delivered his famous warning: 'A house divided against itself cannot stand.' The speech during his senatorial campaign against Stephen Douglas catapulted him into the national spotlight.",
+    "year": 1858,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "lincoln-life",
+        "name": "Abraham Lincoln (Honest Abe)"
+      }
+    ]
+  },
+  {
+    "id": "jfk-birthplace",
+    "name": "JFK Birthplace National Historic Site",
+    "subtitle": "Where the Kennedy dynasty began in a modest Brookline home",
+    "description": "Born in an upstairs bedroom on May 29, 1917, Jack was the second of nine children. His mother, Rose Kennedy, later repurchased the home and restored it to its 1917 appearance.",
+    "year": 1917,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "jfk-life",
+        "name": "John F. Kennedy (The Architect of Camelot)"
+      }
+    ]
+  },
+  {
+    "id": "jfk-choate",
+    "name": "The Choate School",
+    "subtitle": "Where a rebellious teenager struggled with health and grades",
+    "description": "Long before Harvard, JFK was a student at this prestigious boarding school. Despite chronic health issues and a reputation for mischief — he once exploded a toilet with a firecracker — he began to develop the oratorical skills that would define his career.",
+    "year": 1931,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "jfk-life",
+        "name": "John F. Kennedy (The Architect of Camelot)"
+      }
+    ]
+  },
+  {
+    "id": "jfk-hammersmith",
+    "name": "Hammersmith Farm",
+    "subtitle": "Where the Unfinished Presidency found its Summer White House",
+    "description": "The childhood home of Jackie Bouvier and the site of the Kennedy-Bouvier wedding reception in 1953. During his presidency, it served as a coastal retreat where JFK conducted high-level meetings, overlooking the Narragansett Bay.",
+    "year": 1953,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "jfk-life",
+        "name": "John F. Kennedy (The Architect of Camelot)"
+      }
+    ]
+  },
+  {
+    "id": "mlk-birth-home",
+    "name": "MLK Birth Home",
+    "subtitle": "Where the son of a preacher was raised in the heart of Auburn Avenue",
+    "description": "Born in the upstairs master bedroom, MLK lived here until he was 12. The home sat in 'Sweet Auburn,' one of the most prosperous Black neighborhoods in America at the time. It was here that he first experienced the contrast between the warmth of his community and the sting of segregation.",
+    "year": 1929,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "mlk-life",
+        "name": "Martin Luther King Jr. (The Dreamer)"
+      }
+    ]
+  },
+  {
+    "id": "mlk-morehouse",
+    "name": "Morehouse College (Graves Hall)",
+    "subtitle": "Where a 15-year-old prodigy found his intellectual calling",
+    "description": "King entered Morehouse as a gifted student during WWII. Under the mentorship of Dr. Benjamin Mays, he decided to join the ministry not just as a religious path, but as a vehicle for social change.",
+    "year": 1944,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "mlk-life",
+        "name": "Martin Luther King Jr. (The Dreamer)"
+      }
+    ]
+  },
+  {
+    "id": "mlk-dexter-church",
+    "name": "Dexter Avenue King Memorial Baptist Church",
+    "subtitle": "Where the Montgomery Bus Boycott was first organized",
+    "description": "King's first pastorate began here in 1954. It was in the basement of this church, located just steps from the Alabama State Capitol, that the strategy for the Montgomery Bus Boycott was born following Rosa Parks' arrest, launching King onto the international stage.",
+    "year": 1954,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "mlk-life",
+        "name": "Martin Luther King Jr. (The Dreamer)"
+      }
+    ]
+  },
+  {
+    "id": "rp-arrest-site",
+    "name": "The Empire Theatre Bus Stop",
+    "subtitle": "Where a refusal to move changed the direction of America",
+    "description": "On December 1, 1955, at this street corner, Parks refused a bus driver's order to give up her seat to a white passenger. Her arrest triggered the 381-day Montgomery Bus Boycott, proving that non-violent collective action could dismantle the legal architecture of segregation.",
+    "year": 1955,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "rosa-parks",
+        "name": "Rosa Parks (Mother of the Civil Rights Movement)"
+      }
+    ]
+  },
+  {
+    "id": "rp-dexter-church",
+    "name": "Dexter Avenue Baptist Church",
+    "subtitle": "The spiritual and strategic nerve center of the boycott",
+    "description": "Following her arrest, Parks and other activists gathered here to organize the initial protest. It was in this church that she stood alongside a young Dr. Martin Luther King Jr., beginning a partnership that would elevate the struggle for civil rights to a global stage.",
+    "year": 1955,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "rosa-parks",
+        "name": "Rosa Parks (Mother of the Civil Rights Movement)"
+      }
+    ]
+  },
+  {
+    "id": "rp-detroit-home",
+    "name": "The Rosa Parks House (Detroit)",
+    "subtitle": "The sanctuary for a hero in the North",
+    "description": "After death threats forced her out of Alabama, Parks moved to this Detroit home. She spent her final years here, continuing her activism and serving as a living bridge between the Jim Crow South and the urban struggles of the North.",
+    "year": 1961,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "rosa-parks",
+        "name": "Rosa Parks (Mother of the Civil Rights Movement)"
+      }
+    ]
+  },
+  {
+    "id": "wb-bicycle-shop",
+    "name": "Wright Cycle Company",
+    "subtitle": "Where the world's first aircraft was built by hand",
+    "description": "Long before they reached the clouds, Orville and Wilbur were repairing bicycles here. Using the profits from their shop and the mechanical principles of chain drives and balance, they designed and built the Wright Flyer in this modest brick building.",
+    "year": 1892,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "wright-brothers",
+        "name": "The Wright Brothers (The Fathers of Modern Aviation)"
+      }
+    ]
+  },
+  {
+    "id": "wb-kitty-hawk",
+    "name": "Kill Devil Hills",
+    "subtitle": "Where 12 seconds of flight changed human history",
+    "description": "On December 17, 1903, the Wright Flyer lifted off from these sand dunes for exactly 12 seconds. It was the first controlled, powered flight of a heavier-than-air machine. A massive granite monument now towers over the dunes, marking the exact spots of the four successful flights that morning.",
+    "year": 1903,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "wright-brothers",
+        "name": "The Wright Brothers (The Fathers of Modern Aviation)"
+      }
+    ]
+  },
+  {
+    "id": "wb-huffman-prairie",
+    "name": "Huffman Prairie Flying Field",
+    "subtitle": "The world's first airfield where flight was perfected",
+    "description": "After the success at Kitty Hawk, the brothers moved their testing here to a cow pasture near Dayton. It was at this site that they mastered turns, circles, and sustained flight, often unnoticed by the neighbors who lived just down the road.",
+    "year": 1904,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "wright-brothers",
+        "name": "The Wright Brothers (The Fathers of Modern Aviation)"
+      }
+    ]
+  },
+  {
+    "id": "htb-bucktown-store",
+    "name": "Bucktown Village Store",
+    "subtitle": "Where a defiant teenager received a blow that changed her vision",
+    "description": "At this store in rural Maryland, a young Harriet refused to help an overseer restrain a runaway slave. The overseer threw a heavy metal weight that struck Harriet in the head, causing lifelong seizures and vivid spiritual visions that she believed were messages from God guiding her to lead others to freedom.",
+    "year": 1835,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "harriet-tubman",
+        "name": "Harriet Tubman (Moses)"
+      }
+    ]
+  },
+  {
+    "id": "htb-combahee-river",
+    "name": "Combahee River Ferry Site",
+    "subtitle": "Where a general without a uniform led the largest slave rescue in history",
+    "description": "In June 1863, Tubman led three Union gunboats up this river, using her knowledge of the local landscape to avoid mines. They rescued over 700 enslaved people in a single night. It was the first time in American history that a woman planned and led a major military operation.",
+    "year": 1863,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "harriet-tubman",
+        "name": "Harriet Tubman (Moses)"
+      }
+    ]
+  },
+  {
+    "id": "htb-auburn-home",
+    "name": "The Harriet Tubman Home",
+    "subtitle": "The sanctuary where Moses finally rested and continued the work",
+    "description": "Purchased from William Seward, this home in New York became Tubman's base of operations for the final 50 years of her life. She turned it into a home for the aged and indigent, living out her final days as a celebrated figure of the suffrage and civil rights movements.",
+    "year": 1859,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "harriet-tubman",
+        "name": "Harriet Tubman (Moses)"
+      }
+    ]
+  },
+  {
+    "id": "mx-birthplace",
+    "name": "Malcolm X Birthsite",
+    "subtitle": "Where the son of a preacher began a life in the crosshairs of the Klan",
+    "description": "Born Malcolm Little, he spent his earliest days in this Omaha house. Before he was even born, the Ku Klux Klan surrounded the home, smashing windows and threatening his father. The house was later demolished, but a large stone monument marks the birthsite.",
+    "year": 1925,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "malcolm-x",
+        "name": "Malcolm X (El-Hajj Malik El-Shabazz)"
+      }
+    ]
+  },
+  {
+    "id": "mx-audubon",
+    "name": "The Audubon Ballroom",
+    "subtitle": "Where the voice of a revolution was silenced in front of his family",
+    "description": "On February 21, 1965, Malcolm X was preparing to address the Organization of Afro-American Unity. As he began to speak, three gunmen rushed the stage and fired 21 times. The building has since been partially preserved as a memorial and research center in Washington Heights.",
+    "year": 1965,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "malcolm-x",
+        "name": "Malcolm X (El-Hajj Malik El-Shabazz)"
+      }
+    ]
+  },
+  {
+    "id": "ae-harbour-grace",
+    "name": "Harbour Grace Airstrip",
+    "subtitle": "Where the first woman to solo the Atlantic took to the sky",
+    "description": "On May 20, 1932, Earhart took off from this grassy strip in Newfoundland. Fourteen hours later, she landed in a cow pasture in Northern Ireland, becoming the first woman to fly solo across the Atlantic.",
+    "year": 1932,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "amelia-earhart",
+        "name": "Amelia Earhart (Lady Lindy)"
+      }
+    ]
+  },
+  {
+    "id": "ae-lae-airfield",
+    "name": "Lae Airfield",
+    "subtitle": "The final runway for a global icon of the clouds",
+    "description": "On July 2, 1937, Earhart and her navigator Fred Noonan took off from this coastal strip in Papua New Guinea for the most dangerous leg of their journey — a 2,556-mile flight to Howland Island. They were never seen again.",
+    "year": 1937,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "amelia-earhart",
+        "name": "Amelia Earhart (Lady Lindy)"
+      }
+    ]
+  },
+  {
+    "id": "ae-howland-island",
+    "name": "Howland Island",
+    "subtitle": "The tiny speck in the Pacific that was never found",
+    "description": "This was the intended refueling stop where the U.S. Coast Guard cutter Itasca waited in vain. Earhart's final radio transmissions indicated she was flying on a line nearby but could not find the island. Today, the island is an uninhabited National Wildlife Refuge, home only to the Earhart Light daybeacon.",
+    "year": 1937,
+    "type": "natural_feature",
+    "parentStories": [
+      {
+        "id": "amelia-earhart",
+        "name": "Amelia Earhart (Lady Lindy)"
+      }
+    ]
+  },
+  {
+    "id": "twa-smith-point",
+    "name": "TWA Flight 800 International Memorial",
+    "subtitle": "Where the names of 230 souls face the ocean that claimed them",
+    "description": "Located at Smith Point County Park, this granite memorial is positioned to look out toward the exact spot in the Atlantic where the plane exploded. The names are carved into a curved wall that follows the trajectory of the flight.",
+    "year": 1996,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "twa-flight-800",
+        "name": "TWA Flight 800"
+      }
+    ]
+  },
+  {
+    "id": "twa-impact-zone",
+    "name": "The Atlantic Impact Zone",
+    "subtitle": "Where the wreckage was fished from the seabed over months",
+    "description": "Approximately 8 miles south of East Moriches, the wreckage was recovered from the ocean floor. Divers spent months in an underwater scrapyard, retrieving over 95% of the aircraft. The reconstruction of the fuselage in a Long Island hangar remains one of the most haunting engineering projects ever undertaken.",
+    "year": 1996,
+    "type": "natural_feature",
+    "parentStories": [
+      {
+        "id": "twa-flight-800",
+        "name": "TWA Flight 800"
+      }
+    ]
+  },
+  {
+    "id": "twa-calverton",
+    "name": "Calverton Hangar (Reconstruction Site)",
+    "subtitle": "Where the ghost of a 747 was rebuilt piece by piece",
+    "description": "In a massive hangar at the former Grumman facility, investigators spent years painstakingly wiring together the recovered fragments. This 3D jigsaw puzzle proved that a short circuit in a fuel tank, not a missile, caused the explosion.",
+    "year": 1996,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "twa-flight-800",
+        "name": "TWA Flight 800"
+      }
+    ]
+  },
+  {
+    "id": "vj-memorial",
+    "name": "ValuJet 592 Memorial",
+    "subtitle": "110 concrete pillars standing in the silence of the sawgrass",
+    "description": "Located alongside the Tamiami Trail, this memorial consists of 110 stone pillars pointing toward the crash site deep in the swamp. The crash was so violent that the DC-9 effectively disintegrated into the mud, making it one of the most difficult recovery operations in FBI and NTSB history.",
+    "year": 1996,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "valujet-592",
+        "name": "ValuJet Flight 592"
+      }
+    ]
+  },
+  {
+    "id": "vj-crash-site",
+    "name": "Everglades Impact Point",
+    "subtitle": "Where the swamp swallowed an entire aircraft in seconds",
+    "description": "Approximately 11 miles north of the Tamiami Trail, the aircraft dived into the muck at a near-vertical angle. The fuel-fed fire was so intense that it left a massive crater in the limestone bedrock beneath the mud. The area is a restricted zone today.",
+    "year": 1996,
+    "type": "natural_feature",
+    "parentStories": [
+      {
+        "id": "valujet-592",
+        "name": "ValuJet Flight 592"
+      }
+    ]
+  }
+]

@@ -1,0 +1,422 @@
+[
+  {
+    "id": "vj-sabretech",
+    "name": "Former SabreTech Hangar",
+    "subtitle": "Where the fatal mistake was packaged and loaded",
+    "description": "This facility at Miami International Airport was where the expired chemical oxygen generators were improperly handled and labeled. The decision to ship them without safety caps turned the cargo hold of Flight 592 into a ticking time bomb, leading to the criminal indictment of the maintenance company.",
+    "year": 1996,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "valujet-592",
+        "name": "ValuJet Flight 592"
+      }
+    ]
+  },
+  {
+    "id": "f93-impact",
+    "name": "The Impact Site (Sacred Ground)",
+    "subtitle": "Where the Let's Roll counter-attack ended in a field",
+    "description": "The plane struck the ground at over 500 mph near an abandoned coal strip mine. Today, a massive sandstone boulder marks the impact point, restricted to family members only. From the visitor center above, you can see the Wall of Names — 40 white marble panels aligned with the flight path.",
+    "year": 2001,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "flight-93",
+        "name": "United Flight 93"
+      }
+    ]
+  },
+  {
+    "id": "f93-tower",
+    "name": "Tower of Voices",
+    "subtitle": "A 93-foot instrument of wind and memory",
+    "description": "This towering structure at the entrance of the memorial contains 40 wind chimes, each tuned to a unique pitch to represent the distinct voices of the passengers and crew. It serves as a living, sonic monument to the phone calls made from the back of the plane.",
+    "year": 2018,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "flight-93",
+        "name": "United Flight 93"
+      }
+    ]
+  },
+  {
+    "id": "f93-newark",
+    "name": "Newark Liberty Gate A17",
+    "subtitle": "The ordinary gate where the final 9/11 mission began",
+    "description": "At 8:42 AM, Flight 93 departed from this gate, 42 minutes behind schedule. This delay was the single most important variable of the day — it allowed the passengers to learn about the World Trade Center attacks via airphone, giving them the knowledge they needed to storm the cockpit.",
+    "year": 2001,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "flight-93",
+        "name": "United Flight 93"
+      }
+    ]
+  },
+  {
+    "id": "guerrero-acapulco-lure",
+    "name": "Lured aboard the Colombo",
+    "subtitle": "A \"friend\" invites the President for lunch in the bay",
+    "description": "On January 15, 1831, General Vicente Guerrero accepts a lunch invitation from Francisco Picaluga, an Italian merchant captain. They meet in the port of Acapulco where the ship is anchored. As soon as Guerrero steps onto the deck, Picaluga's men overpower him and weigh anchor, sailing south while the President's allies watch helplessly from the shore.",
+    "year": 1831,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "vicente-guerrero-betrayal",
+        "name": "The Betrayal of Vicente Guerrero (The Sale of a President)"
+      }
+    ]
+  },
+  {
+    "id": "guerrero-la-entrega",
+    "name": "Delivered to the sands",
+    "subtitle": "The President is sold for cash on a remote beach",
+    "description": "The ship Colombo pulls into a quiet bay in Huatulco. Picaluga hands the bound President over to government troops in exchange for 50,000 gold pesos. The beach is immediately renamed \"La Entrega\" (The Delivery) to mark the transaction. It remains one of the few places on Earth named after a human trafficking event involving a head of state.",
+    "year": 1831,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "vicente-guerrero-betrayal",
+        "name": "The Betrayal of Vicente Guerrero (The Sale of a President)"
+      }
+    ]
+  },
+  {
+    "id": "guerrero-cuilapan-execution",
+    "name": "Executed on the monastery floor",
+    "subtitle": "The final shots that ended an era of independence",
+    "description": "After a brief sham trial, Guerrero is taken to the monastery of Cuilapan. On February 14, 1831, he is forced to kneel in the courtyard and is executed by a firing squad. Today, a monument stands on the exact spot where he fell, marking the end of the man who officially abolished slavery in Mexico.",
+    "year": 1831,
+    "type": "burial",
+    "parentStories": [
+      {
+        "id": "vicente-guerrero-betrayal",
+        "name": "The Betrayal of Vicente Guerrero (The Sale of a President)"
+      }
+    ]
+  },
+  {
+    "id": "sabina-first-velada",
+    "name": "Shared the sacred mushrooms",
+    "subtitle": "The first \"velada\" for a Western audience",
+    "description": "In June 1955, Maria Sabina welcomes R. Gordon Wasson, a VP at J.P. Morgan, into her home. She performs a ritual using Psilocybe mushrooms, allowing him to participate — the first time a Westerner is known to have taken part in the Mazatec ceremony. Wasson's later article in Life magazine would launch the psychedelic age.",
+    "year": 1955,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "maria-sabina",
+        "name": "Maria Sabina and the \"Holy Children\" (The Mushroom Mother)"
+      }
+    ]
+  },
+  {
+    "id": "sabina-home-arson",
+    "name": "Burned out of her home",
+    "subtitle": "The community turns on the woman who \"sold\" their secrets",
+    "description": "By the 1960s, Huautla is overrun by \"hippies\" and celebrities like John Lennon seeking a trip. Blaming her for the loss of tradition and the constant police presence, Maria Sabina's neighbors set fire to her house. She is forced to flee into the hills, eventually returning to live in a small hut until her death in 1985.",
+    "year": 1970,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "maria-sabina",
+        "name": "Maria Sabina and the \"Holy Children\" (The Mushroom Mother)"
+      }
+    ]
+  },
+  {
+    "id": "tomb-7-discovery",
+    "name": "Unsealed the stone slab",
+    "subtitle": "Alfonso Caso finds a king's ransom in the dust",
+    "description": "On January 9, 1932, Alfonso Caso enters Tomb 7 at Monte Albán. Inside, he finds more than 400 objects, including gold pectorals, turquoise masks, and carved jaguar bones. The sheer volume of precious metal is so high that he has to call in the military to guard the site from looters.",
+    "year": 1932,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "tomb-7-treasure",
+        "name": "The Great Tomb 7 Treasure (Mexico's King Tut)"
+      }
+    ]
+  },
+  {
+    "id": "tomb-7-museum",
+    "name": "Santo Domingo Museum",
+    "subtitle": "The permanent home of the Mixtec gold",
+    "description": "Due to the instability of the era, the treasure was moved under heavy guard. It is now the centerpiece of the Santo Domingo Museum. The collection includes the famous \"Pectoral of the Dead,\" a gold breastplate depicting the Lord of the Underworld.",
+    "year": 1932,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "tomb-7-treasure",
+        "name": "The Great Tomb 7 Treasure (Mexico's King Tut)"
+      }
+    ]
+  },
+  {
+    "id": "guiengola-fortress",
+    "name": "Fortified the mountain",
+    "subtitle": "King Cosijoeza builds a wall the Aztecs can't climb",
+    "description": "King Cosijoeza retreats to the limestone ridge of Guiengola as the Aztec army approaches. He constructs kilometers of stone walls and complex traps that utilize the natural cliffs. From this height, his warriors rain boulders and arrows on the exhausted Aztec vanguard below.",
+    "year": 1496,
+    "type": "military_site",
+    "parentStories": [
+      {
+        "id": "siege-of-guiengola",
+        "name": "The Siege of Guiengola (The Fortress in the Clouds)"
+      }
+    ]
+  },
+  {
+    "id": "guiengola-river-stalemate",
+    "name": "Starved the Aztec vanguard",
+    "subtitle": "The Zapotecs use the river as a weapon",
+    "description": "The Aztecs set up camp by the Tehuantepec River, but the Zapotecs poison peripheral water sources and launch night raids. After seven months of stalemate, Emperor Ahuizotl realizes he cannot take the mountain and offers his daughter in marriage to Cosijoeza to end the war.",
+    "year": 1496,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "siege-of-guiengola",
+        "name": "The Siege of Guiengola (The Fortress in the Clouds)"
+      }
+    ]
+  },
+  {
+    "id": "brad-will-shooting",
+    "name": "Filmed his own death",
+    "subtitle": "A camera captures the shots that shook the city",
+    "description": "On October 27, 2006, Indymedia reporter Brad Will is filming a barricade. As he records plainclothes paramilitaries firing at protesters, two bullets hit him in the chest. His camera continues to run as he falls, capturing the sounds of the struggle to save him.",
+    "year": 2006,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "brad-will-murder",
+        "name": "The Murder of Brad Will (The Last Footage)"
+      }
+    ]
+  },
+  {
+    "id": "brad-will-red-cross",
+    "name": "Cruz Roja Mexicana",
+    "subtitle": "The final attempt to save the filmmaker",
+    "description": "Protesters load Will into a Volkswagen van to rush him to the hospital. Despite navigating through chaos and barricades, he is pronounced dead upon arrival at the Red Cross clinic. His death triggers a massive international outcry.",
+    "year": 2006,
+    "type": "institution",
+    "parentStories": [
+      {
+        "id": "brad-will-murder",
+        "name": "The Murder of Brad Will (The Last Footage)"
+      }
+    ]
+  },
+  {
+    "id": "marcos-san-cristobal",
+    "name": "Seized the Municipal Palace",
+    "subtitle": "The Zapatistas declare war on the Mexican state",
+    "description": "On January 1, 1994, the EZLN occupies San Cristóbal de las Casas. From this balcony, a masked man known as \"Marcos\" reads the First Declaration of the Lacandon Jungle. The world is introduced to a new kind of postmodern rebellion.",
+    "year": 1994,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "subcomandante-marcos",
+        "name": "The Identity of Subcomandante Marcos (The Masked Professor)"
+      }
+    ]
+  },
+  {
+    "id": "marcos-unmasking",
+    "name": "Los Pinos Identity Reveal",
+    "subtitle": "The government reveals \"Rafael Sebastián Guillén Vicente\"",
+    "description": "In a televised press conference, President Ernesto Zedillo reveals that Marcos is a former philosophy professor. The government issues an arrest warrant and launches a military offensive. Marcos famously responds that he is every exploited minority.",
+    "year": 1995,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "subcomandante-marcos",
+        "name": "The Identity of Subcomandante Marcos (The Masked Professor)"
+      }
+    ]
+  },
+  {
+    "id": "pakal-temple-inscriptions",
+    "name": "Temple of Inscriptions",
+    "subtitle": "Alberto Ruz Lhuillier finds the secret staircase",
+    "description": "After four years of clearing rubble, Lhuillier reaches a chamber 80 feet below the pyramid floor. He finds the massive sarcophagus of Pakal. The find shatters the belief that Maya pyramids were only temples, not tombs.",
+    "year": 1952,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "pakals-tomb",
+        "name": "The Tomb of Pakal the Great (The Maya Astronaut)"
+      }
+    ]
+  },
+  {
+    "id": "pakal-museum-anthropology",
+    "name": "National Museum of Anthropology",
+    "subtitle": "Where the \"Astronaut\" lid is displayed",
+    "description": "The original 5-ton sarcophagus lid and the jade death mask of Pakal are housed in the Maya hall. Millions of visitors have stood before the carvings that fueled Erich von Däniken's Chariots of the Gods.",
+    "year": 1952,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "pakals-tomb",
+        "name": "The Tomb of Pakal the Great (The Maya Astronaut)"
+      }
+    ]
+  },
+  {
+    "id": "diaz-convent-escape",
+    "name": "Rappelled the stone walls",
+    "subtitle": "A prisoner of war vanishes into the night",
+    "description": "On September 20, 1865, Díaz is held by French forces in the Convent of San Felipe Neri. Using a smuggled rope, he climbs out of his cell and descends the sheer walls during a storm. He evades sentries and flees on horseback.",
+    "year": 1865,
+    "type": "military_site",
+    "parentStories": [
+      {
+        "id": "porfirio-diaz-escape",
+        "name": "The Escape of Porfirio Díaz (The Great Escape of 1865)"
+      }
+    ]
+  },
+  {
+    "id": "diaz-battle-miahuatlan",
+    "name": "Battle of Miahuatlán",
+    "subtitle": "Where the escape turned into a victory",
+    "description": "Following his escape, Díaz gathered a ragtag force and defeated the French and imperial troops here on October 3, 1866. This victory opened the road to Oaxaca and established his reputation as a military genius.",
+    "year": 1866,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "porfirio-diaz-escape",
+        "name": "The Escape of Porfirio Díaz (The Great Escape of 1865)"
+      }
+    ]
+  },
+  {
+    "id": "coyame-crash-site",
+    "name": "Collided over the desert",
+    "subtitle": "A Cessna meets an unidentified object at 7,500 feet",
+    "description": "On August 25, 1974, a plane vanishes from radar near Coyame. U.S. radar in El Paso confirms a collision with a high-speed object performing \"impossible\" maneuvers. Both objects fall into a remote stretch of the Chihuahua desert.",
+    "year": 1974,
+    "type": "crash_site",
+    "parentStories": [
+      {
+        "id": "coyame-ufo",
+        "name": "The Coyame UFO Crash (Mexico's Roswell)"
+      }
+    ]
+  },
+  {
+    "id": "coyame-toxic-convoy",
+    "name": "The Toxic Convoy",
+    "subtitle": "A \"recovery\" operation ends in silence",
+    "description": "The Mexican Army arrives first. According to alleged CIA reports, the team stopped communicating; U.S. surveillance later saw soldiers lying dead around their vehicles. A U.S. extraction team in hazmat suits allegedly air-lifted the disc back to the U.S.",
+    "year": 1974,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "coyame-ufo",
+        "name": "The Coyame UFO Crash (Mexico's Roswell)"
+      }
+    ]
+  },
+  {
+    "id": "eclipse-ufo-zocalo",
+    "name": "Filmed from the Zócalo",
+    "subtitle": "A nation looks up and sees a silver disc",
+    "description": "On July 11, 1991, as the moon covers the sun, thousands of residents point camcorders at the sky. They capture a bright, bell-shaped object that remains stationary while the stars become visible. The footage is broadcast that night on national news.",
+    "year": 1991,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "1991-eclipse-ufo",
+        "name": "The 1991 Eclipse Mass Sighting"
+      }
+    ]
+  },
+  {
+    "id": "eclipse-ufo-pyramids",
+    "name": "Hovered over the pyramids",
+    "subtitle": "The \"ancients\" return for the eclipse",
+    "description": "Simultaneously, tourists at Teotihuacán record the same object from 30 miles away. Triangulation confirms the object was a physical craft of immense size. Skeptics claim it was Venus, but the zoom-ins remain a cornerstone of UFO evidence.",
+    "year": 1991,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "1991-eclipse-ufo",
+        "name": "The 1991 Eclipse Mass Sighting"
+      }
+    ]
+  },
+  {
+    "id": "flir-campeche-skies",
+    "name": "Tracked by the Merlin-C3",
+    "subtitle": "\"They are surrounding us!\"",
+    "description": "On March 5, 2004, a Merlin-C3 patrol detects 11 luminous spheres on their infrared camera. The objects perform maneuvers that defy aerodynamics and eventually \"cloak\" the aircraft. The crew's frantic radio chatter was later released to the public.",
+    "year": 2004,
+    "type": "military_site",
+    "parentStories": [
+      {
+        "id": "mexican-air-force-flir",
+        "name": "The Mexican Air Force FLIR Encounter (The Invisible Eleven)"
+      }
+    ]
+  },
+  {
+    "id": "flir-press-conference",
+    "name": "SEDENA Press Conference",
+    "subtitle": "The government admits the \"unexplained\"",
+    "description": "Secretary of Defense Clemente Vega authorized the release of the footage at the SEDENA headquarters. It was the first time a national military proactively shared such data with civilian UFO researchers, specifically Jaime Maussan.",
+    "year": 2004,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "mexican-air-force-flir",
+        "name": "The Mexican Air Force FLIR Encounter (The Invisible Eleven)"
+      }
+    ]
+  },
+  {
+    "id": "grinberg-home-disappearance",
+    "name": "Vanished before the presentation",
+    "subtitle": "A birthday party without the guest of honor",
+    "description": "On December 8, 1994, Grinberg fails to show up for his 48th birthday party. He was preparing to present his theory that the brain creates reality. His wife vanishes shortly after, leaving the investigation in a total vacuum.",
+    "year": 1994,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "jacobo-grinberg",
+        "name": "The Disappearance of Jacobo Grinberg (The Einstein of Consciousness)"
+      }
+    ]
+  },
+  {
+    "id": "grinberg-unam-lab",
+    "name": "UNAM Psychology Lab",
+    "subtitle": "Where the \"Lattice\" theory notes vanished",
+    "description": "Grinberg's lab at the Institute of Psychology was found in perfect order, except for the missing data from his most recent experiments on \"extra-sensory perception.\" Students reported he had seemed paranoid in his final days.",
+    "year": 1994,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "jacobo-grinberg",
+        "name": "The Disappearance of Jacobo Grinberg (The Einstein of Consciousness)"
+      }
+    ]
+  },
+  {
+    "id": "zone-silence-impact",
+    "name": "Crashed the Athena rocket",
+    "subtitle": "A \"magnetic pull\" brings down a US rocket",
+    "description": "In July 1970, an Athena rocket launched from Utah \"deviates\" and flies deep into the Mapimí desert. The US military discovers that radio waves are absorbed and compasses spin wildly here. They spent weeks in a secret recovery operation.",
+    "year": 1970,
+    "type": "crash_site",
+    "parentStories": [
+      {
+        "id": "zone-of-silence",
+        "name": "The Zone of Silence (Mexico's Bermuda Triangle)"
+      }
+    ]
+  }
+]

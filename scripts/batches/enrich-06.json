@@ -1,0 +1,422 @@
+[
+  {
+    "id": "spindletop-lucas-site",
+    "name": "Lucas Gusher Site",
+    "subtitle": "The geyser that doubled the world's oil supply in a day",
+    "description": "On January 10, 1901, the ground began to tremble as mud and gas erupted from the salt dome. A black geyser of oil shot twice as high as the derrick. Beaumont's population ballooned from 9,000 to 50,000 in months as the \"Oil Age\" was born.",
+    "year": 1901,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "spindletop-gusher",
+        "name": "The Spindletop Gusher"
+      }
+    ]
+  },
+  {
+    "id": "spindletop-gladys-city",
+    "name": "Gladys City Boomtown",
+    "subtitle": "The instant city built on black gold",
+    "description": "Within weeks of the strike, Gladys City became the prototypical oil boomtown. It was a chaotic landscape of wooden derricks and tents where the price of water often exceeded the price of oil due to the massive influx of speculators.",
+    "year": 1901,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "spindletop-gusher",
+        "name": "The Spindletop Gusher"
+      }
+    ]
+  },
+  {
+    "id": "salt-plaza-siege",
+    "name": "San Elizario Plaza",
+    "subtitle": "Where 500 residents forced the Texas Rangers to wave the white flag",
+    "description": "A mob of 500 local residents besieged a detachment of 20 Texas Rangers in an adobe house on the plaza. After four days, the Rangers surrendered their weapons—the only time in the organization's history they were forced to capitulate to a civilian mob.",
+    "year": 1877,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "san-elizario-salt-war",
+        "name": "The Salt War of San Elizario"
+      }
+    ]
+  },
+  {
+    "id": "salt-lake-deposits",
+    "name": "The Salt Lakes",
+    "subtitle": "The ancient deposits that sparked a border war",
+    "description": "The ancient dry lakes north of the town had been used freely by the community for centuries. When white politicians attempted to claim the land and charge for salt, it triggered the racial and economic tension that exploded in San Elizario.",
+    "year": 1877,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "san-elizario-salt-war",
+        "name": "The Salt War of San Elizario"
+      }
+    ]
+  },
+  {
+    "id": "cham-national-memorial",
+    "name": "Chamizal National Memorial",
+    "subtitle": "Where the border was physically relocated with concrete",
+    "description": "In 1963, Presidents Kennedy and López Mateos agreed to end the dispute. Engineers dug a new, concrete-lined riverbed to ensure the border would never move again. Thousands of homes were demolished to make way for the new channel.",
+    "year": 1963,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "chamizal-border-shift",
+        "name": "The Chamizal Border Shift"
+      }
+    ]
+  },
+  {
+    "id": "cham-old-riverbed",
+    "name": "Old Rio Grande Bed",
+    "subtitle": "The \"no man's land\" that moved south",
+    "description": "This location marks the original path of the Rio Grande before the flood of 1864. For a century, this tract of land was a source of constant tension between El Paso and Juárez, as residents lived on land that two nations claimed simultaneously.",
+    "year": 1864,
+    "type": "natural_site",
+    "parentStories": [
+      {
+        "id": "chamizal-border-shift",
+        "name": "The Chamizal Border Shift"
+      }
+    ]
+  },
+  {
+    "id": "tun-agustin-plaza",
+    "name": "San Agustin Plaza",
+    "subtitle": "The \"shadow city\" beneath Laredo's oldest square",
+    "description": "During the Revolution, merchants and rebels used vaulted brick tunnels connecting basements to the Rio Grande. In recent years, construction crews and urban explorers have rediscovered sections of these contraband routes after sudden street collapses.",
+    "year": 1910,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "laredo-smuggling-tunnels",
+        "name": "The Laredo Smuggling Tunnels"
+      }
+    ]
+  },
+  {
+    "id": "tun-la-posada",
+    "name": "La Posada Hotel Basements",
+    "subtitle": "Where private cellars connected to the river bank",
+    "description": "The historic buildings surrounding the plaza, including the structures that now form La Posada, were known hubs for secret activity. The tunnels were used to move silver bars and weapons between the U.S. and Mexico outside of customs.",
+    "year": 1915,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "laredo-smuggling-tunnels",
+        "name": "The Laredo Smuggling Tunnels"
+      }
+    ]
+  },
+  {
+    "id": "cad-ranch-site",
+    "name": "Cadillac Ranch Sculpture",
+    "subtitle": "Ten Cadillacs buried at the angle of Giza",
+    "description": "Created by the art group Ant Farm in 1974, the installation was funded by Stanley Marsh 3. The cars are now covered in thousands of layers of spray paint as visitors are encouraged to leave their own mark on the tailfins.",
+    "year": 1974,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "cadillac-ranch-amarillo",
+        "name": "Cadillac Ranch"
+      }
+    ]
+  },
+  {
+    "id": "cad-ant-farm-studio",
+    "name": "The Ant Farm Studio",
+    "subtitle": "Where the \"Golden Age\" of tailfins was conceived",
+    "description": "Cadillac Ranch began as a radical vision by the San Francisco art collective Ant Farm. Members Chip Lord, Hudson Marquez, and Doug Michels wanted to create a monument to the American dream and the evolution of the tailfin. In 1974, they met with eccentric Amarillo billionaire Stanley Marsh 3 at his estate to pitch the idea. Marsh, known for his absurdist pranks, immediately funded the project. The installation was placed at the exact same angle as the Great Pyramid of Giza.",
+    "year": 1974,
+    "type": "historic_meeting",
+    "parentStories": [
+      {
+        "id": "cadillac-ranch-amarillo",
+        "name": "Cadillac Ranch"
+      }
+    ]
+  },
+  {
+    "id": "cad-relocation-spray",
+    "name": "The Relocation & Spray Paint Tradition",
+    "subtitle": "An ever-changing thick-skinned organism",
+    "description": "In 1997, Cadillac Ranch was physically uprooted and moved two miles west to escape the encroaching urban sprawl of Amarillo. Stanley Marsh 3 famously encouraged visitors to spray-paint the cars, turning a static sculpture into a living, participatory artwork. Today, the cars are encased in thousands of layers of paint. Each visitor who adds a layer participates in a sanctioned act of vandalism that has made the site a global pilgrimage point on Route 66.",
+    "year": 1997,
+    "type": "art_installation",
+    "parentStories": [
+      {
+        "id": "cadillac-ranch-amarillo",
+        "name": "Cadillac Ranch"
+      }
+    ]
+  },
+  {
+    "id": "palo-battle-site",
+    "name": "Palo Duro Battle Site",
+    "subtitle": "The dawn attack that ended the Red River War",
+    "description": "Colonel Ranald Mackenzie's scouts discovered the winter camps of the Comanche, Kiowa, and Cheyenne. His troops descended the cliffs at dawn, forcing the tribes to flee and abandon their winter supplies and horse herds.",
+    "year": 1874,
+    "type": "battlefield",
+    "parentStories": [
+      {
+        "id": "palo-duro-final-stand",
+        "name": "The Palo Duro Canyon Final Stand"
+      }
+    ]
+  },
+  {
+    "id": "palo-tule-canyon",
+    "name": "Tule Canyon Horse Slaughter",
+    "subtitle": "Where 1,400 horses were executed to starve the tribes",
+    "description": "To ensure the tribes could not escape or hunt, Mackenzie ordered the slaughter of 1,400 captured horses. The stench of the massacre hung over the canyon for weeks. Without their mounts, the tribes were forced to walk 200 miles to the reservation.",
+    "year": 1874,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "palo-duro-final-stand",
+        "name": "The Palo Duro Canyon Final Stand"
+      }
+    ]
+  },
+  {
+    "id": "waco-horror-courthouse",
+    "name": "McLennan County Courthouse",
+    "subtitle": "Where Jesse Washington was dragged from the courtroom",
+    "description": "On May 15, 1916, Jesse Washington was seized by a mob immediately after his conviction. He was dragged through the streets to the town square, where a massive crowd had gathered to participate in the torture and killing.",
+    "year": 1916,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "waco-horror-lynching",
+        "name": "The Waco Horror"
+      }
+    ]
+  },
+  {
+    "id": "waco-horror-square",
+    "name": "The Town Square",
+    "subtitle": "The site of the two-hour public atrocity",
+    "description": "Washington was burned alive under a tree as thousands of residents watched. The postcards made from this event were used by the NAACP to expose the reality of lynching to the rest of the world, changing the legal trajectory of the U.S.",
+    "year": 1916,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "waco-horror-lynching",
+        "name": "The Waco Horror"
+      }
+    ]
+  },
+  {
+    "id": "ww-fault-line",
+    "name": "The Balcones Fault Fissure",
+    "subtitle": "Standing inside a prehistoric earthquake",
+    "description": "Inside the cave, visitors can look up to see the jagged ceiling that is the literal fault line separating the Hill Country from the coastal plains. The cave was formed by tectonic shifts rather than water erosion, making it a unique geological window.",
+    "year": 1893,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "wonder-world-cave",
+        "name": "The San Marcos Wonder World Cave"
+      }
+    ]
+  },
+  {
+    "id": "adel-sophienburg-hill",
+    "name": "Sophienburg Hill",
+    "subtitle": "Where starving settlers dug mud huts into the ground",
+    "description": "After being abandoned by their noble sponsors, settlers arrived in New Braunfels with no lumber or shelter. They dug \"Erdhütten\" (earth-huts) into the hillside to survive a winter of cholera and starvation, eventually founding the most distinct German corridor in Texas.",
+    "year": 1845,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "new-braunfels-adelsverein",
+        "name": "The New Braunfels Adelsverein Migration"
+      }
+    ]
+  },
+  {
+    "id": "adel-comal-landing",
+    "name": "The Comal River Landing",
+    "subtitle": "Prince Carl chooses a sanctuary in the wilderness",
+    "description": "In March 1845, Prince Carl of Solms-Braunfels led 200 exhausted German immigrants to the junction of the Comal and Guadalupe Rivers. They had survived a nightmare journey from the coast where hundreds of their kin had died of cholera. Prince Carl, captivated by the crystalline waters of the Comal springs, purchased the land and named the settlement after his family seat in Germany. It was the birth of the state's most culturally distinct corridor.",
+    "year": 1845,
+    "type": "settlement_site",
+    "parentStories": [
+      {
+        "id": "new-braunfels-adelsverein",
+        "name": "The New Braunfels Adelsverein Migration"
+      }
+    ]
+  },
+  {
+    "id": "adel-gruene-hall",
+    "name": "Gruene Hall",
+    "subtitle": "The oldest dance hall in the Lone Star State",
+    "description": "Built in 1878 by Henry Gruene, this 6,000-square-foot tin-roofed building is the oldest continually operating dance hall in Texas. It survived the Great Depression, the collapse of the cotton market, and the modernization of rural music. In the 1970s, the hall became a pilgrimage site for the emerging outlaw country scene. George Strait, Willie Nelson, and Lyle Lovett all honed their craft on its creaky wooden stage.",
+    "year": 1878,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "new-braunfels-adelsverein",
+        "name": "The New Braunfels Adelsverein Migration"
+      }
+    ]
+  },
+  {
+    "id": "men-rough-riders-bar",
+    "name": "Menger Hotel Bar",
+    "subtitle": "Roosevelt's recruitment center for the Spanish-American War",
+    "description": "Roosevelt used the bar to find cowboys, Texas Rangers, and Ivy League athletes for the 1st U.S. Volunteer Cavalry. The bar is a meticulous replica of the House of Lords pub in London and remains a central point for Roosevelt-related ghost sightings.",
+    "year": 1898,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "menger-hotel-rough-riders",
+        "name": "The Menger Hotel & Rough Riders"
+      }
+    ]
+  },
+  {
+    "id": "menger-hotel-opening",
+    "name": "The Menger Hotel Opens",
+    "subtitle": "The finest hotel west of the Mississippi",
+    "description": "In 1859, German immigrant William Menger realized his dream by building a luxurious hotel right next to the ruins of the Alamo. It was an immediate sensation, featuring the first enclosed swimming pool in Texas and the finest cellar in the region. Every U.S. president from Ulysses S. Grant to George H.W. Bush has stayed here. The hotel's limestone walls have witnessed the entire transformation of Texas from a wild frontier into an industrial powerhouse.",
+    "year": 1859,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "menger-hotel-rough-riders",
+        "name": "The Menger Hotel & Rough Riders"
+      }
+    ]
+  },
+  {
+    "id": "menger-sallie-white",
+    "name": "The Ghost of Sallie White",
+    "subtitle": "A chambermaid who never left the third floor",
+    "description": "On March 28, 1876, a 26-year-old chambermaid named Sallie White was shot in the street by her common-law husband after an argument. She died in the hotel two days later. The hotel management was so devastated they paid for her entire funeral. Today, Sallie is the Menger's most frequently reported apparition. Guests in the third-floor hallway often see a woman in a long Victorian skirt and a white apron carrying fresh towels; she vanishes as soon as she is approached.",
+    "year": 1876,
+    "type": "haunted_site",
+    "parentStories": [
+      {
+        "id": "menger-hotel-rough-riders",
+        "name": "The Menger Hotel & Rough Riders"
+      }
+    ]
+  },
+  {
+    "id": "queen-milam-park",
+    "name": "Milam Park Kitchens",
+    "subtitle": "Where San Antonio's \"Chili Capital\" reputation was built",
+    "description": "The Chile Queens set up charcoal fires every night, serving spicy stews to everyone from soldiers to city elites. Their open-air festivals were a primary tourist draw until the city modernization led to their forced closure in the 1930s.",
+    "year": 1860,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "milam-park-chile-queens",
+        "name": "The Chile Queens of Milam Park"
+      }
+    ]
+  },
+  {
+    "id": "queen-military-plaza",
+    "name": "Military Plaza",
+    "subtitle": "The historic night-market for San Antonio's street food",
+    "description": "Before moving to Milam Park and Market Square, the Queens dominated Military Plaza. This was the original location where the \"chili con carne\" was standardized and exported to the rest of the world through the tourists who ate there.",
+    "year": 1880,
+    "type": "cultural_site",
+    "parentStories": [
+      {
+        "id": "milam-park-chile-queens",
+        "name": "The Chile Queens of Milam Park"
+      }
+    ]
+  },
+  {
+    "id": "fire-main-square",
+    "name": "Main Street Square",
+    "subtitle": "Where 110-degree heat turned a spark into an inferno",
+    "description": "On July 8, 1860, a fire destroyed most of the Dallas business district. Hysteria gripped the town as leaders claimed it was a slave uprising. This \"Texas Troubles\" panic led to vigilante groups patrolling the state looking for abolitionist spies.",
+    "year": 1860,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "dallas-fire-1860",
+        "name": "The 1860 Dallas Fire Conspiracy"
+      }
+    ]
+  },
+  {
+    "id": "fire-trinity-lynch",
+    "name": "Trinity River Lynch Site",
+    "subtitle": "The execution of Patrick, Samuel, and Cato",
+    "description": "Without evidence, three enslaved men were seized and taken to the riverbank. They were lynched by a mob as the town sought scapegoats for the disaster. The event pushed Texas further toward secession and the Civil War.",
+    "year": 1860,
+    "type": "crime_scene",
+    "parentStories": [
+      {
+        "id": "dallas-fire-1860",
+        "name": "The 1860 Dallas Fire Conspiracy"
+      }
+    ]
+  },
+  {
+    "id": "clyde-western-heights",
+    "name": "Western Heights Cemetery",
+    "subtitle": "Where Clyde lies next to his brother, Marvin",
+    "description": "Following the 1934 ambush, Bonnie's mother refused to allow a joint burial, famously stating, \"He had her in life, but he can't have her in death.\" Clyde was buried here in a remote, often overgrown cemetery that remains a site for \"outlaw tourism.\"",
+    "year": 1934,
+    "type": "burial",
+    "parentStories": [
+      {
+        "id": "clyde-barrow-grave",
+        "name": "The Grave of Clyde Barrow"
+      }
+    ]
+  },
+  {
+    "id": "willie-abbott-birth",
+    "name": "Born in Abbott",
+    "subtitle": "The tiny town where a legend began",
+    "description": "Willie Taliaferro Nelson was born April 29, 1933, in this tiny cotton town. Raised by his grandparents, he took music lessons from mail-order catalogs and wrote his first song at age seven. The town of Abbott (population 356) remains a pilgrimage site for fans, where the small Methodist church he once attended is still standing.",
+    "year": 1933,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "willie-nelson-austin",
+        "name": "Willie Nelson's Austin"
+      }
+    ]
+  },
+  {
+    "id": "willie-nashville-fire",
+    "name": "The Nashville Sign",
+    "subtitle": "Rescuing Trigger from the flames",
+    "description": "By 1970, Willie was a successful Nashville songwriter (\"Crazy\", \"Hello Walls\") but a failure as a recording artist. In a dramatic turning point, his Nashville home caught fire. Willie famously ran into the burning building to save two things: his guitar \"Trigger\" and a pound of marijuana. He took the disaster as a sign that his time in Nashville was over.",
+    "year": 1970,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "willie-nelson-austin",
+        "name": "Willie Nelson's Austin"
+      }
+    ]
+  },
+  {
+    "id": "willie-dripping-picnic",
+    "name": "The First 4th of July Picnic",
+    "subtitle": "Chaos and country music in the rain",
+    "description": "In 1973, Willie threw his first 4th of July Picnic at Dripping Springs. The lineup was a Texas dream: Waylon Jennings, Kris Kristofferson, and Doug Sahm. However, the event descended into beautiful chaos when torrential rains hit. Despite the mayhem, the Picnic became a foundational myth for the Austin music scene, an annual rite of passage that has continued for over 50 years.",
+    "year": 1973,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "willie-nelson-austin",
+        "name": "Willie Nelson's Austin"
+      }
+    ]
+  }
+]

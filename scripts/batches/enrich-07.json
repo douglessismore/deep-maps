@@ -1,0 +1,296 @@
+[
+  {
+    "id": "willie-luck-ranch",
+    "name": "Luck, Texas",
+    "subtitle": "A movie set turned into a private sanctuary",
+    "description": "Located in Spicewood, \"Luck\" is Willie Nelson's private ranch, named after the 1880s Western movie set built for the film \"Red Headed Stranger.\" Willie famously says: \"When you're here, you're in Luck. When you leave, you're out of Luck.\" The site includes a chapel, a general store, and an opera house where he hosts exclusive concerts.",
+    "year": 2010,
+    "type": "residence",
+    "parentStories": [
+      {
+        "id": "willie-nelson-austin",
+        "name": "Willie Nelson's Austin"
+      }
+    ]
+  },
+  {
+    "id": "victory-grill-opening",
+    "name": "The Victory Grill",
+    "subtitle": "A homecoming sanctuary for Black veterans",
+    "description": "Johnny Holmes opened the Victory Grill on August 15, 1945—the day Japan surrendered—as a place for returning Black soldiers to feel at home in a segregated city. It quickly evolved from a restaurant into a premier blues and jazz venue. Every major African American act touring the South played here, including Bobby Bland, Gatemouth Brown, and Janis Joplin. In 1988, a devastating fire nearly destroyed the building, but it was painstakingly restored as a National Historic Landmark.",
+    "year": 1945,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "victory-grill-chitlin",
+        "name": "The Victory Grill & Austin's Chitlin' Circuit"
+      }
+    ]
+  },
+  {
+    "id": "victory-doris-miller",
+    "name": "Doris Miller Auditorium",
+    "subtitle": "Named for a hero, built for the community",
+    "description": "Named after the Pearl Harbor hero Doris Miller, this East Austin auditorium was a massive pillar of the Chitlin' Circuit. During segregation, it was one of the few large-scale venues in Texas where Black artists like Ella Fitzgerald and Ike & Tina Turner could perform for Black audiences without harassment. Its sheer scale allowed the community to congregate in a way that smaller clubs could not.",
+    "year": 1950,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "victory-grill-chitlin",
+        "name": "The Victory Grill & Austin's Chitlin' Circuit"
+      }
+    ]
+  },
+  {
+    "id": "victory-charlies-playhouse",
+    "name": "Charlie's Playhouse",
+    "subtitle": "The integration of the East 11th corridor",
+    "description": "In the 1950s and 60s, Charlie's Playhouse was the hottest ticket in Austin. While most of the city was strictly segregated, Charlie's became a \"cross-over\" club where adventurous white students from UT would cross East Avenue to hear authentic R&B and blues. The venue was part of a thriving entertainment district that included dozens of Black-owned businesses, a world that was largely destroyed when the city used \"urban renewal\" funds to bulldoze much of the corridor in the 1970s.",
+    "year": 1955,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "victory-grill-chitlin",
+        "name": "The Victory Grill & Austin's Chitlin' Circuit"
+      }
+    ]
+  },
+  {
+    "id": "spoke-opening-night",
+    "name": "Opening Night 1964",
+    "subtitle": "Sawdust and southern fried cooking on South Lamar",
+    "description": "James White opened the Broken Spoke in 1964 when South Lamar was just a dusty road on the outskirts of town. He built the original tin structure himself, serving chicken-fried steak and hosting legendary acts like Bob Wills and Tex Ritter. The original sawdust floor and low ceilings have remained unchanged for six decades.",
+    "year": 1964,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "broken-spoke-austin",
+        "name": "The Broken Spoke"
+      }
+    ]
+  },
+  {
+    "id": "spoke-george-strait",
+    "name": "George Strait's Early Gigs",
+    "subtitle": "The King of Country plays for $500 a night",
+    "description": "In the late 1970s, a young and unknown George Strait played the Broken Spoke regularly with his Ace in the Hole Band. Long before he was selling out stadiums, he was playing for a few hundred dollars and a pitcher of beer. The walls of the Spoke are now a museum of country music history, covered in photos of Strait, Dolly Parton, and Kris Kristofferson.",
+    "year": 1979,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "broken-spoke-austin",
+        "name": "The Broken Spoke"
+      }
+    ]
+  },
+  {
+    "id": "spoke-survival-battle",
+    "name": "Survival Against Development",
+    "subtitle": "\"I'd rather be broke and keep the Spoke\"",
+    "description": "By the early 2000s, the land under the Broken Spoke was worth tens of millions of dollars. Developers built five-story luxury apartment complexes that now tower over the small tin building, literally surrounding it on all sides. James White famously refused every buyout offer. After his death in 2021, his family continued to run the hall, maintaining the tradition of live country music every night.",
+    "year": 2010,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "broken-spoke-austin",
+        "name": "The Broken Spoke"
+      }
+    ]
+  },
+  {
+    "id": "paramount-majestic-opening",
+    "name": "The Majestic Theatre",
+    "subtitle": "Vaudeville and twinkling stars on Congress Avenue",
+    "description": "Opened in 1915 as \"The Majestic,\" this vaudeville house was designed by John Eberson to be an \"atmospheric\" experience. The ceiling was painted to look like a night sky with twinkling electric stars, a wonder for early 20th-century Austin. The theater hosted every major traveling act of the era, including a legendary performance by Houdini.",
+    "year": 1915,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "paramount-theatre-austin",
+        "name": "The Paramount Theatre"
+      }
+    ]
+  },
+  {
+    "id": "paramount-near-death",
+    "name": "The Psychedelic Era & Near-Death",
+    "subtitle": "Saving a landmark from the wrecking ball",
+    "description": "By the 1970s, the theater had fallen into serious disrepair. It was part of a franchise showing kung fu and blaxploitation films, and the building was slated for demolition as part of a downtown redevelopment plan. A grassroots campaign led by the Austin Heritage Society saved the theater in 1975, renaming it The Paramount. This restoration was the first major win for the city's modern preservation movement.",
+    "year": 1975,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "paramount-theatre-austin",
+        "name": "The Paramount Theatre"
+      }
+    ]
+  },
+  {
+    "id": "paramount-film-revival",
+    "name": "Austin Film Society & SXSW",
+    "subtitle": "The premiere venue for the film capital of the South",
+    "description": "In the 1990s, director Richard Linklater's Austin Film Society made the Paramount its primary home for classic and independent screenings. The theater's status was further cemented as the main stage for SXSW Film premieres. Today, the Paramount hosts over 200 events annually, from the Austin Film Festival to national comedy acts, standing as the most active and successful historic preservation project in the state of Texas.",
+    "year": 1993,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "paramount-theatre-austin",
+        "name": "The Paramount Theatre"
+      }
+    ]
+  },
+  {
+    "id": "scholz-opening-1866",
+    "name": "August Scholz's Boarding House",
+    "subtitle": "A German immigrant's sanctuary in the capital",
+    "description": "In 1866, German immigrant and former Confederate soldier August Scholz opened a boarding house and beer garden on San Jacinto Boulevard. It immediately became the social hub for the city's thriving German population. In 1879, it became the home of the Austin Saengerrunde, a German singing society that still owns the building today. The garden survived Prohibition by selling \"near beer\" and bratwurst.",
+    "year": 1866,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "scholz-garden-austin",
+        "name": "Scholz Garden — Austin's Oldest Bar"
+      }
+    ]
+  },
+  {
+    "id": "scholz-political-backroom",
+    "name": "The Political Watering Hole",
+    "subtitle": "Pitchers of beer and the levers of power",
+    "description": "Located just three blocks from the Texas Capitol, Scholz Garden became the unofficial clubhouse for the state legislature. LBJ and Ann Richards were regulars, and generations of lobbyists and lawmakers have settled political scores at its long wooden tables. Every election night, the garden is the site of massive watch parties where the state's political future is debated in real-time.",
+    "year": 1948,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "scholz-garden-austin",
+        "name": "Scholz Garden — Austin's Oldest Bar"
+      }
+    ]
+  },
+  {
+    "id": "scholz-longhorn-tradition",
+    "name": "UT Football & Preservation",
+    "subtitle": "The ultimate pre-game ritual for over 100 years",
+    "description": "For as long as UT has played football, Longhorn fans have gathered at Scholz Garden before and after games. The biergarten atmosphere, complete with a vintage bowling alley and oom-pah bands, creates a unique Texas-German fusion found nowhere else. The Saengerrunde's refusal to sell ensured its survival. Today, it remains a living time capsule where a freshman and a state senator can share a pitcher of Shiner.",
+    "year": 1920,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "scholz-garden-austin",
+        "name": "Scholz Garden — Austin's Oldest Bar"
+      }
+    ]
+  },
+  {
+    "id": "dazed-top-notch",
+    "name": "Top Notch Hamburgers",
+    "subtitle": "The Emporium and the breakout of Wooderson",
+    "description": "This drive-in burger joint served as \"The Emporium,\" the central hangout where the film's characters congregate. It was here that Matthew McConaughey improvised the line \"alright, alright, alright,\" which became a global catchphrase. Top Notch is still open and almost entirely unchanged since its 1971 opening.",
+    "year": 1993,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "dazed-and-confused-austin",
+        "name": "Dazed and Confused — Austin on Film"
+      }
+    ]
+  },
+  {
+    "id": "dazed-moonlight-party",
+    "name": "The Moonlight Tower Party",
+    "subtitle": "Party at the tower under the artificial moon",
+    "description": "The film's climactic keg party was filmed at a real Austin moonlight tower near Hemphill Park. These 165-foot towers, originally installed in 1894 to catch a serial killer, are unique to Austin—the only surviving system in the world. Linklater used the tower as a symbol of the city's weird and enduring heritage.",
+    "year": 1993,
+    "type": "landmark",
+    "parentStories": [
+      {
+        "id": "dazed-and-confused-austin",
+        "name": "Dazed and Confused — Austin on Film"
+      }
+    ]
+  },
+  {
+    "id": "dazed-bedichek-middle",
+    "name": "Bedichek Middle School",
+    "subtitle": "The hazing rituals of Huntsville and Austin",
+    "description": "The school scenes, including the iconic first-day-of-school hazing rituals, were filmed at Bedichek Middle School during the summer break. Linklater, who grew up in Huntsville, Texas, set the film in Austin because he considered it the \"freest place in Texas.\" The success of the film helped establish the infrastructure for the Austin film industry.",
+    "year": 1993,
+    "type": "university",
+    "parentStories": [
+      {
+        "id": "dazed-and-confused-austin",
+        "name": "Dazed and Confused — Austin on Film"
+      }
+    ]
+  },
+  {
+    "id": "btw-virginia-birth",
+    "name": "Born Into Slavery",
+    "subtitle": "The Burroughs plantation and the walk to Malden",
+    "description": "Washington was born enslaved on April 5, 1856, on a small tobacco plantation in Virginia. He never knew his father, a white man from a neighboring farm. At age nine, following emancipation, he walked with his family to West Virginia to work in salt furnaces and coal mines. This period of extreme labor shaped his later philosophy that economic independence through manual work was the only path to Black advancement.",
+    "year": 1856,
+    "type": "discovery_site",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-life",
+        "name": "Booker T. Washington — From Slavery to the White House"
+      }
+    ]
+  },
+  {
+    "id": "btw-hampton-entrance",
+    "name": "Hampton Normal School",
+    "subtitle": "An entrance exam involving a broom and a duster",
+    "description": "At age 16, Washington walked 500 miles to reach the Hampton Institute. His entrance exam was an unconventional test of character: a teacher told him to clean a recitation room. Washington swept the floor three times and dusted every surface four times. When the teacher returned and could find no dirt, she quietly said, \"I guess you will do to enter this institution.\"",
+    "year": 1872,
+    "type": "university",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-life",
+        "name": "Booker T. Washington — From Slavery to the White House"
+      }
+    ]
+  },
+  {
+    "id": "btw-tuskegee-founding",
+    "name": "Founding Tuskegee Institute",
+    "subtitle": "A school built from the clay of a cotton field",
+    "description": "In 1881, Washington arrived in Tuskegee, Alabama, to find a school that existed only on paper. With no land and only a small state appropriation, he borrowed money to buy an abandoned plantation. His students literally built the school from the ground up—clearing the land, making their own bricks, and constructing the first buildings. By the time of his death, Tuskegee had over 1,500 students and 100 buildings.",
+    "year": 1881,
+    "type": "university",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-life",
+        "name": "Booker T. Washington — From Slavery to the White House"
+      }
+    ]
+  },
+  {
+    "id": "btw-atlanta-compromise",
+    "name": "The Atlanta Compromise",
+    "subtitle": "The speech that split a movement",
+    "description": "On September 18, 1895, Washington delivered his most famous and controversial speech at the Cotton States Exposition. He told a mostly white audience: \"Cast down your bucket where you are,\" arguing that Black Americans should accept social segregation in exchange for economic opportunity. The speech made him a national hero to whites and the most powerful Black man in America, but it also earned him the lifelong opposition of W.E.B. Du Bois.",
+    "year": 1895,
+    "type": "cultural_venue",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-life",
+        "name": "Booker T. Washington — From Slavery to the White House"
+      }
+    ]
+  },
+  {
+    "id": "btw-white-house-dinner",
+    "name": "Dinner at the White House",
+    "subtitle": "A historic meal that triggered a national scandal",
+    "description": "On October 16, 1901, President Theodore Roosevelt invited Washington to dinner at the White House—the first time a Black American had dined there as a guest. The backlash from the white South was volcanic; newspapers described the dinner as a \"national outrage.\" Roosevelt, stunned by the intensity of the racism, never invited another Black guest to a formal dinner.",
+    "year": 1901,
+    "type": "government",
+    "parentStories": [
+      {
+        "id": "booker-t-washington-life",
+        "name": "Booker T. Washington — From Slavery to the White House"
+      }
+    ]
+  }
+]

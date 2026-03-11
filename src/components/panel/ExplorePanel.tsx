@@ -106,10 +106,12 @@ export function ExplorePanel({
     }
   }, [activeCollection]);
 
-  // Clear scroll highlight state when leaving story-card tabs
+  // Clear scroll highlight + active collection when leaving story-card tabs
   useEffect(() => {
     if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
     if (activeTab !== 'places') setScrollActiveEntityId(null);
+    // Auto-clear collection filter when navigating away from Collections tab
+    if (activeTab !== 'collections' && activeCollection) onClearCollection();
   }, [activeTab]);
 
   // Filter stories by search + category (timeline filtering already done in App.tsx)
