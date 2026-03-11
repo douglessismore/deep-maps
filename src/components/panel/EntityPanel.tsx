@@ -134,6 +134,8 @@ export function EntityPanel({
   }, [activeLocationId, scrollActiveId]);
 
   // Scroll handler — find moment closest to 40% viewport line
+  const scrollRafId = useRef(0);
+
   useEffect(() => {
     if (activeTab !== 'moments') return;
     const container = scrollContainerRef.current;
@@ -142,33 +144,39 @@ export function EntityPanel({
     const onScroll = () => {
       if (isProgrammaticScroll.current) return;
 
-      const containerRect = container.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height * 0.4;
+      cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = requestAnimationFrame(() => {
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height * 0.4;
 
-      let closestId: string | null = null;
-      let closestDist = Infinity;
+        let closestId: string | null = null;
+        let closestDist = Infinity;
 
-      momentRefs.current.forEach((el, id) => {
-        const rect = el.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(cardCenter - centerY);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestId = id;
+        momentRefs.current.forEach((el, id) => {
+          const rect = el.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(cardCenter - centerY);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestId = id;
+          }
+        });
+
+        if (closestId && closestId !== scrollActiveId) {
+          setScrollActiveId(closestId);
+          const entry = momentEntries.find((e) => e.moment.id === closestId);
+          if (entry && onScrollLocationActive && entry.stories.length > 0) {
+            onScrollLocationActive(entry.moment, entry.stories[0]);
+          }
         }
       });
-
-      if (closestId && closestId !== scrollActiveId) {
-        setScrollActiveId(closestId);
-        const entry = momentEntries.find((e) => e.moment.id === closestId);
-        if (entry && onScrollLocationActive && entry.stories.length > 0) {
-          onScrollLocationActive(entry.moment, entry.stories[0]);
-        }
-      }
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
-    return () => container.removeEventListener('scroll', onScroll);
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(scrollRafId.current);
+    };
   }, [activeTab, momentEntries, scrollActiveId, onScrollLocationActive]);
 
   // Click a moment card → toggle expand + highlight + tell map

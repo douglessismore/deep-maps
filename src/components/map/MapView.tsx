@@ -172,45 +172,106 @@ function MapController({
     );
   }, [stories, activeStory, mode, categoryFilter, entityLocations]);
 
-  // Render markers
+  // Stable marker map — only update markers whose state actually changed
+  interface MarkerEntry {
+    marker: L.Marker;
+    isActive: boolean;
+    isHighlighted: boolean;
+    isFaded: boolean;
+    permanentTooltip: boolean;
+  }
+  const markerMapRef = useRef<Map<string, MarkerEntry>>(new Map());
+
+  // Render markers — differential update
   useEffect(() => {
     const group = markersRef.current;
-    group.clearLayers();
+    const prevMarkers = markerMapRef.current;
+    const nextKeys = new Set<string>();
 
     const isMultiHighlight = (scrollHighlight?.length ?? 0) > 1;
+    const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
+    const singleHighlight = (scrollHighlight?.length ?? 0) === 1;
 
     visibleLocations.forEach(({ location, story }) => {
+      const key = `${story.id}-${location.id}`;
+      nextKeys.add(key);
+
       const cat = CATEGORIES[story.category];
       const size = IMPORTANCE_SIZE[location.importance] || 10;
       const isActive = activeLocation?.id === location.id;
-      const isScrollHighlighted = scrollHighlight?.some(m => m.id === location.id) ?? false;
+      const isHighlighted = highlightIds.has(location.id);
+      const isFaded = isMultiHighlight && !isHighlighted && !isActive;
+      const permanentTooltip = isHighlighted && singleHighlight;
 
-      // In multi-highlight mode (Stories/Directory scroll), fade non-highlighted pins
-      const isFaded = isMultiHighlight && !isScrollHighlighted && !isActive;
-      const icon = createMarkerIcon(cat.color, size, isActive, isScrollHighlighted, isFaded ? 0.15 : undefined);
+      const existing = prevMarkers.get(key);
 
-      const marker = L.marker([location.lat, location.lng], { icon });
+      if (existing) {
+        // Only update if state changed
+        if (
+          existing.isActive !== isActive ||
+          existing.isHighlighted !== isHighlighted ||
+          existing.isFaded !== isFaded ||
+          existing.permanentTooltip !== permanentTooltip
+        ) {
+          const icon = createMarkerIcon(cat.color, size, isActive, isHighlighted, isFaded ? 0.15 : undefined);
+          existing.marker.setIcon(icon);
 
-      const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
-      marker.bindTooltip(
-        `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
-          <strong>${location.name}</strong>
-          <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
-        </div>`,
-        {
-          direction: 'top',
-          offset: [0, -displaySize / 2 - 4],
-          className: 'dark-tooltip',
-          permanent: isScrollHighlighted && (scrollHighlight?.length ?? 0) === 1, // Only show tooltip for single-pin focus, not multi-pin geographic scope
+          // Rebind tooltip (offset may change with highlight size)
+          existing.marker.unbindTooltip();
+          const displaySize = isHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
+          existing.marker.bindTooltip(
+            `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+              <strong>${location.name}</strong>
+              <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+            </div>`,
+            {
+              direction: 'top',
+              offset: [0, -displaySize / 2 - 4],
+              className: 'dark-tooltip',
+              permanent: permanentTooltip,
+            }
+          );
+
+          existing.isActive = isActive;
+          existing.isHighlighted = isHighlighted;
+          existing.isFaded = isFaded;
+          existing.permanentTooltip = permanentTooltip;
         }
-      );
+      } else {
+        // New marker — create from scratch
+        const icon = createMarkerIcon(cat.color, size, isActive, isHighlighted, isFaded ? 0.15 : undefined);
+        const marker = L.marker([location.lat, location.lng], { icon });
 
-      marker.on('click', () => {
-        onLocationClick(location, story);
-      });
+        const displaySize = isHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
+        marker.bindTooltip(
+          `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+            <strong>${location.name}</strong>
+            <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+          </div>`,
+          {
+            direction: 'top',
+            offset: [0, -displaySize / 2 - 4],
+            className: 'dark-tooltip',
+            permanent: permanentTooltip,
+          }
+        );
 
-      group.addLayer(marker);
+        marker.on('click', () => {
+          onLocationClick(location, story);
+        });
+
+        group.addLayer(marker);
+        prevMarkers.set(key, { marker, isActive, isHighlighted, isFaded, permanentTooltip });
+      }
     });
+
+    // Remove markers that are no longer in visibleLocations
+    for (const [key, entry] of prevMarkers) {
+      if (!nextKeys.has(key)) {
+        group.removeLayer(entry.marker);
+        prevMarkers.delete(key);
+      }
+    }
 
     if (!map.hasLayer(group)) {
       group.addTo(map);
@@ -218,6 +279,7 @@ function MapController({
 
     return () => {
       group.clearLayers();
+      prevMarkers.clear();
     };
   }, [visibleLocations, activeLocation, scrollHighlight, map, onLocationClick]);
 

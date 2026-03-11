@@ -54,6 +54,8 @@ export function StoryPanel({
   const cat = CATEGORIES[story.category];
   const hasWiki = !!story.wikipediaSlug;
 
+  const scrollRafId = useRef(0);
+
   // Scroll-driven location navigation + header auto-collapse
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -63,49 +65,53 @@ export function StoryPanel({
       // Skip if this scroll was triggered by our own scrollIntoView correction
       if (isProgrammaticScroll.current) return;
 
-      isScrollDriving.current = true;
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = window.setTimeout(() => {
-        isScrollDriving.current = false;
-      }, 600);
+      cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = requestAnimationFrame(() => {
+        isScrollDriving.current = true;
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = window.setTimeout(() => {
+          isScrollDriving.current = false;
+        }, 600);
 
-      const containerRect = container.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height * 0.4;
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height * 0.4;
 
-      // If scrolled near bottom, activate the last card (it can't reach center)
-      const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+        // If scrolled near bottom, activate the last card (it can't reach center)
+        const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
 
-      let closestId: string | null = null;
-      let closestDist = Infinity;
+        let closestId: string | null = null;
+        let closestDist = Infinity;
 
-      locationRefs.current.forEach((el, id) => {
-        const rect = el.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(cardCenter - centerY);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestId = id;
+        locationRefs.current.forEach((el, id) => {
+          const rect = el.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(cardCenter - centerY);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestId = id;
+          }
+        });
+
+        // Near bottom of scroll: pick the last location
+        const storyLocations = resolveLocationsFromMap(story, momentMap);
+        if (isNearBottom && storyLocations.length > 0) {
+          closestId = storyLocations[storyLocations.length - 1].id;
+        }
+
+        if (closestId && closestId !== scrollActiveId) {
+          setScrollActiveId(closestId);
+          const location = storyLocations.find((l) => l.id === closestId);
+          if (location) {
+            onScrollLocationSelect(location);
+          }
         }
       });
-
-      // Near bottom of scroll: pick the last location
-      const storyLocations = resolveLocationsFromMap(story, momentMap);
-      if (isNearBottom && storyLocations.length > 0) {
-        closestId = storyLocations[storyLocations.length - 1].id;
-      }
-
-      if (closestId && closestId !== scrollActiveId) {
-        setScrollActiveId(closestId);
-        const location = storyLocations.find((l) => l.id === closestId);
-        if (location) {
-          onScrollLocationSelect(location);
-        }
-      }
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(scrollRafId.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, [story, onScrollLocationSelect, scrollActiveId]);
@@ -151,31 +157,36 @@ export function StoryPanel({
   }, [story.id]); // Only on story mount/change
 
   // Related stories (explicit cross-links)
-  const relatedStories = (story.relatedStoryIds || [])
-    .map((id) => allStories.find((s) => s.id === id))
-    .filter((s): s is Story => s !== undefined);
+  const relatedStories = useMemo(
+    () => (story.relatedStoryIds || [])
+      .map((id) => allStories.find((s) => s.id === id))
+      .filter((s): s is Story => s !== undefined),
+    [story.relatedStoryIds, allStories]
+  );
 
   // Stories that share nearby locations (within ~50 miles), excluding already-related
-  const relatedIds = new Set(relatedStories.map((s) => s.id));
-  const nearbyStories = allStories.filter((other) => {
-    if (other.id === story.id || relatedIds.has(other.id)) return false;
+  const nearbyStories = useMemo(() => {
+    const relatedIds = new Set(relatedStories.map((s) => s.id));
     const storyLocs = resolveLocationsFromMap(story, momentMap);
-    const otherLocs = resolveLocationsFromMap(other, momentMap);
-    return storyLocs.some((storyLoc) =>
-      otherLocs.some((otherLoc) => {
-        const dlat = storyLoc.lat - otherLoc.lat;
-        const dlng = storyLoc.lng - otherLoc.lng;
-        return Math.sqrt(dlat * dlat + dlng * dlng) < 1; // ~70 miles
-      })
-    );
-  });
+    return allStories.filter((other) => {
+      if (other.id === story.id || relatedIds.has(other.id)) return false;
+      const otherLocs = resolveLocationsFromMap(other, momentMap);
+      return storyLocs.some((storyLoc) =>
+        otherLocs.some((otherLoc) => {
+          const dlat = storyLoc.lat - otherLoc.lat;
+          const dlng = storyLoc.lng - otherLoc.lng;
+          return Math.sqrt(dlat * dlat + dlng * dlng) < 1; // ~70 miles
+        })
+      );
+    });
+  }, [story, allStories, relatedStories]);
 
   // All connected stories with reason labels for the navigation strip
   // Filter out canonical stories — their entity cards replace them in DIVE DEEPER
-  const connectedEntries = [
+  const connectedEntries = useMemo(() => [
     ...relatedStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'related' as const })),
     ...nearbyStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'nearby' as const })),
-  ];
+  ], [relatedStories, nearbyStories]);
 
   // Story-level entities for DIVE DEEPER header section
   const storyEntities = useMemo(() => getStoryEntities(story.id), [story.id]);

@@ -5,9 +5,14 @@ import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
 import { stories as allStories } from '../../data/stories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, getInitial, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { StoryCard } from './StoryCard';
+import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
+
+type MixedListItem =
+  | { kind: 'story'; story: Story; distance: number }
+  | { kind: 'person'; data: EntityWithCounts; distance: number };
 
 const momentMap = buildMomentMap(moments);
 
@@ -31,7 +36,7 @@ interface ExplorePanelProps {
   onEntityClick?: (entity: Entity) => void;
 }
 
-type PanelTab = 'moments' | 'stories' | 'places';
+type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
 
 /** Haversine distance in miles between two lat/lng points */
 function distanceMiles(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -71,7 +76,6 @@ export function ExplorePanel({
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
-  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
   const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
 
@@ -92,18 +96,19 @@ export function ExplorePanel({
   const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
+  const scrollRafId = useRef(0);
+  const panTimeout = useRef(0);
 
-  // Auto-switch to stories tab when a collection is selected
+  // Auto-switch to collections tab when a collection is selected
   useEffect(() => {
     if (activeCollection) {
-      setActiveTab('stories');
-      setCollectionsOpen(false);
+      setActiveTab('collections');
     }
   }, [activeCollection]);
 
-  // Clear scroll highlight state when leaving stories tab
+  // Clear scroll highlight state when leaving story-card tabs
   useEffect(() => {
-    if (activeTab !== 'stories') setScrollActiveStoryId(null);
+    if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
     if (activeTab !== 'places') setScrollActiveEntityId(null);
   }, [activeTab]);
 
@@ -157,67 +162,99 @@ export function ExplorePanel({
     };
   }, [mapInstance, updateViewport]);
 
-  // Scroll-driven navigation (Stories tab)
+  // Scroll-driven navigation (Stories tab + Collections active view)
   useEffect(() => {
-    if (activeTab !== 'stories' || !mapInstance) return;
+    const isStoriesTab = activeTab === 'stories';
+    const isActiveCollectionTab = activeTab === 'collections' && activeCollection != null;
+    if ((!isStoriesTab && !isActiveCollectionTab) || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
     const onScroll = () => {
-      isScrollDriving.current = true;
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = window.setTimeout(() => {
-        isScrollDriving.current = false;
-        updateViewport();
-      }, 600);
+      cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = requestAnimationFrame(() => {
+        isScrollDriving.current = true;
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = window.setTimeout(() => {
+          isScrollDriving.current = false;
+          updateViewport();
+        }, 600);
 
-      const containerRect = container.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height * 0.4;
-      let closestId: string | null = null;
-      let closestDist = Infinity;
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height * 0.4;
+        let closestId: string | null = null;
+        let closestDist = Infinity;
 
-      cardRefs.current.forEach((el, id) => {
-        const rect = el.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(cardCenter - centerY);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestId = id;
-        }
-      });
+        cardRefs.current.forEach((el, id) => {
+          const rect = el.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(cardCenter - centerY);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestId = id;
+          }
+        });
 
-      if (closestId) {
-        const story = displayStories.find((s) => s.id === closestId);
-        if (story && story.moments.length > 0) {
-          onModeChange('scroll');
-          setScrollActiveStoryId(closestId);
+        if (closestId) {
+          // Check if it's a story or a person entity
+          const story = displayStories.find((s) => s.id === closestId);
+          if (story && story.moments.length > 0) {
+            onModeChange('scroll');
+            setScrollActiveStoryId(closestId);
 
-          // Highlight ALL story pins on the map
-          const resolved = resolveLocationsFromMap(story, momentMap);
-          onScrollHighlight(resolved);
+            // Highlight ALL story pins on the map
+            const resolved = resolveLocationsFromMap(story, momentMap);
+            onScrollHighlight(resolved);
 
-          // Pan to first in-view pin (or first pin overall)
-          const mapBounds = mapInstance.getBounds();
-          const locsInView = resolved.filter((l) =>
-            mapBounds.contains([l.lat, l.lng])
-          );
-          const panTarget = locsInView[0] || resolved[0];
-          if (panTarget) {
-            mapInstance.panTo([panTarget.lat, panTarget.lng], {
-              animate: true,
-              duration: 0.6,
-            });
+            // Pan to first in-view pin (or first pin overall) — debounced
+            const mapBounds = mapInstance.getBounds();
+            const locsInView = resolved.filter((l) =>
+              mapBounds.contains([l.lat, l.lng])
+            );
+            const panTarget = locsInView[0] || resolved[0];
+            if (panTarget) {
+              clearTimeout(panTimeout.current);
+              panTimeout.current = window.setTimeout(() => {
+                mapInstance.panTo([panTarget.lat, panTarget.lng], {
+                  animate: true,
+                  duration: 0.6,
+                });
+              }, 150);
+            }
+          } else {
+            // Person entity — highlight their moments on the map
+            const entityMoments = getMomentsForEntity(closestId);
+            if (entityMoments.length > 0) {
+              onModeChange('scroll');
+              setScrollActiveStoryId(closestId);
+              onScrollHighlight(entityMoments);
+
+              const mapBounds = mapInstance.getBounds();
+              const locsInView = entityMoments.filter((l) =>
+                mapBounds.contains([l.lat, l.lng])
+              );
+              const panTarget = locsInView[0] || entityMoments[0];
+              clearTimeout(panTimeout.current);
+              panTimeout.current = window.setTimeout(() => {
+                mapInstance.panTo([panTarget.lat, panTarget.lng], {
+                  animate: true,
+                  duration: 0.6,
+                });
+              }, 150);
+            }
           }
         }
-      }
+      });
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(scrollRafId.current);
+      clearTimeout(panTimeout.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, [activeTab, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
+  }, [activeTab, activeCollection, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
 
   // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
@@ -226,38 +263,48 @@ export function ExplorePanel({
     if (!container) return;
 
     const onScroll = () => {
-      const containerRect = container.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height * 0.4;
-      let closestKey: string | null = null;
-      let closestDist = Infinity;
+      cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = requestAnimationFrame(() => {
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height * 0.4;
+        let closestKey: string | null = null;
+        let closestDist = Infinity;
 
-      locationCardRefs.current.forEach((el, key) => {
-        const rect = el.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(cardCenter - centerY);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestKey = key;
+        locationCardRefs.current.forEach((el, key) => {
+          const rect = el.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(cardCenter - centerY);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestKey = key;
+          }
+        });
+
+        if (closestKey) {
+          const vl = viewportLocations.find(
+            (v) => `${v.story.id}-${v.location.id}` === closestKey
+          );
+          if (vl) {
+            setActiveLocationId(vl.location.id);
+            onScrollHighlight([vl.location]);
+            clearTimeout(panTimeout.current);
+            panTimeout.current = window.setTimeout(() => {
+              mapInstance.panTo([vl.location.lat, vl.location.lng], {
+                animate: true,
+                duration: 0.6,
+              });
+            }, 150);
+          }
         }
       });
-
-      if (closestKey) {
-        const vl = viewportLocations.find(
-          (v) => `${v.story.id}-${v.location.id}` === closestKey
-        );
-        if (vl) {
-          setActiveLocationId(vl.location.id);
-          onScrollHighlight([vl.location]);
-          mapInstance.panTo([vl.location.lat, vl.location.lng], {
-            animate: true,
-            duration: 0.6,
-          });
-        }
-      }
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
-    return () => container.removeEventListener('scroll', onScroll);
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(scrollRafId.current);
+      clearTimeout(panTimeout.current);
+    };
   }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
 
   // Stories tab: show viewport stories if available, else filtered stories
@@ -297,11 +344,39 @@ export function ExplorePanel({
     return result;
   }, [viewportLocations, searchQuery]);
 
-  // People entities — shown in Stories tab below story cards
+  // People entities — mixed into Stories tab
   const personEntities = useMemo(
     () => viewportEntities.filter((e) => e.entity.type === 'person'),
     [viewportEntities]
   );
+
+  // Mixed list: stories + people sorted by distance (or stories first if no location)
+  const mixedList: MixedListItem[] = useMemo(() => {
+    const storyItems: MixedListItem[] = displayStories.map((story) => ({
+      kind: 'story' as const,
+      story,
+      distance: userLocation
+        ? nearestDistance(story, userLocation.lat, userLocation.lng)
+        : 0,
+    }));
+    const personItems: MixedListItem[] = personEntities.map((data) => {
+      let dist = Infinity;
+      if (userLocation) {
+        const entityMoments = getMomentsForEntity(data.entity.id);
+        for (const m of entityMoments) {
+          const d = distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng);
+          if (d < dist) dist = d;
+        }
+      }
+      return { kind: 'person' as const, data, distance: dist === Infinity ? 0 : dist };
+    });
+
+    const combined = [...storyItems, ...personItems];
+    if (userLocation) {
+      combined.sort((a, b) => a.distance - b.distance);
+    }
+    return combined;
+  }, [displayStories, personEntities, userLocation]);
 
   // Place entities — shown in Places tab
   const placeEntities = useMemo(
@@ -322,66 +397,52 @@ export function ExplorePanel({
     if (!container) return;
 
     const onScroll = () => {
-      const containerRect = container.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height * 0.4;
-      let closestId: string | null = null;
-      let closestDist = Infinity;
+      cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = requestAnimationFrame(() => {
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height * 0.4;
+        let closestId: string | null = null;
+        let closestDist = Infinity;
 
-      placesCardRefs.current.forEach((el, id) => {
-        const rect = el.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(cardCenter - centerY);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestId = id;
+        placesCardRefs.current.forEach((el, id) => {
+          const rect = el.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(cardCenter - centerY);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestId = id;
+          }
+        });
+
+        if (closestId) {
+          setScrollActiveEntityId(closestId);
+          // Highlight only the first (primary) moment for this entity — single pin
+          const entityMoments = getMomentsForEntity(closestId);
+          if (entityMoments.length > 0) {
+            onScrollHighlight([entityMoments[0]]);
+            clearTimeout(panTimeout.current);
+            panTimeout.current = window.setTimeout(() => {
+              mapInstance.panTo([entityMoments[0].lat, entityMoments[0].lng], {
+                animate: true,
+                duration: 0.6,
+              });
+            }, 150);
+          }
         }
       });
-
-      if (closestId) {
-        setScrollActiveEntityId(closestId);
-        // Highlight only the first (primary) moment for this entity — single pin
-        const entityMoments = getMomentsForEntity(closestId);
-        if (entityMoments.length > 0) {
-          onScrollHighlight([entityMoments[0]]);
-          mapInstance.panTo([entityMoments[0].lat, entityMoments[0].lng], {
-            animate: true,
-            duration: 0.6,
-          });
-        }
-      }
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
-    return () => container.removeEventListener('scroll', onScroll);
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(scrollRafId.current);
+      clearTimeout(panTimeout.current);
+    };
   }, [activeTab, mapInstance, placeEntities, onScrollHighlight]);
 
   return (
     <div className="flex flex-col h-full relative">
-      {/* Active collection banner */}
-      {activeCollection && (
-        <div className="shrink-0 px-3 py-2.5 bg-[var(--bg-card)] border-b border-[var(--border-subtle)] flex items-center gap-2.5">
-          <button
-            onClick={onClearCollection}
-            className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
-            title="Back to all stories"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          <span className="text-lg shrink-0">{activeCollection.icon}</span>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-serif font-semibold text-[var(--text-primary)] truncate">
-              {activeCollection.name}
-            </p>
-            <p className="text-[10px] font-mono text-[var(--text-muted)]">
-              {stories.length} {stories.length === 1 ? 'story' : 'stories'}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Tabs + Collections button */}
+      {/* Tabs — 4 equal tabs */}
       <div className="flex border-b border-[var(--border-subtle)] shrink-0">
         <button
           onClick={() => setActiveTab('moments')}
@@ -408,8 +469,8 @@ export function ExplorePanel({
           }`}
         >
           Stories
-          {displayStories.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({displayStories.length})</span>
+          {mixedList.length > 0 && (
+            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({mixedList.length})</span>
           )}
           {activeTab === 'stories' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
@@ -431,58 +492,29 @@ export function ExplorePanel({
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
-        {/* Collections button — text label, always visible */}
         <button
-          onClick={() => setCollectionsOpen(!collectionsOpen)}
-          className={`shrink-0 px-2.5 py-2.5 text-xs font-mono transition-colors border-l border-[var(--border-subtle)] ${
-            activeCollection
-              ? 'text-[var(--accent-red)]'
-              : collectionsOpen
-                ? 'text-[var(--text-primary)] bg-[var(--bg-card)]'
+          onClick={() => setActiveTab('collections')}
+          className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors relative ${
+            activeTab === 'collections'
+              ? 'text-[var(--text-primary)]'
+              : activeCollection
+                ? 'text-[var(--accent-red)]'
                 : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
-          title="Browse curated collections"
         >
-          Collections
+          {activeCollection ? (
+            <span className="flex items-center gap-1 justify-center overflow-hidden">
+              <span className="shrink-0">{activeCollection.icon}</span>
+              <span className="truncate">{activeCollection.name}</span>
+            </span>
+          ) : (
+            'Collections'
+          )}
+          {activeTab === 'collections' && (
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+          )}
         </button>
       </div>
-
-      {/* Collections popover */}
-      {collectionsOpen && (
-        <div className="absolute left-0 right-0 z-20 bg-[var(--bg-secondary)] border-b border-[var(--border-subtle)] shadow-lg max-h-[50vh] overflow-y-auto custom-scrollbar p-3 space-y-2"
-          style={{ top: activeCollection ? '92px' : '41px' }}
-        >
-          <div className="flex items-center justify-between mb-1">
-            <h3 className="text-xs font-mono font-semibold text-[var(--text-primary)]">
-              Curated Collections
-            </h3>
-            <button
-              onClick={() => setCollectionsOpen(false)}
-              className="text-[var(--text-muted)] hover:text-white text-xs p-1"
-            >
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-              </svg>
-            </button>
-          </div>
-          {collections.map((collection) => {
-            const collectionStories = allStories.filter((s) =>
-              collection.storyIds.includes(s.id)
-            );
-            return (
-              <CollectionCard
-                key={collection.id}
-                collection={collection}
-                stories={collectionStories}
-                onClick={(c) => {
-                  onCollectionSelect(c);
-                  setCollectionsOpen(false);
-                }}
-              />
-            );
-          })}
-        </div>
-      )}
 
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
@@ -658,80 +690,142 @@ export function ExplorePanel({
               <div className="h-16" />
             </div>
           )
-        ) : (displayStories.length === 0 && personEntities.length === 0) ? (
+        ) : activeTab === 'collections' ? (
+          activeCollection ? (
+            /* Active collection — filtered story cards with back header */
+            <>
+              <div className="sticky top-0 z-[9] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
+                <button
+                  onClick={onClearCollection}
+                  className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
+                  title="Back to all collections"
+                >
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+                <span className="text-base shrink-0">{activeCollection.icon}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-serif font-semibold text-[var(--text-primary)] truncate">
+                    {activeCollection.name}
+                  </p>
+                  <p className="text-[10px] font-mono text-[var(--text-muted)]">
+                    {displayStories.length} {displayStories.length === 1 ? 'story' : 'stories'}
+                  </p>
+                </div>
+              </div>
+              {displayStories.length === 0 ? (
+                <div className="py-12 text-center">
+                  <p className="text-sm text-[var(--text-muted)] font-mono">No stories in this collection</p>
+                </div>
+              ) : (
+                displayStories.map((story) => (
+                  <div
+                    key={story.id}
+                    ref={(el) => {
+                      if (el) cardRefs.current.set(story.id, el);
+                      else cardRefs.current.delete(story.id);
+                    }}
+                    className={scrollActiveStoryId === story.id
+                      ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
+                      : 'transition-all duration-300'}
+                  >
+                    <StoryCard
+                      story={story}
+                      onClick={onStorySelect}
+                      compact={isMobile}
+                      distanceMi={
+                        userLocation
+                          ? nearestDistance(story, userLocation.lat, userLocation.lng)
+                          : undefined
+                      }
+                    />
+                  </div>
+                ))
+              )}
+            </>
+          ) : (
+            /* Collection list — no active collection */
+            collections.length === 0 ? (
+              <div className="py-12 text-center">
+                <p className="text-sm text-[var(--text-muted)] font-mono">No collections available</p>
+              </div>
+            ) : (
+              <>
+                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">
+                  Curated Collections
+                </p>
+                {collections.map((collection) => {
+                  const collectionStories = allStories.filter((s) =>
+                    collection.storyIds.includes(s.id)
+                  );
+                  return (
+                    <CollectionCard
+                      key={collection.id}
+                      collection={collection}
+                      stories={collectionStories}
+                      onClick={onCollectionSelect}
+                    />
+                  );
+                })}
+              </>
+            )
+          )
+        ) : /* stories tab (default) */ mixedList.length === 0 ? (
           <EmptyState
             message={searchQuery ? 'No stories match your search' : 'No stories in this area — zoom out or pan around'}
             onSurpriseMe={onSurpriseMe}
           />
         ) : (
           <>
-            {/* Story cards */}
-            {displayStories.map((story) => (
-              <div
-                key={story.id}
-                ref={(el) => {
-                  if (el) cardRefs.current.set(story.id, el);
-                  else cardRefs.current.delete(story.id);
-                }}
-                className={scrollActiveStoryId === story.id
-                  ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
-                  : 'transition-all duration-300'}
-              >
-                <StoryCard
-                  story={story}
-                  onClick={onStorySelect}
-                  compact={isMobile}
-                  distanceMi={
-                    userLocation
-                      ? nearestDistance(story, userLocation.lat, userLocation.lng)
-                      : undefined
-                  }
-                />
-              </div>
-            ))}
-
-            {/* People entities — absorbed into Stories tab */}
-            {personEntities.length > 0 && (
-              <>
-                <div className="pt-2 mt-1 border-t border-[var(--border-subtle)]">
-                  <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                    People in this area
-                  </p>
-                </div>
-                {personEntities.map(({ entity, momentCount }) => (
-                  <button
-                    key={entity.id}
-                    onClick={() => onEntityClick?.(entity)}
-                    className="w-full flex items-center gap-2.5 px-1 py-2.5 text-left transition-colors group hover:bg-[var(--bg-card)] rounded"
+            {/* Mixed story + person cards */}
+            {mixedList.map((item) => {
+              if (item.kind === 'story') {
+                return (
+                  <div
+                    key={item.story.id}
+                    ref={(el) => {
+                      if (el) cardRefs.current.set(item.story.id, el);
+                      else cardRefs.current.delete(item.story.id);
+                    }}
+                    className={scrollActiveStoryId === item.story.id
+                      ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
+                      : 'transition-all duration-300'}
                   >
-                    {/* Person avatar */}
-                    <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(139,92,246,0.12)] ring-1 ring-[rgba(139,92,246,0.3)]">
-                      <span className="text-[11px] font-serif font-bold text-[rgba(139,92,246,0.8)]">
-                        {getInitial(entity.name)}
-                      </span>
-                    </span>
-                    {/* Name */}
-                    <span className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors truncate flex-1">
-                      {entity.name}
-                    </span>
-                    {/* Years */}
-                    {entity.years && (
-                      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
-                        {entity.years}
-                      </span>
-                    )}
-                    {/* Moment count */}
-                    <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
-                      {momentCount}m
-                    </span>
-                    {/* Chevron */}
-                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50">
-                      <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                ))}
-              </>
-            )}
+                    <StoryCard
+                      story={item.story}
+                      onClick={onStorySelect}
+                      compact={isMobile}
+                      distanceMi={
+                        userLocation
+                          ? nearestDistance(item.story, userLocation.lat, userLocation.lng)
+                          : undefined
+                      }
+                    />
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    key={`person-${item.data.entity.id}`}
+                    ref={(el) => {
+                      if (el) cardRefs.current.set(item.data.entity.id, el);
+                      else cardRefs.current.delete(item.data.entity.id);
+                    }}
+                    className={scrollActiveStoryId === item.data.entity.id
+                      ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
+                      : 'transition-all duration-300'}
+                  >
+                    <PersonCard
+                      data={item.data}
+                      onClick={(entity) => onEntityClick?.(entity)}
+                      compact={isMobile}
+                      distanceMi={item.distance > 0 ? item.distance : undefined}
+                    />
+                  </div>
+                );
+              }
+            })}
           </>
         )}
       </div>
