@@ -73,6 +73,7 @@ export function ExplorePanel({
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
   const [directoryFilter, setDirectoryFilter] = useState<'person' | 'place'>('person');
   const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
   // Compact cards on mobile to show more stories below the map
   const [isMobile, setIsMobile] = useState(() =>
@@ -99,6 +100,11 @@ export function ExplorePanel({
       setCollectionsOpen(false);
     }
   }, [activeCollection]);
+
+  // Clear scroll highlight state when leaving stories tab
+  useEffect(() => {
+    if (activeTab !== 'stories') setScrollActiveStoryId(null);
+  }, [activeTab]);
 
   // Filter stories by search + category (timeline filtering already done in App.tsx)
   const filteredStories = useMemo(() => {
@@ -183,6 +189,7 @@ export function ExplorePanel({
         const story = displayStories.find((s) => s.id === closestId);
         if (story && story.moments.length > 0) {
           onModeChange('scroll');
+          setScrollActiveStoryId(closestId);
 
           // Highlight ALL story pins on the map
           const resolved = resolveLocationsFromMap(story, momentMap);
@@ -632,7 +639,7 @@ export function ExplorePanel({
                         else directoryCardRefs.current.delete(entity.id);
                       }}
                       onClick={() => onEntityClick?.(entity)}
-                      className="w-full flex items-center gap-2.5 px-1 py-2 text-left transition-colors group hover:bg-[var(--bg-card)] rounded"
+                      className="w-full flex items-center gap-2.5 px-1 py-2.5 text-left transition-colors group hover:bg-[var(--bg-card)] rounded border-b border-[var(--border-subtle)]/30"
                     >
                       {/* Avatar/icon */}
                       <span className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
@@ -691,6 +698,9 @@ export function ExplorePanel({
                   if (el) cardRefs.current.set(story.id, el);
                   else cardRefs.current.delete(story.id);
                 }}
+                className={scrollActiveStoryId === story.id
+                  ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
+                  : 'transition-all duration-300'}
               >
                 <StoryCard
                   story={story}
