@@ -65,6 +65,7 @@ export const stories: Story[] = [
     description: 'In July 1947, rancher Mac Brazel found debris on his property near Roswell. The Army initially announced recovery of a "flying disc" before retracting the statement — launching the world\'s most famous and enduring UFO legend.',
     tags: ['ufo', 'new-mexico', 'conspiracy', 'cold-war'],
     moments: [{ momentId: 'roswell-debris-field' }, { momentId: 'roswell-airfield' }],
+    relatedStoryIds: ['los-alamos', 'vla', 'coyame-ufo'],
     wikipediaSlug: 'Roswell_incident',
   },
   {
@@ -116,6 +117,7 @@ export const stories: Story[] = [
     description: 'A teenage cowboy followed what he thought was a volcano\'s smoke across the desert — and discovered one of the largest cave systems on Earth. It was actually millions of bats spiraling out at dusk.',
     tags: ['caves', 'discovery', 'new-mexico', 'natural-wonder'],
     moments: [{ momentId: 'carlsbad-entrance' }],
+    relatedStoryIds: ['roswell', 'white-sands-footprints'],
     wikipediaSlug: 'Carlsbad_Caverns_National_Park',
   },
   {
@@ -128,6 +130,7 @@ export const stories: Story[] = [
     description: 'On March 9, 1916, Mexican revolutionary Pancho Villa led 500 raiders across the border into Columbus, New Mexico — the last armed invasion of the continental United States by a foreign power.',
     tags: ['mexican-revolution', 'new-mexico', 'border', 'military'],
     moments: [{ momentId: 'columbus-raid' }],
+    relatedStoryIds: ['geronimo', 'battle-of-the-alamo'],
     wikipediaSlug: 'Battle_of_Columbus_(1916)',
   },
   {
@@ -153,6 +156,7 @@ export const stories: Story[] = [
     description: 'Georgia O\'Keeffe spent 40 years painting the red cliffs, bleached bones, and vast skies of northern New Mexico. Her work defined American modernism and transformed how the world saw the American Southwest.',
     tags: ['art', 'modernism', 'new-mexico', 'painting'],
     moments: [{ momentId: 'okeeffe-abiquiu' }, { momentId: 'okeeffe-ghost-ranch' }],
+    relatedStoryIds: ['dennis-hopper-taos'],
     wikipediaSlug: 'Georgia_O%27Keeffe',
   },
   {
@@ -165,6 +169,7 @@ export const stories: Story[] = [
     description: 'In 1680 — nearly a century before the American Revolution — Pueblo peoples united across language barriers and hundreds of miles to drive the Spanish Empire entirely out of New Mexico. It remains the most successful Native uprising in North American history.',
     tags: ['native-american', 'pueblo', 'new-mexico', 'rebellion', 'colonial'],
     moments: [{ momentId: 'pueblo-palace' }],
+    relatedStoryIds: ['palace-of-governors', 'coronado-cibola'],
     wikipediaSlug: 'Pueblo_Revolt',
   },
   {
@@ -177,6 +182,7 @@ export const stories: Story[] = [
     description: 'In 1950, the town of Hot Springs, New Mexico, voted to rename itself "Truth or Consequences" after a radio game show promised to broadcast from the first town brave enough to take its name. They\'re still the only U.S. town named after a game show.',
     tags: ['weird-history', 'new-mexico', 'pop-culture'],
     moments: [{ momentId: 'toc-downtown' }],
+    relatedStoryIds: ['roswell', 'vla'],
     wikipediaSlug: 'Truth_or_Consequences,_New_Mexico',
   },
   {
@@ -189,6 +195,7 @@ export const stories: Story[] = [
     description: 'Pueblo Bonito in Chaco Canyon contained over 600 rooms and was the largest building in North America until the 1800s. The canyon was the center of a vast trade network and aligned with celestial events with astonishing precision.',
     tags: ['archaeology', 'native-american', 'new-mexico', 'ancient'],
     moments: [{ momentId: 'pueblo-bonito' }],
+    relatedStoryIds: ['clovis-points', 'white-sands-footprints'],
     wikipediaSlug: 'Chaco_Culture_National_Historical_Park',
   },
   {
@@ -240,6 +247,7 @@ export const stories: Story[] = [
     description: 'Buddy Holly, Ritchie Valens, and the Big Bopper played their final concert before departing from Clovis on February 2, 1959. Hours later, their plane crashed in an Iowa cornfield — "the day the music died."',
     tags: ['music', 'tragedy', 'new-mexico', 'rock-and-roll'],
     moments: [{ momentId: 'norman-petty-studios' }],
+    relatedStoryIds: ['clovis-points', 'james-dean-crash'],
     wikipediaSlug: 'Buddy_Holly',
   },
   {
@@ -278,6 +286,7 @@ export const stories: Story[] = [
     description: 'In 1862, the Confederate flag flew over Mesilla when it briefly served as the capital of the Confederate Territory of Arizona. The Confederacy\'s westernmost ambitions reached deep into the New Mexico desert before being turned back at Glorieta Pass.',
     tags: ['civil-war', 'new-mexico', 'confederacy'],
     moments: [{ momentId: 'mesilla-plaza' }],
+    relatedStoryIds: ['billy-the-kid', 'battle-of-the-alamo'],
     wikipediaSlug: 'Confederate_Arizona',
   },
   {
@@ -291,6 +300,7 @@ export const stories: Story[] = [
     tags: ['racial-violence', 'oklahoma', 'jim-crow', 'cover-up'],
     contentWarning: 'Contains references to racial violence and mass murder.',
     moments: [{ momentId: 'tulsa-greenwood' }, { momentId: 'tulsa-drexel' }],
+    relatedStoryIds: ['rosewood-massacre', 'wounded-knee-massacre'],
     wikipediaSlug: 'Tulsa_race_massacre',
   },
   {
@@ -303,6 +313,7 @@ export const stories: Story[] = [
     description: 'On September 30, 1955, James Dean was killed in a car crash at a desolate California intersection while driving his Porsche 550 Spyder to a race in Salinas. He was 24 years old and had completed only three films. The crash site became an instant pilgrimage destination.',
     tags: ['hollywood', 'california', 'car-crash', 'celebrity'],
     moments: [{ momentId: 'dean-crash-site' }],
+    relatedStoryIds: ['buddy-holly-clovis', 'amelia-earhart'],
     wikipediaSlug: 'James_Dean',
   },
   {
@@ -315,6 +326,7 @@ export const stories: Story[] = [
     description: 'Before Google was Google, it was two Stanford PhD students who needed funding. Their first investor meeting — the one that launched a trillion-dollar company — happened over breakfast at a Denny\'s on El Camino Real.',
     tags: ['silicon-valley', 'tech', 'california', 'startup'],
     moments: [{ momentId: 'dennys-google-meeting' }],
+    relatedStoryIds: ['michael-dell-startup', 'wright-brothers'],
     wikipediaSlug: 'Google',
   },
   {
@@ -721,6 +733,7 @@ export const stories: Story[] = [
     description: 'A quiet indigenous healer shares the sacred "holy children" mushrooms with a Western banker, accidentally sparking the global psychedelic movement. Her act of generosity leads to a celebrity invasion, police harassment, and the burning of her home.',
     tags: ['psychedelic', 'oaxaca', 'shamanism', 'indigenous'],
     moments: [{ momentId: 'sabina-first-velada' }, { momentId: 'sabina-home-arson' }],
+    relatedStoryIds: ['tomb-7-treasure', 'jacobo-grinberg'],
     wikipediaSlug: 'María_Sabina',
   },
   {
@@ -733,6 +746,7 @@ export const stories: Story[] = [
     description: 'An archaeologist unseals a stone slab to find the richest hoard of gold and jewels ever discovered in the Americas. The find proves that the Mixtecs had repurposed a 1,000-year-old Zapotec tomb for their own elite.',
     tags: ['archaeology', 'gold', 'oaxaca', 'zapotec', 'mixtec'],
     moments: [{ momentId: 'tomb-7-discovery' }, { momentId: 'tomb-7-museum' }],
+    relatedStoryIds: ['maria-sabina', 'pakals-tomb'],
     wikipediaSlug: 'Monte_Albán',
   },
   {
@@ -745,6 +759,7 @@ export const stories: Story[] = [
     description: 'A Zapotec king and an Aztec emperor engage in a seven-month guerrilla war on a mountain top that ends in a royal marriage instead of a massacre. The Zapotec defenses are so impenetrable that the Aztecs are forced to sue for peace for the first time.',
     tags: ['aztec', 'zapotec', 'military', 'oaxaca'],
     moments: [{ momentId: 'guiengola-fortress' }, { momentId: 'guiengola-river-stalemate' }],
+    relatedStoryIds: ['tomb-7-treasure', 'vicente-guerrero-betrayal'],
     wikipediaSlug: 'Guiengola',
   },
   {
@@ -784,6 +799,7 @@ export const stories: Story[] = [
     description: 'An archaeologist descends into a hidden chamber to find a king buried in a sarcophagus lid that looks like a cockpit. While scientists see a ritual journey, the public sees an "ancient astronaut" in a rocket ship.',
     tags: ['maya', 'palenque', 'archaeology', 'ancient-aliens'],
     moments: [{ momentId: 'pakal-temple-inscriptions' }, { momentId: 'pakal-museum-anthropology' }],
+    relatedStoryIds: ['tomb-7-treasure', 'teotihuacan-mercury-lake'],
     wikipediaSlug: 'Kʼinich_Janaabʼ_Pakal',
   },
   {
@@ -821,6 +837,7 @@ export const stories: Story[] = [
     description: 'During a total solar eclipse, tens of thousands of people in Mexico City film the same metallic object in the darkened sky. It is the most recorded UFO event in history, with hundreds of different camera angles of the same disc.',
     tags: ['ufo', 'mexico-city', 'eclipse', 'sighting'],
     moments: [{ momentId: 'eclipse-ufo-zocalo' }, { momentId: 'eclipse-ufo-pyramids' }],
+    relatedStoryIds: ['mexican-air-force-flir', 'coyame-ufo'],
   },
   {
     id: 'mexican-air-force-flir',
@@ -832,6 +849,7 @@ export const stories: Story[] = [
     description: 'A military patrol finds themselves surrounded by 11 invisible-to-the-eye objects that only show up on thermal cameras. The government\'s voluntary release of the footage remains a watershed moment for official UAP recognition.',
     tags: ['ufo', 'military', 'air-force', 'campeche'],
     moments: [{ momentId: 'flir-campeche-skies' }, { momentId: 'flir-press-conference' }],
+    relatedStoryIds: ['1991-eclipse-ufo', 'coyame-ufo', 'roswell'],
   },
   {
     id: 'jacobo-grinberg',
@@ -844,6 +862,7 @@ export const stories: Story[] = [
     tags: ['scientist', 'mystery', 'unam', 'consciousness'],
     contentWarning: 'Mysterious disappearance.',
     moments: [{ momentId: 'grinberg-home-disappearance' }, { momentId: 'grinberg-unam-lab' }],
+    relatedStoryIds: ['maria-sabina', 'bermeja-island'],
     wikipediaSlug: 'Jacobo_Grinberg',
   },
   {
@@ -869,6 +888,7 @@ export const stories: Story[] = [
     description: 'An island that appeared on maps for 400 years suddenly vanishes when it is needed to determine oil rights. The Navy found nothing but deep ocean, leading to theories that the CIA destroyed it to shift borders.',
     tags: ['mystery', 'ocean', 'oil', 'cartography'],
     moments: [{ momentId: 'bermeja-mapped-existence' }, { momentId: 'bermeja-navy-search' }],
+    relatedStoryIds: ['jacobo-grinberg', 'zone-of-silence'],
     wikipediaSlug: 'Bermeja',
   },
   {
@@ -881,6 +901,7 @@ export const stories: Story[] = [
     description: 'Engineers report their equipment being sabotaged by 3-foot-tall beings until they build them a tiny stone house. The "Aluxes" are so culturally accepted that the bridge has a permanent shrine built underneath it.',
     tags: ['cancun', 'maya', 'spirits', 'engineering'],
     moments: [{ momentId: 'alux-bridge-sabotage' }, { momentId: 'alux-stone-house' }],
+    relatedStoryIds: ['pakals-tomb', 'monchito-phantom-boy'],
     wikipediaSlug: 'Alux',
   },
   {
@@ -894,6 +915,7 @@ export const stories: Story[] = [
     tags: ['comet', 'astronomy', 'panic', 'oaxaca'],
     contentWarning: 'Suicide and mass hysteria.',
     moments: [{ momentId: 'halley-tacubaya-observatory' }, { momentId: 'halley-tlaxiaco-ritual' }],
+    relatedStoryIds: ['monchito-phantom-boy', 'tlatelolco-massacre-1968'],
     wikipediaSlug: 'Halley%27s_Comet',
   },
   {
@@ -907,6 +929,7 @@ export const stories: Story[] = [
     tags: ['crime', 'mexico-city', 'serial-killer', 'roma-norte'],
     contentWarning: 'Graphic violence, cannibalism, and murder.',
     moments: [{ momentId: 'cannibal-roma-apartment' }, { momentId: 'cannibal-tlatelolco-dump' }],
+    relatedStoryIds: ['atizapan-cannibal', 'dahmer'],
     wikipediaSlug: 'José_Luis_Calva_Mercado',
   },
   {
@@ -945,6 +968,7 @@ export const stories: Story[] = [
     description: 'In the rubble of the devastating 1985 earthquake, rescue teams hear the taps of a small boy trapped beneath a collapsed building. For weeks, the nation watches as the navy digs for "Monchito," only to discover a terrifying truth: the boy might never have existed at all.',
     tags: ['earthquake', 'mystery', '1985', 'mexico-city', 'paranormal'],
     moments: [{ momentId: 'monchito-rubble-site' }],
+    relatedStoryIds: ['halleys-comet-panic', 'aluxes-cancun-bridge'],
   },
   {
     id: 'torreon-massacre',
@@ -983,6 +1007,7 @@ export const stories: Story[] = [
     tags: ['mummies', 'guanajuato', 'death', 'science', 'history'],
     contentWarning: 'Exhumed remains and death.',
     moments: [{ momentId: 'guanajuato-cemetery-exhumation' }],
+    relatedStoryIds: ['pakals-tomb', 'tomb-7-treasure'],
     wikipediaSlug: 'Mummies_of_Guanajuato',
   },
   {
@@ -1023,6 +1048,7 @@ export const stories: Story[] = [
     description: 'Archaeologists using a robot discovered a 330-foot secret tunnel beneath the Temple of the Feathered Serpent. At the end, they found a miniature landscape of mountains and a lake made of liquid mercury, designed to represent the entrance to the Aztec underworld.',
     tags: ['archaeology', 'teotihuacan', 'mercury', 'mystery', 'underworld'],
     moments: [{ momentId: 'teotihuacan-tunnel-entrance' }, { momentId: 'teotihuacan-mercury-chamber' }],
+    relatedStoryIds: ['pakals-tomb', 'chaco-canyon'],
     wikipediaSlug: 'Teotihuacan',
   },
   {
@@ -1036,6 +1062,7 @@ export const stories: Story[] = [
     tags: ['crime', 'serial-killer', 'atizapan', 'dark-history'],
     contentWarning: 'Graphic violence and cannibalism.',
     moments: [{ momentId: 'atizapan-house-horrors' }, { momentId: 'atizapan-market-stall' }],
+    relatedStoryIds: ['cannibal-of-roma', 'dahmer'],
   },
   {
     id: 'cavendish-huatulco-siege',
@@ -1061,6 +1088,7 @@ export const stories: Story[] = [
     tags: ['massacre', 'mexico-city', '1968', 'protest', 'military'],
     contentWarning: 'State violence and mass murder.',
     moments: [{ momentId: 'tlatelolco-flare-signal' }, { momentId: 'tlatelolco-chihuahua-snipers' }, { momentId: 'tlatelolco-church-sanctuary' }],
+    relatedStoryIds: ['halleys-comet-panic', 'tulsa-race-massacre'],
     wikipediaSlug: 'Tlatelolco_massacre',
   },
   {
@@ -1366,6 +1394,7 @@ export const stories: Story[] = [
     description: 'Since 1883, basketball-sized orbs of light have danced across the Mitchell Flat, changing color and merging at will. Despite military drone tests and scientific expeditions, the "ghost fires" remain an unexplained phenomenon.',
     tags: ['marfa', 'ufo', 'paranormal', 'mystery', 'desert'],
     moments: [{ momentId: 'marfa-viewing-area' }],
+    relatedStoryIds: ['roswell', 'lajitas-goat-mayor'],
     wikipediaSlug: 'Marfa_lights',
   },
   {
@@ -1377,6 +1406,7 @@ export const stories: Story[] = [
     description: 'A tiny border town in the Big Bend elected a beer-drinking goat named Clay Henry as its mayor. The "political dynasty" lasted for generations, with the goat famously chugging longnecks to welcome tourists.',
     tags: ['big-bend', 'weird-texas', 'humor', 'politics', 'animals'],
     moments: [{ momentId: 'goat-trading-post' }, { momentId: 'goat-henry-statue' }],
+    relatedStoryIds: ['marfa-lights', 'cadillac-ranch-amarillo'],
   },
   {
     id: 'spindletop-gusher',
@@ -1387,6 +1417,7 @@ export const stories: Story[] = [
     description: 'A drilling rig hit a pocket of oil that shot 150 feet into the air, raining 100,000 barrels a day for nine days. It didn\'t just find oil; it shifted the global economy from coal to petroleum in a single afternoon.',
     tags: ['beaumont', 'east-texas', 'oil', 'science', 'history'],
     moments: [{ momentId: 'spindletop-lucas-site' }, { momentId: 'spindletop-gladys-city' }],
+    relatedStoryIds: ['texas-city-disaster', 'galveston-free-state'],
     wikipediaSlug: 'Spindletop',
   },
   {
@@ -1422,6 +1453,7 @@ export const stories: Story[] = [
     description: 'A secret network of tunnels under the historic San Agustin Plaza was used to smuggle silver and weapons during the Mexican Revolution. The tunnels are still there, occasionally causing sidewalks to sink or collapse.',
     tags: ['laredo', 'border', 'mystery', 'smuggling', 'revolution'],
     moments: [{ momentId: 'tun-agustin-plaza' }, { momentId: 'tun-la-posada' }],
+    relatedStoryIds: ['pancho-villa-raid', 'chamizal-border-shift'],
   },
   {
     id: 'cadillac-ranch-amarillo',
@@ -1432,6 +1464,7 @@ export const stories: Story[] = [
     description: 'An eccentric billionaire buried ten Cadillacs nose-first in a wheat field at the exact angle of the Great Pyramid of Giza. It was intended as a tribute to the tailfin, but it became a global site for sanctioned vandalism.',
     tags: ['amarillo', 'art', 'route-66', 'weird-texas', 'history'],
     moments: [{ momentId: 'cad-ranch-site' }, { momentId: 'cad-ant-farm-studio' }, { momentId: 'cad-relocation-spray' }],
+    relatedStoryIds: ['lajitas-goat-mayor', 'cathedral-of-junk'],
     wikipediaSlug: 'Cadillac_Ranch',
   },
   {
@@ -1469,6 +1502,7 @@ export const stories: Story[] = [
     description: 'An earthquake in prehistoric times cracked open a dry cave that sits directly on top of the Balcones Fault. It is the only place where you can walk through a physical crack in the Earth\'s crust caused by a single seismic event.',
     tags: ['san-marcos', 'science', 'geology', 'nature', 'discovery'],
     moments: [{ momentId: 'ww-fault-line' }],
+    relatedStoryIds: ['carlsbad-caverns', 'barton-springs-sos'],
     wikipediaSlug: 'Wonder_World_Cave',
   },
   {
@@ -1504,6 +1538,7 @@ export const stories: Story[] = [
     description: 'For a century, women set up massive outdoor kitchens in the city squares, inventing "Chili con Carne" as we know it while serenading tourists. They were eventually shut down by the health department as San Antonio modernized.',
     tags: ['san-antonio', 'food', 'culture', 'history', 'women'],
     moments: [{ momentId: 'queen-milam-park' }, { momentId: 'queen-military-plaza' }],
+    relatedStoryIds: ['menger-hotel-rough-riders', 'battle-of-the-alamo'],
     wikipediaSlug: 'Chile_queens',
   },
   {
