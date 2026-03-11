@@ -5,7 +5,7 @@ import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
 import { stories as allStories } from '../../data/stories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, getInitial, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, getInitial, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { StoryCard } from './StoryCard';
 import { CollectionCard } from './CollectionCard';
 
@@ -31,7 +31,7 @@ interface ExplorePanelProps {
   onEntityClick?: (entity: Entity) => void;
 }
 
-type PanelTab = 'moments' | 'stories' | 'directory';
+type PanelTab = 'moments' | 'stories' | 'places';
 
 /** Haversine distance in miles between two lat/lng points */
 function distanceMiles(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -71,9 +71,9 @@ export function ExplorePanel({
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
-  const [directoryFilter, setDirectoryFilter] = useState<'person' | 'place'>('person');
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
+  const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
 
   // Compact cards on mobile to show more stories below the map
   const [isMobile, setIsMobile] = useState(() =>
@@ -89,7 +89,7 @@ export function ExplorePanel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-  const directoryCardRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
 
@@ -104,6 +104,7 @@ export function ExplorePanel({
   // Clear scroll highlight state when leaving stories tab
   useEffect(() => {
     if (activeTab !== 'stories') setScrollActiveStoryId(null);
+    if (activeTab !== 'places') setScrollActiveEntityId(null);
   }, [activeTab]);
 
   // Filter stories by search + category (timeline filtering already done in App.tsx)
@@ -260,11 +261,15 @@ export function ExplorePanel({
   }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
 
   // Stories tab: show viewport stories if available, else filtered stories
+  // Filter out canonical stories — they're invisible infrastructure
   const displayStories = useMemo(() => {
     let result: Story[];
     if (searchQuery.trim()) result = filteredStories;
     else if (viewportStories.length > 0) result = viewportStories;
     else result = filteredStories;
+
+    // Suppress canonical stories from browseable list
+    result = result.filter(s => !canonicalStoryIds.has(s.id));
 
     if (userLocation) {
       return [...result].sort(
@@ -276,7 +281,7 @@ export function ExplorePanel({
     return result;
   }, [filteredStories, viewportStories, searchQuery, userLocation]);
 
-  // Directory tab: viewport entities
+  // Viewport entities — split into people and places
   const viewportEntities: EntityWithCounts[] = useMemo(() => {
     if (viewportLocations.length === 0) return [];
     const ids = new Set(viewportLocations.map((vl) => vl.location.id));
@@ -292,28 +297,27 @@ export function ExplorePanel({
     return result;
   }, [viewportLocations, searchQuery]);
 
-  const directoryEntities = useMemo(() => {
-    return viewportEntities.filter((e) => e.entity.type === directoryFilter);
-  }, [viewportEntities, directoryFilter]);
-
-  const alphabeticalGroups = useMemo(
-    () => groupAlphabetically(directoryEntities),
-    [directoryEntities]
-  );
-
-  const personCount = useMemo(
-    () => viewportEntities.filter((e) => e.entity.type === 'person').length,
-    [viewportEntities]
-  );
-  const placeCount = useMemo(
-    () => viewportEntities.filter((e) => e.entity.type === 'place').length,
+  // People entities — shown in Stories tab below story cards
+  const personEntities = useMemo(
+    () => viewportEntities.filter((e) => e.entity.type === 'person'),
     [viewportEntities]
   );
 
-  // Scroll-driven entity highlighting (Directory tab)
-  // NOTE: Must be after directoryEntities useMemo to avoid TDZ
+  // Place entities — shown in Places tab
+  const placeEntities = useMemo(
+    () => viewportEntities.filter((e) => e.entity.type === 'place'),
+    [viewportEntities]
+  );
+
+  const placeAlphabeticalGroups = useMemo(
+    () => groupAlphabetically(placeEntities),
+    [placeEntities]
+  );
+
+  // Scroll-driven entity highlighting (Places tab)
+  // Shows single primary pin for each entity (not all moments)
   useEffect(() => {
-    if (activeTab !== 'directory' || !mapInstance) return;
+    if (activeTab !== 'places' || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -323,7 +327,7 @@ export function ExplorePanel({
       let closestId: string | null = null;
       let closestDist = Infinity;
 
-      directoryCardRefs.current.forEach((el, id) => {
+      placesCardRefs.current.forEach((el, id) => {
         const rect = el.getBoundingClientRect();
         const cardCenter = rect.top + rect.height / 2;
         const dist = Math.abs(cardCenter - centerY);
@@ -334,15 +338,22 @@ export function ExplorePanel({
       });
 
       if (closestId) {
-        // Highlight ALL moments for this entity on the map
+        setScrollActiveEntityId(closestId);
+        // Highlight only the first (primary) moment for this entity — single pin
         const entityMoments = getMomentsForEntity(closestId);
-        onScrollHighlight(entityMoments);
+        if (entityMoments.length > 0) {
+          onScrollHighlight([entityMoments[0]]);
+          mapInstance.panTo([entityMoments[0].lat, entityMoments[0].lng], {
+            animate: true,
+            duration: 0.6,
+          });
+        }
       }
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
     return () => container.removeEventListener('scroll', onScroll);
-  }, [activeTab, mapInstance, directoryEntities, onScrollHighlight]);
+  }, [activeTab, mapInstance, placeEntities, onScrollHighlight]);
 
   return (
     <div className="flex flex-col h-full relative">
@@ -397,56 +408,30 @@ export function ExplorePanel({
           }`}
         >
           Stories
-          {viewportStories.length > 0 && (
+          {displayStories.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({displayStories.length})</span>
           )}
           {activeTab === 'stories' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
-        {activeTab === 'directory' ? (
-          /* When Directory is active, show inline People/Places toggles */
-          <div className="flex flex-1 relative">
-            <button
-              onClick={() => setDirectoryFilter('person')}
-              className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-                directoryFilter === 'person'
-                  ? 'text-[rgba(167,139,250,1)]'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-              }`}
-            >
-              People
-              {personCount > 0 && (
-                <span className="ml-1 text-[10px] text-[var(--text-muted)]">({personCount})</span>
-              )}
-            </button>
-            <button
-              onClick={() => setDirectoryFilter('place')}
-              className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-                directoryFilter === 'place'
-                  ? 'text-[rgba(96,165,250,1)]'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-              }`}
-            >
-              Places
-              {placeCount > 0 && (
-                <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeCount})</span>
-              )}
-            </button>
+        <button
+          onClick={() => setActiveTab('places')}
+          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+            activeTab === 'places'
+              ? 'text-[var(--text-primary)]'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+          }`}
+        >
+          Places
+          {placeEntities.length > 0 && (
+            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeEntities.length})</span>
+          )}
+          {activeTab === 'places' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          </div>
-        ) : (
-          <button
-            onClick={() => setActiveTab('directory')}
-            className="flex-1 py-2.5 text-xs font-mono transition-colors relative text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
-          >
-            Directory
-            {viewportEntities.length > 0 && (
-              <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportEntities.length})</span>
-            )}
-          </button>
-        )}
-        {/* Collections button */}
+          )}
+        </button>
+        {/* Collections button — text label, always visible */}
         <button
           onClick={() => setCollectionsOpen(!collectionsOpen)}
           className={`shrink-0 px-2.5 py-2.5 text-xs font-mono transition-colors border-l border-[var(--border-subtle)] ${
@@ -458,14 +443,7 @@ export function ExplorePanel({
           }`}
           title="Browse curated collections"
         >
-          <span className="flex items-center gap-1">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
-              <rect x="1" y="2" width="12" height="2" rx="0.5" stroke="currentColor" strokeWidth="1"/>
-              <rect x="2" y="5.5" width="10" height="2" rx="0.5" stroke="currentColor" strokeWidth="1"/>
-              <rect x="3" y="9" width="8" height="2" rx="0.5" stroke="currentColor" strokeWidth="1"/>
-            </svg>
-            <span className="hidden sm:inline">Collections</span>
-          </span>
+          Collections
         </button>
       </div>
 
@@ -617,73 +595,70 @@ export function ExplorePanel({
               <div className="h-16" />
             </>
           )
-        ) : activeTab === 'directory' ? (
-          viewportEntities.length === 0 ? (
+        ) : activeTab === 'places' ? (
+          placeEntities.length === 0 ? (
             <EmptyState
-              message="Pan or zoom the map to see people and places in this area"
+              message="Pan or zoom the map to see places in this area"
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
             <div>
-              {/* Alphabetical entity list */}
-              {Array.from(alphabeticalGroups.entries()).map(([letter, items]) => (
+              {/* Alphabetical place entity list */}
+              {Array.from(placeAlphabeticalGroups.entries()).map(([letter, items]) => (
                 <div key={letter}>
                   <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
                     {letter}
                   </div>
-                  {items.map(({ entity, momentCount }) => (
-                    <button
-                      key={entity.id}
-                      ref={(el) => {
-                        if (el) directoryCardRefs.current.set(entity.id, el);
-                        else directoryCardRefs.current.delete(entity.id);
-                      }}
-                      onClick={() => onEntityClick?.(entity)}
-                      className="w-full flex items-center gap-2.5 px-1 py-2.5 text-left transition-colors group hover:bg-[var(--bg-card)] rounded border-b border-[var(--border-subtle)]/30"
-                    >
-                      {/* Avatar/icon */}
-                      <span className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
-                        entity.type === 'person'
-                          ? 'bg-[rgba(139,92,246,0.12)] ring-1 ring-[rgba(139,92,246,0.3)]'
-                          : 'bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)]'
-                      }`}>
-                        {entity.type === 'person' ? (
-                          <span className="text-[11px] font-serif font-bold text-[rgba(139,92,246,0.8)]">
-                            {getInitial(entity.name)}
-                          </span>
-                        ) : (
+                  {items.map(({ entity, momentCount }) => {
+                    const isActive = scrollActiveEntityId === entity.id;
+                    return (
+                      <button
+                        key={entity.id}
+                        ref={(el) => {
+                          if (el) placesCardRefs.current.set(entity.id, el);
+                          else placesCardRefs.current.delete(entity.id);
+                        }}
+                        onClick={() => onEntityClick?.(entity)}
+                        className={`w-full flex items-center gap-2.5 px-1 py-2.5 text-left transition-colors group rounded border-b border-[var(--border-subtle)]/30 ${
+                          isActive ? 'bg-[var(--bg-card-hover)]' : 'hover:bg-[var(--bg-card)]'
+                        }`}
+                      >
+                        {/* Place icon */}
+                        <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)]">
                           <svg width="11" height="11" viewBox="0 0 14 14" fill="none" className="text-[rgba(59,130,246,0.7)]">
                             <path d="M7 1C4.24 1 2 3.24 2 6c0 3.5 5 7 5 7s5-3.5 5-7c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5z" fill="currentColor"/>
                           </svg>
-                        )}
-                      </span>
-                      {/* Name */}
-                      <span className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors truncate flex-1">
-                        {entity.name}
-                      </span>
-                      {/* Years */}
-                      {entity.years && (
-                        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
-                          {entity.years}
                         </span>
-                      )}
-                      {/* Moment count */}
-                      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
-                        {momentCount}m
-                      </span>
-                      {/* Chevron */}
-                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50">
-                        <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </button>
-                  ))}
+                        {/* Name */}
+                        <span className={`text-xs font-serif font-semibold transition-colors truncate flex-1 ${
+                          isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
+                        }`}>
+                          {entity.name}
+                        </span>
+                        {/* Years */}
+                        {entity.years && (
+                          <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
+                            {entity.years}
+                          </span>
+                        )}
+                        {/* Moment count */}
+                        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
+                          {momentCount}m
+                        </span>
+                        {/* Chevron */}
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50">
+                          <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                    );
+                  })}
                 </div>
               ))}
               {/* Bottom padding for scroll detection — minimal to avoid black space */}
               <div className="h-16" />
             </div>
           )
-        ) : displayStories.length === 0 ? (
+        ) : (displayStories.length === 0 && personEntities.length === 0) ? (
           <EmptyState
             message={searchQuery ? 'No stories match your search' : 'No stories in this area — zoom out or pan around'}
             onSurpriseMe={onSurpriseMe}
@@ -714,6 +689,49 @@ export function ExplorePanel({
                 />
               </div>
             ))}
+
+            {/* People entities — absorbed into Stories tab */}
+            {personEntities.length > 0 && (
+              <>
+                <div className="pt-2 mt-1 border-t border-[var(--border-subtle)]">
+                  <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                    People in this area
+                  </p>
+                </div>
+                {personEntities.map(({ entity, momentCount }) => (
+                  <button
+                    key={entity.id}
+                    onClick={() => onEntityClick?.(entity)}
+                    className="w-full flex items-center gap-2.5 px-1 py-2.5 text-left transition-colors group hover:bg-[var(--bg-card)] rounded"
+                  >
+                    {/* Person avatar */}
+                    <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(139,92,246,0.12)] ring-1 ring-[rgba(139,92,246,0.3)]">
+                      <span className="text-[11px] font-serif font-bold text-[rgba(139,92,246,0.8)]">
+                        {getInitial(entity.name)}
+                      </span>
+                    </span>
+                    {/* Name */}
+                    <span className="text-xs font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors truncate flex-1">
+                      {entity.name}
+                    </span>
+                    {/* Years */}
+                    {entity.years && (
+                      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
+                        {entity.years}
+                      </span>
+                    )}
+                    {/* Moment count */}
+                    <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
+                      {momentCount}m
+                    </span>
+                    {/* Chevron */}
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50">
+                      <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                ))}
+              </>
+            )}
           </>
         )}
       </div>

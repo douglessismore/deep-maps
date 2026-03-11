@@ -3,7 +3,7 @@ import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getStoryEntities } from '../../lib/entityHelpers';
+import { getStoryEntities, canonicalStoryIds } from '../../lib/entityHelpers';
 
 const momentMap = buildMomentMap(moments);
 import { CategoryBadge } from '../ui/CategoryBadge';
@@ -171,12 +171,13 @@ export function StoryPanel({
   });
 
   // All connected stories with reason labels for the navigation strip
+  // Filter out canonical stories — their entity cards replace them in DIVE DEEPER
   const connectedEntries = [
-    ...relatedStories.map(s => ({ story: s, reason: 'related' as const })),
-    ...nearbyStories.map(s => ({ story: s, reason: 'nearby' as const })),
+    ...relatedStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'related' as const })),
+    ...nearbyStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'nearby' as const })),
   ];
 
-  // Story-level entities for GO DEEPER header section
+  // Story-level entities for DIVE DEEPER header section
   const storyEntities = useMemo(() => getStoryEntities(story.id), [story.id]);
 
   // Cross-story moment map: for each momentId in this story, which OTHER stories also reference it?
@@ -365,12 +366,12 @@ export function StoryPanel({
             </div>
           </div>
 
-          {/* Go Deeper — story-level entities + related stories */}
+          {/* Dive Deeper — story-level entities + related stories */}
           {(storyEntities.length > 0 || connectedEntries.length > 0) && (
             <div className="border-b border-[var(--border-subtle)]">
               <div className="px-4 pt-2 pb-1">
                 <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-                  Go Deeper
+                  Dive Deeper
                 </h3>
               </div>
               <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">

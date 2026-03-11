@@ -1,7 +1,7 @@
 import { forwardRef, useMemo } from 'react';
 import type { Entity, Moment, Story, LocationAccuracy } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { entityMap, getEntityMomentStories } from '../../lib/entityHelpers';
+import { entityMap, getEntityMomentStories, canonicalStoryIds } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 
@@ -29,7 +29,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
   function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
     const cat = CATEGORIES[story.category];
 
-    // Resolve entities for "Go Deeper" chips/cards — always computed for strottability
+    // Resolve entities for "Dive Deeper" chips/cards — always computed for strottability
     const resolvedEntities = useMemo(() => {
       if (!location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
       return location.entityIds
@@ -178,8 +178,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </svg>
               </button>
             )}
-            {/* Go Deeper — unified entity + cross-story navigation */}
-            {(resolvedEntities.length > 0 || (alsoInStories && alsoInStories.length > 0)) && (
+            {/* Dive Deeper — unified entity + cross-story navigation */}
+            {(resolvedEntities.length > 0 || (alsoInStories && alsoInStories.filter(s => !canonicalStoryIds.has(s.id)).length > 0)) && (
               <GoDeeperSection>
                 {resolvedEntities.map(({ entity, momentCount, storyCount }) => (
                   <GoDeeperCard
@@ -190,7 +190,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                     onClick={() => onEntityClick!(entity, location)}
                   />
                 ))}
-                {alsoInStories?.map((otherStory) => {
+                {alsoInStories?.filter(s => !canonicalStoryIds.has(s.id)).map((otherStory) => {
                   const otherCat = CATEGORIES[otherStory.category];
                   return (
                     <GoDeeperCard

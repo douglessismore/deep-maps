@@ -6,9 +6,10 @@ import {
   getEntityStories,
   getNotableFigures,
   getKeyLocations,
+  canonicalStoryIds,
 } from '../../lib/entityHelpers';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
-import { GoDeeperCard } from './GoDeeperCard';
+import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 
 interface EntityPanelProps {
   entity: Entity;
@@ -45,8 +46,9 @@ export function EntityPanel({
   );
 
   // Stories — always computed for all entity types
+  // Filter out canonical stories — they're invisible infrastructure
   const entityStories = useMemo(
-    () => getEntityStories(entity.id),
+    () => getEntityStories(entity.id).filter(s => !canonicalStoryIds.has(s.id)),
     [entity.id]
   );
 
@@ -323,50 +325,80 @@ export function EntityPanel({
           </div>
         )}
 
-        {/* Story chips — which stories contain this moment */}
-        {parentStories.length > 0 && (
-          <div className={`flex flex-wrap gap-1 ${isExpanded ? 'mt-3 pt-2.5 border-t border-[var(--border-subtle)]' : 'mt-1.5'}`}>
-            {parentStories.map((s) => {
-              const sCat = CATEGORIES[s.category];
-              return (
-                <button
-                  key={s.id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onStoryClick(s, moment);
-                  }}
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all truncate max-w-[180px]"
-                >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full shrink-0 inline-block"
-                    style={{ backgroundColor: sCat.color }}
+        {/* Dive Deeper — stories + other entities on this moment */}
+        {isExpanded ? (
+          /* Expanded: full DIVE DEEPER section with GoDeeperCards */
+          (parentStories.filter(s => !canonicalStoryIds.has(s.id)).length > 0 || otherEntities.length > 0) && (
+            <GoDeeperSection>
+              {otherEntities.map((otherEntity) => (
+                <GoDeeperCard
+                  key={otherEntity.id}
+                  label={otherEntity.name}
+                  sublabel={otherEntity.years || otherEntity.type}
+                  icon={<span className="text-sm opacity-60">{otherEntity.type === 'person' ? '👤' : '📍'}</span>}
+                  onClick={() => onEntityClick(otherEntity, moment)}
+                />
+              ))}
+              {parentStories.filter(s => !canonicalStoryIds.has(s.id)).map((s) => {
+                const sCat = CATEGORIES[s.category];
+                return (
+                  <GoDeeperCard
+                    key={s.id}
+                    label={s.name}
+                    sublabel={`${s.moments.length} ${s.moments.length === 1 ? 'moment' : 'moments'} · ${s.years}`}
+                    icon={<span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />}
+                    onClick={() => onStoryClick(s, moment)}
                   />
-                  <span className="truncate">{s.name}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Go Deeper — other entity chips on this moment */}
-        {otherEntities.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-1">
-            {otherEntities.map((otherEntity) => (
-              <button
-                key={otherEntity.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEntityClick(otherEntity, moment);
-                }}
-                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all"
-              >
-                <span className="opacity-60">
-                  {otherEntity.type === 'person' ? '👤' : '📍'}
-                </span>
-                <span className="truncate max-w-[140px]">{otherEntity.name}</span>
-              </button>
-            ))}
-          </div>
+                );
+              })}
+            </GoDeeperSection>
+          )
+        ) : (
+          /* Collapsed: inline chips for strottability */
+          <>
+            {parentStories.filter(s => !canonicalStoryIds.has(s.id)).length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1.5">
+                {parentStories.filter(s => !canonicalStoryIds.has(s.id)).map((s) => {
+                  const sCat = CATEGORIES[s.category];
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onStoryClick(s, moment);
+                      }}
+                      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all truncate max-w-[180px]"
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0 inline-block"
+                        style={{ backgroundColor: sCat.color }}
+                      />
+                      <span className="truncate">{s.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {otherEntities.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {otherEntities.map((otherEntity) => (
+                  <button
+                    key={otherEntity.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEntityClick(otherEntity, moment);
+                    }}
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all"
+                  >
+                    <span className="opacity-60 text-[9px]">
+                      {otherEntity.type === 'person' ? '👤' : '📍'}
+                    </span>
+                    <span className="truncate max-w-[140px]">{otherEntity.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     );

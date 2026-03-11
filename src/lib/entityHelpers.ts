@@ -146,6 +146,18 @@ export function getStoryEntities(storyId: string): Array<{ entity: Entity; momen
   return result.sort((a, b) => b.momentCount - a.momentCount);
 }
 
+/** Pre-built set of story IDs that serve as canonical stories for entities.
+ *  These stories are "invisible infrastructure" — never shown as browseable items.
+ *  The entity card replaces them everywhere in the UI. */
+export const canonicalStoryIds: Set<string> = new Set(
+  entities.filter((e) => e.canonicalStoryId).map((e) => e.canonicalStoryId!)
+);
+
+/** Reverse lookup: given a story ID, return the entity that owns it as canonical (if any). */
+export function getEntityForCanonicalStory(storyId: string): Entity | undefined {
+  return entities.find((e) => e.canonicalStoryId === storyId);
+}
+
 export interface EntityWithCounts {
   entity: Entity;
   momentCount: number;

@@ -71,7 +71,7 @@ export function GoDeeperSection({ children, layout = 'horizontal' }: GoDeeperSec
   return (
     <div className="pt-2 border-t border-[var(--border-subtle)]">
       <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
-        Go Deeper
+        Dive Deeper
       </p>
       {layout === 'horizontal' ? (
         <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-1">{children}</div>
