@@ -210,7 +210,12 @@ function App() {
     if (newMode === 'story') setScrollHighlight([]);
   }, []);
 
+  // Deduplicate scrollHighlight — bail when moment IDs haven't changed
+  const scrollHighlightIdsRef = useRef<string>('');
   const handleScrollHighlight = useCallback((locations: Moment[]) => {
+    const key = locations.map(m => m.id).join(',');
+    if (key === scrollHighlightIdsRef.current) return; // same set — skip re-render
+    scrollHighlightIdsRef.current = key;
     setScrollHighlight(locations);
   }, []);
 

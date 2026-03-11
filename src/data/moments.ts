@@ -3682,6 +3682,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1933,
     address: 'Abbott, TX 76621',
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'willie-nashville-fire',
@@ -3694,6 +3695,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'general-area',
     year: 1970,
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'willie-dripping-picnic',
@@ -3707,6 +3709,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     year: 1973,
     address: 'Dripping Springs, TX',
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'willie-luck-ranch',
@@ -3719,11 +3722,13 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'general-area',
     year: 2010,
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'victory-grill-opening',
     name: 'The Victory Grill',
     subtitle: 'A homecoming sanctuary for Black veterans',
+    entityIds: ['victory-grill'],
     description: 'Johnny Holmes opened the Victory Grill on August 15, 1945—the day Japan surrendered—as a place for returning Black soldiers to feel at home in a segregated city. It quickly evolved from a restaurant into a premier blues and jazz venue. Every major African American act touring the South played here, including Bobby Bland, Gatemouth Brown, and Janis Joplin. In 1988, a devastating fire nearly destroyed the building, but it was painstakingly restored as a National Historic Landmark.',
     lat: 30.2717,
     lng: -97.7279,
@@ -3737,6 +3742,7 @@ export const moments: Moment[] = [
     id: 'victory-doris-miller',
     name: 'Doris Miller Auditorium',
     subtitle: 'Named for a hero, built for the community',
+    entityIds: ['victory-grill'],
     description: 'Named after the Pearl Harbor hero Doris Miller, this East Austin auditorium was a massive pillar of the Chitlin\' Circuit. During segregation, it was one of the few large-scale venues in Texas where Black artists like Ella Fitzgerald and Ike & Tina Turner could perform for Black audiences without harassment. Its sheer scale allowed the community to congregate in a way that smaller clubs could not.',
     lat: 30.268,
     lng: -97.723,
@@ -3750,6 +3756,7 @@ export const moments: Moment[] = [
     id: 'victory-charlies-playhouse',
     name: 'Charlie\'s Playhouse',
     subtitle: 'The integration of the East 11th corridor',
+    entityIds: ['victory-grill'],
     description: 'In the 1950s and 60s, Charlie\'s Playhouse was the hottest ticket in Austin. While most of the city was strictly segregated, Charlie\'s became a "cross-over" club where adventurous white students from UT would cross East Avenue to hear authentic R&B and blues. The venue was part of a thriving entertainment district that included dozens of Black-owned businesses, a world that was largely destroyed when the city used "urban renewal" funds to bulldoze much of the corridor in the 1970s.',
     lat: 30.272,
     lng: -97.726,
@@ -3770,6 +3777,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1964,
     address: '3201 S Lamar Blvd, Austin, TX 78704',
+    entityIds: ['broken-spoke', 'james-white'],
   },
   {
     id: 'spoke-george-strait',
@@ -3782,6 +3790,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1979,
+    entityIds: ['broken-spoke', 'george-strait'],
   },
   {
     id: 'spoke-survival-battle',
@@ -3794,6 +3803,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 2010,
+    entityIds: ['broken-spoke', 'james-white'],
   },
   {
     id: 'paramount-majestic-opening',
@@ -3807,6 +3817,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1915,
     address: '713 Congress Ave, Austin, TX 78701',
+    entityIds: ['paramount-theatre-austin'],
   },
   {
     id: 'paramount-near-death',
@@ -3819,6 +3830,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1975,
+    entityIds: ['paramount-theatre-austin'],
   },
   {
     id: 'paramount-film-revival',
@@ -3831,6 +3843,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1993,
+    entityIds: ['paramount-theatre-austin', 'richard-linklater'],
   },
   {
     id: 'scholz-opening-1866',
@@ -3844,6 +3857,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1866,
     address: '1607 San Jacinto Blvd, Austin, TX 78701',
+    entityIds: ['scholz-garden', 'august-scholz'],
   },
   {
     id: 'scholz-political-backroom',
@@ -3856,6 +3870,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1948,
+    entityIds: ['scholz-garden', 'lyndon-b-johnson'],
   },
   {
     id: 'scholz-longhorn-tradition',
@@ -3868,6 +3883,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'exact',
     year: 1920,
+    entityIds: ['scholz-garden', 'ut-austin'],
   },
   {
     id: 'cemetery-stephen-austin',
@@ -3961,6 +3977,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1993,
     address: '7525 Burnet Rd, Austin, TX 78757',
+    entityIds: ['richard-linklater'],
   },
   {
     id: 'dazed-moonlight-party',
@@ -3973,6 +3990,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1993,
+    entityIds: ['moonlight-towers', 'richard-linklater'],
   },
   {
     id: 'dazed-bedichek-middle',
@@ -3986,6 +4004,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1993,
     address: '6800 Bill Hughes Rd, Austin, TX 78745',
+    entityIds: ['richard-linklater'],
   },
   {
     id: 'btw-virginia-birth',

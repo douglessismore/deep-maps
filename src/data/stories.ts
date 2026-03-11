@@ -1094,6 +1094,7 @@ export const stories: Story[] = [
     description: 'An innkeeper named Angelina Eberly fired a six-pound cannon at the General Land Office to stop the secret, middle-of-the-night removal of the Republic of Texas archives. Her actions prevented President Sam Houston from moving the capital back to Houston.',
     tags: ['austin', 'history', 'revolution', 'sam-houston', 'archives'],
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
+    relatedStoryIds: ['texas-state-cemetery', 'battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
   },
   {
@@ -1106,7 +1107,7 @@ export const stories: Story[] = [
     description: 'Before becoming a global icon, Janis Joplin was a student at the University of Texas where she was cruelly voted "Ugliest Man on Campus" by a fraternity. She honed her brassy style at local bars and converted gas stations, eventually fleeing to San Francisco to find fame.',
     tags: ['austin', 'music', 'janis-joplin', 'ut-austin', 'history'],
     moments: [{ momentId: 'janis-ut-campus' }, { momentId: 'janis-threadgills' }, { momentId: 'janis-pink-palace' }],
-    relatedStoryIds: ['armadillo-world-hq'],
+    relatedStoryIds: ['armadillo-world-hq', 'stevie-ray-vaughan', 'victory-grill-chitlin'],
     wikipediaSlug: 'Janis_Joplin',
   },
   {
@@ -1151,7 +1152,7 @@ export const stories: Story[] = [
     tags: ['austin', 'civil-rights', 'urban-planning', 'segregation', 'history'],
     contentWarning: 'Racial segregation and systemic displacement.',
     moments: [{ momentId: 'plan-city-hall' }, { momentId: 'plan-east-avenue' }, { momentId: 'plan-wheatville-school' }],
-    relatedStoryIds: ['booker-t-washington-snub'],
+    relatedStoryIds: ['booker-t-washington-snub', 'victory-grill-chitlin'],
   },
   {
     id: 'booker-t-washington-snub',
@@ -1162,7 +1163,7 @@ export const stories: Story[] = [
     description: 'Denied the right to speak at the Texas Capitol by a racist administration, the most famous Black educator in America drew a crowd of over 5,000—nearly 20% of Austin\'s population—to a public park. The snub backfired, creating a monumental demonstration for civil discourse.',
     tags: ['austin', 'civil-rights', 'history', 'black-history'],
     moments: [{ momentId: 'btw-capitol-refusal' }, { momentId: 'btw-wooldridge-square' }],
-    relatedStoryIds: ['austin-1928-plan'],
+    relatedStoryIds: ['austin-1928-plan', 'victory-grill-chitlin'],
     wikipediaSlug: 'Booker_T._Washington',
   },
   {
@@ -1174,6 +1175,7 @@ export const stories: Story[] = [
     description: 'Austin\'s pride—the world\'s largest granite dam—exploded during a storm, sending a 40-foot wall of water into the city and leaving Austin in total darkness for months. The disaster bankrupted the city and remains the deadliest flood in its history.',
     tags: ['austin', 'disaster', 'flood', 'engineering', 'history'],
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
+    relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
   },
   {
@@ -1216,6 +1218,7 @@ export const stories: Story[] = [
     description: 'A 19-year-old freshman started a multibillion-dollar empire in a 12x12 dorm room. He dropped out only after the building\'s fire marshal threatened him for blocking the hallways with hundreds of IBM computer boxes.',
     tags: ['austin', 'technology', 'dell', 'ut-austin', 'entrepreneur'],
     moments: [{ momentId: 'dell-dobie-room' }, { momentId: 'dell-braker-office' }],
+    relatedStoryIds: ['ut-tower-shooting', 'cathedral-of-junk'],
     wikipediaSlug: 'Dell_Inc.',
   },
   {
@@ -1640,7 +1643,7 @@ export const stories: Story[] = [
     description: 'Richard Linklater\'s 1993 cult classic perfectly captured the soul of 1970s Austin. Filmed entirely in the city, the movie used local landmarks like Top Notch Hamburgers and a real moonlight tower to create a world that felt more authentic than the 70s themselves. Matthew McConaughey\'s breakout role as Wooderson cemented Austin\'s status as the independent film capital of the South.',
     tags: ['austin', 'film', '1970s', 'coming-of-age', 'linklater', 'mcconaughey'],
     moments: [{ momentId: 'dazed-top-notch' }, { momentId: 'dazed-moonlight-party' }, { momentId: 'dazed-bedichek-middle' }],
-    relatedStoryIds: ['servant-girl-annihilator', 'paramount-theatre-austin'],
+    relatedStoryIds: ['servant-girl-annihilator', 'paramount-theatre-austin', 'mount-bonnell-austin'],
     wikipediaSlug: 'Dazed_and_Confused_(film)',
   },
   {

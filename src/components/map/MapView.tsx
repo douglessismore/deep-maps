@@ -198,7 +198,7 @@ function MapController({
     const prevMarkers = markerMapRef.current;
     const nextKeys = new Set<string>();
 
-    const isMultiHighlight = (scrollHighlight?.length ?? 0) > 1;
+    const hasHighlight = (scrollHighlight?.length ?? 0) > 0;
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const singleHighlight = (scrollHighlight?.length ?? 0) === 1;
 
@@ -210,7 +210,7 @@ function MapController({
       const size = IMPORTANCE_SIZE[location.importance] || 10;
       const isActive = activeLocation?.id === location.id;
       const isHighlighted = highlightIds.has(location.id);
-      const isFaded = isMultiHighlight && !isHighlighted && !isActive;
+      const isFaded = hasHighlight && !isHighlighted && !isActive;
       const permanentTooltip = isHighlighted && singleHighlight;
 
       const existing = prevMarkers.get(key);
@@ -223,24 +223,40 @@ function MapController({
           existing.isFaded !== isFaded ||
           existing.permanentTooltip !== permanentTooltip
         ) {
-          const icon = createMarkerIcon(cat.color, size, isActive, isHighlighted, isFaded ? 0.15 : undefined);
-          existing.marker.setIcon(icon);
+          // For highlight/active state changes, rebuild the icon (size changes)
+          const needsIconRebuild =
+            existing.isActive !== isActive ||
+            existing.isHighlighted !== isHighlighted;
 
-          // Rebind tooltip (offset may change with highlight size)
-          existing.marker.unbindTooltip();
-          const displaySize = isHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
-          existing.marker.bindTooltip(
-            `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
-              <strong>${location.name}</strong>
-              <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
-            </div>`,
-            {
-              direction: 'top',
-              offset: [0, -displaySize / 2 - 4],
-              className: 'dark-tooltip',
-              permanent: permanentTooltip,
+          if (needsIconRebuild) {
+            const icon = createMarkerIcon(cat.color, size, isActive, isHighlighted, isFaded ? 0.15 : undefined);
+            existing.marker.setIcon(icon);
+          } else {
+            // Opacity-only change — toggle directly on DOM element (skip icon rebuild)
+            const el = existing.marker.getElement();
+            if (el) {
+              const inner = el.firstElementChild as HTMLElement;
+              if (inner) inner.style.opacity = isFaded ? '0.15' : '';
             }
-          );
+          }
+
+          // Only rebind tooltip if permanent state changed (expensive DOM operation)
+          if (existing.permanentTooltip !== permanentTooltip || needsIconRebuild) {
+            existing.marker.unbindTooltip();
+            const displaySize = isHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
+            existing.marker.bindTooltip(
+              `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+                <strong>${location.name}</strong>
+                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+              </div>`,
+              {
+                direction: 'top',
+                offset: [0, -displaySize / 2 - 4],
+                className: 'dark-tooltip',
+                permanent: permanentTooltip,
+              }
+            );
+          }
 
           existing.isActive = isActive;
           existing.isHighlighted = isHighlighted;
