@@ -402,7 +402,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1904–1967',
     description: 'The "Father of the Atomic Bomb" who directed the Manhattan Project at Los Alamos. After quoting the Bhagavad Gita at Trinity, he spent the rest of his life grappling with what he had created.',
-    canonicalStoryId: 'oppenheimer',
+    canonicalStoryId: 'j-robert-oppenheimer',
     wikipediaSlug: 'J._Robert_Oppenheimer',
   },
   {
@@ -468,6 +468,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1908–1973',
     description: 'The 36th President of the United States, who had his first date with Lady Bird at the Driskill Hotel and used it as his political headquarters throughout his career.',
+    canonicalStoryId: 'lbj-lady-bird-austin',
     wikipediaSlug: 'Lyndon_B._Johnson',
   },
   {
@@ -476,6 +477,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1912–2007',
     description: 'First Lady who led a massive beautification project transforming the trash-strewn banks of Town Lake into the hike-and-bike trails that define downtown Austin today.',
+    canonicalStoryId: 'lbj-lady-bird-austin',
     wikipediaSlug: 'Lady_Bird_Johnson',
   },
   {
@@ -484,6 +486,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1856–1915',
     description: 'Educator and advisor to presidents who was denied the right to speak at the Texas Capitol in 1911. He drew a racially integrated crowd of 5,000 to Wooldridge Square instead.',
+    canonicalStoryId: 'booker-t-washington-life',
     wikipediaSlug: 'Booker_T._Washington',
   },
   {
@@ -599,6 +602,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1965–present',
     description: 'Founder of Dell Technologies who started upgrading and selling computers from his UT Austin dorm room in 1984, was nearly evicted by the fire marshal, and dropped out to build a tech empire.',
+    canonicalStoryId: 'michael-dell-startup',
     wikipediaSlug: 'Michael_Dell',
   },
 

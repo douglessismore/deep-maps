@@ -1,0 +1,122 @@
+[
+  {
+    "id": "norman-petty-studios",
+    "entityIds": ["buddy-holly", "norman-petty", "clovis-nm"]
+  },
+  {
+    "id": "hawikku",
+    "entityIds": ["hawikku-pueblo", "francisco-coronado", "zuni-pueblo", "seven-cities-of-gold"]
+  },
+  {
+    "id": "palace-santa-fe",
+    "entityIds": ["palace-of-the-governors", "santa-fe-nm", "republic-of-texas"]
+  },
+  {
+    "id": "mesilla-plaza",
+    "entityIds": ["mesilla-nm", "confederacy", "battle-of-glorieta-pass"]
+  },
+  {
+    "id": "tulsa-greenwood",
+    "entityIds": ["greenwood-district", "tulsa-race-massacre"]
+  },
+  {
+    "id": "tulsa-drexel",
+    "entityIds": ["dick-rowland", "sarah-page", "tulsa-race-massacre"]
+  },
+  {
+    "id": "dean-crash-site",
+    "entityIds": ["james-dean", "cholame-junction"]
+  },
+  {
+    "id": "dennys-google-meeting",
+    "entityIds": ["google", "larry-page", "sergey-brin", "andy-bechtolsheim"]
+  },
+  {
+    "id": "tri-ground-zero",
+    "entityIds": ["trinity-site", "manhattan-project"]
+  },
+  {
+    "id": "tri-mcdonald-ranch",
+    "entityIds": ["trinity-site", "manhattan-project"]
+  },
+  {
+    "id": "tri-control-bunker",
+    "entityIds": ["robert-oppenheimer", "trinity-site", "manhattan-project"]
+  },
+  {
+    "id": "hnb-hiroshima-hypocenter",
+    "entityIds": ["hiroshima", "manhattan-project", "little-boy"]
+  },
+  {
+    "id": "hnb-nagasaki-hypocenter",
+    "entityIds": ["nagasaki", "manhattan-project", "fat-man"]
+  },
+  {
+    "id": "hnb-tinian-island",
+    "entityIds": ["tinian", "enola-gay", "manhattan-project"]
+  },
+  {
+    "id": "dtm-silo-site",
+    "entityIds": ["titan-ii-missile", "damascus-ar"]
+  },
+  {
+    "id": "dtm-warhead-impact",
+    "entityIds": ["titan-ii-missile", "damascus-ar"]
+  },
+  {
+    "id": "dtm-little-rock-afb",
+    "entityIds": ["little-rock-afb", "damascus-ar"]
+  },
+  {
+    "id": "la-fords-theatre",
+    "entityIds": ["abraham-lincoln", "john-wilkes-booth", "ford-theatre"]
+  },
+  {
+    "id": "la-petersen-house",
+    "entityIds": ["abraham-lincoln", "petersen-house", "edwin-stanton"]
+  },
+  {
+    "id": "la-garrett-farm",
+    "entityIds": ["john-wilkes-booth", "garrett-farm", "boston-corbett"]
+  },
+  {
+    "id": "jfk-dealey-plaza",
+    "entityIds": ["john-f-kennedy", "lee-harvey-oswald"]
+  },
+  {
+    "id": "jfk-parkland",
+    "entityIds": ["john-f-kennedy", "lee-harvey-oswald", "parkland-hospital"]
+  },
+  {
+    "id": "jfk-texas-theatre",
+    "entityIds": ["lee-harvey-oswald", "texas-theatre"]
+  },
+  {
+    "id": "mlk-lorraine-motel",
+    "entityIds": ["martin-luther-king-jr", "james-earl-ray", "lorraine-motel"]
+  },
+  {
+    "id": "mlk-sniper-nest",
+    "entityIds": ["james-earl-ray", "sniper-nest"]
+  },
+  {
+    "id": "mlk-clayborn-temple",
+    "entityIds": ["martin-luther-king-jr", "clayborn-temple"]
+  },
+  {
+    "id": "ala-shrine",
+    "entityIds": ["the-alamo", "davy-crockett", "james-bowie"]
+  },
+  {
+    "id": "ala-long-barrack",
+    "entityIds": ["the-alamo", "san-antonio-tx"]
+  },
+  {
+    "id": "ala-san-fernando",
+    "entityIds": ["the-alamo", "antonio-lopez-de-santa-anna", "william-b-travis", "james-bowie", "davy-crockett"]
+  },
+  {
+    "id": "wac-mt-carmel",
+    "entityIds": ["david-koresh", "branch-davidians"]
+  }
+]

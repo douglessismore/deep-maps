@@ -98,6 +98,7 @@ export function ExplorePanel({
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
+  const highlightDebounce = useRef(0);
 
   // Auto-switch to collections tab when a collection is selected
   useEffect(() => {
@@ -204,9 +205,10 @@ export function ExplorePanel({
             onModeChange('scroll');
             setScrollActiveStoryId(closestId);
 
-            // Highlight ALL story pins on the map
+            // Highlight ALL story pins on the map (debounced to avoid 60fps marker updates)
             const resolved = resolveLocationsFromMap(story, momentMap);
-            onScrollHighlight(resolved);
+            clearTimeout(highlightDebounce.current);
+            highlightDebounce.current = window.setTimeout(() => onScrollHighlight(resolved), 50);
 
             // Pan to first in-view pin (or first pin overall) — debounced
             const mapBounds = mapInstance.getBounds();
@@ -229,7 +231,8 @@ export function ExplorePanel({
             if (entityMoments.length > 0) {
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
-              onScrollHighlight(entityMoments);
+              clearTimeout(highlightDebounce.current);
+              highlightDebounce.current = window.setTimeout(() => onScrollHighlight(entityMoments), 50);
 
               const mapBounds = mapInstance.getBounds();
               const locsInView = entityMoments.filter((l) =>
@@ -254,6 +257,7 @@ export function ExplorePanel({
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(scrollRafId.current);
       clearTimeout(panTimeout.current);
+      clearTimeout(highlightDebounce.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, [activeTab, activeCollection, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
@@ -288,7 +292,8 @@ export function ExplorePanel({
           );
           if (vl) {
             setActiveLocationId(vl.location.id);
-            onScrollHighlight([vl.location]);
+            clearTimeout(highlightDebounce.current);
+            highlightDebounce.current = window.setTimeout(() => onScrollHighlight([vl.location]), 50);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               mapInstance.panTo([vl.location.lat, vl.location.lng], {
@@ -306,6 +311,7 @@ export function ExplorePanel({
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(scrollRafId.current);
       clearTimeout(panTimeout.current);
+      clearTimeout(highlightDebounce.current);
     };
   }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
 
@@ -421,7 +427,8 @@ export function ExplorePanel({
           // Highlight only the first (primary) moment for this entity — single pin
           const entityMoments = getMomentsForEntity(closestId);
           if (entityMoments.length > 0) {
-            onScrollHighlight([entityMoments[0]]);
+            clearTimeout(highlightDebounce.current);
+            highlightDebounce.current = window.setTimeout(() => onScrollHighlight([entityMoments[0]]), 50);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               mapInstance.panTo([entityMoments[0].lat, entityMoments[0].lng], {
@@ -439,6 +446,7 @@ export function ExplorePanel({
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(scrollRafId.current);
       clearTimeout(panTimeout.current);
+      clearTimeout(highlightDebounce.current);
     };
   }, [activeTab, mapInstance, placeEntities, onScrollHighlight]);
 

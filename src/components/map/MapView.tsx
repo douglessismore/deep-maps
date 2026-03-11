@@ -182,7 +182,17 @@ function MapController({
   }
   const markerMapRef = useRef<Map<string, MarkerEntry>>(new Map());
 
-  // Render markers — differential update
+  // Mount/unmount: manage layer group lifecycle (separate from updates)
+  useEffect(() => {
+    const group = markersRef.current;
+    group.addTo(map);
+    return () => {
+      group.clearLayers();
+      markerMapRef.current.clear();
+    };
+  }, [map]);
+
+  // Render markers — differential update (NO cleanup — markers persist for diffing)
   useEffect(() => {
     const group = markersRef.current;
     const prevMarkers = markerMapRef.current;
@@ -273,14 +283,8 @@ function MapController({
       }
     }
 
-    if (!map.hasLayer(group)) {
-      group.addTo(map);
-    }
-
-    return () => {
-      group.clearLayers();
-      prevMarkers.clear();
-    };
+    // group.addTo handled by mount effect above
+    // NO cleanup — markers persist across re-renders for true differential updates
   }, [visibleLocations, activeLocation, scrollHighlight, map, onLocationClick]);
 
   // Fly to active location or fit story/entity/category bounds
