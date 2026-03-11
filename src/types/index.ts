@@ -67,7 +67,7 @@ export interface StoryCollection {
   name: string;
   subtitle: string; // Clickbait-style hook
   description: string; // 1-2 sentences
-  icon: string; // Emoji for visual identity
+  icon?: string; // Deprecated — no longer rendered
   storyIds: string[]; // References to story IDs
   /** Optional: specific location IDs to feature (cherry-pick across stories) */
   featuredLocationIds?: string[];

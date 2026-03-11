@@ -309,14 +309,6 @@ export const entities: Entity[] = [
     description: 'Radio engineer who accidentally discovered radio waves emanating from the Milky Way in 1932, founding the field of radio astronomy. The Very Large Array is officially named after him.',
     wikipediaSlug: 'Karl_Guthe_Jansky',
   },
-  {
-    id: 'merlin-tuttle',
-    name: 'Merlin Tuttle',
-    type: 'person',
-    years: '1941–present',
-    description: 'Bat conservationist who moved Bat Conservation International to Austin in 1986 to save the Congress Avenue bat colony from extermination, transforming public fear into a tourism phenomenon.',
-    wikipediaSlug: 'Merlin_Tuttle',
-  },
 
   // ── People: Politics / History ─────────────────────────────────────
 

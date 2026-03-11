@@ -3110,7 +3110,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'milestone',
     year: 1986,
-    entityIds: ['merlin-tuttle', 'bat-conservation-international'],
+    entityIds: ['bat-conservation-international'],
   },
   {
     id: 'sos-barton-springs',

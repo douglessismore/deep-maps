@@ -17,17 +17,14 @@ export function CollectionCard({ collection, stories, onClick }: CollectionCardP
       onClick={() => onClick(collection)}
       className="w-full text-left rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-hover)] bg-[var(--bg-card)] p-3.5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] group"
     >
-      {/* Icon + Title */}
-      <div className="flex items-start gap-3 mb-2">
-        <span className="text-2xl shrink-0 mt-0.5">{collection.icon}</span>
-        <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-serif font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
-            {collection.name}
-          </h3>
-          <p className="text-[11px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-2">
-            {collection.subtitle}
-          </p>
-        </div>
+      {/* Title */}
+      <div className="mb-2">
+        <h3 className="text-sm font-serif font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
+          {collection.name}
+        </h3>
+        <p className="text-[11px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-2">
+          {collection.subtitle}
+        </p>
       </div>
 
       {/* Stats row */}

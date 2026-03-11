@@ -515,10 +515,7 @@ export function ExplorePanel({
           }`}
         >
           {activeCollection ? (
-            <span className="flex items-center gap-1 justify-center overflow-hidden">
-              <span className="shrink-0">{activeCollection.icon}</span>
-              <span className="truncate">{activeCollection.name}</span>
-            </span>
+            <span className="truncate">{activeCollection.name}</span>
           ) : (
             'Collections'
           )}
@@ -706,7 +703,7 @@ export function ExplorePanel({
           activeCollection ? (
             /* Active collection — filtered story cards with back header */
             <>
-              <div className="sticky top-0 z-[9] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
+              <div className="bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
                 <button
                   onClick={onClearCollection}
                   className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
@@ -716,7 +713,6 @@ export function ExplorePanel({
                     <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
-                <span className="text-base shrink-0">{activeCollection.icon}</span>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-serif font-semibold text-[var(--text-primary)] truncate">
                     {activeCollection.name}
