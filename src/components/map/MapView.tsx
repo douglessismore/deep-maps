@@ -103,14 +103,15 @@ interface MapViewProps {
   entityLocations?: Array<{ location: Moment; story: Story }>;
 }
 
-function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean): L.DivIcon {
+function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number): L.DivIcon {
   // Scroll-highlighted markers get enlarged and pulsing
   const highlighted = isActive || isScrollHighlighted;
   const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
   const classes = `story-marker${highlighted ? ' active pulsing' : ''}`;
+  const opacityStyle = opacity !== undefined ? `opacity:${opacity};` : '';
   return L.divIcon({
     className: '',
-    html: `<div class="${classes}" style="width:${displaySize}px;height:${displaySize}px;background:${color};"></div>`,
+    html: `<div class="${classes}" style="width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}"></div>`,
     iconSize: [displaySize, displaySize],
     iconAnchor: [displaySize / 2, displaySize / 2],
   });
@@ -176,12 +177,17 @@ function MapController({
     const group = markersRef.current;
     group.clearLayers();
 
+    const isMultiHighlight = (scrollHighlight?.length ?? 0) > 1;
+
     visibleLocations.forEach(({ location, story }) => {
       const cat = CATEGORIES[story.category];
       const size = IMPORTANCE_SIZE[location.importance] || 10;
       const isActive = activeLocation?.id === location.id;
       const isScrollHighlighted = scrollHighlight?.some(m => m.id === location.id) ?? false;
-      const icon = createMarkerIcon(cat.color, size, isActive, isScrollHighlighted);
+
+      // In multi-highlight mode (Stories/Directory scroll), fade non-highlighted pins
+      const isFaded = isMultiHighlight && !isScrollHighlighted && !isActive;
+      const icon = createMarkerIcon(cat.color, size, isActive, isScrollHighlighted, isFaded ? 0.15 : undefined);
 
       const marker = L.marker([location.lat, location.lng], { icon });
 

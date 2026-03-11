@@ -606,8 +606,8 @@ export function ExplorePanel({
                   </div>
                 );
               })}
-              {/* Bottom padding for scroll detection */}
-              <div className="h-[30vh]" />
+              {/* Bottom padding for scroll detection — minimal to avoid black space */}
+              <div className="h-16" />
             </>
           )
         ) : activeTab === 'directory' ? (
@@ -672,8 +672,8 @@ export function ExplorePanel({
                   ))}
                 </div>
               ))}
-              {/* Bottom padding for scroll detection */}
-              <div className="h-[30vh]" />
+              {/* Bottom padding for scroll detection — minimal to avoid black space */}
+              <div className="h-16" />
             </div>
           )
         ) : displayStories.length === 0 ? (
