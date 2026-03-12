@@ -206,4 +206,25 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['bible', 'christianity', 'judaism', 'holy-land', 'sacred-history'],
   },
+  {
+    id: 'famous-battlefields',
+    name: 'Famous Battlefields',
+    subtitle: 'The fields, beaches, passes, and ridges where history was decided by force',
+    description: 'From Thermopylae to Normandy, the specific places where armies clashed and the course of civilization changed. Twenty-one battlefields across six continents and three millennia.',
+    momentIds: [
+      // Ancient World
+      'thermopylae-last-stand', 'gaugamela-alexander', 'cannae-hannibal',
+      // Medieval
+      'hastings-norman-conquest', 'agincourt-longbow', 'tenochtitlan-fall',
+      // Wars of Empire
+      'trafalgar-nelson', 'waterloo-napoleon', 'isandlwana-zulu', 'dien-bien-phu-siege',
+      // American Battlefields
+      'yorktown-surrender', 'gettysburg-pickett', 'little-bighorn-custer',
+      // World War I
+      'somme-first-day', 'verdun-attrition', 'gallipoli-anzac',
+      // World War II
+      'normandy-dday', 'stalingrad-encirclement', 'midway-ambush', 'el-alamein-montgomery', 'iwo-jima-suribachi',
+    ],
+    tags: ['battle', 'war', 'military', 'history'],
+  },
 ];
