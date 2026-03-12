@@ -314,4 +314,21 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['tokyo', 'japan', 'city-cluster', 'history'],
   },
+
+  {
+    id: 'notable-people-2',
+    name: 'History\'s Greatest Minds and Bravest Souls',
+    subtitle: 'Scientists, artists, writers, and heroes whose single moments changed everything',
+    description: 'Darwin noticing finch beaks in the Galápagos, a deaf Beethoven being turned around to see his ovation, Gutenberg printing the first book, Joan of Arc burning at 19, and Tubman going back into slavery thirteen times to free others.',
+    momentIds: [
+      'cleopatra-suicide-alexandria', 'darwin-galapagos', 'beethoven-ninth-symphony',
+      'marx-das-kapital', 'luther-95-theses', 'frida-kahlo-casa-azul',
+      'picasso-paints-guernica', 'hemingway-farewell-arms', 'twain-mississippi',
+      'dickens-christmas-carol', 'nightingale-scutari', 'freud-interpretation-dreams',
+      'joan-of-arc-burned', 'gutenberg-prints-bible', 'earhart-disappears',
+      'tesla-wardenclyffe', 'copernicus-deathbed', 'hamilton-killed-duel',
+      'tubman-escapes-slavery', 'pasteur-rabies-vaccine',
+    ],
+    tags: ['notable-people', 'biography', 'history', 'global', 'batch-2'],
+  },
 ];
