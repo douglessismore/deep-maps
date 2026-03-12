@@ -227,4 +227,30 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['battle', 'war', 'military', 'history'],
   },
+  {
+    id: 'notable-people',
+    name: 'History\'s Most Notable People',
+    subtitle: 'The most dramatic moments in the lives of the most famous humans who ever lived',
+    description: 'Gandhi picking up salt, Einstein rewriting physics as a patent clerk, Caesar stabbed by his friends, Genghis Khan uniting the Mongols — one defining moment for each of 33 of history\'s most globally recognized figures.',
+    momentIds: [
+      // Revolutionary Leaders
+      'gandhi-salt-march', 'mandela-robben-island', 'bolivar-liberates-bogota',
+      'che-guevara-executed', 'castro-enters-havana', 'mao-proclaims-prc',
+      'ataturk-founds-republic', 'indira-gandhi-assassinated',
+      'dalai-lama-flees-tibet', 'aung-san-suu-kyi-house-arrest',
+      // Empire Builders
+      'genghis-khan-unites-mongols', 'peter-great-founds-petersburg', 'julius-caesar-assassinated',
+      // Thinkers and Sages
+      'plato-founds-academy', 'confucius-teaches-qufu', 'avicenna-canon-medicine', 'rumi-settles-konya',
+      // Scientists
+      'da-vinci-last-supper', 'galileo-faces-inquisition', 'einstein-publishes-relativity', 'marie-curie-discovers-radium',
+      // Literary Titans
+      'shakespeare-globe-theatre', 'dostoevsky-mock-execution', 'tolstoy-flees-estate',
+      'garcia-marquez-writes-solitude', 'neruda-dies-after-coup', 'kafka-writes-trial', 'tagore-wins-nobel',
+      // Artists, Composers, Icons
+      'van-gogh-cuts-ear', 'mozart-dies-penniless', 'bob-marley-zimbabwe',
+      'kurosawa-seven-samurai', 'pele-1000th-goal',
+    ],
+    tags: ['notable-people', 'biography', 'history', 'global'],
+  },
 ];
