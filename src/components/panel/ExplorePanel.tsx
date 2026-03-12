@@ -20,6 +20,9 @@ interface ExplorePanelProps {
   stories: Story[];
   collections: StoryCollection[];
   activeCollection: StoryCollection | null;
+  displayMoments: Moment[];
+  momentToStoryMap: Map<string, Story>;
+  allMoments: Moment[];
   mapInstance: LeafletMap | null;
   onStorySelect: (story: Story) => void;
   onLocationSelect: (location: Moment, story: Story) => void;
@@ -58,6 +61,9 @@ export function ExplorePanel({
   stories,
   collections,
   activeCollection,
+  displayMoments,
+  momentToStoryMap,
+  allMoments,
   mapInstance,
   onStorySelect,
   onLocationSelect,
@@ -701,7 +707,7 @@ export function ExplorePanel({
           )
         ) : activeTab === 'collections' ? (
           activeCollection ? (
-            /* Active collection — filtered story cards with back header */
+            /* Active collection — moment list with back header */
             <>
               <div className="bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
                 <button
@@ -718,38 +724,59 @@ export function ExplorePanel({
                     {activeCollection.name}
                   </p>
                   <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {displayStories.length} {displayStories.length === 1 ? 'story' : 'stories'}
+                    {displayMoments.length} {displayMoments.length === 1 ? 'location' : 'locations'}
                   </p>
                 </div>
               </div>
-              {displayStories.length === 0 ? (
+              {displayMoments.length === 0 ? (
                 <div className="py-12 text-center">
-                  <p className="text-sm text-[var(--text-muted)] font-mono">No stories in this collection</p>
+                  <p className="text-sm text-[var(--text-muted)] font-mono">No locations in this collection</p>
                 </div>
               ) : (
-                displayStories.map((story) => (
-                  <div
-                    key={story.id}
-                    ref={(el) => {
-                      if (el) cardRefs.current.set(story.id, el);
-                      else cardRefs.current.delete(story.id);
-                    }}
-                    className={scrollActiveStoryId === story.id
-                      ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
-                      : 'transition-all duration-300'}
-                  >
-                    <StoryCard
-                      story={story}
-                      onClick={onStorySelect}
-                      compact={isMobile}
-                      distanceMi={
-                        userLocation
-                          ? nearestDistance(story, userLocation.lat, userLocation.lng)
-                          : undefined
-                      }
-                    />
-                  </div>
-                ))
+                displayMoments.map((moment) => {
+                  const parentStory = momentToStoryMap.get(moment.id);
+                  return (
+                    <button
+                      key={moment.id}
+                      onClick={() => {
+                        if (parentStory) onLocationSelect(moment, parentStory);
+                      }}
+                      className="w-full text-left px-3 py-2.5 border-b border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] transition-colors group"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-serif font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
+                            {moment.name}
+                          </p>
+                          <p className="text-[10px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-1">
+                            {moment.subtitle}
+                          </p>
+                        </div>
+                        {moment.year && (
+                          <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
+                            {moment.year}
+                          </span>
+                        )}
+                      </div>
+                      {parentStory && (
+                        <div className="mt-1.5 flex items-center gap-1">
+                          <span
+                            className="text-[10px] font-mono text-[var(--accent-red)] hover:underline cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onStorySelect(parentStory);
+                            }}
+                          >
+                            Dive Deep &rarr;
+                          </span>
+                          <span className="text-[10px] font-mono text-[var(--text-muted)] truncate">
+                            {parentStory.name}
+                          </span>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })
               )}
             </>
           ) : (
@@ -764,14 +791,12 @@ export function ExplorePanel({
                   Curated Collections
                 </p>
                 {collections.map((collection) => {
-                  const collectionStories = allStories.filter((s) =>
-                    collection.storyIds.includes(s.id)
-                  );
+                  const momentCount = collection.momentIds.length;
                   return (
                     <CollectionCard
                       key={collection.id}
                       collection={collection}
-                      stories={collectionStories}
+                      momentCount={momentCount}
                       onClick={onCollectionSelect}
                     />
                   );

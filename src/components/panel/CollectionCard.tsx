@@ -1,17 +1,12 @@
-import type { StoryCollection, Story } from '../../types';
-import { CATEGORIES } from '../../lib/categories';
+import type { StoryCollection } from '../../types';
 
 interface CollectionCardProps {
   collection: StoryCollection;
-  stories: Story[]; // resolved stories for this collection
+  momentCount: number;
   onClick: (collection: StoryCollection) => void;
 }
 
-export function CollectionCard({ collection, stories, onClick }: CollectionCardProps) {
-  // Gather unique categories for color dots
-  const categorySet = new Set(stories.map(s => s.category));
-  const locationCount = stories.reduce((sum, s) => sum + s.moments.length, 0);
-
+export function CollectionCard({ collection, momentCount, onClick }: CollectionCardProps) {
   return (
     <button
       onClick={() => onClick(collection)}
@@ -29,23 +24,8 @@ export function CollectionCard({ collection, stories, onClick }: CollectionCardP
 
       {/* Stats row */}
       <div className="flex items-center gap-3 mt-2.5">
-        {/* Category dots */}
-        <div className="flex items-center gap-1">
-          {[...categorySet].map(cat => (
-            <span
-              key={cat}
-              className="w-2 h-2 rounded-full"
-              style={{ backgroundColor: CATEGORIES[cat].color }}
-              title={CATEGORIES[cat].label}
-            />
-          ))}
-        </div>
-
         <span className="text-[10px] font-mono text-[var(--text-muted)]">
-          {stories.length} {stories.length === 1 ? 'story' : 'stories'}
-        </span>
-        <span className="text-[10px] font-mono text-[var(--text-muted)]">
-          {locationCount} {locationCount === 1 ? 'location' : 'locations'}
+          {momentCount} {momentCount === 1 ? 'location' : 'locations'}
         </span>
 
         {/* Arrow */}

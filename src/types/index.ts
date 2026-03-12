@@ -61,16 +61,13 @@ export interface ViewportLocation {
 
 export type TileStyle = 'dark' | 'light' | 'satellite';
 
-/** A curated collection of stories around a theme (e.g., "Serial Killers of America") */
+/** A curated collection of moments (map pins) around a theme (e.g., "Nuclear Test Sites") */
 export interface StoryCollection {
   id: string;
   name: string;
-  subtitle: string; // Clickbait-style hook
+  subtitle: string; // Descriptive hook
   description: string; // 1-2 sentences
-  icon?: string; // Deprecated — no longer rendered
-  storyIds: string[]; // References to story IDs
-  /** Optional: specific location IDs to feature (cherry-pick across stories) */
-  featuredLocationIds?: string[];
+  momentIds: string[]; // Individual moment IDs — each = one map pin
   tags: string[];
 }
 

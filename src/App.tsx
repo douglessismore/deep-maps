@@ -69,11 +69,29 @@ function App() {
     );
   }, []);
 
-  // When a collection is active, filter stories to only those in the collection
+  // Moment→Story reverse lookup (which story owns each moment?)
+  const momentToStoryMap = useMemo(() => {
+    const map = new Map<string, Story>();
+    stories.forEach(story => {
+      story.moments.forEach(sm => {
+        if (!map.has(sm.momentId)) map.set(sm.momentId, story);
+      });
+    });
+    return map;
+  }, []);
+
+  // When a collection is active, resolve its moments
+  const displayMoments = useMemo(() => {
+    if (!activeCollection) return [];
+    const idSet = new Set(activeCollection.momentIds);
+    return moments.filter(m => idSet.has(m.id));
+  }, [activeCollection]);
+
+  // When a collection is active, filter stories to those that have moments in the collection
   const displayStories = useMemo(() => {
     if (!activeCollection) return stories;
-    const idSet = new Set(activeCollection.storyIds);
-    return stories.filter(s => idSet.has(s.id));
+    const midSet = new Set(activeCollection.momentIds);
+    return stories.filter(s => s.moments.some(sm => midSet.has(sm.momentId)));
   }, [activeCollection]);
 
   // Filter stories by timeline view range (when user has interacted with timeline)
@@ -108,7 +126,7 @@ function App() {
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
     pushNav();
-    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+    if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
     setActiveStory(story);
@@ -120,7 +138,7 @@ function App() {
 
   const handleLocationSelect = useCallback((location: Moment, story: Story) => {
     pushNav();
-    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+    if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
     setActiveStory(story);
@@ -131,7 +149,7 @@ function App() {
 
   // Scroll-driven location select — no history push (avoids back-button pollution)
   const handleScrollLocationSelect = useCallback((location: Moment, story: Story) => {
-    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+    if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
     setActiveStory(story);
@@ -194,10 +212,8 @@ function App() {
 
     // Zoom map to fit all collection story locations
     if (mapInstance) {
-      const collectionStories = stories.filter(s => collection.storyIds.includes(s.id));
-      const coords = collectionStories.flatMap(s =>
-        resolveLocationsFromMap(s, momentMap).map(l => [l.lat, l.lng] as [number, number])
-      );
+      const midSet = new Set(collection.momentIds);
+      const coords = moments.filter(m => midSet.has(m.id)).map(m => [m.lat, m.lng] as [number, number]);
       if (coords.length > 0) {
         smartFlyToBounds(mapInstance, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
       }
@@ -300,7 +316,7 @@ function App() {
   // Entity-mode story click → navigate to story with optional moment active
   const handleEntityStoryClick = useCallback((story: Story, moment?: Moment) => {
     pushNav();
-    if (activeCollection && !activeCollection.storyIds.includes(story.id)) {
+    if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
     // Validate moment exists in target story before setting as active
@@ -428,6 +444,9 @@ function App() {
                   stories={timelineFilteredStories}
                   collections={collections}
                   activeCollection={activeCollection}
+                  displayMoments={displayMoments}
+                  momentToStoryMap={momentToStoryMap}
+                  allMoments={moments}
                   mapInstance={mapInstance}
                   onStorySelect={handleStorySelect}
                   onLocationSelect={handleLocationSelect}
