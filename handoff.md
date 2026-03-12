@@ -5,7 +5,7 @@
 ## Current State
 
 ### App
-- **~495 moments**, **~45 stories**, **~167 entities**, **17 collections** in static TypeScript data files
+- **~570 moments**, **~57 stories**, **~204 entities**, **23 collections** in static TypeScript data files
 - **8 story categories**: dark-history, last-stands, discovery-science, arts-culture, mystery-unexplained, political-drama, everyday-extraordinary, sacred-history
 - Architecture: Moments-First model — moments.ts, entities.ts, stories.ts (StoryMoment[] references), collections.ts (momentIds[])
 - MomentKind taxonomy: `'event' | 'milestone' | 'presence'` (optional, defaults to event)
@@ -23,8 +23,25 @@
 - **Total: 17 moments need rewriting** (not hundreds as feared)
 - **Decision: Strict event-only.** All 17 will be reframed as historical events. Deferred to its own dedicated session.
 
-**2. Panel/Card UX Concern Flagged**
-- With ~495 moments, the Stories panel is just a random list of whatever is in the map viewport
+**2. City Clusters: London, Rome, Paris, Tokyo** (commit faf376a)
+- 55 new moments across 4 cities, each with 15 curated "what happened here" events
+- 12 new stories (3 per city): Crown & Scaffold, Under Fire, Great Stages (London); Rise & Fall, Renaissance Masters, Modern Rome; French Revolution, Capital of Culture, Under Fire (Paris); Edo to Tokyo, Under Fire, Postwar (Tokyo)
+- 17 new entities including Newton, Churchill, Victoria, Michelangelo, Nero, Marie Antoinette, de Gaulle, Tokugawa Ieyasu, Mishima
+- 4 new city collections
+
+**3. Notable People Batch 2** (commit 01032b7)
+- 20 new moments: Darwin (Galápagos), Beethoven (Vienna), Marx (London), Luther (Wittenberg), Frida Kahlo (Mexico City), Picasso (Paris), Hemingway (Key West), Twain (Missouri), Dickens (London), Nightingale (Istanbul), Freud (Vienna), Joan of Arc (Rouen), Gutenberg (Mainz), Earhart (Pacific), Tesla (Long Island), Copernicus (Poland), Hamilton (NJ), Tubman (Maryland), Pasteur (Paris), Cleopatra (Alexandria)
+- 4 new stories, 20 new entities, 1 new collection
+
+**4. Content Styling Guide Created** (`content-guide.md`)
+- Comprehensive guide for writing consistent, compelling content across all fields
+- Expert council expanded: Maria Popova added for content curation expertise
+- Audit checklist for verifying every moment, entity, story
+- Mobile-first rule: name field must work alone (descriptions hidden on mobile)
+- Common failure patterns identified and documented with fixes
+
+**5. Panel/Card UX Concern Flagged**
+- With ~570 moments, the Stories panel is just a random list of whatever is in the map viewport
 - No ordering logic, no grouping, no hierarchy — feels disorganized at scale
 - Needs a UX design pass: sort by relevance/distance? Group by category? Progressive disclosure?
 - Deferred to its own session — requires design decisions before implementation
@@ -128,18 +145,19 @@
 | 8 | Notable people approach | Cherry-pick top 500 for geo diversity | Bulk import | Dataset is 56% European. Must prioritize gap-filling, not rank. |
 | 9 | Dual strategy | Story depth + geographic density simultaneously | One or the other | Story depth = retention, geographic density = discovery. Both needed. |
 | 10 | Naming strictness | Strict event-only (Style A) | Allow ongoing activities (B) or place descriptions (C) | App identity is "what happened here." Every moment CAN be reframed as an event. Keeps identity razor-sharp. |
+| 11 | Content guide | Comprehensive guide (`content-guide.md`) | Ad-hoc standards | Consistency at scale requires written standards. Guide covers naming, lengths, tone, mobile-first rules, audit checklist. |
+| 12 | Expert council | Added Maria Popova (content curation) | Content strategy consultant | She does exactly what Deep Maps needs: curate fascinating content into consistent, beautiful formats where every word earns its place. |
 
 ## Next Steps (Priority Order)
 
-1. **Content rewrite: 17 present-tense moments** — Dedicated session. Rewrite 5 pilgrimage + 10 craters + 2 Austin moments to event format.
-2. **Panel UX redesign** — Dedicated session. Design and implement card sorting/grouping/hierarchy for the Stories panel at scale.
-3. **Pin density: zoom-based filtering or clustering** — Implement progressive disclosure at world zoom
-4. **City clusters** — London, Rome, Tokyo, Paris (10-20 curated moments each, travelers would actually use)
+1. **CONTENT QUALITY AUDIT** — Apply content-guide.md to ALL existing moments. Fix early-session content (Gein, Rosa Parks, etc.) that fails the five-second test. This is the highest priority — bad content undermines everything else.
+2. **Content rewrite: 17 present-tense moments** — Part of the audit above. Rewrite 5 pilgrimage + 10 craters + 2 Austin moments to event format.
+3. **Panel UX redesign** — Dedicated session. Card sorting/grouping/hierarchy for Stories panel at scale. Consider: distance sort, category grouping, progressive disclosure.
+4. **Pin density: zoom-based filtering or clustering** — Implement progressive disclosure at world zoom
 5. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway" (linear marker density through empty regions)
-6. **Notable people batch 2** — More Western icons (Beethoven, Newton, Darwin, Marx, Dickens, Hemingway, etc.)
-7. **Story connectivity audit** — Ensure no standalone moments lack parent stories (some nuclear test moments may be orphaned)
-8. **MapView differential updates** — Performance optimization from Session 26 plan
-9. **UX: one-liners on mobile cards** — Stories and People cards don't show descriptions on mobile compact mode
+6. **Story connectivity audit** — Ensure no standalone moments lack parent stories (some nuclear test moments may be orphaned)
+7. **MapView differential updates** — Performance optimization from Session 26 plan
+8. **UX: mobile card descriptions** — Stories and People cards don't show descriptions on mobile compact mode. May be addressed as part of Panel UX redesign.
 
 ## Session History
 
@@ -149,4 +167,4 @@
 - **Session 28-29**: Entity enrichment, moment naming audit, relatedStoryIds wiring
 - **Session 30**: Collections→moments refactor, nuclear test sites (37 locations), meteorite craters (20 locations), sacred pilgrimage sites (23 locations), biblical events research, story-ideas.md
 - **Session 31**: Biblical events (58 moments, 5 stories, 7 entities), famous battlefields (21 moments, 6 stories, 5 entities), notable people batch 1 (33 moments, 6 stories, 33 entities). Downloaded notable people dataset (2.29M). Geographic distribution analysis. Globe interface decision (deferred). Content standards concern flagged for present-tense moments.
-- **Session 32**: Full naming audit completed (17 violations found, not hundreds). Decision: strict event-only naming (Decision #10). Rewrite deferred to dedicated session. Panel UX concern flagged — card list is unordered/random at scale, needs design session.
+- **Session 32**: Full naming audit (17 violations found). Decision: strict event-only naming (#10). City clusters: London (15), Rome (12+3 existing), Paris (14+1 existing), Tokyo (14+1 existing) = 55 new moments, 12 stories, 17 entities, 4 collections. Notable people batch 2: Darwin, Beethoven, Marx, Luther, Frida Kahlo, Picasso, Hemingway, Twain, Dickens, Nightingale, Freud, Joan of Arc, Gutenberg, Earhart, Tesla, Copernicus, Hamilton, Tubman, Pasteur, Cleopatra = 20 new moments, 4 stories, 20 entities. Content styling guide created (content-guide.md). Maria Popova added to expert council. Panel UX concern flagged.
