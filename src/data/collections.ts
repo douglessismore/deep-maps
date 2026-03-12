@@ -54,7 +54,7 @@ export const collections: StoryCollection[] = [
     name: 'Serial Killer Crime Scenes in America',
     subtitle: 'The homes, hunting grounds, and burial sites of America\'s most notorious serial killers',
     description: 'Crime scenes, courthouses, prisons, and dump sites tied to Ed Gein, Dahmer, Bundy, the Zodiac, Gacy, and Austin\'s Servant Girl Annihilator.',
-    momentIds: ['gein-farm', 'gein-worden-store', 'gein-cemetery', 'gein-burial', 'gein-school', 'gein-tavern', 'gein-mendota', 'dahmer-apartment', 'dahmer-chocolate-factory', 'dahmer-first-victim', 'dahmer-columbia-prison', 'tb-chi-omega', 'tb-lake-sammamish', 'tb-florida-prison', 'zk-blue-rock', 'zk-lake-berryessa', 'zk-stine-murder', 'jwg-house-site', 'jwg-greyhound', 'jwg-des-plaines-bridge', 'annihilator-mollie-smith', 'annihilator-christmas-massacre', 'annihilator-moonlight-tower', 'annihilator-eliza-shelley', 'annihilator-o-henry-letter', 'annihilator-gracie-vance'],
+    momentIds: ['gein-farm', 'gein-worden-store', 'gein-cemetery', 'gein-school', 'gein-tavern', 'gein-mendota', 'dahmer-apartment', 'dahmer-chocolate-factory', 'dahmer-first-victim', 'dahmer-columbia-prison', 'tb-chi-omega', 'tb-lake-sammamish', 'tb-florida-prison', 'zk-blue-rock', 'zk-lake-berryessa', 'zk-stine-murder', 'jwg-house-site', 'jwg-greyhound', 'jwg-des-plaines-bridge', 'annihilator-mollie-smith', 'annihilator-christmas-massacre', 'annihilator-moonlight-tower', 'annihilator-eliza-shelley', 'annihilator-o-henry-letter', 'annihilator-gracie-vance'],
     tags: ['serial-killer', 'true-crime', 'dark-history'],
   },
   {

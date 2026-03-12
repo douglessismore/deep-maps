@@ -380,7 +380,8 @@ export const entities: Entity[] = [
     name: 'John Wilkes Booth',
     type: 'person',
     years: '1838–1865',
-    description: 'Confederate sympathizer and famous stage actor who shot Lincoln at Ford\'s Theatre, broke his leg leaping to the stage, and was killed 12 days later in a burning barn.',
+    description: 'The actor who killed Lincoln — a famous stage performer and Confederate sympathizer who shot the president at Ford\'s Theatre, broke his leg leaping to the stage, and was killed 12 days later in a burning barn.',
+    canonicalStoryId: 'lincoln-assassination',
     wikipediaSlug: 'John_Wilkes_Booth',
   },
   {
@@ -605,38 +606,9 @@ export const entities: Entity[] = [
   },
 
   // ── Places: Wisconsin ──────────────────────────────────────────────
-
-  {
-    id: 'plainfield-cemetery',
-    name: 'Plainfield Cemetery',
-    type: 'place',
-    description: 'Wisconsin cemetery where Ed Gein robbed graves by moonlight for a decade, and where he was ironically buried in 1984. His headstone was stolen in 2000.',
-  },
-  {
-    id: 'plainfield-school',
-    name: 'Plainfield School',
-    type: 'place',
-    description: 'Rural Wisconsin school where young Ed Gein was remembered as shy and odd, often bursting into laughter for no reason. His mother forbade him from making friends.',
-  },
-  {
-    id: 'worden-hardware-store',
-    name: 'Worden Hardware Store',
-    type: 'place',
-    description: 'Plainfield, Wisconsin store where Ed Gein shot owner Bernice Worden on November 16, 1957. An antifreeze receipt in his name led police to his farmhouse.',
-  },
-  {
-    id: 'mary-hogan-tavern',
-    name: 'Mary Hogan\'s Tavern',
-    type: 'place',
-    description: 'Pine Grove, Wisconsin tavern where owner Mary Hogan disappeared in 1954. A pool of blood and a spent cartridge were all that remained.',
-  },
-  {
-    id: 'mendota-mental-health',
-    name: 'Mendota Mental Health Institute',
-    type: 'place',
-    description: 'Wisconsin psychiatric facility where Ed Gein was confined from 1957 until his death in 1984 after being found not guilty by reason of insanity.',
-    wikipediaSlug: 'Mendota_Mental_Health_Institute',
-  },
+  // Sub-entities removed in Session 33 gold standard audit:
+  // plainfield-cemetery, plainfield-school, worden-hardware-store,
+  // mary-hogan-tavern, mendota-mental-health — all failed notability bar
 
   // ── Places: Milwaukee ──────────────────────────────────────────────
 
@@ -1579,6 +1551,51 @@ export const entities: Entity[] = [
     description: 'The wartime Prime Minister who rallied Britain through the Blitz with defiant speeches. Voted the Greatest Briton of all time. Also a Nobel Prize-winning author, war correspondent, painter, and bricklayer who drank champagne for breakfast.',
     canonicalStoryId: 'london-under-fire',
     wikipediaSlug: 'Winston_Churchill',
+  },
+  {
+    id: 'charles-i',
+    name: 'Charles I',
+    type: 'person',
+    years: '1600–1649',
+    description: 'The only English king executed by his own people — he wore two shirts to the scaffold so he wouldn\'t shiver and look afraid. His eleven-year attempt to rule without Parliament triggered the English Civil War.',
+    canonicalStoryId: 'london-crown-scaffold',
+    wikipediaSlug: 'Charles_I_of_England',
+  },
+  {
+    id: 'horatio-nelson',
+    name: 'Horatio Nelson',
+    type: 'person',
+    years: '1758–1805',
+    description: 'Britain\'s greatest naval hero, who destroyed Napoleon\'s fleet at Trafalgar and died in the moment of victory. His body was preserved in a barrel of brandy for the voyage home. His column still dominates Trafalgar Square.',
+    canonicalStoryId: 'london-under-fire',
+    wikipediaSlug: 'Horatio_Nelson,_1st_Viscount_Nelson',
+  },
+  {
+    id: 'jack-the-ripper',
+    name: 'Jack the Ripper',
+    type: 'person',
+    years: '1888',
+    description: 'The unidentified serial killer who murdered at least five women in Whitechapel in 1888 and was never caught. The case created the modern concept of the serial killer and remains the most famous unsolved murder mystery in history.',
+    canonicalStoryId: 'london-under-fire',
+    wikipediaSlug: 'Jack_the_Ripper',
+  },
+  {
+    id: 'the-beatles',
+    name: 'The Beatles',
+    type: 'organization',
+    years: '1960–1970',
+    description: 'The band that changed everything — four Liverpool lads who rewrote the rules of popular music, sold 600 million records, and played their final live concert on a London rooftop in 1969.',
+    canonicalStoryId: 'london-great-stages',
+    wikipediaSlug: 'The_Beatles',
+  },
+  {
+    id: 'richard-iii',
+    name: 'Richard III',
+    type: 'person',
+    years: '1452–1485',
+    description: 'The king who probably murdered his own nephews to seize the throne — Shakespeare\'s greatest villain. His skeleton was found under a parking lot in Leicester in 2012, 527 years after his death at the Battle of Bosworth Field.',
+    canonicalStoryId: 'london-crown-scaffold',
+    wikipediaSlug: 'Richard_III_of_England',
   },
 
   // ─── City Cluster: Rome ────────────────────────────────────────────────

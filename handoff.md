@@ -1,53 +1,79 @@
-# Deep Maps — Session Handoff (Updated Mar 12, 2026, Session 32)
+# Deep Maps — Session Handoff (Updated Mar 12, 2026, Session 33)
 
 > **Structure note**: Living snapshot. Main sections = current state. Historical decisions in Key Decisions table.
 
 ## Current State
 
 ### App
-- **~570 moments**, **~57 stories**, **~204 entities**, **23 collections** in static TypeScript data files
+- **~569 moments**, **~57 stories**, **~205 entities**, **23 collections** in static TypeScript data files
 - **8 story categories**: dark-history, last-stands, discovery-science, arts-culture, mystery-unexplained, political-drama, everyday-extraordinary, sacred-history
 - Architecture: Moments-First model — moments.ts, entities.ts, stories.ts (StoryMoment[] references), collections.ts (momentIds[])
 - MomentKind taxonomy: `'event' | 'milestone' | 'presence'` (optional, defaults to event)
 - Dev server: `cd deep-maps && npx vite --host --port 5174`
 - Build check: `npx tsc -b` (NOT `tsc --noEmit` — tsc -b is stricter, matches Vercel)
 
-### What Changed This Session (32)
+### What Changed This Session (33)
 
-**1. Full Content Naming Audit — completed, rewrite deferred**
-- Audited all ~495 moments against the verb-first/event naming standard
-- **Biblical events (57 moments): CLEAN.** Every one uses headline present describing a specific event. Zero violations.
-- **Sacred pilgrimage sites: 5 of 23 violate** — describe ongoing activities ("Hindus Bathe...", "Millions Circle the Kaaba...", "Pilgrims Walk...", "Pilgrims Complete...", "Four Religions Venerate...")
-- **Meteorite craters: 10 of ~20 violate** — describe what a place IS now ("A Crater Sits in the Arizona Desert", "The Largest Impact Crater Lies Beneath South African Farmland")
-- **Austin/Texas: 2 violations** — "Charlie's Playhouse Draws..." and "Longhorn Fans Gather..."
-- **Total: 17 moments need rewriting** (not hundreds as feared)
-- **Decision: Strict event-only.** All 17 will be reframed as historical events. Deferred to its own dedicated session.
+**Gold Standard Content Audit — 3 reference examples established**
 
-**2. City Clusters: London, Rome, Paris, Tokyo** (commit faf376a)
-- 55 new moments across 4 cities, each with 15 curated "what happened here" events
-- 12 new stories (3 per city): Crown & Scaffold, Under Fire, Great Stages (London); Rise & Fall, Renaissance Masters, Modern Rome; French Revolution, Capital of Culture, Under Fire (Paris); Edo to Tokyo, Under Fire, Postwar (Tokyo)
-- 17 new entities including Newton, Churchill, Victoria, Michelangelo, Nero, Marie Antoinette, de Gaulle, Tokugawa Ieyasu, Mishima
-- 4 new city collections
+Applied content-guide.md end-to-end to one story, one person, one place. Each was audited in the browser for rendering, navigation, entity chips, and cross-wiring. These are now the reference targets for the bulk audit.
 
-**3. Notable People Batch 2** (commit 01032b7)
-- 20 new moments: Darwin (Galápagos), Beethoven (Vienna), Marx (London), Luther (Wittenberg), Frida Kahlo (Mexico City), Picasso (Paris), Hemingway (Key West), Twain (Missouri), Dickens (London), Nightingale (Istanbul), Freud (Vienna), Joan of Arc (Rouen), Gutenberg (Mainz), Earhart (Pacific), Tesla (Long Island), Copernicus (Poland), Hamilton (NJ), Tubman (Maryland), Pasteur (Paris), Cleopatra (Alexandria)
-- 4 new stories, 20 new entities, 1 new collection
+**1. Story Gold Standard: Lincoln Assassination**
+- Added missing `date` and `kind` fields to all 3 moments
+- Improved Garrett Farm subtitle (was repeating the name, now hooks with drama)
+- Added `canonicalStoryId` to John Wilkes Booth entity
+- Improved Booth entity description frontloading
+- **Result**: Tight 3-moment incident story. Self-explanatory names, complete metadata, strong cross-wiring via relatedStoryIds and entityIds. Dive deeper shows entities + cross-stories.
 
-**4. Content Styling Guide Created + Rewritten** (`content-guide.md`)
-- First draft created, then comprehensively rewritten based on user feedback (605 lines)
-- Expert council: Tim Urban (content voice) + Rand Fishkin (content strategy) added as content sub-council
-- 12 sections + 3 appendices: naming rules, metadata fields, complete UI card reference, data wiring rules, stories vs collections distinction, audit checklist
-- Flagged 4 stories that should be collections: historys-bravest, rome-renaissance-masters, london-under-fire, scientific-minds-2
-- Mobile-first rule: name field must work alone (descriptions hidden on mobile)
-- Entity "Caravaggio problem" documented: frontload-the-hook rule for entity descriptions
-- Common failure patterns identified and documented with fixes
-- Appendices: unused fields (moment.date, moment.kind, moment.links, collection.description not rendered), terminology consistency
+**2. Person Gold Standard: Ed Gein**
+- **Complete name rewrites** on all 6 remaining moments to pass five-second test:
+  - "Police Discover a Farmhouse Full of Furniture Made from Human Bones"
+  - "A Killer Leaves an Antifreeze Receipt That Leads Police to His Farmhouse of Horrors"
+  - "A Grave Robber Reads Obituaries to Find His Next Victims — Then Is Buried Among Them"
+  - "A Future Serial Killer Grows Up Isolated by His Mother in Rural Wisconsin"
+  - "A Tavern Owner Vanishes — Her Skull Is Found Three Years Later in a Killer's Farmhouse"
+  - "The Killer Who Inspired Psycho Is Declared Insane and Locked Away for Life"
+- Merged `gein-burial` into `gein-cemetery` (duplicate pin at same lat/lng)
+- **Removed 5 sub-entities** that failed notability bar: plainfield-cemetery, plainfield-school, worden-hardware-store, mary-hogan-tavern, mendota-mental-health (all venues/places, not notable entities)
+- Reordered story moments chronologically
+- Fixed metadata: added dates, addresses, corrected year (1957→1958 for commitment)
+- **Result**: Every moment passes five-second test without knowing who Gein is. Name alone conveys the horror. No sub-notability clutter.
 
-**5. Panel/Card UX Concern Flagged**
-- With ~570 moments, the Stories panel is just a random list of whatever is in the map viewport
-- No ordering logic, no grouping, no hierarchy — feels disorganized at scale
-- Needs a UX design pass: sort by relevance/distance? Group by category? Progressive disclosure?
-- Deferred to its own session — requires design decisions before implementation
+**3. Place Gold Standard: London (london-history collection)**
+- **Created 5 new entities**: Charles I, Horatio Nelson, Jack the Ripper, The Beatles, Richard III
+- **Wired entityIds** to 5 previously unlinked moments (was 53% missing entityIds, now ~18%)
+- **Differentiated importance**: 5 moments changed from major→minor (princes-tower, rosetta-stone, nelson-funeral, great-exhibition, st-pauls-blitz)
+- **Fixed chronological ordering** in both london-under-fire (Nelson 1806 was after Ripper 1888) and london-great-stages (Shakespeare 1599 was after Great Exhibition 1851)
+- Fixed london-great-stages years: 1687–1969 → 1599–1969
+- **Evaluated stories vs collections**: london-crown-scaffold ✅ is a real story (narrative arc). london-under-fire ❌ and london-great-stages ❌ are curated lists, not narrative arcs — conversion deferred to story→collection refactoring session.
+- **Result**: Entity chips render on moments. Pin density differentiated. Stories/collection tab navigation works end-to-end. 3 moments still lack entityIds (plague, fire, rosetta stone — no single notable figure).
+
+### Gold Standard Patterns (Reference for Bulk Audit)
+
+**Gold Standard Story** (Lincoln Assassination):
+- Tight narrative arc with beginning/middle/end (or at least clear progression)
+- Every moment name self-explanatory to a stranger
+- All metadata complete: date, kind, year, type, importance, address
+- entityIds on every moment → entity chips render in UI
+- relatedStoryIds cross-wire to related stories → dive deeper works
+- Chronological moment ordering in stories.ts
+
+**Gold Standard Person** (Ed Gein):
+- Every moment passes the five-second test WITHOUT knowing who the person is
+- Name alone conveys the dramatic event (mobile-first: descriptions hidden)
+- Subtitle adds new information (never repeats the name)
+- Entity description frontloads the hook — first 8 words work as tagline
+- Sub-entities meet notability bar (remove venue/location entities that only matter in context)
+- No duplicate pins (merge moments at same lat/lng)
+- Chronological story ordering
+
+**Gold Standard Place** (London):
+- Collection subtitle does all the work (description NOT rendered in UI)
+- Every moment has entityIds → entity chips visible on cards
+- Importance differentiated: not everything is major
+- Stories within the place are genuine narrative arcs (if not, convert to collections)
+- Moments ordered chronologically within each story
+- Entity canonicalStoryId correctly set for all related entities
 
 ### Geographic Distribution (unchanged from session 31)
 | Region | Moments | Notes |
@@ -119,13 +145,14 @@
 **Requires design decisions before implementation. Dedicated UX session.**
 
 ### 🔴 STORY→COLLECTION REFACTORING (Part of Content Audit)
-**Priority: HIGH** — 4 items currently coded as stories that should be collections:
+**Priority: HIGH** — 6 items currently coded as stories that should be collections:
 - `historys-bravest` — subjective label, curated list, no narrative arc
 - `rome-renaissance-masters` — list of artists, no narrative thread
-- `london-under-fire` — list of disasters, no connecting narrative (also: vague name)
+- `london-under-fire` — list of disasters, no connecting narrative (also: vague name, Nelson funeral doesn't fit "under fire" theme). **Confirmed in Session 33 audit.**
+- `london-great-stages` — disconnected cultural achievements, no narrative arc. **Confirmed in Session 33 audit.**
 - `scientific-minds-2` — list of scientists across centuries, no arc
 Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same pattern)
-**Action**: Move from stories.ts to collections.ts, retype, rewire momentIds.
+**Action**: Move from stories.ts to collections.ts, retype, rewire momentIds. Must also update all entity `canonicalStoryId` references that point to converted stories.
 
 ### 🟡 PIN DENSITY AT WORLD ZOOM
 - At full world zoom, pins overlap into blobs (especially US cluster, Europe cluster, Middle East cluster)
@@ -163,13 +190,15 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 
 ## Next Steps (Priority Order)
 
-1. **CONTENT QUALITY AUDIT** — Apply content-guide.md to ALL existing moments. Fix early-session content (Gein, Rosa Parks, etc.) that fails the five-second test. This is the highest priority — bad content undermines everything else. Includes:
+1. **BULK CONTENT QUALITY AUDIT** — Gold standards now established (Session 33). Apply content-guide.md to ALL ~569 remaining moments. Use the 3 gold standards as reference targets. Includes:
    - a. Rewrite 17 present-tense moments (5 pilgrimage + 10 craters + 2 Austin)
-   - b. Refactor 4-6 stories→collections (historys-bravest, rome-renaissance-masters, london-under-fire, scientific-minds-2, possibly artists-writers-immortal, revolutionaries-pen-pulpit)
-   - c. Apply five-second test to ALL ~570 moment names
-   - d. Verify data wiring (entityIds, story membership, collection membership)
+   - b. Refactor 6 stories→collections (historys-bravest, rome-renaissance-masters, london-under-fire, london-great-stages, scientific-minds-2, plus review artists-writers-immortal, revolutionaries-pen-pulpit)
+   - c. Apply five-second test to ALL moment names (Gein-style rewrites where needed)
+   - d. Verify data wiring: entityIds on every moment, canonicalStoryId on every entity, relatedStoryIds on every story
+   - e. Importance differentiation: not everything should be major (London pattern: 12 major / 5 minor)
+   - f. Fill entity wiring gaps across all city clusters (Rome, Paris, Tokyo likely have same gaps as London)
 2. **Panel UX redesign** — Dedicated session. Card sorting/grouping/hierarchy for Stories panel at scale. Consider: distance sort, category grouping, progressive disclosure.
-3. **Pin density: zoom-based filtering or clustering** — Implement progressive disclosure at world zoom
+3. **Pin density: zoom-based filtering or clustering** — Implement progressive disclosure at world zoom (importance differentiation from audit will help)
 4. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway" (linear marker density through empty regions)
 5. **Story connectivity audit** — Ensure no standalone moments lack parent stories (some nuclear test moments may be orphaned)
 6. **MapView differential updates** — Performance optimization from Session 26 plan
@@ -184,3 +213,4 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - **Session 30**: Collections→moments refactor, nuclear test sites (37 locations), meteorite craters (20 locations), sacred pilgrimage sites (23 locations), biblical events research, story-ideas.md
 - **Session 31**: Biblical events (58 moments, 5 stories, 7 entities), famous battlefields (21 moments, 6 stories, 5 entities), notable people batch 1 (33 moments, 6 stories, 33 entities). Downloaded notable people dataset (2.29M). Geographic distribution analysis. Globe interface decision (deferred). Content standards concern flagged for present-tense moments.
 - **Session 32**: Full naming audit (17 violations found). Decision: strict event-only naming (#10). City clusters: London (15), Rome (12+3 existing), Paris (14+1 existing), Tokyo (14+1 existing) = 55 new moments, 12 stories, 17 entities, 4 collections. Notable people batch 2: Darwin, Beethoven, Marx, Luther, Frida Kahlo, Picasso, Hemingway, Twain, Dickens, Nightingale, Freud, Joan of Arc, Gutenberg, Earhart, Tesla, Copernicus, Hamilton, Tubman, Pasteur, Cleopatra = 20 new moments, 4 stories, 20 entities. Content styling guide created then comprehensively rewritten (605 lines, 12 sections + 3 appendices). Expert council: Tim Urban + Rand Fishkin as content sub-council (replacing Maria Popova). Stories vs Collections distinction established (decision #13). 4 stories flagged as should-be-collections. Panel UX concern flagged.
+- **Session 33**: Gold standard content audit — 3 reference examples. Lincoln assassination (story): added date/kind metadata, improved Booth entity wiring. Ed Gein (person): complete rewrite of all 6 moment names to pass five-second test, merged duplicate pin, removed 5 sub-notability entities, reordered chronologically. London (place): created 5 new entities (Charles I, Nelson, Jack the Ripper, Beatles, Richard III), wired entityIds to 5 moments, differentiated importance (12 major / 5 minor), fixed chronological ordering, confirmed london-under-fire + london-great-stages should be collections. Gold standard patterns documented in handoff. Net: -1 moment (merged gein-burial), +5 entities, -5 entities = ~569 moments, ~205 entities.
