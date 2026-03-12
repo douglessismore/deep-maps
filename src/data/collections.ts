@@ -253,4 +253,65 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['notable-people', 'biography', 'history', 'global'],
   },
+
+  // ─── City Clusters ─────────────────────────────────────────────────────
+
+  {
+    id: 'london-history',
+    name: 'History of London',
+    subtitle: 'Two thousand years of intrigue, disaster, and reinvention in the world\'s most storied city',
+    description: 'From the princes who vanished in the Tower to the Blitz that nearly leveled it — every pin is a moment that shaped London and, through London, the world.',
+    momentIds: [
+      'princes-tower-disappear', 'anne-boleyn-executed', 'guy-fawkes-caught',
+      'charles-i-executed', 'london-great-plague', 'london-great-fire',
+      'newton-publishes-principia', 'nelson-funeral-st-pauls', 'rosetta-stone-british-museum',
+      'victoria-crowned', 'london-great-exhibition', 'jack-ripper-whitechapel',
+      'churchill-war-rooms', 'st-pauls-blitz', 'london-ve-day',
+      'beatles-rooftop-concert', 'shakespeare-globe-theatre',
+    ],
+    tags: ['london', 'england', 'city-cluster', 'history'],
+  },
+  {
+    id: 'rome-history',
+    name: 'History of Rome',
+    subtitle: 'From Romulus to Mussolini — three thousand years of drama in the Eternal City',
+    description: 'A fratricide on a hilltop, gladiators in the Colosseum, Michelangelo on his back painting God, and Allied tanks rolling past the Forum — the city where Western civilization was born, fell, and rose again.',
+    momentIds: [
+      'romulus-founds-rome', 'spartacus-appian-way', 'nero-great-fire-rome',
+      'colosseum-opens', 'visigoths-sack-rome', 'julius-caesar-assassinated',
+      'michelangelo-sistine-chapel', 'raphael-dies-rome', 'caravaggio-kills-ranuccio',
+      'galileo-faces-inquisition', 'keats-dies-spanish-steps',
+      'mussolini-march-on-rome', 'lateran-treaty-vatican', 'allies-liberate-rome',
+      'paul-arrives-rome',
+    ],
+    tags: ['rome', 'italy', 'city-cluster', 'history'],
+  },
+  {
+    id: 'paris-history',
+    name: 'History of Paris',
+    subtitle: 'Revolution, culture, and catastrophe in the City of Light',
+    description: 'The Bastille falls, a queen rides to the guillotine, Napoleon crowns himself, the Impressionists shock the world, and Notre-Dame burns — Paris as the stage for humanity\'s most dramatic moments.',
+    momentIds: [
+      'storming-bastille', 'marie-antoinette-guillotined', 'napoleon-crowns-himself',
+      'paris-commune-tuileries', 'first-impressionist-exhibition', 'victor-hugo-funeral',
+      'eiffel-tower-opens', 'dreyfus-degraded', 'oscar-wilde-dies-paris',
+      'marie-curie-discovers-radium', 'treaty-versailles', 'josephine-baker-paris',
+      'de-gaulle-liberation-paris', 'may-68-barricades', 'notre-dame-fire',
+    ],
+    tags: ['paris', 'france', 'city-cluster', 'history'],
+  },
+  {
+    id: 'tokyo-history',
+    name: 'History of Tokyo',
+    subtitle: 'From shogun\'s castle town to modern superpower capital',
+    description: 'A warlord builds a castle, ronin avenge their master, an earthquake and firebombs level everything, a monster movie processes nuclear trauma, and the Olympics announce rebirth — Tokyo\'s relentless cycle of destruction and reinvention.',
+    momentIds: [
+      'tokugawa-edo-shogunate', 'great-fire-meireki', '47-ronin-sengakuji',
+      'emperor-meiji-moves-tokyo', 'meiji-shrine-built', 'great-kanto-earthquake',
+      'february-26-incident', 'tokyo-firebombing', 'hirohito-surrender-broadcast',
+      'macarthur-meets-hirohito', 'godzilla-premieres-tokyo', 'kurosawa-seven-samurai',
+      'tokyo-1964-olympics', 'mishima-seppuku', 'aum-sarin-attack',
+    ],
+    tags: ['tokyo', 'japan', 'city-cluster', 'history'],
+  },
 ];
