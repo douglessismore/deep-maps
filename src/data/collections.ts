@@ -169,4 +169,41 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['religion', 'pilgrimage', 'sacred', 'holy-land'],
   },
+  {
+    id: 'biblical-events',
+    name: 'Biblical Events and Locations',
+    subtitle: 'Where the events of the Bible actually happened — from Genesis to Acts, mapped',
+    description: 'The birth of Jesus, the parting of the Red Sea, Paul\'s shipwreck, David and Goliath, the Tower of Babel, and dozens more — the specific places where biblical events occurred, traced across the ancient world.',
+    momentIds: [
+      // Jesus's Ministry
+      'jesus-born-bethlehem', 'holy-family-egypt', 'nazareth-annunciation',
+      'jordan-river-baptism', 'jesus-temptation-wilderness', 'jesus-cana-wedding',
+      'capernaum-galilee', 'jesus-sermon-mount', 'jesus-feeds-five-thousand',
+      'jesus-walks-water', 'jesus-transfiguration', 'jesus-raises-lazarus',
+      'jesus-triumphal-entry', 'jesus-last-supper', 'garden-gethsemane',
+      'jesus-crucified-golgotha', 'jesus-resurrection', 'jesus-ascension-olives',
+      // Moses and the Exodus
+      'moses-born-nile', 'moses-burning-bush', 'moses-plagues-egypt',
+      'moses-crosses-red-sea', 'moses-ten-commandments', 'moses-golden-calf',
+      'moses-twelve-spies', 'moses-water-meribah', 'moses-death-nebo',
+      // Paul's Missionary Journeys
+      'paul-conversion-damascus', 'paul-antioch-commission', 'paul-cyprus-paphos',
+      'paul-pisidian-antioch', 'paul-lystra-stoned', 'paul-philippi-prison',
+      'paul-athens-areopagus', 'paul-corinth-gallio', 'paul-ephesus-riot',
+      'paul-arrest-jerusalem', 'paul-shipwreck-malta', 'paul-arrives-rome',
+      // Abraham's Journey
+      'abraham-leaves-ur', 'abraham-haran', 'abraham-shechem',
+      'abraham-lot-separation', 'abraham-covenant', 'abraham-binding-isaac',
+      'abraham-machpelah',
+      // King David
+      'david-anointed-bethlehem', 'david-goliath-elah', 'david-flees-ein-gedi',
+      'david-captures-jerusalem', 'david-ark-jerusalem', 'david-bathsheba',
+      'david-death-jerusalem',
+      // Standalone Biblical Events
+      'noahs-ark-ararat', 'tower-of-babel', 'sodom-gomorrah-destruction',
+      'jericho-walls-fall', 'samson-gaza-temple', 'elijah-carmel-fire',
+      'jonah-nineveh', 'daniel-lions-den',
+    ],
+    tags: ['bible', 'christianity', 'judaism', 'holy-land', 'sacred-history'],
+  },
 ];

@@ -5,7 +5,8 @@ export type StoryCategory =
   | 'arts-culture'
   | 'mystery-unexplained'
   | 'political-drama'
-  | 'everyday-extraordinary';
+  | 'everyday-extraordinary'
+  | 'sacred-history';
 
 export type LocationImportance = 'major' | 'minor' | 'contextual';
 

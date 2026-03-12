@@ -50,6 +50,12 @@ export const CATEGORIES: Record<StoryCategory, CategoryConfig> = {
     bgColor: 'rgba(202, 138, 4, 0.15)',
     borderColor: 'rgba(202, 138, 4, 0.4)',
   },
+  'sacred-history': {
+    label: 'Sacred History',
+    color: '#be185d',
+    bgColor: 'rgba(190, 24, 93, 0.15)',
+    borderColor: 'rgba(190, 24, 93, 0.4)',
+  },
 };
 
 export const IMPORTANCE_SIZE: Record<string, number> = {
