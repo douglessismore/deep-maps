@@ -3,7 +3,6 @@ import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds } from '../../lib/geo';
 import { moments } from '../../data/moments';
-import { stories as allStories } from '../../data/stories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { StoryCard } from './StoryCard';
@@ -22,7 +21,6 @@ interface ExplorePanelProps {
   activeCollection: StoryCollection | null;
   displayMoments: Moment[];
   momentToStoryMap: Map<string, Story>;
-  allMoments: Moment[];
   mapInstance: LeafletMap | null;
   onStorySelect: (story: Story) => void;
   onLocationSelect: (location: Moment, story: Story) => void;
@@ -63,7 +61,6 @@ export function ExplorePanel({
   activeCollection,
   displayMoments,
   momentToStoryMap,
-  allMoments,
   mapInstance,
   onStorySelect,
   onLocationSelect,

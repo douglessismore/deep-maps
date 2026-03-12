@@ -446,7 +446,6 @@ function App() {
                   activeCollection={activeCollection}
                   displayMoments={displayMoments}
                   momentToStoryMap={momentToStoryMap}
-                  allMoments={moments}
                   mapInstance={mapInstance}
                   onStorySelect={handleStorySelect}
                   onLocationSelect={handleLocationSelect}
