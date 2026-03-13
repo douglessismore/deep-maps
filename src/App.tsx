@@ -356,8 +356,10 @@ function App() {
     if (prev.activeEntity) return prev.activeEntity.name;
     if (prev.activeStory) return prev.activeStory.name;
     if (prev.activeCollection) return prev.activeCollection.name;
+    // Infer tab from entity type: place entities come from the Places tab
+    if (prev.mode === 'explore' && activeEntity?.type === 'place') return 'Places';
     return 'Stories';
-  }, [navHistory]);
+  }, [navHistory, activeEntity]);
 
   return (
     <div className="h-full flex flex-col">

@@ -6,7 +6,7 @@ export const collections: StoryCollection[] = [
     name: 'Famous Assassination Sites',
     subtitle: 'The exact locations where political leaders and civil rights figures were killed',
     description: 'Ford\'s Theatre, Dealey Plaza, the Lorraine Motel, the Audubon Ballroom — the buildings, balconies, and streets where assassinations changed history.',
-    momentIds: ['la-fords-theatre', 'la-petersen-house', 'la-garrett-farm', 'jfk-dealey-plaza', 'jfk-parkland', 'jfk-texas-theatre', 'mlk-lorraine-motel', 'mlk-sniper-nest', 'mlk-clayborn-temple', 'mx-birthplace', 'mx-audubon', 'colosio-lomas-taurinas'],
+    momentIds: ['la-fords-theatre', 'la-petersen-house', 'la-garrett-farm', 'jfk-dealey-plaza', 'jfk-parkland', 'jfk-texas-theatre', 'mlk-lorraine-motel', 'mlk-sniper-nest', 'mx-audubon', 'colosio-lomas-taurinas'],
     tags: ['assassination', 'political', 'dark-history'],
   },
   {

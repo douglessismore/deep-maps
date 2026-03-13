@@ -146,11 +146,20 @@ export function getStoryEntities(storyId: string): Array<{ entity: Entity; momen
   return result.sort((a, b) => b.momentCount - a.momentCount);
 }
 
-/** Pre-built set of story IDs that serve as canonical stories for entities.
- *  These stories are "invisible infrastructure" — never shown as browseable items.
- *  The entity card replaces them everywhere in the UI. */
+/** Story IDs with storyType 'biography' — used to identify suppressible stories. */
+const biographyStoryIds = new Set(
+  stories.filter(s => s.storyType === 'biography').map(s => s.id)
+);
+
+/** Pre-built set of story IDs that are person biographies claimed by an entity.
+ *  Only these are suppressed from the browse list — the entity card replaces them.
+ *  A story is suppressed when: (1) it has storyType 'biography', and (2) at least
+ *  one person entity claims it via canonicalStoryId. This catches both exact-match
+ *  IDs (ed-gein → ed-gein) and name-variant IDs (o-henry → o-henry-life). */
 export const canonicalStoryIds: Set<string> = new Set(
-  entities.filter((e) => e.canonicalStoryId).map((e) => e.canonicalStoryId!)
+  entities
+    .filter((e) => e.type === 'person' && e.canonicalStoryId && biographyStoryIds.has(e.canonicalStoryId))
+    .map((e) => e.canonicalStoryId!)
 );
 
 /** Reverse lookup: given a story ID, return the entity that owns it as canonical (if any). */

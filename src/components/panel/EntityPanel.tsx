@@ -548,8 +548,8 @@ export function EntityPanel({
                 )}
               </div>
             )}
-            {/* Bottom padding so last moments can reach the 40% scroll detection line */}
-            <div className="h-[40vh]" />
+            {/* Bottom padding so last card can scroll to the 40% detection line */}
+            <div className="h-16" />
           </div>
         ) : activeTab === 'connections' ? (
           renderConnectionsTab()

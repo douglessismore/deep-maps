@@ -3908,7 +3908,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1993,
-    entityIds: ['paramount-theatre-austin', 'richard-linklater'],
+    entityIds: ['paramount-theatre-austin'],
   },
   {
     id: 'scholz-opening-1866',
@@ -4042,7 +4042,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1993,
     address: '7525 Burnet Rd, Austin, TX 78757',
-    entityIds: ['richard-linklater'],
+    entityIds: [],
   },
   {
     id: 'dazed-moonlight-party',
@@ -4055,7 +4055,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'exact',
     year: 1993,
-    entityIds: ['moonlight-towers', 'richard-linklater'],
+    entityIds: ['moonlight-towers'],
   },
   {
     id: 'dazed-bedichek-middle',
@@ -4069,7 +4069,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1993,
     address: '6800 Bill Hughes Rd, Austin, TX 78745',
-    entityIds: ['richard-linklater'],
+    entityIds: [],
   },
   {
     id: 'btw-virginia-birth',
