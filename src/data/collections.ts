@@ -94,7 +94,7 @@ export const collections: StoryCollection[] = [
     name: 'Archaeological Discoveries of the Americas',
     subtitle: 'Ancient ruins, fossil sites, and archaeological finds across North and Central America',
     description: 'From 23,000-year-old human footprints at White Sands to the mercury rivers beneath Teotihuacan to Pakal\'s jade death mask — the oldest things on the continent.',
-    momentIds: ['white-sands-prints', 'pueblo-bonito', 'blackwater-draw', 'hawikku', 'pakal-temple-inscriptions', 'pakal-museum-anthropology', 'tomb-7-discovery', 'tomb-7-museum', 'teotihuacan-tunnel-entrance', 'teotihuacan-mercury-chamber'],
+    momentIds: ['white-sands-prints', 'pueblo-bonito', 'blackwater-draw', 'hawikku', 'pakal-temple-inscriptions', 'pakal-museum-anthropology', 'tomb-7-discovery', 'tomb-7-museum', 'teotihuacan-tunnel-entrance', 'teotihuacan-mercury-chamber', 'chichen-el-castillo-equinox', 'chichen-sacred-cenote', 'chichen-thompson-dredging'],
     tags: ['archaeology', 'ancient-history', 'indigenous', 'mesoamerican'],
   },
   {
@@ -166,6 +166,8 @@ export const collections: StoryCollection[] = [
       'vatican-st-peters', 'santiago-compostela', 'lourdes-sanctuary', 'fatima-sanctuary',
       // Eastern
       'bodh-gaya-temple', 'varanasi-ganges', 'mount-kailash', 'angkor-wat', 'hagia-sophia',
+      // Guadalupe
+      'guadalupe-tepeyac-apparition', 'guadalupe-tilma-reveal', 'guadalupe-new-basilica',
     ],
     tags: ['religion', 'pilgrimage', 'sacred', 'holy-land'],
   },

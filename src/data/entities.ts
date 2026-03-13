@@ -1211,7 +1211,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1485–1547',
     description: 'Spanish conquistador who arrived in Mexico with 500 men and destroyed the Aztec Empire within two years. Allied with indigenous nations hostile to Aztec rule, laid siege to Tenochtitlan, and built Mexico City on its ruins.',
-    canonicalStoryId: 'medieval-conquests',
+    canonicalStoryId: 'fall-of-tenochtitlan',
     wikipediaSlug: 'Hernán_Cortés',
   },
   // ─── NOTABLE PEOPLE: Revolutionary Leaders ─────────────────────────
@@ -1743,6 +1743,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1907–1954',
     description: 'Mexican painter who turned her physical suffering, turbulent marriage to Diego Rivera, and Mexican identity into the most personal art in history. Dismissed in her lifetime, she became one of the most recognized artists of the 20th century.',
+    canonicalStoryId: 'frida-kahlo-life',
     wikipediaSlug: 'Frida_Kahlo',
   },
   {
@@ -1848,5 +1849,33 @@ export const entities: Entity[] = [
     years: '1822–1895',
     description: 'The French chemist who proved germ theory, invented pasteurization, and developed the first vaccines for rabies and anthrax. Arguably saved more human lives than any other person in history.',
     wikipediaSlug: 'Louis_Pasteur',
+  },
+  // ─── NOTABLE PEOPLE: Mexico Culture & Sacred History ─────────────────
+  {
+    id: 'moctezuma-ii',
+    name: 'Moctezuma II',
+    type: 'person',
+    years: '1466–1520',
+    description: 'The ninth Aztec emperor who ruled five to six million people from an island capital and died during the Spanish occupation — whether killed by his own people or by the Spanish remains one of history\'s unsolved questions.',
+    canonicalStoryId: 'fall-of-tenochtitlan',
+    wikipediaSlug: 'Moctezuma_II',
+  },
+  {
+    id: 'juan-diego',
+    name: 'Juan Diego',
+    type: 'person',
+    years: '1474–1548',
+    description: 'Indigenous Aztec convert who reported four apparitions of the Virgin Mary on Tepeyac Hill and was canonized in 2002 as the first indigenous saint of the Americas.',
+    canonicalStoryId: 'virgin-of-guadalupe',
+    wikipediaSlug: 'Juan_Diego',
+  },
+  {
+    id: 'diego-rivera',
+    name: 'Diego Rivera',
+    type: 'person',
+    years: '1886–1957',
+    description: 'Mexican muralist who painted the history of civilization on the walls of public buildings — his turbulent marriage to Frida Kahlo and his mural destroyed by Rockefeller made him one of the most controversial artists of the 20th century.',
+    canonicalStoryId: 'diego-rivera-murals',
+    wikipediaSlug: 'Diego_Rivera',
   },
 ];
