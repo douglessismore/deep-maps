@@ -1062,6 +1062,7 @@ export const stories: Story[] = [
     contentWarning: 'Graphic violence and cannibalism.',
     moments: [{ momentId: 'atizapan-house-horrors' }, { momentId: 'atizapan-market-stall' }],
     relatedStoryIds: ['cannibal-of-roma', 'dahmer'],
+    wikipediaSlug: 'Andrés_Mendoza_(serial_killer)',
   },
   {
     id: 'cavendish-huatulco-siege',
@@ -1180,6 +1181,7 @@ export const stories: Story[] = [
     contentWarning: 'Racial segregation and systemic displacement.',
     moments: [{ momentId: 'plan-city-hall' }, { momentId: 'plan-east-avenue' }, { momentId: 'plan-wheatville-school' }],
     relatedStoryIds: ['booker-t-washington-snub', 'victory-grill-chitlin'],
+    wikipediaSlug: '1928_Austin_city_plan',
   },
   {
     id: 'booker-t-washington-snub',
@@ -1235,6 +1237,7 @@ export const stories: Story[] = [
     tags: ['austin', 'art', 'weird-austin', 'architecture'],
     moments: [{ momentId: 'junk-cathedral-site' }, { momentId: 'junk-city-hall-hearing' }],
     relatedStoryIds: ['treaty-oak-poisoning'],
+    wikipediaSlug: 'Cathedral_of_Junk',
   },
   {
     id: 'michael-dell-startup',
@@ -1371,6 +1374,7 @@ export const stories: Story[] = [
     tags: ['galveston', 'crime', 'mafia', 'history', 'prohibition'],
     moments: [{ momentId: 'free-balinese-room' }, { momentId: 'free-maceo-hq' }],
     relatedStoryIds: ['galveston-orphanage-stand'],
+    wikipediaSlug: 'Free_State_of_Galveston',
   },
   {
     id: 'texas-city-disaster',
@@ -1406,6 +1410,7 @@ export const stories: Story[] = [
     tags: ['big-bend', 'weird-texas', 'humor', 'politics', 'animals'],
     moments: [{ momentId: 'goat-trading-post' }, { momentId: 'goat-henry-statue' }],
     relatedStoryIds: ['marfa-lights', 'cadillac-ranch-amarillo'],
+    wikipediaSlug: 'Lajitas,_Texas',
   },
   {
     id: 'spindletop-gusher',
@@ -1551,6 +1556,7 @@ export const stories: Story[] = [
     contentWarning: 'Racial violence, lynchings, and mass paranoia.',
     moments: [{ momentId: 'fire-main-square' }, { momentId: 'fire-trinity-lynch' }],
     relatedStoryIds: ['clyde-barrow-grave'],
+    wikipediaSlug: 'Texas_slave_insurrection_panic_of_1860',
   },
   {
     id: 'clyde-barrow-grave',
@@ -2304,6 +2310,7 @@ export const stories: Story[] = [
       { momentId: 'marie-curie-discovers-radium' },
     ],
     relatedStoryIds: ['thinkers-sages', 'literary-titans'],
+    wikipediaSlug: 'Scientific_Revolution',
   },
   {
     id: 'literary-titans',

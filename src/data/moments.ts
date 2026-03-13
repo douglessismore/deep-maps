@@ -5160,6 +5160,7 @@ export const moments: Moment[] = [
     type: 'religious_site',
     importance: 'minor',
     accuracy: 'exact',
+    year: 28,
     address: 'Capernaum, Sea of Galilee, Israel',
     entityIds: ['jesus'],
   },
@@ -5242,6 +5243,7 @@ export const moments: Moment[] = [
     type: 'religious_site',
     importance: 'major',
     accuracy: 'exact',
+    year: 630,
     address: 'Masjid al-Haram, Mecca, Saudi Arabia',
   },
   {
@@ -5337,6 +5339,7 @@ export const moments: Moment[] = [
     type: 'religious_site',
     importance: 'major',
     accuracy: 'exact',
+    year: -1200,
     address: 'Dashashwamedh Ghat, Varanasi, Uttar Pradesh, India',
   },
   {
@@ -5349,6 +5352,7 @@ export const moments: Moment[] = [
     type: 'religious_site',
     importance: 'major',
     accuracy: 'exact',
+    year: -1500,
     address: 'Burang County, Ngari Prefecture, Tibet, China',
   },
   {
