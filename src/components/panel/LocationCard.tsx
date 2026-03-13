@@ -30,12 +30,15 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     const cat = CATEGORIES[story.category];
 
     // Resolve entities for "Dive Deeper" chips/cards — always computed for strottability
+    // Excludes the entity that "owns" this story (canonicalStoryId === story.id) to avoid self-links
     const resolvedEntities = useMemo(() => {
       if (!location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
       return location.entityIds
         .map((eid) => {
           const entity = entityMap.get(eid);
           if (!entity) return null;
+          // Skip the entity whose canonical story IS this story (self-link)
+          if (entity.canonicalStoryId === story.id) return null;
           const entries = getEntityMomentStories(eid);
           const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };

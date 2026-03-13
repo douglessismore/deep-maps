@@ -189,7 +189,11 @@ export function StoryPanel({
   ], [relatedStories, nearbyStories]);
 
   // Story-level entities for DIVE DEEPER header section
-  const storyEntities = useMemo(() => getStoryEntities(story.id), [story.id]);
+  // Excludes the entity that "owns" this story to avoid self-links
+  const storyEntities = useMemo(
+    () => getStoryEntities(story.id).filter(({ entity }) => entity.canonicalStoryId !== story.id),
+    [story.id]
+  );
 
   // Cross-story moment map: for each momentId in this story, which OTHER stories also reference it?
   const momentStoryMap = useMemo(() => {
