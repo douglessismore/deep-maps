@@ -505,6 +505,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1610,
     address: '105 W Palace Ave, Santa Fe, NM',
+    entityIds: ['palace-of-the-governors', 'pueblo-revolt'],
   },
   {
     id: 'mesilla-plaza',
@@ -585,6 +586,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1945,
     address: 'White Sands Missile Range, NM',
+    entityIds: ['robert-oppenheimer', 'manhattan-project'],
   },
   {
     id: 'tri-mcdonald-ranch',
@@ -598,6 +600,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1945,
     address: 'White Sands Missile Range, NM',
+    entityIds: ['robert-oppenheimer', 'manhattan-project'],
   },
   {
     id: 'tri-control-bunker',
@@ -611,6 +614,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     year: 1945,
     address: 'White Sands Missile Range, NM',
+    entityIds: ['robert-oppenheimer', 'manhattan-project'],
   },
   {
     id: 'hnb-hiroshima-hypocenter',
@@ -624,6 +628,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1945,
     address: '1-chome-1 Otemachi, Naka Ward, Hiroshima, Japan',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'hnb-nagasaki-hypocenter',
@@ -637,6 +642,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1945,
     address: 'Matsuyamamachi, Nagasaki, Japan',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'hnb-tinian-island',
@@ -650,6 +656,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1945,
     address: 'Tinian, Northern Mariana Islands',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'dtm-silo-site',
@@ -2169,6 +2176,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     year: 1970,
     address: 'Nichupté Lagoon, Cancun',
+    entityIds: ['aluxes-cancun-bridge'],
   },
   {
     id: 'alux-stone-house',
@@ -2182,6 +2190,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1991,
     address: 'Boulevard Kukulcan, Cancun',
+    entityIds: ['aluxes-cancun-bridge'],
   },
   {
     id: 'halley-tacubaya-observatory',
@@ -2377,6 +2386,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     year: 1983,
     address: 'Centro Médico de Especialidades, Ciudad Juárez, Chihuahua',
+    entityIds: ['cobalt-60-accident'],
   },
   {
     id: 'cobalt-junkyard-crush',
@@ -2390,6 +2400,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1983,
     address: 'Yonke Fénix, Ciudad Juárez, Chihuahua',
+    entityIds: ['cobalt-60-accident'],
   },
   {
     id: 'cobalt-foundry-melting',
@@ -2403,6 +2414,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     year: 1984,
     address: 'Chihuahua City, Chihuahua',
+    entityIds: ['cobalt-60-accident'],
   },
   {
     id: 'teotihuacan-tunnel-entrance',
@@ -2494,6 +2506,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1968,
     address: 'Plaza de las Tres Culturas, Tlatelolco, Mexico City',
+    entityIds: ['tlatelolco-massacre'],
   },
   {
     id: 'tlatelolco-chihuahua-snipers',
@@ -2507,6 +2520,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1968,
     address: 'Edificio Chihuahua, Tlatelolco, Mexico City',
+    entityIds: ['tlatelolco-massacre'],
   },
   {
     id: 'tlatelolco-church-sanctuary',
@@ -3426,6 +3440,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1877,
     address: '1501 Main St, San Elizario, TX 79849',
+    entityIds: ['texas-rangers'],
   },
   {
     id: 'salt-lake-deposits',
@@ -3438,6 +3453,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'general-area',
     year: 1877,
+    entityIds: ['texas-rangers'],
   },
   {
     id: 'cham-national-memorial',
@@ -3632,6 +3648,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1878,
     address: '1281 Gruene Rd, New Braunfels, TX 78130',
+    entityIds: ['george-strait', 'willie-nelson'],
   },
   {
     id: 'men-rough-riders-bar',
@@ -3659,6 +3676,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1859,
     address: '204 Alamo Plaza, San Antonio, TX 78205',
+    entityIds: ['menger-hotel-rough-riders'],
   },
   {
     id: 'menger-sallie-white',
@@ -3671,6 +3689,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'exact',
     year: 1876,
+    entityIds: ['menger-hotel-rough-riders'],
   },
   {
     id: 'queen-milam-park',
@@ -3684,6 +3703,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1860,
     address: '500 W Commerce St, San Antonio, TX 78207',
+    entityIds: ['milam-park-chile-queens'],
   },
   {
     id: 'queen-military-plaza',
@@ -3696,6 +3716,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'exact',
     year: 1880,
+    entityIds: ['milam-park-chile-queens'],
   },
   {
     id: 'fire-main-square',
@@ -4408,6 +4429,7 @@ export const moments: Moment[] = [
     year: 1946,
     date: '1946-07-25',
     address: 'Bikini Atoll, Marshall Islands',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'bikini-castle-bravo',
@@ -4422,6 +4444,7 @@ export const moments: Moment[] = [
     year: 1954,
     date: '1954-03-01',
     address: 'Bikini Atoll, Marshall Islands',
+    entityIds: ['manhattan-project'],
   },
   // Enewetak Atoll
   {
@@ -4437,6 +4460,7 @@ export const moments: Moment[] = [
     year: 1952,
     date: '1952-11-01',
     address: 'Enewetak Atoll, Marshall Islands',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'enewetak-runit-dome',
@@ -4450,6 +4474,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1979,
     address: 'Runit Island, Enewetak Atoll, Marshall Islands',
+    entityIds: ['manhattan-project'],
   },
   // Nevada Test Site
   {
@@ -4464,6 +4489,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     year: 1951,
     address: 'Nevada National Security Site, Nye County, NV',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'nts-sedan-crater',
@@ -4478,6 +4504,7 @@ export const moments: Moment[] = [
     year: 1962,
     date: '1962-07-06',
     address: 'Area 10, Nevada National Security Site, NV',
+    entityIds: ['manhattan-project'],
   },
   // US Pacific and Remote
   {
@@ -4493,6 +4520,7 @@ export const moments: Moment[] = [
     year: 1962,
     date: '1962-07-09',
     address: 'Johnston Atoll, Pacific Ocean',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'amchitka-cannikin',
@@ -4507,6 +4535,7 @@ export const moments: Moment[] = [
     year: 1971,
     date: '1971-11-06',
     address: 'Amchitka Island, Aleutian Islands, Alaska',
+    entityIds: ['manhattan-project'],
   },
   {
     id: 'christmas-island-grapple',
@@ -5048,6 +5077,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 335,
     address: 'Christian Quarter, Old City, Jerusalem',
+    entityIds: ['jesus'],
   },
   {
     id: 'western-wall',
@@ -5061,6 +5091,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: -19,
     address: 'Western Wall Plaza, Old City, Jerusalem',
+    entityIds: ['king-david'],
   },
   {
     id: 'dome-of-the-rock',
@@ -5074,6 +5105,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 691,
     address: 'Temple Mount (Haram al-Sharif), Old City, Jerusalem',
+    entityIds: ['abraham'],
   },
   {
     id: 'garden-gethsemane',
@@ -5087,6 +5119,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 33,
     address: 'Mount of Olives, Jerusalem',
+    entityIds: ['jesus'],
   },
   {
     id: 'via-dolorosa',
@@ -5100,6 +5133,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     year: 33,
     address: 'Via Dolorosa, Old City, Jerusalem',
+    entityIds: ['jesus'],
   },
   // Holy Land
   {
@@ -5114,6 +5148,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 339,
     address: 'Manger Square, Bethlehem, West Bank',
+    entityIds: ['jesus', 'mary-mother-jesus'],
   },
   {
     id: 'capernaum-galilee',
@@ -5126,6 +5161,7 @@ export const moments: Moment[] = [
     importance: 'minor',
     accuracy: 'exact',
     address: 'Capernaum, Sea of Galilee, Israel',
+    entityIds: ['jesus'],
   },
   {
     id: 'mount-sinai-monastery',
@@ -5139,6 +5175,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 565,
     address: 'Saint Catherine, South Sinai, Egypt',
+    entityIds: ['moses'],
   },
   {
     id: 'jordan-river-baptism',
@@ -5152,6 +5189,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     year: 29,
     address: 'Qasr el-Yahud, Jordan Valley, West Bank',
+    entityIds: ['jesus'],
   },
   {
     id: 'nazareth-annunciation',
@@ -5165,6 +5203,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1969,
     address: 'Nazareth, Northern District, Israel',
+    entityIds: ['mary-mother-jesus'],
   },
   {
     id: 'qumran-scrolls',
@@ -5231,6 +5270,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1626,
     address: 'Piazza San Pietro, Vatican City',
+    entityIds: ['paul-apostle', 'michelangelo'],
   },
   {
     id: 'santiago-compostela',
@@ -5257,6 +5297,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1858,
     address: 'Sanctuary of Our Lady of Lourdes, Lourdes, France',
+    entityIds: ['mary-mother-jesus'],
   },
   {
     id: 'fatima-sanctuary',
@@ -5270,6 +5311,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1917,
     address: 'Sanctuary of Fatima, Ourem, Portugal',
+    entityIds: ['mary-mother-jesus'],
   },
   // Eastern Religion Sites
   {
@@ -6128,6 +6170,7 @@ export const moments: Moment[] = [
     year: -2067,
     date: 'c. 2067 BCE (traditional)',
     address: 'Southern Dead Sea area, Israel/Jordan',
+    entityIds: ['abraham'],
   },
   {
     id: 'jericho-walls-fall',
@@ -6142,6 +6185,7 @@ export const moments: Moment[] = [
     year: -1400,
     date: 'c. 1400 BCE (traditional)',
     address: 'Tell es-Sultan (ancient Jericho), West Bank',
+    entityIds: ['moses'],
   },
   {
     id: 'samson-gaza-temple',
@@ -6314,6 +6358,7 @@ export const moments: Moment[] = [
     year: 1805,
     date: 'October 21, 1805',
     address: 'Off Cape Trafalgar, Cádiz Province, Spain (at sea)',
+    entityIds: ['horatio-nelson', 'napoleon-bonaparte'],
   },
   {
     id: 'waterloo-napoleon',
@@ -6454,6 +6499,7 @@ export const moments: Moment[] = [
     year: 1915,
     date: 'April 25, 1915 – January 9, 1916',
     address: 'Anzac Cove, Gallipoli Peninsula, Çanakkale Province, Turkey',
+    entityIds: ['winston-churchill', 'mustafa-kemal-ataturk'],
   },
 
   // ─── FAMOUS BATTLEFIELDS: World War II ─────────────────────────────
@@ -6471,6 +6517,7 @@ export const moments: Moment[] = [
     year: 1944,
     date: 'June 6, 1944',
     address: 'Omaha Beach, Colleville-sur-Mer, Normandy, France',
+    entityIds: ['winston-churchill'],
   },
   {
     id: 'stalingrad-encirclement',
@@ -7199,6 +7246,7 @@ export const moments: Moment[] = [
     year: 1802,
     date: '1802',
     address: 'British Museum, Great Russell Street, London, England',
+    entityIds: ['napoleon-bonaparte'],
   },
   {
     id: 'victoria-crowned',
@@ -7500,6 +7548,7 @@ export const moments: Moment[] = [
     year: 1944,
     date: 'June 4, 1944',
     address: 'Central Rome, Italy',
+    entityIds: ['mussolini'],
   },
 
   // ─── City Cluster: Paris ───────────────────────────────────────────────
@@ -7518,6 +7567,7 @@ export const moments: Moment[] = [
     year: 1789,
     date: 'July 14, 1789',
     address: 'Place de la Bastille, Paris, France',
+    entityIds: ['marie-antoinette'],
   },
   {
     id: 'marie-antoinette-guillotined',
@@ -7754,6 +7804,7 @@ export const moments: Moment[] = [
     year: 1657,
     date: 'March 2–4, 1657',
     address: 'Central Edo (now Chiyoda/Bunkyo area), Tokyo, Japan',
+    entityIds: ['tokugawa-ieyasu'],
   },
   {
     id: '47-ronin-sengakuji',
