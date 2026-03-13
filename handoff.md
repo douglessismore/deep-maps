@@ -1,20 +1,41 @@
-# Deep Maps — Session Handoff (Updated Mar 12, 2026, Session 33)
+# Deep Maps — Session Handoff (Updated Mar 12, 2026, Session 33b)
 
 > **Structure note**: Living snapshot. Main sections = current state. Historical decisions in Key Decisions table.
 
 ## Current State
 
 ### App
-- **~569 moments**, **~57 stories**, **~205 entities**, **23 collections** in static TypeScript data files
+- **~569 moments**, **~57 stories**, **~203 entities**, **23 collections** in static TypeScript data files
 - **8 story categories**: dark-history, last-stands, discovery-science, arts-culture, mystery-unexplained, political-drama, everyday-extraordinary, sacred-history
 - Architecture: Moments-First model — moments.ts, entities.ts, stories.ts (StoryMoment[] references), collections.ts (momentIds[])
 - MomentKind taxonomy: `'event' | 'milestone' | 'presence'` (optional, defaults to event)
 - Dev server: `cd deep-maps && npx vite --host --port 5174`
 - Build check: `npx tsc -b` (NOT `tsc --noEmit` — tsc -b is stricter, matches Vercel)
 
-### What Changed This Session (33)
+### What Changed This Session (33b)
 
-**Gold Standard Content Audit — 3 reference examples established**
+**Critical Bug Fixes — Story suppression, entity panel contamination, UI**
+
+User reported multiple issues on mobile: Stories tab only showing people (no story cards), entity panels showing unrelated moments (Tubman→Cleopatra), UI glitches. Investigation found two pre-existing root causes, neither caused by Session 33.
+
+**1. Story Suppression Bug (THE BIG FIX)**
+- `canonicalStoryIds` set in entityHelpers.ts collected ALL entity canonicalStoryIds (100 unique), hiding 52% of stories (95/184) from the Stories tab
+- **Fix**: Changed to only suppress stories where `storyType === 'biography'` AND claimed by a person entity via `canonicalStoryId`
+- Result: 31 suppressed (17%), 153 visible. Servant Girl Annihilator, Lincoln Assassination, all city stories now visible. True biographies (Ed Gein, O. Henry Life, Tubman, etc.) correctly suppressed.
+
+**2. Entity Panel Contamination (32 entities)**
+- 53 entities had `canonicalStoryId` pointing to omnibus "grab bag" stories (revolutionary-leaders, literary-titans, historys-bravest, etc.)
+- Entity panel safety net pulled ALL moments from canonical story → Tubman showed Cleopatra, Bolivar showed Mao
+- **Fix**: Removed all 53 omnibus canonicalStoryId references from entities.ts
+- Deleted duplicate Harriet Tubman entity (overwriting correct one)
+- Deleted Richard Linklater entity (below notability bar per user decision)
+
+**3. Data & UI Fixes**
+- Removed `mlk-clayborn-temple` and `mx-birthplace` from famous-assassinations collection
+- Fixed EntityPanel over-scroll padding (40vh → h-16)
+- Fixed Places tab back button label (was always "Stories", now infers "Places" from entity type)
+
+### Previous Session (33) — Gold Standard Content Audit
 
 Applied content-guide.md end-to-end to one story, one person, one place. Each was audited in the browser for rendering, navigation, entity chips, and cross-wiring. These are now the reference targets for the bulk audit.
 
@@ -154,6 +175,16 @@ Applied content-guide.md end-to-end to one story, one person, one place. Each wa
 Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same pattern)
 **Action**: Move from stories.ts to collections.ts, retype, rewire momentIds. Must also update all entity `canonicalStoryId` references that point to converted stories.
 
+### 🟡 PHANTOM MOMENT: aung-san-suu-kyi-house-arrest
+- Referenced in stories.ts and collections.ts but moment data DOESN'T EXIST in moments.ts
+- Suu Kyi entity exists but has 0 moments (her moments silently fail to render)
+- Need to create the moment or remove the references
+
+### 🟡 STORY/BIOGRAPHY EDGE CASES
+- `zodiac-killer` story has `storyType: 'incident'` but entity `zodiac-killer` exists → both story card and person card visible (minor duplicate, acceptable since the case is unsolved)
+- `j-robert-oppenheimer` story has `storyType: 'incident'` but is functionally a biography → not suppressed. Could change storyType to 'biography' if desired.
+- `bonnie-and-clyde`, `wright-brothers`, `lbj-lady-bird-austin` are joint biographies suppressed by the new logic — correct since person entities exist, but the joint narrative may add value beyond individual cards.
+
 ### 🟡 PIN DENSITY AT WORLD ZOOM
 - At full world zoom, pins overlap into blobs (especially US cluster, Europe cluster, Middle East cluster)
 - Need zoom-based progressive disclosure: show only `major` importance at low zoom, reveal `minor`/`contextual` as you zoom in
@@ -214,3 +245,4 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - **Session 31**: Biblical events (58 moments, 5 stories, 7 entities), famous battlefields (21 moments, 6 stories, 5 entities), notable people batch 1 (33 moments, 6 stories, 33 entities). Downloaded notable people dataset (2.29M). Geographic distribution analysis. Globe interface decision (deferred). Content standards concern flagged for present-tense moments.
 - **Session 32**: Full naming audit (17 violations found). Decision: strict event-only naming (#10). City clusters: London (15), Rome (12+3 existing), Paris (14+1 existing), Tokyo (14+1 existing) = 55 new moments, 12 stories, 17 entities, 4 collections. Notable people batch 2: Darwin, Beethoven, Marx, Luther, Frida Kahlo, Picasso, Hemingway, Twain, Dickens, Nightingale, Freud, Joan of Arc, Gutenberg, Earhart, Tesla, Copernicus, Hamilton, Tubman, Pasteur, Cleopatra = 20 new moments, 4 stories, 20 entities. Content styling guide created then comprehensively rewritten (605 lines, 12 sections + 3 appendices). Expert council: Tim Urban + Rand Fishkin as content sub-council (replacing Maria Popova). Stories vs Collections distinction established (decision #13). 4 stories flagged as should-be-collections. Panel UX concern flagged.
 - **Session 33**: Gold standard content audit — 3 reference examples. Lincoln assassination (story): added date/kind metadata, improved Booth entity wiring. Ed Gein (person): complete rewrite of all 6 moment names to pass five-second test, merged duplicate pin, removed 5 sub-notability entities, reordered chronologically. London (place): created 5 new entities (Charles I, Nelson, Jack the Ripper, Beatles, Richard III), wired entityIds to 5 moments, differentiated importance (12 major / 5 minor), fixed chronological ordering, confirmed london-under-fire + london-great-stages should be collections. Gold standard patterns documented in handoff. Net: -1 moment (merged gein-burial), +5 entities, -5 entities = ~569 moments, ~205 entities.
+- **Session 33b**: Critical bug fixes. Story suppression was hiding 52% of stories (95/184) — fixed to use storyType 'biography' + person entity claim (31 suppressed, 153 visible). Entity panel contamination from 53 omnibus canonicalStoryId references — all removed. Deleted duplicate Tubman entity, deleted Linklater entity. Fixed assassination collection (removed 2 wrong moments). UI: over-scroll padding, Places back button label. Net: -2 entities = ~203 entities. All pre-existing bugs, none caused by Session 33.
