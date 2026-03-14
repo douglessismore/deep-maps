@@ -94,7 +94,7 @@ export const collections: StoryCollection[] = [
     name: 'Archaeological Discoveries of the Americas',
     subtitle: 'Ancient ruins, fossil sites, and archaeological finds across North and Central America',
     description: 'From 23,000-year-old human footprints at White Sands to the mercury rivers beneath Teotihuacan to Pakal\'s jade death mask — the oldest things on the continent.',
-    momentIds: ['white-sands-prints', 'pueblo-bonito', 'blackwater-draw', 'hawikku', 'pakal-temple-inscriptions', 'pakal-museum-anthropology', 'tomb-7-discovery', 'tomb-7-museum', 'teotihuacan-tunnel-entrance', 'teotihuacan-mercury-chamber', 'chichen-el-castillo-equinox', 'chichen-sacred-cenote', 'chichen-thompson-dredging'],
+    momentIds: ['white-sands-prints', 'pueblo-bonito', 'blackwater-draw', 'hawikku', 'pakal-temple-inscriptions', 'pakal-museum-anthropology', 'tomb-7-discovery', 'tomb-7-museum', 'teotihuacan-tunnel-entrance', 'teotihuacan-mercury-chamber', 'chichen-el-castillo-equinox', 'chichen-sacred-cenote', 'chichen-thompson-dredging', 'olmec-tres-zapotes-discovery', 'olmec-san-lorenzo', 'olmec-la-venta-museum', 'teotihuacan-pyramid-sun', 'teotihuacan-avenue-dead', 'teotihuacan-burning'],
     tags: ['archaeology', 'ancient-history', 'indigenous', 'mesoamerican'],
   },
   {
@@ -168,6 +168,8 @@ export const collections: StoryCollection[] = [
       'bodh-gaya-temple', 'varanasi-ganges', 'mount-kailash', 'angkor-wat', 'hagia-sophia',
       // Guadalupe
       'guadalupe-tepeyac-apparition', 'guadalupe-tilma-reveal', 'guadalupe-new-basilica',
+      // Cristero + Day of the Dead
+      'cristero-cubilete-monument', 'dotd-janitzio-vigil',
     ],
     tags: ['religion', 'pilgrimage', 'sacred', 'holy-land'],
   },
