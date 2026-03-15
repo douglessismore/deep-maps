@@ -297,8 +297,8 @@ function App() {
           default:
             setGeoError('Could not get location');
         }
-        // Clear error after 3 seconds
-        setTimeout(() => setGeoError(null), 3000);
+        // Clear error after 8 seconds (visible on mobile where tooltip isn't available)
+        setTimeout(() => setGeoError(null), 8000);
       },
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
     );

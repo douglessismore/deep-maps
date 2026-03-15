@@ -156,9 +156,13 @@ export function Header({
                   <circle cx="7" cy="7" r="1" fill="currentColor"/>
                 </svg>
               )}
-              <span className="hidden sm:inline">
-                {geoError || (geoLoading ? 'Locating…' : userLocation ? 'Near Me' : 'Near Me')}
-              </span>
+              {geoError ? (
+                <span className="text-red-400 text-[10px]">{geoError}</span>
+              ) : (
+                <span className="hidden sm:inline">
+                  {geoLoading ? 'Locating…' : 'Near Me'}
+                </span>
+              )}
             </button>
           )}
 
