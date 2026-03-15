@@ -47,6 +47,7 @@ export function StoryPanel({
   const locationRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const isScrollDriving = useRef(false);
   const isProgrammaticScroll = useRef(false);
+  const isTapGuard = useRef(false); // Suppresses scroll handler after card tap to prevent jitter
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
@@ -64,8 +65,8 @@ export function StoryPanel({
     if (!container) return;
 
     const onScroll = () => {
-      // Skip if this scroll was triggered by our own scrollIntoView correction
-      if (isProgrammaticScroll.current) return;
+      // Skip if this scroll was triggered by our own scrollIntoView correction or a card tap
+      if (isProgrammaticScroll.current || isTapGuard.current) return;
 
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
@@ -73,7 +74,7 @@ export function StoryPanel({
         if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
         scrollTimeout.current = window.setTimeout(() => {
           isScrollDriving.current = false;
-        }, 600);
+        }, 300);
 
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
@@ -227,6 +228,14 @@ export function StoryPanel({
   }, [story, allStories]);
 
   const currentActiveId = activeLocation?.id || scrollActiveId;
+
+  // Tap guard: when user taps a card, suppress the scroll handler briefly
+  // to prevent the expand/collapse layout shift from causing a feedback loop
+  const handleLocationClick = (location: Moment) => {
+    isTapGuard.current = true;
+    onLocationSelect(location);
+    setTimeout(() => { isTapGuard.current = false; }, 400);
+  };
 
   // Handler for "Read on Wikipedia" links in LocationCard
   const handleWikiJump = (section?: string) => {
@@ -451,7 +460,7 @@ export function StoryPanel({
                     location={location}
                     story={story}
                     isActive={currentActiveId === location.id}
-                    onClick={onLocationSelect}
+                    onClick={handleLocationClick}
                     index={i}
                     onWikiJump={hasWiki ? handleWikiJump : undefined}
                     narrativeGlue={storyMoment?.narrativeGlue}

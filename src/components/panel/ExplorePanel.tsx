@@ -208,7 +208,7 @@ export function ExplorePanel({
         scrollTimeout.current = window.setTimeout(() => {
           isScrollDriving.current = false;
           updateViewport();
-        }, 1000);
+        }, 400);
 
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
@@ -232,12 +232,12 @@ export function ExplorePanel({
             onModeChange('scroll');
             setScrollActiveStoryId(closestId);
 
-            // Highlight ALL story pins on the map (debounced to avoid 60fps marker updates)
+            // Highlight ALL story pins on the map
             const resolved = resolveLocationsFromMap(story, momentMap);
             clearTimeout(highlightDebounce.current);
-            highlightDebounce.current = window.setTimeout(() => onScrollHighlight(resolved), 50);
+            highlightDebounce.current = window.setTimeout(() => onScrollHighlight(resolved), 30);
 
-            // Pan to first in-view pin (or first pin overall) — debounced
+            // Pan to first in-view pin (or first pin overall)
             const mapBounds = mapInstance.getBounds();
             const locsInView = resolved.filter((l) =>
               mapBounds.contains([l.lat, l.lng])
@@ -248,9 +248,9 @@ export function ExplorePanel({
               panTimeout.current = window.setTimeout(() => {
                 mapInstance.panTo([panTarget.lat, panTarget.lng], {
                   animate: true,
-                  duration: 0.3,
+                  duration: 0.15,
                 });
-              }, 150);
+              }, 80);
             }
           } else {
             // Person entity — highlight their moments on the map
@@ -259,7 +259,7 @@ export function ExplorePanel({
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
               clearTimeout(highlightDebounce.current);
-              highlightDebounce.current = window.setTimeout(() => onScrollHighlight(entityMoments), 50);
+              highlightDebounce.current = window.setTimeout(() => onScrollHighlight(entityMoments), 30);
 
               const mapBounds = mapInstance.getBounds();
               const locsInView = entityMoments.filter((l) =>
@@ -270,9 +270,9 @@ export function ExplorePanel({
               panTimeout.current = window.setTimeout(() => {
                 mapInstance.panTo([panTarget.lat, panTarget.lng], {
                   animate: true,
-                  duration: 0.3,
+                  duration: 0.15,
                 });
-              }, 150);
+              }, 80);
             }
           }
         }
@@ -320,14 +320,14 @@ export function ExplorePanel({
           if (vl) {
             setActiveLocationId(vl.location.id);
             clearTimeout(highlightDebounce.current);
-            highlightDebounce.current = window.setTimeout(() => onScrollHighlight([vl.location]), 50);
+            highlightDebounce.current = window.setTimeout(() => onScrollHighlight([vl.location]), 30);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               mapInstance.panTo([vl.location.lat, vl.location.lng], {
                 animate: true,
-                duration: 0.6,
+                duration: 0.15,
               });
-            }, 150);
+            }, 80);
           }
         }
       });
