@@ -22,6 +22,7 @@ interface LocationCardProps {
   location: Moment;
   story: Story;
   isActive: boolean;
+  isExpanded: boolean;
   onClick: (location: Moment) => void;
   showStoryName?: boolean;
   index?: number;
@@ -33,7 +34,7 @@ interface LocationCardProps {
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
-  function LocationCard({ location, story, isActive, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
+  function LocationCard({ location, story, isActive, isExpanded, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
     const cat = CATEGORIES[story.category];
 
     // Resolve entities for "Dive Deeper" chips/cards — always computed for strottability
@@ -132,7 +133,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         </div>
 
         {/* Entity chips — visible even when collapsed for strottability */}
-        {!isActive && resolvedEntities.length > 0 && onEntityClick && (
+        {!isExpanded && resolvedEntities.length > 0 && onEntityClick && (
           <div className="flex flex-wrap gap-1 mt-2">
             {resolvedEntities.map(({ entity }) => (
               <button
@@ -152,8 +153,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           </div>
         )}
 
-        {/* Description (collapsed when not active) */}
-        {isActive && (
+        {/* Description (expanded via click, independent of scroll highlight) */}
+        {isExpanded && (
           <div className="mt-3 space-y-3">
             {narrativeGlue && (
               <p className="text-sm italic text-[var(--text-secondary)] leading-relaxed mb-2">

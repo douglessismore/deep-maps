@@ -48,9 +48,9 @@ export function StoryPanel({
   const isScrollDriving = useRef(false);
   const isProgrammaticScroll = useRef(false);
   const isTapGuard = useRef(false); // Suppresses scroll handler after card tap to prevent jitter
-  const manualSelectTime = useRef(0); // Timestamp of last manual card click — grace period for reading
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
+  const [expandedLocationId, setExpandedLocationId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
@@ -69,7 +69,6 @@ export function StoryPanel({
       // Skip if this scroll was triggered by our own scrollIntoView correction, a card tap,
       // or the user is still reading a manually-expanded card (5s grace period)
       if (isProgrammaticScroll.current || isTapGuard.current) return;
-      if (Date.now() - manualSelectTime.current < 5000) return;
 
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
@@ -124,6 +123,7 @@ export function StoryPanel({
 
         if (closestId && closestId !== scrollActiveId) {
           setScrollActiveId(closestId);
+          setExpandedLocationId(closestId); // Scroll-driven expand follows highlight
           // Suppress scroll handler during the card expand/collapse transition (~200ms)
           // to prevent the layout shift from flipping activation between adjacent cards
           isProgrammaticScroll.current = true;
@@ -171,7 +171,12 @@ export function StoryPanel({
     }
   }, [scrollActiveId]);
 
-  // Auto-scroll to activeLocation on mount (e.g. arriving from entity page with moment context)
+  // Auto-expand the active location on mount (e.g. arriving from entity page with moment context)
+  useEffect(() => {
+    if (activeLocation) setExpandedLocationId(activeLocation.id);
+  }, [activeLocation?.id]);
+
+  // Auto-scroll to activeLocation on mount
   useEffect(() => {
     if (!activeLocation) return;
     requestAnimationFrame(() => {
@@ -250,7 +255,8 @@ export function StoryPanel({
   // to prevent the expand/collapse layout shift from causing a feedback loop
   const handleLocationClick = (location: Moment) => {
     isTapGuard.current = true;
-    manualSelectTime.current = Date.now(); // 5s grace period — scroll won't auto-switch
+    // Toggle expand: click same card = collapse, click different card = expand that one
+    setExpandedLocationId(prev => prev === location.id ? null : location.id);
     onLocationSelect(location);
     setTimeout(() => { isTapGuard.current = false; }, 400);
   };
@@ -478,6 +484,7 @@ export function StoryPanel({
                     location={location}
                     story={story}
                     isActive={currentActiveId === location.id}
+                    isExpanded={expandedLocationId === location.id}
                     onClick={handleLocationClick}
                     index={i}
                     onWikiJump={hasWiki ? handleWikiJump : undefined}
