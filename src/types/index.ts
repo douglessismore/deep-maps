@@ -103,6 +103,7 @@ export interface Moment {
   media?: StoryMedia[];
   wikiSection?: string;                // Wikipedia section anchor (e.g., "Crimes", "Early_life")
   links?: LocationLink[];              // External links (affiliates, tours, stays, sources)
+  verificationLevel?: VerificationLevel; // Epistemological status of the moment's primary claim
 }
 
 /** A story's reference to a shared moment, with optional narrative framing.
@@ -135,3 +136,11 @@ export type StoryType = 'incident' | 'biography' | 'place' | 'era';
  *  - presence: Ongoing association with a place — "O. Henry Works at the Land Office"
  *  Defaults to 'event' if omitted. */
 export type MomentKind = 'event' | 'milestone' | 'presence';
+
+/** Epistemological status of a moment's primary claim.
+ *  - verified: Corroborated by multiple independent historical sources
+ *  - documented: Historical record exists but key details are disputed or uncertain
+ *  - traditional: Religious or cultural tradition — faith-based, not empirically testable
+ *  - legendary: Folklore, unverified claims, paranormal — part of cultural record but not historically established
+ *  Applies to the MOMENT's primary claim, not the location. A verified event at a "haunted" location is still verified. */
+export type VerificationLevel = 'verified' | 'documented' | 'traditional' | 'legendary';

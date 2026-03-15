@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
-import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
+import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection, VerificationLevel } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getNotabilityThreshold, getEffectiveNotability } from '../../lib/notability';
 import { moments } from '../../data/moments';
@@ -15,6 +15,13 @@ type MixedListItem =
   | { kind: 'person'; data: EntityWithCounts; distance: number };
 
 const momentMap = buildMomentMap(moments);
+
+const VERIFICATION_DISPLAY: Record<VerificationLevel, { label: string; color: string; title: string }> = {
+  verified: { label: 'Verified', color: '#22c55e', title: 'Corroborated by multiple independent historical sources' },
+  documented: { label: 'Documented', color: '#eab308', title: 'Historical record exists but key details are disputed' },
+  traditional: { label: 'Traditional', color: '#60a5fa', title: 'Religious or cultural tradition' },
+  legendary: { label: 'Legendary', color: '#a78bfa', title: 'Folklore, unverified claims, or paranormal' },
+};
 
 interface ExplorePanelProps {
   stories: Story[];
@@ -75,6 +82,7 @@ export function ExplorePanel({
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [totalInBounds, setTotalInBounds] = useState(0); // unfiltered count for "zoom in to see more"
+  const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
@@ -423,6 +431,20 @@ export function ExplorePanel({
     [placeEntities]
   );
 
+  const sortedMoments = useMemo(() => {
+    const arr = [...viewportLocations];
+    switch (momentSort) {
+      case 'notable':
+        return arr.sort((a, b) => (b.location.notability ?? 0) - (a.location.notability ?? 0));
+      case 'nearest':
+        return arr.sort((a, b) => a.distance - b.distance);
+      case 'oldest':
+        return arr.sort((a, b) => (a.location.year ?? 9999) - (b.location.year ?? 9999));
+      default:
+        return arr;
+    }
+  }, [viewportLocations, momentSort]);
+
   // Scroll-driven entity highlighting (Places tab)
   // Shows single primary pin for each entity (not all moments)
   useEffect(() => {
@@ -561,7 +583,25 @@ export function ExplorePanel({
             />
           ) : (
             <>
-              {viewportLocations.map((vl) => {
+              {/* Sort toggle */}
+              <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
+                {(['notable', 'nearest', 'oldest'] as const).map((mode, i) => (
+                  <span key={mode} className="flex items-center">
+                    {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
+                    <button
+                      onClick={() => setMomentSort(mode)}
+                      className={`transition-colors ${
+                        momentSort === mode
+                          ? 'text-[var(--text-primary)]'
+                          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                      }`}
+                    >
+                      {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                    </button>
+                  </span>
+                ))}
+              </div>
+              {sortedMoments.map((vl) => {
                 const key = `${vl.story.id}-${vl.location.id}`;
                 const isActive = activeLocationId === vl.location.id;
                 const isExpanded = expandedLocationKey === key;
@@ -625,6 +665,18 @@ export function ExplorePanel({
                           <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                             {vl.location.description}
                           </p>
+                        )}
+                        {vl.location.verificationLevel && vl.location.verificationLevel !== 'verified' && (
+                          <span
+                            className="inline-flex items-center gap-1 text-[10px] font-mono text-[var(--text-muted)]"
+                            title={VERIFICATION_DISPLAY[vl.location.verificationLevel].title}
+                          >
+                            <span
+                              className="inline-block w-1.5 h-1.5 rounded-full"
+                              style={{ backgroundColor: VERIFICATION_DISPLAY[vl.location.verificationLevel].color }}
+                            />
+                            {VERIFICATION_DISPLAY[vl.location.verificationLevel].label}
+                          </span>
                         )}
                         {vl.location.address && (
                           <p className="text-[10px] font-mono text-[var(--text-muted)]">

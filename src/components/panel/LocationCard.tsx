@@ -1,5 +1,5 @@
 import { forwardRef, useMemo } from 'react';
-import type { Entity, Moment, Story, LocationAccuracy } from '../../types';
+import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, canonicalStoryIds } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
@@ -9,6 +9,13 @@ const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string;
   exact: { label: 'Exact', color: '#22c55e', title: 'Coordinates pinpoint the actual location' },
   approximate: { label: 'Approx', color: '#eab308', title: 'Coordinates are close but not exact' },
   'general-area': { label: 'Area', color: '#f97316', title: 'General area — exact location unknown' },
+};
+
+const VERIFICATION_DISPLAY: Record<VerificationLevel, { label: string; color: string; title: string }> = {
+  verified: { label: 'Verified', color: '#22c55e', title: 'Corroborated by multiple independent historical sources' },
+  documented: { label: 'Documented', color: '#eab308', title: 'Historical record exists but key details are disputed or uncertain' },
+  traditional: { label: 'Traditional', color: '#60a5fa', title: 'Religious or cultural tradition — faith-based, not empirically testable' },
+  legendary: { label: 'Legendary', color: '#a78bfa', title: 'Folklore, unverified claims, or paranormal — part of cultural record but not historically established' },
 };
 
 interface LocationCardProps {
@@ -104,6 +111,21 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                   style={{ backgroundColor: ACCURACY_DISPLAY[location.accuracy].color }}
                 />
                 {ACCURACY_DISPLAY[location.accuracy].label}
+              </span>
+            </>
+          )}
+          {location.verificationLevel && location.verificationLevel !== 'verified' && (
+            <>
+              <span>·</span>
+              <span
+                className="flex items-center gap-1"
+                title={VERIFICATION_DISPLAY[location.verificationLevel].title}
+              >
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full"
+                  style={{ backgroundColor: VERIFICATION_DISPLAY[location.verificationLevel].color }}
+                />
+                {VERIFICATION_DISPLAY[location.verificationLevel].label}
               </span>
             </>
           )}
