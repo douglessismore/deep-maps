@@ -335,4 +335,65 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['notable-people', 'biography', 'history', 'global', 'batch-2'],
   },
+
+  // ─── Curated thematic collections (migrated from stories) ──────────
+  // These also exist in stories.ts for panel rendering compatibility.
+  // Full story removal deferred until panel supports collection-only moments.
+
+  {
+    id: 'london-under-fire',
+    name: 'London Under Fire',
+    subtitle: 'Plague, fire, murder, and bombardment — the catastrophes that forged London',
+    description: 'Plague, fire, a serial killer who was never caught, and the most sustained aerial bombardment in history — London has been tested by catastrophe more than almost any city on earth, and rebuilt every time.',
+    momentIds: ['london-great-plague', 'london-great-fire', 'nelson-funeral-st-pauls', 'jack-ripper-whitechapel', 'churchill-war-rooms', 'st-pauls-blitz', 'london-ve-day'],
+    tags: ['london', 'disaster', 'blitz', 'plague', 'fire', 'crime'],
+  },
+  {
+    id: 'london-great-stages',
+    name: 'London\'s Great Stages',
+    subtitle: 'The moments when London was the stage for ideas that changed everything',
+    description: 'Newton\'s laws, the key to Egyptian hieroglyphics, a glass cathedral of human achievement, and the Beatles\' final performance — the moments when London was the stage for ideas that changed everything.',
+    momentIds: ['shakespeare-globe-theatre', 'newton-publishes-principia', 'rosetta-stone-british-museum', 'london-great-exhibition', 'beatles-rooftop-concert'],
+    tags: ['london', 'science', 'culture', 'music', 'exhibition'],
+  },
+  {
+    id: 'rome-renaissance-masters',
+    name: 'Rome\'s Renaissance Masters',
+    subtitle: 'Art\'s greatest dramas, played out on Rome\'s canvas',
+    description: 'The Sistine Chapel ceiling, the painter who died at 37 and was mourned by a Pope, a genius who committed murder, and a poet who died overlooking the Spanish Steps — Rome as the canvas for art\'s greatest dramas.',
+    momentIds: ['michelangelo-sistine-chapel', 'raphael-dies-rome', 'caravaggio-kills-ranuccio', 'keats-dies-spanish-steps'],
+    tags: ['rome', 'renaissance', 'art', 'painting', 'literature'],
+  },
+  {
+    id: 'scientific-minds-2',
+    name: 'Scientific Minds That Changed Everything',
+    subtitle: 'Five discoveries that rewired humanity\'s understanding of the universe',
+    description: 'A dying astronomer who removed Earth from the center of the universe, a naturalist who noticed finch beaks, a chemist who saved a boy from rabies, an inventor who tried to give the world free energy, and a doctor who explained why you dream.',
+    momentIds: ['copernicus-deathbed', 'darwin-galapagos', 'pasteur-rabies-vaccine', 'tesla-wardenclyffe', 'freud-interpretation-dreams'],
+    tags: ['science', 'discovery', 'evolution', 'astronomy', 'medicine', 'invention'],
+  },
+  {
+    id: 'revolutionaries-pen-pulpit',
+    name: 'Revolutionaries of the Pen and the Pulpit',
+    subtitle: 'Three men who reshaped civilization with words, not weapons',
+    description: 'A goldsmith who made knowledge reproducible, a monk who split Christianity, and a penniless exile who wrote the book that split the world — three men who reshaped civilization with words, not weapons.',
+    momentIds: ['gutenberg-prints-bible', 'luther-95-theses', 'marx-das-kapital'],
+    tags: ['revolution', 'printing', 'reformation', 'communism', 'ideas'],
+  },
+  {
+    id: 'artists-writers-immortal',
+    name: 'Artists and Writers Who Became Immortal',
+    subtitle: 'The masterpieces that made their creators eternal',
+    description: 'A deaf composer who had to be turned around to see his ovation, an author who reinvented Christmas, a painter who turned her pain into self-portraits, and Picasso responding to a bombing with the most famous anti-war painting in history.',
+    momentIds: ['beethoven-ninth-symphony', 'dickens-christmas-carol', 'twain-mississippi', 'hemingway-farewell-arms', 'frida-kahlo-casa-azul', 'picasso-paints-guernica'],
+    tags: ['art', 'music', 'literature', 'painting', 'culture'],
+  },
+  {
+    id: 'historys-bravest',
+    name: 'History\'s Bravest',
+    subtitle: 'Six lives defined by extraordinary courage in the face of death',
+    description: 'A pharaoh who chose death over chains, a teenage girl burned for heresy, a society woman who walked into a death trap, a slave who went back thirteen times, a founding father killed by the vice president, and a pilot who vanished over the Pacific.',
+    momentIds: ['cleopatra-suicide-alexandria', 'joan-of-arc-burned', 'nightingale-scutari', 'tubman-escapes-slavery', 'hamilton-killed-duel', 'earhart-disappears'],
+    tags: ['courage', 'sacrifice', 'heroism', 'women', 'freedom'],
+  },
 ];
