@@ -539,6 +539,7 @@ export const moments: Moment[] = [
     year: 1610,
     address: '105 W Palace Ave, Santa Fe, NM',
     entityIds: ['palace-of-the-governors', 'pueblo-revolt'],
+    kind: 'milestone',
   },
   {
     id: 'mesilla-plaza',
