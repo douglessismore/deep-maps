@@ -252,6 +252,22 @@ export function ExplorePanel({
                 });
               }, 80);
             }
+          } else if (isActiveCollectionTab) {
+            // Collection moment — highlight single pin + pan
+            const collectionMoment = displayMoments.find(m => m.id === closestId);
+            if (collectionMoment) {
+              onModeChange('scroll');
+              setScrollActiveStoryId(closestId);
+              clearTimeout(highlightDebounce.current);
+              highlightDebounce.current = window.setTimeout(() => onScrollHighlight([collectionMoment]), 30);
+              clearTimeout(panTimeout.current);
+              panTimeout.current = window.setTimeout(() => {
+                mapInstance.panTo([collectionMoment.lat, collectionMoment.lng], {
+                  animate: true,
+                  duration: 0.15,
+                });
+              }, 80);
+            }
           } else {
             // Person entity — highlight their moments on the map
             const entityMoments = getMomentsForEntity(closestId);
@@ -287,7 +303,7 @@ export function ExplorePanel({
       clearTimeout(highlightDebounce.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, [activeTab, activeCollection, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport]);
+  }, [activeTab, activeCollection, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
 
   // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
@@ -765,10 +781,16 @@ export function ExplorePanel({
                   return (
                     <button
                       key={moment.id}
+                      ref={(el) => {
+                        if (el) cardRefs.current.set(moment.id, el);
+                        else cardRefs.current.delete(moment.id);
+                      }}
                       onClick={() => {
                         if (parentStory) onLocationSelect(moment, parentStory);
                       }}
-                      className="w-full text-left px-3 py-2.5 border-b border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] transition-colors group"
+                      className={`w-full text-left px-3 py-2.5 border-b border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] transition-colors group ${
+                        scrollActiveStoryId === moment.id ? 'bg-[var(--bg-card-hover)]' : ''
+                      }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0 flex-1">

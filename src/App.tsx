@@ -401,6 +401,7 @@ function App() {
             scrollHighlight={scrollHighlight}
             mode={mode}
             categoryFilter={categoryFilter}
+            activeCollection={activeCollection}
             resetViewKey={resetViewKey}
             onMapReady={setMapInstance}
             onLocationClick={handleMapLocationClick}

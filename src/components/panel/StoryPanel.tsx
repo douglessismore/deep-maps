@@ -115,6 +115,10 @@ export function StoryPanel({
 
         if (closestId && closestId !== scrollActiveId) {
           setScrollActiveId(closestId);
+          // Suppress scroll handler during the card expand/collapse transition (~200ms)
+          // to prevent the layout shift from flipping activation between adjacent cards
+          isProgrammaticScroll.current = true;
+          setTimeout(() => { isProgrammaticScroll.current = false; }, 300);
           const location = storyLocations.find((l) => l.id === closestId);
           if (location) {
             onScrollLocationSelect(location);
@@ -143,12 +147,16 @@ export function StoryPanel({
         const elRect = el.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
         if (elRect.top < containerRect.top) {
+          // isProgrammaticScroll may already be true from the scroll handler's 300ms guard.
+          // Only set+clear if it wasn't already guarded, to avoid prematurely unblocking.
+          const wasAlreadyGuarded = isProgrammaticScroll.current;
           isProgrammaticScroll.current = true;
           el.scrollIntoView({ behavior: 'instant', block: 'start' });
-          // Clear the guard after a frame so user scrolling resumes normally
-          requestAnimationFrame(() => {
-            isProgrammaticScroll.current = false;
-          });
+          if (!wasAlreadyGuarded) {
+            requestAnimationFrame(() => {
+              isProgrammaticScroll.current = false;
+            });
+          }
         }
       });
     }

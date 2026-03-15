@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
-import type { Story, Moment, StoryCategory, InteractionMode, TileStyle } from '../../types';
+import type { Story, Moment, StoryCategory, StoryCollection, InteractionMode, TileStyle } from '../../types';
 import { CATEGORIES, IMPORTANCE_SIZE } from '../../lib/categories';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
@@ -101,6 +101,7 @@ interface MapViewProps {
   scrollHighlight?: Moment[];
   mode: InteractionMode;
   categoryFilter: StoryCategory | null;
+  activeCollection?: StoryCollection | null;
   resetViewKey?: number;
   onMapReady: (map: L.Map) => void;
   onLocationClick: (location: Moment, story: Story) => void;
@@ -744,6 +745,7 @@ export function MapView(props: MapViewProps) {
         {props.mode !== 'story' && props.mode !== 'entity' && (
           <EmergenceLayer
             categoryFilter={props.categoryFilter}
+            activeCollection={props.activeCollection}
             onLocationClick={props.onLocationClick}
             activeLocation={props.activeLocation}
             scrollHighlight={props.scrollHighlight}

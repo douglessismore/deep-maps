@@ -16,7 +16,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
-import type { Moment, Story, StoryCategory } from '../../types';
+import type { Moment, Story, StoryCategory, StoryCollection } from '../../types';
 import { moments } from '../../data/moments';
 import { stories } from '../../data/stories';
 import { CATEGORIES } from '../../lib/categories';
@@ -61,12 +61,13 @@ function computeAlpha(moment: Moment, zoom: number): number {
 
 interface EmergenceLayerProps {
   categoryFilter: StoryCategory | null;
+  activeCollection?: StoryCollection | null;
   onLocationClick: (location: Moment, story: Story) => void;
   activeLocation: Moment | null;
   scrollHighlight?: Moment[];
 }
 
-export function EmergenceLayer({ categoryFilter, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
   const map = useMap();
   const canvasRenderer = useRef(L.canvas({ padding: 0.5 }));
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
@@ -76,11 +77,18 @@ export function EmergenceLayer({ categoryFilter, onLocationClick, activeLocation
   const onClickRef = useRef(onLocationClick);
   onClickRef.current = onLocationClick;
 
-  // Filter moments by category
+  // Filter moments by active collection and/or category
   const filteredMoments = useMemo(() => {
-    if (!categoryFilter) return moments;
-    return moments.filter(m => momentCategoryMap.get(m.id) === categoryFilter);
-  }, [categoryFilter]);
+    let result = moments as Moment[];
+    if (activeCollection) {
+      const idSet = new Set(activeCollection.momentIds);
+      result = result.filter(m => idSet.has(m.id));
+    }
+    if (categoryFilter) {
+      result = result.filter(m => momentCategoryMap.get(m.id) === categoryFilter);
+    }
+    return result;
+  }, [categoryFilter, activeCollection]);
 
   // ── Create / update / destroy circle markers ──────────────────────
   useEffect(() => {
