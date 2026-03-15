@@ -93,6 +93,7 @@ export interface Moment {
   lng: number;
   type: string;                        // 'crime_scene', 'cultural_venue', etc.
   importance: LocationImportance;
+  notability?: number;                 // 0-100. Computed score: higher = visible at lower zoom. Optional during migration.
   accuracy: LocationAccuracy;
   kind?: MomentKind;                   // 'event' | 'milestone' | 'presence' — defaults to 'event' if omitted
   year?: number;
@@ -110,6 +111,7 @@ export interface Moment {
 export interface StoryMoment {
   momentId: string;                    // Reference to Moment.id
   narrativeGlue?: string;             // Story-specific intro sentence
+  isPrimary?: boolean;                 // If true, this moment represents the story at low zoom. Default: first moment.
 }
 
 /** A person, place, organization, or concept that appears across moments and stories.

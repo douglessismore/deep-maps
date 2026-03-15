@@ -5,6 +5,7 @@ import type { Story, Moment, StoryCategory, InteractionMode, TileStyle } from '.
 import { CATEGORIES, IMPORTANCE_SIZE } from '../../lib/categories';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
+import { getNotabilityThreshold, getEffectiveNotability } from '../../lib/notability';
 
 const momentMap = buildMomentMap(moments);
 
@@ -103,6 +104,28 @@ interface MapViewProps {
   entityLocations?: Array<{ location: Moment; story: Story }>;
 }
 
+/**
+ * Continuous notability opacity — the "fractal zoom" curve.
+ * Above threshold: fully vivid. Below: proportional fade down to 0.15 minimum.
+ * At high zoom (threshold=0), everything is 1.0.
+ */
+function computeNotabilityAlpha(location: Moment, zoom: number): number {
+  const threshold = getNotabilityThreshold(zoom);
+  if (threshold <= 0) return 1;
+  const notability = getEffectiveNotability(location);
+  if (notability >= threshold) return 1;
+  return Math.max(0.15, notability / threshold);
+}
+
+/**
+ * Ghost pins shrink proportionally — creates visual hierarchy at low zoom.
+ * Above threshold: normal importance-based size. Below: scaled down (min 5px).
+ */
+function computeNotabilitySize(baseSize: number, alpha: number): number {
+  if (alpha >= 1) return baseSize;
+  return Math.max(5, Math.round(baseSize * Math.max(0.45, alpha)));
+}
+
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number): L.DivIcon {
   // Scroll-highlighted markers get enlarged and pulsing
   const highlighted = isActive || isScrollHighlighted;
@@ -135,6 +158,7 @@ function MapController({
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);
+  const [currentZoom, setCurrentZoom] = useState(map.getZoom());
 
   useEffect(() => {
     onMapReady(map);
@@ -153,20 +177,25 @@ function MapController({
   useMapEvents({
     dragstart: () => { isUserDragging.current = true; },
     dragend: () => { setTimeout(() => { isUserDragging.current = false; }, 300); },
+    zoomend: () => { setCurrentZoom(map.getZoom()); },
   });
 
-  // Determine which locations to show
+  // All locations to render — continuous opacity replaces hard threshold filtering.
+  // Every moment is always on the map; notability controls opacity/size, not visibility.
   const visibleLocations = useMemo(() => {
     if (mode === 'entity' && entityLocations) {
       return entityLocations;
     }
     if (mode === 'story' && activeStory) {
-      return resolveLocationsFromMap(activeStory, momentMap).map((loc) => ({ location: loc, story: activeStory }));
+      return resolveLocationsFromMap(activeStory, momentMap)
+        .map((loc) => ({ location: loc, story: activeStory }));
     }
-    // Filter by category if set
+
+    // Explore/scroll: include ALL moments (opacity handles the hierarchy)
     const filteredStories = categoryFilter
       ? stories.filter((s) => s.category === categoryFilter)
       : stories;
+
     return filteredStories.flatMap((story) =>
       resolveLocationsFromMap(story, momentMap).map((loc) => ({ location: loc, story }))
     );
@@ -179,6 +208,8 @@ function MapController({
     isHighlighted: boolean;
     isFaded: boolean;
     permanentTooltip: boolean;
+    notabilityAlpha: number;   // Raw zoom-dependent alpha (for diffing)
+    effectiveSize: number;     // Size adjusted for notability (for diffing)
   }
   const markerMapRef = useRef<Map<string, MarkerEntry>>(new Map());
 
@@ -192,7 +223,8 @@ function MapController({
     };
   }, [map]);
 
-  // Render markers — differential update (NO cleanup — markers persist for diffing)
+  // Render markers — differential update with continuous notability opacity.
+  // Every moment is always rendered; opacity + size encode the fractal zoom hierarchy.
   useEffect(() => {
     const group = markersRef.current;
     const prevMarkers = markerMapRef.current;
@@ -201,74 +233,95 @@ function MapController({
     const hasHighlight = (scrollHighlight?.length ?? 0) > 0;
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const singleHighlight = (scrollHighlight?.length ?? 0) === 1;
+    const isExploreMode = mode !== 'story' && mode !== 'entity';
 
     visibleLocations.forEach(({ location, story }) => {
       const key = `${story.id}-${location.id}`;
       nextKeys.add(key);
 
       const cat = CATEGORIES[story.category];
-      const size = IMPORTANCE_SIZE[location.importance] || 10;
+      const baseSize = IMPORTANCE_SIZE[location.importance] || 10;
       const isActive = activeLocation?.id === location.id;
       const isHighlighted = highlightIds.has(location.id);
       const isFaded = hasHighlight && !isHighlighted && !isActive;
       const permanentTooltip = isHighlighted && singleHighlight;
 
+      // ── Notability opacity & size (the fractal zoom curve) ──
+      const notabilityAlpha = isExploreMode
+        ? computeNotabilityAlpha(location, currentZoom)
+        : 1;
+
+      // Highlighted/active pins override to full size (even if below threshold)
+      const visualAlpha = (isActive || isHighlighted) ? 1 : notabilityAlpha;
+      const effectiveSize = computeNotabilitySize(baseSize, visualAlpha);
+
+      // Combined opacity: notability base + scroll-fade overlay + active/highlight override
+      let markerOpacity: number | undefined;
+      if (isActive || isHighlighted) {
+        markerOpacity = undefined; // Full opacity
+      } else if (isFaded) {
+        markerOpacity = Math.min(0.15, notabilityAlpha);
+      } else if (notabilityAlpha < 1) {
+        markerOpacity = notabilityAlpha;
+      }
+      // else: undefined → no inline opacity → full
+
       const existing = prevMarkers.get(key);
 
       if (existing) {
-        // Only update if state changed
-        if (
+        // Detect what changed
+        const needsIconRebuild =
           existing.isActive !== isActive ||
           existing.isHighlighted !== isHighlighted ||
+          existing.effectiveSize !== effectiveSize;
+
+        const needsOpacityUpdate = !needsIconRebuild && (
           existing.isFaded !== isFaded ||
-          existing.permanentTooltip !== permanentTooltip
-        ) {
-          // For highlight/active state changes, rebuild the icon (size changes)
-          const needsIconRebuild =
-            existing.isActive !== isActive ||
-            existing.isHighlighted !== isHighlighted;
+          Math.abs(existing.notabilityAlpha - notabilityAlpha) > 0.01
+        );
 
-          if (needsIconRebuild) {
-            const icon = createMarkerIcon(cat.color, size, isActive, isHighlighted, isFaded ? 0.15 : undefined);
-            existing.marker.setIcon(icon);
-          } else {
-            // Opacity-only change — toggle directly on DOM element (skip icon rebuild)
-            const el = existing.marker.getElement();
-            if (el) {
-              const inner = el.firstElementChild as HTMLElement;
-              if (inner) inner.style.opacity = isFaded ? '0.15' : '';
-            }
+        if (needsIconRebuild) {
+          const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
+          existing.marker.setIcon(icon);
+        } else if (needsOpacityUpdate) {
+          // Opacity-only change — direct DOM manipulation (skip icon rebuild)
+          const el = existing.marker.getElement();
+          if (el) {
+            const inner = el.firstElementChild as HTMLElement;
+            if (inner) inner.style.opacity = markerOpacity !== undefined ? String(markerOpacity) : '';
           }
-
-          // Only rebind tooltip if permanent state changed (expensive DOM operation)
-          if (existing.permanentTooltip !== permanentTooltip || needsIconRebuild) {
-            existing.marker.unbindTooltip();
-            const displaySize = isHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
-            existing.marker.bindTooltip(
-              `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
-                <strong>${location.name}</strong>
-                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
-              </div>`,
-              {
-                direction: 'top',
-                offset: [0, -displaySize / 2 - 4],
-                className: 'dark-tooltip',
-                permanent: permanentTooltip,
-              }
-            );
-          }
-
-          existing.isActive = isActive;
-          existing.isHighlighted = isHighlighted;
-          existing.isFaded = isFaded;
-          existing.permanentTooltip = permanentTooltip;
         }
+
+        // Rebind tooltip if permanent state or size changed
+        if (existing.permanentTooltip !== permanentTooltip || needsIconRebuild) {
+          existing.marker.unbindTooltip();
+          const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
+          existing.marker.bindTooltip(
+            `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+              <strong>${location.name}</strong>
+              <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+            </div>`,
+            {
+              direction: 'top',
+              offset: [0, -displaySize / 2 - 4],
+              className: 'dark-tooltip',
+              permanent: permanentTooltip,
+            }
+          );
+        }
+
+        existing.isActive = isActive;
+        existing.isHighlighted = isHighlighted;
+        existing.isFaded = isFaded;
+        existing.permanentTooltip = permanentTooltip;
+        existing.notabilityAlpha = notabilityAlpha;
+        existing.effectiveSize = effectiveSize;
       } else {
         // New marker — create from scratch
-        const icon = createMarkerIcon(cat.color, size, isActive, isHighlighted, isFaded ? 0.15 : undefined);
+        const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
         const marker = L.marker([location.lat, location.lng], { icon });
 
-        const displaySize = isHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
+        const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
         marker.bindTooltip(
           `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
             <strong>${location.name}</strong>
@@ -287,7 +340,10 @@ function MapController({
         });
 
         group.addLayer(marker);
-        prevMarkers.set(key, { marker, isActive, isHighlighted, isFaded, permanentTooltip });
+        prevMarkers.set(key, {
+          marker, isActive, isHighlighted, isFaded, permanentTooltip,
+          notabilityAlpha, effectiveSize,
+        });
       }
     });
 
@@ -299,9 +355,8 @@ function MapController({
       }
     }
 
-    // group.addTo handled by mount effect above
     // NO cleanup — markers persist across re-renders for true differential updates
-  }, [visibleLocations, activeLocation, scrollHighlight, map, onLocationClick]);
+  }, [visibleLocations, activeLocation, scrollHighlight, map, onLocationClick, currentZoom, mode]);
 
   // Fly to active location or fit story/entity/category bounds
   useEffect(() => {

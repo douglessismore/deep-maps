@@ -99,7 +99,7 @@ html, body, #root {
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.15s ease;
   cursor: pointer;
   position: relative;
 }
@@ -120,6 +120,7 @@ html, body, #root {
 }
 
 .story-marker:hover {
+  opacity: 1 !important; /* Reveal ghost pins on hover — the fractal discovery moment */
   transform: scale(1.4);
   box-shadow: 0 0 20px rgba(220, 38, 38, 0.35), 0 0 40px rgba(220, 38, 38, 0.15);
   border-color: rgba(255, 255, 255, 0.6);

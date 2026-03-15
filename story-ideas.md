@@ -101,20 +101,35 @@ Most viral location datasets fall into:
 4. **Discovery** — fossils, meteorites, archaeology
 
 ## Collection Priority Queue
-| Priority | Collection | Status | Notes |
-|----------|-----------|--------|-------|
-| 1 | Biblical Events & Locations | Planned | OpenBible KML data available. Narrative timeline approach. |
-| 2 | Famous Battlefields | Research done | 21 sites with coordinates ready |
-| 3 | Film & TV Locations | Not started | Start with 5-6 iconic franchises |
-| 4 | Fossil Discovery Sites | Not started | Paleobiology DB |
-| 5 | Notable People Layer | Supabase-era | 2.29M dataset, needs DB |
 
-## Scaling UX Considerations
-- **Zoom-based progressive disclosure**: Only show top-N moments per zoom level, using notability/importance scores
-- **Geographic balance**: Prevent category skew in any given viewport (e.g., LA = all celebrity deaths)
-- **Category weighting per viewport**: Show balanced mix of categories in default "All" view
-- **Collection-scoped visibility**: Niche pins (celebrity deaths, UFO sightings) only show when collection is active
-- **Notability score**: Replace binary major/minor with numeric score for zoom-level filtering
+> **Detailed roadmap**: See `.claude/plans/magical-singing-beaver.md` (Fractal Zoom Roadmap, Phase 5) for full dataset aggregation plan with moment estimates and implementation order.
+
+### Pre-Database (static TS files, target ~1,500-2,000 moments)
+| Priority | Collection | Status | Est. Moments | Notes |
+|----------|-----------|--------|-------------|-------|
+| 1 | Notable People (top 200) | Not started | ~800-1,000 | 200 people × 4-5 moments. Prioritize Africa, S. America, SE Asia, Central Asia. |
+| 2 | UNESCO World Heritage Sites | Not started | ~200 | Clean structured data. Best global coverage filler. |
+| 3 | Film & TV Locations (5-6 franchises) | Not started | ~80 | Breaking Bad, GoT, LotR, Star Wars, Godfather, Jaws. High SEO. |
+| 4 | Austin Deep Dive | Not started | ~50 | First AI pipeline test. Barnes's "Indelible Austin" content. |
+| 5 | Famous Battlefields (expanded) | Research done | ~100 | 21 already researched. Expand globally. |
+| — | Biblical Events | **Partially done** | 58 done | 5 stories implemented (Session 31). Full OpenBible dataset post-database. |
+
+### Post-Database (requires Supabase, scaling to 10K-100K+)
+| Priority | Collection | Est. Size | Notes |
+|----------|-----------|----------|-------|
+| 6 | Notable People (full top 2,000) | ~6,000-8,000 | Needs DB for this volume. |
+| 7 | Biblical Locations (full OpenBible) | ~500+ | All books, narrative framing. |
+| 8 | National Register of Historic Places | 95,000+ | US-only, AI extraction + notability scoring. |
+| 9 | Pleiades (ancient world) | ~35,000 | Greek/Roman ancient places. |
+| 10 | ICBe Crisis Events (1918-2017) | ~5,000 | Structured international crises. |
+
+## Scaling UX — Fractal Zoom (IN PROGRESS)
+- **Phase 0 COMPLETE**: Notability scoring script built. 601 moments scored 0-100 using Wikipedia pageviews.
+- **Phase 1 NEXT**: Add `notability` field to Moment type, apply scores.
+- **Phase 2**: Zoom-based threshold filtering in MapView. Linear interpolation: zoom 2-3 → threshold 80-90 (S-tier only), zoom 10+ → threshold 0 (everything).
+- **Bypass rules**: Story/entity/collection/search/Near Me modes bypass notability filtering.
+- **Geographic rarity floor**: Ensures each 500km tile has representation at regional zoom. Cap at score 60.
+- **Category filter interaction**: Active category filter lowers threshold by 20 points.
 - **Personalization** (future): "What happened near you?" — the single most reliable viral mechanic
 
 ## Privacy Guidelines

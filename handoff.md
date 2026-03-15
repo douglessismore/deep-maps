@@ -1,39 +1,74 @@
-# Deep Maps — Session Handoff (Updated Mar 13, 2026, Session 33c)
+# Deep Maps — Session Handoff (Updated Mar 14, 2026, Session 34)
 
 > **Structure note**: Living snapshot. Main sections = current state. Historical decisions in Key Decisions table.
 
 ## Current State
 
 ### App
-- **569 moments**, **184 stories**, **208 entities**, **23 collections** in static TypeScript data files
+- **601 moments**, **195 stories**, **211 entities**, **23 collections** in static TypeScript data files
 - **8 story categories**: dark-history, last-stands, discovery-science, arts-culture, mystery-unexplained, political-drama, everyday-extraordinary, sacred-history
 - Architecture: Moments-First model — moments.ts, entities.ts, stories.ts (StoryMoment[] references), collections.ts (momentIds[])
 - MomentKind taxonomy: `'event' | 'milestone' | 'presence'` (optional, defaults to event)
 - Dev server: `cd deep-maps && npx vite --host --port 5174`
 - Build check: `npx tsc -b` (NOT `tsc --noEmit` — tsc -b is stricter, matches Vercel)
 
-### What Changed This Session (33b)
+### What Changed This Session (34)
+
+**Phase 0: Notability Scoring — Fractal Zoom Roadmap**
+
+Built and validated the notability scoring script as Phase 0 of the Fractal Zoom Roadmap (plan file: `.claude/plans/magical-singing-beaver.md`). This enables zoom-based progressive disclosure: globally significant moments show at world zoom, local content reveals as you zoom in.
+
+**1. Scoring Script (`scripts/score-moments.ts`)**
+- Fetches Wikipedia pageview data for 316 unique slugs (299 successful, 17 failed)
+- Scores each moment on 0-100 scale using log10 formula: `clamp(round((log10(avgMonthlyViews) - 1.5) * 20), 5, 100)`
+- Primary Moment logic: first moment in each story is "primary" (inherits full score); supporting moments get 0.5x multiplier (prevents Einstein/Gein blob clusters at low zoom)
+- Cross-reference density fallback for moments without Wikipedia coverage
+- Manual override support from `scripts/output/overrides.json`
+- Retry logic with exponential backoff for rate-limited requests
+
+**2. Key Bug Fixes During Development**
+- **Rate limiting**: Reduced from 50 concurrent to 10 concurrent with 500ms delay + retry on 429/5xx
+- **Story-first slug bias**: Fixed getSlugForMoment to compare ALL slugs (story + entity) and pick highest-pageview one. Before fix: Jesus scored 57 (using "Ministry_of_Jesus" story slug, 12K views). After fix: Jesus scored 87 (using "Jesus" entity slug, 416K views).
+- **URL double-encoding**: Slugs with `%27` (apostrophe) were double-encoded. Added decodeURIComponent before re-encoding. Fixed O'Keeffe, Halley's Comet, Popé, etc.
+
+**3. Scoring Results (Phase 0 Dry Run)**
+Distribution across 601 moments:
+| Tier | Score Range | Count | % | Zoom Level |
+|------|-----------|-------|---|-----------|
+| S | 90-100 | 6 | 1.0% | World |
+| A | 70-89 | 80 | 13.3% | Continental |
+| B | 50-69 | 68 | 11.3% | Country |
+| C | 30-49 | 332 | 55.2% | Regional |
+| D | 10-29 | 112 | 18.6% | City/local |
+| Archive | 0-9 | 3 | 0.5% | Deep cuts |
+
+Top 10: D-Day (100), Ed Gein (100, true crime bias), Cleopatra (96), Google at Denny's (96), Somme (90), JFK assassination (90), Dahmer (89), JFK birth (89), Trafalgar (87), Bundy (87).
+
+**4. Known Issues in Scoring (For User Review)**
+- **True crime bias**: Ed Gein (2.6M views/mo) scores 100, outranking most civilizational anchors. Correction planned via: cross-lingual sitelinks boost (Phase 1), editorial must-show whitelist, manual overrides.
+- **Eiffel Tower scores 19**: No entity wired to the moment — falls back to "Culture_of_Paris" story slug (1.5K views). Data wiring gap, not algorithm issue.
+- **4 primary moment mismatches flagged**: Ed Gein (first moment is `contextual`), Bermeja Island, Aluxes, London Crown & Scaffold.
+- **17 slugs still fail**: Mostly very obscure articles or articles with unusual naming.
+
+**5. Output Files**
+- `scripts/output/notability-scores.md` — Full ranked list for human review
+- `scripts/output/notability-scores.json` — Machine-readable score breakdowns (601 entries)
+- `scripts/output/overrides.json` — Manual override file (empty, ready for user edits)
+
+**6. Mexico Content (Batches 1 & 2, from earlier this session)**
+- **Batch 1** (commit `92ab156`): 5 stories (sacred-history, arts-culture), 11 moments, 3 entities. Covers Cristero War, Guadalupe apparitions, Day of the Dead origins, Chichén Itzá equinox, Monarch butterfly discovery.
+- **Batch 2** (commit `68dacdc`): 6 stories filling everyday-extraordinary and discovery-science gaps. Added Teotihuacán, Olmec, Pakal tomb, Monarch butterflies, Chicxulub crater, Monte Albán.
+- Net from both batches: +32 moments, +11 stories, +3 entities.
+
+### Previous Session (33b)
 
 **Critical Bug Fixes — Story suppression, entity panel contamination, UI**
 
 User reported multiple issues on mobile: Stories tab only showing people (no story cards), entity panels showing unrelated moments (Tubman→Cleopatra), UI glitches. Investigation found two pre-existing root causes, neither caused by Session 33.
 
-**1. Story Suppression Bug (THE BIG FIX)**
-- `canonicalStoryIds` set in entityHelpers.ts collected ALL entity canonicalStoryIds (100 unique), hiding 52% of stories (95/184) from the Stories tab
-- **Fix**: Changed to only suppress stories where `storyType === 'biography'` AND claimed by a person entity via `canonicalStoryId`
-- Result: 31 suppressed (17%), 153 visible. Servant Girl Annihilator, Lincoln Assassination, all city stories now visible. True biographies (Ed Gein, O. Henry Life, Tubman, etc.) correctly suppressed.
-
-**2. Entity Panel Contamination (32 entities)**
-- 53 entities had `canonicalStoryId` pointing to omnibus "grab bag" stories (revolutionary-leaders, literary-titans, historys-bravest, etc.)
-- Entity panel safety net pulled ALL moments from canonical story → Tubman showed Cleopatra, Bolivar showed Mao
-- **Fix**: Removed all 53 omnibus canonicalStoryId references from entities.ts
-- Deleted duplicate Harriet Tubman entity (overwriting correct one)
-- Deleted Richard Linklater entity (below notability bar per user decision)
-
-**3. Data & UI Fixes**
-- Removed `mlk-clayborn-temple` and `mx-birthplace` from famous-assassinations collection
-- Fixed EntityPanel over-scroll padding (40vh → h-16)
-- Fixed Places tab back button label (was always "Stories", now infers "Places" from entity type)
+1. Story suppression bug: `canonicalStoryIds` set hid 52% of stories → fixed to biography-only suppression (31 suppressed, 153 visible)
+2. Entity panel contamination: 53 omnibus canonicalStoryId references → all removed
+3. UI: over-scroll padding, Places back button label, assassination collection cleanup
 
 ### Previous Session (33) — Gold Standard Content Audit
 
@@ -96,17 +131,17 @@ Applied content-guide.md end-to-end to one story, one person, one place. Each wa
 - Moments ordered chronologically within each story
 - Entity canonicalStoryId correctly set for all related entities
 
-### Geographic Distribution (unchanged from session 31)
+### Geographic Distribution (updated session 34)
 | Region | Moments | Notes |
 |--------|---------|-------|
 | USA + Canada | ~260 | Still dominant, mostly Austin/Texas + serial killers + biographies |
 | Middle East / N. Africa | ~80 | Biblical events + sacred sites + Avicenna |
-| Mexico | ~58 | Unchanged |
-| Western Europe | ~30 | Battlefields + notable people (London, Milan, Rome, Arles, Bern, Vienna, Paris, Prague) |
+| Mexico | ~90 | Expanded: +32 moments in Session 34 (Teotihuacán, Olmec, Cristero War, Day of Dead, Chicxulub, Monte Albán, Monarchs) |
+| Western Europe | ~85 | London, Paris, Rome, Tokyo + battlefields + notable people |
 | Eastern Europe / Russia | ~15 | St. Petersburg, Yasnaya Polyana + nuclear tests |
 | South America | ~6 | Bogotá, La Higuera, Santiago, Rio |
 | South Asia | ~10 | Dandi, Santiniketan, New Delhi + sacred sites |
-| East Asia | ~8 | Beijing, Qufu, Mongolia, Tokyo + nuclear tests |
+| East Asia | ~22 | Beijing, Qufu, Mongolia, Tokyo + nuclear tests |
 | Sub-Saharan Africa | ~5 | Robben Island, Harare + meteorite craters |
 | Southeast Asia | ~3 | Yangon + Angkor Wat + nuclear test |
 | Central Asia / Iran | ~3 | Isfahan, Konya |
@@ -200,11 +235,12 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - `j-robert-oppenheimer` story has `storyType: 'incident'` but is functionally a biography → not suppressed. Could change storyType to 'biography' if desired.
 - `bonnie-and-clyde`, `wright-brothers`, `lbj-lady-bird-austin` are joint biographies suppressed by the new logic — correct since person entities exist, but the joint narrative may add value beyond individual cards.
 
-### 🟡 PIN DENSITY AT WORLD ZOOM
-- At full world zoom, pins overlap into blobs (especially US cluster, Europe cluster, Middle East cluster)
-- Need zoom-based progressive disclosure: show only `major` importance at low zoom, reveal `minor`/`contextual` as you zoom in
-- Consider Leaflet.markercluster or custom zoom-level filtering
-- This will become more urgent as we add more content
+### 🟡 PIN DENSITY AT WORLD ZOOM → FRACTAL ZOOM ROADMAP (IN PROGRESS)
+- **Phase 0 COMPLETE**: Notability scoring script built and validated. 601 moments scored 0-100 using Wikipedia pageviews + primary moment logic. Output in `scripts/output/notability-scores.md` for user review.
+- **Phase 0 PENDING**: User reviews ranked list, adds manual overrides to `scripts/output/overrides.json`, creates editorial must-show whitelist (~20 civilizational anchors at 95+).
+- **Phase 1 NEXT**: Add `notability?: number` to Moment type, `isPrimary?: boolean` to StoryMoment. Apply scores to moments.ts.
+- **Phase 2**: Zoom-based filtering in MapView (`getNotabilityThreshold(zoom)` → filter `visibleLocations`). Panel UX: "Showing X of Y moments — zoom in to discover more."
+- Full plan in `.claude/plans/magical-singing-beaver.md`
 
 ### 🟡 Performance Plan (from Session 26)
 - Steps 2-3 (People-in-Stories, Collections 4th tab) COMPLETE
@@ -233,22 +269,32 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 | 11 | Content guide | Comprehensive guide (`content-guide.md`) | Ad-hoc standards | Consistency at scale requires written standards. Guide covers naming, lengths, tone, mobile-first rules, audit checklist. |
 | 12 | Expert council | Tim Urban (awe/curiosity, plain language) + Rand Fishkin (content discoverability) as content sub-council | Maria Popova | Tim Urban's voice matches Deep Maps' "make complex history fascinating in plain language" goal. Rand Fishkin brings content strategy: what makes people click and stay. Both recommended by multiple AI models. |
 | 13 | Stories vs Collections | Stories = narrative arcs; Collections = curated lists | Everything is a story | If items can be rearranged without losing meaning, it's a collection, not a story. Keeps story tab meaningful. |
+| 14 | Notability scoring | Wikipedia pageviews (log10) + entity slugs + primary moment logic | Multi-dimensional scores, Wikidata QID, spatial deconfliction | Single composite score + manual overrides is sufficient at 601 moments. Entity slugs beat story slugs for pageview accuracy. Primary moment prevents cluster blobs. |
+| 15 | Fractal zoom filtering | Notability threshold per zoom level (linear interpolation) | Clustering (Leaflet.markercluster), target-count thresholds | Notability filtering is simpler, more predictable, and preserves pin identity. Clustering merges pins and loses story context. |
 
 ## Next Steps (Priority Order)
 
-1. **BULK CONTENT QUALITY AUDIT** — Gold standards now established (Session 33). Apply content-guide.md to ALL ~569 remaining moments. Use the 3 gold standards as reference targets. Includes:
+1. **FRACTAL ZOOM — Phase 0 Review** — User reviews `scripts/output/notability-scores.md`. Actions:
+   - a. Scan S/A tiers: do these deserve world/continental zoom visibility?
+   - b. Scan Deep Archive: any buried gems that deserve higher scores?
+   - c. Add manual overrides to `scripts/output/overrides.json` for misranked moments
+   - d. Create editorial must-show whitelist (~20 civilizational anchors at 95+)
+   - e. Decide on 4 primary moment mismatches (Ed Gein, Bermeja, Aluxes, London Crown)
+   - f. Optionally: cut 5 dark/paranormal Mexico stories (discussed earlier, not yet acted on)
+2. **FRACTAL ZOOM — Phases 1-2** — After user approves rankings:
+   - Phase 1: Add `notability` to Moment type, apply scores to moments.ts
+   - Phase 2: Zoom-based filtering in MapView + "zoom in to see more" panel UX
+3. **BULK CONTENT QUALITY AUDIT** — Gold standards established (Session 33). Apply content-guide.md to ALL remaining moments. Includes:
    - a. Rewrite 17 present-tense moments (5 pilgrimage + 10 craters + 2 Austin)
-   - b. Refactor 6 stories→collections (historys-bravest, rome-renaissance-masters, london-under-fire, london-great-stages, scientific-minds-2, plus review artists-writers-immortal, revolutionaries-pen-pulpit)
-   - c. Apply five-second test to ALL moment names (Gein-style rewrites where needed)
-   - d. Verify data wiring: entityIds on every moment, canonicalStoryId on every entity, relatedStoryIds on every story
-   - e. Importance differentiation: not everything should be major (London pattern: 12 major / 5 minor)
-   - f. Fill entity wiring gaps across all city clusters (Rome, Paris, Tokyo likely have same gaps as London)
-2. **Panel UX redesign** — Dedicated session. Card sorting/grouping/hierarchy for Stories panel at scale. Consider: distance sort, category grouping, progressive disclosure.
-3. **Pin density: zoom-based filtering or clustering** — Implement progressive disclosure at world zoom (importance differentiation from audit will help)
-4. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway" (linear marker density through empty regions)
-5. **Story connectivity audit** — Ensure no standalone moments lack parent stories (some nuclear test moments may be orphaned)
-6. **MapView differential updates** — Performance optimization from Session 26 plan
-7. **UX: mobile card descriptions** — Stories and People cards don't show descriptions on mobile compact mode. Entity "Caravaggio problem" (obscure names have zero context on mobile). May be addressed as part of Panel UX redesign.
+   - b. Refactor 6 stories→collections
+   - c. Apply five-second test to ALL moment names
+   - d. Verify data wiring: entityIds on every moment, canonicalStoryId on every entity
+   - e. Importance differentiation + entity wiring gaps
+4. **Panel UX redesign** — Card sorting/grouping/hierarchy for Stories panel at scale
+5. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway"
+6. **Story connectivity audit** — Ensure no standalone moments lack parent stories
+7. **MapView differential updates** — Performance optimization from Session 26 plan
+8. **UX: mobile card descriptions** — Entity "Caravaggio problem" (obscure names have zero context)
 
 ## Session History
 
@@ -262,3 +308,4 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - **Session 33**: Gold standard content audit — 3 reference examples. Lincoln assassination (story): added date/kind metadata, improved Booth entity wiring. Ed Gein (person): complete rewrite of all 6 moment names to pass five-second test, merged duplicate pin, removed 5 sub-notability entities, reordered chronologically. London (place): created 5 new entities (Charles I, Nelson, Jack the Ripper, Beatles, Richard III), wired entityIds to 5 moments, differentiated importance (12 major / 5 minor), fixed chronological ordering, confirmed london-under-fire + london-great-stages should be collections. Gold standard patterns documented in handoff. Net: -1 moment (merged gein-burial), +5 entities, -5 entities = ~569 moments, ~205 entities.
 - **Session 33b**: Critical bug fixes. Story suppression was hiding 52% of stories (95/184) — fixed to use storyType 'biography' + person entity claim (31 suppressed, 153 visible). Entity panel contamination from 53 omnibus canonicalStoryId references — all removed. Deleted duplicate Tubman entity, deleted Linklater entity. Fixed assassination collection (removed 2 wrong moments). UI: over-scroll padding, Places back button label. Self-link fix in Dive Deeper (entity.canonicalStoryId === story.id filtered in LocationCard + StoryPanel). Net: -2 entities = ~208 entities. All pre-existing bugs, none caused by Session 33.
 - **Session 33c**: Data gap audit and fill. Wired entityIds for 51 moments (Trinity→manhattan-project, holy sites→jesus/moses, battles→napoleon/nelson/churchill, Texas places→menger-hotel/chile-queens). Filled years for all 20 entities that were missing them. Added wikipediaSlug to 7 stories + 2 entities. Added year to 4 ancient moments (Capernaum, Mecca, Varanasi, Kailash). Coverage: 67.7% moments have entityIds (was 59%), 0 entities missing years (was 20), 14 stories missing wiki (was 21, remaining are genuinely obscure).
+- **Session 34**: Mexico content batches 1-2 (+32 moments, +11 stories, +3 entities covering Cristero War, Guadalupe, Day of Dead, Teotihuacán, Olmec, Chicxulub, Monte Albán, Monarchs). Fractal Zoom Roadmap: designed 5-phase plan with AI review synthesis (Gemini, ChatGPT, Deepseek). Built `scripts/score-moments.ts` — notability scoring using Wikipedia pageviews (log10 scale) + primary moment logic + entity slug comparison + manual override support. Fixed 3 bugs during development (rate limiting, story-first slug bias, URL double-encoding). Output: 601 moments scored, distribution S=6/A=80/B=68/C=332/D=112/Archive=3. Validated top 20 includes Jesus, Gandhi, Shakespeare, Lincoln, MLK alongside true crime (known bias, Phase 1 correction planned). Net: 601 moments, 195 stories, 211 entities, 23 collections.
