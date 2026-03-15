@@ -528,7 +528,7 @@ export const moments: Moment[] = [
   {
     id: 'palace-santa-fe',
     name: 'Four Flags Fly Over America\'s Oldest Public Building',
-    subtitle: 'Four centuries, four flags — the oldest public building in America',
+    subtitle: 'Spain, Pueblo rebels, Mexico, the Confederacy, and America have all governed from this one adobe',
     description: 'Built in 1610 as the seat of Spanish colonial government, this adobe structure has served under the flags of Spain, the Pueblo people (1680-1692), Mexico (1821-1846), the Confederacy (briefly in 1862), and the United States. Native artisans have sold jewelry and pottery under its portal since the 1880s — a tradition protected by city ordinance today.',
     lat: 35.687,
     lng: -105.9378,
@@ -1180,7 +1180,7 @@ export const moments: Moment[] = [
   {
     id: 'wkm-mass-grave',
     name: 'Frozen Victims Buried in a Mass Trench on the Hill',
-    subtitle: 'Where the frozen victims were buried in a single trench',
+    subtitle: 'Nearly 150 Lakota men, women, and children dumped into a trench in the frozen ground',
     description: 'Days after the massacre, a burial party arrived to find the victims frozen in the snow. They dug a single, long trench atop a hill overlooking the killing field and interred nearly 150 bodies. The concrete border of the grave remains one of the most somber sights on the Pine Ridge Reservation.',
     lat: 43.1415,
     lng: -102.3619,
@@ -1280,7 +1280,7 @@ export const moments: Moment[] = [
   {
     id: 'rwm-cedar-key-rail',
     name: 'Midnight Train Rescues Women and Children from Rosewood',
-    subtitle: 'Where a midnight train rescued the children of Rosewood',
+    subtitle: 'A Black train conductor risks his life to evacuate families as the town burns behind them',
     description: 'On the fourth night of the massacre, a train conductor slowed his steam locomotive as it passed Rosewood, allowing dozens of women and children hiding in the swamps to scramble aboard. They were whisked away to safety in Gainesville, leaving behind a town that would soon be reduced to ash.',
     lat: 29.135,
     lng: -83.0336,
@@ -1630,7 +1630,7 @@ export const moments: Moment[] = [
   {
     id: 'wb-kitty-hawk',
     name: 'The Wright Brothers Achieve the First Powered Flight — 12 Seconds That Changed History',
-    subtitle: 'Where 12 seconds of flight changed human history',
+    subtitle: 'Two bicycle mechanics from Ohio outpace the world\'s best-funded aviation programs',
     description: 'On December 17, 1903, the Wright Flyer lifted off from these sand dunes for exactly 12 seconds. It was the first controlled, powered flight of a heavier-than-air machine. A massive granite monument now towers over the dunes, marking the exact spots of the four successful flights that morning.',
     lat: 36.0188,
     lng: -75.669,
@@ -1985,7 +1985,7 @@ export const moments: Moment[] = [
   {
     id: 'tomb-7-discovery',
     name: 'Alfonso Caso Unseals a Stone Slab and Finds a King\'s Ransom in Tomb 7',
-    subtitle: 'Alfonso Caso finds a king\'s ransom in the dust',
+    subtitle: 'The richest archaeological discovery in the Americas, untouched for 600 years beneath Monte Albán',
     description: 'On January 9, 1932, Alfonso Caso enters Tomb 7 at Monte Albán. Inside, he finds more than 400 objects, including gold pectorals, turquoise masks, and carved jaguar bones. The sheer volume of precious metal is so high that he has to call in the military to guard the site from looters.',
     lat: 17.0438,
     lng: -96.7677,
@@ -5272,7 +5272,7 @@ export const moments: Moment[] = [
   {
     id: 'nordlinger-ries',
     name: 'A Medieval German Town Is Built Inside an Impact Crater Without Knowing It',
-    subtitle: 'Where the walled city of Nördlingen sits inside a 15-million-year-old crater, its church built from impact rock',
+    subtitle: 'Residents didn\'t know until 1960 that their church was built from diamonds forged by the impact',
     description: 'The medieval walled town of Nördlingen in Bavaria is built entirely within the 26-kilometer Nördlinger Ries impact crater, formed 14.8 million years ago. For centuries, the circular basin was thought to be volcanic. The church of St. George is constructed from suevite — a breccia formed by the impact — which contains thousands of tiny diamonds created by the shock. The true impact origin was not proven until the 1960s, when shatter cones and shocked quartz were identified. Apollo 14 astronauts trained here to identify impact rocks.',
     lat: 48.8800,
     lng: 10.6100,
