@@ -42,6 +42,7 @@ interface ExplorePanelProps {
   onCategoryFilter: (category: StoryCategory | null) => void;
   onSurpriseMe: () => void;
   userLocation?: { lat: number; lng: number } | null;
+  onRequestGeo?: () => void;
   onEntityClick?: (entity: Entity) => void;
 }
 
@@ -76,12 +77,15 @@ export function ExplorePanel({
   categoryFilter,
   onSurpriseMe,
   userLocation,
+  onRequestGeo,
   onEntityClick,
 }: ExplorePanelProps) {
   const [activeTab, setActiveTab] = useState<PanelTab>('stories');
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
+  const [storySort, setStorySort] = useState<'notable' | 'nearest'>('notable');
+  const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
@@ -108,6 +112,16 @@ export function ExplorePanel({
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
   const highlightDebounce = useRef(0);
+
+  // Auto-sort by Nearest when GPS is first acquired (unless user manually chose a sort)
+  const prevUserLocation = useRef(userLocation);
+  useEffect(() => {
+    if (!prevUserLocation.current && userLocation && !hasManualSort.current) {
+      setMomentSort('nearest');
+      setStorySort('nearest');
+    }
+    prevUserLocation.current = userLocation;
+  }, [userLocation]);
 
   // Auto-switch to collections tab when a collection is selected
   useEffect(() => {
@@ -403,9 +417,15 @@ export function ExplorePanel({
     // Suppress canonical stories from browseable list
     result = result.filter(s => !canonicalStoryIds.has(s.id));
 
-    // Sort by notability (highest first)
+    // Sort by active story sort mode
+    if (storySort === 'nearest' && userLocation) {
+      return [...result].sort((a, b) =>
+        nearestDistance(a, userLocation.lat, userLocation.lng) -
+        nearestDistance(b, userLocation.lat, userLocation.lng)
+      );
+    }
     return [...result].sort((a, b) => storyNotability(b) - storyNotability(a));
-  }, [filteredStories, viewportStories, searchQuery, userLocation]);
+  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort]);
 
   // Viewport entities — split into people and places
   const viewportEntities: EntityWithCounts[] = useMemo(() => {
@@ -451,11 +471,11 @@ export function ExplorePanel({
     });
 
     const combined = [...storyItems, ...personItems];
-    if (userLocation) {
+    if (storySort === 'nearest' && userLocation) {
       combined.sort((a, b) => a.distance - b.distance);
     }
     return combined;
-  }, [displayStories, personEntities, userLocation]);
+  }, [displayStories, personEntities, userLocation, storySort]);
 
   // Place entities — shown in Places tab
   const placeEntities = useMemo(
@@ -635,7 +655,11 @@ export function ExplorePanel({
                   <span key={mode} className="flex items-center">
                     {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
                     <button
-                      onClick={() => setMomentSort(mode)}
+                      onClick={() => {
+                        hasManualSort.current = true;
+                        setMomentSort(mode);
+                        if (mode === 'nearest' && !userLocation) onRequestGeo?.();
+                      }}
                       className={`transition-colors ${
                         momentSort === mode
                           ? 'text-[var(--text-primary)]'
@@ -951,6 +975,28 @@ export function ExplorePanel({
           />
         ) : (
           <>
+            {/* Sort toggle */}
+            <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
+              {(['notable', 'nearest'] as const).map((mode, i) => (
+                <span key={mode} className="flex items-center">
+                  {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
+                  <button
+                    onClick={() => {
+                      hasManualSort.current = true;
+                      setStorySort(mode);
+                      if (mode === 'nearest' && !userLocation) onRequestGeo?.();
+                    }}
+                    className={`transition-colors ${
+                      storySort === mode
+                        ? 'text-[var(--text-primary)]'
+                        : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                    }`}
+                  >
+                    {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                  </button>
+                </span>
+              ))}
+            </div>
             {/* Mixed story + person cards */}
             {mixedList.map((item) => {
               if (item.kind === 'story') {

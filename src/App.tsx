@@ -250,6 +250,21 @@ function App() {
     setMode('explore');
   }, []);
 
+  // GPS-only request (no map zoom) — for sort triggers
+  const handleRequestGeo = useCallback(() => {
+    if (!navigator.geolocation || userLocation) return; // already have it or can't get it
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      () => { /* silent — sort will fall back to viewport center */ },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+    );
+  }, [userLocation]);
+
   const handleNearMe = useCallback(() => {
     if (!navigator.geolocation) {
       setGeoError('Geolocation is not supported by your browser');
@@ -465,6 +480,7 @@ function App() {
                   onCategoryFilter={handleCategoryFilter}
                   onSurpriseMe={handleSurpriseMe}
                   userLocation={userLocation}
+                  onRequestGeo={handleRequestGeo}
                   onEntityClick={handleEntitySelect}
                 />
               )}
