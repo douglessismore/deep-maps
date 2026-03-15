@@ -203,14 +203,14 @@ Should read like Wikipedia "List of..." articles. User knows what's in it before
 
 ## 5. ENTITY DESCRIPTIONS
 
-### Mobile Problem: The Caravaggio Issue
+### Mobile: 1-Line Truncated Descriptions (SHIPPED)
 
-On mobile, entity cards show ONLY: **name**, **years**, **"Person" badge**, and **moment/story counts**. Description is completely hidden. This means:
-- "Caravaggio" → user has no idea who this is
-- "Joan of Arc" → most people know the name but not what she did
-- "Tokugawa Ieyasu" → blank stare
+On mobile, entity cards show a **1-line truncated description** (`text-xs line-clamp-1`). Only the first ~8-10 words are visible. This means the opening words ARE the mobile experience:
+- ✅ "America's master of the twist ending — a pharmacist..." (O. Henry) — hooks immediately
+- ✅ "Christianity's most tireless missionary began as its fiercest persecutor..." (Paul) — dramatic irony in 8 words
+- ❌ "Born William Sydney Porter, O. Henry was a pharmacist..." — wastes 5 words on a real name nobody knows
 
-**Rule: FRONTLOAD THE HOOK in the first ~8 words of every entity description.** If we ever show 1-line descriptions on mobile (planned UX improvement), only the first 8-10 words will be visible.
+**Rule: FRONTLOAD THE HOOK in the first ~8 words of every entity description.** The truncated 1-line is what mobile users see. Those 8 words must work as a standalone tagline.
 
 ### Rules
 
@@ -358,7 +358,7 @@ All of the above, plus:
 - `story.years` (tiny mono)
 - Category badge (colored pill with label)
 - `story.storyType` (capitalized, hidden if "incident")
-- `story.description` (desktop only, 3-line clamp) — **HIDDEN ON MOBILE**
+- `story.description` — desktop: 3-line clamp (text-sm); **mobile: 1-line clamp (text-xs)**
 - `story.nickname` (desktop only, italic)
 - Moment count: "N moments"
 - Distance from user (if location available)
@@ -368,7 +368,7 @@ All of the above, plus:
 - Avatar circle with first initial
 - `entity.years` (tiny mono)
 - "Person" badge (purple)
-- `entity.description` (desktop only, 3-line clamp) — **HIDDEN ON MOBILE**
+- `entity.description` — desktop: 3-line clamp (text-sm); **mobile: 1-line clamp (text-xs)**
 - Moment count + story count
 
 ### Collections Tab — CollectionCard
@@ -442,17 +442,17 @@ These aren't "content" per se, but bad wiring makes content invisible in the UI.
 
 ## 10. MOBILE-FIRST CONTENT RULE
 
-Since descriptions are hidden on mobile:
+Story and entity cards now show a **1-line truncated description** on mobile (`text-xs line-clamp-1`). This means the `name` plus `~8 words of description` is the mobile experience.
 
-> **The `name` field is the ONLY text most users will see.**
+> **The `name` + first line of description must work together to tell the user what this is.**
 >
-> If your content doesn't work with just the `name` visible, it doesn't work.
+> If the name is obscure, the description's opening words must carry the context.
 
 This means:
-- "Ed Gein" (story name) is fine IF the associated moment names are self-explanatory
-- But "Mary Hogan Disappears from Her Tavern" next to a tiny "Ed Gein" chip is NOT fine
-- Story names like "The Lincoln Assassination" work because Lincoln is universally known
-- Story names like "Elfego Baca" do NOT work alone — but could work if the subtitle were visible
+- "Ed Gein" (story name) + "A Wisconsin farmer's arrest reveals a farmhouse..." ✓ — name + opening line gives full context
+- Story names like "The Lincoln Assassination" work because Lincoln is universally known — the description line is bonus context
+- Story names like "Elfego Baca" need the description to do the work: "A New Mexican sheriff survives 4,000 bullets..." ✓
+- Entity names like "Caravaggio" need frontloaded descriptions: "The painter who killed a man and fled Rome..." ✓
 
 ### The Notability Shortcut
 
@@ -464,12 +464,14 @@ If the person/event is **NOT universally famous**, the moment name must carry th
 - "Elfego Baca" ✗ (who?)
 - "A Sheriff Survives 4,000 Bullets in an Eighty-Hour Siege" ✓ (WHO?! Tell me more!)
 
-### Entity descriptions: frontload for mobile
+### Entity & story descriptions: frontload for mobile
 
-Entity descriptions are invisible on mobile today. When we add 1-line mobile descriptions (planned), only the first ~8 words will show. Write entity descriptions so those first 8 words ARE the tagline:
+Entity and story descriptions now show as a **1-line truncated preview** on mobile. Only the first ~8-10 words are visible. Write descriptions so those first 8 words ARE the tagline:
 - ✅ "The painter who killed a man and fled Rome..." (Caravaggio)
 - ✅ "The woman for whom Henry VIII broke with the Pope..." (Anne Boleyn)
+- ✅ "America's master of the twist ending — a pharmacist..." (O. Henry)
 - ❌ "Michelangelo Merisi da Caravaggio was an Italian painter known for..." (wasted words)
+- ❌ "Born Samuel Clemens, he became America's greatest humorist..." (real name nobody knows)
 
 ---
 
@@ -546,8 +548,8 @@ Entity descriptions are invisible on mobile today. When we add 1-line mobile des
 | 3 | Notability bar | Globally recognizable OR the one-liner hooks you | Obscure names are fine if the event description is self-explanatory |
 | 4 | Tone | Wikipedia + Tim Urban | Matter-of-fact, to-the-point, awe-invoking specificity without hyperbole |
 | 5 | Content type | All moments = specific historical events | No ongoing activities, no place descriptions |
-| 6 | Mobile priority | Name field must work alone | Descriptions hidden on mobile; name is all users see |
-| 7 | Entity hook | First 8 words = tagline | Mobile will show at most 1 line; frontload the hook |
+| 6 | Mobile priority | Name + first ~8 words of description must work together | Mobile shows 1-line truncated description; frontload the hook |
+| 7 | Entity hook | First 8 words = tagline; never open with "Born [real name]" | Mobile shows 1-line truncated description; those 8 words are all users see |
 | 8 | Story vs Collection | Stories = narrative arcs; Collections = curated lists | If you can rearrange the items without losing anything, it's a collection |
 | 9 | Story naming | Wikipedia article title style | Canonical, specific, recognizable — "The French Revolution" not "Paris Gets Wild" |
 | 10 | Dates in descriptions | Include month/day (moment.date not displayed in UI) | Year shown as metadata, but full date only exists in description text |
@@ -580,6 +582,12 @@ The name describes what a place IS now, not what happened.
 The description opens with formal biographical filler instead of the hook.
 - "Michelangelo Merisi da Caravaggio was an Italian painter..." — first 8 words wasted
 - Better: "The most revolutionary painter in Europe — also a killer on the run..."
+
+**"Born [Real Name]" anti-pattern**: Never open with "Born [real name]..." — this wastes the entire mobile-visible line on a name nobody recognizes. Frontload what the person DID or IS KNOWN FOR.
+- ❌ "Born Samuel Clemens, he became America's greatest humorist..."
+- ✅ "America's greatest humorist and the voice of the Mississippi River..."
+- ❌ "Born Temüjin. Orphaned, enslaved, escaped..."
+- ✅ "Orphaned, enslaved, and left for dead — then unified the Mongol tribes..."
 
 ---
 

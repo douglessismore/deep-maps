@@ -1,11 +1,11 @@
-# Deep Maps — Session Handoff (Updated Mar 14, 2026, Session 39)
+# Deep Maps — Session Handoff (Updated Mar 15, 2026, Session 41)
 
 > **Structure note**: Living snapshot. Main sections = current state. Historical decisions in Key Decisions table.
 
 ## Current State
 
 ### App
-- **601 moments**, **195 stories**, **211 entities**, **23 collections** in static TypeScript data files
+- **602 moments**, **195 stories**, **211 entities**, **23 collections** in static TypeScript data files
 - **8 story categories**: dark-history, last-stands, discovery-science, arts-culture, mystery-unexplained, political-drama, everyday-extraordinary, sacred-history
 - Architecture: Moments-First model — moments.ts, entities.ts, stories.ts (StoryMoment[] references), collections.ts (momentIds[])
 - MomentKind taxonomy: `'event' | 'milestone' | 'presence'` (optional, defaults to event)
@@ -13,7 +13,33 @@
 - Build check: `npx tsc -b` (NOT `tsc --noEmit` — tsc -b is stricter, matches Vercel)
 - **Fractal Zoom**: Phases 0–2.5 COMPLETE. Notability scoring (0-100 per moment) + Story Constellation Clusters at low zoom + 4 visual variants with toggle.
 
-### What Changed This Session (39)
+### What Changed Sessions 40-41
+
+**Session 41: Content Audit Completion + Mobile Context Fix**
+
+1. **Stories→Collections migration (dual-presence)**: Added 7 curated-list stories to `collections.ts` (historys-bravest, rome-renaissance-masters, london-under-fire, london-great-stages, scientific-minds-2, artists-writers-immortal, revolutionaries-pen-pulpit). Kept in stories.ts because `getLocationsInBounds()` in geo.ts only iterates stories, not collections — removing them would orphan 34 moments from the Moments tab. Full removal deferred to post-Supabase.
+
+2. **Bug fixes — Map navigation**:
+   - **Scroll-to-top fitBounds**: When scrolling back to top of a story, map now resets to show all story moments (added `onScrollToTop` callback to StoryPanel.tsx)
+   - **Entity zoom-out**: Clicking an entity from a story moment now zooms to show ALL entity moments globally, not just the local one (fixed `handleEntitySelect` to set `activeLocation(null)` so MapView fitBounds fires)
+
+3. **Content audit data fixes**:
+   - Fleshed out 5 entity description stubs (Santa Anna, Travis, Mackenzie, Prince Carl, Comanche Nation) to 200-350 char content-guide standard
+   - Fixed 6 subtitles that restated the moment name (tomb-7-discovery, palace-santa-fe, wb-kitty-hawk, wkm-mass-grave, rwm-cedar-key-rail, nordlinger-ries)
+   - Fixed 4 entity descriptions with weak "Born [real name]" openings (O. Henry, Paul the Apostle, Genghis Khan, Mark Twain) — frontloaded the hook per content-guide
+
+4. **Mobile description visibility (SHIPPED)**:
+   - StoryCard and PersonCard now show 1-line truncated descriptions on mobile (`text-xs line-clamp-1`) instead of hiding them entirely
+   - This solves the "contextless cards" problem — every card now passes the five-second test on mobile
+   - Content audit confirmed: 195/195 story descriptions and 206/210 entity descriptions frontload well for 1-line truncation
+
+5. **Content guide updated**: Section 5 (entity descriptions), section 8 (card UI reference), section 10 (mobile-first rule), and Appendix A updated to reflect mobile descriptions and the "Born [real name]" anti-pattern.
+
+**Session 40: Emergence, Essence, Wisps Variants + Story Ranking**
+
+Built 3 new map visualization variants (Wisps, Essence, Emergence), implemented story ranking by notability in the Stories tab, fixed duplicate entity rendering issue, and various UX improvements.
+
+### What Changed Session 39
 
 **Phase 2.5v4: Constellation Visual Variants — "Portals You Can Fall Into"**
 
@@ -286,15 +312,11 @@ Applied content-guide.md end-to-end to one story, one person, one place. Each wa
 - Visual hierarchy (featured vs. supporting content)
 **Requires design decisions before implementation. Dedicated UX session.**
 
-### 🔴 STORY→COLLECTION REFACTORING (Part of Content Audit)
-**Priority: HIGH** — 6 items currently coded as stories that should be collections:
-- `historys-bravest` — subjective label, curated list, no narrative arc
-- `rome-renaissance-masters` — list of artists, no narrative thread
-- `london-under-fire` — list of disasters, no connecting narrative (also: vague name, Nelson funeral doesn't fit "under fire" theme). **Confirmed in Session 33 audit.**
-- `london-great-stages` — disconnected cultural achievements, no narrative arc. **Confirmed in Session 33 audit.**
-- `scientific-minds-2` — list of scientists across centuries, no arc
-Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same pattern)
-**Action**: Move from stories.ts to collections.ts, retype, rewire momentIds. Must also update all entity `canonicalStoryId` references that point to converted stories.
+### 🟡 STORY→COLLECTION REFACTORING — PHASE 1 COMPLETE (Session 41)
+**Priority: MEDIUM** — 7 curated-list stories now exist in BOTH stories.ts AND collections.ts (dual-presence):
+- `historys-bravest`, `rome-renaissance-masters`, `london-under-fire`, `london-great-stages`, `scientific-minds-2`, `artists-writers-immortal`, `revolutionaries-pen-pulpit`
+**Phase 2 (full removal from stories.ts)** blocked on: `getLocationsInBounds()` in geo.ts only iterates stories, not collections. Removing them would orphan 34 moments from the Moments tab. Fix requires updating the panel rendering pipeline to also iterate collections. Deferred to post-Supabase.
+**Additional candidates identified**: `presidential-assassinations`, `american-serial-killers`, `nuclear-test-sites`, `meteorite-impact-craters`, `mass-shootings`, `american-disasters` (from plan file).
 
 ### 🟡 PHANTOM MOMENT: aung-san-suu-kyi-house-arrest
 - Referenced in stories.ts and collections.ts but moment data DOESN'T EXIST in moments.ts
@@ -311,10 +333,11 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - Needs human review (not fully automatable) — produce a ranked list sorted by "obscurity score" (heuristics: no Wikipedia article, single moment only, zero cross-references, no entityIds pointing to them).
 - User wants to review the output before any deletions.
 
-### 🟡 CONTEXTLESS CARDS UX (Flagged Session 33c)
-- Cards in Stories/People/Places tabs show names but lack mini-descriptions or subtitles for scannability.
-- Related to the "Caravaggio problem" (item 7 in Next Steps) — obscure names have zero context.
-- Design approach TBD — revisit in dedicated UX session.
+### ✅ CONTEXTLESS CARDS UX — RESOLVED (Session 41)
+- StoryCard and PersonCard now show 1-line truncated descriptions on mobile (`text-xs line-clamp-1`)
+- Entity descriptions audited: 206/210 pass the "first 8 words = tagline" test; 4 weak openings fixed
+- Story descriptions naturally frontload well ("book jacket blurb" style)
+- Content guide updated with "Born [real name]" anti-pattern and mobile frontloading guidance
 
 ### 🟡 STORY/BIOGRAPHY EDGE CASES
 - `zodiac-killer` story has `storyType: 'incident'` but entity `zodiac-killer` exists → both story card and person card visible (minor duplicate, acceptable since the case is unsolved)
@@ -366,19 +389,20 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 
 ## Next Steps (Priority Order)
 
-1. **Phase 2.5b: Narrative Threads / Story Paths** — Polylines connecting story moments chronologically on map. Contextual (on story selection), not always-on. Low effort (~30-50 lines of Leaflet polyline code). See plan file for design details.
-2. **Phase 3: Supabase + PostGIS Migration** — Unblock content scaling past 2000 moments. Server-side spatial queries, real graph centrality computation. Keep TS files as authoring format initially with `scripts/sync-to-db.ts`.
-3. **BULK CONTENT QUALITY AUDIT** — Gold standards established (Session 33). Apply content-guide.md to ALL remaining moments. Includes:
+1. **BULK CONTENT QUALITY AUDIT** — Gold standards established (Session 33), mobile descriptions shipped (Session 41). Remaining work:
    - a. Rewrite 17 present-tense moments (5 pilgrimage + 10 craters + 2 Austin)
-   - b. Refactor 6 stories→collections
-   - c. Apply five-second test to ALL moment names
+   - b. ~~Refactor 6 stories→collections~~ Phase 1 done (dual-presence). Phase 2 post-Supabase.
+   - c. Apply five-second test to ALL moment names (~30 Mexico/Oaxaca fragments need rewriting — see plan Part 3A)
    - d. Verify data wiring: entityIds on every moment, canonicalStoryId on every entity
-   - e. Importance differentiation + entity wiring gaps
+   - e. Fix broken references: 4 canonicalStoryId mismatches, 2 broken relatedStoryIds, phantom moment (see plan Part 2C-2E)
+   - f. Fix 12 truncated entity descriptions (see plan Part 2A)
+   - g. Fix storyType mismatches (5 stories — see plan Part 3E)
+2. **Phase 2.5b: Narrative Threads / Story Paths** — Polylines connecting story moments chronologically on map. Contextual (on story selection), not always-on. Low effort (~30-50 lines of Leaflet polyline code). See plan file for design details.
+3. **Phase 3: Supabase + PostGIS Migration** — Unblock content scaling past 2000 moments. Server-side spatial queries, real graph centrality computation. Keep TS files as authoring format initially with `scripts/sync-to-db.ts`.
 4. **Content Scaling: Notable People top 200** — ~800-1000 new moments. Prioritize Africa, S. America, SE Asia, Central Asia (geographic gaps).
 5. **Panel UX redesign** — Card sorting/grouping/hierarchy for Stories panel at scale
 6. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway"
-7. **UX: mobile card descriptions** — Entity "Caravaggio problem" (obscure names have zero context)
-8. **HeatmapLayer.tsx cleanup** — Currently disconnected/unused. Remove or defer to post-Supabase at 10K+ moments.
+7. **HeatmapLayer.tsx cleanup** — Currently disconnected/unused. Remove or defer to post-Supabase at 10K+ moments.
 
 ## Session History
 
@@ -398,3 +422,5 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - **Session 37**: Phase 2 complete (zoom filtering in both MapView + ExplorePanel, "zoom in to see more" panel UX, category filter threshold lowering, story/entity bypass). Built and validated at all zoom levels.
 - **Session 38**: Phase 2.5v1 (leaflet.heat heatmap) built but rejected by user as "too blobby." Phase 2.5v2 (continuous opacity ramp) deployed to Vercel but user said "looks almost the same." Expert council + AI council convened — diagnosed core issue: 601 individual dots will never be visually rich at world zoom; need different visual form at different zoom bands. Phase 2.5v3: Story Constellation Clusters built. New files: `src/lib/clustering.ts` (Supercluster engine), `src/lib/constellation.ts` (SVG donut ring generator). Complete MapView.tsx rewrite for cluster-aware rendering. Dependencies: supercluster 8.0.1. All modes verified (explore, story, entity, category filter, mobile). TypeScript + Vite builds clean.
 - **Session 39**: Phase 2.5v4: User found opaque dark circles "overwhelming the map." AI council (Gemini, ChatGPT, DeepSeek) + expert council (Tufte, Jobs, Wales) all recommended: remove opaque fill, hide counts until hover, use transparency/glass effects. Built 4 visual variants with toggle switcher: Glass Portal (frosted `backdrop-filter: blur`, default), Glow (luminous outline ring), Depth (concentric rings), Classic (original baseline). Full constellation.ts rewrite with shared `buildRingSegments()`. CSS: per-variant animations, hover states, count overlay. MapView: variant state, VariantSwitcher component, TileSwitcher refactored into shared control container. All 4 variants verified on light + dark tiles. Key decision #17.
+- **Session 40**: Built 3 new map variants (Wisps, Essence, Emergence). Story ranking by notability in Stories tab. Duplicate entity fix. UX improvements. Emergence mode renders all 602 moments as canvas dots at every zoom level — bypasses clustering entirely.
+- **Session 41**: Content audit completion + mobile context fix. Stories→collections dual-presence migration (7 stories). Two map navigation bug fixes (scroll-to-top fitBounds, entity zoom-out). Content fixes: 5 entity description stubs fleshed out, 6 subtitle overlaps rewritten, 4 entity "Born [real name]" openings frontloaded. **Mobile descriptions shipped**: StoryCard and PersonCard now show 1-line truncated descriptions on mobile, solving the "contextless cards" problem. Full audit: 195/195 story descriptions and 206/210 entity descriptions pass frontloading test. Content guide updated with mobile frontloading guidance and "Born [real name]" anti-pattern.
