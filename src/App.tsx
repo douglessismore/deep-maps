@@ -299,11 +299,11 @@ function App() {
     setMode('story');
   }, [pushNav]);
 
-  const handleEntitySelect = useCallback((entity: Entity, fromMoment?: Moment) => {
+  const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
     pushNav();
     setActiveEntity(entity);
     setActiveStory(null);
-    setActiveLocation(fromMoment ?? null);
+    setActiveLocation(null); // null so MapView fitBounds to all entity moments
     setCategoryFilter(null);
     setMode('entity');
   }, [pushNav]);
@@ -433,6 +433,7 @@ function App() {
                   activeLocation={activeLocation}
                   onLocationSelect={(loc) => handleLocationSelect(loc, activeStory)}
                   onScrollLocationSelect={(loc) => handleScrollLocationSelect(loc, activeStory)}
+                  onScrollToTop={() => setActiveLocation(null)}
                   onRelatedStoryClick={handleStorySelect}
                   onTagClick={handleTagClick}
                   allStories={stories}

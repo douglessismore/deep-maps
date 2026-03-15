@@ -19,6 +19,7 @@ interface StoryPanelProps {
   activeLocation: Moment | null;
   onLocationSelect: (location: Moment) => void;
   onScrollLocationSelect: (location: Moment) => void;
+  onScrollToTop?: () => void;
   onRelatedStoryClick: (story: Story) => void;
   onTagClick?: (tag: string) => void;
   allStories: Story[];
@@ -33,6 +34,7 @@ export function StoryPanel({
   activeLocation,
   onLocationSelect,
   onScrollLocationSelect,
+  onScrollToTop,
   onRelatedStoryClick,
   onTagClick,
   allStories,
@@ -82,15 +84,27 @@ export function StoryPanel({
         let closestId: string | null = null;
         let closestDist = Infinity;
 
+        // Check if all moment cards are below the center line (user scrolled to top/header)
+        let allBelowCenter = true;
         locationRefs.current.forEach((el, id) => {
           const rect = el.getBoundingClientRect();
           const cardCenter = rect.top + rect.height / 2;
+          if (cardCenter <= centerY) allBelowCenter = false;
           const dist = Math.abs(cardCenter - centerY);
           if (dist < closestDist) {
             closestDist = dist;
             closestId = id;
           }
         });
+
+        // Scrolled above all moments → reset to show full story on map
+        if (allBelowCenter && locationRefs.current.size > 0) {
+          if (scrollActiveId) {
+            setScrollActiveId(null);
+            onScrollToTop?.();
+          }
+          return;
+        }
 
         // Near bottom of scroll: pick the last location
         const storyLocations = resolveLocationsFromMap(story, momentMap);
