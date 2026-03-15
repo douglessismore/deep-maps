@@ -48,6 +48,7 @@ export function StoryPanel({
   const isScrollDriving = useRef(false);
   const isProgrammaticScroll = useRef(false);
   const isTapGuard = useRef(false); // Suppresses scroll handler after card tap to prevent jitter
+  const manualSelectTime = useRef(0); // Timestamp of last manual card click — grace period for reading
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
@@ -65,8 +66,10 @@ export function StoryPanel({
     if (!container) return;
 
     const onScroll = () => {
-      // Skip if this scroll was triggered by our own scrollIntoView correction or a card tap
+      // Skip if this scroll was triggered by our own scrollIntoView correction, a card tap,
+      // or the user is still reading a manually-expanded card (5s grace period)
       if (isProgrammaticScroll.current || isTapGuard.current) return;
+      if (Date.now() - manualSelectTime.current < 5000) return;
 
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
@@ -247,6 +250,7 @@ export function StoryPanel({
   // to prevent the expand/collapse layout shift from causing a feedback loop
   const handleLocationClick = (location: Moment) => {
     isTapGuard.current = true;
+    manualSelectTime.current = Date.now(); // 5s grace period — scroll won't auto-switch
     onLocationSelect(location);
     setTimeout(() => { isTapGuard.current = false; }, 400);
   };
