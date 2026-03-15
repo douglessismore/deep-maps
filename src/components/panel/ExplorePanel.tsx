@@ -437,13 +437,22 @@ export function ExplorePanel({
       case 'notable':
         return arr.sort((a, b) => (b.location.notability ?? 0) - (a.location.notability ?? 0));
       case 'nearest':
+        if (userLocation) {
+          // Sort by distance from user's GPS location
+          return arr.sort((a, b) => {
+            const da = distanceMiles(userLocation.lat, userLocation.lng, a.location.lat, a.location.lng);
+            const db = distanceMiles(userLocation.lat, userLocation.lng, b.location.lat, b.location.lng);
+            return da - db;
+          });
+        }
+        // Fallback: distance from viewport center (pre-computed)
         return arr.sort((a, b) => a.distance - b.distance);
       case 'oldest':
         return arr.sort((a, b) => (a.location.year ?? 9999) - (b.location.year ?? 9999));
       default:
         return arr;
     }
-  }, [viewportLocations, momentSort]);
+  }, [viewportLocations, momentSort, userLocation]);
 
   // Scroll-driven entity highlighting (Places tab)
   // Shows single primary pin for each entity (not all moments)
