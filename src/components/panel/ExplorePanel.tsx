@@ -603,6 +603,12 @@ export function ExplorePanel({
                         </svg>
                       </div>
                     </div>
+                    {/* Subtitle hook */}
+                    {vl.location.subtitle && (
+                      <p className="text-xs italic text-[var(--text-secondary)] line-clamp-1 font-serif mt-0.5 opacity-75">
+                        {vl.location.subtitle}
+                      </p>
+                    )}
                     {/* Story name chip */}
                     <p className="text-[10px] font-mono text-[var(--text-muted)] mt-0.5 truncate">
                       {vl.story.name}

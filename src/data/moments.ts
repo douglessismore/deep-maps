@@ -557,7 +557,7 @@ export const moments: Moment[] = [
   {
     id: 'tulsa-greenwood',
     name: 'White Mobs Burn America\'s Most Prosperous Black Community',
-    subtitle: 'Where America\'s most prosperous Black community was burned to the ground in 1921',
+    subtitle: 'Over 300 dead and 10,000 left homeless in the worst act of racial violence in American history',
     description: 'Before the massacre, Greenwood was home to Black-owned businesses, law offices, restaurants, hotels, theaters, and a hospital. On May 31-June 1, 1921, mobs of white residents — some deputized by city officials — attacked the district. Airplanes dropped firebombs. By the end, 35 blocks were destroyed. Bodies were dumped in mass graves. Insurance claims were denied. For decades, Oklahoma history textbooks didn\'t mention it. The search for mass graves continues today.',
     lat: 36.1616,
     lng: -95.982,
@@ -572,7 +572,7 @@ export const moments: Moment[] = [
   {
     id: 'tulsa-drexel',
     name: 'Elevator Encounter Sparks the Tulsa Race Massacre',
-    subtitle: 'Where the spark that ignited the massacre began — a chance encounter in an elevator',
+    subtitle: 'A 19-year-old shoeshine boy and a 17-year-old elevator operator — the flimsiest pretext for a pogrom',
     description: 'On May 30, 1921, 19-year-old Dick Rowland, a Black shoe shiner, entered the Drexel Building to use the only nearby restroom available to Black people. He shared an elevator with Sarah Page, a 17-year-old white elevator operator. Exactly what happened is unknown — Rowland may have tripped and grabbed her arm — but Page screamed, and Rowland fled. A newspaper article the next day headlined a near-assault. The mob formed that evening.',
     lat: 36.1535,
     lng: -95.9925,
@@ -586,7 +586,7 @@ export const moments: Moment[] = [
   {
     id: 'dean-crash-site',
     name: 'James Dean Dies at 24 in a Porsche Collision',
-    subtitle: 'Where James Dean died at 24 — a desolate intersection that became a pilgrimage site',
+    subtitle: 'His last words to a passenger: "That guy\'s gotta stop — he\'ll see us"',
     description: 'At 5:59 PM on September 30, 1955, Dean\'s silver Porsche 550 Spyder ("Little Bastard") collided with a 1950 Ford Tudor at the junction of Routes 466 and 41. Dean had been speeding toward a race in Salinas. His mechanic survived; Dean died almost instantly. He was 24. A memorial near the site reads simply: "James Dean 1931 Feb 8 - 1955 Sep 30pm 5:59." The car\'s wreckage allegedly cursed everyone who came into contact with it.',
     lat: 35.7347,
     lng: -120.2847,
@@ -858,7 +858,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-sniper-nest',
     name: 'James Earl Ray Fires from a Shared Bathroom Window',
-    subtitle: 'Where James Earl Ray fired the shot from a shared bathroom window',
+    subtitle: 'A single rifle shot across 200 feet from a flophouse bathroom to the Lorraine Motel balcony',
     description: 'James Earl Ray rented a room at Bessie Brewer\'s rooming house at 422½ South Main Street under the alias "John Willard." He fired from the shared bathroom window, which had a clear line of sight across the courtyard to the Lorraine Motel\'s second-floor balcony. Ray fled immediately, dropping a bundle containing the rifle and other belongings outside a storefront. He wasn\'t captured until two months later at London\'s Heathrow Airport.',
     lat: 35.134,
     lng: -90.0583,
@@ -873,7 +873,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-clayborn-temple',
     name: 'Sanitation Workers March with "I AM A MAN" Signs',
-    subtitle: 'Where the sanitation workers gathered with their iconic "I AM A MAN" signs',
+    subtitle: '1,300 Black workers demand basic dignity after two men are crushed alive in a garbage truck',
     description: 'This historic church served as the organizing headquarters for the Memphis sanitation workers\' strike that brought King to Memphis. Workers gathered here before marching downtown carrying their simple, devastating signs reading "I AM A MAN." King\'s final speech — the prophetic "I\'ve Been to the Mountaintop" — was delivered at Mason Temple, but Clayborn Temple was where the movement lived and breathed.',
     lat: 35.1366,
     lng: -90.0513,
@@ -1040,7 +1040,7 @@ export const moments: Moment[] = [
   {
     id: 'tb-lake-sammamish',
     name: 'Two Women Abducted from a Crowded Beach in One Afternoon',
-    subtitle: 'Where two women vanished in broad daylight on a single afternoon',
+    subtitle: 'A handsome stranger with his arm in a sling asks for help loading a sailboat',
     description: 'On July 14, 1974, Bundy approached several women at this crowded beach, his arm in a fake sling, asking for help loading a boat. He successfully abducted and murdered Janice Ott and Denise Naslund just hours apart. The park remains a popular recreation area, hiding the history of the day a predator operated in plain sight.',
     lat: 47.5583,
     lng: -122.0645,
@@ -1628,7 +1628,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'wb-kitty-hawk',
-    name: 'Kill Devil Hills',
+    name: 'The Wright Brothers Achieve the First Powered Flight — 12 Seconds That Changed History',
     subtitle: 'Where 12 seconds of flight changed human history',
     description: 'On December 17, 1903, the Wright Flyer lifted off from these sand dunes for exactly 12 seconds. It was the first controlled, powered flight of a heavier-than-air machine. A massive granite monument now towers over the dunes, marking the exact spots of the four successful flights that morning.',
     lat: 36.0188,
@@ -1913,7 +1913,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'guerrero-acapulco-lure',
-    name: 'Lured aboard the Colombo',
+    name: 'A Traitor Lures President Guerrero Aboard a Ship with a Fake Lunch Invitation',
     subtitle: 'A "friend" invites the President for lunch in the bay',
     description: 'On January 15, 1831, General Vicente Guerrero accepts a lunch invitation from Francisco Picaluga, an Italian merchant captain. They meet in the port of Acapulco where the ship is anchored. As soon as Guerrero steps onto the deck, Picaluga\'s men overpower him and weigh anchor, sailing south while the President\'s allies watch helplessly from the shore.',
     lat: 16.8494,
@@ -1927,7 +1927,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'guerrero-la-entrega',
-    name: 'Delivered to the sands',
+    name: 'Picaluga Sells the Bound President to Government Troops for 50,000 Gold Pesos',
     subtitle: 'The President is sold for cash on a remote beach',
     description: 'The ship Colombo pulls into a quiet bay in Huatulco. Picaluga hands the bound President over to government troops in exchange for 50,000 gold pesos. The beach is immediately renamed "La Entrega" (The Delivery) to mark the transaction. It remains one of the few places on Earth named after a human trafficking event involving a head of state.',
     lat: 15.7431,
@@ -1941,7 +1941,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'guerrero-cuilapan-execution',
-    name: 'Executed on the monastery floor',
+    name: 'A Firing Squad Executes President Guerrero in a Monastery Courtyard',
     subtitle: 'The final shots that ended an era of independence',
     description: 'After a brief sham trial, Guerrero is taken to the monastery of Cuilapan. On February 14, 1831, he is forced to kneel in the courtyard and is executed by a firing squad. Today, a monument stands on the exact spot where he fell, marking the end of the man who officially abolished slavery in Mexico.',
     lat: 17.0051,
@@ -1955,7 +1955,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'sabina-first-velada',
-    name: 'Shared the sacred mushrooms',
+    name: 'María Sabina Shares Sacred Mushrooms with a Wall Street Banker',
     subtitle: 'The first "velada" for a Western audience',
     description: 'In June 1955, Maria Sabina welcomes R. Gordon Wasson, a VP at J.P. Morgan, into her home. She performs a ritual using Psilocybe mushrooms, allowing him to participate — the first time a Westerner is known to have taken part in the Mazatec ceremony. Wasson\'s later article in Life magazine would launch the psychedelic age.',
     lat: 18.1319,
@@ -1969,7 +1969,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'sabina-home-arson',
-    name: 'Burned out of her home',
+    name: 'Angry Neighbors Burn María Sabina Out of Her Home for Sharing Their Secrets',
     subtitle: 'The community turns on the woman who "sold" their secrets',
     description: 'By the 1960s, Huautla is overrun by "hippies" and celebrities like John Lennon seeking a trip. Blaming her for the loss of tradition and the constant police presence, Maria Sabina\'s neighbors set fire to her house. She is forced to flee into the hills, eventually returning to live in a small hut until her death in 1985.',
     lat: 18.1325,
@@ -1983,7 +1983,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'tomb-7-discovery',
-    name: 'Unsealed the stone slab',
+    name: 'Alfonso Caso Unseals a Stone Slab and Finds a King\'s Ransom in Tomb 7',
     subtitle: 'Alfonso Caso finds a king\'s ransom in the dust',
     description: 'On January 9, 1932, Alfonso Caso enters Tomb 7 at Monte Albán. Inside, he finds more than 400 objects, including gold pectorals, turquoise masks, and carved jaguar bones. The sheer volume of precious metal is so high that he has to call in the military to guard the site from looters.',
     lat: 17.0438,
@@ -2011,7 +2011,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'guiengola-fortress',
-    name: 'Fortified the mountain',
+    name: 'Zapotec King Cosijoeza Fortifies a Mountain Against the Aztec Army',
     subtitle: 'King Cosijoeza builds a wall the Aztecs can\'t climb',
     description: 'King Cosijoeza retreats to the limestone ridge of Guiengola as the Aztec army approaches. He constructs kilometers of stone walls and complex traps that utilize the natural cliffs. From this height, his warriors rain boulders and arrows on the exhausted Aztec vanguard below.',
     lat: 16.3581,
@@ -2025,7 +2025,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'guiengola-river-stalemate',
-    name: 'Starved the Aztec vanguard',
+    name: 'The Zapotecs Starve Out the Aztec Army in a Seven-Month Siege',
     subtitle: 'The Zapotecs use the river as a weapon',
     description: 'The Aztecs set up camp by the Tehuantepec River, but the Zapotecs poison peripheral water sources and launch night raids. After seven months of stalemate, Emperor Ahuizotl realizes he cannot take the mountain and offers his daughter in marriage to Cosijoeza to end the war.',
     lat: 16.3267,
@@ -2039,7 +2039,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'brad-will-shooting',
-    name: 'Filmed his own death',
+    name: 'Journalist Brad Will Films His Own Death at a Oaxacan Barricade',
     subtitle: 'A camera captures the shots that shook the city',
     description: 'On October 27, 2006, Indymedia reporter Brad Will is filming a barricade. As he records plainclothes paramilitaries firing at protesters, two bullets hit him in the chest. His camera continues to run as he falls, capturing the sounds of the struggle to save him.',
     lat: 17.0655,
@@ -2067,7 +2067,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'marcos-san-cristobal',
-    name: 'Seized the Municipal Palace',
+    name: 'EZLN Rebels Seize the Municipal Palace and Declare War on Mexico',
     subtitle: 'The Zapatistas declare war on the Mexican state',
     description: 'On January 1, 1994, the EZLN occupies San Cristóbal de las Casas. From this balcony, a masked man known as "Marcos" reads the First Declaration of the Lacandon Jungle. The world is introduced to a new kind of postmodern rebellion.',
     lat: 16.7369,
@@ -2081,7 +2081,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'marcos-unmasking',
-    name: 'Los Pinos Identity Reveal',
+    name: 'The Mexican Government Unmasks Subcomandante Marcos as a Philosophy Professor',
     subtitle: 'The government reveals "Rafael Sebastián Guillén Vicente"',
     description: 'In a televised press conference, President Ernesto Zedillo reveals that Marcos is a former philosophy professor. The government issues an arrest warrant and launches a military offensive. Marcos famously responds that he is every exploited minority.',
     lat: 19.4219,
@@ -2123,7 +2123,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'diaz-convent-escape',
-    name: 'Rappelled the stone walls',
+    name: 'Porfirio Díaz Escapes a French Prison by Rappelling Down Stone Walls in a Storm',
     subtitle: 'A prisoner of war vanishes into the night',
     description: 'On September 20, 1865, Díaz is held by French forces in the Convent of San Felipe Neri. Using a smuggled rope, he climbs out of his cell and descends the sheer walls during a storm. He evades sentries and flees on horseback.',
     lat: 17.0633,
@@ -2151,7 +2151,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'coyame-crash-site',
-    name: 'Collided over the desert',
+    name: 'A Cessna Collides with an Unidentified Object at 7,500 Feet over Coyame',
     subtitle: 'A Cessna meets an unidentified object at 7,500 feet',
     description: 'On August 25, 1974, a plane vanishes from radar near Coyame. U.S. radar in El Paso confirms a collision with a high-speed object performing "impossible" maneuvers. Both objects fall into a remote stretch of the Chihuahua desert.',
     lat: 29.4614,
@@ -2165,7 +2165,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'coyame-toxic-convoy',
-    name: 'The Toxic Convoy',
+    name: 'A Mexican Army Recovery Team Dies Near the Crash Site Under Mysterious Circumstances',
     subtitle: 'A "recovery" operation ends in silence',
     description: 'The Mexican Army arrives first. According to alleged CIA reports, the team stopped communicating; U.S. surveillance later saw soldiers lying dead around their vehicles. A U.S. extraction team in hazmat suits allegedly air-lifted the disc back to the U.S.',
     lat: 29.48,
@@ -2179,7 +2179,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'eclipse-ufo-zocalo',
-    name: 'Filmed from the Zócalo',
+    name: 'Thousands Film a Silver Disc Hovering over Mexico City During a Solar Eclipse',
     subtitle: 'A nation looks up and sees a silver disc',
     description: 'On July 11, 1991, as the moon covers the sun, thousands of residents point camcorders at the sky. They capture a bright, bell-shaped object that remains stationary while the stars become visible. The footage is broadcast that night on national news.',
     lat: 19.4326,
@@ -2193,7 +2193,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'eclipse-ufo-pyramids',
-    name: 'Hovered over the pyramids',
+    name: 'Tourists at Teotihuacán Record the Same Object from 30 Miles Away',
     subtitle: 'The "ancients" return for the eclipse',
     description: 'Simultaneously, tourists at Teotihuacán record the same object from 30 miles away. Triangulation confirms the object was a physical craft of immense size. Skeptics claim it was Venus, but the zoom-ins remain a cornerstone of UFO evidence.',
     lat: 19.6925,
@@ -2207,7 +2207,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'flir-campeche-skies',
-    name: 'Tracked by the Merlin-C3',
+    name: 'A Military Patrol Captures 11 Luminous Spheres on Infrared Camera over Campeche',
     subtitle: '"They are surrounding us!"',
     description: 'On March 5, 2004, a Merlin-C3 patrol detects 11 luminous spheres on their infrared camera. The objects perform maneuvers that defy aerodynamics and eventually "cloak" the aircraft. The crew\'s frantic radio chatter was later released to the public.',
     lat: 18.6417,
@@ -2221,7 +2221,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'flir-press-conference',
-    name: 'SEDENA Press Conference',
+    name: 'Mexico\'s Military Publicly Releases UFO Footage for the First Time',
     subtitle: 'The government admits the "unexplained"',
     description: 'Secretary of Defense Clemente Vega authorized the release of the footage at the SEDENA headquarters. It was the first time a national military proactively shared such data with civilian UFO researchers, specifically Jaime Maussan.',
     lat: 19.4355,
@@ -2235,7 +2235,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'grinberg-home-disappearance',
-    name: 'Vanished before the presentation',
+    name: 'Neuroscientist Jacobo Grinberg Vanishes Without a Trace Days Before a Major Presentation',
     subtitle: 'A birthday party without the guest of honor',
     description: 'On December 8, 1994, Grinberg fails to show up for his 48th birthday party. He was preparing to present his theory that the brain creates reality. His wife vanishes shortly after, leaving the investigation in a total vacuum.',
     lat: 19.3317,
@@ -2263,7 +2263,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'zone-silence-impact',
-    name: 'Crashed the Athena rocket',
+    name: 'A U.S. Athena Rocket Veers Off Course and Crashes into Mexico\'s "Zone of Silence"',
     subtitle: 'A "magnetic pull" brings down a US rocket',
     description: 'In July 1970, an Athena rocket launched from Utah "deviates" and flies deep into the Mapimí desert. The US military discovers that radio waves are absorbed and compasses spin wildly here. They spent weeks in a secret recovery operation.',
     lat: 26.7025,
@@ -2291,7 +2291,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'bermeja-mapped-existence',
-    name: 'Mapped by the Spanish',
+    name: 'Spanish Cartographers First Map the Island of Bermeja in 1535',
     subtitle: '400 years of documented existence',
     description: 'Starting in 1535, Bermeja is marked as a reddish island 100 miles off the Yucatan. It appears on British and Mexican maps for centuries and was used to calculate Mexico\'s 200-mile Exclusive Economic Zone.',
     lat: 22.55,
@@ -2305,7 +2305,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'bermeja-navy-search',
-    name: 'Searched by the Justo Sierra',
+    name: 'A Research Ship Finds Only Open Ocean Where Bermeja Should Be',
     subtitle: '1,400 meters of water and no island',
     description: 'In 2009, a research ship reaches the coordinates to settle an oil dispute. They find a flat seafloor a mile deep with no evidence of a sunken island. Mexico loses a massive portion of the "Doughnut Hole" oil fields to the US.',
     lat: 22.55,
@@ -2319,7 +2319,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'alux-bridge-sabotage',
-    name: 'Collapsed the bridge',
+    name: 'A Bridge Over the Nichupté Lagoon Collapses Three Times with No Explanation',
     subtitle: 'The construction that wouldn\'t stay built',
     description: 'During construction over the Nichupté Lagoon, workers found their work destroyed each morning. After three collapses with no explanation, Mayan elders said they were "disturbing the guardians." The builders decided to negotiate.',
     lat: 21.0333,
@@ -2334,7 +2334,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'alux-stone-house',
-    name: 'Built the Alux House',
+    name: 'Engineers Build a Tiny Pyramid Under the Bridge to Appease the Aluxes',
     subtitle: 'A contract with the supernatural',
     description: 'The company built a tiny pyramid-shaped house under the bridge. A priest performed a ceremony to ask permission. The bridge hasn\'t had an issue since, and the house remains a permanent fixture of Cancun\'s infrastructure.',
     lat: 21.0315,
@@ -2377,7 +2377,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'cannibal-roma-apartment',
-    name: 'Police raid the Condominium',
+    name: 'Police Raid a Mexico City Apartment and Find Human Remains in the Refrigerator',
     subtitle: 'A smell of "rotting meat" leads to a horrific discovery',
     description: 'On October 8, 2007, police enter Apartment 16 on Calle Alvaro Obregón looking for a missing woman. They find Jose Luis Calva Mercado calmly writing at his desk. In the kitchen, they discover human remains in the refrigerator and a cereal bowl containing cooked flesh seasoned with lemon. Calva tries to escape by jumping from the balcony, only to be hit by a car in the street below.',
     lat: 19.4181,
@@ -2391,7 +2391,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'cannibal-tlatelolco-dump',
-    name: 'Dumped in the ruins',
+    name: 'Forensic Teams Recover Dismembered Remains Scattered Through the Tlatelolco Ruins',
     subtitle: 'The scattered remains of the "Poet\'s" victims',
     description: 'Investigation reveals Calva had been disposing of remains in the desolate corners of the Tlatelolco housing complex and nearby waste sites. Forensic teams recover suitcases containing dismembered parts, linking him to at least three murders. His unfinished novel, "Instincts of a Killer," was found to be a literal blueprint for his actions.',
     lat: 19.4511,
@@ -2405,7 +2405,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'stranger-planting-site',
-    name: 'Planted the Holy Cross',
+    name: 'A Mysterious Robed Stranger Plants a Massive Cross on the Pacific Coast',
     subtitle: 'A mysterious traveler arrives on the Pacific coast',
     description: 'Local Zapotec oral history tells of a man in a white robe who arrived from the sea. He erected a massive cross of "madero" wood on the beach at Santa Cruz and told the locals that "one day, men from the east would come to claim this sign." For over a millennium, the locals worshipped the site as "Cuahtolco"—the place where wood is adored.',
     lat: 15.7512,
@@ -2419,7 +2419,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'stranger-vatican-relic',
-    name: 'Relic of the "True" Cross',
+    name: 'The Vatican Receives a Fragment of the "Miraculous" Cross That Survived Pirate Fires',
     subtitle: 'Where the miracle wood ended its journey',
     description: 'After the cross survived the pirate Cavendish\'s fires in 1587, it was broken into fragments to satisfy the demand for relics. The largest remaining piece was sent to the Vatican, while other shards were placed in the Oaxaca Cathedral. Scientists who examined the wood in the 17th century noted it was a species not found in the region, yet it had not rotted despite 1,500 years of sea air.',
     lat: 17.0621,
@@ -2489,7 +2489,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'diaz-ajusco-sighting',
-    name: 'Captured the "Light Ship"',
+    name: 'Photographer Carlos Díaz Captures Close-Range Photos of a Glowing Craft in Ajusco',
     subtitle: 'A photographer meets a craft made of plasma',
     description: 'Carlos Diaz is sitting in his car in the Ajusco forest when a glowing, orange, dome-shaped object hovers directly in front of him. He captures a series of incredible photographs that have been analyzed by NASA scientists and photographic experts worldwide, who were unable to find any evidence of fraud or manipulation. Diaz claims the craft was "alive" and organic.',
     lat: 19.2131,
@@ -2503,7 +2503,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'diaz-press-demonstration',
-    name: 'Televisa Studio Reveal',
+    name: 'Carlos Díaz Presents His UFO Footage on National Television',
     subtitle: 'Proof of the impossible on national television',
     description: 'After years of skepticism, Diaz provides video footage of the craft to journalist Jaime Maussan. The footage shows a craft that appears to "blink" in and out of existence, matching the descriptions of thousands of other witnesses in the Mexico City area. This event turns the Ajusco mountains into a global hotspot for UFO tourism.',
     lat: 19.34,
@@ -2861,7 +2861,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'janis-threadgills',
-    name: 'Janis Joplin Performs at Kenneth Threadgill\'s Weekly Hootenannies',
+    name: 'A Young Janis Joplin Finds Her Voice at Kenneth Threadgill\'s Gas Station Hootenannies',
     subtitle: 'A future superstar hones her bluesy wail at a converted gas station',
     description: 'Joplin developed her signature sound at Kenneth Threadgill\'s converted Gulf gas station. Threadgill, who held Austin\'s first beer license after Prohibition, hosted "hootenannies" where Joplin would sing for a pitcher of beer. Her performances here became the stuff of local legend before she moved to San Francisco in 1963.',
     lat: 30.334,
@@ -4242,7 +4242,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'scholz-longhorn-tradition',
-    name: 'Longhorn Fans Gather at Scholz Garden for a Century of Game Days',
+    name: 'Scholz Garden Opens in 1866 and Becomes Austin\'s Longest-Running Gathering Place',
     subtitle: 'The ultimate pre-game ritual for over 100 years',
     description: 'For as long as UT has played football, Longhorn fans have gathered at Scholz Garden before and after games. The biergarten atmosphere, complete with a vintage bowling alley and oom-pah bands, creates a unique Texas-German fusion found nowhere else. The Saengerrunde\'s refusal to sell ensured its survival. Today, it remains a living time capsule where a freshman and a state senator can share a pitcher of Shiner.',
     lat: 30.2777,
@@ -5186,7 +5186,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'vredefort-crater',
-    name: 'The Largest Confirmed Impact Crater on Earth Lies Beneath South African Farmland',
+    name: 'A 15-Kilometer Asteroid Strikes South Africa and Carves the Largest Impact Crater on Earth',
     subtitle: 'Where a 300-kilometer scar has eroded for two billion years into the hills of the Free State',
     description: 'Two billion years ago, an asteroid 10–15 kilometers wide struck what is now the Free State Province of South Africa, creating the Vredefort impact structure — the largest confirmed impact crater on Earth, originally 300 kilometers in diameter. Over two billion years of erosion have reduced it to the exposed central uplift known as the Vredefort Dome, a UNESCO World Heritage Site. The impact profoundly affected the geology of the Witwatersrand Basin, which contains the world\'s richest gold deposits.',
     lat: -27.0000,
@@ -5228,7 +5228,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'popigai-crater',
-    name: 'An Impact Crater in Siberia Contains Trillions of Carats of Diamonds',
+    name: 'An Asteroid Strikes Siberian Graphite and Creates Trillions of Carats of Diamonds',
     subtitle: 'Where an asteroid turned graphite into the largest diamond deposit on Earth',
     description: 'Approximately 35 million years ago, an asteroid struck the graphite-rich rocks of northern Siberia, creating the 100-kilometer-wide Popigai crater. The extreme pressure and temperature of the impact converted existing graphite into diamonds — trillions of carats worth, including lonsdaleite, a hexagonal form of diamond harder than conventional diamond. The deposit, revealed by the Soviet government only in 2012, remains largely unexploited due to the remote location and lack of infrastructure.',
     lat: 71.6500,
@@ -5242,7 +5242,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'chesapeake-bay-crater',
-    name: 'A Buried Impact Crater Still Affects the Groundwater Beneath Chesapeake Bay',
+    name: 'An Asteroid Punches a 53-Mile Crater into the Shallow Seas That Would Become Chesapeake Bay',
     subtitle: 'Where an asteroid hit shallow ocean 35 million years ago and the effects persist underground today',
     description: 'Approximately 35.5 million years ago, an asteroid struck the shallow seas covering what is now southeastern Virginia, creating an 85-kilometer crater buried 300–500 meters beneath the Chesapeake Bay and surrounding land. The crater was not discovered until 1983 and was only confirmed in 1994 by drilling. The impact\'s disruption of underground aquifers still affects the region today, creating a zone of unusually salty groundwater that influences well water quality across the Virginia coastal plain.',
     lat: 37.2833,
@@ -5256,7 +5256,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'barringer-meteor-crater',
-    name: 'The Best-Preserved Impact Crater on Earth Sits in the Arizona Desert',
+    name: 'A Nickel-Iron Meteorite Blasts a Mile-Wide Hole in the Arizona Desert',
     subtitle: 'Where NASA astronauts trained for the Moon inside a 49,000-year-old crater',
     description: 'Approximately 49,000 years ago, a nickel-iron meteorite 50 meters across struck the Arizona desert at 45,000 mph, blasting out a crater 1.2 kilometers wide and 170 meters deep. Barringer Crater — commonly called Meteor Crater — is the best-preserved impact crater on Earth, and the first to be conclusively proven as meteoritic in origin. The privately owned crater served as a training site for Apollo astronauts before their lunar missions. Its rim still rises 45 meters above the surrounding plains.',
     lat: 35.0330,
@@ -5340,7 +5340,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'pingualuit-crater',
-    name: 'One of Earth\'s Most Perfectly Preserved Craters Holds One of Its Purest Lakes',
+    name: 'A Meteorite Strikes the Ungava Peninsula and Creates One of Earth\'s Purest Lakes',
     subtitle: 'Where a subarctic crater lake has no inlets or outlets and is fed only by rain and snow',
     description: 'Approximately 1.4 million years ago, a meteorite struck the Ungava Peninsula in northern Quebec, creating a nearly perfectly circular crater 3.4 kilometers across. Pingualuit Crater contains a lake 267 meters deep — one of the deepest in North America — fed entirely by precipitation with no inlets or outlets. The water is among the purest freshwater on Earth, with visibility exceeding 35 meters. The crater\'s remote subarctic location has protected it from erosion, making it one of the best-preserved impact craters on the planet.',
     lat: 61.2833,
@@ -5354,7 +5354,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'hoba-meteorite',
-    name: 'The Largest Meteorite on Earth Lies Where It Landed 80,000 Years Ago',
+    name: 'A 60-Ton Meteorite Slams into Namibia and Never Moves Again',
     subtitle: 'Where a 60-tonne iron slab from space has never been moved from its landing site',
     description: 'The Hoba meteorite is the largest known intact meteorite on Earth — a flat slab of iron and nickel measuring 2.7 by 2.7 meters, weighing approximately 60 tonnes. It landed approximately 80,000 years ago in what is now Namibia and has never been moved. Remarkably, it created no visible crater, likely because its flat shape caused it to decelerate like a skipping stone through the atmosphere. Discovered by a farmer in 1920 when his plow struck it, the meteorite is now a national monument.',
     lat: -19.5888,
@@ -5397,7 +5397,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'siljan-ring',
-    name: 'Europe\'s Largest Impact Crater Hides in a Circle of Swedish Lakes',
+    name: 'An Asteroid Carves a 32-Mile Ring into Central Sweden That Fills with Lakes',
     subtitle: 'Where a 52-kilometer crater formed 377 million years ago now hosts traditional Midsummer festivals',
     description: 'Approximately 377 million years ago, an asteroid struck what is now central Sweden, creating the 52-kilometer Siljan Ring — the largest confirmed impact structure in Europe. The crater rim is now traced by a ring of lakes, including Lake Siljan. In the 1980s, astrophysicist Thomas Gold proposed that deep abiogenic methane might be trapped beneath the crater, leading to a controversial deep-drilling project. The Siljan area is now one of Sweden\'s most popular tourist regions, famous for its traditional Midsummer celebrations and painted wooden horses.',
     lat: 61.0500,
@@ -5411,7 +5411,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'tswaing-crater',
-    name: 'A 220,000-Year-Old Impact Crater Preserves a Continuous Climate Record Near Pretoria',
+    name: 'A Meteorite Creates a Salt Lake Near Pretoria That Preserves 220,000 Years of Climate Data',
     subtitle: 'Where centuries of salt harvesting happened inside an impact crater without anyone knowing',
     description: 'Approximately 220,000 years ago, a meteorite struck 40 kilometers northwest of what is now Pretoria, South Africa, creating a 1.13-kilometer crater now known as Tswaing — "place of salt" in Setswana. The crater contains a small soda lake whose sediments provide an unbroken 200,000-year climate record, making it one of the most important paleoclimate archives in the Southern Hemisphere. Local people have harvested salt and soda ash from the lake for centuries, unaware they were walking inside a cosmic scar.',
     lat: -25.4050,
@@ -5487,7 +5487,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'via-dolorosa',
-    name: 'Pilgrims Walk the Path Jesus Carried His Cross to Golgotha',
+    name: 'Christians Establish the Via Dolorosa as the Path Jesus Carried His Cross',
     subtitle: 'Where 14 Stations of the Cross mark the 500-meter route through the Old City',
     description: 'The Via Dolorosa is the processional route believed to trace the path Jesus walked carrying his cross from his condemnation by Pontius Pilate to his crucifixion at Golgotha. The 500-meter route passes through the Muslim and Christian Quarters of the Old City, marked by 14 Stations of the Cross — nine along the street and the final five inside the Church of the Holy Sepulchre. The current route was established in the 18th century. Franciscan friars have led processions along it every Friday afternoon since the 14th century.',
     lat: 31.7794,
@@ -5607,7 +5607,7 @@ export const moments: Moment[] = [
   // Islamic Holy Cities
   {
     id: 'mecca-kaaba',
-    name: 'Millions of Muslims Circle the Kaaba During the Hajj',
+    name: 'Abraham and Ishmael Build the Kaaba — Islam\'s Holiest Site and Center of the Hajj',
     subtitle: 'Where every Muslim must journey at least once — the holiest site in Islam',
     description: 'The Kaaba, a cube-shaped structure draped in black silk at the center of the Masjid al-Haram in Mecca, is the holiest site in Islam. Muslims worldwide face the Kaaba during their five daily prayers. Islamic tradition holds that it was originally built by the Prophet Ibrahim (Abraham) and his son Ismail. Every able-bodied Muslim who can afford it must perform the Hajj pilgrimage here at least once in their lifetime, one of the Five Pillars of Islam. The Hajj draws approximately 2–3 million pilgrims annually.',
     lat: 21.4225,
@@ -5651,7 +5651,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'santiago-compostela',
-    name: 'Pilgrims Complete the Camino de Santiago at the Tomb of the Apostle James',
+    name: 'The Discovery of the Apostle James\'s Tomb Launches a Thousand Years of Pilgrimage',
     subtitle: 'Where a thousand-mile walk across Europe ends at a medieval cathedral in Galicia',
     description: 'The Cathedral of Santiago de Compostela is the endpoint of the Camino de Santiago (Way of St. James), one of the most important Christian pilgrimages since the Middle Ages. The cathedral contains the reputed relics of the Apostle James the Greater, discovered around 830 CE. Construction of the current cathedral began in 1075 and was consecrated in 1211. At its medieval peak, the Camino drew pilgrims from across Europe on foot, creating a network of routes, hostels, and hospitals across Spain and France that still function today.',
     lat: 42.8806,
@@ -5710,7 +5710,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'varanasi-ganges',
-    name: 'Hindus Bathe in the Sacred Ganges at the World\'s Oldest Living City',
+    name: 'Varanasi Becomes the Holiest City in Hinduism — Older Than History Itself',
     subtitle: 'Where dying brings liberation and the river washes away the sins of a lifetime',
     description: 'Varanasi is Hinduism\'s holiest city — one of the oldest continuously inhabited cities in the world, with settlement dating to at least the 11th century BCE. Hindus believe that bathing in the Ganges here washes away sins, and that dying in Varanasi liberates the soul from the cycle of reincarnation. The city\'s 88 ghats line the western bank of the river, where the nightly Ganga Aarti fire ceremony at Dashashwamedh Ghat draws thousands. Cremation fires burn around the clock at Manikarnika Ghat.',
     lat: 25.3036,
@@ -7198,6 +7198,23 @@ export const moments: Moment[] = [
     date: 'March 17, 1959',
     entityIds: ['dalai-lama-14'],
     address: 'Norbulingka Palace, Lhasa, Tibet (China)',
+  },
+  {
+    id: 'aung-san-suu-kyi-house-arrest',
+    name: 'Aung San Suu Kyi Begins 15 Years of House Arrest for Defying Military Rule',
+    subtitle: 'A Nobel laureate imprisoned in her own home becomes the face of Burmese democracy',
+    description: 'On July 20, 1989, the military junta placed Aung San Suu Kyi under house arrest at her lakeside home in Rangoon after her National League for Democracy won a landslide election the regime refused to honor. Over the next 21 years, she spent a total of 15 years confined to her compound at 54 University Avenue. She was awarded the Nobel Peace Prize in 1991 while still detained. Her release in 2010 was celebrated worldwide, though her legacy was later complicated by the Rohingya crisis during her time as de facto leader.',
+    lat: 16.8280,
+    lng: 96.1510,
+    type: 'political_event',
+    importance: 'major',
+    notability: 30,
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1989,
+    date: 'July 20, 1989',
+    entityIds: ['aung-san-suu-kyi'],
+    address: '54 University Avenue, Rangoon (Yangon), Myanmar',
   },
 
   // ─── NOTABLE PEOPLE: Empire Builders ───────────────────────────────
