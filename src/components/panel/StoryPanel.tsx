@@ -186,9 +186,12 @@ export function StoryPanel({
     }
   }, [scrollActiveId]);
 
-  // Auto-expand the active location on mount (e.g. arriving from entity page with moment context)
+  // Auto-expand the active location on mount (e.g. arriving from entity page with moment context).
+  // Guard with isScrollDriving so scroll-driven activeLocation changes don't bypass the bounds check.
   useEffect(() => {
-    if (activeLocation) setExpandedLocationId(activeLocation.id);
+    if (activeLocation && !isScrollDriving.current) {
+      setExpandedLocationId(activeLocation.id);
+    }
   }, [activeLocation?.id]);
 
   // Auto-scroll to activeLocation on mount
