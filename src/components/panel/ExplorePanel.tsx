@@ -56,6 +56,13 @@ function nearestDistance(story: Story, lat: number, lng: number): number {
   return Math.min(...resolveLocationsFromMap(story, momentMap).map((l) => distanceMiles(lat, lng, l.lat, l.lng)));
 }
 
+/** Get the max notability score across a story's moments */
+function storyNotability(story: Story): number {
+  const locs = resolveLocationsFromMap(story, momentMap);
+  if (locs.length === 0) return 0;
+  return Math.max(...locs.map(l => getEffectiveNotability(l)));
+}
+
 export function ExplorePanel({
   stories,
   collections,
@@ -346,14 +353,8 @@ export function ExplorePanel({
     // Suppress canonical stories from browseable list
     result = result.filter(s => !canonicalStoryIds.has(s.id));
 
-    if (userLocation) {
-      return [...result].sort(
-        (a, b) =>
-          nearestDistance(a, userLocation.lat, userLocation.lng) -
-          nearestDistance(b, userLocation.lat, userLocation.lng)
-      );
-    }
-    return result;
+    // Sort by notability (highest first)
+    return [...result].sort((a, b) => storyNotability(b) - storyNotability(a));
   }, [filteredStories, viewportStories, searchQuery, userLocation]);
 
   // Viewport entities — split into people and places

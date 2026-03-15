@@ -1,4 +1,4 @@
-# Deep Maps — Session Handoff (Updated Mar 14, 2026, Session 34)
+# Deep Maps — Session Handoff (Updated Mar 14, 2026, Session 39)
 
 > **Structure note**: Living snapshot. Main sections = current state. Historical decisions in Key Decisions table.
 
@@ -11,6 +11,92 @@
 - MomentKind taxonomy: `'event' | 'milestone' | 'presence'` (optional, defaults to event)
 - Dev server: `cd deep-maps && npx vite --host --port 5174`
 - Build check: `npx tsc -b` (NOT `tsc --noEmit` — tsc -b is stricter, matches Vercel)
+- **Fractal Zoom**: Phases 0–2.5 COMPLETE. Notability scoring (0-100 per moment) + Story Constellation Clusters at low zoom + 4 visual variants with toggle.
+
+### What Changed This Session (39)
+
+**Phase 2.5v4: Constellation Visual Variants — "Portals You Can Fall Into"**
+
+User feedback on Session 38's constellation clusters: concept works (clustering, fracture zoom, hover tooltips) but visual aesthetic wrong — opaque dark circles with count numbers "overwhelm the map" and feel like "data dashboard widgets." User wants "portals" or "rabbit holes you can fall down" that evoke "endless layers of curiosity." AI council (Gemini, ChatGPT, DeepSeek) all converged: remove opaque fill, hide count until hover, use transparency/glass/luminous effects.
+
+Built 4 visual variants with a toggle switcher for rapid comparison:
+
+| Variant | Key Visual | Fill | Count | CSS Effect |
+|---------|-----------|------|-------|------------|
+| **Glass** (default) | Thin category ring + frosted blur | Semi-transparent (backdrop-filter) | Hover only | `backdrop-filter: blur(4px)`, circular frosted glass over map |
+| **Glow** | Single luminous ring + soft glow behind | None — fully transparent | Hover only | Thick transparent ring behind crisp ring = glow without SVG filters |
+| **Depth** | 3 concentric rings at decreasing opacity | None — fully transparent | Hover only | Outer category ring + dashed middle ring + tiny inner ring |
+| **Classic** | Original donut chart + dark fill | Opaque dark (rgba 10,10,10,0.88) | Always visible | Original Session 38 design, kept as baseline |
+
+**Files modified:**
+
+1. **`src/lib/constellation.ts`** — Full rewrite
+   - New type: `ConstellationVariant = 'classic' | 'glass' | 'rings' | 'luminous'`
+   - Extracted shared `buildRingSegments()` function (DRY across all 4 variants)
+   - 4 SVG generator functions: `createClassicSVG()`, `createGlassPortalSVG()`, `createDepthRingsSVG()`, `createLuminousOutlineSVG()`
+   - `createConstellationSVG()` dispatches to variant generator based on param
+   - New export: `createCountLabel()` — HTML overlay for hover-reveal count
+
+2. **`src/index.css`** — Variant-specific CSS
+   - Base `.constellation-node` stripped of animation (each variant defines its own)
+   - `.constellation-count` — absolute-positioned text overlay, opacity 0→1 on hover
+   - `.constellation-classic` — original breathing animation + drop-shadow
+   - `.constellation-glass` — `backdrop-filter: blur(4px)`, `border-radius: 50%`, `overflow: hidden`, subtle background pulse
+   - `.constellation-rings` — slower breathing (5s), subtle glow pulse
+   - `.constellation-luminous` — faster glow pulse (3.5s), strongest hover glow
+   - Each variant has custom `@keyframes` and hover state
+
+3. **`src/components/map/MapView.tsx`** — Variant wiring
+   - New state: `constellationVariant` in MapView (default: 'glass')
+   - `MapController` accepts `constellationVariant` as additional prop
+   - `createConstellationIcon()` wraps SVG in variant-specific CSS class + count overlay
+   - MarkerEntry extended with `variant?` field for differential update detection
+   - Cluster icon rebuilds when variant changes (added to update condition)
+   - `constellationVariant` added to marker useEffect dependency array
+   - New `VariantSwitcher` component — dropdown matching TileSwitcher pattern
+   - TileSwitcher refactored: absolute positioning moved to shared container div
+   - Both switchers in flex column container at `top-3 right-3`
+
+**Verified:**
+- ✅ All 4 variants render correctly on light tiles
+- ✅ All 4 variants render correctly on dark tiles
+- ✅ Toggle switcher opens/closes, shows current variant, highlights active
+- ✅ Switching variants instantly updates all cluster icons (no page reload)
+- ✅ Click-to-zoom fracture works across all variants
+- ✅ Tooltips work across all variants
+- ✅ Category filter works across all variants
+- ✅ Story/entity mode bypass works (direct pins, no clusters)
+- ✅ TypeScript build: zero errors
+- ✅ Vite production build: succeeds
+
+### What Changed Session 38 (Summary)
+
+**Phase 2.5v3: Story Constellation Clusters — Complete Rewrite of Map Visualization**
+
+Replaced the previous approaches (heatmap layer rejected, continuous opacity ramp underwhelming) with a Supercluster-based constellation system. At low zoom, nearby moments aggregate into constellation orbs — SVG donut ring charts showing category composition, moment count, and top stories. As you zoom in, constellations fracture into smaller clusters, then into individual pins.
+
+**New files:** `src/lib/clustering.ts` (Supercluster engine with map/reduce aggregation, lazy per-category indices), `src/lib/constellation.ts` (SVG donut ring chart generator). Complete MapView.tsx rewrite for cluster-aware rendering with two paths: focused mode (story/entity) uses direct pins, explore/scroll mode uses Supercluster. Dependencies: supercluster 8.0.1, @types/supercluster.
+
+**What was rejected/replaced:**
+- Phase 2.5v1 (leaflet.heat heatmap): User rejected as "too blobby, not enough signal"
+- Phase 2.5v2 (continuous opacity ramp): User said "looks almost the same as before"
+- `HeatmapLayer.tsx` still exists as disconnected file (not imported anywhere)
+
+### What Changed Sessions 35-37 (Summary)
+
+**Sessions 35-36: Phase 0C + Phase 1 (Scoring Calibration + Types)**
+- Recalibrated sitelinks curve (multiplier 38→46, 300 SL = 100)
+- Shifted tier thresholds to match natural distribution (S: 82+, A: 65-81, B: 45-64, C: 25-44, D: 5-24)
+- Added `notability?: number` to Moment type, `isPrimary?: boolean` to StoryMoment
+- Applied scores to all 601 moments in moments.ts
+- Created `src/lib/notability.ts`: threshold functions, hysteresis, primary moment logic
+
+**Session 37: Phase 2 (Zoom-Based Filtering)**
+- MapView: zoom tracking + notability filter in visibleLocations useMemo
+- ExplorePanel: notability filter in updateViewport + "zoom in to see more" UI ("14/567" format)
+- Category filter: threshold lowered by 20 when category active
+- Story/entity mode bypass: all moments shown regardless of zoom
+- Differential marker updates: only rebuild icons when state changes
 
 ### What Changed This Session (34)
 
@@ -235,17 +321,21 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - `j-robert-oppenheimer` story has `storyType: 'incident'` but is functionally a biography → not suppressed. Could change storyType to 'biography' if desired.
 - `bonnie-and-clyde`, `wright-brothers`, `lbj-lady-bird-austin` are joint biographies suppressed by the new logic — correct since person entities exist, but the joint narrative may add value beyond individual cards.
 
-### 🟡 PIN DENSITY AT WORLD ZOOM → FRACTAL ZOOM ROADMAP (IN PROGRESS)
-- **Phase 0 COMPLETE**: Notability scoring script built and validated. 601 moments scored 0-100 using Wikipedia pageviews + primary moment logic. Output in `scripts/output/notability-scores.md` for user review.
-- **Phase 0 PENDING**: User reviews ranked list, adds manual overrides to `scripts/output/overrides.json`, creates editorial must-show whitelist (~20 civilizational anchors at 95+).
-- **Phase 1 NEXT**: Add `notability?: number` to Moment type, `isPrimary?: boolean` to StoryMoment. Apply scores to moments.ts.
-- **Phase 2**: Zoom-based filtering in MapView (`getNotabilityThreshold(zoom)` → filter `visibleLocations`). Panel UX: "Showing X of Y moments — zoom in to discover more."
+### ✅ FRACTAL ZOOM ROADMAP — Phases 0-2.5 COMPLETE
+- **Phase 0**: Notability scoring (v0.2 composite: sitelinks×0.45 + pageviews×0.35 + crossRef×0.20). 601 moments scored.
+- **Phase 0C**: Recalibrated sitelinks curve (38→46), shifted tier thresholds.
+- **Phase 1**: Types updated, scores applied to moments.ts, notability.ts helper lib.
+- **Phase 2**: Zoom-based filtering in MapView + ExplorePanel. "Zoom in to see more" UI.
+- **Phase 2.5**: Story Constellation Clusters (Supercluster + SVG donut rings). Replaced rejected heatmap and opacity ramp approaches.
+- **Phase 2.5v4**: 4 visual variants with toggle (Glass, Glow, Depth, Classic). Glass Portal is default — frosted blur + transparent.
 - Full plan in `.claude/plans/magical-singing-beaver.md`
+- **NEXT**: User to pick preferred variant (or hybrid), then Phase 2.5b (Narrative Threads), Phase 3 (Supabase)
 
-### 🟡 Performance Plan (from Session 26)
+### ✅ Performance Plan (from Session 26) — MOSTLY COMPLETE
 - Steps 2-3 (People-in-Stories, Collections 4th tab) COMPLETE
-- Step 1 partially done: rAF throttle + panTo debounce done
-- Still TODO: Differential marker updates in MapView (stable marker map instead of clearLayers rebuild), StoryPanel memoization
+- Step 1 (rAF throttle + panTo debounce) COMPLETE
+- MapView differential marker updates COMPLETE (stable marker map with diffing, no clearLayers rebuild)
+- Still TODO: StoryPanel memoization (low priority)
 
 ### 🟢 Globe Interface (Deferred)
 - User likes the idea, council unanimously advises against globe as PRIMARY interface
@@ -270,31 +360,25 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 | 12 | Expert council | Tim Urban (awe/curiosity, plain language) + Rand Fishkin (content discoverability) as content sub-council | Maria Popova | Tim Urban's voice matches Deep Maps' "make complex history fascinating in plain language" goal. Rand Fishkin brings content strategy: what makes people click and stay. Both recommended by multiple AI models. |
 | 13 | Stories vs Collections | Stories = narrative arcs; Collections = curated lists | Everything is a story | If items can be rearranged without losing meaning, it's a collection, not a story. Keeps story tab meaningful. |
 | 14 | Notability scoring | Wikipedia pageviews (log10) + entity slugs + primary moment logic | Multi-dimensional scores, Wikidata QID, spatial deconfliction | Single composite score + manual overrides is sufficient at 601 moments. Entity slugs beat story slugs for pageview accuracy. Primary moment prevents cluster blobs. |
-| 15 | Fractal zoom filtering | Notability threshold per zoom level (linear interpolation) | Clustering (Leaflet.markercluster), target-count thresholds | Notability filtering is simpler, more predictable, and preserves pin identity. Clustering merges pins and loses story context. |
+| 15 | Fractal zoom filtering | Notability threshold per zoom level (linear interpolation) | Target-count thresholds | Notability filtering is simpler, more predictable, and preserves pin identity. |
+| 16 | Low-zoom visualization | Story Constellation Clusters (Supercluster + SVG donut rings) | Heatmap (too blobby), continuous opacity ramp (too subtle), Leaflet.markercluster (too generic) | Constellations are unique to Deep Maps, communicate density AND category composition, and create the "galaxy fracture" zoom effect. Each cluster is a portal that invites exploration. |
+| 17 | Cluster visual style | 4 variants with toggle (Glass default) | Single opaque donut chart | User found opaque dark circles "overwhelming." AI council (3 models) unanimously recommended transparency + hidden counts. Glass Portal = frosted blur over map; Glow = luminous ring; Depth = concentric rings; Classic = original. Toggle enables rapid comparison. |
 
 ## Next Steps (Priority Order)
 
-1. **FRACTAL ZOOM — Phase 0 Review** — User reviews `scripts/output/notability-scores.md`. Actions:
-   - a. Scan S/A tiers: do these deserve world/continental zoom visibility?
-   - b. Scan Deep Archive: any buried gems that deserve higher scores?
-   - c. Add manual overrides to `scripts/output/overrides.json` for misranked moments
-   - d. Create editorial must-show whitelist (~20 civilizational anchors at 95+)
-   - e. Decide on 4 primary moment mismatches (Ed Gein, Bermeja, Aluxes, London Crown)
-   - f. Optionally: cut 5 dark/paranormal Mexico stories (discussed earlier, not yet acted on)
-2. **FRACTAL ZOOM — Phases 1-2** — After user approves rankings:
-   - Phase 1: Add `notability` to Moment type, apply scores to moments.ts
-   - Phase 2: Zoom-based filtering in MapView + "zoom in to see more" panel UX
+1. **Phase 2.5b: Narrative Threads / Story Paths** — Polylines connecting story moments chronologically on map. Contextual (on story selection), not always-on. Low effort (~30-50 lines of Leaflet polyline code). See plan file for design details.
+2. **Phase 3: Supabase + PostGIS Migration** — Unblock content scaling past 2000 moments. Server-side spatial queries, real graph centrality computation. Keep TS files as authoring format initially with `scripts/sync-to-db.ts`.
 3. **BULK CONTENT QUALITY AUDIT** — Gold standards established (Session 33). Apply content-guide.md to ALL remaining moments. Includes:
    - a. Rewrite 17 present-tense moments (5 pilgrimage + 10 craters + 2 Austin)
    - b. Refactor 6 stories→collections
    - c. Apply five-second test to ALL moment names
    - d. Verify data wiring: entityIds on every moment, canonicalStoryId on every entity
    - e. Importance differentiation + entity wiring gaps
-4. **Panel UX redesign** — Card sorting/grouping/hierarchy for Stories panel at scale
-5. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway"
-6. **Story connectivity audit** — Ensure no standalone moments lack parent stories
-7. **MapView differential updates** — Performance optimization from Session 26 plan
-8. **UX: mobile card descriptions** — Entity "Caravaggio problem" (obscure names have zero context)
+4. **Content Scaling: Notable People top 200** — ~800-1000 new moments. Prioritize Africa, S. America, SE Asia, Central Asia (geographic gaps).
+5. **Panel UX redesign** — Card sorting/grouping/hierarchy for Stories panel at scale
+6. **Roadtrip collections** — "History Along Route 66", "Pacific Coast Highway"
+7. **UX: mobile card descriptions** — Entity "Caravaggio problem" (obscure names have zero context)
+8. **HeatmapLayer.tsx cleanup** — Currently disconnected/unused. Remove or defer to post-Supabase at 10K+ moments.
 
 ## Session History
 
@@ -309,3 +393,8 @@ Also review: `artists-writers-immortal`, `revolutionaries-pen-pulpit` (same patt
 - **Session 33b**: Critical bug fixes. Story suppression was hiding 52% of stories (95/184) — fixed to use storyType 'biography' + person entity claim (31 suppressed, 153 visible). Entity panel contamination from 53 omnibus canonicalStoryId references — all removed. Deleted duplicate Tubman entity, deleted Linklater entity. Fixed assassination collection (removed 2 wrong moments). UI: over-scroll padding, Places back button label. Self-link fix in Dive Deeper (entity.canonicalStoryId === story.id filtered in LocationCard + StoryPanel). Net: -2 entities = ~208 entities. All pre-existing bugs, none caused by Session 33.
 - **Session 33c**: Data gap audit and fill. Wired entityIds for 51 moments (Trinity→manhattan-project, holy sites→jesus/moses, battles→napoleon/nelson/churchill, Texas places→menger-hotel/chile-queens). Filled years for all 20 entities that were missing them. Added wikipediaSlug to 7 stories + 2 entities. Added year to 4 ancient moments (Capernaum, Mecca, Varanasi, Kailash). Coverage: 67.7% moments have entityIds (was 59%), 0 entities missing years (was 20), 14 stories missing wiki (was 21, remaining are genuinely obscure).
 - **Session 34**: Mexico content batches 1-2 (+32 moments, +11 stories, +3 entities covering Cristero War, Guadalupe, Day of Dead, Teotihuacán, Olmec, Chicxulub, Monte Albán, Monarchs). Fractal Zoom Roadmap: designed 5-phase plan with AI review synthesis (Gemini, ChatGPT, Deepseek). Built `scripts/score-moments.ts` — notability scoring using Wikipedia pageviews (log10 scale) + primary moment logic + entity slug comparison + manual override support. Fixed 3 bugs during development (rate limiting, story-first slug bias, URL double-encoding). Output: 601 moments scored, distribution S=6/A=80/B=68/C=332/D=112/Archive=3. Validated top 20 includes Jesus, Gandhi, Shakespeare, Lincoln, MLK alongside true crime (known bias, Phase 1 correction planned). Net: 601 moments, 195 stories, 211 entities, 23 collections.
+- **Session 35**: AI council review (Gemini, ChatGPT, DeepSeek round 3). Validated v0.2 composite scoring. Designed compression fix (sitelinks curve recalibration + threshold shift). Expert council designed map lenses concept (Story Map, Near Me, Themes, Deep Archive). Density heatmap earmarked for Phase 2.5.
+- **Session 36**: Phase 0C complete (sitelinks 38→46, tier thresholds shifted). Phase 1 complete (types + 601 moments scored). Phase 2 started (zoom-based filtering in MapView). Created `src/lib/notability.ts`.
+- **Session 37**: Phase 2 complete (zoom filtering in both MapView + ExplorePanel, "zoom in to see more" panel UX, category filter threshold lowering, story/entity bypass). Built and validated at all zoom levels.
+- **Session 38**: Phase 2.5v1 (leaflet.heat heatmap) built but rejected by user as "too blobby." Phase 2.5v2 (continuous opacity ramp) deployed to Vercel but user said "looks almost the same." Expert council + AI council convened — diagnosed core issue: 601 individual dots will never be visually rich at world zoom; need different visual form at different zoom bands. Phase 2.5v3: Story Constellation Clusters built. New files: `src/lib/clustering.ts` (Supercluster engine), `src/lib/constellation.ts` (SVG donut ring generator). Complete MapView.tsx rewrite for cluster-aware rendering. Dependencies: supercluster 8.0.1. All modes verified (explore, story, entity, category filter, mobile). TypeScript + Vite builds clean.
+- **Session 39**: Phase 2.5v4: User found opaque dark circles "overwhelming the map." AI council (Gemini, ChatGPT, DeepSeek) + expert council (Tufte, Jobs, Wales) all recommended: remove opaque fill, hide counts until hover, use transparency/glass effects. Built 4 visual variants with toggle switcher: Glass Portal (frosted `backdrop-filter: blur`, default), Glow (luminous outline ring), Depth (concentric rings), Classic (original baseline). Full constellation.ts rewrite with shared `buildRingSegments()`. CSS: per-variant animations, hover states, count overlay. MapView: variant state, VariantSwitcher component, TileSwitcher refactored into shared control container. All 4 variants verified on light + dark tiles. Key decision #17.

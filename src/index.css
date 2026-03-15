@@ -159,6 +159,281 @@ html, body, #root {
   animation: portal-ripple 2s ease-out infinite;
 }
 
+/* ===== Constellation Cluster Nodes — Base ===== */
+.constellation-node {
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease, filter 0.3s ease, backdrop-filter 0.3s ease, background 0.3s ease;
+}
+
+/* ===== Constellation Count Overlay (hover-reveal) ===== */
+.constellation-count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #e5e5e5;
+  opacity: 0.4;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.constellation-node:hover .constellation-count {
+  opacity: 1;
+}
+
+/* ===== Variant: Classic (original donut chart) ===== */
+.constellation-classic {
+  animation: classic-breathe 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.08));
+}
+
+.constellation-classic:hover {
+  transform: scale(1.18);
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.2));
+  animation: none;
+}
+
+@keyframes classic-breathe {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.08));
+  }
+  50% {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.14));
+  }
+}
+
+/* ===== Variant: Glass Portal ===== */
+/* backdrop-filter blurs the map tiles behind, creating a frosted portal */
+.constellation-glass {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(10, 10, 10, 0.12);
+  border-radius: 50%;
+  overflow: hidden;
+  animation: glass-breathe 4s ease-in-out infinite;
+}
+
+.constellation-glass:hover {
+  transform: scale(1.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(10, 10, 10, 0.22);
+  animation: none;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+}
+
+@keyframes glass-breathe {
+  0%, 100% {
+    transform: scale(1);
+    background: rgba(10, 10, 10, 0.10);
+  }
+  50% {
+    transform: scale(1.03);
+    background: rgba(10, 10, 10, 0.17);
+  }
+}
+
+/* ===== Variant: Depth Rings ===== */
+.constellation-rings {
+  animation: rings-breathe 5s ease-in-out infinite;
+}
+
+.constellation-rings:hover {
+  transform: scale(1.18);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.18));
+  animation: none;
+}
+
+@keyframes rings-breathe {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.04));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.10));
+  }
+}
+
+/* ===== Variant: Luminous Outline ===== */
+.constellation-luminous {
+  animation: luminous-breathe 3.5s ease-in-out infinite;
+}
+
+.constellation-luminous:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.25));
+  animation: none;
+}
+
+@keyframes luminous-breathe {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.06));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.16));
+  }
+}
+
+/* ===== Variant: Wisps (Miyazaki) ===== */
+/* Floating category-colored dots — forest spirits, dust motes, fireflies */
+.constellation-wisps {
+  /* No background, no filter — wisps float freely on the map */
+}
+
+.constellation-wisps:hover {
+  transform: scale(1.2);
+}
+
+.constellation-wisps:hover .wisp {
+  animation: none;
+  opacity: 1 !important;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.wisp {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+  box-shadow: 0 0 4px currentColor;
+}
+
+@keyframes wisp-drift {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(1.5px, -2px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-1px, 1.5px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(2px, 0.5px);
+    opacity: 0.8;
+  }
+}
+
+/* ===== Variant: Minimal (Tufte) ===== */
+/* "Above all else, show the data." — the count IS the design */
+.constellation-minimal {
+  /* Tufte: nothing unnecessary */
+}
+
+.constellation-minimal .constellation-count {
+  opacity: 0.85;
+  font-size: 11px;
+}
+
+.constellation-minimal:hover {
+  transform: scale(1.1);
+}
+
+.constellation-minimal:hover .constellation-count {
+  opacity: 1;
+}
+
+/* ===== Variant: Essence (Jony Ive) ===== */
+/* "Remove everything until you can't remove anything else." */
+/* Tiny colored dot. Count always visible. Ring chart fades in on hover. */
+.constellation-essence {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* No animation at rest — silence is the design */
+}
+
+.constellation-essence .constellation-count {
+  opacity: 1;
+  font-size: 9px;
+}
+
+.constellation-essence:hover {
+  transform: scale(1.3);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+}
+
+.essence-hover-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.constellation-essence:hover .essence-hover-ring {
+  opacity: 1;
+}
+
+/* ===== Variant: Palimpsest (Borges) ===== */
+/* "The map is a text to be read." Clusters are floating text. */
+/* Overlapping text creates manuscript texture at low zoom. */
+.constellation-palimpsest {
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.palimpsest-text {
+  font-family: 'Crimson Text', Georgia, serif;
+  text-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.9),
+    -1px -1px 0 rgba(0, 0, 0, 0.9),
+    1px -1px 0 rgba(0, 0, 0, 0.9),
+    -1px 1px 0 rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.3px;
+  transition: opacity 0.25s ease, text-decoration 0.25s ease;
+}
+
+.palimpsest-count {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+.constellation-palimpsest:hover .palimpsest-text {
+  opacity: 1 !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+/* Individual pin text in Palimpsest mode */
+.palimpsest-pin-text {
+  font-family: 'Crimson Text', Georgia, serif;
+  text-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.9),
+    -1px -1px 0 rgba(0, 0, 0, 0.9),
+    1px -1px 0 rgba(0, 0, 0, 0.9),
+    -1px 1px 0 rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.constellation-palimpsest:hover .palimpsest-pin-text {
+  opacity: 1 !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
 /* ===== Dark Tooltip ===== */
 .dark-tooltip {
   background: #1a1a1a !important;

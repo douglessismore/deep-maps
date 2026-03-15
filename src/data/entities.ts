@@ -1811,14 +1811,6 @@ export const entities: Entity[] = [
     wikipediaSlug: 'Johannes_Gutenberg',
   },
   {
-    id: 'amelia-earhart',
-    name: 'Amelia Earhart',
-    type: 'person',
-    years: '1897–1937 (disappeared)',
-    description: 'The first woman to fly solo across the Atlantic (1932). Disappeared over the Pacific during her attempt to circumnavigate the globe, creating one of the 20th century\'s greatest unsolved mysteries.',
-    wikipediaSlug: 'Amelia_Earhart',
-  },
-  {
     id: 'nikola-tesla',
     name: 'Nikola Tesla',
     type: 'person',

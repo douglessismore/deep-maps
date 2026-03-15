@@ -6,8 +6,22 @@ import { CATEGORIES, IMPORTANCE_SIZE } from '../../lib/categories';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getNotabilityThreshold, getEffectiveNotability } from '../../lib/notability';
+import { getClusterData, getClusterExpansionZoom, isCluster } from '../../lib/clustering';
+import type { ClusterOrPoint, MomentPointProps, ConstellationClusterProps } from '../../lib/clustering';
+import { createConstellationSVG, createConstellationTooltip, computeConstellationSize, createCountLabel, createWispsContent, computeEssenceSize, createEssenceHoverRing, createPalimpsestContent, createPalimpsestPinContent, getVariantRenderMode } from '../../lib/constellation';
+import type { ConstellationVariant } from '../../lib/constellation';
+import { EmergenceLayer } from './EmergenceLayer';
 
 const momentMap = buildMomentMap(moments);
+
+// ── Lookup: momentId → Moment (for resolving point features back to data)
+const momentById = new Map<string, Moment>();
+for (const m of moments) momentById.set(m.id, m);
+
+// ── Lookup: storyId → Story
+import { stories as allStories } from '../../data/stories';
+const storyById = new Map<string, Story>();
+for (const s of allStories) storyById.set(s.id, s);
 
 /** Approximate distance in degrees between two lat/lng points. */
 function degreeDistance(a: [number, number], b: [number, number]): number {
@@ -30,21 +44,17 @@ export function smartFlyTo(
   const dist = degreeDistance([center.lat, center.lng], [tll.lat, tll.lng]);
 
   if (dist > 5) {
-    // Cross-country: instant snap — no choppy tile loading
     map.setView(target, zoom);
   } else if (dist > 1.5) {
-    // Mid-range (cross-city or nearby state): animate with scaled duration
     const duration = Math.min(baseDuration + dist * 0.25, 2.8);
     map.flyTo(target, zoom, { duration });
   } else {
-    // Nearby (within city): smooth pan
     map.flyTo(target, zoom, { duration: baseDuration });
   }
 }
 
 /**
  * Distance-aware flyToBounds — simplified for honest transitions.
- * Far = instant snap. Near = smooth animation.
  */
 export function smartFlyToBounds(
   map: L.Map,
@@ -60,14 +70,11 @@ export function smartFlyToBounds(
   const { duration: _, ...fitOpts } = options;
 
   if (dist > 5) {
-    // Cross-country: instant snap
     map.fitBounds(bounds, { ...fitOpts, animate: false });
   } else if (dist > 1.5) {
-    // Mid-range: animate with scaled duration
     const duration = Math.min(baseDuration + dist * 0.25, 2.8);
     map.flyToBounds(bounds, { ...fitOpts, duration });
   } else {
-    // Nearby: smooth animation
     map.flyToBounds(bounds, { ...fitOpts, duration: baseDuration });
   }
 }
@@ -91,10 +98,10 @@ interface MapViewProps {
   stories: Story[];
   activeStory: Story | null;
   activeLocation: Moment | null;
-  scrollHighlight?: Moment[]; // Lightweight highlight during explore scroll (no zoom)
+  scrollHighlight?: Moment[];
   mode: InteractionMode;
   categoryFilter: StoryCategory | null;
-  resetViewKey?: number; // Incremented to trigger zoom-out to all pins
+  resetViewKey?: number;
   onMapReady: (map: L.Map) => void;
   onLocationClick: (location: Moment, story: Story) => void;
   onStoryClick: (story: Story) => void;
@@ -104,11 +111,8 @@ interface MapViewProps {
   entityLocations?: Array<{ location: Moment; story: Story }>;
 }
 
-/**
- * Continuous notability opacity — the "fractal zoom" curve.
- * Above threshold: fully vivid. Below: proportional fade down to 0.15 minimum.
- * At high zoom (threshold=0), everything is 1.0.
- */
+// ── Notability helpers (used for individual pin rendering) ──────────
+
 function computeNotabilityAlpha(location: Moment, zoom: number): number {
   const threshold = getNotabilityThreshold(zoom);
   if (threshold <= 0) return 1;
@@ -117,17 +121,14 @@ function computeNotabilityAlpha(location: Moment, zoom: number): number {
   return Math.max(0.15, notability / threshold);
 }
 
-/**
- * Ghost pins shrink proportionally — creates visual hierarchy at low zoom.
- * Above threshold: normal importance-based size. Below: scaled down (min 5px).
- */
 function computeNotabilitySize(baseSize: number, alpha: number): number {
   if (alpha >= 1) return baseSize;
   return Math.max(5, Math.round(baseSize * Math.max(0.45, alpha)));
 }
 
+// ── Marker icon creation ───────────────────────────────────────────────
+
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number): L.DivIcon {
-  // Scroll-highlighted markers get enlarged and pulsing
   const highlighted = isActive || isScrollHighlighted;
   const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
   const classes = `story-marker${highlighted ? ' active pulsing' : ''}`;
@@ -139,6 +140,54 @@ function createMarkerIcon(color: string, size: number, isActive: boolean, isScro
     iconAnchor: [displaySize / 2, displaySize / 2],
   });
 }
+
+function createConstellationIcon(
+  cluster: ConstellationClusterProps & { point_count: number },
+  variant: ConstellationVariant = 'classic',
+  zoom: number = 4,
+): L.DivIcon {
+  // Essence uses its own smaller size computation
+  if (variant === 'essence') {
+    const size = computeEssenceSize(cluster.point_count);
+    const svg = createConstellationSVG(cluster, variant);
+    const hoverRing = createEssenceHoverRing(cluster);
+    const countOverlay = createCountLabel(cluster.point_count);
+    return L.divIcon({
+      className: '',
+      html: `<div class="constellation-node constellation-essence">${svg}${hoverRing}${countOverlay}</div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+    });
+  }
+
+  // Palimpsest uses text content instead of SVG, zoom-aware
+  if (variant === 'palimpsest') {
+    const content = createPalimpsestContent(cluster, zoom);
+    return L.divIcon({
+      className: '',
+      html: `<div class="constellation-node constellation-palimpsest">${content}</div>`,
+      iconSize: [0, 0],
+      iconAnchor: [0, 8],
+    });
+  }
+
+  const size = computeConstellationSize(cluster.point_count);
+  const countOverlay = variant !== 'classic' ? createCountLabel(cluster.point_count) : '';
+
+  // Wisps uses HTML elements instead of SVG
+  const innerContent = variant === 'wisps'
+    ? createWispsContent(cluster)
+    : createConstellationSVG(cluster, variant);
+
+  return L.divIcon({
+    className: '',
+    html: `<div class="constellation-node constellation-${variant}">${innerContent}${countOverlay}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  });
+}
+
+// ── MapController ──────────────────────────────────────────────────────
 
 function MapController({
   stories,
@@ -154,7 +203,8 @@ function MapController({
   nearMeZoomKey,
   restoreView,
   entityLocations,
-}: MapViewProps) {
+  constellationVariant,
+}: MapViewProps & { constellationVariant: ConstellationVariant }) {
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);
@@ -178,42 +228,55 @@ function MapController({
     dragstart: () => { isUserDragging.current = true; },
     dragend: () => { setTimeout(() => { isUserDragging.current = false; }, 300); },
     zoomend: () => { setCurrentZoom(map.getZoom()); },
+    moveend: () => { /* Triggers re-render for cluster updates via currentBoundsKey */ },
   });
 
-  // All locations to render — continuous opacity replaces hard threshold filtering.
-  // Every moment is always on the map; notability controls opacity/size, not visibility.
-  const visibleLocations = useMemo(() => {
-    if (mode === 'entity' && entityLocations) {
-      return entityLocations;
-    }
+  // ── Focused-mode locations (story/entity) — bypass clustering ──────
+
+  const focusedLocations = useMemo(() => {
+    if (mode === 'entity' && entityLocations) return entityLocations;
     if (mode === 'story' && activeStory) {
       return resolveLocationsFromMap(activeStory, momentMap)
         .map((loc) => ({ location: loc, story: activeStory }));
     }
+    return null; // null = use cluster mode
+  }, [mode, activeStory, entityLocations]);
 
-    // Explore/scroll: include ALL moments (opacity handles the hierarchy)
-    const filteredStories = categoryFilter
-      ? stories.filter((s) => s.category === categoryFilter)
-      : stories;
+  // ── Cluster data for explore/scroll mode ───────────────────────────
 
-    return filteredStories.flatMap((story) =>
-      resolveLocationsFromMap(story, momentMap).map((loc) => ({ location: loc, story }))
-    );
-  }, [stories, activeStory, mode, categoryFilter, entityLocations]);
+  // Memoize bounds to avoid re-computing clusters on every render
+  const bounds = map.getBounds();
+  const boundsKey = `${bounds.getWest().toFixed(3)},${bounds.getSouth().toFixed(3)},${bounds.getEast().toFixed(3)},${bounds.getNorth().toFixed(3)}`;
 
-  // Stable marker map — only update markers whose state actually changed
+  const clusterFeatures = useMemo(() => {
+    if (focusedLocations) return []; // Not in explore mode
+    return getClusterData(currentZoom, {
+      west: bounds.getWest(),
+      south: bounds.getSouth(),
+      east: bounds.getEast(),
+      north: bounds.getNorth(),
+    }, categoryFilter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedLocations, currentZoom, categoryFilter, boundsKey]);
+
+  // ── Marker rendering ───────────────────────────────────────────────
+
   interface MarkerEntry {
     marker: L.Marker;
+    type: 'pin' | 'constellation';
     isActive: boolean;
     isHighlighted: boolean;
     isFaded: boolean;
     permanentTooltip: boolean;
-    notabilityAlpha: number;   // Raw zoom-dependent alpha (for diffing)
-    effectiveSize: number;     // Size adjusted for notability (for diffing)
+    notabilityAlpha: number;
+    effectiveSize: number;
+    pointCount?: number; // For constellation diffing
+    variant?: ConstellationVariant; // Track which visual variant was rendered
+    renderedZoom?: number; // Track zoom for palimpsest text scaling
   }
   const markerMapRef = useRef<Map<string, MarkerEntry>>(new Map());
 
-  // Mount/unmount: manage layer group lifecycle (separate from updates)
+  // Mount/unmount layer group
   useEffect(() => {
     const group = markersRef.current;
     group.addTo(map);
@@ -223,8 +286,9 @@ function MapController({
     };
   }, [map]);
 
-  // Render markers — differential update with continuous notability opacity.
-  // Every moment is always rendered; opacity + size encode the fractal zoom hierarchy.
+  // ── RENDER: Focused mode (story/entity) — direct pins, no clustering
+  // ── RENDER: Explore/scroll mode — constellation clusters + individual pins
+
   useEffect(() => {
     const group = markersRef.current;
     const prevMarkers = markerMapRef.current;
@@ -233,132 +297,272 @@ function MapController({
     const hasHighlight = (scrollHighlight?.length ?? 0) > 0;
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const singleHighlight = (scrollHighlight?.length ?? 0) === 1;
-    const isExploreMode = mode !== 'story' && mode !== 'entity';
 
-    visibleLocations.forEach(({ location, story }) => {
-      const key = `${story.id}-${location.id}`;
-      nextKeys.add(key);
+    if (focusedLocations) {
+      // ── FOCUSED MODE: Direct pin rendering (story/entity view) ──
+      focusedLocations.forEach(({ location, story }) => {
+        const key = `pin-${story.id}-${location.id}`;
+        nextKeys.add(key);
 
-      const cat = CATEGORIES[story.category];
-      const baseSize = IMPORTANCE_SIZE[location.importance] || 10;
-      const isActive = activeLocation?.id === location.id;
-      const isHighlighted = highlightIds.has(location.id);
-      const isFaded = hasHighlight && !isHighlighted && !isActive;
-      const permanentTooltip = isHighlighted && singleHighlight;
+        const cat = CATEGORIES[story.category];
+        const baseSize = IMPORTANCE_SIZE[location.importance] || 10;
+        const isActive = activeLocation?.id === location.id;
+        const isHighlighted = highlightIds.has(location.id);
+        const isFaded = hasHighlight && !isHighlighted && !isActive;
+        const permanentTooltip = isHighlighted && singleHighlight;
+        const markerOpacity = isFaded ? 0.15 : undefined;
+        const effectiveSize = baseSize;
 
-      // ── Notability opacity & size (the fractal zoom curve) ──
-      const notabilityAlpha = isExploreMode
-        ? computeNotabilityAlpha(location, currentZoom)
-        : 1;
+        const existing = prevMarkers.get(key);
 
-      // Highlighted/active pins override to full size (even if below threshold)
-      const visualAlpha = (isActive || isHighlighted) ? 1 : notabilityAlpha;
-      const effectiveSize = computeNotabilitySize(baseSize, visualAlpha);
+        if (existing) {
+          const needsRebuild =
+            existing.isActive !== isActive ||
+            existing.isHighlighted !== isHighlighted ||
+            existing.effectiveSize !== effectiveSize;
 
-      // Combined opacity: notability base + scroll-fade overlay + active/highlight override
-      let markerOpacity: number | undefined;
-      if (isActive || isHighlighted) {
-        markerOpacity = undefined; // Full opacity
-      } else if (isFaded) {
-        markerOpacity = Math.min(0.15, notabilityAlpha);
-      } else if (notabilityAlpha < 1) {
-        markerOpacity = notabilityAlpha;
-      }
-      // else: undefined → no inline opacity → full
-
-      const existing = prevMarkers.get(key);
-
-      if (existing) {
-        // Detect what changed
-        const needsIconRebuild =
-          existing.isActive !== isActive ||
-          existing.isHighlighted !== isHighlighted ||
-          existing.effectiveSize !== effectiveSize;
-
-        const needsOpacityUpdate = !needsIconRebuild && (
-          existing.isFaded !== isFaded ||
-          Math.abs(existing.notabilityAlpha - notabilityAlpha) > 0.01
-        );
-
-        if (needsIconRebuild) {
-          const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
-          existing.marker.setIcon(icon);
-        } else if (needsOpacityUpdate) {
-          // Opacity-only change — direct DOM manipulation (skip icon rebuild)
-          const el = existing.marker.getElement();
-          if (el) {
-            const inner = el.firstElementChild as HTMLElement;
-            if (inner) inner.style.opacity = markerOpacity !== undefined ? String(markerOpacity) : '';
+          if (needsRebuild) {
+            existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity));
+          } else if (existing.isFaded !== isFaded) {
+            const el = existing.marker.getElement();
+            if (el) {
+              const inner = el.firstElementChild as HTMLElement;
+              if (inner) inner.style.opacity = markerOpacity !== undefined ? String(markerOpacity) : '';
+            }
           }
-        }
 
-        // Rebind tooltip if permanent state or size changed
-        if (existing.permanentTooltip !== permanentTooltip || needsIconRebuild) {
-          existing.marker.unbindTooltip();
+          if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
+            existing.marker.unbindTooltip();
+            const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
+            existing.marker.bindTooltip(
+              `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+                <strong>${location.name}</strong>
+                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+              </div>`,
+              { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
+            );
+          }
+
+          existing.isActive = isActive;
+          existing.isHighlighted = isHighlighted;
+          existing.isFaded = isFaded;
+          existing.permanentTooltip = permanentTooltip;
+          existing.notabilityAlpha = 1;
+          existing.effectiveSize = effectiveSize;
+        } else {
+          const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
+          const marker = L.marker([location.lat, location.lng], { icon });
           const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
-          existing.marker.bindTooltip(
+          marker.bindTooltip(
             `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
               <strong>${location.name}</strong>
               <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
             </div>`,
-            {
-              direction: 'top',
-              offset: [0, -displaySize / 2 - 4],
-              className: 'dark-tooltip',
-              permanent: permanentTooltip,
-            }
+            { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
           );
+          marker.on('click', () => onLocationClick(location, story));
+          group.addLayer(marker);
+          prevMarkers.set(key, {
+            marker, type: 'pin', isActive, isHighlighted, isFaded, permanentTooltip,
+            notabilityAlpha: 1, effectiveSize,
+          });
         }
-
-        existing.isActive = isActive;
-        existing.isHighlighted = isHighlighted;
-        existing.isFaded = isFaded;
-        existing.permanentTooltip = permanentTooltip;
-        existing.notabilityAlpha = notabilityAlpha;
-        existing.effectiveSize = effectiveSize;
-      } else {
-        // New marker — create from scratch
-        const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
-        const marker = L.marker([location.lat, location.lng], { icon });
-
-        const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
-        marker.bindTooltip(
-          `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
-            <strong>${location.name}</strong>
-            <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
-          </div>`,
-          {
-            direction: 'top',
-            offset: [0, -displaySize / 2 - 4],
-            className: 'dark-tooltip',
-            permanent: permanentTooltip,
-          }
-        );
-
-        marker.on('click', () => {
-          onLocationClick(location, story);
-        });
-
-        group.addLayer(marker);
-        prevMarkers.set(key, {
-          marker, isActive, isHighlighted, isFaded, permanentTooltip,
-          notabilityAlpha, effectiveSize,
-        });
+      });
+    } else if (getVariantRenderMode(constellationVariant) === 'unclustered') {
+      // ── EMERGENCE MODE: EmergenceLayer handles rendering, clear cluster markers ──
+      for (const [key, entry] of prevMarkers) {
+        group.removeLayer(entry.marker);
+        prevMarkers.delete(key);
       }
-    });
+    } else {
+      // ── EXPLORE/SCROLL MODE: Cluster-aware rendering ──
+      clusterFeatures.forEach((feature: ClusterOrPoint) => {
+        const [lng, lat] = feature.geometry.coordinates;
 
-    // Remove markers that are no longer in visibleLocations
+        if (isCluster(feature)) {
+          // ── CONSTELLATION CLUSTER ──
+          const clusterId = feature.properties.cluster_id;
+          const key = `cluster-${clusterId}`;
+          nextKeys.add(key);
+
+          const clusterProps = {
+            ...feature.properties,
+            point_count: feature.properties.point_count,
+          };
+          const size = computeConstellationSize(feature.properties.point_count);
+
+          const existing = prevMarkers.get(key);
+
+          if (existing && existing.type === 'constellation') {
+            // Update if point count, variant, or zoom (for palimpsest text scaling) changed
+            const needsRebuild =
+              existing.pointCount !== feature.properties.point_count ||
+              existing.variant !== constellationVariant ||
+              (constellationVariant === 'palimpsest' && existing.renderedZoom !== currentZoom);
+
+            if (needsRebuild) {
+              existing.marker.setIcon(createConstellationIcon(clusterProps, constellationVariant, currentZoom));
+              existing.marker.unbindTooltip();
+              existing.marker.bindTooltip(
+                createConstellationTooltip(clusterProps),
+                { direction: 'top', offset: [0, -size / 2 - 6], className: 'dark-tooltip' }
+              );
+              existing.pointCount = feature.properties.point_count;
+              existing.variant = constellationVariant;
+              existing.renderedZoom = currentZoom;
+            }
+            // Update position (clusters can shift)
+            existing.marker.setLatLng([lat, lng]);
+          } else {
+            // New cluster marker
+            const icon = createConstellationIcon(clusterProps, constellationVariant, currentZoom);
+            const marker = L.marker([lat, lng], { icon, zIndexOffset: 100 });
+            marker.bindTooltip(
+              createConstellationTooltip(clusterProps),
+              { direction: 'top', offset: [0, -size / 2 - 6], className: 'dark-tooltip' }
+            );
+            // Click to zoom into cluster
+            marker.on('click', () => {
+              const expansionZoom = getClusterExpansionZoom(clusterId, categoryFilter);
+              map.flyTo([lat, lng], Math.min(expansionZoom, 14), { duration: 1.2 });
+            });
+            group.addLayer(marker);
+            prevMarkers.set(key, {
+              marker, type: 'constellation',
+              isActive: false, isHighlighted: false, isFaded: false,
+              permanentTooltip: false, notabilityAlpha: 1, effectiveSize: size,
+              pointCount: feature.properties.point_count,
+              variant: constellationVariant,
+              renderedZoom: currentZoom,
+            });
+          }
+        } else {
+          // ── INDIVIDUAL PIN (unclustered point) ──
+          const props = feature.properties as MomentPointProps;
+          const moment = momentById.get(props.momentId);
+          const story = storyById.get(props.storyId);
+          if (!moment || !story) return;
+
+          const key = `pin-${story.id}-${moment.id}`;
+          nextKeys.add(key);
+
+          const cat = CATEGORIES[story.category];
+          const baseSize = IMPORTANCE_SIZE[moment.importance] || 10;
+          const isActive = activeLocation?.id === moment.id;
+          const isHighlighted = highlightIds.has(moment.id);
+          const isFaded = hasHighlight && !isHighlighted && !isActive;
+          const permanentTooltip = isHighlighted && singleHighlight;
+
+          // Notability alpha for continuous opacity
+          const notabilityAlpha = computeNotabilityAlpha(moment, currentZoom);
+          const visualAlpha = (isActive || isHighlighted) ? 1 : notabilityAlpha;
+          const effectiveSize = computeNotabilitySize(baseSize, visualAlpha);
+
+          let markerOpacity: number | undefined;
+          if (isActive || isHighlighted) {
+            markerOpacity = undefined;
+          } else if (isFaded) {
+            markerOpacity = Math.min(0.15, notabilityAlpha);
+          } else if (notabilityAlpha < 1) {
+            markerOpacity = notabilityAlpha;
+          }
+
+          const existing = prevMarkers.get(key);
+
+          if (existing && existing.type === 'pin') {
+            const needsIconRebuild =
+              existing.isActive !== isActive ||
+              existing.isHighlighted !== isHighlighted ||
+              existing.effectiveSize !== effectiveSize;
+
+            const needsOpacityUpdate = !needsIconRebuild && (
+              existing.isFaded !== isFaded ||
+              Math.abs(existing.notabilityAlpha - notabilityAlpha) > 0.01
+            );
+
+            if (needsIconRebuild) {
+              if (constellationVariant === 'palimpsest') {
+                const pinContent = createPalimpsestPinContent(moment.name, cat.color, currentZoom, markerOpacity ?? notabilityAlpha);
+                existing.marker.setIcon(L.divIcon({
+                  className: '',
+                  html: `<div class="constellation-node constellation-palimpsest">${pinContent}</div>`,
+                  iconSize: [0, 0],
+                  iconAnchor: [0, 5],
+                }));
+              } else {
+                existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity));
+              }
+            } else if (needsOpacityUpdate) {
+              const el = existing.marker.getElement();
+              if (el) {
+                const inner = el.firstElementChild as HTMLElement;
+                if (inner) inner.style.opacity = markerOpacity !== undefined ? String(markerOpacity) : '';
+              }
+            }
+
+            if (existing.permanentTooltip !== permanentTooltip || needsIconRebuild) {
+              existing.marker.unbindTooltip();
+              const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
+              existing.marker.bindTooltip(
+                `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+                  <strong>${moment.name}</strong>
+                  <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+                </div>`,
+                { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
+              );
+            }
+
+            existing.isActive = isActive;
+            existing.isHighlighted = isHighlighted;
+            existing.isFaded = isFaded;
+            existing.permanentTooltip = permanentTooltip;
+            existing.notabilityAlpha = notabilityAlpha;
+            existing.effectiveSize = effectiveSize;
+          } else {
+            // New individual pin
+            let icon: L.DivIcon;
+            if (constellationVariant === 'palimpsest') {
+              const pinContent = createPalimpsestPinContent(moment.name, cat.color, currentZoom, markerOpacity ?? notabilityAlpha);
+              icon = L.divIcon({
+                className: '',
+                html: `<div class="constellation-node constellation-palimpsest">${pinContent}</div>`,
+                iconSize: [0, 0],
+                iconAnchor: [0, 5],
+              });
+            } else {
+              icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
+            }
+            const marker = L.marker([moment.lat, moment.lng], { icon });
+            const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
+            marker.bindTooltip(
+              `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+                <strong>${moment.name}</strong>
+                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+              </div>`,
+              { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
+            );
+            marker.on('click', () => onLocationClick(moment, story));
+            group.addLayer(marker);
+            prevMarkers.set(key, {
+              marker, type: 'pin', isActive, isHighlighted, isFaded, permanentTooltip,
+              notabilityAlpha, effectiveSize,
+            });
+          }
+        }
+      });
+    }
+
+    // Remove markers no longer in the scene
     for (const [key, entry] of prevMarkers) {
       if (!nextKeys.has(key)) {
         group.removeLayer(entry.marker);
         prevMarkers.delete(key);
       }
     }
+  }, [focusedLocations, clusterFeatures, activeLocation, scrollHighlight, map, onLocationClick, currentZoom, mode, categoryFilter, constellationVariant]);
 
-    // NO cleanup — markers persist across re-renders for true differential updates
-  }, [visibleLocations, activeLocation, scrollHighlight, map, onLocationClick, currentZoom, mode]);
+  // ── Fly to active location or fit story/entity/category bounds ────
 
-  // Fly to active location or fit story/entity/category bounds
   useEffect(() => {
     if (isUserDragging.current) return;
 
@@ -383,8 +587,7 @@ function MapController({
     }
   }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations]);
 
-  // Zoom out to show all pins when resetViewKey changes (back-to-explore)
-  // Uses hardcoded US center instead of flyToBounds to prevent intermittent Africa bug
+  // Zoom out to show all pins when resetViewKey changes
   const prevResetKey = useRef(resetViewKey);
   useEffect(() => {
     if (resetViewKey === prevResetKey.current) return;
@@ -392,7 +595,7 @@ function MapController({
     smartFlyTo(map, [39.5, -98.5], 4, 1.5);
   }, [resetViewKey, map]);
 
-  // Zoom to nearest ~20 moments around user location
+  // Near Me: zoom to nearest ~20 moments
   const zoomToNearestMoments = useCallback((loc: { lat: number; lng: number }) => {
     const allCoords = stories.flatMap(s =>
       resolveLocationsFromMap(s, momentMap).map(l => ({
@@ -409,17 +612,12 @@ function MapController({
         [loc.lat, loc.lng],
         ...nearest.map(c => [c.lat, c.lng] as [number, number]),
       ];
-      smartFlyToBounds(map, L.latLngBounds(points), {
-        padding: [40, 40],
-        maxZoom: 12,
-        duration: 1.5,
-      });
+      smartFlyToBounds(map, L.latLngBounds(points), { padding: [40, 40], maxZoom: 12, duration: 1.5 });
     } else {
       smartFlyTo(map, [loc.lat, loc.lng], 8, 1.5);
     }
   }, [stories, map]);
 
-  // Auto-zoom to user location on first load
   const hasAutoZoomed = useRef(false);
   useEffect(() => {
     if (hasAutoZoomed.current || !userLocation || mode !== 'explore') return;
@@ -427,17 +625,14 @@ function MapController({
     zoomToNearestMoments(userLocation);
   }, [userLocation, mode, zoomToNearestMoments]);
 
-  // Near Me button: zoom to nearest 20 on every click (key increments)
   const prevNearMeKey = useRef(nearMeZoomKey);
   useEffect(() => {
     if (nearMeZoomKey === prevNearMeKey.current) return;
     prevNearMeKey.current = nearMeZoomKey;
-    if (userLocation) {
-      zoomToNearestMoments(userLocation);
-    }
+    if (userLocation) zoomToNearestMoments(userLocation);
   }, [nearMeZoomKey, userLocation, zoomToNearestMoments]);
 
-  // Restore map view when navigating back (instead of resetting to US center)
+  // Restore map view
   const prevRestoreView = useRef(restoreView);
   useEffect(() => {
     if (restoreView === prevRestoreView.current || !restoreView) return;
@@ -474,6 +669,8 @@ function MapController({
   return null;
 }
 
+// ── TileSwitcher ───────────────────────────────────────────────────────
+
 function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTileChange: (s: TileStyle) => void }) {
   const [open, setOpen] = useState(false);
   const styles: { key: TileStyle; label: string; icon: string }[] = [
@@ -482,7 +679,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
     { key: 'satellite', label: 'Satellite', icon: '🛰' },
   ];
   return (
-    <div className="absolute top-3 right-3 z-[1000]">
+    <div>
       {open ? (
         <div className="bg-[#1a1a1a] border border-[rgba(255,255,255,0.1)] rounded-lg shadow-lg overflow-hidden">
           {styles.map((s) => (
@@ -519,9 +716,61 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
   );
 }
 
+// ── VariantSwitcher ─────────────────────────────────────────────────────
+
+const VARIANT_OPTIONS: { key: ConstellationVariant; label: string; icon: string }[] = [
+  { key: 'wisps', label: 'Wisps', icon: '✧' },
+  { key: 'essence', label: 'Essence', icon: '○' },
+  { key: 'emergence', label: 'Emergence', icon: '∴' },
+];
+
+function VariantSwitcher({
+  variant,
+  onVariantChange,
+}: {
+  variant: ConstellationVariant;
+  onVariantChange: (v: ConstellationVariant) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      {open ? (
+        <div className="bg-[#1a1a1a] border border-[rgba(255,255,255,0.1)] rounded-lg shadow-lg overflow-hidden">
+          {VARIANT_OPTIONS.map((v) => (
+            <button
+              key={v.key}
+              onClick={() => { onVariantChange(v.key); setOpen(false); }}
+              className={`flex items-center gap-2 px-3 py-2 text-xs font-mono w-full text-left transition-colors ${
+                variant === v.key
+                  ? 'bg-[rgba(220,38,38,0.15)] text-white'
+                  : 'text-[#a3a3a3] hover:bg-[rgba(255,255,255,0.05)] hover:text-white'
+              }`}
+            >
+              <span>{v.icon}</span>
+              <span>{v.label}</span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          className="bg-[#1a1a1a] border border-[rgba(255,255,255,0.1)] rounded-lg px-2.5 py-1.5 text-xs font-mono text-[#a3a3a3] hover:text-white hover:bg-[#252525] transition-colors shadow-lg flex items-center gap-1.5"
+          title="Change cluster style"
+        >
+          <span className="text-sm leading-none">{VARIANT_OPTIONS.find(v => v.key === variant)?.icon}</span>
+          <span className="hidden sm:inline">{VARIANT_OPTIONS.find(v => v.key === variant)?.label}</span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+// ── MapView ────────────────────────────────────────────────────────────
+
 export function MapView(props: MapViewProps) {
   const [tileStyle, setTileStyle] = useState<TileStyle>('light');
-
+  const [constellationVariant, setConstellationVariant] = useState<ConstellationVariant>('wisps');
   const tile = TILE_URLS[tileStyle];
 
   return (
@@ -529,6 +778,7 @@ export function MapView(props: MapViewProps) {
       <MapContainer
         center={[39.5, -98.5]}
         zoom={4}
+        minZoom={2}
         className="h-full w-full"
         zoomControl={true}
         attributionControl={true}
@@ -539,9 +789,19 @@ export function MapView(props: MapViewProps) {
           attribution={tile.attribution}
           maxZoom={19}
         />
-        <MapController {...props} />
+        <MapController {...props} constellationVariant={constellationVariant} />
+        {constellationVariant === 'emergence' && props.mode !== 'story' && props.mode !== 'entity' && (
+          <EmergenceLayer
+            categoryFilter={props.categoryFilter}
+            onLocationClick={props.onLocationClick}
+            activeLocation={props.activeLocation}
+          />
+        )}
       </MapContainer>
-      <TileSwitcher tileStyle={tileStyle} onTileChange={setTileStyle} />
+      <div className="absolute top-3 right-3 z-[1000] flex flex-col gap-2 items-end">
+        <TileSwitcher tileStyle={tileStyle} onTileChange={setTileStyle} />
+        <VariantSwitcher variant={constellationVariant} onVariantChange={setConstellationVariant} />
+      </div>
     </div>
   );
 }
