@@ -51,6 +51,7 @@ export function StoryPanel({
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [expandedLocationId, setExpandedLocationId] = useState<string | null>(null);
+  const expandedLocationIdRef = useRef<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
@@ -59,6 +60,9 @@ export function StoryPanel({
   const hasWiki = !!story.wikipediaSlug;
 
   const scrollRafId = useRef(0);
+
+  // Keep ref in sync so scroll handler always reads fresh value (avoids stale closure)
+  useEffect(() => { expandedLocationIdRef.current = expandedLocationId; }, [expandedLocationId]);
 
   // Scroll-driven location navigation + header auto-collapse
   useEffect(() => {
@@ -122,8 +126,19 @@ export function StoryPanel({
         }
 
         if (closestId && closestId !== scrollActiveId) {
+          // Don't collapse the expanded card while the user is still scrolling within it
+          // (reading long descriptions). Only switch expand when center leaves the card bounds.
+          const currentExpanded = expandedLocationIdRef.current;
+          const expandedEl = currentExpanded ? locationRefs.current.get(currentExpanded) : null;
+          const centerStillInExpanded = expandedEl && (() => {
+            const r = expandedEl.getBoundingClientRect();
+            return centerY >= r.top && centerY <= r.bottom;
+          })();
+
           setScrollActiveId(closestId);
-          setExpandedLocationId(closestId); // Scroll-driven expand follows highlight
+          if (!centerStillInExpanded) {
+            setExpandedLocationId(closestId);
+          }
           // Suppress scroll handler during the card expand/collapse transition (~200ms)
           // to prevent the layout shift from flipping activation between adjacent cards
           isProgrammaticScroll.current = true;
