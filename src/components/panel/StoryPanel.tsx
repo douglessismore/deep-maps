@@ -86,12 +86,18 @@ export function StoryPanel({
         let closestDist = Infinity;
 
         // Check if all moment cards are below the center line (user scrolled to top/header)
+        // Use card title area (top + 30px) instead of center — stable regardless of
+        // expanded/collapsed state (center shifts ~150px when a card expands, title doesn't)
         let allBelowCenter = true;
         locationRefs.current.forEach((el, id) => {
           const rect = el.getBoundingClientRect();
-          const cardCenter = rect.top + rect.height / 2;
-          if (cardCenter <= centerY) allBelowCenter = false;
-          const dist = Math.abs(cardCenter - centerY);
+          const titleY = rect.top + 30;
+          if (titleY <= centerY) allBelowCenter = false;
+          let dist = Math.abs(titleY - centerY);
+          // Hysteresis: the current active card gets a 60px bonus so it "sticks" —
+          // a new card must be at least 60px closer to the center to steal activation.
+          // This prevents ping-pong when expand/collapse layout shifts move cards.
+          if (id === scrollActiveId) dist = Math.max(0, dist - 60);
           if (dist < closestDist) {
             closestDist = dist;
             closestId = id;
