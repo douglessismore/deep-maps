@@ -43,11 +43,9 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
           </div>
 
           {/* Description */}
-          {!compact && (
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-2 line-clamp-3">
-              {story.description}
-            </p>
-          )}
+          <p className={`text-[var(--text-secondary)] leading-relaxed mt-2 ${compact ? 'text-xs line-clamp-1' : 'text-sm line-clamp-3'}`}>
+            {story.description}
+          </p>
 
           {/* Footer */}
           <div className="flex items-center justify-between mt-3 gap-2">

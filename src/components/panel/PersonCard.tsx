@@ -40,9 +40,9 @@ export function PersonCard({ data, onClick, compact = false, distanceMi }: Perso
             )}
           </div>
 
-          {/* Description — desktop only */}
-          {!compact && entity.description && (
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-2 line-clamp-3">
+          {/* Description */}
+          {entity.description && (
+            <p className={`text-[var(--text-secondary)] leading-relaxed mt-2 ${compact ? 'text-xs line-clamp-1' : 'text-sm line-clamp-3'}`}>
               {entity.description}
             </p>
           )}
