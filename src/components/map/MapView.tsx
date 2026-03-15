@@ -716,61 +716,12 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
   );
 }
 
-// ── VariantSwitcher ─────────────────────────────────────────────────────
-
-const VARIANT_OPTIONS: { key: ConstellationVariant; label: string; icon: string }[] = [
-  { key: 'wisps', label: 'Wisps', icon: '✧' },
-  { key: 'essence', label: 'Essence', icon: '○' },
-  { key: 'emergence', label: 'Emergence', icon: '∴' },
-];
-
-function VariantSwitcher({
-  variant,
-  onVariantChange,
-}: {
-  variant: ConstellationVariant;
-  onVariantChange: (v: ConstellationVariant) => void;
-}) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div>
-      {open ? (
-        <div className="bg-[#1a1a1a] border border-[rgba(255,255,255,0.1)] rounded-lg shadow-lg overflow-hidden">
-          {VARIANT_OPTIONS.map((v) => (
-            <button
-              key={v.key}
-              onClick={() => { onVariantChange(v.key); setOpen(false); }}
-              className={`flex items-center gap-2 px-3 py-2 text-xs font-mono w-full text-left transition-colors ${
-                variant === v.key
-                  ? 'bg-[rgba(220,38,38,0.15)] text-white'
-                  : 'text-[#a3a3a3] hover:bg-[rgba(255,255,255,0.05)] hover:text-white'
-              }`}
-            >
-              <span>{v.icon}</span>
-              <span>{v.label}</span>
-            </button>
-          ))}
-        </div>
-      ) : (
-        <button
-          onClick={() => setOpen(true)}
-          className="bg-[#1a1a1a] border border-[rgba(255,255,255,0.1)] rounded-lg px-2.5 py-1.5 text-xs font-mono text-[#a3a3a3] hover:text-white hover:bg-[#252525] transition-colors shadow-lg flex items-center gap-1.5"
-          title="Change cluster style"
-        >
-          <span className="text-sm leading-none">{VARIANT_OPTIONS.find(v => v.key === variant)?.icon}</span>
-          <span className="hidden sm:inline">{VARIANT_OPTIONS.find(v => v.key === variant)?.label}</span>
-        </button>
-      )}
-    </div>
-  );
-}
-
 // ── MapView ────────────────────────────────────────────────────────────
 
 export function MapView(props: MapViewProps) {
   const [tileStyle, setTileStyle] = useState<TileStyle>('light');
-  const [constellationVariant, setConstellationVariant] = useState<ConstellationVariant>('wisps');
+  // Emergence is the only rendering mode — canvas-based, no DOM overhead
+  const constellationVariant: ConstellationVariant = 'emergence';
   const tile = TILE_URLS[tileStyle];
 
   return (
@@ -790,17 +741,17 @@ export function MapView(props: MapViewProps) {
           maxZoom={19}
         />
         <MapController {...props} constellationVariant={constellationVariant} />
-        {constellationVariant === 'emergence' && props.mode !== 'story' && props.mode !== 'entity' && (
+        {props.mode !== 'story' && props.mode !== 'entity' && (
           <EmergenceLayer
             categoryFilter={props.categoryFilter}
             onLocationClick={props.onLocationClick}
             activeLocation={props.activeLocation}
+            scrollHighlight={props.scrollHighlight}
           />
         )}
       </MapContainer>
       <div className="absolute top-3 right-3 z-[1000] flex flex-col gap-2 items-end">
         <TileSwitcher tileStyle={tileStyle} onTileChange={setTileStyle} />
-        <VariantSwitcher variant={constellationVariant} onVariantChange={setConstellationVariant} />
       </div>
     </div>
   );

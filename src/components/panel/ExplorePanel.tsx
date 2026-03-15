@@ -208,7 +208,7 @@ export function ExplorePanel({
         scrollTimeout.current = window.setTimeout(() => {
           isScrollDriving.current = false;
           updateViewport();
-        }, 600);
+        }, 1000);
 
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
@@ -248,7 +248,7 @@ export function ExplorePanel({
               panTimeout.current = window.setTimeout(() => {
                 mapInstance.panTo([panTarget.lat, panTarget.lng], {
                   animate: true,
-                  duration: 0.6,
+                  duration: 0.3,
                 });
               }, 150);
             }
@@ -270,7 +270,7 @@ export function ExplorePanel({
               panTimeout.current = window.setTimeout(() => {
                 mapInstance.panTo([panTarget.lat, panTarget.lng], {
                   animate: true,
-                  duration: 0.6,
+                  duration: 0.3,
                 });
               }, 150);
             }
@@ -574,7 +574,7 @@ export function ExplorePanel({
                       if (mapInstance) {
                         mapInstance.panTo([vl.location.lat, vl.location.lng], {
                           animate: true,
-                          duration: 0.6,
+                          duration: 0.3,
                         });
                       }
                     }}

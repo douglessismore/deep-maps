@@ -63,9 +63,10 @@ interface EmergenceLayerProps {
   categoryFilter: StoryCategory | null;
   onLocationClick: (location: Moment, story: Story) => void;
   activeLocation: Moment | null;
+  scrollHighlight?: Moment[];
 }
 
-export function EmergenceLayer({ categoryFilter, onLocationClick, activeLocation }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
   const map = useMap();
   const canvasRenderer = useRef(L.canvas({ padding: 0.5 }));
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
@@ -163,6 +164,35 @@ export function EmergenceLayer({ categoryFilter, onLocationClick, activeLocation
       }
     },
   });
+
+  // ── Scroll highlight: boost highlighted dots, fade others ──────────
+  useEffect(() => {
+    const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
+    const hasHighlight = highlightIds.size > 0;
+    const zoom = map.getZoom();
+    const baseRadius = getRadius(zoom);
+
+    for (const [id, marker] of markersRef.current) {
+      const moment = momentById.get(id);
+      if (!moment) continue;
+
+      if (hasHighlight) {
+        if (highlightIds.has(id)) {
+          // Highlighted: full opacity, slightly larger
+          marker.setRadius(Math.max(baseRadius, 5));
+          marker.setStyle({ fillOpacity: 1 });
+        } else {
+          // Faded: dim
+          marker.setStyle({ fillOpacity: 0.08 });
+        }
+      } else {
+        // No highlight: restore normal
+        const alpha = computeAlpha(moment, zoom);
+        marker.setRadius(baseRadius);
+        marker.setStyle({ fillOpacity: alpha });
+      }
+    }
+  }, [scrollHighlight, map]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
   useEffect(() => {
