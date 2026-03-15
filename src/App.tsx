@@ -1,10 +1,11 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { Route, Switch } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel } from './components/panel/ExplorePanel';
-import { StoryPanel } from './components/panel/StoryPanel';
-import { EntityPanel } from './components/panel/EntityPanel';
 import { Header } from './components/ui/Header';
+
+const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
+const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
 import { TimelineBar } from './components/ui/TimelineBar';
 import { stories } from './data/stories';
 import { collections } from './data/collections';
@@ -417,6 +418,7 @@ function App() {
         <div className="flex-1 lg:w-[420px] lg:flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)]">
           <Switch>
             <Route path="/">
+              <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">Loading…</div>}>
               {mode === 'entity' && activeEntity ? (
                 <EntityPanel
                   entity={activeEntity}
@@ -466,6 +468,7 @@ function App() {
                   onEntityClick={handleEntitySelect}
                 />
               )}
+              </Suspense>
             </Route>
           </Switch>
         </div>

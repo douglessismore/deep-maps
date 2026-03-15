@@ -878,7 +878,7 @@ export const entities: Entity[] = [
     type: 'organization',
     years: '1985–2001',
     description: 'Houston energy company whose traders orchestrated power outages for profit during the California energy crisis. Its 2001 collapse was the largest corporate fraud in American history at the time.',
-    canonicalStoryId: 'enron',
+    canonicalStoryId: 'enron-death-star',
     wikipediaSlug: 'Enron',
   },
   {
