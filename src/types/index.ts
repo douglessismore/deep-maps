@@ -1,6 +1,6 @@
 export type StoryCategory =
   | 'dark-history'
-  | 'last-stands'
+  | 'battles-conflicts'
   | 'discovery-science'
   | 'arts-culture'
   | 'mystery-unexplained'

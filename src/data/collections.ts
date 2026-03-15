@@ -342,7 +342,7 @@ export const collections: StoryCollection[] = [
 
   {
     id: 'london-under-fire',
-    name: 'London Under Fire',
+    name: 'Plagues, Fires, and Blitz of London',
     subtitle: 'Plague, fire, murder, and bombardment — the catastrophes that forged London',
     description: 'Plague, fire, a serial killer who was never caught, and the most sustained aerial bombardment in history — London has been tested by catastrophe more than almost any city on earth, and rebuilt every time.',
     momentIds: ['london-great-plague', 'london-great-fire', 'nelson-funeral-st-pauls', 'jack-ripper-whitechapel', 'churchill-war-rooms', 'st-pauls-blitz', 'london-ve-day'],

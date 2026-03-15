@@ -1511,7 +1511,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1643–1727',
     description: 'The reclusive genius who formulated the laws of motion, universal gravitation, and calculus. His Principia Mathematica (1687) is considered the most important scientific work ever published.',
-    canonicalStoryId: 'london-great-stages',
+    canonicalStoryId: 'londons-trials-fire-war',
     wikipediaSlug: 'Isaac_Newton',
   },
   {
@@ -1529,7 +1529,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1874–1965',
     description: 'The wartime Prime Minister who rallied Britain through the Blitz with defiant speeches. Voted the Greatest Briton of all time. Also a Nobel Prize-winning author, war correspondent, painter, and bricklayer who drank champagne for breakfast.',
-    canonicalStoryId: 'london-under-fire',
+    canonicalStoryId: 'londons-trials-fire-war',
     wikipediaSlug: 'Winston_Churchill',
   },
   {
@@ -1547,7 +1547,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1758–1805',
     description: 'Britain\'s greatest naval hero, who destroyed Napoleon\'s fleet at Trafalgar and died in the moment of victory. His body was preserved in a barrel of brandy for the voyage home. His column still dominates Trafalgar Square.',
-    canonicalStoryId: 'london-under-fire',
+    canonicalStoryId: 'londons-trials-fire-war',
     wikipediaSlug: 'Horatio_Nelson,_1st_Viscount_Nelson',
   },
   {
@@ -1556,7 +1556,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1888',
     description: 'The unidentified serial killer who murdered at least five women in Whitechapel in 1888 and was never caught. The case created the modern concept of the serial killer and remains the most famous unsolved murder mystery in history.',
-    canonicalStoryId: 'london-under-fire',
+    canonicalStoryId: 'londons-trials-fire-war',
     wikipediaSlug: 'Jack_the_Ripper',
   },
   {
@@ -1565,7 +1565,7 @@ export const entities: Entity[] = [
     type: 'organization',
     years: '1960–1970',
     description: 'The band that changed everything — four Liverpool lads who rewrote the rules of popular music, sold 600 million records, and played their final live concert on a London rooftop in 1969.',
-    canonicalStoryId: 'london-great-stages',
+    canonicalStoryId: 'londons-trials-fire-war',
     wikipediaSlug: 'The_Beatles',
   },
   {
@@ -1604,7 +1604,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1475–1564',
     description: 'The sculptor who painted the Sistine Chapel ceiling, carved David from a rejected block of marble, and designed St. Peter\'s Basilica dome. The quintessential Renaissance genius, rivaled only by Leonardo da Vinci.',
-    canonicalStoryId: 'rome-renaissance-masters',
     wikipediaSlug: 'Michelangelo',
   },
   {
@@ -1613,7 +1612,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1571–1610',
     description: 'The most revolutionary painter of the Baroque era, who invented dramatic chiaroscuro lighting. Also a violent street brawler who killed a man, fled Rome with a death sentence, and died at 38 under mysterious circumstances.',
-    canonicalStoryId: 'rome-renaissance-masters',
     wikipediaSlug: 'Caravaggio',
   },
   {

@@ -14,8 +14,8 @@ export const CATEGORIES: Record<StoryCategory, CategoryConfig> = {
     bgColor: 'rgba(220, 38, 38, 0.15)',
     borderColor: 'rgba(220, 38, 38, 0.4)',
   },
-  'last-stands': {
-    label: 'Last Stands & Conflicts',
+  'battles-conflicts': {
+    label: 'Battles & Conflicts',
     color: '#d97706',
     bgColor: 'rgba(217, 119, 6, 0.15)',
     borderColor: 'rgba(217, 119, 6, 0.4)',

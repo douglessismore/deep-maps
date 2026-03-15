@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection, VerificationLevel } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
-import { getNotabilityThreshold, getEffectiveNotability } from '../../lib/notability';
+import { getEffectiveNotability } from '../../lib/notability';
 import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
@@ -81,7 +81,6 @@ export function ExplorePanel({
   const [activeTab, setActiveTab] = useState<PanelTab>('stories');
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
-  const [totalInBounds, setTotalInBounds] = useState(0); // unfiltered count for "zoom in to see more"
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
@@ -102,6 +101,7 @@ export function ExplorePanel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const collectionListCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
@@ -153,13 +153,10 @@ export function ExplorePanel({
     return result;
   }, [stories, searchQuery, categoryFilter]);
 
-  // Update viewport data when map moves (with zoom-based notability filtering)
+  // Update viewport data when map moves (panel shows ALL moments — no notability filter)
   const updateViewport = useCallback(() => {
     if (!mapInstance || isScrollDriving.current) return;
     const bounds = mapInstance.getBounds();
-    const zoom = mapInstance.getZoom();
-    const threshold = getNotabilityThreshold(zoom);
-    const effectiveThreshold = categoryFilter ? Math.max(0, threshold - 20) : threshold;
 
     // Filter by category if active
     const sourceStories = categoryFilter
@@ -167,14 +164,7 @@ export function ExplorePanel({
       : stories;
 
     const allInBounds = getLocationsInBounds(sourceStories, bounds);
-    setTotalInBounds(allInBounds.length);
-
-    // Apply notability filter (same logic as MapView)
-    const filtered = effectiveThreshold > 0
-      ? allInBounds.filter(vl => getEffectiveNotability(vl.location) >= effectiveThreshold)
-      : allInBounds;
-
-    setViewportLocations(filtered);
+    setViewportLocations(allInBounds);
     setViewportStories(getStoriesInBounds(sourceStories, bounds));
   }, [mapInstance, stories, categoryFilter]);
 
@@ -189,11 +179,12 @@ export function ExplorePanel({
     };
   }, [mapInstance, updateViewport]);
 
-  // Scroll-driven navigation (Stories tab + Collections active view)
+  // Scroll-driven navigation (Stories tab + Collections views)
   useEffect(() => {
     const isStoriesTab = activeTab === 'stories';
     const isActiveCollectionTab = activeTab === 'collections' && activeCollection != null;
-    if ((!isStoriesTab && !isActiveCollectionTab) || !mapInstance) return;
+    const isCollectionsListTab = activeTab === 'collections' && activeCollection == null;
+    if ((!isStoriesTab && !isActiveCollectionTab && !isCollectionsListTab) || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -209,6 +200,51 @@ export function ExplorePanel({
 
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
+
+        // Collection list — highlight collection's moments on map
+        if (isCollectionsListTab) {
+          let closestCollId: string | null = null;
+          let closestCollDist = Infinity;
+          collectionListCardRefs.current.forEach((el, id) => {
+            const rect = el.getBoundingClientRect();
+            const cardCenter = rect.top + rect.height / 2;
+            const dist = Math.abs(cardCenter - centerY);
+            if (dist < closestCollDist) {
+              closestCollDist = dist;
+              closestCollId = id;
+            }
+          });
+          if (closestCollId) {
+            const coll = collections.find(c => c.id === closestCollId);
+            if (coll) {
+              setScrollActiveStoryId(closestCollId);
+              const collMoments = coll.momentIds
+                .map(mid => moments.find(m => m.id === mid))
+                .filter((m): m is Moment => m != null);
+              if (collMoments.length > 0) {
+                onModeChange('scroll');
+                clearTimeout(highlightDebounce.current);
+                highlightDebounce.current = window.setTimeout(() => onScrollHighlight(collMoments), 30);
+                // Fit bounds to show all collection moments
+                clearTimeout(panTimeout.current);
+                panTimeout.current = window.setTimeout(() => {
+                  if (collMoments.length === 1) {
+                    mapInstance.panTo([collMoments[0].lat, collMoments[0].lng], { animate: true, duration: 0.3 });
+                  } else {
+                    const lats = collMoments.map(m => m.lat);
+                    const lngs = collMoments.map(m => m.lng);
+                    mapInstance.fitBounds(
+                      [[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]],
+                      { padding: [40, 40], animate: true, duration: 0.3, maxZoom: mapInstance.getZoom() }
+                    );
+                  }
+                }, 80);
+              }
+            }
+          }
+          return; // Don't fall through to story/entity logic
+        }
+
         let closestId: string | null = null;
         let closestDist = Infinity;
 
@@ -299,8 +335,9 @@ export function ExplorePanel({
       clearTimeout(panTimeout.current);
       clearTimeout(highlightDebounce.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      isScrollDriving.current = false; // Prevent stuck flag when switching tabs mid-scroll
     };
-  }, [activeTab, activeCollection, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
+  }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
 
   // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
@@ -522,7 +559,7 @@ export function ExplorePanel({
           Moments
           {viewportLocations.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">
-              ({viewportLocations.length}{totalInBounds > viewportLocations.length ? `/${totalInBounds}` : ''})
+              ({viewportLocations.length})
             </span>
           )}
           {activeTab === 'moments' && (
@@ -725,12 +762,6 @@ export function ExplorePanel({
                   </div>
                 );
               })}
-              {/* "Zoom in to discover more" affordance when notability filter is hiding moments */}
-              {totalInBounds > viewportLocations.length && (
-                <div className="text-center text-xs text-[var(--text-muted)] py-3 font-mono border-t border-[var(--border-subtle)] mt-2">
-                  Showing {viewportLocations.length} of {totalInBounds} moments — zoom in to discover more
-                </div>
-              )}
               {/* Bottom padding for scroll detection — minimal to avoid black space */}
               <div className="h-16" />
             </>
@@ -892,12 +923,22 @@ export function ExplorePanel({
                 {collections.map((collection) => {
                   const momentCount = collection.momentIds.length;
                   return (
-                    <CollectionCard
+                    <div
                       key={collection.id}
-                      collection={collection}
-                      momentCount={momentCount}
-                      onClick={onCollectionSelect}
-                    />
+                      ref={(el) => {
+                        if (el) collectionListCardRefs.current.set(collection.id, el);
+                        else collectionListCardRefs.current.delete(collection.id);
+                      }}
+                      className={scrollActiveStoryId === collection.id
+                        ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
+                        : 'transition-all duration-300'}
+                    >
+                      <CollectionCard
+                        collection={collection}
+                        momentCount={momentCount}
+                        onClick={onCollectionSelect}
+                      />
+                    </div>
                   );
                 })}
               </>
