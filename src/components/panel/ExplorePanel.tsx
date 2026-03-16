@@ -80,6 +80,7 @@ export function ExplorePanel({
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
   const [storySort, setStorySort] = useState<'notable' | 'nearest'>('notable');
+  const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
@@ -129,8 +130,8 @@ export function ExplorePanel({
   useEffect(() => {
     if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
     if (activeTab !== 'places') setScrollActiveEntityId(null);
-    // Auto-clear collection filter when navigating away from Collections tab
-    if (activeTab !== 'collections' && activeCollection) onClearCollection();
+    // Auto-clear collection filter when navigating to Stories/Places (not Moments — preserve filter there)
+    if (activeTab !== 'collections' && activeTab !== 'moments' && activeCollection) onClearCollection();
     // Clear map highlight to prevent ghosting from previous tab's scroll position
     onScrollHighlight([]);
   }, [activeTab]);
@@ -187,6 +188,18 @@ export function ExplorePanel({
       mapInstance.off('zoomend', updateViewport);
     };
   }, [mapInstance, updateViewport]);
+
+  // Collections filtered to viewport — only show collections with ≥1 moment in current map bounds
+  const viewportCollections = useMemo(() => {
+    if (!mapInstance) return collections;
+    const bounds = mapInstance.getBounds();
+    return collections.filter(c =>
+      c.momentIds.some(mid => {
+        const m = moments.find(mm => mm.id === mid);
+        return m && bounds.contains([m.lat, m.lng]);
+      })
+    );
+  }, [collections, mapInstance, viewportLocations]); // viewportLocations triggers recompute on map move
 
   // Scroll-driven navigation (Stories tab + Collections views)
   useEffect(() => {
@@ -352,10 +365,10 @@ export function ExplorePanel({
   // so the map shows relevant markers immediately instead of waiting for user to scroll
   useEffect(() => {
     const isCollectionsListTab = activeTab === 'collections' && activeCollection == null;
-    if (!isCollectionsListTab || !mapInstance || collections.length === 0) return;
+    if (!isCollectionsListTab || !mapInstance || viewportCollections.length === 0) return;
     // Small delay to allow DOM refs to populate
     const timer = setTimeout(() => {
-      const firstColl = collections[0];
+      const firstColl = viewportCollections[0];
       setScrollActiveStoryId(firstColl.id);
       const collMoments = firstColl.momentIds
         .map(mid => moments.find(m => m.id === mid))
@@ -365,7 +378,7 @@ export function ExplorePanel({
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, [activeTab, activeCollection, collections, mapInstance]);
+  }, [activeTab, activeCollection, viewportCollections, mapInstance]);
 
   // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
@@ -502,8 +515,36 @@ export function ExplorePanel({
     [placeEntities]
   );
 
+  // Sorted places for Notable/Nearest modes
+  const sortedPlaces = useMemo(() => {
+    const arr = [...placeEntities];
+    if (placeSort === 'notable') {
+      return arr.sort((a, b) => {
+        // Sort by storyCount desc (connection richness), then momentCount desc
+        const sa = a.storyCount * 10 + a.momentCount;
+        const sb = b.storyCount * 10 + b.momentCount;
+        return sb - sa;
+      });
+    }
+    if (placeSort === 'nearest' && userLocation) {
+      return arr.sort((a, b) => {
+        const aMoments = getMomentsForEntity(a.entity.id);
+        const bMoments = getMomentsForEntity(b.entity.id);
+        const aDist = aMoments.length > 0 ? Math.min(...aMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
+        const bDist = bMoments.length > 0 ? Math.min(...bMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
+        return aDist - bDist;
+      });
+    }
+    // a-z handled by placeAlphabeticalGroups
+    return arr.sort((a, b) => a.entity.name.localeCompare(b.entity.name));
+  }, [placeEntities, placeSort, userLocation]);
+
   const sortedMoments = useMemo(() => {
-    const arr = [...viewportLocations];
+    // When a collection is active, filter to only that collection's moments
+    const base = activeCollection
+      ? viewportLocations.filter(vl => activeCollection.momentIds.includes(vl.location.id))
+      : viewportLocations;
+    const arr = [...base];
     switch (momentSort) {
       case 'notable':
         return arr.sort((a, b) => (b.location.notability ?? 0) - (a.location.notability ?? 0));
@@ -523,7 +564,7 @@ export function ExplorePanel({
       default:
         return arr;
     }
-  }, [viewportLocations, momentSort, userLocation]);
+  }, [viewportLocations, momentSort, userLocation, activeCollection]);
 
   // Scroll-driven entity highlighting (Places tab)
   // Shows single primary pin for each entity (not all moments)
@@ -578,6 +619,54 @@ export function ExplorePanel({
     };
   }, [activeTab, mapInstance, placeEntities, onScrollHighlight]);
 
+  const renderPlaceRow = (entity: Entity, momentCount: number, isActive: boolean) => (
+    <button
+      key={entity.id}
+      ref={(el) => {
+        if (el) placesCardRefs.current.set(entity.id, el);
+        else placesCardRefs.current.delete(entity.id);
+      }}
+      onClick={() => onEntityClick?.(entity)}
+      className={`w-full flex items-start gap-2.5 px-1 py-2.5 text-left transition-colors group rounded border-b border-[var(--border-subtle)]/30 ${
+        isActive ? 'bg-[var(--bg-card-hover)]' : 'hover:bg-[var(--bg-card)]'
+      }`}
+    >
+      {/* Place icon */}
+      <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)] mt-0.5">
+        <svg width="11" height="11" viewBox="0 0 14 14" fill="none" className="text-[rgba(59,130,246,0.7)]">
+          <path d="M7 1C4.24 1 2 3.24 2 6c0 3.5 5 7 5 7s5-3.5 5-7c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5z" fill="currentColor"/>
+        </svg>
+      </span>
+      {/* Name + description */}
+      <div className="flex-1 min-w-0">
+        <span className={`text-xs font-serif font-semibold transition-colors truncate block ${
+          isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
+        }`}>
+          {entity.name}
+        </span>
+        {entity.description && (
+          <span className="text-[10px] text-[var(--text-muted)] line-clamp-1 block mt-0.5">
+            {entity.description}
+          </span>
+        )}
+      </div>
+      {/* Years */}
+      {entity.years && (
+        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
+          {entity.years}
+        </span>
+      )}
+      {/* Moment count */}
+      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
+        {momentCount}m
+      </span>
+      {/* Chevron */}
+      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50 mt-1.5">
+        <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </button>
+  );
+
   return (
     <div className="flex flex-col h-full relative">
       {/* Tabs — 4 equal tabs */}
@@ -591,9 +680,9 @@ export function ExplorePanel({
           }`}
         >
           Moments
-          {viewportLocations.length > 0 && (
+          {sortedMoments.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">
-              ({viewportLocations.length})
+              ({sortedMoments.length})
             </span>
           )}
           {activeTab === 'moments' && (
@@ -645,7 +734,12 @@ export function ExplorePanel({
           {activeCollection ? (
             <span className="truncate">{activeCollection.name}</span>
           ) : (
-            'Collections'
+            <>
+              Collections
+              {viewportCollections.length > 0 && (
+                <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportCollections.length})</span>
+              )}
+            </>
           )}
           {activeTab === 'collections' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
@@ -656,9 +750,9 @@ export function ExplorePanel({
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
         {activeTab === 'moments' ? (
-          viewportLocations.length === 0 ? (
+          sortedMoments.length === 0 ? (
             <EmptyState
-              message="Pan or zoom the map to see moments in this area"
+              message={activeCollection ? "No collection moments visible — zoom out to see more" : "Pan or zoom the map to see moments in this area"}
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
@@ -728,57 +822,42 @@ export function ExplorePanel({
             />
           ) : (
             <div>
-              {/* Alphabetical place entity list */}
-              {Array.from(placeAlphabeticalGroups.entries()).map(([letter, items]) => (
-                <div key={letter}>
-                  <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
-                    {letter}
+              {/* Sort toggle */}
+              <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
+                {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
+                  <span key={mode} className="flex items-center">
+                    {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
+                    <button
+                      onClick={() => {
+                        hasManualSort.current = true;
+                        setPlaceSort(mode);
+                        if (mode === 'nearest' && !userLocation) onRequestGeo?.();
+                      }}
+                      className={`transition-colors ${
+                        placeSort === mode
+                          ? 'text-[var(--text-primary)]'
+                          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                      }`}
+                    >
+                      {mode === 'a-z' ? 'A-Z' : mode.charAt(0).toUpperCase() + mode.slice(1)}
+                    </button>
+                  </span>
+                ))}
+              </div>
+              {placeSort === 'a-z' ? (
+                /* Alphabetical with letter headers */
+                Array.from(placeAlphabeticalGroups.entries()).map(([letter, items]) => (
+                  <div key={letter}>
+                    <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
+                      {letter}
+                    </div>
+                    {items.map(({ entity, momentCount }) => renderPlaceRow(entity, momentCount, scrollActiveEntityId === entity.id))}
                   </div>
-                  {items.map(({ entity, momentCount }) => {
-                    const isActive = scrollActiveEntityId === entity.id;
-                    return (
-                      <button
-                        key={entity.id}
-                        ref={(el) => {
-                          if (el) placesCardRefs.current.set(entity.id, el);
-                          else placesCardRefs.current.delete(entity.id);
-                        }}
-                        onClick={() => onEntityClick?.(entity)}
-                        className={`w-full flex items-center gap-2.5 px-1 py-2.5 text-left transition-colors group rounded border-b border-[var(--border-subtle)]/30 ${
-                          isActive ? 'bg-[var(--bg-card-hover)]' : 'hover:bg-[var(--bg-card)]'
-                        }`}
-                      >
-                        {/* Place icon */}
-                        <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)]">
-                          <svg width="11" height="11" viewBox="0 0 14 14" fill="none" className="text-[rgba(59,130,246,0.7)]">
-                            <path d="M7 1C4.24 1 2 3.24 2 6c0 3.5 5 7 5 7s5-3.5 5-7c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5z" fill="currentColor"/>
-                          </svg>
-                        </span>
-                        {/* Name */}
-                        <span className={`text-xs font-serif font-semibold transition-colors truncate flex-1 ${
-                          isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
-                        }`}>
-                          {entity.name}
-                        </span>
-                        {/* Years */}
-                        {entity.years && (
-                          <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
-                            {entity.years}
-                          </span>
-                        )}
-                        {/* Moment count */}
-                        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0">
-                          {momentCount}m
-                        </span>
-                        {/* Chevron */}
-                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50">
-                          <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </button>
-                    );
-                  })}
-                </div>
-              ))}
+                ))
+              ) : (
+                /* Notable / Nearest — flat sorted list */
+                sortedPlaces.map(({ entity, momentCount }) => renderPlaceRow(entity, momentCount, scrollActiveEntityId === entity.id))
+              )}
               {/* Bottom padding for scroll detection — minimal to avoid black space */}
               <div className="h-16" />
             </div>
@@ -845,16 +924,16 @@ export function ExplorePanel({
             </>
           ) : (
             /* Collection list — no active collection */
-            collections.length === 0 ? (
+            viewportCollections.length === 0 ? (
               <div className="py-12 text-center">
-                <p className="text-sm text-[var(--text-muted)] font-mono">No collections available</p>
+                <p className="text-sm text-[var(--text-muted)] font-mono">Pan or zoom the map to see collections in this area</p>
               </div>
             ) : (
               <>
                 <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">
                   Curated Collections
                 </p>
-                {collections.map((collection) => {
+                {viewportCollections.map((collection) => {
                   const momentCount = collection.momentIds.length;
                   return (
                     <div

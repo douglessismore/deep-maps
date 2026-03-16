@@ -37,16 +37,16 @@ export function smartFlyTo(
   map: L.Map,
   target: L.LatLngExpression,
   zoom: number,
-  baseDuration: number = 1.8
+  baseDuration: number = 1.2
 ) {
   const center = map.getCenter();
   const tll = L.latLng(target);
   const dist = degreeDistance([center.lat, center.lng], [tll.lat, tll.lng]);
 
-  if (dist > 5) {
+  if (dist > 3) {
     map.setView(target, zoom);
-  } else if (dist > 1.5) {
-    const duration = Math.min(baseDuration + dist * 0.25, 2.8);
+  } else if (dist > 1) {
+    const duration = Math.min(baseDuration + dist * 0.15, 2.0);
     map.flyTo(target, zoom, { duration });
   } else {
     map.flyTo(target, zoom, { duration: baseDuration });
@@ -64,15 +64,15 @@ export function smartFlyToBounds(
   const center = map.getCenter();
   const tc = bounds.getCenter();
   const dist = degreeDistance([center.lat, center.lng], [tc.lat, tc.lng]);
-  const baseDuration = options.duration ?? 1.8;
+  const baseDuration = options.duration ?? 1.2;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { duration: _, ...fitOpts } = options;
 
-  if (dist > 5) {
+  if (dist > 3) {
     map.fitBounds(bounds, { ...fitOpts, animate: false });
-  } else if (dist > 1.5) {
-    const duration = Math.min(baseDuration + dist * 0.25, 2.8);
+  } else if (dist > 1) {
+    const duration = Math.min(baseDuration + dist * 0.15, 2.0);
     map.flyToBounds(bounds, { ...fitOpts, duration });
   } else {
     map.flyToBounds(bounds, { ...fitOpts, duration: baseDuration });
@@ -568,7 +568,7 @@ function MapController({
     if (isUserDragging.current) return;
 
     if (activeLocation) {
-      smartFlyTo(map, [activeLocation.lat, activeLocation.lng], 14, 2.0);
+      smartFlyTo(map, [activeLocation.lat, activeLocation.lng], 14);
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       smartFlyToBounds(map, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
