@@ -89,6 +89,14 @@ function DataLoader({ children }: { children: ReactNode }) {
     queryFn: loadData,
   });
 
+  // Initialize module-scope helpers once when data arrives.
+  // Must be called before any early returns to satisfy Rules of Hooks.
+  useMemo(() => {
+    if (!data) return;
+    initEntityHelpers(data.entities, data.moments, data.stories);
+    initClustering(data.moments, data.stories);
+  }, [data]);
+
   if (isLoading) {
     return (
       <div className="h-full flex items-center justify-center bg-[var(--bg-primary)]">
@@ -116,15 +124,6 @@ function DataLoader({ children }: { children: ReactNode }) {
       </div>
     );
   }
-
-  // Initialize module-scope helpers once when data arrives.
-  // useMemo ensures this runs exactly once per data reference (which is stable
-  // because TanStack Query caches it with staleTime: Infinity).
-  useMemo(() => {
-    if (!data) return;
-    initEntityHelpers(data.entities, data.moments, data.stories);
-    initClustering(data.moments, data.stories);
-  }, [data]);
 
   if (!data) return null;
 
