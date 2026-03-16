@@ -130,7 +130,8 @@ export function ExplorePanel({
   useEffect(() => {
     if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
     if (activeTab !== 'places') setScrollActiveEntityId(null);
-    // Collection filter persists across all tabs — user clears it via the ✕ chip
+    // Clear collection when leaving collections tab — collection is a destination, not a filter
+    if (activeTab !== 'collections' && activeCollection) onClearCollection();
     // Clear map highlight to prevent ghosting from previous tab's scroll position
     onScrollHighlight([]);
   }, [activeTab]);
@@ -443,14 +444,6 @@ export function ExplorePanel({
     // Suppress canonical stories from browseable list
     result = result.filter(s => !canonicalStoryIds.has(s.id));
 
-    // When a collection is active, filter to stories that contain collection moments
-    if (activeCollection) {
-      const collMomentIds = new Set(activeCollection.momentIds);
-      result = result.filter(s =>
-        s.moments.some(sm => collMomentIds.has(sm.momentId))
-      );
-    }
-
     // Sort by active story sort mode
     if (storySort === 'nearest' && userLocation) {
       return [...result].sort((a, b) =>
@@ -459,7 +452,7 @@ export function ExplorePanel({
       );
     }
     return [...result].sort((a, b) => storyNotability(b) - storyNotability(a));
-  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort, activeCollection]);
+  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort]);
 
   // Viewport entities — split into people and places
   const viewportEntities: EntityWithCounts[] = useMemo(() => {
@@ -553,11 +546,7 @@ export function ExplorePanel({
   }, [placeEntities, placeSort, userLocation]);
 
   const sortedMoments = useMemo(() => {
-    // When a collection is active, filter to only that collection's moments
-    const base = activeCollection
-      ? viewportLocations.filter(vl => activeCollection.momentIds.includes(vl.location.id))
-      : viewportLocations;
-    const arr = [...base];
+    const arr = [...viewportLocations];
     switch (momentSort) {
       case 'notable':
         return arr.sort((a, b) => (b.location.notability ?? 0) - (a.location.notability ?? 0));
@@ -577,7 +566,7 @@ export function ExplorePanel({
       default:
         return arr;
     }
-  }, [viewportLocations, momentSort, userLocation, activeCollection]);
+  }, [viewportLocations, momentSort, userLocation]);
 
   // Scroll-driven entity highlighting (Places tab)
   // Shows single primary pin for each entity (not all moments)
@@ -682,8 +671,8 @@ export function ExplorePanel({
 
   return (
     <div className="flex flex-col h-full relative">
-      {/* Tabs — 4 equal tabs */}
-      <div className="flex border-b border-[var(--border-subtle)] shrink-0">
+      {/* Tabs — hidden when inside a collection (collection is a full destination) */}
+      {!activeCollection && <div className="flex border-b border-[var(--border-subtle)] shrink-0">
         <button
           onClick={() => setActiveTab('moments')}
           className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
@@ -693,9 +682,9 @@ export function ExplorePanel({
           }`}
         >
           Moments
-          {sortedMoments.length > 0 && (
+          {viewportLocations.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">
-              ({sortedMoments.length})
+              ({viewportLocations.length})
             </span>
           )}
           {activeTab === 'moments' && (
@@ -739,50 +728,25 @@ export function ExplorePanel({
           className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors relative ${
             activeTab === 'collections'
               ? 'text-[var(--text-primary)]'
-              : activeCollection
-                ? 'text-[var(--accent-red)]'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
-          {activeCollection ? (
-            <span className="truncate">{activeCollection.name}</span>
-          ) : (
-            <>
-              Collections
-              {viewportCollections.length > 0 && (
-                <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportCollections.length})</span>
-              )}
-            </>
+          Collections
+          {viewportCollections.length > 0 && (
+            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportCollections.length})</span>
           )}
           {activeTab === 'collections' && (
             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
           )}
         </button>
-      </div>
-
-      {/* Collection lens indicator — persistent chip when collection is active on non-collections tabs */}
-      {activeCollection && activeTab !== 'collections' && (
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-card)] border-b border-[var(--border-subtle)] shrink-0">
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">Filtered by</span>
-          <span className="text-[10px] font-mono text-[var(--accent-red)] truncate flex-1">{activeCollection.name}</span>
-          <button
-            onClick={onClearCollection}
-            className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
-            title="Clear collection filter"
-          >
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-              <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </button>
-        </div>
-      )}
+      </div>}
 
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
         {activeTab === 'moments' ? (
-          sortedMoments.length === 0 ? (
+          viewportLocations.length === 0 ? (
             <EmptyState
-              message={activeCollection ? "No collection moments visible — zoom out to see more" : "Pan or zoom the map to see moments in this area"}
+              message="Pan or zoom the map to see moments in this area"
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
