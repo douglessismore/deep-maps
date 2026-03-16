@@ -348,6 +348,25 @@ export function ExplorePanel({
     };
   }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
 
+  // Initial activation for collections list — highlight the first collection's pins on mount
+  // so the map shows relevant markers immediately instead of waiting for user to scroll
+  useEffect(() => {
+    const isCollectionsListTab = activeTab === 'collections' && activeCollection == null;
+    if (!isCollectionsListTab || !mapInstance || collections.length === 0) return;
+    // Small delay to allow DOM refs to populate
+    const timer = setTimeout(() => {
+      const firstColl = collections[0];
+      setScrollActiveStoryId(firstColl.id);
+      const collMoments = firstColl.momentIds
+        .map(mid => moments.find(m => m.id === mid))
+        .filter((m): m is Moment => m != null);
+      if (collMoments.length > 0) {
+        onScrollHighlight(collMoments);
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [activeTab, activeCollection, collections, mapInstance]);
+
   // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
     if (activeTab !== 'moments' || !mapInstance) return;

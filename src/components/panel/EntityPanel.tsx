@@ -150,7 +150,7 @@ export function EntityPanel({
         const centerY = containerRect.top + containerRect.height * 0.4;
 
         // If scrolled near bottom, activate the last card (it can't reach center)
-        const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+        const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 100;
 
         let closestId: string | null = null;
         let closestDist = Infinity;

@@ -86,7 +86,7 @@ export function StoryPanel({
         const centerY = containerRect.top + containerRect.height * 0.4;
 
         // If scrolled near bottom, activate the last card (it can't reach center)
-        const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+        const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 100;
 
         let closestId: string | null = null;
         let closestDist = Infinity;
@@ -158,6 +158,19 @@ export function StoryPanel({
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, [story, onScrollLocationSelect, scrollActiveId]);
+
+  // Initial activation: set the first location as active on story mount
+  // (StoryPanel doesn't auto-activate like EntityPanel does — the scroll handler
+  // only fires on scroll events, leaving scrollActiveId null until user scrolls)
+  useEffect(() => {
+    const storyLocations = resolveLocationsFromMap(story, momentMap);
+    if (storyLocations.length > 0) {
+      const initialId = activeLocation?.id ?? storyLocations[0].id;
+      setScrollActiveId(initialId);
+      setExpandedLocationId(initialId);
+      onScrollLocationSelect(storyLocations.find(l => l.id === initialId) ?? storyLocations[0]);
+    }
+  }, [story.id]); // Only on story mount/change
 
   // Scroll correction: when the active card changes, the collapsing card above shifts content up.
   // If the newly active card's title gets pushed above the scroll container, nudge it back into view.
