@@ -79,7 +79,7 @@ export function ExplorePanel({
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
-  const [storySort, setStorySort] = useState<'notable' | 'nearest'>('notable');
+  const [storySort, setStorySort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
@@ -130,8 +130,7 @@ export function ExplorePanel({
   useEffect(() => {
     if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
     if (activeTab !== 'places') setScrollActiveEntityId(null);
-    // Auto-clear collection filter when navigating to Stories/Places (not Moments — preserve filter there)
-    if (activeTab !== 'collections' && activeTab !== 'moments' && activeCollection) onClearCollection();
+    // Collection filter persists across all tabs — user clears it via the ✕ chip
     // Clear map highlight to prevent ghosting from previous tab's scroll position
     onScrollHighlight([]);
   }, [activeTab]);
@@ -444,6 +443,14 @@ export function ExplorePanel({
     // Suppress canonical stories from browseable list
     result = result.filter(s => !canonicalStoryIds.has(s.id));
 
+    // When a collection is active, filter to stories that contain collection moments
+    if (activeCollection) {
+      const collMomentIds = new Set(activeCollection.momentIds);
+      result = result.filter(s =>
+        s.moments.some(sm => collMomentIds.has(sm.momentId))
+      );
+    }
+
     // Sort by active story sort mode
     if (storySort === 'nearest' && userLocation) {
       return [...result].sort((a, b) =>
@@ -452,7 +459,7 @@ export function ExplorePanel({
       );
     }
     return [...result].sort((a, b) => storyNotability(b) - storyNotability(a));
-  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort]);
+  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort, activeCollection]);
 
   // Viewport entities — split into people and places
   const viewportEntities: EntityWithCounts[] = useMemo(() => {
@@ -474,6 +481,12 @@ export function ExplorePanel({
   const personEntities = useMemo(
     () => viewportEntities.filter((e) => e.entity.type === 'person'),
     [viewportEntities]
+  );
+
+  // Alphabetical grouping of people for A-Z mode in Stories tab
+  const personAlphabeticalGroups = useMemo(
+    () => groupAlphabetically(personEntities),
+    [personEntities]
   );
 
   // Mixed list: stories + people sorted by distance (or stories first if no location)
@@ -747,6 +760,23 @@ export function ExplorePanel({
         </button>
       </div>
 
+      {/* Collection lens indicator — persistent chip when collection is active on non-collections tabs */}
+      {activeCollection && activeTab !== 'collections' && (
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-card)] border-b border-[var(--border-subtle)] shrink-0">
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">Filtered by</span>
+          <span className="text-[10px] font-mono text-[var(--accent-red)] truncate flex-1">{activeCollection.name}</span>
+          <button
+            onClick={onClearCollection}
+            className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
+            title="Clear collection filter"
+          >
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+              <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
         {activeTab === 'moments' ? (
@@ -957,16 +987,16 @@ export function ExplorePanel({
               </>
             )
           )
-        ) : /* stories tab (default) */ mixedList.length === 0 ? (
+        ) : /* stories tab (default) */ (storySort === 'a-z' ? personEntities.length === 0 : mixedList.length === 0) ? (
           <EmptyState
-            message={searchQuery ? 'No stories match your search' : 'No stories in this area — zoom out or pan around'}
+            message={searchQuery ? 'No stories match your search' : storySort === 'a-z' ? 'No people in this area — zoom out or pan around' : 'No stories in this area — zoom out or pan around'}
             onSurpriseMe={onSurpriseMe}
           />
         ) : (
           <>
             {/* Sort toggle */}
             <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-              {(['notable', 'nearest'] as const).map((mode, i) => (
+              {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
                 <span key={mode} className="flex items-center">
                   {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
                   <button
@@ -981,59 +1011,90 @@ export function ExplorePanel({
                         : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
                     }`}
                   >
-                    {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                    {mode === 'a-z' ? 'A-Z (People)' : mode.charAt(0).toUpperCase() + mode.slice(1)}
                   </button>
                 </span>
               ))}
             </div>
-            {/* Mixed story + person cards */}
-            {mixedList.map((item) => {
-              if (item.kind === 'story') {
-                return (
-                  <div
-                    key={item.story.id}
-                    ref={(el) => {
-                      if (el) cardRefs.current.set(item.story.id, el);
-                      else cardRefs.current.delete(item.story.id);
-                    }}
-                    className={scrollActiveStoryId === item.story.id
-                      ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
-                      : 'transition-all duration-300'}
-                  >
-                    <StoryCard
-                      story={item.story}
-                      onClick={onStorySelect}
-                      compact={isMobile}
-                      distanceMi={
-                        userLocation
-                          ? nearestDistance(item.story, userLocation.lat, userLocation.lng)
-                          : undefined
-                      }
-                    />
+            {storySort === 'a-z' ? (
+              /* A-Z people with letter headers */
+              <>
+                {Array.from(personAlphabeticalGroups.entries()).map(([letter, items]) => (
+                  <div key={letter}>
+                    <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
+                      {letter}
+                    </div>
+                    {items.map(({ entity, momentCount, storyCount }) => (
+                      <div
+                        key={`person-${entity.id}`}
+                        ref={(el) => {
+                          if (el) cardRefs.current.set(entity.id, el);
+                          else cardRefs.current.delete(entity.id);
+                        }}
+                        className={scrollActiveStoryId === entity.id
+                          ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
+                          : 'transition-all duration-300'}
+                      >
+                        <PersonCard
+                          data={{ entity, momentCount, storyCount }}
+                          onClick={(e) => onEntityClick?.(e)}
+                          compact={isMobile}
+                        />
+                      </div>
+                    ))}
                   </div>
-                );
-              } else {
-                return (
-                  <div
-                    key={`person-${item.data.entity.id}`}
-                    ref={(el) => {
-                      if (el) cardRefs.current.set(item.data.entity.id, el);
-                      else cardRefs.current.delete(item.data.entity.id);
-                    }}
-                    className={scrollActiveStoryId === item.data.entity.id
-                      ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
-                      : 'transition-all duration-300'}
-                  >
-                    <PersonCard
-                      data={item.data}
-                      onClick={(entity) => onEntityClick?.(entity)}
-                      compact={isMobile}
-                      distanceMi={item.distance > 0 ? item.distance : undefined}
-                    />
-                  </div>
-                );
-              }
-            })}
+                ))}
+              </>
+            ) : (
+              /* Mixed story + person cards (Notable / Nearest) */
+              mixedList.map((item) => {
+                if (item.kind === 'story') {
+                  return (
+                    <div
+                      key={item.story.id}
+                      ref={(el) => {
+                        if (el) cardRefs.current.set(item.story.id, el);
+                        else cardRefs.current.delete(item.story.id);
+                      }}
+                      className={scrollActiveStoryId === item.story.id
+                        ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
+                        : 'transition-all duration-300'}
+                    >
+                      <StoryCard
+                        story={item.story}
+                        onClick={onStorySelect}
+                        compact={isMobile}
+                        distanceMi={
+                          userLocation
+                            ? nearestDistance(item.story, userLocation.lat, userLocation.lng)
+                            : undefined
+                        }
+                      />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={`person-${item.data.entity.id}`}
+                      ref={(el) => {
+                        if (el) cardRefs.current.set(item.data.entity.id, el);
+                        else cardRefs.current.delete(item.data.entity.id);
+                      }}
+                      className={scrollActiveStoryId === item.data.entity.id
+                        ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
+                        : 'transition-all duration-300'}
+                    >
+                      <PersonCard
+                        data={item.data}
+                        onClick={(entity) => onEntityClick?.(entity)}
+                        compact={isMobile}
+                        distanceMi={item.distance > 0 ? item.distance : undefined}
+                      />
+                    </div>
+                  );
+                }
+              })
+            )}
           </>
         )}
       </div>
