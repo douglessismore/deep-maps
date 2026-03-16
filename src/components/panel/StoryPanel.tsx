@@ -125,6 +125,12 @@ export function StoryPanel({
           closestId = storyLocations[storyLocations.length - 1].id;
         }
 
+        // Near bottom: force-expand the last card even if it's already the active card
+        // (handles case where scrollActiveId was set but expandedLocationId wasn't due to bounds-check)
+        if (isNearBottom && closestId && closestId === scrollActiveId && expandedLocationIdRef.current !== closestId) {
+          setExpandedLocationId(closestId);
+        }
+
         if (closestId && closestId !== scrollActiveId) {
           // Don't collapse the expanded card while the user is still scrolling within it
           // (reading long descriptions). Only switch expand when center leaves the card bounds.
@@ -529,7 +535,7 @@ export function StoryPanel({
             </div>
           </div>
 
-          <div className="h-[60vh]" />
+          <div className="h-[30vh]" />
         </div>
       )}
 

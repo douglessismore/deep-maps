@@ -139,7 +139,7 @@ export function getStoryEntities(storyId: string): Array<{ entity: Entity; momen
     const entity = entityMap.get(eid);
     if (!entity) continue;
     const entries = getEntityMomentStories(eid);
-    const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
+    const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)).filter(id => !canonicalStoryIds.has(id)));
     result.push({ entity, momentCount: count, storyCount: storyIds.size });
   }
 

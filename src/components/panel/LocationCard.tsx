@@ -58,7 +58,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           if (entity.canonicalStoryId === story.id) return null;
           if (excludeSet.has(eid)) return null;
           const entries = getEntityMomentStories(eid);
-          const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
+          const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)).filter(id => !canonicalStoryIds.has(id)));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
         })
         .filter((e): e is NonNullable<typeof e> => e != null);
