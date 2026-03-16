@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
-import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection, VerificationLevel } from '../../types';
+import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { moments } from '../../data/moments';
@@ -9,6 +9,7 @@ import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonica
 import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
+import { LocationCard } from './LocationCard';
 
 type MixedListItem =
   | { kind: 'story'; story: Story; distance: number }
@@ -16,12 +17,6 @@ type MixedListItem =
 
 const momentMap = buildMomentMap(moments);
 
-const VERIFICATION_DISPLAY: Record<VerificationLevel, { label: string; color: string; title: string }> = {
-  verified: { label: 'Verified', color: '#22c55e', title: 'Corroborated by multiple independent historical sources' },
-  documented: { label: 'Documented', color: '#eab308', title: 'Historical record exists but key details are disputed' },
-  traditional: { label: 'Traditional', color: '#60a5fa', title: 'Religious or cultural tradition' },
-  legendary: { label: 'Legendary', color: '#a78bfa', title: 'Folklore, unverified claims, or paranormal' },
-};
 
 interface ExplorePanelProps {
   stories: Story[];
@@ -673,117 +668,33 @@ export function ExplorePanel({
               </div>
               {sortedMoments.map((vl) => {
                 const key = `${vl.story.id}-${vl.location.id}`;
-                const isActive = activeLocationId === vl.location.id;
-                const isExpanded = expandedLocationKey === key;
                 return (
-                  <div
+                  <LocationCard
                     key={key}
                     ref={(el) => {
                       if (el) locationCardRefs.current.set(key, el);
                       else locationCardRefs.current.delete(key);
                     }}
-                    onClick={() => {
-                      setExpandedLocationKey(isExpanded ? null : key);
-                      setActiveLocationId(vl.location.id);
-                      onScrollHighlight([vl.location]);
+                    location={vl.location}
+                    story={vl.story}
+                    isActive={activeLocationId === vl.location.id}
+                    isExpanded={expandedLocationKey === key}
+                    showExpandChevron
+                    parentStories={[vl.story]}
+                    onClick={(moment) => {
+                      setExpandedLocationKey(expandedLocationKey === key ? null : key);
+                      setActiveLocationId(moment.id);
+                      onScrollHighlight([moment]);
                       if (mapInstance) {
-                        mapInstance.panTo([vl.location.lat, vl.location.lng], {
+                        mapInstance.panTo([moment.lat, moment.lng], {
                           animate: true,
                           duration: 0.3,
                         });
                       }
                     }}
-                    className={`cursor-pointer transition-all duration-200 rounded-r-lg py-2.5 pl-3 pr-3 border-l-2 ${
-                      isActive
-                        ? 'bg-[var(--bg-card-hover)] border-l-[var(--accent-red)]'
-                        : 'bg-[var(--bg-card)] border-l-transparent hover:bg-[var(--bg-card-hover)]'
-                    }`}
-                  >
-                    {/* Title + year */}
-                    <div className="flex items-baseline justify-between gap-2">
-                      <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)] leading-tight">
-                        {vl.location.name}
-                      </h4>
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        {vl.location.year && (
-                          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                            {vl.location.year}
-                          </span>
-                        )}
-                        <svg
-                          width="10" height="10" viewBox="0 0 10 10" fill="none"
-                          className={`text-[var(--text-muted)] transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-                        >
-                          <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                    </div>
-                    {/* Subtitle hook */}
-                    {vl.location.subtitle && (
-                      <p className="text-xs italic text-[var(--text-secondary)] line-clamp-1 font-serif mt-0.5 opacity-75">
-                        {vl.location.subtitle}
-                      </p>
-                    )}
-                    {/* Story name chip */}
-                    <p className="text-[10px] font-mono text-[var(--text-muted)] mt-0.5 truncate">
-                      {vl.story.name}
-                    </p>
-                    {/* Expanded content */}
-                    {isExpanded && (
-                      <div className="mt-3 space-y-2.5">
-                        {vl.location.description && (
-                          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                            {vl.location.description}
-                          </p>
-                        )}
-                        {vl.location.verificationLevel && vl.location.verificationLevel !== 'verified' && (
-                          <span
-                            className="inline-flex items-center gap-1 text-[10px] font-mono text-[var(--text-muted)]"
-                            title={VERIFICATION_DISPLAY[vl.location.verificationLevel].title}
-                          >
-                            <span
-                              className="inline-block w-1.5 h-1.5 rounded-full"
-                              style={{ backgroundColor: VERIFICATION_DISPLAY[vl.location.verificationLevel].color }}
-                            />
-                            {VERIFICATION_DISPLAY[vl.location.verificationLevel].label}
-                          </span>
-                        )}
-                        {vl.location.address && (
-                          <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                            &#128205; {vl.location.address}
-                          </p>
-                        )}
-                        <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${vl.location.lat},${vl.location.lng}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M6 1C3.79 1 2 2.79 2 5c0 3 4 6 4 6s4-3 4-6c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/>
-                          </svg>
-                          Open in Google Maps
-                          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                            <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </a>
-                        {/* Navigate to story */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onLocationSelect(vl.location, vl.story);
-                          }}
-                          className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-white transition-colors"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          Read Story
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                    onStoryClick={(story) => onLocationSelect(vl.location, story)}
+                    onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
+                  />
                 );
               })}
               {/* Bottom padding for scroll detection — minimal to avoid black space */}
@@ -881,56 +792,36 @@ export function ExplorePanel({
                   <p className="text-sm text-[var(--text-muted)] font-mono">No locations in this collection</p>
                 </div>
               ) : (
-                displayMoments.map((moment) => {
-                  const parentStory = momentToStoryMap.get(moment.id);
-                  return (
-                    <button
-                      key={moment.id}
-                      ref={(el) => {
-                        if (el) cardRefs.current.set(moment.id, el);
-                        else cardRefs.current.delete(moment.id);
-                      }}
-                      onClick={() => {
-                        if (parentStory) onLocationSelect(moment, parentStory);
-                      }}
-                      className={`w-full text-left px-3 py-2.5 border-b border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] transition-colors group ${
-                        scrollActiveStoryId === moment.id ? 'bg-[var(--bg-card-hover)]' : ''
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0 flex-1">
-                          <p className="text-xs font-serif font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
-                            {moment.name}
-                          </p>
-                          <p className="text-[10px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-1">
-                            {moment.subtitle}
-                          </p>
-                        </div>
-                        {moment.year && (
-                          <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
-                            {moment.year}
-                          </span>
-                        )}
-                      </div>
-                      {parentStory && (
-                        <div className="mt-1.5 flex items-center gap-1">
-                          <span
-                            className="text-[10px] font-mono text-[var(--accent-red)] hover:underline cursor-pointer"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onStorySelect(parentStory);
-                            }}
-                          >
-                            Dive Deep &rarr;
-                          </span>
-                          <span className="text-[10px] font-mono text-[var(--text-muted)] truncate">
-                            {parentStory.name}
-                          </span>
-                        </div>
-                      )}
-                    </button>
-                  );
-                })
+                <div className="p-2 space-y-1">
+                  {displayMoments.map((moment) => {
+                    const parentStory = momentToStoryMap.get(moment.id);
+                    if (!parentStory) return null;
+                    return (
+                      <LocationCard
+                        key={moment.id}
+                        ref={(el) => {
+                          if (el) cardRefs.current.set(moment.id, el);
+                          else cardRefs.current.delete(moment.id);
+                        }}
+                        location={moment}
+                        story={parentStory}
+                        isActive={scrollActiveStoryId === moment.id}
+                        isExpanded={expandedLocationKey === moment.id}
+                        showExpandChevron
+                        parentStories={[parentStory]}
+                        onClick={(m) => {
+                          setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
+                          onScrollHighlight([m]);
+                          if (mapInstance) {
+                            mapInstance.panTo([m.lat, m.lng], { animate: true, duration: 0.3 });
+                          }
+                        }}
+                        onStoryClick={(story) => onLocationSelect(moment, story)}
+                        onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
+                      />
+                    );
+                  })}
+                </div>
               )}
             </>
           ) : (

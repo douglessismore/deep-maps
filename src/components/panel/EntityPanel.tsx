@@ -1,7 +1,6 @@
 import type { Entity, Moment, Story } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import {
-  entityMap,
   getEntityMomentStories,
   getEntityStories,
   getNotableFigures,
@@ -9,7 +8,8 @@ import {
   canonicalStoryIds,
 } from '../../lib/entityHelpers';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
-import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
+import { GoDeeperCard } from './GoDeeperCard';
+import { LocationCard } from './LocationCard';
 
 interface EntityPanelProps {
   entity: Entity;
@@ -230,185 +230,26 @@ export function EntityPanel({
     moment: Moment,
     parentStories: Story[]
   ) => {
-    const isScrollActive = scrollActiveId === moment.id;
-    const isExpanded = expandedMomentId === moment.id;
-    // Entities on this moment (excluding the one we're viewing)
-    const otherEntities = (moment.entityIds ?? [])
-      .map((eid) => (eid !== entity.id ? entityMap.get(eid) : null))
-      .filter((e): e is Entity => e != null);
-
+    const primaryStory = parentStories[0];
+    if (!primaryStory) return null;
     return (
-      <div
+      <LocationCard
         key={moment.id}
         ref={(el) => {
           if (el) momentRefs.current.set(moment.id, el);
           else momentRefs.current.delete(moment.id);
         }}
+        location={moment}
+        story={primaryStory}
+        isActive={scrollActiveId === moment.id}
+        isExpanded={expandedMomentId === moment.id}
+        showExpandChevron
+        parentStories={parentStories}
+        excludeEntityIds={[entity.id]}
         onClick={() => handleMomentClick(moment, parentStories)}
-        className={`cursor-pointer transition-all duration-200 rounded-r-lg py-2.5 pl-3 pr-3 border-l-2 ${
-          isScrollActive
-            ? 'bg-[var(--bg-card-hover)] border-l-[var(--accent-red)]'
-            : 'bg-[var(--bg-card)] border-l-transparent hover:bg-[var(--bg-card-hover)]'
-        }`}
-      >
-        {/* Name + year */}
-        <div className="flex items-baseline justify-between gap-2">
-          <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)] leading-tight">
-            {moment.name}
-          </h4>
-          <div className="flex items-center gap-1.5 shrink-0">
-            {moment.year && (
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                {moment.year}
-              </span>
-            )}
-            {/* Expand/collapse indicator */}
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
-              fill="none"
-              className={`text-[var(--text-muted)] transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-            >
-              <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Expanded content */}
-        {isExpanded && (
-          <div className="mt-3 space-y-2.5">
-            {/* Description */}
-            {moment.description && (
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                {moment.description}
-              </p>
-            )}
-            {/* Address */}
-            {moment.address && (
-              <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                &#128205; {moment.address}
-              </p>
-            )}
-            {/* Google Maps link */}
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${moment.lat},${moment.lng}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1C3.79 1 2 2.79 2 5c0 3 4 6 4 6s4-3 4-6c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/>
-              </svg>
-              Open in Google Maps
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-            {/* Wikipedia link — use first parent story's slug + moment's wikiSection */}
-            {(() => {
-              const wikiStory = parentStories.find((s) => s.wikipediaSlug);
-              if (!wikiStory) return null;
-              const url = `https://en.wikipedia.org/wiki/${wikiStory.wikipediaSlug}${moment.wikiSection ? '#' + moment.wikiSection : ''}`;
-              return (
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-                >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-                    <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
-                  </svg>
-                  Read on Wikipedia
-                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                    <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </a>
-              );
-            })()}
-          </div>
-        )}
-
-        {/* Dive Deeper — stories + other entities on this moment */}
-        {isExpanded ? (
-          /* Expanded: full DIVE DEEPER section with GoDeeperCards */
-          (parentStories.filter(s => !canonicalStoryIds.has(s.id)).length > 0 || otherEntities.length > 0) && (
-            <GoDeeperSection>
-              {otherEntities.map((otherEntity) => (
-                <GoDeeperCard
-                  key={otherEntity.id}
-                  label={otherEntity.name}
-                  sublabel={otherEntity.years || otherEntity.type}
-                  icon={<span className="text-sm opacity-60">{otherEntity.type === 'person' ? '👤' : '📍'}</span>}
-                  onClick={() => onEntityClick(otherEntity, moment)}
-                />
-              ))}
-              {parentStories.filter(s => !canonicalStoryIds.has(s.id)).map((s) => {
-                const sCat = CATEGORIES[s.category];
-                return (
-                  <GoDeeperCard
-                    key={s.id}
-                    label={s.name}
-                    sublabel={`${s.moments.length} ${s.moments.length === 1 ? 'moment' : 'moments'} · ${s.years}`}
-                    icon={<span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />}
-                    onClick={() => onStoryClick(s, moment)}
-                  />
-                );
-              })}
-            </GoDeeperSection>
-          )
-        ) : (
-          /* Collapsed: inline chips for strottability */
-          <>
-            {parentStories.filter(s => !canonicalStoryIds.has(s.id)).length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-1.5">
-                {parentStories.filter(s => !canonicalStoryIds.has(s.id)).map((s) => {
-                  const sCat = CATEGORIES[s.category];
-                  return (
-                    <button
-                      key={s.id}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onStoryClick(s, moment);
-                      }}
-                      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all truncate max-w-[180px]"
-                    >
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0 inline-block"
-                        style={{ backgroundColor: sCat.color }}
-                      />
-                      <span className="truncate">{s.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-            {otherEntities.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-1">
-                {otherEntities.map((otherEntity) => (
-                  <button
-                    key={otherEntity.id}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEntityClick(otherEntity, moment);
-                    }}
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all"
-                  >
-                    <span className="opacity-60 text-[9px]">
-                      {otherEntity.type === 'person' ? '👤' : '📍'}
-                    </span>
-                    <span className="truncate max-w-[140px]">{otherEntity.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+        onStoryClick={(story) => onStoryClick(story, moment)}
+        onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
+      />
     );
   };
 

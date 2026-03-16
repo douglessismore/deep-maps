@@ -29,30 +29,59 @@ interface LocationCardProps {
   onWikiJump?: (section?: string) => void;
   narrativeGlue?: string;
   alsoInStories?: Story[];
+  parentStories?: Story[];
+  excludeEntityIds?: string[];
+  showExpandChevron?: boolean;
   onStoryClick?: (story: Story) => void;
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
-  function LocationCard({ location, story, isActive, isExpanded, onClick, showStoryName = false, index, onWikiJump, narrativeGlue, alsoInStories, onStoryClick, onEntityClick }, ref) {
+  function LocationCard({
+    location, story, isActive, isExpanded, onClick,
+    showStoryName = false, index, onWikiJump, narrativeGlue,
+    alsoInStories, parentStories, excludeEntityIds,
+    showExpandChevron, onStoryClick, onEntityClick,
+  }, ref) {
     const cat = CATEGORIES[story.category];
 
     // Resolve entities for "Dive Deeper" chips/cards — always computed for strottability
-    // Excludes the entity that "owns" this story (canonicalStoryId === story.id) to avoid self-links
+    // Excludes: entity whose canonicalStoryId === story.id (self-link in story view)
+    //           + any explicitly excluded entities (e.g. the entity being viewed in EntityPanel)
     const resolvedEntities = useMemo(() => {
       if (!location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
+      const excludeSet = new Set(excludeEntityIds ?? []);
       return location.entityIds
         .map((eid) => {
           const entity = entityMap.get(eid);
           if (!entity) return null;
-          // Skip the entity whose canonical story IS this story (self-link)
           if (entity.canonicalStoryId === story.id) return null;
+          if (excludeSet.has(eid)) return null;
           const entries = getEntityMomentStories(eid);
           const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
         })
         .filter((e): e is NonNullable<typeof e> => e != null);
-    }, [location.entityIds, story.id, onEntityClick]);
+    }, [location.entityIds, story.id, onEntityClick, excludeEntityIds]);
+
+    // Merge all navigable stories for Dive Deeper (deduplicated, excluding canonical)
+    const navigableStories = useMemo(() => {
+      const seen = new Set<string>();
+      const result: Story[] = [];
+      for (const s of [...(parentStories ?? []), ...(alsoInStories ?? [])]) {
+        if (!seen.has(s.id) && !canonicalStoryIds.has(s.id)) {
+          seen.add(s.id);
+          result.push(s);
+        }
+      }
+      return result;
+    }, [parentStories, alsoInStories]);
+
+    // Story chips for collapsed state (non-story contexts only)
+    const storyChips = useMemo(() => {
+      if (!parentStories || parentStories.length === 0 || !onStoryClick) return [];
+      return parentStories.filter(s => !canonicalStoryIds.has(s.id));
+    }, [parentStories, onStoryClick]);
 
     return (
       <div
@@ -67,7 +96,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           borderLeftColor: isActive ? cat.color : 'transparent',
         }}
       >
-        {/* Number + Name */}
+        {/* Number + Name + optional chevron */}
         <div className="flex items-start gap-2">
           {typeof index === 'number' && (
             <span
@@ -78,9 +107,26 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             </span>
           )}
           <div className="flex-1 min-w-0">
-            <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)]">
-              {location.name}
-            </h4>
+            <div className="flex items-baseline justify-between gap-2">
+              <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)]">
+                {location.name}
+              </h4>
+              {showExpandChevron && (
+                <div className="flex items-center gap-1.5 shrink-0">
+                  {location.year && (
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                      {location.year}
+                    </span>
+                  )}
+                  <svg
+                    width="10" height="10" viewBox="0 0 10 10" fill="none"
+                    className={`text-[var(--text-muted)] transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                  >
+                    <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              )}
+            </div>
             <p className="text-xs text-[var(--text-secondary)] mt-0.5 leading-relaxed font-serif italic">
               {location.subtitle}
             </p>
@@ -95,10 +141,10 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
               <span>·</span>
             </>
           )}
-          {location.year && <span>{location.year}</span>}
-          {location.year && location.type && <span>·</span>}
+          {!showExpandChevron && location.year && <span>{location.year}</span>}
+          {!showExpandChevron && location.year && location.type && <span>·</span>}
           {location.type && <span className="capitalize">{location.type.replace('_', ' ')}</span>}
-          <span>·</span>
+          {location.type && <span>·</span>}
           <span className="capitalize">{location.importance}</span>
           {location.accuracy && (
             <>
@@ -132,28 +178,55 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           )}
         </div>
 
-        {/* Entity chips — visible even when collapsed for strottability */}
-        {!isExpanded && resolvedEntities.length > 0 && onEntityClick && (
-          <div className="flex flex-wrap gap-1 mt-2">
-            {resolvedEntities.map(({ entity }) => (
-              <button
-                key={entity.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEntityClick(entity, location);
-                }}
-                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-              >
-                <span className="opacity-60 text-[9px]">
-                  {entity.type === 'person' ? '👤' : '📍'}
-                </span>
-                <span className="truncate max-w-[120px]">{entity.name}</span>
-              </button>
-            ))}
-          </div>
+        {/* Collapsed chips — story chips + entity chips for strottability */}
+        {!isExpanded && (
+          <>
+            {storyChips.length > 0 && onStoryClick && (
+              <div className="flex flex-wrap gap-1 mt-1.5">
+                {storyChips.map((s) => {
+                  const sCat = CATEGORIES[s.category];
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onStoryClick(s);
+                      }}
+                      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all truncate max-w-[180px]"
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0 inline-block"
+                        style={{ backgroundColor: sCat.color }}
+                      />
+                      <span className="truncate">{s.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {resolvedEntities.length > 0 && onEntityClick && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {resolvedEntities.map(({ entity }) => (
+                  <button
+                    key={entity.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEntityClick(entity, location);
+                    }}
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                  >
+                    <span className="opacity-60 text-[9px]">
+                      {entity.type === 'person' ? '👤' : '📍'}
+                    </span>
+                    <span className="truncate max-w-[120px]">{entity.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
 
-        {/* Description (expanded via click, independent of scroll highlight) */}
+        {/* Expanded content */}
         {isExpanded && (
           <div className="mt-3 space-y-3">
             {narrativeGlue && (
@@ -185,7 +258,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
-            {/* Read on Wikipedia link */}
+            {/* Read on Wikipedia link — in-app wiki jump (story context) */}
             {onWikiJump && (
               <button
                 onClick={(e) => {
@@ -204,8 +277,32 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </svg>
               </button>
             )}
-            {/* Dive Deeper — unified entity + cross-story navigation */}
-            {(resolvedEntities.length > 0 || (alsoInStories && alsoInStories.filter(s => !canonicalStoryIds.has(s.id)).length > 0)) && (
+            {/* External Wikipedia link — non-story contexts (entity panel, etc.) */}
+            {!onWikiJump && (() => {
+              const wikiStory = story.wikipediaSlug ? story : parentStories?.find(s => s.wikipediaSlug);
+              if (!wikiStory) return null;
+              const url = `https://en.wikipedia.org/wiki/${wikiStory.wikipediaSlug}${location.wikiSection ? '#' + location.wikiSection : ''}`;
+              return (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                    <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+                  </svg>
+                  Read on Wikipedia
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                    <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              );
+            })()}
+            {/* Dive Deeper — unified entity + story navigation */}
+            {(resolvedEntities.length > 0 || navigableStories.length > 0) && (
               <GoDeeperSection>
                 {resolvedEntities.map(({ entity, momentCount, storyCount }) => (
                   <GoDeeperCard
@@ -216,7 +313,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                     onClick={() => onEntityClick!(entity, location)}
                   />
                 ))}
-                {alsoInStories?.filter(s => !canonicalStoryIds.has(s.id)).map((otherStory) => {
+                {navigableStories.map((otherStory) => {
                   const otherCat = CATEGORIES[otherStory.category];
                   return (
                     <GoDeeperCard
