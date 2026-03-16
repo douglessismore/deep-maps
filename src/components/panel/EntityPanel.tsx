@@ -149,6 +149,9 @@ export function EntityPanel({
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
 
+        // If scrolled near bottom, activate the last card (it can't reach center)
+        const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+
         let closestId: string | null = null;
         let closestDist = Infinity;
 
@@ -161,6 +164,11 @@ export function EntityPanel({
             closestId = id;
           }
         });
+
+        // Near bottom of scroll: force last moment active
+        if (isNearBottom && momentEntries.length > 0) {
+          closestId = momentEntries[momentEntries.length - 1].moment.id;
+        }
 
         if (closestId && closestId !== scrollActiveId) {
           setScrollActiveId(closestId);
@@ -390,7 +398,7 @@ export function EntityPanel({
               </div>
             )}
             {/* Bottom padding so last card can scroll to the 40% detection line */}
-            <div className="h-16" />
+            <div className="h-[40vh]" />
           </div>
         ) : activeTab === 'connections' ? (
           renderConnectionsTab()

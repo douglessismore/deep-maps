@@ -130,7 +130,7 @@ export function StoryPanel({
           // (reading long descriptions). Only switch expand when center leaves the card bounds.
           const currentExpanded = expandedLocationIdRef.current;
           const expandedEl = currentExpanded ? locationRefs.current.get(currentExpanded) : null;
-          const centerStillInExpanded = expandedEl && (() => {
+          const centerStillInExpanded = expandedEl && !isNearBottom && (() => {
             const r = expandedEl.getBoundingClientRect();
             return centerY >= r.top && centerY <= r.bottom;
           })();
@@ -516,7 +516,7 @@ export function StoryPanel({
             </div>
           </div>
 
-          <div className="h-8" />
+          <div className="h-[60vh]" />
         </div>
       )}
 
