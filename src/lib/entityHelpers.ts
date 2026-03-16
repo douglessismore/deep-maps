@@ -1,4 +1,5 @@
 import type { Entity, Moment, Story } from '../types';
+import { getEffectiveNotability } from './notability';
 
 // ─── Module-scope data (set once via initEntityHelpers) ──────────────
 let _entities: Entity[] = [];
@@ -161,13 +162,16 @@ export function getStoryEntities(storyId: string): Array<{ entity: Entity; momen
     }
   }
 
-  const result: Array<{ entity: Entity; momentCount: number; storyCount: number }> = [];
+  const result: Array<{ entity: Entity; momentCount: number; storyCount: number; maxNotability: number }> = [];
   for (const [eid, count] of entityCounts) {
     const entity = entityMap.get(eid);
     if (!entity) continue;
     const entries = getEntityMomentStories(eid);
     const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)).filter(id => !canonicalStoryIds.has(id)));
-    result.push({ entity, momentCount: count, storyCount: storyIds.size });
+    const maxNotability = entries.length > 0
+      ? Math.max(...entries.map(({ moment }) => getEffectiveNotability(moment)))
+      : 0;
+    result.push({ entity, momentCount: count, storyCount: storyIds.size, maxNotability });
   }
 
   return result.sort((a, b) => b.momentCount - a.momentCount);
@@ -182,6 +186,7 @@ export interface EntityWithCounts {
   entity: Entity;
   momentCount: number;
   storyCount: number;
+  maxNotability: number;
 }
 
 /** Entities that have moments in the given set of moment IDs. Sorted by moment count desc. */
@@ -198,10 +203,14 @@ export function getViewportEntities(
     const storyIds = new Set(
       entries.flatMap(({ stories: s }) => s.map((st) => st.id))
     );
+    const maxNotability = entries.length > 0
+      ? Math.max(...entries.map(({ moment }) => getEffectiveNotability(moment)))
+      : 0;
     result.push({
       entity,
       momentCount: entries.length,
       storyCount: storyIds.size,
+      maxNotability,
     });
   }
   return result.sort((a, b) => b.momentCount - a.momentCount);

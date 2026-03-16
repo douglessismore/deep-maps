@@ -12,8 +12,8 @@ import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
 
 type MixedListItem =
-  | { kind: 'story'; story: Story; distance: number }
-  | { kind: 'person'; data: EntityWithCounts; distance: number };
+  | { kind: 'story'; story: Story; distance: number; notability: number }
+  | { kind: 'person'; data: EntityWithCounts; distance: number; notability: number };
 
 
 interface ExplorePanelProps {
@@ -37,9 +37,11 @@ interface ExplorePanelProps {
   userLocation?: { lat: number; lng: number } | null;
   onRequestGeo?: () => void;
   onEntityClick?: (entity: Entity) => void;
+  activeTab?: PanelTab;
+  onTabChange?: (tab: PanelTab) => void;
 }
 
-type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
+export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
 
 /** Get the nearest location distance from a story to a point */
 function nearestDistance(story: Story, lat: number, lng: number, mMap: Map<string, Moment>): number {
@@ -72,10 +74,17 @@ export function ExplorePanel({
   userLocation,
   onRequestGeo,
   onEntityClick,
+  activeTab: controlledTab,
+  onTabChange,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
-  const [activeTab, setActiveTab] = useState<PanelTab>('stories');
+  const [internalTab, setInternalTab] = useState<PanelTab>('stories');
+  const activeTab = controlledTab ?? internalTab;
+  const setActiveTab = useCallback((tab: PanelTab) => {
+    if (onTabChange) onTabChange(tab);
+    else setInternalTab(tab);
+  }, [onTabChange]);
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
@@ -490,6 +499,7 @@ export function ExplorePanel({
       distance: userLocation
         ? nearestDistance(story, userLocation.lat, userLocation.lng, momentMap)
         : 0,
+      notability: storyNotability(story, momentMap),
     }));
     const personItems: MixedListItem[] = personEntities.map((data) => {
       let dist = Infinity;
@@ -500,12 +510,14 @@ export function ExplorePanel({
           if (d < dist) dist = d;
         }
       }
-      return { kind: 'person' as const, data, distance: dist === Infinity ? 0 : dist };
+      return { kind: 'person' as const, data, distance: dist === Infinity ? 0 : dist, notability: data.maxNotability };
     });
 
     const combined = [...storyItems, ...personItems];
     if (storySort === 'nearest' && userLocation) {
       combined.sort((a, b) => a.distance - b.distance);
+    } else if (storySort === 'notable') {
+      combined.sort((a, b) => b.notability - a.notability);
     }
     return combined;
   }, [displayStories, personEntities, userLocation, storySort]);
@@ -526,10 +538,9 @@ export function ExplorePanel({
     const arr = [...placeEntities];
     if (placeSort === 'notable') {
       return arr.sort((a, b) => {
-        // Sort by storyCount desc (connection richness), then momentCount desc
-        const sa = a.storyCount * 10 + a.momentCount;
-        const sb = b.storyCount * 10 + b.momentCount;
-        return sb - sa;
+        // Sort by max notability of associated moments, then momentCount as tiebreaker
+        const diff = b.maxNotability - a.maxNotability;
+        return diff !== 0 ? diff : b.momentCount - a.momentCount;
       });
     }
     if (placeSort === 'nearest' && userLocation) {

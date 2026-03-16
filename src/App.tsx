@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { Route, Switch } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
-import { ExplorePanel } from './components/panel/ExplorePanel';
+import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
@@ -25,6 +25,7 @@ type NavEntry = {
   activeCollection: StoryCollection | null;
   categoryFilter: StoryCategory | null;
   savedMapView?: SavedMapView;
+  exploreTab?: PanelTab;
 };
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
   const [resetViewKey, setResetViewKey] = useState(0);
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
   const [navHistory, setNavHistory] = useState<NavEntry[]>([]);
+  const [exploreTab, setExploreTab] = useState<PanelTab>('stories');
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [geoLoading, setGeoLoading] = useState(false);
@@ -115,11 +117,11 @@ function App() {
       ? { center: [mapInstance.getCenter().lat, mapInstance.getCenter().lng], zoom: mapInstance.getZoom() }
       : undefined;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
-  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance]);
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -176,6 +178,7 @@ function App() {
       setActiveEntity(entry.activeEntity);
       setActiveCollection(entry.activeCollection);
       setCategoryFilter(entry.categoryFilter);
+      if (entry.exploreTab) setExploreTab(entry.exploreTab);
       if (!entry.activeStory && !entry.activeEntity) {
         // Restore saved map view if available, otherwise reset to US center
         if (entry.savedMapView) {
@@ -369,10 +372,17 @@ function App() {
     if (prev.activeEntity) return prev.activeEntity.name;
     if (prev.activeStory) return prev.activeStory.name;
     if (prev.activeCollection) return prev.activeCollection.name;
-    // Infer tab from entity type: place entities come from the Places tab
-    if (prev.mode === 'explore' && activeEntity?.type === 'place') return 'Places';
+    if (prev.mode === 'explore' && prev.exploreTab) {
+      const tabLabels: Record<PanelTab, string> = {
+        stories: 'Stories',
+        places: 'Places',
+        moments: 'Moments',
+        collections: 'Collections',
+      };
+      return tabLabels[prev.exploreTab];
+    }
     return 'Stories';
-  }, [navHistory, activeEntity]);
+  }, [navHistory]);
 
   return (
     <div className="h-full flex flex-col">
@@ -479,6 +489,8 @@ function App() {
                   userLocation={userLocation}
                   onRequestGeo={handleRequestGeo}
                   onEntityClick={handleEntitySelect}
+                  activeTab={exploreTab}
+                  onTabChange={setExploreTab}
                 />
               )}
               </Suspense>
