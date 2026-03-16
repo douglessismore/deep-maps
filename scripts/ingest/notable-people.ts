@@ -19,6 +19,8 @@
  *   --continent X    Only process people from continent X
  */
 
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local', override: true });
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';

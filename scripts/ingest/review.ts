@@ -12,6 +12,8 @@
  *   npx tsx scripts/ingest/review.ts --stats           # show review queue stats
  */
 
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local', override: true });
 import * as readline from 'readline';
 import { getSupabase, publishApproved } from './lib/pipeline.js';
 
