@@ -17,30 +17,9 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import type { Moment, Story, StoryCategory, StoryCollection } from '../../types';
-import { moments } from '../../data/moments';
-import { stories } from '../../data/stories';
 import { CATEGORIES } from '../../lib/categories';
 import { getEffectiveNotability, getNotabilityThreshold } from '../../lib/notability';
-
-// ── Pre-compute lookups (runs once at module load) ──────────────────
-
-const momentStoryMap = new Map<string, Story>();
-const momentCategoryMap = new Map<string, StoryCategory>();
-
-for (const story of stories) {
-  for (const sm of story.moments) {
-    if (!momentStoryMap.has(sm.momentId)) {
-      momentStoryMap.set(sm.momentId, story);
-    }
-    if (!momentCategoryMap.has(sm.momentId)) {
-      momentCategoryMap.set(sm.momentId, story.category);
-    }
-  }
-}
-
-// Fast lookup for zoomend updates
-const momentById = new Map<string, Moment>();
-for (const m of moments) momentById.set(m.id, m);
+import { useAppData } from '../../lib/data/provider';
 
 // ── Zoom-dependent dot radius ──────────────────────────────────────
 // Zoom 2: 1px dots (star field). Zoom 14: ~10px (full markers).
@@ -68,6 +47,31 @@ interface EmergenceLayerProps {
 }
 
 export function EmergenceLayer({ categoryFilter, activeCollection, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
+  const { moments, stories } = useAppData();
+
+  // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
+  const momentStoryMap = useMemo(() => {
+    const map = new Map<string, Story>();
+    for (const story of stories) {
+      for (const sm of story.moments) {
+        if (!map.has(sm.momentId)) map.set(sm.momentId, story);
+      }
+    }
+    return map;
+  }, [stories]);
+
+  const momentCategoryMap = useMemo(() => {
+    const map = new Map<string, StoryCategory>();
+    for (const story of stories) {
+      for (const sm of story.moments) {
+        if (!map.has(sm.momentId)) map.set(sm.momentId, story.category);
+      }
+    }
+    return map;
+  }, [stories]);
+
+  const momentById = useMemo(() => new Map(moments.map(m => [m.id, m])), [moments]);
+
   const map = useMap();
   const canvasRenderer = useRef(L.canvas({ padding: 0.5 }));
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());

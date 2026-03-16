@@ -1,16 +1,43 @@
 import type { Entity, Moment, Story } from '../types';
-import { entities } from '../data/entities';
-import { moments } from '../data/moments';
-import { stories } from '../data/stories';
+
+// ─── Module-scope data (set once via initEntityHelpers) ──────────────
+let _entities: Entity[] = [];
+let _moments: Moment[] = [];
+let _stories: Story[] = [];
 
 /** Pre-built entity lookup map for O(1) access by ID. */
-export const entityMap: Map<string, Entity> = new Map(
-  entities.map((e) => [e.id, e])
-);
+export let entityMap: Map<string, Entity> = new Map();
+
+/** Pre-built set of story IDs that are person biographies claimed by an entity.
+ *  Only these are suppressed from the browse list — the entity card replaces them.
+ *  A story is suppressed when: (1) it has storyType 'biography', and (2) at least
+ *  one person entity claims it via canonicalStoryId. */
+export let canonicalStoryIds: Set<string> = new Set();
+
+/**
+ * Initialize entity helpers with loaded data. Must be called once before
+ * any helper function is used. Safe to call multiple times (idempotent).
+ */
+export function initEntityHelpers(entities: Entity[], moments: Moment[], stories: Story[]): void {
+  _entities = entities;
+  _moments = moments;
+  _stories = stories;
+
+  entityMap = new Map(entities.map((e) => [e.id, e]));
+
+  const biographyStoryIds = new Set(
+    stories.filter(s => s.storyType === 'biography').map(s => s.id)
+  );
+  canonicalStoryIds = new Set(
+    entities
+      .filter((e) => e.type === 'person' && e.canonicalStoryId && biographyStoryIds.has(e.canonicalStoryId))
+      .map((e) => e.canonicalStoryId!)
+  );
+}
 
 /** All moments that reference this entity (sorted by year ascending, nulls at end). */
 export function getMomentsForEntity(entityId: string): Moment[] {
-  return moments
+  return _moments
     .filter((m) => m.entityIds?.includes(entityId))
     .sort((a, b) => {
       if (a.year == null && b.year == null) return 0;
@@ -33,12 +60,12 @@ export function getEntityMomentStories(
   // Secondary source: moments from the canonical story (catches untagged moments)
   const entity = entityMap.get(entityId);
   const canonicalStory = entity?.canonicalStoryId
-    ? stories.find((s) => s.id === entity.canonicalStoryId)
+    ? _stories.find((s) => s.id === entity.canonicalStoryId)
     : null;
 
   const canonicalMoments = canonicalStory
     ? canonicalStory.moments
-        .map((sm) => moments.find((m) => m.id === sm.momentId))
+        .map((sm) => _moments.find((m) => m.id === sm.momentId))
         .filter((m): m is Moment => m != null && !seenIds.has(m.id))
     : [];
 
@@ -51,7 +78,7 @@ export function getEntityMomentStories(
   });
 
   return allMoments.map((moment) => {
-    const parentStories = stories.filter((s) =>
+    const parentStories = _stories.filter((s) =>
       s.moments.some((sm) => sm.momentId === moment.id)
     );
     return { moment, stories: parentStories };
@@ -122,12 +149,12 @@ export function getEntityStories(entityId: string): Story[] {
 
 /** All unique entities referenced by a story's moments, sorted by frequency desc. */
 export function getStoryEntities(storyId: string): Array<{ entity: Entity; momentCount: number; storyCount: number }> {
-  const story = stories.find(s => s.id === storyId);
+  const story = _stories.find(s => s.id === storyId);
   if (!story) return [];
 
   const entityCounts = new Map<string, number>();
   for (const sm of story.moments) {
-    const moment = moments.find(m => m.id === sm.momentId);
+    const moment = _moments.find(m => m.id === sm.momentId);
     if (!moment?.entityIds) continue;
     for (const eid of moment.entityIds) {
       entityCounts.set(eid, (entityCounts.get(eid) || 0) + 1);
@@ -146,25 +173,9 @@ export function getStoryEntities(storyId: string): Array<{ entity: Entity; momen
   return result.sort((a, b) => b.momentCount - a.momentCount);
 }
 
-/** Story IDs with storyType 'biography' — used to identify suppressible stories. */
-const biographyStoryIds = new Set(
-  stories.filter(s => s.storyType === 'biography').map(s => s.id)
-);
-
-/** Pre-built set of story IDs that are person biographies claimed by an entity.
- *  Only these are suppressed from the browse list — the entity card replaces them.
- *  A story is suppressed when: (1) it has storyType 'biography', and (2) at least
- *  one person entity claims it via canonicalStoryId. This catches both exact-match
- *  IDs (ed-gein → ed-gein) and name-variant IDs (o-henry → o-henry-life). */
-export const canonicalStoryIds: Set<string> = new Set(
-  entities
-    .filter((e) => e.type === 'person' && e.canonicalStoryId && biographyStoryIds.has(e.canonicalStoryId))
-    .map((e) => e.canonicalStoryId!)
-);
-
 /** Reverse lookup: given a story ID, return the entity that owns it as canonical (if any). */
 export function getEntityForCanonicalStory(storyId: string): Entity | undefined {
-  return entities.find((e) => e.canonicalStoryId === storyId);
+  return _entities.find((e) => e.canonicalStoryId === storyId);
 }
 
 export interface EntityWithCounts {
@@ -178,7 +189,7 @@ export function getViewportEntities(
   viewportMomentIds: Set<string>
 ): EntityWithCounts[] {
   const result: EntityWithCounts[] = [];
-  for (const entity of entities) {
+  for (const entity of _entities) {
     const entries = getEntityMomentStories(entity.id);
     const inViewport = entries.filter(({ moment }) =>
       viewportMomentIds.has(moment.id)

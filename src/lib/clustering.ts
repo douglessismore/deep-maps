@@ -11,32 +11,14 @@
  * - maxNotability: highest notability in cluster
  * - categories: { 'dark-history': 5, 'arts-culture': 3, ... } for donut chart
  * - topStoryNames: names of the highest-notability stories for tooltip
+ *
+ * Initialized lazily via initClustering() — called once by DataProvider
+ * after data loads. Safe to call multiple times (idempotent).
  */
 
 import Supercluster from 'supercluster';
-import { moments } from '../data/moments';
-import { stories } from '../data/stories';
 import { getEffectiveNotability } from './notability';
-import type { StoryCategory } from '../types';
-
-// ── Pre-computed lookup tables ─────────────────────────────────────────
-
-/** Map each moment ID → its primary story's category */
-const momentCategoryMap = new Map<string, StoryCategory>();
-/** Map each moment ID → its primary story's name */
-const momentStoryNameMap = new Map<string, string>();
-/** Map each moment ID → its primary story's ID */
-const momentStoryIdMap = new Map<string, string>();
-
-for (const story of stories) {
-  for (const sm of story.moments) {
-    if (!momentCategoryMap.has(sm.momentId)) {
-      momentCategoryMap.set(sm.momentId, story.category);
-      momentStoryNameMap.set(sm.momentId, story.name);
-      momentStoryIdMap.set(sm.momentId, story.id);
-    }
-  }
-}
+import type { Moment, Story, StoryCategory } from '../types';
 
 // ── Point properties (per moment) ──────────────────────────────────────
 
@@ -58,38 +40,26 @@ export interface ConstellationClusterProps {
   topStories: Array<{ name: string; notability: number }>;
 }
 
-// ── Build GeoJSON features from moments ────────────────────────────────
+// ── Supercluster config (shared between all/category indices) ──────────
 
-const features: Supercluster.PointFeature<MomentPointProps>[] = moments.map(m => ({
-  type: 'Feature' as const,
-  properties: {
-    momentId: m.id,
-    storyId: momentStoryIdMap.get(m.id) || '',
-    storyName: momentStoryNameMap.get(m.id) || '',
-    notability: getEffectiveNotability(m),
-    category: momentCategoryMap.get(m.id) || 'dark-history' as StoryCategory,
-    importance: m.importance,
-  },
-  geometry: {
-    type: 'Point' as const,
-    coordinates: [m.lng, m.lat], // GeoJSON is [lng, lat]
-  },
-}));
-
-// ── Create Supercluster index ──────────────────────────────────────────
-
-const index = new Supercluster<MomentPointProps, ConstellationClusterProps>({
+const CLUSTER_CONFIG = {
   radius: 60,      // Cluster radius in pixels — tuned for ~15-25 clusters at world zoom
   maxZoom: 10,     // Stop clustering at zoom 10 (everything individual at 11+)
   minZoom: 2,
   minPoints: 2,    // Minimum points to form a cluster
-  map: (props) => ({
+} as const;
+
+function makeMapFn() {
+  return (props: MomentPointProps) => ({
     totalNotability: props.notability,
     maxNotability: props.notability,
-    categories: { [props.category]: 1 },
+    categories: { [props.category]: 1 } as Record<string, number>,
     topStories: [{ name: props.storyName, notability: props.notability }],
-  }),
-  reduce: (accumulated, props) => {
+  });
+}
+
+function makeReduceFn() {
+  return (accumulated: ConstellationClusterProps, props: ConstellationClusterProps) => {
     accumulated.totalNotability += props.totalNotability;
     accumulated.maxNotability = Math.max(accumulated.maxNotability, props.maxNotability);
 
@@ -108,14 +78,63 @@ const index = new Supercluster<MomentPointProps, ConstellationClusterProps>({
     if (accumulated.topStories.length > 5) {
       accumulated.topStories = accumulated.topStories.slice(0, 5);
     }
-  },
-});
+  };
+}
 
-index.load(features);
+// ── Module-scope state (set via initClustering) ────────────────────────
 
-// ── Build category-filtered indices ────────────────────────────────────
-
+let features: Supercluster.PointFeature<MomentPointProps>[] = [];
+let index: Supercluster<MomentPointProps, ConstellationClusterProps> | null = null;
 const categoryIndices = new Map<StoryCategory, Supercluster<MomentPointProps, ConstellationClusterProps>>();
+
+/**
+ * Initialize clustering with loaded data. Must be called once before
+ * getClusterData/getClusterExpansionZoom are used. Safe to call multiple times.
+ */
+export function initClustering(moments: Moment[], stories: Story[]): void {
+  // Build lookup tables
+  const momentCategoryMap = new Map<string, StoryCategory>();
+  const momentStoryNameMap = new Map<string, string>();
+  const momentStoryIdMap = new Map<string, string>();
+
+  for (const story of stories) {
+    for (const sm of story.moments) {
+      if (!momentCategoryMap.has(sm.momentId)) {
+        momentCategoryMap.set(sm.momentId, story.category);
+        momentStoryNameMap.set(sm.momentId, story.name);
+        momentStoryIdMap.set(sm.momentId, story.id);
+      }
+    }
+  }
+
+  // Build GeoJSON features
+  features = moments.map(m => ({
+    type: 'Feature' as const,
+    properties: {
+      momentId: m.id,
+      storyId: momentStoryIdMap.get(m.id) || '',
+      storyName: momentStoryNameMap.get(m.id) || '',
+      notability: getEffectiveNotability(m),
+      category: momentCategoryMap.get(m.id) || 'dark-history' as StoryCategory,
+      importance: m.importance,
+    },
+    geometry: {
+      type: 'Point' as const,
+      coordinates: [m.lng, m.lat], // GeoJSON is [lng, lat]
+    },
+  }));
+
+  // Build main index
+  index = new Supercluster<MomentPointProps, ConstellationClusterProps>({
+    ...CLUSTER_CONFIG,
+    map: makeMapFn(),
+    reduce: makeReduceFn(),
+  });
+  index.load(features);
+
+  // Clear category indices (rebuilt lazily)
+  categoryIndices.clear();
+}
 
 /**
  * Get or create a Supercluster index filtered to a single category.
@@ -126,32 +145,9 @@ function getCategoryIndex(category: StoryCategory): Supercluster<MomentPointProp
   if (!catIndex) {
     const filtered = features.filter(f => f.properties.category === category);
     catIndex = new Supercluster<MomentPointProps, ConstellationClusterProps>({
-      radius: 60,
-      maxZoom: 10,
-      minZoom: 2,
-      minPoints: 2,
-      map: (props) => ({
-        totalNotability: props.notability,
-        maxNotability: props.notability,
-        categories: { [props.category]: 1 },
-        topStories: [{ name: props.storyName, notability: props.notability }],
-      }),
-      reduce: (accumulated, props) => {
-        accumulated.totalNotability += props.totalNotability;
-        accumulated.maxNotability = Math.max(accumulated.maxNotability, props.maxNotability);
-        for (const [cat, count] of Object.entries(props.categories)) {
-          accumulated.categories[cat] = (accumulated.categories[cat] || 0) + count;
-        }
-        for (const story of props.topStories) {
-          if (!accumulated.topStories.some(s => s.name === story.name)) {
-            accumulated.topStories.push(story);
-          }
-        }
-        accumulated.topStories.sort((a, b) => b.notability - a.notability);
-        if (accumulated.topStories.length > 5) {
-          accumulated.topStories = accumulated.topStories.slice(0, 5);
-        }
-      },
+      ...CLUSTER_CONFIG,
+      map: makeMapFn(),
+      reduce: makeReduceFn(),
     });
     catIndex.load(filtered);
     categoryIndices.set(category, catIndex);
@@ -174,6 +170,8 @@ export function getClusterData(
   bounds: { west: number; south: number; east: number; north: number },
   categoryFilter?: StoryCategory | null,
 ): ClusterOrPoint[] {
+  if (!index) return [];
+
   const bbox: [number, number, number, number] = [
     bounds.west,
     bounds.south,
@@ -196,6 +194,8 @@ export function getClusterExpansionZoom(
   clusterId: number,
   categoryFilter?: StoryCategory | null,
 ): number {
+  if (!index) return 0;
+
   const activeIndex = categoryFilter
     ? getCategoryIndex(categoryFilter)
     : index;

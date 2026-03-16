@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getStoryEntities, canonicalStoryIds } from '../../lib/entityHelpers';
-
-const momentMap = buildMomentMap(moments);
+import { useAppData } from '../../lib/data/provider';
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
 import { LocationCard } from './LocationCard';
@@ -43,6 +41,8 @@ export function StoryPanel({
   onHome,
   onEntityClick,
 }: StoryPanelProps) {
+  const { moments } = useAppData();
+  const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const locationRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const isScrollDriving = useRef(false);

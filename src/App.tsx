@@ -7,18 +7,13 @@ import { Header } from './components/ui/Header';
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
 const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
 import { TimelineBar } from './components/ui/TimelineBar';
-import { stories } from './data/stories';
-import { collections } from './data/collections';
-import { moments } from './data/moments';
 import { parseYears } from './lib/timeline';
 import { buildMomentMap, resolveLocationsFromMap } from './lib/storyHelpers';
 import { getEntityLocations } from './lib/entityHelpers';
+import { useAppData } from './lib/data/provider';
 import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
-
-
-const momentMap = buildMomentMap(moments);
 
 type SavedMapView = { center: [number, number]; zoom: number };
 
@@ -33,6 +28,8 @@ type NavEntry = {
 };
 
 function App() {
+  const { moments, stories, collections } = useAppData();
+  const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
   const [mode, setMode] = useState<InteractionMode>('explore');
   const [activeStory, setActiveStory] = useState<Story | null>(null);
@@ -79,21 +76,21 @@ function App() {
       });
     });
     return map;
-  }, []);
+  }, [stories]);
 
   // When a collection is active, resolve its moments
   const displayMoments = useMemo(() => {
     if (!activeCollection) return [];
     const idSet = new Set(activeCollection.momentIds);
     return moments.filter(m => idSet.has(m.id));
-  }, [activeCollection]);
+  }, [activeCollection, moments]);
 
   // When a collection is active, filter stories to those that have moments in the collection
   const displayStories = useMemo(() => {
     if (!activeCollection) return stories;
     const midSet = new Set(activeCollection.momentIds);
     return stories.filter(s => s.moments.some(sm => midSet.has(sm.momentId)));
-  }, [activeCollection]);
+  }, [activeCollection, stories]);
 
   // Filter stories by timeline view range (when user has interacted with timeline)
   const timelineFilteredStories = useMemo(() => {
@@ -110,7 +107,7 @@ function App() {
     if (scrollHighlight.length === 0) return null;
     const highlightIds = new Set(scrollHighlight.map(m => m.id));
     return stories.find((s) => resolveLocationsFromMap(s, momentMap).some((l) => highlightIds.has(l.id)))?.id ?? null;
-  }, [scrollHighlight]);
+  }, [scrollHighlight, stories, momentMap]);
 
   // Push current state onto navigation history before changing
   const pushNav = useCallback(() => {
@@ -219,7 +216,7 @@ function App() {
         smartFlyToBounds(mapInstance, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
       }
     }
-  }, [pushNav, mapInstance]);
+  }, [pushNav, mapInstance, moments]);
 
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);
@@ -313,7 +310,7 @@ function App() {
     setActiveStory(randomStory);
     setActiveLocation(randomLoc);
     setMode('story');
-  }, [pushNav]);
+  }, [pushNav, stories, momentMap]);
 
   const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
     pushNav();

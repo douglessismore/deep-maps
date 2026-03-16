@@ -3,25 +3,14 @@ import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import type { Story, Moment, StoryCategory, StoryCollection, InteractionMode, TileStyle } from '../../types';
 import { CATEGORIES, IMPORTANCE_SIZE } from '../../lib/categories';
-import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getNotabilityThreshold, getEffectiveNotability } from '../../lib/notability';
 import { getClusterData, getClusterExpansionZoom, isCluster } from '../../lib/clustering';
 import type { ClusterOrPoint, MomentPointProps, ConstellationClusterProps } from '../../lib/clustering';
 import { createConstellationSVG, createConstellationTooltip, computeConstellationSize, createCountLabel, createWispsContent, computeEssenceSize, createEssenceHoverRing, createPalimpsestContent, createPalimpsestPinContent, getVariantRenderMode } from '../../lib/constellation';
 import type { ConstellationVariant } from '../../lib/constellation';
+import { useAppData } from '../../lib/data/provider';
 import { EmergenceLayer } from './EmergenceLayer';
-
-const momentMap = buildMomentMap(moments);
-
-// ── Lookup: momentId → Moment (for resolving point features back to data)
-const momentById = new Map<string, Moment>();
-for (const m of moments) momentById.set(m.id, m);
-
-// ── Lookup: storyId → Story
-import { stories as allStories } from '../../data/stories';
-const storyById = new Map<string, Story>();
-for (const s of allStories) storyById.set(s.id, s);
 
 /** Approximate distance in degrees between two lat/lng points. */
 function degreeDistance(a: [number, number], b: [number, number]): number {
@@ -206,6 +195,10 @@ function MapController({
   entityLocations,
   constellationVariant,
 }: MapViewProps & { constellationVariant: ConstellationVariant }) {
+  const { moments: allMoments, stories: allStories } = useAppData();
+  const momentMap = useMemo(() => buildMomentMap(allMoments), [allMoments]);
+  const momentById = useMemo(() => new Map(allMoments.map(m => [m.id, m])), [allMoments]);
+  const storyById = useMemo(() => new Map(allStories.map(s => [s.id, s])), [allStories]);
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);

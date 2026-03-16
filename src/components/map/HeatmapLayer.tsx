@@ -3,21 +3,8 @@ import { useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet.heat';
 import type { StoryCategory, InteractionMode } from '../../types';
-import { moments } from '../../data/moments';
-import { stories } from '../../data/stories';
 import { getEffectiveNotability } from '../../lib/notability';
-
-// ── Pre-compute moment → category lookup (runs once at module load) ──
-// Moments don't carry category; categories live on Story.
-// First story's category wins for moments in multiple stories.
-const momentCategoryMap = new Map<string, StoryCategory>();
-for (const story of stories) {
-  for (const sm of story.moments) {
-    if (!momentCategoryMap.has(sm.momentId)) {
-      momentCategoryMap.set(sm.momentId, story.category);
-    }
-  }
-}
+import { useAppData } from '../../lib/data/provider';
 
 // ── Max notability in the dataset (for normalization) ──
 const MAX_NOTABILITY = 88;
@@ -52,6 +39,18 @@ interface HeatmapLayerProps {
 }
 
 export function HeatmapLayer({ categoryFilter, mode }: HeatmapLayerProps) {
+  const { moments, stories } = useAppData();
+
+  const momentCategoryMap = useMemo(() => {
+    const catMap = new Map<string, StoryCategory>();
+    for (const story of stories) {
+      for (const sm of story.moments) {
+        if (!catMap.has(sm.momentId)) catMap.set(sm.momentId, story.category);
+      }
+    }
+    return catMap;
+  }, [stories]);
+
   const map = useMap();
   const heatLayerRef = useRef<L.HeatLayer | null>(null);
 

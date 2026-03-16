@@ -1,9 +1,6 @@
 import type { LatLngBounds } from 'leaflet';
-import type { Story, ViewportLocation } from '../types';
-import { moments } from '../data/moments';
-import { buildMomentMap, resolveLocationsFromMap } from './storyHelpers';
-
-const momentMap = buildMomentMap(moments);
+import type { Moment, Story, ViewportLocation } from '../types';
+import { resolveLocationsFromMap } from './storyHelpers';
 
 /** Haversine distance in kilometers */
 export function distanceFromCenter(
@@ -46,7 +43,8 @@ function haversine(
 
 export function getLocationsInBounds(
   stories: Story[],
-  bounds: LatLngBounds
+  bounds: LatLngBounds,
+  momentMap: Map<string, Moment>,
 ): ViewportLocation[] {
   const center = bounds.getCenter();
   const results: ViewportLocation[] = [];
@@ -73,7 +71,8 @@ export function getLocationsInBounds(
 
 export function getStoriesInBounds(
   stories: Story[],
-  bounds: LatLngBounds
+  bounds: LatLngBounds,
+  momentMap: Map<string, Moment>,
 ): Story[] {
   return stories.filter((story) =>
     resolveLocationsFromMap(story, momentMap).some((loc) => bounds.contains([loc.lat, loc.lng]))

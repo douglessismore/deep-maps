@@ -3,9 +3,9 @@ import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
-import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
+import { useAppData } from '../../lib/data/provider';
 import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
@@ -14,8 +14,6 @@ import { LocationCard } from './LocationCard';
 type MixedListItem =
   | { kind: 'story'; story: Story; distance: number }
   | { kind: 'person'; data: EntityWithCounts; distance: number };
-
-const momentMap = buildMomentMap(moments);
 
 
 interface ExplorePanelProps {
@@ -44,13 +42,13 @@ interface ExplorePanelProps {
 type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
 
 /** Get the nearest location distance from a story to a point */
-function nearestDistance(story: Story, lat: number, lng: number): number {
-  return Math.min(...resolveLocationsFromMap(story, momentMap).map((l) => distanceMiles(lat, lng, l.lat, l.lng)));
+function nearestDistance(story: Story, lat: number, lng: number, mMap: Map<string, Moment>): number {
+  return Math.min(...resolveLocationsFromMap(story, mMap).map((l) => distanceMiles(lat, lng, l.lat, l.lng)));
 }
 
 /** Get the max notability score across a story's moments */
-function storyNotability(story: Story): number {
-  const locs = resolveLocationsFromMap(story, momentMap);
+function storyNotability(story: Story, mMap: Map<string, Moment>): number {
+  const locs = resolveLocationsFromMap(story, mMap);
   if (locs.length === 0) return 0;
   return Math.max(...locs.map(l => getEffectiveNotability(l)));
 }
@@ -75,6 +73,8 @@ export function ExplorePanel({
   onRequestGeo,
   onEntityClick,
 }: ExplorePanelProps) {
+  const { moments } = useAppData();
+  const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const [activeTab, setActiveTab] = useState<PanelTab>('stories');
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
@@ -173,10 +173,10 @@ export function ExplorePanel({
       ? stories.filter((s) => s.category === categoryFilter)
       : stories;
 
-    const allInBounds = getLocationsInBounds(sourceStories, bounds);
+    const allInBounds = getLocationsInBounds(sourceStories, bounds, momentMap);
     setViewportLocations(allInBounds);
-    setViewportStories(getStoriesInBounds(sourceStories, bounds));
-  }, [mapInstance, stories, categoryFilter]);
+    setViewportStories(getStoriesInBounds(sourceStories, bounds, momentMap));
+  }, [mapInstance, stories, categoryFilter, momentMap]);
 
   useEffect(() => {
     if (!mapInstance) return;
@@ -447,12 +447,12 @@ export function ExplorePanel({
     // Sort by active story sort mode
     if (storySort === 'nearest' && userLocation) {
       return [...result].sort((a, b) =>
-        nearestDistance(a, userLocation.lat, userLocation.lng) -
-        nearestDistance(b, userLocation.lat, userLocation.lng)
+        nearestDistance(a, userLocation.lat, userLocation.lng, momentMap) -
+        nearestDistance(b, userLocation.lat, userLocation.lng, momentMap)
       );
     }
-    return [...result].sort((a, b) => storyNotability(b) - storyNotability(a));
-  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort]);
+    return [...result].sort((a, b) => storyNotability(b, momentMap) - storyNotability(a, momentMap));
+  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort, momentMap]);
 
   // Viewport entities — split into people and places
   const viewportEntities: EntityWithCounts[] = useMemo(() => {
@@ -488,7 +488,7 @@ export function ExplorePanel({
       kind: 'story' as const,
       story,
       distance: userLocation
-        ? nearestDistance(story, userLocation.lat, userLocation.lng)
+        ? nearestDistance(story, userLocation.lat, userLocation.lng, momentMap)
         : 0,
     }));
     const personItems: MixedListItem[] = personEntities.map((data) => {
@@ -1030,7 +1030,7 @@ export function ExplorePanel({
                         compact={isMobile}
                         distanceMi={
                           userLocation
-                            ? nearestDistance(item.story, userLocation.lat, userLocation.lng)
+                            ? nearestDistance(item.story, userLocation.lat, userLocation.lng, momentMap)
                             : undefined
                         }
                       />

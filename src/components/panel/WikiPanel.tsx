@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import type { Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { moments } from '../../data/moments';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-
-const momentMap = buildMomentMap(moments);
+import { useAppData } from '../../lib/data/provider';
 import {
   fetchWikiArticle,
   cleanWikiHtml,
@@ -32,6 +30,8 @@ export function WikiPanel({
   onLocationSelect,
   initialSection,
 }: WikiPanelProps) {
+  const { moments } = useAppData();
+  const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const [html, setHtml] = useState<string | null>(null);
   const [sections, setSections] = useState<WikiSection[]>([]);
   const [loading, setLoading] = useState(false);
