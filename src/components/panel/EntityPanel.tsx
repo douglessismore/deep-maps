@@ -6,6 +6,7 @@ import {
   getNotableFigures,
   getKeyLocations,
   canonicalStoryIds,
+  getEntityIcon,
 } from '../../lib/entityHelpers';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { GoDeeperCard } from './GoDeeperCard';
@@ -62,7 +63,7 @@ export function EntityPanel({
 
   // Determine which tabs are visible (hide empty, single tab = no bar)
   const connectionsLabel = entity.type === 'place' ? 'Notable Figures' : 'Key Places';
-  const connectionsIcon = entity.type === 'place' ? '👤' : '📍';
+  const connectionsIcon = entity.type === 'place' ? '👤' : (entity.type === 'person' ? '📍' : '👤');
   const showConnections = connections.length > 0;
   const showStories = entityStories.length > 0;
   const tabCount = 1 + (showConnections ? 1 : 0) + (showStories ? 1 : 0);
@@ -296,7 +297,7 @@ export function EntityPanel({
             variant="full-width"
             label={connEntity.name}
             sublabel={`${connEntity.years || ''} · ${sharedMoments} ${sharedMoments === 1 ? 'moment' : 'moments'} ${sharedLabel}`}
-            icon={<span className="text-lg opacity-60">{connEntity.type === 'person' ? '👤' : '📍'}</span>}
+            icon={<span className="text-lg opacity-60">{getEntityIcon(connEntity)}</span>}
             onClick={() => onEntityClick(connEntity)}
             description={connEntity.description}
           />

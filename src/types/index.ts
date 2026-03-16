@@ -120,7 +120,8 @@ export interface StoryMoment {
 export interface Entity {
   id: string;                          // e.g. 'o-henry', 'broken-spoke', 'fbi'
   name: string;                        // Display name: 'O. Henry', 'The Broken Spoke'
-  type: 'person' | 'place' | 'organization' | 'concept';
+  type: 'person' | 'place' | 'organization' | 'concept' | 'work';
+  workType?: 'film' | 'book' | 'journal' | 'scripture' | 'paper' | 'album' | 'tv-show'; // only for type='work'
   years?: string;                      // For people: '1862–1910'
   description?: string;                // Brief bio/description
   canonicalStoryId?: string;           // Their "main" story: 'o-henry-life'

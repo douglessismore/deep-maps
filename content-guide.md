@@ -591,6 +591,62 @@ The description opens with formal biographical filler instead of the hook.
 
 ---
 
+## 13. DATA WIRING FOR INGESTED CONTENT
+
+When ingesting content from external sources (datasets, AI-drafted content), every item must be fully wired for discoverability.
+
+### Every ingested person/place/event MUST have:
+- [ ] A person/place entity with hook-first description and `wikipediaSlug`
+- [ ] A biography/place story linking all moments in chronological order
+- [ ] Each moment linked to relevant entities via `entityIds`
+- [ ] `relatedStoryIds` connecting to thematically/geographically related existing stories
+- [ ] Membership in at least one collection (existing or new)
+- [ ] `source` field set to dataset name (e.g., `'notable-people'`)
+- [ ] All moments scored for notability (0-100)
+
+### Storyability checklist (what makes content navigable):
+- Entity chips on moments → tappable → entity panel with all their moments
+- Dive Deeper cards on stories → related stories + entities
+- Collection membership → discoverable via Collections tab
+- Wikipedia integration → geo-linked reading experience
+- Search → findable by name, entity, or keyword
+
+### Why wiring matters for ingested content:
+- **GoDeeperCards** only appear if wiring exists — no entityIds = no "Dive Deeper"
+- **Intersection counts** ("3 moments · 2 stories") require entity + story linkage
+- **Cross-referencing** is what makes the app feel connected, not like a flat database dump
+- **Without full wiring, ingested content is invisible** in half the navigation paths
+
+---
+
+## 14. WORK ENTITIES
+
+Entity type `work` covers films, TV shows, books, journals, religious texts, scientific papers, explorer logs, albums — any notable work referenced by moments.
+
+### Rules
+- Only create when the work is referenced by **2+ moments** (otherwise it's just a tag)
+- Description follows entity hook-first rule (first 8 words = tagline)
+- Use tags for subtype: `film`, `book`, `journal`, `scripture`, `paper`, `album`, `tv-show`
+- No dedicated browse tab until 50+ work entities exist — works surface via entity chips, search, and Dive Deeper
+
+### Examples
+| Work | Description (hook-first) |
+|---|---|
+| The Godfather | "The film that redefined the American gangster genre — shot across New York and Sicily..." |
+| Journals of Lewis and Clark | "The journals that mapped the American West for the first time — a 28-month expedition..." |
+| On the Origin of Species | "The book that made evolution undeniable — published by a man who delayed 20 years..." |
+
+### Icon by subtype tag
+| Tag | Icon |
+|---|---|
+| `film` | 🎬 |
+| `book`, `journal`, `paper` | 📚 |
+| `tv-show` | 📺 |
+| `scripture` | 📜 |
+| `album` | 🎵 |
+
+---
+
 ## Appendix B: Fields That Exist But Are NOT Displayed
 
 | Field | Status | Notes |

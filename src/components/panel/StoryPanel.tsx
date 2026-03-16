@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getStoryEntities, canonicalStoryIds } from '../../lib/entityHelpers';
+import { getStoryEntities, canonicalStoryIds, getEntityIcon } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
@@ -479,7 +479,7 @@ export function StoryPanel({
                     key={entity.id}
                     label={entity.name}
                     sublabel={`${momentCount} ${momentCount === 1 ? 'moment' : 'moments'} · ${storyCount} ${storyCount === 1 ? 'story' : 'stories'}`}
-                    icon={<span className="text-sm opacity-60">{entity.type === 'person' ? '👤' : '📍'}</span>}
+                    icon={<span className="text-sm opacity-60">{getEntityIcon(entity)}</span>}
                     onClick={() => onEntityClick?.(entity)}
                   />
                 ))}

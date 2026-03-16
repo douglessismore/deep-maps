@@ -207,6 +207,26 @@ export function getViewportEntities(
   return result.sort((a, b) => b.momentCount - a.momentCount);
 }
 
+/** Entity type → icon emoji. Handles `work` subtypes (film, book, etc.) */
+export function getEntityIcon(entity: Entity): string {
+  if (entity.type === 'work') {
+    switch (entity.workType) {
+      case 'film': return '🎬';
+      case 'tv-show': return '📺';
+      case 'album': return '🎵';
+      case 'scripture': return '📜';
+      default: return '📚'; // book, journal, paper, or unspecified
+    }
+  }
+  switch (entity.type) {
+    case 'person': return '👤';
+    case 'organization': return '🏛';
+    case 'concept': return '💡';
+    case 'place':
+    default: return '📍';
+  }
+}
+
 /** Get a single display initial from entity name — "O. Henry" → "H", "Texas State Cemetery" → "T" */
 export function getInitial(name: string): string {
   const words = name.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/);

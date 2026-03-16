@@ -1,7 +1,7 @@
 import { forwardRef, useMemo } from 'react';
 import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { entityMap, getEntityMomentStories, canonicalStoryIds } from '../../lib/entityHelpers';
+import { entityMap, getEntityMomentStories, canonicalStoryIds, getEntityIcon } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 
@@ -216,7 +216,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                     className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                   >
                     <span className="opacity-60 text-[9px]">
-                      {entity.type === 'person' ? '👤' : '📍'}
+                      {getEntityIcon(entity)}
                     </span>
                     <span className="truncate max-w-[120px]">{entity.name}</span>
                   </button>
@@ -309,7 +309,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                     key={entity.id}
                     label={entity.name}
                     sublabel={`${momentCount} ${momentCount === 1 ? 'moment' : 'moments'} · ${storyCount} ${storyCount === 1 ? 'story' : 'stories'}`}
-                    icon={<span className="text-sm opacity-60">{entity.type === 'person' ? '👤' : '📍'}</span>}
+                    icon={<span className="text-sm opacity-60">{getEntityIcon(entity)}</span>}
                     onClick={() => onEntityClick!(entity, location)}
                   />
                 ))}
