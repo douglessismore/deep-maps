@@ -35,11 +35,12 @@ function getBarMetrics(isMobile: boolean) {
 export function TimelineBar({
   stories,
   categoryFilter,
-  onStorySelect,
+  onStorySelect: _onStorySelect,
   onViewRangeChange,
   highlightedStoryId,
   mapVisibleStoryIds,
 }: TimelineBarProps) {
+  void _onStorySelect; // Reserved for future desktop dot-click-to-select
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -100,13 +101,16 @@ export function TimelineBar({
     return () => observer.disconnect();
   }, []);
 
-  // ── Scroll-linked era highlight ──
-  const highlightedEra = useMemo(() => {
+  // ── Scroll-linked highlight data ──
+  const highlightedPoint = useMemo(() => {
     if (!highlightedStoryId) return null;
-    const pt = allPoints.find((p) => p.storyId === highlightedStoryId);
-    if (!pt) return null;
-    return getEraForYear(pt.startYear);
+    return allPoints.find((p) => p.storyId === highlightedStoryId) ?? null;
   }, [highlightedStoryId, allPoints]);
+
+  const highlightedEra = useMemo(() => {
+    if (!highlightedPoint) return null;
+    return getEraForYear(highlightedPoint.startYear);
+  }, [highlightedPoint]);
 
   // ── Era chip click ──
   const handleEraClick = useCallback(
@@ -137,18 +141,6 @@ export function TimelineBar({
     setHasInteracted(false);
     onViewRangeChange(null);
   }, [onViewRangeChange]);
-
-  // ── Zoom (step) ──
-  const handleZoomIn = useCallback(() => {
-    if (!activeEra) {
-      const densest = [...eraWeights].sort((a, b) => b.count - a.count)[0];
-      if (densest) handleEraClick(densest.id);
-    }
-  }, [activeEra, eraWeights, handleEraClick]);
-
-  const handleZoomOut = useCallback(() => {
-    if (activeEra) handleClear();
-  }, [activeEra, handleClear]);
 
   // ── Find era at pixel X ──
   const getEraAtX = useCallback(
@@ -257,20 +249,22 @@ export function TimelineBar({
       const x = e.clientX - rect.left;
 
       if (!ps.hasMoved) {
-        // TAP — select nearest dot, or clear filter if tapping empty space
-        const dot = findNearestDot(x);
-        if (dot) {
-          const story = stories.find((s) => s.id === dot.storyId);
-          if (story) onStorySelect(story);
+        // TAP — filter to the era at the tap location (or clear if tapping active era / empty space)
+        const era = getEraAtX(x);
+        if (era) {
+          if (era === activeEra) {
+            // Tapping the active era clears the filter
+            handleClear();
+          } else {
+            handleEraClick(era);
+          }
         } else if (activeEra) {
-          // Tapped empty space on the strip — clear era filter
           handleClear();
         }
       }
       // Scrub (drag) only highlights visually — does NOT filter on release.
-      // Users filter by tapping era chips directly.
     },
-    [findNearestDot, getEraAtX, stories, onStorySelect, handleEraClick]
+    [getEraAtX, handleEraClick, handleClear, activeEra]
   );
 
   // ── Tooltip data ──
@@ -340,60 +334,25 @@ export function TimelineBar({
         >
           {rangeLabel}
         </span>
-        <div style={{ display: 'flex', gap: 3 }}>
-          <button
-            onClick={(e) => { e.stopPropagation(); handleZoomIn(); }}
-            className="flex items-center justify-center rounded font-mono font-semibold hover:bg-white/20 active:bg-white/25 transition-colors"
-            style={{
-              width: isMobile ? 24 : 26,
-              height: isMobile ? 16 : 18,
-              fontSize: isMobile ? 11 : 12,
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.15)',
-              color: 'rgba(255,255,255,0.7)',
-              cursor: 'pointer',
-            }}
-            aria-label="Zoom in to densest era"
-          >
-            +
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); handleZoomOut(); }}
-            className="flex items-center justify-center rounded font-mono font-semibold hover:bg-white/20 active:bg-white/25 transition-colors"
-            style={{
-              width: isMobile ? 24 : 26,
-              height: isMobile ? 16 : 18,
-              fontSize: isMobile ? 11 : 12,
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.15)',
-              color: 'rgba(255,255,255,0.7)',
-              cursor: 'pointer',
-            }}
-            aria-label="Zoom out to all eras"
-          >
-            −
-          </button>
-          {/* Clear button — always rendered, visibility via opacity */}
+        {/* Clear filter button — only visible when a filter is active */}
+        {hasInteracted && (
           <button
             onClick={(e) => { e.stopPropagation(); handleClear(); }}
-            className="flex items-center justify-center rounded font-mono font-semibold hover:bg-yellow-500/25 active:bg-yellow-500/30 transition-colors"
+            className="flex items-center gap-1 rounded-full font-mono hover:bg-yellow-500/25 active:bg-yellow-500/30 transition-colors"
             style={{
-              width: isMobile ? 24 : 26,
               height: isMobile ? 16 : 18,
-              fontSize: isMobile ? 11 : 12,
-              background: hasInteracted ? 'rgba(234,179,8,0.15)' : 'rgba(255,255,255,0.1)',
-              border: `1px solid ${hasInteracted ? 'rgba(234,179,8,0.3)' : 'rgba(255,255,255,0.15)'}`,
-              color: hasInteracted ? 'rgba(234,179,8,0.9)' : 'rgba(255,255,255,0.7)',
+              padding: '0 8px',
+              fontSize: isMobile ? 9 : 10,
+              background: 'rgba(234,179,8,0.15)',
+              border: '1px solid rgba(234,179,8,0.3)',
+              color: 'rgba(234,179,8,0.9)',
               cursor: 'pointer',
-              opacity: hasInteracted ? 1 : 0,
-              pointerEvents: hasInteracted ? 'auto' : 'none',
-              transition: 'opacity 0.2s',
             }}
             aria-label="Clear era filter"
           >
-            ×
+            ✕ Clear
           </button>
-        </div>
+        )}
       </div>
 
       {/* ── Middle zone: SVG dots ── */}
@@ -561,14 +520,24 @@ export function TimelineBar({
           })}
         </svg>
 
-        {/* Tooltip */}
-        {hoveredData && (
+        {/* Desktop hover tooltip */}
+        {hoveredData && !highlightedPoint && (
           <TooltipOverlay
             point={hoveredData}
             x={yearToAdaptiveX(hoveredData.startYear, eraWeights)}
             containerWidth={containerWidth}
             dotY={DOT_Y}
             dotH={DOT_H}
+          />
+        )}
+
+        {/* Scroll-linked year indicator — pops up above the highlighted dot */}
+        {highlightedPoint && containerWidth > 0 && (
+          <YearIndicator
+            point={highlightedPoint}
+            x={yearToAdaptiveX(highlightedPoint.startYear, eraWeights)}
+            containerWidth={containerWidth}
+            dotY={DOT_Y}
           />
         )}
       </div>
@@ -750,6 +719,46 @@ function TooltipOverlay({
         </span>
         <span style={{ color: 'rgba(255,255,255,0.5)', marginLeft: 6 }}>{years}</span>
       </div>
+    </div>
+  );
+}
+
+// ── Year Indicator (scroll-linked) ──
+function YearIndicator({
+  point,
+  x,
+  containerWidth,
+  dotY,
+}: {
+  point: TimelinePoint;
+  x: number;
+  containerWidth: number;
+  dotY: number;
+}) {
+  const year = formatYear(point.startYear);
+  const left = Math.max(20, Math.min(x, containerWidth - 20));
+
+  return (
+    <div
+      className="absolute pointer-events-none"
+      style={{
+        left,
+        top: Math.max(0, dotY - 16),
+        transform: 'translateX(-50%)',
+        zIndex: 10,
+      }}
+    >
+      <span
+        className="font-mono"
+        style={{
+          fontSize: 9,
+          color: 'rgba(234,179,8,0.85)',
+          textShadow: '0 0 4px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.6)',
+          letterSpacing: '0.3px',
+        }}
+      >
+        {year}
+      </span>
     </div>
   );
 }

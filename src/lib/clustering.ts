@@ -169,6 +169,8 @@ export function getClusterData(
   zoom: number,
   bounds: { west: number; south: number; east: number; north: number },
   categoryFilter?: StoryCategory | null,
+  /** When set, only show points/clusters whose stories are in this set */
+  storyIdFilter?: Set<string> | null,
 ): ClusterOrPoint[] {
   if (!index) return [];
 
@@ -183,7 +185,17 @@ export function getClusterData(
     ? getCategoryIndex(categoryFilter)
     : index;
 
-  return activeIndex.getClusters(bbox, Math.floor(zoom));
+  const results = activeIndex.getClusters(bbox, Math.floor(zoom));
+
+  // Post-filter by timeline era when active
+  if (!storyIdFilter || storyIdFilter.size === 0) return results;
+
+  return results.filter((f) => {
+    if ('cluster' in f.properties && f.properties.cluster) return true; // Keep clusters
+    // Individual point — check storyId
+    const props = f.properties as MomentPointProps;
+    return storyIdFilter.has(props.storyId);
+  });
 }
 
 /**

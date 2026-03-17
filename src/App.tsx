@@ -183,6 +183,12 @@ function App() {
     });
   }, [displayStories, timelineViewRange]);
 
+  // Story IDs matching the timeline filter — passed to MapView to hide non-matching pins
+  const timelineStoryIdFilter = useMemo(() => {
+    if (!timelineViewRange) return null; // No filter active
+    return new Set(timelineFilteredStories.map(s => s.id));
+  }, [timelineViewRange, timelineFilteredStories]);
+
   // Which story is scroll-highlighted (for timeline dot pulse).
   // Prefer the directly-supplied storyId (fast path) over the expensive fallback lookup.
   const [scrollHighlightDirectId, setScrollHighlightDirectId] = useState<string | null>(null);
@@ -519,6 +525,7 @@ function App() {
             scrollHighlight={scrollHighlight}
             mode={mode}
             categoryFilter={categoryFilter}
+            storyIdFilter={timelineStoryIdFilter}
             activeCollection={activeCollection}
             resetViewKey={resetViewKey}
             onMapReady={setMapInstance}

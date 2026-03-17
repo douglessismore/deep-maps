@@ -92,6 +92,8 @@ interface MapViewProps {
   scrollHighlight?: Moment[];
   mode: InteractionMode;
   categoryFilter: StoryCategory | null;
+  /** Filter map pins to only stories in this set (timeline era filtering) */
+  storyIdFilter?: Set<string> | null;
   activeCollection?: StoryCollection | null;
   resetViewKey?: number;
   onMapReady: (map: L.Map) => void;
@@ -204,6 +206,7 @@ function MapController({
   scrollHighlight,
   mode,
   categoryFilter,
+  storyIdFilter,
   resetViewKey,
   onMapReady,
   onLocationClick,
@@ -270,9 +273,9 @@ function MapController({
       south: bounds.getSouth(),
       east: bounds.getEast(),
       north: bounds.getNorth(),
-    }, categoryFilter);
+    }, categoryFilter, storyIdFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focusedLocations, currentZoom, categoryFilter, boundsKey]);
+  }, [focusedLocations, currentZoom, categoryFilter, storyIdFilter, boundsKey]);
 
   // ── Marker rendering ───────────────────────────────────────────────
 

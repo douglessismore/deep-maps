@@ -20,17 +20,17 @@ export interface TimelinePoint {
  *   "~11,000 BC"     → [-11000, -11000]
  */
 export function parseYears(str: string): [number, number] {
-  // Normalize: strip tilde, replace en-dash/em-dash with hyphen
-  const cleaned = str.replace(/~/g, '').replace(/[–—]/g, '-').trim();
+  // Normalize: strip tilde/circa, replace en-dash/em-dash with hyphen
+  const cleaned = str.replace(/~/g, '').replace(/\bc\.?\s*/gi, '').replace(/[–—]/g, '-').trim();
 
   // Check for "present"
   const hasPresent = /present/i.test(cleaned);
   const withoutPresent = cleaned.replace(/-?\s*present/i, '').trim();
 
-  // Check for BC / AD suffix (can be at end of entire string or on individual parts)
-  const overallBC = /\bBC\b/i.test(withoutPresent);
-  // AD suffix stripped along with BC but only BC negates the year
-  const stripped = withoutPresent.replace(/\s*(BC|AD)\b/gi, '').trim();
+  // Check for BC/BCE/AD/CE suffix (can be at end of entire string or on individual parts)
+  const overallBC = /\bBCE?\b/i.test(withoutPresent);
+  // Strip all era suffixes — only BC/BCE negates the year
+  const stripped = withoutPresent.replace(/\s*(BCE?|AD|CE)\b/gi, '').trim();
 
   // Split on hyphen that separates two year values (not negative sign)
   // Pattern: a number, then hyphen, then another number
