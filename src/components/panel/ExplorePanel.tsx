@@ -6,7 +6,7 @@ import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
-import { panToAboveSheet, getSheetAwarePadding, getSheetPixels } from '../../lib/sheetAwareMap';
+import { panToAboveSheet, getSheetAwarePadding } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
