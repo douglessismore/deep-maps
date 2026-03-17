@@ -6,6 +6,8 @@ import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
+import { panToAboveSheet, getSheetAwarePadding, getSheetPixels } from '../../lib/sheetAwareMap';
+import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
@@ -39,6 +41,7 @@ interface ExplorePanelProps {
   onEntityClick?: (entity: Entity) => void;
   activeTab?: PanelTab;
   onTabChange?: (tab: PanelTab) => void;
+  sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -102,9 +105,12 @@ export function ExplorePanel({
   onEntityClick,
   activeTab: controlledTab,
   onTabChange,
+  sheetSnap: sheetSnapProp,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
+  const isSheetMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
+  const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
   const [internalTab, setInternalTab] = useState<PanelTab>('stories');
   const activeTab = controlledTab ?? internalTab;
   const setActiveTab = useCallback((tab: PanelTab) => {
@@ -288,13 +294,14 @@ export function ExplorePanel({
                 clearTimeout(panTimeout.current);
                 panTimeout.current = window.setTimeout(() => {
                   if (collMoments.length === 1) {
-                    mapInstance.panTo([collMoments[0].lat, collMoments[0].lng], { animate: true, duration: 0.3 });
+                    panToAboveSheet(mapInstance, [collMoments[0].lat, collMoments[0].lng], sheetSnap, isSheetMobile, { duration: 0.3 });
                   } else {
                     const lats = collMoments.map(m => m.lat);
                     const lngs = collMoments.map(m => m.lng);
+                    const containerH = mapInstance.getSize().y;
                     mapInstance.fitBounds(
                       [[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]],
-                      { padding: [40, 40], animate: true, duration: 0.3, maxZoom: mapInstance.getZoom() }
+                      { ...getSheetAwarePadding(isSheetMobile, sheetSnap, containerH), animate: true, duration: 0.3, maxZoom: mapInstance.getZoom() }
                     );
                   }
                 }, 80);
@@ -338,10 +345,7 @@ export function ExplorePanel({
             if (panTarget) {
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                mapInstance.panTo([panTarget.lat, panTarget.lng], {
-                  animate: true,
-                  duration: 0.15,
-                });
+                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
               }, 80);
             }
           } else if (isActiveCollectionTab) {
@@ -354,10 +358,7 @@ export function ExplorePanel({
               highlightDebounce.current = window.setTimeout(() => onScrollHighlight([collectionMoment]), 30);
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                mapInstance.panTo([collectionMoment.lat, collectionMoment.lng], {
-                  animate: true,
-                  duration: 0.15,
-                });
+                panToAboveSheet(mapInstance, [collectionMoment.lat, collectionMoment.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
               }, 80);
             }
           } else {
@@ -376,10 +377,7 @@ export function ExplorePanel({
               const panTarget = locsInView[0] || entityMoments[0];
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                mapInstance.panTo([panTarget.lat, panTarget.lng], {
-                  animate: true,
-                  duration: 0.15,
-                });
+                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
               }, 80);
             }
           }
@@ -460,10 +458,7 @@ export function ExplorePanel({
             highlightDebounce.current = window.setTimeout(() => onScrollHighlight([vl.location]), 30);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
-              mapInstance.panTo([vl.location.lat, vl.location.lng], {
-                animate: true,
-                duration: 0.15,
-              });
+              panToAboveSheet(mapInstance, [vl.location.lat, vl.location.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
             }, 80);
           }
         }
@@ -685,10 +680,7 @@ export function ExplorePanel({
             highlightDebounce.current = window.setTimeout(() => onScrollHighlight([entityMoments[0]]), 50);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
-              mapInstance.panTo([entityMoments[0].lat, entityMoments[0].lng], {
-                animate: true,
-                duration: 0.6,
-              });
+              panToAboveSheet(mapInstance, [entityMoments[0].lat, entityMoments[0].lng], sheetSnap, isSheetMobile, { duration: 0.6 });
             }, 150);
           }
         }
@@ -878,10 +870,7 @@ export function ExplorePanel({
                       setActiveLocationId(moment.id);
                       onScrollHighlight([moment]);
                       if (mapInstance) {
-                        mapInstance.panTo([moment.lat, moment.lng], {
-                          animate: true,
-                          duration: 0.3,
-                        });
+                        panToAboveSheet(mapInstance, [moment.lat, moment.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
                       }
                     }}
                     onStoryClick={(story) => onLocationSelect(vl.location, story)}
@@ -990,7 +979,7 @@ export function ExplorePanel({
                           setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
                           onScrollHighlight([m]);
                           if (mapInstance) {
-                            mapInstance.panTo([m.lat, m.lng], { animate: true, duration: 0.3 });
+                            panToAboveSheet(mapInstance, [m.lat, m.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
                           }
                         }}
                         onStoryClick={(story) => onLocationSelect(moment, story)}

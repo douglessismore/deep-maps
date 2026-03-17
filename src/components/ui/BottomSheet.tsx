@@ -192,7 +192,11 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
       handle.removeEventListener('touchend', onTouchEnd);
       cancelAnimationFrame(rafId.current);
     };
-  }, [isMobile, sheetY, getSnapPositions, applyTranslate, findSnapTarget, snapTo]);
+  // Note: sheetY intentionally excluded — handlers use currentTranslateY ref, not state.
+  // Including sheetY caused listener teardown/reattach on every snap, which could leave
+  // the handle without listeners during rapid tab/mode changes.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile, getSnapPositions, applyTranslate, findSnapTarget, snapTo]);
 
   // ── Desktop: pass-through side panel ──
   if (!isMobile) {
@@ -229,7 +233,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
         <div
           data-drag-handle
           className="shrink-0 cursor-grab active:cursor-grabbing flex items-center justify-center"
-          style={{ touchAction: 'none', height: 28 }}
+          style={{ touchAction: 'none', height: 48 }}
         >
           <div className="w-10 h-1 bg-white/30 rounded-full" />
         </div>

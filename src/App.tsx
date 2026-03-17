@@ -4,6 +4,7 @@ import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
 import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
+import { getSheetAwarePadding } from './lib/sheetAwareMap';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
 const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
@@ -32,6 +33,7 @@ type NavEntry = {
 function App() {
   const { moments, stories, collections } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
   const [mode, setMode] = useState<InteractionMode>('explore');
   const [activeStory, setActiveStory] = useState<Story | null>(null);
@@ -63,6 +65,33 @@ function App() {
       setSheetSnap('half');
     }
   }, [mode]);
+
+  // Refit map bounds when sheet snap changes in story/entity mode
+  // (e.g., user pulls sheet down to peek → show all story pins in the now-larger map area)
+  const prevSheetSnap = useRef(sheetSnap);
+  useEffect(() => {
+    if (sheetSnap === prevSheetSnap.current) return;
+    prevSheetSnap.current = sheetSnap;
+    if (!mapInstance || !isMobile) return;
+
+    const containerH = mapInstance.getSize().y;
+    const padOpts = getSheetAwarePadding(isMobile, sheetSnap, containerH);
+
+    if (mode === 'story' && activeStory && !activeLocation) {
+      const coords = resolveLocationsFromMap(activeStory, momentMap).map(
+        (loc) => [loc.lat, loc.lng] as [number, number]
+      );
+      if (coords.length > 0) {
+        smartFlyToBounds(mapInstance, L.latLngBounds(coords), { ...padOpts, maxZoom: 12, duration: 0.8 });
+      }
+    } else if (mode === 'entity' && activeEntity) {
+      const entLocs = getEntityLocations(activeEntity.id);
+      const coords = entLocs.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
+      if (coords.length > 0) {
+        smartFlyToBounds(mapInstance, L.latLngBounds(coords), { ...padOpts, maxZoom: 12, duration: 0.8 });
+      }
+    }
+  }, [sheetSnap, mode, activeStory, activeEntity, activeLocation, mapInstance, isMobile, momentMap]);
 
   // Auto-request geolocation on first load
   useEffect(() => {
@@ -225,15 +254,21 @@ function App() {
     setActiveLocation(null);
     setMode('explore');
 
+    // On mobile, snap sheet to peek to maximize map visibility for collection overview
+    if (isMobile) setSheetSnap('peek');
+
     // Zoom map to fit all collection story locations
     if (mapInstance) {
       const midSet = new Set(collection.momentIds);
       const coords = moments.filter(m => midSet.has(m.id)).map(m => [m.lat, m.lng] as [number, number]);
       if (coords.length > 0) {
-        smartFlyToBounds(mapInstance, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+        const containerH = mapInstance.getSize().y;
+        // Use peek padding since we just snapped to peek
+        const padOpts = getSheetAwarePadding(isMobile, 'peek', containerH, 60);
+        smartFlyToBounds(mapInstance, L.latLngBounds(coords), { ...padOpts, maxZoom: 14, duration: 1.8 });
       }
     }
-  }, [pushNav, mapInstance, moments]);
+  }, [pushNav, mapInstance, moments, isMobile]);
 
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);
@@ -447,6 +482,7 @@ function App() {
             nearMeZoomKey={nearMeZoomKey}
             restoreView={restoreView}
             entityLocations={entityLocations}
+            sheetSnap={sheetSnap}
           />
         </div>
 
@@ -505,6 +541,7 @@ function App() {
                   onEntityClick={handleEntitySelect}
                   activeTab={exploreTab}
                   onTabChange={setExploreTab}
+                  sheetSnap={sheetSnap}
                 />
               )}
               </Suspense>

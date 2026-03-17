@@ -10,6 +10,8 @@ import type { ClusterOrPoint, MomentPointProps, ConstellationClusterProps } from
 import { createConstellationSVG, createConstellationTooltip, computeConstellationSize, createCountLabel, createWispsContent, computeEssenceSize, createEssenceHoverRing, createPalimpsestContent, createPalimpsestPinContent, getVariantRenderMode } from '../../lib/constellation';
 import type { ConstellationVariant } from '../../lib/constellation';
 import { useAppData } from '../../lib/data/provider';
+import { getSheetAwarePadding, panToAboveSheet } from '../../lib/sheetAwareMap';
+import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { EmergenceLayer } from './EmergenceLayer';
 
 /** Approximate distance in degrees between two lat/lng points. */
@@ -99,6 +101,7 @@ interface MapViewProps {
   nearMeZoomKey?: number;
   restoreView?: { center: [number, number]; zoom: number } | null;
   entityLocations?: Array<{ location: Moment; story: Story }>;
+  sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -118,11 +121,26 @@ function computeNotabilitySize(baseSize: number, alpha: number): number {
 
 // ── Marker icon creation ───────────────────────────────────────────────
 
+const MIN_TOUCH_TARGET = 32;
+const isMobileDevice = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
+
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number): L.DivIcon {
   const highlighted = isActive || isScrollHighlighted;
   const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
   const classes = `story-marker${highlighted ? ' active pulsing' : ''}`;
   const opacityStyle = opacity !== undefined ? `opacity:${opacity};` : '';
+
+  // On mobile, wrap small markers in a larger transparent touch target
+  if (isMobileDevice && displaySize < MIN_TOUCH_TARGET) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:${MIN_TOUCH_TARGET}px;height:${MIN_TOUCH_TARGET}px;display:flex;align-items:center;justify-content:center;">` +
+            `<div class="${classes}" style="width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}"></div></div>`,
+      iconSize: [MIN_TOUCH_TARGET, MIN_TOUCH_TARGET],
+      iconAnchor: [MIN_TOUCH_TARGET / 2, MIN_TOUCH_TARGET / 2],
+    });
+  }
+
   return L.divIcon({
     className: '',
     html: `<div class="${classes}" style="width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}"></div>`,
@@ -193,6 +211,7 @@ function MapController({
   nearMeZoomKey,
   restoreView,
   entityLocations,
+  sheetSnap: sheetSnapProp,
   constellationVariant,
 }: MapViewProps & { constellationVariant: ConstellationVariant }) {
   const { moments: allMoments, stories: allStories } = useAppData();
@@ -203,6 +222,8 @@ function MapController({
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);
   const [currentZoom, setCurrentZoom] = useState(map.getZoom());
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
+  const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
 
   useEffect(() => {
     onMapReady(map);
@@ -560,28 +581,30 @@ function MapController({
   useEffect(() => {
     if (isUserDragging.current) return;
 
+    const containerH = map.getSize().y;
+    const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
+
     if (activeLocation) {
-      smartFlyTo(map, [activeLocation.lat, activeLocation.lng], 14);
+      // Pan to single location — offset for sheet on mobile
+      panToAboveSheet(map, [activeLocation.lat, activeLocation.lng], sheetSnap, isMobile, { duration: 0.5 });
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      smartFlyToBounds(map, L.latLngBounds(coords), { padding: [40, 40], maxZoom: 12, duration: 1.8 });
+      smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
-      // maxZoom 12 so closely-grouped moments are clearly distinguished,
-      // especially on the small 30vh mobile map
-      smartFlyToBounds(map, bounds, { padding: [40, 40], maxZoom: 12, duration: 1.8 });
+      smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 1.8 });
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
         resolveLocationsFromMap(s, momentMap).map((l) => [l.lat, l.lng] as [number, number])
       );
       if (coords.length > 0) {
-        smartFlyToBounds(map, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 10, duration: 1.8 });
+        smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 10, duration: 1.8 });
       }
     }
-  }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations]);
+  }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations, isMobile, sheetSnap]);
 
   // Zoom out to show all pins when resetViewKey changes
   const prevResetKey = useRef(resetViewKey);
