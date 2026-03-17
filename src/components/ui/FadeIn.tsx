@@ -16,7 +16,7 @@ export function FadeIn({ children, duration = 200 }: { children: ReactNode; dura
 
   return (
     <div
-      className="flex-1 flex flex-col"
+      className="flex-1 flex flex-col overflow-hidden min-h-0"
       style={{
         opacity: visible ? 1 : 0,
         transition: `opacity ${duration}ms ease`,
