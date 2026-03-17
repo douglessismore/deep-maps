@@ -24,12 +24,12 @@ export function PersonCard({ data, onClick, compact = false, distanceMi }: Perso
           {/* Header — avatar + name + years */}
           <div className="flex items-start gap-2.5 mb-1">
             <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(139,92,246,0.12)] ring-1 ring-[rgba(139,92,246,0.3)] mt-0.5">
-              <span className="text-[11px] font-serif font-bold text-[rgba(139,92,246,0.8)]">
+              <span className="text-[11px] font-sans font-bold text-[rgba(139,92,246,0.8)]">
                 {getInitial(entity.name)}
               </span>
             </span>
             <div className="flex-1 min-w-0">
-              <h3 className={`font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors ${compact ? 'text-sm' : 'text-base'}`}>
+              <h3 className={`font-sans font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors ${compact ? 'text-sm' : 'text-base'}`}>
                 {entity.name}
               </h3>
             </div>

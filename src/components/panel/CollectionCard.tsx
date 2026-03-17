@@ -14,7 +14,7 @@ export function CollectionCard({ collection, momentCount, onClick }: CollectionC
     >
       {/* Title */}
       <div className="mb-2">
-        <h3 className="text-sm font-serif font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
+        <h3 className="text-sm font-sans font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
           {collection.name}
         </h3>
         <p className="text-[11px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-2">

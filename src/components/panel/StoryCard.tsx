@@ -28,7 +28,7 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
           {/* Header */}
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="flex-1 min-w-0">
-              <h3 className={`font-serif font-bold text-white group-hover:text-white transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`}>
+              <h3 className={`font-sans font-bold text-white group-hover:text-white transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`}>
                 {story.name}
               </h3>
               {story.nickname && !compact && (

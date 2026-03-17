@@ -345,7 +345,7 @@ export function WikiPanel({
                     >
                       {i + 1}
                     </span>
-                    <span className="text-[11px] font-serif font-semibold text-[var(--text-primary)] truncate">
+                    <span className="text-[11px] font-sans font-semibold text-[var(--text-primary)] truncate">
                       {ga.location.name}
                     </span>
                   </div>

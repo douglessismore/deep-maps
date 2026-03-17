@@ -55,6 +55,31 @@ function storyNotability(story: Story, mMap: Map<string, Moment>): number {
   return Math.max(...locs.map(l => getEffectiveNotability(l)));
 }
 
+/**
+ * Compute a hybrid "nearest" sort score that blends distance and notability
+ * based on the current map zoom level.
+ *
+ * At tight zoom (≥12): distance dominates (nearby things first)
+ * At loose zoom (≤6): notability dominates (important things first)
+ * In between: smooth linear blend
+ *
+ * Returns a score where LOWER = should appear first in the list.
+ */
+function hybridNearestScore(distance: number, notability: number, zoom: number): number {
+  // zoomFactor: 0 at zoom ≤6 (loose), 1 at zoom ≥12 (tight)
+  const zoomFactor = Math.max(0, Math.min(1, (zoom - 6) / 6));
+
+  // Normalize distance: use log scale to tame extreme ranges.
+  // +1 to avoid log(0). Lower distance → lower distanceScore → sorts first.
+  const distanceScore = Math.log1p(distance);
+
+  // Normalize notability: invert so higher notability → lower score (sorts first).
+  // Notability ranges roughly 5–88; map to 0–1 then invert.
+  const notabilityScore = 1 - Math.min(1, notability / 100);
+
+  return (zoomFactor * distanceScore) + ((1 - zoomFactor) * notabilityScore);
+}
+
 export function ExplorePanel({
   stories,
   collections,
@@ -95,6 +120,7 @@ export function ExplorePanel({
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
   const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
+  const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
   // Compact cards on mobile to show more stories below the map
   const [isMobile, setIsMobile] = useState(() =>
@@ -185,6 +211,7 @@ export function ExplorePanel({
     const allInBounds = getLocationsInBounds(sourceStories, bounds, momentMap);
     setViewportLocations(allInBounds);
     setViewportStories(getStoriesInBounds(sourceStories, bounds, momentMap));
+    setMapZoom(mapInstance.getZoom());
   }, [mapInstance, stories, categoryFilter, momentMap]);
 
   useEffect(() => {
@@ -455,13 +482,22 @@ export function ExplorePanel({
 
     // Sort by active story sort mode
     if (storySort === 'nearest' && userLocation) {
-      return [...result].sort((a, b) =>
-        nearestDistance(a, userLocation.lat, userLocation.lng, momentMap) -
-        nearestDistance(b, userLocation.lat, userLocation.lng, momentMap)
-      );
+      return [...result].sort((a, b) => {
+        const scoreA = hybridNearestScore(
+          nearestDistance(a, userLocation.lat, userLocation.lng, momentMap),
+          storyNotability(a, momentMap),
+          mapZoom,
+        );
+        const scoreB = hybridNearestScore(
+          nearestDistance(b, userLocation.lat, userLocation.lng, momentMap),
+          storyNotability(b, momentMap),
+          mapZoom,
+        );
+        return scoreA - scoreB;
+      });
     }
     return [...result].sort((a, b) => storyNotability(b, momentMap) - storyNotability(a, momentMap));
-  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort, momentMap]);
+  }, [filteredStories, viewportStories, searchQuery, userLocation, storySort, momentMap, mapZoom]);
 
   // Viewport entities — split into people and places
   const viewportEntities: EntityWithCounts[] = useMemo(() => {
@@ -515,12 +551,15 @@ export function ExplorePanel({
 
     const combined = [...storyItems, ...personItems];
     if (storySort === 'nearest' && userLocation) {
-      combined.sort((a, b) => a.distance - b.distance);
+      combined.sort((a, b) =>
+        hybridNearestScore(a.distance, a.notability, mapZoom) -
+        hybridNearestScore(b.distance, b.notability, mapZoom)
+      );
     } else if (storySort === 'notable') {
       combined.sort((a, b) => b.notability - a.notability);
     }
     return combined;
-  }, [displayStories, personEntities, userLocation, storySort]);
+  }, [displayStories, personEntities, userLocation, storySort, mapZoom]);
 
   // Place entities — shown in Places tab
   const placeEntities = useMemo(
@@ -549,12 +588,13 @@ export function ExplorePanel({
         const bMoments = getMomentsForEntity(b.entity.id);
         const aDist = aMoments.length > 0 ? Math.min(...aMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
         const bDist = bMoments.length > 0 ? Math.min(...bMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
-        return aDist - bDist;
+        return hybridNearestScore(aDist, a.maxNotability, mapZoom) -
+               hybridNearestScore(bDist, b.maxNotability, mapZoom);
       });
     }
     // a-z handled by placeAlphabeticalGroups
     return arr.sort((a, b) => a.entity.name.localeCompare(b.entity.name));
-  }, [placeEntities, placeSort, userLocation]);
+  }, [placeEntities, placeSort, userLocation, mapZoom]);
 
   const sortedMoments = useMemo(() => {
     const arr = [...viewportLocations];
@@ -563,11 +603,13 @@ export function ExplorePanel({
         return arr.sort((a, b) => (b.location.notability ?? 0) - (a.location.notability ?? 0));
       case 'nearest':
         if (userLocation) {
-          // Sort by distance from user's GPS location
+          // Hybrid sort: blends distance and notability based on zoom level
           return arr.sort((a, b) => {
             const da = distanceMiles(userLocation.lat, userLocation.lng, a.location.lat, a.location.lng);
             const db = distanceMiles(userLocation.lat, userLocation.lng, b.location.lat, b.location.lng);
-            return da - db;
+            const na = getEffectiveNotability(a.location);
+            const nb = getEffectiveNotability(b.location);
+            return hybridNearestScore(da, na, mapZoom) - hybridNearestScore(db, nb, mapZoom);
           });
         }
         // Fallback: distance from viewport center (pre-computed)
@@ -577,7 +619,7 @@ export function ExplorePanel({
       default:
         return arr;
     }
-  }, [viewportLocations, momentSort, userLocation]);
+  }, [viewportLocations, momentSort, userLocation, mapZoom]);
 
   // Scroll-driven entity highlighting (Places tab)
   // Shows single primary pin for each entity (not all moments)
@@ -652,7 +694,7 @@ export function ExplorePanel({
       </span>
       {/* Name + description */}
       <div className="flex-1 min-w-0">
-        <span className={`text-xs font-serif font-semibold transition-colors truncate block ${
+        <span className={`text-xs font-sans font-semibold transition-colors truncate block ${
           isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
         }`}>
           {entity.name}
@@ -882,7 +924,7 @@ export function ExplorePanel({
                   </svg>
                 </button>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-serif font-semibold text-[var(--text-primary)] truncate">
+                  <p className="text-xs font-sans font-semibold text-[var(--text-primary)] truncate">
                     {activeCollection.name}
                   </p>
                   <p className="text-[10px] font-mono text-[var(--text-muted)]">

@@ -377,7 +377,7 @@ export function StoryPanel({
                 className="w-full flex items-center gap-2 px-4 py-2.5"
               >
                 <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                <h2 className="font-serif text-sm font-bold text-white truncate">
+                <h2 className="font-sans text-sm font-bold text-white truncate">
                   {story.name}
                 </h2>
                 <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
@@ -546,7 +546,7 @@ export function StoryPanel({
             <div className="lg:hidden px-4 py-2.5">
               <div className="flex items-center gap-2">
                 <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                <h2 className="font-serif text-sm font-bold text-white truncate">{story.name}</h2>
+                <h2 className="font-sans text-sm font-bold text-white truncate">{story.name}</h2>
               </div>
             </div>
             <div className="hidden lg:block px-4 py-3">

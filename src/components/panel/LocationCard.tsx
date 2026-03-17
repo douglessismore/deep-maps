@@ -108,7 +108,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           )}
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline justify-between gap-2">
-              <h4 className="font-serif text-[14px] font-bold text-white leading-[1.3]">
+              <h4 className="font-sans text-[14px] font-bold text-white leading-[1.3]">
                 {location.name}
               </h4>
               {showExpandChevron && (
@@ -127,7 +127,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </div>
               )}
             </div>
-            <p className="text-xs text-[var(--text-secondary)] mt-0.5 leading-relaxed font-serif italic">
+            <p className="text-xs text-[var(--text-secondary)] mt-0.5 leading-relaxed italic">
               {location.subtitle}
             </p>
           </div>
