@@ -426,6 +426,15 @@ export function ExplorePanel({
     const onScroll = () => {
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
+        // Suppress viewport updates while scrolling — prevents the moments list
+        // from reshuffling when panTo triggers a moveend that recomputes viewportLocations
+        isScrollDriving.current = true;
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = window.setTimeout(() => {
+          isScrollDriving.current = false;
+          updateViewport();
+        }, 400);
+
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
         let closestKey: string | null = null;
@@ -467,8 +476,10 @@ export function ExplorePanel({
       cancelAnimationFrame(scrollRafId.current);
       clearTimeout(panTimeout.current);
       clearTimeout(highlightDebounce.current);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      isScrollDriving.current = false;
     };
-  }, [activeTab, mapInstance, viewportLocations, onScrollHighlight]);
+  }, [activeTab, mapInstance, viewportLocations, onScrollHighlight, updateViewport]);
 
   // Stories tab: show viewport stories if available, else filtered stories
   // Filter out canonical stories — they're invisible infrastructure
@@ -642,6 +653,14 @@ export function ExplorePanel({
     const onScroll = () => {
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
+        // Suppress viewport updates while scrolling — same guard as Stories/Moments tabs
+        isScrollDriving.current = true;
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = window.setTimeout(() => {
+          isScrollDriving.current = false;
+          updateViewport();
+        }, 400);
+
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
         let closestId: string | null = null;
@@ -682,8 +701,10 @@ export function ExplorePanel({
       cancelAnimationFrame(scrollRafId.current);
       clearTimeout(panTimeout.current);
       clearTimeout(highlightDebounce.current);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      isScrollDriving.current = false;
     };
-  }, [activeTab, mapInstance, placeEntities, onScrollHighlight]);
+  }, [activeTab, mapInstance, placeEntities, onScrollHighlight, updateViewport]);
 
   const renderPlaceRow = (entity: Entity, momentCount: number, isActive: boolean) => (
     <button
