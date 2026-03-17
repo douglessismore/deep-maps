@@ -48,6 +48,7 @@ function App() {
   const [activeEntity, setActiveEntity] = useState<Entity | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
+  const [mapVisibleStoryIds, setMapVisibleStoryIds] = useState<Set<string> | null>(null);
   const [navHistory, setNavHistory] = useState<NavEntry[]>([]);
   const [exploreTab, setExploreTab] = useState<PanelTab>('stories');
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -97,6 +98,37 @@ function App() {
       }
     }
   }, [sheetSnap, mode, activeStory, activeEntity, activeLocation, mapInstance, isMobile, momentMap]);
+
+  // Track which stories have pins visible on the map (for timeline dimming)
+  useEffect(() => {
+    if (!mapInstance) return;
+    let rafId = 0;
+    const update = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const bounds = mapInstance.getBounds();
+        const ids = new Set<string>();
+        for (const story of stories) {
+          for (const sm of story.moments) {
+            const m = momentMap.get(sm.momentId);
+            if (m && bounds.contains([m.lat, m.lng])) {
+              ids.add(story.id);
+              break; // one visible pin is enough
+            }
+          }
+        }
+        setMapVisibleStoryIds(ids);
+      });
+    };
+    update();
+    mapInstance.on('moveend', update);
+    mapInstance.on('zoomend', update);
+    return () => {
+      cancelAnimationFrame(rafId);
+      mapInstance.off('moveend', update);
+      mapInstance.off('zoomend', update);
+    };
+  }, [mapInstance, stories, momentMap]);
 
   // Auto-request geolocation on first load
   useEffect(() => {
@@ -470,6 +502,7 @@ function App() {
           onStorySelect={handleStorySelect}
           onViewRangeChange={setTimelineViewRange}
           highlightedStoryId={scrollHighlightStoryId}
+          mapVisibleStoryIds={mapVisibleStoryIds}
         />
       )}
       <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">

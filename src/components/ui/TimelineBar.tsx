@@ -18,6 +18,8 @@ interface TimelineBarProps {
   onStorySelect: (story: Story) => void;
   onViewRangeChange: (range: [number, number] | null) => void;
   highlightedStoryId?: string | null;
+  /** Story IDs with at least one pin visible on the current map viewport */
+  mapVisibleStoryIds?: Set<string> | null;
 }
 
 const DOT_RADIUS = 2.5;
@@ -36,6 +38,7 @@ export function TimelineBar({
   onStorySelect,
   onViewRangeChange,
   highlightedStoryId,
+  mapVisibleStoryIds,
 }: TimelineBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -500,9 +503,12 @@ export function TimelineBar({
             const isHovered = hoveredPoint === pt.storyId;
             const isScrollHL = highlightedStoryId === pt.storyId;
             const isActive = isHovered || isScrollHL;
+            // Dim dots not visible on map (when map has moved to show a subset)
+            const isOffMap = mapVisibleStoryIds && mapVisibleStoryIds.size > 0 && !mapVisibleStoryIds.has(pt.storyId);
             const r = isActive ? DOT_HOVER_RADIUS : isFiltered ? 1 : DOT_RADIUS;
             const color = CATEGORIES[pt.category].color;
-            const opacity = isFiltered ? 0.1 : isActive ? 1 : 0.75;
+            // Dimming priority: filtered > off-map > default. Active always bright.
+            const opacity = isFiltered ? 0.1 : isActive ? 1 : isOffMap ? 0.15 : 0.75;
             const dotFilter = isActive
               ? `drop-shadow(0 0 4px ${color})`
               : 'none';
