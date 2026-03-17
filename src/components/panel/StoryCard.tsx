@@ -19,7 +19,7 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
       className="w-full text-left group"
     >
       <div
-        className="bg-[var(--bg-card)] rounded-[14px] overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg hover:shadow-black/30"
+        className="bg-[var(--bg-card)] rounded-[14px] overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg hover:shadow-black/30 active:scale-[0.97]"
       >
         {/* Category color bar */}
         <div className="h-[3px]" style={{ backgroundColor: cat.color }} />

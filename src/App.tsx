@@ -4,6 +4,8 @@ import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
 import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
+import { FadeIn } from './components/ui/FadeIn';
+import { PanelSkeleton } from './components/ui/Skeleton';
 import { getSheetAwarePadding } from './lib/sheetAwareMap';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
@@ -28,6 +30,7 @@ type NavEntry = {
   categoryFilter: StoryCategory | null;
   savedMapView?: SavedMapView;
   exploreTab?: PanelTab;
+  exploreScrollTop?: number;
 };
 
 function App() {
@@ -52,6 +55,8 @@ function App() {
   const [geoLoading, setGeoLoading] = useState(false);
   const [nearMeZoomKey, setNearMeZoomKey] = useState(0);
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
+  const exploreScrollTop = useRef(0);
+  const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const autoGeoRequested = useRef(false);
 
   // Bottom sheet snap control (mobile only)
@@ -159,7 +164,7 @@ function App() {
       ? { center: [mapInstance.getCenter().lat, mapInstance.getCenter().lng], zoom: mapInstance.getZoom() }
       : undefined;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
@@ -221,6 +226,7 @@ function App() {
       setActiveCollection(entry.activeCollection);
       setCategoryFilter(entry.categoryFilter);
       if (entry.exploreTab) setExploreTab(entry.exploreTab);
+      if (entry.exploreScrollTop != null) setRestoreScrollTop(entry.exploreScrollTop);
       if (!entry.activeStory && !entry.activeEntity) {
         // Restore saved map view if available, otherwise reset to US center
         if (entry.savedMapView) {
@@ -490,8 +496,9 @@ function App() {
         <BottomSheet snapTo={sheetSnap} onSnapChange={setSheetSnap}>
           <Switch>
             <Route path="/">
-              <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">Loading…</div>}>
+              <Suspense fallback={<PanelSkeleton />}>
               {mode === 'entity' && activeEntity ? (
+                <FadeIn key="entity">
                 <EntityPanel
                   entity={activeEntity}
                   onStoryClick={handleEntityStoryClick}
@@ -502,7 +509,9 @@ function App() {
                   backLabel={backLabel}
                   onHome={handleBackToExplore}
                 />
+                </FadeIn>
               ) : mode === 'story' && activeStory ? (
+                <FadeIn key="story">
                 <StoryPanel
                   story={activeStory}
                   activeLocation={activeLocation}
@@ -517,7 +526,9 @@ function App() {
                   onHome={handleBackToExplore}
                   onEntityClick={handleEntitySelect}
                 />
+                </FadeIn>
               ) : (
+                <FadeIn key="explore">
                 <ExplorePanel
                   stories={timelineFilteredStories}
                   collections={collections}
@@ -542,7 +553,11 @@ function App() {
                   activeTab={exploreTab}
                   onTabChange={setExploreTab}
                   sheetSnap={sheetSnap}
+                  onScrollPosition={(top) => { exploreScrollTop.current = top; }}
+                  restoreScrollTop={restoreScrollTop}
+                  onScrollRestored={() => setRestoreScrollTop(null)}
                 />
+                </FadeIn>
               )}
               </Suspense>
             </Route>

@@ -42,9 +42,14 @@ interface ExplorePanelProps {
   activeTab?: PanelTab;
   onTabChange?: (tab: PanelTab) => void;
   sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
+  onScrollPosition?: (scrollTop: number) => void;
+  restoreScrollTop?: number | null;
+  onScrollRestored?: () => void;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
+
+const TAB_INDEX: Record<PanelTab, number> = { moments: 0, stories: 1, places: 2, collections: 3 };
 
 /** Get the nearest location distance from a story to a point */
 function nearestDistance(story: Story, lat: number, lng: number, mMap: Map<string, Moment>): number {
@@ -106,6 +111,9 @@ export function ExplorePanel({
   activeTab: controlledTab,
   onTabChange,
   sheetSnap: sheetSnapProp,
+  onScrollPosition,
+  restoreScrollTop,
+  onScrollRestored,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
@@ -117,6 +125,9 @@ export function ExplorePanel({
     if (onTabChange) onTabChange(tab);
     else setInternalTab(tab);
   }, [onTabChange]);
+  // Suppress initial-render slide animation for tab underline
+  const hasTabRendered = useRef(false);
+  useEffect(() => { hasTabRendered.current = true; }, []);
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
@@ -395,6 +406,30 @@ export function ExplorePanel({
       isScrollDriving.current = false; // Prevent stuck flag when switching tabs mid-scroll
     };
   }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
+
+  // Track scroll position for navigation history save/restore
+  useEffect(() => {
+    if (!onScrollPosition) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const handleScroll = () => { onScrollPosition(container.scrollTop); };
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [onScrollPosition]);
+
+  // Restore scroll position when navigating back
+  useEffect(() => {
+    if (restoreScrollTop == null) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    // Use rAF to wait for DOM to render content before scrolling
+    const raf = requestAnimationFrame(() => {
+      container.scrollTop = restoreScrollTop;
+      onScrollRestored?.();
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [restoreScrollTop, onScrollRestored]);
+
 
   // Initial activation for collections list — highlight the first collection's pins on mount
   // so the map shows relevant markers immediately instead of waiting for user to scroll
@@ -749,10 +784,10 @@ export function ExplorePanel({
   return (
     <div className="flex flex-col h-full relative">
       {/* Tabs — hidden when inside a collection (collection is a full destination) */}
-      {!activeCollection && <div className="flex border-b border-[var(--border-subtle)] shrink-0">
+      {!activeCollection && <div className="flex border-b border-[var(--border-subtle)] shrink-0 relative">
         <button
           onClick={() => setActiveTab('moments')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
             activeTab === 'moments'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
@@ -764,13 +799,10 @@ export function ExplorePanel({
               ({sortedMoments.length})
             </span>
           )}
-          {activeTab === 'moments' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
         </button>
         <button
           onClick={() => setActiveTab('stories')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
             activeTab === 'stories'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
@@ -780,13 +812,10 @@ export function ExplorePanel({
           {mixedList.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({mixedList.length})</span>
           )}
-          {activeTab === 'stories' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
         </button>
         <button
           onClick={() => setActiveTab('places')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
             activeTab === 'places'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
@@ -796,13 +825,10 @@ export function ExplorePanel({
           {placeEntities.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeEntities.length})</span>
           )}
-          {activeTab === 'places' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
         </button>
         <button
           onClick={() => setActiveTab('collections')}
-          className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors relative ${
+          className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors ${
             activeTab === 'collections'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
@@ -812,10 +838,16 @@ export function ExplorePanel({
           {viewportCollections.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportCollections.length})</span>
           )}
-          {activeTab === 'collections' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-          )}
         </button>
+        {/* Sliding tab underline */}
+        <div
+          className={`absolute bottom-0 left-0 h-0.5 bg-[var(--accent-red)] ${
+            hasTabRendered.current
+              ? 'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]'
+              : ''
+          }`}
+          style={{ width: '25%', transform: `translateX(${TAB_INDEX[activeTab] * 100}%)` }}
+        />
       </div>}
 
       {/* Content */}
@@ -864,6 +896,7 @@ export function ExplorePanel({
                     isActive={activeLocationId === vl.location.id}
                     isExpanded={expandedLocationKey === key}
                     showExpandChevron
+                    skipCanonicalFilter
                     parentStories={[vl.story]}
                     onClick={(moment) => {
                       setExpandedLocationKey(expandedLocationKey === key ? null : key);
@@ -974,6 +1007,7 @@ export function ExplorePanel({
                         isActive={scrollActiveStoryId === moment.id}
                         isExpanded={expandedLocationKey === moment.id}
                         showExpandChevron
+                        skipCanonicalFilter
                         parentStories={[parentStory]}
                         onClick={(m) => {
                           setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);

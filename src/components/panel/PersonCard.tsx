@@ -16,7 +16,7 @@ export function PersonCard({ data, onClick, compact = false, distanceMi }: Perso
       onClick={() => onClick(entity)}
       className="w-full text-left group"
     >
-      <div className="bg-[var(--bg-card)] rounded-lg overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-200 hover:shadow-lg hover:shadow-black/20">
+      <div className="bg-[var(--bg-card)] rounded-lg overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-200 hover:shadow-lg hover:shadow-black/20 active:scale-[0.97]">
         {/* Purple accent bar */}
         <div className="h-0.5 bg-[rgba(139,92,246,0.6)]" />
 

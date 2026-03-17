@@ -10,7 +10,7 @@ export function CollectionCard({ collection, momentCount, onClick }: CollectionC
   return (
     <button
       onClick={() => onClick(collection)}
-      className="w-full text-left rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-hover)] bg-[var(--bg-card)] p-3.5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] group"
+      className="w-full text-left rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-hover)] bg-[var(--bg-card)] p-3.5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] active:scale-[0.97] group"
     >
       {/* Title */}
       <div className="mb-2">

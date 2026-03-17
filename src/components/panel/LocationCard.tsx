@@ -32,6 +32,9 @@ interface LocationCardProps {
   parentStories?: Story[];
   excludeEntityIds?: string[];
   showExpandChevron?: boolean;
+  /** When true, don't filter entities whose canonicalStoryId === story.id.
+   *  Use in ExplorePanel where "story" is just the parent story, not the active view. */
+  skipCanonicalFilter?: boolean;
   onStoryClick?: (story: Story) => void;
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
 }
@@ -41,7 +44,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     location, story, isActive, isExpanded, onClick,
     showStoryName = false, index, onWikiJump, narrativeGlue,
     alsoInStories, parentStories, excludeEntityIds,
-    showExpandChevron, onStoryClick, onEntityClick,
+    showExpandChevron, skipCanonicalFilter, onStoryClick, onEntityClick,
   }, ref) {
     const cat = CATEGORIES[story.category];
 
@@ -55,33 +58,33 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         .map((eid) => {
           const entity = entityMap.get(eid);
           if (!entity) return null;
-          if (entity.canonicalStoryId === story.id) return null;
+          if (!skipCanonicalFilter && entity.canonicalStoryId === story.id) return null;
           if (excludeSet.has(eid)) return null;
           const entries = getEntityMomentStories(eid);
           const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)).filter(id => !canonicalStoryIds.has(id)));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
         })
         .filter((e): e is NonNullable<typeof e> => e != null);
-    }, [location.entityIds, story.id, onEntityClick, excludeEntityIds]);
+    }, [location.entityIds, story.id, onEntityClick, excludeEntityIds, skipCanonicalFilter]);
 
     // Merge all navigable stories for Dive Deeper (deduplicated, excluding canonical)
     const navigableStories = useMemo(() => {
       const seen = new Set<string>();
       const result: Story[] = [];
       for (const s of [...(parentStories ?? []), ...(alsoInStories ?? [])]) {
-        if (!seen.has(s.id) && !canonicalStoryIds.has(s.id)) {
+        if (!seen.has(s.id) && (skipCanonicalFilter || !canonicalStoryIds.has(s.id))) {
           seen.add(s.id);
           result.push(s);
         }
       }
       return result;
-    }, [parentStories, alsoInStories]);
+    }, [parentStories, alsoInStories, skipCanonicalFilter]);
 
     // Story chips for collapsed state (non-story contexts only)
     const storyChips = useMemo(() => {
       if (!parentStories || parentStories.length === 0 || !onStoryClick) return [];
-      return parentStories.filter(s => !canonicalStoryIds.has(s.id));
-    }, [parentStories, onStoryClick]);
+      return parentStories.filter(s => skipCanonicalFilter || !canonicalStoryIds.has(s.id));
+    }, [parentStories, onStoryClick, skipCanonicalFilter]);
 
     return (
       <div
