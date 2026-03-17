@@ -29,7 +29,7 @@ interface ExplorePanelProps {
   onLocationSelect: (location: Moment, story: Story) => void;
   onCollectionSelect: (collection: StoryCollection) => void;
   onClearCollection: () => void;
-  onScrollHighlight: (locations: Moment[]) => void;
+  onScrollHighlight: (locations: Moment[], storyId?: string) => void;
   onModeChange: (mode: InteractionMode) => void;
   mode: InteractionMode;
   searchQuery: string;
@@ -299,8 +299,7 @@ export function ExplorePanel({
                 .filter((m): m is Moment => m != null);
               if (collMoments.length > 0) {
                 onModeChange('scroll');
-                clearTimeout(highlightDebounce.current);
-                highlightDebounce.current = window.setTimeout(() => onScrollHighlight(collMoments), 30);
+                onScrollHighlight(collMoments);
                 // Fit bounds to show all collection moments
                 clearTimeout(panTimeout.current);
                 panTimeout.current = window.setTimeout(() => {
@@ -342,10 +341,9 @@ export function ExplorePanel({
             onModeChange('scroll');
             setScrollActiveStoryId(closestId);
 
-            // Highlight ALL story pins on the map
+            // Highlight ALL story pins on the map — pass storyId to skip reverse-lookup
             const resolved = resolveLocationsFromMap(story, momentMap);
-            clearTimeout(highlightDebounce.current);
-            highlightDebounce.current = window.setTimeout(() => onScrollHighlight(resolved), 30);
+            onScrollHighlight(resolved, story.id);
 
             // Pan to first in-view pin (or first pin overall)
             const mapBounds = mapInstance.getBounds();
@@ -365,8 +363,7 @@ export function ExplorePanel({
             if (collectionMoment) {
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
-              clearTimeout(highlightDebounce.current);
-              highlightDebounce.current = window.setTimeout(() => onScrollHighlight([collectionMoment]), 30);
+              onScrollHighlight([collectionMoment]);
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
                 panToAboveSheet(mapInstance, [collectionMoment.lat, collectionMoment.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
@@ -378,8 +375,7 @@ export function ExplorePanel({
             if (entityMoments.length > 0) {
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
-              clearTimeout(highlightDebounce.current);
-              highlightDebounce.current = window.setTimeout(() => onScrollHighlight(entityMoments), 30);
+              onScrollHighlight(entityMoments);
 
               const mapBounds = mapInstance.getBounds();
               const locsInView = entityMoments.filter((l) =>
@@ -489,8 +485,7 @@ export function ExplorePanel({
           );
           if (vl) {
             setActiveLocationId(vl.location.id);
-            clearTimeout(highlightDebounce.current);
-            highlightDebounce.current = window.setTimeout(() => onScrollHighlight([vl.location]), 30);
+            onScrollHighlight([vl.location], vl.story.id);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               panToAboveSheet(mapInstance, [vl.location.lat, vl.location.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
@@ -711,8 +706,7 @@ export function ExplorePanel({
           // Highlight only the first (primary) moment for this entity — single pin
           const entityMoments = getMomentsForEntity(closestId);
           if (entityMoments.length > 0) {
-            clearTimeout(highlightDebounce.current);
-            highlightDebounce.current = window.setTimeout(() => onScrollHighlight([entityMoments[0]]), 50);
+            onScrollHighlight([entityMoments[0]]);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               panToAboveSheet(mapInstance, [entityMoments[0].lat, entityMoments[0].lng], sheetSnap, isSheetMobile, { duration: 0.6 });

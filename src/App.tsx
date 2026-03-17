@@ -151,12 +151,15 @@ function App() {
     });
   }, [displayStories, timelineViewRange]);
 
-  // Derive which story is currently scroll-highlighted (for timeline dot pulse)
+  // Which story is scroll-highlighted (for timeline dot pulse).
+  // Prefer the directly-supplied storyId (fast path) over the expensive fallback lookup.
+  const [scrollHighlightDirectId, setScrollHighlightDirectId] = useState<string | null>(null);
   const scrollHighlightStoryId = useMemo(() => {
+    if (scrollHighlightDirectId) return scrollHighlightDirectId;
     if (scrollHighlight.length === 0) return null;
     const highlightIds = new Set(scrollHighlight.map(m => m.id));
     return stories.find((s) => resolveLocationsFromMap(s, momentMap).some((l) => highlightIds.has(l.id)))?.id ?? null;
-  }, [scrollHighlight, stories, momentMap]);
+  }, [scrollHighlightDirectId, scrollHighlight, stories, momentMap]);
 
   // Push current state onto navigation history before changing
   const pushNav = useCallback(() => {
@@ -282,12 +285,14 @@ function App() {
     if (newMode === 'story') setScrollHighlight([]);
   }, []);
 
-  // Deduplicate scrollHighlight — bail when moment IDs haven't changed
+  // Deduplicate scrollHighlight — bail when moment IDs haven't changed.
+  // Optional storyId shortcuts the expensive story-lookup in scrollHighlightStoryId.
   const scrollHighlightIdsRef = useRef<string>('');
-  const handleScrollHighlight = useCallback((locations: Moment[]) => {
+  const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string) => {
     const key = locations.map(m => m.id).join(',');
     if (key === scrollHighlightIdsRef.current) return; // same set — skip re-render
     scrollHighlightIdsRef.current = key;
+    setScrollHighlightDirectId(storyId ?? null);
     setScrollHighlight(locations);
   }, []);
 

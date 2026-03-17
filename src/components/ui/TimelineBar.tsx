@@ -26,7 +26,7 @@ const TAP_THRESHOLD = 8; // px — movement below this is a tap, above is a scru
 
 function getBarMetrics(isMobile: boolean) {
   return isMobile
-    ? { BAR_HEIGHT: 64, TOP_H: 16, DOT_H: 28, CHIP_H: 20, DOT_Y: 14 }
+    ? { BAR_HEIGHT: 68, TOP_H: 16, DOT_H: 28, CHIP_H: 24, DOT_Y: 14 }
     : { BAR_HEIGHT: 80, TOP_H: 20, DOT_H: 36, CHIP_H: 24, DOT_Y: 18 };
 }
 
@@ -76,10 +76,12 @@ export function TimelineBar({
     hasMoved: boolean; // true once movement exceeds TAP_THRESHOLD
   } | null>(null);
 
-  // Reset on data change
+  // Reset all interaction state on data change
   useEffect(() => {
     setActiveEra(null);
     setHasInteracted(false);
+    setHoveredPoint(null);
+    setScrubEra(null);
     onViewRangeChange(null);
   }, [allPoints, onViewRangeChange]);
 
@@ -242,6 +244,9 @@ export function TimelineBar({
       pointerState.current = null;
       setScrubEra(null);
 
+      // Release pointer capture
+      try { (e.target as Element).releasePointerCapture(e.pointerId); } catch {}
+
       if (!ps || !ps.active) return;
 
       if (!ps.hasMoved) {
@@ -327,54 +332,55 @@ export function TimelineBar({
         <span
           className="font-mono"
           style={{
-            fontSize: isMobile ? 9 : 10,
-            color: 'rgba(255,255,255,0.45)',
+            fontSize: isMobile ? 10 : 11,
+            color: 'rgba(255,255,255,0.55)',
             letterSpacing: '0.3px',
           }}
+          aria-label={`Timeline range: ${rangeLabel}`}
         >
           {rangeLabel}
         </span>
         <div style={{ display: 'flex', gap: 3 }}>
           <button
             onClick={(e) => { e.stopPropagation(); handleZoomIn(); }}
-            className="flex items-center justify-center rounded font-mono font-semibold"
+            className="flex items-center justify-center rounded font-mono font-semibold hover:bg-white/20 active:bg-white/25 transition-colors"
             style={{
-              width: isMobile ? 20 : 24,
+              width: isMobile ? 24 : 26,
               height: isMobile ? 16 : 18,
-              fontSize: isMobile ? 10 : 11,
+              fontSize: isMobile ? 11 : 12,
               background: 'rgba(255,255,255,0.1)',
               border: '1px solid rgba(255,255,255,0.15)',
               color: 'rgba(255,255,255,0.7)',
               cursor: 'pointer',
             }}
-            title="Zoom in"
+            aria-label="Zoom in to densest era"
           >
             +
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); handleZoomOut(); }}
-            className="flex items-center justify-center rounded font-mono font-semibold"
+            className="flex items-center justify-center rounded font-mono font-semibold hover:bg-white/20 active:bg-white/25 transition-colors"
             style={{
-              width: isMobile ? 20 : 24,
+              width: isMobile ? 24 : 26,
               height: isMobile ? 16 : 18,
-              fontSize: isMobile ? 10 : 11,
+              fontSize: isMobile ? 11 : 12,
               background: 'rgba(255,255,255,0.1)',
               border: '1px solid rgba(255,255,255,0.15)',
               color: 'rgba(255,255,255,0.7)',
               cursor: 'pointer',
             }}
-            title="Zoom out"
+            aria-label="Zoom out to all eras"
           >
             −
           </button>
           {/* Clear button — always rendered, visibility via opacity */}
           <button
             onClick={(e) => { e.stopPropagation(); handleClear(); }}
-            className="flex items-center justify-center rounded font-mono font-semibold"
+            className="flex items-center justify-center rounded font-mono font-semibold hover:bg-yellow-500/25 active:bg-yellow-500/30 transition-colors"
             style={{
-              width: isMobile ? 20 : 24,
+              width: isMobile ? 24 : 26,
               height: isMobile ? 16 : 18,
-              fontSize: isMobile ? 10 : 11,
+              fontSize: isMobile ? 11 : 12,
               background: hasInteracted ? 'rgba(234,179,8,0.15)' : 'rgba(255,255,255,0.1)',
               border: `1px solid ${hasInteracted ? 'rgba(234,179,8,0.3)' : 'rgba(255,255,255,0.15)'}`,
               color: hasInteracted ? 'rgba(234,179,8,0.9)' : 'rgba(255,255,255,0.7)',
@@ -383,7 +389,7 @@ export function TimelineBar({
               pointerEvents: hasInteracted ? 'auto' : 'none',
               transition: 'opacity 0.2s',
             }}
-            title="Clear filter"
+            aria-label="Clear era filter"
           >
             ×
           </button>
@@ -404,6 +410,8 @@ export function TimelineBar({
           ref={svgRef}
           width={containerWidth}
           height={DOT_H}
+          role="img"
+          aria-label={`Timeline with ${visiblePoints.length} stories. Tap a dot to select, drag to scrub eras.`}
           style={{
             display: 'block',
             cursor: 'default',
@@ -625,8 +633,8 @@ function EraChip({
   isMobile: boolean;
   onClick: () => void;
 }) {
-  const chipH = isMobile ? 14 : 16;
-  const fontSize = isMobile ? 8 : 9;
+  const chipH = isMobile ? 18 : 20;
+  const fontSize = isMobile ? 9 : 10;
 
   const isEmphasized = isActive || isScrubbed;
 
@@ -637,31 +645,32 @@ function EraChip({
         onClick();
       }}
       className="font-mono shrink-0"
+      aria-label={`${label}${count > 0 ? ` (${count} stories)` : ''}`}
       style={{
         height: chipH,
-        padding: `0 ${isMobile ? 5 : 7}px`,
+        padding: `0 ${isMobile ? 6 : 8}px`,
         borderRadius: chipH / 2,
         fontSize,
         whiteSpace: 'nowrap',
         border: `1px solid ${
           isEmphasized
-            ? 'rgba(234,179,8,0.4)'
+            ? 'rgba(234,179,8,0.5)'
             : isHighlighted
-            ? 'rgba(234,179,8,0.25)'
-            : 'rgba(255,255,255,0.08)'
+            ? 'rgba(234,179,8,0.35)'
+            : 'rgba(255,255,255,0.12)'
         }`,
         background: isEmphasized
           ? 'rgba(234,179,8,0.2)'
           : isHighlighted
-          ? 'rgba(234,179,8,0.08)'
-          : 'rgba(255,255,255,0.04)',
+          ? 'rgba(234,179,8,0.1)'
+          : 'rgba(255,255,255,0.05)',
         color: isEmphasized
-          ? 'rgba(234,179,8,0.9)'
+          ? 'rgba(234,179,8,0.95)'
           : isHighlighted
-          ? 'rgba(234,179,8,0.6)'
+          ? 'rgba(234,179,8,0.75)'
           : count === 0
-          ? 'rgba(255,255,255,0.15)'
-          : 'rgba(255,255,255,0.5)',
+          ? 'rgba(255,255,255,0.2)'
+          : 'rgba(255,255,255,0.55)',
         cursor: count === 0 && label !== 'All' ? 'default' : 'pointer',
         display: 'flex',
         alignItems: 'center',
