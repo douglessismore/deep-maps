@@ -169,15 +169,20 @@ export async function searchCommonsImage(
 }
 
 /**
- * Validate that an image URL actually resolves (HEAD request).
+ * Validate that an image URL actually resolves.
+ * Uses GET with Range header (some servers reject HEAD requests).
  */
 export async function validateImageUrl(url: string): Promise<boolean> {
   try {
     const res = await fetch(url, {
-      method: 'HEAD',
-      headers: { 'User-Agent': 'DeepMaps/1.0 (content pipeline)' },
+      method: 'GET',
+      headers: {
+        'User-Agent': 'DeepMaps/1.0 (content pipeline)',
+        'Range': 'bytes=0-0',
+      },
     });
-    return res.ok;
+    // 200 (full response) or 206 (partial content) both mean the image exists
+    return res.status === 200 || res.status === 206;
   } catch {
     return false;
   }
@@ -212,29 +217,48 @@ export async function fetchWikipediaMainImage(slug: string): Promise<{
 
 /**
  * Build a search query for a moment's location photo.
- * Combines the event name with location info to find relevant images.
+ * Strategy: use the specific venue/address + key subject noun.
+ * Commons responds best to concrete location names, not event descriptions.
  */
 export function buildImageSearchQuery(moment: {
   name: string;
   address?: string;
   year?: number;
 }): string {
-  // Extract key location/subject terms from the moment name and address
-  // Remove common verbs and articles to focus on nouns
-  const nameTerms = moment.name
-    .replace(/^(A |An |The )/i, '')
-    .replace(/(Is |Are |Was |Were |Has |Have |Had |Dies |Born |Publishes |Signs |Opens |Writes |Paints |Begins |Learns |Joins |Presents |Retires )/gi, '')
-    .trim();
+  const parts: string[] = [];
 
-  const parts = [nameTerms];
   if (moment.address) {
-    // Take just the city/country from the address (last 1-2 parts)
+    // Use the first part of the address (the specific venue/building)
     const addressParts = moment.address.split(',').map(s => s.trim());
-    if (addressParts.length > 1) {
+    // Take venue name (first part) and city (second-to-last part)
+    parts.push(addressParts[0]);
+    if (addressParts.length > 2) {
       parts.push(addressParts[addressParts.length - 2]); // city
     }
   }
-  return parts.join(' ').slice(0, 100); // Keep query reasonable length
+
+  // Extract proper nouns from moment name (capitalized words that aren't common verbs/articles)
+  const skip = new Set(['A', 'An', 'The', 'Is', 'Are', 'Was', 'Were', 'Has', 'Have', 'Had',
+    'Dies', 'Born', 'His', 'Her', 'And', 'Or', 'In', 'On', 'At', 'To', 'Of', 'For',
+    'That', 'This', 'With', 'From', 'Not', 'But', 'During', 'After', 'Before', 'Never',
+    'Publishes', 'Signs', 'Opens', 'Writes', 'Paints', 'Begins', 'Learns', 'Joins',
+    'Presents', 'Retires', 'Takes', 'Becomes', 'Invents', 'Over', 'Among']);
+  const nameNouns = moment.name.split(/\s+/)
+    .filter(w => /^[A-Z]/.test(w) && !skip.has(w))
+    .slice(0, 3); // Take up to 3 key nouns
+
+  if (nameNouns.length > 0 && parts.length === 0) {
+    // No address — fall back to name nouns
+    parts.push(...nameNouns);
+  } else if (nameNouns.length > 0) {
+    // Add the first proper noun from the name if not already in address
+    const firstNoun = nameNouns[0];
+    if (!parts.some(p => p.includes(firstNoun))) {
+      parts.push(firstNoun);
+    }
+  }
+
+  return parts.join(' ').slice(0, 100);
 }
 
 // ── Wikidata Fetching ────────────────────────────────────────────────
