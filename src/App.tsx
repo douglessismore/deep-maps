@@ -427,8 +427,10 @@ function App() {
         />
       )}
       <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
-        {/* Map — mobile: full screen behind sheet. Desktop: flex-1 fills left side */}
-        <div className="absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden">
+        {/* Map — mobile: full screen behind sheet. Desktop: flex-1 fills left side.
+            isolation:isolate creates a stacking context so Leaflet's internal z-indexes
+            (200-600+) don't leak out and cover the bottom sheet overlay (z-index:30). */}
+        <div className="absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden" style={{ isolation: 'isolate' }}>
           <MapView
             stories={timelineFilteredStories}
             activeStory={activeStory}
