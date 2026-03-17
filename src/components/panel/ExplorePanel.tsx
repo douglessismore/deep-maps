@@ -1041,19 +1041,19 @@ export function ExplorePanel({
                     <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
                       {letter}
                     </div>
-                    {items.map(({ entity, momentCount, storyCount }) => (
+                    {items.map((personData) => (
                       <div
-                        key={`person-${entity.id}`}
+                        key={`person-${personData.entity.id}`}
                         ref={(el) => {
-                          if (el) cardRefs.current.set(entity.id, el);
-                          else cardRefs.current.delete(entity.id);
+                          if (el) cardRefs.current.set(personData.entity.id, el);
+                          else cardRefs.current.delete(personData.entity.id);
                         }}
-                        className={scrollActiveStoryId === entity.id
+                        className={scrollActiveStoryId === personData.entity.id
                           ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
                           : 'transition-all duration-300'}
                       >
                         <PersonCard
-                          data={{ entity, momentCount, storyCount }}
+                          data={personData}
                           onClick={(e) => onEntityClick?.(e)}
                           compact={isMobile}
                         />

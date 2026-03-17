@@ -626,6 +626,7 @@ export function TimelineBar({
           point={hoveredData}
           x={yearToX(hoveredData.startYear)}
           containerWidth={containerWidth}
+          isMobile={isMobile}
         />
       )}
 
@@ -741,11 +742,14 @@ function TooltipOverlay({
   point,
   x,
   containerWidth,
+  isMobile = false,
 }: {
   point: TimelinePoint;
   x: number;
   containerWidth: number;
+  isMobile?: boolean;
 }) {
+  const { BAR_HEIGHT, DOT_Y } = getBarMetrics(isMobile);
   const years =
     point.startYear === point.endYear
       ? formatYear(point.startYear)
