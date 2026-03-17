@@ -17,24 +17,32 @@ const SNAP_DURATION = 400;
 /**
  * Google/Apple Maps-style bottom sheet overlay on mobile.
  * On desktop (lg:), renders as a standard side panel pass-through.
+ *
+ * Sheet position is tracked in BOTH React state (for render) and refs (for 60fps drag).
+ * State ensures React never clears the transform; refs ensure smooth drag performance.
  */
 export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
-  // Initialize isMobile from matchMedia synchronously to avoid flash
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
 
+  // Sheet Y position — tracked in BOTH state and ref.
+  // State: used in inline style so React always renders correct transform.
+  // Ref: used during drag for 60fps updates without re-renders.
+  const [sheetY, setSheetY] = useState<number | null>(null);
+  const currentTranslateY = useRef(0);
+
   const isDragging = useRef(false);
   const startY = useRef(0);
   const startTranslateY = useRef(0);
-  const currentTranslateY = useRef(0);
   const lastMoveY = useRef(0);
   const lastMoveTime = useRef(0);
   const velocity = useRef(0);
   const rafId = useRef(0);
   const currentSnapRef = useRef<SheetSnap>('half');
   const onSnapChangeRef = useRef(onSnapChange);
+  const isAnimating = useRef(false);
 
   useEffect(() => { onSnapChangeRef.current = onSnapChange; }, [onSnapChange]);
 
@@ -50,23 +58,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
 
   const applyTranslate = useCallback((y: number) => {
     if (!sheetRef.current) return;
-    // Use translate3d to force GPU compositing on iOS Safari
     sheetRef.current.style.transform = `translate3d(0, ${y}px, 0)`;
-  }, []);
-
-  // Ref callback: fires synchronously every time the DOM element mounts.
-  // Handles React StrictMode double-mount correctly (new DOM element each time).
-  const sheetRefCallback = useCallback((node: HTMLDivElement | null) => {
-    sheetRef.current = node;
-    if (node) {
-      // Set initial position immediately — before browser paints
-      const container = node.parentElement;
-      const totalH = container ? container.clientHeight : window.innerHeight;
-      const halfY = totalH * (1 - HALF_RATIO);
-      currentTranslateY.current = halfY;
-      currentSnapRef.current = 'half';
-      node.style.transform = `translate3d(0, ${halfY}px, 0)`;
-    }
   }, []);
 
   const snapTo = useCallback((snap: SheetSnap) => {
@@ -76,9 +68,15 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     const y = snaps[snap];
     currentTranslateY.current = y;
     currentSnapRef.current = snap;
+    isAnimating.current = true;
     sheet.style.transition = `transform ${SNAP_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1)`;
     applyTranslate(y);
-    setTimeout(() => { if (sheet) sheet.style.transition = ''; }, SNAP_DURATION + 20);
+    // Update React state so inline style stays in sync after animation
+    setSheetY(y);
+    setTimeout(() => {
+      if (sheet) sheet.style.transition = '';
+      isAnimating.current = false;
+    }, SNAP_DURATION + 20);
     onSnapChangeRef.current?.(snap);
   }, [getSnapPositions, applyTranslate]);
 
@@ -108,6 +106,20 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
+
+  // Initialize sheet position on mobile
+  useEffect(() => {
+    if (!isMobile || sheetY !== null) return;
+    // Calculate initial half position
+    // Use rAF to ensure the container has been laid out
+    requestAnimationFrame(() => {
+      const container = sheetRef.current?.parentElement;
+      const totalH = container ? container.clientHeight : window.innerHeight;
+      const halfY = totalH * (1 - HALF_RATIO);
+      currentTranslateY.current = halfY;
+      setSheetY(halfY);
+    });
+  }, [isMobile, sheetY]);
 
   // Handle resize
   useEffect(() => {
@@ -180,7 +192,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
       handle.removeEventListener('touchend', onTouchEnd);
       cancelAnimationFrame(rafId.current);
     };
-  }, [isMobile, getSnapPositions, applyTranslate, findSnapTarget, snapTo]);
+  }, [isMobile, sheetY, getSnapPositions, applyTranslate, findSnapTarget, snapTo]);
 
   // ── Desktop: pass-through side panel ──
   if (!isMobile) {
@@ -191,11 +203,16 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     );
   }
 
+  // Compute transform: use state value, or start off-screen if not yet initialized
+  const transformValue = sheetY !== null
+    ? `translate3d(0, ${sheetY}px, 0)`
+    : 'translate3d(0, 100%, 0)';
+
   // ── Mobile: bottom sheet overlay ──
   return (
     <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30 }}>
       <div
-        ref={sheetRefCallback}
+        ref={sheetRef}
         className="absolute left-0 right-0 pointer-events-auto flex flex-col"
         style={{
           top: 0,
@@ -203,10 +220,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
           background: 'var(--bg-primary)',
           borderRadius: '16px 16px 0 0',
           boxShadow: '0 -4px 30px rgba(0,0,0,0.5)',
-          // transform is managed exclusively via ref (applyTranslate) —
-          // NOT set here, because React inline styles reset on every re-render,
-          // which would overwrite the position set by drag/snap logic.
-          // Force GPU layer without willChange (iOS Safari compat)
+          transform: transformValue,
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
         }}
