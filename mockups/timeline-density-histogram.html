@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option C: Density Histogram</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    color: #e5e5e5;
+    font-family: system-ui, -apple-serif, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 8px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .page-sub {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 28px;
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .section-label {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+    color: #ccc;
+  }
+  .section-hint {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 10px;
+    font-family: monospace;
+  }
+
+  /* Phone frame */
+  .phone-frame {
+    width: 375px;
+    max-width: 100%;
+    min-height: 812px;
+    background: #0a0a0a;
+    border-radius: 40px;
+    border: 3px solid #333;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  @media (max-width: 400px) {
+    .phone-frame {
+      border-radius: 0;
+      border: none;
+      width: 100%;
+      min-height: 100vh;
+    }
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .status-bar .time { font-size: 14px; }
+  .status-icons { display: flex; gap: 4px; align-items: center; font-size: 11px; }
+
+  /* App header */
+  .app-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: #d97706; }
+  .header-icons { display: flex; gap: 12px; }
+  .header-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #999;
+  }
+
+  /* Collection header */
+  .collection-header {
+    padding: 16px 16px 12px;
+  }
+  .collection-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .collection-meta {
+    font-size: 12px;
+    color: #777;
+    margin-top: 2px;
+  }
+
+  /* Timeline strip */
+  .timeline-strip {
+    height: 52px;
+    background: linear-gradient(180deg, rgba(44,44,44,0.98), rgba(30,30,30,0.99));
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+  }
+
+  /* Top zone - histogram */
+  .tz-histogram {
+    height: 32px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 8px 2px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .hist-bar {
+    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  .hist-bar:hover {
+    filter: brightness(1.2);
+    transform: translateY(-1px);
+  }
+  .hist-bar .bar-segment {
+    width: 100%;
+    transition: height 0.3s ease;
+  }
+  .hist-bar .bar-glow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(0deg, rgba(255,255,255,0.08), transparent);
+  }
+  .hist-bar .bar-label {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: monospace;
+    font-size: 7px;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .hist-bar:hover .bar-label { opacity: 1; }
+
+  /* Dot view (zoomed) */
+  .tz-dots {
+    height: 32px;
+    display: none;
+    align-items: center;
+    padding: 0 8px;
+    gap: 0;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .tz-dots.active { display: flex; }
+  .tz-histogram.hidden { display: none; }
+
+  .zoom-dot {
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: absolute;
+  }
+  .zoom-dot:hover {
+    transform: scale(1.5);
+    z-index: 10;
+  }
+
+  .back-btn {
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    font-family: monospace;
+    font-size: 8px;
+    color: #fbbf24;
+    cursor: pointer;
+    z-index: 20;
+    background: rgba(0,0,0,0.6);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(202,138,4,0.3);
+    transition: background 0.15s;
+  }
+  .back-btn:hover { background: rgba(202,138,4,0.2); }
+
+  /* Bottom zone - chips */
+  .tz-bottom {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 6px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    scrollbar-width: none;
+  }
+  .tz-bottom::-webkit-scrollbar { display: none; }
+
+  .era-chip {
+    flex-shrink: 0;
+    height: 14px;
+    padding: 0 6px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-family: monospace;
+    font-size: 8px;
+    color: #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .era-chip:hover { background: rgba(255,255,255,0.1); }
+  .era-chip.active {
+    background: rgba(202,138,4,0.2);
+    border-color: rgba(202,138,4,0.4);
+    color: #fbbf24;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.92);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-family: monospace;
+    font-size: 10px;
+    color: #fff;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .dot-indicator {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  /* Placeholder cards */
+  .card-list {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .placeholder-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .card-thumb {
+    width: 48px; height: 48px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
+  .card-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+  }
+  .card-line {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+  }
+  .card-line.short { width: 60%; }
+  .card-line.shorter { width: 40%; }
+
+  /* Home indicator */
+  .home-indicator {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+  }
+  .home-bar {
+    width: 120px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    .timeline-strip { height: 72px; }
+    .tz-histogram, .tz-dots { height: 48px; }
+    .tz-bottom { height: 24px; }
+    .era-chip { height: 16px; font-size: 9px; padding: 0 8px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Option C: Density Histogram</h1>
+<p class="page-sub">Stacked bar chart shows story density per era at a glance. Tap any bar to explode it into individual dots. Width uses log2 weighting; height shows story count.</p>
+
+<!-- OVERVIEW MODE -->
+<p class="section-label">Overview Mode</p>
+<p class="section-hint">Tap any bar to zoom into that era</p>
+<div class="phone-frame" id="phone-overview">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="status-icons">
+      <span>&#9679;&#9679;&#9679;&#9679;</span>
+      <span>WiFi</span>
+      <span>100%</span>
+    </div>
+  </div>
+  <div class="app-header">
+    <div class="logo">Deep<span>Maps</span></div>
+    <div class="header-icons">
+      <div class="header-icon">&#x1F50D;</div>
+      <div class="header-icon">&#x2630;</div>
+    </div>
+  </div>
+  <div class="collection-header">
+    <div class="collection-title">World History</div>
+    <div class="collection-meta">75 stories across 23,000 years</div>
+  </div>
+  <div class="timeline-strip" id="timeline-overview">
+    <div class="tz-histogram" id="histogram-overview"></div>
+    <div class="tz-dots" id="dots-overview"></div>
+    <div class="tz-bottom" id="chips-overview"></div>
+  </div>
+  <div class="tooltip" id="tooltip-overview"><span class="dot-indicator"></span><span class="tooltip-text"></span></div>
+  <div class="card-list">
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+  </div>
+  <div class="home-indicator"><div class="home-bar"></div></div>
+</div>
+
+<!-- ZOOMED MODE -->
+<p class="section-label">Zoomed Mode — 20th Century</p>
+<p class="section-hint">Tap a bar above, or tap dots here for details</p>
+<div class="phone-frame" id="phone-zoomed">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="status-icons">
+      <span>&#9679;&#9679;&#9679;&#9679;</span>
+      <span>WiFi</span>
+      <span>100%</span>
+    </div>
+  </div>
+  <div class="app-header">
+    <div class="logo">Deep<span>Maps</span></div>
+    <div class="header-icons">
+      <div class="header-icon">&#x1F50D;</div>
+      <div class="header-icon">&#x2630;</div>
+    </div>
+  </div>
+  <div class="collection-header">
+    <div class="collection-title">World History</div>
+    <div class="collection-meta">75 stories across 23,000 years</div>
+  </div>
+  <div class="timeline-strip" id="timeline-zoomed">
+    <div class="tz-histogram hidden" id="histogram-zoomed"></div>
+    <div class="tz-dots active" id="dots-zoomed"></div>
+    <div class="tz-bottom" id="chips-zoomed"></div>
+  </div>
+  <div class="tooltip" id="tooltip-zoomed"><span class="dot-indicator"></span><span class="tooltip-text"></span></div>
+  <div class="card-list">
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+  </div>
+  <div class="home-indicator"><div class="home-bar"></div></div>
+</div>
+
+<script>
+const COLORS = ['#dc2626','#d97706','#0891b2','#9333ea','#059669','#4f46e5','#ca8a04','#be185d'];
+
+const ERAS = [
+  { id: 'origins', label: 'Origins', start: -25000, end: -3000 },
+  { id: 'ancient', label: 'Ancient', start: -3000, end: 500 },
+  { id: 'medieval', label: 'Medieval', start: 500, end: 1500 },
+  { id: 'earlymodern', label: 'Early Modern', start: 1500, end: 1800 },
+  { id: 'industrial', label: 'Industrial', start: 1800, end: 1914 },
+  { id: 'c20', label: '20th C', start: 1914, end: 2000 },
+  { id: 'now', label: 'Now', start: 2000, end: 2026 },
+];
+
+function seededColor(i) { return COLORS[i % COLORS.length]; }
+
+const DOTS = [
+  { year: -21000, name: 'Cave Paintings at Lascaux', era: 'origins', color: seededColor(0) },
+  { year: -11000, name: 'Gobekli Tepe Construction', era: 'origins', color: seededColor(1) },
+  { year: -5000, name: 'Wheel Invented in Mesopotamia', era: 'origins', color: seededColor(2) },
+  { year: -2500, name: 'Great Pyramid of Giza Built', era: 'ancient', color: seededColor(3) },
+  { year: -1500, name: 'Exodus from Egypt', era: 'ancient', color: seededColor(4) },
+  { year: -800, name: 'Homer Writes the Iliad', era: 'ancient', color: seededColor(5) },
+  { year: -500, name: 'Buddha Achieves Enlightenment', era: 'ancient', color: seededColor(6) },
+  { year: -400, name: 'Socrates Drinks Hemlock', era: 'ancient', color: seededColor(7) },
+  { year: -200, name: 'Great Wall Construction Begins', era: 'ancient', color: seededColor(0) },
+  { year: 100, name: 'Pompeii Buried by Vesuvius', era: 'ancient', color: seededColor(1) },
+  { year: 400, name: 'Fall of Rome', era: 'ancient', color: seededColor(2) },
+  { year: 600, name: 'Prophet Muhammad\'s Revelations', era: 'medieval', color: seededColor(3) },
+  { year: 800, name: 'Charlemagne Crowned Emperor', era: 'medieval', color: seededColor(4) },
+  { year: 1000, name: 'Vikings Reach North America', era: 'medieval', color: seededColor(5) },
+  { year: 1100, name: 'First Crusade Takes Jerusalem', era: 'medieval', color: seededColor(6) },
+  { year: 1200, name: 'Genghis Khan Unites Mongols', era: 'medieval', color: seededColor(7) },
+  { year: 1400, name: 'Black Death Reshapes Europe', era: 'medieval', color: seededColor(0) },
+  { year: 1520, name: 'Magellan Circumnavigates Globe', era: 'earlymodern', color: seededColor(1) },
+  { year: 1580, name: 'Shakespeare Writes First Plays', era: 'earlymodern', color: seededColor(2) },
+  { year: 1620, name: 'Pilgrims Land at Plymouth Rock', era: 'earlymodern', color: seededColor(3) },
+  { year: 1650, name: 'Taj Mahal Completed', era: 'earlymodern', color: seededColor(4) },
+  { year: 1700, name: 'Newton Publishes Principia', era: 'earlymodern', color: seededColor(5) },
+  { year: 1750, name: 'Bach Composes Art of Fugue', era: 'earlymodern', color: seededColor(6) },
+  { year: 1770, name: 'Boston Massacre Sparks Revolt', era: 'earlymodern', color: seededColor(7) },
+  { year: 1790, name: 'French Revolution Storming Bastille', era: 'earlymodern', color: seededColor(0) },
+  { year: 1803, name: 'Louisiana Purchase Doubles US', era: 'industrial', color: seededColor(1) },
+  { year: 1820, name: 'Faraday Discovers Electromagnetism', era: 'industrial', color: seededColor(2) },
+  { year: 1840, name: 'First Telegraph Message Sent', era: 'industrial', color: seededColor(3) },
+  { year: 1848, name: 'Gold Rush Transforms California', era: 'industrial', color: seededColor(4) },
+  { year: 1860, name: 'Lincoln Elected President', era: 'industrial', color: seededColor(5) },
+  { year: 1876, name: 'Bell Invents the Telephone', era: 'industrial', color: seededColor(6) },
+  { year: 1880, name: 'Edison Lights Up New York', era: 'industrial', color: seededColor(7) },
+  { year: 1890, name: 'Wounded Knee Massacre', era: 'industrial', color: seededColor(0) },
+  { year: 1900, name: 'Freud Publishes Dream Theory', era: 'industrial', color: seededColor(1) },
+  { year: 1910, name: 'Mexican Revolution Begins', era: 'industrial', color: seededColor(2) },
+  { year: 1914, name: 'Archduke Franz Ferdinand Shot', era: 'c20', color: seededColor(3) },
+  { year: 1917, name: 'Russian Revolution Topples Tsar', era: 'c20', color: seededColor(4) },
+  { year: 1920, name: 'Women Win Right to Vote', era: 'c20', color: seededColor(5) },
+  { year: 1927, name: 'Lindbergh Flies Atlantic Solo', era: 'c20', color: seededColor(6) },
+  { year: 1929, name: 'Wall Street Crash', era: 'c20', color: seededColor(7) },
+  { year: 1933, name: 'Hitler Rises to Power', era: 'c20', color: seededColor(0) },
+  { year: 1939, name: 'World War II Begins', era: 'c20', color: seededColor(1) },
+  { year: 1945, name: 'Hiroshima Atomic Bomb Dropped', era: 'c20', color: seededColor(2) },
+  { year: 1947, name: 'India Gains Independence', era: 'c20', color: seededColor(3) },
+  { year: 1950, name: 'Korean War Breaks Out', era: 'c20', color: seededColor(4) },
+  { year: 1953, name: 'DNA Structure Discovered', era: 'c20', color: seededColor(5) },
+  { year: 1957, name: 'Sputnik Launches Space Age', era: 'c20', color: seededColor(6) },
+  { year: 1961, name: 'Berlin Wall Erected', era: 'c20', color: seededColor(7) },
+  { year: 1963, name: 'JFK Assassinated in Dallas', era: 'c20', color: seededColor(0) },
+  { year: 1968, name: 'MLK Assassinated in Memphis', era: 'c20', color: seededColor(1) },
+  { year: 1969, name: 'Moon Landing', era: 'c20', color: seededColor(2) },
+  { year: 1973, name: 'Watergate Scandal Erupts', era: 'c20', color: seededColor(3) },
+  { year: 1979, name: 'Iranian Revolution', era: 'c20', color: seededColor(4) },
+  { year: 1981, name: 'MTV Goes on Air', era: 'c20', color: seededColor(5) },
+  { year: 1986, name: 'Chernobyl Reactor Melts Down', era: 'c20', color: seededColor(6) },
+  { year: 1989, name: 'Berlin Wall Falls', era: 'c20', color: seededColor(7) },
+  { year: 1991, name: 'Soviet Union Dissolves', era: 'c20', color: seededColor(0) },
+  { year: 1994, name: 'Mandela Elected President', era: 'c20', color: seededColor(1) },
+  { year: 1997, name: 'Dolly the Sheep Cloned', era: 'c20', color: seededColor(2) },
+  { year: 1999, name: 'Y2K Panic Grips the World', era: 'c20', color: seededColor(3) },
+  { year: 2001, name: 'September 11 Attacks', era: 'now', color: seededColor(4) },
+  { year: 2003, name: 'Human Genome Fully Mapped', era: 'now', color: seededColor(5) },
+  { year: 2004, name: 'Facebook Launches from Dorm', era: 'now', color: seededColor(6) },
+  { year: 2007, name: 'iPhone Unveiled by Steve Jobs', era: 'now', color: seededColor(7) },
+  { year: 2008, name: 'Global Financial Crisis Hits', era: 'now', color: seededColor(0) },
+  { year: 2010, name: 'Arab Spring Begins in Tunisia', era: 'now', color: seededColor(1) },
+  { year: 2011, name: 'Bin Laden Killed in Abbottabad', era: 'now', color: seededColor(2) },
+  { year: 2012, name: 'Higgs Boson Discovered at CERN', era: 'now', color: seededColor(3) },
+  { year: 2015, name: 'Paris Climate Agreement Signed', era: 'now', color: seededColor(4) },
+  { year: 2016, name: 'AlphaGo Defeats World Champion', era: 'now', color: seededColor(5) },
+  { year: 2019, name: 'First Black Hole Image Captured', era: 'now', color: seededColor(6) },
+  { year: 2020, name: 'COVID-19 Pandemic Begins', era: 'now', color: seededColor(7) },
+  { year: 2022, name: 'James Webb Telescope First Light', era: 'now', color: seededColor(0) },
+  { year: 2023, name: 'ChatGPT Changes Everything', era: 'now', color: seededColor(1) },
+  { year: 2025, name: 'Deep Maps Goes Live', era: 'now', color: seededColor(2) },
+];
+
+function getEraDots(eraId) { return DOTS.filter(d => d.era === eraId); }
+function formatYear(y) { return y < 0 ? Math.abs(y) + ' BC' : '' + y; }
+
+function getEraWeights() {
+  return ERAS.map(era => {
+    const count = getEraDots(era.id).length;
+    return { ...era, count, weight: Math.log2(count + 1) };
+  });
+}
+
+// ─── HISTOGRAM RENDERING ───
+function renderHistogram(containerId, phoneId, interactive) {
+  const container = document.getElementById(containerId);
+  const maxCount = Math.max(...ERAS.map(e => getEraDots(e.id).length));
+  const weighted = getEraWeights();
+  const totalWeight = weighted.reduce((s, e) => s + e.weight, 0);
+  const availW = container.clientWidth - 16; // padding
+
+  let html = '';
+  weighted.forEach((era, ei) => {
+    const barW = Math.max(12, (era.weight / totalWeight) * availW);
+    const barH = Math.max(4, (era.count / maxCount) * 30);
+    const dots = getEraDots(era.id);
+
+    // Build stacked segments
+    const colorCounts = {};
+    dots.forEach(d => { colorCounts[d.color] = (colorCounts[d.color] || 0) + 1; });
+    const segments = Object.entries(colorCounts);
+    const totalDots = dots.length;
+
+    let segsHtml = '<div class="bar-glow"></div>';
+    segments.forEach(([color, count]) => {
+      const segH = (count / totalDots) * barH;
+      segsHtml += `<div class="bar-segment" style="height:${segH}px;background:${color};opacity:0.85"></div>`;
+    });
+    segsHtml += `<div class="bar-label">${era.label}</div>`;
+
+    const onclick = interactive ? `onclick="zoomIntoEra('${era.id}','${phoneId}')"` : '';
+    html += `<div class="hist-bar" style="width:${barW}px;height:${barH}px" ${onclick}>${segsHtml}</div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// ─── DOT VIEW RENDERING ───
+function renderDotView(containerId, eraId, phoneId) {
+  const container = document.getElementById(containerId);
+  const dots = getEraDots(eraId);
+  const era = ERAS.find(e => e.id === eraId);
+  const W = container.clientWidth - 16;
+  const H = 32;
+
+  let html = `<div class="back-btn" onclick="zoomOut('${phoneId}')">&#8592; Back to overview</div>`;
+  dots.forEach((dot, i) => {
+    const x = 8 + (i + 0.5) / dots.length * W;
+    const y = H / 2 + (i % 3 === 0 ? -4 : i % 3 === 1 ? 0 : 4);
+    const idx = DOTS.indexOf(dot);
+    html += `<div class="zoom-dot" style="left:${x}px;top:${y}px;width:7px;height:7px;background:${dot.color}"
+      onmouseenter="showTip(event,'${phoneId.replace('phone-','')}',${idx})"
+      onmouseleave="hideTip('${phoneId.replace('phone-','')}')"
+      ontouchstart="showTip(event,'${phoneId.replace('phone-','')}',${idx})"></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// ─── ERA CHIPS ───
+function renderChips(containerId, activeEra, phoneId) {
+  const container = document.getElementById(containerId);
+  let html = `<div class="era-chip ${activeEra === null ? 'active' : ''}"
+    onclick="chipClick(null,'${phoneId}')">All</div>`;
+  ERAS.forEach(era => {
+    const count = getEraDots(era.id).length;
+    const active = activeEra === era.id ? 'active' : '';
+    html += `<div class="era-chip ${active}"
+      onclick="chipClick('${era.id}','${phoneId}')">${era.label} (${count})</div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ─── INTERACTIONS ───
+const phoneState = {
+  'phone-overview': { mode: 'histogram', activeEra: null },
+  'phone-zoomed': { mode: 'dots', activeEra: 'c20' },
+};
+
+function zoomIntoEra(eraId, phoneId) {
+  const state = phoneState[phoneId];
+  state.mode = 'dots';
+  state.activeEra = eraId;
+
+  const histEl = document.getElementById(phoneId === 'phone-overview' ? 'histogram-overview' : 'histogram-zoomed');
+  const dotsEl = document.getElementById(phoneId === 'phone-overview' ? 'dots-overview' : 'dots-zoomed');
+  const chipsId = phoneId === 'phone-overview' ? 'chips-overview' : 'chips-zoomed';
+
+  histEl.classList.add('hidden');
+  dotsEl.classList.add('active');
+  renderDotView(dotsEl.id, eraId, phoneId);
+  renderChips(chipsId, eraId, phoneId);
+}
+
+function zoomOut(phoneId) {
+  const state = phoneState[phoneId];
+  state.mode = 'histogram';
+  state.activeEra = null;
+
+  const histEl = document.getElementById(phoneId === 'phone-overview' ? 'histogram-overview' : 'histogram-zoomed');
+  const dotsEl = document.getElementById(phoneId === 'phone-overview' ? 'dots-overview' : 'dots-zoomed');
+  const chipsId = phoneId === 'phone-overview' ? 'chips-overview' : 'chips-zoomed';
+
+  histEl.classList.remove('hidden');
+  dotsEl.classList.remove('active');
+  dotsEl.innerHTML = '';
+  renderHistogram(histEl.id, phoneId, true);
+  renderChips(chipsId, null, phoneId);
+}
+
+function chipClick(eraId, phoneId) {
+  if (eraId === null) {
+    zoomOut(phoneId);
+  } else {
+    zoomIntoEra(eraId, phoneId);
+  }
+}
+
+// ─── TOOLTIPS ───
+function showTip(e, which, idx) {
+  const dot = DOTS[idx];
+  const tip = document.getElementById(`tooltip-${which}`);
+  tip.querySelector('.dot-indicator').style.background = dot.color;
+  tip.querySelector('.tooltip-text').textContent = `${dot.name} (${formatYear(dot.year)})`;
+  tip.classList.add('visible');
+
+  const frame = document.getElementById(`phone-${which}`);
+  const rect = frame.getBoundingClientRect();
+  const target = e.target.getBoundingClientRect();
+
+  tip.style.left = Math.max(4, Math.min(target.left - rect.left - 40, 250)) + 'px';
+  tip.style.top = (target.top - rect.top - 24) + 'px';
+}
+
+function hideTip(which) {
+  document.getElementById(`tooltip-${which}`).classList.remove('visible');
+}
+
+// ─── INIT ───
+function init() {
+  // Overview phone - histogram mode
+  renderHistogram('histogram-overview', 'phone-overview', true);
+  renderChips('chips-overview', null, 'phone-overview');
+
+  // Zoomed phone - starts in dot view for 20th C
+  renderDotView('dots-zoomed', 'c20', 'phone-zoomed');
+  renderChips('chips-zoomed', 'c20', 'phone-zoomed');
+}
+
+init();
+window.addEventListener('resize', init);
+</script>
+</body>
+</html>

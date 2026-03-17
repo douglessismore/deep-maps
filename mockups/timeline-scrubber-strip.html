@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option B: Scrubber Strip with Adaptive Scale</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    color: #e5e5e5;
+    font-family: system-ui, -apple-serif, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 8px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .page-sub {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 28px;
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .comparison-label {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+  .comparison-label.bad { background: rgba(220,38,38,0.15); color: #f87171; }
+  .comparison-label.good { background: rgba(5,150,105,0.15); color: #6ee7b7; }
+
+  .comparison-note {
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+    max-width: 360px;
+    line-height: 1.5;
+    margin: 16px auto 28px;
+    padding: 12px;
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 8px;
+  }
+
+  /* Phone frame */
+  .phone-frame {
+    width: 375px;
+    max-width: 100%;
+    min-height: 812px;
+    background: #0a0a0a;
+    border-radius: 40px;
+    border: 3px solid #333;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  @media (max-width: 400px) {
+    .phone-frame {
+      border-radius: 0;
+      border: none;
+      width: 100%;
+      min-height: 100vh;
+    }
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .status-bar .time { font-size: 14px; }
+  .status-icons { display: flex; gap: 4px; align-items: center; font-size: 11px; }
+
+  /* App header */
+  .app-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: #d97706; }
+  .header-icons { display: flex; gap: 12px; }
+  .header-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #999;
+  }
+
+  /* Collection header */
+  .collection-header {
+    padding: 16px 16px 12px;
+  }
+  .collection-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .collection-meta {
+    font-size: 12px;
+    color: #777;
+    margin-top: 2px;
+  }
+
+  /* Timeline strip */
+  .timeline-strip {
+    height: 64px;
+    background: linear-gradient(180deg, rgba(44,44,44,0.98), rgba(30,30,30,0.99));
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+  }
+
+  /* Top zone */
+  .tz-top {
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+  .tz-year-range {
+    font-family: monospace;
+    font-size: 9px;
+    color: #999;
+    letter-spacing: 0.5px;
+  }
+  .tz-controls {
+    display: flex;
+    gap: 2px;
+  }
+  .tz-btn {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    color: #999;
+    font-size: 9px;
+    font-family: monospace;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .tz-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .tz-btn.hidden { display: none; }
+
+  /* Middle zone - SVG */
+  .tz-middle {
+    height: 28px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+  }
+  .tz-middle:active { cursor: grabbing; }
+  .tz-middle svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Bottom zone - chips */
+  .tz-bottom {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 6px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    scrollbar-width: none;
+  }
+  .tz-bottom::-webkit-scrollbar { display: none; }
+
+  .era-chip {
+    flex-shrink: 0;
+    height: 14px;
+    padding: 0 6px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-family: monospace;
+    font-size: 8px;
+    color: #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .era-chip:hover { background: rgba(255,255,255,0.1); }
+  .era-chip.active {
+    background: rgba(202,138,4,0.2);
+    border-color: rgba(202,138,4,0.4);
+    color: #fbbf24;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.92);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-family: monospace;
+    font-size: 10px;
+    color: #fff;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .dot-indicator {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  /* Placeholder cards */
+  .card-list {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .placeholder-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .card-thumb {
+    width: 48px; height: 48px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
+  .card-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+  }
+  .card-line {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+  }
+  .card-line.short { width: 60%; }
+  .card-line.shorter { width: 40%; }
+
+  /* Home indicator */
+  .home-indicator {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+  }
+  .home-bar {
+    width: 120px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Era hairlines */
+  .era-hairline {
+    stroke: rgba(255,255,255,0.08);
+    stroke-width: 0.5;
+  }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    .timeline-strip { height: 80px; }
+    .tz-top { height: 20px; }
+    .tz-middle { height: 36px; }
+    .tz-bottom { height: 24px; }
+    .era-chip { height: 16px; font-size: 9px; padding: 0 8px; }
+    .tz-year-range { font-size: 10px; }
+    .tz-btn { width: 16px; height: 16px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Option B: Scrubber Strip with Adaptive Scale</h1>
+<p class="page-sub">A compact timeline that gives ancient eras breathing room while keeping modern density visible. Each era's width is proportional to log2(count + 1), not raw years.</p>
+
+<!-- LINEAR SCALE -->
+<p class="comparison-label bad">&#10060; Linear Scale</p>
+<div class="phone-frame" id="phone-linear">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="status-icons">
+      <span>&#9679;&#9679;&#9679;&#9679;</span>
+      <span>WiFi</span>
+      <span>100%</span>
+    </div>
+  </div>
+  <div class="app-header">
+    <div class="logo">Deep<span>Maps</span></div>
+    <div class="header-icons">
+      <div class="header-icon">&#x1F50D;</div>
+      <div class="header-icon">&#x2630;</div>
+    </div>
+  </div>
+  <div class="collection-header">
+    <div class="collection-title">World History</div>
+    <div class="collection-meta">75 stories across 23,000 years</div>
+  </div>
+  <div class="timeline-strip" id="timeline-linear">
+    <div class="tz-top">
+      <span class="tz-year-range">-21000 — 2025</span>
+      <div class="tz-controls">
+        <button class="tz-btn">+</button>
+        <button class="tz-btn">−</button>
+      </div>
+    </div>
+    <div class="tz-middle"><svg id="svg-linear"></svg></div>
+    <div class="tz-bottom" id="chips-linear"></div>
+  </div>
+  <div class="tooltip" id="tooltip-linear"><span class="dot-indicator"></span><span class="tooltip-text"></span></div>
+  <div class="card-list">
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+  </div>
+  <div class="home-indicator"><div class="home-bar"></div></div>
+</div>
+
+<div class="comparison-note">
+  Notice how the linear timeline crushes 23,000 years of ancient history into an invisible sliver on the left, while the last 500 years get most of the space. The adaptive scale below fixes this by giving each era width based on story density, not elapsed time.
+</div>
+
+<!-- ADAPTIVE SCALE -->
+<p class="comparison-label good">&#10004; Adaptive Scale</p>
+<div class="phone-frame" id="phone-adaptive">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="status-icons">
+      <span>&#9679;&#9679;&#9679;&#9679;</span>
+      <span>WiFi</span>
+      <span>100%</span>
+    </div>
+  </div>
+  <div class="app-header">
+    <div class="logo">Deep<span>Maps</span></div>
+    <div class="header-icons">
+      <div class="header-icon">&#x1F50D;</div>
+      <div class="header-icon">&#x2630;</div>
+    </div>
+  </div>
+  <div class="collection-header">
+    <div class="collection-title">World History</div>
+    <div class="collection-meta">75 stories across 23,000 years</div>
+  </div>
+  <div class="timeline-strip" id="timeline-adaptive">
+    <div class="tz-top">
+      <span class="tz-year-range" id="adaptive-range">-21000 — 2025</span>
+      <div class="tz-controls">
+        <button class="tz-btn" onclick="zoomAdaptive(1)">+</button>
+        <button class="tz-btn" onclick="zoomAdaptive(-1)">−</button>
+        <button class="tz-btn hidden" id="reset-btn" onclick="resetAdaptive()">×</button>
+      </div>
+    </div>
+    <div class="tz-middle" id="adaptive-middle"><svg id="svg-adaptive"></svg></div>
+    <div class="tz-bottom" id="chips-adaptive"></div>
+  </div>
+  <div class="tooltip" id="tooltip-adaptive"><span class="dot-indicator"></span><span class="tooltip-text"></span></div>
+  <div class="card-list">
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+    <div class="placeholder-card"><div class="card-thumb"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div><div class="card-line shorter"></div></div></div>
+  </div>
+  <div class="home-indicator"><div class="home-bar"></div></div>
+</div>
+
+<script>
+const COLORS = ['#dc2626','#d97706','#0891b2','#9333ea','#059669','#4f46e5','#ca8a04','#be185d'];
+
+const ERAS = [
+  { id: 'origins', label: 'Origins', start: -25000, end: -3000 },
+  { id: 'ancient', label: 'Ancient', start: -3000, end: 500 },
+  { id: 'medieval', label: 'Medieval', start: 500, end: 1500 },
+  { id: 'earlymodern', label: 'Early Modern', start: 1500, end: 1800 },
+  { id: 'industrial', label: 'Industrial', start: 1800, end: 1914 },
+  { id: 'c20', label: '20th C', start: 1914, end: 2000 },
+  { id: 'now', label: 'Now', start: 2000, end: 2026 },
+];
+
+function seededColor(i) { return COLORS[i % COLORS.length]; }
+
+const DOTS = [
+  // Origins
+  { year: -21000, name: 'Cave Paintings at Lascaux', era: 'origins', color: seededColor(0) },
+  { year: -11000, name: 'Gobekli Tepe Construction', era: 'origins', color: seededColor(1) },
+  { year: -5000, name: 'Wheel Invented in Mesopotamia', era: 'origins', color: seededColor(2) },
+  // Ancient
+  { year: -2500, name: 'Great Pyramid of Giza Built', era: 'ancient', color: seededColor(3) },
+  { year: -1500, name: 'Exodus from Egypt', era: 'ancient', color: seededColor(4) },
+  { year: -800, name: 'Homer Writes the Iliad', era: 'ancient', color: seededColor(5) },
+  { year: -500, name: 'Buddha Achieves Enlightenment', era: 'ancient', color: seededColor(6) },
+  { year: -400, name: 'Socrates Drinks Hemlock', era: 'ancient', color: seededColor(7) },
+  { year: -200, name: 'Great Wall Construction Begins', era: 'ancient', color: seededColor(0) },
+  { year: 100, name: 'Pompeii Buried by Vesuvius', era: 'ancient', color: seededColor(1) },
+  { year: 400, name: 'Fall of Rome', era: 'ancient', color: seededColor(2) },
+  // Medieval
+  { year: 600, name: 'Prophet Muhammad\'s Revelations', era: 'medieval', color: seededColor(3) },
+  { year: 800, name: 'Charlemagne Crowned Emperor', era: 'medieval', color: seededColor(4) },
+  { year: 1000, name: 'Vikings Reach North America', era: 'medieval', color: seededColor(5) },
+  { year: 1100, name: 'First Crusade Takes Jerusalem', era: 'medieval', color: seededColor(6) },
+  { year: 1200, name: 'Genghis Khan Unites Mongols', era: 'medieval', color: seededColor(7) },
+  { year: 1400, name: 'Black Death Reshapes Europe', era: 'medieval', color: seededColor(0) },
+  // Early Modern
+  { year: 1520, name: 'Magellan Circumnavigates Globe', era: 'earlymodern', color: seededColor(1) },
+  { year: 1580, name: 'Shakespeare Writes First Plays', era: 'earlymodern', color: seededColor(2) },
+  { year: 1620, name: 'Pilgrims Land at Plymouth Rock', era: 'earlymodern', color: seededColor(3) },
+  { year: 1650, name: 'Taj Mahal Completed', era: 'earlymodern', color: seededColor(4) },
+  { year: 1700, name: 'Newton Publishes Principia', era: 'earlymodern', color: seededColor(5) },
+  { year: 1750, name: 'Bach Composes Art of Fugue', era: 'earlymodern', color: seededColor(6) },
+  { year: 1770, name: 'Boston Massacre Sparks Revolt', era: 'earlymodern', color: seededColor(7) },
+  { year: 1790, name: 'French Revolution Storming Bastille', era: 'earlymodern', color: seededColor(0) },
+  // Industrial
+  { year: 1803, name: 'Louisiana Purchase Doubles US', era: 'industrial', color: seededColor(1) },
+  { year: 1820, name: 'Faraday Discovers Electromagnetism', era: 'industrial', color: seededColor(2) },
+  { year: 1840, name: 'First Telegraph Message Sent', era: 'industrial', color: seededColor(3) },
+  { year: 1848, name: 'Gold Rush Transforms California', era: 'industrial', color: seededColor(4) },
+  { year: 1860, name: 'Lincoln Elected President', era: 'industrial', color: seededColor(5) },
+  { year: 1876, name: 'Bell Invents the Telephone', era: 'industrial', color: seededColor(6) },
+  { year: 1880, name: 'Edison Lights Up New York', era: 'industrial', color: seededColor(7) },
+  { year: 1890, name: 'Wounded Knee Massacre', era: 'industrial', color: seededColor(0) },
+  { year: 1900, name: 'Freud Publishes Dream Theory', era: 'industrial', color: seededColor(1) },
+  { year: 1910, name: 'Mexican Revolution Begins', era: 'industrial', color: seededColor(2) },
+  // 20th Century
+  { year: 1914, name: 'Archduke Franz Ferdinand Shot', era: 'c20', color: seededColor(3) },
+  { year: 1917, name: 'Russian Revolution Topples Tsar', era: 'c20', color: seededColor(4) },
+  { year: 1920, name: 'Women Win Right to Vote', era: 'c20', color: seededColor(5) },
+  { year: 1927, name: 'Lindbergh Flies Atlantic Solo', era: 'c20', color: seededColor(6) },
+  { year: 1929, name: 'Wall Street Crash', era: 'c20', color: seededColor(7) },
+  { year: 1933, name: 'Hitler Rises to Power', era: 'c20', color: seededColor(0) },
+  { year: 1939, name: 'World War II Begins', era: 'c20', color: seededColor(1) },
+  { year: 1945, name: 'Hiroshima Atomic Bomb Dropped', era: 'c20', color: seededColor(2) },
+  { year: 1947, name: 'India Gains Independence', era: 'c20', color: seededColor(3) },
+  { year: 1950, name: 'Korean War Breaks Out', era: 'c20', color: seededColor(4) },
+  { year: 1953, name: 'DNA Structure Discovered', era: 'c20', color: seededColor(5) },
+  { year: 1957, name: 'Sputnik Launches Space Age', era: 'c20', color: seededColor(6) },
+  { year: 1961, name: 'Berlin Wall Erected', era: 'c20', color: seededColor(7) },
+  { year: 1963, name: 'JFK Assassinated in Dallas', era: 'c20', color: seededColor(0) },
+  { year: 1968, name: 'MLK Assassinated in Memphis', era: 'c20', color: seededColor(1) },
+  { year: 1969, name: 'Moon Landing', era: 'c20', color: seededColor(2) },
+  { year: 1973, name: 'Watergate Scandal Erupts', era: 'c20', color: seededColor(3) },
+  { year: 1979, name: 'Iranian Revolution', era: 'c20', color: seededColor(4) },
+  { year: 1981, name: 'MTV Goes on Air', era: 'c20', color: seededColor(5) },
+  { year: 1986, name: 'Chernobyl Reactor Melts Down', era: 'c20', color: seededColor(6) },
+  { year: 1989, name: 'Berlin Wall Falls', era: 'c20', color: seededColor(7) },
+  { year: 1991, name: 'Soviet Union Dissolves', era: 'c20', color: seededColor(0) },
+  { year: 1994, name: 'Mandela Elected President', era: 'c20', color: seededColor(1) },
+  { year: 1997, name: 'Dolly the Sheep Cloned', era: 'c20', color: seededColor(2) },
+  { year: 1999, name: 'Y2K Panic Grips the World', era: 'c20', color: seededColor(3) },
+  // Now
+  { year: 2001, name: 'September 11 Attacks', era: 'now', color: seededColor(4) },
+  { year: 2003, name: 'Human Genome Fully Mapped', era: 'now', color: seededColor(5) },
+  { year: 2004, name: 'Facebook Launches from Dorm', era: 'now', color: seededColor(6) },
+  { year: 2007, name: 'iPhone Unveiled by Steve Jobs', era: 'now', color: seededColor(7) },
+  { year: 2008, name: 'Global Financial Crisis Hits', era: 'now', color: seededColor(0) },
+  { year: 2010, name: 'Arab Spring Begins in Tunisia', era: 'now', color: seededColor(1) },
+  { year: 2011, name: 'Bin Laden Killed in Abbottabad', era: 'now', color: seededColor(2) },
+  { year: 2012, name: 'Higgs Boson Discovered at CERN', era: 'now', color: seededColor(3) },
+  { year: 2015, name: 'Paris Climate Agreement Signed', era: 'now', color: seededColor(4) },
+  { year: 2016, name: 'AlphaGo Defeats World Champion', era: 'now', color: seededColor(5) },
+  { year: 2019, name: 'First Black Hole Image Captured', era: 'now', color: seededColor(6) },
+  { year: 2020, name: 'COVID-19 Pandemic Begins', era: 'now', color: seededColor(7) },
+  { year: 2022, name: 'James Webb Telescope First Light', era: 'now', color: seededColor(0) },
+  { year: 2023, name: 'ChatGPT Changes Everything', era: 'now', color: seededColor(1) },
+  { year: 2025, name: 'Deep Maps Goes Live', era: 'now', color: seededColor(2) },
+];
+
+function getEraDots(eraId) {
+  return DOTS.filter(d => d.era === eraId);
+}
+
+function formatYear(y) {
+  if (y < 0) return Math.abs(y) + ' BC';
+  return '' + y;
+}
+
+// ─── LINEAR TIMELINE ───
+function renderLinear() {
+  const svg = document.getElementById('svg-linear');
+  const W = svg.clientWidth || 345;
+  const H = svg.clientHeight || 28;
+  const pad = 6;
+  const minYear = -21000, maxYear = 2025;
+  const range = maxYear - minYear;
+
+  let html = '';
+  // Era hairlines
+  ERAS.forEach(era => {
+    const x = pad + ((era.start - minYear) / range) * (W - 2*pad);
+    if (era.start > minYear) {
+      html += `<line x1="${x}" y1="2" x2="${x}" y2="${H-2}" class="era-hairline"/>`;
+    }
+  });
+
+  DOTS.forEach((dot, i) => {
+    const x = pad + ((dot.year - minYear) / range) * (W - 2*pad);
+    const y = H / 2;
+    html += `<circle cx="${x}" cy="${y}" r="3" fill="${dot.color}" opacity="0.85"
+      data-idx="${i}" class="dot-circle"
+      onmouseenter="showTip(event,'linear',${i})" onmouseleave="hideTip('linear')"
+      ontouchstart="showTip(event,'linear',${i})" />`;
+  });
+
+  svg.innerHTML = html;
+}
+
+// ─── ADAPTIVE TIMELINE ───
+let activeEra = null;
+let adaptiveZoom = 1;
+let adaptivePan = 0;
+
+function getEraWeights() {
+  return ERAS.map(era => {
+    const count = getEraDots(era.id).length;
+    return { ...era, count, weight: Math.log2(count + 1) };
+  });
+}
+
+function renderAdaptive() {
+  const svg = document.getElementById('svg-adaptive');
+  const W = svg.clientWidth || 345;
+  const H = svg.clientHeight || 28;
+  const pad = 6;
+
+  const weighted = getEraWeights();
+  const totalWeight = weighted.reduce((s, e) => s + e.weight, 0);
+
+  let html = '';
+  let xOffset = pad;
+
+  weighted.forEach((era, ei) => {
+    const eraW = ((era.weight / totalWeight) * (W - 2*pad));
+    // Hairline
+    if (ei > 0) {
+      html += `<line x1="${xOffset}" y1="2" x2="${xOffset}" y2="${H-2}" class="era-hairline"/>`;
+    }
+    // Dots within era
+    const dots = getEraDots(era.id);
+    const isActive = activeEra === null || activeEra === era.id;
+    dots.forEach((dot, di) => {
+      const localX = eraW > 0 ? (di + 0.5) / dots.length * eraW : 0;
+      const x = xOffset + localX;
+      const y = H / 2 + (di % 2 === 0 ? -2 : 2);
+      const r = isActive ? 3.5 : 2;
+      const opacity = isActive ? 0.9 : 0.2;
+      const idx = DOTS.indexOf(dot);
+      html += `<circle cx="${x}" cy="${y}" r="${r}" fill="${dot.color}" opacity="${opacity}"
+        data-idx="${idx}" class="dot-circle"
+        style="transition: all 0.3s ease"
+        onmouseenter="showTip(event,'adaptive',${idx})" onmouseleave="hideTip('adaptive')"
+        ontouchstart="showTip(event,'adaptive',${idx})" />`;
+    });
+    xOffset += eraW;
+  });
+
+  svg.innerHTML = html;
+
+  // Update range label
+  const rangeEl = document.getElementById('adaptive-range');
+  if (activeEra) {
+    const era = ERAS.find(e => e.id === activeEra);
+    rangeEl.textContent = `${formatYear(era.start)} — ${formatYear(era.end)}`;
+  } else {
+    rangeEl.textContent = '-21000 — 2025';
+  }
+}
+
+function renderChips(containerId, isAdaptive) {
+  const container = document.getElementById(containerId);
+  let html = `<div class="era-chip ${activeEra === null && isAdaptive ? 'active' : ''}"
+    onclick="${isAdaptive ? 'filterEra(null)' : ''}">All</div>`;
+  ERAS.forEach(era => {
+    const count = getEraDots(era.id).length;
+    const active = activeEra === era.id && isAdaptive ? 'active' : '';
+    html += `<div class="era-chip ${active}"
+      onclick="${isAdaptive ? `filterEra('${era.id}')` : ''}">${era.label} (${count})</div>`;
+  });
+  container.innerHTML = html;
+}
+
+function filterEra(eraId) {
+  activeEra = eraId;
+  document.getElementById('reset-btn').classList.toggle('hidden', eraId === null);
+  renderAdaptive();
+  renderChips('chips-adaptive', true);
+}
+
+function resetAdaptive() {
+  filterEra(null);
+}
+
+function zoomAdaptive(dir) {
+  // Visual feedback only for mockup
+  const svg = document.getElementById('svg-adaptive');
+  adaptiveZoom = Math.max(0.5, Math.min(3, adaptiveZoom + dir * 0.3));
+  svg.style.transform = `scaleX(${adaptiveZoom})`;
+  svg.style.transition = 'transform 0.2s ease';
+}
+
+// ─── TOOLTIPS ───
+function showTip(e, which, idx) {
+  const dot = DOTS[idx];
+  const tip = document.getElementById(`tooltip-${which}`);
+  tip.querySelector('.dot-indicator').style.background = dot.color;
+  tip.querySelector('.tooltip-text').textContent = `${dot.name} (${formatYear(dot.year)})`;
+  tip.classList.add('visible');
+
+  const frame = document.getElementById(which === 'linear' ? 'phone-linear' : 'phone-adaptive');
+  const rect = frame.getBoundingClientRect();
+  const target = e.target.getBoundingClientRect();
+
+  tip.style.left = (target.left - rect.left - 40) + 'px';
+  tip.style.top = (target.top - rect.top - 24) + 'px';
+}
+
+function hideTip(which) {
+  document.getElementById(`tooltip-${which}`).classList.remove('visible');
+}
+
+// ─── DRAG PAN ───
+(function() {
+  const el = document.getElementById('adaptive-middle');
+  let dragging = false, startX = 0, startPan = 0;
+  el.addEventListener('mousedown', e => { dragging = true; startX = e.clientX; startPan = adaptivePan; });
+  el.addEventListener('touchstart', e => { dragging = true; startX = e.touches[0].clientX; startPan = adaptivePan; });
+  const move = (cx) => {
+    if (!dragging) return;
+    adaptivePan = startPan + (cx - startX);
+    const svg = document.getElementById('svg-adaptive');
+    svg.style.transform = `scaleX(${adaptiveZoom}) translateX(${adaptivePan}px)`;
+  };
+  window.addEventListener('mousemove', e => move(e.clientX));
+  window.addEventListener('touchmove', e => move(e.touches[0].clientX));
+  window.addEventListener('mouseup', () => dragging = false);
+  window.addEventListener('touchend', () => dragging = false);
+})();
+
+// ─── INIT ───
+function init() {
+  renderLinear();
+  renderAdaptive();
+  renderChips('chips-linear', false);
+  renderChips('chips-adaptive', true);
+}
+init();
+window.addEventListener('resize', init);
+</script>
+</body>
+</html>
