@@ -3,7 +3,6 @@ import { Route, Switch } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
-import { BottomSheet } from './components/ui/BottomSheet';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
 const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
@@ -413,16 +412,11 @@ function App() {
           highlightedStoryId={scrollHighlightStoryId}
         />
       )}
-      <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
-        {/* Map
-            Mobile explore: full-screen behind bottom sheet
-            Mobile story/entity: 25vh strip at top
-            Desktop: flex-1 (left side, full height) */}
+      <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden">
+        {/* Map — always visible: 30vh in story mode, 35vh in explore */}
         <div className={`${
-          mode === 'story' || mode === 'entity'
-            ? 'h-[25vh] lg:h-full relative'
-            : 'absolute inset-0 lg:relative lg:h-full'
-        } lg:flex-1 transition-[height] duration-300 overflow-hidden z-0`}>
+          mode === 'story' || mode === 'entity' ? 'h-[30vh]' : 'h-[35vh]'
+        } lg:h-full lg:flex-1 relative transition-[height] duration-300 overflow-hidden`}>
           <MapView
             stories={timelineFilteredStories}
             activeStory={activeStory}
@@ -442,52 +436,8 @@ function App() {
           />
         </div>
 
-        {/* Panel — different rendering for mobile explore vs story/entity */}
-        {/* Mobile explore mode: BottomSheet overlay */}
-        {mode === 'explore' && (
-          <BottomSheet
-            headerOffset={0}
-            visible={mode === 'explore'}
-          >
-            <Switch>
-              <Route path="/">
-                <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">Loading…</div>}>
-                  <ExplorePanel
-                    stories={timelineFilteredStories}
-                    collections={collections}
-                    activeCollection={activeCollection}
-                    displayMoments={displayMoments}
-                    momentToStoryMap={momentToStoryMap}
-                    mapInstance={mapInstance}
-                    onStorySelect={handleStorySelect}
-                    onLocationSelect={handleLocationSelect}
-                    onCollectionSelect={handleCollectionSelect}
-                    onClearCollection={() => setActiveCollection(null)}
-                    onScrollHighlight={handleScrollHighlight}
-                    onModeChange={handleModeChange}
-                    mode={mode}
-                    searchQuery={searchQuery}
-                    categoryFilter={categoryFilter}
-                    onCategoryFilter={handleCategoryFilter}
-                    onSurpriseMe={handleSurpriseMe}
-                    userLocation={userLocation}
-                    onRequestGeo={handleRequestGeo}
-                    onEntityClick={handleEntitySelect}
-                    activeTab={exploreTab}
-                    onTabChange={setExploreTab}
-                  />
-                </Suspense>
-              </Route>
-            </Switch>
-          </BottomSheet>
-        )}
-
-        {/* Mobile story/entity: standard panel below map strip
-            Mobile explore: hidden (BottomSheet handles it)
-            Desktop: always visible as side panel */}
-        <div className={`${
-          mode === 'explore' ? 'hidden lg:flex' : 'flex'
-        } flex-1 lg:w-[420px] lg:flex-none overflow-hidden flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)]`}>
+        {/* Panel */}
+        <div className="flex-1 lg:w-[420px] lg:flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)]">
           <Switch>
             <Route path="/">
               <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">Loading…</div>}>
