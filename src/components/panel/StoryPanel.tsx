@@ -166,15 +166,16 @@ export function StoryPanel({
   }, [story, onScrollLocationSelect, scrollActiveId]);
 
   // Initial activation: set the first location as active on story mount
-  // (StoryPanel doesn't auto-activate like EntityPanel does — the scroll handler
-  // only fires on scroll events, leaving scrollActiveId null until user scrolls)
+  // Only sets local visual state (expanded card, active highlight) — does NOT
+  // trigger map zoom via onScrollLocationSelect. That would override the
+  // story-level fitBounds zoom with a single-pin zoom. The scroll handler
+  // will call onScrollLocationSelect when the user actually scrolls.
   useEffect(() => {
     const storyLocations = resolveLocationsFromMap(story, momentMap);
     if (storyLocations.length > 0) {
       const initialId = activeLocation?.id ?? storyLocations[0].id;
       setScrollActiveId(initialId);
       setExpandedLocationId(initialId);
-      onScrollLocationSelect(storyLocations.find(l => l.id === initialId) ?? storyLocations[0]);
     }
   }, [story.id]); // Only on story mount/change
 

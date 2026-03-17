@@ -564,12 +564,14 @@ function MapController({
       smartFlyTo(map, [activeLocation.lat, activeLocation.lng], 14);
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      smartFlyToBounds(map, L.latLngBounds(coords), { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+      smartFlyToBounds(map, L.latLngBounds(coords), { padding: [40, 40], maxZoom: 12, duration: 1.8 });
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
-      smartFlyToBounds(map, bounds, { padding: [60, 60], maxZoom: 14, duration: 1.8 });
+      // maxZoom 12 so closely-grouped moments are clearly distinguished,
+      // especially on the small 30vh mobile map
+      smartFlyToBounds(map, bounds, { padding: [40, 40], maxZoom: 12, duration: 1.8 });
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>

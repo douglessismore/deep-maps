@@ -66,8 +66,9 @@ function storyNotability(story: Story, mMap: Map<string, Moment>): number {
  * Returns a score where LOWER = should appear first in the list.
  */
 function hybridNearestScore(distance: number, notability: number, zoom: number): number {
-  // zoomFactor: 0 at zoom ≤6 (loose), 1 at zoom ≥12 (tight)
-  const zoomFactor = Math.max(0, Math.min(1, (zoom - 6) / 6));
+  // zoomFactor: 0.5 at zoom ≤6 (loose), 1 at zoom ≥12 (tight)
+  // Floor at 0.5 so distance always matters when user explicitly picks "Nearest"
+  const zoomFactor = Math.max(0.5, Math.min(1, (zoom - 6) / 6));
 
   // Normalize distance: use log scale to tame extreme ranges.
   // +1 to avoid log(0). Lower distance → lower distanceScore → sorts first.
@@ -597,7 +598,17 @@ export function ExplorePanel({
   }, [placeEntities, placeSort, userLocation, mapZoom]);
 
   const sortedMoments = useMemo(() => {
-    const arr = [...viewportLocations];
+    let arr = [...viewportLocations];
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      arr = arr.filter(
+        (vl) =>
+          vl.location.name.toLowerCase().includes(q) ||
+          vl.location.subtitle?.toLowerCase().includes(q) ||
+          vl.story.name.toLowerCase().includes(q)
+      );
+    }
     switch (momentSort) {
       case 'notable':
         return arr.sort((a, b) => (b.location.notability ?? 0) - (a.location.notability ?? 0));
@@ -619,7 +630,7 @@ export function ExplorePanel({
       default:
         return arr;
     }
-  }, [viewportLocations, momentSort, userLocation, mapZoom]);
+  }, [viewportLocations, momentSort, userLocation, mapZoom, searchQuery]);
 
   // Scroll-driven entity highlighting (Places tab)
   // Shows single primary pin for each entity (not all moments)
@@ -735,9 +746,9 @@ export function ExplorePanel({
           }`}
         >
           Moments
-          {viewportLocations.length > 0 && (
+          {sortedMoments.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">
-              ({viewportLocations.length})
+              ({sortedMoments.length})
             </span>
           )}
           {activeTab === 'moments' && (
@@ -797,9 +808,9 @@ export function ExplorePanel({
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
         {activeTab === 'moments' ? (
-          viewportLocations.length === 0 ? (
+          sortedMoments.length === 0 ? (
             <EmptyState
-              message="Pan or zoom the map to see moments in this area"
+              message={searchQuery ? 'No moments match your search' : 'Pan or zoom the map to see moments in this area'}
               onSurpriseMe={onSurpriseMe}
             />
           ) : (

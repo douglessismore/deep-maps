@@ -3,6 +3,8 @@ import { Route, Switch } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
+import { DragHandle } from './components/ui/DragHandle';
+import { useMobileSplit } from './hooks/useMobileSplit';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
 const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
@@ -50,6 +52,20 @@ function App() {
   const [nearMeZoomKey, setNearMeZoomKey] = useState(0);
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
   const autoGeoRequested = useRef(false);
+
+  // Draggable map/panel split (mobile only)
+  const { mapRef: splitMapRef, panelRef: splitPanelRef, handleRef: splitHandleRef, snapTo: splitSnapTo } = useMobileSplit({
+    initialSnap: 'half',
+  });
+
+  // Auto-snap to half when mode changes (so entering a story doesn't leave user at 85% map)
+  const prevModeRef = useRef(mode);
+  useEffect(() => {
+    if (mode !== prevModeRef.current) {
+      prevModeRef.current = mode;
+      splitSnapTo('half');
+    }
+  }, [mode, splitSnapTo]);
 
   // Auto-request geolocation on first load
   useEffect(() => {
@@ -198,6 +214,7 @@ function App() {
     setActiveEntity(null);
     setCategoryFilter(null);
     setActiveCollection(null);
+    setSearchQuery('');
     setNavHistory([]);
     setMode('explore');
     setResetViewKey((k) => k + 1);
@@ -412,11 +429,12 @@ function App() {
           highlightedStoryId={scrollHighlightStoryId}
         />
       )}
-      <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden">
-        {/* Map — always visible: 30vh in story mode, 35vh in explore */}
-        <div className={`${
-          mode === 'story' || mode === 'entity' ? 'h-[30vh]' : 'h-[35vh]'
-        } lg:h-full lg:flex-1 relative transition-[height] duration-300 overflow-hidden`}>
+      <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
+        {/* Map — mobile: controlled by useMobileSplit, desktop: flex-1 fills remaining space */}
+        <div
+          ref={splitMapRef}
+          className="basis-1/2 lg:basis-auto lg:h-full lg:flex-1 relative overflow-hidden shrink-0"
+        >
           <MapView
             stories={timelineFilteredStories}
             activeStory={activeStory}
@@ -436,8 +454,14 @@ function App() {
           />
         </div>
 
-        {/* Panel */}
-        <div className="flex-1 lg:w-[420px] lg:flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)]">
+        {/* Drag handle — mobile only */}
+        <DragHandle ref={splitHandleRef} />
+
+        {/* Panel — mobile: controlled by useMobileSplit, desktop: fixed 420px */}
+        <div
+          ref={splitPanelRef}
+          className="basis-1/2 lg:basis-auto lg:w-[420px] lg:flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)] shrink-0"
+        >
           <Switch>
             <Route path="/">
               <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">Loading…</div>}>

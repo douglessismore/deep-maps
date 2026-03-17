@@ -4387,8 +4387,8 @@ export const moments: Moment[] = [
   },
   {
     id: 'victory-charlies-playhouse',
-    name: 'Charlie\'s Playhouse Draws White Students Across Segregation Lines',
-    subtitle: 'The integration of the East 11th corridor',
+    name: 'Charlie\'s Playhouse Becomes Austin\'s First Integrated Music Venue',
+    subtitle: 'UT students cross East Avenue into the Black entertainment district — and a thriving corridor is later bulldozed',
     entityIds: ['victory-grill'],
     description: 'In the 1950s and 60s, Charlie\'s Playhouse was the hottest ticket in Austin. While most of the city was strictly segregated, Charlie\'s became a "cross-over" club where adventurous white students from UT would cross East Avenue to hear authentic R&B and blues. The venue was part of a thriving entertainment district that included dozens of Black-owned businesses, a world that was largely destroyed when the city used "urban renewal" funds to bulldoze much of the corridor in the 1970s.',
     lat: 30.272,
@@ -4556,8 +4556,8 @@ export const moments: Moment[] = [
   },
   {
     id: 'cemetery-barbara-jordan',
-    name: 'First Southern Black Congresswoman Buried Among Texas Elite',
-    subtitle: 'A voice for the Constitution in the heart of Texas',
+    name: 'Barbara Jordan Is Interred at the Texas State Cemetery',
+    subtitle: 'The first Black woman elected to Congress from the South rests among governors and generals',
     description: 'Barbara Jordan, the first Southern Black woman in Congress, is buried here, making her one of the most prominent African American figures in the cemetery. Her grave stands in a section that once only honored the state\'s white elite, a powerful symbol of the progress of civil rights in Texas.',
     lat: 30.2615,
     lng: -97.7255,
