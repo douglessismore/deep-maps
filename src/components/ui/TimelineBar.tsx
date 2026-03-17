@@ -9,7 +9,6 @@ import {
   formatYear,
   ERAS,
   type TimelinePoint,
-  type EraWeight,
   type EraId,
 } from '../../lib/timeline';
 
@@ -21,8 +20,9 @@ interface TimelineBarProps {
   highlightedStoryId?: string | null;
 }
 
-const DOT_RADIUS = 3.5;
-const DOT_HOVER_RADIUS = 5.5;
+const DOT_RADIUS = 2.5;
+const DOT_HOVER_RADIUS = 4;
+const TAP_THRESHOLD = 8; // px — movement below this is a tap, above is a scrub
 
 function getBarMetrics(isMobile: boolean) {
   return isMobile
@@ -63,10 +63,18 @@ export function TimelineBar({
   // ── Hover state ──
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
 
-  // ── Drag state ──
-  const isDragging = useRef(false);
-  const dragStartX = useRef(0);
-  const dragStartWeights = useRef<EraWeight[]>([]);
+  // ── Scrub state — the era being scrubbed over (during drag) ──
+  const [scrubEra, setScrubEra] = useState<EraId | null>(null);
+
+  // ── Pointer tracking for tap vs scrub detection ──
+  const pointerState = useRef<{
+    active: boolean;
+    startX: number;
+    startY: number;
+    currentX: number;
+    pointerId: number;
+    hasMoved: boolean; // true once movement exceeds TAP_THRESHOLD
+  } | null>(null);
 
   // Reset on data change
   useEffect(() => {
@@ -127,84 +135,138 @@ export function TimelineBar({
 
   // ── Zoom (step) ──
   const handleZoomIn = useCallback(() => {
-    // If no era is active, zoom to the densest era
     if (!activeEra) {
       const densest = [...eraWeights].sort((a, b) => b.count - a.count)[0];
       if (densest) handleEraClick(densest.id);
-      return;
     }
-    // If era is active, zoom is already at era level — no further zoom in this model
   }, [activeEra, eraWeights, handleEraClick]);
 
   const handleZoomOut = useCallback(() => {
     if (activeEra) handleClear();
   }, [activeEra, handleClear]);
 
-  // ── Pointer handlers on SVG ──
+  // ── Find era at pixel X ──
+  const getEraAtX = useCallback(
+    (x: number): EraId | null => {
+      for (const w of eraWeights) {
+        if (x >= w.xStart && x < w.xStart + w.width) return w.id;
+      }
+      return null;
+    },
+    [eraWeights]
+  );
+
+  // ── Find nearest dot to pixel X ──
+  const findNearestDot = useCallback(
+    (x: number): TimelinePoint | null => {
+      let closest: TimelinePoint | null = null;
+      let closestDist = 10; // max hit distance
+      for (const pt of visiblePoints) {
+        const isFiltered = activeEra && getEraForYear(pt.startYear) !== activeEra;
+        if (isFiltered) continue;
+        const dotX = yearToAdaptiveX(pt.startYear, eraWeights);
+        const dist = Math.abs(x - dotX);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = pt;
+        }
+      }
+      return closest;
+    },
+    [visiblePoints, eraWeights, activeEra]
+  );
+
+  // ── Pointer handlers: tap vs scrub ──
   const handlePointerDown = useCallback(
     (e: React.PointerEvent) => {
       if (e.button !== 0) return;
       const rect = svgRef.current?.getBoundingClientRect();
       if (!rect) return;
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
 
-      // Check dot clicks
-      for (const pt of visiblePoints) {
-        const dotX = yearToAdaptiveX(pt.startYear, eraWeights);
-        const isFiltered = activeEra && getEraForYear(pt.startYear) !== activeEra;
-        if (isFiltered) continue;
-        if (Math.abs(x - dotX) < 10 && Math.abs(y - DOT_Y) < 12) {
-          const story = stories.find((s) => s.id === pt.storyId);
-          if (story) {
-            onStorySelect(story);
-            return;
-          }
-        }
-      }
+      pointerState.current = {
+        active: true,
+        startX: e.clientX,
+        startY: e.clientY,
+        currentX: e.clientX,
+        pointerId: e.pointerId,
+        hasMoved: false,
+      };
 
-      // Start drag for pan
-      isDragging.current = true;
-      dragStartX.current = e.clientX;
-      dragStartWeights.current = [...eraWeights];
       (e.target as Element).setPointerCapture(e.pointerId);
     },
-    [visiblePoints, eraWeights, activeEra, stories, onStorySelect, DOT_Y]
+    []
   );
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent) => {
-      if (isDragging.current) return; // No visual pan in adaptive mode — just hover
-
-      const rect = svgRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      if (y < DOT_H) {
-        let closest: string | null = null;
-        let closestDist = 12;
-        for (const pt of visiblePoints) {
-          const isFiltered = activeEra && getEraForYear(pt.startYear) !== activeEra;
-          if (isFiltered) continue;
-          const dotX = yearToAdaptiveX(pt.startYear, eraWeights);
-          const dist = Math.abs(x - dotX);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closest = pt.storyId;
-          }
+      const ps = pointerState.current;
+      if (!ps || !ps.active) {
+        // Just hovering (desktop) — find nearest dot
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (y < DOT_H) {
+          const dot = findNearestDot(x);
+          setHoveredPoint(dot?.storyId ?? null);
+        } else {
+          setHoveredPoint(null);
         }
-        setHoveredPoint(closest);
-      } else {
+        return;
+      }
+
+      // Pointer is down — check if we've exceeded tap threshold
+      const dx = Math.abs(e.clientX - ps.startX);
+      ps.currentX = e.clientX;
+
+      if (!ps.hasMoved && dx > TAP_THRESHOLD) {
+        ps.hasMoved = true;
+      }
+
+      if (ps.hasMoved) {
+        // Scrubbing — highlight the era under the finger
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        const x = e.clientX - rect.left;
+        const era = getEraAtX(x);
+        setScrubEra(era);
         setHoveredPoint(null);
       }
     },
-    [DOT_H, visiblePoints, eraWeights, activeEra]
+    [DOT_H, findNearestDot, getEraAtX]
   );
 
-  const handlePointerUp = useCallback(() => {
-    isDragging.current = false;
-  }, []);
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent) => {
+      const ps = pointerState.current;
+      pointerState.current = null;
+      setScrubEra(null);
+
+      if (!ps || !ps.active) return;
+
+      if (!ps.hasMoved) {
+        // TAP — select nearest dot
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        const x = e.clientX - rect.left;
+        const dot = findNearestDot(x);
+        if (dot) {
+          const story = stories.find((s) => s.id === dot.storyId);
+          if (story) onStorySelect(story);
+        }
+      } else {
+        // SCRUB — filter to the era where the finger lifted
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        const x = e.clientX - rect.left;
+        const era = getEraAtX(x);
+        if (era) {
+          handleEraClick(era);
+        }
+      }
+    },
+    [findNearestDot, getEraAtX, stories, onStorySelect, handleEraClick]
+  );
 
   // ── Tooltip data ──
   const hoveredData = hoveredPoint
@@ -217,7 +279,6 @@ export function TimelineBar({
       const era = ERAS.find((e) => e.id === activeEra);
       if (era) return `${formatYear(era.start)} — ${formatYear(era.end)}`;
     }
-    // Show full range
     if (visiblePoints.length === 0) return '';
     const years = visiblePoints.map((p) => p.startYear);
     const min = Math.min(...years);
@@ -352,9 +413,28 @@ export function TimelineBar({
           onPointerUp={handlePointerUp}
           onPointerLeave={() => {
             setHoveredPoint(null);
-            isDragging.current = false;
+            setScrubEra(null);
+            pointerState.current = null;
           }}
         >
+          {/* Era segment backgrounds — highlight during scrub */}
+          {eraWeights.map((w) => {
+            const isScrubbed = scrubEra === w.id;
+            const isActiveEra = activeEra === w.id;
+            if (!isScrubbed && !isActiveEra) return null;
+            return (
+              <rect
+                key={`bg-${w.id}`}
+                x={w.xStart}
+                y={0}
+                width={w.width}
+                height={DOT_H}
+                fill={isScrubbed ? 'rgba(234,179,8,0.08)' : 'rgba(234,179,8,0.04)'}
+                style={{ transition: 'fill 0.15s' }}
+              />
+            );
+          })}
+
           {/* Era segment hairlines */}
           {eraWeights.map((w, i) =>
             i > 0 ? (
@@ -403,7 +483,7 @@ export function TimelineBar({
                 );
               })}
 
-          {/* Dots — always category-colored */}
+          {/* Dots — always category-colored, smaller radius */}
           {visiblePoints.map((pt) => {
             const cx = yearToAdaptiveX(pt.startYear, eraWeights);
             if (cx < -10 || cx > containerWidth + 10) return null;
@@ -412,11 +492,11 @@ export function TimelineBar({
             const isHovered = hoveredPoint === pt.storyId;
             const isScrollHL = highlightedStoryId === pt.storyId;
             const isActive = isHovered || isScrollHL;
-            const r = isActive ? DOT_HOVER_RADIUS : isFiltered ? 1.5 : DOT_RADIUS;
+            const r = isActive ? DOT_HOVER_RADIUS : isFiltered ? 1 : DOT_RADIUS;
             const color = CATEGORIES[pt.category].color;
-            const opacity = isFiltered ? 0.12 : isActive ? 1 : 0.85;
+            const opacity = isFiltered ? 0.1 : isActive ? 1 : 0.75;
             const dotFilter = isActive
-              ? `drop-shadow(0 0 5px ${color})`
+              ? `drop-shadow(0 0 4px ${color})`
               : 'none';
 
             // Stagger dots vertically to reduce overlap
@@ -429,19 +509,19 @@ export function TimelineBar({
                   <circle
                     cx={cx}
                     cy={DOT_Y + yOffset}
-                    r={r + 4}
+                    r={r + 3}
                     fill="none"
                     stroke={color}
-                    strokeWidth={1}
-                    opacity={0.5}
+                    strokeWidth={0.8}
+                    opacity={0.4}
                   />
                 )}
                 {isScrollHL && !isHovered && !isFiltered && (
-                  <circle cx={cx} cy={DOT_Y + yOffset} r={r + 7} fill="none" stroke={color} strokeWidth={0.5}>
+                  <circle cx={cx} cy={DOT_Y + yOffset} r={r + 6} fill="none" stroke={color} strokeWidth={0.5}>
                     <animate
                       attributeName="r"
-                      from={String(r + 4)}
-                      to={String(r + 12)}
+                      from={String(r + 3)}
+                      to={String(r + 10)}
                       dur="1.2s"
                       repeatCount="indefinite"
                     />
@@ -503,6 +583,7 @@ export function TimelineBar({
           count={visiblePoints.length}
           isActive={!activeEra}
           isHighlighted={false}
+          isScrubbed={false}
           isMobile={isMobile}
           onClick={() => handleEraClick(null)}
         />
@@ -515,6 +596,7 @@ export function TimelineBar({
               count={w?.count ?? 0}
               isActive={activeEra === era.id}
               isHighlighted={highlightedEra === era.id && !activeEra}
+              isScrubbed={scrubEra === era.id}
               isMobile={isMobile}
               onClick={() => handleEraClick(era.id)}
             />
@@ -531,6 +613,7 @@ function EraChip({
   count,
   isActive,
   isHighlighted,
+  isScrubbed,
   isMobile,
   onClick,
 }: {
@@ -538,11 +621,14 @@ function EraChip({
   count: number;
   isActive: boolean;
   isHighlighted: boolean;
+  isScrubbed: boolean;
   isMobile: boolean;
   onClick: () => void;
 }) {
   const chipH = isMobile ? 14 : 16;
   const fontSize = isMobile ? 8 : 9;
+
+  const isEmphasized = isActive || isScrubbed;
 
   return (
     <button
@@ -558,18 +644,18 @@ function EraChip({
         fontSize,
         whiteSpace: 'nowrap',
         border: `1px solid ${
-          isActive
+          isEmphasized
             ? 'rgba(234,179,8,0.4)'
             : isHighlighted
             ? 'rgba(234,179,8,0.25)'
             : 'rgba(255,255,255,0.08)'
         }`,
-        background: isActive
+        background: isEmphasized
           ? 'rgba(234,179,8,0.2)'
           : isHighlighted
           ? 'rgba(234,179,8,0.08)'
           : 'rgba(255,255,255,0.04)',
-        color: isActive
+        color: isEmphasized
           ? 'rgba(234,179,8,0.9)'
           : isHighlighted
           ? 'rgba(234,179,8,0.6)'
@@ -579,7 +665,8 @@ function EraChip({
         cursor: count === 0 && label !== 'All' ? 'default' : 'pointer',
         display: 'flex',
         alignItems: 'center',
-        transition: 'all 0.2s',
+        transition: 'all 0.15s',
+        transform: isScrubbed ? 'scale(1.08)' : 'scale(1)',
       }}
       disabled={count === 0 && label !== 'All'}
     >
