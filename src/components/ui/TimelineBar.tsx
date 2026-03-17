@@ -252,26 +252,23 @@ export function TimelineBar({
 
       if (!ps || !ps.active) return;
 
+      const rect = svgRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const x = e.clientX - rect.left;
+
       if (!ps.hasMoved) {
-        // TAP — select nearest dot
-        const rect = svgRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        const x = e.clientX - rect.left;
+        // TAP — select nearest dot, or clear filter if tapping empty space
         const dot = findNearestDot(x);
         if (dot) {
           const story = stories.find((s) => s.id === dot.storyId);
           if (story) onStorySelect(story);
-        }
-      } else {
-        // SCRUB — filter to the era where the finger lifted
-        const rect = svgRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        const x = e.clientX - rect.left;
-        const era = getEraAtX(x);
-        if (era) {
-          handleEraClick(era);
+        } else if (activeEra) {
+          // Tapped empty space on the strip — clear era filter
+          handleClear();
         }
       }
+      // Scrub (drag) only highlights visually — does NOT filter on release.
+      // Users filter by tapping era chips directly.
     },
     [findNearestDot, getEraAtX, stories, onStorySelect, handleEraClick]
   );
@@ -591,12 +588,13 @@ export function TimelineBar({
         }}
         className="[&::-webkit-scrollbar]:hidden"
       >
-        {/* "All" chip */}
+        {/* "All" chip — only highlighted gold when a filter IS active (shows as the escape hatch) */}
         <EraChip
           label="All"
           count={visiblePoints.length}
-          isActive={!activeEra}
+          isActive={false}
           isHighlighted={false}
+          isDefault={!activeEra}
           isScrubbed={false}
           isMobile={isMobile}
           onClick={() => handleEraClick(null)}
@@ -610,6 +608,7 @@ export function TimelineBar({
               count={w?.count ?? 0}
               isActive={activeEra === era.id}
               isHighlighted={highlightedEra === era.id && !activeEra}
+              isDefault={false}
               isScrubbed={scrubEra === era.id}
               isMobile={isMobile}
               onClick={() => handleEraClick(era.id)}
@@ -627,6 +626,7 @@ function EraChip({
   count,
   isActive,
   isHighlighted,
+  isDefault,
   isScrubbed,
   isMobile,
   onClick,
@@ -634,7 +634,10 @@ function EraChip({
   label: string;
   count: number;
   isActive: boolean;
+  /** Scroll-linked: the era of the currently-scrolled story (subtle hint, not gold) */
   isHighlighted: boolean;
+  /** "All" chip when no filter is active — slightly brighter than siblings */
+  isDefault: boolean;
   isScrubbed: boolean;
   isMobile: boolean;
   onClick: () => void;
@@ -642,7 +645,29 @@ function EraChip({
   const chipH = isMobile ? 18 : 20;
   const fontSize = isMobile ? 9 : 10;
 
+  // Active filter or scrub target — strong gold
   const isEmphasized = isActive || isScrubbed;
+
+  // Compute border
+  let border: string;
+  if (isEmphasized) border = '1px solid rgba(234,179,8,0.5)';
+  else if (isHighlighted) border = '1px solid rgba(255,255,255,0.25)';
+  else if (isDefault) border = '1px solid rgba(255,255,255,0.2)';
+  else border = '1px solid rgba(255,255,255,0.12)';
+
+  // Compute background
+  let bg: string;
+  if (isEmphasized) bg = 'rgba(234,179,8,0.2)';
+  else if (isDefault) bg = 'rgba(255,255,255,0.08)';
+  else bg = 'rgba(255,255,255,0.05)';
+
+  // Compute text color
+  let textColor: string;
+  if (isEmphasized) textColor = 'rgba(234,179,8,0.95)';
+  else if (isHighlighted) textColor = 'rgba(255,255,255,0.75)';
+  else if (isDefault) textColor = 'rgba(255,255,255,0.7)';
+  else if (count === 0) textColor = 'rgba(255,255,255,0.2)';
+  else textColor = 'rgba(255,255,255,0.55)';
 
   return (
     <button
@@ -658,30 +683,16 @@ function EraChip({
         borderRadius: chipH / 2,
         fontSize,
         whiteSpace: 'nowrap',
-        border: `1px solid ${
-          isEmphasized
-            ? 'rgba(234,179,8,0.5)'
-            : isHighlighted
-            ? 'rgba(234,179,8,0.35)'
-            : 'rgba(255,255,255,0.12)'
-        }`,
-        background: isEmphasized
-          ? 'rgba(234,179,8,0.2)'
-          : isHighlighted
-          ? 'rgba(234,179,8,0.1)'
-          : 'rgba(255,255,255,0.05)',
-        color: isEmphasized
-          ? 'rgba(234,179,8,0.95)'
-          : isHighlighted
-          ? 'rgba(234,179,8,0.75)'
-          : count === 0
-          ? 'rgba(255,255,255,0.2)'
-          : 'rgba(255,255,255,0.55)',
+        border,
+        background: bg,
+        color: textColor,
         cursor: count === 0 && label !== 'All' ? 'default' : 'pointer',
         display: 'flex',
         alignItems: 'center',
         transition: 'all 0.15s',
         transform: isScrubbed ? 'scale(1.08)' : 'scale(1)',
+        // Scroll highlight: subtle bottom accent line instead of gold fill
+        borderBottom: isHighlighted ? '2px solid rgba(234,179,8,0.5)' : undefined,
       }}
       disabled={count === 0 && label !== 'All'}
     >
