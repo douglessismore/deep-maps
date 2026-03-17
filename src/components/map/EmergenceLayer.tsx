@@ -41,12 +41,14 @@ function computeAlpha(moment: Moment, zoom: number): number {
 interface EmergenceLayerProps {
   categoryFilter: StoryCategory | null;
   activeCollection?: StoryCollection | null;
+  /** When set, only show moments whose parent story is in this set (timeline era filtering) */
+  storyIdFilter?: Set<string> | null;
   onLocationClick: (location: Moment, story: Story) => void;
   activeLocation: Moment | null;
   scrollHighlight?: Moment[];
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -81,7 +83,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, onLocationCli
   const onClickRef = useRef(onLocationClick);
   onClickRef.current = onLocationClick;
 
-  // Filter moments by active collection and/or category
+  // Filter moments by active collection, category, and/or timeline era
   const filteredMoments = useMemo(() => {
     let result = moments as Moment[];
     if (activeCollection) {
@@ -91,8 +93,14 @@ export function EmergenceLayer({ categoryFilter, activeCollection, onLocationCli
     if (categoryFilter) {
       result = result.filter(m => momentCategoryMap.get(m.id) === categoryFilter);
     }
+    if (storyIdFilter && storyIdFilter.size > 0) {
+      result = result.filter(m => {
+        const story = momentStoryMap.get(m.id);
+        return story ? storyIdFilter.has(story.id) : false;
+      });
+    }
     return result;
-  }, [categoryFilter, activeCollection]);
+  }, [categoryFilter, activeCollection, storyIdFilter, moments, momentStoryMap, momentCategoryMap]);
 
   // ── Create / update / destroy circle markers ──────────────────────
   useEffect(() => {

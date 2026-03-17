@@ -767,6 +767,7 @@ export function MapView(props: MapViewProps) {
           <EmergenceLayer
             categoryFilter={props.categoryFilter}
             activeCollection={props.activeCollection}
+            storyIdFilter={props.storyIdFilter}
             onLocationClick={props.onLocationClick}
             activeLocation={props.activeLocation}
             scrollHighlight={props.scrollHighlight}
