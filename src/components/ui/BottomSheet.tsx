@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode } from 'react';
+import { useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
@@ -35,7 +35,6 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
   const rafId = useRef(0);
   const currentSnapRef = useRef<SheetSnap>('half');
   const onSnapChangeRef = useRef(onSnapChange);
-  const initializedRef = useRef(false);
 
   useEffect(() => { onSnapChangeRef.current = onSnapChange; }, [onSnapChange]);
 
@@ -53,6 +52,21 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     if (!sheetRef.current) return;
     // Use translate3d to force GPU compositing on iOS Safari
     sheetRef.current.style.transform = `translate3d(0, ${y}px, 0)`;
+  }, []);
+
+  // Ref callback: fires synchronously every time the DOM element mounts.
+  // Handles React StrictMode double-mount correctly (new DOM element each time).
+  const sheetRefCallback = useCallback((node: HTMLDivElement | null) => {
+    sheetRef.current = node;
+    if (node) {
+      // Set initial position immediately — before browser paints
+      const container = node.parentElement;
+      const totalH = container ? container.clientHeight : window.innerHeight;
+      const halfY = totalH * (1 - HALF_RATIO);
+      currentTranslateY.current = halfY;
+      currentSnapRef.current = 'half';
+      node.style.transform = `translate3d(0, ${halfY}px, 0)`;
+    }
   }, []);
 
   const snapTo = useCallback((snap: SheetSnap) => {
@@ -94,16 +108,6 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
-
-  // Set initial position on mobile synchronously before paint (useLayoutEffect)
-  // This prevents any flash — the sheet is positioned before the browser paints.
-  useLayoutEffect(() => {
-    if (!isMobile || !sheetRef.current || initializedRef.current) return;
-    initializedRef.current = true;
-    const snaps = getSnapPositions();
-    currentTranslateY.current = snaps.half;
-    applyTranslate(snaps.half);
-  }, [isMobile, getSnapPositions, applyTranslate]);
 
   // Handle resize
   useEffect(() => {
@@ -191,7 +195,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
   return (
     <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30 }}>
       <div
-        ref={sheetRef}
+        ref={sheetRefCallback}
         className="absolute left-0 right-0 pointer-events-auto flex flex-col"
         style={{
           top: 0,
