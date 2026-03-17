@@ -243,11 +243,12 @@ function App() {
   const handleBack = useCallback(() => {
     setNavHistory((prev) => {
       if (prev.length === 0) {
-        // No history — go to explore
+        // No history — go to explore (full reset including timeline)
         setActiveStory(null);
         setActiveLocation(null);
         setActiveEntity(null);
         setCategoryFilter(null);
+        setTimelineViewRange(null);
         setMode('explore');
         setResetViewKey((k) => k + 1);
         return prev;
@@ -274,7 +275,7 @@ function App() {
     });
   }, []);
 
-  // Full reset → clears everything including collection and history
+  // Full reset → clears everything including collection, history, and timeline filter
   const handleBackToExplore = useCallback(() => {
     setActiveStory(null);
     setActiveLocation(null);
@@ -283,6 +284,7 @@ function App() {
     setActiveCollection(null);
     setSearchQuery('');
     setNavHistory([]);
+    setTimelineViewRange(null);
     setMode('explore');
     setResetViewKey((k) => k + 1);
   }, []);
