@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline Comparison</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0a0a;
+    color: #e5e5e5;
+    font-family: system-ui, sans-serif;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .page-header {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .page-header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .page-header p {
+    font-size: 11px;
+    color: #777;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 8px 16px 4px;
+  }
+  .section-label.bad { color: #f87171; }
+  .section-label.good { color: #6ee7b7; }
+  .section-label.histogram { color: #93c5fd; }
+
+  /* Timeline strip */
+  .timeline-strip {
+    background: linear-gradient(180deg, rgba(44,44,44,0.98), rgba(30,30,30,0.99));
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+  }
+  .timeline-strip.tall { min-height: 64px; }
+  .timeline-strip.hist { min-height: 80px; }
+
+  /* Top zone */
+  .tz-top {
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+  .tz-year-range {
+    font-family: monospace;
+    font-size: 9px;
+    color: #999;
+  }
+  .tz-controls { display: flex; gap: 2px; }
+  .tz-btn {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: #aaa;
+    font-size: 9px;
+    font-family: monospace;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Dot zone */
+  .tz-middle {
+    height: 28px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .tz-middle svg { width: 100%; height: 100%; display: block; }
+
+  /* Histogram zone */
+  .tz-histogram {
+    height: 44px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 6px 2px;
+    gap: 3px;
+  }
+  .hist-bar-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+  }
+  .hist-bar-container:hover { opacity: 0.8; }
+  .hist-segment {
+    min-height: 1px;
+    transition: height 0.3s ease;
+  }
+
+  /* Era chips */
+  .tz-bottom {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 6px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    scrollbar-width: none;
+  }
+  .tz-bottom::-webkit-scrollbar { display: none; }
+  .era-chip {
+    flex-shrink: 0;
+    height: 14px;
+    padding: 0 6px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-family: monospace;
+    font-size: 8px;
+    color: #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .era-chip:active { background: rgba(255,255,255,0.15); }
+  .era-chip.active {
+    background: rgba(202,138,4,0.2);
+    border-color: rgba(202,138,4,0.4);
+    color: #fbbf24;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    background: rgba(0,0,0,0.95);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-family: monospace;
+    font-size: 10px;
+    color: #fff;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .td { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+
+  /* Description between sections */
+  .desc {
+    padding: 12px 16px;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Divider */
+  .divider {
+    height: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Zoomed dots view for histogram */
+  .zoom-view {
+    display: none;
+    height: 44px;
+    position: relative;
+    align-items: center;
+  }
+  .zoom-view.active { display: flex; }
+  .zoom-view svg { width: 100%; height: 100%; display: block; }
+  .zoom-back {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    font-family: monospace;
+    font-size: 8px;
+    color: #999;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+
+  .era-hairline { stroke: rgba(255,255,255,0.08); stroke-width: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Timeline Redesign Comparison</h1>
+  <p>Three approaches to showing stories from 21,000 BC to 2025. Tap era chips to filter. Tap dots for details.</p>
+</div>
+
+<!-- OPTION 1: LINEAR (the problem) -->
+<div class="section-label bad">❌ Current: Linear Scale</div>
+<div class="timeline-strip tall" id="strip-linear">
+  <div class="tz-top">
+    <span class="tz-year-range">21000 BC — 2025</span>
+    <div class="tz-controls"><button class="tz-btn">+</button><button class="tz-btn">−</button></div>
+  </div>
+  <div class="tz-middle"><svg id="svg-linear"></svg></div>
+  <div class="tz-bottom" id="chips-linear"></div>
+</div>
+<div class="desc">See the problem? 23,000 years of ancient history is an invisible sliver on the left. All 75 dots are crammed into the rightmost 2% of the axis.</div>
+
+<div class="divider"></div>
+
+<!-- OPTION B: ADAPTIVE SCRUBBER -->
+<div class="section-label good">✓ Option B: Adaptive Scrubber Strip</div>
+<div class="timeline-strip tall" id="strip-adaptive">
+  <div class="tz-top">
+    <span class="tz-year-range" id="adaptive-range">21000 BC — 2025</span>
+    <div class="tz-controls">
+      <button class="tz-btn" onclick="zoomB(1)">+</button>
+      <button class="tz-btn" onclick="zoomB(-1)">−</button>
+      <button class="tz-btn" id="reset-b" style="display:none" onclick="filterB(null)">×</button>
+    </div>
+  </div>
+  <div class="tz-middle"><svg id="svg-adaptive"></svg></div>
+  <div class="tz-bottom" id="chips-adaptive"></div>
+</div>
+<div class="desc">Each era gets width based on log₂(story count), not elapsed time. Ancient eras with few stories get breathing room. Modern eras with many stories stay spread out.</div>
+
+<div class="divider"></div>
+
+<!-- OPTION C: DENSITY HISTOGRAM -->
+<div class="section-label histogram">◆ Option C: Density Histogram</div>
+<div class="timeline-strip hist" id="strip-histogram">
+  <div class="tz-top">
+    <span class="tz-year-range" id="hist-range">All Eras · 75 stories</span>
+    <div class="tz-controls">
+      <button class="tz-btn" id="hist-back" style="display:none" onclick="histZoomOut()">←</button>
+    </div>
+  </div>
+  <div class="tz-histogram" id="histogram-bars"></div>
+  <div class="zoom-view" id="histogram-dots"><svg id="svg-hist-dots"></svg><button class="zoom-back" onclick="histZoomOut()">← overview</button></div>
+  <div class="tz-bottom" id="chips-histogram"></div>
+</div>
+<div class="desc">The bar height shows how many stories each era has — the shape IS the story of human history. Tap a bar to see individual dots inside that era.</div>
+
+<!-- Global tooltip -->
+<div class="tooltip" id="global-tip"><span class="td"></span><span id="tip-text"></span></div>
+
+<script>
+const C = ['#dc2626','#d97706','#0891b2','#9333ea','#059669','#4f46e5','#ca8a04','#be185d'];
+const ERAS = [
+  { id:'origins', label:'Origins', start:-25000, end:-3000 },
+  { id:'ancient', label:'Ancient', start:-3000, end:500 },
+  { id:'medieval', label:'Medieval', start:500, end:1500 },
+  { id:'earlymod', label:'Early Mod', start:1500, end:1800 },
+  { id:'industrial', label:'Industrial', start:1800, end:1914 },
+  { id:'c20', label:'20th C', start:1914, end:2000 },
+  { id:'now', label:'Now', start:2000, end:2026 },
+];
+
+const D = [
+  {y:-21000,n:'Cave Paintings at Lascaux',e:'origins',c:C[0]},
+  {y:-11000,n:'Göbekli Tepe Construction',e:'origins',c:C[1]},
+  {y:-5000,n:'Wheel Invented in Mesopotamia',e:'origins',c:C[2]},
+  {y:-2500,n:'Great Pyramid of Giza Built',e:'ancient',c:C[3]},
+  {y:-1500,n:'Exodus from Egypt',e:'ancient',c:C[4]},
+  {y:-800,n:'Homer Writes the Iliad',e:'ancient',c:C[5]},
+  {y:-500,n:'Buddha Achieves Enlightenment',e:'ancient',c:C[6]},
+  {y:-400,n:'Socrates Drinks Hemlock',e:'ancient',c:C[7]},
+  {y:-200,n:'Great Wall Construction Begins',e:'ancient',c:C[0]},
+  {y:100,n:'Pompeii Buried by Vesuvius',e:'ancient',c:C[1]},
+  {y:400,n:'Fall of Rome',e:'ancient',c:C[2]},
+  {y:600,n:'Muhammad\'s Revelations',e:'medieval',c:C[3]},
+  {y:800,n:'Charlemagne Crowned',e:'medieval',c:C[4]},
+  {y:1000,n:'Vikings Reach North America',e:'medieval',c:C[5]},
+  {y:1100,n:'First Crusade Takes Jerusalem',e:'medieval',c:C[6]},
+  {y:1200,n:'Genghis Khan Unites Mongols',e:'medieval',c:C[7]},
+  {y:1400,n:'Black Death Reshapes Europe',e:'medieval',c:C[0]},
+  {y:1520,n:'Magellan Circles the Globe',e:'earlymod',c:C[1]},
+  {y:1580,n:'Shakespeare\'s First Plays',e:'earlymod',c:C[2]},
+  {y:1620,n:'Pilgrims Land at Plymouth',e:'earlymod',c:C[3]},
+  {y:1650,n:'Taj Mahal Completed',e:'earlymod',c:C[4]},
+  {y:1700,n:'Newton Publishes Principia',e:'earlymod',c:C[5]},
+  {y:1750,n:'Bach Composes Art of Fugue',e:'earlymod',c:C[6]},
+  {y:1770,n:'Boston Massacre',e:'earlymod',c:C[7]},
+  {y:1790,n:'French Revolution',e:'earlymod',c:C[0]},
+  {y:1803,n:'Louisiana Purchase',e:'industrial',c:C[1]},
+  {y:1820,n:'Faraday\'s Electromagnetism',e:'industrial',c:C[2]},
+  {y:1840,n:'First Telegraph Message',e:'industrial',c:C[3]},
+  {y:1848,n:'Gold Rush in California',e:'industrial',c:C[4]},
+  {y:1860,n:'Lincoln Elected President',e:'industrial',c:C[5]},
+  {y:1876,n:'Bell Invents Telephone',e:'industrial',c:C[6]},
+  {y:1880,n:'Edison Lights Up New York',e:'industrial',c:C[7]},
+  {y:1890,n:'Wounded Knee Massacre',e:'industrial',c:C[0]},
+  {y:1900,n:'Freud\'s Dream Theory',e:'industrial',c:C[1]},
+  {y:1910,n:'Mexican Revolution',e:'industrial',c:C[2]},
+  {y:1914,n:'Archduke Ferdinand Shot',e:'c20',c:C[3]},
+  {y:1917,n:'Russian Revolution',e:'c20',c:C[4]},
+  {y:1920,n:'Women Win Right to Vote',e:'c20',c:C[5]},
+  {y:1927,n:'Lindbergh Flies Atlantic',e:'c20',c:C[6]},
+  {y:1929,n:'Wall Street Crash',e:'c20',c:C[7]},
+  {y:1933,n:'Hitler Rises to Power',e:'c20',c:C[0]},
+  {y:1939,n:'World War II Begins',e:'c20',c:C[1]},
+  {y:1945,n:'Hiroshima Atom Bomb',e:'c20',c:C[2]},
+  {y:1947,n:'India Independence',e:'c20',c:C[3]},
+  {y:1950,n:'Korean War',e:'c20',c:C[4]},
+  {y:1953,n:'DNA Structure Discovered',e:'c20',c:C[5]},
+  {y:1957,n:'Sputnik Launches',e:'c20',c:C[6]},
+  {y:1961,n:'Berlin Wall Erected',e:'c20',c:C[7]},
+  {y:1963,n:'JFK Assassinated',e:'c20',c:C[0]},
+  {y:1968,n:'MLK Assassinated',e:'c20',c:C[1]},
+  {y:1969,n:'Moon Landing',e:'c20',c:C[2]},
+  {y:1973,n:'Watergate Scandal',e:'c20',c:C[3]},
+  {y:1979,n:'Iranian Revolution',e:'c20',c:C[4]},
+  {y:1981,n:'MTV Goes on Air',e:'c20',c:C[5]},
+  {y:1986,n:'Chernobyl Melts Down',e:'c20',c:C[6]},
+  {y:1989,n:'Berlin Wall Falls',e:'c20',c:C[7]},
+  {y:1991,n:'Soviet Union Dissolves',e:'c20',c:C[0]},
+  {y:1994,n:'Mandela Elected',e:'c20',c:C[1]},
+  {y:1997,n:'Dolly the Sheep Cloned',e:'c20',c:C[2]},
+  {y:1999,n:'Y2K Panic',e:'c20',c:C[3]},
+  {y:2001,n:'September 11 Attacks',e:'now',c:C[4]},
+  {y:2003,n:'Human Genome Mapped',e:'now',c:C[5]},
+  {y:2004,n:'Facebook Launches',e:'now',c:C[6]},
+  {y:2007,n:'iPhone Unveiled',e:'now',c:C[7]},
+  {y:2008,n:'Global Financial Crisis',e:'now',c:C[0]},
+  {y:2010,n:'Arab Spring Begins',e:'now',c:C[1]},
+  {y:2011,n:'Bin Laden Killed',e:'now',c:C[2]},
+  {y:2012,n:'Higgs Boson Found',e:'now',c:C[3]},
+  {y:2015,n:'Paris Climate Agreement',e:'now',c:C[4]},
+  {y:2016,n:'AlphaGo Defeats Champion',e:'now',c:C[5]},
+  {y:2019,n:'First Black Hole Image',e:'now',c:C[6]},
+  {y:2020,n:'COVID-19 Pandemic',e:'now',c:C[7]},
+  {y:2022,n:'James Webb Telescope',e:'now',c:C[0]},
+  {y:2023,n:'ChatGPT Changes Everything',e:'now',c:C[1]},
+  {y:2025,n:'Deep Maps Goes Live',e:'now',c:C[2]},
+];
+
+function dotsForEra(id) { return D.filter(d => d.e === id); }
+function fmtY(y) { return y < 0 ? Math.abs(y)+' BC' : ''+y; }
+
+// ─── TOOLTIP ───
+const tip = document.getElementById('global-tip');
+const tipDot = tip.querySelector('.td');
+const tipText = document.getElementById('tip-text');
+
+function showTip(e, dot) {
+  tipDot.style.background = dot.c;
+  tipText.textContent = dot.n + ' (' + fmtY(dot.y) + ')';
+  tip.classList.add('visible');
+  const r = (e.target || e.srcElement).getBoundingClientRect();
+  tip.style.left = Math.max(8, Math.min(r.left - 30, window.innerWidth - 220)) + 'px';
+  tip.style.top = (r.top - 28) + 'px';
+}
+function hideTip() { tip.classList.remove('visible'); }
+
+// ─── LINEAR ───
+function renderLinear() {
+  const svg = document.getElementById('svg-linear');
+  const W = svg.clientWidth || 360;
+  const H = 28, pad = 6;
+  const min = -21000, max = 2025, range = max - min;
+  let h = '';
+  ERAS.forEach(era => {
+    if (era.start > min) {
+      const x = pad + ((era.start - min) / range) * (W - 2*pad);
+      h += `<line x1="${x}" y1="2" x2="${x}" y2="${H-2}" class="era-hairline"/>`;
+    }
+  });
+  D.forEach((dot, i) => {
+    const x = pad + ((dot.y - min) / range) * (W - 2*pad);
+    const yy = H/2 + (i%3 === 0 ? -3 : i%3 === 1 ? 0 : 3);
+    h += `<circle cx="${x}" cy="${yy}" r="3" fill="${dot.c}" opacity="0.85"
+      onmouseenter="showTip(event,D[${i}])" onmouseleave="hideTip()"
+      ontouchstart="showTip(event,D[${i}])"/>`;
+  });
+  svg.innerHTML = h;
+}
+
+// ─── ADAPTIVE (Option B) ───
+let activeB = null;
+
+function getWeights() {
+  return ERAS.map(e => ({ ...e, cnt: dotsForEra(e.id).length, w: Math.log2(dotsForEra(e.id).length + 1) }));
+}
+
+function renderB() {
+  const svg = document.getElementById('svg-adaptive');
+  const W = svg.clientWidth || 360;
+  const H = 28, pad = 6;
+  const wt = getWeights();
+  const tw = wt.reduce((s,e) => s + e.w, 0);
+  let h = '', xo = pad;
+
+  wt.forEach((era, ei) => {
+    const eW = (era.w / tw) * (W - 2*pad);
+    if (ei > 0) h += `<line x1="${xo}" y1="2" x2="${xo}" y2="${H-2}" class="era-hairline"/>`;
+    const dots = dotsForEra(era.id);
+    const on = activeB === null || activeB === era.id;
+    dots.forEach((dot, di) => {
+      const lx = dots.length > 1 ? (di + 0.5) / dots.length * eW : eW/2;
+      const x = xo + lx;
+      const yy = H/2 + (di%3 === 0 ? -3 : di%3 === 1 ? 0 : 3);
+      const r = on ? 3.5 : 1.5;
+      const op = on ? 0.9 : 0.15;
+      const idx = D.indexOf(dot);
+      h += `<circle cx="${x}" cy="${yy}" r="${r}" fill="${dot.c}" opacity="${op}"
+        style="transition:all 0.3s"
+        onmouseenter="showTip(event,D[${idx}])" onmouseleave="hideTip()"
+        ontouchstart="showTip(event,D[${idx}])"/>`;
+    });
+    xo += eW;
+  });
+  svg.innerHTML = h;
+
+  const rl = document.getElementById('adaptive-range');
+  if (activeB) {
+    const e = ERAS.find(x => x.id === activeB);
+    rl.textContent = fmtY(e.start) + ' — ' + fmtY(e.end);
+  } else {
+    rl.textContent = '21000 BC — 2025';
+  }
+  document.getElementById('reset-b').style.display = activeB ? 'flex' : 'none';
+}
+
+function renderChipsB() {
+  const el = document.getElementById('chips-adaptive');
+  let h = `<div class="era-chip ${!activeB?'active':''}" onclick="filterB(null)">All</div>`;
+  ERAS.forEach(e => {
+    const cnt = dotsForEra(e.id).length;
+    h += `<div class="era-chip ${activeB===e.id?'active':''}" onclick="filterB('${e.id}')">${e.label} (${cnt})</div>`;
+  });
+  el.innerHTML = h;
+}
+
+function filterB(id) { activeB = id; renderB(); renderChipsB(); }
+function zoomB() { /* visual only in mockup */ }
+
+// ─── LINEAR CHIPS ───
+function renderChipsLinear() {
+  const el = document.getElementById('chips-linear');
+  let h = '<div class="era-chip active">All</div>';
+  ERAS.forEach(e => { h += `<div class="era-chip">${e.label} (${dotsForEra(e.id).length})</div>`; });
+  el.innerHTML = h;
+}
+
+// ─── HISTOGRAM (Option C) ───
+let activeH = null;
+
+function renderHistogram() {
+  const el = document.getElementById('histogram-bars');
+  const dotsView = document.getElementById('histogram-dots');
+  const wt = getWeights();
+  const tw = wt.reduce((s,e) => s + e.w, 0);
+  const maxCnt = Math.max(...wt.map(e => e.cnt));
+
+  if (activeH) {
+    el.style.display = 'none';
+    dotsView.classList.add('active');
+    const era = ERAS.find(e => e.id === activeH);
+    const dots = dotsForEra(activeH);
+    const svg = document.getElementById('svg-hist-dots');
+    const W = svg.clientWidth || 360;
+    const H = 44, pad = 12;
+    let h = '';
+    dots.forEach((dot, di) => {
+      const x = pad + (di + 0.5) / dots.length * (W - 2*pad);
+      const yy = H/2 + (di%3 === 0 ? -4 : di%3 === 1 ? 0 : 4);
+      const idx = D.indexOf(dot);
+      h += `<circle cx="${x}" cy="${yy}" r="4" fill="${dot.c}" opacity="0.9"
+        onmouseenter="showTip(event,D[${idx}])" onmouseleave="hideTip()"
+        ontouchstart="showTip(event,D[${idx}])"/>`;
+    });
+    // Year labels
+    if (dots.length > 0) {
+      h += `<text x="${pad}" y="10" fill="#666" font-family="monospace" font-size="8">${fmtY(dots[0].y)}</text>`;
+      h += `<text x="${W-pad}" y="10" fill="#666" font-family="monospace" font-size="8" text-anchor="end">${fmtY(dots[dots.length-1].y)}</text>`;
+    }
+    svg.innerHTML = h;
+    document.getElementById('hist-range').textContent = era.label + ' · ' + dots.length + ' stories';
+    document.getElementById('hist-back').style.display = 'flex';
+    return;
+  }
+
+  el.style.display = 'flex';
+  dotsView.classList.remove('active');
+  document.getElementById('hist-range').textContent = 'All Eras · ' + D.length + ' stories';
+  document.getElementById('hist-back').style.display = 'none';
+
+  let h = '';
+  wt.forEach(era => {
+    const pct = era.w / tw * 100;
+    const barH = Math.max(4, (era.cnt / maxCnt) * 40);
+    const dots = dotsForEra(era.id);
+    // Count categories
+    const cats = {};
+    dots.forEach(d => { cats[d.c] = (cats[d.c] || 0) + 1; });
+
+    let segs = '';
+    Object.entries(cats).forEach(([color, count]) => {
+      const segH = (count / era.cnt) * barH;
+      segs += `<div class="hist-segment" style="height:${segH}px;background:${color}"></div>`;
+    });
+
+    h += `<div class="hist-bar-container" style="width:${pct}%;height:${barH}px"
+      onclick="histZoomIn('${era.id}')"
+      title="${era.label}: ${era.cnt} stories">${segs}</div>`;
+  });
+  el.innerHTML = h;
+}
+
+function renderChipsH() {
+  const el = document.getElementById('chips-histogram');
+  let h = `<div class="era-chip ${!activeH?'active':''}" onclick="histZoomOut()">All</div>`;
+  ERAS.forEach(e => {
+    const cnt = dotsForEra(e.id).length;
+    h += `<div class="era-chip ${activeH===e.id?'active':''}" onclick="histZoomIn('${e.id}')">${e.label} (${cnt})</div>`;
+  });
+  el.innerHTML = h;
+}
+
+function histZoomIn(id) { activeH = id; renderHistogram(); renderChipsH(); }
+function histZoomOut() { activeH = null; renderHistogram(); renderChipsH(); }
+
+// ─── INIT ───
+function init() {
+  renderLinear();
+  renderChipsLinear();
+  renderB();
+  renderChipsB();
+  renderHistogram();
+  renderChipsH();
+}
+init();
+window.addEventListener('resize', init);
+</script>
+</body>
+</html>
