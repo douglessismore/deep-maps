@@ -1045,8 +1045,8 @@ export function ExplorePanel({
                         else collectionListCardRefs.current.delete(collection.id);
                       }}
                       className={scrollActiveStoryId === collection.id
-                        ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
-                        : 'transition-all duration-300'}
+                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
+                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
                     >
                       <CollectionCard
                         collection={collection}
@@ -1104,8 +1104,8 @@ export function ExplorePanel({
                           else cardRefs.current.delete(personData.entity.id);
                         }}
                         className={scrollActiveStoryId === personData.entity.id
-                          ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
-                          : 'transition-all duration-300'}
+                          ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
+                          : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
                       >
                         <PersonCard
                           data={personData}
@@ -1129,8 +1129,8 @@ export function ExplorePanel({
                         else cardRefs.current.delete(item.story.id);
                       }}
                       className={scrollActiveStoryId === item.story.id
-                        ? 'ring-1 ring-[var(--accent-red)] rounded-lg transition-all duration-300'
-                        : 'transition-all duration-300'}
+                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
+                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
                     >
                       <StoryCard
                         story={item.story}
@@ -1153,8 +1153,8 @@ export function ExplorePanel({
                         else cardRefs.current.delete(item.data.entity.id);
                       }}
                       className={scrollActiveStoryId === item.data.entity.id
-                        ? 'ring-1 ring-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300'
-                        : 'transition-all duration-300'}
+                        ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
+                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
                     >
                       <PersonCard
                         data={item.data}
