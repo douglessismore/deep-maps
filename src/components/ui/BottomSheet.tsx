@@ -4,9 +4,7 @@ export type SheetSnap = 'peek' | 'half' | 'full';
 
 interface BottomSheetProps {
   children: ReactNode;
-  /** Called when snap state changes */
   onSnapChange?: (snap: SheetSnap) => void;
-  /** Programmatically snap to a position */
   snapTo?: SheetSnap;
 }
 
@@ -22,9 +20,11 @@ const SNAP_DURATION = 400;
  */
 export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize isMobile from matchMedia synchronously to avoid flash
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
+  );
 
-  // Drag state (refs for 60fps)
   const isDragging = useRef(false);
   const startY = useRef(0);
   const startTranslateY = useRef(0);
@@ -35,6 +35,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
   const rafId = useRef(0);
   const currentSnapRef = useRef<SheetSnap>('half');
   const onSnapChangeRef = useRef(onSnapChange);
+  const initializedRef = useRef(false);
 
   useEffect(() => { onSnapChangeRef.current = onSnapChange; }, [onSnapChange]);
 
@@ -50,7 +51,8 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
 
   const applyTranslate = useCallback((y: number) => {
     if (!sheetRef.current) return;
-    sheetRef.current.style.transform = `translateY(${y}px)`;
+    // Use translate3d to force GPU compositing on iOS Safari
+    sheetRef.current.style.transform = `translate3d(0, ${y}px, 0)`;
   }, []);
 
   const snapTo = useCallback((snap: SheetSnap) => {
@@ -85,21 +87,24 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     return closest;
   }, [getSnapPositions]);
 
-  // Detect mobile
+  // Listen for media query changes
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 1023px)');
-    setIsMobile(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Set initial position on mobile
+  // Set initial position on mobile (once, after first render)
   useEffect(() => {
-    if (!isMobile || !sheetRef.current) return;
-    const snaps = getSnapPositions();
-    currentTranslateY.current = snaps.half;
-    applyTranslate(snaps.half);
+    if (!isMobile || !sheetRef.current || initializedRef.current) return;
+    initializedRef.current = true;
+    // Use requestAnimationFrame to ensure DOM is laid out
+    requestAnimationFrame(() => {
+      const snaps = getSnapPositions();
+      currentTranslateY.current = snaps.half;
+      applyTranslate(snaps.half);
+    });
   }, [isMobile, getSnapPositions, applyTranslate]);
 
   // Handle resize
@@ -110,9 +115,11 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     return () => window.removeEventListener('resize', handler);
   }, [isMobile, snapTo]);
 
-  // Respond to external snapTo prop
+  // Respond to external snapTo prop changes
+  const prevSnapProp = useRef(snapToProp);
   useEffect(() => {
-    if (snapToProp && isMobile) {
+    if (snapToProp && isMobile && snapToProp !== prevSnapProp.current) {
+      prevSnapProp.current = snapToProp;
       snapTo(snapToProp);
     }
   }, [snapToProp, isMobile, snapTo]);
@@ -134,7 +141,6 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
       lastMoveTime.current = performance.now();
       velocity.current = 0;
       sheet.style.transition = '';
-      sheet.style.willChange = 'transform';
     };
 
     const onTouchMove = (e: TouchEvent) => {
@@ -160,7 +166,6 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
       if (!isDragging.current) return;
       isDragging.current = false;
       cancelAnimationFrame(rafId.current);
-      sheet.style.willChange = '';
       snapTo(findSnapTarget());
     };
 
@@ -196,7 +201,11 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
           background: 'var(--bg-primary)',
           borderRadius: '16px 16px 0 0',
           boxShadow: '0 -4px 30px rgba(0,0,0,0.5)',
-          willChange: 'transform',
+          // Start off-screen, initial position set by useEffect
+          transform: 'translate3d(0, 100%, 0)',
+          // Force GPU layer without willChange (iOS Safari compat)
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
         }}
       >
         {/* Drag handle */}
