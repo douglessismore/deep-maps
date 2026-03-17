@@ -1,46 +1,91 @@
 import { useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
 
-type Snap = 'peek' | 'half';
+export type SheetSnap = 'peek' | 'half' | 'full';
 
 interface BottomSheetProps {
   children: ReactNode;
-  /** Height of app header + timeline to avoid overlap */
-  headerOffset?: number;
   /** Called when snap state changes */
-  onSnapChange?: (snap: Snap) => void;
-  /** Initial snap position */
-  initialSnap?: Snap;
-  /** Whether to show the sheet (false = hidden/collapsed) */
-  visible?: boolean;
+  onSnapChange?: (snap: SheetSnap) => void;
+  /** Programmatically snap to a position */
+  snapTo?: SheetSnap;
 }
 
-/**
- * Mobile-only draggable bottom sheet for explore mode.
- * Two snap points: peek (~140px visible) and half (~50vh).
- * On desktop (lg:), renders children in a pass-through side panel.
- */
-export function BottomSheet({
-  children,
-  headerOffset = 0,
-  onSnapChange,
-  initialSnap = 'half',
-  visible = true,
-}: BottomSheetProps) {
-  const sheetRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+const PEEK_HEIGHT = 140;
+const HALF_RATIO = 0.55;
+const FULL_TOP = 8;
+const FLICK_THRESHOLD = 0.5;
+const SNAP_DURATION = 400;
 
-  // Drag state (refs to avoid re-renders during drag)
+/**
+ * Google/Apple Maps-style bottom sheet overlay on mobile.
+ * On desktop (lg:), renders as a standard side panel pass-through.
+ */
+export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: BottomSheetProps) {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Drag state (refs for 60fps)
   const isDragging = useRef(false);
   const startY = useRef(0);
   const startTranslateY = useRef(0);
-  const currentY = useRef(0);
+  const currentTranslateY = useRef(0);
+  const lastMoveY = useRef(0);
+  const lastMoveTime = useRef(0);
+  const velocity = useRef(0);
   const rafId = useRef(0);
+  const currentSnapRef = useRef<SheetSnap>('half');
+  const onSnapChangeRef = useRef(onSnapChange);
 
-  const [currentSnap, setCurrentSnap] = useState<Snap>(initialSnap);
-  const [isSnapping, setIsSnapping] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => { onSnapChangeRef.current = onSnapChange; }, [onSnapChange]);
 
-  // Detect mobile vs desktop
+  const getSnapPositions = useCallback(() => {
+    const container = sheetRef.current?.parentElement;
+    const totalH = container ? container.clientHeight : window.innerHeight;
+    return {
+      peek: totalH - PEEK_HEIGHT,
+      half: totalH * (1 - HALF_RATIO),
+      full: FULL_TOP,
+    };
+  }, []);
+
+  const applyTranslate = useCallback((y: number) => {
+    if (!sheetRef.current) return;
+    sheetRef.current.style.transform = `translateY(${y}px)`;
+  }, []);
+
+  const snapTo = useCallback((snap: SheetSnap) => {
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    const snaps = getSnapPositions();
+    const y = snaps[snap];
+    currentTranslateY.current = y;
+    currentSnapRef.current = snap;
+    sheet.style.transition = `transform ${SNAP_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+    applyTranslate(y);
+    setTimeout(() => { if (sheet) sheet.style.transition = ''; }, SNAP_DURATION + 20);
+    onSnapChangeRef.current?.(snap);
+  }, [getSnapPositions, applyTranslate]);
+
+  const findSnapTarget = useCallback((): SheetSnap => {
+    const y = currentTranslateY.current;
+    const v = velocity.current;
+    const snaps = getSnapPositions();
+    const order: SheetSnap[] = ['full', 'half', 'peek'];
+    if (Math.abs(v) > FLICK_THRESHOLD) {
+      const idx = order.indexOf(currentSnapRef.current);
+      if (v < 0 && idx > 0) return order[idx - 1];
+      if (v > 0 && idx < order.length - 1) return order[idx + 1];
+    }
+    let closest: SheetSnap = 'half';
+    let minDist = Infinity;
+    for (const snap of order) {
+      const dist = Math.abs(y - snaps[snap]);
+      if (dist < minDist) { minDist = dist; closest = snap; }
+    }
+    return closest;
+  }, [getSnapPositions]);
+
+  // Detect mobile
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 1023px)');
     setIsMobile(mq.matches);
@@ -49,126 +94,104 @@ export function BottomSheet({
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Calculate snap positions based on actual container height
-  const getSnapPositions = useCallback(() => {
-    // Use the sheet's parent container height (accounts for header/timeline above)
-    const container = sheetRef.current?.parentElement;
-    const totalH = container ? container.clientHeight : (window.innerHeight - headerOffset);
-    return {
-      peek: totalH - 140,  // 140px visible from bottom
-      half: totalH * 0.42, // ~58% of available height visible (more content)
-    };
-  }, [headerOffset]);
-
-  // Set initial position
+  // Set initial position on mobile
   useEffect(() => {
     if (!isMobile || !sheetRef.current) return;
     const snaps = getSnapPositions();
-    const y = snaps[initialSnap];
-    sheetRef.current.style.transform = `translateY(${y}px)`;
-    currentY.current = y;
-  }, [isMobile, headerOffset, initialSnap, getSnapPositions]);
+    currentTranslateY.current = snaps.half;
+    applyTranslate(snaps.half);
+  }, [isMobile, getSnapPositions, applyTranslate]);
 
-  // Snap to a position
-  const snapTo = useCallback((snap: Snap) => {
-    if (!sheetRef.current) return;
-    const snaps = getSnapPositions();
-    const y = snaps[snap];
-    currentY.current = y;
-    setCurrentSnap(snap);
-    setIsSnapping(true);
-    sheetRef.current.style.transform = `translateY(${y}px)`;
-    onSnapChange?.(snap);
-
-    // Remove snapping class after animation
-    setTimeout(() => setIsSnapping(false), 400);
-  }, [getSnapPositions, onSnapChange]);
-
-  // Handle window resize
+  // Handle resize
   useEffect(() => {
-    const handler = () => {
-      if (!isMobile) return;
-      snapTo(currentSnap);
-    };
+    if (!isMobile) return;
+    const handler = () => snapTo(currentSnapRef.current);
     window.addEventListener('resize', handler);
     return () => window.removeEventListener('resize', handler);
-  }, [isMobile, currentSnap, snapTo]);
+  }, [isMobile, snapTo]);
 
-  // ── Touch/mouse handling on drag handle ──
-  const handleDragStart = useCallback((clientY: number) => {
-    if (!sheetRef.current) return;
-    isDragging.current = true;
-    startY.current = clientY;
-    startTranslateY.current = currentY.current;
-    setIsSnapping(false);
-  }, []);
-
-  const handleDragMove = useCallback((clientY: number) => {
-    if (!isDragging.current || !sheetRef.current) return;
-    cancelAnimationFrame(rafId.current);
-    rafId.current = requestAnimationFrame(() => {
-      const snaps = getSnapPositions();
-      const delta = clientY - startY.current;
-      const newY = Math.max(snaps.half, Math.min(snaps.peek, startTranslateY.current + delta));
-      currentY.current = newY;
-      sheetRef.current!.style.transform = `translateY(${newY}px)`;
-    });
-  }, [getSnapPositions]);
-
-  const handleDragEnd = useCallback(() => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
-    cancelAnimationFrame(rafId.current);
-
-    const snaps = getSnapPositions();
-    // Find nearest snap
-    const distPeek = Math.abs(currentY.current - snaps.peek);
-    const distHalf = Math.abs(currentY.current - snaps.half);
-    snapTo(distPeek < distHalf ? 'peek' : 'half');
-  }, [getSnapPositions, snapTo]);
-
-  // Touch events on handle
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    handleDragStart(e.touches[0].clientY);
-  }, [handleDragStart]);
-
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    handleDragMove(e.touches[0].clientY);
-  }, [handleDragMove]);
-
-  const onTouchEnd = useCallback(() => {
-    handleDragEnd();
-  }, [handleDragEnd]);
-
-  // Mouse events on handle (for desktop testing)
+  // Respond to external snapTo prop
   useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => handleDragMove(e.clientY);
-    const onMouseUp = () => handleDragEnd();
-    if (isMobile) return; // Touch handles mobile
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-  }, [handleDragMove, handleDragEnd, isMobile]);
+    if (snapToProp && isMobile) {
+      snapTo(snapToProp);
+    }
+  }, [snapToProp, isMobile, snapTo]);
 
-  // ── Desktop: don't render (standard panel handles desktop) ──
+  // Touch events on drag handle
+  useEffect(() => {
+    if (!isMobile) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    const handle = sheet.querySelector('[data-drag-handle]') as HTMLElement;
+    if (!handle) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      isDragging.current = true;
+      startY.current = e.touches[0].clientY;
+      startTranslateY.current = currentTranslateY.current;
+      lastMoveY.current = e.touches[0].clientY;
+      lastMoveTime.current = performance.now();
+      velocity.current = 0;
+      sheet.style.transition = '';
+      sheet.style.willChange = 'transform';
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const clientY = e.touches[0].clientY;
+      const now = performance.now();
+      const dt = now - lastMoveTime.current;
+      if (dt > 0) velocity.current = (clientY - lastMoveY.current) / dt;
+      lastMoveY.current = clientY;
+      lastMoveTime.current = now;
+      cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        const snaps = getSnapPositions();
+        const delta = clientY - startY.current;
+        const newY = Math.max(snaps.full - 20, Math.min(snaps.peek + 20, startTranslateY.current + delta));
+        currentTranslateY.current = newY;
+        applyTranslate(newY);
+      });
+    };
+
+    const onTouchEnd = () => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      cancelAnimationFrame(rafId.current);
+      sheet.style.willChange = '';
+      snapTo(findSnapTarget());
+    };
+
+    handle.addEventListener('touchstart', onTouchStart, { passive: false });
+    handle.addEventListener('touchmove', onTouchMove, { passive: false });
+    handle.addEventListener('touchend', onTouchEnd);
+    return () => {
+      handle.removeEventListener('touchstart', onTouchStart);
+      handle.removeEventListener('touchmove', onTouchMove);
+      handle.removeEventListener('touchend', onTouchEnd);
+      cancelAnimationFrame(rafId.current);
+    };
+  }, [isMobile, getSnapPositions, applyTranslate, findSnapTarget, snapTo]);
+
+  // ── Desktop: pass-through side panel ──
   if (!isMobile) {
-    return null;
+    return (
+      <div className="w-[420px] flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-l border-[var(--border-subtle)]">
+        {children}
+      </div>
+    );
   }
 
-  // ── Mobile: bottom sheet ──
-  if (!visible) return null;
-
+  // ── Mobile: bottom sheet overlay ──
   return (
-    <div className="absolute inset-0 pointer-events-none" style={{ top: headerOffset, zIndex: 30 }}>
+    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30 }}>
       <div
         ref={sheetRef}
-        className={`absolute left-0 right-0 pointer-events-auto flex flex-col ${
-          isSnapping ? 'transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]' : ''
-        }`}
+        className="absolute left-0 right-0 pointer-events-auto flex flex-col"
         style={{
+          top: 0,
           height: '100%',
           background: 'var(--bg-primary)',
           borderRadius: '16px 16px 0 0',
@@ -178,21 +201,15 @@ export function BottomSheet({
       >
         {/* Drag handle */}
         <div
-          className="shrink-0 cursor-grab active:cursor-grabbing"
-          style={{ touchAction: 'none', padding: '10px 0 6px' }}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-          onMouseDown={(e) => handleDragStart(e.clientY)}
+          data-drag-handle
+          className="shrink-0 cursor-grab active:cursor-grabbing flex items-center justify-center"
+          style={{ touchAction: 'none', height: 28 }}
         >
-          <div className="w-9 h-1 bg-white/20 rounded-full mx-auto" />
+          <div className="w-10 h-1 bg-white/30 rounded-full" />
         </div>
 
-        {/* Content area — no scroll in sheet, panels handle their own scroll */}
-        <div
-          ref={contentRef}
-          className="flex-1 overflow-hidden flex flex-col"
-        >
+        {/* Content */}
+        <div className="flex-1 overflow-hidden flex flex-col">
           {children}
         </div>
       </div>

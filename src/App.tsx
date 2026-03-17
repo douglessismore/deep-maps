@@ -3,8 +3,7 @@ import { Route, Switch } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
-import { DragHandle } from './components/ui/DragHandle';
-import { useMobileSplit } from './hooks/useMobileSplit';
+import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
 const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
@@ -53,19 +52,17 @@ function App() {
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
   const autoGeoRequested = useRef(false);
 
-  // Draggable map/panel split (mobile only)
-  const { mapRef: splitMapRef, panelRef: splitPanelRef, handleRef: splitHandleRef, snapTo: splitSnapTo } = useMobileSplit({
-    initialSnap: 'half',
-  });
+  // Bottom sheet snap control (mobile only)
+  const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
 
-  // Auto-snap to half when mode changes (so entering a story doesn't leave user at 85% map)
+  // Auto-snap to half when mode changes
   const prevModeRef = useRef(mode);
   useEffect(() => {
     if (mode !== prevModeRef.current) {
       prevModeRef.current = mode;
-      splitSnapTo('half');
+      setSheetSnap('half');
     }
-  }, [mode, splitSnapTo]);
+  }, [mode]);
 
   // Auto-request geolocation on first load
   useEffect(() => {
@@ -430,11 +427,8 @@ function App() {
         />
       )}
       <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
-        {/* Map — mobile: controlled by useMobileSplit, desktop: flex-1 fills remaining space */}
-        <div
-          ref={splitMapRef}
-          className="basis-1/2 lg:basis-auto lg:h-full lg:flex-1 relative overflow-hidden shrink-0"
-        >
+        {/* Map — mobile: full screen behind sheet. Desktop: flex-1 fills left side */}
+        <div className="absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden">
           <MapView
             stories={timelineFilteredStories}
             activeStory={activeStory}
@@ -454,14 +448,8 @@ function App() {
           />
         </div>
 
-        {/* Drag handle — mobile only */}
-        <DragHandle ref={splitHandleRef} />
-
-        {/* Panel — mobile: controlled by useMobileSplit, desktop: fixed 420px */}
-        <div
-          ref={splitPanelRef}
-          className="basis-1/2 lg:basis-auto lg:w-[420px] lg:flex-none overflow-hidden flex flex-col bg-[var(--bg-secondary)] border-t lg:border-t-0 lg:border-l border-[var(--border-subtle)] shrink-0"
-        >
+        {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
+        <BottomSheet snapTo={sheetSnap} onSnapChange={setSheetSnap}>
           <Switch>
             <Route path="/">
               <Suspense fallback={<div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">Loading…</div>}>
@@ -520,7 +508,7 @@ function App() {
               </Suspense>
             </Route>
           </Switch>
-        </div>
+        </BottomSheet>
       </div>
     </div>
   );
