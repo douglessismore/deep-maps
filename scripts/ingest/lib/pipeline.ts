@@ -101,6 +101,142 @@ export async function fetchWikipediaFullText(slug: string): Promise<string | nul
   }
 }
 
+// ── Wikimedia Commons Image Search ───────────────────────────────────
+
+interface CommonsImage {
+  title: string;      // e.g. "File:Globe_theatre.jpg"
+  thumbUrl: string;   // 800px thumbnail
+  fullUrl: string;    // original file
+  width: number;
+  height: number;
+  mime: string;
+}
+
+/**
+ * Search Wikimedia Commons for a location-relevant CC-licensed photo.
+ * Uses keyword search (more relevant than geosearch for historical moments).
+ * Returns the best match or null.
+ */
+export async function searchCommonsImage(
+  searchTerms: string,
+  maxResults: number = 3,
+): Promise<CommonsImage | null> {
+  const ua = 'DeepMaps/1.0 (content pipeline)';
+
+  // Step 1: Search for files matching the terms
+  const searchUrl = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchTerms)}&srnamespace=6&srlimit=${maxResults}&format=json`;
+  try {
+    const res = await fetch(searchUrl, { headers: { 'User-Agent': ua } });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const results = data.query?.search;
+    if (!results || results.length === 0) return null;
+
+    // Step 2: Get image info for the first result
+    // Prefer results with larger file sizes (more likely to be real photos)
+    const best = results.sort(
+      (a: { size: number }, b: { size: number }) => b.size - a.size,
+    )[0];
+    const title = best.title;
+
+    const infoUrl = `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=imageinfo&iiprop=url|size|mime&iiurlwidth=800&format=json`;
+    const infoRes = await fetch(infoUrl, { headers: { 'User-Agent': ua } });
+    if (!infoRes.ok) return null;
+    const infoData = await infoRes.json();
+    const pages = infoData.query?.pages;
+    if (!pages) return null;
+
+    const page = Object.values(pages)[0] as { imageinfo?: Array<Record<string, unknown>> };
+    const info = page?.imageinfo?.[0];
+    if (!info) return null;
+
+    // Only accept actual images
+    const mime = info.mime as string;
+    if (!mime?.startsWith('image/')) return null;
+
+    return {
+      title,
+      thumbUrl: (info.thumburl || info.url) as string,
+      fullUrl: info.url as string,
+      width: info.width as number,
+      height: info.height as number,
+      mime,
+    };
+  } catch (err) {
+    console.warn(`  ⚠ Commons search error for "${searchTerms}":`, err);
+    return null;
+  }
+}
+
+/**
+ * Validate that an image URL actually resolves (HEAD request).
+ */
+export async function validateImageUrl(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: 'HEAD',
+      headers: { 'User-Agent': 'DeepMaps/1.0 (content pipeline)' },
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Fetch the main Wikipedia article image (portrait/hero) for an entity.
+ * Uses the Wikipedia REST API summary which includes the main image.
+ */
+export async function fetchWikipediaMainImage(slug: string): Promise<{
+  url: string;
+  caption: string;
+} | null> {
+  const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(slug)}`;
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'DeepMaps/1.0 (content pipeline)' },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    // The summary API returns originalimage and thumbnail
+    const img = data.originalimage || data.thumbnail;
+    if (!img?.source) return null;
+    return {
+      url: img.source,
+      caption: data.description || data.title || '',
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Build a search query for a moment's location photo.
+ * Combines the event name with location info to find relevant images.
+ */
+export function buildImageSearchQuery(moment: {
+  name: string;
+  address?: string;
+  year?: number;
+}): string {
+  // Extract key location/subject terms from the moment name and address
+  // Remove common verbs and articles to focus on nouns
+  const nameTerms = moment.name
+    .replace(/^(A |An |The )/i, '')
+    .replace(/(Is |Are |Was |Were |Has |Have |Had |Dies |Born |Publishes |Signs |Opens |Writes |Paints |Begins |Learns |Joins |Presents |Retires )/gi, '')
+    .trim();
+
+  const parts = [nameTerms];
+  if (moment.address) {
+    // Take just the city/country from the address (last 1-2 parts)
+    const addressParts = moment.address.split(',').map(s => s.trim());
+    if (addressParts.length > 1) {
+      parts.push(addressParts[addressParts.length - 2]); // city
+    }
+  }
+  return parts.join(' ').slice(0, 100); // Keep query reasonable length
+}
+
 // ── Wikidata Fetching ────────────────────────────────────────────────
 
 interface WikidataEntity {
@@ -473,42 +609,86 @@ export async function publishApproved(runId: number): Promise<Record<string, num
     return counts;
   }
 
-  // Group by type for ordered insertion (entities → stories → moments)
+  // Group by type for ordered insertion (stories → entities → moments)
+  // Stories before entities because entities.canonical_story_id is a FK to stories.
   const entities = items.filter(i => i.item_type === 'entity');
   const stories = items.filter(i => i.item_type === 'story');
   const moments = items.filter(i => i.item_type === 'moment');
 
-  // Publish entities
-  for (const item of entities) {
-    const entity = item.draft_data as Record<string, unknown>;
-    const { error: err } = await sb.from('entities').upsert(entity);
-    if (err) console.error(`  ❌ Entity ${item.item_id}: ${err.message}`);
-    else counts.entities = (counts.entities || 0) + 1;
-  }
-
-  // Publish stories
+  // Publish stories first (entities reference them via canonical_story_id FK)
   for (const item of stories) {
-    const story = item.draft_data as Record<string, unknown>;
-    const { error: err } = await sb.from('stories').upsert(story);
+    const d = item.draft_data as Record<string, unknown>;
+    // Map camelCase draft fields → snake_case DB columns
+    const storyRow: Record<string, unknown> = {
+      id: d.id,
+      name: d.name,
+      years: d.years,
+      start_year: d.startYear ?? d.start_year,
+      end_year: d.endYear ?? d.end_year,
+      category: d.category,
+      story_type: d.storyType ?? d.story_type ?? 'biography',
+      description: d.description,
+      tags: d.tags ?? [],
+      wikipedia_slug: d.wikipediaSlug ?? d.wikipedia_slug,
+    };
+    // Remove undefined values
+    for (const key of Object.keys(storyRow)) {
+      if (storyRow[key] === undefined) delete storyRow[key];
+    }
+    const { error: err } = await sb.from('stories').upsert(storyRow);
     if (err) console.error(`  ❌ Story ${item.item_id}: ${err.message}`);
     else counts.stories = (counts.stories || 0) + 1;
   }
 
+  // Publish entities (after stories, since canonical_story_id is a FK)
+  for (const item of entities) {
+    const d = item.draft_data as Record<string, unknown>;
+    const entityRow: Record<string, unknown> = {
+      id: d.id,
+      name: d.name,
+      type: d.type,
+      years: d.years,
+      description: d.description,
+      canonical_story_id: d.canonicalStoryId ?? d.canonical_story_id,
+      wikipedia_slug: d.wikipediaSlug ?? d.wikipedia_slug,
+    };
+    for (const key of Object.keys(entityRow)) {
+      if (entityRow[key] === undefined) delete entityRow[key];
+    }
+    const { error: err } = await sb.from('entities').upsert(entityRow);
+    if (err) console.error(`  ❌ Entity ${item.item_id}: ${err.message}`);
+    else counts.entities = (counts.entities || 0) + 1;
+  }
+
   // Publish moments (with EWKT geometry)
   for (const item of moments) {
-    const moment = item.draft_data as Record<string, unknown>;
-    const lat = moment.lat as number;
-    const lng = moment.lng as number;
+    const d = item.draft_data as Record<string, unknown>;
+    const lat = d.lat as number;
+    const lng = d.lng as number;
 
-    // Convert lat/lng to EWKT for PostGIS
-    const momentRow = {
-      ...moment,
+    // Map camelCase draft fields → snake_case DB columns
+    const momentRow: Record<string, unknown> = {
+      id: d.id,
+      name: d.name,
+      subtitle: d.subtitle,
+      description: d.description,
       location: `SRID=4326;POINT(${lng} ${lat})`,
+      type_id: d.type ?? d.type_id,
+      importance: d.importance,
+      notability: d.notability ?? 30,
+      accuracy: d.accuracy,
+      kind: d.kind ?? 'event',
+      year: d.year,
+      date: d.date,
+      address: d.address,
+      verification_level: d.verificationLevel ?? d.verification_level ?? 'verified',
+      wiki_section: d.wikiSection ?? d.wiki_section,
+      source: d.source ?? 'notable-people',
+      source_id: d.sourceId ?? d.source_id,
     };
-    delete momentRow.lat;
-    delete momentRow.lng;
-    delete momentRow.entityIds;
-    delete momentRow.media;
+    for (const key of Object.keys(momentRow)) {
+      if (momentRow[key] === undefined) delete momentRow[key];
+    }
 
     const { error: err } = await sb.from('moments').upsert(momentRow);
     if (err) {

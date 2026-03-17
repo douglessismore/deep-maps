@@ -44,7 +44,7 @@ export async function generateText(options: LLMOptions): Promise<string> {
   const {
     system,
     prompt,
-    model = 'claude-sonnet-4-20250514',
+    model = 'claude-sonnet-4-6',
     maxTokens = 8192,
     temperature = 0.3,
   } = options;

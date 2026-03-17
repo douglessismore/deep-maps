@@ -35,7 +35,7 @@ Every card must be understandable by a stranger who has never used the app withi
 - ANSWER THREE QUESTIONS: What happened? When exactly (include month/day when known)? Why does it matter?
 - INCLUDE SPECIFIC NUMBERS AND DATES
 - END WITH LEGACY OR IRONY: Last sentence = reason to remember this
-- Length: Target 400-600 chars, max 800 chars, min 300 chars
+- Length: STRICTLY 300-700 chars. Aim for 400-600. Never exceed 700.
 
 ## ENTITY DESCRIPTIONS
 - FIRST 8 WORDS = THE HOOK (mobile shows 1-line truncated)
@@ -152,10 +152,10 @@ Generate exactly this JSON structure:
       "id": "<kebab-case-event-description>",
       "name": "<VERB-FIRST event name, 50-80 chars>",
       "subtitle": "<stakes/irony/human detail, 60-100 chars>",
-      "description": "<standalone mini-article, 400-600 chars, includes date, ends with legacy>",
+      "description": "<standalone mini-article, STRICTLY 400-650 chars, includes date, ends with legacy>",
       "lat": <latitude>,
       "lng": <longitude>,
-      "type": "<from metadata vocabulary>",
+      "type": "<MUST be one of: archaeological_site, art_installation, battlefield, biblical_event, burial_site, crash_site, crime_scene, cultural_site, cultural_venue, disaster, discovery_site, government, haunted_site, historic_meeting, historical_site, industrial_site, institution, landmark, military_site, monument, natural_site, organization_hq, political_event, religious_site, residence, settlement_site, university, workplace — NEVER use 'milestone'>",
       "importance": "<major|minor|contextual>",
       "accuracy": "<exact|approximate|general-area>",
       "kind": "<event|milestone|presence>",
@@ -164,14 +164,7 @@ Generate exactly this JSON structure:
       "address": "<street address if known>",
       "entityIds": ["<person-id>", "<any other relevant entity IDs>"],
       "verificationLevel": "<verified|documented|traditional|legendary>",
-      "wikiSection": "<Wikipedia section anchor if applicable>",
-      "media": [
-        {
-          "type": "image",
-          "url": "<Wikimedia Commons CC-licensed image URL if available>",
-          "caption": "<brief caption>"
-        }
-      ]
+      "wikiSection": "<Wikipedia section anchor if applicable>"
     }
   ],
   "suggestedCollections": ["<collection IDs this person's moments should join>"]
@@ -184,6 +177,6 @@ RULES:
 4. Descriptions MUST be standalone — no "he" or "she" without antecedent
 5. Use the person's most commonly known name (not birth name) in entity.name
 6. For relatedStoryIds, suggest IDs that MIGHT exist — the pipeline will validate
-7. Include Wikimedia Commons image URLs only if you're confident they exist
+7. Do NOT include media/image URLs — images are sourced separately via Wikimedia Commons API
 8. Coordinates must be real, verified locations — do NOT guess
 9. Set notability estimates: S-tier figures (Einstein, Shakespeare) = 80+, major historical figures = 60-79, notable but regional = 40-59`;

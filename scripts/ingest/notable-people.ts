@@ -36,6 +36,10 @@ import {
   insertToReviewQueue,
   toKebabCase,
   deriveWikipediaSlug,
+  searchCommonsImage,
+  validateImageUrl,
+  fetchWikipediaMainImage,
+  buildImageSearchQuery,
   type ReviewQueueItem,
 } from './lib/pipeline.js';
 import { generateJSON } from './lib/llm-client.js';
@@ -446,15 +450,25 @@ async function main() {
         }));
       }
 
-      // Media
-      if (moment.media?.length) {
-        related.moment_media = moment.media.map((m, midx) => ({
-          moment_id: moment.id,
-          type: m.type,
-          url: m.url,
-          caption: m.caption,
-          sort_order: midx,
-        }));
+      // Media: search Wikimedia Commons for location-relevant photo
+      const searchQuery = buildImageSearchQuery({
+        name: moment.name,
+        address: moment.address,
+        year: moment.year,
+      });
+      const commonsImg = await searchCommonsImage(searchQuery);
+      if (commonsImg) {
+        const isValid = await validateImageUrl(commonsImg.thumbUrl);
+        if (isValid) {
+          related.moment_media = [{
+            moment_id: moment.id,
+            type: 'image',
+            url: commonsImg.thumbUrl,
+            caption: commonsImg.title.replace('File:', '').replace(/\.[^.]+$/, '').replace(/_/g, ' '),
+            sort_order: 0,
+          }];
+          console.log(`    📷 Found image: ${commonsImg.title}`);
+        }
       }
 
       // Clean fields that go into join tables, not moments table
