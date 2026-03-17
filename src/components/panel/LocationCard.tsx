@@ -87,11 +87,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
       <div
         ref={ref}
         onClick={() => onClick(location)}
-        className={`cursor-pointer transition-all duration-200 ${
+        className={`cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isActive
-            ? 'bg-[var(--bg-card-hover)] border-l-2 pl-3'
-            : 'bg-[var(--bg-card)] border-l-2 border-l-transparent pl-3 hover:bg-[var(--bg-card-hover)]'
-        } rounded-r-lg py-3 pr-4`}
+            ? 'bg-[var(--bg-card-hover)] border-l-[3px] pl-3'
+            : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent pl-3 hover:bg-[var(--bg-card-hover)]'
+        } rounded-[12px] py-3 pr-4`}
         style={{
           borderLeftColor: isActive ? cat.color : 'transparent',
         }}
@@ -108,7 +108,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           )}
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline justify-between gap-2">
-              <h4 className="font-serif text-sm font-semibold text-[var(--text-primary)]">
+              <h4 className="font-serif text-[14px] font-bold text-white leading-[1.3]">
                 {location.name}
               </h4>
               {showExpandChevron && (
@@ -213,7 +213,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                       e.stopPropagation();
                       onEntityClick(entity, location);
                     }}
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-[rgba(220,38,38,0.1)] border border-[rgba(220,38,38,0.15)] hover:bg-[rgba(220,38,38,0.2)] transition-all text-red-400 hover:text-red-300"
                   >
                     <span className="opacity-60 text-[9px]">
                       {getEntityIcon(entity)}

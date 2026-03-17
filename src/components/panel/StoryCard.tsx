@@ -19,16 +19,16 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
       className="w-full text-left group"
     >
       <div
-        className="bg-[var(--bg-card)] rounded-lg overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-200 hover:shadow-lg hover:shadow-black/20"
+        className="bg-[var(--bg-card)] rounded-[14px] overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg hover:shadow-black/30"
       >
         {/* Category color bar */}
-        <div className="h-0.5" style={{ backgroundColor: cat.color }} />
+        <div className="h-[3px]" style={{ backgroundColor: cat.color }} />
 
         <div className={compact ? 'p-3' : 'p-4'}>
           {/* Header */}
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="flex-1 min-w-0">
-              <h3 className={`font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors ${compact ? 'text-sm' : 'text-base'}`}>
+              <h3 className={`font-serif font-bold text-white group-hover:text-white transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`}>
                 {story.name}
               </h3>
               {story.nickname && !compact && (
@@ -43,7 +43,7 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
           </div>
 
           {/* Description */}
-          <p className={`text-[var(--text-secondary)] leading-relaxed mt-2 ${compact ? 'text-xs line-clamp-1' : 'text-sm line-clamp-3'}`}>
+          <p className={`text-[var(--text-secondary)] leading-[1.5] mt-2 ${compact ? 'text-xs line-clamp-1' : 'text-[13px] line-clamp-2'}`}>
             {story.description}
           </p>
 

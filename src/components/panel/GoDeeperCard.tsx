@@ -36,7 +36,7 @@ export function GoDeeperCard({
         isCompact
           ? 'shrink-0 max-w-[220px] bg-[var(--bg-primary)] px-3 py-2'
           : 'w-full bg-[var(--bg-card)] px-3 py-2.5 text-left'
-      } hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-lg transition-all group`}
+      } hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-[10px] transition-all duration-200 group`}
     >
       <span className={`shrink-0 ${isCompact ? '' : 'mt-0.5'}`}>{icon}</span>
       <div className={`min-w-0 ${isCompact ? '' : 'flex-1'} text-left`}>
