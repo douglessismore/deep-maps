@@ -753,6 +753,124 @@ export async function publishApproved(runId: number): Promise<Record<string, num
   return counts;
 }
 
+// ── Deduplication ────────────────────────────────────────────────────
+
+export interface ExistingPersonData {
+  entityId: string;
+  entityDescription: string;
+  storyId: string | null;
+  existingMomentIds: string[];
+  existingMomentNames: string[];
+}
+
+/**
+ * Check if a person already exists in the database.
+ * Searches by wikipedia_slug (canonical) and name (fuzzy fallback).
+ * Returns existing entity/story/moment data for dedup context.
+ */
+export async function checkExistingPerson(
+  name: string,
+  wikipediaSlug?: string,
+): Promise<ExistingPersonData | null> {
+  const sb = getSupabase();
+
+  // 1. Search by wikipedia_slug (most reliable)
+  let entityId: string | null = null;
+  let entityDescription = '';
+
+  if (wikipediaSlug) {
+    const { data: bySlug } = await sb
+      .from('entities')
+      .select('id, name, description, wikipedia_slug')
+      .eq('wikipedia_slug', wikipediaSlug)
+      .eq('type', 'person')
+      .limit(1);
+    if (bySlug && bySlug.length > 0) {
+      entityId = bySlug[0].id;
+      entityDescription = bySlug[0].description || '';
+    }
+  }
+
+  // 2. Fallback: search by kebab-case ID
+  if (!entityId) {
+    const candidateId = toKebabCase(name);
+    const { data: byId } = await sb
+      .from('entities')
+      .select('id, name, description')
+      .eq('id', candidateId)
+      .eq('type', 'person')
+      .limit(1);
+    if (byId && byId.length > 0) {
+      entityId = byId[0].id;
+      entityDescription = byId[0].description || '';
+    }
+  }
+
+  // 3. Fallback: search by name (case-insensitive)
+  if (!entityId) {
+    const { data: byName } = await sb
+      .from('entities')
+      .select('id, name, description')
+      .ilike('name', name)
+      .eq('type', 'person')
+      .limit(1);
+    if (byName && byName.length > 0) {
+      entityId = byName[0].id;
+      entityDescription = byName[0].description || '';
+    }
+  }
+
+  if (!entityId) return null;
+
+  // 4. Find the biography story for this entity
+  let storyId: string | null = null;
+  const { data: entityRow } = await sb
+    .from('entities')
+    .select('canonical_story_id')
+    .eq('id', entityId)
+    .limit(1);
+  if (entityRow && entityRow.length > 0 && entityRow[0].canonical_story_id) {
+    storyId = entityRow[0].canonical_story_id;
+  }
+
+  // Fallback: find story via story_moments join
+  if (!storyId) {
+    const { data: storyMoments } = await sb
+      .from('story_moments')
+      .select('story_id')
+      .ilike('story_id', `%${toKebabCase(name)}%`)
+      .limit(1);
+    if (storyMoments && storyMoments.length > 0) {
+      storyId = storyMoments[0].story_id;
+    }
+  }
+
+  // 5. Get existing moments for this entity
+  const { data: momentEntities } = await sb
+    .from('moment_entities')
+    .select('moment_id')
+    .eq('entity_id', entityId);
+
+  const momentIds = (momentEntities || []).map(me => me.moment_id);
+
+  let momentNames: string[] = [];
+  if (momentIds.length > 0) {
+    const { data: moments } = await sb
+      .from('moments')
+      .select('id, name')
+      .in('id', momentIds);
+    momentNames = (moments || []).map(m => `${m.id}: ${m.name}`);
+  }
+
+  return {
+    entityId,
+    entityDescription,
+    storyId,
+    existingMomentIds: momentIds,
+    existingMomentNames: momentNames,
+  };
+}
+
 // ── Utility ──────────────────────────────────────────────────────────
 
 /**

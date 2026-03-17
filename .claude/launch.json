@@ -4,8 +4,8 @@
     {
       "name": "deep-maps-dev",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "--host", "--port", "5174"],
-      "port": 5174,
+      "runtimeArgs": ["vite", "--host", "--port", "5178"],
+      "port": 5178,
       "cwd": "/Users/sirdouglas/Documents/claude-code-projects/deep-maps"
     }
   ]

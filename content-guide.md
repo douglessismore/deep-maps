@@ -619,6 +619,89 @@ When ingesting content from external sources (datasets, AI-drafted content), eve
 
 ---
 
+## 13B. DEDUPLICATION RULES (Critical for Ingestion Pipelines)
+
+When ingesting new content, the pipeline MUST check for existing entities, stories, and moments before creating new ones. Duplicates fragment navigation, break entity chips, and split moment counts.
+
+### Pre-Flight Checks (Before LLM Generation)
+
+The pipeline must query Supabase before generating content for a person/place:
+
+1. **Entity check**: Search `entities` table by `wikipedia_slug` (canonical) and `name` (fuzzy). If a matching entity exists, record its `id` for reuse.
+2. **Story check**: Search `stories` table for biography stories linked to that entity via `canonical_story_id`. If found, new moments should be ADDED to the existing story, not a new one created.
+3. **Moment check**: Search `moments` table by geographic proximity (same lat/lng ± 0.01°) AND year overlap AND name similarity. Flag potential duplicates for human review.
+
+### Decision Matrix
+
+| Existing? | Entity | Story | Moments | Pipeline Action |
+|---|---|---|---|---|
+| Nothing exists | Create entity | Create story | Create all moments | Full generation |
+| Entity exists, no story | Reuse entity ID | Create story | Create moments | Partial generation |
+| Entity + story exist | Reuse both IDs | Add to existing story | Create NEW moments only | Additive generation |
+| Entity + story + overlapping moments | Reuse both IDs | Add to existing story | Skip duplicates, create net-new only | Gap-fill generation |
+
+### ID Canonicalization
+
+To prevent near-miss ID collisions (e.g., `jesus` vs `jesus-of-nazareth`, `julius-caesar-assassinated` vs `caesar-assassinated-ides-of-march-44bc`):
+
+1. **Entity IDs**: Use the Wikipedia slug as the canonical ID when possible (e.g., `jesus`, `aristotle`, `julius-caesar`). The `toKebabCase(name)` function is a fallback only.
+2. **Story IDs**: Use `{entity-id}` for biography stories (e.g., `julius-caesar`, not `julius-caesar-life`). Only add suffixes for non-biography stories about the same entity.
+3. **Moment IDs**: Use `{entity-slug}-{event-keyword}-{year}` format (e.g., `caesar-rubicon-49bc`, `jesus-crucifixion-30`). Short, specific, greppable.
+
+### LLM Prompt Context
+
+When generating content for a person who already has partial data, the LLM prompt MUST include:
+- The existing entity description (so it doesn't rewrite it)
+- The existing moment IDs and names (so it generates complementary content, not duplicates)
+- The existing story ID (so it wires new moments to the right story)
+
+### Wiring Preservation (Critical)
+
+**"Wiring"** = the join table rows that make content navigable: `moment_entities`, `story_moments`, `collection_moments`, `related_stories`. Broken wiring = invisible content.
+
+When deleting or merging duplicates, you MUST preserve wiring:
+
+1. **Before deleting a moment**: Check `moment_entities`, `story_moments`, `collection_moments`, `moment_media`. Re-point all join rows to the surviving duplicate, or delete them.
+2. **Before deleting an entity**: Check `moment_entities` referencing it. Re-point all to the surviving entity. Check `entities.canonical_story_id` — clear or re-point.
+3. **Before deleting a story**: Check `story_moments`, `related_stories` (both directions). Re-wire moments to surviving story. Delete related_stories rows.
+4. **After any delete**: Run `npx tsx scripts/audit-wiring.ts` to verify zero new errors.
+
+Order of operations for a clean delete:
+```
+1. Delete moment_media for moment
+2. Delete moment_entities for moment
+3. Delete story_moments for moment
+4. Delete collection_moments for moment
+5. Delete the moment
+6. (If entity) Clear canonical_story_id refs, delete moment_entities, delete entity
+7. (If story) Delete story_moments, delete related_stories (both dirs), delete story
+```
+
+### What to Do When Duplicates Are Found Post-Publish
+
+1. **Keep the better version** — Compare descriptions for content guide compliance (hook-first, specificity, length)
+2. **Merge wiring** — Re-point all `moment_entities`, `story_moments`, `collection_moments` rows from the duplicate to the survivor
+3. **Delete the orphan** — Remove the duplicate entity/story/moment AFTER re-wiring (see order of operations above)
+4. **Run audit** — `npx tsx scripts/audit-wiring.ts` must show zero new errors
+
+### Wiring Audit Script
+
+`scripts/audit-wiring.ts` checks 14 integrity rules:
+- Orphan moments (no story), orphan entities (no moments)
+- Broken FKs in all join tables
+- Missing `canonical_story_id`, missing `wikipedia_slug`
+- Hook-first rule violations, description length violations
+- Collection membership gaps, missing `relatedStoryIds`
+
+Run after every pipeline batch and every manual edit:
+```
+npx tsx scripts/audit-wiring.ts              # full audit
+npx tsx scripts/audit-wiring.ts --fix        # auto-fix broken FK rows
+npx tsx scripts/audit-wiring.ts --source notable-people  # audit pipeline content only
+```
+
+---
+
 ## 14. WORK ENTITIES
 
 Entity type `work` covers films, TV shows, books, journals, religious texts, scientific papers, explorer logs, albums — any notable work referenced by moments.
@@ -644,6 +727,139 @@ Entity type `work` covers films, TV shows, books, journals, religious texts, sci
 | `tv-show` | 📺 |
 | `scripture` | 📜 |
 | `album` | 🎵 |
+
+---
+
+## 15. NOTABILITY SCORING (Three-System Architecture)
+
+Deep Maps uses three distinct notability systems for different purposes. This is deliberate — each stage has different data available and different goals.
+
+### System 1: Person Selection Universe (Laouenan Dataset)
+
+**Purpose**: Decide WHO to ingest into Deep Maps.
+**Source**: Laouenan et al. "A cross-verified database of notable people, 3500BC–2018AD" (2.29M people).
+**Scoring**: Deep Maps custom formula applied to Laouenan fields:
+
+```
+deepMapsScore = editions×0.50 + pageviews(log-dampened)×0.25 + temporal_staying_power×0.15 + biographical_completeness×0.10
+```
+
+| Component | Weight | Why |
+|---|---|---|
+| Wikipedia language editions | 50% | Best proxy for cross-cultural, lasting significance. Resistant to recency bias. |
+| Wikipedia pageviews (log-dampened) | 25% | Captures contemporary interest. Log-dampening prevents pop culture from dominating. |
+| Temporal staying power | 15% | Ancient/medieval figures survived centuries of forgetting — inherently high-signal. |
+| Biographical completeness | 10% | Well-documented lives produce better content. Minor tiebreaker. |
+
+**Pop culture filter**: Post-1970 actors/singers/athletes/social media figures require 80+ Wikipedia language editions to qualify. This prevents TikTok stars from outranking Socrates.
+
+**Geographic floors**: Minimum 8 people per continent to ensure global coverage.
+**Temporal floors**: Minimum 15 ancient (pre-0 CE) and 15 medieval (0–1400 CE) figures.
+
+**Output**: `data/top-people.json` — ranked list of 507 people with metadata. This is the selection universe.
+
+### System 2: Quick Estimate During Ingestion (Pipeline)
+
+**Purpose**: Assign a rough notability number during LLM generation (before the moment has a Wikidata entry or cross-references).
+**Formula**: `estimateNotability(avgMonthlyPageviews)` — simple log10 mapping to 0-100.
+**Status**: Throwaway number. Gets overwritten by System 3 after publish.
+
+### System 3: Final Moment-Level Scoring (Post-Publish)
+
+**Purpose**: Rank moments for fractal zoom filtering (which pins appear at which zoom levels).
+**Script**: `scripts/score-moments.ts` (v0.2)
+**Formula**:
+```
+score = sitelinks×0.45 + pageviews×0.35 + crossRef×0.20
+```
+**Tiers**: S(82-100), A(65-81), B(45-64), C(25-44), D(5-24)
+**When run**: After each publish batch. Scores all moments uniformly.
+
+### Why Three Systems?
+
+| Stage | Data Available | Goal |
+|---|---|---|
+| Person selection (System 1) | Laouenan CSV (2.29M rows) | Pick who to ingest |
+| Content generation (System 2) | Wikipedia pageviews only | Rough estimate for LLM context |
+| Post-publish ranking (System 3) | Wikidata sitelinks + pageviews + cross-refs | Final zoom-level filtering |
+
+---
+
+## 16. COLLECTIONS ARCHITECTURE (Collections = Saved Queries)
+
+### Core Principle
+
+Collections are **saved queries on structured metadata**, not editorial products. They follow the Wikipedia Category model: if 5+ moments share a queryable attribute, a collection auto-generates.
+
+### How Collections Are Built
+
+| Query Type | Example Collection | Query Logic |
+|---|---|---|
+| Geography | "Notable People Born in London" | `entity.type='person'` + birth coords within London bbox |
+| Occupation | "Scientists Who Changed the World" | `entity.occupationDetail` in [Physics, Chemistry, Biology, Astronomy] |
+| Time period | "Ancient World Figures" | `entity.birthYear < 0` |
+| Category | "Political Leaders" | `story.category = 'political-drama'` + `entity.occupation = 'Leadership'` |
+| Cross-cutting | "People Who Died Far From Home" | birth coords > 500km from death coords |
+
+### Rules
+
+1. **No editorial curation** — Collections are generated from metadata, not hand-picked
+2. **Threshold: 5+ moments** — Don't create a collection unless the query returns 5+ results
+3. **Names = "List of..."** — User knows what's in it before clicking (e.g., "Notable People Born in France", not "French Greatness")
+4. **Auto-update** — When new content is published that matches a collection's query, it's automatically included
+5. **Collections are NOT stories** — No narrative arc, no chronological ordering required. If you can rearrange items without losing anything, it's a collection.
+
+### Priority Collection Queries (Build First)
+
+| Collection Name | Query | Est. Size |
+|---|---|---|
+| Notable People Born in [Country] | Per-country birth coords | 5-50 each |
+| [Occupation] Who Changed the World | occupation + high notability | 10-30 each |
+| Ancient World Figures | birthYear < 0 CE | 15+ |
+| Medieval Figures | birthYear 0–1400 CE | 15+ |
+| Women Who Made History | gender = Female + notability > 60 | 20+ |
+
+---
+
+## 17. SYSTEMATIC CONTENT PLAN (4-Phase Architecture)
+
+### Phase 1: People-First Pipeline (Batches of 50)
+
+Process top 507 people from `data/top-people.json` in batches of 50:
+1. Fetch Wikipedia article + pageviews
+2. Generate via Claude: 1 entity + 1 biography story + 4-6 moments per person
+3. Validate against content guide rules
+4. Search Wikimedia Commons for images
+5. Insert into review queue → human review → publish
+
+**Content requirements per person** (Section 13 checklist):
+- Person entity with hook-first description and `wikipediaSlug`
+- Biography story linking all moments chronologically
+- Each moment with `entityIds`, `source: 'notable-people'`
+- `relatedStoryIds` connecting to existing stories where natural overlap exists
+- `notability` score from System 2 (overwritten by System 3 post-publish)
+
+### Phase 2: Auto-Generated Collections
+
+After each publish batch, run collection generator:
+- Query published metadata for geography, occupation, time period, gender
+- Create collections for any query returning 5+ results
+- Collections auto-expand as new content is published
+
+### Phase 3: Cross-Person Entity Deduplication
+
+After significant content volume (200+ people):
+- Identify shared entities (places, concepts, organizations referenced by multiple people)
+- Deduplicate and merge entity references
+- Build cross-person `relatedStoryIds` where natural connections exist
+
+### Phase 4: Manual Cross-Cutting Stories
+
+For natural clusters that emerge from data:
+- "Renaissance Florence" — Leonardo, Michelangelo, Botticelli moments in same city
+- "The French Enlightenment" — Voltaire, Rousseau, Diderot connections
+- "Civil Rights Movement" — MLK, Parks, Malcolm X overlapping moments
+- These are editorial products, not auto-generated. Created only when the data reveals them.
 
 ---
 

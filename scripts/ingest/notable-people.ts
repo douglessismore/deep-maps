@@ -40,7 +40,9 @@ import {
   validateImageUrl,
   fetchWikipediaMainImage,
   buildImageSearchQuery,
+  checkExistingPerson,
   type ReviewQueueItem,
+  type ExistingPersonData,
 } from './lib/pipeline.js';
 import { generateJSON } from './lib/llm-client.js';
 import {
@@ -77,122 +79,82 @@ interface NotablePerson {
   notabilityRank: number;
   continent: string;
   wikipediaSlug?: string;
+  deepMapsScore?: number;
+}
+
+/** Entry shape in data/top-people.json (output of build-top-people.ts) */
+interface TopPersonEntry {
+  rank: number;
+  deepMapsScore: number;
+  datasetRank: number;
+  wikidataCode: string;
+  name: string;
+  birthYear: number;
+  deathYear: number | null;
+  gender: string;
+  occupation: string;
+  occupationDetail: string;
+  category: string;
+  continent: string;
+  citizenship: string;
+  birthLat: number;
+  birthLng: number;
+  deathLat: number | null;
+  deathLng: number | null;
+  wikiReaders: number;
+  numWikiEditions: number;
+  sumVisibLn: number;
+  wikipediaSlug: string;
 }
 
 /**
- * Determine continent from coordinates (rough bounding boxes).
- */
-function getContinent(lat: number, lng: number): string {
-  if (lat > 35 && lng > -30 && lng < 60) return 'Europe';
-  if (lat > -35 && lat < 35 && lng > -20 && lng < 60) return 'Africa';
-  if (lat > 0 && lng > 60 && lng < 180) return 'Asia';
-  if (lat < 0 && lng > 60 && lng < 180) return 'Oceania';
-  if (lat > 15 && lng > -170 && lng < -30) return 'North America';
-  if (lat < 15 && lng > -90 && lng < -30) return 'South America';
-  if (lat < -10 && lng > 100 && lng < 180) return 'Oceania';
-  return 'Unknown';
-}
-
-/**
- * Load the notable people dataset.
- * Expected CSV format: name,birth_year,death_year,bplace_lat,bplace_lon,occupation,notability
+ * Load the ranked notable people dataset.
  *
- * If the dataset file doesn't exist, uses a curated seed list of the most
- * notable people in history.
+ * Primary source: data/top-people.json (507 people, scored and ranked by
+ * build-top-people.ts from the 2.29M Laouenan et al. dataset).
+ *
+ * Fallback: curated SEED_PEOPLE list of ~50 people (for when JSON hasn't been built).
  */
 function loadDataset(): NotablePerson[] {
-  const csvPath = path.resolve(__dirname, '../../data/notable-people.csv');
+  const jsonPath = path.resolve(__dirname, '../../data/top-people.json');
 
-  if (fs.existsSync(csvPath)) {
-    console.log(`📂 Loading dataset from ${csvPath}`);
-    const csv = fs.readFileSync(csvPath, 'utf-8');
-    const lines = csv.split('\n').slice(1); // skip header
-    const people: NotablePerson[] = [];
-
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      const cols = line.split(',');
-      if (cols.length < 6) continue;
-
-      const name = cols[0].replace(/"/g, '').trim();
-      const birthYear = parseInt(cols[1], 10);
-      const deathYear = cols[2] ? parseInt(cols[2], 10) : undefined;
-      const birthLat = parseFloat(cols[3]);
-      const birthLng = parseFloat(cols[4]);
-      const occupation = cols[5].replace(/"/g, '').trim();
-      const notabilityRank = cols[6] ? parseInt(cols[6], 10) : 999999;
-
-      if (!name || isNaN(birthLat) || isNaN(birthLng)) continue;
-
-      people.push({
-        name,
-        birthYear,
-        deathYear: deathYear && !isNaN(deathYear) ? deathYear : undefined,
-        birthLat,
-        birthLng,
-        occupation,
-        notabilityRank,
-        continent: getContinent(birthLat, birthLng),
-      });
-    }
-
-    console.log(`  Loaded ${people.length} people from CSV`);
+  if (fs.existsSync(jsonPath)) {
+    console.log(`📂 Loading ranked dataset from ${jsonPath}`);
+    const raw: TopPersonEntry[] = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+    const people: NotablePerson[] = raw.map(p => ({
+      name: p.name,
+      birthYear: p.birthYear,
+      deathYear: p.deathYear ?? undefined,
+      birthLat: p.birthLat,
+      birthLng: p.birthLng,
+      occupation: p.occupationDetail || p.occupation,
+      notabilityRank: p.rank,
+      continent: p.continent,
+      wikipediaSlug: p.wikipediaSlug,
+      deepMapsScore: p.deepMapsScore,
+    }));
+    console.log(`  Loaded ${people.length} people (pre-ranked by Deep Maps score)`);
     return people;
   }
 
-  // Fallback: curated seed list of top globally notable people
-  console.log('📂 Using curated seed list (no CSV dataset found)');
-  console.log(`  Tip: Download the dataset to data/notable-people.csv for full coverage`);
-
+  // Fallback: curated seed list
+  console.log('📂 Using curated seed list (data/top-people.json not found)');
+  console.log(`  Build it: npx tsx scripts/ingest/build-top-people.ts`);
   return SEED_PEOPLE;
 }
 
 /**
- * Select top people with geographic floor.
+ * Select people for processing.
+ *
+ * When using top-people.json, the list is already ranked with geographic/temporal
+ * diversity floors applied by build-top-people.ts. Just slice by offset/limit.
+ *
+ * When using SEED_PEOPLE fallback, sort by notabilityRank (hand-assigned).
  */
 function selectPeople(allPeople: NotablePerson[], limit: number, offset: number): NotablePerson[] {
-  // Sort by notability rank (lower = more notable)
+  // Already sorted by rank from top-people.json or SEED_PEOPLE
   const sorted = [...allPeople].sort((a, b) => a.notabilityRank - b.notabilityRank);
-
-  // Take top N
-  let selected = sorted.slice(0, Math.max(limit * 2, 400)); // oversample for floor
-
-  // Apply geographic floor: ensure each continent has >= 10 people
-  const FLOOR = 10;
-  const byCont = new Map<string, NotablePerson[]>();
-  for (const p of selected) {
-    const list = byCont.get(p.continent) || [];
-    list.push(p);
-    byCont.set(p.continent, list);
-  }
-
-  // Identify underrepresented continents
-  const finalSet = new Set<NotablePerson>();
-
-  // First, add top people globally
-  for (const p of sorted.slice(0, limit)) {
-    finalSet.add(p);
-  }
-
-  // Then backfill underrepresented continents
-  for (const [continent, people] of byCont) {
-    const inFinal = [...finalSet].filter(p => p.continent === continent).length;
-    if (inFinal < FLOOR) {
-      // Add from this continent's top people
-      const continentSorted = sorted.filter(p => p.continent === continent);
-      for (const p of continentSorted) {
-        if (finalSet.size >= limit + 30) break; // allow up to 30 extra for floor
-        if (!finalSet.has(p)) {
-          finalSet.add(p);
-          if ([...finalSet].filter(pp => pp.continent === continent).length >= FLOOR) break;
-        }
-      }
-    }
-  }
-
-  const result = [...finalSet]
-    .sort((a, b) => a.notabilityRank - b.notabilityRank)
-    .slice(offset, offset + limit);
+  const result = sorted.slice(offset, offset + limit);
 
   // Log continent distribution
   const distrib = new Map<string, number>();
@@ -255,18 +217,34 @@ interface GeneratedContent {
 async function generatePersonContent(
   person: NotablePerson,
   wikiText: string,
+  existing?: ExistingPersonData,
 ): Promise<GeneratedContent | null> {
   const years = person.deathYear
     ? `${person.birthYear}–${person.deathYear}`
     : `${person.birthYear}–present`;
 
-  const prompt = BIOGRAPHY_GENERATION_PROMPT
+  let prompt = BIOGRAPHY_GENERATION_PROMPT
     .replace('{name}', person.name)
     .replace('{years}', years)
     .replace('{occupation}', person.occupation)
     .replace('{birthLat}', String(person.birthLat))
     .replace('{birthLng}', String(person.birthLng))
     .replace('{wikiText}', wikiText.slice(0, 12000)); // truncate to fit context
+
+  // If existing data found, add dedup context to prompt
+  if (existing) {
+    const dedupContext = [
+      `\n\nIMPORTANT — DEDUPLICATION CONTEXT:`,
+      `This person already exists in our database. You must:`,
+      `1. Use entity ID: "${existing.entityId}" (do NOT create a new entity ID)`,
+      existing.storyId ? `2. Use story ID: "${existing.storyId}" (do NOT create a new story ID)` : `2. Create a new biography story.`,
+      `3. Do NOT generate moments that duplicate these existing moments:`,
+      ...existing.existingMomentNames.map(n => `   - ${n}`),
+      `4. Generate ONLY new moments covering events/locations NOT already in the list above.`,
+      `5. Still generate the entity and story objects (we need them for validation), but use the existing IDs.`,
+    ];
+    prompt += dedupContext.join('\n');
+  }
 
   try {
     const result = await generateJSON<GeneratedContent>({
@@ -330,8 +308,35 @@ async function main() {
     const person = selected[i];
     console.log(`\n[${i + 1}/${selected.length}] ${person.name} (${person.birthYear}–${person.deathYear || 'present'}, ${person.continent})`);
 
-    // Fetch Wikipedia article
+    // ── Dedup Check ──────────────────────────────────────────────
     const slug = person.wikipediaSlug || deriveWikipediaSlug(person.name);
+    const existing = await checkExistingPerson(person.name, slug);
+
+    if (existing) {
+      console.log(`  🔍 EXISTING DATA FOUND:`);
+      console.log(`    Entity: ${existing.entityId}`);
+      console.log(`    Story: ${existing.storyId || '(none)'}`);
+      console.log(`    Moments: ${existing.existingMomentIds.length}`);
+      if (existing.existingMomentIds.length > 0) {
+        for (const mn of existing.existingMomentNames.slice(0, 5)) {
+          console.log(`      - ${mn}`);
+        }
+        if (existing.existingMomentNames.length > 5) {
+          console.log(`      ... and ${existing.existingMomentNames.length - 5} more`);
+        }
+      }
+
+      // Skip entirely if person already has 4+ moments (well-covered)
+      if (existing.existingMomentIds.length >= 4) {
+        console.log(`  ⏭ Skipping — already has ${existing.existingMomentIds.length} moments (well-covered)`);
+        stats.processed++;
+        continue;
+      }
+
+      console.log(`  📝 Will generate gap-fill content (adding to existing entity/story)`);
+    }
+
+    // ── Fetch Wikipedia ──────────────────────────────────────────
     console.log(`  📖 Fetching Wikipedia: ${slug}`);
     const wikiText = await fetchWikipediaFullText(slug);
     if (!wikiText) {
@@ -349,14 +354,43 @@ async function main() {
 
     // Generate content via LLM
     console.log(`  🤖 Generating content via Claude...`);
-    const content = await generatePersonContent(person, wikiText);
+    const content = existing
+      ? await generatePersonContent(person, wikiText, existing)
+      : await generatePersonContent(person, wikiText);
     if (!content) {
       stats.failed++;
       stats.processed++;
       continue;
     }
 
-    console.log(`  ✓ Generated: ${content.moments.length} moments, 1 story, 1 entity`);
+    // If existing data, override entity/story IDs to match existing
+    if (existing) {
+      content.entity.id = existing.entityId;
+      if (existing.storyId) {
+        content.story.id = existing.storyId;
+      }
+      content.entity.canonicalStoryId = content.story.id;
+
+      // Filter out moments that look like duplicates of existing ones
+      const existingNamesLower = existing.existingMomentNames.map(n => n.toLowerCase());
+      const originalCount = content.moments.length;
+      content.moments = content.moments.filter(m => {
+        // Check if moment ID already exists
+        if (existing.existingMomentIds.includes(m.id)) return false;
+        // Check fuzzy name match (>60% word overlap)
+        const mWords = new Set(m.name.toLowerCase().split(/\s+/));
+        for (const en of existingNamesLower) {
+          const enWords = en.split(/:\s*/)[1]?.split(/\s+/) || en.split(/\s+/);
+          const overlap = enWords.filter(w => mWords.has(w)).length;
+          if (overlap / Math.max(mWords.size, enWords.length) > 0.5) return false;
+        }
+        return true;
+      });
+      const filtered = originalCount - content.moments.length;
+      if (filtered > 0) console.log(`  🔍 Filtered ${filtered} duplicate moments`);
+    }
+
+    console.log(`  ✓ Generated: ${content.moments.length} moments, 1 story, 1 entity${existing ? ' (gap-fill mode)' : ''}`);
 
     // Validate content
     const entityErrors = validateEntity(content.entity);
@@ -392,16 +426,20 @@ async function main() {
 
     // Build review queue items
 
-    // Entity
-    reviewItems.push({
-      ingestion_run_id: runId,
-      item_type: 'entity',
-      item_id: content.entity.id,
-      draft_data: content.entity as unknown as Record<string, unknown>,
-      validation_errors: entityErrors.length > 0 ? entityErrors : undefined,
-    });
+    // Entity — skip if already exists in database
+    if (!existing) {
+      reviewItems.push({
+        ingestion_run_id: runId,
+        item_type: 'entity',
+        item_id: content.entity.id,
+        draft_data: content.entity as unknown as Record<string, unknown>,
+        validation_errors: entityErrors.length > 0 ? entityErrors : undefined,
+      });
+    } else {
+      console.log(`  ⏭ Skipping entity creation — "${existing.entityId}" already exists`);
+    }
 
-    // Story
+    // Story — skip if already exists in database
     const storyData = { ...content.story } as Record<string, unknown>;
     // Parse years for start_year / end_year
     const yearsMatch = content.story.years.match(/(-?\d+)/g);
@@ -419,27 +457,32 @@ async function main() {
     }
     delete storyData.relatedStoryIds;
 
-    reviewItems.push({
-      ingestion_run_id: runId,
-      item_type: 'story',
-      item_id: content.story.id,
-      draft_data: storyData,
-      related_items: Object.keys(storyRelated).length > 0 ? storyRelated : undefined,
-      validation_errors: storyErrors.length > 0 ? storyErrors : undefined,
-    });
+    if (!existing?.storyId) {
+      reviewItems.push({
+        ingestion_run_id: runId,
+        item_type: 'story',
+        item_id: content.story.id,
+        draft_data: storyData,
+        related_items: Object.keys(storyRelated).length > 0 ? storyRelated : undefined,
+        validation_errors: storyErrors.length > 0 ? storyErrors : undefined,
+      });
+    } else {
+      console.log(`  ⏭ Skipping story creation — "${existing.storyId}" already exists`);
+    }
 
-    // Moments
+    // Moments (always create — dedup filtering already happened above)
+    const sortOrderOffset = existing?.existingMomentIds.length || 0;
     for (let mIdx = 0; mIdx < content.moments.length; mIdx++) {
       const moment = content.moments[mIdx];
       const momentData = { ...moment } as Record<string, unknown>;
       const related: Record<string, unknown[]> = {};
 
-      // Story moments join
+      // Story moments join — offset sort_order when adding to existing story
       related.story_moments = [{
         story_id: content.story.id,
         moment_id: moment.id,
-        sort_order: mIdx,
-        is_primary: mIdx === 0,
+        sort_order: sortOrderOffset + mIdx,
+        is_primary: !existing && mIdx === 0,  // only set primary if new story
       }];
 
       // Entity links
