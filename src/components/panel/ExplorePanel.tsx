@@ -1163,6 +1163,9 @@ export function ExplorePanel({
             )}
           </>
         )}
+
+        {/* Rubber-band spacer — ensures scroll bounce even with few items */}
+        <div className="shrink-0" style={{ height: 48 }} aria-hidden="true" />
       </div>
     </div>
   );

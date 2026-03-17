@@ -25,6 +25,8 @@ interface TimelineBarProps {
 const DOT_RADIUS = 2.5;
 const DOT_HOVER_RADIUS = 4;
 const TAP_THRESHOLD = 8; // px — movement below this is a tap, above is a scrub
+const DATA_MIN_YEAR = -25000;
+const DATA_MAX_YEAR = 2030;
 
 function getBarMetrics(isMobile: boolean) {
   return isMobile
@@ -67,10 +69,19 @@ export function TimelineBar({
   // ── Hover state ──
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
 
-  // ── Scrub state — the era being scrubbed over (during drag) ──
+  // ── Scrub state — the era being scrubbed over (during drag, unzoomed only) ──
   const [scrubEra, setScrubEra] = useState<EraId | null>(null);
 
-  // ── Pointer tracking for tap vs scrub detection ──
+  // ── Zoom+pan state ──
+  // When set, dot strip shows this year range linearly (instead of adaptive layout).
+  // null = overview mode (all eras, adaptive widths).
+  const [zoomRange, setZoomRange] = useState<[number, number] | null>(null);
+  const zoomRangeRef = useRef<[number, number] | null>(null);
+  const lastDragX = useRef(0);
+  // Keep ref in sync for use in callbacks without re-creating them
+  useEffect(() => { zoomRangeRef.current = zoomRange; }, [zoomRange]);
+
+  // ── Pointer tracking for tap vs scrub/pan detection ──
   const pointerState = useRef<{
     active: boolean;
     startX: number;
@@ -86,6 +97,7 @@ export function TimelineBar({
     setHasInteracted(false);
     setHoveredPoint(null);
     setScrubEra(null);
+    setZoomRange(null);
     onViewRangeChange(null);
   }, [allPoints, onViewRangeChange]);
 
@@ -112,13 +124,27 @@ export function TimelineBar({
     return getEraForYear(highlightedPoint.startYear);
   }, [highlightedPoint]);
 
+  // ── Dot positioning helper — adaptive when unzoomed, linear when zoomed ──
+  const getDotX = useCallback(
+    (year: number): number => {
+      if (zoomRange) {
+        const [start, end] = zoomRange;
+        if (end === start) return containerWidth / 2;
+        return ((year - start) / (end - start)) * containerWidth;
+      }
+      return yearToAdaptiveX(year, eraWeights);
+    },
+    [zoomRange, eraWeights, containerWidth]
+  );
+
   // ── Era chip click ──
   const handleEraClick = useCallback(
     (eraId: EraId | null) => {
       if (eraId === activeEra) {
-        // Toggle off
+        // Toggle off → back to overview
         setActiveEra(null);
         setHasInteracted(false);
+        setZoomRange(null);
         onViewRangeChange(null);
         return;
       }
@@ -126,9 +152,14 @@ export function TimelineBar({
       if (eraId) {
         setHasInteracted(true);
         const era = ERAS.find((e) => e.id === eraId)!;
+        // Zoom dot strip to this era with 5% padding
+        const span = era.end - era.start;
+        const pad = span * 0.05;
+        setZoomRange([era.start - pad, era.end + pad]);
         onViewRangeChange([era.start, era.end]);
       } else {
         setHasInteracted(false);
+        setZoomRange(null);
         onViewRangeChange(null);
       }
     },
@@ -139,10 +170,11 @@ export function TimelineBar({
   const handleClear = useCallback(() => {
     setActiveEra(null);
     setHasInteracted(false);
+    setZoomRange(null);
     onViewRangeChange(null);
   }, [onViewRangeChange]);
 
-  // ── Find era at pixel X ──
+  // ── Find era at pixel X (adaptive layout only) ──
   const getEraAtX = useCallback(
     (x: number): EraId | null => {
       for (const w of eraWeights) {
@@ -161,7 +193,7 @@ export function TimelineBar({
       for (const pt of visiblePoints) {
         const isFiltered = activeEra && getEraForYear(pt.startYear) !== activeEra;
         if (isFiltered) continue;
-        const dotX = yearToAdaptiveX(pt.startYear, eraWeights);
+        const dotX = getDotX(pt.startYear);
         const dist = Math.abs(x - dotX);
         if (dist < closestDist) {
           closestDist = dist;
@@ -170,16 +202,17 @@ export function TimelineBar({
       }
       return closest;
     },
-    [visiblePoints, eraWeights, activeEra]
+    [visiblePoints, getDotX, activeEra]
   );
 
-  // ── Pointer handlers: tap vs scrub ──
+  // ── Pointer handlers: tap / scrub (unzoomed) / pan (zoomed) ──
   const handlePointerDown = useCallback(
     (e: React.PointerEvent) => {
       if (e.button !== 0) return;
       const rect = svgRef.current?.getBoundingClientRect();
       if (!rect) return;
 
+      lastDragX.current = e.clientX;
       pointerState.current = {
         active: true,
         startX: e.clientX,
@@ -221,16 +254,46 @@ export function TimelineBar({
       }
 
       if (ps.hasMoved) {
-        // Scrubbing — highlight the era under the finger
-        const rect = svgRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        const x = e.clientX - rect.left;
-        const era = getEraAtX(x);
-        setScrubEra(era);
-        setHoveredPoint(null);
+        const zr = zoomRangeRef.current;
+        if (zr) {
+          // ZOOMED: pan — shift zoom range based on drag delta
+          const pixelDx = e.clientX - lastDragX.current;
+          lastDragX.current = e.clientX;
+          const yearPerPx = (zr[1] - zr[0]) / containerWidth;
+          const yearDelta = -pixelDx * yearPerPx; // drag right → see earlier years
+          let newStart = zr[0] + yearDelta;
+          let newEnd = zr[1] + yearDelta;
+          // Clamp to data bounds
+          if (newStart < DATA_MIN_YEAR) {
+            newEnd += DATA_MIN_YEAR - newStart;
+            newStart = DATA_MIN_YEAR;
+          }
+          if (newEnd > DATA_MAX_YEAR) {
+            newStart -= newEnd - DATA_MAX_YEAR;
+            newEnd = DATA_MAX_YEAR;
+          }
+          const newRange: [number, number] = [newStart, newEnd];
+          setZoomRange(newRange);
+          zoomRangeRef.current = newRange; // immediate update for next frame
+          // Update era chip highlight based on center of view
+          const centerYear = (newStart + newEnd) / 2;
+          const newEra = getEraForYear(centerYear);
+          setActiveEra(newEra);
+          // Update story filter to match visible range
+          onViewRangeChange(newRange);
+          setHoveredPoint(null);
+        } else {
+          // UNZOOMED: scrub — highlight the era under the finger
+          const rect = svgRef.current?.getBoundingClientRect();
+          if (!rect) return;
+          const x = e.clientX - rect.left;
+          const era = getEraAtX(x);
+          setScrubEra(era);
+          setHoveredPoint(null);
+        }
       }
     },
-    [DOT_H, findNearestDot, getEraAtX]
+    [DOT_H, findNearestDot, getEraAtX, containerWidth, onViewRangeChange]
   );
 
   const handlePointerUp = useCallback(
@@ -249,23 +312,116 @@ export function TimelineBar({
       const x = e.clientX - rect.left;
 
       if (!ps.hasMoved) {
-        // TAP — filter to the era at the tap location (or clear if tapping active era / empty space)
-        const era = getEraAtX(x);
-        if (era) {
-          if (era === activeEra) {
-            // Tapping the active era clears the filter
-            handleClear();
-          } else {
-            handleEraClick(era);
-          }
-        } else if (activeEra) {
+        if (zoomRange) {
+          // ZOOMED + TAP → go back to overview
           handleClear();
+        } else {
+          // UNZOOMED + TAP → filter to the era at the tap location
+          const era = getEraAtX(x);
+          if (era) {
+            if (era === activeEra) {
+              handleClear();
+            } else {
+              handleEraClick(era);
+            }
+          } else if (activeEra) {
+            handleClear();
+          }
         }
       }
-      // Scrub (drag) only highlights visually — does NOT filter on release.
+      // Pan drag (zoomed) already updated state during move.
+      // Scrub drag (unzoomed) only highlights visually — does NOT filter on release.
     },
-    [getEraAtX, handleEraClick, handleClear, activeEra]
+    [getEraAtX, handleEraClick, handleClear, activeEra, zoomRange]
   );
+
+  // ── Desktop mouse wheel zoom (when zoomed in) ──
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const handleWheel = (e: WheelEvent) => {
+      const zr = zoomRangeRef.current;
+      if (!zr) return; // Only zoom when already zoomed in
+      e.preventDefault();
+      const rect = svg.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseRatio = mouseX / containerWidth;
+      const span = zr[1] - zr[0];
+      // Zoom factor — scroll up shrinks range (zoom in), scroll down expands (zoom out)
+      const factor = e.deltaY > 0 ? 1.15 : 0.87;
+      const newSpan = Math.max(10, Math.min(DATA_MAX_YEAR - DATA_MIN_YEAR, span * factor));
+      // Anchor zoom around mouse position
+      const mouseYear = zr[0] + mouseRatio * span;
+      const newStart = mouseYear - mouseRatio * newSpan;
+      const newEnd = mouseYear + (1 - mouseRatio) * newSpan;
+      const newRange: [number, number] = [
+        Math.max(DATA_MIN_YEAR, newStart),
+        Math.min(DATA_MAX_YEAR, newEnd),
+      ];
+      setZoomRange(newRange);
+      zoomRangeRef.current = newRange;
+      onViewRangeChange(newRange);
+      // Update era chip
+      const center = (newRange[0] + newRange[1]) / 2;
+      setActiveEra(getEraForYear(center));
+    };
+    svg.addEventListener('wheel', handleWheel, { passive: false });
+    return () => svg.removeEventListener('wheel', handleWheel);
+  }, [containerWidth, onViewRangeChange]);
+
+  // ── Touch pinch zoom ──
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    let lastPinchDist = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        const dx = e.touches[1].clientX - e.touches[0].clientX;
+        lastPinchDist = Math.abs(dx);
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length !== 2) return;
+      const zr = zoomRangeRef.current;
+      if (!zr) return;
+      e.preventDefault();
+
+      const dx = e.touches[1].clientX - e.touches[0].clientX;
+      const dist = Math.abs(dx);
+      const center = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      const rect = svg.getBoundingClientRect();
+      const centerX = center - rect.left;
+      const centerRatio = centerX / containerWidth;
+
+      if (lastPinchDist > 0) {
+        const scale = lastPinchDist / dist; // pinch out = dist increases = scale < 1 = zoom in
+        const span = zr[1] - zr[0];
+        const newSpan = Math.max(10, Math.min(DATA_MAX_YEAR - DATA_MIN_YEAR, span * scale));
+        const centerYear = zr[0] + centerRatio * span;
+        const newStart = centerYear - centerRatio * newSpan;
+        const newEnd = centerYear + (1 - centerRatio) * newSpan;
+        const newRange: [number, number] = [
+          Math.max(DATA_MIN_YEAR, newStart),
+          Math.min(DATA_MAX_YEAR, newEnd),
+        ];
+        setZoomRange(newRange);
+        zoomRangeRef.current = newRange;
+        onViewRangeChange(newRange);
+        setActiveEra(getEraForYear((newRange[0] + newRange[1]) / 2));
+      }
+
+      lastPinchDist = dist;
+    };
+
+    svg.addEventListener('touchstart', handleTouchStart, { passive: true });
+    svg.addEventListener('touchmove', handleTouchMove, { passive: false });
+    return () => {
+      svg.removeEventListener('touchstart', handleTouchStart);
+      svg.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [containerWidth, onViewRangeChange]);
 
   // ── Tooltip data ──
   const hoveredData = hoveredPoint
@@ -274,6 +430,9 @@ export function TimelineBar({
 
   // ── Year range label ──
   const rangeLabel = useMemo(() => {
+    if (zoomRange) {
+      return `${formatYear(Math.round(zoomRange[0]))} — ${formatYear(Math.round(zoomRange[1]))}`;
+    }
     if (activeEra) {
       const era = ERAS.find((e) => e.id === activeEra);
       if (era) return `${formatYear(era.start)} — ${formatYear(era.end)}`;
@@ -283,7 +442,7 @@ export function TimelineBar({
     const min = Math.min(...years);
     const max = Math.max(...years);
     return `${formatYear(min)} — ${formatYear(max)}`;
-  }, [activeEra, visiblePoints]);
+  }, [zoomRange, activeEra, visiblePoints]);
 
   // Wait for measurement
   if (containerWidth === 0) {
@@ -295,6 +454,8 @@ export function TimelineBar({
       />
     );
   }
+
+  const isZoomed = !!zoomRange;
 
   return (
     <div
@@ -362,7 +523,9 @@ export function TimelineBar({
           flexShrink: 0,
           position: 'relative',
           overflow: 'hidden',
-          touchAction: 'pan-y',
+          // When zoomed, prevent browser from stealing horizontal touch for page scroll
+          touchAction: isZoomed ? 'none' : 'pan-y',
+          cursor: isZoomed ? 'grab' : 'default',
         }}
       >
         <svg
@@ -370,11 +533,8 @@ export function TimelineBar({
           width={containerWidth}
           height={DOT_H}
           role="img"
-          aria-label={`Timeline with ${visiblePoints.length} stories. Tap a dot to select, drag to scrub eras.`}
-          style={{
-            display: 'block',
-            cursor: 'default',
-          }}
+          aria-label={`Timeline with ${visiblePoints.length} stories. ${isZoomed ? 'Drag to pan through time.' : 'Tap to zoom into an era.'}`}
+          style={{ display: 'block' }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -384,8 +544,8 @@ export function TimelineBar({
             pointerState.current = null;
           }}
         >
-          {/* Era segment backgrounds — highlight during scrub */}
-          {eraWeights.map((w) => {
+          {/* Era segment backgrounds — only shown in overview (unzoomed) mode */}
+          {!isZoomed && eraWeights.map((w) => {
             const isScrubbed = scrubEra === w.id;
             const isActiveEra = activeEra === w.id;
             if (!isScrubbed && !isActiveEra) return null;
@@ -402,8 +562,8 @@ export function TimelineBar({
             );
           })}
 
-          {/* Era segment hairlines */}
-          {eraWeights.map((w, i) =>
+          {/* Era segment hairlines — only in overview mode */}
+          {!isZoomed && eraWeights.map((w, i) =>
             i > 0 ? (
               <line
                 key={`hairline-${w.id}`}
@@ -417,26 +577,28 @@ export function TimelineBar({
             ) : null
           )}
 
-          {/* Story range bars when a single era is active */}
-          {activeEra &&
+          {/* Story range bars when zoomed into an era */}
+          {isZoomed &&
             visiblePoints
               .filter(
                 (pt) =>
                   pt.endYear - pt.startYear > 0 &&
-                  getEraForYear(pt.startYear) === activeEra
+                  (!activeEra || getEraForYear(pt.startYear) === activeEra)
               )
               .map((pt) => {
+                const x1 = getDotX(pt.startYear);
+                const x2 = getDotX(pt.endYear);
+                // Cull if fully off-screen
+                if (x2 < -10 && x1 < -10) return null;
+                if (x1 > containerWidth + 10 && x2 > containerWidth + 10) return null;
                 const isActive =
                   hoveredPoint === pt.storyId || highlightedStoryId === pt.storyId;
                 return (
                   <line
                     key={`range-${pt.storyId}`}
-                    x1={yearToAdaptiveX(pt.startYear, eraWeights)}
+                    x1={Math.max(-10, x1)}
                     y1={DOT_Y}
-                    x2={yearToAdaptiveX(
-                      Math.min(pt.endYear, ERAS.find((e) => e.id === activeEra)!.end),
-                      eraWeights
-                    )}
+                    x2={Math.min(containerWidth + 10, x2)}
                     y2={DOT_Y}
                     stroke={
                       isActive
@@ -450,9 +612,9 @@ export function TimelineBar({
                 );
               })}
 
-          {/* Dots — always category-colored, smaller radius */}
+          {/* Dots — always category-colored */}
           {visiblePoints.map((pt) => {
-            const cx = yearToAdaptiveX(pt.startYear, eraWeights);
+            const cx = getDotX(pt.startYear);
             if (cx < -10 || cx > containerWidth + 10) return null;
 
             const isFiltered = activeEra && getEraForYear(pt.startYear) !== activeEra;
@@ -518,13 +680,31 @@ export function TimelineBar({
               </g>
             );
           })}
+
+          {/* Zoomed mode: gradient fades at edges to hint at more content */}
+          {isZoomed && (
+            <>
+              <defs>
+                <linearGradient id="fadeLeft" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stopColor="rgb(37,37,37)" stopOpacity={0.95} />
+                  <stop offset="100%" stopColor="rgb(37,37,37)" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="fadeRight" x1="1" x2="0" y1="0" y2="0">
+                  <stop offset="0%" stopColor="rgb(37,37,37)" stopOpacity={0.95} />
+                  <stop offset="100%" stopColor="rgb(37,37,37)" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <rect x={0} y={0} width={20} height={DOT_H} fill="url(#fadeLeft)" />
+              <rect x={containerWidth - 20} y={0} width={20} height={DOT_H} fill="url(#fadeRight)" />
+            </>
+          )}
         </svg>
 
         {/* Desktop hover tooltip */}
         {hoveredData && !highlightedPoint && (
           <TooltipOverlay
             point={hoveredData}
-            x={yearToAdaptiveX(hoveredData.startYear, eraWeights)}
+            x={getDotX(hoveredData.startYear)}
             containerWidth={containerWidth}
             dotY={DOT_Y}
             dotH={DOT_H}
@@ -535,7 +715,7 @@ export function TimelineBar({
         {highlightedPoint && containerWidth > 0 && (
           <YearIndicator
             point={highlightedPoint}
-            x={yearToAdaptiveX(highlightedPoint.startYear, eraWeights)}
+            x={getDotX(highlightedPoint.startYear)}
             containerWidth={containerWidth}
             dotY={DOT_Y}
           />
@@ -557,7 +737,7 @@ export function TimelineBar({
         }}
         className="[&::-webkit-scrollbar]:hidden"
       >
-        {/* "All" chip — only highlighted gold when a filter IS active (shows as the escape hatch) */}
+        {/* "All" chip */}
         <EraChip
           label="All"
           count={visiblePoints.length}
