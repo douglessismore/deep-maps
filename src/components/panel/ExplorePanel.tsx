@@ -759,7 +759,7 @@ export function ExplorePanel({
           {entity.name}
         </span>
         {entity.description && (
-          <span className="text-[10px] text-[var(--text-muted)] line-clamp-1 block mt-0.5">
+          <span className="text-[10px] text-[var(--text-muted)] line-clamp-1 mt-0.5">
             {entity.description}
           </span>
         )}
