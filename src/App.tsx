@@ -412,10 +412,10 @@ function App() {
           highlightedStoryId={scrollHighlightStoryId}
         />
       )}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-        {/* Map — always visible: 30vh in story mode, 45vh in explore */}
+      <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden">
+        {/* Map — always visible: 30vh in story mode, 35vh in explore */}
         <div className={`${
-          mode === 'story' || mode === 'entity' ? 'h-[30vh]' : 'h-[45vh]'
+          mode === 'story' || mode === 'entity' ? 'h-[30vh]' : 'h-[35vh]'
         } lg:h-full lg:flex-1 relative transition-[height] duration-300 overflow-hidden`}>
           <MapView
             stories={timelineFilteredStories}

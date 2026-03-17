@@ -716,3 +716,21 @@ html, body, #root {
 .wiki-content .fmbox {
   display: none;
 }
+
+/* ===== Mobile Landscape Layout ===== */
+/* When phone is turned sideways (landscape + short viewport), use side-by-side */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-landscape\:flex-row {
+    flex-direction: row !important;
+  }
+  /* Map takes left half, panel takes right half */
+  .mobile-landscape\:flex-row > div:first-child {
+    height: 100% !important;
+    width: 50% !important;
+    flex: none !important;
+  }
+  .mobile-landscape\:flex-row > div:last-child {
+    border-top: none !important;
+    border-left: 1px solid var(--border-subtle) !important;
+  }
+}

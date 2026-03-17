@@ -18,14 +18,16 @@ interface TimelineBarProps {
   highlightedStoryId?: string | null;
 }
 
-const BAR_HEIGHT = 72;
-const DOT_Y = 22;
-const LABEL_Y = 46;
-const SLIDER_Y = 60;
 const SLIDER_TRACK_H = 6;
 const DOT_RADIUS = 3.5;
 const DOT_HOVER_RADIUS = 5.5;
 const MIN_SPAN = 20;
+
+function getBarMetrics(isMobile: boolean) {
+  return isMobile
+    ? { BAR_HEIGHT: 44, DOT_Y: 14, LABEL_Y: 30, SLIDER_Y: 38 }
+    : { BAR_HEIGHT: 72, DOT_Y: 22, LABEL_Y: 46, SLIDER_Y: 60 };
+}
 
 type DragState = 'none' | 'pan';
 
@@ -49,6 +51,7 @@ export function TimelineBar({
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const isMobile = containerWidth > 0 && containerWidth < 640;
+  const { BAR_HEIGHT, DOT_Y, LABEL_Y, SLIDER_Y } = getBarMetrics(isMobile);
 
   const allPoints = useMemo(() => getTimelinePoints(stories), [stories]);
   const fullRange = useMemo(() => getDataRange(allPoints), [allPoints]);
