@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode } from 'react';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
@@ -95,16 +95,14 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Set initial position on mobile (once, after first render)
-  useEffect(() => {
+  // Set initial position on mobile synchronously before paint (useLayoutEffect)
+  // This prevents any flash — the sheet is positioned before the browser paints.
+  useLayoutEffect(() => {
     if (!isMobile || !sheetRef.current || initializedRef.current) return;
     initializedRef.current = true;
-    // Use requestAnimationFrame to ensure DOM is laid out
-    requestAnimationFrame(() => {
-      const snaps = getSnapPositions();
-      currentTranslateY.current = snaps.half;
-      applyTranslate(snaps.half);
-    });
+    const snaps = getSnapPositions();
+    currentTranslateY.current = snaps.half;
+    applyTranslate(snaps.half);
   }, [isMobile, getSnapPositions, applyTranslate]);
 
   // Handle resize
@@ -201,8 +199,9 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
           background: 'var(--bg-primary)',
           borderRadius: '16px 16px 0 0',
           boxShadow: '0 -4px 30px rgba(0,0,0,0.5)',
-          // Start off-screen, initial position set by useEffect
-          transform: 'translate3d(0, 100%, 0)',
+          // transform is managed exclusively via ref (applyTranslate) —
+          // NOT set here, because React inline styles reset on every re-render,
+          // which would overwrite the position set by drag/snap logic.
           // Force GPU layer without willChange (iOS Safari compat)
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
