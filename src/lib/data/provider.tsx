@@ -102,7 +102,7 @@ function DataLoader({ children }: { children: ReactNode }) {
       <div className="h-full flex items-center justify-center bg-[var(--bg-primary)]">
         <div className="text-center">
           <div className="text-lg font-serif text-[var(--text-primary)]">Deep Maps</div>
-          <div className="text-sm text-[var(--text-muted)] mt-2">Loading{dataSource === 'supabase' ? ' from Supabase' : ''}…</div>
+          <div className="text-sm text-[var(--text-muted)] mt-2 italic font-serif">Everything that ever happened happened somewhere.</div>
         </div>
       </div>
     );

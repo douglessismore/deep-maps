@@ -253,6 +253,7 @@ export function EntityPanel({
         isActive={scrollActiveId === moment.id}
         isExpanded={expandedMomentId === moment.id}
         showExpandChevron
+        skipCanonicalFilter
         parentStories={parentStories}
         excludeEntityIds={[entity.id]}
         onClick={() => handleMomentClick(moment, parentStories)}
