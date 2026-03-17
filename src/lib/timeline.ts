@@ -180,3 +180,115 @@ export function getDataRange(points: TimelinePoint[]): [number, number] {
   const pad = Math.min(Math.max((max - min) * 0.01, 5), 30);
   return [min - pad, max + pad];
 }
+
+// ── Adaptive (non-linear) timeline scale ──
+// Each era gets screen width proportional to log₂(storyCount + 1),
+// not proportional to elapsed time. This prevents ancient eras with
+// few events from being compressed to invisible slivers.
+
+export const ERAS = [
+  { id: 'origins', label: 'Origins', start: -25000, end: -3000 },
+  { id: 'ancient', label: 'Ancient', start: -3000, end: 500 },
+  { id: 'medieval', label: 'Medieval', start: 500, end: 1500 },
+  { id: 'earlymodern', label: 'Early Modern', start: 1500, end: 1800 },
+  { id: 'industrial', label: 'Industrial', start: 1800, end: 1914 },
+  { id: 'c20', label: '20th Century', start: 1914, end: 2000 },
+  { id: 'now', label: 'Now', start: 2000, end: 2030 },
+] as const;
+
+export type EraId = typeof ERAS[number]['id'];
+
+export interface EraWeight {
+  id: EraId;
+  label: string;
+  start: number;
+  end: number;
+  count: number;
+  weight: number;
+  /** Pixel offset of this era's left edge (set by layout) */
+  xStart: number;
+  /** Pixel width of this era's segment (set by layout) */
+  width: number;
+}
+
+/**
+ * Compute era weights from story data.
+ * Weight = log₂(count + 1), with a minimum of 0.3 so empty eras
+ * still get a sliver of space rather than disappearing entirely.
+ */
+export function getEraWeights(points: TimelinePoint[], totalWidth: number): EraWeight[] {
+  const weights = ERAS.map((era) => {
+    const count = points.filter(
+      (p) => p.startYear >= era.start && p.startYear < era.end
+    ).length;
+    return {
+      id: era.id,
+      label: era.label,
+      start: era.start,
+      end: era.end,
+      count,
+      weight: Math.max(Math.log2(count + 1), 0.3),
+      xStart: 0,
+      width: 0,
+    };
+  });
+
+  const totalWeight = weights.reduce((s, w) => s + w.weight, 0);
+  let xOffset = 0;
+  for (const w of weights) {
+    w.width = (w.weight / totalWeight) * totalWidth;
+    w.xStart = xOffset;
+    xOffset += w.width;
+  }
+
+  return weights;
+}
+
+/**
+ * Map a year to a pixel X position using adaptive era-weighted scale.
+ * Within each era, years are mapped linearly across that era's pixel segment.
+ */
+export function yearToAdaptiveX(year: number, weights: EraWeight[]): number {
+  // Find which era this year falls into
+  for (const w of weights) {
+    if (year >= w.start && year < w.end) {
+      const ratio = (year - w.start) / (w.end - w.start);
+      return w.xStart + ratio * w.width;
+    }
+  }
+  // Before first era
+  if (year < weights[0].start) return 0;
+  // After last era — clamp to end
+  const last = weights[weights.length - 1];
+  return last.xStart + last.width;
+}
+
+/**
+ * Map a pixel X position back to a year using adaptive era-weighted scale.
+ * Inverse of yearToAdaptiveX.
+ */
+export function adaptiveXToYear(x: number, weights: EraWeight[]): number {
+  for (const w of weights) {
+    if (x >= w.xStart && x < w.xStart + w.width) {
+      const ratio = w.width > 0 ? (x - w.xStart) / w.width : 0;
+      return w.start + ratio * (w.end - w.start);
+    }
+  }
+  // Before first era
+  if (x < 0) return weights[0].start;
+  // After last era
+  const last = weights[weights.length - 1];
+  return last.end;
+}
+
+/**
+ * Find which era a year belongs to.
+ */
+export function getEraForYear(year: number): EraId {
+  for (const era of ERAS) {
+    if (year >= era.start && year < era.end) return era.id;
+  }
+  // Edge cases
+  if (year < ERAS[0].start) return ERAS[0].id;
+  return ERAS[ERAS.length - 1].id;
+}
