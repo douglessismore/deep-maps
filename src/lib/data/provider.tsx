@@ -100,9 +100,48 @@ function DataLoader({ children }: { children: ReactNode }) {
   if (isLoading) {
     return (
       <div className="h-full flex items-center justify-center bg-[var(--bg-primary)]">
-        <div className="text-center">
-          <div className="text-lg font-serif text-[var(--text-primary)]">Deep Maps</div>
-          <div className="text-sm text-[var(--text-muted)] mt-2 italic font-serif">Everything that ever happened happened somewhere.</div>
+        <div className="text-center flex flex-col items-center gap-5">
+          {/* Logo: map pin with ripple rings */}
+          <div className="relative" style={{ width: 72, height: 72 }}>
+            <svg viewBox="0 0 72 72" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Ripple rings — animated outward pulse */}
+              <circle cx="36" cy="36" r="18" stroke="rgba(234,179,8,0.25)" strokeWidth="1">
+                <animate attributeName="r" from="18" to="34" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="0.4" to="0" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="36" cy="36" r="18" stroke="rgba(234,179,8,0.2)" strokeWidth="0.8">
+                <animate attributeName="r" from="18" to="34" dur="2.4s" begin="0.8s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="0.3" to="0" dur="2.4s" begin="0.8s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="36" cy="36" r="18" stroke="rgba(234,179,8,0.15)" strokeWidth="0.6">
+                <animate attributeName="r" from="18" to="34" dur="2.4s" begin="1.6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="0.25" to="0" dur="2.4s" begin="1.6s" repeatCount="indefinite" />
+              </circle>
+              {/* Map pin */}
+              <path
+                d="M36 16c-7.18 0-13 5.82-13 13 0 9.75 13 23 13 23s13-13.25 13-23c0-7.18-5.82-13-13-13z"
+                fill="rgba(234,179,8,0.9)"
+              />
+              <circle cx="36" cy="28.5" r="5" fill="var(--bg-primary)" />
+            </svg>
+          </div>
+          {/* Title */}
+          <div className="text-xl font-serif tracking-wide" style={{ color: 'rgba(255,255,255,0.9)' }}>
+            Deep Maps
+          </div>
+          {/* Tagline — mono font for contrast against serif title */}
+          <div
+            className="font-mono italic"
+            style={{
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.4)',
+              letterSpacing: '0.5px',
+              maxWidth: 260,
+              lineHeight: 1.5,
+            }}
+          >
+            Everything that ever happened happened somewhere.
+          </div>
         </div>
       </div>
     );
