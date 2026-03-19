@@ -66,17 +66,12 @@ function App() {
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
   const [snapKey, setSnapKey] = useState(0);
 
-  // Force sheet to half on every mode change (entering a story, entity, or going back).
-  const prevModeRef = useRef(mode);
-  useEffect(() => {
-    if (mode !== prevModeRef.current) {
-      prevModeRef.current = mode;
-      if (mode !== 'explore') {
-        setSheetSnap('half');
-        setSnapKey(k => k + 1);
-      }
-    }
-  }, [mode]);
+  // Force sheet to half on any navigation. Called directly from handlers,
+  // NOT from a mode-change effect (which misses story→story and entity→entity).
+  const resetSheetToHalf = useCallback(() => {
+    setSheetSnap('half');
+    setSnapKey(k => k + 1);
+  }, []);
 
   // Refit map bounds when sheet snap changes in story/entity mode
   // (e.g., user pulls sheet down to peek → show all story pins in the now-larger map area)
@@ -220,6 +215,7 @@ function App() {
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
     pushNav();
+    resetSheetToHalf();
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
@@ -228,10 +224,11 @@ function App() {
     setActiveEntity(null);
     setCategoryFilter(null);
     setMode('story');
-  }, [activeCollection, pushNav]);
+  }, [activeCollection, pushNav, resetSheetToHalf]);
 
   const handleLocationSelect = useCallback((location: Moment, story: Story) => {
     pushNav();
+    resetSheetToHalf();
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
@@ -239,7 +236,7 @@ function App() {
     setActiveLocation(location);
     setActiveEntity(null);
     setMode('story');
-  }, [activeCollection, pushNav]);
+  }, [activeCollection, pushNav, resetSheetToHalf]);
 
   // Scroll-driven location select — no history push (avoids back-button pollution)
   const handleScrollLocationSelect = useCallback((location: Moment, story: Story) => {
@@ -269,11 +266,7 @@ function App() {
       const entry = next.pop()!;
       const restoredMode = entry.mode === 'scroll' ? 'explore' : entry.mode;
       setMode(restoredMode);
-      // Always reset sheet to half on back-navigation so map stays visible
-      if (restoredMode !== 'explore') {
-        setSheetSnap('half');
-        setSnapKey(k => k + 1);
-      }
+      if (restoredMode !== 'explore') resetSheetToHalf();
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
       setActiveEntity(entry.activeEntity);
@@ -429,12 +422,13 @@ function App() {
 
   const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
     pushNav();
+    resetSheetToHalf();
     setActiveEntity(entity);
     setActiveStory(null);
-    setActiveLocation(null); // null so MapView fitBounds to all entity moments
+    setActiveLocation(null);
     setCategoryFilter(null);
     setMode('entity');
-  }, [pushNav]);
+  }, [pushNav, resetSheetToHalf]);
 
   // Entity-mode scroll → highlight map marker without exiting entity mode
   const handleEntityScrollLocationActive = useCallback((moment: Moment, _story: Story) => {
@@ -444,10 +438,10 @@ function App() {
   // Entity-mode story click → navigate to story with optional moment active
   const handleEntityStoryClick = useCallback((story: Story, moment?: Moment) => {
     pushNav();
+    resetSheetToHalf();
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
-    // Validate moment exists in target story before setting as active
     let targetMoment: Moment | null = null;
     if (moment) {
       const storyMomentIds = new Set(story.moments.map(sm => sm.momentId));
@@ -459,7 +453,7 @@ function App() {
     setActiveLocation(targetMoment);
     setActiveEntity(null);
     setMode('story');
-  }, [activeCollection, pushNav]);
+  }, [activeCollection, pushNav, resetSheetToHalf]);
 
   // Map pin click — in entity mode, stay in entity mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
