@@ -188,7 +188,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     };
 
     // Content area: allow pulling down to collapse the sheet when content is scrolled to top
-    const onContentTouchStart = (e: TouchEvent) => {
+    const onContentTouchStart = (_e: TouchEvent) => {
       if (!contentArea) return;
       contentDragging.startScrollTop = contentArea.scrollTop;
       contentDragging.active = false;
