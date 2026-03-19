@@ -10,7 +10,7 @@ import type { ClusterOrPoint, MomentPointProps, ConstellationClusterProps } from
 import { createConstellationSVG, createConstellationTooltip, computeConstellationSize, createCountLabel, createWispsContent, computeEssenceSize, createEssenceHoverRing, createPalimpsestContent, createPalimpsestPinContent, getVariantRenderMode } from '../../lib/constellation';
 import type { ConstellationVariant } from '../../lib/constellation';
 import { useAppData } from '../../lib/data/provider';
-import { getSheetAwarePadding, panToAboveSheet } from '../../lib/sheetAwareMap';
+import { getSheetAwarePadding } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { EmergenceLayer } from './EmergenceLayer';
 

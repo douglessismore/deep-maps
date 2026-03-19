@@ -277,7 +277,7 @@ function App() {
       }
       return next;
     });
-  }, [resetSheetToHalf]);
+  }, []);
 
   // Full reset → clears everything including collection, history, and timeline filter
   const handleBackToExplore = useCallback(() => {
@@ -291,8 +291,7 @@ function App() {
     setTimelineViewRange(null);
     setMode('explore');
     setResetViewKey((k) => k + 1);
-
-  }, [resetSheetToHalf]);
+  }, []);
 
   const handleCollectionSelect = useCallback((collection: StoryCollection) => {
     pushNav();

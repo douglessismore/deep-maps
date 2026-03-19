@@ -1,0 +1,27 @@
+# Large data files (not needed for the web app build)
+data/cross-verified-database.csv
+data/cross-verified-database.csv.gz
+data/pipeline-batches/
+data/moments-backup-pre-v3.json
+
+# Scripts (build-time only, not deployed)
+scripts/
+
+# Dev/review files
+*.html
+!dist/**/*.html
+CLAUDE.md
+handoff.md
+story-audit.html
+style-comparison.html
+v3-*.html
+v3-review-data.js
+review-run-*.html
+dashboard.html
+tracker.html
+mockups/
+supabase/
+CONTENT-SCALING-PLAN.md
+candidates.md
+gemini-feedback-prompt.md
+story-generation-prompt.md
