@@ -588,17 +588,10 @@ function MapController({
     const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
 
     if (activeLocation) {
-      // Fly to the active moment pin, zooming in close enough to see it clearly.
-      // Always zoom to at least 15 so the pin is prominent, not a distant dot.
-      const currentZoomLevel = map.getZoom();
-      const targetZoom = Math.max(currentZoomLevel, 15);
-      if (currentZoomLevel < 13) {
-        // Zoomed way out — fly in with animation
-        map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.8 });
-      } else {
-        // Already fairly close — smooth pan + zoom to exact pin, offset for sheet
-        panToAboveSheet(map, [activeLocation.lat, activeLocation.lng], sheetSnap, isMobile, { duration: 0.5, zoom: targetZoom });
-      }
+      // Fly to the active moment pin at street level.
+      // Always zoom to exactly 16 for a clear, close view of the pin location.
+      const targetZoom = 16;
+      map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.8 });
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });

@@ -268,7 +268,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     : 'translate3d(0, 100%, 0)';
 
   // Remove border-radius at full snap to avoid corner gap against top bar
-  const isFullSnap = sheetY !== null && sheetY <= FULL_TOP + 2;
+  const isFullSnap = sheetY !== null && sheetY <= FULL_TOP + 20;
 
   // ── Mobile: bottom sheet overlay ──
   return (
