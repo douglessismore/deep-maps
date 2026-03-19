@@ -60,18 +60,10 @@ function App() {
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const autoGeoRequested = useRef(false);
 
-  // Bottom sheet snap control (mobile only)
-  // snapKey increments on every navigation to force the BottomSheet to re-snap,
-  // even if the target snap position ('half') hasn't changed.
+  // Bottom sheet snap state (mobile only)
+  // Only tracks WHERE the user has dragged the sheet — never set programmatically on navigation.
+  // The sheet only moves when the user drags it. Content changes, sheet stays put.
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
-  const [snapKey, setSnapKey] = useState(0);
-
-  // Force sheet to half on any navigation. Called directly from handlers,
-  // NOT from a mode-change effect (which misses story→story and entity→entity).
-  const resetSheetToHalf = useCallback(() => {
-    setSheetSnap('half');
-    setSnapKey(k => k + 1);
-  }, []);
 
   // Refit map bounds when sheet snap changes in story/entity mode
   // (e.g., user pulls sheet down to peek → show all story pins in the now-larger map area)
@@ -215,7 +207,7 @@ function App() {
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
     pushNav();
-    resetSheetToHalf();
+
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
@@ -224,11 +216,11 @@ function App() {
     setActiveEntity(null);
     setCategoryFilter(null);
     setMode('story');
-  }, [activeCollection, pushNav, resetSheetToHalf]);
+  }, [activeCollection, pushNav]);
 
   const handleLocationSelect = useCallback((location: Moment, story: Story) => {
     pushNav();
-    resetSheetToHalf();
+
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
@@ -236,7 +228,7 @@ function App() {
     setActiveLocation(location);
     setActiveEntity(null);
     setMode('story');
-  }, [activeCollection, pushNav, resetSheetToHalf]);
+  }, [activeCollection, pushNav]);
 
   // Scroll-driven location select — no history push (avoids back-button pollution)
   const handleScrollLocationSelect = useCallback((location: Moment, story: Story) => {
@@ -260,14 +252,14 @@ function App() {
         setTimelineViewRange(null);
         setMode('explore');
         setResetViewKey((k) => k + 1);
-        resetSheetToHalf();
+    
         return prev;
       }
       const next = [...prev];
       const entry = next.pop()!;
       const restoredMode = entry.mode === 'scroll' ? 'explore' : entry.mode;
       setMode(restoredMode);
-      resetSheetToHalf();
+  
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
       setActiveEntity(entry.activeEntity);
@@ -299,7 +291,7 @@ function App() {
     setTimelineViewRange(null);
     setMode('explore');
     setResetViewKey((k) => k + 1);
-    resetSheetToHalf();
+
   }, [resetSheetToHalf]);
 
   const handleCollectionSelect = useCallback((collection: StoryCollection) => {
@@ -309,9 +301,6 @@ function App() {
     setActiveStory(null);
     setActiveLocation(null);
     setMode('explore');
-
-    // On mobile, snap sheet to peek to maximize map visibility for collection overview
-    if (isMobile) setSheetSnap('peek');
 
     // Zoom map to fit all collection story locations
     if (mapInstance) {
@@ -413,7 +402,7 @@ function App() {
 
   const handleSurpriseMe = useCallback(() => {
     pushNav();
-    resetSheetToHalf();
+
     const randomStory = stories[Math.floor(Math.random() * stories.length)];
     const resolved = resolveLocationsFromMap(randomStory, momentMap);
     const randomLoc = resolved[Math.floor(Math.random() * resolved.length)];
@@ -421,17 +410,17 @@ function App() {
     setActiveStory(randomStory);
     setActiveLocation(randomLoc);
     setMode('story');
-  }, [pushNav, resetSheetToHalf, stories, momentMap]);
+  }, [pushNav, stories, momentMap]);
 
   const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
     pushNav();
-    resetSheetToHalf();
+
     setActiveEntity(entity);
     setActiveStory(null);
     setActiveLocation(null);
     setCategoryFilter(null);
     setMode('entity');
-  }, [pushNav, resetSheetToHalf]);
+  }, [pushNav]);
 
   // Entity-mode scroll → highlight map marker without exiting entity mode
   const handleEntityScrollLocationActive = useCallback((moment: Moment, _story: Story) => {
@@ -441,7 +430,7 @@ function App() {
   // Entity-mode story click → navigate to story with optional moment active
   const handleEntityStoryClick = useCallback((story: Story, moment?: Moment) => {
     pushNav();
-    resetSheetToHalf();
+
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
@@ -456,7 +445,7 @@ function App() {
     setActiveLocation(targetMoment);
     setActiveEntity(null);
     setMode('story');
-  }, [activeCollection, pushNav, resetSheetToHalf]);
+  }, [activeCollection, pushNav]);
 
   // Map pin click — in entity mode, stay in entity mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
@@ -549,7 +538,7 @@ function App() {
         </div>
 
         {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
-        <BottomSheet snapTo={sheetSnap} snapKey={snapKey} onSnapChange={setSheetSnap}>
+        <BottomSheet onSnapChange={setSheetSnap}>
           <Switch>
             <Route path="/">
               <Suspense fallback={<PanelSkeleton />}>
