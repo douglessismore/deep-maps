@@ -190,12 +190,28 @@ export function getClusterData(
   // Post-filter by timeline era when active
   if (!storyIdFilter || storyIdFilter.size === 0) return results;
 
-  return results.filter((f) => {
-    if ('cluster' in f.properties && f.properties.cluster) return true; // Keep clusters
-    // Individual point — check storyId
-    const props = f.properties as MomentPointProps;
-    return storyIdFilter.has(props.storyId);
-  });
+  const filtered: ClusterOrPoint[] = [];
+  for (const f of results) {
+    if ('cluster' in f.properties && f.properties.cluster) {
+      // Expand cluster to check if ANY leaves match the filter
+      const clusterId = (f.properties as { cluster_id: number }).cluster_id;
+      const leaves = activeIndex.getLeaves(clusterId, Infinity);
+      const matchingLeaves = leaves.filter(
+        (leaf) => storyIdFilter.has(leaf.properties.storyId)
+      );
+      // Only include matching individual points (skip the cluster shell)
+      for (const leaf of matchingLeaves) {
+        filtered.push(leaf);
+      }
+    } else {
+      // Individual point — check storyId
+      const props = f.properties as MomentPointProps;
+      if (storyIdFilter.has(props.storyId)) {
+        filtered.push(f);
+      }
+    }
+  }
+  return filtered;
 }
 
 /**

@@ -50,6 +50,22 @@ If the moment name requires context from the story, entity, or description to ma
 7. **INCLUDE THE "WHY CARE" SIGNAL** — If the person isn't universally famous, the name must hint at significance
    - Bad: "O. Henry Works at the Land Office" (who? why care?)
    - Better: Ensure the subtitle carries the hook if the name can't fit it
+8. **NO SENSATIONALIZED FRAMING** — Name the event from the subject's perspective, not from a journalist's angle. Avoid centering bystanders, audiences, or outsiders as the headline actors when the subject is the venue/person/institution.
+   - Bad: "Charlie's Playhouse Draws White Students Across Segregation Lines" (centers white students, newspaper-headline tone)
+   - Good: "Charlie's Playhouse Becomes Austin's First Integrated Music Venue" (centers the venue, states the fact)
+   - Bad: "Thousands Flock to See the New Cathedral" (centers the crowd)
+   - Good: "The Cathedral Opens After 120 Years of Construction" (centers the subject)
+9. **LEAD WITH THE PERSON, NOT THEIR DEMOGRAPHIC** — When a moment is about a notable person's achievement or milestone, lead with their name and the event. Race, gender, and identity context belongs in the subtitle or description where it adds historical significance, not as the headline framing.
+   - Bad: "First Southern Black Congresswoman Buried Among Texas Elite" (leads with demographic, "buried among elite" implies class commentary)
+   - Good: "Barbara Jordan Is Interred at the Texas State Cemetery" (name + event; subtitle carries the historical context)
+   - Principle: State the fact. Let the subtitle carry the significance. Don't write headlines that read like they're making a social argument — let the facts speak.
+10. **PLACE SPECIFICITY IS THE PRODUCT** — Deep Maps exists to show you *exactly where* things happened, not just *what town*. Include the most specific verified location detail in the name or subtitle: the building, the street, the room. If we only know the city, say so — but never settle for vague when specific is available.
+   - Bad: "Willie Nelson Is Born in Abbott, Texas" (textbook fact, no sense of place)
+   - Good: "Willie Nelson Is Born in a Two-Room House on First Street in Abbott, Texas" (you can picture it)
+   - Bad: "Dennis Hopper Moves to Taos After Easy Rider" (could be anywhere in Taos)
+   - Good: "Dennis Hopper Buys the Mabel Dodge Luhan House in Taos After Easy Rider" (a specific place you can visit)
+   - Rule: Include the most specific place detail we can *verify*. Don't invent specificity — but always prefer the address over the city, the building over the neighborhood.
+11. **CULTURAL SENSITIVITY REVIEW** — For moments involving race, religion, gender, colonialism, or indigenous peoples, apply extra scrutiny. The name should be factually neutral and avoid framing that could read as dismissive, voyeuristic, or othering. When in doubt, describe the event from the perspective of the community it happened to, not from an outsider's gaze. Flag borderline cases for manual review.
 
 ### Character Guidelines
 

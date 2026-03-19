@@ -85,20 +85,40 @@ export async function fetchWikipediaArticle(slug: string): Promise<WikipediaArti
  */
 export async function fetchWikipediaFullText(slug: string): Promise<string | null> {
   const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(slug)}&prop=extracts&explaintext=1&format=json`;
-  try {
-    const res = await fetch(url, {
-      headers: { 'User-Agent': 'DeepMaps/1.0 (content pipeline)' },
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    const pages = data.query?.pages;
-    if (!pages) return null;
-    const page = Object.values(pages)[0] as { extract?: string };
-    return page?.extract || null;
-  } catch (err) {
-    console.warn(`  ⚠ Wikipedia full text fetch error for ${slug}:`, err);
-    return null;
+  const UA = 'DeepMaps/1.0 (geospatial storytelling; contact: deepmaps-pipeline@example.com)';
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(url, { headers: { 'User-Agent': UA } });
+      if (!res.ok) {
+        if (res.status === 429 && attempt < 2) {
+          console.warn(`  ⚠ Rate limited — waiting ${(attempt + 1) * 5}s...`);
+          await new Promise(r => setTimeout(r, (attempt + 1) * 5000));
+          continue;
+        }
+        return null;
+      }
+      const text = await res.text();
+      if (text.includes('too many requests') && attempt < 2) {
+        console.warn(`  ⚠ Rate limited (text) — waiting ${(attempt + 1) * 5}s...`);
+        await new Promise(r => setTimeout(r, (attempt + 1) * 5000));
+        continue;
+      }
+      const data = JSON.parse(text);
+      const pages = data.query?.pages;
+      if (!pages) return null;
+      const page = Object.values(pages)[0] as { extract?: string };
+      return page?.extract || null;
+    } catch (err) {
+      if (attempt < 2) {
+        await new Promise(r => setTimeout(r, (attempt + 1) * 3000));
+        continue;
+      }
+      console.warn(`  ⚠ Wikipedia full text fetch error for ${slug}:`, err);
+      return null;
+    }
   }
+  return null;
 }
 
 // ── Wikimedia Commons Image Search ───────────────────────────────────

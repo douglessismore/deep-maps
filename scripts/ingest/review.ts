@@ -6,16 +6,25 @@
  * Review, approve, edit, or reject items from the review queue.
  *
  * Usage:
- *   npx tsx scripts/ingest/review.ts --run 1          # review items from run #1
- *   npx tsx scripts/ingest/review.ts --run 1 --publish # publish approved items
- *   npx tsx scripts/ingest/review.ts --list            # list all ingestion runs
- *   npx tsx scripts/ingest/review.ts --stats           # show review queue stats
+ *   npx tsx scripts/ingest/review.ts --run 1                # review items from run #1
+ *   npx tsx scripts/ingest/review.ts --run 1 --publish      # publish approved items
+ *   npx tsx scripts/ingest/review.ts --run 1 --auto-approve # auto-approve items with 0 errors
+ *   npx tsx scripts/ingest/review.ts --run 1 --generate-review  # generate HTML review page
+ *   npx tsx scripts/ingest/review.ts --list                 # list all ingestion runs
+ *   npx tsx scripts/ingest/review.ts --stats                # show review queue stats
  */
 
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local', override: true });
 import * as readline from 'readline';
 import { getSupabase, publishApproved } from './lib/pipeline.js';
+import { generateReviewHtml } from './lib/review-html.js';
+import { writeFileSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, '../..');
 
 // ── CLI Args ─────────────────────────────────────────────────────────
 
@@ -28,6 +37,8 @@ const hasFlag = (name: string): boolean => args.includes(`--${name}`);
 
 const RUN_ID = getArg('run') ? parseInt(getArg('run')!, 10) : undefined;
 const DO_PUBLISH = hasFlag('publish');
+const AUTO_APPROVE = hasFlag('auto-approve');
+const GEN_REVIEW = hasFlag('generate-review');
 const LIST_RUNS = hasFlag('list');
 const SHOW_STATS = hasFlag('stats');
 const FILTER_TYPE = getArg('type'); // 'moment', 'story', 'entity'
@@ -379,6 +390,129 @@ async function publish(runId: number): Promise<void> {
   }
 }
 
+// ── Auto-Approve ────────────────────────────────────────────────────
+
+async function autoApprove(runId: number): Promise<void> {
+  const sb = getSupabase();
+
+  const { data: items, error } = await sb
+    .from('review_queue')
+    .select('*')
+    .eq('ingestion_run_id', runId)
+    .eq('status', 'pending')
+    .order('item_type')
+    .order('id');
+
+  if (error) {
+    console.error(`Failed to fetch items: ${error.message}`);
+    return;
+  }
+
+  if (!items || items.length === 0) {
+    console.log(c('green', '\n✓ No pending items to auto-approve.'));
+    return;
+  }
+
+  // Split into clean (0 errors) and dirty (has errors)
+  const clean: number[] = [];
+  const dirty: Array<{ id: number; item_type: string; item_id: string; errors: Array<{ field: string; message: string; severity: string }> }> = [];
+
+  for (const item of items) {
+    const errors = (item.validation_errors as Array<{ field: string; message: string; severity: string }>) || [];
+    const hasErrors = errors.some(e => e.severity === 'error');
+    if (hasErrors) {
+      dirty.push({ id: item.id, item_type: item.item_type, item_id: item.item_id, errors });
+    } else {
+      clean.push(item.id);
+    }
+  }
+
+  // Auto-approve clean items
+  if (clean.length > 0) {
+    // Supabase .in() has a limit, batch if needed
+    const BATCH = 100;
+    for (let i = 0; i < clean.length; i += BATCH) {
+      const batch = clean.slice(i, i + BATCH);
+      await sb
+        .from('review_queue')
+        .update({
+          status: 'approved',
+          reviewed_at: new Date().toISOString(),
+          reviewer_notes: 'auto-approved (0 errors)',
+        })
+        .in('id', batch);
+    }
+  }
+
+  console.log(`\n${c('bold', `Auto-approve results for Run #${runId}:`)}`);
+  console.log(`  ${c('green', `✓ Auto-approved: ${clean.length} items`)} (0 validation errors)`);
+
+  if (dirty.length > 0) {
+    console.log(`  ${c('red', `✗ Needs manual review: ${dirty.length} items`)} (have validation errors)`);
+    console.log('');
+    for (const d of dirty) {
+      console.log(`  ${c('yellow', d.item_type)} ${d.item_id}`);
+      for (const err of d.errors.filter(e => e.severity === 'error')) {
+        console.log(`    ${c('red', '❌')} ${err.field}: ${err.message}`);
+      }
+    }
+    console.log(`\n  Review manually: ${c('cyan', `npx tsx scripts/ingest/review.ts --run ${runId}`)}`);
+  } else {
+    console.log(c('green', '  All items approved — no manual review needed.'));
+  }
+
+  if (clean.length > 0) {
+    console.log(`\n  Generate review page: ${c('cyan', `npx tsx scripts/ingest/review.ts --run ${runId} --generate-review`)}`);
+    console.log(`  Publish: ${c('cyan', `npx tsx scripts/ingest/review.ts --run ${runId} --publish`)}`);
+  }
+}
+
+// ── Generate Review HTML ────────────────────────────────────────────
+
+async function generateReview(runId: number): Promise<void> {
+  const sb = getSupabase();
+
+  // Fetch run info
+  const { data: run, error: runError } = await sb
+    .from('ingestion_runs')
+    .select('*')
+    .eq('id', runId)
+    .single();
+
+  if (runError || !run) {
+    console.error(`Run #${runId} not found.`);
+    return;
+  }
+
+  // Fetch all items (not just pending)
+  const { data: items, error } = await sb
+    .from('review_queue')
+    .select('*')
+    .eq('ingestion_run_id', runId)
+    .order('item_type')
+    .order('id');
+
+  if (error) {
+    console.error(`Failed to fetch items: ${error.message}`);
+    return;
+  }
+
+  if (!items || items.length === 0) {
+    console.log('No items found for this run.');
+    return;
+  }
+
+  const html = generateReviewHtml(
+    { id: run.id, source: run.source, started_at: run.started_at, config: run.config },
+    items,
+  );
+
+  const outPath = resolve(ROOT, `review-run-${runId}.html`);
+  writeFileSync(outPath, html, 'utf-8');
+  console.log(`\n${c('green', '✓')} Review page written to ${c('cyan', outPath)}`);
+  console.log(`  Open in browser to scan ${items.length} items grouped by person.`);
+}
+
 // ── Main ─────────────────────────────────────────────────────────────
 
 async function main() {
@@ -389,6 +523,10 @@ async function main() {
   } else if (RUN_ID !== undefined) {
     if (DO_PUBLISH) {
       await publish(RUN_ID);
+    } else if (AUTO_APPROVE) {
+      await autoApprove(RUN_ID);
+    } else if (GEN_REVIEW) {
+      await generateReview(RUN_ID);
     } else {
       await reviewItems(RUN_ID);
     }
@@ -396,11 +534,13 @@ async function main() {
     console.log('Deep Maps — Review CLI');
     console.log('');
     console.log('Usage:');
-    console.log('  npx tsx scripts/ingest/review.ts --list              List ingestion runs');
-    console.log('  npx tsx scripts/ingest/review.ts --stats             Show queue stats');
-    console.log('  npx tsx scripts/ingest/review.ts --run N             Review items from run N');
-    console.log('  npx tsx scripts/ingest/review.ts --run N --type X    Filter by type (moment/story/entity)');
-    console.log('  npx tsx scripts/ingest/review.ts --run N --publish   Publish approved items');
+    console.log('  npx tsx scripts/ingest/review.ts --list                   List ingestion runs');
+    console.log('  npx tsx scripts/ingest/review.ts --stats                  Show queue stats');
+    console.log('  npx tsx scripts/ingest/review.ts --run N                  Review items from run N');
+    console.log('  npx tsx scripts/ingest/review.ts --run N --type X         Filter by type');
+    console.log('  npx tsx scripts/ingest/review.ts --run N --auto-approve   Auto-approve clean items');
+    console.log('  npx tsx scripts/ingest/review.ts --run N --generate-review  Generate HTML review page');
+    console.log('  npx tsx scripts/ingest/review.ts --run N --publish        Publish approved items');
   }
 }
 
