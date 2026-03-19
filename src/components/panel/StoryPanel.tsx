@@ -53,6 +53,7 @@ export function StoryPanel({
   const [expandedLocationId, setExpandedLocationId] = useState<string | null>(null);
   const expandedLocationIdRef = useRef<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
+  const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
 
@@ -310,7 +311,13 @@ export function StoryPanel({
   const renderTabBar = (sticky?: boolean) => (
     <div className={`flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)] ${sticky ? 'sticky top-0 z-10' : ''}`}>
       <button
-        onClick={() => setActiveTab('locations')}
+        onClick={() => {
+          savedScrollTop.current[activeTab] = scrollContainerRef.current?.scrollTop ?? 0;
+          setActiveTab('locations');
+          requestAnimationFrame(() => {
+            if (scrollContainerRef.current) scrollContainerRef.current.scrollTop = savedScrollTop.current['locations'] ?? 0;
+          });
+        }}
         className={`flex-1 py-2 text-xs font-mono transition-colors ${
           activeTab === 'locations'
             ? 'text-white border-b-2'
@@ -323,7 +330,14 @@ export function StoryPanel({
         📍 Moments ({story.moments.length})
       </button>
       <button
-        onClick={() => { setWikiInitialSection(undefined); setActiveTab('wiki'); }}
+        onClick={() => {
+          savedScrollTop.current[activeTab] = scrollContainerRef.current?.scrollTop ?? 0;
+          setWikiInitialSection(undefined);
+          setActiveTab('wiki');
+          requestAnimationFrame(() => {
+            if (scrollContainerRef.current) scrollContainerRef.current.scrollTop = savedScrollTop.current['wiki'] ?? 0;
+          });
+        }}
         className={`flex-1 py-2 text-xs font-mono transition-colors ${
           activeTab === 'wiki'
             ? 'text-white border-b-2'

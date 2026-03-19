@@ -51,10 +51,29 @@ export function panToAboveSheet(
   latlng: [number, number],
   sheetSnap: SheetSnap,
   isMobile: boolean,
-  options?: { animate?: boolean; duration?: number },
+  options?: { animate?: boolean; duration?: number; zoom?: number },
 ) {
+  const { zoom, ...panOptions } = options ?? {};
+
   if (!isMobile || sheetSnap === 'full') {
-    map.panTo(latlng, { animate: true, duration: 0.3, ...options });
+    if (zoom && zoom > map.getZoom()) {
+      map.flyTo(latlng, zoom, { animate: true, duration: 0.3, ...panOptions });
+    } else {
+      map.panTo(latlng, { animate: true, duration: 0.3, ...panOptions });
+    }
+    return;
+  }
+
+  // If zoom change is needed, use flyTo first (which re-centers), then offset for sheet
+  if (zoom && zoom > map.getZoom()) {
+    const containerH = map.getSize().y;
+    const sheetPx = getSheetPixels(sheetSnap, containerH);
+    // Offset the target latitude upward to account for the sheet covering the bottom
+    const visibleFraction = (containerH - sheetPx) / containerH;
+    const offsetLat = map.containerPointToLatLng([0, sheetPx * visibleFraction / 2]);
+    const origLat = map.containerPointToLatLng([0, 0]);
+    const latOffset = (origLat.lat - offsetLat.lat) * 0.5;
+    map.flyTo([latlng[0] + latOffset, latlng[1]], zoom, { animate: true, duration: 0.5, ...panOptions });
     return;
   }
 
@@ -72,6 +91,6 @@ export function panToAboveSheet(
   // Pan by the difference
   map.panBy(
     [targetPoint.x - visibleCenterX, targetPoint.y - visibleCenterY],
-    { animate: true, duration: 0.3, ...options },
+    { animate: true, duration: 0.3, ...panOptions },
   );
 }

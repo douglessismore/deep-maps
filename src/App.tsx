@@ -63,12 +63,16 @@ function App() {
   // Bottom sheet snap control (mobile only)
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
 
-  // Auto-snap to half when mode changes
+  // Auto-snap to half when entering from explore (peek) into a detail view
+  // but preserve the user's chosen position when navigating between detail views
   const prevModeRef = useRef(mode);
   useEffect(() => {
     if (mode !== prevModeRef.current) {
+      const wasExplore = prevModeRef.current === 'explore';
       prevModeRef.current = mode;
-      setSheetSnap('half');
+      // Only snap to half when coming from explore (where sheet is at peek)
+      // When navigating story→story or entity→entity, keep user's position
+      if (wasExplore) setSheetSnap('half');
     }
   }, [mode]);
 
