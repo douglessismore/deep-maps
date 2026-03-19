@@ -113,18 +113,18 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Initialize sheet position on mobile — direct DOM, no React state for transform
-  useEffect(() => {
-    if (!isMobile || initialized.current) return;
-    // Use rAF to ensure the container has laid out
-    requestAnimationFrame(() => {
-      const snaps = getSnapPositions();
-      currentTranslateY.current = snaps.half;
-      currentSnapRef.current = 'half';
-      applyTranslate(snaps.half);
-      initialized.current = true;
-    });
-  }, [isMobile, getSnapPositions, applyTranslate]);
+  // Initialize sheet position on mobile — useLayoutEffect runs synchronously before paint.
+  // Since `transform` is NOT in the style prop, React never touches it — the ref owns it.
+  useLayoutEffect(() => {
+    if (!isMobile || initialized.current || !sheetRef.current) return;
+    const container = sheetRef.current.parentElement;
+    const totalH = container ? container.clientHeight : window.innerHeight;
+    const halfY = totalH * (1 - HALF_RATIO);
+    currentTranslateY.current = halfY;
+    currentSnapRef.current = 'half';
+    sheetRef.current.style.transform = `translate3d(0, ${halfY}px, 0)`;
+    initialized.current = true;
+  }, [isMobile]);
 
   // Handle resize
   useEffect(() => {
@@ -236,10 +236,13 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
           background: 'var(--bg-primary)',
           borderRadius: isFullSnap ? '0' : '16px 16px 0 0',
           boxShadow: '0 -4px 30px rgba(0,0,0,0.5)',
-          // Start off-screen; initialization effect will position it
-          transform: 'translate3d(0, 100%, 0)',
+          // NO transform here — the ref exclusively owns the CSS transform property.
+          // If React sets transform in the style prop, it re-applies it on EVERY re-render,
+          // overwriting whatever the ref set via applyTranslate. This was the root cause
+          // of the sheet jumping to unexpected positions during content scrolling/navigation.
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
+          willChange: 'transform',
         }}
       >
         {/* Drag handle */}
