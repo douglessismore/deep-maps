@@ -61,21 +61,19 @@ function App() {
   const autoGeoRequested = useRef(false);
 
   // Bottom sheet snap control (mobile only)
+  // snapKey increments on every navigation to force the BottomSheet to re-snap,
+  // even if the target snap position ('half') hasn't changed.
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
+  const [snapKey, setSnapKey] = useState(0);
 
-  // Snap sheet to half on any mode change (entering a story, entity, or going back).
-  // This ensures the map stays visible after navigation.
-  // The user can still drag to full manually, but each new navigation resets to half.
+  // Force sheet to half on every mode change (entering a story, entity, or going back).
   const prevModeRef = useRef(mode);
-  const navCountRef = useRef(0);
   useEffect(() => {
     if (mode !== prevModeRef.current) {
       prevModeRef.current = mode;
       if (mode !== 'explore') {
-        // Force snap to half — use a counter to ensure BottomSheet always responds,
-        // even if sheetSnap was already 'half' (by toggling to peek then back)
-        navCountRef.current += 1;
         setSheetSnap('half');
+        setSnapKey(k => k + 1);
       }
     }
   }, [mode]);
@@ -272,7 +270,10 @@ function App() {
       const restoredMode = entry.mode === 'scroll' ? 'explore' : entry.mode;
       setMode(restoredMode);
       // Always reset sheet to half on back-navigation so map stays visible
-      if (restoredMode !== 'explore') setSheetSnap('half');
+      if (restoredMode !== 'explore') {
+        setSheetSnap('half');
+        setSnapKey(k => k + 1);
+      }
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
       setActiveEntity(entry.activeEntity);
@@ -551,7 +552,7 @@ function App() {
         </div>
 
         {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
-        <BottomSheet snapTo={sheetSnap} onSnapChange={setSheetSnap}>
+        <BottomSheet snapTo={sheetSnap} snapKey={snapKey} onSnapChange={setSheetSnap}>
           <Switch>
             <Route path="/">
               <Suspense fallback={<PanelSkeleton />}>
