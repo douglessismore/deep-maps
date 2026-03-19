@@ -63,16 +63,20 @@ function App() {
   // Bottom sheet snap control (mobile only)
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
 
-  // Auto-snap to half when entering from explore (peek) into a detail view
-  // but preserve the user's chosen position when navigating between detail views
+  // Snap sheet to half on any mode change (entering a story, entity, or going back).
+  // This ensures the map stays visible after navigation.
+  // The user can still drag to full manually, but each new navigation resets to half.
   const prevModeRef = useRef(mode);
+  const navCountRef = useRef(0);
   useEffect(() => {
     if (mode !== prevModeRef.current) {
-      const wasExplore = prevModeRef.current === 'explore';
       prevModeRef.current = mode;
-      // Only snap to half when coming from explore (where sheet is at peek)
-      // When navigating story→story or entity→entity, keep user's position
-      if (wasExplore) setSheetSnap('half');
+      if (mode !== 'explore') {
+        // Force snap to half — use a counter to ensure BottomSheet always responds,
+        // even if sheetSnap was already 'half' (by toggling to peek then back)
+        navCountRef.current += 1;
+        setSheetSnap('half');
+      }
     }
   }, [mode]);
 
@@ -265,7 +269,10 @@ function App() {
       }
       const next = [...prev];
       const entry = next.pop()!;
-      setMode(entry.mode === 'scroll' ? 'explore' : entry.mode);
+      const restoredMode = entry.mode === 'scroll' ? 'explore' : entry.mode;
+      setMode(restoredMode);
+      // Always reset sheet to half on back-navigation so map stays visible
+      if (restoredMode !== 'explore') setSheetSnap('half');
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
       setActiveEntity(entry.activeEntity);

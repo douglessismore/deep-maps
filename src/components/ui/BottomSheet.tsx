@@ -129,11 +129,16 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     return () => window.removeEventListener('resize', handler);
   }, [isMobile, snapTo]);
 
-  // Respond to external snapTo prop changes
+  // Respond to external snapTo prop — always re-snap to ensure sheet position
+  // matches the prop, even if the prop value hasn't changed (e.g., navigation
+  // resets to 'half' but sheet was dragged away from half position).
   const prevSnapProp = useRef(snapToProp);
   useEffect(() => {
-    if (snapToProp && isMobile && snapToProp !== prevSnapProp.current) {
-      prevSnapProp.current = snapToProp;
+    if (!snapToProp || !isMobile) return;
+    const changed = snapToProp !== prevSnapProp.current;
+    const drifted = snapToProp !== currentSnapRef.current;
+    prevSnapProp.current = snapToProp;
+    if (changed || drifted) {
       snapTo(snapToProp);
     }
   }, [snapToProp, isMobile, snapTo]);
@@ -145,10 +150,6 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
     if (!sheet) return;
     const handle = sheet.querySelector('[data-drag-handle]') as HTMLElement;
     if (!handle) return;
-
-    // Content area — allow drag-down to collapse when scrolled to top
-    const contentArea = sheet.querySelector('[data-sheet-content]') as HTMLElement;
-    const contentDragging = { active: false, startScrollTop: 0 };
 
     const onTouchStart = (e: TouchEvent) => {
       e.preventDefault();
@@ -187,64 +188,14 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
       snapTo(findSnapTarget());
     };
 
-    // Content area: allow pulling down to collapse the sheet when content is scrolled to top
-    const onContentTouchStart = (_e: TouchEvent) => {
-      if (!contentArea) return;
-      contentDragging.startScrollTop = contentArea.scrollTop;
-      contentDragging.active = false;
-    };
-
-    const onContentTouchMove = (e: TouchEvent) => {
-      if (!contentArea) return;
-      // If content was at scroll top and user is pulling down, intercept and drag the sheet
-      if (contentDragging.startScrollTop <= 0 && !contentDragging.active) {
-        const deltaY = e.touches[0].clientY - (lastMoveY.current || e.touches[0].clientY);
-        if (deltaY > 5) {
-          // User is pulling down from scroll-top — hijack into sheet drag
-          contentDragging.active = true;
-          isDragging.current = true;
-          startY.current = e.touches[0].clientY;
-          startTranslateY.current = currentTranslateY.current;
-          lastMoveY.current = e.touches[0].clientY;
-          lastMoveTime.current = performance.now();
-          velocity.current = 0;
-          sheet.style.transition = '';
-          e.preventDefault();
-          return;
-        }
-      }
-      if (contentDragging.active) {
-        e.preventDefault();
-        onTouchMove(e);
-      }
-    };
-
-    const onContentTouchEnd = () => {
-      if (contentDragging.active) {
-        contentDragging.active = false;
-        onTouchEnd();
-      }
-    };
-
     handle.addEventListener('touchstart', onTouchStart, { passive: false });
     handle.addEventListener('touchmove', onTouchMove, { passive: false });
     handle.addEventListener('touchend', onTouchEnd);
-
-    if (contentArea) {
-      contentArea.addEventListener('touchstart', onContentTouchStart, { passive: true });
-      contentArea.addEventListener('touchmove', onContentTouchMove, { passive: false });
-      contentArea.addEventListener('touchend', onContentTouchEnd);
-    }
 
     return () => {
       handle.removeEventListener('touchstart', onTouchStart);
       handle.removeEventListener('touchmove', onTouchMove);
       handle.removeEventListener('touchend', onTouchEnd);
-      if (contentArea) {
-        contentArea.removeEventListener('touchstart', onContentTouchStart);
-        contentArea.removeEventListener('touchmove', onContentTouchMove);
-        contentArea.removeEventListener('touchend', onContentTouchEnd);
-      }
       cancelAnimationFrame(rafId.current);
     };
   // Note: sheetY intentionally excluded — handlers use currentTranslateY ref, not state.
@@ -297,7 +248,7 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp }: Bott
         </div>
 
         {/* Content */}
-        <div data-sheet-content className="flex-1 overflow-hidden flex flex-col overflow-y-auto">
+        <div className="flex-1 overflow-hidden flex flex-col">
           {children}
         </div>
       </div>
