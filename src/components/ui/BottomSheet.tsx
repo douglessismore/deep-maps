@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
+import { useEffect, useRef, useState, useCallback, useLayoutEffect, type ReactNode } from 'react';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
@@ -20,8 +20,11 @@ const SNAP_DURATION = 400;
  * Google/Apple Maps-style bottom sheet overlay on mobile.
  * On desktop (lg:), renders as a standard side panel pass-through.
  *
- * Position is tracked via a single ref (currentTranslateY) during drag for 60fps,
- * then committed to React state only at snap endpoints to keep the inline style in sync.
+ * ARCHITECTURE: Single source of truth.
+ * - `currentTranslateY` ref owns the DOM transform at all times.
+ * - React NEVER sets an inline transform style — the ref controls the DOM directly.
+ * - `currentSnap` state exists only for derived rendering (rounded corners).
+ * - This eliminates the dual-state drift that caused sheets to jump/expand unexpectedly.
  */
 export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKey }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -29,8 +32,13 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
 
-  const [sheetY, setSheetY] = useState<number | null>(null);
+  // SINGLE source of truth for sheet position (the ref)
   const currentTranslateY = useRef(0);
+  const currentSnapRef = useRef<SheetSnap>('half');
+  const initialized = useRef(false);
+
+  // React state ONLY for derived rendering (rounded corners, etc.)
+  const [currentSnap, setCurrentSnap] = useState<SheetSnap>('half');
 
   const isDragging = useRef(false);
   const startY = useRef(0);
@@ -39,7 +47,6 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
   const lastMoveTime = useRef(0);
   const velocity = useRef(0);
   const rafId = useRef(0);
-  const currentSnapRef = useRef<SheetSnap>('half');
   const onSnapChangeRef = useRef(onSnapChange);
   const isAnimating = useRef(false);
 
@@ -70,7 +77,8 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
     isAnimating.current = true;
     sheet.style.transition = `transform ${SNAP_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1)`;
     applyTranslate(y);
-    setSheetY(y);
+    // Update React state for rounded corners
+    setCurrentSnap(snap);
     setTimeout(() => {
       if (sheet) sheet.style.transition = '';
       isAnimating.current = false;
@@ -105,17 +113,18 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Initialize sheet position on mobile
+  // Initialize sheet position on mobile — direct DOM, no React state for transform
   useEffect(() => {
-    if (!isMobile || sheetY !== null) return;
+    if (!isMobile || initialized.current) return;
+    // Use rAF to ensure the container has laid out
     requestAnimationFrame(() => {
-      const container = sheetRef.current?.parentElement;
-      const totalH = container ? container.clientHeight : window.innerHeight;
-      const halfY = totalH * (1 - HALF_RATIO);
-      currentTranslateY.current = halfY;
-      setSheetY(halfY);
+      const snaps = getSnapPositions();
+      currentTranslateY.current = snaps.half;
+      currentSnapRef.current = 'half';
+      applyTranslate(snaps.half);
+      initialized.current = true;
     });
-  }, [isMobile, sheetY]);
+  }, [isMobile, getSnapPositions, applyTranslate]);
 
   // Handle resize
   useEffect(() => {
@@ -126,10 +135,10 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
   }, [isMobile, snapTo]);
 
   // Respond to external snapTo prop OR snapKey changes.
-  // snapKey lets the parent force a re-snap even when the target snap hasn't changed.
+  // useLayoutEffect ensures this runs before paint — no visual flash.
   const prevSnapKey = useRef(snapKey);
   const prevSnapProp = useRef(snapToProp);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!snapToProp || !isMobile) return;
     const keyChanged = snapKey !== prevSnapKey.current;
     const propChanged = snapToProp !== prevSnapProp.current;
@@ -150,6 +159,8 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
     if (!handle) return;
 
     const onTouchStart = (e: TouchEvent) => {
+      // Don't start drag if animating a snap
+      if (isAnimating.current) return;
       e.preventDefault();
       isDragging.current = true;
       startY.current = e.touches[0].clientY;
@@ -208,15 +219,12 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
     );
   }
 
-  // Compute transform: use state value, or start off-screen if not yet initialized
-  const transformValue = sheetY !== null
-    ? `translate3d(0, ${sheetY}px, 0)`
-    : 'translate3d(0, 100%, 0)';
-
-  // Remove border-radius when near full snap
-  const isFullSnap = sheetY !== null && sheetY <= FULL_TOP + 20;
+  // Remove border-radius when at full snap
+  const isFullSnap = currentSnap === 'full';
 
   // ── Mobile: bottom sheet overlay ──
+  // NOTE: No inline `transform` style — the ref controls the DOM directly via applyTranslate.
+  // This prevents React re-renders from fighting with the ref's position.
   return (
     <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30 }}>
       <div
@@ -228,7 +236,8 @@ export function BottomSheet({ children, onSnapChange, snapTo: snapToProp, snapKe
           background: 'var(--bg-primary)',
           borderRadius: isFullSnap ? '0' : '16px 16px 0 0',
           boxShadow: '0 -4px 30px rgba(0,0,0,0.5)',
-          transform: transformValue,
+          // Start off-screen; initialization effect will position it
+          transform: 'translate3d(0, 100%, 0)',
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
         }}

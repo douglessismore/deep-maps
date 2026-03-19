@@ -260,13 +260,14 @@ function App() {
         setTimelineViewRange(null);
         setMode('explore');
         setResetViewKey((k) => k + 1);
+        resetSheetToHalf();
         return prev;
       }
       const next = [...prev];
       const entry = next.pop()!;
       const restoredMode = entry.mode === 'scroll' ? 'explore' : entry.mode;
       setMode(restoredMode);
-      if (restoredMode !== 'explore') resetSheetToHalf();
+      resetSheetToHalf();
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
       setActiveEntity(entry.activeEntity);
@@ -284,7 +285,7 @@ function App() {
       }
       return next;
     });
-  }, []);
+  }, [resetSheetToHalf]);
 
   // Full reset → clears everything including collection, history, and timeline filter
   const handleBackToExplore = useCallback(() => {
@@ -298,7 +299,8 @@ function App() {
     setTimelineViewRange(null);
     setMode('explore');
     setResetViewKey((k) => k + 1);
-  }, []);
+    resetSheetToHalf();
+  }, [resetSheetToHalf]);
 
   const handleCollectionSelect = useCallback((collection: StoryCollection) => {
     pushNav();
@@ -411,6 +413,7 @@ function App() {
 
   const handleSurpriseMe = useCallback(() => {
     pushNav();
+    resetSheetToHalf();
     const randomStory = stories[Math.floor(Math.random() * stories.length)];
     const resolved = resolveLocationsFromMap(randomStory, momentMap);
     const randomLoc = resolved[Math.floor(Math.random() * resolved.length)];
@@ -418,7 +421,7 @@ function App() {
     setActiveStory(randomStory);
     setActiveLocation(randomLoc);
     setMode('story');
-  }, [pushNav, stories, momentMap]);
+  }, [pushNav, resetSheetToHalf, stories, momentMap]);
 
   const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
     pushNav();
