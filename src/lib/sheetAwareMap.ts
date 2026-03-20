@@ -4,7 +4,7 @@
  * it covers ~55% of the viewport, so fitBounds/panTo need to target
  * the visible area above the sheet rather than the full map container.
  */
-import type L from 'leaflet';
+import L from 'leaflet';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
@@ -67,41 +67,47 @@ export function panToAboveSheet(
   const { zoom, ...panOptions } = options ?? {};
 
   if (!isMobile || sheetSnap === 'full') {
-    if (zoom && zoom > map.getZoom()) {
-      map.flyTo(latlng, zoom, { animate: true, duration: 0.3, ...panOptions });
+    if (zoom) {
+      map.flyTo(latlng, zoom, { animate: true, duration: 0.8, ...panOptions });
     } else {
       map.panTo(latlng, { animate: true, duration: 0.3, ...panOptions });
     }
     return;
   }
 
-  // If zoom change is needed, use flyTo first (which re-centers), then offset for sheet
-  if (zoom && zoom > map.getZoom()) {
-    const containerH = map.getSize().y;
-    const sheetPx = getSheetPixels(sheetSnap, containerH);
-    // Offset the target latitude upward to account for the sheet covering the bottom
-    const visibleFraction = (containerH - sheetPx) / containerH;
-    const offsetLat = map.containerPointToLatLng([0, sheetPx * visibleFraction / 2]);
-    const origLat = map.containerPointToLatLng([0, 0]);
-    const latOffset = (origLat.lat - offsetLat.lat) * 0.5;
-    map.flyTo([latlng[0] + latOffset, latlng[1]], zoom, { animate: true, duration: 0.5, ...panOptions });
-    return;
-  }
-
+  // Mobile with sheet: offset the target upward so it lands in the visible area
+  // above the sheet, not centered in the full container.
   const containerH = map.getSize().y;
-  const containerW = map.getSize().x;
   const sheetPx = getSheetPixels(sheetSnap, containerH);
 
-  // Where we want the target: center of the visible area above the sheet
-  const visibleCenterY = (containerH - sheetPx) / 2;
-  const visibleCenterX = containerW / 2;
+  if (zoom) {
+    // flyTo with latitude offset to account for sheet coverage.
+    // The visible center is at (containerH - sheetPx) / 2 from the top,
+    // but flyTo centers at containerH / 2. The difference in pixels is sheetPx / 2.
+    // Convert that pixel offset to latitude offset at the target zoom level.
+    const targetZoom = zoom;
+    // At the target zoom, how many degrees per pixel?
+    // Leaflet: at zoom z, the world is 256 * 2^z pixels tall (for Mercator).
+    // But latitude isn't linear in Mercator, so use the map's projection.
+    // Simpler approach: compute the offset using the map's current projection
+    // at the target zoom level.
+    const sheetOffsetPx = sheetPx / 2;
+    // Use unproject to convert pixel offset to lat offset at the target zoom
+    const centerPoint = map.project(latlng, targetZoom);
+    const offsetPoint = L.point(centerPoint.x, centerPoint.y + sheetOffsetPx);
+    const offsetLatLng = map.unproject(offsetPoint, targetZoom);
+    const latOffset = latlng[0] - offsetLatLng.lat;
 
-  // Where the target currently is in the container
-  const targetPoint = map.latLngToContainerPoint(latlng);
-
-  // Pan by the difference
-  map.panBy(
-    [targetPoint.x - visibleCenterX, targetPoint.y - visibleCenterY],
-    { animate: true, duration: 0.3, ...panOptions },
-  );
+    map.flyTo([latlng[0] + latOffset, latlng[1]], targetZoom, { animate: true, duration: 0.8, ...panOptions });
+  } else {
+    // Pan only (no zoom change) — offset for sheet
+    const containerW = map.getSize().x;
+    const visibleCenterY = (containerH - sheetPx) / 2;
+    const visibleCenterX = containerW / 2;
+    const targetPoint = map.latLngToContainerPoint(latlng);
+    map.panBy(
+      [targetPoint.x - visibleCenterX, targetPoint.y - visibleCenterY],
+      { animate: true, duration: 0.3, ...panOptions },
+    );
+  }
 }
