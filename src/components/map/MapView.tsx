@@ -774,11 +774,19 @@ function MapController({
 
   useEffect(() => {
     const containerH = map.getSize().y;
-    const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
+    const containerW = map.getSize().x;
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 
+    // Proportional padding: markers fill ~70% of viewport (15% padding each side)
+    const propPadV = Math.round(containerH * 0.15);
+    const propPadH = Math.round(containerW * 0.15);
+    const storyPad: L.FitBoundsOptions = (!isMobile || sheetSnap === 'full')
+      ? { padding: [propPadH, propPadV] as L.PointTuple }
+      : { paddingTopLeft: [propPadH, propPadV] as L.PointTuple,
+          paddingBottomRight: [propPadH, Math.round(containerH * 0.4)] as L.PointTuple };
+
     // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil.
-    // Timeout must cover the longest animation duration (1.8s for fitBounds) + buffer.
+    // Timeout must cover the longest animation duration + buffer.
     isProgrammaticMove.current = true;
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
@@ -786,7 +794,7 @@ function MapController({
     // a story card is an intentional navigation, not a conflict with map interaction.
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 0.8 });
+      smartFlyToBounds(map, L.latLngBounds(coords), { ...storyPad, maxZoom: 16, duration: 0.8 });
       boundsLockUntil.current = Date.now() + 1200;
       userInteractUntil.current = 0; // Clear any stale interaction guard
       clearFlag();
@@ -794,7 +802,7 @@ function MapController({
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
-      smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 0.8 });
+      smartFlyToBounds(map, bounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
       boundsLockUntil.current = Date.now() + 1200;
       userInteractUntil.current = 0; // Clear any stale interaction guard
       clearFlag();
@@ -814,6 +822,7 @@ function MapController({
       clearFlag();
     } else if (activeCollection) {
       // Collection selected — zoom to fit all collection moments
+      const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
       const midSet = new Set(activeCollection.momentIds);
       const coords = allMoments.filter(m => midSet.has(m.id)).map(m => [m.lat, m.lng] as [number, number]);
       if (coords.length > 0) {
@@ -822,6 +831,7 @@ function MapController({
       userInteractUntil.current = 0;
       clearFlag();
     } else if (categoryFilter) {
+      const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
         resolveLocationsFromMap(s, momentMap).map((l) => [l.lat, l.lng] as [number, number])
