@@ -17,13 +17,16 @@
 - **Location marker hiding story pins** — Fix: reduced size to 10px, semi-transparent, `zIndexOffset: -1000`.
 - **Debug overlay removed** — Red `Y:### vh:### vv:### ch:###` badge and polling interval removed from BottomSheet.
 - **Map marker clicks not working on mobile** — Root cause: EmergenceLayer canvas-based `L.circleMarker` had 1-10px hit targets. Fix: `tolerance: 16` on canvas renderer extends clickable area.
-- **Moment expansion finicky (BUG-3)** — Fix: added 2-line description preview in collapsed state + auto-collapse when scroll moves away (matching StoryPanel pattern). Deployed but **needs mobile verification** — user reported no visible change (may be browser cache).
+- **Moment expansion finicky (BUG-3)** — Fix: removed expansion entirely from both StoryPanel and EntityPanel. Cards always show collapsed layout with 2-line description preview. No expand/collapse toggle, no state to manage.
+- **Pin hidden behind sheet / zoom too aggressive** — Root cause: panToAboveSheet latitude offset was backwards (centered NORTH instead of SOUTH of target). Also reduced zoom from 16→13, animation 0.8s→0.5s.
+- **Scroll-driven map panning blocked** — isProgrammaticMove flag cleared after 100ms but animations take 800ms+, causing every flyTo's zoomend to set a 10s cooldown. Fixed: flag clears after 2s, cooldown reduced to 4s.
+- **Default sheet at peek** — Sheet starts at 140px (peek) instead of 55% (half), showing much more map on initial load.
 
 ### 🟡 Potential Issues (Monitoring)
 
-**Map panning snap-back** — User reported map snapping back to programmatic location after manual pan. Improved in session 57: `isProgrammaticMove` flag distinguishes user vs programmatic map events, cooldown extended from 2s to 10s. User says too early to tell if fully resolved.
+**Map panning snap-back** — Improved: `isProgrammaticMove` flag + 4s cooldown. Offset direction fix may have resolved the perceived "snap-back" (was actually incorrect centering). Monitor.
 
-**Lincoln markers hidden when scrolling** — Pins still disappearing in some cases. May relate to `boundsLockUntil` timing or `panToAboveSheet` offset calculation at certain zoom levels.
+**Scroll-driven panning reliability** — Fixed 10s blocking bug. Rosa Parks entity was the test case. If still sporadic, may need to investigate whether `boundsLockUntil` interacts badly with scroll-driven flyTo.
 
 ### 🔴 Open Bugs
 
@@ -39,8 +42,6 @@ On person entities: switching between Moments/Key Places/Stories sub-tabs jumps 
 ### 🟡 Open Issues (Non-Bug)
 
 **Co-located moments (Texas State Cemetery)** — Story with all markers at same place, map doesn't zoom as you scroll. Content issue — should be converted to a place entity.
-
-**Default sheet position** — User suggested sheet should start less expanded (peek) to show more map on initial load.
 
 **Trump notability ranking** — User says Trump shouldn't be most notable; Einstein, Mozart, Lincoln more fitting. Notability scoring issue.
 
