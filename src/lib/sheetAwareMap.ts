@@ -92,13 +92,17 @@ export function panToAboveSheet(
     // Simpler approach: compute the offset using the map's current projection
     // at the target zoom level.
     const sheetOffsetPx = sheetPx / 2;
-    // Use unproject to convert pixel offset to lat offset at the target zoom
+    // Use unproject to convert pixel offset to lat offset at the target zoom.
+    // We need to center the map SOUTH of the target so the target appears in the
+    // visible area ABOVE the sheet (top ~45% of container), not at container center.
+    // Adding to Y in projected space = moving south. We fly to that southern point
+    // so the target pin ends up above center.
     const centerPoint = map.project(latlng, targetZoom);
     const offsetPoint = L.point(centerPoint.x, centerPoint.y + sheetOffsetPx);
     const offsetLatLng = map.unproject(offsetPoint, targetZoom);
-    const latOffset = latlng[0] - offsetLatLng.lat;
 
-    map.flyTo([latlng[0] + latOffset, latlng[1]], targetZoom, { animate: true, duration: 0.8, ...panOptions });
+    // offsetLatLng is south of latlng — fly to it so target appears above center
+    map.flyTo([offsetLatLng.lat, latlng[1]], targetZoom, { animate: true, duration: 0.8, ...panOptions });
   } else {
     // Pan only (no zoom change) — offset for sheet
     const containerW = map.getSize().x;

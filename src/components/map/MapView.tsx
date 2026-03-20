@@ -617,9 +617,10 @@ function MapController({
     // Is the boundsLock active? If so, skip single-pin zoom.
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 
-    // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil
+    // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil.
+    // Timeout must cover the longest animation duration (1.8s for fitBounds) + buffer.
     isProgrammaticMove.current = true;
-    const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 100); };
+    const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
     if (activeLocation && !isBoundsLocked) {
       // Fly to the active moment pin at street level.
