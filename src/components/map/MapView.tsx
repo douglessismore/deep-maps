@@ -623,17 +623,13 @@ function MapController({
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
     if (activeLocation && !isBoundsLocked) {
-      // Fly to the active moment pin — gentle zoom, not street level.
-      // Use panToAboveSheet so the pin lands in the visible area ABOVE the sheet.
-      // Only zoom in if we're currently zoomed out; don't zoom out if already close.
-      const currentZoomNow = map.getZoom();
-      const targetZoom = Math.max(currentZoomNow, 13);
+      // Pan to the active moment pin at current zoom — no zoom change.
+      // Just recenters the map so the pin is visible above the sheet.
       panToAboveSheet(
         map,
         [activeLocation.lat, activeLocation.lng],
         sheetSnap ?? 'half',
         isMobile,
-        { zoom: targetZoom, animate: true, duration: 0.5 },
       );
       clearFlag();
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {

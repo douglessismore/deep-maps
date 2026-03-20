@@ -8,7 +8,7 @@ import L from 'leaflet';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
-const PEEK_HEIGHT = 140;
+const PEEK_HEIGHT = 200;
 const HALF_RATIO = 0.55;
 const FULL_TOP = 8;
 
