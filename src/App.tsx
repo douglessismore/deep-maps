@@ -642,8 +642,8 @@ function App() {
       {isSplit ? (
         /* ── Split variant: fixed vertical layout, no bottom sheet ── */
         <div className="flex-1 flex flex-col overflow-hidden relative">
-          {/* Map — top 40% */}
-          <div className="h-[40%] relative shrink-0 overflow-hidden" style={{ isolation: 'isolate' }}>
+          {/* Map — top 45% */}
+          <div className="h-[45%] relative shrink-0 overflow-hidden" style={{ isolation: 'isolate' }}>
             <MapView
               stories={timelineFilteredStories}
               activeStory={activeStory}

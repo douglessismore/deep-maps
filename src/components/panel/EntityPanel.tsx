@@ -76,6 +76,9 @@ export function EntityPanel({
     return () => mq.removeEventListener('change', handler);
   }, []);
 
+  // Mobile header collapse — compact by default, expandable on tap (matches StoryPanel)
+  const [headerExpanded, setHeaderExpanded] = useState(false);
+
   // ─── Scroll container ref (declared early — used by tab switch + scroll handler)
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -381,51 +384,84 @@ export function EntityPanel({
       )}
 
       {/* Entity header — fixed outside scroll (hidden in spotlight peek) */}
-      {!isSpotlightPeek && <div className="shrink-0 p-4 border-b border-[var(--border-subtle)]">
-        {/* Accent bar */}
-        <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
+      {!isSpotlightPeek && (
+        <div className="shrink-0 border-b border-[var(--border-subtle)]">
+          {/* Mobile: compact collapsible header */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setHeaderExpanded(!headerExpanded)}
+              className="w-full flex items-center gap-2 px-4 py-2.5"
+            >
+              <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
+              <h2 className="font-sans text-sm font-bold text-white truncate">{entity.name}</h2>
+              <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize shrink-0">{entity.type}</span>
+              {entity.years && (
+                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{entity.years}</span>
+              )}
+              <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
+                headerExpanded ? 'text-[var(--text-muted)]' : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
+              }`}>
+                {headerExpanded ? 'Less' : 'More'}
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                  className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+                >
+                  <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </button>
+            {headerExpanded && (
+              <div className="px-4 pb-3 space-y-2">
+                {entity.description && (
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{entity.description}</p>
+                )}
+                {entity.wikipediaSlug && (
+                  <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                      <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+                    </svg>
+                    Read on Wikipedia
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                      <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
 
-        {/* Name */}
-        <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
-
-        {/* Type badge + years */}
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
-            {entity.type}
-          </span>
-          {entity.years && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {entity.years}
-            </span>
-          )}
+          {/* Desktop: full header (always visible) */}
+          <div className="hidden lg:block p-4">
+            <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
+            <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+                {entity.type}
+              </span>
+              {entity.years && (
+                <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+              )}
+            </div>
+            {entity.description && (
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">{entity.description}</p>
+            )}
+            {entity.wikipediaSlug && (
+              <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                  <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+                </svg>
+                Read on Wikipedia
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                  <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            )}
+          </div>
         </div>
-
-        {/* Description */}
-        {entity.description && (
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">
-            {entity.description}
-          </p>
-        )}
-
-        {/* Wikipedia link */}
-        {entity.wikipediaSlug && (
-          <a
-            href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-          >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-              <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
-            </svg>
-            Read on Wikipedia
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-              <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-        )}
-      </div>}
+      )}
 
       {/* Tab bar — fixed outside scroll (hidden in spotlight peek) */}
       {!isSpotlightPeek && renderTabBar()}

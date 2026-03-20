@@ -10,7 +10,7 @@ const UIVariantContext = createContext<{
 export function UIVariantProvider({ children }: { children: ReactNode }) {
   const [variant, setVariant] = useState<UIVariant>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('deep-maps-ui-variant') as UIVariant) || 'current';
+      return (localStorage.getItem('deep-maps-ui-variant') as UIVariant) || 'split';
     }
     return 'current';
   });

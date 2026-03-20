@@ -206,9 +206,9 @@ export function Header({
         </div>
       </div>
 
-      {/* Category filter bar — only in explore mode */}
+      {/* Category filter bar — only in explore mode, hidden on mobile to save vertical space */}
       {mode !== 'story' && mode !== 'entity' && (
-        <div className="flex items-center gap-1 px-4 pb-2 overflow-x-auto">
+        <div className="hidden lg:flex items-center gap-1 px-4 pb-2 overflow-x-auto">
           <button
             onClick={() => onCategoryFilter(null)}
             className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
