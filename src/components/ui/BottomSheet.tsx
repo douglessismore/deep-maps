@@ -134,10 +134,19 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
     const handle = sheet.querySelector('[data-drag-handle]') as HTMLElement;
     if (!handle) return;
 
+    const DRAG_THRESHOLD = 8; // pixels before committing to a drag
+    let touchStarted = false;
+    let dragCommitted = false;
+
     const onTouchStart = (e: TouchEvent) => {
-      if (isAnimating.current) return;
+      // Allow touch even during animation — cancel the animation and let user take over
+      if (isAnimating.current) {
+        sheet.style.transition = '';
+        isAnimating.current = false;
+      }
       e.preventDefault();
-      isDragging.current = true;
+      touchStarted = true;
+      dragCommitted = false;
       startY.current = e.touches[0].clientY;
       startTranslateY.current = currentTranslateY.current;
       lastMoveY.current = e.touches[0].clientY;
@@ -147,7 +156,7 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      if (!isDragging.current) return;
+      if (!touchStarted) return;
       e.preventDefault();
       const clientY = e.touches[0].clientY;
       const now = performance.now();
@@ -155,6 +164,14 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
       if (dt > 0) velocity.current = (clientY - lastMoveY.current) / dt;
       lastMoveY.current = clientY;
       lastMoveTime.current = now;
+
+      // Don't move the sheet until drag threshold is exceeded
+      if (!dragCommitted) {
+        if (Math.abs(clientY - startY.current) < DRAG_THRESHOLD) return;
+        dragCommitted = true;
+        isDragging.current = true;
+      }
+
       cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => {
         const snaps = getSnapPositions();
@@ -166,8 +183,15 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
     };
 
     const onTouchEnd = () => {
-      if (!isDragging.current) return;
+      if (!touchStarted) return;
+      touchStarted = false;
+      if (!dragCommitted) {
+        // Touch ended without exceeding threshold — do nothing
+        isDragging.current = false;
+        return;
+      }
       isDragging.current = false;
+      dragCommitted = false;
       cancelAnimationFrame(rafId.current);
       snapTo(findSnapTarget());
     };
@@ -196,10 +220,29 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
 
   const isFullSnap = currentSnap === 'full';
 
+  // DEBUG: real-time sheet position monitor (polls every 200ms)
+  const [debugInfo, setDebugInfo] = useState('');
+  useEffect(() => {
+    if (!isMobile) return;
+    const interval = setInterval(() => {
+      const sheet = sheetRef.current;
+      if (!sheet) return;
+      const t = sheet.style.transform;
+      const m = t.match(/[\d.]+/g);
+      const y = m ? Math.round(parseFloat(m[1] || '0')) : '?';
+      const vh = window.innerHeight;
+      const vvh = window.visualViewport ? Math.round(window.visualViewport.height) : '?';
+      const ch = sheet.parentElement ? sheet.parentElement.clientHeight : '?';
+      setDebugInfo(`Y:${y} vh:${vh} vv:${vvh} ch:${ch}`);
+    }, 200);
+    return () => clearInterval(interval);
+  }, [isMobile]);
+
   // ── Mobile: bottom sheet overlay ──
-  // No inline `transform` — the ref exclusively owns it via applyTranslate.
+  // Use position:fixed + 100dvh so the sheet is anchored to the visual viewport,
+  // immune to mobile address bar show/hide which changes the layout viewport.
   return (
-    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30 }}>
+    <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 30, height: '100dvh' }}>
       <div
         ref={sheetRef}
         className="absolute left-0 right-0 pointer-events-auto flex flex-col"
@@ -214,6 +257,17 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
           willChange: 'transform',
         }}
       >
+        {/* DEBUG: real-time position info */}
+        {debugInfo && (
+          <div style={{
+            position: 'absolute', top: 4, right: 8, zIndex: 9999,
+            background: 'red', color: 'white', fontSize: 10, fontFamily: 'monospace',
+            padding: '2px 6px', borderRadius: 4, pointerEvents: 'none',
+          }}>
+            {debugInfo}
+          </div>
+        )}
+
         {/* Drag handle */}
         <div
           data-drag-handle
