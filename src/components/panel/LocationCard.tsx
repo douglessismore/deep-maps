@@ -181,6 +181,13 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           )}
         </div>
 
+        {/* Description preview — always visible when collapsed, 2-line truncation */}
+        {!isExpanded && location.description && (
+          <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed mt-1.5 line-clamp-2">
+            {location.description}
+          </p>
+        )}
+
         {/* Collapsed chips — story chips + entity chips for strottability */}
         {!isExpanded && (
           <>

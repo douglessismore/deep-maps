@@ -72,6 +72,8 @@ export function EntityPanel({
 
   // ─── Expandable moments ───────────────────────────────────────────
   const [expandedMomentId, setExpandedMomentId] = useState<string | null>(null);
+  const expandedMomentIdRef = useRef<string | null>(null);
+  useEffect(() => { expandedMomentIdRef.current = expandedMomentId; }, [expandedMomentId]);
 
   // Auto-expand on navigation: if activeLocationId matches a moment, expand it
   useEffect(() => {
@@ -177,6 +179,10 @@ export function EntityPanel({
             setScrollActiveId(null);
             onScrollToTop?.();
           }
+          // Collapse any expanded card when scrolling to top
+          if (expandedMomentIdRef.current) {
+            setExpandedMomentId(null);
+          }
           return;
         }
 
@@ -186,6 +192,25 @@ export function EntityPanel({
         }
 
         if (closestId && closestId !== scrollActiveId) {
+          // Auto-collapse expanded card when scroll moves to a different card.
+          // But don't collapse if the scroll center is still within the expanded card
+          // (user might be reading a long expanded description).
+          const currentExpanded = expandedMomentIdRef.current;
+          if (currentExpanded && currentExpanded !== closestId) {
+            const expandedEl = momentRefs.current.get(currentExpanded);
+            const centerStillInExpanded = expandedEl && !isNearBottom && (() => {
+              const r = expandedEl.getBoundingClientRect();
+              return centerY >= r.top && centerY <= r.bottom;
+            })();
+            if (!centerStillInExpanded) {
+              setExpandedMomentId(null);
+              // Suppress scroll handler briefly during collapse transition
+              // to prevent layout shift from flipping activation
+              isProgrammaticScroll.current = true;
+              setTimeout(() => { isProgrammaticScroll.current = false; }, 300);
+            }
+          }
+
           setScrollActiveId(closestId);
           const entry = momentEntries.find((e) => e.moment.id === closestId);
           if (entry && onScrollLocationActive && entry.stories.length > 0) {
