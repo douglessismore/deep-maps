@@ -220,24 +220,6 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
 
   const isFullSnap = currentSnap === 'full';
 
-  // DEBUG: real-time sheet position monitor (polls every 200ms)
-  const [debugInfo, setDebugInfo] = useState('');
-  useEffect(() => {
-    if (!isMobile) return;
-    const interval = setInterval(() => {
-      const sheet = sheetRef.current;
-      if (!sheet) return;
-      const t = sheet.style.transform;
-      const m = t.match(/[\d.]+/g);
-      const y = m ? Math.round(parseFloat(m[1] || '0')) : '?';
-      const vh = window.innerHeight;
-      const vvh = window.visualViewport ? Math.round(window.visualViewport.height) : '?';
-      const ch = sheet.parentElement ? sheet.parentElement.clientHeight : '?';
-      setDebugInfo(`Y:${y} vh:${vh} vv:${vvh} ch:${ch}`);
-    }, 200);
-    return () => clearInterval(interval);
-  }, [isMobile]);
-
   // ── Mobile: bottom sheet overlay ──
   // Use position:fixed + 100dvh so the sheet is anchored to the visual viewport,
   // immune to mobile address bar show/hide which changes the layout viewport.
@@ -257,17 +239,6 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
           willChange: 'transform',
         }}
       >
-        {/* DEBUG: real-time position info */}
-        {debugInfo && (
-          <div style={{
-            position: 'absolute', top: 4, right: 8, zIndex: 9999,
-            background: 'red', color: 'white', fontSize: 10, fontFamily: 'monospace',
-            padding: '2px 6px', borderRadius: 4, pointerEvents: 'none',
-          }}>
-            {debugInfo}
-          </div>
-        )}
-
         {/* Drag handle */}
         <div
           data-drag-handle

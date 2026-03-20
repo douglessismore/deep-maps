@@ -75,7 +75,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const momentById = useMemo(() => new Map(moments.map(m => [m.id, m])), [moments]);
 
   const map = useMap();
-  const canvasRenderer = useRef(L.canvas({ padding: 0.5 }));
+  const canvasRenderer = useRef(L.canvas({ padding: 0.5, tolerance: 16 }));
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const activeOverlayRef = useRef<L.Marker | null>(null);
 

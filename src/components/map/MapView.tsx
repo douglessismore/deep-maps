@@ -243,8 +243,9 @@ function MapController({
   }, [map]);
 
   // Track user map interaction — suppress flyTo effects while user is
-  // actively panning/zooming and for 2s after, so the map doesn't snap back.
+  // actively panning/zooming and for a cooldown after, so the map doesn't snap back.
   const userInteractUntil = useRef(0);
+  const isProgrammaticMove = useRef(false); // Flag to distinguish our flyTo from user gestures
 
   useMapEvents({
     dragstart: () => {
@@ -253,15 +254,18 @@ function MapController({
     },
     dragend: () => {
       isUserDragging.current = false;
-      userInteractUntil.current = Date.now() + 2000; // Block flyTo for 2s after drag
+      userInteractUntil.current = Date.now() + 10000; // Block flyTo for 10s after drag
     },
     zoomstart: () => {
-      userInteractUntil.current = Infinity; // Active zoom — block indefinitely
+      // Only block if this is a USER-initiated zoom (not our flyTo)
+      if (!isProgrammaticMove.current) {
+        userInteractUntil.current = Infinity;
+      }
     },
     zoomend: () => {
       setCurrentZoom(map.getZoom());
-      if (!isUserDragging.current) {
-        userInteractUntil.current = Date.now() + 2000; // Block flyTo for 2s after zoom
+      if (!isUserDragging.current && !isProgrammaticMove.current) {
+        userInteractUntil.current = Date.now() + 10000; // Block flyTo for 10s after user zoom
       }
     },
     moveend: () => { /* Triggers re-render for cluster updates via currentBoundsKey */ },
@@ -613,6 +617,10 @@ function MapController({
     // Is the boundsLock active? If so, skip single-pin zoom.
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 
+    // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil
+    isProgrammaticMove.current = true;
+    const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 100); };
+
     if (activeLocation && !isBoundsLocked) {
       // Fly to the active moment pin at street level.
       // Use panToAboveSheet so the pin lands in the visible area ABOVE the sheet,
@@ -625,17 +633,20 @@ function MapController({
         isMobile,
         { zoom: targetZoom, animate: true, duration: 0.8 },
       );
+      clearFlag();
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });
       // Lock out single-pin zoom for 2s so the panel mount doesn't override
       boundsLockUntil.current = Date.now() + 2000;
+      clearFlag();
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
       smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 1.8 });
       boundsLockUntil.current = Date.now() + 2000;
+      clearFlag();
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
@@ -644,6 +655,9 @@ function MapController({
       if (coords.length > 0) {
         smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 10, duration: 1.8 });
       }
+      clearFlag();
+    } else {
+      isProgrammaticMove.current = false;
     }
   }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations, isMobile, sheetSnap]);
 
