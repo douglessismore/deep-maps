@@ -7,7 +7,7 @@ import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers'
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
-import { panToAboveSheet, getSheetAwarePadding } from '../../lib/sheetAwareMap';
+import { panToAboveSheet } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
@@ -307,20 +307,15 @@ export function ExplorePanel({
               if (collMoments.length > 0) {
                 onModeChange('scroll');
                 onScrollHighlight(collMoments);
-                // Fit bounds to show all collection moments
+                // Pan to first in-view moment (or first overall) — don't fitBounds
+                // on scroll, as that overrides the user's zoom level and causes
+                // the map to snap back when they try to zoom into an area.
                 clearTimeout(panTimeout.current);
                 panTimeout.current = window.setTimeout(() => {
-                  if (collMoments.length === 1) {
-                    panToAboveSheet(mapInstance, [collMoments[0].lat, collMoments[0].lng], sheetSnap, isSheetMobile, { duration: 0.3 });
-                  } else {
-                    const lats = collMoments.map(m => m.lat);
-                    const lngs = collMoments.map(m => m.lng);
-                    const containerH = mapInstance.getSize().y;
-                    mapInstance.fitBounds(
-                      [[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]],
-                      { ...getSheetAwarePadding(isSheetMobile, sheetSnap, containerH), animate: true, duration: 0.3, maxZoom: mapInstance.getZoom() }
-                    );
-                  }
+                  const mapBounds = mapInstance.getBounds();
+                  const inView = collMoments.filter(m => mapBounds.contains([m.lat, m.lng]));
+                  const panTarget = inView[0] || collMoments[0];
+                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
                 }, 80);
               }
             }
