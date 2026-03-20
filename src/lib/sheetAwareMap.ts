@@ -75,8 +75,9 @@ export function panToAboveSheet(
     if (splitNudgePx > 0) {
       const z = zoom ?? map.getZoom();
       const centerPt = map.project(latlng, z);
-      // Subtract from Y = shift center north → pin appears lower (more south)
-      const nudgedPt = L.point(centerPt.x, centerPt.y - splitNudgePx);
+      // Add to Y = shift center north (EPSG:3857 Y increases northward)
+      // → pin appears below center (more south on screen)
+      const nudgedPt = L.point(centerPt.x, centerPt.y + splitNudgePx);
       const nudgedLatLng = map.unproject(nudgedPt, z);
       if (zoom) {
         map.flyTo([nudgedLatLng.lat, latlng[1]], zoom, { animate: true, duration: 0.8, ...panOptions });
