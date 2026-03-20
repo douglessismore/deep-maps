@@ -7,11 +7,7 @@ data/moments-backup-pre-v3.json
 # Scripts (build-time only, not deployed)
 scripts/
 
-# Dev/review files
-*.html
-!dist/**/*.html
-CLAUDE.md
-handoff.md
+# Dev/review HTML files (but NOT index.html — Vite's entry point)
 story-audit.html
 style-comparison.html
 v3-*.html
@@ -19,6 +15,10 @@ v3-review-data.js
 review-run-*.html
 dashboard.html
 tracker.html
+
+# Dev/doc files
+CLAUDE.md
+handoff.md
 mockups/
 supabase/
 CONTENT-SCALING-PLAN.md

@@ -581,16 +581,28 @@ function MapController({
 
   // ── Fly to active location or fit story/entity/category bounds ────
 
+  // Track which story/entity was last shown at bounds level.
+  // When a story/entity first opens, we show ALL pins (fitBounds).
+  // Only fly to individual pins when the user scrolls to them (not on mount).
+  const lastBoundsId = useRef<string | null>(null);
+
   useEffect(() => {
     if (isUserDragging.current) return;
 
     const containerH = map.getSize().y;
     const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
 
-    if (activeLocation) {
+    // Determine if we should show all pins (fitBounds) vs zoom to single pin.
+    // Show all pins when: story/entity first opens OR user scrolls back to top.
+    // Single-pin zoom only when user actively scrolls to a moment (not on initial mount).
+    const currentContextId = activeStory?.id || (mode === 'entity' && entityLocations?.[0] ? `entity-${entityLocations[0].location.entityIds?.[0]}` : null);
+    const isInitialMount = currentContextId && currentContextId !== lastBoundsId.current;
+
+    if (activeLocation && !isInitialMount) {
       // Fly to the active moment pin at street level.
       // Use panToAboveSheet so the pin lands in the visible area ABOVE the sheet,
       // not centered in the full container (where it'd be hidden behind the sheet).
+      // Skip on initial mount — let fitBounds show all pins first.
       const targetZoom = 16;
       panToAboveSheet(
         map,
@@ -602,11 +614,13 @@ function MapController({
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });
+      if (currentContextId) lastBoundsId.current = currentContextId;
     } else if (mode === 'story' && activeStory) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
       smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 1.8 });
+      if (currentContextId) lastBoundsId.current = currentContextId;
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
