@@ -166,6 +166,9 @@ export function ExplorePanel({
   const collectionListCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
+  // Suppress viewport re-filtering when the map zoomed programmatically
+  // to show a story's moments. Cleared on manual map interaction.
+  const storyDrivenZoom = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
@@ -227,7 +230,7 @@ export function ExplorePanel({
 
   // Update viewport data when map moves (panel shows ALL moments — no notability filter)
   const updateViewport = useCallback(() => {
-    if (!mapInstance || isScrollDriving.current) return;
+    if (!mapInstance || isScrollDriving.current || storyDrivenZoom.current) return;
     const bounds = mapInstance.getBounds();
 
     // Filter by category if active
@@ -249,6 +252,29 @@ export function ExplorePanel({
     return () => {
       mapInstance.off('moveend', updateViewport);
       mapInstance.off('zoomend', updateViewport);
+    };
+  }, [mapInstance, updateViewport]);
+
+  // Clear story-driven zoom suppression on manual map interaction.
+  // When the user drags or pinch-zooms, they're exploring — re-enable filtering.
+  useEffect(() => {
+    if (!mapInstance) return;
+    const clearStoryZoom = () => {
+      if (storyDrivenZoom.current) {
+        storyDrivenZoom.current = false;
+        updateViewport(); // Re-filter now that user is driving
+      }
+    };
+    mapInstance.on('dragstart', clearStoryZoom);
+    // For pinch/scroll zoom, use zoomstart — but only if it's user-initiated.
+    // We detect this by checking if isScrollDriving is false (no programmatic scroll).
+    const onZoomStart = () => {
+      if (!isScrollDriving.current) clearStoryZoom();
+    };
+    mapInstance.on('zoomstart', onZoomStart);
+    return () => {
+      mapInstance.off('dragstart', clearStoryZoom);
+      mapInstance.off('zoomstart', onZoomStart);
     };
   }, [mapInstance, updateViewport]);
 
@@ -355,17 +381,24 @@ export function ExplorePanel({
             panTimeout.current = window.setTimeout(() => {
               if (isNewStory) {
                 // New story — fit bounds to show ALL moments so polylines
-                // and markers are fully visible. Cap zoom at 14.
+                // and markers are fully visible.
+                // Mark as story-driven zoom so the list doesn't re-filter
+                // to the new viewport — user keeps scrolling globally.
+                storyDrivenZoom.current = true;
                 if (resolved.length >= 2) {
                   const storyBounds = L.latLngBounds(resolved.map(l => [l.lat, l.lng] as L.LatLngTuple));
+                  // Cap zoom: don't zoom deeper than current + 3 levels
+                  // or maxZoom 12, whichever is lower. Keeps it gentle.
+                  const currentZ = mapInstance.getZoom();
+                  const maxZ = Math.min(currentZ + 3, 12);
                   mapInstance.flyToBounds(storyBounds, {
-                    padding: [50, 50] as L.PointTuple,
-                    maxZoom: 14,
-                    duration: 0.5,
+                    padding: [40, 40] as L.PointTuple,
+                    maxZoom: maxZ,
+                    duration: 0.4,
                   });
                 } else {
-                  // Single moment — just pan + zoom to it
-                  panToAboveSheet(mapInstance, [resolved[0].lat, resolved[0].lng], sheetSnap, isSheetMobile, { zoom: 12, duration: 0.5 });
+                  // Single moment — just pan to it (no deep zoom)
+                  panToAboveSheet(mapInstance, [resolved[0].lat, resolved[0].lng], sheetSnap, isSheetMobile, { duration: 0.3 });
                 }
               } else {
                 // Same story, scrolling between moments — pan only
@@ -401,11 +434,14 @@ export function ExplorePanel({
               panTimeout.current = window.setTimeout(() => {
                 if (isNewEntity && entityMoments.length >= 2) {
                   // New entity — fit bounds to show all moments
+                  storyDrivenZoom.current = true;
                   const bounds = L.latLngBounds(entityMoments.map(m => [m.lat, m.lng] as L.LatLngTuple));
+                  const currentZ = mapInstance.getZoom();
+                  const maxZ = Math.min(currentZ + 3, 12);
                   mapInstance.flyToBounds(bounds, {
-                    padding: [50, 50] as L.PointTuple,
-                    maxZoom: 14,
-                    duration: 0.5,
+                    padding: [40, 40] as L.PointTuple,
+                    maxZoom: maxZ,
+                    duration: 0.4,
                   });
                 } else {
                   const mapBounds = mapInstance.getBounds();
@@ -428,6 +464,7 @@ export function ExplorePanel({
       clearTimeout(highlightDebounce.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       isScrollDriving.current = false; // Prevent stuck flag when switching tabs mid-scroll
+      storyDrivenZoom.current = false; // Also clear story zoom suppression
     };
   }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
 
