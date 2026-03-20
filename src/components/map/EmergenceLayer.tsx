@@ -36,6 +36,33 @@ function computeAlpha(moment: Moment, zoom: number): number {
   return Math.max(0.15, notability / threshold);
 }
 
+// ── Highlight-aware opacity helpers ────────────────────────────────
+// Centralized so create/update, highlight, and zoomend all use the
+// same logic. Prevents race conditions between effects.
+
+function getHighlightOpacity(
+  momentId: string,
+  highlightIds: Set<string>,
+  hasHighlight: boolean,
+  moment: Moment,
+  zoom: number,
+): number {
+  if (!hasHighlight) return computeAlpha(moment, zoom);
+  return highlightIds.has(momentId) ? 1 : 0.08;
+}
+
+function getHighlightRadius(
+  momentId: string,
+  highlightIds: Set<string>,
+  hasHighlight: boolean,
+  baseRadius: number,
+): number {
+  if (hasHighlight && highlightIds.has(momentId)) {
+    return Math.max(baseRadius, 5);
+  }
+  return baseRadius;
+}
+
 // ── Component ──────────────────────────────────────────────────────
 
 interface EmergenceLayerProps {
@@ -83,6 +110,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const onClickRef = useRef(onLocationClick);
   onClickRef.current = onLocationClick;
 
+  // Keep a ref to scrollHighlight so all effects and event handlers can
+  // read the latest value without being listed as dependencies.
+  const scrollHighlightRef = useRef(scrollHighlight);
+  scrollHighlightRef.current = scrollHighlight;
+
   // Filter moments by active collection, category, and/or timeline era
   const filteredMoments = useMemo(() => {
     let result = moments as Moment[];
@@ -103,11 +135,18 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   }, [categoryFilter, activeCollection, storyIdFilter, moments, momentStoryMap, momentCategoryMap]);
 
   // ── Create / update / destroy circle markers ──────────────────────
+  // Uses scrollHighlightRef so newly created/updated markers respect
+  // the current highlight state from the start (no flash of full opacity).
   useEffect(() => {
     const currentMarkers = markersRef.current;
     const zoom = map.getZoom();
     const radius = getRadius(zoom);
     const nextIds = new Set(filteredMoments.map(m => m.id));
+
+    // Current highlight state
+    const hl = scrollHighlightRef.current;
+    const highlightIds = new Set(hl?.map(m => m.id) ?? []);
+    const hasHighlight = highlightIds.size > 0;
 
     // Remove markers no longer needed (category change)
     for (const [id, marker] of currentMarkers) {
@@ -121,19 +160,20 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const moment of filteredMoments) {
       const category = momentCategoryMap.get(moment.id);
       const color = category ? CATEGORIES[category]?.color || '#666' : '#666';
-      const alpha = computeAlpha(moment, zoom);
+      const opacity = getHighlightOpacity(moment.id, highlightIds, hasHighlight, moment, zoom);
+      const effectiveRadius = getHighlightRadius(moment.id, highlightIds, hasHighlight, radius);
 
       const existing = currentMarkers.get(moment.id);
       if (existing) {
-        existing.setRadius(radius);
-        existing.setStyle({ fillColor: color, fillOpacity: alpha });
+        existing.setRadius(effectiveRadius);
+        existing.setStyle({ fillColor: color, fillOpacity: opacity });
       } else {
         const story = momentStoryMap.get(moment.id);
         const marker = L.circleMarker([moment.lat, moment.lng], {
-          radius,
+          radius: effectiveRadius,
           renderer: canvasRenderer.current,
           fillColor: color,
-          fillOpacity: alpha,
+          fillOpacity: opacity,
           stroke: false,
           interactive: true,
           bubblingMouseEvents: false,
@@ -170,16 +210,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   }, [filteredMoments, map]);
 
   // ── Zoom-dependent radius + opacity updates ──────────────────────
-  // Keep a ref to scrollHighlight so zoomend can respect it without
-  // being listed as a hook dependency (which would re-register events).
-  const scrollHighlightRef = useRef(scrollHighlight);
-  scrollHighlightRef.current = scrollHighlight;
-
   useMapEvents({
     zoomend: () => {
       const zoom = map.getZoom();
-      const radius = getRadius(zoom);
-      const baseRadius = radius;
+      const baseRadius = getRadius(zoom);
 
       const hl = scrollHighlightRef.current;
       const highlightIds = new Set(hl?.map(m => m.id) ?? []);
@@ -188,20 +222,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       for (const [id, marker] of markersRef.current) {
         const moment = momentById.get(id);
         if (!moment) continue;
-
-        if (hasHighlight) {
-          if (highlightIds.has(id)) {
-            marker.setRadius(Math.max(baseRadius, 5));
-            marker.setStyle({ fillOpacity: 1 });
-          } else {
-            marker.setRadius(baseRadius);
-            marker.setStyle({ fillOpacity: 0.08 });
-          }
-        } else {
-          const alpha = computeAlpha(moment, zoom);
-          marker.setRadius(baseRadius);
-          marker.setStyle({ fillOpacity: alpha });
-        }
+        const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom);
+        const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
+        marker.setRadius(radius);
+        marker.setStyle({ fillOpacity: opacity });
       }
     },
   });
@@ -216,22 +240,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const [id, marker] of markersRef.current) {
       const moment = momentById.get(id);
       if (!moment) continue;
-
-      if (hasHighlight) {
-        if (highlightIds.has(id)) {
-          // Highlighted: full opacity, slightly larger
-          marker.setRadius(Math.max(baseRadius, 5));
-          marker.setStyle({ fillOpacity: 1 });
-        } else {
-          // Faded: dim
-          marker.setStyle({ fillOpacity: 0.08 });
-        }
-      } else {
-        // No highlight: restore normal
-        const alpha = computeAlpha(moment, zoom);
-        marker.setRadius(baseRadius);
-        marker.setStyle({ fillOpacity: alpha });
-      }
+      const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom);
+      const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
+      marker.setRadius(radius);
+      marker.setStyle({ fillOpacity: opacity });
     }
   }, [scrollHighlight, map]);
 

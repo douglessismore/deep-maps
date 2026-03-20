@@ -141,7 +141,7 @@ export function ExplorePanel({
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
-  const prevScrollStoryRef = useRef<string | null>(null);
+
   const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
@@ -165,9 +165,6 @@ export function ExplorePanel({
   const collectionListCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
-  // Suppress viewport re-filtering when the map zoomed programmatically
-  // to show a story's moments. Cleared on manual map interaction.
-  const storyDrivenZoom = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
@@ -229,7 +226,7 @@ export function ExplorePanel({
 
   // Update viewport data when map moves (panel shows ALL moments — no notability filter)
   const updateViewport = useCallback(() => {
-    if (!mapInstance || isScrollDriving.current || storyDrivenZoom.current) return;
+    if (!mapInstance || isScrollDriving.current) return;
     const bounds = mapInstance.getBounds();
 
     // Filter by category if active
@@ -254,28 +251,7 @@ export function ExplorePanel({
     };
   }, [mapInstance, updateViewport]);
 
-  // Clear story-driven zoom suppression on manual map interaction.
-  // When the user drags or pinch-zooms, they're exploring — re-enable filtering.
-  useEffect(() => {
-    if (!mapInstance) return;
-    const clearStoryZoom = () => {
-      if (storyDrivenZoom.current) {
-        storyDrivenZoom.current = false;
-        updateViewport(); // Re-filter now that user is driving
-      }
-    };
-    mapInstance.on('dragstart', clearStoryZoom);
-    // For pinch/scroll zoom, use zoomstart — but only if it's user-initiated.
-    // We detect this by checking if isScrollDriving is false (no programmatic scroll).
-    const onZoomStart = () => {
-      if (!isScrollDriving.current) clearStoryZoom();
-    };
-    mapInstance.on('zoomstart', onZoomStart);
-    return () => {
-      mapInstance.off('dragstart', clearStoryZoom);
-      mapInstance.off('zoomstart', onZoomStart);
-    };
-  }, [mapInstance, updateViewport]);
+
 
   // Collections filtered to viewport — only show collections with ≥1 moment in current map bounds
   const viewportCollections = useMemo(() => {
@@ -367,10 +343,8 @@ export function ExplorePanel({
           // Check if it's a story or a person entity
           const story = displayStories.find((s) => s.id === closestId);
           if (story && story.moments.length > 0) {
-            const isNewStory = closestId !== prevScrollStoryRef.current;
             onModeChange('scroll');
             setScrollActiveStoryId(closestId);
-            prevScrollStoryRef.current = closestId;
 
             // Highlight ALL story pins on the map — pass storyId to skip reverse-lookup
             const resolved = resolveLocationsFromMap(story, momentMap);
@@ -378,11 +352,6 @@ export function ExplorePanel({
 
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
-              if (isNewStory) {
-                // New story — mark as story-driven zoom so the list doesn't
-                // re-filter when MapView auto-zooms to show the polyline.
-                storyDrivenZoom.current = true;
-              }
               // Pan to first in-view pin (or first overall)
               const mapBounds = mapInstance.getBounds();
               const locsInView = resolved.filter(l => mapBounds.contains([l.lat, l.lng]));
@@ -405,17 +374,12 @@ export function ExplorePanel({
             // Person entity — highlight their moments on the map
             const entityMoments = getMomentsForEntity(closestId);
             if (entityMoments.length > 0) {
-              const isNewEntity = closestId !== prevScrollStoryRef.current;
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
-              prevScrollStoryRef.current = closestId;
-              onScrollHighlight(entityMoments);
+                onScrollHighlight(entityMoments);
 
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                if (isNewEntity) {
-                  storyDrivenZoom.current = true;
-                }
                 const mapBounds = mapInstance.getBounds();
                 const locsInView = entityMoments.filter(l => mapBounds.contains([l.lat, l.lng]));
                 const panTarget = locsInView[0] || entityMoments[0];
@@ -435,7 +399,6 @@ export function ExplorePanel({
       clearTimeout(highlightDebounce.current);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       isScrollDriving.current = false; // Prevent stuck flag when switching tabs mid-scroll
-      storyDrivenZoom.current = false; // Also clear story zoom suppression
     };
   }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
 
