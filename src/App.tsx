@@ -61,9 +61,11 @@ function App() {
   const autoGeoRequested = useRef(false);
 
   // Bottom sheet snap state (mobile only)
-  // Only tracks WHERE the user has dragged the sheet — never set programmatically on navigation.
-  // The sheet only moves when the user drags it. Content changes, sheet stays put.
-  const [sheetSnap, setSheetSnap] = useState<SheetSnap>('half');
+  const [sheetSnap, setSheetSnap] = useState<SheetSnap>('peek');
+  // Programmatic snap target — changes trigger sheet animation
+  const [targetSheetSnap, setTargetSheetSnap] = useState<SheetSnap | undefined>(undefined);
+  // Save pre-navigation snap so we can restore it on back
+  const preNavSheetSnap = useRef<SheetSnap>('peek');
 
   // Refit map bounds when sheet snap changes in story/entity mode
   // (e.g., user pulls sheet down to peek → show all story pins in the now-larger map area)
@@ -197,12 +199,16 @@ function App() {
     const savedMapView: SavedMapView | undefined = mapInstance
       ? { center: [mapInstance.getCenter().lat, mapInstance.getCenter().lng], zoom: mapInstance.getZoom() }
       : undefined;
+    // Save current sheet snap before navigating deeper
+    preNavSheetSnap.current = sheetSnap;
     setNavHistory((prev) => {
       const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
-  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab]);
+    // Expand sheet to half when navigating into content
+    setTargetSheetSnap('half');
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, sheetSnap]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -252,7 +258,8 @@ function App() {
         setTimelineViewRange(null);
         setMode('explore');
         setResetViewKey((k) => k + 1);
-    
+        // Restore sheet to pre-navigation position (or peek for full reset)
+        setTargetSheetSnap(preNavSheetSnap.current);
         return prev;
       }
       const next = [...prev];
@@ -274,6 +281,11 @@ function App() {
         } else {
           setResetViewKey((k) => k + 1);
         }
+        // Going back to explore — restore pre-navigation sheet position
+        setTargetSheetSnap(preNavSheetSnap.current);
+      } else {
+        // Going back to a story/entity — keep sheet at half
+        setTargetSheetSnap('half');
       }
       return next;
     });
@@ -291,6 +303,7 @@ function App() {
     setTimelineViewRange(null);
     setMode('explore');
     setResetViewKey((k) => k + 1);
+    setTargetSheetSnap('peek');
   }, []);
 
   const handleCollectionSelect = useCallback((collection: StoryCollection) => {
@@ -537,7 +550,7 @@ function App() {
         </div>
 
         {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
-        <BottomSheet onSnapChange={setSheetSnap}>
+        <BottomSheet onSnapChange={setSheetSnap} targetSnap={targetSheetSnap}>
           <Switch>
             <Route path="/">
               <Suspense fallback={<PanelSkeleton />}>

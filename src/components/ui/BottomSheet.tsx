@@ -6,6 +6,8 @@ interface BottomSheetProps {
   children: ReactNode;
   /** Called when user DRAGS to a new snap position */
   onSnapChange?: (snap: SheetSnap) => void;
+  /** Programmatic snap — when this changes, the sheet animates to this position */
+  targetSnap?: SheetSnap;
 }
 
 const PEEK_HEIGHT = 260;
@@ -26,7 +28,7 @@ const SNAP_DURATION = 400;
  *    resize events that caused the sheet to jump. The sheet stays at its
  *    pixel position; the user can drag to adjust if needed.
  */
-export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
+export function BottomSheet({ children, onSnapChange, targetSnap }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
@@ -122,6 +124,19 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
     sheetRef.current.style.transform = `translate3d(0, ${peekY}px, 0)`;
     initialized.current = true;
   }, [isMobile]);
+
+  // Programmatic snap — parent can tell the sheet to move (e.g., expand on navigation)
+  const prevTargetSnap = useRef(targetSnap);
+  useEffect(() => {
+    if (!isMobile || !initialized.current) return;
+    if (targetSnap && targetSnap !== prevTargetSnap.current) {
+      prevTargetSnap.current = targetSnap;
+      // Only snap if we're not already at the target
+      if (currentSnapRef.current !== targetSnap) {
+        snapTo(targetSnap);
+      }
+    }
+  }, [targetSnap, isMobile, snapTo]);
 
   // NO resize handler — the mobile browser's address bar collapsing/expanding
   // fires resize events that caused the sheet to jump (26 snapTo calls in a row).

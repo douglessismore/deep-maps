@@ -62,18 +62,28 @@ export function EntityPanel({
   const [activeTab, setActiveTab] = useState<EntityTab>('moments');
   const savedScrollTop = useRef<Record<string, number>>({});
 
-  // Save scroll position before switching tabs, restore after
+  // Save scroll position before switching tabs
   const handleTabSwitch = useCallback((tab: EntityTab) => {
     const container = scrollContainerRef.current;
     if (container) {
       savedScrollTop.current[activeTab] = container.scrollTop;
     }
     setActiveTab(tab);
-    requestAnimationFrame(() => {
-      if (container) {
-        container.scrollTop = savedScrollTop.current[tab] ?? 0;
-      }
-    });
+  }, [activeTab]);
+
+  // Restore scroll position after tab content has rendered
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const saved = savedScrollTop.current[activeTab];
+    if (saved != null && saved > 0) {
+      // Double rAF to ensure React has flushed the new tab content to DOM
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          container.scrollTop = saved;
+        });
+      });
+    }
   }, [activeTab]);
 
   // Reset tab when entity changes
