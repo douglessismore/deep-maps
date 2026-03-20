@@ -299,7 +299,7 @@ export function EntityPanel({
   };
 
   const renderStoriesTab = () => (
-    <div className="p-4 space-y-2 pb-[40vh]">
+    <div className="p-4 space-y-2 pb-24 lg:pb-[40vh]">
       {entityStories.map((story) => {
         const sCat = CATEGORIES[story.category];
         const entityMomentCount = momentEntries.filter(({ stories: s }) =>
@@ -321,7 +321,7 @@ export function EntityPanel({
   );
 
   const renderConnectionsTab = () => (
-    <div className="p-4 space-y-2 pb-[40vh]">
+    <div className="p-4 space-y-2 pb-24 lg:pb-[40vh]">
       {connections.map((connEntity) => {
         const sharedMoments = momentEntries.filter(({ moment }) =>
           moment.entityIds?.includes(connEntity.id)
@@ -435,7 +435,7 @@ export function EntityPanel({
               </div>
             )}
             {/* Bottom padding so last card can scroll fully into view */}
-            <div className="h-[40vh]" />
+            <div className="h-24 lg:h-[40vh]" />
           </div>
         ) : activeTab === 'connections' ? (
           renderConnectionsTab()

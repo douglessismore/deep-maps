@@ -332,7 +332,7 @@ export function StoryPanel({
 
       {/* Locations tab: single scroll container — header, explore further, moments all scroll together */}
       {activeTab === 'locations' && (
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar pb-24" style={{ overscrollBehavior: 'contain' }}>
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
           {/* Story Header — scrolls with content */}
           <div className="border-b border-[var(--border-subtle)]">
             {/* Mobile: compact toggle header */}
@@ -501,7 +501,7 @@ export function StoryPanel({
             </div>
           </div>
 
-          <div className="h-[40vh]" />
+          <div className="h-24 lg:h-[40vh]" />
         </div>
       )}
 
