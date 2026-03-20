@@ -641,7 +641,7 @@ function App() {
 
       {isSplit ? (
         /* ── Split variant: fixed vertical layout, no bottom sheet ── */
-        <div className="flex-1 flex flex-col overflow-hidden relative">
+        <div className="flex-1 flex flex-col mobile-landscape:flex-row overflow-hidden relative">
           {/* Map — top 45% */}
           <div className="h-[45%] relative shrink-0 overflow-hidden" style={{ isolation: 'isolate' }}>
             <MapView
@@ -661,10 +661,10 @@ function App() {
               nearMeZoomKey={nearMeZoomKey}
               restoreView={restoreView}
               entityLocations={entityLocations}
-              sheetSnap={sheetSnap}
+              sheetSnap="full"
             />
           </div>
-          {/* Panel — bottom 60%, normal scroll */}
+          {/* Panel — bottom 55%, normal scroll */}
           <div className="flex-1 overflow-hidden flex flex-col bg-[var(--bg-primary)]">
             {panelContent}
           </div>
