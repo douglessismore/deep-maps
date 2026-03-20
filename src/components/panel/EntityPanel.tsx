@@ -251,7 +251,7 @@ export function EntityPanel({
   const renderTabBar = () => {
     if (tabCount <= 1) return null;
     return (
-      <div className="flex border-b border-[var(--border-subtle)] shrink-0 sticky top-0 z-10 bg-[var(--bg-secondary)]">
+      <div className="flex border-b border-[var(--border-subtle)] shrink-0 bg-[var(--bg-secondary)]">
         {renderTabButton('moments', 'Moments', '📍', momentEntries.length)}
         {showConnections && renderTabButton('connections', connectionsLabel, connectionsIcon, connections.length)}
         {showStories && renderTabButton('stories', 'Stories', '📖', entityStories.length)}
@@ -358,58 +358,58 @@ export function EntityPanel({
         </div>
       )}
 
-      {/* Scroll container */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
-        {/* Entity header */}
-        <div className="p-4 border-b border-[var(--border-subtle)]">
-          {/* Accent bar */}
-          <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
+      {/* Entity header — fixed outside scroll so tab switching doesn't reset position */}
+      <div className="shrink-0 p-4 border-b border-[var(--border-subtle)]">
+        {/* Accent bar */}
+        <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
 
-          {/* Name */}
-          <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
+        {/* Name */}
+        <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
 
-          {/* Type badge + years */}
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
-              {entity.type}
+        {/* Type badge + years */}
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+            {entity.type}
+          </span>
+          {entity.years && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {entity.years}
             </span>
-            {entity.years && (
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                {entity.years}
-              </span>
-            )}
-          </div>
-
-          {/* Description */}
-          {entity.description && (
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">
-              {entity.description}
-            </p>
-          )}
-
-          {/* Wikipedia link */}
-          {entity.wikipediaSlug && (
-            <a
-              href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-                <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
-              </svg>
-              Read on Wikipedia
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
           )}
         </div>
 
-        {/* Tab bar */}
-        {renderTabBar()}
+        {/* Description */}
+        {entity.description && (
+          <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">
+            {entity.description}
+          </p>
+        )}
 
+        {/* Wikipedia link */}
+        {entity.wikipediaSlug && (
+          <a
+            href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+              <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+            </svg>
+            Read on Wikipedia
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+              <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        )}
+      </div>
+
+      {/* Tab bar — fixed outside scroll */}
+      {renderTabBar()}
+
+      {/* Scroll container — only tab content scrolls, so tab switching preserves position */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
         {/* Tab content */}
         {activeTab === 'moments' ? (
           <div className="p-4">

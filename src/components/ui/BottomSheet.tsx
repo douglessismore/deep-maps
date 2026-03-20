@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, useLayoutEffect, type ReactNode } from 'react';
+import { useEffect, useRef, useState, useCallback, useLayoutEffect, useMemo, type ReactNode } from 'react';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
@@ -236,6 +236,20 @@ export function BottomSheet({ children, onSnapChange, targetSnap }: BottomSheetP
 
   const isFullSnap = currentSnap === 'full';
 
+  // Compute visible content height so scroll container doesn't extend below viewport.
+  // The sheet is 100dvh tall but translated down — only (100dvh - translateY - handle) is visible.
+  const HANDLE_HEIGHT = 48;
+  const visibleContentHeight = useMemo(() => {
+    const totalH = typeof window !== 'undefined' ? window.innerHeight : 800;
+    const snapPositions = {
+      peek: totalH - PEEK_HEIGHT,
+      half: totalH * (1 - HALF_RATIO),
+      full: FULL_TOP,
+    };
+    const translateY = snapPositions[currentSnap];
+    return totalH - translateY - HANDLE_HEIGHT;
+  }, [currentSnap]);
+
   // ── Mobile: bottom sheet overlay ──
   // Use position:fixed + 100dvh so the sheet is anchored to the visual viewport,
   // immune to mobile address bar show/hide which changes the layout viewport.
@@ -259,13 +273,16 @@ export function BottomSheet({ children, onSnapChange, targetSnap }: BottomSheetP
         <div
           data-drag-handle
           className="shrink-0 cursor-grab active:cursor-grabbing flex items-center justify-center"
-          style={{ touchAction: 'none', height: 48 }}
+          style={{ touchAction: 'none', height: HANDLE_HEIGHT }}
         >
           <div className="w-10 h-1 bg-white/30 rounded-full" />
         </div>
 
-        {/* Content — overscroll-behavior:contain prevents scroll chaining to parent */}
-        <div className="flex-1 overflow-hidden flex flex-col" style={{ overscrollBehavior: 'contain' }}>
+        {/* Content — height limited to visible portion so scroll doesn't extend below viewport */}
+        <div className="overflow-hidden flex flex-col" style={{
+          overscrollBehavior: 'contain',
+          height: visibleContentHeight,
+        }}>
           {children}
         </div>
       </div>
