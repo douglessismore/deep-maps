@@ -601,6 +601,161 @@ function MapController({
     }
   }, [focusedLocations, clusterFeatures, activeLocation, scrollHighlight, map, onLocationClick, currentZoom, mode, categoryFilter, constellationVariant]);
 
+  // ── Story/entity path lines — connect moments chronologically ─────
+
+  const pathLineRef = useRef<L.Polyline | null>(null);
+  const pathArrowheadsRef = useRef<L.LayerGroup>(L.layerGroup());
+
+  useEffect(() => {
+    // Clean up previous line
+    if (pathLineRef.current) {
+      map.removeLayer(pathLineRef.current);
+      pathLineRef.current = null;
+    }
+    pathArrowheadsRef.current.clearLayers();
+
+    // Determine which moments to connect
+    let pathMoments: Moment[] = [];
+    let pathColor = 'rgba(255,255,255,0.5)';
+
+    if (focusedLocations && focusedLocations.length >= 2) {
+      // Story or entity mode — use all focused locations
+      pathMoments = focusedLocations.map(fl => fl.location);
+      // Use the story/entity's category color if available
+      const firstStory = focusedLocations[0]?.story;
+      if (firstStory) {
+        pathColor = CATEGORIES[firstStory.category]?.color ?? pathColor;
+      }
+    } else if (scrollHighlight && scrollHighlight.length >= 2) {
+      // Explore scroll mode — connect highlighted story's moments
+      pathMoments = [...scrollHighlight];
+      // Try to get the category color from the highlighted story
+      const hlStory = allStories.find(s =>
+        s.moments.some(sm => {
+          const m = momentMap.get(sm.momentId);
+          return m && scrollHighlight.some(sh => sh.id === m.id);
+        })
+      );
+      if (hlStory) {
+        pathColor = CATEGORIES[hlStory.category]?.color ?? pathColor;
+      }
+    }
+
+    if (pathMoments.length < 2) return;
+
+    // Sort chronologically by year (nulls last)
+    const sorted = [...pathMoments].sort((a, b) => {
+      const ya = a.year ?? 9999;
+      const yb = b.year ?? 9999;
+      return ya - yb;
+    });
+
+    // Build coordinate array
+    const coords: L.LatLngExpression[] = sorted.map(m => [m.lat, m.lng]);
+
+    // Draw the polyline
+    const line = L.polyline(coords, {
+      color: pathColor,
+      weight: 2,
+      opacity: 0.45,
+      dashArray: '6, 8',
+      lineCap: 'round',
+      lineJoin: 'round',
+      interactive: false,
+    });
+
+    line.addTo(map);
+    pathLineRef.current = line;
+
+    // Add small directional arrows at midpoints of each segment
+    pathArrowheadsRef.current.addTo(map);
+    for (let i = 0; i < sorted.length - 1; i++) {
+      const from = sorted[i];
+      const to = sorted[i + 1];
+      const midLat = (from.lat + to.lat) / 2;
+      const midLng = (from.lng + to.lng) / 2;
+      // Calculate angle for arrow direction
+      const dy = to.lat - from.lat;
+      const dx = to.lng - from.lng;
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+      const arrow = L.marker([midLat, midLng], {
+        icon: L.divIcon({
+          className: '',
+          html: `<div style="transform:rotate(${-angle + 90}deg);color:${pathColor};opacity:0.5;font-size:10px;line-height:1;">▾</div>`,
+          iconSize: [10, 10],
+          iconAnchor: [5, 5],
+        }),
+        interactive: false,
+        zIndexOffset: -500,
+      });
+      pathArrowheadsRef.current.addLayer(arrow);
+    }
+
+    return () => {
+      if (pathLineRef.current) {
+        map.removeLayer(pathLineRef.current);
+        pathLineRef.current = null;
+      }
+      pathArrowheadsRef.current.clearLayers();
+    };
+  }, [focusedLocations, scrollHighlight, map, allStories, momentMap]);
+
+  // Highlight the active segment of the path line
+  const activeSegmentRef = useRef<L.Polyline | null>(null);
+
+  useEffect(() => {
+    if (activeSegmentRef.current) {
+      map.removeLayer(activeSegmentRef.current);
+      activeSegmentRef.current = null;
+    }
+
+    if (!activeLocation || !pathLineRef.current) return;
+
+    // Find the active moment's position in the sorted path
+    let pathMoments: Moment[] = [];
+    if (focusedLocations && focusedLocations.length >= 2) {
+      pathMoments = focusedLocations.map(fl => fl.location);
+    } else if (scrollHighlight && scrollHighlight.length >= 2) {
+      pathMoments = [...scrollHighlight];
+    }
+    if (pathMoments.length < 2) return;
+
+    const sorted = [...pathMoments].sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
+    const activeIdx = sorted.findIndex(m => m.id === activeLocation.id);
+    if (activeIdx < 0) return;
+
+    // Draw bright segment from start up to the active moment
+    const activeCoords: L.LatLngExpression[] = sorted
+      .slice(0, activeIdx + 1)
+      .map(m => [m.lat, m.lng]);
+
+    if (activeCoords.length < 2) return;
+
+    // Get color from the path line
+    const lineOpts = pathLineRef.current.options;
+    const color = lineOpts.color ?? 'rgba(255,255,255,0.7)';
+
+    const segment = L.polyline(activeCoords, {
+      color,
+      weight: 3,
+      opacity: 0.8,
+      lineCap: 'round',
+      lineJoin: 'round',
+      interactive: false,
+    });
+
+    segment.addTo(map);
+    activeSegmentRef.current = segment;
+
+    return () => {
+      if (activeSegmentRef.current) {
+        map.removeLayer(activeSegmentRef.current);
+        activeSegmentRef.current = null;
+      }
+    };
+  }, [activeLocation, focusedLocations, scrollHighlight, map]);
+
   // ── Fly to active location or fit story/entity/category bounds ────
 
   // After fitBounds fires (story/entity open or scroll-to-top), suppress single-pin
