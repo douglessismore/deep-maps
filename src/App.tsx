@@ -4,10 +4,13 @@ import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
 import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
+import { ClaudeSheet } from './components/ui/ClaudeSheet';
+import { CinemaSheet } from './components/ui/CinemaSheet';
 import { FadeIn } from './components/ui/FadeIn';
 import { PanelSkeleton } from './components/ui/Skeleton';
 import { VariantToggle } from './components/ui/VariantToggle';
 import { getSheetAwarePadding } from './lib/sheetAwareMap';
+import { CATEGORIES } from './lib/categories';
 import { useUIVariant } from './lib/uiVariant';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
@@ -497,31 +500,28 @@ function App() {
     return 'Stories';
   }, [navHistory]);
 
-  // ── Spotlight context labels for the drag handle ──
-  const spotlightContext = useMemo(() => {
-    if (variant !== 'spotlight') return { label: undefined, sublabel: undefined };
+  // ── Context labels for variant drag handles / HUDs ──
+  const sheetContext = useMemo(() => {
+    const none = { label: undefined as string | undefined, sublabel: undefined as string | undefined, momentCount: 0, currentMomentIndex: 0, categoryColor: '#fff' };
     if (mode === 'story' && activeStory) {
       const resolved = resolveLocationsFromMap(activeStory, momentMap);
       const activeIdx = activeLocation
         ? resolved.findIndex(l => l.id === activeLocation.id)
         : 0;
+      const cat = CATEGORIES[activeStory.category];
       return {
         label: activeStory.name,
-        sublabel: `${activeIdx + 1} of ${resolved.length} moments`,
+        sublabel: `${Math.max(activeIdx + 1, 1)} of ${resolved.length} moments`,
+        momentCount: resolved.length,
+        currentMomentIndex: Math.max(activeIdx, 0),
+        categoryColor: cat?.color ?? '#fff',
       };
     }
     if (mode === 'entity' && activeEntity) {
-      return {
-        label: activeEntity.name,
-        sublabel: activeEntity.type,
-      };
+      return { ...none, label: activeEntity.name, sublabel: activeEntity.type };
     }
-    // Explore mode
-    return {
-      label: undefined,
-      sublabel: `${timelineFilteredStories.length} stories`,
-    };
-  }, [variant, mode, activeStory, activeLocation, activeEntity, momentMap, timelineFilteredStories.length]);
+    return { ...none, sublabel: `${timelineFilteredStories.length} stories` };
+  }, [mode, activeStory, activeLocation, activeEntity, momentMap, timelineFilteredStories.length]);
 
   // Spotlight expand handler — tapping peek card expands sheet to full
   const handleExpandRequest = useCallback(() => {
@@ -695,16 +695,44 @@ function App() {
             />
           </div>
 
-          {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
-          <BottomSheet
-            onSnapChange={setSheetSnap}
-            targetSnap={targetSheetSnap}
-            contextLabel={spotlightContext.label}
-            contextSublabel={spotlightContext.sublabel}
-            onExpandRequest={handleExpandRequest}
-          >
-            {panelContent}
-          </BottomSheet>
+          {/* Panel — variant-aware sheet component */}
+          {variant === 'claude' ? (
+            <ClaudeSheet
+              onSnapChange={setSheetSnap}
+              targetSnap={targetSheetSnap}
+              contextLabel={sheetContext.label}
+              contextSublabel={sheetContext.sublabel}
+              momentCount={sheetContext.momentCount}
+              currentMomentIndex={sheetContext.currentMomentIndex}
+              categoryColor={sheetContext.categoryColor}
+              onExpandRequest={handleExpandRequest}
+            >
+              {panelContent}
+            </ClaudeSheet>
+          ) : variant === 'cinema' ? (
+            <CinemaSheet
+              onSnapChange={setSheetSnap}
+              targetSnap={targetSheetSnap}
+              contextLabel={sheetContext.label}
+              contextSublabel={sheetContext.sublabel}
+              momentCount={sheetContext.momentCount}
+              currentMomentIndex={sheetContext.currentMomentIndex}
+              categoryColor={sheetContext.categoryColor}
+              onExpandRequest={handleExpandRequest}
+            >
+              {panelContent}
+            </CinemaSheet>
+          ) : (
+            <BottomSheet
+              onSnapChange={setSheetSnap}
+              targetSnap={targetSheetSnap}
+              contextLabel={sheetContext.label}
+              contextSublabel={sheetContext.sublabel}
+              onExpandRequest={handleExpandRequest}
+            >
+              {panelContent}
+            </BottomSheet>
+          )}
         </div>
       )}
     </div>
