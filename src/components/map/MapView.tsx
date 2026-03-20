@@ -786,16 +786,16 @@ function MapController({
     // a story card is an intentional navigation, not a conflict with map interaction.
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });
-      boundsLockUntil.current = Date.now() + 2000;
+      smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 0.8 });
+      boundsLockUntil.current = Date.now() + 1200;
       userInteractUntil.current = 0; // Clear any stale interaction guard
       clearFlag();
     } else if (mode === 'story' && activeStory && !activeLocation) {
       const bounds = L.latLngBounds(
         resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
       );
-      smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 1.8 });
-      boundsLockUntil.current = Date.now() + 2000;
+      smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 0.8 });
+      boundsLockUntil.current = Date.now() + 1200;
       userInteractUntil.current = 0; // Clear any stale interaction guard
       clearFlag();
     } else if (activeLocation && !isBoundsLocked) {
