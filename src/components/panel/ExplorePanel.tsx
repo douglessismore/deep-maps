@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
@@ -141,6 +142,7 @@ export function ExplorePanel({
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
+  const prevScrollStoryRef = useRef<string | null>(null);
   const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
@@ -340,24 +342,55 @@ export function ExplorePanel({
           // Check if it's a story or a person entity
           const story = displayStories.find((s) => s.id === closestId);
           if (story && story.moments.length > 0) {
+            const isNewStory = closestId !== prevScrollStoryRef.current;
             onModeChange('scroll');
             setScrollActiveStoryId(closestId);
+            prevScrollStoryRef.current = closestId;
 
             // Highlight ALL story pins on the map — pass storyId to skip reverse-lookup
             const resolved = resolveLocationsFromMap(story, momentMap);
             onScrollHighlight(resolved, story.id);
 
-            // Pan to first in-view pin (or first pin overall)
-            const mapBounds = mapInstance.getBounds();
-            const locsInView = resolved.filter((l) =>
-              mapBounds.contains([l.lat, l.lng])
-            );
-            const panTarget = locsInView[0] || resolved[0];
-            if (panTarget) {
+            if (isNewStory && resolved.length >= 2) {
+              // New story highlighted — zoom to fit its moments if they're
+              // clustered tighter than the current viewport shows. Only zooms
+              // IN (never out), so it won't fight the user's manual zoom.
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+                const storyBounds = L.latLngBounds(resolved.map(l => [l.lat, l.lng] as L.LatLngTuple));
+                const currentZoom = mapInstance.getZoom();
+                // What zoom level would fitBounds use for this story?
+                const idealZoom = mapInstance.getBoundsZoom(storyBounds, false, L.point(60, 60));
+                // Only zoom in if the ideal zoom is at least 1.5 levels higher
+                // (story is much tighter than viewport) and cap at 13
+                if (idealZoom > currentZoom + 1.5) {
+                  const targetZoom = Math.min(idealZoom, 13);
+                  mapInstance.flyToBounds(storyBounds, {
+                    padding: [40, 40] as L.PointTuple,
+                    maxZoom: targetZoom,
+                    duration: 0.6,
+                  });
+                } else {
+                  // Story fits roughly in current view — just pan to first pin
+                  const mapBounds = mapInstance.getBounds();
+                  const locsInView = resolved.filter(l => mapBounds.contains([l.lat, l.lng]));
+                  const panTarget = locsInView[0] || resolved[0];
+                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+                }
               }, 80);
+            } else {
+              // Same story, just scrolling between moments — pan only
+              const mapBounds = mapInstance.getBounds();
+              const locsInView = resolved.filter((l) =>
+                mapBounds.contains([l.lat, l.lng])
+              );
+              const panTarget = locsInView[0] || resolved[0];
+              if (panTarget) {
+                clearTimeout(panTimeout.current);
+                panTimeout.current = window.setTimeout(() => {
+                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+                }, 80);
+              }
             }
           } else if (isActiveCollectionTab) {
             // Collection moment — highlight single pin + pan
