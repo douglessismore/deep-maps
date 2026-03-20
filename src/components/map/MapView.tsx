@@ -671,32 +671,41 @@ function MapController({
     // Auto-zoom to show full polyline when the set of moments changes.
     // Only triggers when the highlighted story/entity changes, not on
     // every scroll within the same story.
+    // Respects user interaction cooldown — if user recently zoomed/dragged,
+    // don't auto-zoom (they chose their viewport intentionally).
     const momentKey = sorted.map(m => m.id).join(',');
     if (momentKey !== prevPathMomentIds.current) {
       prevPathMomentIds.current = momentKey;
-      const lineBounds = line.getBounds();
-      if (lineBounds.isValid()) {
-        const mapBounds = map.getBounds();
-        // Check two conditions for zooming:
-        // 1. Some moments are outside the viewport (need to zoom out or pan)
-        // 2. Story bounds are tiny relative to viewport (need to zoom in)
-        const allVisible = sorted.every(m => mapBounds.contains([m.lat, m.lng]));
-        const viewLatSpan = mapBounds.getNorth() - mapBounds.getSouth();
-        const viewLngSpan = mapBounds.getEast() - mapBounds.getWest();
-        const storyLatSpan = lineBounds.getNorth() - lineBounds.getSouth();
-        const storyLngSpan = lineBounds.getEast() - lineBounds.getWest();
-        // Story is "too small" if it spans less than 15% of the viewport
-        const tooSmall = (storyLatSpan < viewLatSpan * 0.15) && (storyLngSpan < viewLngSpan * 0.15);
-        const needsZoom = !allVisible || tooSmall;
 
-        if (needsZoom) {
-          isProgrammaticMove.current = true;
-          map.flyToBounds(lineBounds, {
-            padding: [40, 40] as L.PointTuple,
-            maxZoom: 12,
-            duration: 0.4,
-          });
-          setTimeout(() => { isProgrammaticMove.current = false; }, 1500);
+      // Skip auto-zoom if user recently interacted with the map
+      const userRecentlyInteracted = Date.now() < userInteractUntil.current;
+      if (userRecentlyInteracted) {
+        // User is in control — don't fight their zoom level
+      } else {
+        const lineBounds = line.getBounds();
+        if (lineBounds.isValid()) {
+          const mapBounds = map.getBounds();
+          // Check two conditions for zooming:
+          // 1. Some moments are outside the viewport (need to zoom out or pan)
+          // 2. Story bounds are tiny relative to viewport (need to zoom in)
+          const allVisible = sorted.every(m => mapBounds.contains([m.lat, m.lng]));
+          const viewLatSpan = mapBounds.getNorth() - mapBounds.getSouth();
+          const viewLngSpan = mapBounds.getEast() - mapBounds.getWest();
+          const storyLatSpan = lineBounds.getNorth() - lineBounds.getSouth();
+          const storyLngSpan = lineBounds.getEast() - lineBounds.getWest();
+          // Story is "too small" if it spans less than 15% of the viewport
+          const tooSmall = (storyLatSpan < viewLatSpan * 0.15) && (storyLngSpan < viewLngSpan * 0.15);
+          const needsZoom = !allVisible || tooSmall;
+
+          if (needsZoom) {
+            isProgrammaticMove.current = true;
+            map.flyToBounds(lineBounds, {
+              padding: [60, 60] as L.PointTuple,
+              maxZoom: 12,
+              duration: 0.6,
+            });
+            setTimeout(() => { isProgrammaticMove.current = false; }, 1500);
+          }
         }
       }
     }

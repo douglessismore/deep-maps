@@ -170,17 +170,38 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   }, [filteredMoments, map]);
 
   // ── Zoom-dependent radius + opacity updates ──────────────────────
+  // Keep a ref to scrollHighlight so zoomend can respect it without
+  // being listed as a hook dependency (which would re-register events).
+  const scrollHighlightRef = useRef(scrollHighlight);
+  scrollHighlightRef.current = scrollHighlight;
+
   useMapEvents({
     zoomend: () => {
       const zoom = map.getZoom();
       const radius = getRadius(zoom);
+      const baseRadius = radius;
+
+      const hl = scrollHighlightRef.current;
+      const highlightIds = new Set(hl?.map(m => m.id) ?? []);
+      const hasHighlight = highlightIds.size > 0;
 
       for (const [id, marker] of markersRef.current) {
         const moment = momentById.get(id);
         if (!moment) continue;
-        const alpha = computeAlpha(moment, zoom);
-        marker.setRadius(radius);
-        marker.setStyle({ fillOpacity: alpha });
+
+        if (hasHighlight) {
+          if (highlightIds.has(id)) {
+            marker.setRadius(Math.max(baseRadius, 5));
+            marker.setStyle({ fillOpacity: 1 });
+          } else {
+            marker.setRadius(baseRadius);
+            marker.setStyle({ fillOpacity: 0.08 });
+          }
+        } else {
+          const alpha = computeAlpha(moment, zoom);
+          marker.setRadius(baseRadius);
+          marker.setStyle({ fillOpacity: alpha });
+        }
       }
     },
   });
