@@ -1,7 +1,59 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-03-19 (Session 55 — v3 content rewrite 96% complete, review page live)
+**Last updated:** 2026-03-20 (Session 57 — mobile UX fixes, moment expansion rework)
 **Branch:** `main`
+
+---
+
+## Bug Tracker
+
+### ✅ Resolved (Sessions 56-57)
+- **Bottom sheet auto-expands on navigation/scroll** — Root cause: mobile address bar collapse changed layout viewport height. Fix: `fixed inset-0` with `height: 100dvh`. Also removed all programmatic snapping — sheet only moves via user drag.
+- **Vercel deploy failures** — 1.1GB CSV exceeded limit + `*.html` in `.vercelignore` blocked `index.html`. Fix: explicit file list in `.vercelignore`.
+- **Active pin hidden behind bottom sheet** — Fix: `panToAboveSheet` replaces `map.flyTo`, offsets for sheet coverage using Leaflet `project/unproject`.
+- **Last item cutoff in scroll lists** — Fix: `pb-[40vh]` / `h-[40vh]` bottom padding on all scroll containers.
+- **Initial story/entity zoom to first moment** — Fix: `boundsLockUntil` 2-second guard after `fitBounds` prevents first-moment override.
+- **Sheet stuck at full (can't drag down)** — Fix: `isAnimating` guard now cancels on touch, letting user take over.
+- **Location marker hiding story pins** — Fix: reduced size to 10px, semi-transparent, `zIndexOffset: -1000`.
+- **Debug overlay removed** — Red `Y:### vh:### vv:### ch:###` badge and polling interval removed from BottomSheet.
+- **Map marker clicks not working on mobile** — Root cause: EmergenceLayer canvas-based `L.circleMarker` had 1-10px hit targets. Fix: `tolerance: 16` on canvas renderer extends clickable area.
+- **Moment expansion finicky (BUG-3)** — Fix: added 2-line description preview in collapsed state + auto-collapse when scroll moves away (matching StoryPanel pattern). Deployed but **needs mobile verification** — user reported no visible change (may be browser cache).
+
+### 🟡 Potential Issues (Monitoring)
+
+**Map panning snap-back** — User reported map snapping back to programmatic location after manual pan. Improved in session 57: `isProgrammaticMove` flag distinguishes user vs programmatic map events, cooldown extended from 2s to 10s. User says too early to tell if fully resolved.
+
+**Lincoln markers hidden when scrolling** — Pins still disappearing in some cases. May relate to `boundsLockUntil` timing or `panToAboveSheet` offset calculation at certain zoom levels.
+
+### 🔴 Open Bugs
+
+**BUG-4: Person entity sub-tab inconsistency** ⭐ LOW
+Different person entities show different tab combinations (Ed Gein: Stories+Wikipedia; Ted Bundy: no tabs; Willie Nelson: Moments+Key Places+Stories). Data-driven — entities lacking linked stories/places don't get those tabs. Should verify and standardize.
+
+**BUG-5: Missing DIVE DEEPER on some entities** ⭐ LOW
+O. Henry entity has no related story links / DIVE DEEPER section. Need to verify entity→story linking.
+
+**BUG-6: Tab switch resets scroll position** ⭐ MEDIUM
+On person entities: switching between Moments/Key Places/Stories sub-tabs jumps to top. Should preserve scroll position.
+
+### 🟡 Open Issues (Non-Bug)
+
+**Co-located moments (Texas State Cemetery)** — Story with all markers at same place, map doesn't zoom as you scroll. Content issue — should be converted to a place entity.
+
+**Default sheet position** — User suggested sheet should start less expanded (peek) to show more map on initial load.
+
+**Trump notability ranking** — User says Trump shouldn't be most notable; Einstein, Mozart, Lincoln more fitting. Notability scoring issue.
+
+**ISSUE-4: 188 descriptions over 500 chars** — V3 rewrite produced 188 descriptions slightly over the 500-char hard max (mostly 501-550). Need trimming pass.
+
+### 🔵 Roadmap / Deferred
+
+- **Austin content sprint** — User wants more Austin pins for sharing with friends
+- **Historical media integration** — LOC Chronicling America API for newspaper pages
+- **Sub-moments / multi-location architecture** — Parked; option B (separate clustered moments) works now
+- **Subtitle signal/variety** — Place+Hook hybrid subtitles (deferred from Session 55)
+- **Strotability scoring** — Content quality metric for cross-story connections
+- **Tracker dashboard upgrade** — Entity tabs, idea inbox, column labels (`magical-singing-beaver.md`)
 
 ---
 
@@ -186,7 +238,7 @@
 | **Project dashboard** | `npx tsx scripts/generate-dashboard.ts` | `dashboard.html` | ✅ Active |
 | **Ingestion tracker** | `npx tsx scripts/generate-tracker.ts` | `tracker.html` | ✅ Active |
 | **Wiring audit** | `npx tsx scripts/audit-wiring.ts` | Terminal output | ✅ Active |
-| **Session context** | Read this file | `handoff.md` | ✅ Updated session 52 |
+| **Session context** | Read this file | `handoff.md` | ✅ Updated session 57 |
 | **Content standards** | Read directly | `content-guide-v3.md` + `content-guide-prompt.ts` | ✅ v3 active (v2 in prompt.ts pending update) |
 | **Style comparison** | Open in browser | `style-comparison.html` (localhost:8896) | ✅ Framework B selected |
 | **Story audit** | Open in browser | `story-audit.html` (localhost:8896) | ✅ 293 stories, 55 flagged |
@@ -252,7 +304,9 @@ npx tsx scripts/generate-dashboard.ts
 | `src/lib/data/supabase-loader.ts` | Fetches all tables, reassembles joins |
 | `src/components/ui/TimelineBar.tsx` | Timeline visualization + filtering |
 | `src/components/panel/ExplorePanel.tsx` | Panel with hybrid nearest/notable sort |
-| `src/components/map/EmergenceLayer.tsx` | Canvas-based moment renderer (respects storyIdFilter) |
+| `src/components/map/EmergenceLayer.tsx` | Canvas-based moment renderer (tolerance:16 for mobile taps) |
+| `src/components/ui/BottomSheet.tsx` | Mobile bottom sheet — fixed+100dvh, drag-only, no programmatic snapping |
+| `src/lib/sheetAwareMap.ts` | Sheet-aware map panning — panToAboveSheet, getSheetPixels |
 | `supabase/migrations/` | 005 = tracker_notes entity_slug + category upgrade |
 | `content-guide.md` | Editorial standards (11 moment name rules) |
 | `CONTENT-SCALING-PLAN.md` | Scaling strategy: 671 → 10K → 100K → 1M |

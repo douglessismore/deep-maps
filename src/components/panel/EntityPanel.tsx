@@ -70,23 +70,6 @@ export function EntityPanel({
   const showStories = entityStories.length > 0;
   const tabCount = 1 + (showConnections ? 1 : 0) + (showStories ? 1 : 0);
 
-  // ─── Expandable moments ───────────────────────────────────────────
-  const [expandedMomentId, setExpandedMomentId] = useState<string | null>(null);
-  const expandedMomentIdRef = useRef<string | null>(null);
-  useEffect(() => { expandedMomentIdRef.current = expandedMomentId; }, [expandedMomentId]);
-
-  // Auto-expand on navigation: if activeLocationId matches a moment, expand it
-  useEffect(() => {
-    if (activeLocationId) {
-      const hasMatch = momentEntries.some(
-        (e) => e.moment.id === activeLocationId
-      );
-      if (hasMatch) {
-        setExpandedMomentId(activeLocationId);
-      }
-    }
-  }, [entity.id]); // Only on entity mount/change, not on every activeLocationId change
-
   // ─── Scroll-driven map highlighting ──────────────────────────────
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -179,10 +162,6 @@ export function EntityPanel({
             setScrollActiveId(null);
             onScrollToTop?.();
           }
-          // Collapse any expanded card when scrolling to top
-          if (expandedMomentIdRef.current) {
-            setExpandedMomentId(null);
-          }
           return;
         }
 
@@ -192,25 +171,6 @@ export function EntityPanel({
         }
 
         if (closestId && closestId !== scrollActiveId) {
-          // Auto-collapse expanded card when scroll moves to a different card.
-          // But don't collapse if the scroll center is still within the expanded card
-          // (user might be reading a long expanded description).
-          const currentExpanded = expandedMomentIdRef.current;
-          if (currentExpanded && currentExpanded !== closestId) {
-            const expandedEl = momentRefs.current.get(currentExpanded);
-            const centerStillInExpanded = expandedEl && !isNearBottom && (() => {
-              const r = expandedEl.getBoundingClientRect();
-              return centerY >= r.top && centerY <= r.bottom;
-            })();
-            if (!centerStillInExpanded) {
-              setExpandedMomentId(null);
-              // Suppress scroll handler briefly during collapse transition
-              // to prevent layout shift from flipping activation
-              isProgrammaticScroll.current = true;
-              setTimeout(() => { isProgrammaticScroll.current = false; }, 300);
-            }
-          }
-
           setScrollActiveId(closestId);
           const entry = momentEntries.find((e) => e.moment.id === closestId);
           if (entry && onScrollLocationActive && entry.stories.length > 0) {
@@ -227,12 +187,9 @@ export function EntityPanel({
     };
   }, [activeTab, momentEntries, scrollActiveId, onScrollLocationActive]);
 
-  // Click a moment card → toggle expand + highlight + tell map
+  // Click a moment card → highlight + tell map
   const handleMomentClick = useCallback(
     (moment: Moment, parentStories: Story[]) => {
-      // Toggle expanded
-      setExpandedMomentId((prev) => (prev === moment.id ? null : moment.id));
-      // Set scroll highlight
       setScrollActiveId(moment.id);
       if (onScrollLocationActive && parentStories.length > 0) {
         onScrollLocationActive(moment, parentStories[0]);
@@ -290,8 +247,7 @@ export function EntityPanel({
         location={moment}
         story={primaryStory}
         isActive={scrollActiveId === moment.id}
-        isExpanded={expandedMomentId === moment.id}
-        showExpandChevron
+        isExpanded={false}
         skipCanonicalFilter
         parentStories={parentStories}
         excludeEntityIds={[entity.id]}
