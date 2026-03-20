@@ -18,12 +18,13 @@ const SNAP_DURATION = 400;
  * Google/Apple Maps-style bottom sheet overlay on mobile.
  * On desktop (lg:), renders as a standard side panel pass-through.
  *
- * RULE: The sheet only moves when the USER drags it.
- * No programmatic snapping on navigation — content changes, sheet stays put.
- *
- * - `currentTranslateY` ref owns the DOM transform exclusively.
- * - React NEVER sets an inline transform — so re-renders can't override position.
- * - `currentSnap` state exists only for derived rendering (rounded corners).
+ * RULES:
+ * 1. The sheet only moves when the USER drags it. No programmatic snapping.
+ * 2. `currentTranslateY` ref exclusively owns the DOM transform.
+ *    React NEVER sets transform — so re-renders can't override position.
+ * 3. No resize handler — the browser address bar collapsing/expanding fires
+ *    resize events that caused the sheet to jump. The sheet stays at its
+ *    pixel position; the user can drag to adjust if needed.
  */
 export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -121,13 +122,9 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
     initialized.current = true;
   }, [isMobile]);
 
-  // Handle resize — re-snap to current position with new dimensions
-  useEffect(() => {
-    if (!isMobile) return;
-    const handler = () => snapTo(currentSnapRef.current);
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
-  }, [isMobile, snapTo]);
+  // NO resize handler — the mobile browser's address bar collapsing/expanding
+  // fires resize events that caused the sheet to jump (26 snapTo calls in a row).
+  // The sheet stays at its pixel position. User drags to adjust if needed.
 
   // Touch events — drag handle ONLY
   useEffect(() => {
@@ -226,8 +223,8 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
           <div className="w-10 h-1 bg-white/30 rounded-full" />
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-hidden flex flex-col">
+        {/* Content — overscroll-behavior:contain prevents scroll chaining to parent */}
+        <div className="flex-1 overflow-hidden flex flex-col" style={{ overscrollBehavior: 'contain' }}>
           {children}
         </div>
       </div>
