@@ -3240,7 +3240,7 @@ export const moments: Moment[] = [
     id: 'btw-capitol-refusal',
     name: 'Governor Colquitt Refuses to Let Booker T. Washington Speak at the Capitol',
     subtitle: 'Racist state leadership denies the nation\'s most famous Black educator',
-    description: 'Governor Oscar Colquitt formally refused to host Washington, stating that a Black man should not be allowed to speak from the Capitol stand. The snub was intended to humiliate Washington, but it only served to mobilize the city\'s residents in protest.',
+    description: 'Governor Oscar Colquitt formally refused to host Washington, stating that a Black man should not be allowed to speak from the Capitol stand. The refusal was intended to humiliate Washington, but it only served to mobilize the city\'s residents in protest.',
     lat: 30.2742,
     lng: -97.7403,
     type: 'government',
@@ -3256,7 +3256,7 @@ export const moments: Moment[] = [
   {
     id: 'btw-wooldridge-square',
     name: 'Booker T. Washington Addresses Racially Integrated Crowd at Wooldridge Square',
-    subtitle: '5,000 people gather at a park bandstand after the Capitol snub',
+    subtitle: '5,000 people gather at a park bandstand after the Capitol refusal',
     description: 'A crowd of over 5,000 people—nearly 20% of Austin\'s total population at the time—crammed into the square to hear Washington speak. The event was racially integrated, a rare occurrence in 1911, and the speech from the bandstand became a landmark moment in Austin\'s civil rights history.',
     lat: 30.2724,
     lng: -97.7456,

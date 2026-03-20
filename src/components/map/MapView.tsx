@@ -367,16 +367,11 @@ function MapController({
           const needsRebuild =
             existing.isActive !== isActive ||
             existing.isHighlighted !== isHighlighted ||
+            existing.isFaded !== isFaded ||
             existing.effectiveSize !== effectiveSize;
 
           if (needsRebuild) {
             existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity));
-          } else if (existing.isFaded !== isFaded) {
-            const el = existing.marker.getElement();
-            if (el) {
-              const inner = el.firstElementChild as HTMLElement;
-              if (inner) inner.style.opacity = markerOpacity !== undefined ? String(markerOpacity) : '';
-            }
           }
 
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
