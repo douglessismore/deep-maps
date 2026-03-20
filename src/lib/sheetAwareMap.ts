@@ -13,14 +13,25 @@ const HALF_RATIO = 0.55;
 const FULL_TOP = 8;
 
 /**
- * Calculate how many pixels the sheet covers from the bottom.
+ * Calculate how many pixels the sheet covers from the bottom of the map container.
+ * The sheet is position:fixed with height:100dvh, so its position is relative to
+ * the viewport, not the map container. We use window.innerHeight for the sheet
+ * position calculation, then offset by the map's top position in the viewport.
  */
 export function getSheetPixels(snap: SheetSnap, containerHeight: number): number {
-  switch (snap) {
-    case 'half': return containerHeight * HALF_RATIO;
-    case 'peek': return PEEK_HEIGHT;
-    case 'full': return containerHeight - FULL_TOP;
-  }
+  if (snap === 'peek') return PEEK_HEIGHT;
+  if (snap === 'full') return containerHeight - FULL_TOP;
+
+  // Sheet at half: covers bottom HALF_RATIO of the VIEWPORT (not the map container).
+  // The sheet top = window.innerHeight * (1 - HALF_RATIO) from viewport top.
+  // The map container may start below a nav bar, so its top != 0.
+  // sheetPx in map coordinates = containerHeight - (sheetTopInViewport - mapTopInViewport)
+  const viewportH = typeof window !== 'undefined' ? window.innerHeight : containerHeight;
+  const sheetTopInViewport = viewportH * (1 - HALF_RATIO);
+  // Map container starts at (viewportH - containerHeight) from viewport top (approximately)
+  const mapTopInViewport = viewportH - containerHeight;
+  const sheetPxInMap = containerHeight - (sheetTopInViewport - mapTopInViewport);
+  return Math.max(0, sheetPxInMap);
 }
 
 /**

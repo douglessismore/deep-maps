@@ -350,7 +350,7 @@ export function EntityPanel({
       )}
 
       {/* Scroll container */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
         {/* Entity header */}
         <div className="p-4 border-b border-[var(--border-subtle)]">
           {/* Accent bar */}
