@@ -8,7 +8,7 @@ interface BottomSheetProps {
   onSnapChange?: (snap: SheetSnap) => void;
 }
 
-const PEEK_HEIGHT = 200;
+const PEEK_HEIGHT = 260;
 const HALF_RATIO = 0.55;
 const FULL_TOP = 8;
 const FLICK_THRESHOLD = 0.5;

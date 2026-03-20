@@ -8,7 +8,7 @@ import L from 'leaflet';
 
 export type SheetSnap = 'peek' | 'half' | 'full';
 
-const PEEK_HEIGHT = 200;
+const PEEK_HEIGHT = 260;
 const HALF_RATIO = 0.55;
 const FULL_TOP = 8;
 
@@ -104,14 +104,18 @@ export function panToAboveSheet(
     // offsetLatLng is south of latlng — fly to it so target appears above center
     map.flyTo([offsetLatLng.lat, latlng[1]], targetZoom, { animate: true, duration: 0.8, ...panOptions });
   } else {
-    // Pan only (no zoom change) — offset for sheet
-    const containerW = map.getSize().x;
-    const visibleCenterY = (containerH - sheetPx) / 2;
-    const visibleCenterX = containerW / 2;
-    const targetPoint = map.latLngToContainerPoint(latlng);
-    map.panBy(
-      [targetPoint.x - visibleCenterX, targetPoint.y - visibleCenterY],
-      { animate: true, duration: 0.3, ...panOptions },
-    );
+    // Pan only (no zoom change) — offset for sheet.
+    // Use the same project/unproject approach as the zoom path for consistency.
+    const currentZoom = map.getZoom();
+    const sheetOffsetPx = sheetPx / 2;
+    const centerPoint = map.project(latlng, currentZoom);
+    const offsetPoint = L.point(centerPoint.x, centerPoint.y + sheetOffsetPx);
+    const offsetLatLng = map.unproject(offsetPoint, currentZoom);
+
+    if (panOptions.animate === false) {
+      map.setView([offsetLatLng.lat, latlng[1]], currentZoom, { animate: false });
+    } else {
+      map.panTo([offsetLatLng.lat, latlng[1]], { animate: true, duration: 0.3, ...panOptions });
+    }
   }
 }

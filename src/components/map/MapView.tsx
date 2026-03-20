@@ -623,13 +623,15 @@ function MapController({
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
     if (activeLocation && !isBoundsLocked) {
-      // Pan to the active moment pin at current zoom — no zoom change.
-      // Just recenters the map so the pin is visible above the sheet.
+      // Instant snap to the active moment pin — no animation, no zoom change.
+      // Eliminates all animation timing issues (queued flyTos, zoomstart/zoomend
+      // cooldown interference). Just repositions the map immediately.
       panToAboveSheet(
         map,
         [activeLocation.lat, activeLocation.lng],
         sheetSnap ?? 'half',
         isMobile,
+        { animate: false },
       );
       clearFlag();
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
