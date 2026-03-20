@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
@@ -380,33 +379,15 @@ export function ExplorePanel({
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               if (isNewStory) {
-                // New story — fit bounds to show ALL moments so polylines
-                // and markers are fully visible.
-                // Mark as story-driven zoom so the list doesn't re-filter
-                // to the new viewport — user keeps scrolling globally.
+                // New story — mark as story-driven zoom so the list doesn't
+                // re-filter when MapView auto-zooms to show the polyline.
                 storyDrivenZoom.current = true;
-                if (resolved.length >= 2) {
-                  const storyBounds = L.latLngBounds(resolved.map(l => [l.lat, l.lng] as L.LatLngTuple));
-                  // Cap zoom: don't zoom deeper than current + 3 levels
-                  // or maxZoom 12, whichever is lower. Keeps it gentle.
-                  const currentZ = mapInstance.getZoom();
-                  const maxZ = Math.min(currentZ + 3, 12);
-                  mapInstance.flyToBounds(storyBounds, {
-                    padding: [40, 40] as L.PointTuple,
-                    maxZoom: maxZ,
-                    duration: 0.4,
-                  });
-                } else {
-                  // Single moment — just pan to it (no deep zoom)
-                  panToAboveSheet(mapInstance, [resolved[0].lat, resolved[0].lng], sheetSnap, isSheetMobile, { duration: 0.3 });
-                }
-              } else {
-                // Same story, scrolling between moments — pan only
-                const mapBounds = mapInstance.getBounds();
-                const locsInView = resolved.filter(l => mapBounds.contains([l.lat, l.lng]));
-                const panTarget = locsInView[0] || resolved[0];
-                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
               }
+              // Pan to first in-view pin (or first overall)
+              const mapBounds = mapInstance.getBounds();
+              const locsInView = resolved.filter(l => mapBounds.contains([l.lat, l.lng]));
+              const panTarget = locsInView[0] || resolved[0];
+              panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
             }, 80);
           } else if (isActiveCollectionTab) {
             // Collection moment — highlight single pin + pan
@@ -432,23 +413,13 @@ export function ExplorePanel({
 
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                if (isNewEntity && entityMoments.length >= 2) {
-                  // New entity — fit bounds to show all moments
+                if (isNewEntity) {
                   storyDrivenZoom.current = true;
-                  const bounds = L.latLngBounds(entityMoments.map(m => [m.lat, m.lng] as L.LatLngTuple));
-                  const currentZ = mapInstance.getZoom();
-                  const maxZ = Math.min(currentZ + 3, 12);
-                  mapInstance.flyToBounds(bounds, {
-                    padding: [40, 40] as L.PointTuple,
-                    maxZoom: maxZ,
-                    duration: 0.4,
-                  });
-                } else {
-                  const mapBounds = mapInstance.getBounds();
-                  const locsInView = entityMoments.filter(l => mapBounds.contains([l.lat, l.lng]));
-                  const panTarget = locsInView[0] || entityMoments[0];
-                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
                 }
+                const mapBounds = mapInstance.getBounds();
+                const locsInView = entityMoments.filter(l => mapBounds.contains([l.lat, l.lng]));
+                const panTarget = locsInView[0] || entityMoments[0];
+                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
               }, 80);
             }
           }

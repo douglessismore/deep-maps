@@ -605,6 +605,7 @@ function MapController({
 
   const pathLineRef = useRef<L.Polyline | null>(null);
   const pathArrowheadsRef = useRef<L.LayerGroup>(L.layerGroup());
+  const prevPathMomentIds = useRef<string>('');
 
   useEffect(() => {
     // Clean up previous line
@@ -666,6 +667,31 @@ function MapController({
 
     line.addTo(map);
     pathLineRef.current = line;
+
+    // Auto-zoom to show full polyline when the set of moments changes.
+    // Only triggers when the highlighted story/entity changes, not on
+    // every scroll within the same story.
+    const momentKey = sorted.map(m => m.id).join(',');
+    if (momentKey !== prevPathMomentIds.current) {
+      prevPathMomentIds.current = momentKey;
+      const lineBounds = line.getBounds();
+      if (lineBounds.isValid()) {
+        const mapBounds = map.getBounds();
+        // Check if any moment is outside the current viewport
+        const allVisible = sorted.every(m => mapBounds.contains([m.lat, m.lng]));
+        if (!allVisible) {
+          // Set programmatic move flag to avoid triggering user-interaction cooldown
+          isProgrammaticMove.current = true;
+          const currentZoom = map.getZoom();
+          map.flyToBounds(lineBounds, {
+            padding: [40, 40] as L.PointTuple,
+            maxZoom: Math.min(currentZoom + 3, 12),
+            duration: 0.4,
+          });
+          setTimeout(() => { isProgrammaticMove.current = false; }, 1500);
+        }
+      }
+    }
 
     // Add small directional arrows at midpoints of each segment
     pathArrowheadsRef.current.addTo(map);
