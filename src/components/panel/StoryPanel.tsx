@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getStoryEntities, canonicalStoryIds, getEntityIcon } from '../../lib/entityHelpers';
+import { getStoryEntities, getEntityIcon } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
 import { CategoryBadge } from '../ui/CategoryBadge';
@@ -500,7 +500,7 @@ export function StoryPanel({
                     })()
                   : allLocations;
 
-                return locationsToRender.map((location, i) => {
+                return locationsToRender.map((location) => {
                   const storyMoment = story.moments.find((sm) => sm.momentId === location.id);
                   const actualIndex = allLocations.indexOf(location);
                   return (

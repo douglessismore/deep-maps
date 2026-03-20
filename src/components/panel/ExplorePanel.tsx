@@ -116,7 +116,7 @@ export function ExplorePanel({
   onScrollPosition,
   restoreScrollTop,
   onScrollRestored,
-  onExpandRequest,
+  onExpandRequest: _onExpandRequest,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -148,7 +148,6 @@ export function ExplorePanel({
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' && window.innerWidth < 640
   );
-  const isSpotlightPeek = variant === 'spotlight' && isSheetMobile && sheetSnap === 'peek';
   // Split = always rich cards; spotlight peek = rich single card
   const useCompactCards = variant === 'split' ? false : isMobile;
 
