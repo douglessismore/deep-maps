@@ -1,17 +1,27 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-03-20 (Session 58 — mobile UX variant system, bug fixes, expert council review)
+**Last updated:** 2026-03-20 (Session 59 — split layout polish, polylines, auto-zoom removal, dimming fixes)
 **Branch:** `main`
 
 ---
 
 ## Bug Tracker
 
+### ✅ Resolved (Session 59)
+- **Story/entity click not zooming** — Root cause: `userInteractUntil` guard blocked ALL zooms for 4s after any map interaction. Fix: mode-change zooms (story/entity entry) bypass the guard entirely; only single-pin pans respect it.
+- **Collection click zooms to blank map** — Root cause: `smartFlyToBounds` called from App.tsx without `isProgrammaticMove` flag, so MapController treated it as user interaction. Fix: moved collection zoom into MapController's zoom effect.
+- **Pin dimming not working in focused mode** — Two causes: (1) StoryPanel/EntityPanel never set `scrollHighlight`, so dimming had no trigger. Fix: dim based on `activeLocation` in focused mode. (2) DOM opacity update via `getElement()` silently failed on unrendered markers. Fix: always rebuild icon when faded state changes.
+- **Pin dimming not working in explore mode** — Root cause: EmergenceLayer's `zoomend` handler reset all marker opacity without checking scroll highlight. Also, create/update effect set normal alpha without checking highlight state. Fix: centralized highlight logic into shared helpers; all code paths (create, update, zoomend, highlight) use same `getHighlightOpacity`/`getHighlightRadius`.
+- **Auto-zoom janky on scroll** — Removed entirely (Option A). Polylines communicate geographic scope visually. User controls zoom. Clicking a story still zooms to bounds.
+- **Collection scroll snapping to different collection** — Root cause: `updateViewport()` fired after 400ms scroll pause, reshuffling `viewportCollections` and changing which card was closest to center. Fix: skip viewport update during collections list scroll.
+- **Entity tab bar hidden for single-tab entities** — Reagan and others with only moments (no connections/stories) showed no tabs. Fix: always render tab bar.
+- **Map pin centering in split mode** — Root cause: panels received `sheetSnap='peek'` in split mode, causing phantom offset. Fix: `effectiveSheetSnap='full'` for split mode.
+
 ### ✅ Resolved (Session 58)
-- **BUG-5: Missing DIVE DEEPER on biographies** — Root cause: canonical story filter removed ALL related stories on biographies like O. Henry. Fix: stopped filtering canonical stories from connectedEntries in StoryPanel.
-- **BUG-6: Tab switch resets scroll** — Root cause: header + tab bar were inside the scroll container, so tab switches disrupted scroll position. Fix: moved header and tab bar outside scroll container in EntityPanel.
-- **Scroll cutoff at bottom of lists** — Root cause: BottomSheet content area extended below viewport (sheet is 100dvh but translated down). Fix: explicit `visibleContentHeight` computed from currentSnap. Also reduced mobile spacers from 40vh to pb-24.
-- **Excess black space at bottom of lists** — Root cause: 40vh spacers designed for desktop were too large for mobile's smaller visible area. Fix: responsive spacers (pb-24 mobile, 40vh desktop).
+- **BUG-5: Missing DIVE DEEPER on biographies** — Fix: stopped filtering canonical stories from connectedEntries in StoryPanel.
+- **BUG-6: Tab switch resets scroll** — Fix: moved header and tab bar outside scroll container in EntityPanel.
+- **Scroll cutoff at bottom of lists** — Fix: explicit `visibleContentHeight` computed from currentSnap.
+- **Excess black space at bottom of lists** — Fix: responsive spacers (pb-24 mobile, 40vh desktop).
 
 ### ✅ Resolved (Sessions 56-57)
 - **Bottom sheet auto-expands on navigation/scroll** — Fix: `fixed inset-0` with `height: 100dvh`.
@@ -23,54 +33,48 @@
 - **Default sheet at peek** — Sheet starts at 260px (peek).
 
 ### 🟡 Potential Issues (Monitoring)
-- **Map panning snap-back** — Improved with 4s cooldown + instant snap. Not reported recently.
+- **Focused-mode dimming** — User reported "better" for issues 1/2/4/5 but "still not working" for dimming. Latest fix (icon rebuild instead of DOM manipulation) pushed but NOT yet confirmed by user.
 - **Compact card density on mobile** — User flagged moment cards as "busy" even in compact mode. Park for future session.
+- **Landscape map area tiny** — User noted, not a priority.
 
 ### 🟡 Open Issues (Non-Bug)
 - **Co-located moments (Texas State Cemetery)** — Content issue, convert to place entity.
 - **Trump notability ranking** — Scoring issue.
 - **188 descriptions over 500 chars** — Trimming pass needed.
-- **Scroll-driven zoom** — User wants it eventually but all implementations too laggy. Parked. User's latest idea: idle-triggered slow zoom (zoom in after 1.5-2s pause, zoom back out on scroll). Better concept than scroll-driven.
 - **BUG-4: Entity sub-tab inconsistency** — Low priority, data-driven.
 
 ---
 
-## UI Variant System (NEW — Session 58)
+## What Shipped (Session 59)
 
-### Toggle
-Floating pill button top-right on mobile. Tap to cycle variants. Persists in localStorage.
+### Features
+1. **Split layout as default** — Vertical flex: map top 45%, panel bottom 55%. No bottom sheet overlay.
+2. **Chronological path lines (polylines)** — Connect story/entity moments on the map with dashed polylines, directional arrows at midpoints, and active segment highlighting.
+3. **Timeline date range merged with era chips** — Saved 16-20px vertical space by combining year range label with era chip row.
+4. **Collapsible entity header on mobile** — Maximizes vertical space in split mode.
+5. **Landscape layout support** — `mobile-landscape:flex-row` switches to side-by-side layout.
+6. **Category pills hidden on mobile** — `hidden lg:flex` to save space.
 
-### Variants
-| Variant | Key | Description |
-|---------|-----|-------------|
-| **Current** | A | 3 snaps (peek/half/full), compact cards on mobile. Today's default. |
-| **Spotlight** | B | Expert council's top pick. 2 snaps (peek/full). Peek = single "now playing" card. Contextual drag handle (story name + progress). Tap card → expand to full. |
-| **Split** | C | Mia Chen's idea. Persistent map (top 40%) + panel below (60%). No sheet overlay. Map always visible. |
-| **Claude** | D | Map-first HUD. Translucent card overlay (30%/60%/85%). Progress dots. Floating context pill at top. Map always visible through backdrop blur. |
-| **Cinema** | E | Ultra-minimal. 80px translucent banner at bottom with moment name. Tap to expand. Maximum map immersion. Progress bar instead of dots. |
+### Bug Fixes
+7. **Story/entity/collection zoom reliability** — Mode-change zooms bypass user interaction guard.
+8. **EmergenceLayer pin dimming** — Centralized highlight logic, fixed zoomend override bug.
+9. **Focused-mode pin dimming** — Dim non-active pins based on `activeLocation`, icon rebuild instead of DOM manipulation.
+10. **Entity tab bar always visible** — Even single-tab entities show the bar.
+11. **Collection scroll stability** — Skip viewport update during collections list scroll.
 
-### Key Files
-- `src/lib/uiVariant.tsx` — Context + provider + localStorage persistence
-- `src/components/ui/VariantToggle.tsx` — Floating cycle button
-- `src/components/ui/BottomSheet.tsx` — Handles Current + Spotlight variants
-- `src/components/ui/ClaudeSheet.tsx` — Claude variant
-- `src/components/ui/CinemaSheet.tsx` — Cinema variant
-- `src/App.tsx` — Variant-aware layout switching (split layout vs overlay variants)
-
-### Expert Council Feedback (Session 58)
-**Council 1 (Wales, Jobs, Tufte):** Kill half snap. Peek is information dead zone. Compact cards too compact — stripped the value. Tab proliferation across panels. Map-content relationship invisible.
-
-**Council 2 (Spradlin, Chen, Wroblewski):** Sheet solving wrong problem. Half snap fights the map. No peek-to-detail interaction. Drag handle wastes 48px. 8px drag threshold too low.
-
-**Top 3 unified recommendations:**
-1. Kill half snap, make peek a single-card spotlight
-2. Make map-to-content connection visible (pin pulse, path lines, connector animation)
-3. Put drag handle to work (contextual info instead of cosmetic pill)
+### Content
+12. **Booker T. Washington story renamed** — `booker-t-washington-snub` → `booker-t-washington-denied-capitol`. "Snub" → "refusal" in all descriptions.
 
 ---
 
-## Content Changes (Session 58)
-- Renamed "The Booker T. Washington Snub" → "Booker T. Washington Denied the Texas Capitol"
+## Key Decisions Made (Session 59)
+
+| Decision | Chosen | Rejected | Why |
+|----------|--------|----------|-----|
+| Auto-zoom on scroll | Remove entirely (Option A) | Story-driven zoom, dwell-based zoom, per-card zoom button | Every good map UI avoids this pattern (Google Maps, Airbnb, Apple Maps). Stories at wildly different geographic scales make constant zoom changes jarring. Polylines communicate scope visually. |
+| Map pin centering in split mode | `effectiveSheetSnap='full'` | Per-variant offset calculation | Clean: split mode has no sheet, so tell panToAboveSheet there's no offset. |
+| Focused-mode dimming trigger | `activeLocation` (no scrollHighlight needed) | Require StoryPanel/EntityPanel to call onScrollHighlight | Simpler: MapController already knows `activeLocation`, no new wiring needed. |
+| Collection zoom location | Inside MapController's zoom effect | App.tsx direct `smartFlyToBounds` | Must use `isProgrammaticMove` flag to prevent MapController from treating it as user interaction. |
 
 ---
 
@@ -81,63 +85,42 @@ Floating pill button top-right on mobile. Tap to cycle variants. Persists in loc
 - **~124/507** planned people fully imported (≥4 moments)
 - Pipeline offset: **152** (people 1-152 processed across runs 1-15)
 
-### What Shipped (Session 58)
-1. **UI variant toggle system** — 5 mobile layout variants behind a floating toggle
-2. **Compact card mode** — Dense 2-line rows on mobile (name + subtitle), rich cards on desktop
-3. **BottomSheet scroll cutoff fix** — visibleContentHeight computed from snap position
-4. **Tab scroll reset fix** — Header/tab bar moved outside scroll container
-5. **Dive Deeper fix** — Canonical story filter relaxed to show related stories
-6. **Expert + UI/UX council review** — Detailed feedback from 6 personas
-7. **Responsive bottom spacers** — pb-24 mobile, 40vh desktop
+### Key Architecture (Session 59)
 
-### What Shipped (Session 57)
-- Moment expansion removal, sheet auto-expand on navigation, peek height 260px, instant scroll-driven pan, panToAboveSheet offset fix, isProgrammaticMove flag
+**Zoom effect priority chain** (MapView.tsx MapController):
+1. Entity mode (no activeLocation) → `smartFlyToBounds` to entity bounds
+2. Story mode (no activeLocation) → `smartFlyToBounds` to story bounds
+3. Active location (not bounds-locked) → `panToAboveSheet` instant snap (respects user interaction guard)
+4. Active collection → `smartFlyToBounds` to collection bounds
+5. Category filter → `smartFlyToBounds` to category bounds
 
----
+**EmergenceLayer highlight architecture:**
+- Shared helpers: `getHighlightOpacity()`, `getHighlightRadius()`
+- Three code paths all use same helpers: create/update effect, zoomend handler, scroll highlight effect
+- `scrollHighlightRef` (ref) keeps highlight state available without being a dependency
 
-## Key Decisions Made
-
-| Decision | Chosen | Rejected | Why |
-|----------|--------|----------|-----|
-| UI comparison approach | Live toggle with 5 variants | Static mockups | Need to feel interactions — drag, scroll, map panning. Mockups can't show this. |
-| Compact cards | Dense 2-line rows on mobile | Always rich cards | ~4x more cards visible at peek. But user flagged as "busy" — revisit card design. |
-| Bottom sheet content sizing | Explicit visibleContentHeight from snap | flex-1 (fills 100dvh) | flex-1 extends below viewport causing scroll cutoff. Explicit height = correct scroll bounds. |
-| Tab scroll preservation | Header/tabs outside scroll container | Save/restore scrollTop with double-rAF | Structural fix > timing hack. Tabs outside scroll means content swap doesn't affect position. |
-| Dive Deeper canonical filter | Show canonical stories in related | Filter them out | Filtering left Dive Deeper empty on biographies where all related stories are canonical. |
+**Removed:**
+- `storyDrivenZoom` ref and all related suppression logic in ExplorePanel
+- Auto-zoom from MapView polyline effect
+- Collection zoom from App.tsx (moved to MapController)
 
 ---
 
 ## Immediate Next Steps
 
-### Priority 1 — UI Variant Evaluation
-1. ⬜ **User tests all 5 variants on mobile** — identify favorite(s)
-2. ⬜ **Refine winning variant(s)** — polish based on feedback
-3. ⬜ **Remove toggle, commit to final design** — or keep 2-3 options
+### Priority 1 — Verify & Polish
+1. ⬜ **Confirm focused-mode dimming works** — latest fix pushed, awaiting user test
+2. ⬜ **Test collection click zoom** — should zoom to collection's moments, not blank map
 
 ### Priority 2 — Content & Data
-4. ⬜ **V3 rewrite cleanup** — trim 188 descriptions over 500 chars
-5. ⬜ **Apply v3 rewrites to database**
-6. ⬜ **32 place→entity conversions**
-7. ⬜ **Continue people pipeline** — offset 153
+3. ⬜ **V3 rewrite cleanup** — trim 188 descriptions over 500 chars
+4. ⬜ **Apply v3 rewrites to database**
+5. ⬜ **32 place→entity conversions**
+6. ⬜ **Continue people pipeline** — offset 153
 
 ### Priority 3 — Future UX
-8. ⬜ **Map-to-content connection** — pin pulse, path lines (council recommendation #2)
-9. ⬜ **Idle zoom** — slow zoom-in after 1.5s pause on a moment (user's latest idea)
-10. ⬜ **Reduce ExplorePanel tabs** — 4 tabs → 2 ("Nearby" + "Collections")
-
----
-
-## Expert Council
-
-### Original
-- **Jimmy Wales** (encyclopedic clarity)
-- **Steve Jobs** (design simplicity)
-- **Edward Tufte** (data visualization)
-
-### UI/UX Council (Session 58)
-- **Liam Spradlin** archetype (Google Maps mobile UX)
-- **Mia Chen** archetype (Mapbox cartographic storytelling)
-- **Luke Wroblewski** archetype (mobile-first touch interaction)
+7. ⬜ **Idle zoom** — slow zoom-in after 1.5s pause on a moment (parked user idea)
+8. ⬜ **Reduce ExplorePanel tabs** — 4 tabs → 2 ("Nearby" + "Collections")
 
 ---
 
@@ -169,12 +152,13 @@ npx tsx scripts/generate-dashboard.ts
 | File | Role |
 |------|------|
 | `src/App.tsx` | Main layout — variant-aware map/panel split, routing, mode system |
-| `src/lib/uiVariant.tsx` | UI variant context (current/spotlight/split/claude/cinema) |
+| `src/lib/uiVariant.tsx` | UI variant context (default: split) |
 | `src/lib/data/provider.tsx` | DataProvider — TanStack Query + Context + loading screen |
-| `src/components/ui/BottomSheet.tsx` | Mobile bottom sheet — Current + Spotlight variants |
-| `src/components/ui/ClaudeSheet.tsx` | Claude variant — translucent HUD with progress dots |
-| `src/components/ui/CinemaSheet.tsx` | Cinema variant — minimal banner |
-| `src/components/ui/VariantToggle.tsx` | Floating variant cycle button |
-| `src/components/panel/ExplorePanel.tsx` | Panel with hybrid nearest/notable sort |
-| `src/components/map/EmergenceLayer.tsx` | Canvas-based moment renderer (tolerance:16) |
 | `src/lib/sheetAwareMap.ts` | Sheet-aware map panning — panToAboveSheet |
+| `src/components/map/MapView.tsx` | Map + MapController (zoom effect, markers, polylines) |
+| `src/components/map/EmergenceLayer.tsx` | Canvas-based moment renderer (highlight-aware) |
+| `src/components/panel/ExplorePanel.tsx` | Panel with hybrid nearest/notable sort, scroll-driven highlighting |
+| `src/components/panel/StoryPanel.tsx` | Story detail view with moment cards |
+| `src/components/panel/EntityPanel.tsx` | Entity detail view with moments/connections/stories tabs |
+| `src/components/ui/BottomSheet.tsx` | Mobile bottom sheet — Current + Spotlight variants |
+| `src/components/ui/TimelineBar.tsx` | Era chips + date range (merged row) |
