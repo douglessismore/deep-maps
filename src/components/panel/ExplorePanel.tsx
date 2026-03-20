@@ -351,47 +351,30 @@ export function ExplorePanel({
             const resolved = resolveLocationsFromMap(story, momentMap);
             onScrollHighlight(resolved, story.id);
 
-            if (isNewStory && resolved.length >= 2) {
-              // New story highlighted — zoom to fit its moments if they're
-              // clustered tighter than the current viewport shows. Only zooms
-              // IN (never out), so it won't fight the user's manual zoom.
-              clearTimeout(panTimeout.current);
-              panTimeout.current = window.setTimeout(() => {
-                const storyBounds = L.latLngBounds(resolved.map(l => [l.lat, l.lng] as L.LatLngTuple));
-                const currentZoom = mapInstance.getZoom();
-                // What zoom level would fitBounds use for this story?
-                const idealZoom = mapInstance.getBoundsZoom(storyBounds, false, L.point(60, 60));
-                // Only zoom in if the ideal zoom is at least 1.5 levels higher
-                // (story is much tighter than viewport) and cap at 13
-                if (idealZoom > currentZoom + 1.5) {
-                  const targetZoom = Math.min(idealZoom, 13);
+            clearTimeout(panTimeout.current);
+            panTimeout.current = window.setTimeout(() => {
+              if (isNewStory) {
+                // New story — fit bounds to show ALL moments so polylines
+                // and markers are fully visible. Cap zoom at 14.
+                if (resolved.length >= 2) {
+                  const storyBounds = L.latLngBounds(resolved.map(l => [l.lat, l.lng] as L.LatLngTuple));
                   mapInstance.flyToBounds(storyBounds, {
-                    padding: [40, 40] as L.PointTuple,
-                    maxZoom: targetZoom,
-                    duration: 0.6,
+                    padding: [50, 50] as L.PointTuple,
+                    maxZoom: 14,
+                    duration: 0.5,
                   });
                 } else {
-                  // Story fits roughly in current view — just pan to first pin
-                  const mapBounds = mapInstance.getBounds();
-                  const locsInView = resolved.filter(l => mapBounds.contains([l.lat, l.lng]));
-                  const panTarget = locsInView[0] || resolved[0];
-                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+                  // Single moment — just pan + zoom to it
+                  panToAboveSheet(mapInstance, [resolved[0].lat, resolved[0].lng], sheetSnap, isSheetMobile, { zoom: 12, duration: 0.5 });
                 }
-              }, 80);
-            } else {
-              // Same story, just scrolling between moments — pan only
-              const mapBounds = mapInstance.getBounds();
-              const locsInView = resolved.filter((l) =>
-                mapBounds.contains([l.lat, l.lng])
-              );
-              const panTarget = locsInView[0] || resolved[0];
-              if (panTarget) {
-                clearTimeout(panTimeout.current);
-                panTimeout.current = window.setTimeout(() => {
-                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
-                }, 80);
+              } else {
+                // Same story, scrolling between moments — pan only
+                const mapBounds = mapInstance.getBounds();
+                const locsInView = resolved.filter(l => mapBounds.contains([l.lat, l.lng]));
+                const panTarget = locsInView[0] || resolved[0];
+                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
               }
-            }
+            }, 80);
           } else if (isActiveCollectionTab) {
             // Collection moment — highlight single pin + pan
             const collectionMoment = displayMoments.find(m => m.id === closestId);
@@ -408,18 +391,28 @@ export function ExplorePanel({
             // Person entity — highlight their moments on the map
             const entityMoments = getMomentsForEntity(closestId);
             if (entityMoments.length > 0) {
+              const isNewEntity = closestId !== prevScrollStoryRef.current;
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
+              prevScrollStoryRef.current = closestId;
               onScrollHighlight(entityMoments);
 
-              const mapBounds = mapInstance.getBounds();
-              const locsInView = entityMoments.filter((l) =>
-                mapBounds.contains([l.lat, l.lng])
-              );
-              const panTarget = locsInView[0] || entityMoments[0];
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
-                panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+                if (isNewEntity && entityMoments.length >= 2) {
+                  // New entity — fit bounds to show all moments
+                  const bounds = L.latLngBounds(entityMoments.map(m => [m.lat, m.lng] as L.LatLngTuple));
+                  mapInstance.flyToBounds(bounds, {
+                    padding: [50, 50] as L.PointTuple,
+                    maxZoom: 14,
+                    duration: 0.5,
+                  });
+                } else {
+                  const mapBounds = mapInstance.getBounds();
+                  const locsInView = entityMoments.filter(l => mapBounds.contains([l.lat, l.lng]));
+                  const panTarget = locsInView[0] || entityMoments[0];
+                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+                }
               }, 80);
             }
           }
