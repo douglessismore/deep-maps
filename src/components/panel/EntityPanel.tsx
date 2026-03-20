@@ -17,6 +17,7 @@ interface EntityPanelProps {
   onStoryClick: (story: Story, moment?: Moment) => void;
   onEntityClick: (entity: Entity, fromMoment?: Moment) => void;
   onScrollLocationActive?: (moment: Moment, story: Story) => void;
+  onScrollToTop?: () => void;
   activeLocationId?: string | null;
   onBack?: () => void;
   backLabel?: string;
@@ -30,6 +31,7 @@ export function EntityPanel({
   onStoryClick,
   onEntityClick,
   onScrollLocationActive,
+  onScrollToTop,
   activeLocationId,
   onBack,
   backLabel,
@@ -156,15 +158,27 @@ export function EntityPanel({
         let closestId: string | null = null;
         let closestDist = Infinity;
 
+        // Check if all moment cards are below the center line (user scrolled to top/header)
+        let allBelowCenter = true;
         momentRefs.current.forEach((el, id) => {
           const rect = el.getBoundingClientRect();
           const cardCenter = rect.top + rect.height / 2;
+          if (cardCenter <= centerY) allBelowCenter = false;
           const dist = Math.abs(cardCenter - centerY);
           if (dist < closestDist) {
             closestDist = dist;
             closestId = id;
           }
         });
+
+        // Scrolled above all moments → reset to show all entity pins on map
+        if (allBelowCenter && momentRefs.current.size > 0) {
+          if (scrollActiveId) {
+            setScrollActiveId(null);
+            onScrollToTop?.();
+          }
+          return;
+        }
 
         // Near bottom of scroll: force last moment active
         if (isNearBottom && momentEntries.length > 0) {

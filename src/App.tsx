@@ -548,6 +548,7 @@ function App() {
                   onStoryClick={handleEntityStoryClick}
                   onEntityClick={handleEntitySelect}
                   onScrollLocationActive={handleEntityScrollLocationActive}
+                  onScrollToTop={() => setActiveLocation(null)}
                   activeLocationId={activeLocation?.id ?? null}
                   onBack={handleBack}
                   backLabel={backLabel}
