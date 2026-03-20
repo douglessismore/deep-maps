@@ -10,7 +10,7 @@ import type { ClusterOrPoint, MomentPointProps, ConstellationClusterProps } from
 import { createConstellationSVG, createConstellationTooltip, computeConstellationSize, createCountLabel, createWispsContent, computeEssenceSize, createEssenceHoverRing, createPalimpsestContent, createPalimpsestPinContent, getVariantRenderMode } from '../../lib/constellation';
 import type { ConstellationVariant } from '../../lib/constellation';
 import { useAppData } from '../../lib/data/provider';
-import { getSheetAwarePadding } from '../../lib/sheetAwareMap';
+import { getSheetAwarePadding, panToAboveSheet } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { EmergenceLayer } from './EmergenceLayer';
 
@@ -589,9 +589,16 @@ function MapController({
 
     if (activeLocation) {
       // Fly to the active moment pin at street level.
-      // Always zoom to exactly 16 for a clear, close view of the pin location.
+      // Use panToAboveSheet so the pin lands in the visible area ABOVE the sheet,
+      // not centered in the full container (where it'd be hidden behind the sheet).
       const targetZoom = 16;
-      map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.8 });
+      panToAboveSheet(
+        map,
+        [activeLocation.lat, activeLocation.lng],
+        sheetSnap ?? 'half',
+        isMobile,
+        { zoom: targetZoom, animate: true, duration: 0.8 },
+      );
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });

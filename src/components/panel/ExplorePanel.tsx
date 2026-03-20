@@ -845,7 +845,7 @@ export function ExplorePanel({
       </div>}
 
       {/* Content */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-24">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-[40vh]">
         {/* Inner wrapper: min-height forces tiny overflow so iOS bounce/rubber-band always works */}
         <div style={{ minHeight: 'calc(100% + 1px)' }} className="space-y-3">
         {activeTab === 'moments' ? (

@@ -550,7 +550,7 @@ export function StoryPanel({
             </div>
           </div>
 
-          <div className="h-[30vh]" />
+          <div className="h-[40vh]" />
         </div>
       )}
 
