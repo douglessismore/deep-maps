@@ -67,10 +67,30 @@ export function panToAboveSheet(
   const { zoom, ...panOptions } = options ?? {};
 
   if (!isMobile || sheetSnap === 'full') {
-    if (zoom) {
-      map.flyTo(latlng, zoom, { animate: true, duration: 0.8, ...panOptions });
+    // On mobile split mode (isMobile + full snap), nudge the center slightly
+    // north so the pin sits below geometric center — feels more visually
+    // centered in the small 45% map strip.
+    const splitNudgePx = isMobile && sheetSnap === 'full' ? map.getSize().y * 0.1 : 0;
+
+    if (splitNudgePx > 0) {
+      const z = zoom ?? map.getZoom();
+      const centerPt = map.project(latlng, z);
+      // Subtract from Y = shift center north → pin appears lower (more south)
+      const nudgedPt = L.point(centerPt.x, centerPt.y - splitNudgePx);
+      const nudgedLatLng = map.unproject(nudgedPt, z);
+      if (zoom) {
+        map.flyTo([nudgedLatLng.lat, latlng[1]], zoom, { animate: true, duration: 0.8, ...panOptions });
+      } else if (panOptions.animate === false) {
+        map.setView([nudgedLatLng.lat, latlng[1]], z, { animate: false });
+      } else {
+        map.panTo([nudgedLatLng.lat, latlng[1]], { animate: true, duration: 0.3, ...panOptions });
+      }
     } else {
-      map.panTo(latlng, { animate: true, duration: 0.3, ...panOptions });
+      if (zoom) {
+        map.flyTo(latlng, zoom, { animate: true, duration: 0.8, ...panOptions });
+      } else {
+        map.panTo(latlng, { animate: true, duration: 0.3, ...panOptions });
+      }
     }
     return;
   }
