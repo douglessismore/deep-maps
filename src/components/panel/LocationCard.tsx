@@ -37,6 +37,8 @@ interface LocationCardProps {
   skipCanonicalFilter?: boolean;
   onStoryClick?: (story: Story) => void;
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
+  /** Compact mode — dense row for mobile bottom sheet (name + subtitle + year only) */
+  compact?: boolean;
 }
 
 export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
@@ -45,8 +47,51 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     showStoryName = false, index, onWikiJump, narrativeGlue,
     alsoInStories, parentStories, excludeEntityIds,
     showExpandChevron, skipCanonicalFilter, onStoryClick, onEntityClick,
+    compact,
   }, ref) {
     const cat = CATEGORIES[story.category];
+
+    // ── Compact mode: dense row for mobile bottom sheet ──
+    if (compact) {
+      return (
+        <div
+          ref={ref}
+          onClick={() => onClick(location)}
+          className={`cursor-pointer transition-all duration-200 ${
+            isActive
+              ? 'bg-[var(--bg-card-hover)] border-l-[3px]'
+              : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent hover:bg-[var(--bg-card-hover)]'
+          } rounded-lg py-2 pl-2.5 pr-3`}
+          style={{ borderLeftColor: isActive ? cat.color : 'transparent' }}
+        >
+          <div className="flex items-center gap-2">
+            {typeof index === 'number' && (
+              <span
+                className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold"
+                style={{ backgroundColor: cat.bgColor, color: cat.color }}
+              >
+                {index + 1}
+              </span>
+            )}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline gap-2">
+                <h4 className="text-[13px] font-bold text-white truncate leading-tight">
+                  {location.name}
+                </h4>
+                {location.year && (
+                  <span className="shrink-0 text-[10px] font-mono text-[var(--text-muted)]">
+                    {location.year}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-[var(--text-secondary)] truncate leading-tight mt-0.5 italic">
+                {location.subtitle}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     // Resolve entities for "Dive Deeper" chips/cards — always computed for strottability
     // Excludes: entity whose canonicalStoryId === story.id (self-link in story view)

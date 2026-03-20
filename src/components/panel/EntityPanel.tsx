@@ -55,6 +55,17 @@ export function EntityPanel({
     [entity.id]
   );
 
+  // Mobile detection for compact cards
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   // ─── Scroll container ref (declared early — used by tab switch + scroll handler)
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -276,6 +287,7 @@ export function EntityPanel({
         story={primaryStory}
         isActive={scrollActiveId === moment.id}
         isExpanded={false}
+        compact={isMobile}
         skipCanonicalFilter
         parentStories={parentStories}
         excludeEntityIds={[entity.id]}

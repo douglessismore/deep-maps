@@ -55,6 +55,16 @@ export function StoryPanel({
   const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const cat = CATEGORIES[story.category];
   const hasWiki = !!story.wikipediaSlug;
@@ -477,6 +487,7 @@ export function StoryPanel({
                     story={story}
                     isActive={currentActiveId === location.id}
                     isExpanded={false}
+                    compact={isMobile}
                     onClick={handleLocationClick}
                     index={i}
                     onWikiJump={hasWiki ? handleWikiJump : undefined}
