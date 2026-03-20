@@ -68,6 +68,10 @@ function App() {
 
   // Bottom sheet snap state (mobile only)
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('peek');
+  // In split mode there's no bottom sheet — tell panels the sheet is "full"
+  // so panToAboveSheet uses no offset. Without this, panels apply peek/half
+  // offsets that push pins north and cause the map to pan out of the zoomed area.
+  const effectiveSheetSnap: SheetSnap = (variant === 'split' && isMobile) ? 'full' : sheetSnap;
   // Programmatic snap target — changes trigger sheet animation
   const [targetSheetSnap, setTargetSheetSnap] = useState<SheetSnap | undefined>(undefined);
   // Save pre-navigation snap so we can restore it on back
@@ -545,7 +549,7 @@ function App() {
             onBack={handleBack}
             backLabel={backLabel}
             onHome={handleBackToExplore}
-            sheetSnap={sheetSnap}
+            sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
           />
           </FadeIn>
@@ -564,7 +568,7 @@ function App() {
             backLabel={backLabel}
             onHome={handleBackToExplore}
             onEntityClick={handleEntitySelect}
-            sheetSnap={sheetSnap}
+            sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
           />
           </FadeIn>
@@ -593,7 +597,7 @@ function App() {
             onEntityClick={handleEntitySelect}
             activeTab={exploreTab}
             onTabChange={setExploreTab}
-            sheetSnap={sheetSnap}
+            sheetSnap={effectiveSheetSnap}
             onScrollPosition={(top) => { exploreScrollTop.current = top; }}
             restoreScrollTop={restoreScrollTop}
             onScrollRestored={() => setRestoreScrollTop(null)}
