@@ -30,8 +30,8 @@ const DATA_MAX_YEAR = 2030;
 
 function getBarMetrics(isMobile: boolean) {
   return isMobile
-    ? { BAR_HEIGHT: 68, TOP_H: 16, DOT_H: 28, CHIP_H: 24, DOT_Y: 14 }
-    : { BAR_HEIGHT: 80, TOP_H: 20, DOT_H: 36, CHIP_H: 24, DOT_Y: 18 };
+    ? { BAR_HEIGHT: 52, DOT_H: 28, CHIP_H: 24, DOT_Y: 14 }
+    : { BAR_HEIGHT: 60, DOT_H: 36, CHIP_H: 24, DOT_Y: 18 };
 }
 
 export function TimelineBar({
@@ -47,7 +47,7 @@ export function TimelineBar({
   const svgRef = useRef<SVGSVGElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const isMobile = containerWidth > 0 && containerWidth < 640;
-  const { BAR_HEIGHT, TOP_H, DOT_H, CHIP_H, DOT_Y } = getBarMetrics(isMobile);
+  const { BAR_HEIGHT, DOT_H, CHIP_H, DOT_Y } = getBarMetrics(isMobile);
 
   // ── Data ──
   const allPoints = useMemo(() => getTimelinePoints(stories), [stories]);
@@ -473,50 +473,7 @@ export function TimelineBar({
         position: 'relative',
       }}
     >
-      {/* ── Top zone: year range + controls ── */}
-      <div
-        style={{
-          height: TOP_H,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 8px',
-          flexShrink: 0,
-        }}
-      >
-        <span
-          className="font-mono"
-          style={{
-            fontSize: isMobile ? 10 : 11,
-            color: 'rgba(255,255,255,0.55)',
-            letterSpacing: '0.3px',
-          }}
-          aria-label={`Timeline range: ${rangeLabel}`}
-        >
-          {rangeLabel}
-        </span>
-        {/* Clear filter button — only visible when a filter is active */}
-        {hasInteracted && (
-          <button
-            onClick={(e) => { e.stopPropagation(); handleClear(); }}
-            className="flex items-center gap-1 rounded-full font-mono hover:bg-yellow-500/25 active:bg-yellow-500/30 transition-colors"
-            style={{
-              height: isMobile ? 16 : 18,
-              padding: '0 8px',
-              fontSize: isMobile ? 9 : 10,
-              background: 'rgba(234,179,8,0.15)',
-              border: '1px solid rgba(234,179,8,0.3)',
-              color: 'rgba(234,179,8,0.9)',
-              cursor: 'pointer',
-            }}
-            aria-label="Clear era filter"
-          >
-            ✕ Clear
-          </button>
-        )}
-      </div>
-
-      {/* ── Middle zone: SVG dots ── */}
+      {/* ── Dot zone: SVG dots ── */}
       <div
         style={{
           height: DOT_H,
@@ -737,6 +694,42 @@ export function TimelineBar({
         }}
         className="[&::-webkit-scrollbar]:hidden"
       >
+        {/* Year range label — inline with era chips */}
+        {rangeLabel && (
+          <span
+            className="font-mono shrink-0"
+            style={{
+              fontSize: isMobile ? 9 : 10,
+              color: 'rgba(255,255,255,0.45)',
+              letterSpacing: '0.3px',
+              paddingRight: 2,
+            }}
+            aria-label={`Timeline range: ${rangeLabel}`}
+          >
+            {rangeLabel}
+          </span>
+        )}
+        {/* Clear filter button */}
+        {hasInteracted && (
+          <button
+            onClick={(e) => { e.stopPropagation(); handleClear(); }}
+            className="flex items-center gap-1 rounded-full font-mono hover:bg-yellow-500/25 active:bg-yellow-500/30 transition-colors shrink-0"
+            style={{
+              height: isMobile ? 16 : 18,
+              padding: '0 6px',
+              fontSize: isMobile ? 9 : 10,
+              background: 'rgba(234,179,8,0.15)',
+              border: '1px solid rgba(234,179,8,0.3)',
+              color: 'rgba(234,179,8,0.9)',
+              cursor: 'pointer',
+            }}
+            aria-label="Clear era filter"
+          >
+            ✕
+          </button>
+        )}
+        {/* Separator */}
+        <div style={{ width: 1, height: 12, background: 'rgba(255,255,255,0.12)', flexShrink: 0 }} />
         {/* "All" chip */}
         <EraChip
           label="All"
