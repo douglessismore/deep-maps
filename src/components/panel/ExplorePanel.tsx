@@ -6,6 +6,7 @@ import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
+import { useUIVariant } from '../../lib/uiVariant';
 import { panToAboveSheet, getSheetAwarePadding } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { StoryCard } from './StoryCard';
@@ -45,6 +46,7 @@ interface ExplorePanelProps {
   onScrollPosition?: (scrollTop: number) => void;
   restoreScrollTop?: number | null;
   onScrollRestored?: () => void;
+  onExpandRequest?: () => void;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -114,8 +116,10 @@ export function ExplorePanel({
   onScrollPosition,
   restoreScrollTop,
   onScrollRestored,
+  onExpandRequest,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
+  const { variant } = useUIVariant();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const isSheetMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
@@ -144,6 +148,10 @@ export function ExplorePanel({
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' && window.innerWidth < 640
   );
+  const isSpotlightPeek = variant === 'spotlight' && isSheetMobile && sheetSnap === 'peek';
+  // Split = always rich cards; spotlight peek = rich single card
+  const useCompactCards = variant === 'split' ? false : isMobile;
+
   useEffect(() => {
     const mql = window.matchMedia('(max-width: 639px)');
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
@@ -891,7 +899,7 @@ export function ExplorePanel({
                     story={vl.story}
                     isActive={activeLocationId === vl.location.id}
                     isExpanded={expandedLocationKey === key}
-                    compact={isMobile && expandedLocationKey !== key}
+                    compact={useCompactCards && expandedLocationKey !== key}
                     showExpandChevron={!isMobile}
                     skipCanonicalFilter
                     parentStories={[vl.story]}
@@ -1107,7 +1115,7 @@ export function ExplorePanel({
                         <PersonCard
                           data={personData}
                           onClick={(e) => onEntityClick?.(e)}
-                          compact={isMobile}
+                          compact={useCompactCards}
                         />
                       </div>
                     ))}
@@ -1132,7 +1140,7 @@ export function ExplorePanel({
                       <StoryCard
                         story={item.story}
                         onClick={onStorySelect}
-                        compact={isMobile}
+                        compact={useCompactCards}
                         distanceMi={
                           userLocation
                             ? nearestDistance(item.story, userLocation.lat, userLocation.lng, momentMap)
@@ -1156,7 +1164,7 @@ export function ExplorePanel({
                       <PersonCard
                         data={item.data}
                         onClick={(entity) => onEntityClick?.(entity)}
-                        compact={isMobile}
+                        compact={useCompactCards}
                         distanceMi={item.distance > 0 ? item.distance : undefined}
                       />
                     </div>

@@ -9,8 +9,10 @@ import {
   getEntityIcon,
 } from '../../lib/entityHelpers';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
+import { useUIVariant } from '../../lib/uiVariant';
 import { GoDeeperCard } from './GoDeeperCard';
 import { LocationCard } from './LocationCard';
+import type { SheetSnap } from '../ui/BottomSheet';
 
 interface EntityPanelProps {
   entity: Entity;
@@ -22,6 +24,8 @@ interface EntityPanelProps {
   onBack?: () => void;
   backLabel?: string;
   onHome?: () => void;
+  sheetSnap?: SheetSnap;
+  onExpandRequest?: () => void;
 }
 
 type EntityTab = 'moments' | 'connections' | 'stories';
@@ -36,6 +40,8 @@ export function EntityPanel({
   onBack,
   backLabel,
   onHome,
+  sheetSnap,
+  onExpandRequest,
 }: EntityPanelProps) {
   const momentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
@@ -59,6 +65,10 @@ export function EntityPanel({
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
+  const { variant } = useUIVariant();
+  const isSpotlightPeek = variant === 'spotlight' && isMobile && sheetSnap === 'peek';
+  const useCompactCards = variant === 'split' ? false : (variant === 'spotlight' ? (!isMobile || sheetSnap !== 'peek') && isMobile : isMobile);
+
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 1023px)');
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
@@ -287,11 +297,11 @@ export function EntityPanel({
         story={primaryStory}
         isActive={scrollActiveId === moment.id}
         isExpanded={false}
-        compact={isMobile}
+        compact={useCompactCards}
         skipCanonicalFilter
         parentStories={parentStories}
         excludeEntityIds={[entity.id]}
-        onClick={() => handleMomentClick(moment, parentStories)}
+        onClick={isSpotlightPeek ? () => onExpandRequest?.() : () => handleMomentClick(moment, parentStories)}
         onStoryClick={(story) => onStoryClick(story, moment)}
         onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
       />
@@ -344,8 +354,8 @@ export function EntityPanel({
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      {/* Mobile breadcrumb */}
-      {onBack && (
+      {/* Mobile breadcrumb (hidden in spotlight peek) */}
+      {onBack && !isSpotlightPeek && (
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
@@ -370,8 +380,8 @@ export function EntityPanel({
         </div>
       )}
 
-      {/* Entity header — fixed outside scroll so tab switching doesn't reset position */}
-      <div className="shrink-0 p-4 border-b border-[var(--border-subtle)]">
+      {/* Entity header — fixed outside scroll (hidden in spotlight peek) */}
+      {!isSpotlightPeek && <div className="shrink-0 p-4 border-b border-[var(--border-subtle)]">
         {/* Accent bar */}
         <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
 
@@ -415,10 +425,10 @@ export function EntityPanel({
             </svg>
           </a>
         )}
-      </div>
+      </div>}
 
-      {/* Tab bar — fixed outside scroll */}
-      {renderTabBar()}
+      {/* Tab bar — fixed outside scroll (hidden in spotlight peek) */}
+      {!isSpotlightPeek && renderTabBar()}
 
       {/* Scroll container — only tab content scrolls, so tab switching preserves position */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
@@ -428,14 +438,24 @@ export function EntityPanel({
             {momentEntries.length === 0 ? (
               <p className="text-sm text-[var(--text-muted)] italic">No moments tagged yet</p>
             ) : (
-              <div className="space-y-1">
-                {momentEntries.map(({ moment, stories }) =>
-                  renderMomentCard(moment, stories)
-                )}
+              <div className="space-y-1" onClick={isSpotlightPeek ? () => onExpandRequest?.() : undefined}>
+                {(() => {
+                  // Spotlight at peek: show only the active card
+                  if (isSpotlightPeek) {
+                    const activeEntry = scrollActiveId
+                      ? momentEntries.find(e => e.moment.id === scrollActiveId)
+                      : momentEntries[0];
+                    if (activeEntry) return renderMomentCard(activeEntry.moment, activeEntry.stories);
+                    return null;
+                  }
+                  return momentEntries.map(({ moment, stories }) =>
+                    renderMomentCard(moment, stories)
+                  );
+                })()}
               </div>
             )}
             {/* Bottom padding so last card can scroll fully into view */}
-            <div className="h-24 lg:h-[40vh]" />
+            {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
           </div>
         ) : activeTab === 'connections' ? (
           renderConnectionsTab()

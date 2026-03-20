@@ -4,11 +4,13 @@ import { CATEGORIES } from '../../lib/categories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getStoryEntities, canonicalStoryIds, getEntityIcon } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
+import { useUIVariant } from '../../lib/uiVariant';
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
 import { LocationCard } from './LocationCard';
 import { WikiPanel } from './WikiPanel';
 import { GoDeeperCard } from './GoDeeperCard';
+import type { SheetSnap } from '../ui/BottomSheet';
 
 type StoryTab = 'locations' | 'wiki';
 
@@ -25,6 +27,8 @@ interface StoryPanelProps {
   backLabel?: string;
   onHome?: () => void;
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
+  sheetSnap?: SheetSnap;
+  onExpandRequest?: () => void;
 }
 
 export function StoryPanel({
@@ -40,6 +44,8 @@ export function StoryPanel({
   backLabel,
   onHome,
   onEntityClick,
+  sheetSnap,
+  onExpandRequest,
 }: StoryPanelProps) {
   const { moments } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
@@ -58,6 +64,11 @@ export function StoryPanel({
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
+  const { variant } = useUIVariant();
+
+  // Spotlight at peek = show only one rich card. Split = always rich cards (no compact).
+  const isSpotlightPeek = variant === 'spotlight' && isMobile && sheetSnap === 'peek';
+  const useCompactCards = variant === 'split' ? false : (variant === 'spotlight' ? (!isMobile || sheetSnap !== 'peek') && isMobile : isMobile);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 1023px)');
@@ -306,8 +317,8 @@ export function StoryPanel({
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      {/* Mobile breadcrumb — stays fixed outside scroll */}
-      {onBack && (
+      {/* Mobile breadcrumb — stays fixed outside scroll (hidden in spotlight peek) */}
+      {onBack && !isSpotlightPeek && (
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
@@ -335,8 +346,8 @@ export function StoryPanel({
       {/* Locations tab: single scroll container — header, explore further, moments all scroll together */}
       {activeTab === 'locations' && (
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
-          {/* Story Header — scrolls with content */}
-          <div className="border-b border-[var(--border-subtle)]">
+          {/* Story Header — scrolls with content (hidden in spotlight peek) */}
+          {!isSpotlightPeek && <div className="border-b border-[var(--border-subtle)]">
             {/* Mobile: compact toggle header */}
             <div className="lg:hidden">
               <button
@@ -430,10 +441,10 @@ export function StoryPanel({
                 ))}
               </div>
             </div>
-          </div>
+          </div>}
 
-          {/* Dive Deeper — story-level entities + related stories */}
-          {(storyEntities.length > 0 || connectedEntries.length > 0) && (
+          {/* Dive Deeper — story-level entities + related stories (hidden in spotlight peek) */}
+          {!isSpotlightPeek && (storyEntities.length > 0 || connectedEntries.length > 0) && (
             <div className="border-b border-[var(--border-subtle)]">
               <div className="px-4 pt-2 pb-1">
                 <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
@@ -467,43 +478,63 @@ export function StoryPanel({
             </div>
           )}
 
-          {/* Tab bar — sticky so it stays accessible while scrolling moments */}
-          {hasWiki && renderTabBar(true)}
+          {/* Tab bar — sticky so it stays accessible while scrolling moments (hidden in spotlight peek) */}
+          {!isSpotlightPeek && hasWiki && renderTabBar(true)}
 
           {/* Moments */}
           <div className="p-4">
-            <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
-              Moments ({story.moments.length})
-            </h3>
+            {!isSpotlightPeek && (
+              <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
+                Moments ({story.moments.length})
+              </h3>
+            )}
             <div className="space-y-2">
-              {resolveLocationsFromMap(story, momentMap).map((location, i) => {
-                const storyMoment = story.moments.find((sm) => sm.momentId === location.id);
-                return (
-                  <LocationCard
-                    key={location.id}
-                    ref={(el) => {
-                      if (el) locationRefs.current.set(location.id, el);
-                      else locationRefs.current.delete(location.id);
-                    }}
-                    location={location}
-                    story={story}
-                    isActive={currentActiveId === location.id}
-                    isExpanded={false}
-                    compact={isMobile}
-                    onClick={handleLocationClick}
-                    index={i}
-                    onWikiJump={hasWiki ? handleWikiJump : undefined}
-                    narrativeGlue={storyMoment?.narrativeGlue}
-                    alsoInStories={momentStoryMap.get(location.id)}
-                    onStoryClick={onRelatedStoryClick}
-                    onEntityClick={onEntityClick}
-                  />
-                );
-              })}
+              {(() => {
+                const allLocations = resolveLocationsFromMap(story, momentMap);
+                // Spotlight at peek: show only the active card as a rich "now playing" card
+                const locationsToRender = isSpotlightPeek
+                  ? (() => {
+                      const activeId = currentActiveId;
+                      const active = activeId ? allLocations.find(l => l.id === activeId) : allLocations[0];
+                      return active ? [active] : allLocations.slice(0, 1);
+                    })()
+                  : allLocations;
+
+                return locationsToRender.map((location, i) => {
+                  const storyMoment = story.moments.find((sm) => sm.momentId === location.id);
+                  const actualIndex = allLocations.indexOf(location);
+                  return (
+                    <div
+                      key={location.id}
+                      onClick={isSpotlightPeek ? () => onExpandRequest?.() : undefined}
+                      className={isSpotlightPeek ? 'cursor-pointer' : undefined}
+                    >
+                      <LocationCard
+                        ref={(el) => {
+                          if (el) locationRefs.current.set(location.id, el);
+                          else locationRefs.current.delete(location.id);
+                        }}
+                        location={location}
+                        story={story}
+                        isActive={currentActiveId === location.id}
+                        isExpanded={false}
+                        compact={useCompactCards}
+                        onClick={isSpotlightPeek ? () => onExpandRequest?.() : handleLocationClick}
+                        index={actualIndex}
+                        onWikiJump={hasWiki ? handleWikiJump : undefined}
+                        narrativeGlue={storyMoment?.narrativeGlue}
+                        alsoInStories={momentStoryMap.get(location.id)}
+                        onStoryClick={onRelatedStoryClick}
+                        onEntityClick={onEntityClick}
+                      />
+                    </div>
+                  );
+                });
+              })()}
             </div>
           </div>
 
-          <div className="h-24 lg:h-[40vh]" />
+          {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
         </div>
       )}
 

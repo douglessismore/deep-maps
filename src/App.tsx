@@ -6,7 +6,9 @@ import { Header } from './components/ui/Header';
 import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
 import { FadeIn } from './components/ui/FadeIn';
 import { PanelSkeleton } from './components/ui/Skeleton';
+import { VariantToggle } from './components/ui/VariantToggle';
 import { getSheetAwarePadding } from './lib/sheetAwareMap';
+import { useUIVariant } from './lib/uiVariant';
 
 const StoryPanel = lazy(() => import('./components/panel/StoryPanel').then(m => ({ default: m.StoryPanel })));
 const EntityPanel = lazy(() => import('./components/panel/EntityPanel').then(m => ({ default: m.EntityPanel })));
@@ -35,6 +37,7 @@ type NavEntry = {
 
 function App() {
   const { moments, stories, collections } = useAppData();
+  const { variant } = useUIVariant();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
@@ -266,7 +269,7 @@ function App() {
       const entry = next.pop()!;
       const restoredMode = entry.mode === 'scroll' ? 'explore' : entry.mode;
       setMode(restoredMode);
-  
+
       setActiveStory(entry.activeStory);
       setActiveLocation(entry.activeLocation);
       setActiveEntity(entry.activeEntity);
@@ -494,8 +497,120 @@ function App() {
     return 'Stories';
   }, [navHistory]);
 
+  // ── Spotlight context labels for the drag handle ──
+  const spotlightContext = useMemo(() => {
+    if (variant !== 'spotlight') return { label: undefined, sublabel: undefined };
+    if (mode === 'story' && activeStory) {
+      const resolved = resolveLocationsFromMap(activeStory, momentMap);
+      const activeIdx = activeLocation
+        ? resolved.findIndex(l => l.id === activeLocation.id)
+        : 0;
+      return {
+        label: activeStory.name,
+        sublabel: `${activeIdx + 1} of ${resolved.length} moments`,
+      };
+    }
+    if (mode === 'entity' && activeEntity) {
+      return {
+        label: activeEntity.name,
+        sublabel: activeEntity.type,
+      };
+    }
+    // Explore mode
+    return {
+      label: undefined,
+      sublabel: `${timelineFilteredStories.length} stories`,
+    };
+  }, [variant, mode, activeStory, activeLocation, activeEntity, momentMap, timelineFilteredStories.length]);
+
+  // Spotlight expand handler — tapping peek card expands sheet to full
+  const handleExpandRequest = useCallback(() => {
+    setTargetSheetSnap('full');
+  }, []);
+
+  // ── Shared panel content (used by both sheet and split layouts) ──
+  const panelContent = (
+    <Switch>
+      <Route path="/">
+        <Suspense fallback={<PanelSkeleton />}>
+        {mode === 'entity' && activeEntity ? (
+          <FadeIn key="entity">
+          <EntityPanel
+            entity={activeEntity}
+            onStoryClick={handleEntityStoryClick}
+            onEntityClick={handleEntitySelect}
+            onScrollLocationActive={handleEntityScrollLocationActive}
+            onScrollToTop={() => setActiveLocation(null)}
+            activeLocationId={activeLocation?.id ?? null}
+            onBack={handleBack}
+            backLabel={backLabel}
+            onHome={handleBackToExplore}
+            sheetSnap={sheetSnap}
+            onExpandRequest={handleExpandRequest}
+          />
+          </FadeIn>
+        ) : mode === 'story' && activeStory ? (
+          <FadeIn key="story">
+          <StoryPanel
+            story={activeStory}
+            activeLocation={activeLocation}
+            onLocationSelect={(loc) => handleLocationSelect(loc, activeStory)}
+            onScrollLocationSelect={(loc) => handleScrollLocationSelect(loc, activeStory)}
+            onScrollToTop={() => setActiveLocation(null)}
+            onRelatedStoryClick={handleStorySelect}
+            onTagClick={handleTagClick}
+            allStories={stories}
+            onBack={handleBack}
+            backLabel={backLabel}
+            onHome={handleBackToExplore}
+            onEntityClick={handleEntitySelect}
+            sheetSnap={sheetSnap}
+            onExpandRequest={handleExpandRequest}
+          />
+          </FadeIn>
+        ) : (
+          <FadeIn key="explore">
+          <ExplorePanel
+            stories={timelineFilteredStories}
+            collections={collections}
+            activeCollection={activeCollection}
+            displayMoments={displayMoments}
+            momentToStoryMap={momentToStoryMap}
+            mapInstance={mapInstance}
+            onStorySelect={handleStorySelect}
+            onLocationSelect={handleLocationSelect}
+            onCollectionSelect={handleCollectionSelect}
+            onClearCollection={() => setActiveCollection(null)}
+            onScrollHighlight={handleScrollHighlight}
+            onModeChange={handleModeChange}
+            mode={mode}
+            searchQuery={searchQuery}
+            categoryFilter={categoryFilter}
+            onCategoryFilter={handleCategoryFilter}
+            onSurpriseMe={handleSurpriseMe}
+            userLocation={userLocation}
+            onRequestGeo={handleRequestGeo}
+            onEntityClick={handleEntitySelect}
+            activeTab={exploreTab}
+            onTabChange={setExploreTab}
+            sheetSnap={sheetSnap}
+            onScrollPosition={(top) => { exploreScrollTop.current = top; }}
+            restoreScrollTop={restoreScrollTop}
+            onScrollRestored={() => setRestoreScrollTop(null)}
+            onExpandRequest={handleExpandRequest}
+          />
+          </FadeIn>
+        )}
+        </Suspense>
+      </Route>
+    </Switch>
+  );
+
+  const isSplit = variant === 'split' && isMobile;
+
   return (
     <div className="h-full flex flex-col">
+      <VariantToggle />
       <Header
         mode={mode}
         activeStory={activeStory}
@@ -523,105 +638,75 @@ function App() {
           mapVisibleStoryIds={mapVisibleStoryIds}
         />
       )}
-      <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
-        {/* Map — mobile: full screen behind sheet. Desktop: flex-1 fills left side.
-            isolation:isolate creates a stacking context so Leaflet's internal z-indexes
-            (200-600+) don't leak out and cover the bottom sheet overlay (z-index:30). */}
-        <div className="absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden" style={{ isolation: 'isolate' }}>
-          <MapView
-            stories={timelineFilteredStories}
-            activeStory={activeStory}
-            activeLocation={activeLocation}
-            scrollHighlight={scrollHighlight}
-            mode={mode}
-            categoryFilter={categoryFilter}
-            storyIdFilter={timelineStoryIdFilter}
-            activeCollection={activeCollection}
-            resetViewKey={resetViewKey}
-            onMapReady={setMapInstance}
-            onLocationClick={handleMapLocationClick}
-            onStoryClick={handleStorySelect}
-            userLocation={userLocation}
-            nearMeZoomKey={nearMeZoomKey}
-            restoreView={restoreView}
-            entityLocations={entityLocations}
-            sheetSnap={sheetSnap}
-          />
-        </div>
 
-        {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
-        <BottomSheet onSnapChange={setSheetSnap} targetSnap={targetSheetSnap}>
-          <Switch>
-            <Route path="/">
-              <Suspense fallback={<PanelSkeleton />}>
-              {mode === 'entity' && activeEntity ? (
-                <FadeIn key="entity">
-                <EntityPanel
-                  entity={activeEntity}
-                  onStoryClick={handleEntityStoryClick}
-                  onEntityClick={handleEntitySelect}
-                  onScrollLocationActive={handleEntityScrollLocationActive}
-                  onScrollToTop={() => setActiveLocation(null)}
-                  activeLocationId={activeLocation?.id ?? null}
-                  onBack={handleBack}
-                  backLabel={backLabel}
-                  onHome={handleBackToExplore}
-                />
-                </FadeIn>
-              ) : mode === 'story' && activeStory ? (
-                <FadeIn key="story">
-                <StoryPanel
-                  story={activeStory}
-                  activeLocation={activeLocation}
-                  onLocationSelect={(loc) => handleLocationSelect(loc, activeStory)}
-                  onScrollLocationSelect={(loc) => handleScrollLocationSelect(loc, activeStory)}
-                  onScrollToTop={() => setActiveLocation(null)}
-                  onRelatedStoryClick={handleStorySelect}
-                  onTagClick={handleTagClick}
-                  allStories={stories}
-                  onBack={handleBack}
-                  backLabel={backLabel}
-                  onHome={handleBackToExplore}
-                  onEntityClick={handleEntitySelect}
-                />
-                </FadeIn>
-              ) : (
-                <FadeIn key="explore">
-                <ExplorePanel
-                  stories={timelineFilteredStories}
-                  collections={collections}
-                  activeCollection={activeCollection}
-                  displayMoments={displayMoments}
-                  momentToStoryMap={momentToStoryMap}
-                  mapInstance={mapInstance}
-                  onStorySelect={handleStorySelect}
-                  onLocationSelect={handleLocationSelect}
-                  onCollectionSelect={handleCollectionSelect}
-                  onClearCollection={() => setActiveCollection(null)}
-                  onScrollHighlight={handleScrollHighlight}
-                  onModeChange={handleModeChange}
-                  mode={mode}
-                  searchQuery={searchQuery}
-                  categoryFilter={categoryFilter}
-                  onCategoryFilter={handleCategoryFilter}
-                  onSurpriseMe={handleSurpriseMe}
-                  userLocation={userLocation}
-                  onRequestGeo={handleRequestGeo}
-                  onEntityClick={handleEntitySelect}
-                  activeTab={exploreTab}
-                  onTabChange={setExploreTab}
-                  sheetSnap={sheetSnap}
-                  onScrollPosition={(top) => { exploreScrollTop.current = top; }}
-                  restoreScrollTop={restoreScrollTop}
-                  onScrollRestored={() => setRestoreScrollTop(null)}
-                />
-                </FadeIn>
-              )}
-              </Suspense>
-            </Route>
-          </Switch>
-        </BottomSheet>
-      </div>
+      {isSplit ? (
+        /* ── Split variant: fixed vertical layout, no bottom sheet ── */
+        <div className="flex-1 flex flex-col overflow-hidden relative">
+          {/* Map — top 40% */}
+          <div className="h-[40%] relative shrink-0 overflow-hidden" style={{ isolation: 'isolate' }}>
+            <MapView
+              stories={timelineFilteredStories}
+              activeStory={activeStory}
+              activeLocation={activeLocation}
+              scrollHighlight={scrollHighlight}
+              mode={mode}
+              categoryFilter={categoryFilter}
+              storyIdFilter={timelineStoryIdFilter}
+              activeCollection={activeCollection}
+              resetViewKey={resetViewKey}
+              onMapReady={setMapInstance}
+              onLocationClick={handleMapLocationClick}
+              onStoryClick={handleStorySelect}
+              userLocation={userLocation}
+              nearMeZoomKey={nearMeZoomKey}
+              restoreView={restoreView}
+              entityLocations={entityLocations}
+              sheetSnap={sheetSnap}
+            />
+          </div>
+          {/* Panel — bottom 60%, normal scroll */}
+          <div className="flex-1 overflow-hidden flex flex-col bg-[var(--bg-primary)]">
+            {panelContent}
+          </div>
+        </div>
+      ) : (
+        /* ── Current / Spotlight: map full screen + BottomSheet overlay ── */
+        <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
+          {/* Map — mobile: full screen behind sheet. Desktop: flex-1 fills left side. */}
+          <div className="absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden" style={{ isolation: 'isolate' }}>
+            <MapView
+              stories={timelineFilteredStories}
+              activeStory={activeStory}
+              activeLocation={activeLocation}
+              scrollHighlight={scrollHighlight}
+              mode={mode}
+              categoryFilter={categoryFilter}
+              storyIdFilter={timelineStoryIdFilter}
+              activeCollection={activeCollection}
+              resetViewKey={resetViewKey}
+              onMapReady={setMapInstance}
+              onLocationClick={handleMapLocationClick}
+              onStoryClick={handleStorySelect}
+              userLocation={userLocation}
+              nearMeZoomKey={nearMeZoomKey}
+              restoreView={restoreView}
+              entityLocations={entityLocations}
+              sheetSnap={sheetSnap}
+            />
+          </div>
+
+          {/* Panel — BottomSheet renders as overlay on mobile, side panel on desktop */}
+          <BottomSheet
+            onSnapChange={setSheetSnap}
+            targetSnap={targetSheetSnap}
+            contextLabel={spotlightContext.label}
+            contextSublabel={spotlightContext.sublabel}
+            onExpandRequest={handleExpandRequest}
+          >
+            {panelContent}
+          </BottomSheet>
+        </div>
+      )}
     </div>
   );
 }
