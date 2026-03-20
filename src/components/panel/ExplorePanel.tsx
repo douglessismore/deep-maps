@@ -891,7 +891,8 @@ export function ExplorePanel({
                     story={vl.story}
                     isActive={activeLocationId === vl.location.id}
                     isExpanded={expandedLocationKey === key}
-                    showExpandChevron
+                    compact={isMobile && expandedLocationKey !== key}
+                    showExpandChevron={!isMobile}
                     skipCanonicalFilter
                     parentStories={[vl.story]}
                     onClick={(moment) => {
