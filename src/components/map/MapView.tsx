@@ -344,7 +344,6 @@ function MapController({
       // Dim non-active pins when there's an active location (even without scrollHighlight).
       // This makes it clear which moment is currently selected as user scrolls.
       const hasActivePin = activeLocation != null;
-      console.log('[MapController] focused mode: hasActivePin=', hasActivePin, 'activeLocation=', activeLocation?.id, 'pins=', focusedLocations.length);
 
       focusedLocations.forEach(({ location, story }) => {
         const key = `pin-${story.id}-${location.id}`;
@@ -359,8 +358,8 @@ function MapController({
         const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
                         (hasActivePin && !hasHighlight && !isActive);
         const permanentTooltip = isHighlighted && singleHighlight;
-        const markerOpacity = isFaded ? 0.25 : undefined;
-        const effectiveSize = baseSize;
+        const markerOpacity = isFaded ? 0.12 : undefined;
+        const effectiveSize = isActive ? Math.max(baseSize * 1.4, 16) : baseSize;
 
         const existing = prevMarkers.get(key);
 

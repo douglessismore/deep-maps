@@ -237,9 +237,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     const zoom = map.getZoom();
     const baseRadius = getRadius(zoom);
 
-    if (hasHighlight) {
-      console.log('[EmergenceLayer] highlight effect:', highlightIds.size, 'highlighted,', markersRef.current.size, 'total markers');
-    }
 
     for (const [id, marker] of markersRef.current) {
       const moment = momentById.get(id);
