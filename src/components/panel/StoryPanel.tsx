@@ -163,16 +163,17 @@ export function StoryPanel({
     };
   }, [story, onScrollLocationSelect, scrollActiveId]);
 
-  // Initial activation: set the first location as active on story mount
-  // Only sets local visual state (expanded card, active highlight) — does NOT
-  // trigger map zoom via onScrollLocationSelect. That would override the
-  // story-level fitBounds zoom with a single-pin zoom. The scroll handler
-  // will call onScrollLocationSelect when the user actually scrolls.
+  // Initial activation: set the first location as active on story mount.
+  // Also notifies parent so MapView can dim non-active pins immediately.
+  // The boundsLockUntil guard in MapView prevents this from overriding
+  // the story-level fitBounds zoom with a single-pin zoom.
   useEffect(() => {
     const storyLocations = resolveLocationsFromMap(story, momentMap);
     if (storyLocations.length > 0) {
       const initialId = activeLocation?.id ?? storyLocations[0].id;
       setScrollActiveId(initialId);
+      const initialLocation = storyLocations.find(l => l.id === initialId) ?? storyLocations[0];
+      onScrollLocationSelect(initialLocation);
     }
   }, [story.id]); // Only on story mount/change
 
