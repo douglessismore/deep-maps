@@ -358,7 +358,7 @@ function MapController({
         const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
                         (hasActivePin && !hasHighlight && !isActive);
         const permanentTooltip = isHighlighted && singleHighlight;
-        const markerOpacity = isFaded ? 0.12 : undefined;
+        const markerOpacity = isFaded ? 0.3 : undefined;
         const effectiveSize = isActive ? Math.max(baseSize * 1.4, 16) : baseSize;
 
         const existing = prevMarkers.get(key);

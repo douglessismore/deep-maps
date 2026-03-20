@@ -231,6 +231,8 @@ function App() {
     setActiveLocation(null);
     setActiveEntity(null);
     setCategoryFilter(null);
+    setScrollHighlight([]);
+    scrollHighlightIdsRef.current = '';
     setMode('story');
   }, [activeCollection, pushNav]);
 
@@ -243,6 +245,8 @@ function App() {
     setActiveStory(story);
     setActiveLocation(location);
     setActiveEntity(null);
+    setScrollHighlight([]);
+    scrollHighlightIdsRef.current = '';
     setMode('story');
   }, [activeCollection, pushNav]);
 
@@ -253,6 +257,8 @@ function App() {
     }
     setActiveStory(story);
     setActiveLocation(location);
+    setScrollHighlight([]);
+    scrollHighlightIdsRef.current = '';
     setMode('story');
   }, [activeCollection]);
 
@@ -430,6 +436,8 @@ function App() {
     setActiveStory(null);
     setActiveLocation(null);
     setCategoryFilter(null);
+    setScrollHighlight([]);
+    scrollHighlightIdsRef.current = '';
     setMode('entity');
   }, [pushNav]);
 
