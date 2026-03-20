@@ -242,10 +242,28 @@ function MapController({
     return () => observer.disconnect();
   }, [map]);
 
+  // Track user map interaction — suppress flyTo effects while user is
+  // actively panning/zooming and for 2s after, so the map doesn't snap back.
+  const userInteractUntil = useRef(0);
+
   useMapEvents({
-    dragstart: () => { isUserDragging.current = true; },
-    dragend: () => { setTimeout(() => { isUserDragging.current = false; }, 300); },
-    zoomend: () => { setCurrentZoom(map.getZoom()); },
+    dragstart: () => {
+      isUserDragging.current = true;
+      userInteractUntil.current = Infinity; // Active drag — block indefinitely
+    },
+    dragend: () => {
+      isUserDragging.current = false;
+      userInteractUntil.current = Date.now() + 2000; // Block flyTo for 2s after drag
+    },
+    zoomstart: () => {
+      userInteractUntil.current = Infinity; // Active zoom — block indefinitely
+    },
+    zoomend: () => {
+      setCurrentZoom(map.getZoom());
+      if (!isUserDragging.current) {
+        userInteractUntil.current = Date.now() + 2000; // Block flyTo for 2s after zoom
+      }
+    },
     moveend: () => { /* Triggers re-render for cluster updates via currentBoundsKey */ },
   });
 
@@ -587,7 +605,7 @@ function MapController({
   const boundsLockUntil = useRef(0);
 
   useEffect(() => {
-    if (isUserDragging.current) return;
+    if (isUserDragging.current || Date.now() < userInteractUntil.current) return;
 
     const containerH = map.getSize().y;
     const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
@@ -693,10 +711,10 @@ function MapController({
       const icon = L.divIcon({
         className: '',
         html: '<div class="geo-marker"></div>',
-        iconSize: [16, 16],
-        iconAnchor: [8, 8],
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
       });
-      const marker = L.marker([userLocation.lat, userLocation.lng], { icon, interactive: false });
+      const marker = L.marker([userLocation.lat, userLocation.lng], { icon, interactive: false, zIndexOffset: -1000 });
       marker.addTo(map);
       userMarkerRef.current = marker;
     }

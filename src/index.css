@@ -499,18 +499,18 @@ html, body, #root {
 
 /* ===== Geolocation marker ===== */
 .geo-marker {
-  width: 16px;
-  height: 16px;
-  background: #3b82f6;
-  border: 3px solid white;
+  width: 10px;
+  height: 10px;
+  background: rgba(59, 130, 246, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.7);
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
-  animation: geo-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+  animation: geo-pulse 3s ease-in-out infinite;
 }
 
 @keyframes geo-pulse {
-  0%, 100% { box-shadow: 0 0 12px rgba(59, 130, 246, 0.6); }
-  50% { box-shadow: 0 0 24px rgba(59, 130, 246, 0.9), 0 0 48px rgba(59, 130, 246, 0.3); }
+  0%, 100% { box-shadow: 0 0 6px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 14px rgba(59, 130, 246, 0.5); }
 }
 
 /* ===== Wikipedia Content Dark Theme ===== */
