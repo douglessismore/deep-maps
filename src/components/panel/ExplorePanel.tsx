@@ -281,8 +281,13 @@ export function ExplorePanel({
         if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
         scrollTimeout.current = window.setTimeout(() => {
           isScrollDriving.current = false;
-          updateViewport();
-        }, 400);
+          // Don't reshuffle the collections list during scroll — it causes
+          // the highlighted collection to snap to a different one when the
+          // list reorders based on viewport changes from scroll-driven panTo.
+          if (!isCollectionsListTab) {
+            updateViewport();
+          }
+        }, 600);
 
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;

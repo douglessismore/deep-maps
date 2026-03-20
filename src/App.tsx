@@ -323,19 +323,8 @@ function App() {
     setActiveStory(null);
     setActiveLocation(null);
     setMode('explore');
-
-    // Zoom map to fit all collection story locations
-    if (mapInstance) {
-      const midSet = new Set(collection.momentIds);
-      const coords = moments.filter(m => midSet.has(m.id)).map(m => [m.lat, m.lng] as [number, number]);
-      if (coords.length > 0) {
-        const containerH = mapInstance.getSize().y;
-        // Use peek padding since we just snapped to peek
-        const padOpts = getSheetAwarePadding(isMobile, 'peek', containerH, 60);
-        smartFlyToBounds(mapInstance, L.latLngBounds(coords), { ...padOpts, maxZoom: 14, duration: 1.8 });
-      }
-    }
-  }, [pushNav, mapInstance, moments, isMobile]);
+    // Zoom handled by MapController's zoom effect when activeCollection changes
+  }, [pushNav]);
 
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);

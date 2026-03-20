@@ -121,7 +121,7 @@ export function EntityPanel({
   const connectionsIcon = entity.type === 'place' ? '👤' : (entity.type === 'person' ? '📍' : '👤');
   const showConnections = connections.length > 0;
   const showStories = entityStories.length > 0;
-  const tabCount = 1 + (showConnections ? 1 : 0) + (showStories ? 1 : 0);
+  // tabCount no longer gates visibility — tab bar always renders
 
   // ─── Scroll-driven map highlighting ──────────────────────────────
   const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -273,7 +273,8 @@ export function EntityPanel({
   );
 
   const renderTabBar = () => {
-    if (tabCount <= 1) return null;
+    // Always show tab bar — even with only Moments, it provides context.
+    // Empty connections/stories tabs are hidden, but the bar itself stays.
     return (
       <div className="flex border-b border-[var(--border-subtle)] shrink-0 bg-[var(--bg-secondary)]">
         {renderTabButton('moments', 'Moments', '📍', momentEntries.length)}

@@ -207,6 +207,7 @@ function MapController({
   mode,
   categoryFilter,
   storyIdFilter,
+  activeCollection,
   resetViewKey,
   onMapReady,
   onLocationClick,
@@ -340,6 +341,10 @@ function MapController({
 
     if (focusedLocations) {
       // ── FOCUSED MODE: Direct pin rendering (story/entity view) ──
+      // Dim non-active pins when there's an active location (even without scrollHighlight).
+      // This makes it clear which moment is currently selected as user scrolls.
+      const hasActivePin = activeLocation != null;
+
       focusedLocations.forEach(({ location, story }) => {
         const key = `pin-${story.id}-${location.id}`;
         nextKeys.add(key);
@@ -348,9 +353,12 @@ function MapController({
         const baseSize = IMPORTANCE_SIZE[location.importance] || 10;
         const isActive = activeLocation?.id === location.id;
         const isHighlighted = highlightIds.has(location.id);
-        const isFaded = hasHighlight && !isHighlighted && !isActive;
+        // Fade if: scrollHighlight is set and this pin isn't in it, OR
+        // activeLocation is set and this isn't the active pin.
+        const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
+                        (hasActivePin && !hasHighlight && !isActive);
         const permanentTooltip = isHighlighted && singleHighlight;
-        const markerOpacity = isFaded ? 0.15 : undefined;
+        const markerOpacity = isFaded ? 0.25 : undefined;
         const effectiveSize = baseSize;
 
         const existing = prevMarkers.get(key);
@@ -770,12 +778,8 @@ function MapController({
   const boundsLockUntil = useRef(0);
 
   useEffect(() => {
-    if (isUserDragging.current || Date.now() < userInteractUntil.current) return;
-
     const containerH = map.getSize().y;
     const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
-
-    // Is the boundsLock active? If so, skip single-pin zoom.
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 
     // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil.
@@ -783,10 +787,28 @@ function MapController({
     isProgrammaticMove.current = true;
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
-    if (activeLocation && !isBoundsLocked) {
-      // Instant snap to the active moment pin — no animation, no zoom change.
-      // Eliminates all animation timing issues (queued flyTos, zoomstart/zoomend
-      // cooldown interference). Just repositions the map immediately.
+    // Mode-change zooms (entering story/entity view) ALWAYS fire — user clicking
+    // a story card is an intentional navigation, not a conflict with map interaction.
+    if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
+      const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
+      smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });
+      boundsLockUntil.current = Date.now() + 2000;
+      userInteractUntil.current = 0; // Clear any stale interaction guard
+      clearFlag();
+    } else if (mode === 'story' && activeStory && !activeLocation) {
+      const bounds = L.latLngBounds(
+        resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
+      );
+      smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 1.8 });
+      boundsLockUntil.current = Date.now() + 2000;
+      userInteractUntil.current = 0; // Clear any stale interaction guard
+      clearFlag();
+    } else if (activeLocation && !isBoundsLocked) {
+      // Single-pin pan — respect user interaction guard (don't fight user's drag/zoom)
+      if (isUserDragging.current || Date.now() < userInteractUntil.current) {
+        isProgrammaticMove.current = false;
+        return;
+      }
       panToAboveSheet(
         map,
         [activeLocation.lat, activeLocation.lng],
@@ -795,18 +817,14 @@ function MapController({
         { animate: false },
       );
       clearFlag();
-    } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {
-      const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 12, duration: 1.8 });
-      // Lock out single-pin zoom for 2s so the panel mount doesn't override
-      boundsLockUntil.current = Date.now() + 2000;
-      clearFlag();
-    } else if (mode === 'story' && activeStory) {
-      const bounds = L.latLngBounds(
-        resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
-      );
-      smartFlyToBounds(map, bounds, { ...sheetPad, maxZoom: 12, duration: 1.8 });
-      boundsLockUntil.current = Date.now() + 2000;
+    } else if (activeCollection) {
+      // Collection selected — zoom to fit all collection moments
+      const midSet = new Set(activeCollection.momentIds);
+      const coords = allMoments.filter(m => midSet.has(m.id)).map(m => [m.lat, m.lng] as [number, number]);
+      if (coords.length > 0) {
+        smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 14, duration: 1.8 });
+      }
+      userInteractUntil.current = 0;
       clearFlag();
     } else if (categoryFilter) {
       const catStories = stories.filter((s) => s.category === categoryFilter);
@@ -820,7 +838,7 @@ function MapController({
     } else {
       isProgrammaticMove.current = false;
     }
-  }, [activeLocation, activeStory, mode, map, categoryFilter, stories, entityLocations, isMobile, sheetSnap]);
+  }, [activeLocation, activeStory, activeCollection, mode, map, categoryFilter, stories, entityLocations, isMobile, sheetSnap]);
 
   // Zoom out to show all pins when resetViewKey changes
   const prevResetKey = useRef(resetViewKey);
