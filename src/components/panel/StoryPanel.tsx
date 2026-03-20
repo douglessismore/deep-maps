@@ -210,10 +210,12 @@ export function StoryPanel({
   }, [story, allStories, relatedStories]);
 
   // All connected stories with reason labels for the navigation strip
-  // Filter out canonical stories — their entity cards replace them in DIVE DEEPER
+  // Previously filtered out canonical stories, but that left Dive Deeper empty
+  // on biographies where all related stories are canonical. Keep them — they're
+  // still useful navigation targets (BUG-5 fix).
   const connectedEntries = useMemo(() => [
-    ...relatedStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'related' as const })),
-    ...nearbyStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'nearby' as const })),
+    ...relatedStories.map(s => ({ story: s, reason: 'related' as const })),
+    ...nearbyStories.map(s => ({ story: s, reason: 'nearby' as const })),
   ], [relatedStories, nearbyStories]);
 
   // Story-level entities for DIVE DEEPER header section

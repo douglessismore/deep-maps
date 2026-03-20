@@ -1185,7 +1185,7 @@ export const stories: Story[] = [
   },
   {
     id: 'booker-t-washington-snub',
-    name: 'The Booker T. Washington Snub',
+    name: 'Booker T. Washington Denied the Texas Capitol',
     years: '1911',
     category: 'political-drama',
     storyType: 'incident',
