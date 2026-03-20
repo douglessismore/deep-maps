@@ -50,8 +50,7 @@ export function StoryPanel({
   const isTapGuard = useRef(false); // Suppresses scroll handler after card tap to prevent jitter
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
-  const [expandedLocationId, setExpandedLocationId] = useState<string | null>(null);
-  const expandedLocationIdRef = useRef<string | null>(null);
+  // expandedLocationId removed — cards are always collapsed with description preview.
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
@@ -62,8 +61,7 @@ export function StoryPanel({
 
   const scrollRafId = useRef(0);
 
-  // Keep ref in sync so scroll handler always reads fresh value (avoids stale closure)
-  useEffect(() => { expandedLocationIdRef.current = expandedLocationId; }, [expandedLocationId]);
+  // (expandedLocationIdRef removed — no expansion state)
 
   // Scroll-driven location navigation + header auto-collapse
   useEffect(() => {
@@ -126,30 +124,8 @@ export function StoryPanel({
           closestId = storyLocations[storyLocations.length - 1].id;
         }
 
-        // Near bottom: force-expand the last card even if it's already the active card
-        // (handles case where scrollActiveId was set but expandedLocationId wasn't due to bounds-check)
-        if (isNearBottom && closestId && closestId === scrollActiveId && expandedLocationIdRef.current !== closestId) {
-          setExpandedLocationId(closestId);
-        }
-
         if (closestId && closestId !== scrollActiveId) {
-          // Don't collapse the expanded card while the user is still scrolling within it
-          // (reading long descriptions). Only switch expand when center leaves the card bounds.
-          const currentExpanded = expandedLocationIdRef.current;
-          const expandedEl = currentExpanded ? locationRefs.current.get(currentExpanded) : null;
-          const centerStillInExpanded = expandedEl && !isNearBottom && (() => {
-            const r = expandedEl.getBoundingClientRect();
-            return centerY >= r.top && centerY <= r.bottom;
-          })();
-
           setScrollActiveId(closestId);
-          if (!centerStillInExpanded) {
-            setExpandedLocationId(closestId);
-          }
-          // Suppress scroll handler during the card expand/collapse transition (~200ms)
-          // to prevent the layout shift from flipping activation between adjacent cards
-          isProgrammaticScroll.current = true;
-          setTimeout(() => { isProgrammaticScroll.current = false; }, 300);
           const location = storyLocations.find((l) => l.id === closestId);
           if (location) {
             onScrollLocationSelect(location);
@@ -176,44 +152,10 @@ export function StoryPanel({
     if (storyLocations.length > 0) {
       const initialId = activeLocation?.id ?? storyLocations[0].id;
       setScrollActiveId(initialId);
-      setExpandedLocationId(initialId);
     }
   }, [story.id]); // Only on story mount/change
 
-  // Scroll correction: when the active card changes, the collapsing card above shifts content up.
-  // If the newly active card's title gets pushed above the scroll container, nudge it back into view.
-  // Uses 'instant' behavior + a guard ref to prevent feedback loops with the scroll handler.
-  useEffect(() => {
-    if (!scrollActiveId) return;
-    const el = locationRefs.current.get(scrollActiveId);
-    const container = scrollContainerRef.current;
-    if (el && container) {
-      requestAnimationFrame(() => {
-        const elRect = el.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        if (elRect.top < containerRect.top) {
-          // isProgrammaticScroll may already be true from the scroll handler's 300ms guard.
-          // Only set+clear if it wasn't already guarded, to avoid prematurely unblocking.
-          const wasAlreadyGuarded = isProgrammaticScroll.current;
-          isProgrammaticScroll.current = true;
-          el.scrollIntoView({ behavior: 'instant', block: 'start' });
-          if (!wasAlreadyGuarded) {
-            requestAnimationFrame(() => {
-              isProgrammaticScroll.current = false;
-            });
-          }
-        }
-      });
-    }
-  }, [scrollActiveId]);
-
-  // Auto-expand the active location on mount (e.g. arriving from entity page with moment context).
-  // Guard with isScrollDriving so scroll-driven activeLocation changes don't bypass the bounds check.
-  useEffect(() => {
-    if (activeLocation && !isScrollDriving.current) {
-      setExpandedLocationId(activeLocation.id);
-    }
-  }, [activeLocation?.id]);
+  // (Scroll correction and auto-expand effects removed — no expansion state to shift layout)
 
   // Auto-scroll to activeLocation on mount
   useEffect(() => {
@@ -294,8 +236,6 @@ export function StoryPanel({
   // to prevent the expand/collapse layout shift from causing a feedback loop
   const handleLocationClick = (location: Moment) => {
     isTapGuard.current = true;
-    // Toggle expand: click same card = collapse, click different card = expand that one
-    setExpandedLocationId(prev => prev === location.id ? null : location.id);
     onLocationSelect(location);
     setTimeout(() => { isTapGuard.current = false; }, 400);
   };
@@ -536,7 +476,7 @@ export function StoryPanel({
                     location={location}
                     story={story}
                     isActive={currentActiveId === location.id}
-                    isExpanded={expandedLocationId === location.id}
+                    isExpanded={false}
                     onClick={handleLocationClick}
                     index={i}
                     onWikiJump={hasWiki ? handleWikiJump : undefined}

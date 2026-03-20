@@ -254,7 +254,7 @@ function MapController({
     },
     dragend: () => {
       isUserDragging.current = false;
-      userInteractUntil.current = Date.now() + 10000; // Block flyTo for 10s after drag
+      userInteractUntil.current = Date.now() + 4000; // Block flyTo for 4s after drag
     },
     zoomstart: () => {
       // Only block if this is a USER-initiated zoom (not our flyTo)
@@ -265,7 +265,7 @@ function MapController({
     zoomend: () => {
       setCurrentZoom(map.getZoom());
       if (!isUserDragging.current && !isProgrammaticMove.current) {
-        userInteractUntil.current = Date.now() + 10000; // Block flyTo for 10s after user zoom
+        userInteractUntil.current = Date.now() + 4000; // Block flyTo for 4s after user zoom
       }
     },
     moveend: () => { /* Triggers re-render for cluster updates via currentBoundsKey */ },
@@ -623,16 +623,17 @@ function MapController({
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
     if (activeLocation && !isBoundsLocked) {
-      // Fly to the active moment pin at street level.
-      // Use panToAboveSheet so the pin lands in the visible area ABOVE the sheet,
-      // not centered in the full container (where it'd be hidden behind the sheet).
-      const targetZoom = 16;
+      // Fly to the active moment pin — gentle zoom, not street level.
+      // Use panToAboveSheet so the pin lands in the visible area ABOVE the sheet.
+      // Only zoom in if we're currently zoomed out; don't zoom out if already close.
+      const currentZoomNow = map.getZoom();
+      const targetZoom = Math.max(currentZoomNow, 13);
       panToAboveSheet(
         map,
         [activeLocation.lat, activeLocation.lng],
         sheetSnap ?? 'half',
         isMobile,
-        { zoom: targetZoom, animate: true, duration: 0.8 },
+        { zoom: targetZoom, animate: true, duration: 0.5 },
       );
       clearFlag();
     } else if (mode === 'entity' && entityLocations && entityLocations.length > 0) {

@@ -33,10 +33,10 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
   );
 
   const currentTranslateY = useRef(0);
-  const currentSnapRef = useRef<SheetSnap>('half');
+  const currentSnapRef = useRef<SheetSnap>('peek');
   const initialized = useRef(false);
 
-  const [currentSnap, setCurrentSnap] = useState<SheetSnap>('half');
+  const [currentSnap, setCurrentSnap] = useState<SheetSnap>('peek');
 
   const isDragging = useRef(false);
   const startY = useRef(0);
@@ -110,15 +110,16 @@ export function BottomSheet({ children, onSnapChange }: BottomSheetProps) {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Initialize sheet to half on mobile — useLayoutEffect runs before paint, no flash.
+  // Initialize sheet to peek on mobile — shows more map on first load.
+  // useLayoutEffect runs before paint, no flash.
   useLayoutEffect(() => {
     if (!isMobile || initialized.current || !sheetRef.current) return;
     const container = sheetRef.current.parentElement;
     const totalH = container ? container.clientHeight : window.innerHeight;
-    const halfY = totalH * (1 - HALF_RATIO);
-    currentTranslateY.current = halfY;
-    currentSnapRef.current = 'half';
-    sheetRef.current.style.transform = `translate3d(0, ${halfY}px, 0)`;
+    const peekY = totalH - PEEK_HEIGHT;
+    currentTranslateY.current = peekY;
+    currentSnapRef.current = 'peek';
+    sheetRef.current.style.transform = `translate3d(0, ${peekY}px, 0)`;
     initialized.current = true;
   }, [isMobile]);
 
