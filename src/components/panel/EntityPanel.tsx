@@ -55,12 +55,31 @@ export function EntityPanel({
     [entity.id]
   );
 
+  // ─── Scroll container ref (declared early — used by tab switch + scroll handler)
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   // ─── Tabs ─────────────────────────────────────────────────────────
   const [activeTab, setActiveTab] = useState<EntityTab>('moments');
+  const savedScrollTop = useRef<Record<string, number>>({});
+
+  // Save scroll position before switching tabs, restore after
+  const handleTabSwitch = useCallback((tab: EntityTab) => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      savedScrollTop.current[activeTab] = container.scrollTop;
+    }
+    setActiveTab(tab);
+    requestAnimationFrame(() => {
+      if (container) {
+        container.scrollTop = savedScrollTop.current[tab] ?? 0;
+      }
+    });
+  }, [activeTab]);
 
   // Reset tab when entity changes
   useEffect(() => {
     setActiveTab('moments');
+    savedScrollTop.current = {};
   }, [entity.id]);
 
   // Determine which tabs are visible (hide empty, single tab = no bar)
@@ -71,7 +90,6 @@ export function EntityPanel({
   const tabCount = 1 + (showConnections ? 1 : 0) + (showStories ? 1 : 0);
 
   // ─── Scroll-driven map highlighting ──────────────────────────────
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const isProgrammaticScroll = useRef(false);
@@ -202,7 +220,7 @@ export function EntityPanel({
   const renderTabButton = (key: EntityTab, label: string, icon: string, count: number) => (
     <button
       key={key}
-      onClick={() => setActiveTab(key)}
+      onClick={() => handleTabSwitch(key)}
       className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
         activeTab === key
           ? 'text-[var(--text-primary)]'
