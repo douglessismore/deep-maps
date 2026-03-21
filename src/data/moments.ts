@@ -10908,8 +10908,7 @@ export const moments: Moment[] = [
       name: 'Billie Jean King Defeats Bobby Riggs 6–4, 6–3, 6–3 in the "Battle of the Sexes"',
       subtitle: 'NRG Astrodome, One Astrodome Way, Houston. Still standing; now a vacant landmark under preservation review',
       description:
-        'On 20 September 1973, before 30,472 spectators inside the world\'s first domed stadium — still the largest crowd ever to watch a tennis match in the United States — King dismantled self-declared male chauvinist Bobby Riggs in straight sets. Riggs, 55, had beaten Margaret Court months earlier and claimed no woman could beat him. King was carried onto the court on a litter in the style of Cleopatra; Riggs arrived on a rickshaw. The 
-00,000 winner-take-all purse went to King.',
+        'On 20 September 1973, before 30,472 spectators inside the world\'s first domed stadium — still the largest crowd ever to watch a tennis match in the United States — King dismantled self-declared male chauvinist Bobby Riggs in straight sets. Riggs, 55, had beaten Margaret Court months earlier and claimed no woman could beat him. King was carried onto the court on a litter in the style of Cleopatra; Riggs arrived on a rickshaw. The $100,000 winner-take-all purse went to King.',
       lat: 29.6843,
       lng: -95.4047,
       type: 'historical_site',
@@ -12005,8 +12004,7 @@ export const moments: Moment[] = [
     id: 'gardner-museum-heist',
     name: 'Two Men Posing as Police Officers Steal 13 Works from the Gardner Museum',
     subtitle: '25 Evans Way, Boston, MA — open to visitors; 13 frames hang empty where the art was',
-    description: 'At 1:24 a.m. on March 18, 1990, two men claiming to respond to a disturbance talked their way past the security guard at the Isabella Stewart Gardner Museum in Boston\'s Fenway neighborhood. Once inside, they handcuffed both guards to pipes in the basement vault and spent 81 minutes removing 13 works — a Vermeer, three Rembrandts including his only seascape, five Degas sketches, a Manet, and a Flinck. Estimated value: $500 million. No arrests have ever been made. The empty frames remain on the walls as placeholders, and a 
-0 million reward remains unclaimed.',
+    description: 'At 1:24 a.m. on March 18, 1990, two men claiming to respond to a disturbance talked their way past the security guard at the Isabella Stewart Gardner Museum in Boston\'s Fenway neighborhood. Once inside, they handcuffed both guards to pipes in the basement vault and spent 81 minutes removing 13 works — a Vermeer, three Rembrandts including his only seascape, five Degas sketches, a Manet, and a Flinck. Estimated value: $500 million. No arrests have ever been made. The empty frames remain on the walls as placeholders, and a $10 million reward remains unclaimed.',
     lat: 42.3386,
     lng: -71.0990,
     type: 'crime_scene',
@@ -12046,8 +12044,7 @@ export const moments: Moment[] = [
     id: 'antwerp-diamond-heist',
     name: 'A Gang Bypasses Five Security Systems and Empties 123 Vault Boxes in Antwerp',
     subtitle: 'Schupstraat 9–11, Antwerp Diamond District — building still in use; vault reconstructed',
-    description: 'Over the weekend of February 15–16, 2003, a five-man Italian gang led by Leonardo Notarbartolo — who had rented office space in the building for a year — broke into the vault of the Antwerp Diamond Centre two floors below street level. The vault was guarded by infrared heat detectors, seismic sensors, Doppler radar, a magnetic field, and an advanced combination lock. They bypassed all five systems and looted 123 of 160 safe deposit boxes: diamonds, gold, silver, and jewelry valued at over 
-00 million. Only Notarbartolo was convicted; the loot was never recovered.',
+    description: 'Over the weekend of February 15–16, 2003, a five-man Italian gang led by Leonardo Notarbartolo — who had rented office space in the building for a year — broke into the vault of the Antwerp Diamond Centre two floors below street level. The vault was guarded by infrared heat detectors, seismic sensors, Doppler radar, a magnetic field, and an advanced combination lock. They bypassed all five systems and looted 123 of 160 safe deposit boxes: diamonds, gold, silver, and jewelry valued at over $100 million. Only Notarbartolo was convicted; the loot was never recovered.',
     lat: 51.2145,
     lng: 4.4030,
     type: 'crime_scene',
@@ -12127,8 +12124,7 @@ export const moments: Moment[] = [
     id: 'banco-central-fortaleza',
     name: 'Thieves Dig an 80-Meter Tunnel Beneath a Fortaleza Bank and Remove 3.5 Tonnes of Cash',
     subtitle: 'Rua Conde D\'Eu, Centro, Fortaleza, Ceará — bank building intact; tunnel was sealed by authorities',
-    description: 'Over three months in early 2005, a gang rented a commercial property near the Banco Central do Brasil\'s Fortaleza branch and posed as a landscaping company to justify moving large amounts of soil. They dug an 80-meter tunnel — fitted with electric lighting, wooden supports, and air conditioning — that ran beneath the regional stock exchange and up through the 3.5-foot-thick concrete floor of the bank\'s cash vault. On the weekend of August 6–7, 2005, with the bank closed, they extracted 3.5 tonnes of used banknotes awaiting destruction: R
-64 million (approximately $70 million USD). It remains one of the largest bank robberies in history.',
+    description: 'Over three months in early 2005, a gang rented a commercial property near the Banco Central do Brasil\'s Fortaleza branch and posed as a landscaping company to justify moving large amounts of soil. They dug an 80-meter tunnel — fitted with electric lighting, wooden supports, and air conditioning — that ran beneath the regional stock exchange and up through the 3.5-foot-thick concrete floor of the bank\'s cash vault. On the weekend of August 6–7, 2005, with the bank closed, they extracted 3.5 tonnes of used banknotes awaiting destruction: R$164 million (approximately $70 million USD). It remains one of the largest bank robberies in history.',
     lat: -3.7274,
     lng: -38.5300,
     type: 'crime_scene',
@@ -12266,11 +12262,9 @@ export const moments: Moment[] = [
 
   {
     id: 'harry-winston-paris-heist',
-    name: 'Four Armed Robbers in Disguise Strip a Paris Jewelry Store of 
-07 Million in Gems',
+    name: 'Four Armed Robbers in Disguise Strip a Paris Jewelry Store of $107 Million in Gems',
     subtitle: '29 Avenue Montaigne, Paris 8e — Harry Winston remains open; one of the most expensive robberies in French history',
-    description: 'At 5:30 p.m. on December 4, 2008, four armed men — some reportedly dressed in women\'s clothing — entered the Harry Winston jewelry boutique on Avenue Montaigne in Paris\'s 8th arrondissement, 100 meters from a police station. They worked quickly through the store and its safes, appearing to know staff by name and to know where hidden storage was located, suggesting inside knowledge. In under 20 minutes they took rings, necklaces, and watches valued at approximately 
-07 million — the largest jewelry theft ever recorded in France. Eight people were eventually convicted. Much of the jewelry was never recovered.',
+    description: 'At 5:30 p.m. on December 4, 2008, four armed men — some reportedly dressed in women\'s clothing — entered the Harry Winston jewelry boutique on Avenue Montaigne in Paris\'s 8th arrondissement, 100 meters from a police station. They worked quickly through the store and its safes, appearing to know staff by name and to know where hidden storage was located, suggesting inside knowledge. In under 20 minutes they took rings, necklaces, and watches valued at approximately $107 million — the largest jewelry theft ever recorded in France. Eight people were eventually convicted. Much of the jewelry was never recovered.',
     lat: 48.8672,
     lng: 2.3023,
     type: 'crime_scene',
@@ -13474,13 +13468,9 @@ export const moments: Moment[] = [
 
   {
       id: 'inv-google-garage',
-      name: 'Page and Brin Rent a Garage for 
-,700 a Month and Launch Google',
+      name: 'Page and Brin Rent a Garage for $1,700 a Month and Launch Google',
       subtitle: '232 Santa Margarita Ave, Menlo Park, CA — house still stands; purchased by Google in 2006',
-      description: 'In September 1998, Larry Page and Sergey Brin — both Stanford PhD students — rented garage space from Susan Wojcicki at 232 Santa Margarita Avenue, Menlo Park, for 
-,700 per month. They had just received a 
-00,000 angel check from Sun co-founder Andy Bechtolsheim written to "Google Inc." before the company legally existed. The garage held desks, servers, and a hot tub. Google incorporated on September 4, 1998. Google purchased the property in 2006 for roughly 
-.2 million; Wojcicki later became CEO of YouTube.',
+      description: 'In September 1998, Larry Page and Sergey Brin — both Stanford PhD students — rented garage space from Susan Wojcicki at 232 Santa Margarita Avenue, Menlo Park, for $1,700 per month. They had just received a $100,000 angel check from Sun co-founder Andy Bechtolsheim written to "Google Inc." before the company legally existed. The garage held desks, servers, and a hot tub. Google incorporated on September 4, 1998. Google purchased the property in 2006 for roughly $1.2 million; Wojcicki later became CEO of YouTube.',
       lat: 37.4576,
       lng: -122.1636,
       type: 'home',
@@ -13498,8 +13488,7 @@ export const moments: Moment[] = [
       id: 'inv-amazon-garage',
       name: 'Bezos Quits Wall Street, Drives to Seattle, and Starts Amazon in a Bellevue Garage',
       subtitle: '10704 NE 28th St, Bellevue, WA — house still stands; sold and renovated since Bezos era',
-      description: 'In July 1994, Jeff Bezos quit his hedge fund job in New York and drove cross-country with his wife MacKenzie while she drafted the business plan. He set up three Sun workstations in the garage of their rented home at 10704 NE 28th Street, Bellevue, Washington. The company incorporated as Cadabra, Inc. on July 5, 1994, then relaunched as Amazon.com in 1995. The garage extension cord was shared with the house, and heaters were needed through Seattle winters. Amazon went from a garage to a 
- trillion company in under 25 years.',
+      description: 'In July 1994, Jeff Bezos quit his hedge fund job in New York and drove cross-country with his wife MacKenzie while she drafted the business plan. He set up three Sun workstations in the garage of their rented home at 10704 NE 28th Street, Bellevue, Washington. The company incorporated as Cadabra, Inc. on July 5, 1994, then relaunched as Amazon.com in 1995. The garage extension cord was shared with the house, and heaters were needed through Seattle winters. Amazon went from a garage to a $1 trillion company in under 25 years.',
       lat: 47.6334,
       lng: -122.1651,
       type: 'home',
