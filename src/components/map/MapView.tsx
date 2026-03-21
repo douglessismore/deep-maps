@@ -820,12 +820,14 @@ function MapController({
       clearFlag();
     } else if (activeLocation && !isBoundsLocked) {
       // Single-pin pan — respect user interaction guard (don't fight user's drag/zoom)
-      if (isUserDragging.current || Date.now() < userInteractUntil.current) {
+      // Exception: explicit click-zoom always fires (user tapped a card deliberately)
+      if (!zoomToActiveLocation && (isUserDragging.current || Date.now() < userInteractUntil.current)) {
         isProgrammaticMove.current = false;
         return;
       }
       if (zoomToActiveLocation) {
         // User clicked a moment card — zoom in to it
+        userInteractUntil.current = 0; // Clear interaction guard for intentional clicks
         const targetZoom = Math.max(map.getZoom(), 14);
         map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.6 });
       } else {
