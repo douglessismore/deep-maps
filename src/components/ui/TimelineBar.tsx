@@ -58,7 +58,7 @@ export function TimelineBar({
 
   // ── Map-visible points for era pill counts ──
   const mapVisiblePoints = useMemo(() => {
-    if (!mapVisibleStoryIds || mapVisibleStoryIds.size === 0) return visiblePoints;
+    if (!mapVisibleStoryIds) return visiblePoints; // null = not yet initialized
     return visiblePoints.filter((p) => mapVisibleStoryIds.has(p.storyId));
   }, [visiblePoints, mapVisibleStoryIds]);
 
