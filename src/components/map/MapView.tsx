@@ -630,8 +630,8 @@ function MapController({
     }
     pathArrowheadsRef.current.clearLayers();
 
-    // Collections never show polylines
-    if (activeCollection) {
+    // Never draw polylines for collections. Only in story/entity/scroll modes.
+    if (activeCollection || (mode !== 'story' && mode !== 'entity' && mode !== 'scroll')) {
       prevPathMomentIds.current = '';
       return;
     }
@@ -640,15 +640,15 @@ function MapController({
     let pathMoments: Moment[] = [];
     let pathColor = 'rgba(255,255,255,0.5)';
 
-    if (focusedLocations && focusedLocations.length >= 2 && !activeCollection) {
-      // Story or entity mode — use all focused locations (skip for collections)
+    if (focusedLocations && focusedLocations.length >= 2) {
+      // Story or entity mode — use all focused locations
       pathMoments = focusedLocations.map(fl => fl.location);
       // Use the story/entity's category color if available
       const firstStory = focusedLocations[0]?.story;
       if (firstStory) {
         pathColor = CATEGORIES[firstStory.category]?.color ?? pathColor;
       }
-    } else if (!activeCollection && scrollHighlight && scrollHighlight.length >= 2) {
+    } else if (scrollHighlight && scrollHighlight.length >= 2) {
       // Explore scroll mode — connect highlighted story's moments
       pathMoments = [...scrollHighlight];
       // Try to get the category color from the highlighted story
@@ -726,7 +726,7 @@ function MapController({
       }
       pathArrowheadsRef.current.clearLayers();
     };
-  }, [focusedLocations, scrollHighlight, activeCollection, map, allStories, momentMap]);
+  }, [focusedLocations, scrollHighlight, mode, activeCollection, map, allStories, momentMap]);
 
   // Highlight the active segment of the path line
   const activeSegmentRef = useRef<L.Polyline | null>(null);
