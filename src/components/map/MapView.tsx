@@ -395,10 +395,8 @@ function MapController({
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
             existing.marker.unbindTooltip();
             existing.marker.bindTooltip(
-              `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
-                <strong>${location.name}</strong>
-              </div>`,
-              { direction: 'auto', className: 'dark-tooltip', permanent: permanentTooltip }
+              `<strong style="font-family:'Crimson Text',serif;font-size:12px;">${location.name}</strong>`,
+              { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
             );
           }
 
@@ -415,7 +413,7 @@ function MapController({
             `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
               <strong>${location.name}</strong>
             </div>`,
-            { direction: 'auto', className: 'dark-tooltip', permanent: permanentTooltip }
+            { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
           );
           marker.on('click', () => onLocationClick(location, story));
           group.addLayer(marker);

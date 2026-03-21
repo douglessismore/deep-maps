@@ -449,7 +449,11 @@ html, body, #root {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 6px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
-  padding: 6px 10px !important;
+  padding: 4px 8px !important;
+  max-width: min(200px, 40vw) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .dark-tooltip::before {
@@ -462,6 +466,14 @@ html, body, #root {
 
 .leaflet-tooltip-bottom.dark-tooltip::before {
   border-bottom-color: #1a1a1a !important;
+}
+
+.leaflet-tooltip-right.dark-tooltip::before {
+  border-right-color: #1a1a1a !important;
+}
+
+.leaflet-tooltip-left.dark-tooltip::before {
+  border-left-color: #1a1a1a !important;
 }
 
 /* ===== Mobile Timeline Range Input ===== */
