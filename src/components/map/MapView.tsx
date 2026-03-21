@@ -836,7 +836,7 @@ function MapController({
           [activeLocation.lat, activeLocation.lng],
           sheetSnap ?? 'half',
           isMobile,
-          { animate: false },
+          { animate: true, duration: 0.3 },
         );
       }
       clearFlag();
