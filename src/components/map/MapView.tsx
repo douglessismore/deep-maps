@@ -820,8 +820,14 @@ function MapController({
         isProgrammaticMove.current = false;
       } else {
         const bounds = L.latLngBounds(storyLocs.map((loc) => [loc.lat, loc.lng] as [number, number]));
-        smartFlyToBounds(map, bounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
-        boundsLockUntil.current = Date.now() + 1200;
+        // If all moments are already visible, skip animation to avoid jitter
+        // (common with nearby clusters like SRV's two Austin moments)
+        if (map.getBounds().contains(bounds)) {
+          isProgrammaticMove.current = false;
+        } else {
+          smartFlyToBounds(map, bounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
+          boundsLockUntil.current = Date.now() + 1200;
+        }
       }
       userInteractUntil.current = 0;
       clearFlag();
