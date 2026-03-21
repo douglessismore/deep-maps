@@ -127,8 +127,9 @@
 
 ### Priority 2 — UX Polish
 5. ⬜ **Fix remaining jitter** — SRV, Sam Houston (tolerance-based bounds comparison)
-6. ⬜ **Search UX on mobile** — At minimum: scroll panel on focus, real-time filtering
-7. ⬜ **Polyline overshoot** — 16px offset between polyline coordinates and marker centers
+6. ⬜ **Dynamic era pill counts** — Timeline pills (All, Origins, Ancient, etc.) should reflect stories visible on the map, not total count. Hide pills with 0 visible stories. Uses `mapVisibleStoryIds` already tracked in App.tsx.
+7. ⬜ **Search UX on mobile** — At minimum: scroll panel on focus, real-time filtering
+8. ⬜ **Polyline overshoot** — 16px offset between polyline coordinates and marker centers
 
 ### Priority 3 — Future
 8. ⬜ **V3 rewrite cleanup** — trim 188 descriptions over 500 chars
