@@ -306,7 +306,7 @@ export const entities: Entity[] = [
     name: 'Lyndon B. Johnson',
     type: 'person',
     years: '1908–1973',
-    description: 'The 36th President of the United States, who had his first date with Lady Bird at the Driskill Hotel and used it as his political headquarters throughout his career.',
+    description: 'The 36th President who escalated the Vietnam War while passing the most sweeping civil rights and social welfare legislation since the New Deal. Assumed office after JFK\'s assassination in Dallas and chose not to seek re-election in 1968.',
     canonicalStoryId: 'lbj-lady-bird-austin',
     wikipediaSlug: 'Lyndon_B._Johnson',
   },
@@ -315,7 +315,7 @@ export const entities: Entity[] = [
     name: 'Lady Bird Johnson',
     type: 'person',
     years: '1912–2007',
-    description: 'First Lady who led a massive beautification project transforming the trash-strewn banks of Town Lake into the hike-and-bike trails that define downtown Austin today.',
+    description: 'First Lady who championed the Highway Beautification Act of 1965 and transformed the American environmental movement. A shrewd businesswoman who built a media empire in Austin, she was LBJ\'s closest political advisor for 39 years.',
     canonicalStoryId: 'lbj-lady-bird-austin',
     wikipediaSlug: 'Lady_Bird_Johnson',
   },
@@ -324,7 +324,7 @@ export const entities: Entity[] = [
     name: 'Booker T. Washington',
     type: 'person',
     years: '1856–1915',
-    description: 'Educator and advisor to presidents who was denied the right to speak at the Texas Capitol in 1911. He drew a racially integrated crowd of 5,000 to Wooldridge Square instead.',
+    description: 'The most influential Black leader in America from 1895 to 1915. Born into slavery, founded the Tuskegee Institute, and advised presidents from Roosevelt to Taft. His \'Atlanta Compromise\' speech made him a national figure and a lightning rod for criticism from W.E.B. Du Bois.',
     wikipediaSlug: 'Booker_T._Washington',
   },
   {
@@ -504,7 +504,7 @@ export const entities: Entity[] = [
     name: 'Theodore Roosevelt',
     type: 'person',
     years: '1858–1919',
-    description: 'The 26th President who recruited his Rough Riders at San Antonio\'s Menger Hotel bar, charged up San Juan Hill, created the national parks system, and was the first president to invite a Black man to dinner at the White House.',
+    description: 'The 26th President who charged up San Juan Hill, busted corporate monopolies, built the Panama Canal, and created the national parks system. Shot in the chest during a speech in 1912, he finished the speech before going to the hospital.',
     wikipediaSlug: 'Theodore_Roosevelt',
   },
 
@@ -515,7 +515,7 @@ export const entities: Entity[] = [
     name: 'Georgia O\'Keeffe',
     type: 'person',
     years: '1887–1986',
-    description: 'The "Mother of American Modernism" who spent 40 years painting the red cliffs and bleached bones of northern New Mexico from her homes in Abiquiu and Ghost Ranch.',
+    description: 'The "Mother of American Modernism" whose oversized flower paintings and bleached desert skulls redefined American art. Painted prolifically until her eyesight failed at 84, then switched to pottery and clay. Lived to 98.',
     wikipediaSlug: 'Georgia_O%27Keeffe',
   },
   {
@@ -523,7 +523,7 @@ export const entities: Entity[] = [
     name: 'Dennis Hopper',
     type: 'person',
     years: '1936–2010',
-    description: 'Actor and director of Easy Rider who retreated to Taos in 1970, bought the Mabel Dodge Luhan house, and catalyzed the town\'s transformation into a counterculture mecca.',
+    description: 'Actor, director, and photographer who co-created Easy Rider (1969), the road movie that launched New Hollywood. A volatile talent blacklisted by studios for a decade, he resurrected his career playing the villain in Blue Velvet and died in Venice, California at 74.',
     wikipediaSlug: 'Dennis_Hopper',
   },
   {
@@ -1044,7 +1044,7 @@ export const entities: Entity[] = [
     name: 'George Strait',
     type: 'person',
     years: '1952–present',
-    description: 'The "King of Country" who played the Broken Spoke for $500 a night before selling out stadiums. His early Austin gigs with the Ace in the Hole Band were the proving ground for a 60-album career.',
+    description: 'The "King of Country" who holds the record for the most number-one hits by any artist in any genre — 44 chart-toppers across a 60-album career. A former Army soldier from Poteet, Texas who never strayed from traditional country.',
     wikipediaSlug: 'George_Strait',
   },
 
