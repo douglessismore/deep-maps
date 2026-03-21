@@ -806,21 +806,28 @@ function MapController({
     // a story card is an intentional navigation, not a conflict with map interaction.
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      const eBounds = L.latLngBounds(coords);
-      const currentBounds = map.getBounds();
-      const ePad = (storyPad.padding as [number, number]) ?? [0, 0];
-      const eTargetZoom = map.getBoundsZoom(eBounds, false, L.point(ePad[0], ePad[1]));
-      const eZoomDiff = Math.abs(map.getZoom() - eTargetZoom);
-      const eAlreadyVisible = currentBounds.contains(eBounds);
-      const eNearlyThere = eZoomDiff < 1.2 && currentBounds.intersects(eBounds);
-      if (eAlreadyVisible || eNearlyThere) {
-        if (!eAlreadyVisible) {
-          map.fitBounds(eBounds, { ...storyPad, maxZoom: 16, animate: false });
-        }
-        isProgrammaticMove.current = false;
-      } else {
-        smartFlyToBounds(map, eBounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
+      if (coords.length === 1) {
+        // Single-moment entity (common for places): zoom directly to it
+        const targetZoom = Math.max(map.getZoom(), 14);
+        map.flyTo(coords[0], targetZoom, { duration: 0.8 });
         boundsLockUntil.current = Date.now() + 1200;
+      } else {
+        const eBounds = L.latLngBounds(coords);
+        const currentBounds = map.getBounds();
+        const ePad = (storyPad.padding as [number, number]) ?? [0, 0];
+        const eTargetZoom = map.getBoundsZoom(eBounds, false, L.point(ePad[0], ePad[1]));
+        const eZoomDiff = Math.abs(map.getZoom() - eTargetZoom);
+        const eAlreadyVisible = currentBounds.contains(eBounds);
+        const eNearlyThere = eZoomDiff < 1.2 && currentBounds.intersects(eBounds);
+        if (eAlreadyVisible || eNearlyThere) {
+          if (!eAlreadyVisible) {
+            map.fitBounds(eBounds, { ...storyPad, maxZoom: 16, animate: false });
+          }
+          isProgrammaticMove.current = false;
+        } else {
+          smartFlyToBounds(map, eBounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
+          boundsLockUntil.current = Date.now() + 1200;
+        }
       }
       userInteractUntil.current = 0;
       clearFlag();

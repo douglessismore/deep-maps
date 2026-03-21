@@ -29,8 +29,6 @@ interface EntityPanelProps {
   onExpandRequest?: () => void;
 }
 
-type EntityTab = 'moments' | 'connections' | 'stories';
-
 export function EntityPanel({
   entity,
   onStoryClick,
@@ -56,8 +54,7 @@ export function EntityPanel({
     [entity.id, entity.type]
   );
 
-  // Stories — always computed for all entity types
-  // Filter out canonical stories — they're invisible infrastructure
+  // Stories — filter out canonical stories (invisible infrastructure)
   const entityStories = useMemo(
     () => getEntityStories(entity.id).filter(s => !canonicalStoryIds.has(s.id)),
     [entity.id]
@@ -78,52 +75,16 @@ export function EntityPanel({
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Mobile header collapse — compact by default, expandable on tap (matches StoryPanel)
+  // Mobile header collapse — compact by default, expandable on tap
   const [headerExpanded, setHeaderExpanded] = useState(false);
 
-  // ─── Scroll container ref (declared early — used by tab switch + scroll handler)
+  // ─── Scroll container ref ─────────────────────────────────────────
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // ─── Tabs ─────────────────────────────────────────────────────────
-  const [activeTab, setActiveTab] = useState<EntityTab>('moments');
-  const savedScrollTop = useRef<Record<string, number>>({});
-
-  // Save scroll position before switching tabs
-  const handleTabSwitch = useCallback((tab: EntityTab) => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      savedScrollTop.current[activeTab] = container.scrollTop;
-    }
-    setActiveTab(tab);
-  }, [activeTab]);
-
-  // Restore scroll position after tab content has rendered
+  // Reset expanded state when entity changes
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    const saved = savedScrollTop.current[activeTab];
-    if (saved != null && saved > 0) {
-      // Double rAF to ensure React has flushed the new tab content to DOM
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          container.scrollTop = saved;
-        });
-      });
-    }
-  }, [activeTab]);
-
-  // Reset tab when entity changes
-  useEffect(() => {
-    setActiveTab('moments');
-    savedScrollTop.current = {};
+    setHeaderExpanded(false);
   }, [entity.id]);
-
-  // Determine which tabs are visible (hide empty, single tab = no bar)
-  const connectionsLabel = entity.type === 'place' ? 'Notable Figures' : 'Key Places';
-  const connectionsIcon = entity.type === 'place' ? '👤' : (entity.type === 'person' ? '📍' : '👤');
-  const showConnections = connections.length > 0;
-  const showStories = entityStories.length > 0;
-  // tabCount no longer gates visibility — tab bar always renders
 
   // ─── Scroll-driven map highlighting ──────────────────────────────
   const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -141,7 +102,6 @@ export function EntityPanel({
         if (onScrollLocationActive && entry.stories.length > 0) {
           onScrollLocationActive(entry.moment, entry.stories[0]);
         }
-        // If we have an activeLocationId, scroll to it
         if (activeLocationId) {
           requestAnimationFrame(() => {
             const el = momentRefs.current.get(initialId);
@@ -180,7 +140,6 @@ export function EntityPanel({
   const scrollRafId = useRef(0);
 
   useEffect(() => {
-    if (activeTab !== 'moments') return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -192,26 +151,24 @@ export function EntityPanel({
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
 
-        // If scrolled near bottom, activate the last card (it can't reach center)
         const isNearBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 100;
 
         let closestId: string | null = null;
         let closestDist = Infinity;
 
-        // Check if all moment cards are below the center line (user scrolled to top/header)
         let allBelowCenter = true;
-        momentRefs.current.forEach((el, id) => {
+        momentRefs.current.forEach((el) => {
           const rect = el.getBoundingClientRect();
           const cardCenter = rect.top + rect.height / 2;
           if (cardCenter <= centerY) allBelowCenter = false;
           const dist = Math.abs(cardCenter - centerY);
           if (dist < closestDist) {
             closestDist = dist;
-            closestId = id;
+            closestId = el.dataset.momentId ?? null;
           }
         });
 
-        // Scrolled above all moments → reset to show all entity pins on map
+        // Scrolled above all moments → show all entity pins
         if (allBelowCenter && momentRefs.current.size > 0) {
           if (scrollActiveId) {
             setScrollActiveId(null);
@@ -220,7 +177,6 @@ export function EntityPanel({
           return;
         }
 
-        // Near bottom of scroll: force last moment active
         if (isNearBottom && momentEntries.length > 0) {
           closestId = momentEntries[momentEntries.length - 1].moment.id;
         }
@@ -240,7 +196,7 @@ export function EntityPanel({
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(scrollRafId.current);
     };
-  }, [activeTab, momentEntries, scrollActiveId, onScrollLocationActive]);
+  }, [momentEntries, scrollActiveId, onScrollLocationActive]);
 
   // Click a moment card → highlight + tell map
   const handleMomentClick = useCallback(
@@ -248,7 +204,6 @@ export function EntityPanel({
       setScrollActiveId(moment.id);
       setExpandedLocationKey(prev => prev === moment.id ? null : moment.id);
       if (parentStories.length > 0) {
-        // Use click handler (zooms) if available, otherwise fall back to scroll handler (pans)
         if (onMomentClick) {
           onMomentClick(moment, parentStories[0]);
         } else if (onScrollLocationActive) {
@@ -259,112 +214,10 @@ export function EntityPanel({
     [onMomentClick, onScrollLocationActive]
   );
 
-  // ─── Render helpers ───────────────────────────────────────────────
-  const renderTabButton = (key: EntityTab, label: string, icon: string, count: number) => (
-    <button
-      key={key}
-      onClick={() => handleTabSwitch(key)}
-      className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-        activeTab === key
-          ? 'text-[var(--text-primary)]'
-          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-      }`}
-    >
-      <span className="inline-flex items-center gap-1">
-        <span className="text-sm">{icon}</span>
-        {label}
-        <span className="text-[10px] text-[var(--text-muted)]">({count})</span>
-      </span>
-      {activeTab === key && (
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
-      )}
-    </button>
-  );
+  // ─── Dive deeper items ──────────────────────────────────────────
+  const hasDiveDeeper = connections.length > 0 || entityStories.length > 0;
 
-  const renderTabBar = () => {
-    // Always show tab bar — even with only Moments, it provides context.
-    // Empty connections/stories tabs are hidden, but the bar itself stays.
-    return (
-      <div className="flex border-b border-[var(--border-subtle)] shrink-0 bg-[var(--bg-secondary)]">
-        {renderTabButton('moments', 'Moments', '📍', momentEntries.length)}
-        {showConnections && renderTabButton('connections', connectionsLabel, connectionsIcon, connections.length)}
-        {showStories && renderTabButton('stories', 'Stories', '📖', entityStories.length)}
-      </div>
-    );
-  };
-
-  const renderMomentCard = (
-    moment: Moment,
-    parentStories: Story[]
-  ) => {
-    const primaryStory = parentStories[0];
-    if (!primaryStory) return null;
-    return (
-      <LocationCard
-        key={moment.id}
-        ref={(el) => {
-          if (el) momentRefs.current.set(moment.id, el);
-          else momentRefs.current.delete(moment.id);
-        }}
-        location={moment}
-        story={primaryStory}
-        isActive={scrollActiveId === moment.id}
-        isExpanded={expandedLocationKey === moment.id}
-        compact={useCompactCards}
-        skipCanonicalFilter
-        parentStories={parentStories}
-        excludeEntityIds={[entity.id]}
-        onClick={isSpotlightPeek ? () => onExpandRequest?.() : () => handleMomentClick(moment, parentStories)}
-        onStoryClick={(story) => onStoryClick(story, moment)}
-        onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
-      />
-    );
-  };
-
-  const renderStoriesTab = () => (
-    <div className="p-4 space-y-2 pb-24 lg:pb-[40vh]">
-      {entityStories.map((story) => {
-        const sCat = CATEGORIES[story.category];
-        const entityMomentCount = momentEntries.filter(({ stories: s }) =>
-          s.some((ps) => ps.id === story.id)
-        ).length;
-        const storyTypeLabel = story.storyType && story.storyType !== 'incident' ? ` · ${story.storyType}` : '';
-        return (
-          <GoDeeperCard
-            key={story.id}
-            variant="full-width"
-            label={story.name}
-            sublabel={`${story.years || ''}${storyTypeLabel} · ${entityMomentCount} ${entityMomentCount === 1 ? 'moment' : 'moments'}`}
-            icon={<span className="w-2.5 h-2.5 rounded-full shrink-0 mt-0.5" style={{ backgroundColor: sCat.color }} />}
-            onClick={() => onStoryClick(story)}
-          />
-        );
-      })}
-    </div>
-  );
-
-  const renderConnectionsTab = () => (
-    <div className="p-4 space-y-2 pb-24 lg:pb-[40vh]">
-      {connections.map((connEntity) => {
-        const sharedMoments = momentEntries.filter(({ moment }) =>
-          moment.entityIds?.includes(connEntity.id)
-        ).length;
-        const sharedLabel = entity.type === 'place' ? 'here' : 'shared';
-        return (
-          <GoDeeperCard
-            key={connEntity.id}
-            variant="full-width"
-            label={connEntity.name}
-            sublabel={`${connEntity.years || ''} · ${sharedMoments} ${sharedMoments === 1 ? 'moment' : 'moments'} ${sharedLabel}`}
-            icon={<span className="text-lg opacity-60">{getEntityIcon(connEntity)}</span>}
-            onClick={() => onEntityClick(connEntity)}
-            description={connEntity.description}
-          />
-        );
-      })}
-    </div>
-  );
-
+  // ─── Render ─────────────────────────────────────────────────────
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Mobile breadcrumb (hidden in spotlight peek) */}
@@ -393,121 +246,221 @@ export function EntityPanel({
         </div>
       )}
 
-      {/* Entity header — fixed outside scroll (hidden in spotlight peek) */}
-      {!isSpotlightPeek && (
-        <div className="shrink-0 border-b border-[var(--border-subtle)]">
-          {/* Mobile: compact collapsible header */}
-          <div className="lg:hidden">
-            <button
-              onClick={() => setHeaderExpanded(!headerExpanded)}
-              className="w-full flex items-center gap-2 px-4 py-2.5"
-            >
-              <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
-              <h2 className="font-sans text-sm font-bold text-white truncate">{entity.name}</h2>
-              <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize shrink-0">{entity.type}</span>
-              {entity.years && (
-                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{entity.years}</span>
-              )}
-              <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
-                headerExpanded ? 'text-[var(--text-muted)]' : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
-              }`}>
-                {headerExpanded ? 'Less' : 'More'}
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                  className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
-                >
-                  <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
-            </button>
-            {headerExpanded && (
-              <div className="px-4 pb-3 space-y-2">
-                {entity.description && (
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{entity.description}</p>
-                )}
-                {entity.wikipediaSlug && (
-                  <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-                      <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
-                    </svg>
-                    Read on Wikipedia
-                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                      <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
+      {/* Single scroll container — header, dive deeper, sticky tab bar, moments */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
 
-          {/* Desktop: full header (always visible) */}
-          <div className="hidden lg:block p-4">
-            <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
-            <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
-                {entity.type}
-              </span>
-              {entity.years && (
-                <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+        {/* Entity header — scrolls away (hidden in spotlight peek) */}
+        {!isSpotlightPeek && (
+          <div className="border-b border-[var(--border-subtle)]">
+            {/* Mobile: compact collapsible header */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setHeaderExpanded(!headerExpanded)}
+                className="w-full flex items-center gap-2 px-4 py-2.5"
+              >
+                <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
+                <h2 className="font-sans text-sm font-bold text-white truncate">{entity.name}</h2>
+                <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize shrink-0">{entity.type}</span>
+                {entity.years && (
+                  <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{entity.years}</span>
+                )}
+                <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
+                  headerExpanded ? 'text-[var(--text-muted)]' : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
+                }`}>
+                  {headerExpanded ? 'Less' : 'More'}
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                    className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
+                  >
+                    <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+              {headerExpanded && (
+                <div className="px-4 pb-3 space-y-2">
+                  {entity.description && (
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{entity.description}</p>
+                  )}
+                  {entity.wikipediaSlug && (
+                    <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                        <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+                      </svg>
+                      Read on Wikipedia
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                        <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
-            {entity.description && (
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">{entity.description}</p>
-            )}
-            {entity.wikipediaSlug && (
-              <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-                  <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
-                </svg>
-                Read on Wikipedia
-                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                  <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            )}
-          </div>
-        </div>
-      )}
 
-      {/* Tab bar — fixed outside scroll (hidden in spotlight peek) */}
-      {!isSpotlightPeek && renderTabBar()}
-
-      {/* Scroll container — only tab content scrolls, so tab switching preserves position */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
-        {/* Tab content */}
-        {activeTab === 'moments' ? (
-          <div className="p-4">
-            {momentEntries.length === 0 ? (
-              <p className="text-sm text-[var(--text-muted)] italic">No moments tagged yet</p>
-            ) : (
-              <div className="space-y-1" onClick={isSpotlightPeek ? () => onExpandRequest?.() : undefined}>
-                {(() => {
-                  // Spotlight at peek: show only the active card
-                  if (isSpotlightPeek) {
-                    const activeEntry = scrollActiveId
-                      ? momentEntries.find(e => e.moment.id === scrollActiveId)
-                      : momentEntries[0];
-                    if (activeEntry) return renderMomentCard(activeEntry.moment, activeEntry.stories);
-                    return null;
-                  }
-                  return momentEntries.map(({ moment, stories }) =>
-                    renderMomentCard(moment, stories)
-                  );
-                })()}
+            {/* Desktop: full header */}
+            <div className="hidden lg:block p-4">
+              <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
+              <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+                  {entity.type}
+                </span>
+                {entity.years && (
+                  <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+                )}
               </div>
-            )}
-            {/* Bottom padding so last card can scroll fully into view */}
-            {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
+              {entity.description && (
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">{entity.description}</p>
+              )}
+              {entity.wikipediaSlug && (
+                <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                    <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+                  </svg>
+                  Read on Wikipedia
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                    <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              )}
+            </div>
           </div>
-        ) : activeTab === 'connections' ? (
-          renderConnectionsTab()
-        ) : activeTab === 'stories' ? (
-          renderStoriesTab()
-        ) : null}
+        )}
+
+        {/* Dive Deeper — horizontal strip (hidden in spotlight peek) */}
+        {!isSpotlightPeek && hasDiveDeeper && (
+          <div className="border-b border-[var(--border-subtle)]">
+            <div className="px-4 pt-2 pb-1">
+              <h3 className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+                Dive Deeper
+              </h3>
+            </div>
+            <div className="flex gap-2 px-4 pb-3 overflow-x-auto custom-scrollbar">
+              {/* Related stories */}
+              {entityStories.map((story) => {
+                const sCat = CATEGORIES[story.category];
+                const entityMomentCount = momentEntries.filter(({ stories: s }) =>
+                  s.some((ps) => ps.id === story.id)
+                ).length;
+                return (
+                  <GoDeeperCard
+                    key={story.id}
+                    label={story.name}
+                    sublabel={`${entityMomentCount} ${entityMomentCount === 1 ? 'moment' : 'moments'} · ${story.years || ''}`}
+                    icon={<span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: sCat.color }} />}
+                    onClick={() => onStoryClick(story)}
+                  />
+                );
+              })}
+              {/* Connected entities */}
+              {connections.map((connEntity) => {
+                const sharedMoments = momentEntries.filter(({ moment }) =>
+                  moment.entityIds?.includes(connEntity.id)
+                ).length;
+                const sharedLabel = entity.type === 'place' ? 'here' : 'shared';
+                return (
+                  <GoDeeperCard
+                    key={connEntity.id}
+                    label={connEntity.name}
+                    sublabel={`${sharedMoments} ${sharedMoments === 1 ? 'moment' : 'moments'} ${sharedLabel}`}
+                    icon={<span className="text-sm opacity-60">{getEntityIcon(connEntity)}</span>}
+                    onClick={() => onEntityClick(connEntity)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Sticky tab bar — sticks at top when scrolled past header */}
+        {!isSpotlightPeek && (
+          <div className="sticky top-0 z-10 flex border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
+            <button
+              className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+                'text-[var(--text-primary)]'
+              }`}
+            >
+              <span className="inline-flex items-center gap-1">
+                <span className="text-sm">📍</span>
+                Moments
+                <span className="text-[10px] text-[var(--text-muted)]">({momentEntries.length})</span>
+              </span>
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+            </button>
+          </div>
+        )}
+
+        {/* Moments */}
+        <div className="p-4">
+          {momentEntries.length === 0 ? (
+            <p className="text-sm text-[var(--text-muted)] italic">No moments tagged yet</p>
+          ) : (
+            <div className="space-y-1" onClick={isSpotlightPeek ? () => onExpandRequest?.() : undefined}>
+              {(() => {
+                if (isSpotlightPeek) {
+                  const activeEntry = scrollActiveId
+                    ? momentEntries.find(e => e.moment.id === scrollActiveId)
+                    : momentEntries[0];
+                  if (activeEntry) {
+                    return (
+                      <LocationCard
+                        key={activeEntry.moment.id}
+                        ref={(el) => {
+                          if (el) momentRefs.current.set(activeEntry.moment.id, el);
+                          else momentRefs.current.delete(activeEntry.moment.id);
+                        }}
+                        location={activeEntry.moment}
+                        story={activeEntry.stories[0]}
+                        isActive
+                        isExpanded={false}
+                        compact={useCompactCards}
+                        skipCanonicalFilter
+                        parentStories={activeEntry.stories}
+                        excludeEntityIds={[entity.id]}
+                        onClick={() => onExpandRequest?.()}
+                        onStoryClick={(story) => onStoryClick(story, activeEntry.moment)}
+                        onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
+                      />
+                    );
+                  }
+                  return null;
+                }
+                return momentEntries.map(({ moment, stories }) => {
+                  const primaryStory = stories[0];
+                  if (!primaryStory) return null;
+                  return (
+                    <LocationCard
+                      key={moment.id}
+                      ref={(el) => {
+                        if (el) {
+                          momentRefs.current.set(moment.id, el);
+                          el.dataset.momentId = moment.id;
+                        } else {
+                          momentRefs.current.delete(moment.id);
+                        }
+                      }}
+                      location={moment}
+                      story={primaryStory}
+                      isActive={scrollActiveId === moment.id}
+                      isExpanded={expandedLocationKey === moment.id}
+                      compact={useCompactCards}
+                      skipCanonicalFilter
+                      parentStories={stories}
+                      excludeEntityIds={[entity.id]}
+                      onClick={isSpotlightPeek ? () => onExpandRequest?.() : () => handleMomentClick(moment, stories)}
+                      onStoryClick={(story) => onStoryClick(story, moment)}
+                      onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
+                    />
+                  );
+                });
+              })()}
+            </div>
+          )}
+          {/* Bottom padding so last card can scroll fully into view */}
+          {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
+        </div>
       </div>
     </div>
   );

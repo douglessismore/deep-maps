@@ -495,11 +495,6 @@ export function StoryPanel({
 
           {/* Moments */}
           <div className="p-4">
-            {!isSpotlightPeek && (
-              <h3 className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
-                Moments ({story.moments.length})
-              </h3>
-            )}
             <div className="space-y-2">
               {(() => {
                 const allLocations = resolveLocationsFromMap(story, momentMap);
