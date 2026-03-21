@@ -1,124 +1,127 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-03-20 (Session 60 — moment click zoom, collection polyline removal, collection filtering investigation)
+**Last updated:** 2026-03-20 (Session 60 — UX polish, numbered markers, labels, content audit)
 **Branch:** `main`
-
----
-
-## Bug Tracker
-
-### ✅ Resolved (Session 60)
-- **Moment click doesn't zoom** — Clicking a moment card in story/entity mode now zooms to that moment (zoom 14+). Scrolling back to the story header zooms back out to show all markers. Implementation: `zoomToActiveLocation` boolean state in App.tsx, set true on `handleLocationSelect` (click), false on `handleScrollLocationSelect` (scroll) and `onScrollToTop`. MapView.tsx uses `flyTo` with `targetZoom = Math.max(currentZoom, 14)` when true, instant `panToAboveSheet` when false.
-- **Collection polylines look sloppy** — Polylines now suppressed when `activeCollection` is set. Collections are curated lists, not narratives — connecting lines don't add meaning. Fix: guard `!activeCollection` in polyline useEffect.
-- **Pin jitter during zoom** — CSS `transition: transform` on `.story-marker` base state caused markers to lag behind Leaflet's zoom animation. Fix: removed transform from base transition, only applied on `:hover`.
-- **Inconsistent story/entity map framing** — Stories with tightly clustered markers stayed too zoomed out. Fix: proportional padding (15% of viewport dimensions) + maxZoom raised to 16.
-- **scrollHighlight not cleared on navigation** — All pins appeared highlighted when entering story/entity mode from explore scroll. Fix: clear `scrollHighlight` and `scrollHighlightIdsRef` in all 4 navigation handlers.
-- **Pin dimming too invisible** — 0.12 opacity made dimmed pins nearly invisible. Fix: raised to 0.3.
-- **"Snub" content renamed** — `booker-t-washington-snub` → `booker-t-washington-denied-capitol`, "snub" → "refusal" everywhere.
-
-### ✅ Resolved (Session 59)
-- **Story/entity click not zooming** — Root cause: `userInteractUntil` guard blocked ALL zooms for 4s after any map interaction. Fix: mode-change zooms bypass the guard entirely.
-- **Collection click zooms to blank map** — Fix: moved collection zoom into MapController's zoom effect.
-- **Pin dimming not working in focused mode** — Fix: dim based on `activeLocation` in focused mode; always rebuild icon when faded state changes.
-- **Pin dimming not working in explore mode** — Fix: centralized highlight logic into shared helpers.
-- **Auto-zoom janky on scroll** — Removed entirely. Polylines communicate geographic scope visually.
-- **Collection scroll snapping to different collection** — Fix: skip viewport update during collections list scroll.
-- **Entity tab bar hidden for single-tab entities** — Fix: always render tab bar.
-- **Map pin centering in split mode** — Fix: `effectiveSheetSnap='full'` for split mode.
-
-### ✅ Resolved (Session 58)
-- **BUG-5: Missing DIVE DEEPER on biographies** — Fix: stopped filtering canonical stories from connectedEntries in StoryPanel.
-- **BUG-6: Tab switch resets scroll** — Fix: moved header and tab bar outside scroll container in EntityPanel.
-- **Scroll cutoff at bottom of lists** — Fix: explicit `visibleContentHeight` computed from currentSnap.
-- **Excess black space at bottom of lists** — Fix: responsive spacers (pb-24 mobile, 40vh desktop).
-
-### 🟡 Potential Issues (Monitoring)
-- **Collections "no moments" on Supabase** — With `?data=static`, Famous Battlefields renders 21 moment cards correctly. With Supabase (default), shows 24 locations but may have rendering issues. The `momentToStoryMap` lookup may fail for moments that exist in Supabase but whose parent stories aren't loaded. Needs investigation if user reports it again.
-- **Compact card density on mobile** — User flagged moment cards as "busy" even in compact mode. Park for future session.
-- **Landscape map area tiny** — User noted, not a priority.
-
-### 🟡 Open Issues (Non-Bug)
-- **Co-located moments (Texas State Cemetery)** — Content issue, convert to place entity.
-- **Trump notability ranking** — Scoring issue.
-- **188 descriptions over 500 chars** — Trimming pass needed.
-- **BUG-4: Entity sub-tab inconsistency** — Low priority, data-driven.
-- **Los Alamos polyline overshoot** — 16px offset between polyline SVG coordinates and marker visual centers due to touch target iconAnchor. Not yet fixed.
 
 ---
 
 ## What Shipped (Session 60)
 
-### Features
-1. **Moment click zoom** — Clicking a moment card in StoryPanel/EntityPanel zooms the map to that moment at zoom 14+. Scrolling back to the story/entity header zooms out to show all markers. Uses `zoomToActiveLocation` boolean state wired through App.tsx → MapView.tsx.
-2. **Collection polyline suppression** — Collections no longer draw connecting polylines between moments. Guard added to polyline useEffect: `!activeCollection && scrollHighlight.length >= 2`.
+### UX Features
+1. **Moment click zoom** — Clicking a moment card zooms to zoom 14+. Scrolling back to header zooms out. `zoomToActiveLocation` state in App.tsx.
+2. **Numbered markers** — 1-based numbers inside marker dots in story/entity mode. Numbers scale with marker size.
+3. **Contextual labels** — Active moment shows permanent tooltip (moment name, 2-line max, right-aligned). Other moments show on hover.
+4. **Card expansion** — Clicking moment card expands to full description, address, wiki link, entity cards. Works in both full and compact mode. Auto-scrolls to show expanded content.
+5. **Smooth scroll panning** — Scroll-driven location changes animate (0.3s) instead of instant snap.
+6. **Collection polyline suppression** — Collections don't draw connecting lines.
+7. **Collection dimming** — Non-highlighted moments dim to 0.3 (was 0.08, essentially invisible).
 
 ### Bug Fixes
-3. **Pin jitter** — Removed CSS transform transition from base `.story-marker` state.
-4. **Consistent map framing** — Proportional padding (15% viewport) + maxZoom 16 for story/entity fitBounds.
-5. **scrollHighlight cleared on navigation** — Prevents all-pins-highlighted state when entering story/entity mode.
-6. **Pin dimming opacity** — Raised from 0.12 to 0.3 for visibility.
+8. **Back button pollution** — In-story moment clicks no longer push nav history.
+9. **Inconsistent moment zoom** — Click-driven zoom bypasses `userInteractUntil` guard (was blocked for 4s after any flyTo).
+10. **Single-moment story jitter** — Stories with 1 moment instant-pan instead of fitBounds animation.
+11. **Nearby-moment story jitter** — Stories where all moments already visible skip fitBounds animation.
+12. **Tooltip clipping** — Labels render right of marker with max-width, 2-line clamp, ellipsis truncation.
+13. **Pin jitter during zoom** — Removed CSS transform transition from base marker state.
+14. **scrollHighlight not cleared** — Fixed all-pins-highlighted state on story/entity entry.
 
 ### Content
-7. **"Snub" → "refusal"** — Renamed Booker T. Washington story and updated all text.
+15. **"Snub" → "refusal"** — Booker T. Washington story renamed.
 
 ---
 
-## Key Decisions Made (Session 60)
+## 🟡 Known Jitter Issues (Not Yet Resolved)
 
-| Decision | Chosen | Rejected | Why |
-|----------|--------|----------|-----|
-| Moment click zoom level | `Math.max(currentZoom, 14)` | Fixed zoom 14, or fitBounds with small padding | Only zooms IN, never out. If user is already at zoom 16, stays there. Zoom 14 gives good street-level context. |
-| Zoom-back-out trigger | `onScrollToTop` sets `activeLocation=null` | Separate "zoom out" button, timer-based reset | Natural: scrolling to story header = "show me the whole story". Existing `smartFlyToBounds` handles the rest. |
-| Collection polylines | Suppress entirely | Show but style differently, make optional | Collections are curated lists, not chronological narratives. Lines between unrelated moments add visual noise. |
-| Dimmed pin opacity | 0.3 | 0.08, 0.12, 0.15 | 0.12 was essentially invisible on light map backgrounds, making polylines look like they overshoot past the last marker. 0.3 is dim enough to not compete but visible enough to show the point exists. |
+- **SRV (Stevie Ray Vaughan)** — 2 moments very close in Austin. Jitter on scroll-to-top despite nearby-bounds fix. Supabase shows only 1 moment (data sync gap). Static has 2.
+- **Sam Houston entity** — Jitter on scroll-to-top. Same root cause: fitBounds animating to nearly-identical bounds.
+- Root cause theory: the `map.getBounds().contains(bounds)` check may be failing because the story bounds are slightly different from the current viewport after a moment zoom. May need a tolerance-based comparison.
 
 ---
 
-## Current State
+## Content Audit Findings (From Voice Note + Investigation)
 
-### Database
-- **304 entities**, **293 stories**, **1,260 moments**, **219 images**, **30 collections**
-- **~124/507** planned people fully imported (≥4 moments)
-- Pipeline offset: **152** (people 1-152 processed across runs 1-15)
+### Cathedral of Junk — NOT a geocoding bug
+- Moment 1 (`junk-cathedral-site`): 30.2185, -97.7715 — 4422 Lareina Dr (the actual Cathedral)
+- Moment 2 (`junk-city-hall-hearing`): 30.2658, -97.7492 — 301 W 2nd St (City Hall)
+- These ARE different locations. The user expected both on Lareina Dr, but the City Hall hearing genuinely happened at City Hall. **No fix needed** — but consider making this clearer in the UI (e.g., subtitle mentioning "at City Hall").
 
-### Key Architecture (Session 60)
+### LBJ / Lady Bird — Combined story, not a wiring bug
+- Only ONE story: `lbj-lady-bird-austin` with moments `lbj-driskill-date` + `lbj-lady-bird-lake`
+- Both LBJ and Lady Bird are separate entities with `canonicalStoryId` pointing to this story
+- The Lady Bird Town Lake moment appears under LBJ because it's a combined story. **Consider splitting into separate stories** if this is confusing.
 
-**Zoom effect priority chain** (MapView.tsx MapController):
+### De-duplication Audit (Pending — agents were running)
+**Stories that should be places** (candidates):
+- Stories about specific venues/places rather than narrative arcs need identification
+- Examples flagged by user: Congress Avenue Bats, Cathedral of Junk
+
+**Stories that duplicate entities** (need full audit):
+- Many biography stories have matching person entities (e.g., `stevie-ray-vaughan` story + `stevie-ray-vaughan` entity)
+- This is BY DESIGN (entity.canonicalStoryId links them), but some may need consolidation
+
+**Action needed**: Run full dedup audit in next session. Extract all story IDs + entity IDs, find overlaps, decide which to consolidate.
+
+### Austin Content Feedback (From Voice Note)
+| Item | Story/Moment | Issue | Action |
+|------|-------------|-------|--------|
+| Weak moment name | Lady Bird transforms Town Lake | Too general | Rewrite to be more specific/atomic |
+| Questionable moment | Janis Joplin "ugliest man on campus" | Weird choice for UT location | Check if better Janis moment exists |
+| Moment specificity | Willie Nelson saves guitar from fire | Location only "area" | Get specific address if possible |
+| Too general | Willie Nelson unites hippies/cowboys | Describes an era, not a moment | Make more atomic — specific event/date |
+| Michael Dell | First moment shows office park | Dorm room would be more interesting | Consider adding dorm as separate moment |
+| Congress Ave Bats | Merlin Tuttle moment pin | Away from bridge, says "area" | Verify location accuracy |
+| O. Henry | "Coins servant girl annihilator" | Location approximate | Verify pin matches his residence |
+| SRV location | "Coins servant girl annihilator" | Location approximate | Verify pin placement |
+
+### Search UX (Mobile)
+- Keyboard covers results on mobile — no visible feedback when typing
+- No auto-suggestions / typeahead
+- Enter key doesn't surface results visibly
+- **Needs**: scroll panel when search activates, real-time filtering as user types, maybe a search overlay
+
+### Supabase Data Sync Gap
+- SRV shows 1 moment on Supabase vs 2 in static data
+- Implies other content may be out of sync
+- **Action**: Re-sync static data to Supabase before content curation work
+
+---
+
+## Key Architecture (Session 60)
+
+**Zoom effect priority chain** (MapView.tsx):
 1. Entity mode (no activeLocation) → `smartFlyToBounds` to entity bounds
-2. Story mode (no activeLocation) → `smartFlyToBounds` to story bounds
+2. Story mode (no activeLocation) → `smartFlyToBounds` to story bounds (skip if single-moment or all visible)
 3. Active location (not bounds-locked):
-   - `zoomToActiveLocation=true` → `flyTo` zoom 14+ (user clicked a moment card)
-   - `zoomToActiveLocation=false` → `panToAboveSheet` instant snap (scroll-driven)
-4. Active collection → `smartFlyToBounds` to collection bounds
-5. Category filter → `smartFlyToBounds` to category bounds
+   - `zoomToActiveLocation=true` → `flyTo` zoom 14+ (bypasses userInteractUntil)
+   - `zoomToActiveLocation=false` → `panToAboveSheet` smooth 0.3s
+4. Active collection → `smartFlyToBounds`
+5. Category filter → `smartFlyToBounds`
 
-**`zoomToActiveLocation` state flow:**
-- Set `true` in: `handleLocationSelect` (click from panel)
-- Set `false` in: `handleScrollLocationSelect` (scroll), `handleEntityScrollLocationActive` (entity scroll), `onScrollToTop` callbacks
-- Read in: MapView.tsx zoom effect
-
-**EmergenceLayer highlight architecture:**
-- Shared helpers: `getHighlightOpacity()`, `getHighlightRadius()`
-- Three code paths all use same helpers: create/update effect, zoomend handler, scroll highlight effect
-- `scrollHighlightRef` (ref) keeps highlight state available without being a dependency
+**`zoomToActiveLocation` flow:**
+- Set `true`: in-story moment click (StoryPanel), entity moment click (EntityPanel `onMomentClick`)
+- Set `false`: scroll-driven handlers, `onScrollToTop` callbacks
+- Click-driven zoom clears `userInteractUntil` (prevents 4s blocking between clicks)
 
 ---
 
 ## Immediate Next Steps
 
-### Priority 1 — Verify & Polish
-1. ⬜ **Test moment zoom on Supabase data** — verified with static, need Supabase confirmation
-2. ⬜ **Polyline overshoot fix** — 16px offset between polyline coordinates and marker visual centers
+### Priority 1 — Data Cleanup (Before Curation)
+1. ⬜ **Geo-accuracy audit** — Triple-check ALL lat/lng coordinates. Get as hyperspecific as possible. Cross-reference with Google Maps/Wikipedia. Flag any "area" accuracy moments that could be "exact".
+2. ⬜ **Full dedup audit** — Extract all story/entity IDs, find overlaps, decide consolidation
+3. ⬜ **Re-sync static → Supabase** — Ensure Supabase matches static data
+4. ⬜ **Split LBJ/Lady Bird** — Into separate stories if user confirms
+5. ⬜ **Austin content rewrites** — Apply voice note feedback (moment names, specificity)
 
-### Priority 2 — Content & Data
-3. ⬜ **V3 rewrite cleanup** — trim 188 descriptions over 500 chars
-4. ⬜ **Apply v3 rewrites to database**
-5. ⬜ **32 place→entity conversions**
-6. ⬜ **Continue people pipeline** — offset 153
+### Priority 2 — UX Polish
+5. ⬜ **Fix remaining jitter** — SRV, Sam Houston (tolerance-based bounds comparison)
+6. ⬜ **Search UX on mobile** — At minimum: scroll panel on focus, real-time filtering
+7. ⬜ **Polyline overshoot** — 16px offset between polyline coordinates and marker centers
 
-### Priority 3 — Future UX
-7. ⬜ **Idle zoom** — slow zoom-in after 1.5s pause on a moment (parked user idea)
-8. ⬜ **Reduce ExplorePanel tabs** — 4 tabs → 2 ("Nearby" + "Collections")
+### Priority 3 — Future
+8. ⬜ **V3 rewrite cleanup** — trim 188 descriptions over 500 chars
+9. ⬜ **Continue people pipeline** — offset 153
+10. ⬜ **Reduce ExplorePanel tabs** — 4 tabs → 2
 
 ---
 
@@ -128,17 +131,13 @@
 # Dev server
 cd deep-maps && npx vite --host --port 5178
 
-# Static file server (for tracker/dashboard)
-cd deep-maps && python3 -m http.server 8896
-
-# Pipeline — subagent mode
+# Pipeline
 npx tsx scripts/ingest/notable-people-local.ts --phase prep --offset 153 --limit 25
-npx tsx scripts/ingest/notable-people-local.ts --phase assemble --batch <batch-id>
 
 # Audit
 npx tsx scripts/audit-wiring.ts
 
-# Regenerate dashboards
+# Dashboards
 npx tsx scripts/generate-tracker.ts
 npx tsx scripts/generate-dashboard.ts
 ```
@@ -149,14 +148,11 @@ npx tsx scripts/generate-dashboard.ts
 
 | File | Role |
 |------|------|
-| `src/App.tsx` | Main layout — variant-aware map/panel split, routing, mode system, `zoomToActiveLocation` state |
-| `src/lib/uiVariant.tsx` | UI variant context (default: split) |
-| `src/lib/data/provider.tsx` | DataProvider — TanStack Query + Context + loading screen |
-| `src/lib/sheetAwareMap.ts` | Sheet-aware map panning — panToAboveSheet |
-| `src/components/map/MapView.tsx` | Map + MapController (zoom effect, markers, polylines, `zoomToActiveLocation` prop) |
-| `src/components/map/EmergenceLayer.tsx` | Canvas-based moment renderer (highlight-aware) |
-| `src/components/panel/ExplorePanel.tsx` | Panel with hybrid nearest/notable sort, scroll-driven highlighting |
-| `src/components/panel/StoryPanel.tsx` | Story detail view with moment cards |
-| `src/components/panel/EntityPanel.tsx` | Entity detail view with moments/connections/stories tabs |
-| `src/components/ui/BottomSheet.tsx` | Mobile bottom sheet — Current + Spotlight variants |
-| `src/components/ui/TimelineBar.tsx` | Era chips + date range (merged row) |
+| `src/App.tsx` | Layout, routing, mode system, `zoomToActiveLocation` state |
+| `src/components/map/MapView.tsx` | Map + zoom effect, markers (numbered), polylines, tooltips |
+| `src/components/map/EmergenceLayer.tsx` | Canvas markers (highlight-aware, collection dimming) |
+| `src/components/panel/StoryPanel.tsx` | Story view, card expansion, scroll handling |
+| `src/components/panel/EntityPanel.tsx` | Entity view, `onMomentClick` for click-zoom |
+| `src/components/panel/LocationCard.tsx` | Moment card (expansion, compact fallthrough) |
+| `src/components/panel/ExplorePanel.tsx` | Explore panel, scroll highlighting, collections |
+| `src/index.css` | Tooltip styles (`.dark-tooltip`), marker styles |
