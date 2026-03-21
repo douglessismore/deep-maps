@@ -331,6 +331,8 @@ function App() {
     setCategoryFilter(null);
     setActiveStory(null);
     setActiveLocation(null);
+    setScrollHighlight([]);
+    scrollHighlightIdsRef.current = '';
     setMode('explore');
     // Zoom handled by MapController's zoom effect when activeCollection changes
   }, [pushNav]);

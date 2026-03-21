@@ -634,8 +634,8 @@ function MapController({
     let pathMoments: Moment[] = [];
     let pathColor = 'rgba(255,255,255,0.5)';
 
-    if (focusedLocations && focusedLocations.length >= 2) {
-      // Story or entity mode — use all focused locations
+    if (focusedLocations && focusedLocations.length >= 2 && !activeCollection) {
+      // Story or entity mode — use all focused locations (skip for collections)
       pathMoments = focusedLocations.map(fl => fl.location);
       // Use the story/entity's category color if available
       const firstStory = focusedLocations[0]?.story;
