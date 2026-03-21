@@ -811,12 +811,19 @@ function MapController({
       userInteractUntil.current = 0; // Clear any stale interaction guard
       clearFlag();
     } else if (mode === 'story' && activeStory && !activeLocation) {
-      const bounds = L.latLngBounds(
-        resolveLocationsFromMap(activeStory, momentMap).map((loc) => [loc.lat, loc.lng] as [number, number])
-      );
-      smartFlyToBounds(map, bounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
-      boundsLockUntil.current = Date.now() + 1200;
-      userInteractUntil.current = 0; // Clear any stale interaction guard
+      const storyLocs = resolveLocationsFromMap(activeStory, momentMap);
+      if (storyLocs.length <= 1) {
+        // Single-moment story: just pan to it, no fitBounds animation (avoids jitter)
+        if (storyLocs.length === 1) {
+          panToAboveSheet(map, [storyLocs[0].lat, storyLocs[0].lng], sheetSnap ?? 'half', isMobile, { animate: false });
+        }
+        isProgrammaticMove.current = false;
+      } else {
+        const bounds = L.latLngBounds(storyLocs.map((loc) => [loc.lat, loc.lng] as [number, number]));
+        smartFlyToBounds(map, bounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
+        boundsLockUntil.current = Date.now() + 1200;
+      }
+      userInteractUntil.current = 0;
       clearFlag();
     } else if (activeLocation && !isBoundsLocked) {
       // Single-pin pan — respect user interaction guard (don't fight user's drag/zoom)
