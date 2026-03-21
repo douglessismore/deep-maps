@@ -395,7 +395,7 @@ function MapController({
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
             existing.marker.unbindTooltip();
             existing.marker.bindTooltip(
-              `<strong style="font-family:'Crimson Text',serif;font-size:12px;">${location.name}</strong>`,
+              `<strong style="font-family:'Crimson Text',serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
               { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
             );
           }
