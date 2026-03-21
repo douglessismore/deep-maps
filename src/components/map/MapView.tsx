@@ -808,7 +808,8 @@ function MapController({
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       const eBounds = L.latLngBounds(coords);
       const currentBounds = map.getBounds();
-      const eTargetZoom = map.getBoundsZoom(eBounds, false, storyPad.padding as L.PointTuple ?? [0, 0]);
+      const ePad = (storyPad.padding as [number, number]) ?? [0, 0];
+      const eTargetZoom = map.getBoundsZoom(eBounds, false, L.point(ePad[0], ePad[1]));
       const eZoomDiff = Math.abs(map.getZoom() - eTargetZoom);
       const eAlreadyVisible = currentBounds.contains(eBounds);
       const eNearlyThere = eZoomDiff < 1.2 && currentBounds.intersects(eBounds);
@@ -836,7 +837,8 @@ function MapController({
         // Skip animation if bounds change is negligible (avoids jitter on scroll-to-top
         // for nearby clusters like SRV's Austin moments or single-city stories)
         const currentBounds = map.getBounds();
-        const targetZoom = map.getBoundsZoom(bounds, false, storyPad.padding as L.PointTuple ?? [0, 0]);
+        const sPad = (storyPad.padding as [number, number]) ?? [0, 0];
+        const targetZoom = map.getBoundsZoom(bounds, false, L.point(sPad[0], sPad[1]));
         const zoomDiff = Math.abs(map.getZoom() - targetZoom);
         const alreadyVisible = currentBounds.contains(bounds);
         const nearlyThere = zoomDiff < 1.2 && currentBounds.intersects(bounds);
