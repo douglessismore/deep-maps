@@ -12,6 +12,7 @@ import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { useUIVariant } from '../../lib/uiVariant';
 import { GoDeeperCard } from './GoDeeperCard';
 import { LocationCard } from './LocationCard';
+import { EntityWikiPanel } from './EntityWikiPanel';
 import type { SheetSnap } from '../ui/BottomSheet';
 
 interface EntityPanelProps {
@@ -78,12 +79,18 @@ export function EntityPanel({
   // Mobile header collapse — compact by default, expandable on tap
   const [headerExpanded, setHeaderExpanded] = useState(false);
 
+  // Tab state — moments vs wiki
+  type EntityTab = 'moments' | 'wiki';
+  const [activeTab, setActiveTab] = useState<EntityTab>('moments');
+  const hasWiki = !!entity.wikipediaSlug;
+
   // ─── Scroll container ref ─────────────────────────────────────────
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Reset expanded state when entity changes
+  // Reset state when entity changes
   useEffect(() => {
     setHeaderExpanded(false);
+    setActiveTab('moments');
   }, [entity.id]);
 
   // ─── Scroll-driven map highlighting ──────────────────────────────
@@ -378,8 +385,9 @@ export function EntityPanel({
         {!isSpotlightPeek && (
           <div className="sticky top-0 z-10 flex border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
             <button
+              onClick={() => setActiveTab('moments')}
               className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
-                'text-[var(--text-primary)]'
+                activeTab === 'moments' ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
               }`}
             >
               <span className="inline-flex items-center gap-1">
@@ -387,12 +395,33 @@ export function EntityPanel({
                 Moments
                 <span className="text-[10px] text-[var(--text-muted)]">({momentEntries.length})</span>
               </span>
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+              {activeTab === 'moments' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+              )}
             </button>
+            {hasWiki && (
+              <button
+                onClick={() => setActiveTab('wiki')}
+                className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
+                  activeTab === 'wiki' ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                }`}
+              >
+                <span className="inline-flex items-center gap-1">
+                  <span className="text-sm">📖</span>
+                  Wikipedia
+                </span>
+                {activeTab === 'wiki' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-red)]" />
+                )}
+              </button>
+            )}
           </div>
         )}
 
-        {/* Moments */}
+        {/* Tab content */}
+        {activeTab === 'wiki' && hasWiki ? (
+          <EntityWikiPanel entity={entity} />
+        ) : (
         <div className="p-4">
           {momentEntries.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)] italic">No moments tagged yet</p>
@@ -461,6 +490,7 @@ export function EntityPanel({
           {/* Bottom padding so last card can scroll fully into view */}
           {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
         </div>
+        )}
       </div>
     </div>
   );
