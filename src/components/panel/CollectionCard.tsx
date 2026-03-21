@@ -25,7 +25,7 @@ export function CollectionCard({ collection, momentCount, onClick }: CollectionC
       {/* Stats row */}
       <div className="flex items-center gap-3 mt-2.5">
         <span className="text-[10px] font-mono text-[var(--text-muted)]">
-          {momentCount} {momentCount === 1 ? 'location' : 'locations'}
+          {momentCount} {momentCount === 1 ? 'moment' : 'moments'}
         </span>
 
         {/* Arrow */}

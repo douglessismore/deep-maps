@@ -989,7 +989,7 @@ export function ExplorePanel({
               </div>
               {displayMoments.length === 0 ? (
                 <div className="py-12 text-center">
-                  <p className="text-sm text-[var(--text-muted)] font-mono">No locations in this collection</p>
+                  <p className="text-sm text-[var(--text-muted)] font-mono">No moments in this collection</p>
                 </div>
               ) : (
                 <div className="p-2 space-y-1">

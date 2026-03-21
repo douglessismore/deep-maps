@@ -74,14 +74,6 @@ export const collections: StoryCollection[] = [
     tags: ['aviation', 'disaster', 'crash'],
   },
   {
-    id: 'massacre-sites',
-    name: 'Sites of Massacres and Mass Racial Violence',
-    subtitle: 'Locations of massacres, race riots, and mass violence in the Americas',
-    description: 'The neighborhoods burned, the fields where troops opened fire, and the communities destroyed — Tulsa, Wounded Knee, Sand Creek, Rosewood, and beyond.',
-    momentIds: ['tulsa-greenwood', 'tulsa-drexel', 'wkm-monument', 'wkm-mass-grave', 'wkm-pine-ridge-agency', 'scm-historic-site', 'scm-denver-capitol', 'scm-chivington-town', 'rwm-wright-house', 'rwm-sumner-mill', 'rwm-cedar-key-rail', 'waco-horror-courthouse', 'waco-horror-square', 'torreon-plaza-massacre'],
-    tags: ['massacre', 'racial-violence', 'hidden-history'],
-  },
-  {
     id: 'outlaw-gunfighter-sites',
     name: 'Outlaw and Gunfighter Sites of the American West',
     subtitle: 'Jailbreaks, ambush sites, hideouts, and graves of Old West outlaws and Depression-era bandits',
@@ -122,22 +114,6 @@ export const collections: StoryCollection[] = [
     tags: ['ufo', 'paranormal', 'mystery-unexplained'],
   },
   {
-    id: 'unsolved-disappearances',
-    name: 'Unsolved Disappearances and Unexplained Phenomena',
-    subtitle: 'Missing persons, vanished islands, and places where strange things happen',
-    description: 'An island that disappeared from maps, a scientist who vanished without a trace, a zone where radios go silent, and other genuinely unexplained cases.',
-    momentIds: ['bermeja-mapped-existence', 'bermeja-navy-search', 'zone-silence-impact', 'zone-silence-ceballos', 'grinberg-home-disappearance', 'grinberg-unam-lab', 'monchito-rubble-site', 'stranger-planting-site', 'stranger-vatican-relic', 'sabina-first-velada', 'sabina-home-arson'],
-    tags: ['disappearance', 'unsolved', 'unexplained', 'mystery'],
-  },
-  {
-    id: 'mexico-political-assassinations',
-    name: 'Political Assassinations, Coups, and Uprisings in Mexico',
-    subtitle: 'The plazas, prisons, and podiums where Mexican political power was seized or destroyed',
-    description: 'From the execution of Emperor Maximilian to the Tlatelolco student massacre to the Colosio assassination — political violence across Mexican history.',
-    momentIds: ['colosio-lomas-taurinas', 'maximilian-convent-prison', 'maximilian-firing-squad', 'tlatelolco-flare-signal', 'tlatelolco-chihuahua-snipers', 'tlatelolco-church-sanctuary', 'guerrero-acapulco-lure', 'guerrero-la-entrega', 'guerrero-cuilapan-execution', 'diaz-convent-escape', 'diaz-battle-miahuatlan', 'marcos-san-cristobal', 'marcos-unmasking'],
-    tags: ['mexico', 'political', 'assassination', 'uprising'],
-  },
-  {
     id: 'meteorite-impact-craters',
     name: 'Meteorite Impact Craters and Impact Sites',
     subtitle: 'Craters, strewn fields, and blast zones where objects from space struck the Earth',
@@ -149,29 +125,6 @@ export const collections: StoryCollection[] = [
       'hoba-meteorite', 'campo-del-cielo', 'sikhote-alin', 'siljan-ring', 'tswaing-crater',
     ],
     tags: ['meteorite', 'impact-crater', 'geology', 'space'],
-  },
-  {
-    id: 'sacred-pilgrimage-sites',
-    name: 'Sacred Sites and Pilgrimage Destinations',
-    subtitle: 'Temples, churches, mosques, and mountains where billions have prayed, walked, and wept',
-    description: 'From the tomb of Jesus to the Kaaba to the tree where the Buddha found enlightenment — the holiest places on Earth, mapped.',
-    momentIds: [
-      // Jerusalem
-      'holy-sepulchre', 'western-wall', 'dome-of-the-rock', 'garden-gethsemane', 'via-dolorosa',
-      // Holy Land
-      'church-nativity', 'capernaum-galilee', 'mount-sinai-monastery', 'jordan-river-baptism', 'nazareth-annunciation', 'qumran-scrolls', 'masada-fortress',
-      // Islamic
-      'mecca-kaaba', 'medina-prophets-mosque',
-      // Catholic
-      'vatican-st-peters', 'santiago-compostela', 'lourdes-sanctuary', 'fatima-sanctuary',
-      // Eastern
-      'bodh-gaya-temple', 'varanasi-ganges', 'mount-kailash', 'angkor-wat', 'hagia-sophia',
-      // Guadalupe
-      'guadalupe-tepeyac-apparition', 'guadalupe-tilma-reveal', 'guadalupe-new-basilica',
-      // Cristero + Day of the Dead
-      'cristero-cubilete-monument', 'dotd-janitzio-vigil',
-    ],
-    tags: ['religion', 'pilgrimage', 'sacred', 'holy-land'],
   },
   {
     id: 'biblical-events',
@@ -230,32 +183,6 @@ export const collections: StoryCollection[] = [
       'normandy-dday', 'stalingrad-encirclement', 'midway-ambush', 'el-alamein-montgomery', 'iwo-jima-suribachi',
     ],
     tags: ['battle', 'war', 'military', 'history'],
-  },
-  {
-    id: 'notable-people',
-    name: 'History\'s Most Notable People',
-    subtitle: 'The most dramatic moments in the lives of the most famous humans who ever lived',
-    description: 'Gandhi picking up salt, Einstein rewriting physics as a patent clerk, Caesar stabbed by his friends, Genghis Khan uniting the Mongols — one defining moment for each of 33 of history\'s most globally recognized figures.',
-    momentIds: [
-      // Revolutionary Leaders
-      'gandhi-salt-march', 'mandela-robben-island', 'bolivar-liberates-bogota',
-      'che-guevara-executed', 'castro-enters-havana', 'mao-proclaims-prc',
-      'ataturk-founds-republic', 'indira-gandhi-assassinated',
-      'dalai-lama-flees-tibet', 'aung-san-suu-kyi-house-arrest',
-      // Empire Builders
-      'genghis-khan-unites-mongols', 'peter-great-founds-petersburg', 'julius-caesar-assassinated',
-      // Thinkers and Sages
-      'plato-founds-academy', 'confucius-teaches-qufu', 'avicenna-canon-medicine', 'rumi-settles-konya',
-      // Scientists
-      'da-vinci-last-supper', 'galileo-faces-inquisition', 'einstein-publishes-relativity', 'marie-curie-discovers-radium',
-      // Literary Titans
-      'shakespeare-globe-theatre', 'dostoevsky-mock-execution', 'tolstoy-flees-estate',
-      'garcia-marquez-writes-solitude', 'neruda-dies-after-coup', 'kafka-writes-trial', 'tagore-wins-nobel',
-      // Artists, Composers, Icons
-      'van-gogh-cuts-ear', 'mozart-dies-penniless', 'bob-marley-zimbabwe',
-      'kurosawa-seven-samurai', 'pele-1000th-goal',
-    ],
-    tags: ['notable-people', 'biography', 'history', 'global'],
   },
 
   // ─── City Clusters ─────────────────────────────────────────────────────
@@ -319,23 +246,6 @@ export const collections: StoryCollection[] = [
     tags: ['tokyo', 'japan', 'city-cluster', 'history'],
   },
 
-  {
-    id: 'notable-people-2',
-    name: 'History\'s Greatest Minds and Bravest Souls',
-    subtitle: 'Scientists, artists, writers, and heroes whose single moments changed everything',
-    description: 'Darwin noticing finch beaks in the Galápagos, a deaf Beethoven being turned around to see his ovation, Gutenberg printing the first book, Joan of Arc burning at 19, and Tubman going back into slavery thirteen times to free others.',
-    momentIds: [
-      'cleopatra-suicide-alexandria', 'darwin-galapagos', 'beethoven-ninth-symphony',
-      'marx-das-kapital', 'luther-95-theses', 'frida-kahlo-casa-azul',
-      'picasso-paints-guernica', 'hemingway-farewell-arms', 'twain-mississippi',
-      'dickens-christmas-carol', 'nightingale-scutari', 'freud-interpretation-dreams',
-      'joan-of-arc-burned', 'gutenberg-prints-bible', 'earhart-disappears',
-      'tesla-wardenclyffe', 'copernicus-deathbed', 'hamilton-killed-duel',
-      'tubman-escapes-slavery', 'pasteur-rabies-vaccine',
-    ],
-    tags: ['notable-people', 'biography', 'history', 'global', 'batch-2'],
-  },
-
   // ─── Curated thematic collections (migrated from stories) ──────────
   // These also exist in stories.ts for panel rendering compatibility.
   // Full story removal deferred until panel supports collection-only moments.
@@ -363,37 +273,5 @@ export const collections: StoryCollection[] = [
     description: 'The Sistine Chapel ceiling, the painter who died at 37 and was mourned by a Pope, a genius who committed murder, and a poet who died overlooking the Spanish Steps — Rome as the canvas for art\'s greatest dramas.',
     momentIds: ['michelangelo-sistine-chapel', 'raphael-dies-rome', 'caravaggio-kills-ranuccio', 'keats-dies-spanish-steps'],
     tags: ['rome', 'renaissance', 'art', 'painting', 'literature'],
-  },
-  {
-    id: 'scientific-minds-2',
-    name: 'Scientific Minds That Changed Everything',
-    subtitle: 'Five discoveries that rewired humanity\'s understanding of the universe',
-    description: 'A dying astronomer who removed Earth from the center of the universe, a naturalist who noticed finch beaks, a chemist who saved a boy from rabies, an inventor who tried to give the world free energy, and a doctor who explained why you dream.',
-    momentIds: ['copernicus-deathbed', 'darwin-galapagos', 'pasteur-rabies-vaccine', 'tesla-wardenclyffe', 'freud-interpretation-dreams'],
-    tags: ['science', 'discovery', 'evolution', 'astronomy', 'medicine', 'invention'],
-  },
-  {
-    id: 'revolutionaries-pen-pulpit',
-    name: 'Revolutionaries of the Pen and the Pulpit',
-    subtitle: 'Three men who reshaped civilization with words, not weapons',
-    description: 'A goldsmith who made knowledge reproducible, a monk who split Christianity, and a penniless exile who wrote the book that split the world — three men who reshaped civilization with words, not weapons.',
-    momentIds: ['gutenberg-prints-bible', 'luther-95-theses', 'marx-das-kapital'],
-    tags: ['revolution', 'printing', 'reformation', 'communism', 'ideas'],
-  },
-  {
-    id: 'artists-writers-immortal',
-    name: 'Artists and Writers Who Became Immortal',
-    subtitle: 'The masterpieces that made their creators eternal',
-    description: 'A deaf composer who had to be turned around to see his ovation, an author who reinvented Christmas, a painter who turned her pain into self-portraits, and Picasso responding to a bombing with the most famous anti-war painting in history.',
-    momentIds: ['beethoven-ninth-symphony', 'dickens-christmas-carol', 'twain-mississippi', 'hemingway-farewell-arms', 'frida-kahlo-casa-azul', 'picasso-paints-guernica'],
-    tags: ['art', 'music', 'literature', 'painting', 'culture'],
-  },
-  {
-    id: 'historys-bravest',
-    name: 'History\'s Bravest',
-    subtitle: 'Six lives defined by extraordinary courage in the face of death',
-    description: 'A pharaoh who chose death over chains, a teenage girl burned for heresy, a society woman who walked into a death trap, a slave who went back thirteen times, a founding father killed by the vice president, and a pilot who vanished over the Pacific.',
-    momentIds: ['cleopatra-suicide-alexandria', 'joan-of-arc-burned', 'nightingale-scutari', 'tubman-escapes-slavery', 'hamilton-killed-duel', 'earhart-disappears'],
-    tags: ['courage', 'sacrifice', 'heroism', 'women', 'freedom'],
   },
 ];
