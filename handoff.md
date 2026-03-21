@@ -40,10 +40,11 @@
 
 ## Content Audit Findings (From Voice Note + Investigation)
 
-### Cathedral of Junk — NOT a geocoding bug
-- Moment 1 (`junk-cathedral-site`): 30.2185, -97.7715 — 4422 Lareina Dr (the actual Cathedral)
-- Moment 2 (`junk-city-hall-hearing`): 30.2658, -97.7492 — 301 W 2nd St (City Hall)
-- These ARE different locations. The user expected both on Lareina Dr, but the City Hall hearing genuinely happened at City Hall. **No fix needed** — but consider making this clearer in the UI (e.g., subtitle mentioning "at City Hall").
+### Cathedral of Junk — Supabase data mismatch
+- Static data is correct: Moment 1 (`junk-cathedral-site`): 4422 Lareina Dr. Moment 2 (`junk-city-hall-hearing`): 301 W 2nd St (City Hall).
+- **Supabase shows 4422 Lareina Dr for BOTH moments** — the City Hall hearing address was not synced correctly.
+- Pins appear on different map locations (lat/lng is correct in both), but the displayed address text is wrong for the second moment in Supabase.
+- **Fix needed**: Update `junk-city-hall-hearing` address in Supabase to `301 W 2nd St, Austin, TX`.
 
 ### LBJ / Lady Bird — Combined story, not a wiring bug
 - Only ONE story: `lbj-lady-bird-austin` with moments `lbj-driskill-date` + `lbj-lady-bird-lake`
