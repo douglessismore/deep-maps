@@ -345,6 +345,19 @@ export function ExplorePanel({
         });
 
         if (closestId) {
+          // Inside a collection — always highlight single moment, never story polylines
+          if (isActiveCollectionTab) {
+            const collectionMoment = displayMoments.find(m => m.id === closestId);
+            if (collectionMoment) {
+              onModeChange('scroll');
+              setScrollActiveStoryId(closestId);
+              onScrollHighlight([collectionMoment]);
+              clearTimeout(panTimeout.current);
+              panTimeout.current = window.setTimeout(() => {
+                panToAboveSheet(mapInstance, [collectionMoment.lat, collectionMoment.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+              }, 80);
+            }
+          } else {
           // Check if it's a story or a person entity
           const story = displayStories.find((s) => s.id === closestId);
           if (story && story.moments.length > 0) {
@@ -363,18 +376,6 @@ export function ExplorePanel({
               const panTarget = locsInView[0] || resolved[0];
               panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
             }, 80);
-          } else if (isActiveCollectionTab) {
-            // Collection moment — highlight single pin + pan
-            const collectionMoment = displayMoments.find(m => m.id === closestId);
-            if (collectionMoment) {
-              onModeChange('scroll');
-              setScrollActiveStoryId(closestId);
-              onScrollHighlight([collectionMoment]);
-              clearTimeout(panTimeout.current);
-              panTimeout.current = window.setTimeout(() => {
-                panToAboveSheet(mapInstance, [collectionMoment.lat, collectionMoment.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
-              }, 80);
-            }
           } else {
             // Person entity — highlight their moments on the map
             const entityMoments = getMomentsForEntity(closestId);
@@ -392,6 +393,7 @@ export function ExplorePanel({
               }, 80);
             }
           }
+          } // close outer else (non-collection)
         }
       });
     };
