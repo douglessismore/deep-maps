@@ -361,16 +361,6 @@ function MapController({
       // This makes it clear which moment is currently selected as user scrolls.
       const hasActivePin = activeLocation != null;
 
-      // Compute active index for neighbor label logic (6C)
-      const activeIdx = activeLocation && focusedIndexMap
-        ? (focusedIndexMap.get(activeLocation.id) ?? 0) - 1
-        : -1;
-      const neighborIds = new Set<string>();
-      if (activeIdx >= 0 && focusedLocations) {
-        if (activeIdx > 0) neighborIds.add(focusedLocations[activeIdx - 1].location.id);
-        if (activeIdx < focusedLocations.length - 1) neighborIds.add(focusedLocations[activeIdx + 1].location.id);
-      }
-
       focusedLocations.forEach(({ location, story }) => {
         const key = `pin-${story.id}-${location.id}`;
         nextKeys.add(key);
@@ -383,9 +373,8 @@ function MapController({
         // activeLocation is set and this isn't the active pin.
         const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
                         (hasActivePin && !hasHighlight && !isActive);
-        // Show permanent tooltip for active moment + neighbors (6C)
-        const isNeighbor = neighborIds.has(location.id);
-        const permanentTooltip = isActive || isNeighbor || (isHighlighted && singleHighlight);
+        // Show permanent tooltip only for the active moment
+        const permanentTooltip = isActive || (isHighlighted && singleHighlight);
         const markerOpacity = isFaded ? 0.3 : undefined;
         const effectiveSize = isActive ? Math.max(baseSize * 1.4, 16) : baseSize;
         const label = focusedIndexMap?.get(location.id);
@@ -405,12 +394,11 @@ function MapController({
 
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
             existing.marker.unbindTooltip();
-            const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
             existing.marker.bindTooltip(
               `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
                 <strong>${location.name}</strong>
               </div>`,
-              { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
+              { direction: 'auto', className: 'dark-tooltip', permanent: permanentTooltip }
             );
           }
 
@@ -423,12 +411,11 @@ function MapController({
         } else {
           const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
           const marker = L.marker([location.lat, location.lng], { icon });
-          const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
           marker.bindTooltip(
             `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
               <strong>${location.name}</strong>
             </div>`,
-            { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
+            { direction: 'auto', className: 'dark-tooltip', permanent: permanentTooltip }
           );
           marker.on('click', () => onLocationClick(location, story));
           group.addLayer(marker);
