@@ -60,7 +60,18 @@
 - Many biography stories have matching person entities (e.g., `stevie-ray-vaughan` story + `stevie-ray-vaughan` entity)
 - This is BY DESIGN (entity.canonicalStoryId links them), but some may need consolidation
 
-**Action needed**: Run full dedup audit in next session. Extract all story IDs + entity IDs, find overlaps, decide which to consolidate.
+**Audit completed.** 15 story/entity ID collisions found — these are BY DESIGN (`canonicalStoryId` links them). Key findings:
+
+**Stories that should be places** (storyType: 'place', candidates for place-entity-only):
+- `aluxes-cancun-bridge`, `carlsbad-caverns`, `chaco-canyon`, `truth-or-consequences`, `white-sands-footprints`, `buddy-holly-clovis`, `palace-of-the-governors`
+
+**ID naming mismatches** (story vs entity use different IDs for same thing):
+- `dahmer` vs `jeffrey-dahmer`, `vla` vs `very-large-array`, `j-robert-oppenheimer` vs `robert-oppenheimer`, `dennis-hopper-taos` vs `dennis-hopper`, `clovis-points` vs `clovis-culture`
+
+**Place entities with no story counterpart** (good as-is):
+- `cathedral-of-junk`, `congress-avenue-bats`, `driskill-hotel`, `paramount-theatre-austin`, `texas-state-cemetery`, `mount-bonnell-austin`
+
+**Decision needed**: Should place-type stories be converted to place entities? Or keep both? User wants to clean this up before curation.
 
 ### Austin Content Feedback (From Voice Note)
 | Item | Story/Moment | Issue | Action |
@@ -125,6 +136,16 @@
 10. ⬜ **Reduce ExplorePanel tabs** — 4 tabs → 2
 
 ---
+
+## Session Startup Checklist
+
+1. Read this file (`handoff.md`) and `CLAUDE.md` in project root
+2. Read memory at `~/.claude/projects/-Users-sirdouglas-Documents-claude-code-projects-networking-dashboard-fresh/memory/MEMORY.md`
+3. CWD is locked to `networking-dashboard-fresh` — use `pushd ~/Documents/claude-code-projects/deep-maps` for deep-maps commands
+4. Start dev server: `pushd ~/Documents/claude-code-projects/deep-maps && npx vite --host --port 5178`
+5. User accesses production at **deepmaps.app** (Vercel) — changes must be pushed to be visible
+6. Data source: Supabase by default on deepmaps.app; `?data=static` for local static files
+7. **Supabase data may be out of sync with static files** — re-sync is a priority task
 
 ## Common Commands
 
