@@ -630,6 +630,12 @@ function MapController({
     }
     pathArrowheadsRef.current.clearLayers();
 
+    // Collections never show polylines
+    if (activeCollection) {
+      prevPathMomentIds.current = '';
+      return;
+    }
+
     // Determine which moments to connect
     let pathMoments: Moment[] = [];
     let pathColor = 'rgba(255,255,255,0.5)';
