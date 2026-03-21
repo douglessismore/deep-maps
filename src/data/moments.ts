@@ -341,7 +341,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: 'White Sands Missile Range, NM',
-    entityIds: ['robert-oppenheimer', 'manhattan-project', 'trinity-site'],
+    entityIds: ['robert-oppenheimer', 'manhattan-project', 'trinity-site', 'los-alamos-national-laboratory'],
   },
   {
     id: 'carlsbad-entrance',
@@ -3536,7 +3536,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1980,
-    entityIds: ['mexican-free-tailed-bats'],
+    entityIds: ['mexican-free-tailed-bats', 'congress-avenue-bats'],
   },
   {
     id: 'bats-accidental-joints',
@@ -3552,7 +3552,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1980,
-    entityIds: ['mexican-free-tailed-bats'],
+    entityIds: ['mexican-free-tailed-bats', 'congress-avenue-bats'],
   },
   {
     id: 'bats-bci-saves-colony',
@@ -3568,7 +3568,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'milestone',
     year: 1986,
-    entityIds: ['bat-conservation-international'],
+    entityIds: ['bat-conservation-international', 'congress-avenue-bats'],
   },
   {
     id: 'sos-barton-springs',
@@ -4183,7 +4183,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     year: 1898,
     address: '204 Alamo Plaza, San Antonio, TX 78205',
-    entityIds: ['theodore-roosevelt'],
+    entityIds: ['theodore-roosevelt', 'menger-hotel-rough-riders'],
   },
   {
     id: 'menger-hotel-opening',

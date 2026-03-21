@@ -7,7 +7,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1913–2005',
     description: 'The woman whose single act of defiance on a city bus ignited a revolution. Her life was a persistent, decades-long battle against systemic injustice that moved from Alabama to the heart of Detroit.',
-    canonicalStoryId: 'rosa-parks',
     wikipediaSlug: 'Rosa_Parks',
   },
   {
@@ -16,7 +15,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1970–present',
     description: 'Engineers report their equipment being sabotaged by 3-foot-tall beings until they build them a tiny stone house. The "Aluxes" are so culturally accepted that the bridge has a permanent shrine built underneath it, and construction crews across the Yucatán still perform Alux ceremonies before breaking ground.',
-    canonicalStoryId: 'aluxes-cancun-bridge',
     wikipediaSlug: 'Alux',
   },
   {
@@ -25,7 +23,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1983–1984',
     description: 'A stolen cancer therapy machine is sold for scrap, accidentally releasing 6,000 pellets of radioactive Cobalt-60. The material is melted into 6,000 tons of construction rebar, which is used to build hundreds of homes and buildings across northern Mexico and the U.S. Southwest before the contamination is discovered.',
-    canonicalStoryId: 'cobalt-60-accident',
     wikipediaSlug: 'Ciudad_Juárez_cobalt-60_contamination_incident',
   },
   {
@@ -34,7 +31,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1988–present',
     description: 'A man spent 30 years building a three-story fortress out of 60 tons of trash in his backyard. It survived a legal war with the city to become an officially recognized piece of Austin\'s architectural heritage — a sprawling labyrinth of hubcaps, bicycles, and circuit boards that visitors can still walk through.',
-    canonicalStoryId: 'cathedral-of-junk',
     wikipediaSlug: 'Cathedral_of_Junk',
   },
   {
@@ -43,7 +39,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1980–present',
     description: 'When the city refurbished the Congress Avenue Bridge, it accidentally created the perfect crevice for 1.5 million bats. What started as a public health panic became the largest urban bat colony in North America — now a beloved tourist attraction drawing 100,000 spectators each summer to watch the nightly flight.',
-    canonicalStoryId: 'congress-avenue-bats',
     wikipediaSlug: 'Ann_W._Richards_Congress_Avenue_Bridge',
   },
   {
@@ -61,7 +56,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1886–present',
     description: 'Built by a cattle baron who lost the building in a high-stakes poker game, the hotel is Austin\'s most active paranormal hotspot. Its history is marked by the suicide of two brides in the same room, exorcism attempts, and LBJ watching his 1964 election returns from the mezzanine.',
-    canonicalStoryId: 'driskill-hotel',
     wikipediaSlug: 'The_Driskill',
   },
   {
@@ -70,7 +64,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1898',
     description: 'Teddy Roosevelt recruited the "Rough Riders" in the bar of this hotel, allegedly buying them enough whiskey to convince them to charge up San Juan Hill. Patrons still report seeing a man in a Victorian-era military uniform drinking alone at the bar where Roosevelt once held court.',
-    canonicalStoryId: 'menger-hotel-rough-riders',
     wikipediaSlug: 'Menger_Hotel',
   },
   {
@@ -79,7 +72,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1860–1930',
     description: 'For a century, women set up massive outdoor kitchens in the city squares, inventing "Chili con Carne" as we know it while serenading tourists. They were eventually shut down by the health department around 1930, but their legacy lives on in every bowl of Texas chili.',
-    canonicalStoryId: 'milam-park-chile-queens',
     wikipediaSlug: 'Chile_queens',
   },
   {
@@ -97,7 +89,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1915–present',
     description: 'Austin\'s oldest surviving theater is a portal into the city\'s evolving soul. From vaudeville acts and Houdini escapes to psychedelic rock and world film premieres, the Paramount has survived near-death demolition threats to become a landmark of Austin\'s cultural identity.',
-    canonicalStoryId: 'paramount-theatre-austin',
     wikipediaSlug: 'Paramount_Theatre_(Austin,_Texas)',
   },
   // scholz-garden entity consolidated below (line ~858) — moments use 'scholz-garden' ID
@@ -107,7 +98,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1851–present',
     description: 'Known as the "Arlington of Texas," this 22-acre site is the final resting place for the Republic\'s greatest heroes and its most controversial figures. From Stephen F. Austin and Barbara Jordan to Confederate generals, the cemetery tells the full unvarnished story of Texas.',
-    canonicalStoryId: 'texas-state-cemetery',
     wikipediaSlug: 'Texas_State_Cemetery',
   },
   {
@@ -116,7 +106,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1840–present',
     description: 'Austin\'s most iconic viewpoint is a 240-million-year-old limestone ridge that has served as a sanctuary and a lover\'s leap for centuries. From prehistoric settlements to 19th-century steamboat picnics to modern sunset proposals, the 775-foot summit has watched over every chapter of Austin\'s history.',
-    canonicalStoryId: 'mount-bonnell-austin',
     wikipediaSlug: 'Mount_Bonnell',
   },
   {
@@ -125,7 +114,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1862–1910',
     description: 'America\'s master of the twist ending — a pharmacist, bank teller, fugitive, and convicted embezzler who reinvented himself as the country\'s most popular short story writer. His years in Austin and a federal prison cell shaped his literary voice.',
-    canonicalStoryId: 'o-henry-life',
     wikipediaSlug: 'O._Henry',
   },
   {
@@ -134,7 +122,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1943–1970',
     description: 'Rock and blues legend who honed her raw, electrifying vocal style in Austin before becoming a counterculture icon. Her time at UT Austin and local venues shaped the artist who would redefine rock music.',
-    canonicalStoryId: 'janis-joplin-austin',
     wikipediaSlug: 'Janis_Joplin',
   },
   {
@@ -143,7 +130,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1933–present',
     description: 'Country music outlaw who fled Nashville for Austin and fused redneck and hippie cultures into the "cosmic cowboy" movement. His 4th of July picnics and Luck ranch are sacred sites of Texas outlaw country.',
-    canonicalStoryId: 'willie-nelson-austin',
     wikipediaSlug: 'Willie_Nelson',
   },
   {
@@ -168,7 +154,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1954–1990',
     description: 'Texas blues guitar legend who resurrected the blues from Austin\'s dive bars. His incendiary playing at Antone\'s led to discovery by David Bowie, global stardom, and a legacy cut short by a helicopter crash at age 35.',
-    canonicalStoryId: 'stevie-ray-vaughan',
     wikipediaSlug: 'Stevie_Ray_Vaughan',
   },
   {
@@ -190,7 +175,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1906–1984',
     description: 'The "Butcher of Plainfield" whose farmhouse concealed furniture made from human remains. His crimes inspired Psycho, The Texas Chain Saw Massacre, and The Silence of the Lambs.',
-    canonicalStoryId: 'ed-gein',
     wikipediaSlug: 'Ed_Gein',
   },
   {
@@ -199,7 +183,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1960–1994',
     description: 'The "Milwaukee Cannibal" who murdered 17 men and boys between 1978 and 1991. His crimes exposed catastrophic failures in policing and were ended when Tracy Edwards escaped his apartment.',
-    canonicalStoryId: 'dahmer',
     wikipediaSlug: 'Jeffrey_Dahmer',
   },
   {
@@ -220,7 +203,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1859–1881',
     description: 'The most famous outlaw of the American West, who killed his first man at 17, escaped jail twice, and was shot dead by Pat Garrett at age 21 in Fort Sumner, New Mexico.',
-    canonicalStoryId: 'billy-the-kid',
     wikipediaSlug: 'Billy_the_Kid',
   },
   {
@@ -245,7 +227,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1865–1945',
     description: 'A 19-year-old self-appointed deputy who survived 4,000 rounds in a 33-hour standoff against 80 Texas cowboys in 1884. He later became a lawyer and politician.',
-    canonicalStoryId: 'elfego-baca',
     wikipediaSlug: 'Elfego_Baca',
   },
   {
@@ -254,7 +235,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1829–1909',
     description: 'Chiricahua Apache leader who led 25 years of resistance against Mexican and American forces. His 1886 surrender in Skeleton Canyon ended the last major armed Native resistance in the Southwest.',
-    canonicalStoryId: 'geronimo',
     wikipediaSlug: 'Geronimo',
   },
   {
@@ -345,7 +325,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1856–1915',
     description: 'Educator and advisor to presidents who was denied the right to speak at the Texas Capitol in 1911. He drew a racially integrated crowd of 5,000 to Wooldridge Square instead.',
-    canonicalStoryId: 'booker-t-washington-life',
     wikipediaSlug: 'Booker_T._Washington',
   },
   {
@@ -373,7 +352,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1809–1865',
     description: 'The 16th President who held the Union together through the Civil War and ended slavery, only to be assassinated five days after the war ended.',
-    canonicalStoryId: 'lincoln-life',
     wikipediaSlug: 'Abraham_Lincoln',
   },
   {
@@ -391,7 +369,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1917–1963',
     description: 'The 35th President whose assassination in Dallas became the defining trauma of the American century. His thousand-day presidency launched the space race and confronted the Cuban Missile Crisis.',
-    canonicalStoryId: 'jfk-life',
     wikipediaSlug: 'John_F._Kennedy',
   },
   {
@@ -417,7 +394,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1929–1968',
     description: 'Baptist minister and civil rights leader who led the movement through nonviolent resistance, from the Montgomery Bus Boycott to the March on Washington, before being assassinated in Memphis.',
-    canonicalStoryId: 'mlk-life',
     wikipediaSlug: 'Martin_Luther_King_Jr.',
   },
   {
@@ -434,7 +410,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1925–1965',
     description: 'Black nationalist leader whose journey from prison to Mecca transformed him from a fiery separatist into a global human rights icon, before being gunned down at the Audubon Ballroom.',
-    canonicalStoryId: 'malcolm-x',
     wikipediaSlug: 'Malcolm_X',
   },
   {
@@ -443,7 +418,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1822–1913',
     description: 'Escaped slave who returned to the South 13 times to lead hundreds to freedom via the Underground Railroad, then became the first woman to lead an armed military raid in American history.',
-    canonicalStoryId: 'harriet-tubman',
     wikipediaSlug: 'Harriet_Tubman',
   },
   // oppenheimer entity lives above as 'robert-oppenheimer' (used in moments)
@@ -471,7 +445,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1897–1937',
     description: 'Aviation pioneer and first woman to fly solo across the Atlantic who vanished over the Pacific during an attempt to circumnavigate the globe — the most enduring mystery in aviation history.',
-    canonicalStoryId: 'amelia-earhart',
     wikipediaSlug: 'Amelia_Earhart',
   },
   {
@@ -480,7 +453,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1946–1989',
     description: 'Charismatic law student who murdered at least 30 women across seven states, escaped custody twice, and was executed in Florida\'s electric chair.',
-    canonicalStoryId: 'ted-bundy',
     wikipediaSlug: 'Ted_Bundy',
   },
   {
@@ -498,7 +470,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1942–1994',
     description: 'Community leader and part-time clown who buried 26 victims in the crawlspace beneath his suburban Chicago home — the most prolific serial killer in Illinois history.',
-    canonicalStoryId: 'john-wayne-gacy',
     wikipediaSlug: 'John_Wayne_Gacy',
   },
   {
@@ -545,7 +516,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1887–1986',
     description: 'The "Mother of American Modernism" who spent 40 years painting the red cliffs and bleached bones of northern New Mexico from her homes in Abiquiu and Ghost Ranch.',
-    canonicalStoryId: 'georgia-okeeffe',
     wikipediaSlug: 'Georgia_O%27Keeffe',
   },
   {
@@ -554,7 +524,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1936–2010',
     description: 'Actor and director of Easy Rider who retreated to Taos in 1970, bought the Mabel Dodge Luhan house, and catalyzed the town\'s transformation into a counterculture mecca.',
-    canonicalStoryId: 'dennis-hopper-taos',
     wikipediaSlug: 'Dennis_Hopper',
   },
   {
@@ -563,7 +532,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1965–present',
     description: 'Founder of Dell Technologies who started upgrading and selling computers from his UT Austin dorm room in 1984, was nearly evicted by the fire marshal, and dropped out to build a tech empire.',
-    canonicalStoryId: 'michael-dell-startup',
     wikipediaSlug: 'Michael_Dell',
   },
 
@@ -691,7 +659,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1943–present',
     description: 'Built on the site of a remote boys\' school, this secret laboratory was the nerve center of the Manhattan Project where scientists built the first atomic bomb.',
-    canonicalStoryId: 'los-alamos',
     wikipediaSlug: 'Los_Alamos_National_Laboratory',
   },
   {
@@ -708,7 +675,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1898–present',
     description: 'One of the largest cave systems on Earth, discovered by 16-year-old Jim White in 1898 when he followed a column of bats rising from the desert floor.',
-    canonicalStoryId: 'carlsbad-caverns',
     wikipediaSlug: 'Carlsbad_Caverns_National_Park',
   },
   {
@@ -741,7 +707,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1610–present',
     description: 'The oldest continuously occupied public building in the United States, built in Santa Fe in 1610. It has served under Spanish, Pueblo, Mexican, Confederate, and American flags.',
-    canonicalStoryId: 'palace-of-governors',
     wikipediaSlug: 'Palace_of_the_Governors',
   },
   {
@@ -750,7 +715,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1950–present',
     description: 'New Mexico town that voted to rename itself from "Hot Springs" after Ralph Edwards\' radio game show in 1950. Multiple attempts to change the name back have failed.',
-    canonicalStoryId: 'truth-or-consequences',
     wikipediaSlug: 'Truth_or_Consequences,_New_Mexico',
   },
   {
@@ -759,7 +723,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '850–1150 AD',
     description: 'Center of a vast Ancestral Puebloan trade network in New Mexico, featuring Pueblo Bonito — a 600-room great house that was the largest building in North America until the 1800s.',
-    canonicalStoryId: 'chaco-canyon',
     wikipediaSlug: 'Chaco_Culture_National_Historical_Park',
   },
   {
@@ -776,7 +739,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1980–present',
     description: 'Twenty-seven massive radio dishes arranged in a Y-shape on the Plains of San Agustin. Officially named after Karl Jansky, the VLA has imaged distant planets and contributed to the first black hole image.',
-    canonicalStoryId: 'vla',
     wikipediaSlug: 'Very_Large_Array',
   },
   {
@@ -804,7 +766,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1970–1980',
     description: 'Legendary Austin music venue in a former National Guard armory where Willie Nelson united hippies and cowboys in 1972. Its 1980 demolition for a high-rise marked the end of "Old Austin."',
-    canonicalStoryId: 'armadillo-world-hq',
     wikipediaSlug: 'Armadillo_World_Headquarters',
   },
   {
@@ -838,7 +799,6 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1866–present',
     description: 'Opened just after the Civil War, Scholz Garden is the oldest continuously operated business in Austin and the oldest bar in Texas. Where O. Henry sang with the Hill City Quartette and LBJ brokered political deals — a fixture of bohemian life and German-Texas cultural collision since 1866.',
-    canonicalStoryId: 'scholz-garden-austin',
     wikipediaSlug: 'Scholz_Garten',
   },
 
@@ -950,7 +910,6 @@ export const entities: Entity[] = [
     type: 'concept',
     years: '1884–1885',
     description: 'Unidentified serial killer who murdered eight people in Austin over one year. The case inspired the city to install moonlight towers and was named by a young William Sydney Porter (O. Henry).',
-    canonicalStoryId: 'servant-girl-annihilator',
     wikipediaSlug: 'Servant_Girl_Annihilator',
   },
   {
@@ -959,7 +918,6 @@ export const entities: Entity[] = [
     type: 'concept',
     years: '1928',
     description: 'City planning document that codified racial segregation by creating a "Negro District" in East Austin, forcing Black residents to relocate by disconnecting services in other areas.',
-    canonicalStoryId: 'austin-1928-plan',
     wikipediaSlug: 'History_of_Austin,_Texas',
   },
   {
@@ -976,7 +934,6 @@ export const entities: Entity[] = [
     type: 'concept',
     years: '1980–present',
     description: 'Species that colonized the Congress Avenue Bridge after a 1980 refurbishment created ideal crevices. The 1.5-million-bat colony eats 20,000 pounds of insects nightly.',
-    canonicalStoryId: 'congress-avenue-bats',
     wikipediaSlug: 'Mexican_free-tailed_bat',
   },
   {
@@ -1036,7 +993,6 @@ export const entities: Entity[] = [
     type: 'concept',
     years: '1680',
     description: 'The most successful Native uprising in North American history. Coordinated by Popé across language barriers, Pueblo warriors drove the Spanish entirely out of New Mexico for 12 years.',
-    canonicalStoryId: 'pueblo-revolt',
     wikipediaSlug: 'Pueblo_Revolt',
   },
   {
@@ -1100,7 +1056,6 @@ export const entities: Entity[] = [
     type: 'concept',
     years: '1957',
     description: 'Nine Black students who integrated Little Rock Central High School in 1957, escorted by the 101st Airborne after Governor Faubus tried to block them. Their courage tested Brown v. Board of Education.',
-    canonicalStoryId: 'little-rock-nine',
     wikipediaSlug: 'Little_Rock_Nine',
   },
 
@@ -1741,7 +1696,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1907–1954',
     description: 'Mexican painter who turned her physical suffering, turbulent marriage to Diego Rivera, and Mexican identity into the most personal art in history. Dismissed in her lifetime, she became one of the most recognized artists of the 20th century.',
-    canonicalStoryId: 'frida-kahlo-life',
     wikipediaSlug: 'Frida_Kahlo',
   },
   {
@@ -1865,7 +1819,6 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1886–1957',
     description: 'Mexican muralist who painted the history of civilization on the walls of public buildings — his turbulent marriage to Frida Kahlo and his mural destroyed by Rockefeller made him one of the most controversial artists of the 20th century.',
-    canonicalStoryId: 'diego-rivera-murals',
     wikipediaSlug: 'Diego_Rivera',
   },
 ];
