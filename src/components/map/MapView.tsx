@@ -806,9 +806,22 @@ function MapController({
     // a story card is an intentional navigation, not a conflict with map interaction.
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      smartFlyToBounds(map, L.latLngBounds(coords), { ...storyPad, maxZoom: 16, duration: 0.8 });
-      boundsLockUntil.current = Date.now() + 1200;
-      userInteractUntil.current = 0; // Clear any stale interaction guard
+      const eBounds = L.latLngBounds(coords);
+      const currentBounds = map.getBounds();
+      const eTargetZoom = map.getBoundsZoom(eBounds, false, storyPad.padding as L.PointTuple ?? [0, 0]);
+      const eZoomDiff = Math.abs(map.getZoom() - eTargetZoom);
+      const eAlreadyVisible = currentBounds.contains(eBounds);
+      const eNearlyThere = eZoomDiff < 1.2 && currentBounds.intersects(eBounds);
+      if (eAlreadyVisible || eNearlyThere) {
+        if (!eAlreadyVisible) {
+          map.fitBounds(eBounds, { ...storyPad, maxZoom: 16, animate: false });
+        }
+        isProgrammaticMove.current = false;
+      } else {
+        smartFlyToBounds(map, eBounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
+        boundsLockUntil.current = Date.now() + 1200;
+      }
+      userInteractUntil.current = 0;
       clearFlag();
     } else if (mode === 'story' && activeStory && !activeLocation) {
       const storyLocs = resolveLocationsFromMap(activeStory, momentMap);
@@ -820,9 +833,18 @@ function MapController({
         isProgrammaticMove.current = false;
       } else {
         const bounds = L.latLngBounds(storyLocs.map((loc) => [loc.lat, loc.lng] as [number, number]));
-        // If all moments are already visible, skip animation to avoid jitter
-        // (common with nearby clusters like SRV's two Austin moments)
-        if (map.getBounds().contains(bounds)) {
+        // Skip animation if bounds change is negligible (avoids jitter on scroll-to-top
+        // for nearby clusters like SRV's Austin moments or single-city stories)
+        const currentBounds = map.getBounds();
+        const targetZoom = map.getBoundsZoom(bounds, false, storyPad.padding as L.PointTuple ?? [0, 0]);
+        const zoomDiff = Math.abs(map.getZoom() - targetZoom);
+        const alreadyVisible = currentBounds.contains(bounds);
+        const nearlyThere = zoomDiff < 1.2 && currentBounds.intersects(bounds);
+        if (alreadyVisible || nearlyThere) {
+          // Tiny adjustment — set view instantly, no animation
+          if (!alreadyVisible) {
+            map.fitBounds(bounds, { ...storyPad, maxZoom: 16, animate: false });
+          }
           isProgrammaticMove.current = false;
         } else {
           smartFlyToBounds(map, bounds, { ...storyPad, maxZoom: 16, duration: 0.8 });

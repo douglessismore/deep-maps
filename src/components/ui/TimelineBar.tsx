@@ -56,10 +56,21 @@ export function TimelineBar({
     return allPoints.filter((p) => p.category === categoryFilter);
   }, [allPoints, categoryFilter]);
 
+  // ── Map-visible points for era pill counts ──
+  const mapVisiblePoints = useMemo(() => {
+    if (!mapVisibleStoryIds || mapVisibleStoryIds.size === 0) return visiblePoints;
+    return visiblePoints.filter((p) => mapVisibleStoryIds.has(p.storyId));
+  }, [visiblePoints, mapVisibleStoryIds]);
+
   // ── Adaptive scale — recomputes when data or width changes ──
+  // Layout uses ALL visible points (stable bar); counts use map-visible points
   const eraWeights = useMemo(
     () => getEraWeights(visiblePoints, containerWidth),
     [visiblePoints, containerWidth]
+  );
+  const mapEraWeights = useMemo(
+    () => getEraWeights(mapVisiblePoints, containerWidth),
+    [mapVisiblePoints, containerWidth]
   );
 
   // ── Filter state ──
@@ -733,7 +744,7 @@ export function TimelineBar({
         {/* "All" chip */}
         <EraChip
           label="All"
-          count={visiblePoints.length}
+          count={mapVisiblePoints.length}
           isActive={false}
           isHighlighted={false}
           isDefault={!activeEra}
@@ -742,12 +753,15 @@ export function TimelineBar({
           onClick={() => handleEraClick(null)}
         />
         {ERAS.map((era) => {
-          const w = eraWeights.find((e) => e.id === era.id);
+          const mw = mapEraWeights.find((e) => e.id === era.id);
+          const mapCount = mw?.count ?? 0;
+          // Hide eras with no stories visible on map
+          if (mapCount === 0) return null;
           return (
             <EraChip
               key={era.id}
               label={era.label}
-              count={w?.count ?? 0}
+              count={mapCount}
               isActive={activeEra === era.id}
               isHighlighted={highlightedEra === era.id && !activeEra}
               isDefault={false}
