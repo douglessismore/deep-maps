@@ -968,7 +968,7 @@ export function ExplorePanel({
           activeCollection ? (
             /* Active collection — moment list with back header */
             <>
-              <div className="bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
+              <div className="sticky top-0 z-10 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
                 <button
                   onClick={onClearCollection}
                   className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
@@ -983,7 +983,7 @@ export function ExplorePanel({
                     {activeCollection.name}
                   </p>
                   <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {displayMoments.length} {displayMoments.length === 1 ? 'location' : 'locations'}
+                    {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
                   </p>
                 </div>
               </div>
@@ -995,7 +995,15 @@ export function ExplorePanel({
                 <div className="p-2 space-y-1">
                   {displayMoments.map((moment) => {
                     const parentStory = momentToStoryMap.get(moment.id);
-                    if (!parentStory) return null;
+                    // Fallback stub for collection moments without a parent story
+                    const storyOrStub = parentStory ?? {
+                      id: '__collection-stub__',
+                      name: activeCollection?.name ?? 'Collection',
+                      subtitle: '',
+                      description: '',
+                      category: 'dark_history' as const,
+                      moments: [],
+                    } as Story;
                     return (
                       <LocationCard
                         key={moment.id}
@@ -1004,12 +1012,12 @@ export function ExplorePanel({
                           else cardRefs.current.delete(moment.id);
                         }}
                         location={moment}
-                        story={parentStory}
+                        story={storyOrStub}
                         isActive={scrollActiveStoryId === moment.id}
                         isExpanded={expandedLocationKey === moment.id}
                         showExpandChevron
                         skipCanonicalFilter
-                        parentStories={[parentStory]}
+                        parentStories={parentStory ? [parentStory] : []}
                         onClick={(m) => {
                           setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
                           onScrollHighlight([m]);
@@ -1017,7 +1025,7 @@ export function ExplorePanel({
                             panToAboveSheet(mapInstance, [m.lat, m.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
                           }
                         }}
-                        onStoryClick={(story) => onLocationSelect(moment, story)}
+                        onStoryClick={parentStory ? (story) => onLocationSelect(moment, story) : undefined}
                         onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
                       />
                     );
