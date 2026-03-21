@@ -52,7 +52,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     const cat = CATEGORIES[story.category];
 
     // ── Compact mode: dense row for mobile bottom sheet ──
-    if (compact) {
+    // When expanded, fall through to full card rendering
+    if (compact && !isExpanded) {
       return (
         <div
           ref={ref}

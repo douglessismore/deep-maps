@@ -56,7 +56,7 @@ export function StoryPanel({
   const isTapGuard = useRef(false); // Suppresses scroll handler after card tap to prevent jitter
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
-  // expandedLocationId removed — cards are always collapsed with description preview.
+  const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
@@ -260,8 +260,19 @@ export function StoryPanel({
   // to prevent the expand/collapse layout shift from causing a feedback loop
   const handleLocationClick = (location: Moment) => {
     isTapGuard.current = true;
+    const isExpanding = expandedLocationKey !== location.id;
+    setExpandedLocationKey(isExpanding ? location.id : null);
     onLocationSelect(location);
-    setTimeout(() => { isTapGuard.current = false; }, 400);
+    // Scroll the card into view after expansion layout settles
+    if (isExpanding) {
+      isProgrammaticScroll.current = true;
+      requestAnimationFrame(() => {
+        const el = locationRefs.current.get(location.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => { isProgrammaticScroll.current = false; }, 600);
+      });
+    }
+    setTimeout(() => { isTapGuard.current = false; }, 800);
   };
 
   // Handler for "Read on Wikipedia" links in LocationCard
@@ -518,7 +529,7 @@ export function StoryPanel({
                         location={location}
                         story={story}
                         isActive={currentActiveId === location.id}
-                        isExpanded={false}
+                        isExpanded={expandedLocationKey === location.id}
                         compact={useCompactCards}
                         onClick={isSpotlightPeek ? () => onExpandRequest?.() : handleLocationClick}
                         index={actualIndex}

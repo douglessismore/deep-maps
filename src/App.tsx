@@ -64,6 +64,7 @@ function App() {
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
   const exploreScrollTop = useRef(0);
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
+  const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
   const autoGeoRequested = useRef(false);
 
   // Bottom sheet snap state (mobile only)
@@ -247,6 +248,7 @@ function App() {
     setActiveEntity(null);
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
+    setZoomToActiveLocation(true);
     setMode('story');
   }, [activeCollection, pushNav]);
 
@@ -259,6 +261,7 @@ function App() {
     setActiveLocation(location);
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
+    setZoomToActiveLocation(false);
     setMode('story');
   }, [activeCollection]);
 
@@ -441,8 +444,15 @@ function App() {
     setMode('entity');
   }, [pushNav]);
 
-  // Entity-mode scroll → highlight map marker without exiting entity mode
+  // Entity-mode location highlight — used for both scroll-driven and click-driven
   const handleEntityScrollLocationActive = useCallback((moment: Moment, _story: Story) => {
+    setZoomToActiveLocation(false);
+    setActiveLocation(moment);
+  }, []);
+
+  // Entity-mode moment click — zoom to it (separate from scroll)
+  const handleEntityMomentClick = useCallback((moment: Moment, _story: Story) => {
+    setZoomToActiveLocation(true);
     setActiveLocation(moment);
   }, []);
 
@@ -541,7 +551,8 @@ function App() {
             onStoryClick={handleEntityStoryClick}
             onEntityClick={handleEntitySelect}
             onScrollLocationActive={handleEntityScrollLocationActive}
-            onScrollToTop={() => setActiveLocation(null)}
+            onMomentClick={handleEntityMomentClick}
+            onScrollToTop={() => { setActiveLocation(null); setZoomToActiveLocation(false); }}
             activeLocationId={activeLocation?.id ?? null}
             onBack={handleBack}
             backLabel={backLabel}
@@ -555,9 +566,14 @@ function App() {
           <StoryPanel
             story={activeStory}
             activeLocation={activeLocation}
-            onLocationSelect={(loc) => handleLocationSelect(loc, activeStory)}
+            onLocationSelect={(loc) => {
+              // In-story moment click: zoom to it but don't push nav history
+              // (user expects one "back" to leave the story, not one per moment clicked)
+              setActiveLocation(loc);
+              setZoomToActiveLocation(true);
+            }}
             onScrollLocationSelect={(loc) => handleScrollLocationSelect(loc, activeStory)}
-            onScrollToTop={() => setActiveLocation(null)}
+            onScrollToTop={() => { setActiveLocation(null); setZoomToActiveLocation(false); }}
             onRelatedStoryClick={handleStorySelect}
             onTagClick={handleTagClick}
             allStories={stories}
@@ -663,6 +679,7 @@ function App() {
               restoreView={restoreView}
               entityLocations={entityLocations}
               sheetSnap="full"
+              zoomToActiveLocation={zoomToActiveLocation}
             />
           </div>
           {/* Panel — bottom 55%, normal scroll */}
@@ -693,6 +710,7 @@ function App() {
               restoreView={restoreView}
               entityLocations={entityLocations}
               sheetSnap={sheetSnap}
+              zoomToActiveLocation={zoomToActiveLocation}
             />
           </div>
 

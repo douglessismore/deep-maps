@@ -19,6 +19,7 @@ interface EntityPanelProps {
   onStoryClick: (story: Story, moment?: Moment) => void;
   onEntityClick: (entity: Entity, fromMoment?: Moment) => void;
   onScrollLocationActive?: (moment: Moment, story: Story) => void;
+  onMomentClick?: (moment: Moment, story: Story) => void;
   onScrollToTop?: () => void;
   activeLocationId?: string | null;
   onBack?: () => void;
@@ -35,6 +36,7 @@ export function EntityPanel({
   onStoryClick,
   onEntityClick,
   onScrollLocationActive,
+  onMomentClick,
   onScrollToTop,
   activeLocationId,
   onBack,
@@ -126,6 +128,7 @@ export function EntityPanel({
   // ─── Scroll-driven map highlighting ──────────────────────────────
   const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
+  const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const isProgrammaticScroll = useRef(false);
 
   // Set initial active to first moment (or activeLocationId if provided)
@@ -243,11 +246,17 @@ export function EntityPanel({
   const handleMomentClick = useCallback(
     (moment: Moment, parentStories: Story[]) => {
       setScrollActiveId(moment.id);
-      if (onScrollLocationActive && parentStories.length > 0) {
-        onScrollLocationActive(moment, parentStories[0]);
+      setExpandedLocationKey(prev => prev === moment.id ? null : moment.id);
+      if (parentStories.length > 0) {
+        // Use click handler (zooms) if available, otherwise fall back to scroll handler (pans)
+        if (onMomentClick) {
+          onMomentClick(moment, parentStories[0]);
+        } else if (onScrollLocationActive) {
+          onScrollLocationActive(moment, parentStories[0]);
+        }
       }
     },
-    [onScrollLocationActive]
+    [onMomentClick, onScrollLocationActive]
   );
 
   // ─── Render helpers ───────────────────────────────────────────────
@@ -300,7 +309,7 @@ export function EntityPanel({
         location={moment}
         story={primaryStory}
         isActive={scrollActiveId === moment.id}
-        isExpanded={false}
+        isExpanded={expandedLocationKey === moment.id}
         compact={useCompactCards}
         skipCanonicalFilter
         parentStories={parentStories}

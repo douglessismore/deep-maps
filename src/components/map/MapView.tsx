@@ -104,6 +104,8 @@ interface MapViewProps {
   restoreView?: { center: [number, number]; zoom: number } | null;
   entityLocations?: Array<{ location: Moment; story: Story }>;
   sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
+  /** When true, zoom in to activeLocation (user clicked a moment card) */
+  zoomToActiveLocation?: boolean;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -126,18 +128,23 @@ function computeNotabilitySize(baseSize: number, alpha: number): number {
 const MIN_TOUCH_TARGET = 32;
 const isMobileDevice = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
 
-function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number): L.DivIcon {
+function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number, label?: number): L.DivIcon {
   const highlighted = isActive || isScrollHighlighted;
   const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
   const classes = `story-marker${highlighted ? ' active pulsing' : ''}`;
   const opacityStyle = opacity !== undefined ? `opacity:${opacity};` : '';
+
+  // Number label inside the marker (story/entity mode only)
+  const labelHtml = label !== undefined && displaySize >= 10
+    ? `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:${Math.max(8, displaySize * 0.55)}px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#000;opacity:0.8;pointer-events:none;">${label}</span>`
+    : '';
 
   // On mobile, wrap small markers in a larger transparent touch target
   if (isMobileDevice && displaySize < MIN_TOUCH_TARGET) {
     return L.divIcon({
       className: '',
       html: `<div style="width:${MIN_TOUCH_TARGET}px;height:${MIN_TOUCH_TARGET}px;display:flex;align-items:center;justify-content:center;">` +
-            `<div class="${classes}" style="width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}"></div></div>`,
+            `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}">${labelHtml}</div></div>`,
       iconSize: [MIN_TOUCH_TARGET, MIN_TOUCH_TARGET],
       iconAnchor: [MIN_TOUCH_TARGET / 2, MIN_TOUCH_TARGET / 2],
     });
@@ -145,7 +152,7 @@ function createMarkerIcon(color: string, size: number, isActive: boolean, isScro
 
   return L.divIcon({
     className: '',
-    html: `<div class="${classes}" style="width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}"></div>`,
+    html: `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}">${labelHtml}</div>`,
     iconSize: [displaySize, displaySize],
     iconAnchor: [displaySize / 2, displaySize / 2],
   });
@@ -216,6 +223,7 @@ function MapController({
   restoreView,
   entityLocations,
   sheetSnap: sheetSnapProp,
+  zoomToActiveLocation,
   constellationVariant,
 }: MapViewProps & { constellationVariant: ConstellationVariant }) {
   const { moments: allMoments, stories: allStories } = useAppData();
@@ -283,6 +291,14 @@ function MapController({
     return null; // null = use cluster mode
   }, [mode, activeStory, entityLocations]);
 
+  // Index map for numbered markers in story/entity mode (1-based)
+  const focusedIndexMap = useMemo(() => {
+    if (!focusedLocations) return null;
+    const map = new Map<string, number>();
+    focusedLocations.forEach(({ location }, i) => map.set(location.id, i + 1));
+    return map;
+  }, [focusedLocations]);
+
   // ── Cluster data for explore/scroll mode ───────────────────────────
 
   // Memoize bounds to avoid re-computing clusters on every render
@@ -345,6 +361,16 @@ function MapController({
       // This makes it clear which moment is currently selected as user scrolls.
       const hasActivePin = activeLocation != null;
 
+      // Compute active index for neighbor label logic (6C)
+      const activeIdx = activeLocation && focusedIndexMap
+        ? (focusedIndexMap.get(activeLocation.id) ?? 0) - 1
+        : -1;
+      const neighborIds = new Set<string>();
+      if (activeIdx >= 0 && focusedLocations) {
+        if (activeIdx > 0) neighborIds.add(focusedLocations[activeIdx - 1].location.id);
+        if (activeIdx < focusedLocations.length - 1) neighborIds.add(focusedLocations[activeIdx + 1].location.id);
+      }
+
       focusedLocations.forEach(({ location, story }) => {
         const key = `pin-${story.id}-${location.id}`;
         nextKeys.add(key);
@@ -357,9 +383,12 @@ function MapController({
         // activeLocation is set and this isn't the active pin.
         const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
                         (hasActivePin && !hasHighlight && !isActive);
-        const permanentTooltip = isHighlighted && singleHighlight;
+        // Show permanent tooltip for active moment + neighbors (6C)
+        const isNeighbor = neighborIds.has(location.id);
+        const permanentTooltip = isActive || isNeighbor || (isHighlighted && singleHighlight);
         const markerOpacity = isFaded ? 0.3 : undefined;
         const effectiveSize = isActive ? Math.max(baseSize * 1.4, 16) : baseSize;
+        const label = focusedIndexMap?.get(location.id);
 
         const existing = prevMarkers.get(key);
 
@@ -371,7 +400,7 @@ function MapController({
             existing.effectiveSize !== effectiveSize;
 
           if (needsRebuild) {
-            existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity));
+            existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label));
           }
 
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
@@ -380,7 +409,6 @@ function MapController({
             existing.marker.bindTooltip(
               `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
                 <strong>${location.name}</strong>
-                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
               </div>`,
               { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
             );
@@ -393,13 +421,12 @@ function MapController({
           existing.notabilityAlpha = 1;
           existing.effectiveSize = effectiveSize;
         } else {
-          const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity);
+          const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
           const marker = L.marker([location.lat, location.lng], { icon });
           const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
           marker.bindTooltip(
             `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
               <strong>${location.name}</strong>
-              <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
             </div>`,
             { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
           );
@@ -630,7 +657,7 @@ function MapController({
       if (firstStory) {
         pathColor = CATEGORIES[firstStory.category]?.color ?? pathColor;
       }
-    } else if (scrollHighlight && scrollHighlight.length >= 2) {
+    } else if (!activeCollection && scrollHighlight && scrollHighlight.length >= 2) {
       // Explore scroll mode — connect highlighted story's moments
       pathMoments = [...scrollHighlight];
       // Try to get the category color from the highlighted story
@@ -708,7 +735,7 @@ function MapController({
       }
       pathArrowheadsRef.current.clearLayers();
     };
-  }, [focusedLocations, scrollHighlight, map, allStories, momentMap]);
+  }, [focusedLocations, scrollHighlight, activeCollection, map, allStories, momentMap]);
 
   // Highlight the active segment of the path line
   const activeSegmentRef = useRef<L.Polyline | null>(null);
@@ -812,13 +839,19 @@ function MapController({
         isProgrammaticMove.current = false;
         return;
       }
-      panToAboveSheet(
-        map,
-        [activeLocation.lat, activeLocation.lng],
-        sheetSnap ?? 'half',
-        isMobile,
-        { animate: false },
-      );
+      if (zoomToActiveLocation) {
+        // User clicked a moment card — zoom in to it
+        const targetZoom = Math.max(map.getZoom(), 14);
+        map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.6 });
+      } else {
+        panToAboveSheet(
+          map,
+          [activeLocation.lat, activeLocation.lng],
+          sheetSnap ?? 'half',
+          isMobile,
+          { animate: false },
+        );
+      }
       clearFlag();
     } else if (activeCollection) {
       // Collection selected — zoom to fit all collection moments
@@ -843,7 +876,7 @@ function MapController({
     } else {
       isProgrammaticMove.current = false;
     }
-  }, [activeLocation, activeStory, activeCollection, mode, map, categoryFilter, stories, entityLocations, isMobile, sheetSnap]);
+  }, [activeLocation, activeStory, activeCollection, mode, map, categoryFilter, stories, entityLocations, isMobile, sheetSnap, zoomToActiveLocation]);
 
   // Zoom out to show all pins when resetViewKey changes
   const prevResetKey = useRef(resetViewKey);

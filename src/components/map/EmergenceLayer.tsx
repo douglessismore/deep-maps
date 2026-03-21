@@ -46,9 +46,12 @@ function getHighlightOpacity(
   hasHighlight: boolean,
   moment: Moment,
   zoom: number,
+  isCollection?: boolean,
 ): number {
   if (!hasHighlight) return computeAlpha(moment, zoom);
-  return highlightIds.has(momentId) ? 1 : 0.08;
+  if (highlightIds.has(momentId)) return 1;
+  // Collections: dim other moments gently (still visible). Stories: fade hard.
+  return isCollection ? 0.3 : 0.08;
 }
 
 function getHighlightRadius(
@@ -160,7 +163,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const moment of filteredMoments) {
       const category = momentCategoryMap.get(moment.id);
       const color = category ? CATEGORIES[category]?.color || '#666' : '#666';
-      const opacity = getHighlightOpacity(moment.id, highlightIds, hasHighlight, moment, zoom);
+      const opacity = getHighlightOpacity(moment.id, highlightIds, hasHighlight, moment, zoom, !!activeCollection);
       const effectiveRadius = getHighlightRadius(moment.id, highlightIds, hasHighlight, radius);
 
       const existing = currentMarkers.get(moment.id);
@@ -222,7 +225,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       for (const [id, marker] of markersRef.current) {
         const moment = momentById.get(id);
         if (!moment) continue;
-        const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom);
+        const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection);
         const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
         marker.setRadius(radius);
         marker.setStyle({ fillOpacity: opacity });
@@ -241,7 +244,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const [id, marker] of markersRef.current) {
       const moment = momentById.get(id);
       if (!moment) continue;
-      const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom);
+      const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection);
       const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
       marker.setRadius(radius);
       marker.setStyle({ fillOpacity: opacity });
