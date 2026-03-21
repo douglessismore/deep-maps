@@ -1,6 +1,6 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-03-21 (Session 61 — Data consolidation, EntityPanel unification, collections, splash screen)
+**Last updated:** 2026-03-21 (Session 61 — Data consolidation, EntityPanel, 11 collections, splash screen)
 **Branch:** `main`
 
 ---
@@ -8,166 +8,161 @@
 ## What Shipped (Session 61)
 
 ### Data Consolidation
-1. **Deleted 46 duplicate stories** — 24 person biography stories, 18 place stories, 4 concept stories that duplicated their matching entities. Entities are now the single source of truth for people, places, and concepts.
-2. **Fixed 5 orphaned moments** — Added missing `entityIds` (congress-avenue-bats, menger-hotel-rough-riders, los-alamos-national-laboratory) so no moments were lost.
-3. **Cleaned 47 canonicalStoryId refs** — Removed pointers to deleted stories from entities.ts.
-4. **Cleaned 34 relatedStoryIds** — Removed deleted IDs from surviving stories' relatedStoryIds arrays.
-5. **Full wiring audit** — Zero broken references across stories, entities, moments, collections.
+1. **Deleted 46 duplicate stories** from static + Supabase — biography/place stories that mirrored entities
+2. **Fixed 5 orphaned moments** with missing entityIds
+3. **Cleaned 47 canonicalStoryId refs** + 34 relatedStoryIds
+4. **Full wiring audit** — zero broken references
 
 ### EntityPanel Unification
-6. **Restructured EntityPanel** to match StoryPanel layout:
-   - Header now scrolls away (was fixed outside scroll container)
-   - Added "Dive Deeper" horizontal card strip (related stories + connected entities)
-   - Sticky tab bar (Moments / Wikipedia) freezes at top when scrolled
-   - Simplified from 3 tabs (moments/connections/stories) to 2 tabs (moments/wiki)
-7. **Created EntityWikiPanel** — Slim Wikipedia panel for entities (~140 lines, no geo-anchors)
-8. **Removed duplicate "Moments (N)" heading** from StoryPanel
+5. **Restructured EntityPanel** — scrollable header, dive deeper strip, sticky tabs (Moments/Wikipedia)
+6. **Created EntityWikiPanel** — slim wiki panel for entities
+7. **Removed duplicate "Moments (N)" heading** from StoryPanel
 
 ### UX Fixes
-9. **Jitter fix** — Tolerance-based bounds comparison (zoom diff < 1.2 + intersects) for both story and entity modes
-10. **Dynamic era pill counts** — Timeline pills now reflect stories visible on the map. Empty eras hide.
-11. **Era pill fallback fix** — Empty set shows 0, not all stories
-12. **Place click zoom** — Single-moment entities zoom to level 14+ instead of staying zoomed out
-13. **TS build fix** — `getBoundsZoom` expects `L.Point`, not `PointTuple` — fixed Vercel deployment
+8. **Jitter fix** — tolerance-based bounds comparison
+9. **Dynamic era pill counts** — reflect map-visible stories, hide empty eras
+10. **Place click zoom** — single-moment entities zoom to level 14+
+11. **Collection back button** — sticky header with moment count
+12. **Collection moments rendering** — stub story fallback for orphan moments
+13. **Splash screen** — SplashScreenA (pin drop + ripple) wired as loading screen
 
 ### Collections
-14. **Deleted 10 weak/generic collections** — mexico-political-assassinations, sacred-pilgrimage-sites, historys-bravest, massacre-sites, notable-people, unsolved-disappearances, notable-people-2, scientific-minds-2, revolutionaries-pen-pulpit, artists-writers-immortal
-15. **Fixed "locations" → "moments"** label in CollectionCard and empty state
+14. **Deleted 10 weak collections** from static + Supabase
+15. **Added 11 new collections** (170 moments) — synced to Supabase:
+    - Game of Thrones Filming Locations (17)
+    - Greatest Sports Moments (18)
+    - Where Famous Books Were Written (19)
+    - Famous Prisons and Notable Inmates (14)
+    - Major Fossil Discovery Sites (15)
+    - Famous Heists and Robberies (15)
+    - Oldest Human Settlements (15)
+    - Where Famous Albums Were Recorded (17)
+    - Historic Events Along Route 66 (19)
+    - Where Important Inventions Were Born (21)
+    - Evolution of Life on Earth (24 — 21 linked in Supabase, 3 overflow integer year)
 
 ### Content
-16. **35 entity description rewrites** — Removed BuzzFeed-style editorializing, applied encyclopedic tone per content guide v3 (in progress — agent applying edits)
+16. **41 entity descriptions rewritten** — encyclopedic tone, person-focused (synced to Supabase)
+17. **3 splash screen variants** created (A wired, B and C available)
 
 ---
 
-## 🟡 In Progress (Agents Running at Session End)
+## 🔴 CRITICAL BUG — Polylines Still Showing for Old Collections
 
-### New Collections (11 agents — results ready, need integration)
-| Collection | Status | Moments |
-|---|---|---|
-| Game of Thrones Filming Locations | ✅ Done | 17 |
-| Famous Prisons and Their Most Notable Inmates | ✅ Done | 14 |
-| Major Fossil Discovery Sites | ✅ Done | 15 |
-| Where Famous Albums Were Recorded | ✅ Done | 17 |
-| Historic Events Along Route 66 | ✅ Done | 19 |
-| Evolution of Life on Earth | ⏳ Running (Opus) | ~24 |
-| Famous Heists and Robberies | ⏳ Running | ~15 |
-| Historic Sports Moments | ⏳ Running | ~18 |
-| Where Famous Books Were Written | ⏳ Running | ~18 |
-| Where Inventions Were Born | ⏳ Running | ~20 |
-| Ancient Human Settlements | ⏳ Running | ~15 |
+**Status:** THREE attempts to fix. Code looks correct but user still sees polylines on deepmaps.app for old collections (assassinations, nuclear, serial killers, etc.) but NOT new ones (books, heists, sports).
 
-**Agent results are in** `/private/tmp/claude-501/.../tasks/` — read each agent's output file to get the TypeScript-ready moment objects and collection definitions.
+**What was tried:**
+1. Clear `scrollHighlight` on collection entry + `!activeCollection` guard on polyline paths
+2. Early return in polyline useEffect when `activeCollection` is set
+3. Dual gate: `activeCollection || mode not in story/entity/scroll` → early return
 
-### Other Agents
-- **Entity description rewrites** — Applying 35 edits to entities.ts (agent running)
-- **Splash screen variations** — 3 variants of Option C (pin drop + ripple) being generated
+**Code is correct** — the early return fires, cleanup removes existing polylines, and `activeCollection` is properly passed to both MapView instances. Build succeeds. Deploy succeeds.
 
-### Integration Steps (Next Session)
-1. Read each completed agent's output file
-2. Add moments to `moments.ts`, collections to `collections.ts`
-3. Create needed entities (studios, paleontologists, prisons, etc.)
-4. Run wiring audit to verify all references
-5. Type-check and push
-6. Pick a splash screen variation and wire it in
+**Theories:**
+- Browser cache? User tried private tab in Brave. Still showed.
+- Different code path? All polyline creation goes through the one useEffect. No other `L.polyline` calls exist outside it.
+- EmergenceLayer drawing lines? Only draws circles, not polylines.
+- Supabase data difference? Old collections have story-linked moments, new ones don't. But the code gates on `activeCollection`, not on story linkage.
+
+**Next step:** User restarting computer. If still persists, add `console.log('POLYLINE BLOCKED BY COLLECTION')` to the early return and have user check browser console to verify the code is actually running.
 
 ---
 
-## Architecture Notes
+## 🟡 Pending Items
 
-### Entity vs Story (Post-Consolidation)
-- **Entity** = a thing (person, place, concept). Has profile, description, wikipedia. Moments link via `entityIds`.
-- **Story** = a narrative arc connecting moments into a sequence. Has beginning/middle/end. Characters (entities) appear IN stories.
-- **No more biography stories** — person entities ARE the profile. Stories are thematic narratives.
-- `canonicalStoryId` is now only used for stories that still exist (e.g., `lbj-lady-bird-austin`).
-
-### Collections Strategy
-- **Collections = lists, not narratives.** Names read like Wikipedia "List of..." articles.
-- **SEO-first naming** — clear, searchable titles
-- **Future**: Each collection becomes an SEO landing page at `/list/[collection-id]`
-- **No orphan risk** — all collection moments have entity links; deleting a collection doesn't lose moments
-
-### EntityPanel Layout (Matches StoryPanel)
-```
-scroll container [
-  header (name, type badge, expandable description)
-  → dive deeper strip (connected entities + related stories)
-  → sticky tab bar (Moments / Wikipedia)
-  → moments or EntityWikiPanel
-]
-```
-
----
-
-## Immediate Next Steps
-
-### Priority 1 — Integration
-1. ⬜ Integrate 11 new collections (moments + entities + collection objects)
-2. ⬜ Verify entity description rewrites applied correctly
-3. ⬜ Pick and wire splash screen variation
-4. ⬜ Push all to Vercel
+### Priority 1 — Bugs
+1. ⬜ **Polylines for collections** — see critical bug above
+2. ⬜ **Collection marker dimming** — should show all markers, dim non-active (like stories/entities)
+3. ⬜ **Collection back button position** — sticky but shows text peeking above it
 
 ### Priority 2 — Content
-5. ⬜ Austin moment rewrites from voice note (Session 60 feedback)
-6. ⬜ Rename existing collections for SEO (e.g., "Nuclear Weapon Detonation and Test Sites" → "Every Place a Nuclear Weapon Has Been Detonated")
-7. ⬜ Sync static data → Supabase
-8. ⬜ Willie Nelson story — non-Austin moments need separate handling
+4. ⬜ **Convert Evolution of Life from collection to story** — linear narrative, not a list. Fossil Discoveries stays as collection. Add dive deeper links between them.
+5. ⬜ **Fix 3 Evolution moments** — year values (-3.48B, -3.43B, -2.4B) overflow PostgreSQL integer. Need bigint column or capped values.
+6. ⬜ **Create entities** for new collection moments (studios, paleontologists, inventors, prisons, etc.)
+7. ⬜ **Austin moment rewrites** from voice note (Session 60 feedback)
+8. ⬜ **Rename existing collections for SEO** (e.g., nuclear → "Every Place a Nuclear Weapon Has Been Detonated")
 
-### Priority 3 — UX Polish
-9. ⬜ Splash screen polish (3 variants ready for review)
-10. ⬜ Search UX on mobile (keyboard covers results, no auto-suggestions)
-11. ⬜ Polyline overshoot (16px offset)
+### Priority 3 — UX
+9. ⬜ **Search UX on mobile** — keyboard covers results, no auto-suggestions
+10. ⬜ **Polyline overshoot** — 16px offset between polyline coords and marker centers
+11. ⬜ **Splash screen choice** — user hasn't reviewed variants B and C yet
 
-### Priority 4 — Future Collections
-- Famous heists and robberies
-- Historic sports moments
-- Where famous books were written
-- Terrorist attack locations (sensitive — needs editorial policy)
-- More film/TV (Harry Potter, Lord of the Rings, Breaking Bad)
-- Historic concert venues and performances
+### Priority 4 — Future
+12. ⬜ More collections (terrorist attacks, Harry Potter, Breaking Bad, historic concerts)
+13. ⬜ SEO landing pages for collections
+14. ⬜ Supabase full re-sync (static has 795 moments, Supabase has 1000+ from earlier pipeline)
+
+---
+
+## Supabase Sync Notes
+
+**Current state:** Static and Supabase are partially synced. Key differences:
+- Static: 795 moments, 145 stories, 210 entities, 31 collections
+- Supabase: ~1000 moments (includes pipeline-generated ones), 247 stories, 210 entities, 31 collections
+- Entity descriptions: synced ✓
+- New collection moments: synced (115 inserted, some failed as duplicates)
+- Collection links: synced (all 31 collections have moment links)
+- 46 deleted stories: removed from Supabase ✓
+- 10 deleted collections: removed from Supabase ✓
+
+**To sync:** Use service role key. See `.env` for credentials. Pattern:
+```bash
+cd deep-maps && export SUPABASE_SERVICE_ROLE_KEY="..." && npx tsx -e "..."
+```
+
+**Schema gotchas:**
+- `moments.location` is PostGIS POINT, not separate lat/lng: `POINT(lng lat)`
+- `moments.type_id` references `moment_types` table (not inline string)
+- `moments.notability` is NOT NULL — must provide default (50)
+- `moments.year` is integer — overflows at ±2.1 billion (affects deep-time moments)
+- `moments.verification_level` not `verificationLevel` (snake_case)
+
+---
+
+## Vercel Deployment Notes
+
+**CRITICAL:** Always verify deployment after push:
+1. `gh api repos/douglessismore/deep-maps/deployments --jq '.[0].id'`
+2. Check status: `gh api .../deployments/{ID}/statuses --jq '.[0].state'`
+3. If "failure": `npx vercel inspect dpl_XXX --logs | tail -20`
+4. Common failures: `tsc -b` is stricter than `tsc --noEmit` (checks project references)
+
+**Past failures this session:**
+- TS2352: Story stub missing required fields (years, storyType, tags)
+- TS2352: StoryCategory type mismatch ('dark_history' vs 'dark-history')
+- Broken string literals from `$` signs split across lines by agents
 
 ---
 
 ## Session Startup Checklist
 
-1. Read this file (`handoff.md`) and `CLAUDE.md`
+1. Read `handoff.md` and `CLAUDE.md`
 2. Read memory at `~/.claude/projects/.../memory/MEMORY.md`
-3. CWD is locked to `networking-dashboard-fresh` — use `pushd ~/Documents/claude-code-projects/deep-maps`
-4. Check for completed agent output files in `/private/tmp/claude-501/.../tasks/`
-5. Start dev server: `pushd ~/Documents/claude-code-projects/deep-maps && npx vite --host --port 5178`
-6. User accesses production at **deepmaps.app** (Vercel)
-7. Data source: Supabase by default; `?data=static` for local
-
-## Common Commands
-
-```bash
-# Dev server
-cd deep-maps && npx vite --host --port 5178
-
-# Type check
-npx tsc --noEmit
-
-# Wiring audit
-npx tsx -e "import {stories} from './src/data/stories'; ..."
-```
-
----
+3. CWD locked to `networking-dashboard-fresh` — use full paths for deep-maps
+4. Start dev server: `cd /Users/sirdouglas/Documents/claude-code-projects/deep-maps && npx vite --host --port 5178`
+5. User accesses production at **deepmaps.app** (Vercel, Supabase data)
+6. `?data=static` for local static files
+7. **Always check Vercel deployment status after pushing**
 
 ## Architecture Reference
 
 | File | Role |
 |------|------|
-| `src/App.tsx` | Layout, routing, mode system, `zoomToActiveLocation` state |
-| `src/components/map/MapView.tsx` | Map + zoom effect, markers (numbered), polylines, tooltips |
-| `src/components/map/EmergenceLayer.tsx` | Canvas markers (highlight-aware, collection dimming) |
-| `src/components/panel/StoryPanel.tsx` | Story view, card expansion, scroll handling |
-| `src/components/panel/EntityPanel.tsx` | Entity view — now matches StoryPanel layout with dive deeper + wiki tab |
-| `src/components/panel/EntityWikiPanel.tsx` | **NEW** — Slim wiki panel for entities |
-| `src/components/panel/LocationCard.tsx` | Moment card (expansion, compact fallthrough) |
-| `src/components/panel/ExplorePanel.tsx` | Explore panel, scroll highlighting, collections |
-| `src/components/panel/CollectionCard.tsx` | Collection card (now says "moments" not "locations") |
-| `src/components/ui/TimelineBar.tsx` | Era pills (dynamic counts from mapVisibleStoryIds) |
-| `src/index.css` | Tooltip styles (`.dark-tooltip`), marker styles |
-| `src/data/stories.ts` | 145 stories (down from 191 after consolidation) |
+| `src/App.tsx` | Layout, routing, mode system, zoomToActiveLocation |
+| `src/components/map/MapView.tsx` | Map + zoom + markers + polylines + tooltips |
+| `src/components/map/EmergenceLayer.tsx` | Canvas markers (explore mode) |
+| `src/components/panel/StoryPanel.tsx` | Story view |
+| `src/components/panel/EntityPanel.tsx` | Entity view (unified with StoryPanel layout) |
+| `src/components/panel/EntityWikiPanel.tsx` | Wiki tab for entities |
+| `src/components/panel/ExplorePanel.tsx` | Explore panel, collections, scroll highlighting |
+| `src/components/panel/CollectionCard.tsx` | Collection card ("moments" label) |
+| `src/components/ui/TimelineBar.tsx` | Era pills (dynamic counts) |
+| `src/components/SplashScreenA.tsx` | Pin drop splash (active) |
+| `src/components/SplashScreenB.tsx` | Pulse & reveal splash (available) |
+| `src/components/SplashScreenC.tsx` | Map fragment splash (available) |
+| `src/lib/data/provider.tsx` | Data loading, splash screen rendering |
+| `src/lib/data/supabase-loader.ts` | Supabase → app data mapping |
+| `src/data/stories.ts` | 145 stories |
 | `src/data/entities.ts` | 210 entities |
-| `src/data/moments.ts` | 602 moments |
-| `src/data/collections.ts` | 20 collections (down from 30) |
+| `src/data/moments.ts` | 795 moments |
+| `src/data/collections.ts` | 31 collections |
