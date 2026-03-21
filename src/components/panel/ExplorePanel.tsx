@@ -996,14 +996,17 @@ export function ExplorePanel({
                   {displayMoments.map((moment) => {
                     const parentStory = momentToStoryMap.get(moment.id);
                     // Fallback stub for collection moments without a parent story
-                    const storyOrStub = parentStory ?? {
+                    const storyOrStub = parentStory ?? ({
                       id: '__collection-stub__',
                       name: activeCollection?.name ?? 'Collection',
                       subtitle: '',
                       description: '',
-                      category: 'dark_history' as const,
+                      category: 'dark-history',
                       moments: [],
-                    } as Story;
+                      years: '',
+                      storyType: 'incident',
+                      tags: [],
+                    } as Story);
                     return (
                       <LocationCard
                         key={moment.id}
