@@ -274,4 +274,24 @@ export const collections: StoryCollection[] = [
     momentIds: ['michelangelo-sistine-chapel', 'raphael-dies-rome', 'caravaggio-kills-ranuccio', 'keats-dies-spanish-steps'],
     tags: ['rome', 'renaissance', 'art', 'painting', 'literature'],
   },
+
+  // ─── Deep Time ────────────────────────────────────────────────────────
+
+  {
+    id: 'evolution-of-life',
+    name: 'Evolution of Life on Earth — A Timeline Through Fossils',
+    subtitle: 'From 3.5-billion-year-old stromatolites in Australia to the first cave paintings in France — life\'s entire story, told through the places where the evidence was found',
+    description: 'Scroll through 3.5 billion years of deep time. Each pin marks a fossil site where a chapter of life\'s story was written in stone: the first cells, the first animals, the first fish to crawl onto land, the asteroid that killed the dinosaurs, and the footprints of our earliest ancestors.',
+    momentIds: [
+      'evo-pilbara-stromatolites', 'evo-strelley-pool', 'evo-hamersley-bif',
+      'evo-franceville-eukaryotes', 'evo-elatina-snowball', 'evo-ediacara-hills',
+      'evo-burgess-shale', 'evo-ordovician-land-plants', 'evo-gilboa-forest',
+      'evo-tiktaalik-ellesmere', 'evo-joggins-reptiles', 'evo-meishan-great-dying',
+      'evo-ischigualasto-dinosaurs', 'evo-solnhofen-archaeopteryx', 'evo-yixian-flowering-plants',
+      'chicxulub-crater', 'evo-messel-primates', 'evo-toros-menalla-hominid',
+      'evo-laetoli-footprints', 'evo-hadar-lucy', 'evo-dmanisi-homo-erectus',
+      'evo-jebel-irhoud-sapiens', 'evo-chauvet-cave-art', 'evo-gobekli-tepe',
+    ],
+    tags: ['evolution', 'fossils', 'paleontology', 'deep-time', 'discovery-science'],
+  },
 ];
