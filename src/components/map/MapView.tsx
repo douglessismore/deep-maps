@@ -663,8 +663,14 @@ function MapController({
     }
     pathArrowheadsRef.current.clearLayers();
 
-    // Never draw polylines for collections. Only in story/entity/scroll modes.
-    if (activeCollection || (mode !== 'story' && mode !== 'entity' && mode !== 'scroll')) {
+    // Never draw polylines for collections — guard both activeCollection and
+    // focusedLocations that originated from a collection (mode won't be story/entity).
+    // Belt-and-suspenders: also block if mode isn't explicitly story/entity/scroll.
+    if (activeCollection) {
+      prevPathMomentIds.current = '';
+      return;
+    }
+    if (mode !== 'story' && mode !== 'entity' && mode !== 'scroll') {
       prevPathMomentIds.current = '';
       return;
     }
@@ -681,10 +687,12 @@ function MapController({
       if (firstStory) {
         pathColor = CATEGORIES[firstStory.category]?.color ?? pathColor;
       }
-    } else if (scrollHighlight && scrollHighlight.length >= 2) {
-      // Explore scroll mode — connect highlighted story's moments
-      pathMoments = [...scrollHighlight];
-      // Try to get the category color from the highlighted story
+    } else if (mode === 'scroll' && scrollHighlight && scrollHighlight.length >= 2) {
+      // Scroll mode ONLY — connect highlighted story's moments.
+      // Extra mode === 'scroll' check prevents race conditions where
+      // scrollHighlight is set with collection moments while mode is stale.
+      // Verify all highlighted moments belong to a single story (collection
+      // moments span multiple stories and must never get polylines).
       const hlStory = allStories.find(s =>
         s.moments.some(sm => {
           const m = momentMap.get(sm.momentId);
@@ -692,7 +700,15 @@ function MapController({
         })
       );
       if (hlStory) {
-        pathColor = CATEGORIES[hlStory.category]?.color ?? pathColor;
+        const storyMomentIds = new Set(
+          hlStory.moments.map(sm => sm.momentId)
+        );
+        const allFromSameStory = scrollHighlight.every(sh => storyMomentIds.has(sh.id));
+        if (allFromSameStory) {
+          pathMoments = [...scrollHighlight];
+          pathColor = CATEGORIES[hlStory.category]?.color ?? pathColor;
+        }
+        // If moments span multiple stories (collection highlight), pathMoments stays empty
       }
     }
 
@@ -770,15 +786,17 @@ function MapController({
       activeSegmentRef.current = null;
     }
 
-    // Never draw active segment for collections — same guard as pathLine effect
+    // Never draw active segment for collections — same guard as pathLine effect.
+    // Also block when mode isn't story/entity/scroll (defensive, matches pathLine).
     if (activeCollection) return;
+    if (mode !== 'story' && mode !== 'entity' && mode !== 'scroll') return;
     if (!activeLocation || !pathLineRef.current) return;
 
     // Find the active moment's position in the sorted path
     let pathMoments: Moment[] = [];
-    if (focusedLocations && focusedLocations.length >= 2) {
+    if (focusedLocations && focusedLocations.length >= 2 && (mode === 'story' || mode === 'entity')) {
       pathMoments = focusedLocations.map(fl => fl.location);
-    } else if (scrollHighlight && scrollHighlight.length >= 2) {
+    } else if (mode === 'scroll' && scrollHighlight && scrollHighlight.length >= 2) {
       pathMoments = [...scrollHighlight];
     }
     if (pathMoments.length < 2) return;
@@ -816,7 +834,7 @@ function MapController({
         activeSegmentRef.current = null;
       }
     };
-  }, [activeLocation, focusedLocations, scrollHighlight, activeCollection, map]);
+  }, [activeLocation, focusedLocations, scrollHighlight, activeCollection, mode, map]);
 
   // ── Fly to active location or fit story/entity/category bounds ────
 
