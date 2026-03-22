@@ -673,7 +673,7 @@ function MapController({
     let pathMoments: Moment[] = [];
     let pathColor = 'rgba(255,255,255,0.5)';
 
-    if (focusedLocations && focusedLocations.length >= 2) {
+    if (focusedLocations && focusedLocations.length >= 2 && (mode === 'story' || mode === 'entity')) {
       // Story or entity mode — use all focused locations
       pathMoments = focusedLocations.map(fl => fl.location);
       // Use the story/entity's category color if available
@@ -770,6 +770,8 @@ function MapController({
       activeSegmentRef.current = null;
     }
 
+    // Never draw active segment for collections — same guard as pathLine effect
+    if (activeCollection) return;
     if (!activeLocation || !pathLineRef.current) return;
 
     // Find the active moment's position in the sorted path
@@ -814,7 +816,7 @@ function MapController({
         activeSegmentRef.current = null;
       }
     };
-  }, [activeLocation, focusedLocations, scrollHighlight, map]);
+  }, [activeLocation, focusedLocations, scrollHighlight, activeCollection, map]);
 
   // ── Fly to active location or fit story/entity/category bounds ────
 

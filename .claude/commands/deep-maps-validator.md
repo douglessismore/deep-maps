@@ -64,6 +64,24 @@ Check for entities with:
 - Every `canonicalStoryId` in an entity must reference an existing story
 - CRITICAL for broken references
 
+### Check 1.8: Deduplication Before Adding Content
+Before adding any new moments, stories, or entities, verify no duplicates exist. This is a CRITICAL check — duplicates confuse users and waste data.
+
+**Moment deduplication:**
+- CRITICAL if an existing moment covers the same event at the same location. Match criteria: lat/lng within 0.01 degrees AND year match AND name similarity (fuzzy match on event description, ignoring word order and minor phrasing differences)
+- When a new story is being created about a topic, check if existing moments from related stories should be INCLUDED in the new story's `moments[]` rather than duplicated (e.g., adding a "September 11" story should reference existing "Flight 93" moments, not create new versions)
+
+**Story deduplication:**
+- CRITICAL if an existing story covers the same topic. Match criteria: name similarity (fuzzy) OR matching `wikipediaSlug`
+- Cross-link related stories via `relatedStoryIds` instead of creating overlapping stories
+
+**Entity deduplication:**
+- CRITICAL if an existing entity matches the new one. Match criteria: same `name` (case-insensitive), same `wikipedia_slug`, or same `id`
+- This supplements Check 1.6 (which catches existing duplicates) by preventing new ones from being introduced
+
+**Cross-linking requirement:**
+- WARNING if related stories exist but are not connected via `relatedStoryIds`. When moments from one story are relevant to another, the stories should be cross-linked rather than having content duplicated across both.
+
 ## Layer 2: Content Quality (scored checklist)
 
 For **incremental mode**: Run `git diff HEAD --name-only` in the deep-maps directory. If `src/data/moments.ts`, `entities.ts`, or `stories.ts` changed, use `git diff HEAD --unified=0` to find which specific item IDs were added/modified (look for lines starting with `+    id: '`). Only evaluate those items.
