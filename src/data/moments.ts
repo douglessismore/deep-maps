@@ -2904,7 +2904,7 @@ export const moments: Moment[] = [
   {
     id: 'annihilator-mollie-smith',
     name: 'Mollie Smith Is Murdered in Her Bed on New Year\'s Eve',
-    subtitle: 'The first blood is drawn in a year-long serial murder spree',
+    subtitle: '1308 E 4th St, Austin. The site is now the Scoot Inn, a live music venue',
     description: 'On December 30, 1884, a servant named Mollie Smith was dragged from her bed and murdered with an axe in the backyard of the Hallie Powell home. The crime occurred near the current site of the Scoot Inn. This was the first of eight brutal murders that would paralyze the city for a year, with the killer eventually striking multiple times in a single night.',
     lat: 30.2621,
     lng: -97.7294,
@@ -2921,7 +2921,7 @@ export const moments: Moment[] = [
   {
     id: 'annihilator-christmas-massacre',
     name: 'Serial Killer Murders Two Women on Christmas Eve',
-    subtitle: 'A double murder in the downtown core triggers a city-wide panic',
+    subtitle: '9th and Lavaca St, Austin. The downtown residential blocks were redeveloped; no markers remain',
     description: 'On Christmas Eve 1885, the killer struck two separate households within an hour. Susan Hancock and Eula Phillips were both killed in their homes near the downtown core. These were the first white victims, and the public outcry forced the city to take drastic measures, including hiring the Pinkerton Detective Agency and lighting the entire city with "artificial moonlight."',
     lat: 30.2705,
     lng: -97.7445,
@@ -2938,7 +2938,7 @@ export const moments: Moment[] = [
   {
     id: 'annihilator-moonlight-tower',
     name: 'Austin Installs 165-Foot \'Moonlight Towers\' to Deter Serial Killer',
-    subtitle: 'The world\'s only surviving moonlight tower system was built to deter an axe murderer',
+    subtitle: '9th and Guadalupe St, Austin. Seventeen of the original 31 towers still stand and operate nightly',
     description: 'In 1894, the city of Austin purchased 31 165-foot towers to illuminate the streets and deny the \'Servant Girl Annihilator\' serial killer the cover of darkness. While the murders had stopped years earlier, the trauma remained. Austin is now the only city in the world that still operates these moonlight towers, which serve as a haunting architectural legacy of the 1884–1885 crime spree.',
     lat: 30.2713,
     lng: -97.7461,
@@ -2955,7 +2955,7 @@ export const moments: Moment[] = [
   {
     id: 'annihilator-eliza-shelley',
     name: 'Eliza Shelley Is Murdered by Axe in Her Cabin',
-    subtitle: 'A second brutal attack proves a pattern of serial violence is unfolding',
+    subtitle: 'East Austin, approximate location. The servant quarters where Shelley was killed are long gone',
     description: 'On May 7, 1885, the peace of a quiet Austin spring was shattered when Eliza Shelley, a Black cook, was found brutally murdered in her cabin behind the Hancock house. She had been struck with an axe, her face mutilated with chilling precision. While the earlier murder of Mollie Smith had been dismissed by many as an isolated domestic tragedy, Shelley\'s death sent a wave of terror through the city. It was the moment Austin realized it wasn\'t dealing with a common criminal, but a predator stalking the night.',
     lat: 30.265,
     lng: -97.741,
@@ -2971,7 +2971,7 @@ export const moments: Moment[] = [
   {
     id: 'annihilator-o-henry-letter',
     name: 'William Sydney Porter Coins the Name \'Servant Girl Annihilators\'',
-    subtitle: 'An Austin bank clerk provides the moniker that defines the case',
+    subtitle: 'Downtown Austin, near the crime scenes. Porter lived blocks away; his cottage no longer stands',
     description: 'Living just blocks from the scenes of the Servant Girl Annihilator murders in 1885, Austin bank clerk William Sydney Porter—later famous as O. Henry—coined the term \'Annihilator.\' In a letter to his friend Dave Hall, he wrote: \'Town is fearfully dull... except for the frequent raids of the Servant Girl Annihilators who make things lively in the dull hours of the night.\' This offhand remark became one of the first American serial killer nicknames.',
     lat: 30.2647,
     lng: -97.7412,
@@ -2987,7 +2987,7 @@ export const moments: Moment[] = [
   {
     id: 'annihilator-gracie-vance',
     name: 'Serial Killer Attacks Gracie Vance and Orange Washington',
-    subtitle: 'A community goes into hiding as the killer strikes residential neighborhoods',
+    subtitle: 'North Austin, near present-day Hyde Park. The residential area has been fully redeveloped',
     description: 'On the night of August 30, 1885, the killer\'s boldness reached a new peak. Gracie Vance was murdered with an axe while her companion, Orange Washington, was also viciously attacked. By this point, the African American community was in a state of total siege; businesses closed at sunset, and groups of armed men patrolled the neighborhoods. The failure of the police to make an arrest led to accusations of systemic neglect, and many Black residents abandoned their homes in Austin entirely.',
     lat: 30.2838,
     lng: -97.7421,
@@ -3003,7 +3003,7 @@ export const moments: Moment[] = [
   {
     id: 'archive-war-land-office',
     name: 'President Sam Houston Orders the Secret Removal of Republic Archives',
-    subtitle: 'A midnight wagon team attempts to relocate the soul of the capital',
+    subtitle: '11th St and Congress Ave, Austin. The 1857 Land Office building still stands as the Capitol Visitors Center',
     description: 'Under orders from President Sam Houston, a team of men arrived at the Land Office to load the Republic\'s archives into wagons. Houston believed Austin was too vulnerable to Mexican attack and wanted the records moved to the city of Houston. The local residents, who saw the archives as the soul of the city, were prepared to fight to keep them.',
     lat: 30.2727,
     lng: -97.7413,
@@ -3020,7 +3020,7 @@ export const moments: Moment[] = [
   {
     id: 'archive-war-cannon-site',
     name: 'Angelina Eberly Fires a Six-Pound Cannon to Stop Archive Removal',
-    subtitle: 'A single shot alerts the town and saves Austin as the capital',
+    subtitle: '6th St and Congress Ave, Austin. A bronze statue of Angelina Eberly and her cannon marks the spot',
     description: 'Angelina Eberly, an innkeeper at 6th and Congress, spotted the wagons leaving. She rushed to a six-pound cannon parked in the middle of Congress Avenue—kept there for defense against Native American raids—and fired it at the Land Office. The shot hit the building and alerted the town, who chased the wagons down and retrieved the archives at gunpoint.',
     lat: 30.2677,
     lng: -97.7417,
@@ -3054,7 +3054,7 @@ export const moments: Moment[] = [
   {
     id: 'janis-threadgills',
     name: 'A Young Janis Joplin Finds Her Voice at Kenneth Threadgill\'s Gas Station Hootenannies',
-    subtitle: 'A future superstar hones her bluesy wail at a converted gas station',
+    subtitle: '6416 N Lamar Blvd, Austin. Threadgill\'s closed in 2020; the building still stands but is vacant',
     description: 'Joplin developed her signature sound at Kenneth Threadgill\'s converted Gulf gas station. Threadgill, who held Austin\'s first beer license after Prohibition, hosted "hootenannies" where Joplin would sing for a pitcher of beer. Her performances here became the stuff of local legend before she moved to San Francisco in 1963.',
     lat: 30.334,
     lng: -97.7225,
@@ -3071,7 +3071,7 @@ export const moments: Moment[] = [
   {
     id: 'janis-pink-palace',
     name: 'Janis Joplin Lives at the \'Pink Palace\' Victorian Rooming House',
-    subtitle: 'A hub for counterculture musicians during Joplin\'s Austin years',
+    subtitle: '1106 W 22nd St, Austin. The Victorian house still stands in the UT campus area',
     description: 'During her time in Austin, Joplin lived at a rooming house known as the "Pink Palace" or the "Ghetto Mansion." It was a hub for the local folk and blues scene, where musicians lived in squalor but constant creative collaboration. The building was a Victorian house that has since been a central point of Austin music pilgrimages.',
     lat: 30.2863,
     lng: -97.7435,
@@ -3088,7 +3088,7 @@ export const moments: Moment[] = [
   {
     id: 'armadillo-wooldridge-poster',
     name: 'Jim Franklin Designs Armadillo Poster for Wooldridge Square Benefit',
-    subtitle: 'A local artist creates the mascot for Austin\'s counterculture',
+    subtitle: '900 Guadalupe St, Austin. Wooldridge Square is still a public park with its original bandstand',
     description: 'Local musicians held a benefit at Wooldridge Square to raise money for a new venue. Artist Jim Franklin designed a poster featuring an armadillo, which became the instantly recognizable mascot for the city\'s counter-culture. This event inspired Eddie Wilson to name his new venue "The Armadillo World Headquarters."',
     lat: 30.2724,
     lng: -97.7456,
@@ -3105,7 +3105,7 @@ export const moments: Moment[] = [
   {
     id: 'armadillo-venue-site',
     name: 'Eddie Wilson Opens the Armadillo World Headquarters in an Old Armory',
-    subtitle: 'A cultural epicenter is born inside a National Guard facility',
+    subtitle: '525 Barton Springs Rd, Austin. The armory was demolished in 1981; a high-rise office tower stands here now',
     description: 'Opened in 1970 in an old National Guard armory, the Armadillo World Headquarters became an Austin cultural phenomenon. It was a venue where diverse acts like Frank Zappa, AC/DC, and Willie Nelson performed in the same room. The venue\'s closure in 1980 to make way for a high-rise office building is often cited as the moment \'Old Austin\' began its transition into commercialization.',
     lat: 30.2581,
     lng: -97.7498,
@@ -3139,7 +3139,7 @@ export const moments: Moment[] = [
   {
     id: 'armadillo-final-concert',
     name: 'Armadillo World Headquarters Hosts Final Concert Before Demolition',
-    subtitle: 'Asleep at the Wheel plays until sunrise at the end of an era',
+    subtitle: '525 Barton Springs Rd, Austin. The armory was demolished in 1981; a high-rise stands on the site',
     description: 'On New Year\'s Eve 1980, the Armadillo World Headquarters held its last show. Asleep at the Wheel and Commander Cody played until the sun rose, as a crowd of thousands mourned the loss of the city\'s cultural heart. The building, a former National Guard armory, was demolished in 1981 to make way for a high-rise office tower. Its closure signaled the beginning of Austin\'s transition from a sleepy college town to a commercialized tech hub.',
     lat: 30.263,
     lng: -97.7489,
@@ -3156,7 +3156,7 @@ export const moments: Moment[] = [
   {
     id: 'treaty-oak-site',
     name: 'Paul Cullen Poisons the 500-Year-Old Treaty Oak with Herbicide',
-    subtitle: 'A man performs a ritual that nearly kills a sacred Austin icon',
+    subtitle: '507 Baylor St, Austin. The Treaty Oak survived and still stands in Treaty Oak Park, open daily',
     description: 'In early 1989, Paul Cullen poured enough herbicide around the base of the Treaty Oak to kill 100 trees. He later claimed he was performing a magic ritual to protect a woman he loved. The tree, which had survived 500 years of floods and fires, began to die, prompting a massive rescue effort involving giant sunscreens and filtered water.',
     lat: 30.2725,
     lng: -97.7514,
@@ -3190,7 +3190,7 @@ export const moments: Moment[] = [
   {
     id: 'plan-city-hall',
     name: 'Austin City Council Adopts 1928 Master Plan Creating a \'Negro District\'',
-    subtitle: 'A document codifies segregation and reshapes the city\'s geography',
+    subtitle: '124 W 8th St, Austin. The old City Hall has been replaced; a new one stands at 301 W 2nd St',
     description: 'The Austin City Council formally adopted the 1928 Master Plan, which recommended the creation of a \'Negro District.\' By concentrating all schools and services for Black residents in East Austin, the city effectively enforced racial segregation without passing illegal zoning laws. This document permanently reshaped the city\'s geography and displaced thriving Black communities in the West.',
     lat: 30.27,
     lng: -97.742,
@@ -3207,7 +3207,7 @@ export const moments: Moment[] = [
   {
     id: 'plan-east-avenue',
     name: 'City Disconnects Services to Force Migration East of East Avenue',
-    subtitle: 'Bureaucratic pressure forces families to relocate to the segregated district',
+    subtitle: 'East Avenue, Austin. The road was replaced by I-35, which still divides east and west Austin',
     description: 'East Avenue (now I-35) became the hard border for the new district. Families who refused to move East found their water and electricity disconnected by the city. This forced migration was designed to empty thriving communities like Wheatville and Clarksville to make way for white development.',
     lat: 30.2715,
     lng: -97.734,
@@ -3223,7 +3223,7 @@ export const moments: Moment[] = [
   {
     id: 'plan-wheatville-school',
     name: 'City Closes Wheatville School to Displace Black Residents',
-    subtitle: 'The removal of community anchors enforces the segregated Master Plan',
+    subtitle: '2402 San Gabriel St, Austin. The school was demolished; the Wheatville neighborhood is now condos',
     description: 'To force the migration, the city closed the Wheatville School, the primary educational center for Black families in West Austin. With no local school and no municipal services, the residents were left with no choice but to abandon their property and move to the designated district.',
     lat: 30.2882,
     lng: -97.7475,
@@ -3240,7 +3240,7 @@ export const moments: Moment[] = [
   {
     id: 'btw-capitol-refusal',
     name: 'Governor Colquitt Refuses to Let Booker T. Washington Speak at the Capitol',
-    subtitle: 'Racist state leadership denies the nation\'s most famous Black educator',
+    subtitle: '1100 Congress Ave, Austin. The Texas State Capitol still stands on its original grounds',
     description: 'Governor Oscar Colquitt formally refused to host Washington, stating that a Black man should not be allowed to speak from the Capitol stand. The refusal was intended to humiliate Washington, but it only served to mobilize the city\'s residents in protest.',
     lat: 30.2742,
     lng: -97.7403,
@@ -3257,7 +3257,7 @@ export const moments: Moment[] = [
   {
     id: 'btw-wooldridge-square',
     name: 'Booker T. Washington Addresses Racially Integrated Crowd at Wooldridge Square',
-    subtitle: '5,000 people gather at a park bandstand after the Capitol refusal',
+    subtitle: '900 Guadalupe St, Austin. Wooldridge Square park and its bandstand are still intact',
     description: 'A crowd of over 5,000 people—nearly 20% of Austin\'s total population at the time—crammed into the square to hear Washington speak. The event was racially integrated, a rare occurrence in 1911, and the speech from the bandstand became a landmark moment in Austin\'s civil rights history.',
     lat: 30.2724,
     lng: -97.7456,
@@ -3306,7 +3306,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-first-national-bank',
     name: 'William Sydney Porter Is Accused of Embezzling from First National Bank',
-    subtitle: 'A bank shortage leads to the indictment of the future \'O. Henry\'',
+    subtitle: '601 Congress Ave, Austin. The original First National Bank building was demolished; a modern tower stands here',
     description: 'Porter worked as a teller at 6th and Congress. When federal bank examiners found a shortage in his accounts, he was accused of embezzlement. Porter panicked and fled to New Orleans, then Honduras, before the illness of his wife forced him to return to Austin to face trial.',
     lat: 30.2678,
     lng: -97.7417,
@@ -3340,7 +3340,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-morley-brothers',
     name: 'William Sydney Porter Works as a Pharmacist at Morley Brothers',
-    subtitle: 'A young clerk observes the frontier characters who will fill his stories',
+    subtitle: 'East 8th St, Austin. The Morley Brothers Drug Store is long gone; the block is now commercial',
     description: 'When William Sydney Porter arrived in Austin in 1884, he worked as a pharmacist at the Morley Brothers Drug Store on East 8th Street. It was here that he began sketching local characters and eavesdropping on conversations that would later fuel his short stories. At the time, Austin was a growing frontier town of 11,000 people, providing the young Porter with a wealth of narrative inspiration.',
     lat: 30.2674,
     lng: -97.7411,
@@ -3357,7 +3357,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-land-office',
     name: 'William Sydney Porter Works as a Draftsman at the General Land Office',
-    subtitle: 'Porter spends four years mapping Texas and finding literary inspiration',
+    subtitle: '112 E 11th St, Austin. The 1857 General Land Office is the oldest state building in Texas; now a museum',
     description: 'In 1887, Porter took a job as a draftsman at the Texas General Land Office, now the oldest state office building in Texas. He spent four years here mapping the wild geography of the state. The thick stone walls and bureaucratic atmosphere left a deep impression, later serving as the setting for his story "Bexar Scrip No. 2692." This was a period of stability where he married Athol Estes and began his humor magazine, The Rolling Stone.',
     lat: 30.2727,
     lng: -97.7393,
@@ -3374,7 +3374,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-scholz-garden',
     name: 'William Sydney Porter Sings with the Hill City Quartette at Scholz Garden',
-    subtitle: 'Bohemian life and German beer at Austin\'s oldest continuously operated bar',
+    subtitle: '1607 San Jacinto Blvd, Austin. Scholz Garten is still open as Austin\'s oldest biergarten',
     description: 'Porter was a fixture at Scholz Garden, Austin\'s oldest biergarten and political hub. He was a gifted singer and a member of the Hill City Quartette, which performed German lieder and folk songs for the regulars. Scholz was more than a bar; it was where the town\'s German heritage and Texas politics collided. The museum still displays the chair and table he used, a physical link to the bohemian lifestyle he enjoyed before the embezzlement charges forced him into exile and prison.',
     lat: 30.2777,
     lng: -97.7363,
@@ -3391,7 +3391,7 @@ export const moments: Moment[] = [
   {
     id: 'junk-cathedral-site',
     name: 'Vince Hannemann Begins Constructing a Three-Story Cathedral of Junk',
-    subtitle: 'A backyard project using 60 tons of tires, bathtubs, and electronics',
+    subtitle: '4422 Lareina Dr, Austin. The Cathedral of Junk is still in the backyard; visits by appointment only',
     description: 'Vince Hannemann began building the Cathedral of Junk in his South Austin backyard in 1988. The structure features vaulted ceilings of bicycle wheels, a "throne" of electronics, and a leaf from the Buddha\'s tree of enlightenment encased in a specific chamber. It evolved over thirty years into a multi-story spiritual hub and landmark made entirely of recycled waste.',
     lat: 30.2185,
     lng: -97.7715,
@@ -3408,7 +3408,7 @@ export const moments: Moment[] = [
   {
     id: 'junk-city-hall-hearing',
     name: 'City Hall Issues a Permit to Legitimize Junk as a Permanent Work of Art',
-    subtitle: 'A volunteer army of engineers helps save the mountain of trash from demolition',
+    subtitle: '301 W 2nd St, Austin. The hearing was at old City Hall; the Cathedral remains at 4422 Lareina Dr',
     description: 'In 2010, the city of Austin nearly demolished the Cathedral of Junk after neighbor complaints. Owner Vince Hannemann mobilized a volunteer army of engineers and architects to prove the structure was sound. After a high-stakes hearing and massive public support, the city issued a permit, officially recognizing the collection of trash as a legitimate piece of architectural heritage.',
     lat: 30.2658,
     lng: -97.7492,
@@ -3459,7 +3459,7 @@ export const moments: Moment[] = [
   {
     id: 'uttower-observation-deck',
     name: 'Charles Whitman Sniper Attack Kills 14 from the Tower Observation Deck',
-    subtitle: 'A former Marine holds the university campus hostage for 96 minutes',
+    subtitle: '110 Inner Campus Dr, Austin. The UT Tower observation deck reopened in 1999 with guided tours only',
     description: 'On August 1, 1966, former Marine Charles Whitman reached the 28th-floor observation deck of the University of Texas Tower with a footlocker of rifles. From the 231-foot vantage point, he began firing at students and faculty below. The 96-minute siege was eventually ended when Officers Ramiro Martinez and Houston McCoy breached the deck and killed the sniper.',
     lat: 30.2862,
     lng: -97.7394,
@@ -3476,7 +3476,7 @@ export const moments: Moment[] = [
   {
     id: 'uttower-main-mall',
     name: 'Civilians Use Personal Deer Rifles to Pin Down the Tower Sniper',
-    subtitle: 'An improvised counter-siege prevents a higher death toll on the killing field',
+    subtitle: 'UT Austin Main Mall. A memorial garden with 49 benches honors victims at the tower\'s north base',
     description: 'The main mall south of the University of Texas Tower became a primary killing field during the 1966 sniper attack. Realizing the police were outgunned, local Austin citizens grabbed deer rifles from their trucks and began firing back at the tower. This improvised civilian counter-siege pinned Charles Whitman behind the limestone walls and allowed officers to reach the top of the building.',
     lat: 30.2855,
     lng: -97.7394,
@@ -3492,7 +3492,7 @@ export const moments: Moment[] = [
   {
     id: 'srv-antones-6th',
     name: 'Stevie Ray Vaughan Hones an Explosive Blues Style at Antone\'s',
-    subtitle: 'A teenage guitarist sits at the feet of legends like Muddy Waters',
+    subtitle: '2915 Guadalupe St, Austin. Antone\'s original location is gone; the club now operates at 305 E 5th St',
     description: 'Stevie Ray Vaughan was a fixture at Clifford Antone\'s original blues club on 6th Street. He spent his youth watching legends like Muddy Waters and Albert King perform, eventually developing the explosive, heavy-stringed style that would change rock history. The club served as his primary musical education and the home of the Austin blues resurgence.',
     lat: 30.2671,
     lng: -97.7385,
@@ -3509,7 +3509,7 @@ export const moments: Moment[] = [
   {
     id: 'srv-auditorium-shores',
     name: 'Austin Memorializes Stevie Ray Vaughan with a Bronze Statue',
-    subtitle: 'A permanent pilgrimage site near the venue of his final performances',
+    subtitle: '800 W Riverside Dr, Austin. The bronze statue still stands at Auditorium Shores on Lady Bird Lake',
     description: 'The bronze statue at Auditorium Shores commemorates the legacy of Stevie Ray Vaughan. Following his death in a 1990 helicopter crash, the site became a central point for music pilgrimages. It stands near the location of many of his most famous performances, where fans from around the world gather to pay their respects to the guitar legend.',
     lat: 30.2633,
     lng: -97.7485,
@@ -3526,7 +3526,7 @@ export const moments: Moment[] = [
   {
     id: 'bats-congress-bridge',
     name: 'Bridge Refurbishment Accidentally Creates a Massive Bat Incubator',
-    subtitle: 'Crevices in the 1980 design prove perfect for Mexican free-tailed bats',
+    subtitle: 'Congress Ave Bridge, Austin. The bridge still houses 1.5 million bats; nightly flights draw crowds each summer',
     description: 'When the city refurbished the Congress Avenue Bridge in 1980, engineers accidentally created 18-inch-deep crevices that were the perfect temperature for Mexican free-tailed bats. Within months, 1.5 million bats moved in, creating the largest urban bat colony in North America. The colony now eats approximately 20,000 pounds of insects every single night.',
     lat: 30.2613,
     lng: -97.7453,
@@ -3542,7 +3542,7 @@ export const moments: Moment[] = [
   {
     id: 'bats-accidental-joints',
     name: 'Rabies Scare Triggers Mass Hysteria and Petitions to Exterminate the Bats',
-    subtitle: 'A 1984 panic leads to newspapers labeling the colony a public health hazard',
+    subtitle: 'Congress Ave Bridge, Austin. The bat colony survived the extermination push and is now a major tourist draw',
     description: 'By 1984, the Congress Avenue bat population had exploded, and many horrified Austinites demanded their removal. Local newspapers ran headlines about "rabid invaders," and petrified residents petitioned the city to exterminate the colony. It was a period of peak public fear before scientific education helped the city embrace the bats as biological allies and a tourism asset.',
     lat: 30.2613,
     lng: -97.7453,
@@ -3575,7 +3575,7 @@ export const moments: Moment[] = [
   {
     id: 'sos-barton-springs',
     name: 'Environmentalists Fight Development to Save the Barton Springs Salamander',
-    subtitle: 'Natural springs become the catalyst for Austin\'s strict environmental laws',
+    subtitle: '2201 Barton Springs Rd, Austin. Barton Springs Pool is still open for swimming; the salamander remains protected',
     description: 'The natural Barton Springs Pool became the legal centerpiece of a fight to stop a massive corporate development called Barton Creek PUD. Conservationists leveraged the endangered status of the Barton Springs Salamander to push for new water-quality regulations. This conflict forever defined Austin as a city that would engage in intense political warfare to protect its natural resources.',
     lat: 30.2636,
     lng: -97.7712,
@@ -3592,7 +3592,7 @@ export const moments: Moment[] = [
   {
     id: 'sos-city-hall-hearing',
     name: 'Eight Hundred Citizens Flood an All-Night Public Hearing at City Hall',
-    subtitle: 'Residents speak for 15 hours straight to successfully reject a development plan',
+    subtitle: '124 W 8th St, Austin. The hearing was at old City Hall; the SOS ordinance remains Austin law today',
     description: 'On June 7, 1990, over 800 citizens flooded a City Council meeting in what became known as "The All-Night Public Hearing." Residents spoke against the Barton Creek development for 15 straight hours until the sun rose. This grassroots explosion birthed the Save Our Springs (SOS) Alliance and successfully pressured the city to reject the massive construction project.',
     lat: 30.27,
     lng: -97.742,
@@ -3609,7 +3609,7 @@ export const moments: Moment[] = [
   {
     id: 'lbj-driskill-date',
     name: 'Lyndon B. Johnson and Claudia "Lady Bird" Taylor Have Their First Date',
-    subtitle: 'The beginning of a political partnership in the hotel lobby',
+    subtitle: '604 Brazos St, Austin. The Driskill Hotel is still operating on its original site',
     description: 'In 1934, Lyndon B. Johnson met Claudia "Lady Bird" Taylor for breakfast at the Driskill Hotel. He proposed shortly after their first meeting. The hotel remained LBJ\'s political headquarters throughout his career, and it was the same location where he watched the returns of his 1948 Senate race.',
     lat: 30.2681,
     lng: -97.7416,
@@ -3642,7 +3642,7 @@ export const moments: Moment[] = [
   {
     id: 'driskill-poker-loss',
     name: 'Cattle Baron Jesse Driskill Loses His Entire Hotel in a Poker Game',
-    subtitle: 'The finest hotel in Texas changes hands in a high-stakes gamble',
+    subtitle: '604 Brazos St, Austin. The 1886 Romanesque limestone hotel is still open and operating',
     description: 'In 1886, cattle baron Jesse Driskill spent a fortune to build the finest hotel south of St. Louis. Just two years later, he lost the entire building in a high-stakes poker game. Driskill died bankrupt shortly after, and his spirit is said to haunt the halls of the hotel to this day, often accompanied by the phantom scent of his cigars.',
     lat: 30.2681,
     lng: -97.7416,
@@ -3659,7 +3659,7 @@ export const moments: Moment[] = [
   {
     id: 'driskill-room-525',
     name: 'Two Brides Commit Suicide 20 Years Apart to the Day in Room 525',
-    subtitle: 'A tragic pattern in the hotel\'s most notorious room leads to its temporary sealing',
+    subtitle: '604 Brazos St, Austin. Room 525 is still bookable at the Driskill Hotel today',
     description: 'The Driskill Hotel\'s Room 525 was the site of a double tragedy where two separate brides on their honeymoons committed suicide in the same bathtub. The events allegedly took place exactly 20 years apart to the day. The room was sealed for a period of years and remains a central point for reported paranormal activity and apparitions of women in Victorian gowns.',
     lat: 30.2682,
     lng: -97.7415,
@@ -4358,7 +4358,7 @@ export const moments: Moment[] = [
   {
     id: 'victory-grill-opening',
     name: 'Victory Grill Opens on V-J Day for Returning Black Soldiers',
-    subtitle: 'A homecoming sanctuary for Black veterans',
+    subtitle: '1104 E 11th St, Austin. The Victory Grill building still stands as a National Historic Landmark',
     entityIds: ['victory-grill'],
     description: 'Johnny Holmes opened the Victory Grill on August 15, 1945—the day Japan surrendered—as a place for returning Black soldiers to feel at home in a segregated city. It quickly evolved from a restaurant into a premier blues and jazz venue. Every major African American act touring the South played here, including Bobby Bland, Gatemouth Brown, and Janis Joplin. In 1988, a devastating fire nearly destroyed the building, but it was painstakingly restored as a National Historic Landmark.',
     lat: 30.2717,
@@ -4374,7 +4374,7 @@ export const moments: Moment[] = [
   {
     id: 'victory-doris-miller',
     name: 'Chitlin\' Circuit Stars Fill a Segregation-Era Auditorium',
-    subtitle: 'Named for a hero, built for the community',
+    subtitle: '2300 Rosewood Ave, Austin. The Doris Miller Auditorium still stands and is used as a community center',
     entityIds: ['victory-grill'],
     description: 'Named after the Pearl Harbor hero Doris Miller, this East Austin auditorium was a massive pillar of the Chitlin\' Circuit. During segregation, it was one of the few large-scale venues in Texas where Black artists like Ella Fitzgerald and Ike & Tina Turner could perform for Black audiences without harassment. Its sheer scale allowed the community to congregate in a way that smaller clubs could not.',
     lat: 30.268,
@@ -4390,7 +4390,7 @@ export const moments: Moment[] = [
   {
     id: 'victory-charlies-playhouse',
     name: 'Charlie\'s Playhouse Becomes Austin\'s First Integrated Music Venue',
-    subtitle: 'UT students cross East Avenue into the Black entertainment district — and a thriving corridor is later bulldozed',
+    subtitle: 'East 11th St corridor, Austin. The venue and most of the district were bulldozed in 1970s urban renewal',
     entityIds: ['victory-grill'],
     description: 'In the 1950s and 60s, Charlie\'s Playhouse was the hottest ticket in Austin. While most of the city was strictly segregated, Charlie\'s became a "cross-over" club where adventurous white students from UT would cross East Avenue to hear authentic R&B and blues. The venue was part of a thriving entertainment district that included dozens of Black-owned businesses, a world that was largely destroyed when the city used "urban renewal" funds to bulldoze much of the corridor in the 1970s.',
     lat: 30.272,
@@ -4405,7 +4405,7 @@ export const moments: Moment[] = [
   {
     id: 'spoke-opening-night',
     name: 'James White Opens the Broken Spoke on Dusty South Lamar',
-    subtitle: 'Sawdust and southern fried cooking on South Lamar',
+    subtitle: '3201 S Lamar Blvd, Austin. The original tin building still operates with its sawdust dance floor',
     description: 'James White opened the Broken Spoke in 1964 when South Lamar was just a dusty road on the outskirts of town. He built the original tin structure himself, serving chicken-fried steak and hosting legendary acts like Bob Wills and Tex Ritter. The original sawdust floor and low ceilings have remained unchanged for six decades.',
     lat: 30.2405,
     lng: -97.7856,
@@ -4421,7 +4421,7 @@ export const moments: Moment[] = [
   {
     id: 'spoke-george-strait',
     name: 'Unknown George Strait Plays the Spoke for Beer Money',
-    subtitle: 'The King of Country plays for $500 a night',
+    subtitle: '3201 S Lamar Blvd, Austin. The Broken Spoke is still open; its walls are a photo museum of performers',
     description: 'In the late 1970s, a young and unknown George Strait played the Broken Spoke regularly with his Ace in the Hole Band. Long before he was selling out stadiums, he was playing for a few hundred dollars and a pitcher of beer. The walls of the Spoke are now a museum of country music history, covered in photos of Strait, Dolly Parton, and Kris Kristofferson.',
     lat: 30.2405,
     lng: -97.7856,
@@ -4436,7 +4436,7 @@ export const moments: Moment[] = [
   {
     id: 'spoke-survival-battle',
     name: 'Broken Spoke Refuses Buyouts as Luxury Towers Rise Around It',
-    subtitle: '"I\'d rather be broke and keep the Spoke"',
+    subtitle: '3201 S Lamar Blvd, Austin. The tin honky-tonk is now dwarfed by five-story luxury apartments on all sides',
     description: 'By the early 2000s, the land under the Broken Spoke was worth tens of millions of dollars. Developers built five-story luxury apartment complexes that now tower over the small tin building, literally surrounding it on all sides. James White famously refused every buyout offer. After his death in 2021, his family continued to run the hall, maintaining the tradition of live country music every night.',
     lat: 30.2405,
     lng: -97.7856,
@@ -4451,7 +4451,7 @@ export const moments: Moment[] = [
   {
     id: 'paramount-majestic-opening',
     name: 'Majestic Theatre Opens with Electric Stars on the Ceiling',
-    subtitle: 'Vaudeville and twinkling stars on Congress Avenue',
+    subtitle: '713 Congress Ave, Austin. The Paramount Theatre is fully restored and hosts 200+ events annually',
     description: 'Opened in 1915 as "The Majestic," this vaudeville house was designed by John Eberson to be an "atmospheric" experience. The ceiling was painted to look like a night sky with twinkling electric stars, a wonder for early 20th-century Austin. The theater hosted every major traveling act of the era, including a legendary performance by Houdini.',
     lat: 30.2682,
     lng: -97.7432,
@@ -4467,7 +4467,7 @@ export const moments: Moment[] = [
   {
     id: 'paramount-near-death',
     name: 'Grassroots Campaign Saves the Paramount from Demolition',
-    subtitle: 'Saving a landmark from the wrecking ball',
+    subtitle: '713 Congress Ave, Austin. The 1915 theater was saved and fully restored; it is still active today',
     description: 'By the 1970s, the theater had fallen into serious disrepair. It was part of a franchise showing kung fu and blaxploitation films, and the building was slated for demolition as part of a downtown redevelopment plan. A grassroots campaign led by the Austin Heritage Society saved the theater in 1975, renaming it The Paramount. This restoration was the first major win for the city\'s modern preservation movement.',
     lat: 30.2682,
     lng: -97.7432,
@@ -4482,7 +4482,7 @@ export const moments: Moment[] = [
   {
     id: 'paramount-film-revival',
     name: 'Linklater and SXSW Revive the Paramount as a Film Venue',
-    subtitle: 'The premiere venue for the film capital of the South',
+    subtitle: '713 Congress Ave, Austin. The Paramount is the main SXSW Film and Austin Film Festival stage',
     description: 'In the 1990s, director Richard Linklater\'s Austin Film Society made the Paramount its primary home for classic and independent screenings. The theater\'s status was further cemented as the main stage for SXSW Film premieres. Today, the Paramount hosts over 200 events annually, from the Austin Film Festival to national comedy acts, standing as the most active and successful historic preservation project in the state of Texas.',
     lat: 30.2682,
     lng: -97.7432,
@@ -4497,7 +4497,7 @@ export const moments: Moment[] = [
   {
     id: 'scholz-opening-1866',
     name: 'German Immigrant Opens a Beer Garden on San Jacinto Boulevard',
-    subtitle: 'A German immigrant\'s sanctuary in the capital',
+    subtitle: '1607 San Jacinto Blvd, Austin. Scholz Garten has operated continuously since 1866, Austin\'s oldest bar',
     description: 'In 1866, German immigrant and former Confederate soldier August Scholz opened a boarding house and beer garden on San Jacinto Boulevard. It immediately became the social hub for the city\'s thriving German population. In 1879, it became the home of the Austin Saengerrunde, a German singing society that still owns the building today. The garden survived Prohibition by selling "near beer" and bratwurst.',
     lat: 30.2777,
     lng: -97.7363,
@@ -4543,7 +4543,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-stephen-austin',
     name: 'Stephen F. Austin\'s Reburial',
-    subtitle: 'The Father of Texas returns to the capital',
+    subtitle: '909 Navasota St, Austin. The Texas State Cemetery is open to the public; Austin\'s monument stands at center',
     description: 'The cemetery was established in 1851 specifically to provide a final resting place for Stephen F. Austin. He had died penniless in a small cabin in 1836, and his body was moved here from a remote plantation. His massive monument at the center of the grounds established the site as the state\'s primary secular shrine.',
     lat: 30.2619,
     lng: -97.7258,
@@ -4589,7 +4589,7 @@ export const moments: Moment[] = [
   {
     id: 'bonnell-summit',
     name: 'George Bonnell Allegedly Leaps from Austin\'s Highest Cliff',
-    subtitle: '775 feet above the Colorado River',
+    subtitle: '3800 Mt Bonnell Rd, Austin. The 775-foot summit and its 102 limestone steps are open daily',
     description: 'Mt. Bonnell is the highest point within Austin city limits, a sheer limestone cliff offering a 360-degree view of Lake Austin and the downtown skyline. Named after George W. Bonnell, a Commissioner of Indian Affairs who allegedly leaped to his death from the cliff in 1842 to avoid capture by a Comanche raiding party, the site is steeped in local lore.',
     lat: 30.321,
     lng: -97.7734,
@@ -4605,7 +4605,7 @@ export const moments: Moment[] = [
   {
     id: 'bonnell-picnic-tradition',
     name: 'Steamboat Visitors Picnic and Dance Atop Mt. Bonnell',
-    subtitle: 'Steamboats and dances at the Lover\'s Leap',
+    subtitle: '3800 Mt Bonnell Rd, Austin. The summit overlook is still a popular picnic and sunset spot',
     description: 'Since the 1850s, Mt. Bonnell has been the city\'s primary social destination. In the mid-19th century, visitors would take steamboats up the Colorado River to the base of the mountain and hike to the top for picnics and dances. A popular superstition developed: if a couple climbs the mountain together, they will fall in love.',
     lat: 30.321,
     lng: -97.7734,
