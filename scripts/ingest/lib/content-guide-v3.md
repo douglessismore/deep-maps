@@ -569,5 +569,11 @@ When ingesting new content, the pipeline must check for existing entities, stori
 
 **ID canonicalization**:
 - Entity IDs: Use the Wikipedia slug as the canonical ID when possible.
-- Story IDs: Use `{entity-id}` for biography stories. Only add suffixes for non-biography stories about the same entity.
+- Story IDs: Use `{entity-id}-biography` for biography stories. Only add suffixes for non-biography stories about the same entity.
 - Moment IDs: Use `{entity-slug}-{event-keyword}-{year}` format.
+
+**Biography stories are invisible infrastructure, NOT user-facing content**:
+- A biography story is a technical container that groups a person entity's moments together. Users interact with the person ENTITY, not the biography story.
+- Biography stories are filtered from: search results, Stories browse tab, related stories, and nearby stories. They should NEVER be visible to users directly.
+- Do NOT create a biography story as a user-visible narrative. If a person's life needs a narrative story, create an incident or era story instead (e.g., "Einstein and the Atomic Bomb" not "Albert Einstein Biography").
+- Every person entity with moments MUST have a canonicalStoryId pointing to its biography story. This is required for the entity panel to display moments correctly.

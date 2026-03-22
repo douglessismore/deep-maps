@@ -2,6 +2,7 @@ import { useMemo, useRef, useEffect } from 'react';
 import type { Story, Entity, Moment, StoryCollection } from '../../types';
 import { useAppData } from '../../lib/data/provider';
 import { CATEGORIES } from '../../lib/categories';
+import { canonicalStoryIds } from '../../lib/entityHelpers';
 
 interface SearchOverlayProps {
   query: string;
@@ -96,6 +97,7 @@ export function SearchOverlay({
     if (trimmed.length < 2) return null;
 
     const matchedStories = stories
+      .filter(s => !canonicalStoryIds.has(s.id))
       .filter(s => matches(trimmed, s.name, s.nickname, s.description, ...s.tags))
       .slice(0, MAX_PER_GROUP);
 
