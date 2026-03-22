@@ -1,3 +1,4 @@
+// SEED DATA ONLY — Do not edit directly. Use Supabase as source of truth. Run scripts/dump-from-supabase.ts to update.
 import type { Entity } from '../types';
 
 export const entities: Entity[] = [

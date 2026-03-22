@@ -1,6 +1,6 @@
 /**
- * Data provider — loads all data from either static files or Supabase,
- * then exposes it via React context for the app.
+ * Data provider — Supabase is the SINGLE source of truth.
+ * Static files are seed data / backup only (used as fallback when Supabase is unreachable).
  *
  * Why context here (when we chose TanStack Query over context)?
  * TanStack Query handles the FETCH lifecycle (loading, error, caching, dedup).
@@ -15,24 +15,10 @@ import { initEntityHelpers } from '../entityHelpers';
 import { initClustering } from '../clustering';
 import { SplashScreenA } from '../../components/SplashScreenA';
 
-// Static data loaded lazily (only when ?data=static) so it doesn't bloat the Supabase bundle
-
-// ─── Data source detection ───────────────────────────────────────────
-
-function getDataSource(): 'static' | 'supabase' {
-  // URL param overrides everything: ?data=supabase or ?data=static
-  if (typeof window !== 'undefined') {
-    const param = new URLSearchParams(window.location.search).get('data');
-    if (param === 'supabase' || param === 'static') return param;
-  }
-  // Env var fallback
-  const env = import.meta.env.VITE_DATA_SOURCE;
-  if (env === 'supabase' || env === 'static') return env;
-  // Default — Supabase is the primary data source
-  return 'supabase';
-}
-
-export const dataSource = getDataSource();
+// ─── Data source ─────────────────────────────────────────────────────
+// Supabase is always the primary. Static files are only a dev/offline fallback.
+// In local dev, VITE_DATA_SOURCE=static forces static-only mode (no Supabase needed).
+export const dataSource: 'supabase' | 'static' = import.meta.env.VITE_DATA_SOURCE === 'static' ? 'static' : 'supabase';
 
 // ─── Data shape ──────────────────────────────────────────────────────
 
@@ -67,19 +53,42 @@ const queryClient = new QueryClient({
   },
 });
 
-// ─── Loader function ─────────────────────────────────────────────────
+// ─── Static fallback loader ──────────────────────────────────────────
 
-async function loadData(): Promise<AppData> {
-  if (dataSource === 'supabase') {
-    const { loadFromSupabase } = await import('./supabase-loader');
-    return loadFromSupabase();
-  }
-  // Static data — lazy import so it's tree-shaken from production bundle
+async function loadStaticData(): Promise<AppData> {
   const { moments } = await import('../../data/moments');
   const { stories } = await import('../../data/stories');
   const { entities } = await import('../../data/entities');
   const { collections } = await import('../../data/collections');
   return { moments, stories, entities, collections };
+}
+
+// ─── Loader function ─────────────────────────────────────────────────
+// Supabase is the single source of truth. Static files are seed data only.
+// If Supabase fails or returns empty data, we fall back to static files
+// with a console warning so the app still works in offline/dev scenarios.
+
+async function loadData(): Promise<AppData> {
+  if (dataSource === 'static') {
+    console.info('[data] Using static files (VITE_DATA_SOURCE=static)');
+    return loadStaticData();
+  }
+
+  try {
+    const { loadFromSupabase } = await import('./supabase-loader');
+    const data = await loadFromSupabase();
+
+    // Guard: if Supabase returned 0 moments, something is wrong — fall back
+    if (data.moments.length === 0) {
+      console.warn('[data] Supabase returned 0 moments — falling back to static seed data');
+      return loadStaticData();
+    }
+
+    return data;
+  } catch (err) {
+    console.warn('[data] Supabase load failed — falling back to static seed data:', err);
+    return loadStaticData();
+  }
 }
 
 // ─── Inner provider (uses TanStack Query) ────────────────────────────

@@ -1,3 +1,4 @@
+// SEED DATA ONLY — Do not edit directly. Use Supabase as source of truth. Run scripts/dump-from-supabase.ts to update.
 import type { Moment } from '../types';
 
 export const moments: Moment[] = [

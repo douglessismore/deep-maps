@@ -269,5 +269,14 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     tags: r.tags,
   }));
 
+  // ── Validate required fields on moments ──
+  const invalidMoments = moments.filter(m => !m.id || !m.name || m.lat == null || m.lng == null);
+  if (invalidMoments.length > 0) {
+    console.warn(
+      `[supabase-loader] ${invalidMoments.length} moment(s) missing required fields (id, name, lat, lng):`,
+      invalidMoments.map(m => m.id || '(no id)'),
+    );
+  }
+
   return { moments, stories, entities, collections };
 }
