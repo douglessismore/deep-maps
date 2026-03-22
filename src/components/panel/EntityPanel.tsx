@@ -229,20 +229,24 @@ export function EntityPanel({
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Mobile breadcrumb (hidden in spotlight peek) */}
       {onBack && !isSpotlightPeek && (
-        <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+        <div className="lg:hidden shrink-0 flex items-center gap-1.5 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
-            className="flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors"
+            className="flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
           >
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             {backLabel || 'Stories'}
           </button>
+          <span className="text-[11px] font-mono text-[var(--text-muted)]">·</span>
+          <p className="text-[11px] font-mono text-[var(--text-primary)] truncate min-w-0">
+            {entity.name}
+          </p>
           {onHome && (
             <button
               onClick={onHome}
-              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1"
+              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1 shrink-0"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1.5 5L5 1.5L8.5 5M3 4v4h1.5V6.5h3V8H9V4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>

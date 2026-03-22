@@ -971,24 +971,24 @@ export function ExplorePanel({
           activeCollection ? (
             /* Active collection — moment list with back header */
             <>
-              <div className="sticky top-0 z-10 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-2 flex items-center gap-2.5">
+              <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5 flex items-center gap-1.5">
                 <button
                   onClick={onClearCollection}
-                  className="text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
+                  className="flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
                   title="Back to all collections"
                 >
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
+                  Collections
                 </button>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-sans font-semibold text-[var(--text-primary)] truncate">
-                    {activeCollection.name}
-                  </p>
-                  <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
-                  </p>
-                </div>
+                <span className="text-[11px] font-mono text-[var(--text-muted)]">·</span>
+                <p className="text-[11px] font-mono text-[var(--text-primary)] truncate min-w-0">
+                  {activeCollection.name}
+                </p>
+                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
+                  {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
+                </span>
               </div>
               {displayMoments.length === 0 ? (
                 <div className="py-12 text-center">
