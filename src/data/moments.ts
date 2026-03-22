@@ -10063,7 +10063,7 @@ export const moments: Moment[] = [
     verificationLevel: 'verified',
     accuracy: 'general-area',
     kind: 'milestone',
-    year: -3480000000,
+    year: -2100000000, // actual: -3480000000; capped for PostgreSQL int4 range
     address: 'North Pole Dome, Pilbara, Western Australia',
   },
   {
@@ -10079,7 +10079,7 @@ export const moments: Moment[] = [
     verificationLevel: 'verified',
     accuracy: 'general-area',
     kind: 'milestone',
-    year: -3430000000,
+    year: -2100000000, // actual: -3430000000; capped for PostgreSQL int4 range
     address: 'Strelley Pool, Pilbara, Western Australia',
   },
   {
@@ -10095,7 +10095,7 @@ export const moments: Moment[] = [
     verificationLevel: 'verified',
     accuracy: 'general-area',
     kind: 'milestone',
-    year: -2400000000,
+    year: -2100000000, // actual: -2400000000; capped for PostgreSQL int4 range
     address: 'Hamersley Range, Pilbara, Western Australia',
   },
   {
