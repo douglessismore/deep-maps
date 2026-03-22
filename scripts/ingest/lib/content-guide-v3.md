@@ -244,7 +244,9 @@ These rules prevent content sprawl and keep the data model clean.
 
 3. **Check for overlap before creating a collection.** Before creating a new collection, search existing collections by keyword. If an existing collection already covers the theme (e.g., "Famous Battlefields" already includes ancient, medieval, WWI, and WWII battles), do not create a sub-collection. Add moments to the existing collection instead.
 
-4. **Collections must have a specific, listable theme.** Every collection name should work as a Wikipedia "List of..." article. Generic themes like "Famous X," "Great Y," or "Notable Z" are too weak. The reader should know exactly what's in the collection before opening it. Good: "Every Place a Nuclear Weapon Has Been Detonated." Bad: "Famous Historical Figures."
+4. **Use the most common or official name.** If a story has an established name people already reference (a Wikipedia article title, a historical term of art, or an official designation), use that. Don't invent a literary alternative. "Free State of Galveston" not "When Galveston Was the Gambling Capital of the South." "Tulsa Race Massacre" not "The Day Black Wall Street Burned." Easy reference beats clever framing.
+
+5. **Collections must have a specific, listable theme.** Every collection name should work as a Wikipedia "List of..." article. Generic themes like "Famous X," "Great Y," or "Notable Z" are too weak. The reader should know exactly what's in the collection before opening it. Good: "Every Place a Nuclear Weapon Has Been Detonated." Bad: "Famous Historical Figures."
 
 ---
 
@@ -285,6 +287,13 @@ Rule of thumb: If a user zoomed into the area for the first time with no context
 | `event` | Dramatic happening (default) |
 | `milestone` | Life event: birth, death, marriage |
 | `presence` | Ongoing association with a place |
+
+**Writing `presence` moments:** A person attending a school, living in a house, or working at a factory for years is a valid moment — don't skip it just because it spans time rather than a single day. But the description must still be atomic: focus on what this place meant for this person's story. Lead with the most specific, interesting fact about the association rather than a generic summary.
+
+- GOOD: "Oppenheimer spent 14 years at the Institute for Advanced Study, where he championed interdisciplinary work and hosted Einstein for daily walks. His office on the second floor overlooked the deer meadow."
+- BAD: "Oppenheimer worked at the Institute, contributed to physics, advised the government, and was stripped of his security clearance" (that's 4 events, not one presence).
+
+The key test: if the description covers events that happened at OTHER places, it's too broad. A presence moment describes what happened HERE.
 
 Not displayed in UI. Backend metadata only.
 

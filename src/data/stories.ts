@@ -845,7 +845,7 @@ export const stories: Story[] = [
   },
   {
     id: 'galveston-free-state',
-    name: 'The Galveston "Free State" Era',
+    name: 'Free State of Galveston',
     years: '1920–1957',
     category: 'dark-history',
     storyType: 'era',
