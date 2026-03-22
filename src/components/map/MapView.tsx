@@ -310,7 +310,6 @@ function MapController({
         const story: Story = parentStory ?? {
           id: '__collection-stub__',
           name: activeCollection.name,
-          subtitle: '',
           description: '',
           category: 'dark-history' as Story['category'],
           moments: [],

@@ -148,7 +148,7 @@ export function ExplorePanel({
   const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
-  const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
+  // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
   const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
@@ -202,8 +202,9 @@ export function ExplorePanel({
     if (activeTab !== 'places') setScrollActiveEntityId(null);
     // Clear collection when leaving collections tab — collection is a destination, not a filter
     if (activeTab !== 'collections' && activeCollection) onClearCollection();
-    // Clear map highlight to prevent ghosting from previous tab's scroll position
+    // Clear map highlight and reset mode to prevent polylines from carrying over
     onScrollHighlight([]);
+    onModeChange('explore');
   }, [activeTab]);
 
   // Filter stories by search + category (timeline filtering already done in App.tsx)
@@ -501,7 +502,6 @@ export function ExplorePanel({
             (v) => `${v.story.id}-${v.location.id}` === closestKey
           );
           if (vl) {
-            setActiveLocationId(vl.location.id);
             onScrollHighlight([vl.location], vl.story.id);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
@@ -914,7 +914,6 @@ export function ExplorePanel({
                     parentStories={[vl.story]}
                     onClick={(moment) => {
                       setExpandedLocationKey(expandedLocationKey === key ? null : key);
-                      setActiveLocationId(moment.id);
                       onScrollHighlight([moment]);
                       if (mapInstance) {
                         panToAboveSheet(mapInstance, [moment.lat, moment.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
