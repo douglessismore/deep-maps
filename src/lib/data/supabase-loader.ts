@@ -102,16 +102,25 @@ interface MomentLinkRow {
 
 // ─── Fetch helpers ───────────────────────────────────────────────────
 
-async function fetchAll<T>(table: string): Promise<T[]> {
-  // Supabase defaults to 1000 rows. We need all rows.
-  // For tables under ~5000 rows, a single request with a high limit works.
-  const { data, error } = await supabase
-    .from(table)
-    .select('*')
-    .limit(10000);
+const PAGE_SIZE = 1000;
 
-  if (error) throw new Error(`Failed to fetch ${table}: ${error.message}`);
-  return (data ?? []) as T[];
+async function fetchAll<T>(table: string): Promise<T[]> {
+  // Supabase server-side max is 1000 rows per request, regardless of .limit().
+  // Must paginate with .range() to get all rows.
+  const all: T[] = [];
+  let from = 0;
+  while (true) {
+    const { data, error } = await supabase
+      .from(table)
+      .select('*')
+      .range(from, from + PAGE_SIZE - 1);
+    if (error) throw new Error(`Failed to fetch ${table} at offset ${from}: ${error.message}`);
+    if (!data || data.length === 0) break;
+    all.push(...(data as T[]));
+    if (data.length < PAGE_SIZE) break; // last page
+    from += PAGE_SIZE;
+  }
+  return all;
 }
 
 // ─── Main loader ─────────────────────────────────────────────────────
