@@ -410,7 +410,7 @@ export const stories: Story[] = [
     tags: ['9-11', 'pennsylvania', 'heroism', 'terrorism'],
     contentWarning: 'Contains references to terrorism and mass murder.',
     moments: [{ momentId: 'f93-impact' }, { momentId: 'f93-tower' }, { momentId: 'f93-newark' }],
-    relatedStoryIds: ['battle-of-the-alamo', 'lincoln-assassination'],
+    relatedStoryIds: ['battle-of-the-alamo', 'lincoln-assassination', 'september-11-attacks'],
     wikipediaSlug: 'United_Airlines_Flight_93',
   },
   {
@@ -826,7 +826,7 @@ export const stories: Story[] = [
     description: 'After an oxygen tank exploded 200,000 miles from Earth, engineers in a windowless room had to "invent" a way to fit a square peg into a round hole using only duct tape and cardboard. It remains the ultimate survival story where the battlefield was a slide rule and a teleprinter.',
     tags: ['houston', 'space', 'nasa', 'science', 'history'],
     moments: [{ momentId: 'apollo-mission-control' }, { momentId: 'apollo-lunar-lab' }],
-    relatedStoryIds: ['enron-death-star'],
+    relatedStoryIds: ['enron-death-star', 'apollo-11'],
     wikipediaSlug: 'Apollo_13',
   },
   {
@@ -1959,6 +1959,7 @@ export const stories: Story[] = [
     description: '',
     tags: [],
     moments: [{ momentId: 'tutankhamun-born-amarna' }, { momentId: 'tutankhamun-moves-court-memphis' }, { momentId: 'tutankhamun-restores-amun-thebes' }, { momentId: 'tutankhamun-dies-aged-18' }, { momentId: 'tutankhamun-mask-egyptian-museum-cairo' }],
+    relatedStoryIds: ['discovery-of-tutankhamuns-tomb'],
     wikipediaSlug: 'Tutankhamun',
   },
   {
@@ -3261,7 +3262,7 @@ export const stories: Story[] = [
       { momentId: 'apollo-11-mission-control-1969' },
       { momentId: 'apollo-11-splashdown-1969' },
     ],
-    relatedStoryIds: ['construction-of-the-great-pyramid', 'chernobyl-disaster'],
+    relatedStoryIds: ['construction-of-the-great-pyramid', 'chernobyl-disaster', 'apollo-13-houston'],
     wikipediaSlug: 'Apollo_11',
   },
   {
@@ -3313,11 +3314,13 @@ export const stories: Story[] = [
       { momentId: '911-north-tower-hit-2001' },
       { momentId: '911-south-tower-hit-2001' },
       { momentId: '911-pentagon-hit-2001' },
-      { momentId: '911-flight-93-shanksville-2001' },
+      { momentId: 'f93-impact' },
+      { momentId: 'f93-tower' },
+      { momentId: 'f93-newark' },
       { momentId: '911-north-tower-collapse-2001' },
       { momentId: '911-tribute-in-light-2002' },
     ],
-    relatedStoryIds: ['chernobyl-disaster', 'rwandan-genocide'],
+    relatedStoryIds: ['chernobyl-disaster', 'rwandan-genocide', 'flight-93'],
     wikipediaSlug: 'September_11_attacks',
   },
   {
@@ -3333,9 +3336,9 @@ export const stories: Story[] = [
       { momentId: 'tutankhamun-wonderful-things-1922' },
       { momentId: 'tutankhamun-burial-chamber-1923' },
       { momentId: 'carnarvon-death-curse-1923' },
-      { momentId: 'tutankhamun-mask-display-cairo' },
+      { momentId: 'tutankhamun-mask-egyptian-museum-cairo' },
     ],
-    relatedStoryIds: ['construction-of-the-great-pyramid', 'eruption-of-mount-vesuvius-79-ad'],
+    relatedStoryIds: ['construction-of-the-great-pyramid', 'eruption-of-mount-vesuvius-79-ad', 'tutankhamun-biography'],
     wikipediaSlug: 'Discovery_of_the_tomb_of_Tutankhamun',
   },
   {
