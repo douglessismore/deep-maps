@@ -93,11 +93,13 @@ This is a major change from v2. Subtitles no longer carry the editorial hook -- 
 
 **Rules**:
 
-1. **INCLUDE THE SPECIFIC ADDRESS WHEN KNOWN** -- Street address, building name, or precise location.
-2. **NOTE WHETHER ORIGINAL STRUCTURES STILL STAND** -- "The building still stands", "Demolished in 1945", "Now a parking lot".
-3. **TIPS FOR FINDING THE EXACT SPOT** -- What to look for if you visit: plaques, markers, architectural features.
-4. **ONE SENTENCE OR TWO SHORT ONES** -- No period at end if a single sentence.
-5. **NEVER REPEAT THE NAME** -- Add new information only.
+1. **BE AS SPECIFIC AS PHYSICALLY POSSIBLE** -- Pin the reader to the exact point on the ground. Not just the building, but the floor, the room, the corner, the wing. "NE corner of the 2nd floor" is better than "the building." If you know the room number, use it. If you know which window he looked out of, say so. The subtitle should make a visitor feel they could stand on the exact spot.
+2. **INCLUDE THE SPECIFIC ADDRESS WHEN KNOWN** -- Street address, building name, or precise location.
+3. **NOTE WHETHER ORIGINAL STRUCTURES STILL STAND** -- "The building still stands", "Demolished in 1945", "Now a parking lot".
+4. **TIPS FOR FINDING THE EXACT SPOT** -- What to look for if you visit: plaques, markers, architectural features.
+5. **ONE SENTENCE OR TWO SHORT ONES** -- No period at end if a single sentence.
+6. **NEVER REPEAT THE NAME** -- Add new information only.
+7. **NEVER USE EDITORIAL HOOKS** -- No narrative teasers, literary descriptions, or dramatic language. This is a place annotation, not a headline.
 
 **Examples**:
 
@@ -105,6 +107,14 @@ This is a major change from v2. Subtitles no longer carry the editorial hook -- 
 - "Ford's Theatre, 511 10th St NW, Washington. The theater is now a museum and active playhouse"
 - "The house at 112 Mercer St, Princeton, is now private but marked with a plaque"
 - "Corner of Milk and Congress Streets, Boston. A plaque marks the site"
+- "Room 1E455, Building 1, Bell Labs, Murray Hill NJ. The building is now Nokia Bell Labs"
+- "NE corner of the 2nd floor, Villa Griffone, Pontecchio Marconi. Now a museum"
+
+**Anti-examples** (these are WRONG):
+
+- ❌ "A fratricide over where to build a city creates the eternal empire" (editorial hook, not a place)
+- ❌ "The shot heard round the world" (narrative teaser)
+- ❌ "Where it all began" (vague, no place info)
 
 **Length**: Target 60-120 chars. Max 140 chars.
 
