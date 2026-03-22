@@ -337,6 +337,18 @@ function App() {
     // Zoom handled by MapController's zoom effect when activeCollection changes
   }, [pushNav]);
 
+  // Collection moment click — zoom to the moment (like story mode location click)
+  const handleCollectionMomentClick = useCallback((moment: Moment) => {
+    setActiveLocation(moment);
+    setZoomToActiveLocation(true);
+  }, []);
+
+  // Collection scroll-driven highlight — pan without zoom (like story scroll)
+  const handleCollectionScrollHighlight = useCallback((moment: Moment) => {
+    setActiveLocation(moment);
+    setZoomToActiveLocation(false);
+  }, []);
+
   const handleModeChange = useCallback((newMode: InteractionMode) => {
     setMode(newMode);
     // Clear scroll highlight when entering story mode (full location select takes over)
@@ -423,6 +435,14 @@ function App() {
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
     );
   }, []);
+
+  // Search result: moment clicked — find its parent story and navigate
+  const handleMomentSelect = useCallback((moment: Moment) => {
+    const ownerStory = momentToStoryMap.get(moment.id);
+    if (ownerStory) {
+      handleLocationSelect(moment, ownerStory);
+    }
+  }, [momentToStoryMap, handleLocationSelect]);
 
   const handleSurpriseMe = useCallback(() => {
     pushNav();
@@ -619,6 +639,9 @@ function App() {
             restoreScrollTop={restoreScrollTop}
             onScrollRestored={() => setRestoreScrollTop(null)}
             onExpandRequest={handleExpandRequest}
+            onCollectionMomentClick={handleCollectionMomentClick}
+            onCollectionScrollHighlight={handleCollectionScrollHighlight}
+            activeLocationId={activeLocation?.id ?? null}
           />
           </FadeIn>
         )}
@@ -648,6 +671,10 @@ function App() {
         geoLoading={geoLoading}
         geoError={geoError}
         userLocation={userLocation}
+        onStorySelect={handleStorySelect}
+        onEntitySelect={handleEntitySelect}
+        onCollectionSelect={handleCollectionSelect}
+        onMomentSelect={handleMomentSelect}
       />
       {mode !== 'story' && mode !== 'entity' && (
         <TimelineBar

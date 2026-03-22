@@ -1,5 +1,7 @@
-import type { Entity, Story, StoryCategory, InteractionMode } from '../../types';
+import { useState, useRef, useCallback } from 'react';
+import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
+import { SearchOverlay } from './SearchOverlay';
 
 interface HeaderProps {
   mode: InteractionMode;
@@ -17,6 +19,10 @@ interface HeaderProps {
   geoLoading?: boolean;
   geoError?: string | null;
   userLocation?: { lat: number; lng: number } | null;
+  onStorySelect?: (story: Story) => void;
+  onEntitySelect?: (entity: Entity) => void;
+  onCollectionSelect?: (collection: StoryCollection) => void;
+  onMomentSelect?: (moment: Moment) => void;
 }
 
 export function Header({
@@ -35,7 +41,35 @@ export function Header({
   geoLoading,
   geoError,
   userLocation,
+  onStorySelect,
+  onEntitySelect,
+  onCollectionSelect,
+  onMomentSelect,
 }: HeaderProps) {
+  const [searchFocused, setSearchFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const showOverlay = searchFocused && searchQuery.trim().length >= 2 &&
+    onStorySelect && onEntitySelect && onCollectionSelect && onMomentSelect;
+
+  const handleCloseOverlay = useCallback(() => {
+    setSearchFocused(false);
+    // Blur the input to dismiss keyboard on mobile
+    inputRef.current?.blur();
+  }, []);
+
+  const handleSearchChange = useCallback((value: string) => {
+    onSearchChange(value);
+    // Ensure overlay shows when typing
+    if (!searchFocused) setSearchFocused(true);
+  }, [onSearchChange, searchFocused]);
+
+  const handleClear = useCallback(() => {
+    onSearchChange('');
+    setSearchFocused(false);
+    inputRef.current?.blur();
+  }, [onSearchChange]);
+
   return (
     <header className="shrink-0 z-10 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
       {/* Main bar */}
@@ -160,7 +194,7 @@ export function Header({
                 <span className="text-red-400 text-[10px]">{geoError}</span>
               ) : (
                 <span className="hidden sm:inline">
-                  {geoLoading ? 'Locating…' : 'Near Me'}
+                  {geoLoading ? 'Locating...' : 'Near Me'}
                 </span>
               )}
             </button>
@@ -181,24 +215,37 @@ export function Header({
 
           {mode !== 'story' && mode !== 'entity' && (
             <>
-              {/* Search */}
+              {/* Search — with real-time overlay */}
               <div className="relative">
                 <input
-                  type="text"
+                  ref={inputRef}
+                  type="search"
+                  enterKeyHint="search"
                   value={searchQuery}
-                  onChange={(e) => onSearchChange(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
                   placeholder="Search..."
                   className="bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-md px-3 py-1 text-sm w-32 sm:w-44 placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-red-dim)] font-mono text-xs"
                 />
                 {searchQuery && (
                   <button
-                    onClick={() => onSearchChange('')}
+                    onClick={handleClear}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                       <path d="M8 2L2 8M2 2L8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
                   </button>
+                )}
+                {showOverlay && (
+                  <SearchOverlay
+                    query={searchQuery}
+                    onStorySelect={onStorySelect!}
+                    onEntitySelect={onEntitySelect!}
+                    onCollectionSelect={onCollectionSelect!}
+                    onMomentSelect={onMomentSelect!}
+                    onClose={handleCloseOverlay}
+                  />
                 )}
               </div>
             </>
