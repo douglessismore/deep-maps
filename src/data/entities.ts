@@ -2655,4 +2655,189 @@ export const entities: Entity[] = [
     canonicalStoryId: 'john-adams-biography',
     wikipediaSlug: 'John_Adams',
   },
+
+  // ─── Titanic entities ──────────────────────────────────────────────
+  {
+    id: 'rms-titanic',
+    name: 'RMS Titanic',
+    type: 'work',
+    years: '1909–1912',
+    description: "The \"unsinkable\" ocean liner that sank on her maiden voyage. Built in Belfast, launched in 1911, Titanic was the largest moving object ever made. She carried 2,208 people and enough lifeboats for barely half. Her wreck sits upright on the ocean floor at 12,500 feet, slowly dissolving.",
+    wikipediaSlug: 'Titanic',
+  },
+  {
+    id: 'harland-and-wolff',
+    name: 'Harland and Wolff',
+    type: 'organization',
+    years: '1861–present',
+    description: "The Belfast shipyard that built Titanic, Olympic, and Britannic. Founded in 1861, Harland and Wolff employed 35,000 workers at its peak and dominated Queen's Island with massive gantries. The yard's twin cranes Samson and Goliath remain Belfast's most recognizable landmarks.",
+    wikipediaSlug: 'Harland_and_Wolff',
+  },
+  {
+    id: 'frederick-fleet',
+    name: 'Frederick Fleet',
+    type: 'person',
+    years: '1887–1965',
+    description: "The lookout who spotted the iceberg that sank Titanic. Fleet rang the bell three times and phoned the bridge, but without binoculars — locked in a cabinet whose key was left ashore — he saw it too late. He survived the sinking and later hanged himself at 77.",
+    canonicalStoryId: 'frederick-fleet-biography',
+    wikipediaSlug: 'Frederick_Fleet',
+  },
+
+  // ─── Vesuvius entities ─────────────────────────────────────────────
+  {
+    id: 'mount-vesuvius',
+    name: 'Mount Vesuvius',
+    type: 'place',
+    years: '',
+    description: "Europe's most dangerous volcano, responsible for the most famous eruption in history. Vesuvius looms over Naples and the ruins of the cities it destroyed. It last erupted in 1944 and remains active. Three million people live in its shadow.",
+    wikipediaSlug: 'Mount_Vesuvius',
+  },
+  {
+    id: 'pliny-the-elder',
+    name: 'Pliny the Elder',
+    type: 'person',
+    years: '23–79',
+    description: "Roman admiral who sailed toward a volcano and died. Author of the 37-volume Natural History — the ancient world's encyclopedia — Pliny commanded the fleet at Misenum and launched a rescue mission during the eruption of Vesuvius. He collapsed from volcanic gas on the beach at Stabiae.",
+    canonicalStoryId: 'pliny-the-elder-biography',
+    wikipediaSlug: 'Pliny_the_Elder',
+  },
+  {
+    id: 'pliny-the-younger',
+    name: 'Pliny the Younger',
+    type: 'person',
+    years: '61–c. 113',
+    description: "The 17-year-old who wrote the only eyewitness account of Vesuvius's eruption. Pliny's two letters to Tacitus describing the 79 AD disaster gave volcanology its founding text and the word 'Plinian' its meaning. He later served as a Roman senator and governor of Bithynia.",
+    canonicalStoryId: 'pliny-the-younger-biography',
+    wikipediaSlug: 'Pliny_the_Younger',
+  },
+
+  // ─── Apollo 11 entities ────────────────────────────────────────────
+  {
+    id: 'neil-armstrong',
+    name: 'Neil Armstrong',
+    type: 'person',
+    years: '1930–2012',
+    description: "First human to walk on the Moon, and the quietest hero of the Space Age. A Korean War combat pilot and test pilot who flew the X-15 to the edge of space, Armstrong commanded Apollo 11 at 38. He gave almost no interviews afterward and lived on a farm in Ohio.",
+    canonicalStoryId: 'neil-armstrong-biography',
+    wikipediaSlug: 'Neil_Armstrong',
+  },
+  {
+    id: 'buzz-aldrin',
+    name: 'Buzz Aldrin',
+    type: 'person',
+    years: '1930–present',
+    description: "Second human to walk on the Moon and the first to take Communion there. An MIT-educated fighter pilot who flew 66 combat missions in Korea, Aldrin followed Armstrong down Eagle's ladder and later struggled publicly with depression and alcoholism. He punched a conspiracy theorist on camera at 72.",
+    canonicalStoryId: 'buzz-aldrin-biography',
+    wikipediaSlug: 'Buzz_Aldrin',
+  },
+  {
+    id: 'michael-collins-astronaut',
+    name: 'Michael Collins',
+    type: 'person',
+    years: '1930–2021',
+    description: "The loneliest man in history — he orbited the Moon alone while Armstrong and Aldrin walked on it. Collins piloted the command module Columbia for 21.5 hours of solo flight, out of radio contact with Earth for 48 minutes per orbit. He never walked on the Moon and said he never minded.",
+    canonicalStoryId: 'michael-collins-astronaut-biography',
+    wikipediaSlug: 'Michael_Collins_(astronaut)',
+  },
+
+  // ─── Chernobyl entities ────────────────────────────────────────────
+  {
+    id: 'chernobyl-npp',
+    name: 'Chernobyl Nuclear Power Plant',
+    type: 'place',
+    years: '1977–2000',
+    description: "Site of the worst nuclear disaster in history. Four RBMK reactors on the Pripyat River in northern Ukraine; Reactor 4 exploded on 26 April 1986. The last reactor shut down in 2000. The 30-km Exclusion Zone around the plant remains largely uninhabited.",
+    wikipediaSlug: 'Chernobyl_Nuclear_Power_Plant',
+  },
+
+  // ─── Berlin Wall entities ──────────────────────────────────────────
+  {
+    id: 'peter-fechter',
+    name: 'Peter Fechter',
+    type: 'person',
+    years: '1944–1962',
+    description: "The teenager who bled to death at the Berlin Wall while the world watched. An 18-year-old East Berlin bricklayer, Fechter was shot trying to cross and lay dying in the death strip for nearly an hour. His death became a symbol of the Wall's brutality.",
+    canonicalStoryId: 'peter-fechter-biography',
+    wikipediaSlug: 'Peter_Fechter',
+  },
+  {
+    id: 'gunter-schabowski',
+    name: 'Gunter Schabowski',
+    type: 'person',
+    years: '1929–2015',
+    description: "The bureaucrat who accidentally opened the Berlin Wall. Poorly briefed on a new travel policy, Schabowski told reporters at a press conference that the border was open \"immediately, without delay.\" His fumbled answer triggered the end of the Cold War's most visible symbol.",
+    canonicalStoryId: 'gunter-schabowski-biography',
+    wikipediaSlug: 'G\u00fcnter_Schabowski',
+  },
+
+  // ─── Tutankhamun entities ──────────────────────────────────────────
+  {
+    id: 'howard-carter',
+    name: 'Howard Carter',
+    type: 'person',
+    years: '1874–1939',
+    description: "The archaeologist who found the most intact pharaoh's tomb ever opened. Self-taught and temperamental, Carter spent six frustrating seasons in the Valley of the Kings before his water boy found a stone step. He spent the next 10 years cataloguing 5,398 objects from four cramped rooms.",
+    canonicalStoryId: 'howard-carter-biography',
+    wikipediaSlug: 'Howard_Carter',
+  },
+  {
+    id: 'lord-carnarvon',
+    name: 'Lord Carnarvon',
+    type: 'person',
+    years: '1866–1923',
+    description: "The aristocrat whose money funded the discovery of Tutankhamun's tomb — and whose death launched the curse myth. George Herbert, 5th Earl of Carnarvon, financed Howard Carter's excavations for six years. He died five months after the tomb opened, from an infected mosquito bite.",
+    canonicalStoryId: 'lord-carnarvon-biography',
+    wikipediaSlug: 'George_Herbert,_5th_Earl_of_Carnarvon',
+  },
+
+  // ─── Trail of Tears entities ───────────────────────────────────────
+  {
+    id: 'andrew-jackson',
+    name: 'Andrew Jackson',
+    type: 'person',
+    years: '1767–1845',
+    description: "The president who signed the Indian Removal Act and forced 60,000 Native Americans from their land. A frontier war hero who killed a man in a duel, Jackson won the presidency as a populist outsider. His face is on the $20 bill; his legacy is the Trail of Tears.",
+    canonicalStoryId: 'andrew-jackson-biography',
+    wikipediaSlug: 'Andrew_Jackson',
+  },
+
+  // ─── Great Pyramid entities ────────────────────────────────────────
+  {
+    id: 'khufu',
+    name: 'Khufu',
+    type: 'person',
+    years: 'c. 2609–c. 2566 BCE',
+    description: "The pharaoh who built the largest pyramid ever constructed. Khufu (Cheops in Greek) ruled Egypt for roughly 23 years during the Fourth Dynasty. Almost nothing is known about his life — the only surviving likeness is a 3-inch ivory figurine, the smallest royal sculpture from ancient Egypt.",
+    canonicalStoryId: 'khufu-biography',
+    wikipediaSlug: 'Khufu',
+  },
+  {
+    id: 'khafre',
+    name: 'Khafre',
+    type: 'person',
+    years: 'c. 2558–c. 2532 BCE',
+    description: "The pharaoh whose face may be the Great Sphinx. Khafre built the second-largest pyramid at Giza and is widely credited with commissioning the Sphinx, which appears to bear his likeness. His mortuary complex is the best-preserved of the three Giza kings.",
+    canonicalStoryId: 'khafre-biography',
+    wikipediaSlug: 'Khafre',
+  },
+
+  // ─── Rwandan Genocide entities ─────────────────────────────────────
+  {
+    id: 'paul-rusesabagina',
+    name: 'Paul Rusesabagina',
+    type: 'person',
+    years: '1954–present',
+    description: "The hotel manager who sheltered 1,268 people during the Rwandan genocide. Rusesabagina used the Hotel des Mille Collines as a sanctuary, bribing militia with liquor and calling foreign contacts. He received the Presidential Medal of Freedom in 2005, then was controversially imprisoned by Rwanda's government in 2020.",
+    canonicalStoryId: 'paul-rusesabagina-biography',
+    wikipediaSlug: 'Paul_Rusesabagina',
+  },
+  {
+    id: 'paul-kagame',
+    name: 'Paul Kagame',
+    type: 'person',
+    years: '1957–present',
+    description: "The rebel commander who ended the Rwandan genocide and has ruled Rwanda since. Kagame led the RPF's military campaign from Uganda, captured Kigali in July 1994, and became president in 2000. He rebuilt Rwanda into Africa's fastest-growing economy while facing criticism for authoritarian rule and suppression of dissent.",
+    canonicalStoryId: 'paul-kagame-biography',
+    wikipediaSlug: 'Paul_Kagame',
+  },
 ];
