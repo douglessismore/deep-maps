@@ -846,9 +846,18 @@ function MapController({
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
       if (coords.length === 1) {
-        // Single-moment entity (common for places): zoom directly to it
+        // Single-moment entity (common for places): zoom directly to it.
+        // Use smartFlyTo-style distance check so far-away points snap instantly
+        // instead of relying on flyTo animation which can fail to complete.
         const targetZoom = Math.max(map.getZoom(), 14);
-        map.flyTo(coords[0], targetZoom, { duration: 0.8 });
+        const center = map.getCenter();
+        const dist = degreeDistance([center.lat, center.lng], coords[0]);
+        if (dist > 3) {
+          // Far away — instant snap, then offset for sheet
+          panToAboveSheet(map, coords[0], sheetSnap ?? 'half', isMobile, { animate: false, zoom: targetZoom });
+        } else {
+          panToAboveSheet(map, coords[0], sheetSnap ?? 'half', isMobile, { animate: true, duration: 0.8, zoom: targetZoom });
+        }
         boundsLockUntil.current = Date.now() + 1200;
       } else {
         const eBounds = L.latLngBounds(coords);
