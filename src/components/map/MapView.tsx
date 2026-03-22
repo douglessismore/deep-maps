@@ -280,7 +280,18 @@ function MapController({
     moveend: () => { /* Triggers re-render for cluster updates via currentBoundsKey */ },
   });
 
-  // ── Focused-mode locations (story/entity) — bypass clustering ──────
+  // ── Moment→Story reverse lookup (for collection focused mode) ──────
+  const momentToStory = useMemo(() => {
+    const m2s = new Map<string, Story>();
+    allStories.forEach(story => {
+      story.moments.forEach(sm => {
+        if (!m2s.has(sm.momentId)) m2s.set(sm.momentId, story);
+      });
+    });
+    return m2s;
+  }, [allStories]);
+
+  // ── Focused-mode locations (story/entity/collection) — bypass clustering ──
 
   const focusedLocations = useMemo(() => {
     if (mode === 'entity' && entityLocations) return entityLocations;
@@ -288,8 +299,31 @@ function MapController({
       return resolveLocationsFromMap(activeStory, momentMap)
         .map((loc) => ({ location: loc, story: activeStory }));
     }
+    // Collection mode — show focused markers for all collection moments
+    if (activeCollection) {
+      const locs: Array<{ location: Moment; story: Story }> = [];
+      for (const mid of activeCollection.momentIds) {
+        const moment = momentById.get(mid);
+        if (!moment) continue;
+        const parentStory = momentToStory.get(mid);
+        // Use parent story if available, otherwise create a minimal stub
+        const story: Story = parentStory ?? {
+          id: '__collection-stub__',
+          name: activeCollection.name,
+          subtitle: '',
+          description: '',
+          category: 'dark-history' as Story['category'],
+          moments: [],
+          years: '',
+          storyType: 'incident' as Story['storyType'],
+          tags: [],
+        };
+        locs.push({ location: moment, story });
+      }
+      return locs.length > 0 ? locs : null;
+    }
     return null; // null = use cluster mode
-  }, [mode, activeStory, entityLocations]);
+  }, [mode, activeStory, entityLocations, activeCollection, momentById, momentToStory, momentMap]);
 
   // Index map for numbered markers in story/entity mode (1-based)
   const focusedIndexMap = useMemo(() => {

@@ -47,6 +47,12 @@ interface ExplorePanelProps {
   restoreScrollTop?: number | null;
   onScrollRestored?: () => void;
   onExpandRequest?: () => void;
+  /** Collection moment click — sets activeLocation + zoomToActiveLocation */
+  onCollectionMomentClick?: (moment: Moment) => void;
+  /** Collection scroll highlight — sets activeLocation without zoom */
+  onCollectionScrollHighlight?: (moment: Moment) => void;
+  /** Currently active location ID (for highlighting collection moment cards) */
+  activeLocationId?: string | null;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -117,6 +123,9 @@ export function ExplorePanel({
   restoreScrollTop,
   onScrollRestored,
   onExpandRequest: _onExpandRequest,
+  onCollectionMomentClick,
+  onCollectionScrollHighlight,
+  activeLocationId,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -353,6 +362,7 @@ export function ExplorePanel({
               onModeChange('scroll');
               setScrollActiveStoryId(closestId);
               onScrollHighlight([collectionMoment]);
+              onCollectionScrollHighlight?.(collectionMoment);
               clearTimeout(panTimeout.current);
               panTimeout.current = window.setTimeout(() => {
                 panToAboveSheet(mapInstance, [collectionMoment.lat, collectionMoment.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
@@ -408,7 +418,7 @@ export function ExplorePanel({
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       isScrollDriving.current = false; // Prevent stuck flag when switching tabs mid-scroll
     };
-  }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments]);
+  }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments, onCollectionScrollHighlight]);
 
   // Track scroll position for navigation history save/restore
   useEffect(() => {
@@ -1019,7 +1029,7 @@ export function ExplorePanel({
                         }}
                         location={moment}
                         story={storyOrStub}
-                        isActive={scrollActiveStoryId === moment.id}
+                        isActive={activeLocationId === moment.id || scrollActiveStoryId === moment.id}
                         isExpanded={expandedLocationKey === moment.id}
                         showExpandChevron
                         skipCanonicalFilter
@@ -1027,9 +1037,7 @@ export function ExplorePanel({
                         onClick={(m) => {
                           setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
                           onScrollHighlight([m]);
-                          if (mapInstance) {
-                            panToAboveSheet(mapInstance, [m.lat, m.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
-                          }
+                          onCollectionMomentClick?.(m);
                         }}
                         onStoryClick={parentStory ? (story) => onLocationSelect(moment, story) : undefined}
                         onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}

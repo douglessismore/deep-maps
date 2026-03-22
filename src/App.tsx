@@ -500,15 +500,19 @@ function App() {
     setMode('story');
   }, [activeCollection, pushNav]);
 
-  // Map pin click — in entity mode, stay in entity mode; otherwise normal behavior
+  // Map pin click — in entity/collection mode, stay in current mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
     if (mode === 'entity') {
       // Just highlight — EntityPanel reacts via activeLocationId
       setActiveLocation(location);
+    } else if (activeCollection) {
+      // Collection mode — zoom to the clicked moment without leaving collection
+      setActiveLocation(location);
+      setZoomToActiveLocation(true);
     } else {
       handleLocationSelect(location, story);
     }
-  }, [mode, handleLocationSelect]);
+  }, [mode, activeCollection, handleLocationSelect]);
 
   // Entity locations for map display
   const entityLocations = useMemo(() => {
@@ -555,8 +559,22 @@ function App() {
     if (mode === 'entity' && activeEntity) {
       return { ...none, label: activeEntity.name, sublabel: activeEntity.type };
     }
+    if (activeCollection) {
+      const activeIdx = activeLocation
+        ? displayMoments.findIndex(m => m.id === activeLocation.id)
+        : -1;
+      return {
+        ...none,
+        label: activeCollection.name,
+        sublabel: activeIdx >= 0
+          ? `${activeIdx + 1} of ${displayMoments.length} moments`
+          : `${displayMoments.length} moments`,
+        momentCount: displayMoments.length,
+        currentMomentIndex: Math.max(activeIdx, 0),
+      };
+    }
     return { ...none, sublabel: `${timelineFilteredStories.length} stories` };
-  }, [mode, activeStory, activeLocation, activeEntity, momentMap, timelineFilteredStories.length]);
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, displayMoments, momentMap, timelineFilteredStories.length]);
 
   // Spotlight expand handler — tapping peek card expands sheet to full
   const handleExpandRequest = useCallback(() => {
