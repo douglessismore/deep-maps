@@ -347,12 +347,14 @@ function App() {
   // Optional storyId shortcuts the expensive story-lookup in scrollHighlightStoryId.
   const scrollHighlightIdsRef = useRef<string>('');
   const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string) => {
-    const key = locations.map(m => m.id).join(',');
+    // Inside a collection, never allow multi-moment highlights (prevents polylines)
+    const safeLocations = activeCollection && locations.length > 1 ? [locations[0]] : locations;
+    const key = safeLocations.map(m => m.id).join(',');
     if (key === scrollHighlightIdsRef.current) return; // same set — skip re-render
     scrollHighlightIdsRef.current = key;
     setScrollHighlightDirectId(storyId ?? null);
-    setScrollHighlight(locations);
-  }, []);
+    setScrollHighlight(safeLocations);
+  }, [activeCollection]);
 
   const handleCategoryFilter = useCallback((category: StoryCategory | null) => {
     setCategoryFilter(category);
