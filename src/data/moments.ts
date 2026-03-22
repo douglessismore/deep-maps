@@ -5,7 +5,7 @@ export const moments: Moment[] = [
   {
     id: 'gein-farm',
     name: 'Police Discover a Farmhouse Full of Furniture Made from Human Bones',
-    subtitle: 'A search for a missing shopkeeper reveals the most disturbing crime scene in American history',
+    subtitle: 'N5691 2nd Ave, Plainfield, WI. Farmhouse burned by arsonist in 1958; only the foundation remains',
     description: 'On November 16, 1957, police entered Ed Gein\'s farmhouse in Plainfield, Wisconsin, searching for missing hardware store owner Bernice Worden. What they found was beyond comprehension — furniture upholstered with human skin, bowls fashioned from skulls, a belt made of nipples, and the body of Worden hanging from the rafters. The discovery revealed that Gein had been robbing graves and killing for years. The case inspired Psycho, The Texas Chain Saw Massacre, and The Silence of the Lambs. The farmhouse was burned by an arsonist in 1958.',
     lat: 44.1844,
     lng: -89.5846,
@@ -24,7 +24,7 @@ export const moments: Moment[] = [
   {
     id: 'gein-worden-store',
     name: 'A Killer Leaves an Antifreeze Receipt That Leads Police to His Farmhouse of Horrors',
-    subtitle: 'Ed Gein shoots a hardware store owner and takes her body — but forgets to take the receipt',
+    subtitle: '110 S Main St, Plainfield, WI. The store was demolished; the lot is now empty',
     description: 'On November 16, 1957, Ed Gein walked into Worden\'s Hardware Store in Plainfield, Wisconsin, and shot owner Bernice Worden with a .22 caliber rifle. He loaded her body into her own delivery truck and drove it to his farm. But he had filled out a receipt for antifreeze that morning, and police found it at the scene. The receipt led them to his farmhouse that same day — where they discovered the most disturbing crime scene in American history.',
     lat: 44.2133,
     lng: -89.4973,
@@ -43,7 +43,7 @@ export const moments: Moment[] = [
   {
     id: 'gein-cemetery',
     name: 'A Grave Robber Reads Obituaries to Find His Next Victims — Then Is Buried Among Them',
-    subtitle: 'Ed Gein exhumes dozens of women who resembled his dead mother',
+    subtitle: 'Plainfield Cemetery, Plainfield, WI. Gein is buried here; his gravestone was stolen in 2000 and the grave is unmarked',
     description: 'Starting around 1947, Ed Gein made dozens of nocturnal visits to Plainfield Cemetery, reading obituaries in the local paper to identify recently buried women who resembled his domineering mother. He dug up the graves by moonlight and took the remains home — fashioning them into furniture, clothing, and masks. When Gein died of respiratory failure in 1984, he was buried in this same cemetery. His gravestone was repeatedly vandalized and eventually stolen in 2000. The grave remains unmarked today.',
     lat: 44.2169,
     lng: -89.52,
@@ -62,7 +62,7 @@ export const moments: Moment[] = [
   {
     id: 'gein-school',
     name: 'A Future Serial Killer Grows Up Isolated by His Mother in Rural Wisconsin',
-    subtitle: 'Classmates recall a boy who laughed alone — his mother called all other children sinful',
+    subtitle: 'Plainfield, WI. Approximate location; the original schoolhouse no longer stands',
     description: 'In the 1910s and 1920s, a boy named Ed Gein attended school in Plainfield, Wisconsin, where classmates remembered him as shy and odd, sometimes bursting into laughter for no apparent reason. His domineering mother Augusta forbade friendships, calling other children sinful influences. She read him Old Testament passages about divine punishment and the wickedness of women. After her death in 1945, Gein sealed her rooms and began his descent into grave robbery and murder — crimes that would inspire Psycho and The Silence of the Lambs.',
     lat: 44.213,
     lng: -89.497,
@@ -81,7 +81,7 @@ export const moments: Moment[] = [
   {
     id: 'gein-tavern',
     name: 'A Tavern Owner Vanishes — Her Skull Is Found Three Years Later in a Killer\'s Farmhouse',
-    subtitle: 'Ed Gein\'s first known murder leaves only a pool of blood and a spent cartridge',
+    subtitle: 'Pine Grove, Portage County, WI. General area; the tavern no longer stands',
     description: 'On December 8, 1954, tavern owner Mary Hogan vanished from her bar in Pine Grove, Wisconsin. Customers found a pool of blood on the floor and a spent .32 caliber cartridge, but no body and no suspect. The case went cold for three years — until police entered Ed Gein\'s farmhouse in 1957 and found Mary Hogan\'s skull among his collection of human remains. She had been his first confirmed murder victim.',
     lat: 44.2917,
     lng: -89.5389,
@@ -99,7 +99,7 @@ export const moments: Moment[] = [
   {
     id: 'gein-mendota',
     name: 'The Killer Who Inspired Psycho Is Declared Insane and Locked Away for Life',
-    subtitle: 'A model patient dies at 77 — his car is sold to a carnival sideshow',
+    subtitle: '301 Troy Dr, Madison, WI. Mendota Mental Health Institute still operates on the same campus',
     description: 'In January 1958, Ed Gein was found not guilty by reason of insanity for the murder of Bernice Worden and committed to the Mendota Mental Health Institute in Madison, Wisconsin. He was a model patient — quiet, cooperative, well-liked by staff — for the remaining 26 years of his life. He died of respiratory failure on July 26, 1984, at age 77. His estate was auctioned off, and his 1949 Ford sedan was sold to a sideshow operator who charged fairgoers 25 cents to sit in the car of the "Plainfield Ghoul."',
     lat: 43.1325,
     lng: -89.3985,
@@ -118,7 +118,7 @@ export const moments: Moment[] = [
   {
     id: 'dahmer-apartment',
     name: 'Escapee Leads Police to 11 Victims in Dahmer\'s Apartment',
-    subtitle: 'A handcuffed man flags down officers and reveals a refrigerator of remains',
+    subtitle: '924 N 25th St, Milwaukee, WI. Oxford Apartments demolished 1992; the lot remains vacant',
     description: 'At the Oxford Apartments (924 North 25th Street), Jeffrey Dahmer lured victims to apartment 213 between 1990 and 1991. On July 22, 1991, Tracy Edwards escaped from the apartment with a handcuff dangling from his wrist and flagged down police. Officers found photographs of dismembered bodies, a severed head in the refrigerator, and the remains of 11 victims inside.',
     lat: 43.044,
     lng: -87.9392,
@@ -136,7 +136,7 @@ export const moments: Moment[] = [
   {
     id: 'dahmer-chocolate-factory',
     name: 'Dahmer Works the Night Shift at Ambrosia Chocolate',
-    subtitle: 'Serial killer blends into the workforce while committing murders by day',
+    subtitle: '1109 N 5th St, Milwaukee, WI. The Ambrosia Chocolate Factory was demolished; condos now occupy the site',
     description: 'Jeffrey Dahmer worked as a mixer at the Ambrosia Chocolate Factory on the night shift, a job that gave him unsupervised time during the day to commit murders. Co-workers noted his quiet demeanor and the thermos of what he claimed was his \'special drink.\' The factory operated normally while Dahmer lived his double life just blocks away.',
     lat: 43.0384,
     lng: -87.9103,
@@ -153,7 +153,7 @@ export const moments: Moment[] = [
   {
     id: 'dahmer-first-victim',
     name: 'Dahmer Commits First Murder at His Parents\' Home',
-    subtitle: 'An 18-year-old kills a hitchhiker and keeps the secret for nine years',
+    subtitle: '4480 W Bath Rd, Bath Township, OH. The house still stands as a private residence',
     description: 'In June 1978, just weeks after graduating high school, Jeffrey Dahmer picked up hitchhiker Steven Hicks and brought him to this house in Bath Township, Ohio, where his parents lived. When Hicks tried to leave, Dahmer struck him with a dumbbell. He buried the remains in the backyard, later crushing the bones with a sledgehammer.',
     lat: 41.1739,
     lng: -81.6341,
@@ -171,7 +171,7 @@ export const moments: Moment[] = [
   {
     id: 'dahmer-columbia-prison',
     name: 'Christopher Scarver Bludgeons Dahmer to Death in Prison Gym',
-    subtitle: 'A metal bar ends the life of the Milwaukee Cannibal',
+    subtitle: 'Columbia Correctional Institution, Portage, WI. The prison remains active',
     description: 'On November 28, 1994, Jeffrey Dahmer was bludgeoned to death by fellow inmate Christopher Scarver with a metal bar while on a work detail in the prison gymnasium. Scarver, who also killed another inmate that day, later said Dahmer would taunt other prisoners by shaping his food into severed limbs.',
     lat: 43.566,
     lng: -89.49,
@@ -189,7 +189,7 @@ export const moments: Moment[] = [
   {
     id: 'baca-standoff',
     name: 'Elfego Baca Survives 4,000 Rounds in a 33-Hour Standoff',
-    subtitle: 'A 19-year-old deputy holds off 80 Texas cowboys from an adobe hut',
+    subtitle: 'Reserve (formerly Frisco), NM. Approximate location; no marker at the original jacal site',
     description: 'In October 1884, 19-year-old Elfego Baca arrested a drunken cowboy terrorizing the village of Frisco (now Reserve). When 80 Texas cowboys rode in to free their comrade, Baca took shelter in a small jacal (adobe hut). For 33 hours, the cowboys poured an estimated 4,000 rounds into the building. When Baca emerged, he was completely unharmed. The door of the jacal, riddled with bullet holes, was later exhibited as evidence at his trial.',
     lat: 33.7131,
     lng: -108.7562,
@@ -206,7 +206,7 @@ export const moments: Moment[] = [
   {
     id: 'roswell-debris-field',
     name: 'Mac Brazel Finds Unidentifiable Debris on Foster Ranch',
-    subtitle: 'Scattered metallic strips and lightweight beams launch the UFO age',
+    subtitle: 'Foster Ranch, near Corona, NM. Remote ranch land; general area only, no public marker',
     description: 'In early July 1947, rancher W.W. \'Mac\' Brazel discovered a field of unusual debris scattered across his pasture — metallic strips, chunks of plastic-like material, and lightweight beams. The Roswell Army Air Field initially issued a press release stating they had recovered a \'flying disc.\' The next day, the military changed the story to a weather balloon, launching decades of controversy.',
     lat: 33.9398,
     lng: -105.3069,
@@ -223,7 +223,7 @@ export const moments: Moment[] = [
   {
     id: 'roswell-airfield',
     name: 'Military Announces — then Retracts — Recovery of a Flying Disc',
-    subtitle: 'A press release from Roswell Army Air Field shocks the world',
+    subtitle: 'Roswell, NM. The airfield is now part of Roswell Industrial Air Center; the International UFO Museum is downtown',
     description: 'On July 8, 1947, the public information office at Roswell Army Air Field issued a press release stating that personnel had recovered a \'flying disc.\' Within hours, Brigadier General Roger Ramey held a press conference in Fort Worth, Texas, displaying weather balloon debris and claiming that was all that had been found. The base is now Walker Air Force Base.',
     lat: 33.3006,
     lng: -104.5309,
@@ -241,7 +241,7 @@ export const moments: Moment[] = [
   {
     id: 'btk-courthouse-escape',
     name: 'Billy the Kid Escapes Lincoln County Jail in a Daring Breakout',
-    subtitle: 'The Kid kills two deputies and, still shackled, rides out on a stolen horse',
+    subtitle: 'Lincoln, NM. The courthouse still stands as part of Lincoln Historic Site; open to visitors',
     description: 'On April 28, 1881, Billy the Kid was being held under sentence of death in the Lincoln County Courthouse. While being escorted to the outhouse, he somehow obtained a pistol and shot Deputy James Bell on the stairs, then grabbed a shotgun and killed Deputy Bob Olinger from a second-floor window. Billy spent an hour freeing himself from his shackles before riding out of town on a stolen horse.',
     lat: 33.4936,
     lng: -105.3814,
@@ -259,7 +259,7 @@ export const moments: Moment[] = [
   {
     id: 'btk-death',
     name: 'Pat Garrett Shoots Billy the Kid in a Darkened Bedroom',
-    subtitle: 'The last words of the legendary outlaw: Who is there?',
+    subtitle: 'Fort Sumner, NM. Billy\'s grave is behind iron bars at the Old Fort Sumner Museum to prevent theft',
     description: 'On the night of July 14, 1881, Sheriff Pat Garrett waited in the darkened bedroom of Pete Maxwell\'s house in Fort Sumner. Billy the Kid entered to cut meat from a hanging deer carcass and noticed a figure in the darkness. He asked who was there. Garrett fired twice, killing Billy at age 21. The Kid\'s grave in the old Fort Sumner cemetery is now behind iron bars to prevent theft.',
     lat: 34.472,
     lng: -104.245,
@@ -277,7 +277,7 @@ export const moments: Moment[] = [
   {
     id: 'btk-tunstall-store',
     name: 'Lincoln County War Erupts After Tunstall Is Murdered',
-    subtitle: 'Billy the Kid vows revenge for the death of his English employer',
+    subtitle: 'Lincoln, NM. Tunstall Store still stands as part of the Lincoln Historic Site',
     description: 'John Henry Tunstall, a young English rancher and merchant, operated this store in competition with the powerful Murphy-Dolan faction. On February 18, 1878, Tunstall was murdered by a posse of Murphy-Dolan men. Billy the Kid, who worked for Tunstall and considered him a friend, allegedly vowed revenge, sparking the bloody Lincoln County War.',
     lat: 33.4942,
     lng: -105.3832,
@@ -294,7 +294,7 @@ export const moments: Moment[] = [
   {
     id: 'geronimo-skeleton-canyon',
     name: 'Geronimo Surrenders, Ending the Apache Wars Forever',
-    subtitle: 'The last free Native force in the American Southwest lays down arms',
+    subtitle: 'Skeleton Canyon, Cochise County, AZ. Remote desert canyon; a stone monument marks the surrender site',
     description: 'On September 4, 1886, Geronimo and his band of 23 Chiricahua Apache — the last free Native force in the American Southwest — surrendered to General Nelson Miles in remote Skeleton Canyon. Geronimo was sent to Florida as a prisoner of war and never returned to his homeland.',
     lat: 31.5968,
     lng: -109.0728,
@@ -312,7 +312,7 @@ export const moments: Moment[] = [
   {
     id: 'lanl-lab',
     name: 'U.S. Army Builds the Secret City of Los Alamos',
-    subtitle: 'A remote school becomes the hidden nerve center of the Manhattan Project',
+    subtitle: 'Los Alamos, NM. The lab is still active; the Bradbury Science Museum downtown is open to the public',
     description: 'In 1943, the U.S. Army selected the remote Los Alamos Ranch School as the site for the Manhattan Project\'s weapons laboratory. Scientists including Robert Oppenheimer, Enrico Fermi, and Richard Feynman worked in total secrecy. Mail was addressed to \'P.O. Box 1663, Santa Fe,\' and the town didn\'t appear on maps until 1957.',
     lat: 35.88,
     lng: -106.3031,
@@ -330,7 +330,7 @@ export const moments: Moment[] = [
   {
     id: 'trinity-site',
     name: 'Atomic Age Begins with the First Nuclear Detonation',
-    subtitle: 'A blinding flash in the Jornada del Muerto desert changes the world',
+    subtitle: 'White Sands Missile Range, NM. Open to visitors twice a year (April and October); a lava-rock obelisk marks ground zero',
     description: 'At 5:29:45 AM on July 16, 1945, the world\'s first nuclear device was detonated at the Trinity Site in the Jornada del Muerto desert. The blast was visible 200 miles away. Robert Oppenheimer famously quoted the Bhagavad Gita: \'Now I am become Death, the destroyer of worlds.\' The sand at ground zero fused into a mildly radioactive glass called trinitite.',
     lat: 33.6773,
     lng: -106.4754,
@@ -347,7 +347,7 @@ export const moments: Moment[] = [
   {
     id: 'carlsbad-entrance',
     name: 'Jim White Discovers Carlsbad Caverns While Chasing Smoke',
-    subtitle: 'A column of bats reveals a cave large enough to hold the U.S. Capitol',
+    subtitle: 'Carlsbad Caverns National Park, NM. Open daily; the natural entrance trail descends 750 feet into the Big Room',
     description: 'In 1898, 16-year-old cowboy Jim White was riding fence in the Guadalupe Mountains when he saw what appeared to be a column of smoke rising from the desert. Riding closer, he discovered not a fire but an immense swirling column of hundreds of thousands of bats pouring from a hole in the earth at dusk. He discovered a cavern system with chambers large enough to hold the U.S. Capitol building.',
     lat: 32.1479,
     lng: -104.5567,
@@ -364,7 +364,7 @@ export const moments: Moment[] = [
   {
     id: 'columbus-raid',
     name: 'Pancho Villa Invades Columbus, New Mexico',
-    subtitle: 'The last armed invasion of the continental United States',
+    subtitle: 'Columbus, NM. Pancho Villa State Park preserves the original Camp Furlong; a small museum is on-site',
     description: 'Before dawn on March 9, 1916, approximately 500 of Pancho Villa\'s Villistas crossed the border and attacked the small town of Columbus, burning buildings and killing 18 Americans. The U.S. retaliated with the Punitive Expedition, sending 10,000 troops under General John \'Black Jack\' Pershing into Mexico. Pancho Villa was never caught.',
     lat: 31.8276,
     lng: -107.6403,
@@ -381,7 +381,7 @@ export const moments: Moment[] = [
   {
     id: 'white-sands-prints',
     name: '23,000-Year-Old Footprints Rewrite American History',
-    subtitle: 'Evidence of human life in the Americas during the Last Glacial Maximum',
+    subtitle: 'White Sands National Park, NM. Footprints site is in a restricted area; the park visitor center has exhibits',
     description: 'In 2021, researchers confirmed that fossilized human footprints found along the shores of an ancient lake in White Sands National Park dated to approximately 23,000 years ago — during the Last Glacial Maximum. This pushed back the accepted date of human arrival in the Americas by thousands of years and included prints from children and teenagers.',
     lat: 32.7872,
     lng: -106.3257,
@@ -397,7 +397,7 @@ export const moments: Moment[] = [
   {
     id: 'okeeffe-abiquiu',
     name: 'Georgia O\'Keeffe Settles in Abiquiu Adobe Home',
-    subtitle: 'Painting the red cliffs and black patio door that defined modernism',
+    subtitle: 'Abiquiu, NM. The O\'Keeffe home is open for guided tours by reservation through the Georgia O\'Keeffe Museum',
     description: 'Georgia O\'Keeffe first visited New Mexico in 1929 and was captivated by the landscape. She purchased this adobe house in Abiquiu in 1945 and made it her permanent home. For four decades, she painted the surrounding cliffs, mesas, and desert from her studio, defining a new era of American modernism.',
     lat: 36.2106,
     lng: -106.3195,
@@ -414,7 +414,7 @@ export const moments: Moment[] = [
   {
     id: 'okeeffe-ghost-ranch',
     name: 'O\'Keeffe Paints Her Private Mountain at Ghost Ranch',
-    subtitle: 'The red and yellow cliffs of Piedra Lumbre inspire a master',
+    subtitle: 'Ghost Ranch, Abiquiu, NM. Now a Presbyterian retreat center; guided tours of O\'Keeffe\'s landscape available',
     description: 'Georgia O\'Keeffe maintained a second home at Ghost Ranch, where the red and yellow cliffs of the Piedra Lumbre basin provided endless inspiration. She painted Cerro Pedernal so often she once said, \'It\'s my private mountain. God told me if I painted it enough, I could have it.\'',
     lat: 36.3169,
     lng: -106.4733,
@@ -431,7 +431,7 @@ export const moments: Moment[] = [
   {
     id: 'pueblo-palace',
     name: 'Pueblo Warriors Seize the Palace of the Governors',
-    subtitle: 'Coordinated uprising forces Spanish retreat from Santa Fe for 12 years',
+    subtitle: 'Palace of the Governors, 105 W Palace Ave, Santa Fe, NM. Now the New Mexico History Museum; open daily',
     description: 'On August 10, 1680, coordinated by the Tewa leader Pope, thousands of Pueblo warriors besieged Santa Fe. Governor Antonio de Otermin retreated to the Palace of the Governors with 1,000 settlers. After the water supply was cut, the Spanish fled south. The Pueblo people held the palace and all of New Mexico for 12 years until the Spanish returned in 1692.',
     lat: 35.687,
     lng: -105.9378,
@@ -448,7 +448,7 @@ export const moments: Moment[] = [
   {
     id: 'toc-downtown',
     name: 'Hot Springs Votes to Rename Itself After a Radio Game Show',
-    subtitle: 'A town votes 1,294 to 295 to become Truth or Consequences',
+    subtitle: 'Truth or Consequences, NM. Downtown hot springs district still uses the original thermal water',
     description: 'In March 1950, NBC radio host Ralph Edwards announced that the show Truth or Consequences would broadcast its 10th anniversary from the first town to rename itself after the program. The town of Hot Springs, NM, held a vote and 1,294 to 295 voted in favor. Edwards visited every year for decades, and multiple attempts to change the name back have failed.',
     lat: 33.1284,
     lng: -107.2528,
@@ -465,7 +465,7 @@ export const moments: Moment[] = [
   {
     id: 'pueblo-bonito',
     name: 'Ancestral Puebloans Build the Largest Structure in North America',
-    subtitle: 'A 600-room great house aligned to solar events in Chaco Canyon',
+    subtitle: 'Chaco Culture National Historical Park, NM. Ruins accessible by a 9-mile loop road; no paved access road',
     description: 'Built between 850 and 1150 AD, Pueblo Bonito was a massive, D-shaped great house in Chaco Canyon with over 600 rooms and 40 kivas. Its walls were precisely aligned to cardinal directions and solar events. Around 1150, the canyon was largely abandoned, leaving behind evidence of a vast trade network involving macaw feathers and turquoise.',
     lat: 36.0608,
     lng: -107.9611,
@@ -481,7 +481,7 @@ export const moments: Moment[] = [
   {
     id: 'vla-site',
     name: '27 Radio Dishes Listen to the Universe at the VLA',
-    subtitle: '230-ton antennas ride railroad tracks to image black holes',
+    subtitle: 'Plains of San Agustin, Socorro County, NM. Visitor center open daily; self-guided walking tour of the array',
     description: 'Each of the 27 antennas at the Karl G. Jansky Very Large Array is 82 feet in diameter and weighs 230 tons. They move along railroad tracks in a Y-shaped configuration to function as a single radio telescope. The VLA has discovered water on Mercury, imaged the surface of distant asteroids, and contributed to the first image of a black hole.',
     lat: 34.0784,
     lng: -107.6184,
@@ -498,7 +498,7 @@ export const moments: Moment[] = [
   {
     id: 'hopper-taos',
     name: 'Dennis Hopper Turns Taos into a Counterculture Mecca',
-    subtitle: 'Wild parties at the Mabel Dodge Luhan House after Easy Rider',
+    subtitle: 'Mabel Dodge Luhan House, Taos, NM. Now a conference center and B&B; open to guests',
     description: 'After directing Easy Rider (1969), Dennis Hopper moved to Taos in 1970, buying the historic Mabel Dodge Luhan house. He threw wild parties and attracted a stream of celebrities and counterculture figures, catalyzing Taos\'s transformation from a quiet artists\' colony into a full-blown counterculture destination.',
     lat: 36.4072,
     lng: -105.5731,
@@ -515,7 +515,7 @@ export const moments: Moment[] = [
   {
     id: 'blackwater-draw',
     name: 'Teenager Finds Spear Points Embedded in Mammoth Bones',
-    subtitle: 'Clovis points at Blackwater Draw rewrite the timeline of human migration',
+    subtitle: 'Blackwater Draw Museum, near Clovis, NM. Museum and excavation site open to visitors',
     description: 'In 1929, a teenager named Ridgley Whiteman found ancient bones eroding from the banks of a dried-up waterhole at Blackwater Draw. Archaeologists eventually discovered distinctive fluted spear points embedded in mammoth bones — proof that humans hunted megafauna here 13,000 years ago. These \'Clovis points\' became the benchmark for the earliest human presence in the Americas.',
     lat: 34.2748,
     lng: -103.3205,
@@ -532,7 +532,7 @@ export const moments: Moment[] = [
   {
     id: 'norman-petty-studios',
     name: 'Buddy Holly Records His Greatest Hits in a Clovis Studio',
-    subtitle: 'Where Buddy Holly recorded his greatest hits before his final tour',
+    subtitle: '1313 W 7th St, Clovis, NM. Norman Petty Studios still stands; operates as a museum by appointment',
     description: 'Norman Petty\'s studio in Clovis was where Buddy Holly and the Crickets recorded "That\'ll Be the Day," "Peggy Sue," and other rock and roll classics. Holly\'s connection to Clovis was central to his career. The studio still stands and operates as a museum.',
     lat: 34.4048,
     lng: -103.2052,
@@ -547,7 +547,7 @@ export const moments: Moment[] = [
   {
     id: 'hawikku',
     name: 'Coronado Storms a Zuni Pueblo Expecting Cities of Gold',
-    subtitle: 'Where the myth of the Seven Cities of Gold died on contact with reality',
+    subtitle: 'Near Zuni, NM. Archaeological site on Zuni tribal land; not open to the general public',
     description: 'When Coronado\'s expedition finally reached Hawikku in July 1540, expecting streets paved with gold, they found a modest Zuni pueblo of perhaps 700 people. Coronado was wounded in the assault on the village. He wrote to the Viceroy of New Spain: "The Seven Cities are seven little villages." The expedition continued east, eventually reaching Kansas before turning back — having found no gold, no silver, and no glory.',
     lat: 34.9325,
     lng: -108.9849,
@@ -561,7 +561,7 @@ export const moments: Moment[] = [
   {
     id: 'palace-santa-fe',
     name: 'Four Flags Fly Over America\'s Oldest Public Building',
-    subtitle: 'Spain, Pueblo rebels, Mexico, the Confederacy, and America have all governed from this one adobe',
+    subtitle: '105 W Palace Ave, Santa Fe, NM. Oldest public building in the U.S.; now the New Mexico History Museum',
     description: 'Built in 1610 as the seat of Spanish colonial government, this adobe structure has served under the flags of Spain, the Pueblo people (1680-1692), Mexico (1821-1846), the Confederacy (briefly in 1862), and the United States. Native artisans have sold jewelry and pottery under its portal since the 1880s — a tradition protected by city ordinance today.',
     lat: 35.687,
     lng: -105.9378,
@@ -578,7 +578,7 @@ export const moments: Moment[] = [
   {
     id: 'mesilla-plaza',
     name: 'Confederates Declare Mesilla the Capital of Arizona Territory',
-    subtitle: 'Where the Confederate flag flew over the Rio Grande in 1862',
+    subtitle: 'Mesilla Plaza, Mesilla, NM. The historic plaza and surrounding adobe buildings still stand',
     description: 'In 1861, Confederate sympathizers in the Mesilla Valley declared their allegiance to the South. When Confederate Colonel John Baylor arrived with his Texas Mounted Rifles, Mesilla became the capital of the newly declared Confederate Territory of Arizona. The rebel flag flew over this plaza until Union forces reclaimed the territory after the Battle of Glorieta Pass in March 1862 — sometimes called the "Gettysburg of the West."',
     lat: 32.271,
     lng: -106.7981,
@@ -593,7 +593,7 @@ export const moments: Moment[] = [
   {
     id: 'tulsa-greenwood',
     name: 'White Mobs Burn America\'s Most Prosperous Black Community',
-    subtitle: 'Over 300 dead and 10,000 left homeless in the worst act of racial violence in American history',
+    subtitle: 'Greenwood District, Tulsa, OK. Rebuilt after 1921; Greenwood Cultural Center and the Greenwood Rising museum stand here now',
     description: 'Before the massacre, Greenwood was home to Black-owned businesses, law offices, restaurants, hotels, theaters, and a hospital. On May 31-June 1, 1921, mobs of white residents — some deputized by city officials — attacked the district. Airplanes dropped firebombs. By the end, 35 blocks were destroyed. Bodies were dumped in mass graves. Insurance claims were denied. For decades, Oklahoma history textbooks didn\'t mention it. The search for mass graves continues today.',
     lat: 36.1616,
     lng: -95.982,
@@ -609,7 +609,7 @@ export const moments: Moment[] = [
   {
     id: 'tulsa-drexel',
     name: 'Elevator Encounter Sparks the Tulsa Race Massacre',
-    subtitle: 'A 19-year-old shoeshine boy and a 17-year-old elevator operator — the flimsiest pretext for a pogrom',
+    subtitle: '319 S Main St, Tulsa, OK. The Drexel Building was demolished; the site is in downtown Tulsa',
     description: 'On May 30, 1921, 19-year-old Dick Rowland, a Black shoe shiner, entered the Drexel Building to use the only nearby restroom available to Black people. He shared an elevator with Sarah Page, a 17-year-old white elevator operator. Exactly what happened is unknown — Rowland may have tripped and grabbed her arm — but Page screamed, and Rowland fled. A newspaper article the next day headlined a near-assault. The mob formed that evening.',
     lat: 36.1535,
     lng: -95.9925,
@@ -624,7 +624,7 @@ export const moments: Moment[] = [
   {
     id: 'dean-crash-site',
     name: 'James Dean Dies at 24 in a Porsche Collision',
-    subtitle: 'His last words to a passenger: "That guy\'s gotta stop — he\'ll see us"',
+    subtitle: 'Junction of Hwy 46 & 41, Cholame, CA. A memorial stands near the intersection; the road has been realigned since 1955',
     description: 'At 5:59 PM on September 30, 1955, Dean\'s silver Porsche 550 Spyder ("Little Bastard") collided with a 1950 Ford Tudor at the junction of Routes 466 and 41. Dean had been speeding toward a race in Salinas. His mechanic survived; Dean died almost instantly. He was 24. A memorial near the site reads simply: "James Dean 1931 Feb 8 - 1955 Sep 30pm 5:59." The car\'s wreckage allegedly cursed everyone who came into contact with it.',
     lat: 35.7347,
     lng: -120.2847,
@@ -640,7 +640,7 @@ export const moments: Moment[] = [
   {
     id: 'dennys-google-meeting',
     name: 'Google Receives Its First $100,000 Check at a Denny\'s',
-    subtitle: 'The Denny\'s parking lot where a trillion-dollar company was born over breakfast',
+    subtitle: '4256 El Camino Real, Palo Alto, CA. The Denny\'s is still open at the same location',
     description: 'In August 1998, Larry Page and Sergey Brin met Sun Microsystems co-founder Andy Bechtolsheim at this Denny\'s. Bechtolsheim was so impressed by their search engine demo that he wrote a check for $100,000 on the spot — made out to "Google Inc.," a company that didn\'t legally exist yet. Page and Brin had to incorporate before they could cash it. The rest is history. The Denny\'s is still there.',
     lat: 37.4019,
     lng: -122.1121,
@@ -655,7 +655,7 @@ export const moments: Moment[] = [
   {
     id: 'tri-ground-zero',
     name: 'The Gadget Detonates at 21 Kilotons, Fusing Desert Sand to Glass',
-    subtitle: 'Where the desert sand turned to radioactive green glass',
+    subtitle: 'Trinity Site, White Sands Missile Range, NM. A lava-rock obelisk marks ground zero; open twice yearly',
     description: 'At 5:29 AM on July 16, 1945, \'The Gadget\' detonated with the energy of 21 kilotons of TNT. The heat was so intense it vaporized the 100-foot steel tower and fused the surrounding silica into a mildly radioactive green glass called \'trinitite.\' A small lava-rock obelisk now marks the exact spot of the crater.',
     lat: 33.6773,
     lng: -106.4754,
@@ -671,7 +671,7 @@ export const moments: Moment[] = [
   {
     id: 'tri-mcdonald-ranch',
     name: 'Plutonium Core Assembled in a Farmhouse Bedroom',
-    subtitle: 'Where the plutonium core of the world\'s first bomb was assembled',
+    subtitle: 'McDonald Ranch, White Sands Missile Range, NM. Farmhouse restored; open during Trinity Site open houses',
     description: 'Located two miles from ground zero, this abandoned farmhouse became the final assembly point for the bomb\'s nuclear core. Scientists worked in a makeshift \'clean room\' inside the master bedroom, carefully handling the plutonium hemispheres that would change history just days later.',
     lat: 33.6521,
     lng: -106.4583,
@@ -687,7 +687,7 @@ export const moments: Moment[] = [
   {
     id: 'tri-control-bunker',
     name: 'Scientists Count Down the Final Seconds Before the Flash',
-    subtitle: 'Where Oppenheimer waited in the darkness for the world to change',
+    subtitle: 'South-10,000 Bunker, White Sands Missile Range, NM. Concrete bunker still stands; visible during open houses',
     description: 'Located exactly 10,000 yards south of the tower, this concrete-reinforced bunker served as the nerve center for the test. It was here that scientists crouched on the floor, counting down the final seconds until the blinding flash revealed they had successfully \'unlocked\' the power of the atom.',
     lat: 33.5931,
     lng: -106.4754,
@@ -703,7 +703,7 @@ export const moments: Moment[] = [
   {
     id: 'hnb-hiroshima-hypocenter',
     name: 'Little Boy Detonates 1,900 Feet Above Hiroshima',
-    subtitle: 'Where the first atomic bomb used in war detonated 1,900 feet above the city',
+    subtitle: '1-chome Otemachi, Naka Ward, Hiroshima. A stone monument marks the hypocenter; the Genbaku Dome stands nearby',
     description: 'At 8:15 AM on August 6, 1945, the bomb \'Little Boy\' exploded directly above the Shima Hospital. Today, a simple stone monument marks the hypocenter, located just meters from the Genbaku Dome — one of the few buildings to partially survive the blast and now a haunting memorial.',
     lat: 34.3947,
     lng: 132.4547,
@@ -719,7 +719,7 @@ export const moments: Moment[] = [
   {
     id: 'hnb-nagasaki-hypocenter',
     name: 'Fat Man Dropped on Nagasaki After Clouds Obscure Kokura',
-    subtitle: 'Where the second detonation occurred due to thick cloud cover over the primary target',
+    subtitle: 'Matsuyamamachi, Nagasaki, Japan. A black stone monolith marks the hypocenter in Nagasaki Peace Park',
     description: 'Three days after Hiroshima, the \'Fat Man\' plutonium bomb was dropped on Nagasaki. The original target was Kokura, but heavy clouds forced the pilot to divert. The black stone monolith in this park marks the exact point where the thermal heat and pressure waves radiated outward.',
     lat: 32.7737,
     lng: 129.8633,
@@ -735,7 +735,7 @@ export const moments: Moment[] = [
   {
     id: 'hnb-tinian-island',
     name: 'Enola Gay and Bockscar Depart for the Atomic Missions',
-    subtitle: 'Where the B-29s took off for the most destructive missions in history',
+    subtitle: 'North Field, Tinian, Northern Mariana Islands. Runway ruins and loading pits still visible; open to visitors',
     description: 'Part of the Northern Mariana Islands, Tinian became the largest airbase in the world during WWII. It was from Runway No. 1 that the Enola Gay and Bockscar took off with their secret cargos, carrying the weapons that would force a global surrender and end the war.',
     lat: 15.0681,
     lng: 145.6384,
@@ -751,7 +751,7 @@ export const moments: Moment[] = [
   {
     id: 'dtm-silo-site',
     name: 'Dropped Socket Punctures a Titan II Fuel Tank',
-    subtitle: 'Where a dropped tool almost wiped out central Arkansas',
+    subtitle: 'Hwy 285, Damascus, AR. The silo was destroyed in the explosion; the site is fenced private land',
     description: 'During routine maintenance, a technician dropped a 3-lb socket that fell 70 feet, punctured the missile\'s fuel tank, and caused a massive leak. Hours later, the fuel exploded, launching the 740-ton silo door 600 feet into the air and ejecting the nuclear warhead into a nearby ditch.',
     lat: 35.3976,
     lng: -92.3976,
@@ -766,7 +766,7 @@ export const moments: Moment[] = [
   {
     id: 'dtm-warhead-impact',
     name: 'Nuclear Warhead Ejected Into a Ditch, Intact',
-    subtitle: 'Where the world\'s most powerful nuclear warhead landed in a ditch',
+    subtitle: 'Near Damascus, AR. Approximate location in a field adjacent to the silo; no public marker',
     description: 'The explosion launched the W53 warhead out of the silo and into a nearby field. It was found several hours later in a ditch, its skin dented but its core miraculously intact. If it had detonated, the blast would have vaporized everything for miles, including nearby Little Rock.',
     lat: 35.3978,
     lng: -92.3965,
@@ -781,7 +781,7 @@ export const moments: Moment[] = [
   {
     id: 'dtm-little-rock-afb',
     name: 'Emergency Response Coordinates Evacuation of the Countryside',
-    subtitle: 'The hub of the emergency response to a nuclear nightmare',
+    subtitle: '1235 Arnold Dr, Little Rock AFB, AR. Active military installation; not open to general public',
     description: 'As the crisis unfolded, the base became the command center for the \'Propellant Transfer Team\' and military leaders. It was from here that the orders were given to evacuate the surrounding countryside, as officials realized they were facing a potential multi-megaton detonation on US soil.',
     lat: 34.9169,
     lng: -92.1469,
@@ -796,7 +796,7 @@ export const moments: Moment[] = [
   {
     id: 'la-fords-theatre',
     name: 'John Wilkes Booth Shoots Lincoln During a Play',
-    subtitle: 'Where America\'s greatest president was shot while watching a comedy',
+    subtitle: '511 10th St NW, Washington, DC. The theater is now a museum and active playhouse; NPS managed',
     description: 'At approximately 10:15 PM on April 14, 1865, John Wilkes Booth entered the presidential box during the third act of "Our American Cousin." He fired a .44-caliber Derringer into the back of Lincoln\'s head, slashed Major Henry Rathbone with a knife, and leapt to the stage — reportedly shouting "Sic semper tyrannis!" He broke his leg in the fall but escaped on horseback through the back alley.',
     lat: 38.8966,
     lng: -77.0256,
@@ -814,7 +814,7 @@ export const moments: Moment[] = [
   {
     id: 'la-petersen-house',
     name: 'Lincoln Dies Across the Street at Dawn',
-    subtitle: 'Where Lincoln spent his final hours in a bed too short for his frame',
+    subtitle: '516 10th St NW, Washington, DC. Petersen House preserved as a museum; the deathbed room is on display',
     description: 'Soldiers carried the mortally wounded president across 10th Street to this boarding house. Lincoln was placed diagonally on a bed too short for his 6\'4" frame. He never regained consciousness. At 7:22 AM on April 15, Secretary of War Edwin Stanton reportedly said, "Now he belongs to the ages." Lincoln was 56 years old.',
     lat: 38.8964,
     lng: -77.0258,
@@ -832,7 +832,7 @@ export const moments: Moment[] = [
   {
     id: 'la-garrett-farm',
     name: 'Booth Is Shot and Killed in a Burning Tobacco Barn',
-    subtitle: 'The most wanted man in America whispers his last words as the flames close in',
+    subtitle: 'Near Port Royal, VA (US Route 301). A roadside marker indicates the general area; the barn was burned during the capture',
     description: 'After 12 days on the run, Booth and co-conspirator David Herold were tracked to Richard Garrett\'s farm south of Port Royal, Virginia. Soldiers surrounded the tobacco barn where they hid. Herold surrendered, but Booth refused. The barn was set on fire. Sergeant Boston Corbett shot Booth through a gap in the slats. Booth was dragged out and died on the porch on April 26, reportedly whispering "Useless, useless" as he looked at his hands.',
     lat: 38.1398,
     lng: -77.2287,
@@ -850,7 +850,7 @@ export const moments: Moment[] = [
   {
     id: 'jfk-dealey-plaza',
     name: 'Kennedy Is Shot in the Presidential Motorcade',
-    subtitle: 'Where three shots from a sixth-floor window ended Camelot',
+    subtitle: '411 Elm St, Dallas, TX. Dealey Plaza is a National Historic Landmark; the Sixth Floor Museum is inside the former Book Depository',
     description: 'At 12:30 PM on November 22, 1963, shots rang out as the presidential motorcade passed through Dealey Plaza. Kennedy was struck in the head and back. Governor John Connally was also hit. The limousine raced to Parkland Hospital, but it was too late. An X on the road still marks the approximate spot of the fatal shot. Thousands visit the grassy knoll and the sixth-floor window of the former Texas School Book Depository every year.',
     lat: 32.7787,
     lng: -96.8083,
@@ -866,7 +866,7 @@ export const moments: Moment[] = [
   {
     id: 'jfk-parkland',
     name: 'Kennedy Is Pronounced Dead at Parkland Hospital',
-    subtitle: 'Where doctors fought to save Kennedy — and where Oswald died two days later',
+    subtitle: '5201 Harry Hines Blvd, Dallas, TX. Parkland Hospital still operates; the original Trauma Room 1 no longer exists',
     description: 'Kennedy arrived at Parkland\'s Trauma Room 1 at 12:38 PM, just eight minutes after being shot. Despite desperate efforts, he was pronounced dead at 1:00 PM. In a grim coincidence, Lee Harvey Oswald was brought to the same hospital two days later after being shot by Jack Ruby, and died in the same emergency department.',
     lat: 32.8131,
     lng: -96.8355,
@@ -882,7 +882,7 @@ export const moments: Moment[] = [
   {
     id: 'jfk-texas-theatre',
     name: 'Oswald Is Arrested in a Darkened Movie Theatre',
-    subtitle: 'Where Oswald hid in the dark watching a war movie as police closed in',
+    subtitle: '231 W Jefferson Blvd, Dallas, TX. The Texas Theatre still operates as a movie house and event venue',
     description: 'After allegedly shooting Officer J.D. Tippit, Lee Harvey Oswald ducked into this movie theatre on Jefferson Boulevard without paying. A shoe store manager saw him slip in and alerted the box office. Police arrived and found Oswald in the darkened auditorium. When confronted, Oswald reportedly said "Well, it\'s all over now" and pulled a revolver, but was subdued after a brief struggle. The theatre is still open today.',
     lat: 32.7434,
     lng: -96.826,
@@ -898,7 +898,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-lorraine-motel',
     name: 'King Is Shot on the Motel Balcony',
-    subtitle: 'Where King was shot on a balcony while joking with friends below',
+    subtitle: '450 Mulberry St, Memphis, TN. The Lorraine Motel is now the National Civil Rights Museum; Room 306 balcony preserved',
     description: 'At 6:01 PM on April 4, 1968, King stepped onto the second-floor balcony of room 306. He was chatting with musician Ben Branch in the parking lot below, asking him to play "Take My Hand, Precious Lord" at that evening\'s event. A single .30-06 rifle bullet struck him in the jaw and severed his spinal cord. He was pronounced dead at 7:05 PM at St. Joseph\'s Hospital. He was 39 years old. The motel is now the National Civil Rights Museum.',
     lat: 35.1346,
     lng: -90.0575,
@@ -914,7 +914,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-sniper-nest',
     name: 'James Earl Ray Fires from a Shared Bathroom Window',
-    subtitle: 'A single rifle shot across 200 feet from a flophouse bathroom to the Lorraine Motel balcony',
+    subtitle: '422½ S Main St, Memphis, TN. The rooming house is now part of the National Civil Rights Museum complex',
     description: 'James Earl Ray rented a room at Bessie Brewer\'s rooming house at 422½ South Main Street under the alias "John Willard." He fired from the shared bathroom window, which had a clear line of sight across the courtyard to the Lorraine Motel\'s second-floor balcony. Ray fled immediately, dropping a bundle containing the rifle and other belongings outside a storefront. He wasn\'t captured until two months later at London\'s Heathrow Airport.',
     lat: 35.134,
     lng: -90.0583,
@@ -930,7 +930,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-clayborn-temple',
     name: 'Sanitation Workers March with "I AM A MAN" Signs',
-    subtitle: '1,300 Black workers demand basic dignity after two men are crushed alive in a garbage truck',
+    subtitle: '294 Hernando St, Memphis, TN. Clayborn Temple still stands; restored as a community and event space',
     description: 'This historic church served as the organizing headquarters for the Memphis sanitation workers\' strike that brought King to Memphis. Workers gathered here before marching downtown carrying their simple, devastating signs reading "I AM A MAN." King\'s final speech — the prophetic "I\'ve Been to the Mountaintop" — was delivered at Mason Temple, but Clayborn Temple was where the movement lived and breathed.',
     lat: 35.1366,
     lng: -90.0513,
@@ -946,7 +946,7 @@ export const moments: Moment[] = [
   {
     id: 'ala-shrine',
     name: 'Defenders Make Their Last Stand in the Chapel',
-    subtitle: 'Where the final stand turned a mission into a monument',
+    subtitle: '300 Alamo Plaza, San Antonio, TX. The chapel still stands; open daily, free admission',
     description: 'The mission\'s chapel was the last point of retreat for the defenders on March 6, 1836. It was here that the legendary figures like Davy Crockett and James Bowie made their final stand. Today, it serves as the \'shrine\' of the complex, though most of the original 4-acre compound has been lost to the city\'s growth.',
     lat: 29.4259,
     lng: -98.4861,
@@ -963,7 +963,7 @@ export const moments: Moment[] = [
   {
     id: 'ala-long-barrack',
     name: 'Close-Quarters Fighting Turns the Long Barrack into a Killing Floor',
-    subtitle: 'Where the bloodiest room-to-room fighting took place',
+    subtitle: '300 Alamo Plaza, San Antonio, TX. The Long Barrack is the oldest standing structure in San Antonio; part of the Alamo complex',
     description: 'A two-story stone building where the majority of the Texian defenders retreated as the Mexican army breached the outer walls. The fighting here was brutal and close-quarters, marking the most lethal phase of the battle. It is the oldest standing structure in San Antonio today.',
     lat: 29.4262,
     lng: -98.4861,
@@ -979,7 +979,7 @@ export const moments: Moment[] = [
   {
     id: 'ala-san-fernando',
     name: 'Santa Anna Flies the No-Quarter Flag from the Bell Tower',
-    subtitle: 'Where the ashes of the Alamo heroes are reportedly interred',
+    subtitle: '115 Main Plaza, San Antonio, TX. San Fernando Cathedral still active; marble sarcophagus near the entrance',
     description: 'Located blocks from the mission, this cathedral\'s bell tower was used by Santa Anna\'s forces to fly the red \'no quarter\' flag during the siege. Inside, a marble sarcophagus near the entrance is said to contain the charred remains of Travis, Bowie, and Crockett, recovered from the pyres after the battle.',
     lat: 29.425,
     lng: -98.4941,
@@ -995,7 +995,7 @@ export const moments: Moment[] = [
   {
     id: 'wac-mt-carmel',
     name: 'FBI Assault Ends the Siege as Mount Carmel Burns',
-    subtitle: 'Where the apocalyptic vision of David Koresh ended in fire',
+    subtitle: '1781 Double EE Ranch Rd, Waco, TX. A small chapel and memorial markers stand on the quiet property',
     description: 'On April 19, 1993, after weeks of negotiations, the FBI launched a gas assault to end the siege. The compound caught fire and burned to the ground in minutes. Today, a new small chapel and memorial markers stand on the quiet, rural property, far from the chaotic media circus that once surrounded it.',
     lat: 31.5908,
     lng: -96.9862,
@@ -1011,7 +1011,7 @@ export const moments: Moment[] = [
   {
     id: 'wac-courthouse',
     name: 'Surviving Branch Davidians Stand Trial for Agent Deaths',
-    subtitle: 'Where the survivors of the inferno faced trial',
+    subtitle: '800 Franklin Ave, Waco, TX. Federal courthouse still stands and operates',
     description: 'The legal aftermath of the siege played out in this historic courthouse, where eleven Branch Davidians were tried for the deaths of ATF agents. The trial exposed deep divisions in public opinion regarding government overreach and religious freedom.',
     lat: 31.553,
     lng: -97.1333,
@@ -1027,7 +1027,7 @@ export const moments: Moment[] = [
   {
     id: 'wac-ranger-museum',
     name: 'Texas Rangers Preserve Artifacts from the Waco Investigation',
-    subtitle: 'Where the artifacts of the siege are preserved for history',
+    subtitle: '100 Texas Ranger Trail, Waco, TX. Texas Ranger Hall of Fame and Museum; open to visitors',
     description: 'The Texas Rangers played a key role in the investigation following the fire. This museum houses detailed records and items from the standoff, providing a clinical look at the tactical and investigative efforts that followed one of the most controversial events in Texas history.',
     lat: 31.5535,
     lng: -97.1178,
@@ -1043,7 +1043,7 @@ export const moments: Moment[] = [
   {
     id: 'bac-filling-station',
     name: 'Barrow Brothers Launch Early Crimes from the Family Station',
-    subtitle: 'Where Clyde Barrow grew up in the shadow of the law',
+    subtitle: '1221 Singleton Blvd, Dallas, TX. The small brick filling station building still stands',
     description: 'This small brick building served as both the Barrow family\'s business and home during the early 1930s. Clyde and his brother Buck used the station as a base for their early crimes. It remains one of the few standing structures in Dallas directly tied to the gang\'s origins.',
     lat: 32.7787,
     lng: -96.8419,
@@ -1059,7 +1059,7 @@ export const moments: Moment[] = [
   {
     id: 'bac-grapevine-site',
     name: 'Barrow Gang Kills Two Highway Patrolmen on Easter Sunday',
-    subtitle: 'The Easter Sunday murders that turned the public against the gang',
+    subtitle: 'Dove Rd & Hwy 114, Southlake, TX. Approximate roadside location; no public marker',
     description: 'On April 1, 1934, Bonnie, Clyde, and Henry Methvin pulled over on the side of the road to rest. When two patrolmen approached to offer assistance, the outlaws opened fire. The cold-blooded killing of the officers shocked the nation and accelerated the manhunt that would eventually end their lives.',
     lat: 32.9704,
     lng: -97.1559,
@@ -1075,7 +1075,7 @@ export const moments: Moment[] = [
   {
     id: 'bac-western-heights',
     name: 'Clyde Barrow Buried Apart from Bonnie by Their Families',
-    subtitle: 'Where Clyde Barrow rests — separated from Bonnie even in death',
+    subtitle: '1617 Ft Worth Ave, Dallas, TX. Western Heights Cemetery; Clyde is buried next to his brother Buck',
     description: 'Clyde was buried here next to his brother Buck after the 1934 ambush. His family chose this site over a public funeral to avoid the massive crowds. Despite his request to be buried next to Bonnie, her family refused, burying her across town in Crown Hill Memorial Park.',
     lat: 32.7655,
     lng: -96.8461,
@@ -1091,7 +1091,7 @@ export const moments: Moment[] = [
   {
     id: 'tb-chi-omega',
     name: 'Bundy Attacks Sleeping Women at Chi Omega Sorority',
-    subtitle: 'Where Bundy\'s final, frantic rampage terrorized a university campus',
+    subtitle: '595 W Jefferson St, Tallahassee, FL. The Chi Omega sorority house still stands on the FSU campus',
     description: 'In the early hours of January 15, 1978, Bundy broke into the Chi Omega house at Florida State University. In less than 15 minutes, he attacked four women in their sleep, killing two. This location remains a private sorority residence and stands as the site of his most notorious act of violence.',
     lat: 30.4431,
     lng: -84.2952,
@@ -1108,7 +1108,7 @@ export const moments: Moment[] = [
   {
     id: 'tb-lake-sammamish',
     name: 'Two Women Abducted from a Crowded Beach in One Afternoon',
-    subtitle: 'A handsome stranger with his arm in a sling asks for help loading a sailboat',
+    subtitle: '2000 NW Sammamish Rd, Issaquah, WA. Lake Sammamish State Park; still a popular public beach',
     description: 'On July 14, 1974, Bundy approached several women at this crowded beach, his arm in a fake sling, asking for help loading a boat. He successfully abducted and murdered Janice Ott and Denise Naslund just hours apart. The park remains a popular recreation area, hiding the history of the day a predator operated in plain sight.',
     lat: 47.5583,
     lng: -122.0645,
@@ -1124,7 +1124,7 @@ export const moments: Moment[] = [
   {
     id: 'tb-florida-prison',
     name: 'Bundy Executed in Florida\'s Electric Chair',
-    subtitle: 'Where the man who charmed a nation met the electric chair',
+    subtitle: '23916 NW 158th Way, Raiford, FL. Florida State Prison; active facility, no public access',
     description: 'Bundy spent his final years here on death row before his execution in \'Old Sparky\' on January 24, 1989. While he was being executed inside, hundreds of people gathered to celebrate, marking one of the most televised finales of a criminal career in US history.',
     lat: 30.0601,
     lng: -82.1864,
@@ -1141,7 +1141,7 @@ export const moments: Moment[] = [
   {
     id: 'zk-blue-rock',
     name: 'Zodiac Shoots Two in a Parked Car on July Fourth',
-    subtitle: 'Where a late-night drive turned into a terrifying ambush',
+    subtitle: 'Blue Rock Springs Park, Columbus Pkwy, Vallejo, CA. Public park; still open',
     description: 'Near the parking lot of this Vallejo park, the Zodiac fired into a car containing Darlene Ferrin and Michael Mageau on July 4, 1969. Mageau survived to describe the attacker, but the Zodiac famously called the police from a phone booth just blocks away to claim credit for the crime.',
     lat: 38.1278,
     lng: -122.1895,
@@ -1158,7 +1158,7 @@ export const moments: Moment[] = [
   {
     id: 'zk-lake-berryessa',
     name: 'Hooded Zodiac Stabs Two Students at a Lakeshore',
-    subtitle: 'Where a hooded figure brought a nightmare to a sunny lakeshore',
+    subtitle: 'Lake Berryessa, Knoxville Rd, Napa County, CA. Remote peninsula; the lake is a public recreation area',
     description: 'On a remote peninsula known as Oak Knoll, two students were approached by a man wearing a black executioner-style hood with the Zodiac symbol. He tied them up and attacked them with a knife. Before leaving, he wrote the dates of his previous attacks on the door of their car.',
     lat: 38.5621,
     lng: -122.2319,
@@ -1174,7 +1174,7 @@ export const moments: Moment[] = [
   {
     id: 'zk-stine-murder',
     name: 'Zodiac Shoots Cab Driver Paul Stine in Presidio Heights',
-    subtitle: 'The urban murder that proved the Zodiac could strike anywhere',
+    subtitle: 'Washington St & Cherry St, San Francisco, CA. Residential corner in Presidio Heights; no marker',
     description: 'In the upscale Presidio Heights neighborhood of San Francisco, the Zodiac shot cab driver Paul Stine. This was the first time he struck in a densely populated area. He famously tore a piece of Stine\'s blood-stained shirt and mailed it to the San Francisco Chronicle to prove he was the killer.',
     lat: 37.7889,
     lng: -122.4578,
@@ -1191,7 +1191,7 @@ export const moments: Moment[] = [
   {
     id: 'jwg-house-site',
     name: 'Twenty-Nine Bodies Unearthed from Gacy\'s Crawlspace',
-    subtitle: 'Where a suburban nightmare was buried beneath the floorboards',
+    subtitle: '8213 W Summerdale Ave, Norwood Park, IL. House demolished 1979; a new private residence stands on the lot',
     description: 'Gacy lived in a ranch-style house at this address where he murdered and buried 29 of his 33 victims in a 4-foot crawlspace. The house was demolished in 1979 during the investigation; today, a new residence stands on the lot, but the location remains the ultimate symbol of the \'hidden monster\' in suburbia.',
     lat: 41.9791,
     lng: -87.8315,
@@ -1208,7 +1208,7 @@ export const moments: Moment[] = [
   {
     id: 'jwg-greyhound',
     name: 'Gacy Lures Victims with Job Offers at the Bus Terminal',
-    subtitle: 'The hunting ground for vulnerable young men in the city',
+    subtitle: '630 W Harrison St, Chicago, IL. The old Greyhound terminal was demolished; the site is redeveloped',
     description: 'Gacy frequently visited this terminal and the surrounding Loop area to find his victims, often luring them with promises of construction work. He used his status as a business owner to build trust with young men who were traveling or looking for a new start in Chicago.',
     lat: 41.8745,
     lng: -87.6436,
@@ -1224,7 +1224,7 @@ export const moments: Moment[] = [
   {
     id: 'jwg-des-plaines-bridge',
     name: 'Gacy Dumps Remaining Victims into the Des Plaines River',
-    subtitle: 'Where the final victims were committed to the water',
+    subtitle: 'I-55 Bridge, Channahon, IL. The bridge still carries highway traffic over the Des Plaines River',
     description: 'When Gacy ran out of room in his crawlspace, he began dumping bodies over the side of this bridge into the Des Plaines River. The discovery of these bodies eventually led investigators back to his home.',
     lat: 41.4872,
     lng: -88.1955,
@@ -1240,7 +1240,7 @@ export const moments: Moment[] = [
   {
     id: 'wkm-monument',
     name: 'Seventh Cavalry Massacres Lakota at Wounded Knee Creek',
-    subtitle: 'Where the Ghost Dance ended in a hail of Hotchkiss guns',
+    subtitle: 'Wounded Knee, SD. A stone monument and cemetery overlook the creek on the Pine Ridge Reservation',
     description: 'On the morning of December 29, 1890, the 7th Cavalry attempted to disarm a band of Lakota. A scuffle broke out, a shot was fired, and the cavalry opened fire from the ridges above. Today, a stone monument and a quiet cemetery overlook the creek where the dream of a restored indigenous world was violently suppressed.',
     lat: 43.1411,
     lng: -102.3622,
@@ -1256,7 +1256,7 @@ export const moments: Moment[] = [
   {
     id: 'wkm-mass-grave',
     name: 'Frozen Victims Buried in a Mass Trench on the Hill',
-    subtitle: 'Nearly 150 Lakota men, women, and children dumped into a trench in the frozen ground',
+    subtitle: 'Sacred Heart Cemetery Rd, Wounded Knee, SD. The mass grave is marked with a concrete border on the hilltop',
     description: 'Days after the massacre, a burial party arrived to find the victims frozen in the snow. They dug a single, long trench atop a hill overlooking the killing field and interred nearly 150 bodies. The concrete border of the grave remains one of the most somber sights on the Pine Ridge Reservation.',
     lat: 43.1415,
     lng: -102.3619,
@@ -1271,7 +1271,7 @@ export const moments: Moment[] = [
   {
     id: 'wkm-pine-ridge-agency',
     name: 'Massacre Survivors Flee to the Pine Ridge Agency',
-    subtitle: 'Where survivors sought refuge in a blizzard of chaos',
+    subtitle: 'Hwy 18, Pine Ridge, SD. Pine Ridge Agency area; the reservation headquarters is still here',
     description: 'Following the first shots, survivors and those fleeing the violence scrambled toward the Red Cloud Agency. The agency became a scene of frantic medical care and military tension as the news of the massacre rippled through the region.',
     lat: 43.025,
     lng: -102.5534,
@@ -1286,7 +1286,7 @@ export const moments: Moment[] = [
   {
     id: 'scm-historic-site',
     name: 'Chivington\'s Militia Attacks Black Kettle\'s Peaceful Village',
-    subtitle: 'Where white flags of peace were ignored for a massacre disguised as battle',
+    subtitle: '55411 County Road W, Eads, CO. Sand Creek Massacre National Historic Site; NPS managed, open to visitors',
     description: 'At dawn on November 29, 1864, Colonel John Chivington led 675 men in an attack on Black Kettle\'s village. Despite a white flag and an American flag being raised by the chief, the cavalry spent hours killing and mutilating inhabitants. The site is now a protected National Historic Site, preserved in its stark, desolate beauty.',
     lat: 38.5638,
     lng: -102.5029,
@@ -1302,7 +1302,7 @@ export const moments: Moment[] = [
   {
     id: 'scm-denver-capitol',
     name: 'Militia Parades Massacre Trophies Through Denver Streets',
-    subtitle: 'Where trophies of the slaughter were displayed to a cheering crowd',
+    subtitle: '200 E Colfax Ave, Denver, CO. Colorado State Capitol; a memorial acknowledges the massacre',
     description: 'Returning from the massacre, Chivington\'s men paraded through the streets of Denver, displaying human remains as trophies at the Apollo Theater. A memorial at the Capitol now acknowledges the event as a tragedy, not a victory.',
     lat: 39.7391,
     lng: -104.9848,
@@ -1317,7 +1317,7 @@ export const moments: Moment[] = [
   {
     id: 'scm-chivington-town',
     name: 'A Town Named for a War Criminal Fades into Dust',
-    subtitle: 'A town named after a man history tried to forget',
+    subtitle: 'Chivington, CO. Nearly abandoned town south of the massacre site; named before the atrocity was widely known',
     description: 'Located miles south of the massacre site, this nearly abandoned town was named in honor of the Colonel before the full details of the massacre reached the public. As Chivington\'s reputation fell into disgrace, the town languished — a dusty reminder of a legacy built on blood.',
     lat: 38.4358,
     lng: -102.5383,
@@ -1332,7 +1332,7 @@ export const moments: Moment[] = [
   {
     id: 'rwm-wright-house',
     name: 'John Wright Hides Black Residents During the Rosewood Massacre',
-    subtitle: 'The lone survivor of a town burned to the ground',
+    subtitle: '9050 FL-24, Rosewood, FL. The Wright House is the only surviving structure from the original town',
     description: 'This private residence is the only structure still standing from the original town of Rosewood. During the week-long violence in January 1923, John Wright, a white store owner, hid Black residents in his home and helped them escape. The house stands as a silent sentinel on a quiet stretch of Highway 24.',
     lat: 29.2393,
     lng: -82.9304,
@@ -1348,7 +1348,7 @@ export const moments: Moment[] = [
   {
     id: 'rwm-sumner-mill',
     name: 'A False Accusation in Sumner Ignites the Rosewood Massacre',
-    subtitle: 'Where a false accusation ignited a week of fire',
+    subtitle: 'Sumner, FL. The mill town where the violence started; little remains of the original structures',
     description: 'The violence began here, in the nearby town of Sumner, after a white woman falsely accused a Black man from Rosewood of assault. Mob mentality quickly took hold at the local mill, and men armed themselves before marching on Rosewood.',
     lat: 29.2155,
     lng: -82.9556,
@@ -1363,7 +1363,7 @@ export const moments: Moment[] = [
   {
     id: 'rwm-cedar-key-rail',
     name: 'Midnight Train Rescues Women and Children from Rosewood',
-    subtitle: 'A Black train conductor risks his life to evacuate families as the town burns behind them',
+    subtitle: '2nd St, Cedar Key, FL. The historic railroad line no longer operates; Cedar Key is now a quiet fishing village',
     description: 'On the fourth night of the massacre, a train conductor slowed his steam locomotive as it passed Rosewood, allowing dozens of women and children hiding in the swamps to scramble aboard. They were whisked away to safety in Gainesville, leaving behind a town that would soon be reduced to ash.',
     lat: 29.135,
     lng: -83.0336,
@@ -1378,7 +1378,7 @@ export const moments: Moment[] = [
   {
     id: 'jro-berkeley',
     name: 'Oppenheimer Builds America\'s Top Theoretical Physics Program',
-    subtitle: 'Where the Oppenheimer School of theoretical physics began',
+    subtitle: 'LeConte Hall, UC Berkeley, CA. The physics building still stands on campus',
     description: 'In the 1930s, Oppenheimer transformed this building into the premier center for theoretical physics in America. It was here that he gathered the elite team of scientists who would later follow him to the New Mexico desert to build the first atomic bomb.',
     lat: 37.8732,
     lng: -122.2575,
@@ -1394,7 +1394,7 @@ export const moments: Moment[] = [
   {
     id: 'jro-tech-area',
     name: 'Oppenheimer Directs the Design of the Atomic Bomb',
-    subtitle: 'Where Oppenheimer managed the world\'s most dangerous secret',
+    subtitle: 'Trinity Dr, Los Alamos, NM. The Technical Area is within the active national laboratory; restricted access',
     description: 'This high-security cluster of buildings served as the administrative and scientific nerve center of Los Alamos. From his office here, Oppenheimer managed thousands of scientists and personnel, balancing the immense technical challenges of the bomb with the crushing weight of military secrecy.',
     lat: 35.881,
     lng: -106.302,
@@ -1410,7 +1410,7 @@ export const moments: Moment[] = [
   {
     id: 'jro-princeton-ias',
     name: 'Oppenheimer Loses His Security Clearance at Princeton',
-    subtitle: 'Where the Father of the Bomb sought intellectual refuge and faced exile',
+    subtitle: '1 Einstein Dr, Princeton, NJ. Institute for Advanced Study campus; grounds are open to the public',
     description: 'After the war, Oppenheimer directed this prestigious institute, working alongside Albert Einstein. However, it was also the backdrop for the 1954 security hearing that stripped him of his security clearance, effectively exiling him from the government he had helped save.',
     lat: 40.3315,
     lng: -74.6738,
@@ -1426,7 +1426,7 @@ export const moments: Moment[] = [
   {
     id: 'lho-beckley-rooming',
     name: 'Oswald Retrieves His Revolver After the Assassination',
-    subtitle: 'Where Oswald\'s final flight began after the shots rang out',
+    subtitle: '1026 N Beckley Ave, Dallas, TX. The rooming house still stands as a private residence',
     description: 'Shortly after the assassination, Oswald rushed back to his rented room here to retrieve a jacket and a revolver. The housekeeper noted his frantic pace before he slipped back out into the Dallas afternoon, beginning the final hour of his freedom.',
     lat: 32.7547,
     lng: -96.8234,
@@ -1442,7 +1442,7 @@ export const moments: Moment[] = [
   {
     id: 'lho-tippit-site',
     name: 'Oswald Shoots Officer J.D. Tippit During His Escape',
-    subtitle: 'Where the flight of an assassin turned into a second murder',
+    subtitle: 'E 10th St & S Patton Ave, Dallas, TX. Residential intersection; no official marker',
     description: 'At 1:15 PM, Officer J.D. Tippit pulled over to speak with Oswald. Without warning, Oswald fired four shots, killing Tippit instantly. This event triggered the massive manhunt that would lead to the Texas Theatre just blocks away.',
     lat: 32.7481,
     lng: -96.8173,
@@ -1458,7 +1458,7 @@ export const moments: Moment[] = [
   {
     id: 'lho-police-hq',
     name: 'Jack Ruby Shoots Oswald on Live Television',
-    subtitle: 'Where an assassin was silenced on national television',
+    subtitle: '2014 Main St, Dallas, TX. The old Dallas Police HQ; the building has been repurposed',
     description: 'In the basement of this building, as Oswald was being transferred to the county jail, nightclub owner Jack Ruby stepped from a crowd of reporters and fired a single shot. The world watched live as the primary suspect was himself silenced forever.',
     lat: 32.7781,
     lng: -96.7951,
@@ -1474,7 +1474,7 @@ export const moments: Moment[] = [
   {
     id: 'lrn-central-high',
     name: 'The 101st Airborne Escorts Nine Students into Central High',
-    subtitle: 'Where the battle for integrated education became a national standoff',
+    subtitle: '1500 S Park St, Little Rock, AR. Central High still operates as a school; NPS visitor center across the street',
     description: 'In September 1957, the Arkansas National Guard, on orders from the Governor, blocked the students from entering. It wasn\'t until President Eisenhower sent in the 101st Airborne that the students were finally escorted into the building, a moment etched in the history of American civil rights.',
     lat: 34.7363,
     lng: -92.2989,
@@ -1491,7 +1491,7 @@ export const moments: Moment[] = [
   {
     id: 'lrn-bates-house',
     name: 'Daisy Bates Prepares the Nine Students for Integration',
-    subtitle: 'The command center for the Little Rock integration battle',
+    subtitle: '1207 W 28th St, Little Rock, AR. The Daisy Bates House is a National Historic Landmark; open by appointment',
     description: 'This home served as the strategy center and sanctuary for the nine students. Daisy Bates, head of the state NAACP, used the house to prepare the students for the daily abuse they faced, making it a target for numerous threats.',
     lat: 34.735,
     lng: -92.2908,
@@ -1507,7 +1507,7 @@ export const moments: Moment[] = [
   {
     id: 'lrn-capitol-standoff',
     name: 'Governor Faubus Defies the Supreme Court on Integration',
-    subtitle: 'Where a Governor defied the Supreme Court and triggered a crisis',
+    subtitle: '500 Woodlane St, Little Rock, AR. The Arkansas State Capitol still stands and is open for tours',
     description: 'From these halls, Governor Orval Faubus issued the orders that initially blocked the integration of Central High. His defiance forced the first use of federal troops to enforce civil rights in the South since Reconstruction.',
     lat: 34.7466,
     lng: -92.2895,
@@ -1523,7 +1523,7 @@ export const moments: Moment[] = [
   {
     id: 'lin-birthplace',
     name: 'Abraham Lincoln Is Born in a One-Room Log Cabin',
-    subtitle: 'A 16-by-18-foot Kentucky frontier cabin that now sits inside a neoclassical memorial',
+    subtitle: '2995 Lincoln Lodge Rd, Hodgenville, KY. The log cabin is housed inside a granite memorial; NPS site, open daily',
     description: 'On February 12, 1809, Lincoln was born here in a 16-by-18-foot cabin on the Kentucky frontier. The symbolic birthplace cabin is now housed inside a massive neoclassical memorial building, representing the humble origins of America\'s most transformative leader.',
     lat: 37.5358,
     lng: -85.7346,
@@ -1540,7 +1540,7 @@ export const moments: Moment[] = [
   {
     id: 'lin-new-salem',
     name: 'Lincoln Studies Law by Candlelight in a Pioneer Village',
-    subtitle: 'Where a young Honest Abe failed as a storekeeper and found his voice',
+    subtitle: '15588 History Ln, Petersburg, IL. Lincoln\'s New Salem State Historic Site; reconstructed village open to visitors',
     description: 'Lincoln lived in this pioneer village for six years, working as a rail-splitter, store clerk, and postmaster. It was here that he began studying law by candlelight and made his first unsuccessful run for the Illinois General Assembly.',
     lat: 39.9814,
     lng: -89.8456,
@@ -1556,7 +1556,7 @@ export const moments: Moment[] = [
   {
     id: 'lin-state-capitol',
     name: 'Lincoln Delivers the "House Divided" Speech',
-    subtitle: 'Where the House Divided speech set the stage for the Civil War',
+    subtitle: '1 Old State Capitol Plaza, Springfield, IL. The Old State Capitol is a restored museum; open to visitors',
     description: 'In 1858, Lincoln stood in the Hall of Representatives here and delivered his famous warning: \'A house divided against itself cannot stand.\' The speech during his senatorial campaign against Stephen Douglas catapulted him into the national spotlight.',
     lat: 39.8011,
     lng: -89.6486,
@@ -1572,7 +1572,7 @@ export const moments: Moment[] = [
   {
     id: 'jfk-birthplace',
     name: 'John F. Kennedy Is Born in Brookline',
-    subtitle: 'The second of nine children, born in an upstairs bedroom his mother later restored to its 1917 appearance',
+    subtitle: '83 Beals St, Brookline, MA. NPS site; the home is restored to its 1917 appearance and open for tours',
     description: 'Born in an upstairs bedroom on May 29, 1917, Jack was the second of nine children. His mother, Rose Kennedy, later repurchased the home and restored it to its 1917 appearance.',
     lat: 42.3466,
     lng: -71.1235,
@@ -1589,7 +1589,7 @@ export const moments: Moment[] = [
   {
     id: 'jfk-choate',
     name: 'JFK Attends Boarding School at Choate',
-    subtitle: 'Where a rebellious teenager struggled with health and grades',
+    subtitle: '333 Christian St, Wallingford, CT. Choate Rosemary Hall is still an active prep school',
     description: 'Long before Harvard, JFK was a student at this prestigious boarding school. Despite chronic health issues and a reputation for mischief — he once exploded a toilet with a firecracker — he began to develop the oratorical skills that would define his career.',
     lat: 41.4552,
     lng: -72.8227,
@@ -1605,7 +1605,7 @@ export const moments: Moment[] = [
   {
     id: 'jfk-hammersmith',
     name: 'Kennedy and Jacqueline Bouvier Wed in Newport',
-    subtitle: 'Where the Unfinished Presidency found its Summer White House',
+    subtitle: 'Ocean Ave, Newport, RI. Hammersmith Farm overlooks Narragansett Bay; site of the Kennedy wedding reception',
     description: 'The childhood home of Jackie Bouvier and the site of the Kennedy-Bouvier wedding reception in 1953. During his presidency, it served as a coastal retreat where JFK conducted high-level meetings, overlooking the Narragansett Bay.',
     lat: 41.4811,
     lng: -71.3528,
@@ -1621,7 +1621,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-birth-home',
     name: 'Martin Luther King Jr. Is Born on Auburn Avenue',
-    subtitle: 'Raised on "Sweet Auburn," one of the most prosperous Black neighborhoods in America',
+    subtitle: '501 Auburn Ave NE, Atlanta, GA. NPS site; King\'s birth home is open for guided tours',
     description: 'Born in the upstairs master bedroom, MLK lived here until he was 12. The home sat in \'Sweet Auburn,\' one of the most prosperous Black neighborhoods in America at the time. It was here that he first experienced the contrast between the warmth of his community and the sting of segregation.',
     lat: 33.7548,
     lng: -84.3734,
@@ -1638,7 +1638,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-morehouse',
     name: 'King Enters Morehouse College at Age 15',
-    subtitle: 'Where a 15-year-old prodigy found his intellectual calling',
+    subtitle: '830 Westview Dr SW, Atlanta, GA. Morehouse College campus; active HBCU',
     description: 'King entered Morehouse as a gifted student during WWII. Under the mentorship of Dr. Benjamin Mays, he decided to join the ministry not just as a religious path, but as a vehicle for social change.',
     lat: 33.7469,
     lng: -84.4136,
@@ -1654,7 +1654,7 @@ export const moments: Moment[] = [
   {
     id: 'mlk-dexter-church',
     name: 'King Begins His First Pastorate and the Bus Boycott',
-    subtitle: 'Where the Montgomery Bus Boycott was first organized',
+    subtitle: '454 Dexter Ave, Montgomery, AL. Dexter Avenue King Memorial Baptist Church; open for tours',
     description: 'King\'s first pastorate began here in 1954. It was in the basement of this church, located just steps from the Alabama State Capitol, that the strategy for the Montgomery Bus Boycott was born following Rosa Parks\' arrest, launching King onto the international stage.',
     lat: 32.3775,
     lng: -86.3059,
@@ -1671,7 +1671,7 @@ export const moments: Moment[] = [
   {
     id: 'rp-arrest-site',
     name: 'The Empire Theatre Bus Stop',
-    subtitle: 'Where a refusal to move changed the direction of America',
+    subtitle: '252 Montgomery St, Montgomery, AL. The bus stop site; a historical marker stands at the corner',
     description: 'On December 1, 1955, at this street corner, Parks refused a bus driver\'s order to give up her seat to a white passenger. Her arrest triggered the 381-day Montgomery Bus Boycott, proving that non-violent collective action could dismantle the legal architecture of segregation.',
     lat: 32.3772,
     lng: -86.3082,
@@ -1688,7 +1688,7 @@ export const moments: Moment[] = [
   {
     id: 'rp-dexter-church',
     name: 'Parks and King Organize the Montgomery Bus Boycott',
-    subtitle: 'The spiritual and strategic nerve center of the boycott',
+    subtitle: '454 Dexter Ave, Montgomery, AL. Same church as King\'s pastorate; steps from the Alabama State Capitol',
     description: 'Following her arrest, Parks and other activists gathered here to organize the initial protest. It was in this church that she stood alongside a young Dr. Martin Luther King Jr., beginning a partnership that would elevate the struggle for civil rights to a global stage.',
     lat: 32.3775,
     lng: -86.3059,
@@ -1704,7 +1704,7 @@ export const moments: Moment[] = [
   {
     id: 'rp-detroit-home',
     name: 'Parks Moves to Detroit After Death Threats in Alabama',
-    subtitle: 'The sanctuary for a hero in the North',
+    subtitle: '3201 Virginia Park St, Detroit, MI. The house was disassembled and shipped to Berlin in 2024 as an art installation',
     description: 'After death threats forced her out of Alabama, Parks moved to this Detroit home. She spent her final years here, continuing her activism and serving as a living bridge between the Jim Crow South and the urban struggles of the North.',
     lat: 42.3621,
     lng: -83.1492,
@@ -1720,7 +1720,7 @@ export const moments: Moment[] = [
   {
     id: 'wb-bicycle-shop',
     name: 'Wright Brothers Design and Build the Flyer in Their Bicycle Shop',
-    subtitle: 'Where the world\'s first aircraft was built by hand',
+    subtitle: '22 S Williams St, Dayton, OH. Original building moved to Greenfield Village, MI; replica at Dayton Aviation Heritage NHP',
     description: 'Long before they reached the clouds, Orville and Wilbur were repairing bicycles here. Using the profits from their shop and the mechanical principles of chain drives and balance, they designed and built the Wright Flyer in this modest brick building.',
     lat: 39.7554,
     lng: -84.2149,
@@ -1736,7 +1736,7 @@ export const moments: Moment[] = [
   {
     id: 'wb-kitty-hawk',
     name: 'The Wright Brothers Achieve the First Powered Flight — 12 Seconds That Changed History',
-    subtitle: 'Two bicycle mechanics from Ohio outpace the world\'s best-funded aviation programs',
+    subtitle: 'Kill Devil Hills, NC. A granite monument marks the flight line; Wright Brothers National Memorial, NPS managed',
     description: 'On December 17, 1903, the Wright Flyer lifted off from these sand dunes for exactly 12 seconds. It was the first controlled, powered flight of a heavier-than-air machine. A massive granite monument now towers over the dunes, marking the exact spots of the four successful flights that morning.',
     lat: 36.0188,
     lng: -75.669,
@@ -1753,7 +1753,7 @@ export const moments: Moment[] = [
   {
     id: 'wb-huffman-prairie',
     name: 'Wright Brothers Master Sustained Flight in a Cow Pasture',
-    subtitle: 'The world\'s first airfield where flight was perfected',
+    subtitle: 'Pylon Rd, Wright-Patterson AFB, OH. Huffman Prairie Flying Field; accessible via the base visitor center',
     description: 'After the success at Kitty Hawk, the brothers moved their testing here to a cow pasture near Dayton. It was at this site that they mastered turns, circles, and sustained flight, often unnoticed by the neighbors who lived just down the road.',
     lat: 39.8028,
     lng: -84.062,
@@ -1769,7 +1769,7 @@ export const moments: Moment[] = [
   {
     id: 'htb-bucktown-store',
     name: 'Tubman Is Struck in the Head by an Overseer\'s Weight',
-    subtitle: 'Where a defiant teenager received a blow that changed her vision',
+    subtitle: '4303 Bucktown Rd, Cambridge, MD. The Bucktown Village Store still stands; now a Tubman heritage site',
     description: 'At this store in rural Maryland, a young Harriet refused to help an overseer restrain a runaway slave. The overseer threw a heavy metal weight that struck Harriet in the head, causing lifelong seizures and vivid spiritual visions that she believed were messages from God guiding her to lead others to freedom.',
     lat: 38.4593,
     lng: -76.0401,
@@ -1786,7 +1786,7 @@ export const moments: Moment[] = [
   {
     id: 'htb-combahee-river',
     name: 'Tubman Leads a Raid That Frees Over 700 Enslaved People',
-    subtitle: 'Where a general without a uniform led the largest slave rescue in history',
+    subtitle: 'Combahee River, U.S. 17, Green Pond, SC. The riverbanks are largely unchanged; no dedicated marker',
     description: 'In June 1863, Tubman led three Union gunboats up this river, using her knowledge of the local landscape to avoid mines. They rescued over 700 enslaved people in a single night. It was the first time in American history that a woman planned and led a major military operation.',
     lat: 32.6586,
     lng: -80.6861,
@@ -1803,7 +1803,7 @@ export const moments: Moment[] = [
   {
     id: 'htb-auburn-home',
     name: 'Tubman Founds a Home for the Aged in Auburn',
-    subtitle: 'The sanctuary where Moses finally rested and continued the work',
+    subtitle: '180 South St, Auburn, NY. Harriet Tubman National Historical Park; NPS managed, open to visitors',
     description: 'Purchased from William Seward, this home in New York became Tubman\'s base of operations for the final 50 years of her life. She turned it into a home for the aged and indigent, living out her final days as a celebrated figure of the suffrage and civil rights movements.',
     lat: 42.9115,
     lng: -76.5583,
@@ -1819,7 +1819,7 @@ export const moments: Moment[] = [
   {
     id: 'mx-birthplace',
     name: 'Malcolm Little Is Born as the Klan Surrounds His Home',
-    subtitle: 'Where the son of a preacher began a life in the crosshairs of the Klan',
+    subtitle: '3448 Pinkney St, Omaha, NE. The house was demolished; a large stone monument marks the birth site',
     description: 'Born Malcolm Little, he spent his earliest days in this Omaha house. Before he was even born, the Ku Klux Klan surrounded the home, smashing windows and threatening his father. The house was later demolished, but a large stone monument marks the birthsite.',
     lat: 41.2908,
     lng: -95.9644,
@@ -1836,7 +1836,7 @@ export const moments: Moment[] = [
   {
     id: 'mx-audubon',
     name: 'Malcolm X Is Assassinated While Addressing a Rally',
-    subtitle: 'Where the voice of a revolution was silenced in front of his family',
+    subtitle: '3940 Broadway, New York, NY. The Audubon Ballroom is now the Malcolm X and Dr. Betty Shabazz Memorial and Educational Center',
     description: 'On February 21, 1965, Malcolm X was preparing to address the Organization of Afro-American Unity. As he began to speak, three gunmen rushed the stage and fired 21 times. The building has since been partially preserved as a memorial and research center in Washington Heights.',
     lat: 40.8385,
     lng: -73.9388,
@@ -1853,7 +1853,7 @@ export const moments: Moment[] = [
   {
     id: 'ae-harbour-grace',
     name: 'Earhart Departs Newfoundland on Her Solo Transatlantic Flight',
-    subtitle: 'Where the first woman to solo the Atlantic took to the sky',
+    subtitle: 'Otterbury Rd, Harbour Grace, NL, Canada. A monument marks the takeoff spot on the old airstrip',
     description: 'On May 20, 1932, Earhart took off from this grassy strip in Newfoundland. Fourteen hours later, she landed in a cow pasture in Northern Ireland, becoming the first woman to fly solo across the Atlantic.',
     lat: 47.6835,
     lng: -53.2541,
@@ -1870,7 +1870,7 @@ export const moments: Moment[] = [
   {
     id: 'ae-lae-airfield',
     name: 'Earhart and Noonan Make Their Final Takeoff',
-    subtitle: 'The final runway for a global icon of the clouds',
+    subtitle: 'Lae, Morobe Province, Papua New Guinea. The airstrip is now Nadzab Airport; a plaque marks the departure',
     description: 'On July 2, 1937, Earhart and her navigator Fred Noonan took off from this coastal strip in Papua New Guinea for the most dangerous leg of their journey — a 2,556-mile flight to Howland Island. They were never seen again.',
     lat: -6.7282,
     lng: 146.9958,
@@ -1886,7 +1886,7 @@ export const moments: Moment[] = [
   {
     id: 'ae-howland-island',
     name: 'Earhart Vanishes Over the Pacific Near Howland Island',
-    subtitle: 'The tiny speck in the Pacific that was never found',
+    subtitle: 'Howland Island, Pacific Ocean. Uninhabited National Wildlife Refuge; the Earhart Light daybeacon stands on the island',
     description: 'This was the intended refueling stop where the U.S. Coast Guard cutter Itasca waited in vain. Earhart\'s final radio transmissions indicated she was flying on a line nearby but could not find the island. Today, the island is an uninhabited National Wildlife Refuge, home only to the Earhart Light daybeacon.',
     lat: 0.8072,
     lng: -176.6177,
@@ -1902,7 +1902,7 @@ export const moments: Moment[] = [
   {
     id: 'twa-smith-point',
     name: '230 Names Carved in Granite Facing the Atlantic',
-    subtitle: 'Where the names of 230 souls face the ocean that claimed them',
+    subtitle: 'Smith Point County Park, Shirley, NY. The granite memorial faces the Atlantic at the park; open to the public',
     description: 'Located at Smith Point County Park, this granite memorial is positioned to look out toward the exact spot in the Atlantic where the plane exploded. The names are carved into a curved wall that follows the trajectory of the flight.',
     lat: 40.7302,
     lng: -72.8647,
@@ -1918,7 +1918,7 @@ export const moments: Moment[] = [
   {
     id: 'twa-impact-zone',
     name: 'TWA Flight 800 Explodes Over the Atlantic',
-    subtitle: 'Where the wreckage was fished from the seabed over months',
+    subtitle: '8 miles south of East Moriches, NY. Open ocean; no marker at the crash site',
     description: 'Approximately 8 miles south of East Moriches, the wreckage was recovered from the ocean floor. Divers spent months in an underwater scrapyard, retrieving over 95% of the aircraft. The reconstruction of the fuselage in a Long Island hangar remains one of the most haunting engineering projects ever undertaken.',
     lat: 40.65,
     lng: -72.6333,
@@ -1933,7 +1933,7 @@ export const moments: Moment[] = [
   {
     id: 'twa-calverton',
     name: 'Wreckage Reassembled to Prove a Fuel Tank Short Circuit',
-    subtitle: 'Where the ghost of a 747 was rebuilt piece by piece',
+    subtitle: '400 Isaac Dogleg Rd, Calverton, NY. The former Grumman facility; the reconstruction hangar has been demolished',
     description: 'In a massive hangar at the former Grumman facility, investigators spent years painstakingly wiring together the recovered fragments. This 3D jigsaw puzzle proved that a short circuit in a fuel tank, not a missile, caused the explosion.',
     lat: 40.9169,
     lng: -72.7881,
@@ -1948,7 +1948,7 @@ export const moments: Moment[] = [
   {
     id: 'vj-memorial',
     name: '110 Stone Pillars Mark the Loss of ValuJet Flight 592',
-    subtitle: '110 concrete pillars standing in the silence of the sawgrass',
+    subtitle: 'Tamiami Trail, Miami-Dade County, FL. The memorial stands alongside US-41; 110 stone pillars face the crash site',
     description: 'Located alongside the Tamiami Trail, this memorial consists of 110 stone pillars pointing toward the crash site deep in the swamp. The crash was so violent that the DC-9 effectively disintegrated into the mud, making it one of the most difficult recovery operations in FBI and NTSB history.',
     lat: 25.7617,
     lng: -80.6725,
@@ -1964,7 +1964,7 @@ export const moments: Moment[] = [
   {
     id: 'vj-crash-site',
     name: 'DC-9 Dives Vertically Into the Everglades',
-    subtitle: 'Where the swamp swallowed an entire aircraft in seconds',
+    subtitle: 'Francis S. Taylor Wildlife Management Area, FL. The crash site in the Everglades is a restricted zone',
     description: 'Approximately 11 miles north of the Tamiami Trail, the aircraft dived into the muck at a near-vertical angle. The fuel-fed fire was so intense that it left a massive crater in the limestone bedrock beneath the mud. The area is a restricted zone today.',
     lat: 25.87,
     lng: -80.6725,
@@ -1979,7 +1979,7 @@ export const moments: Moment[] = [
   {
     id: 'vj-sabretech',
     name: 'Expired Oxygen Generators Loaded Without Safety Caps',
-    subtitle: 'Where the fatal mistake was packaged and loaded',
+    subtitle: 'Miami International Airport, Miami, FL. The SabreTech maintenance facility no longer operates at MIA',
     description: 'This facility at Miami International Airport was where the expired chemical oxygen generators were improperly handled and labeled. The decision to ship them without safety caps turned the cargo hold of Flight 592 into a ticking time bomb, leading to the criminal indictment of the maintenance company.',
     lat: 25.7959,
     lng: -80.2871,
@@ -1994,7 +1994,7 @@ export const moments: Moment[] = [
   {
     id: 'f93-impact',
     name: 'Flight 93 Crashes After Passengers Storm the Cockpit',
-    subtitle: 'Where the Let\'s Roll counter-attack ended in a field',
+    subtitle: '6424 Lincoln Hwy, Stoystown, PA. Flight 93 National Memorial; NPS managed, Wall of Names and visitor center open daily',
     description: 'The plane struck the ground at over 500 mph near an abandoned coal strip mine. Today, a massive sandstone boulder marks the impact point, restricted to family members only. From the visitor center above, you can see the Wall of Names — 40 white marble panels aligned with the flight path.',
     lat: 40.0505,
     lng: -78.9054,
@@ -2010,7 +2010,7 @@ export const moments: Moment[] = [
   {
     id: 'f93-tower',
     name: 'Forty Wind Chimes Sound for the Passengers of Flight 93',
-    subtitle: 'A 93-foot instrument of wind and memory',
+    subtitle: '6424 Lincoln Hwy, Stoystown, PA. The 93-foot Tower of Voices with 40 wind chimes stands at the memorial entrance',
     description: 'This towering structure at the entrance of the memorial contains 40 wind chimes, each tuned to a unique pitch to represent the distinct voices of the passengers and crew. It serves as a living, sonic monument to the phone calls made from the back of the plane.',
     lat: 40.0558,
     lng: -78.8978,
@@ -2025,7 +2025,7 @@ export const moments: Moment[] = [
   {
     id: 'f93-newark',
     name: 'Flight 93 Departs 42 Minutes Late, Changing Everything',
-    subtitle: 'The ordinary gate where the final 9/11 mission began',
+    subtitle: '3 Brewster Rd, Newark, NJ. Newark Liberty International Airport; the gate area has been rebuilt',
     description: 'At 8:42 AM, Flight 93 departed from this gate, 42 minutes behind schedule. This delay was the single most important variable of the day — it allowed the passengers to learn about the World Trade Center attacks via airphone, giving them the knowledge they needed to storm the cockpit.',
     lat: 40.6895,
     lng: -74.1745,
@@ -2040,7 +2040,7 @@ export const moments: Moment[] = [
   {
     id: 'guerrero-acapulco-lure',
     name: 'A Traitor Lures President Guerrero Aboard a Ship with a Fake Lunch Invitation',
-    subtitle: 'A "friend" invites the President for lunch in the bay',
+    subtitle: 'Acapulco Harbor, Guerrero, Mexico. The harbor is a working port; cruise ships still dock here',
     description: 'On January 15, 1831, General Vicente Guerrero accepts a lunch invitation from Francisco Picaluga, an Italian merchant captain. They meet in the port of Acapulco where the ship is anchored. As soon as Guerrero steps onto the deck, Picaluga\'s men overpower him and weigh anchor, sailing south while the President\'s allies watch helplessly from the shore.',
     lat: 16.8494,
     lng: -99.9089,
@@ -2055,7 +2055,7 @@ export const moments: Moment[] = [
   {
     id: 'guerrero-la-entrega',
     name: 'Picaluga Sells the Bound President to Government Troops for 50,000 Gold Pesos',
-    subtitle: 'The President is sold for cash on a remote beach',
+    subtitle: 'Playa La Entrega, Huatulco, Oaxaca. The beach is now a popular tourist swimming spot in Bahías de Huatulco',
     description: 'The ship Colombo pulls into a quiet bay in Huatulco. Picaluga hands the bound President over to government troops in exchange for 50,000 gold pesos. The beach is immediately renamed "La Entrega" (The Delivery) to mark the transaction. It remains one of the few places on Earth named after a human trafficking event involving a head of state.',
     lat: 15.7431,
     lng: -96.1264,
@@ -2070,7 +2070,7 @@ export const moments: Moment[] = [
   {
     id: 'guerrero-cuilapan-execution',
     name: 'A Firing Squad Executes President Guerrero in a Monastery Courtyard',
-    subtitle: 'The final shots that ended an era of independence',
+    subtitle: 'Ex-Convento de Santiago Apóstol, Cuilapan de Guerrero, Oaxaca. The ruined monastery is open to visitors; a monument marks the execution spot',
     description: 'After a brief sham trial, Guerrero is taken to the monastery of Cuilapan. On February 14, 1831, he is forced to kneel in the courtyard and is executed by a firing squad. Today, a monument stands on the exact spot where he fell, marking the end of the man who officially abolished slavery in Mexico.',
     lat: 17.0051,
     lng: -96.7597,
@@ -2085,7 +2085,7 @@ export const moments: Moment[] = [
   {
     id: 'sabina-first-velada',
     name: 'María Sabina Shares Sacred Mushrooms with a Wall Street Banker',
-    subtitle: 'The first "velada" for a Western audience',
+    subtitle: 'Huautla de Jiménez, Oaxaca. Mountain town accessible by bus from Oaxaca City',
     description: 'In June 1955, Maria Sabina welcomes R. Gordon Wasson, a VP at J.P. Morgan, into her home. She performs a ritual using Psilocybe mushrooms, allowing him to participate — the first time a Westerner is known to have taken part in the Mazatec ceremony. Wasson\'s later article in Life magazine would launch the psychedelic age.',
     lat: 18.1319,
     lng: -96.8411,
@@ -2100,7 +2100,7 @@ export const moments: Moment[] = [
   {
     id: 'sabina-home-arson',
     name: 'Angry Neighbors Burn María Sabina Out of Her Home for Sharing Their Secrets',
-    subtitle: 'The community turns on the woman who "sold" their secrets',
+    subtitle: 'Huautla de Jiménez, Oaxaca. The town remains a center of Mazatec culture in the Sierra Madre',
     description: 'By the 1960s, Huautla is overrun by "hippies" and celebrities like John Lennon seeking a trip. Blaming her for the loss of tradition and the constant police presence, Maria Sabina\'s neighbors set fire to her house. She is forced to flee into the hills, eventually returning to live in a small hut until her death in 1985.',
     lat: 18.1325,
     lng: -96.842,
@@ -2115,7 +2115,7 @@ export const moments: Moment[] = [
   {
     id: 'tomb-7-discovery',
     name: 'Alfonso Caso Unseals a Stone Slab and Finds a King\'s Ransom in Tomb 7',
-    subtitle: 'The richest archaeological discovery in the Americas, untouched for 600 years beneath Monte Albán',
+    subtitle: 'Monte Albán, Oaxaca. UNESCO World Heritage Site; open daily with a museum at the entrance',
     description: 'On January 9, 1932, Alfonso Caso enters Tomb 7 at Monte Albán. Inside, he finds more than 400 objects, including gold pectorals, turquoise masks, and carved jaguar bones. The sheer volume of precious metal is so high that he has to call in the military to guard the site from looters.',
     lat: 17.0438,
     lng: -96.7677,
@@ -2130,7 +2130,7 @@ export const moments: Moment[] = [
   {
     id: 'tomb-7-museum',
     name: 'Mixtec Gold Treasures Installed in Their Permanent Home',
-    subtitle: 'The permanent home of the Mixtec gold',
+    subtitle: 'Museo de las Culturas de Oaxaca, Santo Domingo, Oaxaca City. The Tomb 7 treasures are in the main gallery; open daily',
     description: 'Due to the instability of the era, the treasure was moved under heavy guard. It is now the centerpiece of the Santo Domingo Museum. The collection includes the famous "Pectoral of the Dead," a gold breastplate depicting the Lord of the Underworld.',
     lat: 17.0669,
     lng: -96.7231,
@@ -2145,7 +2145,7 @@ export const moments: Moment[] = [
   {
     id: 'guiengola-fortress',
     name: 'Zapotec King Cosijoeza Fortifies a Mountain Against the Aztec Army',
-    subtitle: 'King Cosijoeza builds a wall the Aztecs can\'t climb',
+    subtitle: 'Guiengola Ruins, Tehuantepec, Oaxaca. The fortress ruins are accessible by a steep trail; no entrance fee',
     description: 'King Cosijoeza retreats to the limestone ridge of Guiengola as the Aztec army approaches. He constructs kilometers of stone walls and complex traps that utilize the natural cliffs. From this height, his warriors rain boulders and arrows on the exhausted Aztec vanguard below.',
     lat: 16.3581,
     lng: -95.3211,
@@ -2160,7 +2160,7 @@ export const moments: Moment[] = [
   {
     id: 'guiengola-river-stalemate',
     name: 'The Zapotecs Starve Out the Aztec Army in a Seven-Month Siege',
-    subtitle: 'The Zapotecs use the river as a weapon',
+    subtitle: 'Tehuantepec River, Oaxaca. The river is visible from the highway; the battlefield area is open countryside',
     description: 'The Aztecs set up camp by the Tehuantepec River, but the Zapotecs poison peripheral water sources and launch night raids. After seven months of stalemate, Emperor Ahuizotl realizes he cannot take the mountain and offers his daughter in marriage to Cosijoeza to end the war.',
     lat: 16.3267,
     lng: -95.2389,
@@ -2175,7 +2175,7 @@ export const moments: Moment[] = [
   {
     id: 'brad-will-shooting',
     name: 'Journalist Brad Will Films His Own Death at a Oaxacan Barricade',
-    subtitle: 'A camera captures the shots that shook the city',
+    subtitle: 'Santa Lucía del Camino, Oaxaca. The barricade site is a public street in a residential area',
     description: 'On October 27, 2006, Indymedia reporter Brad Will is filming a barricade. As he records plainclothes paramilitaries firing at protesters, two bullets hit him in the chest. His camera continues to run as he falls, capturing the sounds of the struggle to save him.',
     lat: 17.0655,
     lng: -96.6974,
@@ -2190,7 +2190,7 @@ export const moments: Moment[] = [
   {
     id: 'brad-will-red-cross',
     name: 'Brad Will Pronounced Dead at the Red Cross Clinic',
-    subtitle: 'The final attempt to save the filmmaker',
+    subtitle: 'Red Cross Clinic, Oaxaca City. The clinic still operates in the city center',
     description: 'Protesters load Will into a Volkswagen van to rush him to the hospital. Despite navigating through chaos and barricades, he is pronounced dead upon arrival at the Red Cross clinic. His death triggers a massive international outcry.',
     lat: 17.0678,
     lng: -96.7161,
@@ -2205,7 +2205,7 @@ export const moments: Moment[] = [
   {
     id: 'marcos-san-cristobal',
     name: 'EZLN Rebels Seize the Municipal Palace and Declare War on Mexico',
-    subtitle: 'The Zapatistas declare war on the Mexican state',
+    subtitle: 'Municipal Palace, San Cristóbal de las Casas, Chiapas. The palace faces the main plaza; the colonial town center is a tourist destination',
     description: 'On January 1, 1994, the EZLN occupies San Cristóbal de las Casas. From this balcony, a masked man known as "Marcos" reads the First Declaration of the Lacandon Jungle. The world is introduced to a new kind of postmodern rebellion.',
     lat: 16.7369,
     lng: -92.6375,
@@ -2220,7 +2220,7 @@ export const moments: Moment[] = [
   {
     id: 'marcos-unmasking',
     name: 'The Mexican Government Unmasks Subcomandante Marcos as a Philosophy Professor',
-    subtitle: 'The government reveals "Rafael Sebastián Guillén Vicente"',
+    subtitle: 'Los Pinos Presidential Residence, Mexico City. Now a public cultural center; open to visitors',
     description: 'In a televised press conference, President Ernesto Zedillo reveals that Marcos is a former philosophy professor. The government issues an arrest warrant and launches a military offensive. Marcos famously responds that he is every exploited minority.',
     lat: 19.4219,
     lng: -99.1856,
@@ -2235,7 +2235,7 @@ export const moments: Moment[] = [
   {
     id: 'pakal-temple-inscriptions',
     name: 'Archaeologist Uncovers Pakal\'s Sarcophagus Beneath the Pyramid',
-    subtitle: 'Alberto Ruz Lhuillier finds the secret staircase',
+    subtitle: 'Temple of the Inscriptions, Palenque, Chiapas. UNESCO site; the tomb is visible through a window at the base of the pyramid',
     description: 'After four years of clearing rubble, Lhuillier reaches a chamber 80 feet below the pyramid floor. He finds the massive sarcophagus of Pakal. The find shatters the belief that Maya pyramids were only temples, not tombs.',
     lat: 17.4848,
     lng: -92.0469,
@@ -2250,7 +2250,7 @@ export const moments: Moment[] = [
   {
     id: 'pakal-museum-anthropology',
     name: 'Pakal\'s Jade Death Mask Goes on Permanent Display',
-    subtitle: 'Where the "Astronaut" lid is displayed',
+    subtitle: 'Museo Nacional de Antropología, Chapultepec, Mexico City. The sarcophagus lid is in the Maya Hall',
     description: 'The original 5-ton sarcophagus lid and the jade death mask of Pakal are housed in the Maya hall. Millions of visitors have stood before the carvings that fueled Erich von Däniken\'s Chariots of the Gods.',
     lat: 19.4517,
     lng: -99.1863,
@@ -2265,7 +2265,7 @@ export const moments: Moment[] = [
   {
     id: 'diaz-convent-escape',
     name: 'Porfirio Díaz Escapes a French Prison by Rappelling Down Stone Walls in a Storm',
-    subtitle: 'A prisoner of war vanishes into the night',
+    subtitle: 'Ex-Convento de San Felipe Neri, Oaxaca City. The building still stands in the historic center',
     description: 'On September 20, 1865, Díaz is held by French forces in the Convent of San Felipe Neri. Using a smuggled rope, he climbs out of his cell and descends the sheer walls during a storm. He evades sentries and flees on horseback.',
     lat: 17.0633,
     lng: -96.7269,
@@ -2280,7 +2280,7 @@ export const moments: Moment[] = [
   {
     id: 'diaz-battle-miahuatlan',
     name: 'Díaz Defeats French and Imperial Troops at Miahuatlán',
-    subtitle: 'Where the escape turned into a victory',
+    subtitle: 'Miahuatlán de Porfirio Díaz, Oaxaca. The town plaza has a monument to the battle',
     description: 'Following his escape, Díaz gathered a ragtag force and defeated the French and imperial troops here on October 3, 1866. This victory opened the road to Oaxaca and established his reputation as a military genius.',
     lat: 16.3292,
     lng: -96.5954,
@@ -2295,7 +2295,7 @@ export const moments: Moment[] = [
   {
     id: 'coyame-crash-site',
     name: 'A Cessna Collides with an Unidentified Object at 7,500 Feet over Coyame',
-    subtitle: 'A Cessna meets an unidentified object at 7,500 feet',
+    subtitle: 'Coyame del Sotol, Chihuahua, Mexico. Remote desert town; no public marker',
     description: 'On August 25, 1974, a plane vanishes from radar near Coyame. U.S. radar in El Paso confirms a collision with a high-speed object performing "impossible" maneuvers. Both objects fall into a remote stretch of the Chihuahua desert.',
     lat: 29.4614,
     lng: -105.0972,
@@ -2310,7 +2310,7 @@ export const moments: Moment[] = [
   {
     id: 'coyame-toxic-convoy',
     name: 'A Mexican Army Recovery Team Dies Near the Crash Site Under Mysterious Circumstances',
-    subtitle: 'A "recovery" operation ends in silence',
+    subtitle: 'Chihuahua Desert, Mexico. Remote desert area; no public access or marker',
     description: 'The Mexican Army arrives first. According to alleged CIA reports, the team stopped communicating; U.S. surveillance later saw soldiers lying dead around their vehicles. A U.S. extraction team in hazmat suits allegedly air-lifted the disc back to the U.S.',
     lat: 29.48,
     lng: -105.15,
@@ -2325,7 +2325,7 @@ export const moments: Moment[] = [
   {
     id: 'eclipse-ufo-zocalo',
     name: 'Thousands Film a Silver Disc Hovering over Mexico City During a Solar Eclipse',
-    subtitle: 'A nation looks up and sees a silver disc',
+    subtitle: 'Zócalo, Mexico City. The main plaza is open to the public; the National Palace and cathedral face the square',
     description: 'On July 11, 1991, as the moon covers the sun, thousands of residents point camcorders at the sky. They capture a bright, bell-shaped object that remains stationary while the stars become visible. The footage is broadcast that night on national news.',
     lat: 19.4326,
     lng: -99.1332,
@@ -2340,7 +2340,7 @@ export const moments: Moment[] = [
   {
     id: 'eclipse-ufo-pyramids',
     name: 'Tourists at Teotihuacán Record the Same Object from 30 Miles Away',
-    subtitle: 'The "ancients" return for the eclipse',
+    subtitle: 'Teotihuacán, State of Mexico. UNESCO site; 50 km northeast of Mexico City, open daily',
     description: 'Simultaneously, tourists at Teotihuacán record the same object from 30 miles away. Triangulation confirms the object was a physical craft of immense size. Skeptics claim it was Venus, but the zoom-ins remain a cornerstone of UFO evidence.',
     lat: 19.6925,
     lng: -98.8436,
@@ -2355,7 +2355,7 @@ export const moments: Moment[] = [
   {
     id: 'flir-campeche-skies',
     name: 'A Military Patrol Captures 11 Luminous Spheres on Infrared Camera over Campeche',
-    subtitle: '"They are surrounding us!"',
+    subtitle: 'Skies over Campeche, Mexico. The sighting was in open airspace; Campeche city has a historic walled center',
     description: 'On March 5, 2004, a Merlin-C3 patrol detects 11 luminous spheres on their infrared camera. The objects perform maneuvers that defy aerodynamics and eventually "cloak" the aircraft. The crew\'s frantic radio chatter was later released to the public.',
     lat: 18.6417,
     lng: -91.8275,
@@ -2370,7 +2370,7 @@ export const moments: Moment[] = [
   {
     id: 'flir-press-conference',
     name: 'Mexico\'s Military Publicly Releases UFO Footage for the First Time',
-    subtitle: 'The government admits the "unexplained"',
+    subtitle: 'Lomas de Sotelo, Mexico City. Military base area; not publicly accessible',
     description: 'Secretary of Defense Clemente Vega authorized the release of the footage at the SEDENA headquarters. It was the first time a national military proactively shared such data with civilian UFO researchers, specifically Jaime Maussan.',
     lat: 19.4355,
     lng: -99.2136,
@@ -2385,7 +2385,7 @@ export const moments: Moment[] = [
   {
     id: 'grinberg-home-disappearance',
     name: 'Neuroscientist Jacobo Grinberg Vanishes Without a Trace Days Before a Major Presentation',
-    subtitle: 'A birthday party without the guest of honor',
+    subtitle: 'Frida Kahlo Museum (Casa Azul), Coyoacán, Mexico City. Open to visitors; advance tickets recommended',
     description: 'On December 8, 1994, Grinberg fails to show up for his 48th birthday party. He was preparing to present his theory that the brain creates reality. His wife vanishes shortly after, leaving the investigation in a total vacuum.',
     lat: 19.3317,
     lng: -99.1844,
@@ -2400,7 +2400,7 @@ export const moments: Moment[] = [
   {
     id: 'grinberg-unam-lab',
     name: 'Grinberg\'s Research Notes Vanish from His UNAM Laboratory',
-    subtitle: 'Where the "Lattice" theory notes vanished',
+    subtitle: 'UNAM campus, Mexico City. The university campus is a UNESCO World Heritage Site; open to the public',
     description: 'Grinberg\'s lab at the Institute of Psychology was found in perfect order, except for the missing data from his most recent experiments on "extra-sensory perception." Students reported he had seemed paranoid in his final days.',
     lat: 19.3308,
     lng: -99.1843,
@@ -2415,7 +2415,7 @@ export const moments: Moment[] = [
   {
     id: 'zone-silence-impact',
     name: 'A U.S. Athena Rocket Veers Off Course and Crashes into Mexico\'s "Zone of Silence"',
-    subtitle: 'A "magnetic pull" brings down a US rocket',
+    subtitle: 'Bolsón de Mapimí, Durango, Mexico. Remote desert area known as the Zone of Silence',
     description: 'In July 1970, an Athena rocket launched from Utah "deviates" and flies deep into the Mapimí desert. The US military discovers that radio waves are absorbed and compasses spin wildly here. They spent weeks in a secret recovery operation.',
     lat: 26.7025,
     lng: -103.7389,
@@ -2430,7 +2430,7 @@ export const moments: Moment[] = [
   {
     id: 'zone-silence-ceballos',
     name: 'U.S. Air Force Builds a Secret Rail Spur to Remove Radioactive Soil',
-    subtitle: 'The ghost rail built for radioactive dirt',
+    subtitle: 'Ceballos, Durango, Mexico. Small desert town; gateway to the Zone of Silence',
     description: 'The US Air Force built a temporary rail spur here to excavate and move tons of radioactive soil back to the US. The station became the logistical hub for one of the most bizarre "border incursions" in US-Mexico history.',
     lat: 26.5264,
     lng: -104.1292,
@@ -2445,7 +2445,7 @@ export const moments: Moment[] = [
   {
     id: 'bermeja-mapped-existence',
     name: 'Spanish Cartographers First Map the Island of Bermeja in 1535',
-    subtitle: '400 years of documented existence',
+    subtitle: 'Gulf of Mexico. Open waters; sightings reported from coastal Veracruz and Tabasco',
     description: 'Starting in 1535, Bermeja is marked as a reddish island 100 miles off the Yucatan. It appears on British and Mexican maps for centuries and was used to calculate Mexico\'s 200-mile Exclusive Economic Zone.',
     lat: 22.55,
     lng: -91.3667,
@@ -2460,7 +2460,7 @@ export const moments: Moment[] = [
   {
     id: 'bermeja-navy-search',
     name: 'A Research Ship Finds Only Open Ocean Where Bermeja Should Be',
-    subtitle: '1,400 meters of water and no island',
+    subtitle: 'Gulf of Mexico. Deep-water location off the Yucatan coast; no accessible site',
     description: 'In 2009, a research ship reaches the coordinates to settle an oil dispute. They find a flat seafloor a mile deep with no evidence of a sunken island. Mexico loses a massive portion of the "Doughnut Hole" oil fields to the US.',
     lat: 22.55,
     lng: -91.3667,
@@ -2475,7 +2475,7 @@ export const moments: Moment[] = [
   {
     id: 'alux-bridge-sabotage',
     name: 'A Bridge Over the Nichupté Lagoon Collapses Three Times with No Explanation',
-    subtitle: 'The construction that wouldn\'t stay built',
+    subtitle: 'Nichupté Lagoon, Cancún, Mexico. The lagoon separates the hotel zone from the mainland; visible from the road',
     description: 'During construction over the Nichupté Lagoon, workers found their work destroyed each morning. After three collapses with no explanation, Mayan elders said they were "disturbing the guardians." The builders decided to negotiate.',
     lat: 21.0333,
     lng: -86.7833,
@@ -2491,7 +2491,7 @@ export const moments: Moment[] = [
   {
     id: 'alux-stone-house',
     name: 'Engineers Build a Tiny Pyramid Under the Bridge to Appease the Aluxes',
-    subtitle: 'A contract with the supernatural',
+    subtitle: 'Boulevard Kukulcán, Cancún Hotel Zone, Mexico. The hotel zone stretches along the lagoon',
     description: 'The company built a tiny pyramid-shaped house under the bridge. A priest performed a ceremony to ask permission. The bridge hasn\'t had an issue since, and the house remains a permanent fixture of Cancun\'s infrastructure.',
     lat: 21.0315,
     lng: -86.7818,
@@ -2507,7 +2507,7 @@ export const moments: Moment[] = [
   {
     id: 'halley-tacubaya-observatory',
     name: 'Observatory Confirms Comet, Sparking Anti-Comet Pill Hysteria',
-    subtitle: 'The National Observatory confirms the "gas"',
+    subtitle: 'Tacubaya, Mexico City. The old observatory building still stands in the Tacubaya neighborhood',
     description: 'In 1910, the observatory monitors the comet. When news of the "toxic tail" hits the tabloids, it sparks hysteria. People began buying "anti-comet pills" and "gas-proof" umbrellas in the Zócalo.',
     lat: 19.4019,
     lng: -99.1889,
@@ -2522,7 +2522,7 @@ export const moments: Moment[] = [
   {
     id: 'halley-tlaxiaco-ritual',
     name: 'Families Seal Themselves in a Cave to Escape the Comet\'s Tail',
-    subtitle: 'A family chooses death over suffocation',
+    subtitle: 'Tlaxiaco, Oaxaca, Mexico. Market town in the Mixteca Alta; accessible by road from Oaxaca',
     description: 'In the Mixteca region, reports emerged of families taking their own lives to avoid the "poisoned air." In Tlaxiaco, a group sealed themselves in a cave to escape the comet\'s tail, dying of carbon monoxide poisoning from their own fires.',
     lat: 17.2655,
     lng: -97.6784,
@@ -2537,7 +2537,7 @@ export const moments: Moment[] = [
   {
     id: 'cannibal-roma-apartment',
     name: 'Police Raid a Mexico City Apartment and Find Human Remains in the Refrigerator',
-    subtitle: 'A smell of "rotting meat" leads to a horrific discovery',
+    subtitle: 'Alvaro Obregón 141, Roma Norte, Mexico City. The building is in the trendy Roma Norte neighborhood',
     description: 'On October 8, 2007, police enter Apartment 16 on Calle Alvaro Obregón looking for a missing woman. They find Jose Luis Calva Mercado calmly writing at his desk. In the kitchen, they discover human remains in the refrigerator and a cereal bowl containing cooked flesh seasoned with lemon. Calva tries to escape by jumping from the balcony, only to be hit by a car in the street below.',
     lat: 19.4181,
     lng: -99.1578,
@@ -2552,7 +2552,7 @@ export const moments: Moment[] = [
   {
     id: 'cannibal-tlatelolco-dump',
     name: 'Forensic Teams Recover Dismembered Remains Scattered Through the Tlatelolco Ruins',
-    subtitle: 'The scattered remains of the "Poet\'s" victims',
+    subtitle: 'Tlatelolco, Mexico City. The archaeological site and Plaza de las Tres Culturas are open to visitors',
     description: 'Investigation reveals Calva had been disposing of remains in the desolate corners of the Tlatelolco housing complex and nearby waste sites. Forensic teams recover suitcases containing dismembered parts, linking him to at least three murders. His unfinished novel, "Instincts of a Killer," was found to be a literal blueprint for his actions.',
     lat: 19.4511,
     lng: -99.1372,
@@ -2567,7 +2567,7 @@ export const moments: Moment[] = [
   {
     id: 'stranger-planting-site',
     name: 'A Mysterious Robed Stranger Plants a Massive Cross on the Pacific Coast',
-    subtitle: 'A mysterious traveler arrives on the Pacific coast',
+    subtitle: 'Santa Cruz Bay, Huatulco, Oaxaca. A tourist beach in the Bahías de Huatulco resort area',
     description: 'Local Zapotec oral history tells of a man in a white robe who arrived from the sea. He erected a massive cross of "madero" wood on the beach at Santa Cruz and told the locals that "one day, men from the east would come to claim this sign." For over a millennium, the locals worshipped the site as "Cuahtolco"—the place where wood is adored.',
     lat: 15.7512,
     lng: -96.1275,
@@ -2582,7 +2582,7 @@ export const moments: Moment[] = [
   {
     id: 'stranger-vatican-relic',
     name: 'The Vatican Receives a Fragment of the "Miraculous" Cross That Survived Pirate Fires',
-    subtitle: 'Where the miracle wood ended its journey',
+    subtitle: 'Cathedral of Oaxaca, Oaxaca City. The cathedral faces the Zócalo; open daily',
     description: 'After the cross survived the pirate Cavendish\'s fires in 1587, it was broken into fragments to satisfy the demand for relics. The largest remaining piece was sent to the Vatican, while other shards were placed in the Oaxaca Cathedral. Scientists who examined the wood in the 17th century noted it was a species not found in the region, yet it had not rotted despite 1,500 years of sea air.',
     lat: 17.0621,
     lng: -96.7231,
@@ -2597,7 +2597,7 @@ export const moments: Moment[] = [
   {
     id: 'maximilian-convent-prison',
     name: 'Emperor Maximilian Imprisoned in a Convent After Querétaro Falls',
-    subtitle: 'The Emperor\'s final headquarters turned cell',
+    subtitle: 'Templo y Convento de la Santa Cruz, Querétaro. The convent is open to visitors as a museum',
     description: 'During the 100-day Siege of Querétaro, Maximilian makes this stone convent his base. When the city falls due to betrayal, he is arrested in his room and held here during his trial. He famously spends his final days battling dysentery and writing letters to his wife, Charlotte, who is losing her mind in Europe.',
     lat: 20.5934,
     lng: -100.3862,
@@ -2612,7 +2612,7 @@ export const moments: Moment[] = [
   {
     id: 'maximilian-firing-squad',
     name: 'Firing Squad Executes Emperor Maximilian at Dawn',
-    subtitle: 'Where the Habsburg dream died in the dust',
+    subtitle: 'Cerro de las Campanas, Querétaro. A hilltop park with a chapel marking the execution site; open to the public',
     description: 'On the morning of June 19, 1867, Maximilian was led to this hill alongside his two generals. He gave each member of the firing squad a gold coin and asked them to aim for his heart, not his face, so his mother could recognize him. The shots rang out at 7:05 AM, signaling the triumph of Benito Juárez and the Republic.',
     lat: 20.6019,
     lng: -100.4103,
@@ -2627,7 +2627,7 @@ export const moments: Moment[] = [
   {
     id: 'monchito-rubble-site',
     name: 'Rescuers Hear a Trapped Child\'s Tapping — But Find Only Money',
-    subtitle: 'The sound of rhythmic tapping beneath 20 tons of concrete',
+    subtitle: 'Calle Venustiano Carranza, Historic Center, Mexico City. The 1985 earthquake debris is long cleared; the street is in the city center',
     description: 'Three weeks after the quake, specialized sensors detect a heartbeat and rhythmic tapping at this site. Rescuers identify the survivor as 9-year-old Luis Ramón "Monchito" Nafarrete. The President of Mexico and international media descend on the site. However, after 20 days of digging, they find only a safe full of money and no evidence of a child, leading to theories of a "collective auditory hallucination" or a massive insurance fraud distraction.',
     lat: 19.4312,
     lng: -99.1215,
@@ -2642,7 +2642,7 @@ export const moments: Moment[] = [
   {
     id: 'torreon-plaza-massacre',
     name: 'Revolutionaries Massacre Chinese Immigrants in Torreón',
-    subtitle: 'A prosperous community destroyed in a morning',
+    subtitle: 'Plaza de Armas, Torreón, Coahuila. The main plaza; the city has been rebuilt since the 1911 massacre',
     description: 'On May 15, 1911, revolutionary forces take the city. Fuelled by racist rhetoric that Chinese immigrants were "taking Mexican jobs," soldiers and local mobs begin a systematic slaughter. Chinese laundry owners and gardeners are dragged into the streets and killed. The violence is so extreme that the Chinese government eventually demands a formal apology and reparations from the Mexican state.',
     lat: 25.5417,
     lng: -103.4542,
@@ -2657,7 +2657,7 @@ export const moments: Moment[] = [
   {
     id: 'diaz-ajusco-sighting',
     name: 'Photographer Carlos Díaz Captures Close-Range Photos of a Glowing Craft in Ajusco',
-    subtitle: 'A photographer meets a craft made of plasma',
+    subtitle: 'Ajusco National Park, Mexico City. The forested park south of the city is open to hikers',
     description: 'Carlos Diaz is sitting in his car in the Ajusco forest when a glowing, orange, dome-shaped object hovers directly in front of him. He captures a series of incredible photographs that have been analyzed by NASA scientists and photographic experts worldwide, who were unable to find any evidence of fraud or manipulation. Diaz claims the craft was "alive" and organic.',
     lat: 19.2131,
     lng: -99.2592,
@@ -2672,7 +2672,7 @@ export const moments: Moment[] = [
   {
     id: 'diaz-press-demonstration',
     name: 'Carlos Díaz Presents His UFO Footage on National Television',
-    subtitle: 'Proof of the impossible on national television',
+    subtitle: 'Televisa San Angel, Mexico City. The television studio is in the San Ángel neighborhood',
     description: 'After years of skepticism, Diaz provides video footage of the craft to journalist Jaime Maussan. The footage shows a craft that appears to "blink" in and out of existence, matching the descriptions of thousands of other witnesses in the Mexico City area. This event turns the Ajusco mountains into a global hotspot for UFO tourism.',
     lat: 19.34,
     lng: -99.19,
@@ -2687,7 +2687,7 @@ export const moments: Moment[] = [
   {
     id: 'guanajuato-cemetery-exhumation',
     name: 'Unpaid Graves Exhumed, Revealing Mummified Bodies',
-    subtitle: 'Evicted from the grave for failing to pay taxes',
+    subtitle: 'Panteón de Santa Paula, Guanajuato. Now the Museo de las Momias; the mummies are on display',
     description: 'In 1865, cemetery workers exhume the body of Dr. Remigio Leroy, a French physician. They find him perfectly preserved. Over the next few decades, hundreds of bodies are removed. The most terrifying is "La China," a woman found with her hands over her face and her mouth open in a scream—forensic analysis later suggested she was buried in a state of catalepsy while still alive.',
     lat: 21.02,
     lng: -101.2667,
@@ -2702,7 +2702,7 @@ export const moments: Moment[] = [
   {
     id: 'colosio-lomas-taurinas',
     name: 'Gunman Assassinates Presidential Candidate Colosio at a Rally',
-    subtitle: 'The shots heard across the Republic',
+    subtitle: 'Plaza de la Unidad, Lomas Taurinas, Tijuana. A memorial stands at the site of the Colosio assassination',
     description: 'On March 23, 1994, Colosio is walking through a densely packed crowd in a poor Tijuana neighborhood. Mario Aburto Martínez presses a .38 Taurus against the candidate\'s temple and fires. A second shot hits him in the abdomen. The chaotic footage of the crowd surging as the music continues to play remains one of the most traumatizing images in Mexican political history.',
     lat: 32.5317,
     lng: -116.9469,
@@ -2717,7 +2717,7 @@ export const moments: Moment[] = [
   {
     id: 'cobalt-medical-theft',
     name: 'A Maintenance Worker Steals a Radioactive Cancer Machine for Scrap',
-    subtitle: 'A maintenance worker steals a "paperweight" worth of death',
+    subtitle: 'Centro Médico de Especialidades, Ciudad Juárez, Chihuahua. The hospital where the cobalt-60 source was traced',
     description: 'Vicente Sotelo Alardín, a maintenance worker at a private clinic, decides to sell a decommissioned cancer therapy machine for scrap. He and a friend load the heavy lead-shielded head into an old Datsun pickup. They have no idea it contains 450 curies of Cobalt-60 in the form of thousands of tiny metallic pellets.',
     lat: 31.7333,
     lng: -106.4833,
@@ -2733,7 +2733,7 @@ export const moments: Moment[] = [
   {
     id: 'cobalt-junkyard-crush',
     name: 'A Junkyard Crushes a Therapy Machine, Releasing Radioactive Pellets',
-    subtitle: 'Where the "silent killer" was released into the air',
+    subtitle: 'Yonke Fénix, Ciudad Juárez, Chihuahua. The junkyard where the stolen source was broken open',
     description: 'Sotelo takes the machine to the Yonke Fénix junkyard. To get to the valuable lead, the machine is punctured and crushed. Thousands of radioactive pellets spill into the yard, clinging to the magnets of cranes and the soles of workers\' shoes. The Datsun pickup, now a mobile radiation source, is parked in a residential street for weeks, exposing neighbors to massive doses.',
     lat: 31.7005,
     lng: -106.4421,
@@ -2749,7 +2749,7 @@ export const moments: Moment[] = [
   {
     id: 'cobalt-foundry-melting',
     name: 'Foundry Melts Radioactive Scrap into Rebar Shipped Across Two Nations',
-    subtitle: 'Where the radiation was forged into a nation\'s infrastructure',
+    subtitle: 'Chihuahua City, Chihuahua. Contaminated rebar was used in construction across the state',
     description: 'The contaminated scrap is sold to a foundry where it is melted down to produce rebar and table legs. The radioactive steel is shipped to 20 Mexican states and over 40 US states. The accident is only discovered months later when a delivery truck takes a wrong turn and triggers radiation sensors at Los Alamos National Laboratory in New Mexico.',
     lat: 28.6333,
     lng: -106.0833,
@@ -2765,7 +2765,7 @@ export const moments: Moment[] = [
   {
     id: 'teotihuacan-tunnel-entrance',
     name: 'A Robot Enters a 2,000-Year-Old Sealed Tunnel Beneath a Pyramid',
-    subtitle: 'A sinkhole reveals a 2,000-year-old secret',
+    subtitle: 'Temple of the Feathered Serpent, Teotihuacán. The tunnel entrance is below the pyramid; the site is part of the UNESCO complex',
     description: 'In 2003, heavy rains opened a small sinkhole at the foot of the Temple of the Feathered Serpent. Archaeologist Sergio Gómez descended by rope to find a perfectly cylindrical shaft leading to a blocked tunnel. In 2010, the robot "Tlaloc II-TC" was sent in, navigating through the mud to reveal chambers that hadn\'t been seen since the city was abandoned.',
     lat: 19.6891,
     lng: -98.8481,
@@ -2780,7 +2780,7 @@ export const moments: Moment[] = [
   {
     id: 'teotihuacan-mercury-chamber',
     name: 'Archaeologists Find a Pool of Liquid Mercury Mimicking an Underworld Lake',
-    subtitle: 'Standing at the threshold of the underworld',
+    subtitle: 'Subterranean Tunnels, Teotihuacán. Part of the archaeological zone; access varies by excavation status',
     description: 'At the tunnel\'s deepest point, archaeologists found a large pool of liquid mercury. The toxic metal was used to create a shimmering, reflective "lake" that mimicked the cosmic sea of the afterlife. The walls were dusted with pyrite (fool\'s gold) to make the tunnel look like it was filled with stars when viewed by torchlight.',
     lat: 19.6893,
     lng: -98.8479,
@@ -2795,7 +2795,7 @@ export const moments: Moment[] = [
   {
     id: 'atizapan-house-horrors',
     name: 'Police Find 17 Bodies Beneath a Suburban Kitchen Floor',
-    subtitle: 'A butcher\'s shop hidden in a suburban kitchen',
+    subtitle: 'Calle Margaritas, Atizapán de Zaragoza, State of Mexico. Residential street in a Mexico City suburb',
     description: 'On May 15, 2021, police enter the home of Andrés Mendoza after he is linked to the disappearance of a 34-year-old woman. Beneath the floorboards of his kitchen and bedroom, they find thousands of bone fragments. Mendoza, a former butcher, had meticulously dismembered his victims and preserved their remains in salt.',
     lat: 19.5847,
     lng: -99.2552,
@@ -2810,7 +2810,7 @@ export const moments: Moment[] = [
   {
     id: 'atizapan-market-stall',
     name: 'A Serial Killer Allegedly Sells Victims\' Flesh as Pork',
-    subtitle: 'Where "carnitas" were sold with a dark secret',
+    subtitle: 'Lomas de San Miguel, Atizapán, State of Mexico. Residential area in a Mexico City suburb',
     description: 'During his confession, Mendoza claimed he would often cook the flesh of his victims and offer it to neighbors or sell it as pork "carnitas" at local markets. For years, he was seen as a friendly, helpful older man who regularly participated in local political campaigns, using his public persona to hide his predatory nature.',
     lat: 19.5862,
     lng: -99.258,
@@ -2825,7 +2825,7 @@ export const moments: Moment[] = [
   {
     id: 'huatulco-pirate-landing',
     name: 'English Privateer Cavendish Sacks Huatulco',
-    subtitle: 'Cavendish brings the war of the empires to the Pacific',
+    subtitle: 'Santa Cruz Bay, Huatulco, Oaxaca. The bay is now a tourist beach; boats depart for snorkeling tours',
     description: 'In July 1587, Thomas Cavendish sails into Santa Cruz Bay with his ship "Desire." He burns the town to the ground and loots the customs house. His crew, fueled by Protestant fervor, sets their sights on the large wooden cross that dominates the shoreline, viewing it as a symbol of Spanish Catholic idolatry.',
     lat: 15.7512,
     lng: -96.1275,
@@ -2840,7 +2840,7 @@ export const moments: Moment[] = [
   {
     id: 'huatulco-cross-struggle',
     name: 'Cavendish Fails to Destroy a Legendary Cross Despite Fire and Axes',
-    subtitle: 'A ship versus a single beam of timber',
+    subtitle: 'Plaza de la Santa Cruz, Huatulco, Oaxaca. A small plaza near the bay; the cross replica is on display',
     description: 'Cavendish orders his men to chop down the cross, but their axes bounce off the wood. They pile pitch-soaked wood at the base and set it ablaze, but the cross remains uncharred. Finally, they tie thick cables from the cross to the "Desire" and attempt to drag it into the sea. The ropes snap, and the ship is nearly pulled toward the shore, forcing Cavendish to retreat in frustration.',
     lat: 15.7515,
     lng: -96.1278,
@@ -2855,7 +2855,7 @@ export const moments: Moment[] = [
   {
     id: 'tlatelolco-flare-signal',
     name: 'A Helicopter Fires Green Flares Signaling the Tlatelolco Massacre',
-    subtitle: 'The sky turns green as the shooting begins',
+    subtitle: 'Plaza de las Tres Culturas, Tlatelolco, Mexico City. The plaza is open to the public; a memorial plaque is on the ground',
     description: 'At 6:10 PM on October 2, 1968, a helicopter circles over the Plaza de las Tres Culturas and fires two green flares. This is the signal for the "Batallón Olimpia"—a secret paramilitary unit wearing white gloves—to begin arresting student leaders and for snipers in the surrounding buildings to open fire.',
     lat: 19.4511,
     lng: -99.1372,
@@ -2871,7 +2871,7 @@ export const moments: Moment[] = [
   {
     id: 'tlatelolco-chihuahua-snipers',
     name: 'Snipers in the Chihuahua Building Fire on Students Below',
-    subtitle: 'Snipers in the windows of "modernity"',
+    subtitle: 'Edificio Chihuahua, Tlatelolco, Mexico City. The apartment building still stands facing the plaza',
     description: 'The tallest apartment complex overlooking the plaza, the Edificio Chihuahua, was filled with snipers from the Presidential Guard. They fired into the crowd below and at the regular army troops entering the plaza, tricking the soldiers into believing the students were armed. The resulting return fire trapped thousands of civilians in a killing zone.',
     lat: 19.4515,
     lng: -99.1365,
@@ -2887,7 +2887,7 @@ export const moments: Moment[] = [
   {
     id: 'tlatelolco-church-sanctuary',
     name: 'Protesters Are Locked Out of Santiago Tlatelolco Church During Massacre',
-    subtitle: 'Trapped students face military fire on ground that saw the fall of the Aztecs',
+    subtitle: 'Templo de Santiago Tlatelolco, Mexico City. The colonial church and pre-Columbian ruins are in the plaza',
     description: 'During the 1968 Tlatelolco Massacre, protesters tried to flee into the colonial-era Church of Santiago Tlatelolco, but the doors were locked. The blood of the victims pooled on the same ground where the Aztec empire made its final stand against Cortés in 1521. For decades, the Mexican government claimed only 20 to 30 people died; eye-witnesses and later investigations suggest the toll was in the hundreds.',
     lat: 19.4508,
     lng: -99.1375,
@@ -5050,7 +5050,7 @@ export const moments: Moment[] = [
   {
     id: 'bikini-crossroads-baker',
     name: 'Operation Crossroads Baker Detonates Underwater at Bikini Atoll',
-    subtitle: 'Where a 23-kiloton bomb lifted two million tons of water into the sky',
+    subtitle: 'Bikini Atoll, Marshall Islands. UNESCO World Heritage Site; dive tourism available but islands remain contaminated',
     description: 'On July 25, 1946, the Baker test detonated a 23-kiloton nuclear device 90 feet beneath the surface of the Bikini lagoon. The explosion lifted a two-million-ton column of radioactive water 6,000 feet into the air and created the iconic "Wilson cloud" photograph. The resulting contamination of the target fleet proved impossible to decontaminate, demonstrating that nuclear weapons could render harbors permanently unusable.',
     lat: 11.5833,
     lng: 165.3833,
@@ -5067,7 +5067,7 @@ export const moments: Moment[] = [
   {
     id: 'bikini-castle-bravo',
     name: 'Castle Bravo Explodes at 15 Megatons — 2.5 Times the Predicted Yield',
-    subtitle: 'Where the worst U.S. radiological disaster contaminated islands and a Japanese fishing boat',
+    subtitle: 'Bikini Atoll, Marshall Islands. The crater is visible from the air; Bikinians were relocated and have never returned',
     description: 'On March 1, 1954, the Castle Bravo thermonuclear device detonated at 15 megatons — 2.5 times its predicted yield of 6 megatons. The unexpectedly massive blast vaporized three islands, dug a crater one mile wide and 250 feet deep, and sent radioactive fallout across inhabited islands and onto the Japanese fishing vessel Lucky Dragon No. 5, whose 23 crew members all developed radiation sickness. The disaster triggered worldwide protests and accelerated the push for nuclear test ban treaties.',
     lat: 11.6917,
     lng: 165.2698,
@@ -5085,7 +5085,7 @@ export const moments: Moment[] = [
   {
     id: 'enewetak-ivy-mike',
     name: 'Ivy Mike Vaporizes the Island of Elugelab — the First Hydrogen Bomb',
-    subtitle: 'Where the first full-scale thermonuclear device erased an island from the map',
+    subtitle: 'Enewetak Atoll, Marshall Islands. Elugelab islet no longer exists; an underwater crater marks the site',
     description: 'On November 1, 1952, the Ivy Mike device detonated at 10.4 megatons — 450 times the yield of the Nagasaki bomb. The blast completely vaporized the islet of Elugelab, leaving a crater 6,240 feet wide and 164 feet deep on the ocean floor. The explosion created two new elements — fermium and einsteinium — discovered in the coral debris months later. The device itself was an 82-ton apparatus the size of a building, proving that thermonuclear fusion worked but was far from weaponizable.',
     lat: 11.6667,
     lng: 162.1855,
@@ -5102,7 +5102,7 @@ export const moments: Moment[] = [
   {
     id: 'enewetak-runit-dome',
     name: 'The U.S. Seals 3.1 Million Cubic Feet of Radioactive Debris Under a Concrete Dome',
-    subtitle: 'Where America buried its nuclear waste under an 18-inch concrete cap on a tiny Pacific island',
+    subtitle: 'Runit Island, Enewetak Atoll, Marshall Islands. The concrete Runit Dome is visible from the air; leaking radioactivity',
     description: 'Between 1977 and 1980, some 4,000 American servicemen scooped radioactive soil and debris from 43 nuclear tests into the 350-foot-wide bomb crater on Runit Island, then capped it with a concrete dome 18 inches thick. The dome — never lined on the bottom — sits directly on porous coral, allowing radioactive material to leach into the lagoon. By the 2010s, rising sea levels and cracking concrete had turned the Runit Dome into what the UN called "a kind of coffin" threatening the entire Pacific.',
     lat: 11.5539,
     lng: 162.3472,
@@ -5119,7 +5119,7 @@ export const moments: Moment[] = [
   {
     id: 'nts-atmospheric-era',
     name: 'Mushroom Clouds Rise Over the Nevada Desert Visible from Las Vegas',
-    subtitle: 'Where tourists watched atomic blasts from hotel rooftops 65 miles away',
+    subtitle: 'Nevada National Security Site, Nye County, NV. Formerly the Nevada Test Site; monthly public tours available',
     description: 'Beginning in 1951, the Nevada Test Site hosted 100 atmospheric nuclear tests close enough to Las Vegas that mushroom clouds were visible from downtown hotels. Casinos hosted "atomic cocktail" parties and "Miss Atomic Energy" beauty pageants. The Las Vegas Chamber of Commerce published calendars of scheduled detonations so tourists could plan their trips. The atmospheric tests ended in 1963 with the Limited Test Ban Treaty, but underground testing continued until 1992 — 928 announced tests in all.',
     lat: 37.1167,
     lng: -116.0500,
@@ -5135,7 +5135,7 @@ export const moments: Moment[] = [
   {
     id: 'nts-sedan-crater',
     name: 'The Sedan Test Displaces 12 Million Tons of Earth in a "Peaceful" Nuclear Explosion',
-    subtitle: 'Where the U.S. tried to prove nuclear bombs could dig canals and harbors',
+    subtitle: 'Area 10, Nevada National Security Site, NV. The Sedan Crater is the largest man-made crater in the U.S.; visible on public tours',
     description: 'On July 6, 1962, a 104-kiloton thermonuclear device was detonated 635 feet underground as part of Operation Plowshare — the program to find "peaceful" uses for nuclear explosions. The blast displaced 12 million tons of earth, creating a crater 1,280 feet wide and 320 feet deep that remains the largest man-made crater in the United States. The radioactive dust cloud drifted across the Mississippi River. The Sedan crater is now a National Historic Landmark, visible from space.',
     lat: 37.1769,
     lng: -116.0467,
@@ -5153,7 +5153,7 @@ export const moments: Moment[] = [
   {
     id: 'johnston-starfish-prime',
     name: 'Starfish Prime Detonates in Space and Knocks Out Streetlights in Hawaii',
-    subtitle: 'Where a nuclear blast 250 miles up created an artificial aurora and fried satellites',
+    subtitle: 'Johnston Atoll, Pacific Ocean. Remote U.S. territory; the atoll was used for weapons testing and chemical disposal',
     description: 'On July 9, 1962, a 1.4-megaton warhead was detonated 250 miles above Johnston Atoll as part of Operation Fishbowl. The resulting electromagnetic pulse knocked out streetlights and telephone systems across Hawaii, 900 miles away. The blast created an artificial aurora visible from New Zealand and generated a radiation belt that damaged or destroyed at least six satellites over the following months — including Telstar 1, the world\'s first communications satellite.',
     lat: 16.7370,
     lng: -169.5240,
@@ -5170,7 +5170,7 @@ export const moments: Moment[] = [
   {
     id: 'amchitka-cannikin',
     name: 'The Cannikin Test Triggers a 6.8 Earthquake and Helps Found Greenpeace',
-    subtitle: 'Where the largest U.S. underground nuclear test created a mile-wide lake in the Aleutian Islands',
+    subtitle: 'Amchitka Island, Aleutian Islands, Alaska. Uninhabited; the subsidence crater formed a lake still visible from the air',
     description: 'On November 6, 1971, the United States detonated a 5-megaton warhead nearly 6,000 feet below Amchitka Island in the Aleutian chain. The blast triggered a magnitude 6.8 earthquake, lifted the ground surface 20 feet, and eventually created a mile-wide subsidence lake. The test was so controversial — conducted in one of the most seismically active regions on Earth — that a group of activists sailed toward the test zone in protest. That group became Greenpeace.',
     lat: 51.4703,
     lng: 179.1113,
@@ -5187,7 +5187,7 @@ export const moments: Moment[] = [
   {
     id: 'christmas-island-grapple',
     name: 'Britain and the U.S. Test Nuclear Weapons on Christmas Island',
-    subtitle: 'Where Britain detonated its first hydrogen bombs over the Pacific',
+    subtitle: 'Kiritimati (Christmas Island), Republic of Kiribati. Inhabited island; accessible by air from Fiji',
     description: 'Christmas Island (now Kiritimati) hosted British thermonuclear tests in 1957–1958 under Operation Grapple and 24 American nuclear tests in 1962 under Operation Dominic. The British tests made the UK the third thermonuclear power. Thousands of servicemen from Britain, New Zealand, and Fiji were stationed on the island during testing, many of whom reported health effects in later decades. The island is now part of the Republic of Kiribati.',
     lat: 1.8667,
     lng: -157.4000,
@@ -5203,7 +5203,7 @@ export const moments: Moment[] = [
   {
     id: 'semi-first-lightning',
     name: 'The Soviet Union Detonates Its First Atomic Bomb at Semipalatinsk',
-    subtitle: 'Where the nuclear monopoly ended and the arms race began',
+    subtitle: 'Semipalatinsk Test Site, Semey, Kazakhstan. Now called The Polygon; partially accessible for research and tourism',
     description: 'On August 29, 1949, the Soviet Union detonated RDS-1 — known to the West as "Joe 1" — at the Semipalatinsk Test Site in Kazakhstan. The 22-kiloton implosion device was based on the Fat Man design, obtained through espionage by Klaus Fuchs. The test ended America\'s nuclear monopoly four years after Trinity. When U.S. Air Force planes detected radioactive debris over the Pacific days later, President Truman announced that the Soviets had "the bomb," launching the nuclear arms race.',
     lat: 50.1167,
     lng: 78.7167,
@@ -5219,7 +5219,7 @@ export const moments: Moment[] = [
   {
     id: 'semi-lake-chagan',
     name: 'A 140-Kiloton Blast Creates an Artificial "Atomic Lake" in Kazakhstan',
-    subtitle: 'Where the Soviets tried to build a reservoir with a nuclear bomb',
+    subtitle: 'Chagan River, Semipalatinsk Test Site, Kazakhstan. Lake Chagan (Atomic Lake) is still radioactive and visible from satellite',
     description: 'On January 15, 1965, the Soviet Union detonated a 140-kiloton device in the bed of the Chagan River as part of its "Nuclear Explosions for the National Economy" program — the Soviet equivalent of America\'s Project Plowshare. The blast created a crater 1,300 feet wide that filled with water to form Lake Chagan, also called "Atomic Lake." The lake still exists and remains radioactive. It is considered the only nuclear crater lake in the world currently holding water.',
     lat: 49.9353,
     lng: 79.0089,
@@ -5236,7 +5236,7 @@ export const moments: Moment[] = [
   {
     id: 'novaya-tsar-bomba',
     name: 'The Soviet Union Detonates Tsar Bomba — the Most Powerful Explosion in Human History',
-    subtitle: 'Where a 50-megaton hydrogen bomb sent a shockwave around the Earth three times',
+    subtitle: 'Mityushikha Bay, Novaya Zemlya, Russia. Restricted military zone; the detonation site is not publicly accessible',
     description: 'On October 30, 1961, a Tu-95 bomber dropped the AN602 hydrogen bomb over the Mityushikha Bay test range on Novaya Zemlya. The 50-megaton detonation — originally designed for 100 megatons but scaled back — produced a mushroom cloud 40 miles high and 25 miles wide. The shockwave circled the Earth three times. Windows shattered 560 miles away in Norway and Finland. The flash was visible 600 miles away. It remains the most powerful man-made explosion ever, equivalent to 3,800 Hiroshima bombs.',
     lat: 73.5400,
     lng: 54.7035,
@@ -5253,7 +5253,7 @@ export const moments: Moment[] = [
   {
     id: 'totsk-snowball',
     name: '45,000 Soviet Soldiers March Through Nuclear Ground Zero',
-    subtitle: 'Where troops advanced through a fresh mushroom cloud in a secret military exercise',
+    subtitle: 'Totskoye, Orenburg Oblast, Russia. The town and surrounding area are accessible; a memorial marks the site',
     description: 'On September 14, 1954, a 40-kiloton nuclear bomb was air-dropped over the Totskoye military range in Orenburg Oblast. Minutes later, 45,000 soldiers, 600 tanks, and 600 armored personnel carriers advanced through the blast zone. Commanded by Marshal Georgy Zhukov, the exercise was designed to test tactics for nuclear warfare. The 10,000 civilians in nearby villages were never evacuated. The Soviet government kept the exercise secret for decades. Many participants later developed cancer and other radiation-related illnesses.',
     lat: 52.6423,
     lng: 52.8092,
@@ -5270,7 +5270,7 @@ export const moments: Moment[] = [
   {
     id: 'montebello-hurricane',
     name: 'Britain Becomes a Nuclear Power by Detonating a Bomb Inside a Ship',
-    subtitle: 'Where the UK tested its first atomic weapon in the hull of HMS Plym',
+    subtitle: 'Montebello Islands, Western Australia. Remote islands accessible by charter boat; low-level contamination remains',
     description: 'On October 3, 1952, Britain detonated its first nuclear weapon inside the hull of HMS Plym, anchored in the lagoon of the Montebello Islands off Western Australia. The 25-kiloton blast — designed to simulate a nuclear weapon smuggled into a harbor — vaporized the ship entirely, leaving only a crater on the seabed. Britain became the third nation to test a nuclear weapon, after the United States and the Soviet Union.',
     lat: -20.5167,
     lng: 115.5333,
@@ -5287,7 +5287,7 @@ export const moments: Moment[] = [
   {
     id: 'emu-field-black-mist',
     name: 'The "Black Mist" from a British Nuclear Test Drifts Over Aboriginal Communities',
-    subtitle: 'Where radioactive fallout swept across Aboriginal homelands in the outback',
+    subtitle: 'Emu Field, South Australia. Remote desert site; accessible by 4WD; contaminated debris was partially cleaned up',
     description: 'On October 15, 1953, the first Operation Totem test at Emu Field produced a 10-kiloton explosion whose radioactive cloud drifted northeast over Aboriginal communities at Wallatinna and Wellbourn Hill. Indigenous Australians described a "black mist" that rolled across the land, followed by illness, blindness, and skin conditions. The British government had chosen the remote site assuming it was uninhabited. A Royal Commission in 1985 found the government had failed to ensure adequate safety for Aboriginal people.',
     lat: -28.6923,
     lng: 132.3695,
@@ -5304,7 +5304,7 @@ export const moments: Moment[] = [
   {
     id: 'maralinga-tests',
     name: 'Britain Conducts Nuclear Tests on Aboriginal Maralinga Land',
-    subtitle: 'Where seven nuclear bombs and hundreds of "minor trials" contaminated sacred Aboriginal country',
+    subtitle: 'Maralinga, South Australia. Major cleanup completed 2000; Maralinga Tjarutja people regained title in 2014',
     description: 'Between 1956 and 1963, Britain detonated seven major nuclear devices and conducted hundreds of so-called "minor trials" at Maralinga in South Australia. The minor trials scattered 22 kilograms of plutonium and 40 kilograms of enriched uranium across the landscape. The tests displaced the Maralinga Tjarutja people from their ancestral lands. A cleanup in the 1990s cost AU$108 million but was later criticized as inadequate. The contaminated land was partially returned to Aboriginal ownership in 2009.',
     lat: -30.1667,
     lng: 131.6167,
@@ -5320,7 +5320,7 @@ export const moments: Moment[] = [
   {
     id: 'reggane-gerboise-bleue',
     name: 'France Detonates Its First Nuclear Bomb in the Sahara Desert',
-    subtitle: 'Where France became the fourth nuclear power with a blast three times larger than Hiroshima',
+    subtitle: 'Hamoudia Plateau, Reggane, Algeria. Remote Saharan site; contaminated debris remains; not publicly accessible',
     description: 'On February 13, 1960, France detonated Gerboise Bleue — a 70-kiloton plutonium device — on the Hamoudia plateau near Reggane in the Algerian Sahara. The test, three times the yield of the Hiroshima bomb, made France the fourth nuclear power. The test series was named after the jerboa, a Saharan desert rodent, with colors matching the French tricolor. France conducted four atmospheric tests at Reggane before moving to underground testing at In Ekker. Algerian workers and nearby Tuareg populations received no warning.',
     lat: 26.3167,
     lng: 0.0667,
@@ -5337,7 +5337,7 @@ export const moments: Moment[] = [
   {
     id: 'in-ekker-beryl',
     name: 'The Beryl Test Vents Radioactive Gas and Contaminates French Officials',
-    subtitle: 'Where an underground nuclear test went wrong in the Saharan mountains',
+    subtitle: 'In Ekker, Hoggar Mountains, Algeria. Remote mountain site; radioactive contamination persists',
     description: 'On May 1, 1962, the Beryl underground nuclear test at In Ekker in the Hoggar Mountains vented catastrophically, releasing a radioactive cloud from the mountain tunnel. French officials and soldiers present at the test — including government ministers — were contaminated. France continued underground testing at In Ekker until 1966, conducting 13 tests in total. France retained the right to test in Algeria even after Algerian independence in 1962, under the terms of the Evian Accords.',
     lat: 24.0600,
     lng: 5.0300,
@@ -5354,7 +5354,7 @@ export const moments: Moment[] = [
   {
     id: 'mururoa-tests',
     name: 'France Conducts 178 Nuclear Tests in the South Pacific',
-    subtitle: 'Where French nuclear testing provoked the sinking of the Rainbow Warrior',
+    subtitle: 'Mururoa Atoll, French Polynesia. Restricted military zone; not publicly accessible',
     description: 'Between 1966 and 1996, France detonated 178 nuclear devices at the Mururoa and Fangataufa atolls in French Polynesia — 41 atmospheric and 137 underground. The testing program provoked international outrage. In 1985, French intelligence agents sank the Greenpeace ship Rainbow Warrior in Auckland harbor, killing photographer Fernando Pereira. Despite worldwide protests, France conducted its final test on January 27, 1996. Studies have since found elevated cancer rates among Polynesian populations downwind of the tests.',
     lat: -21.8333,
     lng: -138.9000,
@@ -5370,7 +5370,7 @@ export const moments: Moment[] = [
   {
     id: 'lop-nur-596',
     name: 'China Detonates Its First Atomic Bomb at Lop Nur',
-    subtitle: 'Where China became the fifth nuclear power on a dried-up salt lake in the desert',
+    subtitle: 'Lop Nur, Xinjiang, China. Restricted military zone in the Taklamakan Desert; not publicly accessible',
     description: 'On October 16, 1964, China detonated "Miss Qiu" — a 22-kiloton uranium-235 implosion device — from atop a 102-meter steel tower at the Lop Nur test site in Xinjiang. The test, codenamed Project 596 after the June 1959 date the Soviets withdrew their technical assistance, made China the fifth nation to test a nuclear weapon. The achievement was all the more remarkable given that it occurred during the upheaval of the Great Leap Forward and the Sino-Soviet split.',
     lat: 41.8125,
     lng: 89.7900,
@@ -5386,7 +5386,7 @@ export const moments: Moment[] = [
   {
     id: 'lop-nur-thermonuclear',
     name: 'China Tests Its First Hydrogen Bomb Just 32 Months After Its First Atomic Bomb',
-    subtitle: 'Where China set the speed record for fission-to-fusion development',
+    subtitle: 'Lop Nur, Xinjiang, China. Same restricted test site as the first Chinese test; visible on satellite imagery',
     description: 'On June 17, 1967, China detonated a 3.3-megaton thermonuclear device over Lop Nur — just 32 months after its first fission test. No other nuclear state achieved the transition from atomic to hydrogen bomb as quickly. The United States took 7 years, the Soviet Union 4 years, and Britain 4.5 years. China conducted 45 nuclear tests at Lop Nur before signing the Comprehensive Nuclear-Test-Ban Treaty in 1996.',
     lat: 41.5292,
     lng: 88.7031,
@@ -5403,7 +5403,7 @@ export const moments: Moment[] = [
   {
     id: 'pokhran-smiling-buddha',
     name: 'India Conducts a "Peaceful Nuclear Explosion" in the Rajasthan Desert',
-    subtitle: 'Where India became the sixth state to detonate a nuclear device',
+    subtitle: 'Pokhran Test Range, Rajasthan, India. Active military range; the Smiling Buddha shaft site is within the restricted zone',
     description: 'On May 18, 1974, India detonated a plutonium device in a shaft 107 meters beneath the Thar Desert at the Pokhran Test Range. The test, codenamed "Smiling Buddha," yielded between 6 and 13 kilotons. India officially described it as a "peaceful nuclear explosion," but the test demonstrated weapons capability and made India the first nation outside the five permanent UN Security Council members to detonate a nuclear device.',
     lat: 27.0950,
     lng: 71.7530,
@@ -5419,7 +5419,7 @@ export const moments: Moment[] = [
   {
     id: 'pokhran-shakti',
     name: 'India Conducts Five Nuclear Tests in Secret, Evading U.S. Satellite Surveillance',
-    subtitle: 'Where India proved its thermonuclear capability while the CIA watched the wrong sites',
+    subtitle: 'Pokhran Test Range, Rajasthan, India. Desert test range; the five 1998 shafts are within the restricted area',
     description: 'On May 11 and 13, 1998, India detonated five nuclear devices at Pokhran under the codename Operation Shakti. The tests included a claimed thermonuclear device and sub-kiloton tactical weapons. Indian scientists had worked in complete secrecy, timing their movements to avoid American spy satellites and disguising test preparations as routine military exercises. The tests triggered immediate international sanctions and provoked Pakistan\'s retaliatory tests 17 days later.',
     lat: 27.0788,
     lng: 71.7221,
@@ -5436,7 +5436,7 @@ export const moments: Moment[] = [
   {
     id: 'ras-koh-chagai',
     name: 'Pakistan Detonates Five Nuclear Devices in Response to India',
-    subtitle: 'Where Pakistan became the seventh nuclear-armed state 17 days after India\'s tests',
+    subtitle: 'Ras Koh Hills, Balochistan, Pakistan. Remote mountain range; restricted military area',
     description: 'On May 28, 1998 — 17 days after India\'s Pokhran-II tests — Pakistan detonated five nuclear devices simultaneously in a horizontal shaft drilled into the Ras Koh Hills of Balochistan. The combined yield was estimated at 9–12 kilotons, though Pakistan claimed 40. Two days later, a sixth device was tested in the nearby Kharan Desert. Prime Minister Nawaz Sharif declared "we have settled the score." The tests triggered international sanctions against both India and Pakistan.',
     lat: 28.8300,
     lng: 65.2000,
@@ -5453,7 +5453,7 @@ export const moments: Moment[] = [
   {
     id: 'punggye-ri-first-test',
     name: 'North Korea Conducts Its First Nuclear Test Beneath Mount Mantap',
-    subtitle: 'Where a sub-kiloton "fizzle" announced North Korea\'s entry into the nuclear club',
+    subtitle: 'Punggye-ri, North Hamgyong Province, North Korea. Underground test site; visible only on satellite imagery',
     description: 'On October 9, 2006, North Korea detonated a nuclear device beneath Mount Mantap at the Punggye-ri test site in North Hamgyong Province. The test yielded less than 1 kiloton and was widely considered a partial failure — a "fizzle" — but it demonstrated that North Korea had crossed the nuclear threshold. The UN Security Council unanimously adopted Resolution 1718, imposing sanctions. It was the first nuclear test by any country since India and Pakistan in 1998.',
     lat: 41.2980,
     lng: 129.0730,
@@ -5469,7 +5469,7 @@ export const moments: Moment[] = [
   {
     id: 'punggye-ri-thermonuclear',
     name: 'North Korea\'s Largest Test Partially Collapses Mount Mantap',
-    subtitle: 'Where a 250-kiloton blast caused the mountain to subside and the tunnels to cave in',
+    subtitle: 'Punggye-ri, North Hamgyong Province, North Korea. The mountain partially collapsed after the 2017 test; site reportedly closed',
     description: 'On September 3, 2017, North Korea detonated its sixth and most powerful nuclear device — estimated between 50 and 250 kilotons — beneath Mount Mantap. The explosion registered as a magnitude 6.3 seismic event, followed minutes later by a magnitude 4.1 event consistent with a tunnel collapse. Satellite imagery showed the mountain had visibly subsided. Chinese seismologists warned that further tests risked catastrophic collapse and release of radioactive material. In May 2018, North Korea demolished the test site\'s tunnel entrances before invited journalists.',
     lat: 41.3010,
     lng: 129.0650,
@@ -5486,7 +5486,7 @@ export const moments: Moment[] = [
   {
     id: 'chicxulub-crater',
     name: 'A Six-Mile Asteroid Strikes the Yucatan and Ends the Age of Dinosaurs',
-    subtitle: 'Where the impact that caused Earth\'s most famous mass extinction lies buried beneath limestone',
+    subtitle: 'Chicxulub Puerto, Yucatan, Mexico. Crater buried under sediment; cenotes trace its rim; science museum in Chicxulub town',
     description: 'Sixty-six million years ago, a six-mile-wide asteroid struck what is now the Yucatan Peninsula at 45,000 mph, releasing energy equivalent to 10 billion Hiroshima bombs. The impact vaporized rock, ignited global firestorms, and plunged the planet into an impact winter that killed 75% of all species, including the non-avian dinosaurs. The 180-kilometer crater is entirely buried beneath the surface but is traced by a ring of cenotes — sinkholes — that follows the buried rim. It was discovered in 1978 by geophysicists looking for oil.',
     lat: 21.4000,
     lng: -89.5167,
@@ -5501,7 +5501,7 @@ export const moments: Moment[] = [
   {
     id: 'tunguska-event',
     name: 'A Mysterious Explosion Flattens 80 Million Trees Across the Siberian Taiga',
-    subtitle: 'Where the largest impact event in recorded history left no crater and no confirmed explanation for decades',
+    subtitle: 'Tunguska River, Krasnoyarsk Krai, Siberia. Remote taiga; the forest has regrown; accessible by helicopter or river',
     description: 'On June 30, 1908, an object estimated at 50–60 meters wide exploded 5–10 kilometers above the Tunguska River in remote Siberia, releasing 12–15 megatons of energy — a thousand times the Hiroshima bomb. The airburst flattened approximately 80 million trees across 2,150 square kilometers of taiga. Because no crater was formed and the area was so remote, the first scientific expedition did not reach the site until 1927. The event is now believed to have been a stony asteroid that disintegrated before reaching the ground.',
     lat: 60.8860,
     lng: 101.8940,
@@ -5517,7 +5517,7 @@ export const moments: Moment[] = [
   {
     id: 'chelyabinsk-meteor',
     name: 'A 20-Meter Asteroid Explodes Over Chelyabinsk, Injuring 1,500 People',
-    subtitle: 'Where hundreds of dashcams captured the most-documented impact event in history',
+    subtitle: 'Lake Chebarkul, Chelyabinsk Oblast, Russia. A 6-meter fragment was recovered from the lake; on display in Chelyabinsk museum',
     description: 'On February 15, 2013, a 20-meter asteroid entered the atmosphere at 19 km/s and exploded at an altitude of 23 kilometers above Chelyabinsk, Russia. The airburst released 500 kilotons of energy — 30 times the Hiroshima bomb. The shockwave injured over 1,500 people, mostly from flying glass, and damaged thousands of buildings across the city. A 540-kilogram fragment was later recovered from the bottom of nearby Lake Chebarkul. Hundreds of dashcam and security camera recordings made it the best-documented impact event in history.',
     lat: 54.9600,
     lng: 60.3290,
@@ -5533,7 +5533,7 @@ export const moments: Moment[] = [
   {
     id: 'vredefort-crater',
     name: 'A 15-Kilometer Asteroid Strikes South Africa and Carves the Largest Impact Crater on Earth',
-    subtitle: 'Where a 300-kilometer scar has eroded for two billion years into the hills of the Free State',
+    subtitle: 'Vredefort, Free State Province, South Africa. UNESCO World Heritage Site; the Dome structure is visible from the air',
     description: 'Two billion years ago, an asteroid 10–15 kilometers wide struck what is now the Free State Province of South Africa, creating the Vredefort impact structure — the largest confirmed impact crater on Earth, originally 300 kilometers in diameter. Over two billion years of erosion have reduced it to the exposed central uplift known as the Vredefort Dome, a UNESCO World Heritage Site. The impact profoundly affected the geology of the Witwatersrand Basin, which contains the world\'s richest gold deposits.',
     lat: -27.0000,
     lng: 27.5000,
@@ -5548,7 +5548,7 @@ export const moments: Moment[] = [
   {
     id: 'sudbury-basin',
     name: 'An Ancient Asteroid Creates One of the World\'s Richest Mining Districts',
-    subtitle: 'Where a 1.85-billion-year-old impact created deposits of nickel, copper, and platinum',
+    subtitle: 'Greater Sudbury, Ontario, Canada. The basin is a major mining region; Dynamic Earth science museum on-site',
     description: 'Approximately 1.85 billion years ago, an asteroid struck what is now Ontario, Canada, creating a crater originally 130 kilometers in diameter. Tectonic forces later deformed the crater into the elliptical Sudbury Basin, 62 kilometers long by 30 kilometers wide. The impact melted the Earth\'s crust and concentrated metals into deposits that now produce most of Canada\'s nickel and significant quantities of copper, platinum, palladium, and gold. The city of Greater Sudbury is built within the structure.',
     lat: 46.6000,
     lng: -81.1833,
@@ -5563,7 +5563,7 @@ export const moments: Moment[] = [
   {
     id: 'manicouagan-crater',
     name: 'The "Eye of Quebec" — A 100-Kilometer Impact Crater Visible from Space',
-    subtitle: 'Where a ring-shaped reservoir traces the rim of a 214-million-year-old impact',
+    subtitle: 'Manicouagan Reservoir, Quebec, Canada. Visible from space as a ring; accessible by logging roads from Baie-Comeau',
     description: 'Approximately 214 million years ago, a 5-kilometer-wide asteroid struck what is now Quebec, creating a 100-kilometer-wide impact structure. The Manicouagan Reservoir — formed when a hydroelectric dam flooded the ring-shaped depression — is one of the most visually striking geological features on Earth, clearly visible from space as a bright annular ring nicknamed the "Eye of Quebec." The impact coincides roughly with the end-Triassic extinction, though a direct causal link remains debated.',
     lat: 51.3800,
     lng: -68.7300,
@@ -5578,7 +5578,7 @@ export const moments: Moment[] = [
   {
     id: 'popigai-crater',
     name: 'An Asteroid Strikes Siberian Graphite and Creates Trillions of Carats of Diamonds',
-    subtitle: 'Where an asteroid turned graphite into the largest diamond deposit on Earth',
+    subtitle: 'Popigai, Sakha Republic, Siberia, Russia. Remote Arctic site; not publicly accessible',
     description: 'Approximately 35 million years ago, an asteroid struck the graphite-rich rocks of northern Siberia, creating the 100-kilometer-wide Popigai crater. The extreme pressure and temperature of the impact converted existing graphite into diamonds — trillions of carats worth, including lonsdaleite, a hexagonal form of diamond harder than conventional diamond. The deposit, revealed by the Soviet government only in 2012, remains largely unexploited due to the remote location and lack of infrastructure.',
     lat: 71.6500,
     lng: 111.1830,
@@ -5593,7 +5593,7 @@ export const moments: Moment[] = [
   {
     id: 'chesapeake-bay-crater',
     name: 'An Asteroid Punches a 53-Mile Crater into the Shallow Seas That Would Become Chesapeake Bay',
-    subtitle: 'Where an asteroid hit shallow ocean 35 million years ago and the effects persist underground today',
+    subtitle: 'Chesapeake Bay, Virginia. Crater buried beneath the bay; no surface expression; affects groundwater salinity',
     description: 'Approximately 35.5 million years ago, an asteroid struck the shallow seas covering what is now southeastern Virginia, creating an 85-kilometer crater buried 300–500 meters beneath the Chesapeake Bay and surrounding land. The crater was not discovered until 1983 and was only confirmed in 1994 by drilling. The impact\'s disruption of underground aquifers still affects the region today, creating a zone of unusually salty groundwater that influences well water quality across the Virginia coastal plain.',
     lat: 37.2833,
     lng: -76.0167,
@@ -5608,7 +5608,7 @@ export const moments: Moment[] = [
   {
     id: 'barringer-meteor-crater',
     name: 'A Nickel-Iron Meteorite Blasts a Mile-Wide Hole in the Arizona Desert',
-    subtitle: 'Where NASA astronauts trained for the Moon inside a 49,000-year-old crater',
+    subtitle: 'Interstate 40, Winslow, AZ. Meteor Crater is privately owned; visitor center and rim trail open daily',
     description: 'Approximately 49,000 years ago, a nickel-iron meteorite 50 meters across struck the Arizona desert at 45,000 mph, blasting out a crater 1.2 kilometers wide and 170 meters deep. Barringer Crater — commonly called Meteor Crater — is the best-preserved impact crater on Earth, and the first to be conclusively proven as meteoritic in origin. The privately owned crater served as a training site for Apollo astronauts before their lunar missions. Its rim still rises 45 meters above the surrounding plains.',
     lat: 35.0330,
     lng: -111.0170,
@@ -5623,7 +5623,7 @@ export const moments: Moment[] = [
   {
     id: 'nordlinger-ries',
     name: 'A Medieval German Town Is Built Inside an Impact Crater Without Knowing It',
-    subtitle: 'Residents didn\'t know until 1960 that their church was built from diamonds forged by the impact',
+    subtitle: 'Nördlingen, Bavaria, Germany. Medieval town built inside the crater; St. George Church walls contain impact diamonds',
     description: 'The medieval walled town of Nördlingen in Bavaria is built entirely within the 26-kilometer Nördlinger Ries impact crater, formed 14.8 million years ago. For centuries, the circular basin was thought to be volcanic. The church of St. George is constructed from suevite — a breccia formed by the impact — which contains thousands of tiny diamonds created by the shock. The true impact origin was not proven until the 1960s, when shatter cones and shocked quartz were identified. Apollo 14 astronauts trained here to identify impact rocks.',
     lat: 48.8800,
     lng: 10.6100,
@@ -5638,7 +5638,7 @@ export const moments: Moment[] = [
   {
     id: 'wolfe-creek-crater',
     name: 'A Near-Perfect Meteorite Crater Sits in the Remote Australian Outback',
-    subtitle: 'Where the Djaru people\'s sacred Kandimalal was carved by a 14,000-tonne meteorite',
+    subtitle: 'Wolfe Creek Meteorite Crater National Park, Western Australia. Remote outback; accessible by 4WD from Halls Creek',
     description: 'Approximately 120,000 years ago, a meteorite about 15 meters in diameter and weighing around 14,000 tonnes struck the Kimberley region of Western Australia, excavating a crater 880 meters across and 60 meters deep. Wolfe Creek Crater — known as Kandimalal to the local Djaru Aboriginal people — is one of the best-preserved and most accessible meteorite craters in the world. The crater floor has filled with approximately 120 meters of windblown sand, and small fragments of the original iron meteorite are still occasionally found in the surrounding desert.',
     lat: -19.1720,
     lng: 127.7920,
@@ -5653,7 +5653,7 @@ export const moments: Moment[] = [
   {
     id: 'gosses-bluff',
     name: 'A Sacred Aboriginal Ring of Hills Marks an Ancient Cosmic Impact',
-    subtitle: 'Where the Western Arrernte\'s Tnorala was created 142 million years ago by a 600-meter comet',
+    subtitle: 'Tnorala/Gosses Bluff, Northern Territory, Australia. Sacred site; rim accessible by road from Hermannsburg',
     description: 'Approximately 142 million years ago, a comet or asteroid about 600 meters wide struck the central Australian desert, creating a 22-kilometer crater. Erosion over 142 million years has removed the entire outer rim, leaving only the 5-kilometer ring of exposed central uplift hills rising 180 meters above the plain. The site, known as Tnorala to the Western Arrernte Aboriginal people, is a sacred place connected to their creation stories. It lies 175 kilometers west of Alice Springs.',
     lat: -23.8190,
     lng: 132.3050,
@@ -5668,7 +5668,7 @@ export const moments: Moment[] = [
   {
     id: 'lonar-lake',
     name: 'A Meteorite Creates a Sacred Crater Lake in India\'s Deccan Basalt',
-    subtitle: 'Where an impact in volcanic rock created a rare alkaline lake ringed by Hindu temples',
+    subtitle: 'Lonar, Buldhana District, Maharashtra, India. The crater lake is open to visitors; temples ring the rim',
     description: 'Approximately 50,000 years ago, a meteorite struck the Deccan Traps basalt of central India, creating a crater 1.8 kilometers across. Lonar Lake is one of only four known hyper-velocity impact craters in basaltic rock on Earth, and the only one that contains a lake. The soda lake has both saline and alkaline zones supporting distinct microbial ecosystems of interest to astrobiologists studying Mars analogs. Multiple Hindu temples surround the crater rim, and the lake is considered sacred.',
     lat: 19.9760,
     lng: 76.5070,
@@ -5683,7 +5683,7 @@ export const moments: Moment[] = [
   {
     id: 'kaali-crater',
     name: 'A Meteorite Strikes a Populated Baltic Island in the Bronze Age',
-    subtitle: 'Where one of the only confirmed impacts during recorded human civilization left nine craters',
+    subtitle: 'Kaali, Saaremaa Island, Estonia. The main crater lake is open to visitors; a museum is adjacent',
     description: 'Approximately 3,500 years ago — during the Bronze Age — a meteorite broke apart over the island of Saaremaa in modern Estonia, creating a field of nine craters. The largest, Kaali, is 110 meters wide and contains a small lake. The impact occurred in a populated area and may have been witnessed by the island\'s inhabitants. The event likely influenced local mythology and religious practices — the crater site appears to have been used as a sacred site for centuries after the impact.',
     lat: 58.3730,
     lng: 22.6700,
@@ -5698,7 +5698,7 @@ export const moments: Moment[] = [
   {
     id: 'pingualuit-crater',
     name: 'A Meteorite Strikes the Ungava Peninsula and Creates One of Earth\'s Purest Lakes',
-    subtitle: 'Where a subarctic crater lake has no inlets or outlets and is fed only by rain and snow',
+    subtitle: 'Pingualuit National Park, Ungava Peninsula, Quebec, Canada. Accessible by charter flight from Kangiqsujuaq',
     description: 'Approximately 1.4 million years ago, a meteorite struck the Ungava Peninsula in northern Quebec, creating a nearly perfectly circular crater 3.4 kilometers across. Pingualuit Crater contains a lake 267 meters deep — one of the deepest in North America — fed entirely by precipitation with no inlets or outlets. The water is among the purest freshwater on Earth, with visibility exceeding 35 meters. The crater\'s remote subarctic location has protected it from erosion, making it one of the best-preserved impact craters on the planet.',
     lat: 61.2833,
     lng: -73.6667,
@@ -5713,7 +5713,7 @@ export const moments: Moment[] = [
   {
     id: 'hoba-meteorite',
     name: 'A 60-Ton Meteorite Slams into Namibia and Never Moves Again',
-    subtitle: 'Where a 60-tonne iron slab from space has never been moved from its landing site',
+    subtitle: 'Hoba West Farm, Grootfontein, Namibia. The meteorite is a national monument; open to visitors daily',
     description: 'The Hoba meteorite is the largest known intact meteorite on Earth — a flat slab of iron and nickel measuring 2.7 by 2.7 meters, weighing approximately 60 tonnes. It landed approximately 80,000 years ago in what is now Namibia and has never been moved. Remarkably, it created no visible crater, likely because its flat shape caused it to decelerate like a skipping stone through the atmosphere. Discovered by a farmer in 1920 when his plow struck it, the meteorite is now a national monument.',
     lat: -19.5888,
     lng: 17.9335,
@@ -5728,7 +5728,7 @@ export const moments: Moment[] = [
   {
     id: 'campo-del-cielo',
     name: 'Spanish Explorers Find the "Field of Heaven" — a Meteorite Strewn Field',
-    subtitle: 'Where indigenous legends of iron from the sky led to the discovery of over 100 tonnes of meteorites',
+    subtitle: 'Campo del Cielo, Chaco Province, Argentina. Open-air strewn field; several large fragments visible on-site',
     description: 'Approximately 4,500 years ago, an iron asteroid broke apart over what is now northern Argentina, scattering fragments across an area 3 by 18.5 kilometers — at least 26 craters and over 100 tonnes of recovered meteorite material. Early Spanish explorers named the site Campo del Cielo ("Field of Heaven") after indigenous Guaycurú legends about metal falling from the sky. The largest single fragment, "El Chaco," weighs 28.8 tonnes and is the second-heaviest meteorite ever found on Earth.',
     lat: -27.6333,
     lng: -61.7000,
@@ -5743,7 +5743,7 @@ export const moments: Moment[] = [
   {
     id: 'sikhote-alin',
     name: 'An Artist Sketching Outdoors Witnesses the Largest Meteorite Fall in Modern History',
-    subtitle: 'Where a 100-tonne iron meteorite shattered into thousands of fragments over the Russian Far East',
+    subtitle: 'Sikhote-Alin Mountains, Primorsky Krai, Russia. Remote forest; the largest craters are accessible by guided expedition',
     description: 'On February 12, 1947, a 90–100-tonne iron meteorite entered the atmosphere over the Sikhote-Alin mountains in the Russian Far East and broke apart, creating over 100 craters across a 1.3-square-kilometer area. The largest crater was 26 meters wide. Artist P.I. Medvedev, who happened to be sketching outdoors that morning, witnessed the fireball and immediately painted it — his painting became the iconic depiction on a Soviet postage stamp. Approximately 23 tonnes of meteorite material have been recovered, with the largest fragment weighing 1,745 kilograms.',
     lat: 46.1600,
     lng: 134.6530,
@@ -5759,7 +5759,7 @@ export const moments: Moment[] = [
   {
     id: 'siljan-ring',
     name: 'An Asteroid Carves a 32-Mile Ring into Central Sweden That Fills with Lakes',
-    subtitle: 'Where a 52-kilometer crater formed 377 million years ago now hosts traditional Midsummer festivals',
+    subtitle: 'Siljan, Dalarna, Sweden. The crater basin is a populated lake region; Midsummer celebrations held annually',
     description: 'Approximately 377 million years ago, an asteroid struck what is now central Sweden, creating the 52-kilometer Siljan Ring — the largest confirmed impact structure in Europe. The crater rim is now traced by a ring of lakes, including Lake Siljan. In the 1980s, astrophysicist Thomas Gold proposed that deep abiogenic methane might be trapped beneath the crater, leading to a controversial deep-drilling project. The Siljan area is now one of Sweden\'s most popular tourist regions, famous for its traditional Midsummer celebrations and painted wooden horses.',
     lat: 61.0500,
     lng: 14.9100,
@@ -5774,7 +5774,7 @@ export const moments: Moment[] = [
   {
     id: 'tswaing-crater',
     name: 'A Meteorite Creates a Salt Lake Near Pretoria That Preserves 220,000 Years of Climate Data',
-    subtitle: 'Where centuries of salt harvesting happened inside an impact crater without anyone knowing',
+    subtitle: 'Tswaing Meteorite Crater, Gauteng Province, South Africa. 40 km north of Pretoria; nature reserve with walking trails',
     description: 'Approximately 220,000 years ago, a meteorite struck 40 kilometers northwest of what is now Pretoria, South Africa, creating a 1.13-kilometer crater now known as Tswaing — "place of salt" in Setswana. The crater contains a small soda lake whose sediments provide an unbroken 200,000-year climate record, making it one of the most important paleoclimate archives in the Southern Hemisphere. Local people have harvested salt and soda ash from the lake for centuries, unaware they were walking inside a cosmic scar.',
     lat: -25.4050,
     lng: 28.0760,
@@ -5998,7 +5998,7 @@ export const moments: Moment[] = [
   {
     id: 'medina-prophets-mosque',
     name: 'Muhammad Builds Islam\'s First Mosque, Now His Burial Place',
-    subtitle: 'Where the Prophet laid the first bricks in 622 CE and where he was buried a decade later',
+    subtitle: 'Al-Masjid an-Nabawi, Medina, Saudi Arabia. The Prophet\'s Mosque; expanded to hold over 1 million worshippers',
     description: 'Al-Masjid an-Nabawi (the Prophet\'s Mosque) in Medina is the second holiest site in Islam. Originally built by the Prophet Muhammad himself in 622 CE after his migration from Mecca, it was one of the first mosques in Islamic history. The mosque now contains the tombs of Muhammad and the first two caliphs, Abu Bakr and Umar, beneath the distinctive Green Dome added in 1279 CE and painted green in 1837. Expanded many times over 14 centuries, it is now one of the largest mosques in the world.',
     lat: 24.4683,
     lng: 39.6109,
@@ -6061,7 +6061,7 @@ export const moments: Moment[] = [
   {
     id: 'fatima-sanctuary',
     name: 'Three Shepherd Children Report Visions of the Virgin Mary in Portugal',
-    subtitle: 'Where 70,000 people witnessed the "Miracle of the Sun" on October 13, 1917',
+    subtitle: 'Sanctuary of Fatima, Ourem, Portugal. Major Catholic pilgrimage site; the basilica and chapel are open daily',
     description: 'Between May and October 1917, three shepherd children — Lucia Santos and her cousins Francisco and Jacinta Marto — reported six apparitions of the Virgin Mary near Fatima, Portugal. The apparitions included the "Three Secrets of Fatima," among the most discussed prophecies in Catholic tradition. On October 13, the final apparition coincided with what up to 70,000 witnesses described as the sun dancing and zigzagging across the sky. The Basilica of Our Lady of the Rosary was completed in 1953. Approximately 6–8 million pilgrims visit annually.',
     lat: 39.6315,
     lng: -8.6742,
@@ -6078,7 +6078,7 @@ export const moments: Moment[] = [
   {
     id: 'bodh-gaya-temple',
     name: 'Siddhartha Gautama Attains Enlightenment Under the Bodhi Tree',
-    subtitle: 'Where the Buddha achieved supreme understanding and Buddhism was born',
+    subtitle: 'Mahabodhi Temple, Bodh Gaya, Bihar, India. UNESCO World Heritage Site; the Bodhi Tree descendant stands in the courtyard',
     description: 'Bodh Gaya is the holiest site in Buddhism — the place where Siddhartha Gautama attained supreme enlightenment while meditating under the Bodhi Tree approximately 2,500 years ago, becoming the Buddha. Emperor Ashoka built the first temple here around 250 BCE. The current Mahabodhi Temple dates to the 5th–6th century CE. The Bodhi Tree on the grounds is said to be a direct descendant of the original. Buddhists from across Asia make pilgrimage here, and the site is a UNESCO World Heritage Site.',
     lat: 24.6960,
     lng: 84.9914,
@@ -6093,7 +6093,7 @@ export const moments: Moment[] = [
   {
     id: 'varanasi-ganges',
     name: 'Varanasi Becomes the Holiest City in Hinduism — Older Than History Itself',
-    subtitle: 'Where dying brings liberation and the river washes away the sins of a lifetime',
+    subtitle: 'Dashashwamedh Ghat, Varanasi, Uttar Pradesh, India. The ghats line the Ganges for 4 km; Ganga Aarti ceremony nightly',
     description: 'Varanasi is Hinduism\'s holiest city — one of the oldest continuously inhabited cities in the world, with settlement dating to at least the 11th century BCE. Hindus believe that bathing in the Ganges here washes away sins, and that dying in Varanasi liberates the soul from the cycle of reincarnation. The city\'s 88 ghats line the western bank of the river, where the nightly Ganga Aarti fire ceremony at Dashashwamedh Ghat draws thousands. Cremation fires burn around the clock at Manikarnika Ghat.',
     lat: 25.3036,
     lng: 83.0141,
@@ -6108,7 +6108,7 @@ export const moments: Moment[] = [
   {
     id: 'mount-kailash',
     name: 'Four Religions Venerate a Mountain That No One Has Ever Climbed',
-    subtitle: 'Where Shiva meditates, the Buddha sits, and no human has ever set foot on the summit',
+    subtitle: 'Mount Kailash, Burang County, Tibet, China. Sacred to four religions; the 52 km kora pilgrimage circuit is open',
     description: 'Mount Kailash at 6,638 meters is sacred to four religions simultaneously — Hinduism (abode of Lord Shiva), Buddhism (seat of Buddha Demchok), Jainism (where the first Tirthankara achieved liberation), and Bon (the seat of all spiritual power). Despite being lower than many climbed Himalayan peaks, no one has ever summited Kailash — China banned all climbing in 2001. The traditional kora circumambulation trek covers 52 kilometers around the base and is undertaken by thousands of pilgrims annually.',
     lat: 31.0675,
     lng: 81.3119,
@@ -6123,7 +6123,7 @@ export const moments: Moment[] = [
   {
     id: 'angkor-wat',
     name: 'The Khmer Empire Builds the Largest Religious Monument in the World',
-    subtitle: 'Where a Hindu temple became a Buddhist shrine and Cambodia put it on its flag',
+    subtitle: 'Angkor Archaeological Park, Siem Reap, Cambodia. UNESCO World Heritage Site; multi-day pass recommended',
     description: 'Angkor Wat was built by Khmer King Suryavarman II between approximately 1113 and 1150 CE as a Hindu temple dedicated to the god Vishnu. Covering 162 hectares, it is the largest religious monument in the world. Its five towers represent Mount Meru, the cosmic mountain at the center of the Hindu universe. In the late 13th century, the temple was gradually converted to Theravada Buddhism. Its walls contain one of the longest continuous bas-relief narratives in the world. It appears on Cambodia\'s national flag.',
     lat: 13.4125,
     lng: 103.8670,
@@ -6138,7 +6138,7 @@ export const moments: Moment[] = [
   {
     id: 'hagia-sophia',
     name: 'Justinian Builds a Cathedral So Grand He Claims to Have Surpassed Solomon',
-    subtitle: 'Where the world\'s largest cathedral for 1,000 years became a mosque, then a museum, then a mosque again',
+    subtitle: 'Hagia Sophia, Sultanahmet, Istanbul, Turkey. Re-designated a mosque in 2020; open to visitors outside prayer times',
     description: 'Built by Byzantine Emperor Justinian I between 532 and 537 CE, the Hagia Sophia served as the world\'s largest cathedral for nearly a thousand years. Its massive dome — 31 meters in diameter — was an engineering marvel. At its consecration, Justinian reportedly exclaimed "Solomon, I have surpassed thee!" After the Ottoman conquest of Constantinople in 1453, it became a mosque. Atatürk converted it to a museum in 1934. In 2020, Turkey reconverted it to a mosque, a decision that sparked international controversy.',
     lat: 41.0085,
     lng: 28.9803,
@@ -6156,7 +6156,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-born-bethlehem',
     name: 'Jesus Is Born in a Manger in Bethlehem',
-    subtitle: 'Where shepherds found a newborn wrapped in swaddling clothes in a town too crowded for his family',
+    subtitle: 'Church of the Nativity, Bethlehem, West Bank. A silver star in the grotto marks the traditional birth spot',
     description: 'According to the Gospels of Matthew and Luke, Jesus was born in Bethlehem during the reign of Herod the Great. Mary and Joseph had traveled from Nazareth for a Roman census and found no room at the inn, so Jesus was laid in a manger. The Church of the Nativity, built over the traditional site of the birth cave in 326 CE, is one of the oldest continuously operating churches in the world.',
     lat: 31.7042,
     lng: 35.2075,
@@ -6173,7 +6173,7 @@ export const moments: Moment[] = [
   {
     id: 'holy-family-egypt',
     name: 'The Holy Family Flees to Egypt to Escape Herod\'s Massacre',
-    subtitle: 'Where an angel warned Joseph to take his family and run before Herod slaughtered every infant in Bethlehem',
+    subtitle: 'Old Cairo (Coptic Quarter), Egypt. Church of Saints Sergius and Bacchus marks the traditional resting place',
     description: 'After the Magi visited Jesus, Matthew\'s Gospel records that an angel warned Joseph in a dream to flee to Egypt because Herod planned to kill the newborn. The family remained in Egypt until Herod\'s death. The Coptic tradition traces their route through several Egyptian towns, with the oldest churches in Old Cairo marking the family\'s supposed resting places.',
     lat: 30.0057,
     lng: 31.2300,
@@ -6190,7 +6190,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-temptation-wilderness',
     name: 'Jesus Fasts Forty Days and Is Tempted by the Devil in the Judean Wilderness',
-    subtitle: 'Where the Devil offered Jesus all the kingdoms of the world from a mountaintop overlooking Jericho',
+    subtitle: 'Monastery of the Temptation, Jericho, West Bank. Built into the cliff face; accessible by cable car',
     description: 'After his baptism, Jesus withdrew into the Judean wilderness for forty days of fasting. According to the Synoptic Gospels, Satan tempted him three times — to turn stones into bread, to throw himself from the Temple pinnacle, and to accept dominion over all earthly kingdoms. The traditional site is the Mount of Temptation (Jebel Quruntul) above Jericho, where a Greek Orthodox monastery clings to the cliff face.',
     lat: 31.8712,
     lng: 35.4340,
@@ -6207,7 +6207,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-cana-wedding',
     name: 'Jesus Turns Water into Wine at a Wedding in Cana',
-    subtitle: 'Where Jesus performed his first miracle after his mother told him the wine had run out',
+    subtitle: 'Kafr Kanna (Cana), Israel. Two churches claim the site; the Franciscan Wedding Church is the most visited',
     description: 'The Gospel of John records that Jesus, his mother, and his disciples attended a wedding feast in Cana of Galilee. When the wine ran out, Mary told Jesus. He instructed servants to fill six stone water jars and draw from them — the water had become wine. John calls this the first of Jesus\'s signs, through which he revealed his glory. The traditional site is Kafr Kanna, a few miles northeast of Nazareth.',
     lat: 32.7500,
     lng: 35.3389,
@@ -6224,7 +6224,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-sermon-mount',
     name: 'Jesus Delivers the Sermon on the Mount to a Crowd on a Galilean Hillside',
-    subtitle: 'Where "Blessed are the poor in spirit" and the Lord\'s Prayer were first spoken',
+    subtitle: 'Mount of Beatitudes, near Tabgha, Israel. The octagonal Church of the Beatitudes has views over the Sea of Galilee',
     description: 'The Sermon on the Mount, recorded in Matthew chapters 5-7, is the longest continuous teaching of Jesus in the Gospels. It includes the Beatitudes, the Lord\'s Prayer, the Golden Rule, and the command to turn the other cheek. The traditional site is the Mount of Beatitudes on the northwestern shore of the Sea of Galilee, near Tabgha. The octagonal Church of the Beatitudes was built there in 1938.',
     lat: 32.8812,
     lng: 35.5537,
@@ -6241,7 +6241,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-feeds-five-thousand',
     name: 'Jesus Feeds Five Thousand People with Five Loaves and Two Fish',
-    subtitle: 'Where a boy\'s lunch fed a multitude on the shore of the Sea of Galilee',
+    subtitle: 'Church of the Multiplication, Tabgha, Israel. The 5th-century mosaic floor depicting loaves and fish is preserved',
     description: 'The only miracle recorded in all four Gospels. Near Bethsaida, a crowd of five thousand men (plus women and children) had followed Jesus to hear him teach. With only five barley loaves and two fish, Jesus fed the entire crowd with twelve baskets of leftovers. The traditional site is Tabgha, where the Church of the Multiplication stands today, preserving a 5th-century mosaic of loaves and fish on its floor.',
     lat: 32.8730,
     lng: 35.5480,
@@ -6258,7 +6258,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-walks-water',
     name: 'Jesus Walks on the Water of the Sea of Galilee',
-    subtitle: 'Where the disciples saw a figure approaching their boat across the waves in the middle of the night',
+    subtitle: 'Sea of Galilee, near Tabgha, Israel. The lake is accessible from several towns; boat tours depart from Tiberias',
     description: 'After feeding the five thousand, Jesus sent his disciples ahead by boat while he went up a mountain to pray. In the early hours of the morning, the disciples saw Jesus walking toward them on the water. Peter attempted to walk to him but began to sink. The Sea of Galilee (Lake Kinneret) is 21 kilometers long and 13 wide, and its sudden violent storms are well-documented, lending dramatic credibility to the account.',
     lat: 32.8300,
     lng: 35.5300,
@@ -6274,7 +6274,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-transfiguration',
     name: 'Jesus Is Transfigured on a Mountain as Moses and Elijah Appear Beside Him',
-    subtitle: 'Where three disciples saw Jesus\'s face shine like the sun and his clothes become dazzling white',
+    subtitle: 'Church of the Transfiguration, Mount Tabor, Israel. The Franciscan church at the summit is accessible by road',
     description: 'The Synoptic Gospels record that Jesus took Peter, James, and John up a high mountain where his appearance was transformed — his face shone and his garments became brilliant white. Moses and Elijah appeared and spoke with him. A voice from a cloud declared him God\'s beloved Son. The traditional site is Mount Tabor in Lower Galilee, where the Church of the Transfiguration was built in 1924, though some scholars prefer Mount Hermon.',
     lat: 32.6869,
     lng: 35.3932,
@@ -6308,7 +6308,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-triumphal-entry',
     name: 'Jesus Rides a Donkey into Jerusalem as Crowds Wave Palm Branches',
-    subtitle: 'Where the crowds who shouted "Hosanna" would be shouting "Crucify him" within a week',
+    subtitle: 'Eastern gates area, Old City, Jerusalem. The Golden Gate is sealed; Palm Sunday processions descend the Mount of Olives',
     description: 'All four Gospels record Jesus\'s triumphal entry into Jerusalem, riding a donkey as crowds spread palm branches and cloaks on the road, shouting "Hosanna to the Son of David." The procession likely descended from the Mount of Olives through the Kidron Valley and entered through one of the eastern gates. Christians commemorate this event on Palm Sunday, the beginning of Holy Week.',
     lat: 31.7794,
     lng: 35.2390,
@@ -6325,7 +6325,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-last-supper',
     name: 'Jesus Shares a Final Meal with His Disciples on the Night Before His Death',
-    subtitle: 'Where Jesus broke bread, poured wine, washed feet, and predicted his own betrayal',
+    subtitle: 'The Cenacle (Upper Room), Mount Zion, Jerusalem. A Gothic-vaulted hall; shared by multiple faiths',
     description: 'On the night before his crucifixion, Jesus gathered his twelve disciples for the Passover meal. He washed their feet, broke bread and shared wine telling them "this is my body" and "this is my blood," and predicted that one of them would betray him. The traditional site is the Cenacle (Upper Room) on Mount Zion, though the current structure dates to Crusader times. This meal is the basis of the Christian Eucharist.',
     lat: 31.7715,
     lng: 35.2284,
@@ -6342,7 +6342,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-crucified-golgotha',
     name: 'Jesus Is Crucified at Golgotha Outside the Walls of Jerusalem',
-    subtitle: 'Where Roman soldiers nailed a Galilean preacher to a cross between two thieves',
+    subtitle: 'Church of the Holy Sepulchre (Calvary), Jerusalem. The Rock of Calvary is inside the church; visible through glass',
     description: 'After being tried by the Sanhedrin, brought before Pontius Pilate, scourged, and forced to carry his cross through the streets, Jesus was crucified at Golgotha (Aramaic for "place of the skull"). He died after approximately six hours on the cross. The site is traditionally located within the Church of the Holy Sepulchre, which archaeological evidence suggests was indeed outside the city walls in the 1st century CE. The crucifixion is the central event of Christian theology.',
     lat: 31.7786,
     lng: 35.2296,
@@ -6359,7 +6359,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-resurrection',
     name: 'The Women Find the Tomb Empty on the Third Day',
-    subtitle: 'According to the Gospels, an angel declared "He is not here; he has risen"',
+    subtitle: 'The Edicule, Church of the Holy Sepulchre, Jerusalem. The marble shrine was restored in 2017; open to visitors',
     description: 'On the Sunday morning after the crucifixion, women went to Jesus\'s tomb to anoint his body and found the stone rolled away and the tomb empty. The Gospels differ on details but agree on the core event: the tomb was empty and messengers (angels) announced Jesus had risen from the dead. The Edicule within the Church of the Holy Sepulchre is the traditional site of the burial and resurrection, most recently restored in 2016-2017.',
     lat: 31.7785,
     lng: 35.2293,
@@ -6376,7 +6376,7 @@ export const moments: Moment[] = [
   {
     id: 'jesus-ascension-olives',
     name: 'Jesus Ascends to Heaven from the Mount of Olives',
-    subtitle: 'Where forty days after the resurrection, Jesus was lifted up and a cloud took him from their sight',
+    subtitle: 'Chapel of the Ascension, Mount of Olives, Jerusalem. Small octagonal chapel; contains a rock with a supposed footprint',
     description: 'The Acts of the Apostles records that forty days after his resurrection, Jesus led his disciples to the Mount of Olives, gave them final instructions to be his witnesses "to the ends of the earth," and was taken up into heaven as they watched. Two angels appeared and told the disciples he would return in the same way. The Chapel of the Ascension, a small octagonal structure on the summit, marks the traditional site and preserves a rock said to bear Jesus\'s footprint.',
     lat: 31.7788,
     lng: 35.2440,
@@ -6396,7 +6396,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-born-nile',
     name: 'Baby Moses Is Hidden in a Basket on the Nile to Escape Pharaoh\'s Death Decree',
-    subtitle: 'Where a Hebrew mother placed her infant son among the reeds and Pharaoh\'s daughter found him',
+    subtitle: 'Nile River, near Memphis/Cairo, Egypt. Traditional site; the ancient capital of Memphis is 20 km south of Cairo',
     description: 'When Pharaoh ordered the killing of all newborn Hebrew boys, Moses\'s mother placed him in a waterproofed basket among the reeds of the Nile. Pharaoh\'s daughter discovered the baby, recognized him as a Hebrew child, and adopted him. She named him Moses, meaning "I drew him out of the water." He was raised as Egyptian royalty while his biological mother, hired as a nurse, secretly raised him in his own faith.',
     lat: 30.0444,
     lng: 31.2357,
@@ -6413,7 +6413,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-burning-bush',
     name: 'God Speaks to Moses from a Burning Bush on Mount Horeb',
-    subtitle: 'Where a bush burned without being consumed and a voice said "Take off your sandals"',
+    subtitle: 'St. Catherine\'s Monastery, Mount Sinai, Egypt. A bush venerated as the Burning Bush grows in the monastery courtyard',
     description: 'While tending his father-in-law\'s flock near Mount Horeb, Moses saw a bush that was on fire but not consumed. God spoke from the bush, revealing his name as "I AM WHO I AM" and commanding Moses to return to Egypt to free the Israelites. Moses protested that he was not eloquent enough, so God appointed his brother Aaron as his spokesman. St. Catherine\'s Monastery, built at the foot of the mountain in the 6th century, claims to enclose the site of the burning bush.',
     lat: 28.5556,
     lng: 33.9761,
@@ -6430,7 +6430,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-plagues-egypt',
     name: 'Ten Plagues Devastate Egypt Until Pharaoh Lets the Israelites Go',
-    subtitle: 'Where the Nile turned to blood, frogs swarmed the land, and the firstborn of Egypt died in a single night',
+    subtitle: 'Ancient Memphis/Thebes, Egypt. The Pharaonic sites are spread along the Nile; Luxor and Cairo are the main access points',
     description: 'When Pharaoh refused to release the Israelite slaves, God sent ten plagues: water to blood, frogs, gnats, flies, livestock death, boils, hail, locusts, darkness, and the death of every firstborn. On the night of the final plague, the Israelites marked their doorposts with lamb\'s blood so the destroyer would "pass over" their homes — the origin of Passover. Pharaoh finally relented and let the people go. The ancient capital of Memphis, near modern Cairo, was likely the center of these events.',
     lat: 29.8480,
     lng: 31.2543,
@@ -6447,7 +6447,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-crosses-red-sea',
     name: 'Moses Parts the Red Sea and the Israelites Cross on Dry Ground',
-    subtitle: 'Where the waters divided to let a nation escape and then closed over the pursuing army',
+    subtitle: 'Gulf of Suez / Gulf of Aqaba (disputed), Egypt. Multiple traditional crossing sites; none archaeologically confirmed',
     description: 'Trapped between Pharaoh\'s army and the sea, Moses stretched out his hand and God drove back the waters with a strong east wind, creating a path of dry ground. The Israelites crossed, but when the Egyptian army followed, the waters returned and drowned them all. The exact crossing point is debated — candidates range from the northern Suez area to the Gulf of Aqaba. The traditional identification places it near modern Suez, where the sea narrows.',
     lat: 29.9667,
     lng: 32.5497,
@@ -6464,7 +6464,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-ten-commandments',
     name: 'Moses Receives the Ten Commandments on Mount Sinai',
-    subtitle: 'Where thunder, lightning, and a thick cloud covered the mountain as God gave the Law',
+    subtitle: 'Mount Sinai (Jebel Musa), South Sinai, Egypt. The 2,285 m peak is climbed by pilgrims; 3,750 Steps of Repentance',
     description: 'Three months after leaving Egypt, the Israelites camped at the base of Mount Sinai. Moses ascended the mountain, which was covered in cloud, fire, and smoke, and remained for forty days. God gave him the Ten Commandments inscribed on two stone tablets — the foundation of biblical law and a cornerstone of Western legal tradition. The traditional identification is Jebel Musa (Mountain of Moses) in the southern Sinai Peninsula, though other candidates exist.',
     lat: 28.5396,
     lng: 33.9750,
@@ -6481,7 +6481,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-golden-calf',
     name: 'The Israelites Build a Golden Calf While Moses Is on the Mountain',
-    subtitle: 'Where impatience led a nation to melt their jewelry into an idol at the very foot of God\'s mountain',
+    subtitle: 'Plain beneath Mount Sinai, South Sinai, Egypt. The plain at Jebel Musa\'s base is accessible from St. Catherine\'s',
     description: 'While Moses spent forty days on Mount Sinai receiving the Law, the Israelites grew restless. They pressured Aaron to make them a god, and he collected their gold earrings and fashioned a golden calf. When Moses descended and saw the people worshipping and dancing before the idol, he shattered the stone tablets in anger. God threatened to destroy the people, but Moses interceded. About three thousand died in the aftermath. Moses later returned to the mountain for a second set of tablets.',
     lat: 28.5550,
     lng: 33.9761,
@@ -6498,7 +6498,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-twelve-spies',
     name: 'Twelve Spies Return from Canaan and the People Refuse to Enter the Promised Land',
-    subtitle: 'Where ten spies said "We can\'t do it" and two said "We can" — and a generation paid the price',
+    subtitle: 'Kadesh Barnea (Tell el-Qudeirat), northern Sinai, Egypt. Remote desert site; archaeological remains visible',
     description: 'From Kadesh Barnea in the Negev wilderness, Moses sent twelve spies into Canaan. After forty days, they returned with giant grapes but terrifying reports of fortified cities and powerful inhabitants. Ten spies counseled despair; only Joshua and Caleb urged faith. The people sided with the majority and refused to enter. God decreed that the entire adult generation would wander the wilderness for forty years until they had all died. Only Joshua and Caleb would live to enter the Promised Land.',
     lat: 30.6500,
     lng: 34.4000,
@@ -6515,7 +6515,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-water-meribah',
     name: 'Moses Strikes the Rock at Meribah and Is Forbidden from the Promised Land',
-    subtitle: 'Where a moment of frustrated disobedience cost Moses the one thing he wanted most',
+    subtitle: 'Ein Avdat / Ain Musa, near Petra, Jordan. Multiple traditional sites; Ain Musa spring is near Petra\'s entrance',
     description: 'Near the end of the forty years, the people again complained about water. God told Moses to speak to a rock and water would flow. Instead, Moses struck the rock twice with his staff, saying "Must we bring you water from this rock?" Water gushed out, but God told Moses that because he had struck the rock instead of speaking to it — failing to honor God before the people — he would not enter the Promised Land. It is one of the Bible\'s most discussed passages on disobedience and divine judgment.',
     lat: 30.6300,
     lng: 34.3800,
@@ -6532,7 +6532,7 @@ export const moments: Moment[] = [
   {
     id: 'moses-death-nebo',
     name: 'Moses Sees the Promised Land from Mount Nebo and Dies Within Sight of It',
-    subtitle: 'Where the greatest prophet in Hebrew scripture looked across the Jordan at everything he would never reach',
+    subtitle: 'Mount Nebo, Madaba, Jordan. A church and memorial mark the summit; panoramic view of the Dead Sea and Jordan Valley',
     description: 'After leading the Israelites for forty years, Moses climbed Mount Nebo in Moab. From the summit, God showed him the entire Promised Land — from Gilead to Dan, Naphtali, Ephraim, Judah, the Negev, and the Jordan Valley. God said "I have let you see it with your eyes, but you shall not go over there." Moses died on the mountain at 120 years old, and no one knows his burial place. The book of Deuteronomy records that no prophet like Moses has since arisen in Israel.',
     lat: 31.7670,
     lng: 35.7260,
@@ -6552,7 +6552,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-conversion-damascus',
     name: 'Saul Is Blinded by a Light on the Road to Damascus and Hears the Voice of Jesus',
-    subtitle: 'Where Christianity\'s greatest persecutor became its greatest missionary in a single moment',
+    subtitle: 'Bab Kisan, Damascus, Syria. St. Paul\'s Chapel marks the spot; the ancient wall gate is partially preserved',
     description: 'Saul of Tarsus was traveling to Damascus with letters authorizing him to arrest followers of Jesus. Near the city, a blinding light struck him down and a voice said "Saul, Saul, why do you persecute me?" Blinded for three days, Saul was led into Damascus where a disciple named Ananias restored his sight. The persecutor became Paul the Apostle — arguably the most influential figure in Christianity after Jesus himself. The conversion is narrated three times in Acts.',
     lat: 33.5138,
     lng: 36.3065,
@@ -6569,7 +6569,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-antioch-commission',
     name: 'The Church at Antioch Sends Paul and Barnabas as the First Christian Missionaries',
-    subtitle: 'Where the followers of Jesus were first called "Christians" and the global mission began',
+    subtitle: 'Antioch (Antakya), Hatay, Turkey. The Cave Church of St. Peter is carved into the hillside; open to visitors',
     description: 'Antioch on the Orontes was the third-largest city in the Roman Empire and home to a thriving mixed Jewish-Gentile church. It was here that believers were first called "Christians." The Holy Spirit directed the church to set apart Paul and Barnabas for missionary work, launching what became Paul\'s first missionary journey around 47 CE. Antioch served as Paul\'s home base for all three journeys. The city (modern Antakya, Turkey) was devastated by earthquakes in 2023.',
     lat: 36.2000,
     lng: 36.1500,
@@ -6586,7 +6586,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-cyprus-paphos',
     name: 'Paul Confronts a Sorcerer and Converts the Roman Governor of Cyprus',
-    subtitle: 'Where Paul struck a magician blind and the governor believed what he saw',
+    subtitle: 'Paphos Archaeological Park, Paphos, Cyprus. UNESCO World Heritage Site; Roman ruins and mosaics open to visitors',
     description: 'On his first missionary journey, Paul and Barnabas sailed to Cyprus. At Paphos, the Roman proconsul Sergius Paulus summoned them, wanting to hear the word of God. A Jewish sorcerer named Bar-Jesus tried to turn the governor away, but Paul, filled with the Holy Spirit, struck the sorcerer temporarily blind. The governor, seeing this, believed. The archaeological remains of Roman Paphos include the supposed "Pillar of Paul" where tradition says he was flogged.',
     lat: 34.7556,
     lng: 32.4079,
@@ -6603,7 +6603,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-pisidian-antioch',
     name: 'Paul Preaches to Gentiles for the First Time at Pisidian Antioch',
-    subtitle: 'Where Paul declared "We now turn to the Gentiles" after the synagogue rejected him',
+    subtitle: 'Yalvac (ancient Pisidian Antioch), Isparta Province, Turkey. Ruins of the Roman colony; small museum on-site',
     description: 'At Pisidian Antioch in central Asia Minor, Paul preached in the synagogue and initially attracted interest from both Jews and Gentiles. But when the whole city gathered the next Sabbath to hear him, Jewish leaders grew jealous and opposed him. Paul declared: "Since you reject the word of God, we now turn to the Gentiles." This was a pivotal moment — the explicit turn toward Gentile mission that would define Christianity\'s future as a global religion rather than a Jewish sect.',
     lat: 38.3010,
     lng: 31.1910,
@@ -6620,7 +6620,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-lystra-stoned',
     name: 'Paul Is Stoned and Left for Dead at Lystra',
-    subtitle: 'Where a crowd that tried to worship Paul as a god stoned him to near-death the next day',
+    subtitle: 'Lystra (near Hatunsaray), Konya Province, Turkey. Mound site in farmland; a stone inscription marks the location',
     description: 'At Lystra, Paul healed a man crippled from birth. The crowd believed Paul and Barnabas were the Greek gods Hermes and Zeus and tried to offer sacrifices to them. Paul barely restrained them. But when hostile Jews arrived from Pisidian Antioch and Iconium, the same crowd turned violent. They stoned Paul and dragged him outside the city, leaving him for dead. He got up, re-entered the city, and left for Derbe the next day. A young man named Timothy, who would become Paul\'s closest companion, likely witnessed this.',
     lat: 37.5688,
     lng: 32.3740,
@@ -6637,7 +6637,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-philippi-prison',
     name: 'An Earthquake Opens the Prison at Philippi and Paul Converts the Jailer',
-    subtitle: 'Where Paul and Silas sang hymns at midnight until the foundations shook and the chains fell off',
+    subtitle: 'Philippi Archaeological Site, Kavala, Greece. UNESCO World Heritage Site; the traditional prison is on the grounds',
     description: 'In Philippi, Paul cast a spirit out of a slave girl whose owners had profited from her fortune-telling. Enraged, they dragged Paul and Silas before the magistrates, who had them beaten and imprisoned. At midnight, Paul and Silas were praying and singing hymns when an earthquake shook the prison, opened every door, and unfastened every chain. The terrified jailer, about to kill himself, was stopped by Paul. He and his entire household were baptized that night. Philippi\'s ruins include a structure tradition identifies as Paul\'s prison.',
     lat: 41.0141,
     lng: 24.2872,
@@ -6654,7 +6654,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-athens-areopagus',
     name: 'Paul Delivers His Famous Speech on the Unknown God at the Areopagus in Athens',
-    subtitle: 'Where Paul told the philosophers of Athens that their "unknown god" was the God he proclaimed',
+    subtitle: 'Areopagus (Mars Hill), Athens, Greece. The rocky outcrop below the Acropolis is open to the public; bronze plaque',
     description: 'In Athens, Paul was provoked by the city\'s many idols. He debated with Epicurean and Stoic philosophers, who brought him to the Areopagus (Mars Hill) to explain his teachings. Paul noticed an altar inscribed "TO AN UNKNOWN GOD" and used it as his starting point: "What you worship in ignorance, I proclaim to you." He quoted Greek poets to argue that God is not far from any of us. Some mocked him, but others believed. The speech is considered a masterclass in cross-cultural communication.',
     lat: 37.9722,
     lng: 23.7230,
@@ -6671,7 +6671,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-corinth-gallio',
     name: 'Paul Stands Trial Before the Roman Proconsul Gallio in Corinth',
-    subtitle: 'Where a Roman judge\'s dismissal of the case gave Paul eighteen months to build a church',
+    subtitle: 'Ancient Corinth, Peloponnese, Greece. The bema (judgment seat) is in the excavated agora; museum on-site',
     description: 'Paul spent eighteen months in Corinth, working as a tentmaker and founding what became one of his most important churches. Jewish leaders dragged him before Gallio, the Roman proconsul of Achaia, accusing him of illegal worship. Gallio dismissed the case, ruling it was an internal Jewish dispute. This decision — dateable to 51-52 CE through an inscription found at Delphi — is one of the most important chronological anchors for Paul\'s career and early Christian history.',
     lat: 37.9056,
     lng: 22.8806,
@@ -6688,7 +6688,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-ephesus-riot',
     name: 'A Silversmith Incites a Riot Against Paul in the Great Theater of Ephesus',
-    subtitle: 'Where twenty-five thousand people chanted "Great is Artemis of the Ephesians!" for two hours',
+    subtitle: 'Great Theatre, Ephesus, Selcuk, Turkey. The 25,000-seat theater is well preserved; part of the archaeological site',
     description: 'Paul spent over two years in Ephesus, and his preaching was so effective that the market for silver shrines of the goddess Artemis collapsed. A silversmith named Demetrius rallied his fellow craftsmen, warning that Paul threatened both their livelihood and Artemis\'s honor. A mob dragged Paul\'s companions into the 25,000-seat Great Theater. The crowd chanted "Great is Artemis of the Ephesians!" for two hours before the city clerk dispersed them. The theater, one of the best-preserved in the ancient world, still stands.',
     lat: 37.9410,
     lng: 27.3410,
@@ -6705,7 +6705,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-arrest-jerusalem',
     name: 'Paul Is Seized by a Mob at the Temple in Jerusalem and Arrested by Roman Soldiers',
-    subtitle: 'Where Paul\'s return to Jerusalem to bring a gift ended in chains and a journey to Rome',
+    subtitle: 'Temple Mount area, Old City, Jerusalem. The area where Paul was arrested; the Temple platform is now the Haram al-Sharif',
     description: 'Paul returned to Jerusalem carrying a collection from Gentile churches for the poor. Jewish opponents recognized him at the Temple and accused him of bringing Gentiles into the sacred precincts. A mob seized him and was beating him when Roman soldiers intervened and arrested Paul. He was held in Caesarea for two years, appealed to Caesar as a Roman citizen, and was sent to Rome — exactly fulfilling his long-stated desire to preach there, though not as a free man.',
     lat: 31.7780,
     lng: 35.2354,
@@ -6722,7 +6722,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-shipwreck-malta',
     name: 'Paul Survives a Shipwreck on the Island of Malta',
-    subtitle: 'Where a prisoner saved everyone aboard and the locals thought he was a god when a viper didn\'t kill him',
+    subtitle: 'St. Paul\'s Bay, Malta. The bay is named for the traditional shipwreck site; St. Paul\'s Island is offshore',
     description: 'While being transported to Rome as a prisoner, Paul\'s ship was caught in a violent storm lasting fourteen days. Paul told the 276 people aboard that an angel had assured him no lives would be lost. The ship ran aground on Malta and broke apart, but everyone reached shore safely. When Paul gathered wood for a fire, a viper bit his hand. The islanders expected him to swell up and die, but when he was unharmed, they said he was a god. He spent three months on the island healing the sick.',
     lat: 35.9620,
     lng: 14.4024,
@@ -6739,7 +6739,7 @@ export const moments: Moment[] = [
   {
     id: 'paul-arrives-rome',
     name: 'Paul Arrives in Rome as a Prisoner and Preaches Under House Arrest for Two Years',
-    subtitle: 'Where Paul spent two years preaching under house arrest before his likely execution',
+    subtitle: 'Via Appia / Basilica of San Paolo fuori le Mura, Rome. The basilica is built over Paul\'s traditional tomb',
     description: 'Paul finally reached Rome around 61 CE, the city he had long desired to visit. Though a prisoner, he was allowed to live in rented quarters with a soldier guarding him. For two years he received all who came, preaching about Jesus "with all boldness and without hindrance." Acts ends here, without recording Paul\'s trial or death. Tradition holds he was beheaded during Nero\'s persecution around 64-67 CE. The Basilica of St. Paul Outside the Walls marks his traditional burial site.',
     lat: 41.8583,
     lng: 12.4766,
@@ -6759,7 +6759,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-leaves-ur',
     name: 'Abraham Leaves Ur of the Chaldees at God\'s Command',
-    subtitle: 'Where an old man left one of the greatest cities on Earth because a voice told him to go',
+    subtitle: 'Ur, Dhi Qar Province, Iraq. The Ziggurat of Ur is partially restored; Abraham\'s traditional house is nearby',
     description: 'God called Abraham (then Abram) to leave his homeland and go "to the land I will show you," promising to make of him a great nation. Abraham obeyed, departing Ur — one of the most sophisticated cities in Mesopotamia, with a population of perhaps 65,000. He left behind a ziggurat, a scribal tradition, and a comfortable life. The Great Ziggurat of Ur, partially restored in the 1980s, still stands near modern Nasiriyah in southern Iraq.',
     lat: 30.9628,
     lng: 46.1031,
@@ -6776,7 +6776,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-haran',
     name: 'Abraham Settles in Haran Before Continuing to Canaan',
-    subtitle: 'Where Abraham paused his journey and his father Terah died before he could continue',
+    subtitle: 'Harran, Sanliurfa Province, Turkey. Ancient beehive houses still stand; ruins of the oldest Islamic university',
     description: 'On the way to Canaan, Abraham\'s family stopped at Haran in upper Mesopotamia (modern southeastern Turkey). His father Terah died there. After Terah\'s death, God renewed the call and Abraham continued toward Canaan. Haran was a significant trading center on the Balikh River, a tributary of the Euphrates. The ruins of the ancient city, including distinctive beehive-shaped houses, are near the modern village of Harran.',
     lat: 36.8637,
     lng: 39.0328,
@@ -6793,7 +6793,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-shechem',
     name: 'Abraham Arrives in Canaan and Builds His First Altar at Shechem',
-    subtitle: 'Where God first promised "To your offspring I will give this land" and Abraham built an altar',
+    subtitle: 'Shechem (Tell Balata), near Nablus, West Bank. Archaeological site; Jacob\'s Well church is nearby',
     description: 'Abraham\'s first stop in Canaan was Shechem, at the Oak of Moreh. There God appeared and made the foundational promise: "To your offspring I will give this land." Abraham built his first altar on Canaanite soil. Shechem (Tell Balata, near modern Nablus) sits in the pass between Mount Gerizim and Mount Ebal — a strategic and sacred location that would reappear throughout biblical history.',
     lat: 32.2128,
     lng: 35.2822,
@@ -6810,7 +6810,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-lot-separation',
     name: 'Abraham and Lot Part Ways as Their Herds Grow Too Large to Share the Land',
-    subtitle: 'Where Lot chose the well-watered Jordan plain and Abraham got everything else',
+    subtitle: 'Jordan Valley, near Jericho, West Bank. The valley is visible from several hilltop viewpoints around Bethel',
     description: 'Abraham and his nephew Lot had both prospered so greatly that the land could not support them together. Their herdsmen quarreled. Abraham offered Lot first choice of the land. Lot chose the lush Jordan Valley, settling near Sodom. Abraham remained in the hill country near Bethel, where God renewed the promise: "All the land that you see I will give to you and your offspring forever."',
     lat: 31.9339,
     lng: 35.2250,
@@ -6827,7 +6827,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-covenant',
     name: 'According to Genesis, God Makes a Covenant with Abraham',
-    subtitle: 'Where a childless old man was told to count the stars — "so shall your offspring be"',
+    subtitle: 'Hebron, West Bank. The Cave of the Patriarchs (Ibrahimi Mosque) is the traditional site; divided between faiths',
     description: 'According to the Book of Genesis, God told Abraham not to be afraid. Abraham protested that he remained childless. God took him outside and said "Look toward heaven, and number the stars, if you are able to number them. So shall your offspring be." Abraham believed God, and it was credited to him as righteousness. God then made a covenant, passing between the pieces of a sacrifice as a smoking fire pot and flaming torch — binding himself unconditionally. This covenant is foundational to Judaism, Christianity, and Islam.',
     lat: 31.5500,
     lng: 35.0800,
@@ -6844,7 +6844,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-binding-isaac',
     name: 'Abraham Prepares to Sacrifice His Son Isaac on Mount Moriah',
-    subtitle: 'Where a father raised a knife over his only son and heard "Do not lay a hand on the boy"',
+    subtitle: 'Temple Mount / Mount Moriah, Jerusalem. Identified with the Dome of the Rock; the Foundation Stone is inside',
     description: 'God tested Abraham by commanding him to sacrifice Isaac, his long-promised son. Abraham obeyed, traveling three days to Mount Moriah. He built an altar, bound Isaac, and raised the knife. At the last moment, an angel stopped him: "Now I know that you fear God." A ram caught in a thicket became the substitute sacrifice. Jewish tradition identifies Mount Moriah with the Temple Mount in Jerusalem. The story, known as the Akedah (Binding), is central to Jewish, Christian, and Islamic theology.',
     lat: 31.7780,
     lng: 35.2354,
@@ -6861,7 +6861,7 @@ export const moments: Moment[] = [
   {
     id: 'abraham-machpelah',
     name: 'Abraham Buries Sarah in the Cave of Machpelah in Hebron',
-    subtitle: 'Where Abraham bought a burial cave that became the resting place of six patriarchs and matriarchs',
+    subtitle: 'Cave of the Patriarchs (Ibrahimi Mosque), Hebron, West Bank. Divided between a mosque and a synagogue',
     description: 'When Sarah died at age 127, Abraham purchased the Cave of Machpelah from Ephron the Hittite for 400 shekels of silver — the first piece of the Promised Land owned by his family. Abraham, Sarah, Isaac, Rebekah, Jacob, and Leah are all traditionally buried there. The massive Herodian enclosure over the cave still stands in Hebron and is sacred to both Jews and Muslims. It is one of the few structures from Herod\'s era still largely intact.',
     lat: 31.5243,
     lng: 35.1106,
@@ -6881,7 +6881,7 @@ export const moments: Moment[] = [
   {
     id: 'david-anointed-bethlehem',
     name: 'The Prophet Samuel Anoints a Shepherd Boy Named David as Future King',
-    subtitle: 'Where God told Samuel to stop looking at height and appearance because "the Lord sees the heart"',
+    subtitle: 'Bethlehem, West Bank. Traditional anointing site; the town is dominated by the Church of the Nativity',
     description: 'God rejected King Saul and sent the prophet Samuel to Bethlehem to anoint one of Jesse\'s sons as the next king. Samuel expected the eldest, but God rejected each older brother. When the youngest, David, was brought in from tending sheep, God said "Arise, anoint him; this is the one." David was anointed in front of his brothers, and the Spirit of the Lord came upon him from that day forward.',
     lat: 31.7042,
     lng: 35.2075,
@@ -6898,7 +6898,7 @@ export const moments: Moment[] = [
   {
     id: 'david-goliath-elah',
     name: 'David Kills the Giant Goliath with a Single Stone in the Valley of Elah',
-    subtitle: 'Where a shepherd boy with a sling defeated a nine-foot warrior in bronze armor',
+    subtitle: 'Elah Valley, near Beit Shemesh, Israel. The valley is farmland today; visible from Route 38',
     description: 'The Philistine giant Goliath, standing over nine feet tall in full armor, challenged the Israelites to single combat for forty days. No soldier would face him. David, bringing food to his brothers, volunteered. Refusing Saul\'s armor, he chose five smooth stones from a stream. His first sling stone struck Goliath\'s forehead and the giant fell face-first. David took Goliath\'s own sword and cut off his head. The Valley of Elah (Wadi es-Sant) between Azekah and Socoh has been archaeologically confirmed as a Philistine-Israelite frontier.',
     lat: 31.6950,
     lng: 34.9550,
@@ -6915,7 +6915,7 @@ export const moments: Moment[] = [
   {
     id: 'david-flees-ein-gedi',
     name: 'David Hides from King Saul in the Caves of Ein Gedi',
-    subtitle: 'Where David cut a piece of Saul\'s robe in a cave but refused to kill the king who was hunting him',
+    subtitle: 'Ein Gedi Nature Reserve, Dead Sea, Israel. The oasis and caves are a popular hiking destination',
     description: 'Saul, consumed with jealousy, hunted David through the Judean wilderness with 3,000 soldiers. David and his men hid in the caves of Ein Gedi, an oasis on the western shore of the Dead Sea. When Saul entered a cave to relieve himself, David crept up and cut off a corner of his robe — close enough to kill but choosing mercy instead. Ein Gedi remains a nature reserve with waterfalls, caves, and ibex, much as it would have been 3,000 years ago.',
     lat: 31.4700,
     lng: 35.3850,
@@ -6932,7 +6932,7 @@ export const moments: Moment[] = [
   {
     id: 'david-captures-jerusalem',
     name: 'David Conquers Jerusalem from the Jebusites and Makes It His Capital',
-    subtitle: 'Where a walled fortress the locals boasted was impregnable fell through a water tunnel',
+    subtitle: 'City of David (Ir David), Silwan, East Jerusalem. Warren\'s Shaft and Hezekiah\'s Tunnel are open to visitors',
     description: 'After becoming king of all Israel, David needed a capital that belonged to no tribe. He chose Jerusalem, held by the Jebusites, who taunted that even the blind and lame could defend it. David\'s men entered through the water shaft (Warren\'s Shaft) and captured the city. He renamed it the City of David and made it the political and spiritual center of Israel — a status it retains in Jewish consciousness to this day. The City of David archaeological site is among the most intensively excavated urban sites on Earth.',
     lat: 31.7749,
     lng: 35.2342,
@@ -6949,7 +6949,7 @@ export const moments: Moment[] = [
   {
     id: 'david-ark-jerusalem',
     name: 'David Brings the Ark of the Covenant to Jerusalem Dancing in the Streets',
-    subtitle: 'Where the king stripped off his royal robes and danced before God with all his might',
+    subtitle: 'City of David archaeological site, Jerusalem. The excavation area is adjacent to the Western Wall',
     description: 'David organized a grand procession to bring the Ark of the Covenant — the gold-covered chest containing the Ten Commandments — into Jerusalem. He danced before the Ark "with all his might," wearing only a linen ephod. His wife Michal despised him for it, but David told her he was dancing before the Lord, not the crowd. The Ark was placed in a tent David had prepared, and Jerusalem became the religious center of Israel. Solomon would later build the Temple to house it permanently.',
     lat: 31.7775,
     lng: 35.2350,
@@ -6966,7 +6966,7 @@ export const moments: Moment[] = [
   {
     id: 'david-bathsheba',
     name: 'David Sees Bathsheba Bathing and Sends Her Husband to His Death',
-    subtitle: 'Where the man after God\'s own heart committed adultery and murder from a palace rooftop',
+    subtitle: 'Old City of Jerusalem, near the Temple Mount. The traditional palace location overlooks the Kidron Valley',
     description: 'One evening David walked on the roof of his palace and saw a beautiful woman bathing. She was Bathsheba, wife of Uriah the Hittite, one of David\'s loyal soldiers. David summoned her and she became pregnant. To cover the affair, David ordered Uriah placed at the front of the fiercest fighting, then had troops withdraw from him. Uriah was killed. David married Bathsheba, but the prophet Nathan confronted him with a devastating parable. David repented, but their first child died. Their second son was Solomon.',
     lat: 31.7760,
     lng: 35.2340,
@@ -6983,7 +6983,7 @@ export const moments: Moment[] = [
   {
     id: 'david-death-jerusalem',
     name: 'David Dies in Jerusalem After Forty Years as King of Israel',
-    subtitle: 'Where the shepherd-king, warrior-poet, and ancestor of the Messiah was buried',
+    subtitle: 'Tomb of David, Mount Zion, Jerusalem. The cenotaph is in a ground-floor room; open to visitors',
     description: 'David reigned seven years in Hebron and thirty-three in Jerusalem. On his deathbed, he charged Solomon to keep God\'s commandments and to deal wisely with both allies and enemies. He died at approximately seventy years old and was buried in the City of David. The traditional Tomb of David on Mount Zion, though likely not the actual burial site, has been venerated for centuries. David is remembered as Israel\'s greatest king, author of many Psalms, and — in Christian theology — ancestor of Jesus.',
     lat: 31.7716,
     lng: 35.2291,
@@ -7003,7 +7003,7 @@ export const moments: Moment[] = [
   {
     id: 'noahs-ark-ararat',
     name: 'Noah\'s Ark Comes to Rest on the Mountains of Ararat',
-    subtitle: 'Where the world\'s most famous shipwreck has been searched for on a 16,854-foot volcano',
+    subtitle: 'Mount Ararat, Igdir Province, Turkey. Climbing permits required; expeditions depart from Dogubayazit',
     description: 'Genesis records that after the flood covered the earth, Noah\'s ark came to rest on "the mountains of Ararat." Mount Ararat (Ağrı Dağı), a 5,137-meter dormant volcano in eastern Turkey near the Armenian and Iranian borders, has been the traditional identification since at least the 11th century. Dozens of expeditions have searched its slopes and glaciers. No verified remains have been found, but the mountain remains a powerful symbol in Armenian national identity.',
     lat: 39.7019,
     lng: 44.2986,
@@ -7019,7 +7019,7 @@ export const moments: Moment[] = [
   {
     id: 'tower-of-babel',
     name: 'Humanity Builds a Tower to Heaven and God Confuses Their Languages',
-    subtitle: 'Where the whole world spoke one language until they tried to build their way to God',
+    subtitle: 'Hillah (ancient Babylon), Babil Province, Iraq. The ruins of the ziggurat are partially reconstructed',
     description: 'Genesis 11 records that humanity, speaking a single language, settled on the plain of Shinar and began building a city with a tower "whose top may reach unto heaven." God, seeing their ambition, confused their languages so they could no longer understand one another and scattered them across the earth. The traditional identification is with Babylon (near modern Hillah, Iraq), and the tower is often associated with the Etemenanki, a massive ziggurat dedicated to the god Marduk.',
     lat: 32.5362,
     lng: 44.4208,
@@ -7035,7 +7035,7 @@ export const moments: Moment[] = [
   {
     id: 'sodom-gomorrah-destruction',
     name: 'God Destroys Sodom and Gomorrah with Fire and Brimstone from Heaven',
-    subtitle: 'Where Lot\'s wife looked back and turned into a pillar of salt',
+    subtitle: 'Dead Sea shore, near Sodom, Israel. Salt formations along the shore; Mount Sodom is a salt diapir',
     description: 'When the wickedness of Sodom and Gomorrah reached its peak, God told Abraham he would destroy both cities. Abraham bargained God down to sparing them if ten righteous people could be found — they could not. Two angels escorted Lot and his family out, warning them not to look back. God rained burning sulfur on the cities, destroying them completely. Lot\'s wife looked back and became a pillar of salt. The traditional location is near the southern end of the Dead Sea, where unusual geological formations and evidence of ancient burning are found.',
     lat: 31.0900,
     lng: 35.3900,
@@ -7052,7 +7052,7 @@ export const moments: Moment[] = [
   {
     id: 'jericho-walls-fall',
     name: 'The Walls of Jericho Fall After the Israelites March Around Them for Seven Days',
-    subtitle: 'Where priests blew ram\'s horn trumpets and the oldest walled city on Earth came crashing down',
+    subtitle: 'Tell es-Sultan, Jericho, West Bank. Archaeological site with 10,000 years of layers; open to visitors',
     description: 'After Moses\'s death, Joshua led the Israelites across the Jordan into the Promised Land. Their first obstacle was Jericho, one of the oldest cities in the world. God commanded them to march around the city once a day for six days, with priests carrying the Ark and blowing trumpets. On the seventh day they marched seven times, the priests blew a long blast, the people shouted, and the walls collapsed. Kathleen Kenyon\'s excavations at Tell es-Sultan confirmed massive wall destruction, though the dating is debated.',
     lat: 31.8700,
     lng: 35.4442,
@@ -7069,7 +7069,7 @@ export const moments: Moment[] = [
   {
     id: 'samson-gaza-temple',
     name: 'Samson Brings Down the Temple of Dagon on the Philistines and Himself',
-    subtitle: 'Where a blind prisoner pushed two pillars apart and killed more enemies in his death than in his life',
+    subtitle: 'Tell Qasile / ancient Gaza, Gaza Strip. The Philistine temple site is not currently accessible',
     description: 'After Delilah betrayed his secret, the Philistines captured Samson, gouged out his eyes, and made him grind grain in prison. At a great feast to their god Dagon, three thousand Philistines packed a temple and brought Samson out for entertainment. Samson prayed for strength one final time, braced himself between the two central pillars, and pushed. The temple collapsed, killing Samson and all inside. Judges records "he killed more when he died than while he lived."',
     lat: 31.5017,
     lng: 34.4668,
@@ -7085,7 +7085,7 @@ export const moments: Moment[] = [
   {
     id: 'elijah-carmel-fire',
     name: 'Elijah Defeats the 450 Prophets of Baal in a Contest of Fire on Mount Carmel',
-    subtitle: 'Where one prophet challenged 450 to call down fire from heaven — and only one altar burned',
+    subtitle: 'Mount Carmel, Haifa, Israel. The Carmelite Monastery (Stella Maris) is at the summit; Elijah\'s Cave below',
     description: 'During a severe drought, the prophet Elijah challenged 450 prophets of Baal to a contest on Mount Carmel. Each side would prepare a sacrifice and call on their god to send fire. The prophets of Baal danced, shouted, and cut themselves from morning to evening with no result. Elijah mocked them, soaked his altar with water three times, and prayed once. Fire fell from heaven and consumed the sacrifice, the wood, the stones, and even the water. The traditional site is Mukhraka on the Carmel ridge.',
     lat: 32.7260,
     lng: 35.0400,
@@ -7102,7 +7102,7 @@ export const moments: Moment[] = [
   {
     id: 'jonah-nineveh',
     name: 'Jonah Preaches Repentance to the Great City of Nineveh After Three Days in a Fish',
-    subtitle: 'Where the prophet who ran from God convinced the most powerful city on Earth to repent',
+    subtitle: 'Nebi Yunus mound, Mosul, Iraq. The mosque was destroyed by ISIS in 2014; archaeological work is underway',
     description: 'God told Jonah to preach against Nineveh, the capital of the Assyrian Empire. Jonah ran the opposite direction, boarding a ship to Tarshish. A storm struck, Jonah was thrown overboard, and a great fish swallowed him. After three days he was vomited onto shore. This time Jonah obeyed, walking through Nineveh — which took three days to cross — proclaiming its destruction. Remarkably, the entire city repented, from king to cattle. The ruins of Nineveh lie opposite modern Mosul, Iraq.',
     lat: 36.3592,
     lng: 43.1530,
@@ -7118,7 +7118,7 @@ export const moments: Moment[] = [
   {
     id: 'daniel-lions-den',
     name: 'Daniel Survives a Night in the Lions\' Den in Babylon',
-    subtitle: 'Where a man\'s prayer habit got him sentenced to death and an angel shut the lions\' mouths',
+    subtitle: 'Ruins of Babylon / Susa, Iraq/Iran. The traditional site is at the ancient Median/Persian capitals',
     description: 'Daniel, a Jewish exile who rose to high office in the Babylonian and Persian empires, was targeted by jealous officials who convinced King Darius to decree that anyone praying to any god except the king would be thrown to the lions. Daniel, knowing the decree, continued praying three times daily toward Jerusalem with his windows open. He was thrown into the lions\' den, but God sent an angel to shut the lions\' mouths. The next morning, Darius found Daniel unharmed.',
     lat: 32.5420,
     lng: 44.4230,
@@ -7136,7 +7136,7 @@ export const moments: Moment[] = [
   {
     id: 'thermopylae-last-stand',
     name: 'Three Hundred Spartans Hold the Pass Against a Persian Army',
-    subtitle: 'King Leonidas and his rearguard buy Greece three crucial days',
+    subtitle: 'Thermopylae, Central Greece. The pass is now a wide coastal plain; a bronze Leonidas statue marks the site',
     description: 'In August 480 BCE, King Leonidas I of Sparta led a force of 300 Spartans and several thousand Greek allies to hold the narrow coastal pass of Thermopylae against Xerxes I\'s invading Persian army. For two days the Greeks held the pass, their phalanx formation making the Persians\' numerical advantage irrelevant. When a local traitor named Ephialtes revealed a mountain path that allowed the Persians to outflank the defenders, Leonidas dismissed most of the Greek army and remained with his 300 Spartans, 700 Thespians, and 400 Thebans to cover the retreat. They fought to the last man.',
     lat: 38.7964,
     lng: 22.5358,
@@ -7154,7 +7154,7 @@ export const moments: Moment[] = [
   {
     id: 'gaugamela-alexander',
     name: 'Alexander the Great Destroys the Persian Empire at Gaugamela',
-    subtitle: 'A 25-year-old Macedonian king ends a 220-year-old empire in a single afternoon',
+    subtitle: 'Near Gaugamela, Dohuk Province, Iraq. The plain near Mosul is farmland; no marker at the battle site',
     description: 'On October 1, 331 BCE, Alexander III of Macedon met Darius III\'s Persian army on the plains near Gaugamela in modern-day Iraqi Kurdistan. Darius had chosen flat terrain to maximize his advantage in cavalry and war chariots, and outnumbered Alexander roughly five to one. Alexander led a cavalry charge directly at Darius, creating a gap in the Persian line. When Darius fled the field, his army collapsed. The victory gave Alexander control of Babylon, Susa, and Persepolis — effectively ending the Achaemenid Empire.',
     lat: 36.4367,
     lng: 43.4525,
@@ -7172,7 +7172,7 @@ export const moments: Moment[] = [
   {
     id: 'cannae-hannibal',
     name: 'Hannibal Annihilates Eight Roman Legions in a Double Envelopment at Cannae',
-    subtitle: 'The most studied tactical victory in military history kills 50,000 Romans in one afternoon',
+    subtitle: 'Near Cannae, Barletta-Andria-Trani, Apulia, Italy. An antiquarium museum stands at the archaeological site',
     description: 'On August 2, 216 BCE, Carthaginian general Hannibal Barca faced a Roman army nearly twice his size near the town of Cannae in southeastern Italy. Hannibal deployed his infantry in a deliberate crescent formation that bowed inward under the Roman advance, drawing the legions deeper into a pocket. When the Roman infantry was fully committed, Hannibal\'s cavalry completed a circuit of the battlefield and attacked from behind, completing a double envelopment. Between 50,000 and 70,000 Romans were killed — the largest single-day loss of life in Western military history until the 20th century.',
     lat: 41.3053,
     lng: 16.1328,
@@ -7192,7 +7192,7 @@ export const moments: Moment[] = [
   {
     id: 'hastings-norman-conquest',
     name: 'William the Conqueror Defeats the Last Anglo-Saxon King at Hastings',
-    subtitle: 'An arrow to the eye ends English independence and begins Norman rule',
+    subtitle: 'Battle, East Sussex, England. Battle Abbey marks the site; English Heritage managed, open to visitors',
     description: 'On October 14, 1066, William, Duke of Normandy, landed his invasion force and met King Harold II\'s English army on Senlac Hill near Hastings. Harold had just force-marched 250 miles south after defeating a Norwegian invasion at Stamford Bridge. The English fought on foot behind a shield wall; the Normans attacked with cavalry, infantry, and archers. After a full day of fighting, Harold was killed — tradition says by an arrow through the eye — and the English line broke. William was crowned King of England on Christmas Day, permanently transforming English language, law, and culture.',
     lat: 50.9104,
     lng: 0.4866,
@@ -7209,7 +7209,7 @@ export const moments: Moment[] = [
   {
     id: 'agincourt-longbow',
     name: 'English Longbowmen Slaughter French Knights in the Mud at Agincourt',
-    subtitle: 'Henry V\'s starving, outnumbered army wins one of the most lopsided victories in medieval warfare',
+    subtitle: 'Azincourt, Pas-de-Calais, France. The medieval battlefield is farmland; a visitor center opened in 2001',
     description: 'On October 25, 1415, Henry V\'s exhausted English army of roughly 6,000 — mostly longbowmen suffering from dysentery after a grueling march — faced a French force of 12,000–36,000 armored knights and men-at-arms near the village of Azincourt. Recent rain had turned the narrow, freshly plowed field into deep mud. The French cavalry charge bogged down, and the English longbowmen poured thousands of arrows into the struggling mass. The French lost between 6,000 and 10,000 men; the English lost fewer than 500.',
     lat: 50.4631,
     lng: 2.1431,
@@ -7226,7 +7226,7 @@ export const moments: Moment[] = [
   {
     id: 'tenochtitlan-fall',
     name: 'Cortés and His Allies Destroy the Aztec Capital Tenochtitlan',
-    subtitle: 'A 75-day siege ends a 200-year-old empire and kills up to 240,000 people',
+    subtitle: 'Sultanahmet, Istanbul, Turkey. The Theodosian Walls still stand in sections across the city',
     description: 'On August 13, 1521, Hernán Cortés and an alliance of roughly 200,000 indigenous warriors — primarily Tlaxcalans — captured the island city of Tenochtitlan after a 75-day siege. The Aztec capital, home to over 200,000 people and built on an island in Lake Texcoco, was systematically destroyed building by building. The last Aztec emperor, Cuauhtémoc, was captured while attempting to flee by canoe. The Spanish demolished the remaining structures and built Mexico City directly on top of the ruins. Estimates of Aztec dead range from 100,000 to 240,000, many from smallpox.',
     lat: 19.4345,
     lng: -99.1311,
@@ -7246,7 +7246,7 @@ export const moments: Moment[] = [
   {
     id: 'trafalgar-nelson',
     name: 'Admiral Nelson Destroys Napoleon\'s Fleet and Dies in the Victory at Trafalgar',
-    subtitle: 'Britain wins control of the seas for a century, but loses its greatest admiral',
+    subtitle: 'Cape Trafalgar, Cadiz, Spain. Open Atlantic waters off the coast; a lighthouse marks the cape',
     description: 'On October 21, 1805, Vice Admiral Horatio Nelson led the British fleet against a combined French and Spanish force off Cape Trafalgar on Spain\'s Atlantic coast. Nelson abandoned conventional line-of-battle tactics and instead drove his fleet in two columns directly into the enemy line, cutting it into segments. The British captured or destroyed 22 of 33 enemy ships without losing a single vessel. Nelson was shot by a French musketeer during the engagement and died below decks on HMS Victory three hours later. The victory eliminated any possibility of a French invasion of Britain.',
     lat: 36.1833,
     lng: -6.2667,
@@ -7264,7 +7264,7 @@ export const moments: Moment[] = [
   {
     id: 'waterloo-napoleon',
     name: 'Napoleon\'s Empire Ends on a Belgian Hillside at Waterloo',
-    subtitle: 'The Duke of Wellington and a late-arriving Prussian army destroy the French emperor\'s last gamble',
+    subtitle: 'Route du Lion, 1420 Braine-l\'Alleud, Belgium. Lion\'s Mound and visitor center on the battlefield',
     description: 'On June 18, 1815, Napoleon Bonaparte — who had escaped exile on Elba just 100 days earlier and reassembled the French army — faced the Duke of Wellington\'s Allied force south of Brussels near the village of Waterloo. Napoleon needed to defeat Wellington before Prussian reinforcements arrived. After repeated French infantry and cavalry assaults failed to break Wellington\'s line, Marshal Blücher\'s Prussian army arrived on Napoleon\'s right flank in the late afternoon. The French army disintegrated. Napoleon abdicated four days later and was exiled to Saint Helena, where he died six years later.',
     lat: 50.6803,
     lng: 4.4118,
@@ -7282,7 +7282,7 @@ export const moments: Moment[] = [
   {
     id: 'isandlwana-zulu',
     name: 'Zulu Warriors Overwhelm a British Regiment at Isandlwana',
-    subtitle: 'The worst defeat of a modern European army by an indigenous force in the colonial era',
+    subtitle: 'Adwa, Tigray Region, Ethiopia. A monument to Emperor Menelik II stands in the town center',
     description: 'On January 22, 1879, a Zulu impi of approximately 20,000 warriors attacked a British column of 1,800 troops camped at Isandlwana hill in what is now KwaZulu-Natal, South Africa. The British, armed with Martini-Henry rifles and artillery, were overrun in roughly two hours. Over 1,300 British and colonial troops were killed. The Zulus employed their classic "horns of the buffalo" formation — a pincer movement that enveloped the camp from both flanks. The disaster shocked Victorian Britain and led to the largest British military deployment in Africa to that date.',
     lat: -28.3575,
     lng: 30.6439,
@@ -7299,7 +7299,7 @@ export const moments: Moment[] = [
   {
     id: 'dien-bien-phu-siege',
     name: 'Vietnamese Forces Overrun the French Fortress at Dien Bien Phu',
-    subtitle: 'A 57-day siege in a jungle valley ends 87 years of French colonial rule in Indochina',
+    subtitle: 'Dien Bien Phu, Lai Chau Province, Vietnam. The battlefield is preserved; a museum and war memorial on-site',
     description: 'From March 13 to May 7, 1954, Viet Minh forces under General Vo Nguyen Giap besieged the French garrison at Dien Bien Phu, a remote valley in northwestern Vietnam that the French had fortified as a base to cut Viet Minh supply lines into Laos. The French assumed artillery could not be transported through the surrounding mountains, but Giap\'s forces disassembled heavy guns and carried them piece by piece to positions overlooking the valley. When the bombardment began, the French artillery commander, unable to counter the fire, pulled the pin on a grenade and killed himself. After 57 days, the garrison surrendered. France withdrew from Indochina within months.',
     lat: 21.3833,
     lng: 103.0167,
@@ -7318,7 +7318,7 @@ export const moments: Moment[] = [
   {
     id: 'yorktown-surrender',
     name: 'Cornwallis Surrenders at Yorktown and the American Revolution Effectively Ends',
-    subtitle: 'French warships trap the British army, forcing the surrender that creates the United States',
+    subtitle: 'Yorktown Battlefield, Colonial National Historical Park, VA. NPS managed; open to visitors',
     description: 'In October 1781, a combined American and French force of 17,000 under George Washington and the Comte de Rochambeau besieged General Cornwallis\'s 9,000 British troops at Yorktown, Virginia. The French fleet under Admiral de Grasse had defeated a British relief force at the Battle of the Chesapeake, cutting off escape by sea. After three weeks of bombardment, Cornwallis attempted a nighttime evacuation across the York River but was turned back by a storm. He surrendered on October 19. The British band reportedly played "The World Turned Upside Down." Parliament voted to end the war within months.',
     lat: 37.2388,
     lng: -76.5097,
@@ -7335,7 +7335,7 @@ export const moments: Moment[] = [
   {
     id: 'gettysburg-pickett',
     name: 'Pickett\'s Charge Fails and the Confederacy\'s Fate Is Sealed at Gettysburg',
-    subtitle: 'Three days and 50,000 casualties make a Pennsylvania crossroads the turning point of the Civil War',
+    subtitle: 'Gettysburg National Military Park, PA. NPS managed; 1,328 monuments and markers across the battlefield',
     description: 'The Battle of Gettysburg, fought July 1–3, 1863, was the bloodiest engagement of the American Civil War. On the third day, General Robert E. Lee ordered 12,500 Confederate infantry under Major General George Pickett to advance three-quarters of a mile across open ground against fortified Union positions on Cemetery Ridge. The charge was devastated by artillery and rifle fire; barely half the men returned. Combined casualties over three days exceeded 50,000. Lee retreated to Virginia and never mounted another major offensive. Lincoln\'s Gettysburg Address, delivered at the battlefield four months later, redefined the war as a fight for human equality.',
     lat: 39.8121,
     lng: -77.2268,
@@ -7352,7 +7352,7 @@ export const moments: Moment[] = [
   {
     id: 'little-bighorn-custer',
     name: 'Lakota and Cheyenne Warriors Wipe Out Custer\'s Entire Command at Little Bighorn',
-    subtitle: 'The most famous defeat in American military history lasts less than an hour',
+    subtitle: 'Little Bighorn Battlefield National Monument, Crow Agency, MT. NPS managed; open to visitors',
     description: 'On June 25, 1876, Lieutenant Colonel George Armstrong Custer led 210 men of the 7th Cavalry in an attack on a massive Lakota Sioux and Northern Cheyenne encampment along the Little Bighorn River in Montana Territory. Custer had divided his regiment into three battalions and attacked without waiting for reinforcements or reconnaissance. Warriors led by Crazy Horse and Gall surrounded his battalion on a grassy ridge. Not a single man under Custer\'s immediate command survived. The battle became a symbol both of Native American resistance and of military hubris, and it accelerated the U.S. government\'s campaign to confine all Plains tribes to reservations.',
     lat: 45.5696,
     lng: -107.4283,
@@ -7371,7 +7371,7 @@ export const moments: Moment[] = [
   {
     id: 'somme-first-day',
     name: 'Britain Suffers 57,000 Casualties on the First Day of the Somme',
-    subtitle: 'The worst day in British military history produces one mile of gains and a generation of dead',
+    subtitle: 'Thiepval, Somme, France. The Thiepval Memorial lists 72,337 missing soldiers; visitor center on-site',
     description: 'On July 1, 1916, the British Army launched its largest offensive of World War I along the River Somme in Picardy, France. After a week-long artillery bombardment of 1.5 million shells, infantry went "over the top" at 7:30 AM, many walking upright in formation, expecting the barrage to have destroyed the German defenses. It had not. The Germans emerged from deep concrete bunkers and mowed down the advancing British with machine guns. By nightfall, 19,240 British soldiers were dead and 38,230 wounded — the worst single-day loss in British military history. The battle continued for 140 more days, producing over one million total casualties for roughly six miles of territorial gain.',
     lat: 49.9997,
     lng: 2.6794,
@@ -7388,7 +7388,7 @@ export const moments: Moment[] = [
   {
     id: 'verdun-attrition',
     name: 'France and Germany Bleed Each Other White for Ten Months at Verdun',
-    subtitle: '700,000 casualties over 303 days in a deliberate strategy of attrition',
+    subtitle: 'Verdun, Meuse, France. The Douaumont Ossuary holds remains of 130,000 soldiers; open to visitors',
     description: 'The Battle of Verdun, fought from February 21 to December 18, 1916, was the longest single battle of World War I. German Chief of Staff Erich von Falkenhayn chose Verdun — a fortress city of deep symbolic importance to France — as a target specifically to "bleed France white" through attrition. The German assault initially captured several forts, including Fort Douaumont, but French resistance under General Philippe Pétain held the city. Both sides fed divisions into the battle in a process soldiers called "the mill on the Meuse." Combined casualties reached approximately 700,000, roughly evenly split between the two armies.',
     lat: 49.2033,
     lng: 5.4267,
@@ -7405,7 +7405,7 @@ export const moments: Moment[] = [
   {
     id: 'gallipoli-anzac',
     name: 'Allied Forces Land at Gallipoli and Walk Into an Ottoman Killing Ground',
-    subtitle: 'Churchill\'s plan to knock out the Ottoman Empire costs 300,000 Allied casualties',
+    subtitle: 'Gallipoli Peninsula, Canakkale, Turkey. ANZAC Cove and Lone Pine cemetery are open to visitors',
     description: 'On April 25, 1915, British, Australian, New Zealand, and French forces landed on the Gallipoli Peninsula in an attempt to seize the Dardanelles strait, open a sea route to Russia, and knock the Ottoman Empire out of the war. The campaign, championed by First Lord of the Admiralty Winston Churchill, was a disaster from the first day. Troops landed on narrow beaches beneath cliffs defended by Ottoman forces under Mustafa Kemal (later Atatürk). After eight months of trench warfare in brutal conditions, the Allies evacuated in January 1916 having suffered over 300,000 casualties. The campaign made Kemal a national hero and is foundational to the national identities of Australia, New Zealand, and Turkey.',
     lat: 40.2539,
     lng: 26.2836,
@@ -7425,7 +7425,7 @@ export const moments: Moment[] = [
   {
     id: 'normandy-dday',
     name: 'Allied Forces Storm the Beaches of Normandy on D-Day',
-    subtitle: '156,000 troops cross the English Channel in the largest amphibious invasion in history',
+    subtitle: 'Normandy Beaches, Calvados, France. Five landing beaches with museums; Omaha Beach Cemetery open daily',
     description: 'On June 6, 1944 — D-Day — an Allied force of 156,000 American, British, Canadian, and Free French troops crossed the English Channel and landed on five beaches along a 50-mile stretch of the Normandy coast. The invasion, code-named Operation Overlord, was the culmination of two years of planning and deception operations designed to convince the Germans the main attack would come at Calais. At Omaha Beach, the bloodiest landing zone, the first wave suffered over 90% casualties. By nightfall, the Allies had established a foothold. Within a month, over a million troops had landed. Paris was liberated on August 25.',
     lat: 49.3625,
     lng: -0.8747,
@@ -7443,7 +7443,7 @@ export const moments: Moment[] = [
   {
     id: 'stalingrad-encirclement',
     name: 'The Red Army Encircles and Destroys the German 6th Army at Stalingrad',
-    subtitle: 'Five months of house-to-house fighting and nearly two million total casualties break the Wehrmacht',
+    subtitle: 'Mamaev Kurgan, Volgograd (formerly Stalingrad), Russia. The Motherland Calls statue towers over the memorial complex',
     description: 'The Battle of Stalingrad, fought from August 23, 1942 to February 2, 1943, was the deadliest battle in human history. German forces under Field Marshal Friedrich Paulus reached the city on the Volga and spent months fighting for it building by building, floor by floor. Soviet defenders under General Vasily Chuikov clung to a narrow strip along the riverbank, with reinforcements ferried across the Volga under constant fire. On November 19, the Soviets launched Operation Uranus, a massive pincer movement that encircled the entire German 6th Army — 300,000 men. Hitler forbade retreat. After three months without adequate food, fuel, or ammunition, Paulus surrendered on February 2, 1943. Total casualties on both sides approached two million.',
     lat: 48.7075,
     lng: 44.5153,
@@ -7460,7 +7460,7 @@ export const moments: Moment[] = [
   {
     id: 'midway-ambush',
     name: 'American Dive Bombers Sink Four Japanese Carriers in Five Minutes at Midway',
-    subtitle: 'A codebreaker\'s tip and a five-minute window reverse the entire Pacific War',
+    subtitle: 'Midway Atoll, Pacific Ocean. US Fish & Wildlife Refuge; extremely limited public access',
     description: 'On June 4, 1942, U.S. Navy cryptanalysts who had broken the Japanese naval code JN-25 enabled Admiral Chester Nimitz to position three aircraft carriers northeast of Midway Atoll to ambush a Japanese fleet of four carriers under Admiral Nagumo. Initial American torpedo bomber attacks were annihilated — all 15 aircraft from Torpedo Squadron 8 were shot down, with only one survivor. But the attacks pulled Japanese fighter cover down to sea level. At 10:22 AM, 37 dive bombers from USS Enterprise and USS Yorktown arrived over the Japanese fleet from altitude and found the carrier decks loaded with armed, fueled aircraft being rearmed for a second strike. In roughly five minutes, three carriers were ablaze. A fourth was sunk later that afternoon. Japan lost four fleet carriers and the strategic initiative in the Pacific.',
     lat: 28.2072,
     lng: -177.3735,
@@ -7477,7 +7477,7 @@ export const moments: Moment[] = [
   {
     id: 'el-alamein-montgomery',
     name: 'Montgomery Defeats Rommel\'s Afrika Korps at El Alamein',
-    subtitle: 'Churchill\'s "end of the beginning" — the first major British land victory over Germany',
+    subtitle: 'El Alamein, Matrouh, Egypt. Commonwealth War Cemetery and museum on the Mediterranean coast',
     description: 'The Second Battle of El Alamein, fought October 23 to November 11, 1942, was the turning point of the North African campaign. Lieutenant-General Bernard Montgomery\'s Eighth Army attacked Field Marshal Erwin Rommel\'s Axis forces along a 40-mile defensive line stretching from the Mediterranean coast to the impassable Qattara Depression. After 12 days of attritional fighting through dense minefields, Montgomery\'s infantry and armor broke through the Axis line. Rommel, who had returned from medical leave in Germany mid-battle, ordered a retreat that would not stop until Tunisia. Churchill declared: "This is not the end. It is not even the beginning of the end. But it is, perhaps, the end of the beginning."',
     lat: 30.8314,
     lng: 28.9597,
@@ -7494,7 +7494,7 @@ export const moments: Moment[] = [
   {
     id: 'iwo-jima-suribachi',
     name: 'Marines Raise the Flag on Mount Suribachi After Five Weeks of Underground Warfare',
-    subtitle: 'The most iconic photograph of WWII comes from the bloodiest battle in Marine Corps history',
+    subtitle: 'Iwo Jima (Ioto), Ogasawara, Tokyo Prefecture, Japan. Active Japanese military base; limited civilian access',
     description: 'The Battle of Iwo Jima, fought from February 19 to March 26, 1945, was the deadliest battle in the history of the United States Marine Corps. Japanese General Tadamichi Kuribayashi had constructed 11 miles of tunnels connecting 1,500 underground rooms, creating a defense-in-depth that made every yard of the eight-square-mile island a killing ground. On February 23, five Marines and a Navy corpsman raised an American flag atop Mount Suribachi; Joe Rosenthal\'s photograph of the second flag-raising became perhaps the most reproduced photograph in history. The battle killed nearly all 21,000 Japanese defenders and produced over 26,000 American casualties, including 6,800 dead.',
     lat: 24.7583,
     lng: 141.2917,
@@ -7513,7 +7513,7 @@ export const moments: Moment[] = [
   {
     id: 'gandhi-salt-march',
     name: 'Gandhi Walks 240 Miles to the Sea to Defy the British Salt Tax',
-    subtitle: 'A 60-year-old man picks up a fistful of salt and breaks an empire\'s grip on India',
+    subtitle: 'Dandi Beach, Navsari District, Gujarat, India. A memorial pillar marks the exact spot on the shore',
     description: 'On March 12, 1930, Mohandas Gandhi and 78 followers left his ashram at Sabarmati and walked 240 miles to the coastal village of Dandi on the Arabian Sea. On April 6, Gandhi picked up a lump of natural salt from the mud flats, technically breaking the British salt tax that made it illegal for Indians to collect or sell salt. The act of civil disobedience triggered a wave of similar protests across India. Within weeks, over 60,000 Indians were arrested. The Salt March made front-page news worldwide and is considered the pivotal moment that made Indian independence inevitable.',
     lat: 20.9189,
     lng: 72.8333,
@@ -7531,7 +7531,7 @@ export const moments: Moment[] = [
   {
     id: 'mandela-robben-island',
     name: 'Nelson Mandela Is Sentenced to Life and Imprisoned on Robben Island',
-    subtitle: 'A freedom fighter disappears into a cell for 18 years — and emerges to lead a nation',
+    subtitle: 'Robben Island, 7 km off Cape Town, South Africa. UNESCO World Heritage Site; ferry tours from V&A Waterfront',
     description: 'On June 12, 1964, Nelson Mandela and seven co-defendants were sentenced to life imprisonment at the conclusion of the Rivonia Trial. Mandela was transported to Robben Island, a prison off the coast of Cape Town, where he would spend 18 of his 27 years of imprisonment. He was confined to a small cell, forced to do hard labor in a lime quarry, and allowed one visitor and one letter every six months. During his imprisonment, Mandela became the world\'s most famous political prisoner and the symbol of the anti-apartheid movement. He was released on February 11, 1990, and became South Africa\'s first Black president in 1994.',
     lat: -33.8076,
     lng: 18.3712,
@@ -7549,7 +7549,7 @@ export const moments: Moment[] = [
   {
     id: 'bolivar-liberates-bogota',
     name: 'Simón Bolívar Crosses the Andes and Liberates Bogotá',
-    subtitle: 'A starving army crosses 13,000-foot mountain passes to surprise the Spanish and free a continent',
+    subtitle: 'Paso de Pisba, near Socha, Boyaca, Colombia. The mountain pass is accessible by road; a monument stands at the summit',
     description: 'In June 1819, Simón Bolívar led 2,500 soldiers — many of them barefoot — across the flooded plains of Venezuela and over the freezing passes of the Andes at elevations above 13,000 feet. Hundreds died of cold and altitude sickness during the crossing. The Spanish considered the route impassable and were caught completely off guard. On August 7, Bolívar\'s forces defeated the Spanish at the Battle of Boyacá, and three days later entered Bogotá in triumph. The victory established the Republic of Gran Colombia and earned Bolívar the title "El Libertador." He went on to liberate Venezuela, Ecuador, Peru, and Bolivia.',
     lat: 4.7110,
     lng: -74.0721,
@@ -7567,7 +7567,7 @@ export const moments: Moment[] = [
   {
     id: 'che-guevara-executed',
     name: 'Che Guevara Is Captured and Executed in a Bolivian Schoolhouse',
-    subtitle: 'The face of revolution dies in a one-room schoolhouse in rural Bolivia',
+    subtitle: 'La Higuera, Vallegrande Province, Bolivia. The schoolhouse is preserved as a memorial; village accessible by road',
     description: 'On October 8, 1967, Bolivian army rangers captured Ernesto "Che" Guevara near the village of La Higuera. Guevara had come to Bolivia to spark a continental revolution but failed to win local support. He was held overnight in a one-room schoolhouse. The next morning, Sergeant Mario Terán entered the room and shot him. Guevara\'s last words were reportedly: "Shoot, coward — you are only going to kill a man." His body was displayed publicly, his hands cut off for fingerprint identification, and his remains hidden for 30 years until they were found and returned to Cuba in 1997.',
     lat: -18.6333,
     lng: -64.2833,
@@ -7585,7 +7585,7 @@ export const moments: Moment[] = [
   {
     id: 'castro-enters-havana',
     name: 'Fidel Castro Rides Into Havana as Batista Flees Cuba',
-    subtitle: 'A guerrilla army of 800 topples a U.S.-backed dictator and reshapes the Western Hemisphere',
+    subtitle: 'Santa Clara, Villa Clara Province, Cuba. The Tren Blindado monument marks the decisive battle site',
     description: 'On January 8, 1959, Fidel Castro entered Havana in a triumphant caravan after dictator Fulgencio Batista fled Cuba on New Year\'s Day. Castro had launched his revolution in 1953 with a failed attack on the Moncada Barracks, was imprisoned, exiled to Mexico, and returned in 1956 with 81 men on the yacht Granma — of whom only 12 survived the initial landing. From the Sierra Maestra mountains, Castro\'s forces grew to an army that controlled the countryside. His entry into Havana triggered the Cuban Missile Crisis, a six-decade U.S. embargo, and the longest-running socialist government in the Western Hemisphere.',
     lat: 23.1136,
     lng: -82.3666,
@@ -7603,7 +7603,7 @@ export const moments: Moment[] = [
   {
     id: 'mao-proclaims-prc',
     name: 'Mao Zedong Proclaims the People\'s Republic of China from Tiananmen',
-    subtitle: 'A peasant\'s son who led a 6,000-mile retreat declares a new nation of 540 million people',
+    subtitle: 'Tiananmen Gate, Beijing, China. The gate and square are open to visitors; security screening required',
     description: 'On October 1, 1949, Mao Zedong stood atop Tiananmen Gate in Beijing and proclaimed the founding of the People\'s Republic of China to a crowd of 300,000. Mao had spent 22 years fighting — first the Nationalists, then the Japanese, then the Nationalists again. His Long March of 1934-35 covered 6,000 miles and reduced the Red Army from 86,000 to 8,000, but it forged the cadre that would eventually win the civil war. His reign would include the Great Leap Forward and the Cultural Revolution, producing both transformation and catastrophe on a scale unprecedented in human history.',
     lat: 39.9087,
     lng: 116.3975,
@@ -7621,7 +7621,7 @@ export const moments: Moment[] = [
   {
     id: 'ataturk-founds-republic',
     name: 'Mustafa Kemal Atatürk Founds the Turkish Republic from the Ruins of an Empire',
-    subtitle: 'A military commander abolishes the caliphate, bans the fez, and drags a nation into the modern age',
+    subtitle: 'Grand National Assembly, Ankara, Turkey. The original parliament building is now a museum; Ataturk\'s mausoleum nearby',
     description: 'On October 29, 1923, Mustafa Kemal proclaimed the Republic of Turkey with its capital at Ankara, replacing the 600-year-old Ottoman Empire. Over the following decade, Atatürk abolished the caliphate, replaced Islamic law with a secular legal code, switched the Turkish script from Arabic to Latin, gave women the right to vote, and mandated Western dress. He had first risen to prominence as the commander who defeated the Allied invasion at Gallipoli in 1915, then led the Turkish War of Independence. He died in 1938 and remains the most revered figure in Turkish history.',
     lat: 39.9208,
     lng: 32.8541,
@@ -7639,7 +7639,7 @@ export const moments: Moment[] = [
   {
     id: 'indira-gandhi-assassinated',
     name: 'Indira Gandhi Is Assassinated by Her Own Bodyguards',
-    subtitle: 'India\'s most powerful prime minister is shot 31 times walking through her garden',
+    subtitle: '1 Safdarjung Rd, New Delhi, India. Now the Indira Gandhi Memorial Museum; the garden path is preserved',
     description: 'On the morning of October 31, 1984, Indian Prime Minister Indira Gandhi was shot dead by two of her Sikh bodyguards as she walked through the garden of her New Delhi residence. The assassination was retaliation for Operation Blue Star — her military assault on the Golden Temple in Amritsar, Sikhism\'s holiest shrine, to flush out armed separatists. Gandhi had been warned of the danger but refused to remove her Sikh bodyguards, saying it would show distrust. Her death triggered anti-Sikh riots across Delhi that killed thousands.',
     lat: 28.5967,
     lng: 77.1993,
@@ -7657,7 +7657,7 @@ export const moments: Moment[] = [
   {
     id: 'dalai-lama-flees-tibet',
     name: 'The Dalai Lama Escapes Tibet Disguised as a Soldier',
-    subtitle: 'A 23-year-old spiritual leader crosses the Himalayas at night to save Tibetan Buddhism from destruction',
+    subtitle: 'Lhuntse Dzong, Lhuntse, Bhutan. The border crossing point; the dzong is accessible by road from Mongar',
     description: 'On the night of March 17, 1959, the 14th Dalai Lama disguised himself as a Tibetan soldier and slipped out of the Norbulingka Palace in Lhasa under cover of darkness. Chinese troops had surrounded the palace, and a crowd of 300,000 Tibetans had formed a human shield around it. The Dalai Lama traveled for two weeks on horseback and foot across the Himalayas, crossing the 15,000-foot Che-La pass, before reaching India on March 31. He established a government-in-exile in Dharamsala, where he has lived ever since. He was awarded the Nobel Peace Prize in 1989.',
     lat: 29.6580,
     lng: 91.1000,
@@ -7675,7 +7675,7 @@ export const moments: Moment[] = [
   {
     id: 'aung-san-suu-kyi-house-arrest',
     name: 'Aung San Suu Kyi Begins 15 Years of House Arrest for Defying Military Rule',
-    subtitle: 'A Nobel laureate imprisoned in her own home becomes the face of Burmese democracy',
+    subtitle: '54 University Avenue, Yangon, Myanmar. Aung San Suu Kyi\'s house; private residence, visible from Inya Lake',
     description: 'On July 20, 1989, the military junta placed Aung San Suu Kyi under house arrest at her lakeside home in Rangoon after her National League for Democracy won a landslide election the regime refused to honor. Over the next 21 years, she spent a total of 15 years confined to her compound at 54 University Avenue. She was awarded the Nobel Peace Prize in 1991 while still detained. Her release in 2010 was celebrated worldwide, though her legacy was later complicated by the Rohingya crisis during her time as de facto leader.',
     lat: 16.8280,
     lng: 96.1510,
@@ -7695,7 +7695,7 @@ export const moments: Moment[] = [
   {
     id: 'genghis-khan-unites-mongols',
     name: 'Genghis Khan Unites the Mongol Tribes and Launches the Largest Land Empire in History',
-    subtitle: 'A man enslaved as a teenager forges the most devastating army the world has ever seen',
+    subtitle: 'Ulaanbaatar, Mongolia. The Chinggis Khaan Statue Complex stands 54 km east of the capital',
     description: 'In 1206, a kurultai (assembly) of Mongol chiefs at the source of the Onon River proclaimed Temüjin as Genghis Khan — "Universal Ruler." Born into a minor clan, orphaned as a child, and enslaved by a rival tribe, Temüjin spent two decades conquering every nomadic tribe on the Mongolian steppe. As Genghis Khan, he built an empire stretching from Korea to Hungary — the largest contiguous land empire in history. His armies killed an estimated 40 million people, roughly 10% of the world\'s population.',
     lat: 48.5000,
     lng: 109.0000,
@@ -7713,7 +7713,7 @@ export const moments: Moment[] = [
   {
     id: 'peter-great-founds-petersburg',
     name: 'Peter the Great Founds St. Petersburg in a Freezing Swamp',
-    subtitle: 'A tsar who stood nearly seven feet tall builds a European capital on the bones of 100,000 laborers',
+    subtitle: 'Peter and Paul Fortress, Saint Petersburg, Russia. The founding fortress is open to visitors; museum inside',
     description: 'On May 27, 1703, Tsar Peter I began construction of the Peter and Paul Fortress on a small island in the Neva River delta. Peter, who had traveled incognito through Europe and worked in Dutch shipyards, was determined to build a "window to Europe." The city was constructed on a swamp using forced labor. An estimated 100,000 conscripts died from disease, exhaustion, and brutal conditions. Peter moved the Russian capital from Moscow in 1712 and forced the nobility to relocate.',
     lat: 59.9500,
     lng: 30.3167,
@@ -7731,7 +7731,7 @@ export const moments: Moment[] = [
   {
     id: 'julius-caesar-assassinated',
     name: 'Julius Caesar Is Stabbed 23 Times by Senators on the Ides of March',
-    subtitle: 'The most powerful man in Rome walks into a trap set by his friends',
+    subtitle: 'Largo di Torre Argentina, Rome. The ruins where Caesar was stabbed are open-air; home to a cat sanctuary',
     description: 'On March 15, 44 BCE, Gaius Julius Caesar entered the Senate meeting hall at the Theatre of Pompey. A group of 60 senators, including his close friend Marcus Brutus, surrounded him. Casca struck first, stabbing Caesar in the neck. Caesar fought back until he saw Brutus among his attackers. He was stabbed 23 times. His assassination, intended to restore the Roman Republic, instead triggered a civil war that ended the Republic permanently and led to the Roman Empire under his adopted son Octavian.',
     lat: 41.8954,
     lng: 12.4723,
@@ -7751,7 +7751,7 @@ export const moments: Moment[] = [
   {
     id: 'plato-founds-academy',
     name: 'Plato Founds the Academy — the First University in the Western World',
-    subtitle: 'A philosopher who was sold into slavery creates an institution that lasts 900 years',
+    subtitle: 'Northwest slope of the Acropolis, Athens, Greece. The site of Plato\'s Academy is a public park; excavated ruins visible',
     description: 'Around 387 BCE, Plato established the Academy in a grove of olive trees sacred to the hero Akademos, about a mile northwest of Athens. It was the first institution of higher learning in the Western world and would operate for over 900 years until closed by Emperor Justinian in 529 CE. Plato taught through dialogue, and his students included Aristotle, who would found his own school and tutor Alexander the Great. The word "academic" derives from its name.',
     lat: 37.9928,
     lng: 23.7066,
@@ -7769,7 +7769,7 @@ export const moments: Moment[] = [
   {
     id: 'confucius-teaches-qufu',
     name: 'Confucius Returns Home and Compiles the Classics That Shape 2,500 Years of Chinese Civilization',
-    subtitle: 'A failed politician becomes the most influential teacher in East Asian history',
+    subtitle: 'Qufu, Shandong Province, China. The Temple of Confucius, Kong Family Mansion, and Cemetery form a UNESCO site',
     description: 'Around 484 BCE, after 14 years of wandering from state to state seeking a ruler who would adopt his ideas, Confucius returned to his home state of Lu and the city of Qufu. He spent his final years editing the Five Classics and teaching disciples. His emphasis on filial piety, social harmony, and moral cultivation became the philosophical foundation of Chinese, Korean, Japanese, and Vietnamese civilization. The Temple of Confucius in Qufu, first built in 478 BCE, has been expanded for 2,500 years and is a UNESCO World Heritage Site.',
     lat: 35.5997,
     lng: 116.9833,
@@ -7787,7 +7787,7 @@ export const moments: Moment[] = [
   {
     id: 'avicenna-canon-medicine',
     name: 'Avicenna Writes The Canon of Medicine — the Standard Medical Text for 600 Years',
-    subtitle: 'A Persian polymath who memorized the Quran at 10 creates the encyclopedia used from China to Paris',
+    subtitle: 'Afshona, near Bukhara, Uzbekistan. Ibn Sina\'s reconstructed birthplace is a museum; open to visitors',
     description: 'Around 1025 CE, Ibn Sina (Avicenna) completed The Canon of Medicine while serving as court physician in Isfahan. The five-volume encyclopedia systematized Greek, Roman, and Islamic medical knowledge and introduced clinical trials, the contagious nature of disease, and quarantine. Avicenna reportedly memorized the Quran by age 10 and was treating patients by 16. The Canon became the standard medical textbook at European universities from the 12th through the 17th century — used longer than any other medical text in history.',
     lat: 32.6547,
     lng: 51.6680,
@@ -7805,7 +7805,7 @@ export const moments: Moment[] = [
   {
     id: 'rumi-settles-konya',
     name: 'Rumi Settles in Konya and Produces the Greatest Mystical Poetry in Any Language',
-    subtitle: 'A meeting with a wandering dervish transforms a legal scholar into the best-selling poet in America 800 years later',
+    subtitle: 'Mevlana Museum, Konya, Turkey. Rumi\'s mausoleum and the Whirling Dervish lodge; open to visitors',
     description: 'Rumi, born in Balkh (modern Afghanistan) around 1207, settled in Konya where his father held a teaching position. He was a conventional Islamic legal scholar until 1244, when he met Shams-i-Tabrizi, a wandering dervish who challenged everything he knew. After Shams disappeared, Rumi poured his grief into the Masnavi — 25,000 rhyming couplets of mystical poetry exploring divine love. He also founded the Mevlevi Order, whose "whirling dervish" ceremonies are among the most recognizable spiritual practices in the world. In the 21st century, Rumi is the best-selling poet in the United States.',
     lat: 37.8714,
     lng: 32.5034,
@@ -7825,7 +7825,7 @@ export const moments: Moment[] = [
   {
     id: 'da-vinci-last-supper',
     name: 'Leonardo da Vinci Paints The Last Supper on a Monastery Wall in Milan',
-    subtitle: 'The most versatile genius in history spends three years on a painting — then watches it start to decay',
+    subtitle: 'Refectory of Santa Maria delle Grazie, Milan, Italy. Timed-entry tickets required; UNESCO World Heritage Site',
     description: 'Between 1495 and 1498, Leonardo da Vinci painted The Last Supper on the refectory wall of Santa Maria delle Grazie in Milan. Rather than using durable fresco technique, Leonardo experimented with tempera on dry plaster so he could work slowly. The result was a masterpiece that began deteriorating within years. The painting survived a French bombardment in 1943 that destroyed the rest of the refectory — the wall with The Last Supper remained standing amid the rubble. Leonardo was simultaneously designing flying machines, studying anatomy, engineering canals, and filling notebooks that would not be fully deciphered for centuries.',
     lat: 45.4661,
     lng: 9.1711,
@@ -7843,7 +7843,7 @@ export const moments: Moment[] = [
   {
     id: 'galileo-faces-inquisition',
     name: 'Galileo Faces the Inquisition and Is Forced to Deny That the Earth Moves',
-    subtitle: 'The father of modern science kneels before the Church and recants the truth to save his life',
+    subtitle: 'Basilica of Santa Maria sopra Minerva, Rome. The trial was held here; Galileo is buried at Santa Croce, Florence',
     description: 'On June 22, 1633, Galileo Galilei knelt before the Inquisition in the convent of Santa Maria sopra Minerva in Rome and formally recanted his support for the Copernican model. He was 69, nearly blind, and facing the threat of torture. The Church objected to his Dialogue using telescope evidence to argue for heliocentrism. He was sentenced to house arrest for life. Legend holds that as he rose from his knees he muttered "Eppur si muove" — "And yet it moves."',
     lat: 41.8987,
     lng: 12.4776,
@@ -7861,7 +7861,7 @@ export const moments: Moment[] = [
   {
     id: 'einstein-publishes-relativity',
     name: 'Einstein Publishes Four Papers That Rewrite Physics While Working as a Patent Clerk',
-    subtitle: 'A 26-year-old with no academic position proves that space and time are the same thing',
+    subtitle: 'Speichergasse 2, Bern, Switzerland. The Einstein House museum; the building still stands',
     description: 'In 1905, while working six days a week as a third-class examiner at the Swiss Patent Office in Bern, 26-year-old Albert Einstein published four papers that transformed physics. The first explained the photoelectric effect (later earning the Nobel Prize). The second proved atoms exist. The third introduced special relativity. The fourth derived E=mc². No scientist has ever had a year remotely comparable. Einstein had been rejected for every academic position he applied for.',
     lat: 46.9480,
     lng: 7.4474,
@@ -7879,7 +7879,7 @@ export const moments: Moment[] = [
   {
     id: 'marie-curie-discovers-radium',
     name: 'Marie Curie Discovers Radium in a Leaking Shed and Wins Two Nobel Prizes',
-    subtitle: 'The first woman to win a Nobel Prize does it in a laboratory with no proper floor',
+    subtitle: 'Musée Curie, 1 Rue Pierre et Marie Curie, Paris. The original lab is preserved as a museum; free entry',
     description: 'In 1898, Marie Curie and her husband Pierre discovered two new radioactive elements — polonium and radium — working in a converted shed with a leaking glass roof, no ventilation, and a dirt floor. Marie processed tons of pitchblende ore by hand. She won the Nobel Prize in Physics in 1903 and the Nobel Prize in Chemistry in 1911 — the first person to win Nobel Prizes in two different sciences. Her notebooks remain so radioactive they must be kept in lead-lined boxes.',
     lat: 48.8417,
     lng: 2.3469,
@@ -7899,7 +7899,7 @@ export const moments: Moment[] = [
   {
     id: 'shakespeare-globe-theatre',
     name: 'Shakespeare Opens the Globe Theatre on the South Bank of the Thames',
-    subtitle: 'A glove-maker\'s son from Stratford builds the most famous playhouse in history',
+    subtitle: '21 New Globe Walk, Bankside, London SE1. Shakespeare\'s Globe is a reconstructed theatre; performances in season',
     description: 'In 1599, William Shakespeare and his company dismantled their old theatre north of the Thames (after a lease dispute), carried the timbers across the river, and rebuilt them as the Globe Theatre in Southwark. Over the next 14 years, Shakespeare premiered his greatest works: Hamlet, Othello, King Lear, Macbeth, and The Tempest. In 1613, a cannon set the thatched roof ablaze during Henry VIII. Shakespeare retired to Stratford-upon-Avon and died in 1616.',
     lat: 51.5081,
     lng: -0.0972,
@@ -7917,7 +7917,7 @@ export const moments: Moment[] = [
   {
     id: 'dostoevsky-mock-execution',
     name: 'Dostoevsky Faces a Firing Squad — Then Is Told It Was a Hoax',
-    subtitle: 'A mock execution transforms a young writer into literature\'s greatest explorer of human suffering',
+    subtitle: 'Semyonovsky Square (now Pionerskaya Ploshchad), Saint Petersburg, Russia. The square has been built over; no marker',
     description: 'On December 22, 1849, Fyodor Dostoevsky and 20 other political prisoners were led to Semyonov Square in St. Petersburg, bound to stakes, and blindfolded before a firing squad. The soldiers raised their rifles. At the last moment, a messenger arrived with a "reprieve" — the entire execution had been staged as psychological torture. One prisoner went permanently insane on the spot. Dostoevsky was sentenced to four years of hard labor in Siberia. The experience shaped Crime and Punishment, The Brothers Karamazov, and The Idiot.',
     lat: 59.9199,
     lng: 30.3261,
@@ -7935,7 +7935,7 @@ export const moments: Moment[] = [
   {
     id: 'tolstoy-flees-estate',
     name: 'Tolstoy Abandons His Estate at 82 and Dies in a Train Station',
-    subtitle: 'The author of War and Peace walks out on his family and fortune — and dies ten days later',
+    subtitle: 'Astapovo Station (now Lev Tolstoy), Lipetsk Oblast, Russia. The stationmaster\'s house is a museum',
     description: 'On October 28, 1910, 82-year-old Leo Tolstoy left his estate at Yasnaya Polyana in the middle of the night. He had spent decades torn between his aristocratic life and his conviction that private property was immoral. After ten days of confused travel, he developed pneumonia and was carried off at Astapovo station, where he died on November 7 in the stationmaster\'s house. His death made worldwide news. He was buried at Yasnaya Polyana with no religious ceremony, as he wished.',
     lat: 54.0751,
     lng: 37.5263,
@@ -7953,7 +7953,7 @@ export const moments: Moment[] = [
   {
     id: 'garcia-marquez-writes-solitude',
     name: 'García Márquez Writes One Hundred Years of Solitude in 18 Months of Self-Imposed Poverty',
-    subtitle: 'A journalist pawns his car and heater to finish a novel that will sell 50 million copies',
+    subtitle: 'Calle del Valle 65, Col. del Valle, Mexico City. Private residence; no public marker',
     description: 'In 1965, while driving from Mexico City to Acapulco, Gabriel García Márquez was struck by a sudden vision of the novel he had been trying to write for 15 years. He turned the car around and told his wife Mercedes he needed 18 months. She pawned their car, their heater, and a food mixer, and kept the household running on credit while he wrote every day. The result — One Hundred Years of Solitude — sold out its first print run in a week and has since sold over 50 million copies. It won him the Nobel Prize in 1982.',
     lat: 19.4326,
     lng: -99.1332,
@@ -7971,7 +7971,7 @@ export const moments: Moment[] = [
   {
     id: 'neruda-dies-after-coup',
     name: 'Pablo Neruda Dies Twelve Days After Pinochet\'s Coup Under Disputed Circumstances',
-    subtitle: 'Chile\'s greatest poet lies dying while soldiers burn books in the streets',
+    subtitle: 'Isla Negra, San Antonio, Chile. Neruda\'s oceanfront house is a museum; open to visitors',
     description: 'On September 23, 1973, twelve days after Pinochet\'s military coup, Pablo Neruda died at a Santiago clinic. The official cause was cancer, but in 2023, forensic experts concluded he did not die of cancer and found a toxic bacterium in his remains. Neruda had been Chile\'s most beloved poet, a senator, a communist, and the 1971 Nobel laureate. His houses were ransacked by the military. At his funeral, mourners chanted his poetry through the streets — one of the first public acts of resistance against the dictatorship.',
     lat: -33.4489,
     lng: -70.6693,
@@ -7989,7 +7989,7 @@ export const moments: Moment[] = [
   {
     id: 'kafka-writes-trial',
     name: 'Kafka Writes The Trial While Working Full-Time at an Insurance Company in Prague',
-    subtitle: 'A man who burned 90% of his work becomes the most influential novelist of the 20th century',
+    subtitle: '22 Milchgasse (now 22 Zlatá ulička), Prague Castle, Prague. The tiny house is open as part of Golden Lane tours',
     description: 'In 1914, Franz Kafka began writing The Trial — about a man arrested for an unspecified crime — while working as a senior clerk at the Workers\' Accident Insurance Institute in Prague. He wrote at night, often from 11 PM to 6 AM, then went to work. He never finished and asked his friend Max Brod to burn all his manuscripts. Brod refused. The Trial, The Castle, and Amerika were published posthumously and became foundational texts of modern literature. The word "Kafkaesque" entered every major language.',
     lat: 50.0875,
     lng: 14.4213,
@@ -8007,7 +8007,7 @@ export const moments: Moment[] = [
   {
     id: 'tagore-wins-nobel',
     name: 'Rabindranath Tagore Wins the Nobel Prize — the First Non-European Laureate',
-    subtitle: 'A Bengali poet who wrote the national anthems of two countries changes how the West sees Asia',
+    subtitle: 'Jorasanko Thakur Bari, Kolkata, India. Tagore\'s ancestral home is now the Rabindra Bharati University museum',
     description: 'In 1913, Rabindranath Tagore won the Nobel Prize in Literature for Gitanjali, becoming the first non-European laureate. Tagore was a poet, novelist, playwright, painter, and composer who wrote roughly 2,230 songs, including the national anthems of both India and Bangladesh. He founded Visva-Bharati University at Santiniketan as an alternative to colonial education, teaching classes outdoors under trees. He renounced his British knighthood after the 1919 Amritsar massacre.',
     lat: 23.6783,
     lng: 87.6855,
@@ -8027,7 +8027,7 @@ export const moments: Moment[] = [
   {
     id: 'van-gogh-cuts-ear',
     name: 'Van Gogh Cuts Off His Ear After a Confrontation with Gauguin in Arles',
-    subtitle: 'The painter who sold one painting in his lifetime produces 200 works in 15 months — then mutilates himself',
+    subtitle: '2 Place Lamartine, Arles, France. The Yellow House was destroyed in WWII; a plaque marks the site',
     description: 'On December 23, 1888, Vincent van Gogh severed most of his left ear with a razor in the Yellow House in Arles, following an argument with Paul Gauguin. He wrapped the ear and delivered it to a woman at a nearby brothel. During his 15 months in Arles before the incident, Van Gogh had produced roughly 200 paintings in a manic burst of creativity. He sold only one painting in his lifetime and shot himself two years later at age 37.',
     lat: 43.6777,
     lng: 4.6309,
@@ -8045,7 +8045,7 @@ export const moments: Moment[] = [
   {
     id: 'mozart-dies-penniless',
     name: 'Mozart Dies at 35 and Is Buried in an Unmarked Grave in Vienna',
-    subtitle: 'The greatest musical prodigy in history dies mid-composition, leaving his Requiem unfinished',
+    subtitle: 'Rauhensteingasse 8, Vienna, Austria. A plaque marks the building where Mozart died; the apartment was demolished',
     description: 'On December 5, 1791, Mozart died in his Vienna apartment at age 35. He had been working feverishly on his Requiem in D minor — commissioned anonymously by a mysterious messenger — when illness overtook him. Despite over 600 compositions including 41 symphonies and iconic operas, Mozart had been struggling financially. He was buried in a common grave at St. Marx Cemetery; the exact location was never marked. The Requiem\'s commissioner was later revealed to be a count who planned to pass the work off as his own.',
     lat: 48.2082,
     lng: 16.3738,
@@ -8063,7 +8063,7 @@ export const moments: Moment[] = [
   {
     id: 'bob-marley-zimbabwe',
     name: 'Bob Marley Performs at Zimbabwe\'s Independence as Tear Gas Fills the Stadium',
-    subtitle: 'The voice of Third World liberation plays as a new African nation is born',
+    subtitle: '56 Hope Road, Kingston, Jamaica. Bob Marley Museum; guided tours of his home and studio',
     description: 'On April 17, 1980, Bob Marley and the Wailers performed at Zimbabwe\'s official independence ceremony at Rufaro Stadium in Harare. During the concert, police fired tear gas at crowds outside trying to get in. Marley stopped playing, the VIP section emptied, but Marley returned to the stage and finished his set while gas hung in the air. He considered Zimbabwe the most important performance of his life. He paid for the band\'s travel himself. Less than a year later, he was dead from melanoma at age 36.',
     lat: -17.8416,
     lng: 31.0456,
@@ -8081,7 +8081,7 @@ export const moments: Moment[] = [
   {
     id: 'kurosawa-seven-samurai',
     name: 'Akira Kurosawa Premieres Seven Samurai — the Film That Changed Cinema Forever',
-    subtitle: 'A three-hour samurai epic from Japan rewrites the grammar of action filmmaking worldwide',
+    subtitle: 'Toho Studios, 1-4-1 Seijo, Setagaya, Tokyo. Active studio; not open to the public',
     description: 'On April 26, 1954, Akira Kurosawa\'s Seven Samurai premiered in Tokyo. The film — about seven masterless samurai defending a village from bandits — was the most expensive Japanese film ever made, went over budget, and nearly bankrupted Toho Studios. It became the most influential action film in cinema history. George Lucas adapted its plot for Star Wars, John Sturges remade it as The Magnificent Seven, and Kurosawa\'s techniques became the standard language of Hollywood filmmaking.',
     lat: 35.6762,
     lng: 139.6503,
@@ -8099,7 +8099,7 @@ export const moments: Moment[] = [
   {
     id: 'pele-1000th-goal',
     name: 'Pelé Scores His 1,000th Career Goal at the Maracanã',
-    subtitle: 'The greatest footballer in history reaches a milestone no one else has achieved',
+    subtitle: 'Estádio do Maracanã, Rio de Janeiro, Brazil. Still active; hosts Brazil national team matches',
     description: 'On November 19, 1969, Pelé scored his 1,000th career goal on a penalty kick against Vasco da Gama at the Maracanã Stadium in Rio de Janeiro. The game was stopped as fans flooded the pitch. Pelé, in tears, was carried on shoulders. He had scored his first professional goal at 15 and won his first World Cup at 17 — the youngest player ever to do so. He won three World Cups total (1958, 1962, 1970), a feat unmatched. FIFA named him the greatest footballer of the 20th century.',
     lat: -22.9121,
     lng: -43.2302,
@@ -8120,7 +8120,7 @@ export const moments: Moment[] = [
   {
     id: 'princes-tower-disappear',
     name: 'Two Young Princes Enter the Tower of London and Are Never Seen Again',
-    subtitle: 'The twelve-year-old king and his brother vanish behind fortress walls',
+    subtitle: 'Tower of London, EC3N 4AB. Bloody Tower is open to visitors; Crown Jewels on display',
     description: 'In 1483, twelve-year-old King Edward V and his nine-year-old brother Richard were lodged in the Tower of London by their uncle, Richard Duke of Gloucester, supposedly for their protection before the coronation. The coronation never happened. Richard declared himself King Richard III, and the boys were never seen in public again. In 1674, workmen found a wooden chest containing the skeletons of two children beneath a staircase in the White Tower. The bones were placed in an urn in Westminster Abbey.',
     lat: 51.5081,
     lng: -0.0759,
@@ -8138,7 +8138,7 @@ export const moments: Moment[] = [
   {
     id: 'anne-boleyn-executed',
     name: 'Henry VIII Has His Second Wife Beheaded at the Tower of London',
-    subtitle: 'A French swordsman is imported for the execution of a queen who failed to produce a male heir',
+    subtitle: 'Tower Green, Tower of London, EC3N 4AB. A glass memorial marks the execution site; open to visitors',
     description: 'On May 19, 1536, Anne Boleyn was beheaded on Tower Green within the walls of the Tower of London, convicted of adultery, incest, and treason on almost certainly fabricated charges. Henry VIII had already moved on to Jane Seymour. Anne requested a French swordsman rather than the usual axe — the single stroke was so swift that her lips were still moving in prayer when her head fell. Her daughter, Elizabeth, would become England\'s greatest monarch.',
     lat: 51.5081,
     lng: -0.0759,
@@ -8156,7 +8156,7 @@ export const moments: Moment[] = [
   {
     id: 'guy-fawkes-caught',
     name: 'Soldiers Catch Guy Fawkes Guarding 36 Barrels of Gunpowder Beneath Parliament',
-    subtitle: 'A Catholic conspiracy to blow up the king and the entire House of Lords is foiled at the last moment',
+    subtitle: 'Palace of Westminster, SW1A 0AA. The cellars are beneath the Houses of Parliament; Guy Fawkes Night celebrated annually',
     description: 'In the early hours of November 5, 1605, soldiers searching the cellars beneath the House of Lords discovered Guy Fawkes standing guard over 36 barrels of gunpowder — enough to reduce Parliament to rubble and kill King James I along with the assembled lords. The Gunpowder Plot was a Catholic conspiracy led by Robert Catesby, with Fawkes as the explosives expert. Fawkes was tortured on the rack until he revealed his co-conspirators, then hanged, drawn, and quartered. The British still burn his effigy every November 5th.',
     lat: 51.4995,
     lng: -0.1248,
@@ -8174,7 +8174,7 @@ export const moments: Moment[] = [
   {
     id: 'charles-i-executed',
     name: 'King Charles I Steps Through a Window to His Own Execution',
-    subtitle: 'The only English monarch executed by his own people walks to the scaffold in two shirts so he won\'t shiver and look afraid',
+    subtitle: 'Banqueting House, Whitehall, SW1A 2ER. The window Charles I stepped through is still visible; open to visitors',
     description: 'On January 30, 1649, King Charles I stepped through a first-floor window of the Banqueting House in Whitehall onto a scaffold draped in black. He wore two shirts despite the January cold — he later explained he did not want to shiver and have the crowd think he was afraid. After a brief speech declaring himself "a martyr of the people," the executioner severed his head with a single blow. The crowd groaned. It was the climax of the English Civil War and the only execution of a reigning English monarch.',
     lat: 51.5045,
     lng: -0.1260,
@@ -8192,7 +8192,7 @@ export const moments: Moment[] = [
   {
     id: 'london-great-plague',
     name: 'The Great Plague Kills a Quarter of London\'s Population in a Single Year',
-    subtitle: 'Red crosses on doors, mass graves, and a city emptied by bubonic plague',
+    subtitle: 'Charterhouse Square, EC1M 6AN. A plague pit lies beneath the square; the Charterhouse is open for guided tours',
     description: 'In 1665, bubonic plague swept through London, killing an estimated 100,000 people — roughly one in four Londoners. Houses with infected residents were sealed with red crosses painted on the doors and the words "Lord have mercy upon us." The wealthy fled to the countryside; the poor were left to die. Mass burial pits were dug at sites across the city. The epidemic peaked in September, when 7,000 people died in a single week. It finally subsided in early 1666 — just months before the Great Fire would transform the city again.',
     lat: 51.5155,
     lng: -0.0922,
@@ -8209,7 +8209,7 @@ export const moments: Moment[] = [
   {
     id: 'london-great-fire',
     name: 'A Baker\'s Oven Starts a Fire That Destroys 13,200 Houses in Four Days',
-    subtitle: 'Medieval London burns to the ground from Pudding Lane to the edge of the city walls',
+    subtitle: 'Pudding Lane, EC3R 8AH. The Monument to the Great Fire stands nearby; 311-step spiral staircase to the top',
     description: 'In the early hours of September 2, 1666, a fire broke out in Thomas Farriner\'s bakery on Pudding Lane. Fanned by strong east winds and fed by timber buildings packed along narrow streets, the fire raged for four days. It destroyed 13,200 houses, 87 churches including Old St. Paul\'s Cathedral, and most of the buildings of the City of London. Remarkably, only six verified deaths were recorded, though the true toll was likely higher. Sir Christopher Wren was commissioned to rebuild, and his new St. Paul\'s Cathedral became London\'s defining landmark.',
     lat: 51.5101,
     lng: -0.0861,
@@ -8226,7 +8226,7 @@ export const moments: Moment[] = [
   {
     id: 'newton-publishes-principia',
     name: 'Isaac Newton Publishes the Principia and Rewrites the Laws of the Universe',
-    subtitle: 'A reclusive Cambridge professor explains gravity, motion, and the orbits of planets in one book',
+    subtitle: 'Trinity College, Cambridge CB2 1TQ. Newton\'s rooms overlooked the Great Court; the apple tree descendant is in the garden',
     description: 'On July 5, 1687, Isaac Newton\'s Philosophiæ Naturalis Principia Mathematica was published in London, funded by astronomer Edmond Halley after the Royal Society ran out of money. In three volumes, Newton laid out the laws of motion and universal gravitation, explaining everything from falling apples to planetary orbits with a single mathematical framework. The Principia is widely regarded as the most important scientific work ever published. Newton was 44 and had developed the ideas twenty years earlier but never bothered to publish them until Halley coaxed him.',
     lat: 51.5065,
     lng: -0.1058,
@@ -8244,7 +8244,7 @@ export const moments: Moment[] = [
   {
     id: 'nelson-funeral-st-pauls',
     name: 'Lord Nelson\'s Body Returns to London After His Death at Trafalgar',
-    subtitle: 'Britain\'s greatest naval hero is carried up the Thames in a coffin made from a French mast',
+    subtitle: 'Nelson\'s Column, Trafalgar Square, WC2N 5DN. The 169-foot column is in the center of the square; free to visit',
     description: 'On January 9, 1806, Admiral Horatio Nelson was buried at St. Paul\'s Cathedral after the most elaborate state funeral London had ever seen. Nelson had been killed by a French sharpshooter at the Battle of Trafalgar on October 21, 1805 — a victory that destroyed Napoleon\'s fleet and ensured British naval supremacy for a century. His body was preserved in a cask of brandy for the voyage home. The funeral procession took four hours as it moved from the Admiralty to St. Paul\'s, watched by an estimated half million people.',
     lat: 51.5138,
     lng: -0.0984,
@@ -8262,7 +8262,7 @@ export const moments: Moment[] = [
   {
     id: 'rosetta-stone-british-museum',
     name: 'The Rosetta Stone Arrives at the British Museum After Britain Defeats Napoleon in Egypt',
-    subtitle: 'A slab of granodiorite becomes the key to deciphering 3,000 years of Egyptian hieroglyphics',
+    subtitle: 'The British Museum, Great Russell St, WC1B 3DG. The Rosetta Stone is in Room 4; free admission',
     description: 'In 1802, the Rosetta Stone arrived at the British Museum as spoils of war after the French surrender in Egypt. The stone, discovered by Napoleon\'s soldiers in 1799 near the town of Rashid (Rosetta), bore the same decree in three scripts: hieroglyphic, Demotic, and Greek. It took another twenty years before Jean-François Champollion used the stone to crack the hieroglyphic code in 1822, unlocking 3,000 years of Egyptian history. The Rosetta Stone remains the British Museum\'s most visited object and Egypt\'s most requested repatriation.',
     lat: 51.5194,
     lng: -0.1270,
@@ -8280,7 +8280,7 @@ export const moments: Moment[] = [
   {
     id: 'victoria-crowned',
     name: 'An Eighteen-Year-Old Queen Is Crowned at Westminster Abbey',
-    subtitle: 'The girl who woke up a queen begins the longest reign in British history',
+    subtitle: 'Kensington Palace, W8 4PX. Victoria\'s childhood rooms are part of the exhibition; open to visitors',
     description: 'On June 28, 1838, eighteen-year-old Queen Victoria was crowned at Westminster Abbey in a ceremony attended by 400,000 spectators lining the streets. She had become queen the previous year when her uncle William IV died. The coronation was chaotic — the Archbishop forced a ring onto the wrong finger, causing her pain, and an elderly lord tumbled down the steps while paying homage. Victoria would reign for 63 years, presiding over the expansion of the British Empire to cover a quarter of the globe and giving her name to an entire era.',
     lat: 51.4993,
     lng: -0.1273,
@@ -8298,7 +8298,7 @@ export const moments: Moment[] = [
   {
     id: 'london-great-exhibition',
     name: 'Six Million Visitors Pour into the Crystal Palace for the Great Exhibition',
-    subtitle: 'A glass cathedral in Hyde Park showcases the peak of industrial civilization',
+    subtitle: 'Crystal Palace Park, SE19 2AZ. The building burned down in 1936; dinosaur sculptures remain in the park',
     description: 'On May 1, 1851, Queen Victoria opened the Great Exhibition in Joseph Paxton\'s Crystal Palace — a revolutionary iron-and-glass structure covering 19 acres of Hyde Park. Over 140 days, six million people (a third of Britain\'s population) visited 100,000 exhibits from around the world, from the Koh-i-Noor diamond to early voting machines. The exhibition turned a profit of £186,000, which Prince Albert used to found the Victoria and Albert Museum, the Science Museum, and the Natural History Museum. The Crystal Palace was later moved to Sydenham Hill, where it burned down in 1936.',
     lat: 51.5025,
     lng: -0.1710,
@@ -8316,7 +8316,7 @@ export const moments: Moment[] = [
   {
     id: 'jack-ripper-whitechapel',
     name: 'Jack the Ripper Terrorizes Whitechapel with Five Murders in Autumn 1888',
-    subtitle: 'An unidentified killer stalks the gaslit streets of London\'s poorest neighborhood',
+    subtitle: 'Whitechapel, E1. The murder sites are along commercial streets; walking tours run nightly',
     description: 'Between August 31 and November 9, 1888, an unidentified killer murdered at least five women in the Whitechapel district of London\'s East End. The victims — Mary Ann Nichols, Annie Chapman, Elizabeth Stride, Catherine Eddowes, and Mary Jane Kelly — were all impoverished women. The killer, dubbed "Jack the Ripper" by the press after a letter sent to the Central News Agency, was never caught. The case spawned over 100 suspects and remains the most famous unsolved murder case in history. The killings exposed the grinding poverty of Victorian London\'s East End to a shocked public.',
     lat: 51.5168,
     lng: -0.0668,
@@ -8334,7 +8334,7 @@ export const moments: Moment[] = [
   {
     id: 'churchill-war-rooms',
     name: 'Churchill Directs the War from a Bunker Beneath Whitehall',
-    subtitle: 'The nerve center of Britain\'s war effort operates underground as bombs fall overhead',
+    subtitle: 'Clive Steps, King Charles St, SW1A 2AQ. Churchill War Rooms; Imperial War Museum site, open daily',
     description: 'From August 1940, Winston Churchill directed Britain\'s war effort from the Cabinet War Rooms — a fortified underground complex beneath the Treasury building in Whitehall. The cramped, spartan rooms served as the nerve center for the British military command throughout the Blitz and beyond. Churchill slept in his tiny underground bedroom, broadcast to the nation from the converted broom cupboard, and held 115 Cabinet meetings in the underground chamber. The War Rooms operated 24 hours a day until the Japanese surrender in August 1945. Churchill\'s desk, maps, and telephone to the White House remain exactly as they were left.',
     lat: 51.5022,
     lng: -0.1289,
@@ -8352,7 +8352,7 @@ export const moments: Moment[] = [
   {
     id: 'st-pauls-blitz',
     name: 'Volunteer Firefighters Save St. Paul\'s Cathedral as Incendiary Bombs Rain on London',
-    subtitle: 'The cathedral that Christopher Wren rebuilt after the Great Fire survives the Blitz\'s worst night',
+    subtitle: 'St Paul\'s Cathedral, EC4M 8AD. Open to visitors; climb to the Whispering Gallery and Golden Gallery',
     description: 'On the night of December 29, 1940, the Luftwaffe dropped thousands of incendiary bombs on the City of London in what became known as the Second Great Fire of London. As buildings burned all around, volunteer fire watchers from the St. Paul\'s Watch — organized by the cathedral\'s dean — scrambled across the rooftops to extinguish incendiaries before they could ignite the building. They succeeded. The iconic photograph of St. Paul\'s dome rising above the smoke and flames became the defining image of British resilience during the Blitz. Churchill had ordered: "St. Paul\'s must be saved at all costs."',
     lat: 51.5138,
     lng: -0.0984,
@@ -8370,7 +8370,7 @@ export const moments: Moment[] = [
   {
     id: 'london-ve-day',
     name: 'A Million Londoners Flood the Streets as Churchill Announces Victory in Europe',
-    subtitle: 'The war in Europe ends and the Royal Family waves from the balcony of Buckingham Palace',
+    subtitle: 'Buckingham Palace, SW1A 1AA. The balcony faces the Mall; State Rooms open in summer',
     description: 'On May 8, 1945, Winston Churchill broadcast to the nation that the war in Europe was over. A million people flooded into central London — filling Trafalgar Square, The Mall, and Whitehall. Churchill appeared on the balcony of the Ministry of Health and told the crowd, "This is your victory." King George VI and Queen Elizabeth appeared eight times on the Buckingham Palace balcony, accompanied at one point by the young Princesses Elizabeth and Margaret, who had been allowed to slip out anonymously into the celebrating crowds.',
     lat: 51.5008,
     lng: -0.1246,
@@ -8388,7 +8388,7 @@ export const moments: Moment[] = [
   {
     id: 'beatles-rooftop-concert',
     name: 'The Beatles Play Their Final Concert on a London Rooftop',
-    subtitle: 'Four musicians climb to a rooftop on Savile Row and play together for the last time',
+    subtitle: '3 Savile Row, London W1S 3PB. Now an Abercrombie & Fitch store; the rooftop is not publicly accessible',
     description: 'On January 30, 1969, the Beatles climbed to the roof of their Apple Corps headquarters at 3 Savile Row and played an unannounced 42-minute concert that stopped traffic across central London. It was the band\'s first live performance in over two years and their last ever. Office workers watched from neighboring rooftops, crowds gathered in the street below, and the Metropolitan Police eventually arrived to shut it down. John Lennon\'s closing words — "I\'d like to say thank you on behalf of the group and ourselves and I hope we passed the audition" — became one of rock\'s most famous sign-offs.',
     lat: 51.5125,
     lng: -0.1390,
@@ -8409,7 +8409,7 @@ export const moments: Moment[] = [
   {
     id: 'romulus-founds-rome',
     name: 'Romulus Kills His Twin Brother and Founds Rome on the Palatine Hill',
-    subtitle: 'A fratricide over where to build a city creates the eternal empire',
+    subtitle: 'Palatine Hill, Via di San Gregorio 30, Rome. Archaeological park; combined ticket with Colosseum and Forum',
     description: 'According to Roman tradition, on April 21, 753 BCE, Romulus founded the city of Rome on the Palatine Hill after killing his twin brother Remus in a dispute over the city\'s location. Remus had mocked Romulus\'s walls by jumping over them, and Romulus struck him dead. Archaeological evidence confirms settlement on the Palatine Hill from at least the 10th century BCE. Whether Romulus was a real person or a founding myth, April 21 was celebrated as Rome\'s birthday for over a thousand years.',
     lat: 41.8892,
     lng: 12.4872,
@@ -8426,7 +8426,7 @@ export const moments: Moment[] = [
   {
     id: 'spartacus-appian-way',
     name: 'Crassus Crucifies 6,000 of Spartacus\'s Followers Along the Appian Way',
-    subtitle: 'A forest of crosses stretches from Capua to Rome as a warning against rebellion',
+    subtitle: 'Via Appia Antica, Rome. The ancient road is a regional park; walkable from Porta San Sebastiano',
     description: 'In 71 BCE, after Marcus Licinius Crassus crushed the slave revolt led by Spartacus, he crucified 6,000 captured rebels along the Appian Way — the main road from Capua to Rome, a distance of about 200 kilometers. The bodies were left to rot as a warning. Spartacus himself was likely killed in the final battle, though his body was never identified. His revolt, which at its peak commanded 120,000 escaped slaves and terrified the Roman elite, became the most famous slave uprising in Western history.',
     lat: 41.8429,
     lng: 12.5044,
@@ -8444,7 +8444,7 @@ export const moments: Moment[] = [
   {
     id: 'nero-great-fire-rome',
     name: 'Rome Burns for Six Days and Nero Builds His Golden Palace on the Ashes',
-    subtitle: 'Whether or not he fiddled, the emperor seized the disaster to build himself a pleasure palace',
+    subtitle: 'Domus Aurea, Via della Domus Aurea 1, Rome. Underground ruins open by guided tour; advance booking required',
     description: 'On July 18, 64 CE, a fire broke out near the Circus Maximus and burned for six days, destroying ten of Rome\'s fourteen districts. Ancient sources disagree on whether Emperor Nero started the fire, but he certainly exploited it — seizing 300 acres of prime land in the burned zone to build his Domus Aurea (Golden House), a lavish palace complex with a 30-meter bronze statue of himself. He blamed the fire on Christians, beginning the first Roman persecution. Tacitus recorded that Christians were covered in animal skins and torn apart by dogs, or crucified and set on fire as human torches.',
     lat: 41.8884,
     lng: 12.4884,
@@ -8462,7 +8462,7 @@ export const moments: Moment[] = [
   {
     id: 'colosseum-opens',
     name: 'Emperor Titus Opens the Colosseum with One Hundred Days of Games',
-    subtitle: 'The greatest amphitheater ever built inaugurates with gladiators, wild beasts, and naval battles',
+    subtitle: 'Piazza del Colosseo, Rome. The Colosseum is open daily; timed-entry tickets required',
     description: 'In 80 CE, Emperor Titus inaugurated the Flavian Amphitheatre (the Colosseum) with one hundred consecutive days of spectacles. Ancient sources claim 9,000 animals were killed during the inaugural games. The Colosseum seated 50,000 spectators and featured a complex underground system of tunnels and elevators to raise animals and gladiators into the arena. It could even be flooded for mock naval battles. Built on the site of Nero\'s Golden House lake — a deliberate propaganda move returning stolen land to the people — it remained in active use for over 400 years.',
     lat: 41.8902,
     lng: 12.4922,
@@ -8479,7 +8479,7 @@ export const moments: Moment[] = [
   {
     id: 'visigoths-sack-rome',
     name: 'The Visigoths Sack Rome for the First Time in Eight Hundred Years',
-    subtitle: 'Alaric\'s army breaches the Salarian Gate and the myth of Roman invincibility dies',
+    subtitle: 'Porta Salaria area, Piazzale Fiume, Rome. The original gate was demolished in 1871; a modern plaza occupies the site',
     description: 'On August 24, 410 CE, Alaric I and his Visigoth army entered Rome through the Salarian Gate after a slave opened it from inside. For three days they looted the city, though Alaric ordered churches to be spared. It was the first time Rome had been sacked by a foreign enemy in 800 years — since the Gauls in 390 BCE. The psychological shock was immense. Saint Jerome, writing from Bethlehem, said: "The city which had taken the whole world was itself taken." Saint Augustine began writing The City of God partly in response. Rome would be sacked again by the Vandals in 455.',
     lat: 41.9078,
     lng: 12.4973,
@@ -8496,7 +8496,7 @@ export const moments: Moment[] = [
   {
     id: 'michelangelo-sistine-chapel',
     name: 'Michelangelo Unveils the Sistine Chapel Ceiling After Four Years on Scaffolding',
-    subtitle: 'A sculptor who insisted he wasn\'t a painter creates the most famous ceiling in history',
+    subtitle: 'Sistine Chapel, Vatican Museums, Vatican City. Timed-entry tickets required; photography not permitted',
     description: 'On November 1, 1512, Pope Julius II celebrated Mass beneath the newly completed Sistine Chapel ceiling. Michelangelo had worked for four years (1508-1512), painting 343 figures across 5,000 square feet while lying on his back on scaffolding, paint dripping into his eyes. He wrote a poem about the misery: "My beard toward heaven...my brush, above my face, makes it a splendid floor by dripping down." The result — including The Creation of Adam with its almost-touching fingers — became the most iconic artwork of the Renaissance and possibly of all human civilization.',
     lat: 41.9029,
     lng: 12.4545,
@@ -8514,7 +8514,7 @@ export const moments: Moment[] = [
   {
     id: 'raphael-dies-rome',
     name: 'Raphael Dies at Thirty-Seven and All of Rome Mourns',
-    subtitle: 'The painter who rivaled Michelangelo collapses after a fever and is buried in the Pantheon',
+    subtitle: 'The Pantheon, Piazza della Rotonda, Rome. Raphael\'s tomb is inside; free entry, open daily',
     description: 'On April 6, 1520, Raphael Sanzio died in Rome at the age of 37, reportedly from a fever that developed after excessive physical exertion (Vasari attributed it to romantic excess). His death plunged Rome into mourning. Pope Leo X wept. Raphael\'s body was laid in state with his final masterpiece, the Transfiguration, displayed at his head. He was buried in the Pantheon at his own request, beneath an inscription that reads: "Here lies Raphael, by whom Nature feared to be outdone while he lived, and when he died, feared she herself would die." He had been painting the Vatican Stanze, rivaling Michelangelo\'s Sistine ceiling just rooms away.',
     lat: 41.8986,
     lng: 12.4769,
@@ -8531,7 +8531,7 @@ export const moments: Moment[] = [
   {
     id: 'caravaggio-kills-ranuccio',
     name: 'Caravaggio Kills a Man in a Street Brawl and Flees Rome Forever',
-    subtitle: 'The most revolutionary painter in Europe becomes a fugitive after a tennis court murder',
+    subtitle: 'Via della Pallacorda, near Piazza Navona, Rome. The street still exists; Caravaggio\'s works are at Galleria Borghese and churches nearby',
     description: 'On May 29, 1606, Michelangelo Merisi da Caravaggio killed Ranuccio Tomassoni in a sword fight that erupted during or after a tennis match near the Campo Marzio. The exact cause of the quarrel is debated — gambling debts, a woman, or a political grudge. Caravaggio was wounded and fled Rome with a death sentence on his head. He spent the remaining four years of his life on the run through Naples, Malta, and Sicily, producing some of his greatest works while evading bounty hunters. He died in 1610 at age 38 under mysterious circumstances while trying to secure a papal pardon.',
     lat: 41.9005,
     lng: 12.4733,
@@ -8549,7 +8549,7 @@ export const moments: Moment[] = [
   {
     id: 'keats-dies-spanish-steps',
     name: 'John Keats Dies at Twenty-Five in a Room Overlooking the Spanish Steps',
-    subtitle: 'England\'s greatest Romantic poet succumbs to tuberculosis in a room he asked to be stripped bare',
+    subtitle: 'Keats-Shelley Memorial House, Piazza di Spagna 26, Rome. Museum at the foot of the Spanish Steps; open to visitors',
     description: 'On February 23, 1821, John Keats died of tuberculosis in a small room at 26 Piazza di Spagna, overlooking the Spanish Steps in Rome. He was 25 years old. In his final months, he asked that the room be stripped of all furnishings to prevent contamination — Italian health laws required everything to be burned after a consumptive\'s death. His last words to his friend Joseph Severn were: "Don\'t be frightened — be firm, and thank God it has come." His gravestone, which he dictated himself, reads: "Here lies One whose Name was writ in Water." The room is now the Keats-Shelley Memorial House museum.',
     lat: 41.9058,
     lng: 12.4823,
@@ -8566,7 +8566,7 @@ export const moments: Moment[] = [
   {
     id: 'mussolini-march-on-rome',
     name: 'Mussolini Marches on Rome and the King Hands Him Power Without a Fight',
-    subtitle: 'Thirty thousand Blackshirts advance on the capital and a democracy commits suicide',
+    subtitle: 'Via del Corso / Piazza Venezia area, Rome. Mussolini\'s balcony at Palazzo Venezia is visible from the piazza',
     description: 'On October 28, 1922, roughly 30,000 Fascist Blackshirts converged on Rome from multiple directions while Benito Mussolini waited in Milan. The Italian government asked King Victor Emmanuel III to declare martial law and disperse the marchers. The king refused, fearing civil war. Instead, he invited Mussolini to Rome to form a government. Mussolini arrived by sleeper train on October 30, was appointed Prime Minister, and within three years had dismantled Italian democracy entirely. The "March on Rome" became the founding myth of Fascism — though Mussolini himself hadn\'t marched at all.',
     lat: 41.8997,
     lng: 12.4873,
@@ -8584,7 +8584,7 @@ export const moments: Moment[] = [
   {
     id: 'lateran-treaty-vatican',
     name: 'Mussolini and the Pope Sign a Treaty Creating the World\'s Smallest Country',
-    subtitle: 'The sixty-year standoff between Italy and the papacy ends with a sovereign Vatican City',
+    subtitle: 'Lateran Palace, Piazza di San Giovanni in Laterano, Rome. The Lateran Treaty was signed here; the basilica is open daily',
     description: 'On February 11, 1929, Cardinal Pietro Gasparri and Benito Mussolini signed the Lateran Treaty in the Lateran Palace, creating Vatican City as an independent sovereign state of 44 hectares — the smallest country in the world. The treaty resolved the "Roman Question" that had festered since 1870, when Italy seized Rome from the Pope. Pius IX and his successors had refused to leave the Vatican, calling themselves "prisoners of the Vatican." In exchange for recognizing Italy\'s sovereignty over Rome, the Pope received sovereignty over Vatican City, financial compensation, and Catholicism\'s status as Italy\'s state religion.',
     lat: 41.8857,
     lng: 12.5055,
@@ -8602,7 +8602,7 @@ export const moments: Moment[] = [
   {
     id: 'allies-liberate-rome',
     name: 'Allied Forces Liberate Rome Two Days Before D-Day',
-    subtitle: 'The first Axis capital falls as the world\'s attention is about to shift to Normandy',
+    subtitle: 'Via Rasella / Porta San Paolo area, Rome. The Resistance Museum is at Porta San Paolo; free entry',
     description: 'On June 4, 1944, American troops of the 88th Infantry Division entered Rome, making it the first Axis capital to be liberated. The Germans had declared Rome an "open city" and retreated north without destroying the ancient monuments. Romans poured into the streets to greet the liberators with flowers, wine, and kisses. But the triumph was short-lived in the headlines — just two days later, on June 6, the D-Day landings in Normandy overshadowed everything. General Mark Clark, who had controversially diverted forces to capture Rome for the publicity, found his moment of glory eclipsed within 48 hours.',
     lat: 41.8967,
     lng: 12.4822,
@@ -8623,7 +8623,7 @@ export const moments: Moment[] = [
   {
     id: 'storming-bastille',
     name: 'A Parisian Mob Storms the Bastille and Launches the French Revolution',
-    subtitle: 'Nine hundred Parisians overrun a medieval fortress and tear it down stone by stone',
+    subtitle: 'Place de la Bastille, Paris 75011. The fortress is gone; the July Column stands on the site; Opéra Bastille nearby',
     description: 'On July 14, 1789, a Parisian mob of roughly 900 people attacked the Bastille, a medieval fortress used as a state prison. The crowd was after the gunpowder stored inside. After a four-hour siege and the death of 98 attackers, the garrison surrendered. The governor, Bernard-René de Launay, was dragged through the streets and beheaded, his head placed on a pike. Though the Bastille held only seven prisoners at the time, it symbolized royal tyranny. The fortress was demolished within months. July 14 became France\'s national holiday.',
     lat: 48.8533,
     lng: 2.3692,
@@ -8641,7 +8641,7 @@ export const moments: Moment[] = [
   {
     id: 'marie-antoinette-guillotined',
     name: 'Marie Antoinette Is Guillotined Before a Jeering Crowd at the Place de la Révolution',
-    subtitle: 'The queen who allegedly said "let them eat cake" rides an open cart to the scaffold',
+    subtitle: 'Place de la Concorde, Paris 75008. The execution site is now the center of the square; the obelisk marks the area',
     description: 'On October 16, 1793, Marie Antoinette was executed by guillotine at the Place de la Révolution (now Place de la Concorde). She had been held in the Conciergerie since August, subjected to a show trial on charges including treason and sexual abuse of her son (a fabrication that even some revolutionaries found distasteful). Her hair had turned white in prison. She was transported to the scaffold in an open cart — unlike her husband Louis XVI, who had been allowed a closed carriage. When she accidentally stepped on the executioner\'s foot, she said: "Pardon me, sir, I did not do it on purpose." She was 37 years old.',
     lat: 48.8656,
     lng: 2.3212,
@@ -8659,7 +8659,7 @@ export const moments: Moment[] = [
   {
     id: 'napoleon-crowns-himself',
     name: 'Napoleon Takes the Crown from the Pope\'s Hands and Crowns Himself Emperor',
-    subtitle: 'A Corsican artillery officer becomes master of Europe in the cathedral where kings were married',
+    subtitle: 'Notre-Dame de Paris, 6 Parvis Notre-Dame, Paris 75004. The cathedral is being rebuilt after the 2019 fire',
     description: 'On December 2, 1804, in the Cathedral of Notre-Dame, Napoleon Bonaparte seized the imperial crown from the hands of Pope Pius VII and placed it on his own head — signaling that he owed his power to no one, not even God. He then crowned his wife Josephine. The ceremony was immortalized by Jacques-Louis David in a massive painting that hangs in the Louvre. Napoleon had risen from minor Corsican nobility to rule France in just fifteen years. He would spend the next decade redrawing the map of Europe before his final defeat at Waterloo in 1815.',
     lat: 48.8530,
     lng: 2.3499,
@@ -8677,7 +8677,7 @@ export const moments: Moment[] = [
   {
     id: 'paris-commune-tuileries',
     name: 'The Paris Commune Burns the Tuileries Palace During Bloody Week',
-    subtitle: 'A revolutionary government holds Paris for seventy-two days before the army massacres 20,000',
+    subtitle: 'Père Lachaise Cemetery, 16 Rue du Repos, Paris 75020. The Mur des Fédérés (Communards\' Wall) is at the southeast corner',
     description: 'In March 1871, after France\'s defeat in the Franco-Prussian War, Parisian workers and National Guard members seized control of the city and established the Paris Commune — a radical democratic government that lasted 72 days. When the French Army besieged and retook Paris during "Bloody Week" (May 21-28), the Communards set fire to the Tuileries Palace, the Hôtel de Ville, and other buildings. The army\'s reprisals were savage: an estimated 20,000 Communards were killed, many summarily executed. The Tuileries Palace was never rebuilt. Karl Marx called the Commune the first dictatorship of the proletariat.',
     lat: 48.8627,
     lng: 2.3319,
@@ -8694,7 +8694,7 @@ export const moments: Moment[] = [
   {
     id: 'first-impressionist-exhibition',
     name: 'Monet, Renoir, and Degas Shock Paris with the First Impressionist Exhibition',
-    subtitle: 'Thirty artists rejected by the official Salon display paintings that will redefine art itself',
+    subtitle: 'Musée d\'Orsay, 1 Rue de la Légion d\'Honneur, Paris 75007. Impressionist collection on the upper level; open daily except Monday',
     description: 'On April 15, 1874, thirty artists opened an independent exhibition at the studio of photographer Nadar at 35 Boulevard des Capucines. The works by Claude Monet, Pierre-Auguste Renoir, Edgar Degas, Camille Pissarro, and Berthe Morisot were savaged by critics. The mocking term "Impressionism" came from a critic\'s disdain for Monet\'s Impression, Sunrise. But the exhibition changed the course of art history by proving artists could bypass the gatekeeping Salon system and show directly to the public. Within a decade, Impressionism became the dominant movement in Western art.',
     lat: 48.8715,
     lng: 2.3410,
@@ -8711,7 +8711,7 @@ export const moments: Moment[] = [
   {
     id: 'victor-hugo-funeral',
     name: 'Two Million Mourners Follow Victor Hugo\'s Coffin Through Paris to the Panthéon',
-    subtitle: 'The author of Les Misérables receives the largest funeral in French history',
+    subtitle: 'The Panthéon, Place du Panthéon, Paris 75005. Hugo\'s tomb is in the crypt; open to visitors',
     description: 'On June 1, 1885, an estimated two million people — nearly the entire population of Paris — lined the streets to follow Victor Hugo\'s coffin from the Arc de Triomphe to the Panthéon. Hugo had requested a pauper\'s hearse, which created a striking contrast with the massive crowds. He had died on May 22 at age 83, mourned as France\'s greatest writer and a champion of democracy, abolition, and the poor. His body lay in state beneath the Arc de Triomphe, which was draped in black crepe. The French government converted the Panthéon from a church back into a secular mausoleum specifically to receive his remains.',
     lat: 48.8462,
     lng: 2.3464,
@@ -8729,7 +8729,7 @@ export const moments: Moment[] = [
   {
     id: 'eiffel-tower-opens',
     name: 'Gustave Eiffel Opens His Controversial Iron Tower for the World\'s Fair',
-    subtitle: 'Three hundred artists signed a petition calling it a disgrace — it became the symbol of Paris',
+    subtitle: 'Champ de Mars, 5 Avenue Anatole France, Paris 75007. The Eiffel Tower is open daily; summit access by elevator or stairs',
     description: 'On March 31, 1889, Gustave Eiffel climbed the 1,710 steps to plant a French flag at the top of his newly completed tower, built as the entrance arch to the 1889 World\'s Fair celebrating the centennial of the French Revolution. At 300 meters, it was the tallest structure in the world — a record it held for 41 years. Before construction, 300 prominent artists and intellectuals, including Guy de Maupassant and Alexandre Dumas fils, signed a petition calling it "a disgrace to Paris." It was originally supposed to be dismantled after 20 years. Over 250 million people have visited it since.',
     lat: 48.8584,
     lng: 2.2945,
@@ -8746,7 +8746,7 @@ export const moments: Moment[] = [
   {
     id: 'dreyfus-degraded',
     name: 'Captain Dreyfus Is Publicly Stripped of His Rank in a Case That Tears France Apart',
-    subtitle: 'A Jewish officer is framed for treason and the resulting scandal redefines French politics for a decade',
+    subtitle: 'École Militaire, 1 Place Joffre, Paris 75007. The military school where Dreyfus was degraded; not open to the public',
     description: 'On January 5, 1895, Captain Alfred Dreyfus was publicly degraded in the courtyard of the École Militaire before 5,000 spectators. His sword was broken, his insignia torn off, and he was paraded before troops while the crowd screamed anti-Semitic slurs. Dreyfus had been convicted of passing military secrets to Germany based on forged evidence. When evidence emerged that the real traitor was Major Ferdinand Walsin Esterhazy, the Army covered it up. Émile Zola\'s famous front-page letter "J\'accuse" in 1898 blew the case open, splitting France into Dreyfusards and anti-Dreyfusards. Dreyfus was eventually exonerated in 1906.',
     lat: 48.8553,
     lng: 2.3024,
@@ -8763,7 +8763,7 @@ export const moments: Moment[] = [
   {
     id: 'oscar-wilde-dies-paris',
     name: 'Oscar Wilde Dies Penniless in a Paris Hotel Room at Forty-Six',
-    subtitle: 'The wittiest man in London ends his life in exile, broken by prison and poverty',
+    subtitle: 'Hôtel d\'Alsace (now L\'Hôtel), 13 Rue des Beaux-Arts, Paris 75006. The hotel still operates; Room 16 is preserved',
     description: 'On November 30, 1900, Oscar Wilde died of meningitis in Room 16 of the Hôtel d\'Alsace (now L\'Hôtel) at 13 Rue des Beaux-Arts. He was 46. After his release from Reading Gaol in 1897, where he served two years of hard labor for "gross indecency" (homosexuality), Wilde had lived in exile in Paris under the name Sebastian Melmoth. He was bankrupt, estranged from his children, and drinking heavily. On his deathbed, he reportedly quipped about the room\'s wallpaper: "My wallpaper and I are fighting a duel to the death. One of us has to go."',
     lat: 48.8568,
     lng: 2.3348,
@@ -8781,7 +8781,7 @@ export const moments: Moment[] = [
   {
     id: 'josephine-baker-paris',
     name: 'Josephine Baker Conquers Paris in a Banana Skirt and Becomes the Highest-Paid Performer in Europe',
-    subtitle: 'A Black woman from St. Louis becomes the toast of Jazz Age Paris',
+    subtitle: 'Folies Bergère, 32 Rue Richer, Paris 75009. The music hall still operates; art deco facade preserved',
     description: 'On October 2, 1925, nineteen-year-old Josephine Baker took the stage at the Théâtre des Champs-Élysées in La Revue Nègre and electrified Paris. Within months, performing at the Folies Bergère in her iconic banana skirt, she became the highest-paid entertainer in Europe. Baker had fled the racism of America for a France that adored her. During World War II, she served in the French Resistance, smuggling intelligence written in invisible ink on her sheet music. She was awarded the Croix de Guerre and the Legion of Honour. In 2021, she became the first Black woman interred in the Panthéon.',
     lat: 48.8653,
     lng: 2.3011,
@@ -8799,7 +8799,7 @@ export const moments: Moment[] = [
   {
     id: 'treaty-versailles',
     name: 'The Allies Force Germany to Sign the Treaty That Ends One War and Seeds Another',
-    subtitle: 'In the Hall of Mirrors where Bismarck crowned a German emperor, Germany is humiliated',
+    subtitle: 'Hall of Mirrors, Palace of Versailles, 78000 Versailles. Open to visitors; the hall is 73 meters long with 357 mirrors',
     description: 'On June 28, 1919, in the Hall of Mirrors at the Palace of Versailles — the same room where the German Empire had been proclaimed in 1871 — German delegates signed the Treaty of Versailles ending World War I. Germany was forced to accept sole responsibility for the war, pay massive reparations, cede territory, and disarm. The German delegation called it a "Diktat." The treaty\'s humiliating terms fueled German resentment for two decades. Economist John Maynard Keynes warned it would lead to another war. Adolf Hitler built his political career on promising to overturn it.',
     lat: 48.8049,
     lng: 2.1204,
@@ -8816,7 +8816,7 @@ export const moments: Moment[] = [
   {
     id: 'de-gaulle-liberation-paris',
     name: 'De Gaulle Walks Down the Champs-Élysées as Snipers Fire from Rooftops',
-    subtitle: 'The leader of Free France reclaims Paris while bullets fly over his head',
+    subtitle: 'Notre-Dame de Paris / Champs-Élysées, Paris. De Gaulle walked from the Arc de Triomphe to Notre-Dame',
     description: 'On August 26, 1944, the day after Paris was liberated from German occupation, Charles de Gaulle led a triumphal march down the Champs-Élysées from the Arc de Triomphe to Notre-Dame Cathedral. As he walked through massive jubilant crowds, snipers — possibly German holdouts, possibly Vichy militia — opened fire from rooftops near the Hôtel de Ville and inside Notre-Dame itself. De Gaulle barely flinched. The march cemented his image as the embodiment of French resistance and sovereignty, and his political dominance of postwar France.',
     lat: 48.8698,
     lng: 2.3078,
@@ -8834,7 +8834,7 @@ export const moments: Moment[] = [
   {
     id: 'may-68-barricades',
     name: 'Students Build Barricades in the Latin Quarter and Nearly Topple the Government',
-    subtitle: 'What begins as a university protest becomes the largest general strike in French history',
+    subtitle: 'Sorbonne, 47 Rue des Écoles, Paris 75005. The university is active; the Latin Quarter retains its student character',
     description: 'In May 1968, student protests at the University of Paris escalated into a national crisis. On the night of May 10-11 — the "Night of the Barricades" — students tore up cobblestones and overturned cars in the Latin Quarter, fighting running battles with riot police. When images of police brutality shocked the nation, workers joined in solidarity. By May 22, ten million workers were on strike — the largest general strike in French history. President de Gaulle secretly fled to a French military base in Germany to ensure the army\'s loyalty. The government survived, but French society was permanently transformed.',
     lat: 48.8510,
     lng: 2.3432,
@@ -8852,7 +8852,7 @@ export const moments: Moment[] = [
   {
     id: 'notre-dame-fire',
     name: 'Notre-Dame Cathedral Burns for Fifteen Hours as the World Watches',
-    subtitle: 'The medieval spire collapses into the nave of an 850-year-old cathedral on live television',
+    subtitle: 'Notre-Dame de Paris, 6 Parvis Notre-Dame, Paris 75004. Reconstruction ongoing; scheduled to reopen for worship',
     description: 'On the evening of April 15, 2019, a fire broke out in the attic of Notre-Dame Cathedral, likely caused by an electrical short-circuit or a discarded cigarette during renovation work. The medieval oak roof structure — 13,000 trees felled in the 12th and 13th centuries — burned for over fifteen hours. The iconic 96-meter spire, added by Viollet-le-Duc in the 19th century, collapsed into the nave on live television as crowds gathered along the Seine in tears. Firefighters saved the main structure, the rose windows, and the Crown of Thorns relic. Within days, over €1 billion in reconstruction pledges poured in from around the world.',
     lat: 48.8530,
     lng: 2.3499,
@@ -8872,7 +8872,7 @@ export const moments: Moment[] = [
   {
     id: 'tokugawa-edo-shogunate',
     name: 'Tokugawa Ieyasu Establishes the Shogunate and Makes Edo the Center of Power',
-    subtitle: 'A warlord wins Japan\'s greatest civil war and builds a capital that will become Tokyo',
+    subtitle: 'Imperial Palace East Gardens, Chiyoda, Tokyo. The site of Edo Castle; gardens open to the public, free entry',
     description: 'In 1603, after decades of civil war, Tokugawa Ieyasu was appointed Shogun by the Emperor and established his military government in Edo — a small castle town that would grow into the world\'s largest city. The Tokugawa shogunate would rule Japan for 265 years of unprecedented peace (the Edo period). Ieyasu built a massive castle surrounded by spiral moats and forced rival lords (daimyo) to maintain residences in Edo, keeping their families as hostages. By 1700, Edo had over one million residents, making it likely the most populous city on Earth.',
     lat: 35.6852,
     lng: 139.7528,
@@ -8890,7 +8890,7 @@ export const moments: Moment[] = [
   {
     id: 'great-fire-meireki',
     name: 'The Great Fire of Meireki Destroys Half of Edo and Kills One Hundred Thousand',
-    subtitle: 'A cursed kimono is burned at a temple and the fire consumes the world\'s largest city',
+    subtitle: 'Honmyoji Temple, 5-16-5 Nishi-Ikebukuro, Toshima, Tokyo. The temple still stands; the Great Fire of Meireki originated here',
     description: 'On March 2, 1657, a fire broke out at Honmyō-ji temple in Edo, according to legend when priests tried to burn a cursed kimono that had brought death to three successive owners. Fanned by winter winds, the fire burned for three days, destroying 60-70% of the city including most of Edo Castle\'s keep (which was never rebuilt). An estimated 100,000 people died — roughly a quarter of the city\'s population. The Meireki Fire was one of the deadliest urban fires in history. The Shogunate used the rebuilding as an opportunity to widen streets and create firebreaks that shaped Tokyo\'s modern layout.',
     lat: 35.6938,
     lng: 139.7511,
@@ -8908,7 +8908,7 @@ export const moments: Moment[] = [
   {
     id: '47-ronin-sengakuji',
     name: 'Forty-Seven Ronin Avenge Their Master and Surrender to Die by Ritual Suicide',
-    subtitle: 'Japan\'s most famous tale of loyalty ends with 47 samurai cutting open their own stomachs',
+    subtitle: 'Sengakuji Temple, 2-11-1 Takanawa, Minato, Tokyo. The 47 ronin graves are in the temple grounds; museum on-site',
     description: 'On January 30, 1703, forty-seven masterless samurai (ronin) broke into the mansion of Lord Kira Yoshinaka in Edo, killed him, and carried his head to the grave of their lord, Asano Naganori, at Sengaku-ji Temple. Asano had been forced to commit seppuku two years earlier after attacking Kira at Edo Castle over an insult. The ronin had waited patiently, pretending to be drunks and merchants, before striking. The Shogunate was in a dilemma: the ronin had broken the law but fulfilled the highest samurai ideal of loyalty. All 47 were ordered to commit seppuku. They are buried together at Sengaku-ji, where their graves still receive incense from visitors.',
     lat: 35.6330,
     lng: 139.7368,
@@ -8925,7 +8925,7 @@ export const moments: Moment[] = [
   {
     id: 'emperor-meiji-moves-tokyo',
     name: 'Emperor Meiji Enters Edo Castle and Renames the City Tokyo',
-    subtitle: 'A fifteen-year-old emperor moves the capital and launches Japan\'s transformation into a modern power',
+    subtitle: 'Imperial Palace, 1-1 Chiyoda, Chiyoda-ku, Tokyo. Palace grounds partially open; East Gardens free to visit',
     description: 'On November 26, 1868, the fifteen-year-old Emperor Meiji entered Edo Castle, renaming it the Imperial Palace and the city itself "Tokyo" (Eastern Capital). The move followed the Meiji Restoration, which overthrew 265 years of Tokugawa shogunate rule and restored imperial authority. Under Meiji, Japan underwent the most rapid modernization in history — within a single generation, a feudal samurai society became an industrialized nation with a constitution, railways, a modern army, and compulsory education. By 1905, Japan defeated Russia in war, shocking the Western world.',
     lat: 35.6852,
     lng: 139.7528,
@@ -8942,7 +8942,7 @@ export const moments: Moment[] = [
   {
     id: 'meiji-shrine-built',
     name: 'One Hundred Thousand Volunteers Plant a Forest and Build the Meiji Shrine',
-    subtitle: 'A man-made forest of 100,000 trees creates an oasis of silence in the heart of Tokyo',
+    subtitle: 'Meiji Jingu, 1-1 Yoyogi-Kamizonocho, Shibuya, Tokyo. Shinto shrine open daily; the 170-acre forest is free to walk',
     description: 'In 1920, one hundred thousand volunteers from across Japan planted 100,000 trees donated from every prefecture to create the Meiji Shrine forest in central Tokyo, honoring the recently deceased Emperor Meiji and Empress Shōken. The forest was designed to be self-sustaining, evolving naturally over centuries. The original shrine buildings were destroyed in the 1945 firebombing and rebuilt in 1958. Today, the 175-acre forest — now containing 120,000 trees of 365 species — is one of the most visited religious sites in the world, receiving over three million visitors during the first three days of each new year.',
     lat: 35.6764,
     lng: 139.6993,
@@ -8959,7 +8959,7 @@ export const moments: Moment[] = [
   {
     id: 'great-kanto-earthquake',
     name: 'The Great Kanto Earthquake Levels Tokyo and Kills One Hundred Forty Thousand',
-    subtitle: 'A magnitude 7.9 quake strikes at lunchtime when cooking fires are lit across the city',
+    subtitle: 'Tokyo Memorial Hall, 2-3-25 Yokoami, Sumida, Tokyo. Memorial to the 1923 earthquake; museum and park on-site',
     description: 'At 11:58 AM on September 1, 1923, a magnitude 7.9 earthquake struck the Kanto region. The timing was catastrophic — millions of charcoal cooking stoves were lit for the midday meal. The quake collapsed buildings and ruptured gas lines, igniting firestorms that consumed entire neighborhoods. A fire tornado at the former Army Clothing Depot killed 38,000 people in a single location. In total, approximately 140,000 people died. In the chaos, false rumors blamed Korean residents for poisoning wells, leading to the massacre of thousands of Koreans by vigilante mobs. The earthquake led to the complete rebuilding of Tokyo as a modern city.',
     lat: 35.6895,
     lng: 139.6917,
@@ -8976,7 +8976,7 @@ export const moments: Moment[] = [
   {
     id: 'february-26-incident',
     name: 'Young Army Officers Seize Central Tokyo in a Coup That Nearly Topples the Government',
-    subtitle: 'Fifteen hundred soldiers occupy the Diet and assassinate three government ministers in a snowstorm',
+    subtitle: 'National Diet Building, 1-7-1 Nagatacho, Chiyoda, Tokyo. The parliament building offers free tours on weekdays',
     description: 'On February 26, 1936, approximately 1,500 Imperial Japanese Army soldiers led by young ultranationalist officers launched a coup d\'état in Tokyo. In a snowstorm, they assassinated the Finance Minister, the Lord Keeper of the Privy Seal, and the Inspector General of Military Education, and occupied key government buildings including the Diet and the Prime Minister\'s residence. The rebels demanded the elimination of corrupt political leaders and the establishment of direct imperial rule. Emperor Hirohito refused to support them and ordered their suppression. After three days, the rebels surrendered. Thirteen officers were executed. The incident paradoxically strengthened the military\'s grip on Japanese politics, accelerating the path to World War II.',
     lat: 35.6762,
     lng: 139.7441,
@@ -8993,7 +8993,7 @@ export const moments: Moment[] = [
   {
     id: 'tokyo-firebombing',
     name: 'Three Hundred B-29s Firebomb Tokyo in the Deadliest Air Raid in History',
-    subtitle: 'More people die in one night than in either atomic bombing',
+    subtitle: 'Tokyo Memorial Hall, 2-3-25 Yokoami, Sumida, Tokyo. Same memorial as the 1923 earthquake; firebombing exhibit included',
     description: 'On the night of March 9-10, 1945, 334 American B-29 bombers dropped 1,665 tons of incendiary bombs on eastern Tokyo in Operation Meetinghouse. The closely packed wooden buildings created a firestorm that reached 1,800°F. An estimated 100,000 people died in a single night — more than in either the Hiroshima or Nagasaki atomic bombings. Sixteen square miles of the city were burned to the ground. The Sumida River boiled. Survivors described the air itself being on fire. General Curtis LeMay later admitted that if the U.S. had lost the war, he would have been tried as a war criminal.',
     lat: 35.7100,
     lng: 139.8107,
@@ -9010,7 +9010,7 @@ export const moments: Moment[] = [
   {
     id: 'hirohito-surrender-broadcast',
     name: 'The Japanese People Hear Their Emperor\'s Voice for the First Time as He Announces Surrender',
-    subtitle: 'A god-emperor speaks to mortals on the radio and the deadliest war in history ends',
+    subtitle: 'Imperial Palace, 1-1 Chiyoda, Chiyoda-ku, Tokyo. The broadcast was made from a room inside the palace; not publicly accessible',
     description: 'At noon on August 15, 1945, Emperor Hirohito addressed the Japanese people by radio for the first time in history. No ordinary citizen had ever heard the emperor\'s voice. Speaking in formal, archaic Japanese that many listeners struggled to understand, he announced Japan\'s acceptance of the Potsdam Declaration — surrender — without ever using the word. He said Japan must "endure the unendurable." Many listeners collapsed in shock; some military officers attempted a coup the night before to prevent the broadcast (the Kyūjō incident). Over the following days, hundreds of military officers committed suicide. The recording had been hidden in a pile of laundry to protect it from the plotters.',
     lat: 35.6852,
     lng: 139.7528,
@@ -9027,7 +9027,7 @@ export const moments: Moment[] = [
   {
     id: 'macarthur-meets-hirohito',
     name: 'MacArthur and Hirohito Pose for the Photo That Redefines Who Rules Japan',
-    subtitle: 'A towering American general stands in casual khaki next to a stiff, diminutive emperor in formal dress',
+    subtitle: 'U.S. Embassy Tokyo, 1-10-5 Akasaka, Minato, Tokyo. The photograph was taken at the old embassy; the current building is nearby',
     description: 'On September 27, 1945, Emperor Hirohito visited General Douglas MacArthur at the U.S. Embassy in Tokyo. The resulting photograph — showing the tall, casually dressed MacArthur standing with his hands on his hips next to the short, rigidly formal emperor — shocked Japan. For centuries, the emperor had been a living god whose image was sacred. The photo made viscerally clear who was in charge now. The Japanese government tried to suppress the image, but MacArthur ordered it published in every newspaper. It became the defining image of the American occupation and Japan\'s transformation from militarist empire to pacifist democracy.',
     lat: 35.6720,
     lng: 139.7604,
@@ -9044,7 +9044,7 @@ export const moments: Moment[] = [
   {
     id: 'godzilla-premieres-tokyo',
     name: 'Godzilla Premieres and Japan Confronts Its Nuclear Trauma Through a Monster Movie',
-    subtitle: 'A radioactive dinosaur destroys Tokyo on film — and a nation processes the unprocessable',
+    subtitle: 'Toho Studios, 1-4-1 Seijo, Setagaya, Tokyo. Active film studio; a Godzilla statue stands outside the Shinjuku Toho Building',
     description: 'On November 3, 1954, Ishirō Honda\'s Godzilla (Gojira) premiered at the Nagoya Daiei Theater before its wide Tokyo release. The film depicted a giant monster awakened by nuclear testing that destroys Tokyo — a thinly veiled metaphor for the atomic bombings and the Lucky Dragon 5 incident (a Japanese fishing boat contaminated by U.S. hydrogen bomb fallout earlier that year). Critics initially dismissed it, but audiences packed theaters. Godzilla became the longest-running film franchise in history and the most famous Japanese cultural export. The monster\'s name combines the Japanese words for gorilla (gorira) and whale (kujira).',
     lat: 35.6753,
     lng: 139.7582,
@@ -9061,7 +9061,7 @@ export const moments: Moment[] = [
   {
     id: 'tokyo-1964-olympics',
     name: 'The 1964 Olympics Transform Tokyo and Announce Japan\'s Return to the World Stage',
-    subtitle: 'A nation destroyed by war hosts the Games and unveils the bullet train',
+    subtitle: 'National Stadium, 10-2 Kasumigaoka-machi, Shinjuku, Tokyo. The 1964 stadium was demolished; Kengo Kuma\'s 2020 stadium stands here',
     description: 'On October 10, 1964, Emperor Hirohito opened the Tokyo Olympic Games — the first Olympics held in Asia. Japan had spent $2.8 billion (2024 dollars) transforming Tokyo with new highways, a monorail, and the Shinkansen bullet train (which began service nine days before the opening ceremony, covering Tokyo-Osaka in four hours). The choice of final torchbearer was deeply symbolic: Yoshinori Sakai, born in Hiroshima on August 6, 1945 — the day the atomic bomb fell. The Games were broadcast globally via satellite for the first time, and Japan\'s gold medal tally (16) announced its emergence as a modern, peaceful, technologically advanced nation.',
     lat: 35.6785,
     lng: 139.7147,
@@ -9078,7 +9078,7 @@ export const moments: Moment[] = [
   {
     id: 'mishima-seppuku',
     name: 'Yukio Mishima Seizes a Military Base and Commits Seppuku on the Balcony',
-    subtitle: 'Japan\'s most famous novelist delivers a speech to bewildered soldiers, then disembowels himself',
+    subtitle: 'JGSDF Ichigaya Camp, 5-1 Honmura-cho, Ichigaya, Shinjuku, Tokyo. Now the Ministry of Defense; the Mishima room is preserved',
     description: 'On November 25, 1970, the novelist Yukio Mishima and four members of his private militia took the commandant of the Ichigaya Camp (Japan Self-Defense Forces headquarters) hostage and demanded an audience with the garrison. From the balcony, Mishima delivered an impassioned speech calling for a return to traditional Japanese values and the restoration of the emperor\'s authority. The assembled soldiers jeered and laughed. Mishima retreated inside and committed seppuku (ritual disembowelment), assisted by his follower Masakatsu Morita, who beheaded him. Mishima was 45, had been nominated for the Nobel Prize three times, and had mailed the final installment of his masterwork, The Sea of Fertility, to his publisher that morning.',
     lat: 35.6930,
     lng: 139.7290,
@@ -9096,7 +9096,7 @@ export const moments: Moment[] = [
   {
     id: 'aum-sarin-attack',
     name: 'Aum Shinrikyo Cultists Release Sarin Nerve Gas on Five Tokyo Subway Lines',
-    subtitle: 'A doomsday cult attacks the world\'s busiest subway system during morning rush hour',
+    subtitle: 'Kasumigaseki Station, Chiyoda, Tokyo. The station still operates on three subway lines; no visible memorial',
     description: 'On the morning of March 20, 1995, five members of the Aum Shinrikyo cult punctured bags of liquid sarin nerve agent on five Tokyo subway lines converging on Kasumigaseki Station — the stop nearest Japan\'s government ministries. Thirteen people died and over 5,000 were injured, many with permanent neurological damage. The attack paralyzed Tokyo and shattered Japan\'s sense of safety. Cult leader Shoko Asahara, who had built a following of 50,000 members with an apocalyptic mix of Buddhism, Hinduism, and conspiracy theory, was arrested two months later hiding in a secret room at the cult\'s compound. He was executed by hanging in 2018.',
     lat: 35.6736,
     lng: 139.7505,
@@ -9116,7 +9116,7 @@ export const moments: Moment[] = [
   {
     id: 'cleopatra-suicide-alexandria',
     name: 'Cleopatra Takes Her Own Life as Rome Conquers Egypt',
-    subtitle: 'The last pharaoh chooses death over being paraded in chains through Roman streets',
+    subtitle: 'Alexandria, Egypt. Cleopatra\'s tomb has never been found; the city\'s ancient royal quarter is submerged offshore',
     description: 'In August 30 BCE, Cleopatra VII, the last active ruler of the Ptolemaic Kingdom of Egypt, committed suicide in her palace in Alexandria — by snakebite according to tradition, though the method remains debated. She was 39. Octavian\'s Roman legions had defeated her forces and those of her lover Mark Antony (who had already killed himself). Rather than be dragged to Rome as a trophy in Octavian\'s triumph, she chose death. With her died the last independent Egyptian kingdom and 3,000 years of pharaonic rule. Egypt became a Roman province.',
     lat: 31.2001,
     lng: 29.9187,
@@ -9134,7 +9134,7 @@ export const moments: Moment[] = [
   {
     id: 'darwin-galapagos',
     name: 'Charles Darwin Arrives at the Galápagos and Begins to Doubt the Story of Creation',
-    subtitle: 'A twenty-six-year-old naturalist notices that finches on different islands have different beaks',
+    subtitle: 'Charles Darwin Research Station, Puerto Ayora, Galápagos, Ecuador. Open to visitors; giant tortoise breeding center',
     description: 'On September 15, 1835, HMS Beagle anchored at San Cristóbal Island in the Galápagos. Over five weeks, the 26-year-old Charles Darwin collected specimens of finches, tortoises, and mockingbirds across several islands. He noticed that closely related species varied from island to island — each adapted to local conditions. It took him another twenty years to publish his conclusions, but the Galápagos observations were the seed of On the Origin of Species (1859), which explained evolution by natural selection and overturned humanity\'s understanding of its own origins.',
     lat: -0.9538,
     lng: -89.6144,
@@ -9152,7 +9152,7 @@ export const moments: Moment[] = [
   {
     id: 'beethoven-ninth-symphony',
     name: 'A Completely Deaf Beethoven Premieres His Ninth Symphony and Has to Be Turned Around to See the Applause',
-    subtitle: 'The greatest composer in history conducts his masterpiece without hearing a single note',
+    subtitle: 'Theater an der Wien, Linke Wienzeile 6, Vienna. The theater still operates; Beethoven premiered the Ninth Symphony at the Kärntnertortheater (demolished)',
     description: 'On May 7, 1824, Ludwig van Beethoven\'s Symphony No. 9 in D minor premiered at the Theater am Kärntnertor in Vienna. Beethoven, completely deaf by this point, stood on stage turning pages and gesturing tempo, though the actual conducting was done by Michael Umlauf. When the performance ended, Beethoven was still facing the orchestra and didn\'t know the audience had erupted. The contralto Caroline Unger walked over and turned him around to see the standing ovation. The audience waved handkerchiefs and hats because they knew he couldn\'t hear their applause. The Ninth\'s "Ode to Joy" later became the anthem of the European Union.',
     lat: 48.2039,
     lng: 16.3726,
@@ -9170,7 +9170,7 @@ export const moments: Moment[] = [
   {
     id: 'marx-das-kapital',
     name: 'Karl Marx Spends Twenty Years in the British Museum Reading Room Writing Das Kapital',
-    subtitle: 'A penniless exile writes the book that will split the world in two',
+    subtitle: '28 Dean St, Soho, London W1D 3LL. Marx wrote in the reading room of the British Museum; a plaque marks his Soho flat',
     description: 'From the early 1850s until his death in 1883, Karl Marx spent almost every day in the Reading Room of the British Museum, researching and writing Das Kapital. He lived in poverty in London with his family, surviving on loans from Friedrich Engels. Volume 1 was published in 1867; volumes 2 and 3 were compiled from his notes after his death. The book\'s analysis of capitalism and its contradictions became the intellectual foundation for communist movements worldwide. By the late 20th century, governments claiming to follow Marx\'s ideas controlled a third of the world\'s population.',
     lat: 51.5194,
     lng: -0.1270,
@@ -9188,7 +9188,7 @@ export const moments: Moment[] = [
   {
     id: 'luther-95-theses',
     name: 'Martin Luther Nails His 95 Theses to a Church Door and Splits Christianity in Half',
-    subtitle: 'A monk\'s protest against the sale of forgiveness triggers the Protestant Reformation',
+    subtitle: 'All Saints\' Church, Schlossplatz 1, Wittenberg, Germany. The door where Luther posted the theses is now bronze; UNESCO site',
     description: 'On October 31, 1517, Martin Luther, an Augustinian monk and theology professor, posted his 95 Theses on the door of All Saints\' Church in Wittenberg — a standard academic invitation to debate. The theses attacked the Catholic Church\'s sale of indulgences (paying money for forgiveness of sins). Thanks to the recently invented printing press, Luther\'s arguments spread across Europe within weeks. The Pope excommunicated him; the Holy Roman Emperor declared him an outlaw. Luther refused to recant: "Here I stand, I can do no other." The resulting Protestant Reformation permanently split Western Christianity and triggered over a century of religious wars.',
     lat: 51.8664,
     lng: 12.6449,
@@ -9206,7 +9206,7 @@ export const moments: Moment[] = [
   {
     id: 'frida-kahlo-casa-azul',
     name: 'Frida Kahlo Paints Her Pain into Masterpieces from a Bed in the Blue House',
-    subtitle: 'Crippled by a bus accident at eighteen, she turns her suffering into the most personal art in history',
+    subtitle: 'Museo Frida Kahlo (Casa Azul), Londres 247, Coyoacán, Mexico City. Open to visitors; advance tickets recommended',
     description: 'Frida Kahlo was born, lived, and died in La Casa Azul (the Blue House) in Coyoacán, Mexico City. After a devastating bus accident at 18 shattered her spine, pelvis, and right leg, she began painting self-portraits from her bed using a mirror mounted on the canopy. Her 143 paintings — 55 of them self-portraits — depicted her physical agony, turbulent marriage to Diego Rivera, miscarriages, and Mexican identity with unflinching honesty. Dismissed during her lifetime as merely "Diego\'s wife," she became one of the most recognized and commercially valuable artists of the 20th century decades after her death in 1954.',
     lat: 19.3555,
     lng: -99.1626,
@@ -9224,7 +9224,7 @@ export const moments: Moment[] = [
   {
     id: 'picasso-paints-guernica',
     name: 'Picasso Paints Guernica in Five Weeks After the Bombing of a Basque Town',
-    subtitle: 'The most powerful anti-war painting in history is created in a fury of black and white',
+    subtitle: 'Museo Reina Sofía, Calle de Santa Isabel 52, Madrid, Spain. Guernica is on permanent display in Building 1, Room 205',
     description: 'On April 26, 1937, German and Italian bombers destroyed the Basque town of Guernica in Spain during the Civil War, killing hundreds of civilians. Pablo Picasso, living in Paris, was already commissioned to create a painting for the Spanish Pavilion at the Paris World\'s Fair. Abandoning his original plans, he completed Guernica — a massive 11-by-25-foot painting in black, white, and gray — in just five weeks. It depicted screaming women, a dismembered soldier, a bull, and a horse in agony. The painting became the most famous anti-war artwork in history. When a German officer allegedly asked Picasso "Did you do this?", he reportedly replied: "No, you did."',
     lat: 48.8612,
     lng: 2.3372,
@@ -9242,7 +9242,7 @@ export const moments: Moment[] = [
   {
     id: 'hemingway-farewell-arms',
     name: 'Ernest Hemingway Finishes A Farewell to Arms in a Sweltering Key West Room',
-    subtitle: 'A hard-drinking war veteran writes the novel that defines a generation of American literature',
+    subtitle: 'Hotel & Restaurant Hôtel Ritz, 15 Place Vendôme, Paris. Hemingway frequented the bar; it\'s named after him',
     description: 'In 1929, Ernest Hemingway completed A Farewell to Arms while living in a second-floor room of a house on Whitehead Street in Key West, Florida. The novel, drawn from his experiences as an ambulance driver in World War I, cemented his reputation as the voice of the Lost Generation. Hemingway would spend the next decade in Key West, writing some of his greatest works including To Have and Have Not and several short stories. The house, with its famous colony of six-toed cats (descendants of a cat given to Hemingway by a ship\'s captain), is now a museum. He won the Nobel Prize in Literature in 1954.',
     lat: 24.5510,
     lng: -81.8014,
@@ -9260,7 +9260,7 @@ export const moments: Moment[] = [
   {
     id: 'twain-mississippi',
     name: 'Samuel Clemens Takes the Name "Mark Twain" from a River Depth Call on the Mississippi',
-    subtitle: 'A small-town boy from Missouri becomes America\'s greatest storyteller',
+    subtitle: 'Mark Twain Boyhood Home, 206 Hill St, Hannibal, MO. The white-painted fence is preserved; museum complex on-site',
     description: 'Samuel Clemens grew up in Hannibal, Missouri, on the banks of the Mississippi River. The river shaped everything: he became a steamboat pilot in 1859, adopted his pen name "Mark Twain" (a river term meaning "two fathoms deep" — safe water) in 1863, and set his two masterpieces — The Adventures of Tom Sawyer (1876) and Adventures of Huckleberry Finn (1885) — along these banks. Huck Finn, which Ernest Hemingway called the source of "all modern American literature," used the Mississippi as a mirror for America\'s deepest moral failure: slavery. Twain\'s boyhood home in Hannibal is now a museum.',
     lat: 39.7098,
     lng: -91.3590,
@@ -9278,7 +9278,7 @@ export const moments: Moment[] = [
   {
     id: 'dickens-christmas-carol',
     name: 'Charles Dickens Writes A Christmas Carol in Six Weeks and Reinvents Christmas',
-    subtitle: 'A desperate author\'s novella about a miser single-handedly revives a dying holiday',
+    subtitle: '48 Doughty St, London WC1N 2LX. The Charles Dickens Museum; his only surviving London home, open to visitors',
     description: 'In October 1843, Charles Dickens — in debt and anxious about declining sales — began writing A Christmas Carol. He finished it in six weeks, walking 15 to 20 miles through London at night to work out the plot. Published on December 19, 1843, the first edition of 6,000 copies sold out by Christmas Eve. The story of Scrooge\'s redemption is credited with reviving Christmas as a major celebration in Britain and America — the holiday had been fading in importance. The phrases "Merry Christmas" and "Bah! Humbug!" entered the English language. Dickens earned less than he hoped (he insisted on expensive binding), but he had permanently altered Western culture.',
     lat: 51.5280,
     lng: -0.1336,
@@ -9296,7 +9296,7 @@ export const moments: Moment[] = [
   {
     id: 'nightingale-scutari',
     name: 'Florence Nightingale Arrives at a Rat-Infested Military Hospital and Invents Modern Nursing',
-    subtitle: 'A society woman walks into a death trap and uses statistics to save more lives than any general',
+    subtitle: 'Florence Nightingale Museum, 2 Lambeth Palace Rd, London SE1. The museum is in St Thomas\' Hospital; open daily',
     description: 'On November 4, 1854, Florence Nightingale arrived at the Selimiye Barracks in Scutari (now Üsküdar, Istanbul) with 38 nurses. British soldiers wounded in the Crimean War were dying in filthy, overcrowded wards — more from disease than from their wounds. Nightingale implemented sanitation protocols, proper nutrition, and statistical record-keeping. The death rate dropped from 42% to 2%. She pioneered the use of data visualization (her famous "coxcomb" diagrams) to convince the government to reform military hospitals. Her work at Scutari established nursing as a respected profession and laid the groundwork for modern public health.',
     lat: 41.0251,
     lng: 29.0157,
@@ -9314,7 +9314,7 @@ export const moments: Moment[] = [
   {
     id: 'freud-interpretation-dreams',
     name: 'Sigmund Freud Publishes The Interpretation of Dreams and Nobody Buys It',
-    subtitle: 'The book that will reshape how humanity understands its own mind sells 351 copies in six years',
+    subtitle: 'Berggasse 19, Vienna, Austria. Freud\'s apartment is now the Sigmund Freud Museum; the famous couch is a replica',
     description: 'On November 4, 1899 (published with the date 1900), Sigmund Freud published Die Traumdeutung (The Interpretation of Dreams) from his apartment at Berggasse 19 in Vienna. The book argued that dreams were the "royal road to the unconscious" and that repressed desires — often sexual — manifested in symbolic dream imagery. It sold only 351 copies in six years. Yet it would become one of the most influential books of the 20th century, introducing concepts like the id, ego, and superego into everyday language and fundamentally changing how people think about the mind, sexuality, childhood, and the hidden motivations behind human behavior.',
     lat: 48.2185,
     lng: 16.3609,
@@ -9332,7 +9332,7 @@ export const moments: Moment[] = [
   {
     id: 'joan-of-arc-burned',
     name: 'Joan of Arc Is Burned at the Stake at Nineteen After Liberating France',
-    subtitle: 'A peasant girl who claimed God told her to save France is executed for heresy and becomes a saint',
+    subtitle: 'Place du Vieux-Marché, Rouen, France. A modern church marks the execution site; a cross stands in the square',
     description: 'On May 30, 1431, Joan of Arc was burned at the stake in the Place du Vieux-Marché in Rouen. She was 19 years old. Two years earlier, the illiterate peasant girl had convinced the French Dauphin to give her an army, claiming voices from saints told her to drive the English from France. She lifted the siege of Orléans, turned the tide of the Hundred Years\' War, and had the Dauphin crowned King Charles VII at Reims. Captured by the Burgundians and sold to the English, she was tried for heresy by a pro-English church court. The executioner raked back the coals to show the crowd her charred body. She was declared a saint by the Catholic Church in 1920.',
     lat: 49.4429,
     lng: 1.0937,
@@ -9350,7 +9350,7 @@ export const moments: Moment[] = [
   {
     id: 'gutenberg-prints-bible',
     name: 'Gutenberg Prints the First Book with Movable Type and Launches the Information Revolution',
-    subtitle: 'A bankrupt goldsmith\'s invention makes knowledge reproducible for the first time in human history',
+    subtitle: 'Gutenberg Museum, Liebfrauenplatz 5, Mainz, Germany. Two original Gutenberg Bibles on display; open to visitors',
     description: 'Around 1455, Johannes Gutenberg completed printing approximately 180 copies of the Bible using his revolutionary movable-type printing press in Mainz, Germany. Each page required setting individual metal letter blocks, inking them, and pressing paper against them — but once set, hundreds of identical copies could be produced. Before Gutenberg, every book in Europe was hand-copied by scribes, making books rare and prohibitively expensive. Within fifty years of Gutenberg\'s invention, an estimated 20 million volumes had been printed. The printing press enabled the Protestant Reformation, the Scientific Revolution, and the spread of literacy that made democracy possible.',
     lat: 49.9988,
     lng: 8.2747,
@@ -9368,7 +9368,7 @@ export const moments: Moment[] = [
   {
     id: 'earhart-disappears',
     name: 'Amelia Earhart Vanishes Over the Pacific on Her Attempt to Circle the Globe',
-    subtitle: 'The most famous female pilot in history sends her last radio transmission and is never seen again',
+    subtitle: 'Howland Island, Pacific Ocean. The Earhart Light stands on the uninhabited island; she departed from Lae, PNG',
     description: 'On July 2, 1937, Amelia Earhart and navigator Fred Noonan disappeared over the central Pacific Ocean while attempting to fly around the world at the equator. They had completed 22,000 of the 29,000-mile journey when they lost contact near Howland Island, a tiny coral atoll in the Pacific. Her last confirmed radio transmission reported: "We are on the line 157 337... we are running on line north and south." Despite a massive search by the U.S. Navy, no confirmed trace of Earhart, Noonan, or their Lockheed Electra was ever found. The disappearance remains one of the greatest unsolved mysteries of the 20th century.',
     lat: 0.8072,
     lng: -176.6173,
@@ -9386,7 +9386,7 @@ export const moments: Moment[] = [
   {
     id: 'tesla-wardenclyffe',
     name: 'Nikola Tesla Builds a Tower to Transmit Free Energy to the World — and Fails',
-    subtitle: 'The inventor who lit up the modern age bets everything on wireless power and loses',
+    subtitle: 'Wardenclyffe, 1 Tesla Ct, Shoreham, NY. The site is now the Tesla Science Center museum; the lab building is being restored',
     description: 'In 1901, Nikola Tesla began construction of the Wardenclyffe Tower on Long Island, New York — a 187-foot wooden tower topped with a 68-foot copper dome. Tesla\'s vision was breathtaking: transmit electrical energy wirelessly across the globe, providing free power to anyone with a receiver. His financier, J.P. Morgan, had funded the project as a wireless communications system. When Morgan discovered Tesla\'s true goal — free energy that couldn\'t be metered or sold — he pulled funding. The tower was never completed and was demolished for scrap in 1917. Tesla, who had already invented AC power, the radio (disputed), and the induction motor, died alone in a New York hotel room in 1943.',
     lat: 40.9461,
     lng: -72.8975,
@@ -9404,7 +9404,7 @@ export const moments: Moment[] = [
   {
     id: 'copernicus-deathbed',
     name: 'Copernicus Publishes His Theory That the Earth Orbits the Sun — On His Deathbed',
-    subtitle: 'A dying astronomer holds the first printed copy of the book that will remove humanity from the center of the universe',
+    subtitle: 'Frauenburg Cathedral (now Frombork), Warmia, Poland. Copernicus\'s grave was identified in 2005; his remains re-interred in 2010',
     description: 'On May 24, 1543, Nicolaus Copernicus died in Frombork, Poland. According to tradition, he was presented with the first printed copy of his De revolutionibus orbium coelestium on his deathbed. The book placed the Sun — not the Earth — at the center of the solar system, overturning 1,400 years of Ptolemaic astronomy. Copernicus had delayed publication for decades, fearing ridicule from fellow scholars (not the Church — that came later with Galileo). His publisher added an unauthorized preface calling the theory merely a mathematical convenience, not physical truth. It took over a century for the heliocentric model to be fully accepted.',
     lat: 54.3588,
     lng: 19.6787,
@@ -9422,7 +9422,7 @@ export const moments: Moment[] = [
   {
     id: 'hamilton-killed-duel',
     name: 'Alexander Hamilton Is Shot and Killed by the Vice President of the United States',
-    subtitle: 'The architect of American capitalism faces a sitting vice president at dawn across the Hudson',
+    subtitle: 'Weehawken Dueling Grounds, Hamilton Park, Boulevard East, Weehawken, NJ. A bust of Hamilton marks the bluff',
     description: 'At dawn on July 11, 1804, Alexander Hamilton and Vice President Aaron Burr faced each other with pistols on a ledge overlooking the Hudson River in Weehawken, New Jersey. Hamilton — the first Secretary of the Treasury, author of the Federalist Papers, and architect of American financial institutions — was struck in the abdomen by Burr\'s bullet. He died the following afternoon at age 47 (or 49 — his birth year is disputed). Hamilton\'s son Philip had been killed in a duel on the same ground three years earlier. Burr was charged with murder but never tried, finishing his vice presidential term while technically a fugitive.',
     lat: 40.7821,
     lng: -74.0177,
@@ -9440,7 +9440,7 @@ export const moments: Moment[] = [
   {
     id: 'tubman-escapes-slavery',
     name: 'Harriet Tubman Escapes Slavery and Returns Thirteen Times to Free Seventy More',
-    subtitle: 'An enslaved woman walks 90 miles to freedom, then goes back into the lion\'s den again and again',
+    subtitle: 'Harriet Tubman Underground Railroad NHP, Church Creek, MD. NPS visitor center; trails through the landscape she traversed',
     description: 'In September 1849, Harriet Tubman escaped from a plantation in Dorchester County, Maryland, walking approximately 90 miles north to freedom in Pennsylvania. Over the next decade, she made thirteen return trips to the Eastern Shore, personally leading approximately 70 enslaved people to freedom via the Underground Railroad. She carried a revolver and reportedly told fugitives: "You\'ll be free or die." Slaveholders placed a $40,000 bounty (over $1.5 million today) on her capture. She was never caught and never lost a single passenger. During the Civil War, she became the first woman to lead an armed assault in American history, the Combahee River Raid, which freed over 700 enslaved people.',
     lat: 38.4471,
     lng: -76.0698,
@@ -9458,7 +9458,7 @@ export const moments: Moment[] = [
   {
     id: 'pasteur-rabies-vaccine',
     name: 'Louis Pasteur Saves a Boy from Rabies and Proves That Vaccines Can Defeat Disease',
-    subtitle: 'A chemist risks his career to inject a child with a untested vaccine — and it works',
+    subtitle: 'Institut Pasteur, 25-28 Rue du Docteur Roux, Paris. The Musée Pasteur is in the institute; open by guided tour',
     description: 'On July 6, 1885, nine-year-old Joseph Meister was brought to Louis Pasteur\'s laboratory in Paris after being bitten 14 times by a rabid dog. Rabies was 100% fatal once symptoms appeared. Pasteur, a chemist not a physician, had developed a vaccine using weakened rabies virus in rabbits but had never tested it on a human. Over 11 days, he administered 13 progressively stronger injections. Meister survived. The success electrified the scientific world and validated germ theory and vaccination as medical principles. The Institut Pasteur was founded the following year. Pasteur\'s work on pasteurization, fermentation, and vaccines saved more lives than perhaps any other person in history.',
     lat: 48.8400,
     lng: 2.3116,
@@ -9478,7 +9478,7 @@ export const moments: Moment[] = [
   {
     id: 'tenochtitlan-cortes-arrival',
     name: 'Cortés Enters the Aztec Capital and Finds a City Bigger Than Any in Europe',
-    subtitle: 'Five hundred Spaniards walk across a causeway into a lake city of 200,000 people and are welcomed as guests',
+    subtitle: 'Templo Mayor Museum, Mexico City. The excavated Aztec temple is in the Zocalo; museum on-site',
     description: 'On November 8, 1519, Hernán Cortés and roughly 500 Spanish soldiers crossed one of three causeways into Tenochtitlan, the island capital of the Aztec Empire. The city stunned the Europeans — with a population exceeding 200,000, it was larger than any city in Spain. Canals served as streets, a massive aqueduct delivered fresh water, and the central marketplace at Tlatelolco served 60,000 people daily. Emperor Moctezuma II received Cortés with elaborate ceremony at the entrance to the city. Within weeks, Cortés had taken Moctezuma hostage inside his own palace.',
     lat: 19.4352,
     lng: -99.1318,
@@ -9496,7 +9496,7 @@ export const moments: Moment[] = [
   {
     id: 'tenochtitlan-noche-triste',
     name: 'Cortés Flees Tenochtitlán in the Rain and Loses Half His Army on the Causeways',
-    subtitle: 'La Noche Triste — the Spanish try to sneak out of a city that has turned against them',
+    subtitle: 'Puente de Alvarado area, Mexico City. The original canal bridge is long gone; the street name preserves the event',
     description: 'On the rainy night of June 30, 1520, Cortés attempted to secretly evacuate his forces from Tenochtitlan after the Aztecs rose against the Spanish occupation. The retreat became a massacre. Warriors attacked from canoes and rooftops as the Spanish struggled across the Tlacopan causeway, weighed down by stolen gold. Between 600 and 1,000 Spaniards and thousands of indigenous allies drowned or were killed. Cortés reportedly wept under a cypress tree on the far shore. He would spend the next year rebuilding his forces for the final siege.',
     lat: 19.4367,
     lng: -99.1529,
@@ -9514,7 +9514,7 @@ export const moments: Moment[] = [
   {
     id: 'tenochtitlan-smallpox',
     name: 'Smallpox Kills the Aztec Emperor and Halves the Population Before the Final Siege',
-    subtitle: 'The invisible weapon that did more damage than any Spanish cannon or cavalry charge',
+    subtitle: 'Mexico City / Central Mexico. Smallpox swept through the Aztec population; no specific site marks the epidemic',
     description: 'In late 1520, smallpox swept through Tenochtitlan with catastrophic speed. The disease, brought to the Americas by a single infected Spanish soldier, killed Moctezuma\'s successor Cuitláhuac after just 80 days in power and devastated a population with no immunity. Estimates suggest 40 to 50 percent of the city\'s inhabitants died within months. The epidemic shattered Aztec military capacity and morale just as Cortés was assembling a massive indigenous coalition for the final assault. When the 75-day siege began in May 1521, Tenochtitlan was already half a city of corpses.',
     lat: 19.4345,
     lng: -99.1311,
@@ -9534,7 +9534,7 @@ export const moments: Moment[] = [
   {
     id: 'guadalupe-tepeyac-apparition',
     name: 'A Peasant Reports Four Visions of the Virgin Mary on a Hill Where an Aztec Goddess Was Worshipped',
-    subtitle: 'Juan Diego sees the Virgin on Tepeyac Hill — the same site where the Aztecs worshipped Tonantzin',
+    subtitle: 'Tepeyac Hill, Gustavo A. Madero, Mexico City. The original chapel and newer basilica are at the base',
     description: 'In December 1531, ten years after the fall of Tenochtitlan, an indigenous convert named Juan Diego reported four apparitions of the Virgin Mary on Tepeyac Hill, just north of Mexico City. The hill was already sacred — the Aztecs had worshipped the mother goddess Tonantzin at a temple on the same site. The Virgin reportedly spoke to Juan Diego in Nahuatl, his native language, and asked him to build a church on the hill. The local bishop demanded proof. The convergence of Catholic and indigenous sacred geography at Tepeyac would become the foundation for one of the largest religious movements in history.',
     lat: 19.4847,
     lng: -99.1172,
@@ -9552,7 +9552,7 @@ export const moments: Moment[] = [
   {
     id: 'guadalupe-tilma-reveal',
     name: 'Juan Diego Opens His Cloak and an Image Appears on the Fabric',
-    subtitle: 'Roses tumble from a cactus-fiber cloak and an image appears that has survived five centuries',
+    subtitle: 'Old Basilica of Our Lady of Guadalupe, Mexico City. The original tilma is displayed in the new basilica next door',
     description: 'On December 12, 1531, Juan Diego returned to Bishop Zumárraga carrying roses that had miraculously grown on Tepeyac Hill in winter. When he opened his tilma — a simple cloak woven from cactus fiber — the roses fell to the floor and an image of the Virgin Mary was imprinted on the fabric. The image depicted a dark-skinned woman surrounded by rays of light, standing on a crescent moon. Cactus-fiber cloth typically disintegrates within 20 years, yet the tilma has survived nearly 500 years. Modern analysis has found no brushstrokes, no sketch, and no satisfactory scientific explanation for how the image was produced. Within seven years of the apparition, an estimated nine million indigenous Mexicans converted to Christianity.',
     lat: 19.4853,
     lng: -99.1178,
@@ -9570,7 +9570,7 @@ export const moments: Moment[] = [
   {
     id: 'guadalupe-new-basilica',
     name: 'The New Basilica Opens and Becomes the Most-Visited Catholic Shrine on Earth',
-    subtitle: 'A modern circular church is built to hold the tilma and ten million pilgrims a year',
+    subtitle: 'Basilica of Our Lady of Guadalupe, Mexico City. The circular modern basilica seats 10,000; open daily',
     description: 'On October 12, 1976, the new Basilica of Our Lady of Guadalupe opened next to the sinking colonial-era Old Basilica. Designed by Pedro Ramírez Vázquez, the circular structure seats 10,000 and was built to safely house the tilma of Juan Diego. A moving walkway passes beneath the image so pilgrims can view it without stopping. The basilica receives an estimated 10 to 12 million visitors annually — more than the Vatican — making it the most visited Catholic shrine on Earth and the most visited religious site in the Western Hemisphere. On December 12 each year, the Feast of Our Lady of Guadalupe draws millions to the site in a single day.',
     lat: 19.4857,
     lng: -99.1185,
@@ -9589,7 +9589,7 @@ export const moments: Moment[] = [
   {
     id: 'frida-bus-accident',
     name: 'A Bus Crash Impales an 18-Year-Old Through the Pelvis and Creates an Artist',
-    subtitle: 'The collision that broke Frida Kahlo\'s body and started one of the most extraordinary artistic careers in history',
+    subtitle: 'Corner of Cuauhtemoc & 5 de Mayo, Coyoacan, Mexico City. The bus accident site; a busy intersection today',
     description: 'On September 17, 1925, eighteen-year-old Frida Kahlo was riding a wooden bus that collided with an electric streetcar at the intersection of Calzada de Tlalpan and Cuauhtémotzin in Mexico City. A metal handrail pierced her pelvis, fracturing it in three places. Her spine was broken in three places, her collarbone and two ribs were snapped, and her right leg was shattered in eleven fractures. A fellow passenger recalled that gold powder from an artisan\'s packet covered her bleeding body. She would endure over 30 surgeries in her lifetime. Bedridden for months, she began painting self-portraits using a mirror her mother mounted above her bed — the beginning of one of the most personal bodies of work in art history.',
     lat: 19.4107,
     lng: -99.1430,
@@ -9607,7 +9607,7 @@ export const moments: Moment[] = [
   {
     id: 'frida-death-legacy',
     name: 'Frida Kahlo Attends Her Own Exhibition in an Ambulance and Dies Eight Days Later',
-    subtitle: 'Her first solo show in Mexico becomes her farewell — she arrives in her four-poster bed',
+    subtitle: 'Galeria de Arte Contemporaneo, Mexico City. The gallery no longer exists at its original location',
     description: 'In April 1953, photographer Lola Álvarez Bravo organized Frida Kahlo\'s first solo exhibition in Mexico at the Galería de Arte Contemporáneo. Frida was so ill that doctors forbade her from attending. She went anyway — arriving by ambulance, she was carried in on a stretcher and placed in a four-poster bed installed in the center of the gallery. Guests celebrated around her as she held court from the bed, drinking and singing. It was her last public triumph. Her right leg was amputated below the knee that same year. On July 13, 1954, Frida Kahlo died at the Casa Azul at age 47. Her diary\'s last entry read: "I hope the exit is joyful — and I hope never to return."',
     lat: 19.3555,
     lng: -99.1626,
@@ -9627,7 +9627,7 @@ export const moments: Moment[] = [
   {
     id: 'chichen-el-castillo-equinox',
     name: 'A Shadow Serpent Descends the Pyramid Stairs — an Effect the Maya Engineered a Thousand Years Ago',
-    subtitle: 'Twice a year, the setting sun creates a serpent of light and shadow on the steps of El Castillo',
+    subtitle: 'Chichen Itza, Yucatan, Mexico. UNESCO World Heritage Site; equinox light show draws thousands in March and September',
     description: 'On each spring and autumn equinox, the late-afternoon sun casts a series of triangular shadows on the northwest stairway of El Castillo at Chichén Itzá. The shadows create the appearance of a feathered serpent — the god Kukulcán — undulating down the 91 steps to the carved serpent head at the base. The effect lasts roughly 45 minutes and requires precise astronomical alignment of the pyramid\'s nine terraced platforms. The 30-meter-tall pyramid, built around 900–1000 CE, also contains exactly 365 steps (91 per side plus the top platform) and produces a chirp-like echo when you clap at its base that resembles the call of the quetzal bird. Over 35,000 visitors gather for each equinox to witness the phenomenon.',
     lat: 20.6843,
     lng: -88.5678,
@@ -9644,7 +9644,7 @@ export const moments: Moment[] = [
   {
     id: 'chichen-sacred-cenote',
     name: 'The Maya Throw Gold, Jade, and Human Sacrifices into a Sacred Sinkhole for Centuries',
-    subtitle: 'A 60-meter-wide natural well becomes the most important sacrificial site in the Maya world',
+    subtitle: 'Sacred Cenote, Chichen Itza, Yucatan, Mexico. The cenote is visible from the path; no swimming allowed',
     description: 'The Sacred Cenote at Chichén Itzá is a natural limestone sinkhole roughly 60 meters in diameter with sheer walls dropping 27 meters to the water surface. From approximately 850 to 1250 CE, the Maya used it as a site of pilgrimage and sacrifice to the rain god Chaac. Archaeological dredging has recovered gold, jade, obsidian, pottery, rubber, wood, cloth, and the skeletal remains of men, women, and children — many showing signs of ritual preparation before death. The cenote was connected to El Castillo by a 300-meter raised stone causeway, indicating its central importance to the city\'s religious life. Offerings came from as far away as Colombia and Panama, confirming Chichén Itzá\'s role as a major trade and pilgrimage center.',
     lat: 20.6868,
     lng: -88.5688,
@@ -9661,7 +9661,7 @@ export const moments: Moment[] = [
   {
     id: 'chichen-thompson-dredging',
     name: 'An American Consul Buys a Ruined City and Dredges Its Sacred Well for Treasure',
-    subtitle: 'Edward Thompson purchases a hacienda that includes Chichén Itzá and pulls artifacts from the cenote',
+    subtitle: 'Hacienda Chichen, adjacent to Chichen Itza, Yucatan, Mexico. Now a resort hotel within the archaeological zone',
     description: 'In 1894, American consul Edward Herbert Thompson purchased the hacienda that included the ruins of Chichén Itzá for $75. Inspired by Bishop Diego de Landa\'s 16th-century accounts of sacrifices, Thompson began dredging the Sacred Cenote in 1904 using a bucket dredge and later diving into the murky water himself. He recovered thousands of artifacts — gold disks, jade pendants, copper bells, obsidian knives, wooden idols, rubber balls, and human bones. Thompson shipped many of the finest pieces to Harvard\'s Peabody Museum, provoking outrage from the Mexican government. The artifacts confirmed the cenote\'s role as a major sacrificial site and helped establish Chichén Itzá\'s importance in world archaeology.',
     lat: 20.6868,
     lng: -88.5688,
@@ -9680,7 +9680,7 @@ export const moments: Moment[] = [
   {
     id: 'rivera-palacio-nacional',
     name: 'Diego Rivera Paints the Entire History of Mexico Across the Walls of the National Palace',
-    subtitle: 'A 300-pound communist transforms the seat of Mexican power into the largest mural cycle in the world',
+    subtitle: 'Palacio Nacional, Zocalo, Mexico City. Rivera\'s murals are in the main staircase and corridors; free entry',
     description: 'In 1929, Diego Rivera began painting a massive cycle of murals across the main stairwell and second-floor corridors of the Palacio Nacional in Mexico City. Working over the next 22 years (1929–1951), he covered over 1,500 square meters of wall space with scenes spanning from the Aztec world of Tenochtitlan through the Spanish conquest, colonial rule, independence, and the Mexican Revolution. The central panel depicts the eagle on a cactus — the founding myth of Tenochtitlan — surrounded by scenes of exploitation, resistance, and revolution. Rivera used a technique called true fresco, painting directly onto wet plaster, making the images literally part of the building. The murals remain open to the public for free inside the working seat of Mexico\'s executive branch.',
     lat: 19.4326,
     lng: -99.1313,
@@ -9698,7 +9698,7 @@ export const moments: Moment[] = [
   {
     id: 'rivera-detroit-industry',
     name: 'Rivera Paints Ford\'s Assembly Line and Detroit Nearly Destroys the Murals',
-    subtitle: 'The world\'s most famous communist paints capitalism at its most powerful — and the city nearly whitewashes it',
+    subtitle: 'Detroit Institute of Arts, 5200 Woodward Ave, Detroit, MI. The Rivera Court murals are on permanent display',
     description: 'In 1932, Edsel Ford commissioned Diego Rivera to paint murals for the garden court of the Detroit Institute of Arts. Rivera spent months studying the Ford River Rouge plant — the world\'s largest factory complex — and produced 27 panels depicting the full cycle of automobile production. He included images of workers, machines, raw materials, and scientific research, framing industrial labor as the equal of any subject in classical art. When unveiled in March 1933, religious leaders and editorialists called the murals pornographic and blasphemous, demanding they be whitewashed. Edsel Ford refused, and over 86,000 people visited in the first week. The Detroit Industry Murals are now considered the finest work of public art in America and are a National Historic Landmark.',
     lat: 42.3594,
     lng: -83.0645,
@@ -9716,7 +9716,7 @@ export const moments: Moment[] = [
   {
     id: 'rivera-rockefeller-destroyed',
     name: 'Rockefeller Pays Rivera to Paint a Mural, Then Destroys It Because It Contains Lenin',
-    subtitle: 'The most notorious act of art censorship in American history happens at 30 Rockefeller Plaza',
+    subtitle: '30 Rockefeller Plaza, New York, NY. The lobby where the mural was destroyed; Rivera repainted it in Mexico City',
     description: 'In 1933, Nelson Rockefeller commissioned Diego Rivera to paint a 63-foot mural titled "Man at the Crossroads" in the lobby of 30 Rockefeller Plaza in New York City. When Rivera included a portrait of Vladimir Lenin in the composition, Rockefeller asked him to replace it with an anonymous face. Rivera refused. On May 9, 1933, Rivera was paid his full fee of $21,000 and escorted from the building by security. In February 1934, workers smashed the mural to pieces with axes in the middle of the night. Rivera\'s response was to repaint the work — even larger — in the Palacio de Bellas Artes in Mexico City, this time adding a portrait of John D. Rockefeller Sr. drinking with syphilis bacteria floating nearby. That version survives today.',
     lat: 40.7590,
     lng: -73.9800,
@@ -9736,7 +9736,7 @@ export const moments: Moment[] = [
   {
     id: 'monarch-urquhart-discovery',
     name: 'A 38-Year Search Ends When Millions of Butterflies Are Found Covering a Mexican Mountaintop',
-    subtitle: 'A Canadian zoologist\'s lifelong quest to solve the mystery of where monarchs disappear every winter',
+    subtitle: 'El Rosario Butterfly Sanctuary, Michoacán, Mexico. Open November-March when the monarchs are present',
     description: 'On January 9, 1975, Kenneth Brugger called zoologist Fred Urquhart in Toronto with the news Urquhart had spent 38 years waiting to hear: he had found the monarchs\' wintering site. On a remote mountaintop in Michoacán, at 10,000 feet in an oyamel fir forest, Brugger and his wife Catalina Trail discovered millions of butterflies clinging to every surface. When the Urquharts visited the following winter, Fred wept. The trees were so heavy with butterflies that branches snapped. National Geographic ran the discovery as its cover story in August 1976.',
     lat: 19.6725,
     lng: -100.2948,
@@ -9753,7 +9753,7 @@ export const moments: Moment[] = [
   {
     id: 'monarch-el-rosario',
     name: 'UNESCO Protects the Mountain Forest Where Three Hundred Million Butterflies Hibernate Each Winter',
-    subtitle: 'El Rosario becomes the heart of a biosphere reserve sheltering the largest insect migration on Earth',
+    subtitle: 'Monarch Butterfly Biosphere Reserve, Michoacan, Mexico. UNESCO World Heritage Site; guided hikes to the colonies',
     description: 'Each November, an estimated 300 million monarch butterflies arrive at a handful of oyamel fir forests in the mountains of Michoacán after traveling up to 3,000 miles from Canada and the northern United States. El Rosario, the largest and most visited sanctuary, becomes a cathedral of orange and black — the butterflies cluster so densely on tree trunks that the bark disappears entirely. In 2008, UNESCO designated the Monarch Butterfly Biosphere Reserve a World Heritage Site, protecting 56,259 hectares of forest across eight separate sanctuaries. A single oyamel fir tree can hold 10,000 monarchs. An entire mountainside holds hundreds of millions.',
     lat: 19.5986,
     lng: -100.2610,
@@ -9770,7 +9770,7 @@ export const moments: Moment[] = [
   {
     id: 'monarch-day-of-dead-arrival',
     name: 'Butterflies Arrive on the Day of the Dead and Locals Believe They Carry the Souls of the Departed',
-    subtitle: 'The monarchs\' annual arrival coincides almost exactly with November 1 — when the dead are said to return',
+    subtitle: 'Sierra Chincua Sanctuary, Michoacán, Mexico. One of several butterfly sanctuaries in the biosphere reserve',
     description: 'The monarch butterflies\' arrival in Michoacán each year coincides almost exactly with Día de los Muertos on November 1–2. The Purépecha and Mazahua peoples of the region have long believed the butterflies carry the souls of the dead returning to visit the living. The timing is not symbolic — it is precise. The butterflies cross the Rio Grande in mid-October and reach the mountains of Michoacán by late October or early November, just as families prepare their ofrendas and light candles in cemeteries. Scientists have no explanation for why the migration timetable aligns so closely with the ancient festival.',
     lat: 19.5708,
     lng: -101.6512,
@@ -9789,7 +9789,7 @@ export const moments: Moment[] = [
   {
     id: 'olmec-tres-zapotes-discovery',
     name: 'A Farmer Finds a Giant Stone Head Buried in a Sugarcane Field and Launches Olmec Archaeology',
-    subtitle: 'José María Melgar y Serrano visits a Veracruz hacienda in 1862 and discovers a civilization nobody knew existed',
+    subtitle: 'Tres Zapotes, Veracruz, Mexico. Small site museum; the original colossal head is in the Xalapa Anthropology Museum',
     description: 'In 1862, a farm worker at Hacienda de Hueyapan in Veracruz told José María Melgar y Serrano about a strange stone object buried upside down in a sugarcane field. When they dug it out, they found a colossal basalt head nearly two meters tall with distinctly non-European features. Melgar published his finding in 1869, speculating it was African in origin. It would take another 80 years before archaeologists understood that this head belonged to the Olmec, the oldest known civilization in Mesoamerica. The Tres Zapotes head remains the first Olmec artifact ever documented.',
     lat: 18.4667,
     lng: -95.4333,
@@ -9806,7 +9806,7 @@ export const moments: Moment[] = [
   {
     id: 'olmec-san-lorenzo',
     name: 'Archaeologists Unearth Ten Colossal Heads at the Oldest City in the Americas',
-    subtitle: 'San Lorenzo was the Olmec capital from 1400 to 900 BCE — its heads weigh up to 28 tons and were dragged 80 km through jungle',
+    subtitle: 'San Lorenzo Tenochtitlan, Veracruz, Mexico. Remote archaeological site; heads are in the Xalapa and Villahermosa museums',
     description: 'San Lorenzo, occupied from around 1400 BCE, is the oldest known Olmec center and has yielded ten of the seventeen known colossal heads. The heads, carved from single basalt boulders weighing up to 28 metric tons, were quarried from the Tuxtla Mountains more than 80 kilometers away and transported through dense jungle and swampland without the use of wheels or draft animals. Each head is unique and is believed to depict a specific Olmec ruler. Around 900 BCE, the heads were deliberately buried and the site was abandoned. The Olmec are considered the "mother civilization" of Mesoamerica, originating the calendar, writing, and ball game later adopted by the Maya and Aztecs.',
     lat: 17.7522,
     lng: -94.7560,
@@ -9823,7 +9823,7 @@ export const moments: Moment[] = [
   {
     id: 'olmec-la-venta-museum',
     name: 'An Oil Company Nearly Destroys a 3,000-Year-Old Olmec City — Its Treasures Are Rescued to a Park',
-    subtitle: 'When Pemex drills into La Venta, a poet-politician airlifts the colossal heads to a museum in Villahermosa',
+    subtitle: 'Parque-Museo La Venta, Villahermosa, Tabasco, Mexico. Outdoor museum with colossal heads; open daily',
     description: 'La Venta, the dominant Olmec center from 900 to 400 BCE, contained four colossal heads, massive altars, and the earliest known Mesoamerican pyramid. When the Mexican oil company Pemex began drilling at the site in the 1940s, poet and politician Carlos Pellicer organized the relocation of the major sculptures to an outdoor museum in Villahermosa. The Parque-Museo La Venta now displays 33 original Olmec pieces in a jungle setting, including three of the colossal heads. It remains the best place in Mexico to see these sculptures in a context that approximates their original forest environment.',
     lat: 18.0038,
     lng: -92.9264,
@@ -9842,7 +9842,7 @@ export const moments: Moment[] = [
   {
     id: 'dotd-aztec-origins',
     name: 'The Aztecs Dedicate an Entire Month to the Dead — Presided Over by the Lady of the Underworld',
-    subtitle: 'Mictecacíhuatl, the goddess who swallowed the stars, ruled a festival the Spanish could not kill',
+    subtitle: 'Central Mexico (no single site). Day of the Dead celebrations occur nationwide from October 31 to November 2',
     description: 'Long before the Spanish arrived, the Aztecs dedicated the ninth month of their calendar — roughly August — to a festival of the dead presided over by Mictecacíhuatl, the Lady of the Dead who ruled the underworld alongside her husband Mictlantecuhtli. Skulls were displayed as trophies, and offerings of food and marigolds were placed for the departed. When the Spanish attempted to replace the tradition with Catholic All Saints\' Day in the 16th century, indigenous communities absorbed the new dates (November 1–2) but kept their rituals. The result was a syncretic tradition that survives across Mexico today.',
     lat: 19.4345,
     lng: -99.1311,
@@ -9859,7 +9859,7 @@ export const moments: Moment[] = [
   {
     id: 'dotd-janitzio-vigil',
     name: 'Families Spend the Entire Night in a Cemetery on an Island Lit by Ten Thousand Candles',
-    subtitle: 'On Janitzio Island in Lake Pátzcuaro, the Purépecha keep the most ancient Day of the Dead vigil in Mexico',
+    subtitle: 'Janitzio Island, Lake Pátzcuaro, Michoacán, Mexico. Accessible by boat from Pátzcuaro; vigils on November 1-2',
     description: 'On the night of November 1, families on Janitzio Island in Lake Pátzcuaro carry ofrendas — altars laden with marigolds, sugar skulls, pan de muerto, and the favorite foods of the deceased — to the island\'s small hilltop cemetery. They spend the entire night beside the graves, lighting thousands of candles that turn the cemetery into a glowing beacon visible across the lake. The Purépecha people of Janitzio have maintained this vigil for centuries, making it the oldest continuously practiced Day of the Dead tradition in Mexico. UNESCO inscribed the holiday as Intangible Cultural Heritage in 2008.',
     lat: 19.5708,
     lng: -101.6512,
@@ -9876,7 +9876,7 @@ export const moments: Moment[] = [
   {
     id: 'dotd-mixquic-alumbrada',
     name: 'A Mexico City Village Illuminates Its Cemetery with Thousands of Candles in the Alumbrada',
-    subtitle: 'San Andrés Mixquic draws hundreds of thousands to witness graves blanketed in marigold petals and candlelight',
+    subtitle: 'San Andrés Mixquic Cemetery, Tláhuac, Mexico City. The cemetery and parish church are open during the festival',
     description: 'On the evening of November 2, the village of San Andrés Mixquic in southeast Mexico City performs the Alumbrada — a ceremony in which every grave in the village cemetery is covered in cempasúchil (marigold) petals and lit by dozens of candles. The marigolds form a carpet of orange from the cemetery entrance to each family\'s graves, creating a path the dead are said to follow home. Mixquic, whose name means "place of the dead" in Nahuatl, was a pre-Columbian settlement built on a lake island. Today it draws hundreds of thousands of visitors on a single night.',
     lat: 19.2249,
     lng: -98.9643,
@@ -9895,7 +9895,7 @@ export const moments: Moment[] = [
   {
     id: 'cristero-calles-law',
     name: 'Mexico Bans Catholic Worship and the Church Suspends All Services Nationwide',
-    subtitle: 'On July 31, 1926, every Catholic church in Mexico falls silent for the first time in 400 years',
+    subtitle: 'Metropolitan Cathedral, Zocalo, Mexico City. The largest cathedral in the Americas; open daily',
     description: 'In June 1926, President Plutarco Elías Calles signed the "Ley Calles," enforcing the anti-clerical articles of the 1917 Constitution with criminal penalties. Priests could be arrested for wearing vestments in public. Religious orders were dissolved. Foreign clergy were expelled. On July 31, 1926, the Mexican bishops responded by suspending all Catholic services nationwide — the first time in 400 years that no Mass was celebrated in Mexico. For millions of rural Mexicans whose lives revolved around the church, the silence was an act of war. Armed rebellion began within weeks.',
     lat: 19.4326,
     lng: -99.1332,
@@ -9912,7 +9912,7 @@ export const moments: Moment[] = [
   {
     id: 'cristero-guadalajara-siege',
     name: 'Four Hundred Catholics Barricade Themselves Inside a Guadalajara Church and Open Fire',
-    subtitle: 'The first battle of the Cristero War erupts four days after the Calles Law takes effect',
+    subtitle: 'Chalchihuites, Zacatecas, Mexico. Small mining town in the Sierra Madre; accessible by road from Durango',
     description: 'On August 3, 1926, four days after the Calles Law took effect and churches across Mexico fell silent, approximately 400 armed Catholics barricaded themselves inside the Santuario de Nuestra Señora de Guadalupe in Guadalajara, Jalisco. Federal troops surrounded the church and a firefight erupted. U.S. consular reports recorded 18 dead and 40 wounded. The siege marked the first armed confrontation of what would become the Cristero War — a three-year conflict that killed an estimated 90,000 people across western Mexico, concentrated in the states of Jalisco, Guanajuato, and Michoacán.',
     lat: 20.6770,
     lng: -103.3487,
@@ -9929,7 +9929,7 @@ export const moments: Moment[] = [
   {
     id: 'cristero-cubilete-monument',
     name: 'The Government Dynamites a Statue of Christ the King — Decades Later It Is Rebuilt Twice as Large',
-    subtitle: 'Cerro del Cubilete, the geographic center of Mexico, becomes the Cristeros\' most sacred site',
+    subtitle: 'Christ the King Sanctuary, Cerro del Cubilete, Guanajuato. A 20-meter statue crowns the summit',
     description: 'In 1928, during the height of the Cristero War, President Calles ordered the destruction of a statue of Christ the King atop Cerro del Cubilete, a mountain marking the geographic center of Mexico near Silao, Guanajuato. The original statue had become a pilgrimage site and a symbol of Cristero resistance. After the war ended in 1929 and religious tensions eased, a new 23-meter bronze statue — among the largest Christ statues in the world — was completed on the same hilltop in 1950. Today, Cerro del Cubilete draws millions of pilgrims annually and remains the most visible monument to the Cristero movement.',
     lat: 21.0117,
     lng: -101.3687,
@@ -9948,7 +9948,7 @@ export const moments: Moment[] = [
   {
     id: 'teotihuacan-pyramid-sun',
     name: 'An Unknown Civilization Builds the Third-Largest Pyramid on Earth — and Nobody Knows Their Name',
-    subtitle: 'The Pyramid of the Sun rises 75 meters over a city of 125,000 people whose language and name are lost',
+    subtitle: 'Pyramid of the Sun, Teotihuacan, State of Mexico. Climbable; the third-largest pyramid in the world',
     description: 'Sometime around 100 CE, the builders of Teotihuacán constructed the Pyramid of the Sun — a structure 225 meters wide and 75 meters tall, making it the third-largest pyramid in the world by volume. It was built in a single construction phase, likely by the entire population. The pyramid is oriented to face the point where the sun sets on the equinox, and a cave beneath it may have served as a sacred entrance to the underworld. The civilization that built it left no deciphered written records, and their actual name for both the city and themselves has never been recovered.',
     lat: 19.6925,
     lng: -98.8438,
@@ -9965,7 +9965,7 @@ export const moments: Moment[] = [
   {
     id: 'teotihuacan-avenue-dead',
     name: 'The Builders of Teotihuacán Lay Out a 2.4-Kilometer Avenue Aligned to a Sacred Mountain Peak',
-    subtitle: 'The Aztecs named it the Avenue of the Dead because they mistook its platforms for royal tombs',
+    subtitle: 'Avenue of the Dead, Teotihuacan, State of Mexico. The 2.5 km ceremonial road is the spine of the site',
     description: 'The Avenue of the Dead runs 2.4 kilometers through the heart of Teotihuacán, connecting the Pyramid of the Moon to the Ciudadela complex. At its peak around 450 CE, this was the central axis of a city of at least 125,000 people — larger than any contemporary European city. The avenue is flanked by hundreds of residential compounds and temples, and it is oriented 15.5 degrees east of true north, pointing directly at the sacred peak of Cerro Gordo. Teotihuacán was a cosmopolitan city: Zapotec, Maya, and Gulf Coast peoples maintained their own neighborhoods. The Aztecs found the empty avenue centuries later and named it Miccaotli — "street of the dead."',
     lat: 19.6953,
     lng: -98.8444,
@@ -9982,7 +9982,7 @@ export const moments: Moment[] = [
   {
     id: 'teotihuacan-burning',
     name: 'The Residents of Teotihuacán Deliberately Burn Their Own Temples and Abandon the City',
-    subtitle: 'Around 550 CE, someone set fire to every elite building on the Avenue of the Dead — and then everyone left',
+    subtitle: 'Ciudadela complex, Teotihuacan, State of Mexico. Burn marks visible on excavated structures; open to visitors',
     description: 'Around 550 CE, the elite and ceremonial center of Teotihuacán was systematically burned. Archaeologists have found that the fires were set deliberately and targeted specific high-status buildings along the Avenue of the Dead — temples, administrative buildings, and elite residences were torched while ordinary neighborhoods were largely left intact. Whether this was an internal revolution, a popular uprising against the ruling class, or a ritual destruction remains unknown. The city\'s population dispersed across central Mexico. When the Aztecs arrived centuries later, they found only ruins and named the place Teotihuacán — "the place where the gods were created" — believing that only gods could have built such a city.',
     lat: 19.6996,
     lng: -98.8440,
@@ -10001,7 +10001,7 @@ export const moments: Moment[] = [
   {
     id: 'copper-canyon-divisadero',
     name: 'Engineers Blast 86 Tunnels Through a Canyon System Four Times Larger Than the Grand Canyon',
-    subtitle: 'The Chepe railway becomes one of the last great train journeys in the Americas',
+    subtitle: 'Chepe Express railway, Chihuahua to Los Mochis, Mexico. The train operates daily; book in advance',
     description: 'The Chihuahua al Pacífico railway — known as "El Chepe" — was completed in 1961 after decades of construction through the Barranca del Cobre, a system of six interconnected canyons in the Sierra Madre Occidental. The railway traverses 37 bridges and 86 tunnels through a canyon system collectively four times larger in area than the Grand Canyon, with a deepest point of 1,879 meters in the Barranca de Urique — 22 meters deeper than the Grand Canyon. At the Divisadero station, the train pauses on the canyon rim so passengers can look into 6,000 feet of empty air. The Chepe remains one of the last great passenger railways in the Americas.',
     lat: 27.5097,
     lng: -107.7595,
@@ -10018,7 +10018,7 @@ export const moments: Moment[] = [
   {
     id: 'raramuri-running-tradition',
     name: 'Fleeing the Spanish, the Rarámuri Retreat into the World\'s Deepest Canyons and Become the Greatest Runners on Earth',
-    subtitle: 'They call themselves "the running people" and race 200 miles through canyon terrain in tire-rubber sandals',
+    subtitle: 'Barranca del Cobre (Copper Canyon), Chihuahua, Mexico. Four times larger than the Grand Canyon; rim hotels and trails',
     description: 'The Rarámuri — whose name translates as "those who run fast" or "the running people" — retreated into the canyons and high plateaus of the Sierra Madre Occidental to escape Spanish colonizers and missionaries in the 16th and 17th centuries. In the canyons, running became everything: communication between remote communities, a hunting technique for chasing deer to exhaustion, and the centerpiece of rarajipari — a traditional game in which teams kick a wooden ball while running distances of up to 200 miles over rugged terrain, sometimes for two days straight. They run in huarache sandals made from leather or tire rubber. Christopher McDougall\'s 2009 book Born to Run brought global attention to Rarámuri running and sparked the barefoot running movement.',
     lat: 27.7510,
     lng: -107.6350,
@@ -10035,7 +10035,7 @@ export const moments: Moment[] = [
   {
     id: 'raramuri-leadville-victory',
     name: 'A 55-Year-Old Rarámuri Runner Wins an Elite Ultramarathon in Tire-Rubber Sandals on His First Try',
-    subtitle: 'Victoriano Churro finishes first at the Leadville Trail 100 in Colorado, running at 10,000 feet in huaraches',
+    subtitle: 'Leadville, Colorado, USA. The Leadville Trail 100 starts at 6th St and Harrison Ave; race held annually in August',
     description: 'In August 1993, Victoriano Churro, a Rarámuri runner estimated to be 55 years old (he told organizers he was 38), won the Leadville Trail 100 in Colorado — a 100-mile ultramarathon at altitudes above 10,000 feet considered one of the hardest footraces in the world. He ran in huarache sandals pieced together from tires found at the Leadville junkyard days before the race. His teammate Cerrildo Chacarito finished second, and a third Rarámuri runner, Manuel Luna, finished fifth. The Rarámuri had been invited because their communities were suffering from a severe drought; their participation was motivated by survival, not sport.',
     lat: 39.2417,
     lng: -106.2888,
