@@ -234,6 +234,18 @@ All dates in descriptions use DD Month YYYY format:
 
 Include month and day when known. Do not redundantly open with just the year ("In 1789...") since the year is already shown in card metadata.
 
+### 3.5 Structural Rules
+
+These rules prevent content sprawl and keep the data model clean.
+
+1. **Single-moment stories are not stories.** A single moment is just a moment. Don't create story wrappers for individual moments — they add navigation overhead with zero narrative value.
+
+2. **City-level aggregations are not stories or collections.** "History of London" or "History of Tokyo" are not valid stories or collections. The map's viewport filtering and timeline handle city-level browsing natively. City aggregations duplicate functionality that the UI already provides.
+
+3. **Check for overlap before creating a collection.** Before creating a new collection, search existing collections by keyword. If an existing collection already covers the theme (e.g., "Famous Battlefields" already includes ancient, medieval, WWI, and WWII battles), do not create a sub-collection. Add moments to the existing collection instead.
+
+4. **Collections must have a specific, listable theme.** Every collection name should work as a Wikipedia "List of..." article. Generic themes like "Famous X," "Great Y," or "Notable Z" are too weak. The reader should know exactly what's in the collection before opening it. Good: "Every Place a Nuclear Weapon Has Been Detonated." Bad: "Famous Historical Figures."
+
 ---
 
 ## Part 4: Metadata Vocabulary
