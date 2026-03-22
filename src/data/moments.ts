@@ -69,6 +69,7 @@ export const moments: Moment[] = [
     year: 1502,
     date: '31 December 1502',
     address: 'Senigallia (Sinigaglia), Marche, Italy',
+    entityIds: ['niccolo-machiavelli'],
     wikiSection: 'Diplomatic_career',
   },
   {
@@ -138,6 +139,7 @@ export const moments: Moment[] = [
     year: 1813,
     date: '1 March 1813',
     address: '21 Albemarle Street, London W1S 4BS',
+    entityIds: ['michael-faraday'],
     wikiSection: 'Adult_life',
   },
   {
@@ -156,6 +158,7 @@ export const moments: Moment[] = [
     year: -468,
     date: 'c. 468–460 BC',
     address: 'Samos, North Aegean, Greece',
+    entityIds: ['herodotus'],
     wikiSection: 'Childhood',
   },
   {
@@ -191,6 +194,7 @@ export const moments: Moment[] = [
     year: 1452,
     date: '15 April 1452',
     address: 'Anchiano, Vinci, Tuscany, Italy',
+    entityIds: ['leonardo-da-vinci'],
     wikiSection: 'Birth_and_background',
   },
   {
@@ -258,6 +262,7 @@ export const moments: Moment[] = [
     year: 1838,
     date: 'November 1838 – February 1839',
     address: 'Real Cartuja de Valldemossa, Mallorca, Spain',
+    entityIds: ['frederic-chopin'],
     wikiSection: 'Career',
   },
   {
@@ -276,6 +281,7 @@ export const moments: Moment[] = [
     year: 1630,
     date: '15 November 1630',
     address: 'Regensburg, Bavaria, Germany',
+    entityIds: ['johannes-kepler'],
     wikiSection: 'Death',
   },
   {
@@ -294,6 +300,7 @@ export const moments: Moment[] = [
     year: 1707,
     date: '15 April 1707',
     address: 'Basel, Switzerland',
+    entityIds: ['leonhard-euler'],
     wikiSection: 'Early_life',
   },
   {
@@ -312,6 +319,7 @@ export const moments: Moment[] = [
     year: 1336,
     date: 'c. 1328–1336',
     address: 'Shahrisabz, Uzbekistan',
+    entityIds: ['timur'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Timur_crypt_in_Shahrisabz_4.jpg/960px-Timur_crypt_in_Shahrisabz_4.jpg', caption: 'Timur crypt in Shahrisabz 4' },
@@ -335,6 +343,7 @@ export const moments: Moment[] = [
     year: 1520,
     date: '21 October 1520',
     address: 'Strait of Magellan, Patagonia, Chile/Argentina',
+    entityIds: ['ferdinand-magellan', 'george-strait'],
     wikiSection: 'Voyage',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/East_Patagonia%2C_Tierra_del_Fuego_and_Strait_of_Magellan_Dispute_between_Argentina_%26_Chile_%281842-1881%29.svg/960px-East_Patagonia%2C_Tierra_del_Fuego_and_Strait_of_Magellan_Dispute_between_Argentina_%26_Chile_%281842-1881%29.svg.png', caption: 'East Patagonia, Tierra del Fuego and Strait of Magellan Dispute between Argentina & Chile (1842-1881)' },
@@ -356,6 +365,7 @@ export const moments: Moment[] = [
     year: -304,
     date: 'c. 304 BCE',
     address: 'Patna, Bihar, India',
+    entityIds: ['ashoka'],
     wikiSection: 'Date',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Ashoka_Maurya_Empire.png/960px-Ashoka_Maurya_Empire.png', caption: 'Ashoka Maurya Empire' },
@@ -377,6 +387,7 @@ export const moments: Moment[] = [
     year: 1521,
     date: '27 April 1521',
     address: 'Mactan Island, Cebu, Philippines',
+    entityIds: ['ferdinand-magellan'],
     wikiSection: 'Voyage',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Magellan_Shrine.jpg/960px-Magellan_Shrine.jpg', caption: 'Magellan Shrine' },
@@ -398,6 +409,7 @@ export const moments: Moment[] = [
     year: 1521,
     date: '6 March 1521',
     address: 'Hagåtña, Guam',
+    entityIds: ['ferdinand-magellan'],
     wikiSection: 'Voyage',
   },
   {
@@ -433,6 +445,7 @@ export const moments: Moment[] = [
     year: 1964,
     date: '12 June 1964',
     address: 'Palace of Justice, Church Square, Pretoria, South Africa',
+    entityIds: ['nelson-mandela'],
     wikiSection: 'Rivonia_Trial:_1963–1964',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/The_Freedom_Charter_Nelson_Mandela_wrote_on_the_wall_Palace_of_Justice_%28S_Wierda%29_1902_Church_Square_Pretoria_049.jpg/960px-The_Freedom_Charter_Nelson_Mandela_wrote_on_the_wall_Palace_of_Justice_%28S_Wierda%29_1902_Church_Square_Pretoria_049.jpg', caption: 'The Freedom Charter Nelson Mandela wrote on the wall Palace of Justice (S Wierda) 1902 Church Square Pretoria 049' },
@@ -454,6 +467,7 @@ export const moments: Moment[] = [
     year: 1918,
     date: '18 July 1918',
     address: 'Mvezo, Umtata, Cape Province, South Africa',
+    entityIds: ['nelson-mandela'],
     wikiSection: 'Childhood:_1918–1934',
   },
   {
@@ -472,6 +486,7 @@ export const moments: Moment[] = [
     year: -232,
     date: 'c. 232 BCE',
     address: 'Patna, Bihar, India',
+    entityIds: ['ashoka'],
     wikiSection: 'Date',
   },
   {
@@ -490,6 +505,7 @@ export const moments: Moment[] = [
     year: -250,
     date: 'c. 250 BCE',
     address: 'Sarnath, Varanasi, Uttar Pradesh, India',
+    entityIds: ['ashoka'],
     wikiSection: 'Names_and_titles',
   },
   {
@@ -508,6 +524,7 @@ export const moments: Moment[] = [
     year: -257,
     date: 'c. 257 BCE',
     address: 'Girnar, Junagadh, Gujarat, India',
+    entityIds: ['ashoka'],
     wikiSection: 'Inscriptions',
   },
   {
@@ -526,6 +543,7 @@ export const moments: Moment[] = [
     year: -268,
     date: 'c. 268 BCE',
     address: 'Patna, Bihar, India',
+    entityIds: ['ashoka'],
     wikiSection: 'Date',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Ashoka_Maurya_Empire.png/960px-Ashoka_Maurya_Empire.png', caption: 'Ashoka Maurya Empire' },
@@ -583,6 +601,7 @@ export const moments: Moment[] = [
     year: 1592,
     date: '1592',
     address: 'London, England',
+    entityIds: ['william-shakespeare'],
     wikiSection: 'London_and_theatrical_career',
   },
   {
@@ -601,6 +620,7 @@ export const moments: Moment[] = [
     year: -1332,
     date: 'c. 1332 BC',
     address: 'Memphis (Mit Rahina), Egypt',
+    entityIds: ['tutankhamun'],
     wikiSection: 'Religiopolitical_countermand',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Haremhab_as_a_Scribe_of_the_King_MET_23.10.1_EGDP010721.jpg/960px-Haremhab_as_a_Scribe_of_the_King_MET_23.10.1_EGDP010721.jpg', caption: 'Haremhab as a Scribe of the King MET 23.10.1 EGDP010721' },
@@ -624,6 +644,7 @@ export const moments: Moment[] = [
     year: 1990,
     date: '11 February 1990',
     address: 'Victor Verster Prison, Paarl, Western Cape, South Africa',
+    entityIds: ['nelson-mandela'],
     wikiSection: 'Release_from_prison:_1990',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/The_%22conference_room%22_in_the_house_where_Nelson_Mandela_was_held_for_the_last_14_months_of_his_imprisonment_%2813287983113%29.jpg/960px-The_%22conference_room%22_in_the_house_where_Nelson_Mandela_was_held_for_the_last_14_months_of_his_imprisonment_%2813287983113%29.jpg', caption: 'The "conference room" in the house where Nelson Mandela was held for the last 14 months of his imprisonment (13287983113)' },
@@ -663,6 +684,7 @@ export const moments: Moment[] = [
     year: 2013,
     date: '5 December 2013',
     address: 'Houghton Estate, Johannesburg, Gauteng, South Africa',
+    entityIds: ['nelson-mandela'],
     wikiSection: 'Death_and_state_funeral:_2013',
   },
   {
@@ -681,6 +703,7 @@ export const moments: Moment[] = [
     year: 1876,
     date: 'August 13, 1876',
     address: 'Festspielhügel 1-2, Bayreuth, Germany',
+    entityIds: ['richard-wagner'],
     wikiSection: 'Bayreuth',
   },
   {
@@ -751,6 +774,7 @@ export const moments: Moment[] = [
     year: 1799,
     date: 'December 14, 1799',
     address: 'Mount Vernon, Fairfax County, Virginia',
+    entityIds: ['george-washington'],
     wikiSection: 'Death_and_burial',
   },
   {
@@ -769,6 +793,7 @@ export const moments: Moment[] = [
     year: 1789,
     date: 'April 30, 1789',
     address: 'Federal Hall, 26 Wall Street, New York City, New York',
+    entityIds: ['george-washington'],
     wikiSection: 'Presidency_(1789–1797)',
   },
   {
@@ -787,6 +812,7 @@ export const moments: Moment[] = [
     year: 1796,
     date: 'September 19, 1796',
     address: 'Philadelphia, Pennsylvania',
+    entityIds: ['george-washington'],
     wikiSection: 'Farewell_Address',
   },
   {
@@ -823,6 +849,7 @@ export const moments: Moment[] = [
     year: 1503,
     date: '31 May 1503',
     address: 'University of Ferrara, Ferrara, Italy',
+    entityIds: ['copernicus'],
     wikiSection: 'Education',
   },
   {
@@ -858,6 +885,7 @@ export const moments: Moment[] = [
     year: 1613,
     date: 'c. 1613',
     address: 'New Place, Chapel Street, Stratford-upon-Avon, CV37 6EP',
+    entityIds: ['william-shakespeare'],
     wikiSection: 'Later_years_and_death',
   },
   {
@@ -896,7 +924,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1884,
     address: '1308 E 4th St, Austin, TX 78702',
-    entityIds: ['servant-girl-annihilator'],
+    entityIds: ['adam-smith', 'servant-girl-annihilator'],
   },
   {
     id: 'mandela-anc-youth-league-cofounded-1944',
@@ -914,6 +942,7 @@ export const moments: Moment[] = [
     year: 1944,
     date: '1944',
     address: 'Johannesburg, Transvaal, South Africa',
+    entityIds: ['nelson-mandela'],
     wikiSection: 'Law_studies_and_the_ANC_Youth_League:_1943–1949',
   },
   {
@@ -932,6 +961,7 @@ export const moments: Moment[] = [
     year: 1685,
     date: '21 March 1685',
     address: 'Eisenach, Thuringia, Germany',
+    entityIds: ['johann-sebastian-bach'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/House_of_Johann_Sebastian_Bach_in_Eisenach_02.jpg/960px-House_of_Johann_Sebastian_Bach_in_Eisenach_02.jpg', caption: 'House of Johann Sebastian Bach in Eisenach 02' },
@@ -953,6 +983,7 @@ export const moments: Moment[] = [
     year: 1727,
     date: '11 April 1727',
     address: 'Thomaskirche, Thomaskirchhof 18, 04109 Leipzig, Germany',
+    entityIds: ['johann-sebastian-bach'],
     wikiSection: 'Leipzig_(1723–1750)',
   },
   {
@@ -971,6 +1002,7 @@ export const moments: Moment[] = [
     year: 1705,
     date: 'Late 1705 – February 1706',
     address: 'Marienkirche, Lübeck, Schleswig-Holstein, Germany',
+    entityIds: ['johann-sebastian-bach'],
     wikiSection: 'Weimar,_Arnstadt,_and_Mühlhausen_(1703–1708)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/L%C3%BCbeck%2C_An_der_Obertrave%2C_Ufer_--_2017_--_0293.jpg/960px-L%C3%BCbeck%2C_An_der_Obertrave%2C_Ufer_--_2017_--_0293.jpg', caption: 'Lübeck, An der Obertrave, Ufer -- 2017 -- 0293' },
@@ -1042,6 +1074,7 @@ export const moments: Moment[] = [
     year: 1483,
     date: 'April 6, 1483',
     address: 'Urbino, Marche, Italy',
+    entityIds: ['raphael'],
     wikiSection: 'Background',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/151_Galleria_Nazionale_delle_Marche_%28Urbino%29%2C_tap%C3%ADs_gobel%C3%AD_de_l%27Encegament_d%27Elimes_i_lle%C3%B3_de_Sant_Marc.jpg/960px-151_Galleria_Nazionale_delle_Marche_%28Urbino%29%2C_tap%C3%ADs_gobel%C3%AD_de_l%27Encegament_d%27Elimes_i_lle%C3%B3_de_Sant_Marc.jpg', caption: '151 Galleria Nazionale delle Marche (Urbino), tapís gobelí de l\'Encegament d\'Elimes i lleó de Sant Marc' },
@@ -1117,6 +1150,7 @@ export const moments: Moment[] = [
     year: 413,
     date: 'c. 413 CE',
     address: 'Hippo Regius (modern Annaba, Algeria)',
+    entityIds: ['augustine-of-hippo'],
     wikiSection: 'The_City_of_God',
   },
   {
@@ -1135,6 +1169,7 @@ export const moments: Moment[] = [
     year: 1776,
     date: 'December 26, 1776',
     address: 'Trenton, New Jersey',
+    entityIds: ['george-washington'],
     wikiSection: 'Battles_of_Trenton_and_Princeton',
   },
   {
@@ -1153,6 +1188,7 @@ export const moments: Moment[] = [
     year: -484,
     date: 'c. 484 BC',
     address: 'Bodrum, Muğla Province, Turkey',
+    entityIds: ['herodotus'],
     wikiSection: 'Childhood',
   },
   {
@@ -1171,6 +1207,7 @@ export const moments: Moment[] = [
     year: 1509,
     date: '1509–1511',
     address: 'Stanza della Segnatura, Apostolic Palace, Vatican City',
+    entityIds: ['raphael'],
     wikiSection: 'Vatican_Stanze',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Stanza_della_Segnatura_-_Globo_celeste.png/960px-Stanza_della_Segnatura_-_Globo_celeste.png', caption: 'Stanza della Segnatura - Globo celeste' },
@@ -1192,6 +1229,7 @@ export const moments: Moment[] = [
     year: -443,
     date: '443 BC',
     address: 'Thurii (near modern Sibari), Calabria, Italy',
+    entityIds: ['herodotus'],
     wikiSection: 'Later_life',
   },
   {
@@ -1228,6 +1266,7 @@ export const moments: Moment[] = [
     year: 1994,
     date: '10 May 1994',
     address: 'Union Buildings, Government Avenue, Pretoria, South Africa',
+    entityIds: ['nelson-mandela'],
     wikiSection: 'Presidency:_1994–1999',
   },
   {
@@ -1246,6 +1285,7 @@ export const moments: Moment[] = [
     year: -440,
     date: 'c. 440 BC',
     address: 'Ancient Olympia, Elis, Greece',
+    entityIds: ['herodotus'],
     wikiSection: 'Author_and_orator',
   },
   {
@@ -1264,6 +1304,7 @@ export const moments: Moment[] = [
     year: -454,
     date: 'c. 454–447 BC',
     address: 'Giza, Egypt',
+    entityIds: ['herodotus'],
     wikiSection: 'Early_travels',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/The_boys%27_and_girls%27_Herodotus%3B_being_parts_of_the_history_of_Herodotus_%281884%29_%2814758219136%29.jpg/960px-The_boys%27_and_girls%27_Herodotus%3B_being_parts_of_the_history_of_Herodotus_%281884%29_%2814758219136%29.jpg', caption: 'The boys\' and girls\' Herodotus; being parts of the history of Herodotus (1884) (14758219136)' },
@@ -1285,6 +1326,7 @@ export const moments: Moment[] = [
     year: 1524,
     date: '1524',
     address: 'Goa, India',
+    entityIds: ['vasco-da-gama'],
     wikiSection: 'Later_life',
   },
   {
@@ -1303,6 +1345,7 @@ export const moments: Moment[] = [
     year: 1469,
     date: 'c. 1460s–1469',
     address: 'Sines, Alentejo, Portugal',
+    entityIds: ['vasco-da-gama'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Portugal_Alentejo_January_2022_%2851852108505%29.jpg/960px-Portugal_Alentejo_January_2022_%2851852108505%29.jpg', caption: 'Portugal Alentejo January 2022 (51852108505)' },
@@ -1324,6 +1367,7 @@ export const moments: Moment[] = [
     year: 1498,
     date: '20 May 1498',
     address: 'Kappadu, near Kozhikode (Calicut), Kerala, India',
+    entityIds: ['vasco-da-gama'],
     wikiSection: 'Kozhikode,_India',
   },
   {
@@ -1342,6 +1386,7 @@ export const moments: Moment[] = [
     year: -441,
     date: '441 BC',
     address: 'Athens Agora, Athens, Greece',
+    entityIds: ['sophocles'],
     wikiSection: 'Life',
   },
   {
@@ -1360,6 +1405,7 @@ export const moments: Moment[] = [
     year: 1497,
     date: '8 July 1497',
     address: 'Torre de Belém, Lisbon, Portugal',
+    entityIds: ['vasco-da-gama'],
     wikiSection: 'First_voyage',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Torre_Bel%C3%A9m_April_2009-4a.jpg/960px-Torre_Bel%C3%A9m_April_2009-4a.jpg', caption: 'Torre Belém April 2009-4a' },
@@ -1433,6 +1479,7 @@ export const moments: Moment[] = [
     year: 1497,
     date: 'November–December 1497',
     address: 'Cape of Good Hope, Western Cape, South Africa',
+    entityIds: ['vasco-da-gama'],
     wikiSection: 'Journey_to_the_Cape',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Cape_Town_%28ZA%29%2C_Sea_Point%2C_Nachtansicht_--_2024_--_1867-70_-_2.jpg/960px-Cape_Town_%28ZA%29%2C_Sea_Point%2C_Nachtansicht_--_2024_--_1867-70_-_2.jpg', caption: 'Cape Town (ZA), Sea Point, Nachtansicht -- 2024 -- 1867-70 - 2' },
@@ -1454,6 +1501,7 @@ export const moments: Moment[] = [
     year: 1831,
     date: 'September 1831',
     address: 'Paris, France',
+    entityIds: ['frederic-chopin'],
     wikiSection: 'Career',
   },
   {
@@ -1472,6 +1520,7 @@ export const moments: Moment[] = [
     year: 1876,
     date: '1876',
     address: 'Menlo Park, Edison Township, New Jersey',
+    entityIds: ['thomas-edison'],
     wikiSection: 'Research_and_development_facility',
   },
   {
@@ -1490,6 +1539,7 @@ export const moments: Moment[] = [
     year: 1564,
     date: '26 April 1564',
     address: 'Holy Trinity Church, Old Town, Stratford-upon-Avon, CV37 6BG',
+    entityIds: ['william-shakespeare'],
     wikiSection: 'Early_life',
   },
   {
@@ -1508,6 +1558,7 @@ export const moments: Moment[] = [
     year: 2008,
     date: 'November 4, 2008',
     address: 'Grant Park, 337 E Randolph St, Chicago, IL 60601',
+    entityIds: ['barack-obama'],
     wikiSection: '2008_presidential_campaign',
   },
   {
@@ -1526,6 +1577,7 @@ export const moments: Moment[] = [
     year: 1754,
     date: 'May 28, 1754',
     address: 'Jumonville Glen, Fayette County, Pennsylvania',
+    entityIds: ['george-washington'],
     wikiSection: 'French_and_Indian_War',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Views_of_Fort_Necessity_National_Battlefield%2C_Pennsylvania_%2890fb5738-a281-41a3-aff3-a2721beb22f4%29.jpg/960px-Views_of_Fort_Necessity_National_Battlefield%2C_Pennsylvania_%2890fb5738-a281-41a3-aff3-a2721beb22f4%29.jpg', caption: 'Views of Fort Necessity National Battlefield, Pennsylvania (90fb5738-a281-41a3-aff3-a2721beb22f4)' },
@@ -1547,6 +1599,7 @@ export const moments: Moment[] = [
     year: -406,
     date: 'Winter 406/405 BC',
     address: 'Athens, Greece',
+    entityIds: ['sophocles'],
     wikiSection: 'Life',
   },
   {
@@ -1565,6 +1618,7 @@ export const moments: Moment[] = [
     year: -420,
     date: '420 BC',
     address: 'Athens, Greece',
+    entityIds: ['sophocles'],
     wikiSection: 'Life',
   },
   {
@@ -1583,6 +1637,7 @@ export const moments: Moment[] = [
     year: 2011,
     date: 'May 1, 2011',
     address: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500',
+    entityIds: ['barack-obama'],
     wikiSection: 'Foreign_policy',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/President_Barack_Obama_with_full_cabinet_09-10-09.jpg/960px-President_Barack_Obama_with_full_cabinet_09-10-09.jpg', caption: 'President Barack Obama with full cabinet 09-10-09' },
@@ -1604,6 +1659,7 @@ export const moments: Moment[] = [
     year: 1498,
     date: '1498',
     address: 'Nuremberg, Bavaria, Holy Roman Empire',
+    entityIds: ['albrecht-durer'],
     wikiSection: 'Return_to_Nuremberg_(1495–1505)',
   },
   {
@@ -1622,6 +1678,7 @@ export const moments: Moment[] = [
     year: -1323,
     date: 'c. 1323 BC',
     address: 'Valley of the Kings, Luxor, Egypt',
+    entityIds: ['tutankhamun'],
     wikiSection: 'Family',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Thebes%2C_Luxor%2C_Egypt%2C_Valley_of_the_Kings_from_above.jpg/960px-Thebes%2C_Luxor%2C_Egypt%2C_Valley_of_the_Kings_from_above.jpg', caption: 'Thebes, Luxor, Egypt, Valley of the Kings from above' },
@@ -1661,6 +1718,7 @@ export const moments: Moment[] = [
     year: 1527,
     date: '21 June 1527',
     address: 'Basilica di Santa Croce, Piazza di Santa Croce 16, Florence',
+    entityIds: ['niccolo-machiavelli'],
     wikiSection: 'Exile_and_later_years',
   },
   {
@@ -1695,6 +1753,7 @@ export const moments: Moment[] = [
     year: 2021,
     date: 'September 28, 2021',
     address: 'Jackson Park, 6401 S Stony Island Ave, Chicago, IL 60637',
+    entityIds: ['barack-obama'],
     wikiSection: 'Post-presidency',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Jesse_Jackson_in_Ida_Noyes.jpg/960px-Jesse_Jackson_in_Ida_Noyes.jpg', caption: 'Jesse Jackson in Ida Noyes' },
@@ -1716,6 +1775,7 @@ export const moments: Moment[] = [
     year: 2010,
     date: 'March 23, 2010',
     address: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500',
+    entityIds: ['barack-obama'],
     wikiSection: 'Health_care_reform',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/President_Barack_Obama_with_full_cabinet_09-10-09.jpg/960px-President_Barack_Obama_with_full_cabinet_09-10-09.jpg', caption: 'President Barack Obama with full cabinet 09-10-09' },
@@ -1755,6 +1815,7 @@ export const moments: Moment[] = [
     year: 1225,
     date: 'c. 1225',
     address: 'Roccasecca, Lazio, Italy',
+    entityIds: ['thomas-aquinas'],
     wikiSection: 'Early_life_(1225–1244)',
   },
   {
@@ -1773,6 +1834,7 @@ export const moments: Moment[] = [
     year: 1498,
     date: '1498',
     address: 'Palazzo della Signoria (Palazzo Vecchio), Piazza della Signoria, Florence',
+    entityIds: ['niccolo-machiavelli'],
     wikiSection: 'Diplomatic_career',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Italy_from_the_Alps_to_Mount_Etna_%281877%29_%2814590116128%29.jpg/960px-Italy_from_the_Alps_to_Mount_Etna_%281877%29_%2814590116128%29.jpg', caption: 'Italy from the Alps to Mount Etna (1877) (14590116128)' },
@@ -1796,6 +1858,7 @@ export const moments: Moment[] = [
     year: 1849,
     date: 'October 17, 1849',
     address: '12 Place Vendôme, Paris, France',
+    entityIds: ['frederic-chopin'],
     wikiSection: 'Death',
   },
   {
@@ -1814,6 +1877,7 @@ export const moments: Moment[] = [
     year: 1883,
     date: 'February 13, 1883',
     address: 'Palazzo Vendramin Calergi, Venice, Italy',
+    entityIds: ['richard-wagner'],
     wikiSection: 'Death',
   },
   {
@@ -1848,6 +1912,7 @@ export const moments: Moment[] = [
     year: 1848,
     date: '1848',
     address: 'Ecole Normale Superieure, Paris, France',
+    entityIds: ['louis-pasteur'],
     wikiSection: 'Molecular_asymmetry',
   },
   {
@@ -1866,6 +1931,7 @@ export const moments: Moment[] = [
     year: 1881,
     date: '25 October 1881',
     address: 'Plaza de la Merced 15, Málaga, Spain',
+    entityIds: ['pablo-picasso'],
     wikiSection: 'Childhood',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Plaza_de_la_Merced_15-16%2C_M%C3%A1laga.jpg/960px-Plaza_de_la_Merced_15-16%2C_M%C3%A1laga.jpg', caption: 'Plaza de la Merced 15-16, Málaga' },
@@ -1889,6 +1955,7 @@ export const moments: Moment[] = [
     year: 1640,
     date: '1640',
     address: 'Amersfoort, Netherlands',
+    entityIds: ['rene-descartes'],
     wikiSection: 'Netherlands',
   },
   {
@@ -1956,6 +2023,7 @@ export const moments: Moment[] = [
     year: 1513,
     date: '1513',
     address: 'Sant\'Andrea in Percussina, San Casciano in Val di Pesa, Florence',
+    entityIds: ['niccolo-machiavelli'],
     wikiSection: 'Exile_and_later_years',
   },
   {
@@ -1974,6 +2042,7 @@ export const moments: Moment[] = [
     year: 1469,
     date: '3 May 1469',
     address: 'Florence, Italy',
+    entityIds: ['niccolo-machiavelli'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Oratorio_di_san_niccol%C3%B2_del_ceppo%2C_aula_03%2C2.jpg/960px-Oratorio_di_san_niccol%C3%B2_del_ceppo%2C_aula_03%2C2.jpg', caption: 'Oratorio di san niccolò del ceppo, aula 03,2' },
@@ -1997,6 +2066,7 @@ export const moments: Moment[] = [
     year: -75,
     date: 'c. 75 BC',
     address: 'Aegean Sea, near Pharmacusa island (traditional)',
+    entityIds: ['julius-caesar'],
     wikiSection: 'Life_under_Sulla_and_military_service',
   },
   {
@@ -2030,6 +2100,7 @@ export const moments: Moment[] = [
     year: -322,
     date: '322 BC',
     address: 'Chalcis, Euboea, Greece',
+    entityIds: ['aristotle'],
     wikiSection: 'Life',
   },
   {
@@ -2064,6 +2135,7 @@ export const moments: Moment[] = [
     year: -63,
     date: '63 BC',
     address: 'Temple of Concord, Forum Romanum, Rome, Italy',
+    entityIds: ['cicero'],
     wikiSection: 'Catilinarian_conspiracy',
   },
   {
@@ -2082,6 +2154,7 @@ export const moments: Moment[] = [
     year: 1881,
     date: '9 February 1881',
     address: 'Saint Petersburg, Russia',
+    entityIds: ['fyodor-dostoevsky'],
     wikiSection: 'Death',
   },
   {
@@ -2100,6 +2173,7 @@ export const moments: Moment[] = [
     year: 1826,
     date: 'July 4, 1826',
     address: 'Monticello, Charlottesville, Virginia',
+    entityIds: ['thomas-jefferson'],
     wikiSection: 'Death',
   },
   {
@@ -2134,6 +2208,7 @@ export const moments: Moment[] = [
     year: 1822,
     date: 'December 27, 1822',
     address: 'Dole, Jura, France',
+    entityIds: ['louis-pasteur'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -2152,6 +2227,7 @@ export const moments: Moment[] = [
     year: 1876,
     date: '1876',
     address: 'Palace of Westminster, London',
+    entityIds: ['queen-victoria'],
     wikiSection: 'Empress_of_India',
   },
   {
@@ -2186,6 +2262,7 @@ export const moments: Moment[] = [
     year: -49,
     date: 'January 10 or 11, 49 BC',
     address: 'Rubicon River, near Rimini, northern Italy',
+    entityIds: ['julius-caesar'],
     wikiSection: 'Caesar\'s_civil_war',
   },
   {
@@ -2204,6 +2281,7 @@ export const moments: Moment[] = [
     year: 1759,
     date: 'January 1759',
     address: 'Ferney-Voltaire, Ain, France',
+    entityIds: ['voltaire'],
     wikiSection: 'Candide',
   },
   {
@@ -2222,6 +2300,7 @@ export const moments: Moment[] = [
     year: -70,
     date: '70 BC',
     address: 'Forum Romanum, Rome, Italy',
+    entityIds: ['cicero'],
     wikiSection: 'Early_political_career',
   },
   {
@@ -2240,6 +2319,7 @@ export const moments: Moment[] = [
     year: 1836,
     date: '31 March 1836',
     address: 'Strand, London (Chapman and Hall offices)',
+    entityIds: ['charles-dickens'],
     wikiSection: 'Journalism_and_writing',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Dickens_on_the_Strand_Festival_%2838299161692%29.jpg/960px-Dickens_on_the_Strand_Festival_%2838299161692%29.jpg', caption: 'Dickens on the Strand Festival (38299161692)' },
@@ -2263,6 +2343,7 @@ export const moments: Moment[] = [
     year: -100,
     date: 'July 12 or 13, 100 BC',
     address: 'Subura district, Rome (traditional)',
+    entityIds: ['julius-caesar'],
     wikiSection: 'Early_life_and_career',
   },
   {
@@ -2281,6 +2362,7 @@ export const moments: Moment[] = [
     year: 1740,
     date: '1740',
     address: 'University of Königsberg, Königsberg, East Prussia',
+    entityIds: ['immanuel-kant'],
     wikiSection: 'Young_scholar',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/IKSUR1.JPG/960px-IKSUR1.JPG', caption: 'IKSUR1' },
@@ -2320,6 +2402,7 @@ export const moments: Moment[] = [
     year: 1694,
     date: '21 November 1694',
     address: 'Paris, France',
+    entityIds: ['voltaire'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Auguste_Fran%C3%A7ois-Marie_Gorguet_-_poster_for_the_premi%C3%A8re_performance_of_%C3%89douard_Lalo%27s_Le_roi_d%27Ys_%281888%29.jpg/960px-Auguste_Fran%C3%A7ois-Marie_Gorguet_-_poster_for_the_premi%C3%A8re_performance_of_%C3%89douard_Lalo%27s_Le_roi_d%27Ys_%281888%29.jpg', caption: 'Auguste François-Marie Gorguet - poster for the première performance of Édouard Lalo\'s Le roi d\'Ys (1888)' },
@@ -2343,6 +2426,7 @@ export const moments: Moment[] = [
     year: 1023,
     date: 'c. 1023 CE',
     address: 'Fardajan fortress, near Hamadan, Iran',
+    entityIds: ['avicenna'],
     wikiSection: 'In_Ray_and_Hamadan',
   },
   {
@@ -2361,6 +2445,7 @@ export const moments: Moment[] = [
     year: 1812,
     date: '7 February 1812',
     address: '393 Commercial Road, Portsmouth, Hampshire',
+    entityIds: ['charles-dickens'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/391-399_Old_Commercial_Road.jpg/960px-391-399_Old_Commercial_Road.jpg', caption: '391-399 Old Commercial Road' },
@@ -2384,6 +2469,7 @@ export const moments: Moment[] = [
     year: 1519,
     date: '20 September 1519',
     address: 'Sanlúcar de Barrameda, Cádiz, Spain',
+    entityIds: ['ferdinand-magellan'],
     wikiSection: 'Voyage',
   },
   {
@@ -2402,6 +2488,7 @@ export const moments: Moment[] = [
     year: 1734,
     date: '1734',
     address: 'Château de Cirey, Cirey-sur-Blaise, Haute-Marne, France',
+    entityIds: ['voltaire'],
     wikiSection: 'Château_de_Cirey',
   },
   {
@@ -2420,6 +2507,7 @@ export const moments: Moment[] = [
     year: 1867,
     date: 'November 7, 1867',
     address: 'Warsaw, Congress Poland, Russian Empire',
+    entityIds: ['marie-curie'],
     wikiSection: 'Early_years',
   },
   {
@@ -2438,6 +2526,7 @@ export const moments: Moment[] = [
     year: 1717,
     date: 'May 1717',
     address: 'Place de la Bastille, Paris, France',
+    entityIds: ['voltaire'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Gezicht_op_het_Place_de_la_Bastille_te_Parijs_Colonne_de_Juillet_%C3%A0_Paris_%28titel_op_object%29_France_%28serietitel%29%2C_RP-F-2001-7-1540-17.jpg/960px-Gezicht_op_het_Place_de_la_Bastille_te_Parijs_Colonne_de_Juillet_%C3%A0_Paris_%28titel_op_object%29_France_%28serietitel%29%2C_RP-F-2001-7-1540-17.jpg', caption: 'Gezicht op het Place de la Bastille te Parijs Colonne de Juillet à Paris (titel op object) France (serietitel), RP-F-2001-7-1540-17' },
@@ -2479,6 +2568,7 @@ export const moments: Moment[] = [
     year: -44,
     date: 'February 44 BC',
     address: 'Roman Forum / Senate House, Rome',
+    entityIds: ['julius-caesar'],
     wikiSection: 'Dictatorship_and_assassination',
   },
   {
@@ -2497,6 +2587,7 @@ export const moments: Moment[] = [
     year: 997,
     date: 'c. 997 CE',
     address: 'Bukhara, Uzbekistan',
+    entityIds: ['avicenna'],
     wikiSection: 'In_Bukhara_and_Gurganj',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Coin_of_Abd_al-Malik_ibn_Marwan%2C_minted_in_Tukharistan_%28Tokharistan%29.jpg', caption: 'Coin of Abd al-Malik ibn Marwan, minted in Tukharistan (Tokharistan)' },
@@ -2520,6 +2611,7 @@ export const moments: Moment[] = [
     year: -440,
     date: 'c. 440 BC',
     address: '',
+    entityIds: ['democritus'],
     wikiSection: 'Life',
   },
   {
@@ -2538,6 +2630,7 @@ export const moments: Moment[] = [
     year: 1870,
     date: '9 June 1870',
     address: 'Gad\'s Hill Place, Higham, Rochester, Kent ME3 7PA',
+    entityIds: ['charles-dickens'],
     wikiSection: 'Death',
   },
   {
@@ -2556,6 +2649,7 @@ export const moments: Moment[] = [
     year: 1824,
     date: 'February 1824',
     address: 'Hungerford Stairs, near Charing Cross, London',
+    entityIds: ['charles-dickens'],
     wikiSection: 'Early_life',
   },
   {
@@ -2574,6 +2668,7 @@ export const moments: Moment[] = [
     year: 744,
     date: 'c. 744 CE',
     address: '',
+    entityIds: ['li-bai'],
     wikiSection: 'At_Chang\'an',
   },
   {
@@ -2644,6 +2739,7 @@ export const moments: Moment[] = [
     year: -384,
     date: '384 BC',
     address: 'Stagira, Chalcidice, Greece',
+    entityIds: ['aristotle'],
     wikiSection: 'Life',
   },
   {
@@ -2662,6 +2758,7 @@ export const moments: Moment[] = [
     year: 1542,
     date: 'June 1542',
     address: '',
+    entityIds: ['jacques-cartier'],
     wikiSection: 'Third_voyage_(1541–1542)',
   },
   {
@@ -2680,6 +2777,7 @@ export const moments: Moment[] = [
     year: -106,
     date: 'January 3, 106 BC',
     address: 'Arpinum (modern Arpino), Lazio, Italy',
+    entityIds: ['cicero'],
     wikiSection: 'Early_life',
   },
   {
@@ -2698,6 +2796,7 @@ export const moments: Moment[] = [
     year: 1755,
     date: '1755',
     address: 'University of Königsberg, Königsberg, East Prussia',
+    entityIds: ['immanuel-kant'],
     wikiSection: 'Early_work',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/IKSUR1.JPG/960px-IKSUR1.JPG', caption: 'IKSUR1' },
@@ -2739,6 +2838,7 @@ export const moments: Moment[] = [
     year: 1852,
     date: 'March 1852',
     address: 'Tavistock House, Tavistock Square, London WC1H',
+    entityIds: ['charles-dickens'],
     wikiSection: 'Journalism_and_writing',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Dickens-plaque-tavistock.jpg', caption: 'Dickens-plaque-tavistock' },
@@ -2780,6 +2880,7 @@ export const moments: Moment[] = [
     year: 1824,
     date: '1824',
     address: 'Angel Place, Borough, London SE1',
+    entityIds: ['charles-dickens'],
     wikiSection: 'Early_life',
   },
   {
@@ -2798,6 +2899,7 @@ export const moments: Moment[] = [
     year: 1724,
     date: '22 April 1724',
     address: 'Königsberg, East Prussia (now Kaliningrad, Russia)',
+    entityIds: ['immanuel-kant'],
     wikiSection: 'Early_life',
   },
   {
@@ -2816,6 +2918,7 @@ export const moments: Moment[] = [
     year: 1650,
     date: '11 February 1650',
     address: 'Västerlånggatan, Stockholm, Sweden',
+    entityIds: ['rene-descartes'],
     wikiSection: 'Death',
   },
   {
@@ -2834,6 +2937,7 @@ export const moments: Moment[] = [
     year: 1637,
     date: '1637',
     address: 'Leiden, Netherlands',
+    entityIds: ['rene-descartes'],
     wikiSection: 'Netherlands',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Portret_van_Ren%C3%A9_Descartes%2C_RP-P-OB-55.341.jpg/960px-Portret_van_Ren%C3%A9_Descartes%2C_RP-P-OB-55.341.jpg', caption: 'Portret van René Descartes, RP-P-OB-55.341' },
@@ -2857,6 +2961,7 @@ export const moments: Moment[] = [
     year: -399,
     date: '399 BC',
     address: 'Athens Agora, Athens, Greece',
+    entityIds: ['socrates', 'plato'],
     wikiSection: 'Thirty_tyrants_and_Trial_of_Socrates',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Monument_of_Socrates_and_Confucius%2C_Athens%2C_Greece.jpg/960px-Monument_of_Socrates_and_Confucius%2C_Athens%2C_Greece.jpg', caption: 'Monument of Socrates and Confucius, Athens, Greece' },
@@ -2896,6 +3001,7 @@ export const moments: Moment[] = [
     year: 1939,
     date: 'August 23, 1939',
     address: 'Soviet Foreign Ministry, Moscow, Soviet Union',
+    entityIds: ['joseph-stalin'],
     wikiSection: 'Molotov–Ribbentrop_Pact',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Signing_of_the_German%E2%80%93Soviet_Treaty_of_Friendship_in_Moscow%2C_September_28%2C_1939.jpg', caption: 'Signing of the German–Soviet Treaty of Friendship in Moscow, September 28, 1939' },
@@ -2919,6 +3025,7 @@ export const moments: Moment[] = [
     year: -343,
     date: '343 BC',
     address: 'Mieza, near Pella, Macedonia, Greece',
+    entityIds: ['aristotle'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/The_statue_of_Aristotle_near_the_entrance%2C_The_School_of_Aristotle_%28The_Lyceum%29_%287263459844%29.jpg/960px-The_statue_of_Aristotle_near_the_entrance%2C_The_School_of_Aristotle_%28The_Lyceum%29_%287263459844%29.jpg', caption: 'The statue of Aristotle near the entrance, The School of Aristotle (The Lyceum) (7263459844)' },
@@ -2977,6 +3084,7 @@ export const moments: Moment[] = [
     year: 1506,
     date: '20 May 1506',
     address: 'Valladolid, Crown of Castile (modern-day Castile and León, Spain)',
+    entityIds: ['christopher-columbus'],
     wikiSection: 'Death_and_burial',
   },
   {
@@ -3012,6 +3120,7 @@ export const moments: Moment[] = [
     year: 1616,
     date: '23 April 1616',
     address: 'Holy Trinity Church, Old Town, Stratford-upon-Avon, CV37 6BG',
+    entityIds: ['william-shakespeare'],
     wikiSection: 'Later_years_and_death',
   },
   {
@@ -3030,6 +3139,7 @@ export const moments: Moment[] = [
     year: -136,
     date: '136 BCE',
     address: 'Chang\'an (modern Xi\'an), Shaanxi Province, China',
+    entityIds: ['charles-v-holy-roman-emperor'],
     wikiSection: 'Legacy',
   },
   {
@@ -3048,6 +3158,7 @@ export const moments: Moment[] = [
     year: -399,
     date: '399 BC',
     address: 'State Prison, Ancient Agora of Athens, Greece',
+    entityIds: ['socrates'],
     wikiSection: 'Biography',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Prisi%C3%B3n_de_S%C3%B3crates.JPG/960px-Prisi%C3%B3n_de_S%C3%B3crates.JPG', caption: 'Prisión de Sócrates' },
@@ -3083,6 +3194,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1901,
     date: '31 March 1901',
+    entityIds: ['pablo-picasso'],
     wikiSection: 'Before_1900',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Composition_%281939%29_-_Auguste_Herbin_%281882-1960%29_%2825176351757%29.jpg/960px-Composition_%281939%29_-_Auguste_Herbin_%281882-1960%29_%2825176351757%29.jpg', caption: 'Composition (1939) - Auguste Herbin (1882-1960) (25176351757)' },
@@ -3124,6 +3236,7 @@ export const moments: Moment[] = [
     year: -497,
     date: '497 BCE',
     address: 'Anyang, Henan Province, China (State of Wey, first stop in exile)',
+    entityIds: ['confucius'],
     wikiSection: 'Exile',
   },
   {
@@ -3142,6 +3255,7 @@ export const moments: Moment[] = [
     year: 1732,
     date: 'February 22, 1732',
     address: 'Popes Creek, Westmoreland County, Virginia',
+    entityIds: ['george-washington'],
     wikiSection: 'Early_life_(1732–1752)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Popes_Creek_Near_Potomac_River%2C_George_Washington_Birthplace_National_Monument%2C_Virginia_%282522007911%29.jpg/960px-Popes_Creek_Near_Potomac_River%2C_George_Washington_Birthplace_National_Monument%2C_Virginia_%282522007911%29.jpg', caption: 'Popes Creek Near Potomac River, George Washington Birthplace National Monument, Virginia (2522007911)' },
@@ -3179,6 +3293,7 @@ export const moments: Moment[] = [
     year: -404,
     date: 'c. 404 BC',
     address: 'Tholos, Ancient Agora of Athens, Greece',
+    entityIds: ['socrates'],
     wikiSection: 'Biography',
   },
   {
@@ -3214,6 +3329,7 @@ export const moments: Moment[] = [
     year: 1485,
     date: 'c. 1485',
     address: 'Medellín, Extremadura, Spain',
+    entityIds: ['hernan-cortes'],
     wikiSection: 'Early_life',
   },
   {
@@ -3232,6 +3348,7 @@ export const moments: Moment[] = [
     year: 1985,
     date: '1985–1990',
     address: 'Dresden, East Germany',
+    entityIds: ['vladimir-putin'],
     wikiSection: 'Intelligence_career',
   },
   {
@@ -3250,6 +3367,7 @@ export const moments: Moment[] = [
     year: -43,
     date: 'December 7, 43 BC',
     address: 'Near Formia (ancient Formiae), Lazio, Italy',
+    entityIds: ['cicero'],
     wikiSection: 'Death',
   },
   {
@@ -3268,6 +3386,7 @@ export const moments: Moment[] = [
     year: -58,
     date: '58 BC',
     address: 'Palatine Hill, Rome, Italy',
+    entityIds: ['cicero'],
     wikiSection: 'Exile',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/2017-03-23_On_the_Palatine_Hill.jpg/960px-2017-03-23_On_the_Palatine_Hill.jpg', caption: '2017-03-23 On the Palatine Hill' },
@@ -3344,6 +3463,7 @@ export const moments: Moment[] = [
     year: 1566,
     date: '1 or 2 July 1566',
     address: 'Salon-de-Provence, France',
+    entityIds: ['nostradamus'],
     wikiSection: 'Final_years_and_death',
   },
   {
@@ -3378,6 +3498,7 @@ export const moments: Moment[] = [
     year: 1265,
     date: '1265',
     address: 'Basilica di Santa Sabina, Piazza Pietro d\'Illiria 1, Rome, Italy',
+    entityIds: ['thomas-aquinas'],
     wikiSection: 'Naples,_Orvieto,_Rome_(1259–1268)',
   },
   {
@@ -3396,6 +3517,7 @@ export const moments: Moment[] = [
     year: -399,
     date: '399 BC',
     address: 'Court of the Heliaia, Ancient Agora of Athens, Greece',
+    entityIds: ['socrates'],
     wikiSection: 'Biography',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Plan_Agora_of_Athens_Classical.svg/960px-Plan_Agora_of_Athens_Classical.svg.png', caption: 'Plan Agora of Athens Classical' },
@@ -3417,6 +3539,7 @@ export const moments: Moment[] = [
     year: 1363,
     date: 'c. 1363',
     address: 'Dasht-e Margo region, Sistan, Afghanistan',
+    entityIds: ['timur'],
     wikiSection: 'Early_life',
   },
   {
@@ -3453,6 +3576,7 @@ export const moments: Moment[] = [
     year: 1492,
     date: '3 August 1492',
     address: 'Port of Palos de la Frontera, Huelva, Spain',
+    entityIds: ['christopher-columbus'],
     wikiSection: 'Quest_for_Asia',
   },
   {
@@ -3471,6 +3595,7 @@ export const moments: Moment[] = [
     year: 1917,
     date: '16 April 1917',
     address: 'Finland Station (Finlyandsky Vokzal), Ploshchad Lenina 6, Saint Petersburg, Russia',
+    entityIds: ['vladimir-lenin'],
     wikiSection: 'Return_to_Russia',
   },
   {
@@ -3489,6 +3614,7 @@ export const moments: Moment[] = [
     year: 1523,
     date: 'c. 1523',
     address: 'Biblioteca Medicea Laurenziana, Piazza San Lorenzo 9, Florence',
+    entityIds: ['michelangelo'],
     wikiSection: 'Laurentian_Library',
   },
   {
@@ -3540,6 +3666,7 @@ export const moments: Moment[] = [
     year: 1471,
     date: '21 May 1471',
     address: 'Nuremberg, Bavaria, Holy Roman Empire',
+    entityIds: ['albrecht-durer'],
     wikiSection: 'Early_life_(1471–1490)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Photo_-_N%C3%BCrnberg_-_Albrecht_D%C3%BCrer_Stra%C3%9Fe_-_1914-09.jpg/960px-Photo_-_N%C3%BCrnberg_-_Albrecht_D%C3%BCrer_Stra%C3%9Fe_-_1914-09.jpg', caption: 'Photo - Nürnberg - Albrecht Dürer Straße - 1914-09' },
@@ -3563,6 +3690,7 @@ export const moments: Moment[] = [
     year: -470,
     date: 'c. 470 BC',
     address: 'Alopece, Athens, Greece',
+    entityIds: ['socrates'],
     wikiSection: 'Biography',
   },
   {
@@ -3618,6 +3746,7 @@ export const moments: Moment[] = [
     year: 1492,
     date: '12 October 1492',
     address: 'San Salvador Island (Guanahani), The Bahamas',
+    entityIds: ['christopher-columbus'],
     wikiSection: 'First_voyage',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Bahamas_1989_%28717%29_San_Salvador_Kolumbus_Landung_%2825800320660%29.jpg/960px-Bahamas_1989_%28717%29_San_Salvador_Kolumbus_Landung_%2825800320660%29.jpg', caption: 'Bahamas 1989 (717) San Salvador Kolumbus Landung (25800320660)' },
@@ -3639,6 +3768,7 @@ export const moments: Moment[] = [
     year: 1541,
     date: '31 October 1541',
     address: 'Sistine Chapel, Vatican City',
+    entityIds: ['michelangelo'],
     wikiSection: 'The_Last_Judgment',
   },
   {
@@ -3657,6 +3787,7 @@ export const moments: Moment[] = [
     year: 1494,
     date: 'Autumn 1494',
     address: 'Venice, Republic of Venice',
+    entityIds: ['albrecht-durer'],
     wikiSection: 'First_journey_to_Italy_(1494–1495)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Albrecht_D%C3%BCrer%2C_Adam_and_Eve%2C_1504%2C_Engraving.jpg/960px-Albrecht_D%C3%BCrer%2C_Adam_and_Eve%2C_1504%2C_Engraving.jpg', caption: 'Albrecht Dürer, Adam and Eve, 1504, Engraving' },
@@ -3680,6 +3811,7 @@ export const moments: Moment[] = [
     year: 1506,
     date: '1506',
     address: 'Chiesa di San Bartolomeo di Rialto, Venice, Italy',
+    entityIds: ['albrecht-durer'],
     wikiSection: 'Second_journey_to_Italy_(1505–1507)',
   },
   {
@@ -3698,6 +3830,7 @@ export const moments: Moment[] = [
     year: 1794,
     date: '1794',
     address: 'Weimar, Thuringia, Germany',
+    entityIds: ['johann-wolfgang-von-goethe'],
     wikiSection: 'Early_years_in_Weimar',
   },
   {
@@ -3716,6 +3849,7 @@ export const moments: Moment[] = [
     year: -407,
     date: 'c. 407 BC',
     address: 'Athens, Greece',
+    entityIds: ['socrates', 'plato'],
     wikiSection: 'Socrates',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/%CE%A0%CE%BB%CE%AC%CF%84%CF%89%CE%BD%CE%B1%CF%82%2C_%CE%91%CE%BA%CE%B1%CE%B4%CE%B7%CE%BC%CE%AF%CE%B1_%CE%91%CE%B8%CE%B7%CE%BD%CF%8E%CE%BD_6619.JPG/960px-%CE%A0%CE%BB%CE%AC%CF%84%CF%89%CE%BD%CE%B1%CF%82%2C_%CE%91%CE%BA%CE%B1%CE%B4%CE%B7%CE%BC%CE%AF%CE%B1_%CE%91%CE%B8%CE%B7%CE%BD%CF%8E%CE%BD_6619.JPG', caption: 'Πλάτωνας, Ακαδημία Αθηνών 6619' },
@@ -3755,6 +3889,7 @@ export const moments: Moment[] = [
     year: 1451,
     date: 'between 25 August and 31 October 1451',
     address: 'Genoa, Republic of Genoa (modern-day Liguria, Italy)',
+    entityIds: ['christopher-columbus'],
     wikiSection: 'Early_life',
   },
   {
@@ -3773,6 +3908,7 @@ export const moments: Moment[] = [
     year: 1500,
     date: 'August 1500',
     address: 'Santo Domingo, Hispaniola (modern-day Dominican Republic)',
+    entityIds: ['christopher-columbus'],
     wikiSection: 'Third_voyage_and_arrest',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Dominican_Republic%2C_Santo_Domingo%2C_Columbus_Lighthouse.jpg/960px-Dominican_Republic%2C_Santo_Domingo%2C_Columbus_Lighthouse.jpg', caption: 'Dominican Republic, Santo Domingo, Columbus Lighthouse' },
@@ -3794,6 +3930,7 @@ export const moments: Moment[] = [
     year: 742,
     date: '742 CE',
     address: '',
+    entityIds: ['li-bai'],
     wikiSection: 'At_Chang\'an',
   },
   {
@@ -3812,6 +3949,7 @@ export const moments: Moment[] = [
     year: 1983,
     date: 'March 25, 1983',
     address: '300 E Green St, Pasadena, CA 91101',
+    entityIds: ['michael-jackson'],
     wikiSection: 'Thriller,_Motown_25:_Yesterday,_Today,_Forever_and_Pepsi_incident_(1981–1984)',
   },
   {
@@ -3830,6 +3968,7 @@ export const moments: Moment[] = [
     year: 1536,
     date: 'February 1536',
     address: '',
+    entityIds: ['jacques-cartier'],
     wikiSection: 'Second_voyage_(1535–1536)',
   },
   {
@@ -3848,6 +3987,7 @@ export const moments: Moment[] = [
     year: -551,
     date: 'c. September 28, 551 BCE',
     address: 'Qufu, Shandong Province, China',
+    entityIds: ['confucius'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Confucius_Portrait%2C_Kongzi_%28Confucius%29_Family_Mansion%2C_Qufu_%2813044361055%29.jpg/960px-Confucius_Portrait%2C_Kongzi_%28Confucius%29_Family_Mansion%2C_Qufu_%2813044361055%29.jpg', caption: 'Confucius Portrait, Kongzi (Confucius) Family Mansion, Qufu (13044361055)' },
@@ -3900,6 +4040,7 @@ export const moments: Moment[] = [
     year: 1907,
     date: '1907',
     address: 'Bateau-Lavoir, 13 Place Émile-Goudeau, Paris 75018, France',
+    entityIds: ['pablo-picasso'],
     wikiSection: 'African_art_and_primitivism:_1907–1909',
   },
   {
@@ -3976,6 +4117,7 @@ export const moments: Moment[] = [
     year: 1023,
     date: 'c. 1023–1037 CE',
     address: 'Isfahan, Iran',
+    entityIds: ['avicenna'],
     wikiSection: 'In_Isfahan',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Avicenna%2C_Canon%2C_Isfahan%2C_1632_Wellcome_L0022400.jpg/960px-Avicenna%2C_Canon%2C_Isfahan%2C_1632_Wellcome_L0022400.jpg', caption: 'Avicenna, Canon, Isfahan, 1632 Wellcome L0022400' },
@@ -3999,6 +4141,7 @@ export const moments: Moment[] = [
     year: -501,
     date: '501 BCE',
     address: 'Qufu, Shandong Province, China',
+    entityIds: ['confucius'],
     wikiSection: 'Political_career',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Confucius_Portrait%2C_Kongzi_%28Confucius%29_Family_Mansion%2C_Qufu_%2813044361055%29.jpg/960px-Confucius_Portrait%2C_Kongzi_%28Confucius%29_Family_Mansion%2C_Qufu_%2813044361055%29.jpg', caption: 'Confucius Portrait, Kongzi (Confucius) Family Mansion, Qufu (13044361055)' },
@@ -4036,6 +4179,7 @@ export const moments: Moment[] = [
     year: 1990,
     date: 'February 1990',
     address: '1585 Massachusetts Ave, Cambridge, MA 02138',
+    entityIds: ['barack-obama'],
     wikiSection: 'Community_organizer_and_Harvard_Law_School',
   },
   {
@@ -4123,6 +4267,7 @@ export const moments: Moment[] = [
     year: 1274,
     date: '7 March 1274',
     address: 'Abbazia di Fossanova, Priverno, Lazio, Italy',
+    entityIds: ['thomas-aquinas'],
     wikiSection: 'Biography',
   },
   {
@@ -4141,6 +4286,7 @@ export const moments: Moment[] = [
     year: -440,
     date: 'c. 440 BC',
     address: 'Asklepion, Kos, Dodecanese, Greece',
+    entityIds: ['hippocrates'],
     wikiSection: 'Biography',
   },
   {
@@ -4159,6 +4305,7 @@ export const moments: Moment[] = [
     year: -410,
     date: 'c. 410 BC',
     address: 'Thrace, Greece',
+    entityIds: ['hippocrates'],
     wikiSection: 'Biography',
   },
   {
@@ -4193,7 +4340,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1916,
     address: 'Columbus, NM',
-    entityIds: ['pancho-villa', 'john-pershing'],
+    entityIds: ['pancho-villa', 'john-pershing', 'christopher-columbus'],
   },
   {
     id: 'angel-gabriel-foretells-johns-birth-in-jerusalem-temple',
@@ -4298,6 +4445,7 @@ export const moments: Moment[] = [
     year: 1405,
     date: '17 February 1405',
     address: 'Otrar, South Kazakhstan Region, Kazakhstan',
+    entityIds: ['timur'],
     wikiSection: 'Death',
   },
   {
@@ -4316,6 +4464,7 @@ export const moments: Moment[] = [
     year: -25,
     date: 'c. 25 BC',
     address: 'Rome, Italy',
+    entityIds: ['ovid'],
     wikiSection: 'Literary_success',
   },
   {
@@ -4334,6 +4483,7 @@ export const moments: Moment[] = [
     year: -385,
     date: 'c. 385 BC',
     address: 'Syracuse, Sicily, Italy',
+    entityIds: ['plato'],
     wikiSection: 'First_trip_to_Syracuse',
   },
   {
@@ -4369,6 +4519,7 @@ export const moments: Moment[] = [
     year: 1723,
     date: '1723',
     address: 'Philadelphia, Pennsylvania',
+    entityIds: ['benjamin-franklin'],
     wikiSection: 'Moves_to_Philadelphia_and_London',
   },
   {
@@ -4387,6 +4538,7 @@ export const moments: Moment[] = [
     year: 1869,
     date: '1869',
     address: 'University of Basel, Basel, Switzerland',
+    entityIds: ['friedrich-nietzsche'],
     wikiSection: 'Professor_at_Basel_(1869–1879)',
   },
   {
@@ -4405,6 +4557,7 @@ export const moments: Moment[] = [
     year: 1440,
     date: 'c. 1440',
     address: 'Strasbourg, France (then Holy Roman Empire)',
+    entityIds: ['johannes-gutenberg'],
     wikiSection: 'Printing_press',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Strasbourg_place_gutenberg.jpg/960px-Strasbourg_place_gutenberg.jpg', caption: 'Strasbourg place gutenberg' },
@@ -4428,6 +4581,7 @@ export const moments: Moment[] = [
     year: 1504,
     date: '1504',
     address: 'Galleria dell\'Accademia, Via Ricasoli 58-60, Florence',
+    entityIds: ['king-david', 'michelangelo'],
     wikiSection: 'Florence,_1499–1505',
   },
   {
@@ -4464,6 +4618,7 @@ export const moments: Moment[] = [
     year: 1494,
     date: 'August 1, 1494',
     address: 'Perugia, Umbria, Italy',
+    entityIds: ['raphael'],
     wikiSection: 'Early_life_and_work',
   },
   {
@@ -4482,6 +4637,7 @@ export const moments: Moment[] = [
     year: 9,
     date: 'AD 9–16',
     address: 'Constanța, Romania',
+    entityIds: ['ovid'],
     wikiSection: 'Exile_to_Tomis',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/The_pedestal_of_the_Statue_to_Ovid_%28Constan%C8%9Ba%2C_Romania%29.jpg/960px-The_pedestal_of_the_Statue_to_Ovid_%28Constan%C8%9Ba%2C_Romania%29.jpg', caption: 'The pedestal of the Statue to Ovid (Constanța, Romania)' },
@@ -4505,6 +4661,7 @@ export const moments: Moment[] = [
     year: 1187,
     date: '4 July 1187',
     address: 'Horns of Hattin, Galilee, Israel',
+    entityIds: ['saladin'],
     wikiSection: 'Battle_of_Hattin',
   },
   {
@@ -4523,6 +4680,7 @@ export const moments: Moment[] = [
     year: 1465,
     date: '18 January 1465',
     address: 'Mainz, Germany',
+    entityIds: ['johannes-gutenberg'],
     wikiSection: 'Later_life',
   },
   {
@@ -4557,6 +4715,7 @@ export const moments: Moment[] = [
     year: 1400,
     date: 'c. 1400',
     address: 'Mainz, Germany',
+    entityIds: ['johannes-gutenberg'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Johannes_Gutenberg-Universit%C3%A4t_Mainz_logo.svg/960px-Johannes_Gutenberg-Universit%C3%A4t_Mainz_logo.svg.png', caption: 'Johannes Gutenberg-Universität Mainz logo' },
@@ -4580,6 +4739,7 @@ export const moments: Moment[] = [
     year: 622,
     date: 'September 622 CE',
     address: 'Medina (Yathrib), Hejaz, Saudi Arabia',
+    entityIds: ['muhammad'],
     wikiSection: 'Hijra',
   },
   {
@@ -4615,6 +4775,7 @@ export const moments: Moment[] = [
     year: -432,
     date: 'c. 432 BC',
     address: 'Potidaea, Chalcidice, Greece',
+    entityIds: ['socrates'],
     wikiSection: 'Biography',
   },
   {
@@ -4699,6 +4860,7 @@ export const moments: Moment[] = [
     year: 570,
     date: 'c. 570 CE',
     address: 'Mecca, Hejaz (modern-day Saudi Arabia)',
+    entityIds: ['muhammad'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Edited_Khalili_Collection_Hajj_and_Arts_of_Pilgrimage_arc.pp_0211.02-Photo_of_Mecca_by_Muhammad_Sadiq_Bey_ca.1880-ccbysa3.0.png/960px-Edited_Khalili_Collection_Hajj_and_Arts_of_Pilgrimage_arc.pp_0211.02-Photo_of_Mecca_by_Muhammad_Sadiq_Bey_ca.1880-ccbysa3.0.png', caption: 'Edited Khalili Collection Hajj and Arts of Pilgrimage arc.pp 0211.02-Photo of Mecca by Muhammad Sadiq Bey ca.1880-ccbysa3.0' },
@@ -4720,6 +4882,7 @@ export const moments: Moment[] = [
     year: 1137,
     date: 'c. 1137',
     address: 'Tikrit, Salah ad-Din Governorate, Iraq',
+    entityIds: ['saladin'],
     wikiSection: 'Early_life',
   },
   {
@@ -4738,6 +4901,7 @@ export const moments: Moment[] = [
     year: 1174,
     date: '1174',
     address: 'Damascus, Syria',
+    entityIds: ['saladin'],
     wikiSection: 'Early_expeditions',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Statue_of_Saladin_Damascus.jpg', caption: 'Statue of Saladin Damascus' },
@@ -4761,6 +4925,7 @@ export const moments: Moment[] = [
     year: 629,
     date: 'December 629 CE (Ramadan, 8 AH)',
     address: 'Mecca, Hejaz (modern-day Saudi Arabia)',
+    entityIds: ['muhammad'],
     wikiSection: 'Conquest_of_Mecca',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Edited_Khalili_Collection_Hajj_and_Arts_of_Pilgrimage_arc.pp_0211.02-Photo_of_Mecca_by_Muhammad_Sadiq_Bey_ca.1880-ccbysa3.0.png/960px-Edited_Khalili_Collection_Hajj_and_Arts_of_Pilgrimage_arc.pp_0211.02-Photo_of_Mecca_by_Muhammad_Sadiq_Bey_ca.1880-ccbysa3.0.png', caption: 'Edited Khalili Collection Hajj and Arts of Pilgrimage arc.pp 0211.02-Photo of Mecca by Muhammad Sadiq Bey ca.1880-ccbysa3.0' },
@@ -4798,6 +4963,7 @@ export const moments: Moment[] = [
     year: 1869,
     date: '2 October 1869',
     address: 'Kirti Mandir, Porbandar, Gujarat, India',
+    entityIds: ['mahatma-gandhi'],
     wikiSection: 'Early_life_and_background',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Kirti_Mandir_Porbandar.jpg/960px-Kirti_Mandir_Porbandar.jpg', caption: 'Kirti Mandir Porbandar' },
@@ -4821,6 +4987,7 @@ export const moments: Moment[] = [
     year: 41,
     date: '24 January AD 41',
     address: 'Palatine Hill, Rome, Italy',
+    entityIds: ['caligula'],
     wikiSection: 'Assassination',
   },
   {
@@ -4839,6 +5006,7 @@ export const moments: Moment[] = [
     year: 632,
     date: 'March 632 CE (9 Dhu al-Hijja, 10 AH)',
     address: 'Mount Arafat, near Mecca, Saudi Arabia',
+    entityIds: ['muhammad'],
     wikiSection: 'Farewell_Pilgrimage',
   },
   {
@@ -4857,6 +5025,7 @@ export const moments: Moment[] = [
     year: 610,
     date: 'c. 610 CE, during Ramadan',
     address: 'Cave of Hira, Jabal al-Nour, Mecca, Saudi Arabia',
+    entityIds: ['muhammad'],
     wikiSection: 'First_revelation',
   },
   {
@@ -4908,6 +5077,7 @@ export const moments: Moment[] = [
     year: 1325,
     date: 'June 14, 1325',
     address: '',
+    entityIds: ['ibn-battuta'],
     wikiSection: 'First_pilgrimage',
   },
   {
@@ -4926,6 +5096,7 @@ export const moments: Moment[] = [
     year: 1973,
     date: '8 April 1973',
     address: 'Notre-Dame-de-Vie, Mougins, Alpes-Maritimes, France',
+    entityIds: ['pablo-picasso'],
     wikiSection: 'Death',
   },
   {
@@ -4944,6 +5115,7 @@ export const moments: Moment[] = [
     year: 1912,
     date: 'April 22, 1912',
     address: 'Saint Petersburg, Russian Empire',
+    entityIds: ['joseph-stalin'],
     wikiSection: '1912–1917:_Rise_to_the_Central_Committee_and_Pravda',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Great_Purge_Stalin_Voroshilov_Kaganovich_Zhdanov_Molotov.jpg', caption: 'Great Purge Stalin Voroshilov Kaganovich Zhdanov Molotov' },
@@ -4967,6 +5139,7 @@ export const moments: Moment[] = [
     year: 1169,
     date: '1169',
     address: 'Cairo, Egypt',
+    entityIds: ['saladin'],
     wikiSection: 'Vizier_of_Egypt',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flickr_-_HuTect_ShOts_-_Citadel_of_Salah_El.Din_and_Masjid_Muhammad_Ali_%D9%82%D9%84%D8%B9%D8%A9_%D8%B5%D9%84%D8%A7%D8%AD_%D8%A7%D9%84%D8%AF%D9%8A%D9%86_%D8%A7%D9%84%D8%A3%D9%8A%D9%88%D8%A8%D9%8A_%D9%88%D9%85%D8%B3%D8%AC%D8%AF_%D9%85%D8%AD%D9%85%D8%AF_%D8%B9%D9%84%D9%8A_-_Cairo_-_Egypt_-_17_04_2010_%284%29.jpg/960px-thumbnail.jpg', caption: 'Flickr - HuTect ShOts - Citadel of Salah El.Din and Masjid Muhammad Ali قلعة صلاح الدين الأيوبي ومسجد محمد علي - Cairo - Egypt - 17 04 2010 (4)' },
@@ -4990,6 +5163,7 @@ export const moments: Moment[] = [
     year: 1926,
     date: 'c. 1926 (first displayed at Egyptian Museum)',
     address: 'Egyptian Museum, Tahrir Square, Cairo, Egypt',
+    entityIds: ['tutankhamun'],
     wikiSection: 'Discovery_of_the_tomb',
   },
   {
@@ -5044,6 +5218,7 @@ export const moments: Moment[] = [
     year: 1475,
     date: '6 March 1475',
     address: 'Caprese Michelangelo, Arezzo, Tuscany',
+    entityIds: ['michelangelo'],
     wikiSection: 'Early_life,_1475–1488',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/I-Caprese-Michelangelo-1.jpg/960px-I-Caprese-Michelangelo-1.jpg', caption: 'I-Caprese-Michelangelo-1' },
@@ -5065,6 +5240,7 @@ export const moments: Moment[] = [
     year: -63,
     date: '23 September 63 BC',
     address: 'Palatine Hill, Rome',
+    entityIds: ['augustus'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Palatine_Hill_from_Circus_Maximus_Rome.jpg/960px-Palatine_Hill_from_Circus_Maximus_Rome.jpg', caption: 'Palatine Hill from Circus Maximus Rome' },
@@ -5086,6 +5262,7 @@ export const moments: Moment[] = [
     year: 12,
     date: '31 August AD 12',
     address: 'Anzio, Lazio, Italy',
+    entityIds: ['caligula'],
     wikiSection: 'Early_life',
   },
   {
@@ -5104,6 +5281,7 @@ export const moments: Moment[] = [
     year: -1329,
     date: 'c. 1329 BC',
     address: 'Karnak Temple Complex, Luxor, Egypt',
+    entityIds: ['tutankhamun'],
     wikiSection: 'Religiopolitical_countermand',
   },
   {
@@ -5122,6 +5300,7 @@ export const moments: Moment[] = [
     year: -27,
     date: '16 January 27 BC',
     address: 'Curia Julia, Roman Forum, Rome',
+    entityIds: ['augustus'],
     wikiSection: 'Establishment_of_the_Principate',
   },
   {
@@ -5140,6 +5319,7 @@ export const moments: Moment[] = [
     year: 1187,
     date: '2 October 1187',
     address: 'Jerusalem',
+    entityIds: ['saladin'],
     wikiSection: 'Conquest_of_Jerusalem',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Battle_of_Arsouf_-_Saladin_and_the_fall_of_the_Kingdom_of_Jerusalem_%281898%29_%2814597894049%29.jpg/960px-Battle_of_Arsouf_-_Saladin_and_the_fall_of_the_Kingdom_of_Jerusalem_%281898%29_%2814597894049%29.jpg', caption: 'Battle of Arsouf - Saladin and the fall of the Kingdom of Jerusalem (1898) (14597894049)' },
@@ -5163,6 +5343,7 @@ export const moments: Moment[] = [
     year: 1499,
     date: '1499',
     address: 'St. Peter\'s Basilica, Vatican City',
+    entityIds: ['michelangelo'],
     wikiSection: 'Bologna,_Florence,_and_Rome,_1492–1499',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Dome_of_Saint_Peter%27s_Basilica_%28exterior%29.jpg/960px-Dome_of_Saint_Peter%27s_Basilica_%28exterior%29.jpg', caption: 'Dome of Saint Peter\'s Basilica (exterior)' },
@@ -5218,6 +5399,7 @@ export const moments: Moment[] = [
     year: 37,
     date: '16 March AD 37',
     address: 'Misenum (modern Miseno), Campania, Italy',
+    entityIds: ['caligula', 'charles-v-holy-roman-emperor'],
     wikiSection: 'Early_reign',
   },
   {
@@ -5236,6 +5418,7 @@ export const moments: Moment[] = [
     year: -931,
     date: 'c. 931 BCE',
     address: 'Jerusalem, Israel',
+    entityIds: ['solomon'],
     wikiSection: 'Chronology',
   },
   {
@@ -5254,6 +5437,7 @@ export const moments: Moment[] = [
     year: -950,
     date: 'c. 950 BCE',
     address: 'Jerusalem, Israel',
+    entityIds: ['solomon'],
     wikiSection: 'Relationship_with_Queen_of_Sheba',
   },
   {
@@ -5316,6 +5500,7 @@ export const moments: Moment[] = [
     year: -957,
     date: 'c. 957 BCE',
     address: 'Temple Mount, Jerusalem',
+    entityIds: ['solomon'],
     wikiSection: 'Construction_projects',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/ISR-2013-Jerusalem-Temple_Mount-Dome_of_Solomon.jpg/960px-ISR-2013-Jerusalem-Temple_Mount-Dome_of_Solomon.jpg', caption: 'ISR-2013-Jerusalem-Temple Mount-Dome of Solomon' },
@@ -5390,6 +5575,7 @@ export const moments: Moment[] = [
     year: 14,
     date: '19 August AD 14',
     address: 'Nola, Campania, Italy',
+    entityIds: ['augustus'],
     wikiSection: 'Death_and_succession',
   },
   {
@@ -5431,6 +5617,7 @@ export const moments: Moment[] = [
     year: 1948,
     date: '30 January 1948',
     address: 'Gandhi Smriti (Birla House), 5 Tees January Marg, New Delhi 110011, India',
+    entityIds: ['mahatma-gandhi'],
     wikiSection: 'Assassination',
   },
   {
@@ -5499,6 +5686,7 @@ export const moments: Moment[] = [
     year: -1011,
     date: 'c. 1011 BCE',
     address: 'Jerusalem',
+    entityIds: ['solomon'],
     wikiSection: 'Childhood',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Looking_east_from_Mt_Jerusalem_-_Walls_of_Jerusalem.jpg/960px-Looking_east_from_Mt_Jerusalem_-_Walls_of_Jerusalem.jpg', caption: 'Looking east from Mt Jerusalem - Walls of Jerusalem' },
@@ -5522,6 +5710,7 @@ export const moments: Moment[] = [
     year: -960,
     date: 'c. 960 BCE',
     address: 'Jerusalem, Israel',
+    entityIds: ['solomon'],
     wikiSection: 'Wisdom',
   },
   {
@@ -5540,6 +5729,7 @@ export const moments: Moment[] = [
     year: -31,
     date: '2 September 31 BC',
     address: 'Actium, Epirus (modern Preveza, Greece)',
+    entityIds: ['augustus'],
     wikiSection: 'Battle_of_Actium',
   },
   {
@@ -5574,6 +5764,7 @@ export const moments: Moment[] = [
     year: 1889,
     date: '16 April 1889',
     address: 'East Street, Walworth, London SE17',
+    entityIds: ['charlie-chaplin'],
     wikiSection: 'Background_and_childhood_hardship',
   },
   {
@@ -5640,6 +5831,7 @@ export const moments: Moment[] = [
     year: 1455,
     date: 'November 1455',
     address: 'Mainz, Germany (Archbishop\'s Court)',
+    entityIds: ['johannes-gutenberg'],
     wikiSection: 'Court_case',
   },
   {
@@ -5658,6 +5850,7 @@ export const moments: Moment[] = [
     year: 1952,
     date: 'September 1952',
     address: 'New York Harbor, New York',
+    entityIds: ['charlie-chaplin'],
     wikiSection: 'Exile_from_the_United_States',
   },
   {
@@ -5676,6 +5869,7 @@ export const moments: Moment[] = [
     year: -1341,
     date: 'c. 1341 BC',
     address: 'Amarna (ancient Akhetaten), Egypt',
+    entityIds: ['tutankhamun'],
     wikiSection: 'Family',
   },
   {
@@ -5762,6 +5956,7 @@ export const moments: Moment[] = [
     year: -970,
     date: 'c. 970 BCE',
     address: 'Gibeon (modern el-Jib), West Bank',
+    entityIds: ['solomon'],
     wikiSection: 'Wisdom',
   },
   {
@@ -5780,6 +5975,7 @@ export const moments: Moment[] = [
     year: 1398,
     date: 'December 1398',
     address: 'Delhi, India',
+    entityIds: ['timur'],
     wikiSection: 'Period_of_expansion',
   },
   {
@@ -5798,6 +5994,7 @@ export const moments: Moment[] = [
     year: 1914,
     date: 'January 1914',
     address: 'Keystone Studios, Edendale, Los Angeles, California',
+    entityIds: ['charlie-chaplin'],
     wikiSection: 'Keystone',
   },
   {
@@ -5832,6 +6029,7 @@ export const moments: Moment[] = [
     year: 1977,
     date: '25 December 1977',
     address: 'Manoir de Ban, Corsier-sur-Vevey, Switzerland',
+    entityIds: ['charlie-chaplin'],
     wikiSection: 'Death',
   },
   {
@@ -5850,6 +6048,7 @@ export const moments: Moment[] = [
     year: 1940,
     date: '15 October 1940',
     address: 'New York City, New York',
+    entityIds: ['constantine-the-great', 'charlie-chaplin'],
     wikiSection: 'The_Great_Dictator',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Fairbanks_and_Chaplin%2C_Wall_Street_Rally%2C_New_York_Times%2C_1918.JPG', caption: 'Fairbanks and Chaplin, Wall Street Rally, New York Times, 1918' },
@@ -5873,6 +6072,7 @@ export const moments: Moment[] = [
     year: 1923,
     date: '1923',
     address: 'Kansas City, Missouri',
+    entityIds: ['walt-disney'],
     wikiSection: '1919–1928:_Early_career',
   },
   {
@@ -5891,6 +6091,7 @@ export const moments: Moment[] = [
     year: 14,
     date: 'c. AD 14–15',
     address: 'Rhine Frontier, Germania (modern Westphalia, Germany)',
+    entityIds: ['caligula'],
     wikiSection: 'Early_life',
   },
   {
@@ -5931,6 +6132,7 @@ export const moments: Moment[] = [
     year: 1844,
     date: 'October 15, 1844',
     address: 'Rocken, Saxony, Prussia',
+    entityIds: ['friedrich-nietzsche'],
     wikiSection: 'Youth_(1844–1868)',
   },
   {
@@ -5949,6 +6151,7 @@ export const moments: Moment[] = [
     year: -1792,
     date: 'c. 1792 BC',
     address: '',
+    entityIds: ['hammurabi'],
     wikiSection: 'Background_and_ascension',
   },
   {
@@ -5967,6 +6170,7 @@ export const moments: Moment[] = [
     year: 762,
     date: '762 CE',
     address: '',
+    entityIds: ['li-bai'],
     wikiSection: '',
   },
   {
@@ -6035,6 +6239,7 @@ export const moments: Moment[] = [
     year: 1906,
     date: '11 September 1906',
     address: 'Johannesburg, Gauteng, South Africa',
+    entityIds: ['mahatma-gandhi'],
     wikiSection: 'South_Africa_(1893–1914)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Gandhi_House.jpg/960px-Gandhi_House.jpg', caption: 'Gandhi House' },
@@ -6058,6 +6263,7 @@ export const moments: Moment[] = [
     year: 1907,
     date: 'June 26, 1907',
     address: 'Erivansky Square (now Freedom Square), Tiflis, Russian Empire (modern Tbilisi, Georgia)',
+    entityIds: ['joseph-stalin'],
     wikiSection: '1905–1912:_Revolution_of_1905_and_aftermath',
   },
   {
@@ -6092,6 +6298,7 @@ export const moments: Moment[] = [
     year: 1802,
     date: 'October 1802',
     address: 'Heiligenstadt, Vienna (19th district), Austria',
+    entityIds: ['beethoven'],
     wikiSection: 'Heiligenstadt_Testament',
   },
   {
@@ -6127,6 +6334,7 @@ export const moments: Moment[] = [
     year: 31,
     date: 'AD 31',
     address: 'Villa Jovis, Capri, Italy',
+    entityIds: ['caligula', 'tiberius'],
     wikiSection: 'Capri',
   },
   {
@@ -6145,6 +6353,7 @@ export const moments: Moment[] = [
     year: 1918,
     date: '30 August 1918',
     address: 'Hammer and Sickle Factory (Serp i Molot), Lefortovo, Moscow, Russia',
+    entityIds: ['vladimir-lenin'],
     wikiSection: 'Assassination_attempt',
   },
   {
@@ -6181,6 +6390,7 @@ export const moments: Moment[] = [
     year: 1905,
     date: '1905',
     address: '27 rue de Fleurus, Paris 75006, France',
+    entityIds: ['pablo-picasso'],
     wikiSection: 'Rose_Period:_1904–1906',
   },
   {
@@ -6199,6 +6409,7 @@ export const moments: Moment[] = [
     year: 1870,
     date: '22 April 1870',
     address: 'Streletskaya Ulitsa, Simbirsk (now Ulyanovsk), Russia',
+    entityIds: ['vladimir-lenin'],
     wikiSection: 'Childhood:_1870–1887',
   },
   {
@@ -6284,6 +6495,7 @@ export const moments: Moment[] = [
     year: 1924,
     date: '21 January 1924',
     address: 'Gorki Leninskiye estate, Moscow Oblast, Russia',
+    entityIds: ['vladimir-lenin'],
     wikiSection: 'Death_and_funeral',
   },
   {
@@ -6320,6 +6532,7 @@ export const moments: Moment[] = [
     year: 1919,
     date: '5 February 1919',
     address: 'Los Angeles, California',
+    entityIds: ['charlie-chaplin'],
     wikiSection: '1919–1923:_United_Artists_and_The_Kid',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/The_Jim_Henson_Company_Lot_-_Charlie_Chaplin_Studio_plaque_%28July_2023%29.jpg/960px-The_Jim_Henson_Company_Lot_-_Charlie_Chaplin_Studio_plaque_%28July_2023%29.jpg', caption: 'The Jim Henson Company Lot - Charlie Chaplin Studio plaque (July 2023)' },
@@ -6343,6 +6556,7 @@ export const moments: Moment[] = [
     year: 1967,
     date: 'August 1967',
     address: '253 W 125th St, New York, NY 10027',
+    entityIds: ['michael-jackson'],
     wikiSection: 'Early_life_and_the_Jackson_5_(1958–1975)',
   },
   {
@@ -6400,6 +6614,7 @@ export const moments: Moment[] = [
     year: 1942,
     date: '8 August 1942',
     address: 'August Kranti Maidan (Gowalia Tank), Mumbai, Maharashtra, India',
+    entityIds: ['mahatma-gandhi'],
     wikiSection: 'Quit_India_Movement_(1942)',
   },
   {
@@ -6418,6 +6633,7 @@ export const moments: Moment[] = [
     year: 1804,
     date: '12 February 1804',
     address: 'Königsberg Cathedral, Königsberg (now Kaliningrad, Russia)',
+    entityIds: ['immanuel-kant'],
     wikiSection: 'Death',
   },
   {
@@ -6436,6 +6652,7 @@ export const moments: Moment[] = [
     year: -460,
     date: 'c. 460 BC',
     address: 'Kos, Dodecanese, Greece',
+    entityIds: ['hippocrates'],
     wikiSection: 'Biography',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Hiking_in_Kos.jpg/960px-Hiking_in_Kos.jpg', caption: 'Hiking in Kos' },
@@ -6475,6 +6692,7 @@ export const moments: Moment[] = [
     year: -400,
     date: 'c. 400 BC',
     address: 'Kos, Dodecanese, Greece',
+    entityIds: ['hippocrates'],
     wikiSection: 'Professionalism',
   },
   {
@@ -6525,6 +6743,7 @@ export const moments: Moment[] = [
     year: 1878,
     date: 'December 18, 1878',
     address: 'Gori, Tiflis Governorate, Russian Empire (modern Georgia)',
+    entityIds: ['joseph-stalin'],
     wikiSection: 'Early_life',
   },
   {
@@ -6543,6 +6762,7 @@ export const moments: Moment[] = [
     year: 1891,
     date: '10 June 1891',
     address: 'Inner Temple, Temple, London EC4Y 7HL, UK',
+    entityIds: ['mahatma-gandhi'],
     wikiSection: 'Three_years_in_London',
   },
   {
@@ -6561,6 +6781,7 @@ export const moments: Moment[] = [
     year: 1596,
     date: '31 March 1596',
     address: 'La Haye en Touraine (now Descartes), Indre-et-Loire, France',
+    entityIds: ['rene-descartes'],
     wikiSection: 'Early_life',
   },
   {
@@ -6627,6 +6848,7 @@ export const moments: Moment[] = [
     year: -370,
     date: 'c. 370 BC',
     address: 'Larissa, Thessaly, Greece',
+    entityIds: ['hippocrates'],
     wikiSection: 'Biography',
   },
   {
@@ -6645,6 +6867,7 @@ export const moments: Moment[] = [
     year: 1468,
     date: '3 February 1468',
     address: 'Mainz, Germany (Franciscan Church, destroyed)',
+    entityIds: ['johannes-gutenberg'],
     wikiSection: 'Later_life',
   },
   {
@@ -6715,6 +6938,7 @@ export const moments: Moment[] = [
     year: 1781,
     date: '1781',
     address: 'Königsberg, East Prussia (now Kaliningrad, Russia)',
+    entityIds: ['immanuel-kant'],
     wikiSection: 'Publication_of_the_Critique_of_Pure_Reason',
   },
   {
@@ -6751,6 +6975,7 @@ export const moments: Moment[] = [
     year: 1778,
     date: '30 May 1778',
     address: 'Panthéon, Place du Panthéon, Paris, France',
+    entityIds: ['voltaire'],
     wikiSection: 'Death',
   },
   {
@@ -6769,7 +6994,7 @@ export const moments: Moment[] = [
     year: 1806,
     date: 'January 9, 1806',
     address: 'St. Paul\'s Cathedral, London, England',
-    entityIds: ['horatio-nelson'],
+    entityIds: ['willie-nelson', 'horatio-nelson'],
   },
   {
     id: 'victoria-crowned',
@@ -6787,6 +7012,7 @@ export const moments: Moment[] = [
     year: 1838,
     date: 'June 28, 1838',
     address: 'Westminster Abbey, London, England',
+    entityIds: ['queen-victoria'],
   },
   {
     id: 'masada-fortress',
@@ -6820,6 +7046,7 @@ export const moments: Moment[] = [
     year: 1931,
     date: 'August 1931',
     address: 'Montparnasse, Paris, France',
+    entityIds: ['salvador-dali'],
     wikiSection: '1929_to_World_War_II',
   },
   {
@@ -6838,6 +7065,7 @@ export const moments: Moment[] = [
     year: 1193,
     date: '4 March 1193',
     address: 'Mausoleum of Saladin, adjacent to Umayyad Mosque, Damascus, Syria',
+    entityIds: ['saladin'],
     wikiSection: 'Death_and_legacy',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Plaque_of_Mausoleum_of_Saladin.jpg/960px-Plaque_of_Mausoleum_of_Saladin.jpg', caption: 'Plaque of Mausoleum of Saladin' },
@@ -6860,6 +7088,7 @@ export const moments: Moment[] = [
     year: 1402,
     date: '20 July 1402',
     address: 'Çubuk Plain, near Ankara, Turkey',
+    entityIds: ['timur'],
     wikiSection: 'Period_of_expansion',
   },
   {
@@ -6895,6 +7124,7 @@ export const moments: Moment[] = [
     year: 8,
     date: 'AD 8',
     address: 'Constanța, Romania',
+    entityIds: ['ovid'],
     wikiSection: 'Exile_to_Tomis',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/ROM_1957_MiNr1669_mt_B002.jpg/960px-ROM_1957_MiNr1669_mt_B002.jpg', caption: 'ROM 1957 MiNr1669 mt B002' },
@@ -6918,6 +7148,7 @@ export const moments: Moment[] = [
     year: 644,
     date: '3 November 644',
     address: 'Al-Masjid an-Nabawi, Medina',
+    entityIds: ['umar'],
     wikiSection: 'Umar',
   },
   {
@@ -6936,6 +7167,7 @@ export const moments: Moment[] = [
     year: 1256,
     date: 'Early 1256',
     address: 'University of Paris, Île de la Cité, Paris, France',
+    entityIds: ['thomas-aquinas'],
     wikiSection: 'Paris,_Cologne,_Albert_Magnus,_and_first_Paris_regency_(1245–1259)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/International_university_lectures.jpg/960px-International_university_lectures.jpg', caption: 'International university lectures' },
@@ -6976,6 +7208,7 @@ export const moments: Moment[] = [
     year: 1528,
     date: '6 April 1528',
     address: 'Johannisfriedhof, Nuremberg, Bavaria',
+    entityIds: ['albrecht-durer'],
     wikiSection: 'Biography',
   },
   {
@@ -7011,6 +7244,7 @@ export const moments: Moment[] = [
     year: 8,
     date: 'c. AD 8',
     address: 'Rome, Italy',
+    entityIds: ['ovid'],
     wikiSection: 'Literary_success',
   },
   {
@@ -7047,6 +7281,7 @@ export const moments: Moment[] = [
     year: 1244,
     date: 'c. 1244',
     address: 'Monte San Giovanni Campano, Frosinone, Lazio, Italy',
+    entityIds: ['thomas-aquinas'],
     wikiSection: 'Early_life_(1225–1244)',
   },
   {
@@ -7065,6 +7300,7 @@ export const moments: Moment[] = [
     year: 1484,
     date: '1484',
     address: 'Albertina, Augustinerstrasse 1, Vienna, Austria',
+    entityIds: ['albrecht-durer'],
     wikiSection: 'Early_life_(1471–1490)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/4/40/D%C3%BCrer%2C_Eva_%28Reinzeichnung%29%2C_Albertina_%283081v%29.jpg', caption: 'Dürer, Eva (Reinzeichnung), Albertina (3081v)' },
@@ -7088,6 +7324,7 @@ export const moments: Moment[] = [
     year: 1037,
     date: '22 June 1037',
     address: 'Avicenna Mausoleum, Hamadan, Iran',
+    entityIds: ['avicenna'],
     wikiSection: 'In_Isfahan',
   },
   {
@@ -7106,6 +7343,7 @@ export const moments: Moment[] = [
     year: -44,
     date: 'September 2, 44 BC',
     address: 'Roman Senate (Temple of Saturn area), Forum Romanum, Rome, Italy',
+    entityIds: ['cicero'],
     wikiSection: 'Philippics',
   },
   {
@@ -7124,6 +7362,7 @@ export const moments: Moment[] = [
     year: 17,
     date: 'AD 17 or 18',
     address: 'Constanța, Romania',
+    entityIds: ['ovid'],
     wikiSection: 'Death',
   },
   {
@@ -7142,6 +7381,7 @@ export const moments: Moment[] = [
     year: 1519,
     date: 'July 1519',
     address: 'Veracruz, Mexico',
+    entityIds: ['hernan-cortes'],
     wikiSection: 'Conquest_of_Aztec_Empire_(1519–1521)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/The_arrival_of_Cort%C3%A9s_in_Veracruz_and_the_reception_by_Moctezuma%27s_Ambassadors.jpg', caption: 'The arrival of Cortés in Veracruz and the reception by Moctezuma\'s Ambassadors' },
@@ -7235,6 +7475,7 @@ export const moments: Moment[] = [
     year: 800,
     date: '25 December 800',
     address: 'St. Peter\'s Basilica, Vatican City, Rome, Italy',
+    entityIds: ['charlemagne', 'charles-v-holy-roman-emperor'],
     wikiSection: 'Imperial_coronation',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Italienischer_Photograph_um_1870_-_Die_Truppen_des_Kirchenstaates_empfangen_auf_dem_Petersplatz_in_Rom_den_Segen_des_Papstes_%28Zeno_Fotografie%29.jpg/960px-Italienischer_Photograph_um_1870_-_Die_Truppen_des_Kirchenstaates_empfangen_auf_dem_Petersplatz_in_Rom_den_Segen_des_Papstes_%28Zeno_Fotografie%29.jpg', caption: 'Italienischer Photograph um 1870 - Die Truppen des Kirchenstaates empfangen auf dem Petersplatz in Rom den Segen des Papstes (Zeno Fotografie)' },
@@ -7256,6 +7497,7 @@ export const moments: Moment[] = [
     year: -480,
     date: '480 BC',
     address: 'Salamis, Greece',
+    entityIds: ['sophocles'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/The_Young_Sophocles_Leading_the_Chorus_of_Victory_after_the_Battle_of_Salamis_MET_27.65.jpg/960px-The_Young_Sophocles_Leading_the_Chorus_of_Victory_after_the_Battle_of_Salamis_MET_27.65.jpg', caption: 'The Young Sophocles Leading the Chorus of Victory after the Battle of Salamis MET 27.65' },
@@ -7277,6 +7519,7 @@ export const moments: Moment[] = [
     year: 2016,
     date: 'November 8, 2016',
     address: 'The White House, 1600 Pennsylvania Avenue NW, Washington, D.C.',
+    entityIds: ['donald-trump'],
     wikiSection: '2016_presidential_campaign_and_election',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/960px-President_Barack_Obama.jpg', caption: 'President Barack Obama' },
@@ -7298,6 +7541,7 @@ export const moments: Moment[] = [
     year: 2021,
     date: 'January 6, 2021',
     address: 'United States Capitol, First Street SE, Washington, D.C.',
+    entityIds: ['donald-trump'],
     wikiSection: 'January_6_Capitol_attack',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Dianne_Feinstein_statement_on_the_2021_United_States_Capitol_protests.png', caption: 'Dianne Feinstein statement on the 2021 United States Capitol protests' },
@@ -7336,6 +7580,7 @@ export const moments: Moment[] = [
     year: -468,
     date: '468 BC',
     address: 'Theatre of Dionysus, Acropolis South Slope, Athens, Greece',
+    entityIds: ['sophocles'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/The_replica_of_the_bronze_statue_of_the_poet_Menander_at_the_entrance_of_the_Theatre_of_Dionysus_in_Athens.jpg/960px-The_replica_of_the_bronze_statue_of_the_poet_Menander_at_the_entrance_of_the_Theatre_of_Dionysus_in_Athens.jpg', caption: 'The replica of the bronze statue of the poet Menander at the entrance of the Theatre of Dionysus in Athens' },
@@ -7357,6 +7602,7 @@ export const moments: Moment[] = [
     year: -497,
     date: 'c. 497 BC',
     address: 'Kolonos, Athens, Greece',
+    entityIds: ['sophocles'],
     wikiSection: 'Life',
   },
   {
@@ -7393,6 +7639,7 @@ export const moments: Moment[] = [
     year: 2024,
     date: 'May 30, 2024',
     address: 'Manhattan Criminal Court, 100 Centre Street, New York, NY 10013',
+    entityIds: ['donald-trump'],
     wikiSection: 'Criminal_and_civil_cases',
   },
   {
@@ -7411,6 +7658,7 @@ export const moments: Moment[] = [
     year: 2009,
     date: 'June 25, 2009',
     address: '100 N Carolwood Dr, Los Angeles, CA 90077',
+    entityIds: ['michael-jackson'],
     wikiSection: 'Death_and_memorial_(2009)',
   },
   {
@@ -7429,6 +7677,7 @@ export const moments: Moment[] = [
     year: 1985,
     date: '1985',
     address: '1100 S Ocean Blvd, Palm Beach, FL 33480',
+    entityIds: ['donald-trump'],
     wikiSection: 'Golf_clubs',
   },
   {
@@ -7447,6 +7696,7 @@ export const moments: Moment[] = [
     year: 1958,
     date: 'August 29, 1958',
     address: '2300 Jackson Street, Gary, Indiana',
+    entityIds: ['michael-jackson'],
     wikiSection: 'Early_life_and_the_Jackson_5_(1958–1975)',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2300_Jackson_Street_Yuksel.jpg/960px-2300_Jackson_Street_Yuksel.jpg', caption: '2300 Jackson Street Yuksel' },
@@ -7486,6 +7736,7 @@ export const moments: Moment[] = [
     year: 1520,
     date: 'April 6, 1520',
     address: 'Pantheon, Piazza della Rotonda, Rome, Italy',
+    entityIds: ['raphael'],
   },
   {
     id: 'thermopylae-last-stand',
@@ -7520,6 +7771,7 @@ export const moments: Moment[] = [
     year: 1886,
     date: 'February 1886',
     address: 'Montmartre, Paris, France',
+    entityIds: ['vincent-van-gogh'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Cimeti%C3%A8re_de_Montmartre_-_Vitrail_de_la_chapelle_Coignet_-2.jpg/960px-Cimeti%C3%A8re_de_Montmartre_-_Vitrail_de_la_chapelle_Coignet_-2.jpg', caption: 'Cimetière de Montmartre - Vitrail de la chapelle Coignet -2' },
@@ -7541,6 +7793,7 @@ export const moments: Moment[] = [
     year: 1890,
     date: '29 July 1890',
     address: 'Auberge Ravoux, Auvers-sur-Oise, France',
+    entityIds: ['vincent-van-gogh'],
     wikiSection: 'Life',
   },
   {
@@ -7577,6 +7830,7 @@ export const moments: Moment[] = [
     year: 1879,
     date: 'January 1879',
     address: 'Petit-Wasmes, Borinage, Belgium',
+    entityIds: ['vincent-van-gogh'],
     wikiSection: 'Early_years',
   },
   {
@@ -7595,6 +7849,7 @@ export const moments: Moment[] = [
     year: 1889,
     date: '8 May 1889',
     address: 'Saint-Paul-de-Mausole, Saint-Rémy-de-Provence, France',
+    entityIds: ['vincent-van-gogh'],
     wikiSection: 'Life',
   },
   {
@@ -7613,6 +7868,7 @@ export const moments: Moment[] = [
     year: 1802,
     date: '26 February 1802',
     address: 'Besançon, Franche-Comté, France',
+    entityIds: ['victor-hugo'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lyc%C3%A9e_Victor_Hugo_-_Besan%C3%A7on_%28FR25%29_-_2022-04-17_-_3.jpg/960px-Lyc%C3%A9e_Victor_Hugo_-_Besan%C3%A7on_%28FR25%29_-_2022-04-17_-_3.jpg', caption: 'Lycée Victor Hugo - Besançon (FR25) - 2022-04-17 - 3' },
@@ -7634,6 +7890,7 @@ export const moments: Moment[] = [
     year: 1853,
     date: '30 March 1853',
     address: 'Zundert, North Brabant, Netherlands',
+    entityIds: ['vincent-van-gogh'],
     wikiSection: 'Early_years',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Protestantse_Kerk_Zundert_predikantenlijst.png/960px-Protestantse_Kerk_Zundert_predikantenlijst.png', caption: 'Protestantse Kerk Zundert predikantenlijst' },
@@ -7655,6 +7912,7 @@ export const moments: Moment[] = [
     year: 1862,
     date: '3 April 1862',
     address: 'Hauteville House, 38 Rue Hauteville, St Peter Port, Guernsey',
+    entityIds: ['victor-hugo'],
     wikiSection: 'Career',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Victor_Hugo_sur_le_balcon_de_Hauteville_House%2C_2277.jpg/960px-Victor_Hugo_sur_le_balcon_de_Hauteville_House%2C_2277.jpg', caption: 'Victor Hugo sur le balcon de Hauteville House, 2277' },
@@ -7694,6 +7952,7 @@ export const moments: Moment[] = [
     year: 1666,
     date: 'September 2–6, 1666',
     address: 'Pudding Lane (Monument), City of London, England',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'freud-interpretation-dreams',
@@ -7729,6 +7988,7 @@ export const moments: Moment[] = [
     year: 1775,
     date: 'November 1775',
     address: 'Frauenplan 1, Weimar, Thuringia, Germany',
+    entityIds: ['johann-wolfgang-von-goethe'],
     wikiSection: 'Early_years_in_Weimar',
   },
   {
@@ -7747,6 +8007,7 @@ export const moments: Moment[] = [
     year: 1808,
     date: '1808',
     address: 'Weimar, Thuringia, Germany',
+    entityIds: ['johann-wolfgang-von-goethe'],
     wikiSection: 'Early_years_in_Weimar',
   },
   {
@@ -7765,6 +8026,7 @@ export const moments: Moment[] = [
     year: 1856,
     date: '1856–1870',
     address: 'Hauteville House, 38 Rue Hauteville, St Peter Port, Guernsey',
+    entityIds: ['victor-hugo'],
     wikiSection: 'Exile',
   },
   {
@@ -7783,6 +8045,7 @@ export const moments: Moment[] = [
     year: 1831,
     date: 'January 1831',
     address: 'Cathédrale Notre-Dame de Paris, 6 Parvis Notre-Dame, 75004 Paris, France',
+    entityIds: ['victor-hugo'],
     wikiSection: 'Career',
   },
   {
@@ -7801,6 +8064,7 @@ export const moments: Moment[] = [
     year: 1818,
     date: '5 May 1818',
     address: 'Brückengasse 664, Trier, Prussia (now Germany)',
+    entityIds: ['karl-marx'],
     wikiSection: 'Childhood_and_early_education:_1818–1836',
   },
   {
@@ -7819,6 +8083,7 @@ export const moments: Moment[] = [
     year: 1805,
     date: 'October 21, 1805',
     address: 'Off Cape Trafalgar, Cádiz Province, Spain (at sea)',
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'raphael-arrives-florence-studies-leonardo-1504',
@@ -7836,6 +8101,7 @@ export const moments: Moment[] = [
     year: 1504,
     date: 'October 1504',
     address: 'Florence, Tuscany, Italy',
+    entityIds: ['raphael'],
     wikiSection: 'Influence_of_Florence',
   },
   {
@@ -7854,6 +8120,7 @@ export const moments: Moment[] = [
     year: 1983,
     date: '1983',
     address: '725 Fifth Avenue, New York, NY 10022',
+    entityIds: ['donald-trump'],
     wikiSection: 'Manhattan_and_Chicago_developments',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Trump_Tower%2C_D%C3%A9c_2022_%2852612882516%29.jpg/960px-Trump_Tower%2C_D%C3%A9c_2022_%2852612882516%29.jpg', caption: 'Trump Tower, Déc 2022 (52612882516)' },
@@ -7875,6 +8142,7 @@ export const moments: Moment[] = [
     year: 1946,
     date: 'June 14, 1946',
     address: 'Jamaica Hospital Medical Center, 8900 Van Wyck Expressway, Jamaica, Queens, NY',
+    entityIds: ['donald-trump'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -7893,6 +8161,7 @@ export const moments: Moment[] = [
     year: 1749,
     date: '28 August 1749',
     address: 'Großer Hirschgraben 23, Frankfurt am Main',
+    entityIds: ['johann-wolfgang-von-goethe'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Geboortehuis_van_Johann_Wolfgang_von_Goethe_%281749-1832%29%2C_Grosser_Hirschgraben_23-25%2C_Innenstadt_W%2C_Frankfurt-am-Main%2C_D%2C_RP-F-00-6366-A.jpg/960px-Geboortehuis_van_Johann_Wolfgang_von_Goethe_%281749-1832%29%2C_Grosser_Hirschgraben_23-25%2C_Innenstadt_W%2C_Frankfurt-am-Main%2C_D%2C_RP-F-00-6366-A.jpg', caption: 'Geboortehuis van Johann Wolfgang von Goethe (1749-1832), Grosser Hirschgraben 23-25, Innenstadt W, Frankfurt-am-Main, D, RP-F-00-6366-A' },
@@ -7914,6 +8183,7 @@ export const moments: Moment[] = [
     year: 1774,
     date: '1774',
     address: 'Wetzlar, Hesse, Germany',
+    entityIds: ['johann-wolfgang-von-goethe'],
     wikiSection: 'Legal_career',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Wetzlar_jerusalemhaus_ds_wv_09_2010.jpg/960px-Wetzlar_jerusalemhaus_ds_wv_09_2010.jpg', caption: 'Wetzlar jerusalemhaus ds wv 09 2010' },
@@ -7970,6 +8240,7 @@ export const moments: Moment[] = [
     year: 1848,
     date: 'February 1848',
     address: 'Brussels, Belgium',
+    entityIds: ['karl-marx'],
     wikiSection: 'Paris:_1843–1845',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Marx_Dormoy_%288499907805%29.jpg/960px-Marx_Dormoy_%288499907805%29.jpg', caption: 'Marx Dormoy (8499907805)' },
@@ -7991,6 +8262,7 @@ export const moments: Moment[] = [
     year: 1844,
     date: 'August 1844',
     address: 'Paris, France',
+    entityIds: ['karl-marx'],
     wikiSection: 'Paris:_1843–1845',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Re-publica_23_-_Tag_2_%2852955995685%29.jpg/960px-Re-publica_23_-_Tag_2_%2852955995685%29.jpg', caption: 'Re-publica 23 - Tag 2 (52955995685)' },
@@ -8012,6 +8284,7 @@ export const moments: Moment[] = [
     year: 1770,
     date: '17 December 1770',
     address: 'Bonngasse 20, 53111 Bonn, Germany',
+    entityIds: ['beethoven'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -8030,6 +8303,7 @@ export const moments: Moment[] = [
     year: 1792,
     date: 'November 1792',
     address: 'Vienna, Austria',
+    entityIds: ['beethoven'],
     wikiSection: '1792–1802:_Vienna_–_the_early_years',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Vienna_Beethoven_Monument_%28with_angels_and_children_surrounding%29.jpg/960px-Vienna_Beethoven_Monument_%28with_angels_and_children_surrounding%29.jpg', caption: 'Vienna Beethoven Monument (with angels and children surrounding)' },
@@ -8050,6 +8324,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1964,
     date: 'October 27, 1964',
+    entityIds: ['ronald-reagan'],
     wikiSection: 'Early_life',
   },
   {
@@ -8068,6 +8343,7 @@ export const moments: Moment[] = [
     year: 1981,
     date: 'March 30, 1981',
     address: 'Washington Hilton Hotel, 1919 Connecticut Ave NW, Washington, DC 20009',
+    entityIds: ['george-washington', 'ronald-reagan'],
     wikiSection: 'First_term',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Photograph_of_chaos_outside_the_Washington_Hilton_Hotel_after_the_assassination_attempt_on_President_Reagan_%28white_border_removed%29.png/960px-Photograph_of_chaos_outside_the_Washington_Hilton_Hotel_after_the_assassination_attempt_on_President_Reagan_%28white_border_removed%29.png', caption: 'Photograph of chaos outside the Washington Hilton Hotel after the assassination attempt on President Reagan (white border removed)' },
@@ -8089,6 +8365,7 @@ export const moments: Moment[] = [
     year: 1937,
     date: '1937',
     address: 'Warner Bros. Studios, 4000 Warner Blvd, Burbank, CA 91522',
+    entityIds: ['ronald-reagan'],
     wikiSection: 'Radio_and_film',
   },
   {
@@ -8107,6 +8384,7 @@ export const moments: Moment[] = [
     year: 1244,
     date: 'c. 1244 CE',
     address: 'Mevlâna Museum (Rumi\'s Tomb), Konya, Turkey',
+    entityIds: ['rumi'],
   },
   {
     id: 'beethoven-eroica-premiere-1805',
@@ -8124,6 +8402,7 @@ export const moments: Moment[] = [
     year: 1805,
     date: '7 April 1805',
     address: 'Theater an der Wien, Linke Wienzeile 6, 1060 Vienna, Austria',
+    entityIds: ['beethoven'],
     wikiSection: 'Middle_period',
   },
   {
@@ -8142,6 +8421,7 @@ export const moments: Moment[] = [
     year: 1805,
     date: '20 November 1805',
     address: 'Theater an der Wien, Linke Wienzeile 6, 1060 Vienna, Austria',
+    entityIds: ['beethoven'],
     wikiSection: 'Fidelio',
   },
   {
@@ -8160,6 +8440,7 @@ export const moments: Moment[] = [
     year: 1911,
     date: 'February 6, 1911',
     address: 'Main Street, Tampico, IL 61283',
+    entityIds: ['ronald-reagan'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Tampico_main_street.jpg/960px-Tampico_main_street.jpg', caption: 'Tampico main street' },
@@ -8216,6 +8497,7 @@ export const moments: Moment[] = [
     year: 1986,
     date: 'October 11–12, 1986',
     address: 'Höfði House, Borgartún, Reykjavik, Iceland',
+    entityIds: ['ronald-reagan'],
     wikiSection: 'Second_term',
   },
   {
@@ -8234,6 +8516,7 @@ export const moments: Moment[] = [
     year: 2004,
     date: 'June 5, 2004',
     address: 'Bel Air, Los Angeles, CA',
+    entityIds: ['ronald-reagan'],
     wikiSection: 'Post-presidency_and_death',
   },
   {
@@ -8360,6 +8643,7 @@ export const moments: Moment[] = [
     year: 1491,
     date: 'Winter semester 1491–92',
     address: 'Jagiellonian University, Kraków, Poland',
+    entityIds: ['copernicus'],
     wikiSection: 'University_of_Kraków_1491–1495',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jagiellonian_University_20.jpg/960px-Jagiellonian_University_20.jpg', caption: 'Jagiellonian University 20' },
@@ -8381,6 +8665,7 @@ export const moments: Moment[] = [
     year: 1473,
     date: '19 February 1473',
     address: 'Toruń, Royal Prussia (modern Poland)',
+    entityIds: ['copernicus'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hotel_Copernicus_%28Toru%C5%84%29.jpg/960px-Hotel_Copernicus_%28Toru%C5%84%29.jpg', caption: 'Hotel Copernicus (Toruń)' },
@@ -8402,6 +8687,7 @@ export const moments: Moment[] = [
     year: 768,
     date: '9 October 768',
     address: 'Noyon, Oise, France',
+    entityIds: ['charlemagne'],
     wikiSection: 'Accession_and_reign_with_Carloman',
   },
   {
@@ -8420,6 +8706,7 @@ export const moments: Moment[] = [
     year: 782,
     date: 'October 782',
     address: 'Verden an der Aller, Lower Saxony, Germany',
+    entityIds: ['charlemagne'],
     wikiSection: 'Massacre_of_Verden',
   },
   {
@@ -8509,6 +8796,7 @@ export const moments: Moment[] = [
     year: 1519,
     date: '1519',
     address: 'Frombork / Royal Prussia (modern Poland)',
+    entityIds: ['copernicus'],
     wikiSection: 'Life',
   },
   {
@@ -8527,6 +8815,7 @@ export const moments: Moment[] = [
     year: 1497,
     date: '20 October 1497',
     address: 'Frombork Cathedral, Frombork, Warmia (modern Poland)',
+    entityIds: ['copernicus'],
     wikiSection: 'Warmia,_1495–1496',
   },
   {
@@ -8545,6 +8834,7 @@ export const moments: Moment[] = [
     year: 1429,
     date: 'February–March 1429',
     address: 'Château de Chinon, Chinon, Indre-et-Loire, France',
+    entityIds: ['joan-of-arc'],
     wikiSection: 'Chinon',
   },
   {
@@ -8563,6 +8853,7 @@ export const moments: Moment[] = [
     year: 1429,
     date: '8 May 1429',
     address: 'Orléans, Loiret, France',
+    entityIds: ['joan-of-arc'],
     wikiSection: 'Siege_of_Orléans',
   },
   {
@@ -8581,6 +8872,7 @@ export const moments: Moment[] = [
     year: 1412,
     date: 'c. 1412',
     address: 'Domrémy-la-Pucelle, Vosges, France',
+    entityIds: ['joan-of-arc'],
     wikiSection: 'Birth_and_historical_background',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Domr%C3%A9my-la-Pucelle_Jeanne_d%27Arc_5.jpg/960px-Domr%C3%A9my-la-Pucelle_Jeanne_d%27Arc_5.jpg', caption: 'Domrémy-la-Pucelle Jeanne d\'Arc 5' },
@@ -8602,6 +8894,7 @@ export const moments: Moment[] = [
     year: 1425,
     date: 'c. 1425',
     address: 'Domrémy-la-Pucelle, Vosges, France',
+    entityIds: ['joan-of-arc'],
     wikiSection: 'Early_life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Domr%C3%A9my-la-Pucelle_Jeanne_d%27Arc_5.jpg/960px-Domr%C3%A9my-la-Pucelle_Jeanne_d%27Arc_5.jpg', caption: 'Domrémy-la-Pucelle Jeanne d\'Arc 5' },
@@ -8641,6 +8934,7 @@ export const moments: Moment[] = [
     year: 1370,
     date: 'c. 1370',
     address: 'Balkh, Balkh Province, Afghanistan',
+    entityIds: ['timur'],
     wikiSection: 'Rise_to_power',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/%D8%AA%D8%B5%D9%88%DB%8C%D8%B1_%D8%B3%D8%B1%D8%A7%D8%B3%D8%B1%D9%86%D9%85%D8%A7_%D8%A7%D8%B2_%D8%A8%D8%A7%D9%85_%DA%A9%D8%A7%D8%B1%D9%88%D8%A7%D9%86%D8%B3%D8%B1%D8%A7%DB%8C_%D8%AF%DB%8C%D8%B1%DA%AF%DA%86%DB%8C%D9%86_%D8%A7%D8%B3%D8%AA%D8%A7%D9%86_%D9%82%D9%85%D8%8C_%D9%85%D8%B9%D9%85%D8%A7%D8%B1%DB%8C_%D8%A8%D8%B1%D8%AC%D8%A7%DB%8C_%D9%85%D8%A7%D9%86%D8%AF%D9%87_%D8%A7%D8%B2_%D8%AF%D9%88%D8%B1%D9%87_%D8%B3%D8%A7%D8%B3%D8%A7%D9%86%DB%8C.jpg/960px-%D8%AA%D8%B5%D9%88%DB%8C%D8%B1_%D8%B3%D8%B1%D8%A7%D8%B3%D8%B1%D9%86%D9%85%D8%A7_%D8%A7%D8%B2_%D8%A8%D8%A7%D9%85_%DA%A9%D8%A7%D8%B1%D9%88%D8%A7%D9%86%D8%B3%D8%B1%D8%A7%DB%8C_%D8%AF%DB%8C%D8%B1%DA%AF%DA%86%DB%8C%D9%86_%D8%A7%D8%B3%D8%AA%D8%A7%D9%86_%D9%82%D9%85%D8%8C_%D9%85%D8%B9%D9%85%D8%A7%D8%B1%DB%8C_%D8%A8%D8%B1%D8%AC%D8%A7%DB%8C_%D9%85%D8%A7%D9%86%D8%AF%D9%87_%D8%A7%D8%B2_%D8%AF%D9%88%D8%B1%D9%87_%D8%B3%D8%A7%D8%B3%D8%A7%D9%86%DB%8C.jpg', caption: 'تصویر سراسرنما از بام کاروانسرای دیرگچین استان قم، معماری برجای مانده از دوره ساسانی' },
@@ -8772,6 +9066,7 @@ export const moments: Moment[] = [
     year: 1901,
     date: '1901–1917',
     address: 'Wardenclyffe (Tesla Science Center), Shoreham, Long Island, NY',
+    entityIds: ['nikola-tesla'],
   },
   {
     id: 'norman-petty-studios',
@@ -8821,6 +9116,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 2021,
+    entityIds: ['jim-white'],
   },
   {
     id: 'okeeffe-abiquiu',
@@ -8837,6 +9133,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1945,
     address: 'Abiquiú, NM',
+    entityIds: ['georgia-okeeffe'],
   },
   {
     id: 'okeeffe-ghost-ranch',
@@ -8853,6 +9150,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1940,
     address: 'Ghost Ranch, Abiquiú, NM',
+    entityIds: ['georgia-okeeffe'],
   },
   {
     id: 'pueblo-palace',
@@ -9116,7 +9414,7 @@ export const moments: Moment[] = [
     year: 1865,
     date: 'April 26, 1865',
     address: 'Near Port Royal, VA (site marked on US Route 301)',
-    entityIds: ['john-wilkes-booth'],
+    entityIds: ['john-wilkes-booth', 'pat-garrett'],
   },
   {
     id: 'jfk-dealey-plaza',
@@ -9389,6 +9687,7 @@ export const moments: Moment[] = [
     year: 1900,
     date: 'November 30, 1900',
     address: 'L\'Hôtel (formerly Hôtel d\'Alsace), 13 Rue des Beaux-Arts, Paris, France',
+    entityIds: ['oscar-wilde'],
   },
   {
     id: 'wkm-monument',
@@ -9471,6 +9770,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1923,
     address: '9050 FL-24, Rosewood, FL 32625',
+    entityIds: ['orville-wright'],
     wikiSection: 'Attack_on_Rosewood',
   },
   {
@@ -9711,6 +10011,7 @@ export const moments: Moment[] = [
     year: 1913,
     date: '1913',
     address: 'Visva-Bharati University, Santiniketan, West Bengal, India',
+    entityIds: ['rabindranath-tagore'],
   },
   {
     id: 'eiffel-tower-opens',
@@ -9864,6 +10165,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1996,
     address: 'Smith Point County Park, Shirley, NY 11967',
+    entityIds: ['adam-smith'],
     wikiSection: 'Memorials',
   },
   {
@@ -10954,6 +11256,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1898,
     address: '11th St and Brazos St, Austin, TX',
+    entityIds: ['stephen-f-austin'],
   },
   {
     id: 'meiji-shrine-built',
@@ -11248,7 +11551,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2001,
     address: '1400 Smith St, Houston, TX 77002',
-    entityIds: ['enron'],
+    entityIds: ['enron', 'adam-smith'],
   },
   {
     id: 'tokyo-1964-olympics',
@@ -11396,7 +11699,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 2002,
-    entityIds: ['clay-henry'],
+    entityIds: ['clay-henry', 'o-henry'],
   },
   {
     id: 'spindletop-lucas-site',
@@ -11702,7 +12005,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1876,
-    entityIds: ['menger-hotel-rough-riders'],
+    entityIds: ['menger-hotel-rough-riders', 'jim-white'],
   },
   {
     id: 'queen-milam-park',
@@ -11799,6 +12102,7 @@ export const moments: Moment[] = [
     year: 1885,
     date: 'July 6, 1885',
     address: 'Institut Pasteur area, Paris, France',
+    entityIds: ['louis-pasteur'],
   },
   {
     id: 'spoke-opening-night',
@@ -11830,6 +12134,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1979,
+    entityIds: ['george-strait'],
   },
   {
     id: 'cemetery-stephen-austin',
@@ -13168,7 +13473,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 29,
     address: 'Qasr el-Yahud, Jordan Valley, West Bank',
-    entityIds: ['jesus'],
+    entityIds: ['jesus', 'barbara-jordan'],
   },
   {
     id: 'qumran-scrolls',
@@ -14524,7 +14829,7 @@ export const moments: Moment[] = [
     year: 1984,
     date: 'October 31, 1984',
     address: '1 Safdarjung Road, New Delhi, India',
-    entityIds: ['indira-gandhi'],
+    entityIds: ['indira-gandhi', 'mahatma-gandhi'],
   },
   {
     id: 'evo-joggins-reptiles',
@@ -14576,6 +14881,7 @@ export const moments: Moment[] = [
     year: 1703,
     date: 'May 27, 1703',
     address: 'Peter and Paul Fortress, St. Petersburg, Russia',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'julius-caesar-assassinated',
@@ -14611,6 +14917,7 @@ export const moments: Moment[] = [
     year: -387,
     date: 'c. 387 BCE',
     address: 'Plato\'s Academy Archaeological Park, Athens, Greece',
+    entityIds: ['plato'],
   },
   {
     id: 'avicenna-canon-medicine',
@@ -14700,6 +15007,7 @@ export const moments: Moment[] = [
     year: 1599,
     date: '1599',
     address: 'Shakespeare\'s Globe (reconstruction), Bankside, London, England',
+    entityIds: ['william-shakespeare'],
   },
   {
     id: 'dostoevsky-mock-execution',
@@ -14734,6 +15042,7 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: -252000000,
     address: 'Meishan Section D, Changxing County, Zhejiang, China',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'tolstoy-flees-estate',
@@ -14751,6 +15060,7 @@ export const moments: Moment[] = [
     year: 1910,
     date: 'November 7, 1910',
     address: 'Yasnaya Polyana, Tula Oblast, Russia',
+    entityIds: ['leo-tolstoy'],
   },
   {
     id: 'garcia-marquez-writes-solitude',
@@ -14786,6 +15096,7 @@ export const moments: Moment[] = [
     year: 1888,
     date: 'December 23, 1888',
     address: 'Place Lamartine (Yellow House site), Arles, France',
+    entityIds: ['vincent-van-gogh'],
   },
   {
     id: 'mozart-dies-penniless',
@@ -14839,6 +15150,7 @@ export const moments: Moment[] = [
     year: 1969,
     date: 'November 19, 1969',
     address: 'Maracanã Stadium, Rio de Janeiro, Brazil',
+    entityIds: ['pele'],
   },
   {
     id: 'princes-tower-disappear',
@@ -14925,6 +15237,7 @@ export const moments: Moment[] = [
     year: 1665,
     date: '1665–1666',
     address: 'City of London, London, England',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'rosetta-stone-british-museum',
@@ -14959,7 +15272,7 @@ export const moments: Moment[] = [
     year: 1851,
     date: 'May 1 – October 15, 1851',
     address: 'Hyde Park (Crystal Palace site), London, England',
-    entityIds: ['queen-victoria'],
+    entityIds: ['queen-victoria', 'constantine-the-great'],
   },
   {
     id: 'got-jesuit-staircase',
@@ -15095,6 +15408,7 @@ export const moments: Moment[] = [
     year: -71,
     date: '71 BCE',
     address: 'Via Appia Antica, Rome, Italy',
+    entityIds: ['spartacus'],
   },
   {
     id: 'nero-great-fire-rome',
@@ -15112,7 +15426,7 @@ export const moments: Moment[] = [
     year: 64,
     date: 'July 18, 64 CE',
     address: 'Circus Maximus area, Rome, Italy',
-    entityIds: ['nero'],
+    entityIds: ['nero', 'constantine-the-great'],
   },
   {
     id: 'colosseum-opens',
@@ -15335,6 +15649,7 @@ export const moments: Moment[] = [
     year: 1885,
     date: 'June 1, 1885',
     address: 'Panthéon, Place du Panthéon, Paris, France',
+    entityIds: ['victor-hugo'],
   },
   {
     id: 'josephine-baker-paris',
@@ -15386,6 +15701,7 @@ export const moments: Moment[] = [
     year: 1932,
     date: '1932–1933',
     address: 'Detroit Institute of Arts, Detroit, Michigan, USA',
+    entityIds: ['diego-rivera'],
   },
   {
     id: 'treaty-versailles',
@@ -15453,7 +15769,7 @@ export const moments: Moment[] = [
     year: 1657,
     date: 'March 2–4, 1657',
     address: 'Central Edo (now Chiyoda/Bunkyo area), Tokyo, Japan',
-    entityIds: ['tokugawa-ieyasu'],
+    entityIds: ['tokugawa-ieyasu', 'constantine-the-great'],
   },
   {
     id: '47-ronin-sengakuji',
@@ -15488,6 +15804,7 @@ export const moments: Moment[] = [
     year: 1868,
     date: 'November 26, 1868',
     address: 'Imperial Palace (formerly Edo Castle), Tokyo, Japan',
+    entityIds: ['charles-v-holy-roman-emperor'],
   },
   {
     id: 'great-kanto-earthquake',
@@ -15505,6 +15822,7 @@ export const moments: Moment[] = [
     year: 1923,
     date: 'September 1, 1923',
     address: 'Central Tokyo, Japan',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'evo-jebel-irhoud-sapiens',
@@ -15742,6 +16060,7 @@ export const moments: Moment[] = [
     year: 1937,
     date: 'May–June 1937',
     address: '7 Rue des Grands-Augustins (Picasso\'s studio), Paris, France',
+    entityIds: ['pablo-picasso'],
   },
   {
     id: 'evo-gobekli-tepe',
@@ -15793,6 +16112,7 @@ export const moments: Moment[] = [
     year: 1863,
     date: '1863 (pen name adopted)',
     address: 'Mark Twain Boyhood Home, 206 Hill St, Hannibal, MO',
+    entityIds: ['mark-twain'],
   },
   {
     id: 'nightingale-scutari',
@@ -15929,6 +16249,7 @@ export const moments: Moment[] = [
     year: 1849,
     date: 'September 1849',
     address: 'Harriet Tubman Underground Railroad NHP, Dorchester County, MD',
+    entityIds: ['harriet-tubman'],
   },
   {
     id: 'freud-born-in-freiberg',
@@ -15946,6 +16267,7 @@ export const moments: Moment[] = [
     year: 1856,
     date: '6 May 1856',
     address: 'Schlossergasse 117, Freiberg (now Pribor, Czech Republic)',
+    entityIds: ['sigmund-freud'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -15964,6 +16286,7 @@ export const moments: Moment[] = [
     year: 1519,
     date: 'November 8, 1519',
     address: 'Templo Mayor (archaeological site), Mexico City, Mexico',
+    entityIds: ['hernan-cortes'],
   },
   {
     id: 'tenochtitlan-noche-triste',
@@ -16098,6 +16421,7 @@ export const moments: Moment[] = [
     year: 1929,
     date: '1929–1951',
     address: 'Palacio Nacional, Mexico City, Mexico',
+    entityIds: ['diego-rivera'],
   },
   {
     id: 'kafka-writes-trial-oppelthaus-prague',
@@ -16165,6 +16489,7 @@ export const moments: Moment[] = [
     year: 1934,
     date: 'February 1934',
     address: '30 Rockefeller Plaza, New York City, USA',
+    entityIds: ['diego-rivera'],
   },
   {
     id: 'olmec-tres-zapotes-discovery',
@@ -16349,6 +16674,7 @@ export const moments: Moment[] = [
     year: 1813,
     date: 'May 22, 1813',
     address: 'Brühl 3, Leipzig, Germany',
+    entityIds: ['richard-wagner'],
     wikiSection: 'Early_years',
   },
   {
@@ -16484,6 +16810,7 @@ export const moments: Moment[] = [
     year: 1430,
     date: '23 May 1430',
     address: 'Compiègne, Oise, France',
+    entityIds: ['joan-of-arc'],
     wikiSection: 'Capture',
   },
   {
@@ -16502,6 +16829,7 @@ export const moments: Moment[] = [
     year: 1429,
     date: '17 July 1429',
     address: 'Cathédrale Notre-Dame de Reims, Place du Cardinal Luçon, Reims, France',
+    entityIds: ['joan-of-arc'],
     wikiSection: 'Coronation_of_Charles_VII',
   },
   {
@@ -16519,6 +16847,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1876,
     address: '351 Farmington Avenue, Hartford, CT 06105, USA',
+    entityIds: ['mark-twain'],
   },
   {
     id: 'stalin-great-purge-executions-1936-1938',
@@ -16536,6 +16865,7 @@ export const moments: Moment[] = [
     year: 1937,
     date: '1936–1938',
     address: 'Moscow, Soviet Union',
+    entityIds: ['joseph-stalin', 'constantine-the-great'],
     wikiSection: 'Great_Purge',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Stalin_and_Gazanfar_Musabeyov.jpg', caption: 'Stalin and Gazanfar Musabeyov' },
@@ -16559,6 +16889,7 @@ export const moments: Moment[] = [
     year: 1519,
     date: 'October 1519',
     address: 'Cholula, Puebla, Mexico',
+    entityIds: ['hernan-cortes'],
     wikiSection: 'March_on_Tenochtitlán',
   },
   {
@@ -16608,6 +16939,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1900,
     address: '1127 W Third St, Dayton, OH 45402',
+    entityIds: ['orville-wright'],
   },
   {
     id: 'inv-amazon-garage',
@@ -16672,6 +17004,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1862,
     address: 'Yasnaya Polyana, Shchyokino District, Tula Oblast, Russia',
+    entityIds: ['leo-tolstoy'],
   },
   {
     id: 'stalin-dies-kuntsevo-dacha-1953',
@@ -16689,6 +17022,7 @@ export const moments: Moment[] = [
     year: 1953,
     date: 'March 5, 1953',
     address: 'Kuntsevo Dacha, Kuntsevo, Moscow Oblast, Soviet Union',
+    entityIds: ['joseph-stalin'],
     wikiSection: 'Death',
   },
   {
@@ -16821,6 +17155,7 @@ export const moments: Moment[] = [
     year: 1726,
     date: '2 May 1726',
     address: 'London, England',
+    entityIds: ['voltaire'],
     wikiSection: 'Exile_in_England',
   },
   {
@@ -16870,6 +17205,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1450,
     address: 'Schusterstraße 22–24, 55116 Mainz, Germany',
+    entityIds: ['johannes-gutenberg'],
   },
   {
     id: 'inv-eniac-computer',
@@ -16935,6 +17271,7 @@ export const moments: Moment[] = [
     year: -43,
     date: '20 March 43 BC',
     address: 'Sulmona, L\'Aquila, Abruzzo, Italy',
+    entityIds: ['ovid'],
     wikiSection: 'Birth,_early_life,_and_marriage',
   },
   {
@@ -16952,6 +17289,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1922,
     address: '6 Gateway Drive, Great Neck, NY 11021, USA',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'descartes-dreams-in-stove-room-neuburg',
@@ -16969,6 +17307,7 @@ export const moments: Moment[] = [
     year: 1619,
     date: '10–11 November 1619',
     address: 'Neuburg an der Donau, Bavaria (now Germany)',
+    entityIds: ['rene-descartes'],
     wikiSection: 'Army_service',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Holocaust_survivor_Leslie_Schwartz_visits_Descartes-Gymnasium_in_Neuburg_an_der_Donau_%281%29.jpg/960px-Holocaust_survivor_Leslie_Schwartz_visits_Descartes-Gymnasium_in_Neuburg_an_der_Donau_%281%29.jpg', caption: 'Holocaust survivor Leslie Schwartz visits Descartes-Gymnasium in Neuburg an der Donau (1)' },
@@ -17007,6 +17346,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1879,
     address: '37 Christie St, Edison, NJ 08820 (site of original lab)',
+    entityIds: ['thomas-edison'],
   },
   {
     id: 'inv-apple-garage',
@@ -17088,6 +17428,7 @@ export const moments: Moment[] = [
     year: 1513,
     date: 'February 1513',
     address: 'Palazzo della Signoria, Piazza della Signoria, Florence',
+    entityIds: ['niccolo-machiavelli'],
     wikiSection: 'Exile_and_later_years',
   },
   {
@@ -17106,6 +17447,7 @@ export const moments: Moment[] = [
     year: -420,
     date: 'c. 420 BC',
     address: 'Kos, Dodecanese, Greece',
+    entityIds: ['hippocrates'],
     wikiSection: 'Hippocratic_theory',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/People_at_the_Ancient_Odeon_%28Kos%29.jpg/960px-People_at_the_Ancient_Odeon_%28Kos%29.jpg', caption: 'People at the Ancient Odeon (Kos)' },
@@ -17192,6 +17534,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1969,
     address: 'Rua Prof. Eurico Rabelo, Rio de Janeiro, RJ 20271-110, Brazil',
+    entityIds: ['pele'],
   },
   {
     id: 'great-train-robbery-bridego',
@@ -17208,6 +17551,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1963,
     address: 'Bridego Railway Bridge, Ledburn, near Mentmore, Buckinghamshire',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'norrmalmstorg-kreditbanken',
@@ -17241,6 +17585,7 @@ export const moments: Moment[] = [
     year: 1504,
     date: '1504',
     address: 'Santo Domingo, Hispaniola (modern Dominican Republic)',
+    entityIds: ['hernan-cortes'],
     wikiSection: 'Early_career_in_the_New_World',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Convento_Santo_Domingo_casco_viejo.jpg/960px-Convento_Santo_Domingo_casco_viejo.jpg', caption: 'Convento Santo Domingo casco viejo' },
@@ -17264,6 +17609,7 @@ export const moments: Moment[] = [
     year: 1547,
     date: '2 December 1547',
     address: 'Castilleja de la Cuesta, Seville, Spain',
+    entityIds: ['hernan-cortes'],
     wikiSection: 'Later_life_and_death',
   },
   {
@@ -17281,6 +17627,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1903,
     address: '1000 N. Croatan Hwy, Kill Devil Hills, NC 27948',
+    entityIds: ['orville-wright'],
   },
   {
     id: 'inv-google-garage',
@@ -17346,6 +17693,7 @@ export const moments: Moment[] = [
     year: 1847,
     date: 'February 11, 1847',
     address: 'Milan, Ohio',
+    entityIds: ['thomas-edison'],
     wikiSection: 'Early_life',
   },
   {
@@ -17364,6 +17712,7 @@ export const moments: Moment[] = [
     year: 1743,
     date: 'April 13, 1743',
     address: 'Shadwell, Charlottesville, Virginia',
+    entityIds: ['thomas-jefferson'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -17382,6 +17731,7 @@ export const moments: Moment[] = [
     year: 1887,
     date: 'November 14, 1888',
     address: '25-28 Rue du Docteur Roux, Paris, France',
+    entityIds: ['louis-pasteur'],
     wikiSection: 'Career',
   },
   {
@@ -17400,6 +17750,7 @@ export const moments: Moment[] = [
     year: 1895,
     date: '1895',
     address: 'Escola de la Llotja, Carrer dels Comtes de Barcelona, Barcelona, Spain',
+    entityIds: ['pablo-picasso'],
     wikiSection: 'Childhood',
   },
   {
@@ -17418,6 +17769,7 @@ export const moments: Moment[] = [
     year: 1819,
     date: 'January 25, 1819',
     address: 'University of Virginia, Charlottesville, Virginia',
+    entityIds: ['thomas-jefferson'],
     wikiSection: 'University_of_Virginia',
   },
   {
@@ -17436,6 +17788,7 @@ export const moments: Moment[] = [
     year: 1849,
     date: 'May 1849',
     address: 'Dresden, Germany',
+    entityIds: ['richard-wagner'],
     wikiSection: 'Dresden_(1842–1849)',
   },
   {
@@ -17469,6 +17822,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1963,
     address: 'Leatherslade Farm, near Oakley, Buckinghamshire HP18',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'inv-farnsworth-tv',
@@ -17502,6 +17856,7 @@ export const moments: Moment[] = [
     year: 1865,
     date: '1865',
     address: 'University of Lille, Lille, France',
+    entityIds: ['louis-pasteur'],
     wikiSection: 'Fermentation_and_germ_theory_of_diseases',
   },
   {
@@ -17520,6 +17875,7 @@ export const moments: Moment[] = [
     year: 1837,
     date: 'January 27, 1837',
     address: 'Black River, Saint Petersburg, Russia',
+    entityIds: ['alexander-pushkin'],
     wikiSection: 'Death',
   },
   {
@@ -17570,6 +17926,7 @@ export const moments: Moment[] = [
     year: 1821,
     date: '11 November 1821',
     address: 'Mariinsky Hospital, Moscow',
+    entityIds: ['fyodor-dostoevsky'],
     wikiSection: 'Childhood_(1821–1836)',
   },
   {
@@ -17588,6 +17945,7 @@ export const moments: Moment[] = [
     year: 1877,
     date: '1877',
     address: 'Menlo Park, New Jersey',
+    entityIds: ['thomas-edison'],
     wikiSection: 'Phonograph',
   },
   {
@@ -17606,6 +17964,7 @@ export const moments: Moment[] = [
     year: 980,
     date: 'c. 980 CE',
     address: 'Afshana, near Bukhara, Uzbekistan',
+    entityIds: ['avicenna'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -17624,6 +17983,7 @@ export const moments: Moment[] = [
     year: 1616,
     date: '22 April 1616',
     address: 'Madrid, Spain',
+    entityIds: ['miguel-de-cervantes'],
     wikiSection: '1580_to_1616:_Later_life_and_death',
   },
   {
@@ -17642,6 +18002,7 @@ export const moments: Moment[] = [
     year: 1776,
     date: 'June–July 4, 1776',
     address: '700 Market Street, Philadelphia, Pennsylvania',
+    entityIds: ['thomas-jefferson'],
     wikiSection: 'Declaration_of_Independence',
   },
   {
@@ -17660,6 +18021,7 @@ export const moments: Moment[] = [
     year: 1656,
     date: 'July 1656',
     address: 'Jodenbreestraat, Amsterdam',
+    entityIds: ['rembrandt'],
     wikiSection: 'Insolvency',
   },
   {
@@ -17678,6 +18040,7 @@ export const moments: Moment[] = [
     year: 1606,
     date: '15 July 1606',
     address: 'Leiden, Netherlands',
+    entityIds: ['rembrandt'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -17712,6 +18075,7 @@ export const moments: Moment[] = [
     year: 306,
     date: 'July 306 AD',
     address: 'Eboracum (modern York), England',
+    entityIds: ['charles-v-holy-roman-emperor'],
     wikiSection: 'Early_life',
   },
   {
@@ -17730,6 +18094,7 @@ export const moments: Moment[] = [
     year: 1846,
     date: '15 January 1846',
     address: 'Saint Petersburg, Russia',
+    entityIds: ['fyodor-dostoevsky'],
     wikiSection: 'Early_career_(1844–1849)',
   },
   {
@@ -17780,6 +18145,7 @@ export const moments: Moment[] = [
     year: 1803,
     date: 'April 30, 1803',
     address: 'The White House, Washington, D.C.',
+    entityIds: ['thomas-jefferson'],
     wikiSection: 'Louisiana_Purchase',
   },
   {
@@ -17830,6 +18196,7 @@ export const moments: Moment[] = [
     year: 1547,
     date: '29 September 1547',
     address: 'Alcala de Henares, Spain',
+    entityIds: ['miguel-de-cervantes'],
     wikiSection: 'Biography',
   },
   {
@@ -17848,6 +18215,7 @@ export const moments: Moment[] = [
     year: 1642,
     date: '1642',
     address: 'Kloveniersdoelen, Amsterdam',
+    entityIds: ['rembrandt'],
     wikiSection: 'Career',
   },
   {
@@ -17866,6 +18234,7 @@ export const moments: Moment[] = [
     year: 1865,
     date: 'June 10, 1865',
     address: 'Nationaltheater, Max-Joseph-Platz 2, Munich, Germany',
+    entityIds: ['richard-wagner'],
     wikiSection: 'Tristan_und_Isolde',
   },
   {
@@ -17935,6 +18304,7 @@ export const moments: Moment[] = [
     year: 1866,
     date: '1866',
     address: 'Saint Petersburg, Russia',
+    entityIds: ['fyodor-dostoevsky'],
     wikiSection: 'Career',
   },
   {
@@ -17953,6 +18323,7 @@ export const moments: Moment[] = [
     year: 1931,
     date: 'October 18, 1931',
     address: 'Glenmont Estate, West Orange, New Jersey',
+    entityIds: ['thomas-edison'],
     wikiSection: 'Death',
   },
   {
@@ -17971,6 +18342,7 @@ export const moments: Moment[] = [
     year: 1631,
     date: 'Late 1631',
     address: 'Jodenbreestraat 4, Amsterdam',
+    entityIds: ['rembrandt'],
     wikiSection: 'Career',
   },
   {
@@ -18075,6 +18447,7 @@ export const moments: Moment[] = [
     year: 1850,
     date: 'January 1850',
     address: 'Omsk, Siberia, Russia',
+    entityIds: ['fyodor-dostoevsky'],
     wikiSection: 'Imprisonment_in_Siberia',
   },
   {
@@ -18093,6 +18466,7 @@ export const moments: Moment[] = [
     year: 1882,
     date: 'September 4, 1882',
     address: '255-257 Pearl Street, New York, NY',
+    entityIds: ['thomas-edison'],
     wikiSection: 'Electric_light',
   },
   {
@@ -18111,6 +18485,7 @@ export const moments: Moment[] = [
     year: 1875,
     date: '4 August 1875',
     address: 'Copenhagen, Denmark',
+    entityIds: ['hans-christian-andersen'],
     wikiSection: 'Death',
   },
   {
@@ -18129,6 +18504,7 @@ export const moments: Moment[] = [
     year: 1819,
     date: '24 May 1819',
     address: 'Kensington Palace, London',
+    entityIds: ['queen-victoria'],
     wikiSection: 'Birth_and_ancestry',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Victoria_and_Kensington_Palace.jpg/960px-Victoria_and_Kensington_Palace.jpg', caption: 'Victoria and Kensington Palace' },
@@ -18166,6 +18542,7 @@ export const moments: Moment[] = [
     year: 1859,
     date: '1859–1862',
     address: 'Ecole Normale Superieure, Rue d\'Ulm, Paris, France',
+    entityIds: ['louis-pasteur'],
     wikiSection: 'Spontaneous_generation',
   },
   {
@@ -18184,6 +18561,7 @@ export const moments: Moment[] = [
     year: 1819,
     date: '1819',
     address: 'Royal Danish Theatre, Copenhagen',
+    entityIds: ['hans-christian-andersen'],
     wikiSection: 'Early_life',
   },
   {
@@ -18218,6 +18596,7 @@ export const moments: Moment[] = [
     year: 1831,
     date: 'February 18, 1831',
     address: 'Bolshaya Nikitskaya Street, Moscow',
+    entityIds: ['alexander-pushkin'],
     wikiSection: 'Rise',
   },
   {
@@ -18236,6 +18615,7 @@ export const moments: Moment[] = [
     year: 1901,
     date: '22 January 1901',
     address: 'Osborne House, East Cowes, Isle of Wight',
+    entityIds: ['queen-victoria'],
     wikiSection: 'Death',
   },
   {
@@ -18254,6 +18634,7 @@ export const moments: Moment[] = [
     year: 1712,
     date: '28 June 1712',
     address: 'Geneva, Republic of Geneva',
+    entityIds: ['jean-jacques-rousseau'],
     wikiSection: 'Youth',
   },
   {
@@ -18290,6 +18671,7 @@ export const moments: Moment[] = [
     year: 1897,
     date: '22 June 1897',
     address: 'St Paul\'s Cathedral, London',
+    entityIds: ['queen-victoria'],
     wikiSection: 'Diamond_Jubilee',
   },
   {
@@ -18340,6 +18722,7 @@ export const moments: Moment[] = [
     year: 1575,
     date: '26 September 1575',
     address: 'Algiers, Algeria',
+    entityIds: ['miguel-de-cervantes'],
     wikiSection: '1566_to_1580:_Military_service_and_captivity',
   },
   {
@@ -18358,6 +18741,7 @@ export const moments: Moment[] = [
     year: 1825,
     date: '1824–1826',
     address: 'Mikhailovskoye, Pskov Oblast, Russia',
+    entityIds: ['alexander-pushkin'],
     wikiSection: 'Rise',
   },
   {
@@ -18376,6 +18760,7 @@ export const moments: Moment[] = [
     year: 1840,
     date: '10 February 1840',
     address: 'Chapel Royal, St James\'s Palace, London',
+    entityIds: ['queen-victoria'],
     wikiSection: 'Marriage',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/The_marriage_of_Queen_Victoria%2C_in_the_Chapel_Royal%2C_St._James_Palace_LCCN94509793.jpg/960px-The_marriage_of_Queen_Victoria%2C_in_the_Chapel_Royal%2C_St._James_Palace_LCCN94509793.jpg', caption: 'The marriage of Queen Victoria, in the Chapel Royal, St. James Palace LCCN94509793' },
@@ -18397,6 +18782,7 @@ export const moments: Moment[] = [
     year: 1805,
     date: '2 April 1805',
     address: 'Odense, Denmark',
+    entityIds: ['hans-christian-andersen'],
     wikiSection: 'Early_life',
   },
   {
@@ -18415,6 +18801,7 @@ export const moments: Moment[] = [
     year: 1325,
     date: 'November 1325',
     address: '',
+    entityIds: ['ibn-battuta'],
     wikiSection: 'First_pilgrimage',
   },
   {
@@ -18433,6 +18820,7 @@ export const moments: Moment[] = [
     year: 1669,
     date: '4 October 1669',
     address: 'Westerkerk, Prinsengracht 281, Amsterdam',
+    entityIds: ['rembrandt'],
     wikiSection: 'Career',
   },
   {
@@ -18469,6 +18857,7 @@ export const moments: Moment[] = [
     year: 1929,
     date: '1929',
     address: 'Paris, France',
+    entityIds: ['salvador-dali'],
     wikiSection: '1929_to_World_War_II',
   },
   {
@@ -18537,6 +18926,7 @@ export const moments: Moment[] = [
     year: 1814,
     date: 'c. 1814',
     address: 'Tsarskoye Selo Lyceum, Pushkin, Saint Petersburg',
+    entityIds: ['alexander-pushkin'],
     wikiSection: 'Early_life',
   },
   {
@@ -18555,6 +18945,7 @@ export const moments: Moment[] = [
     year: 1571,
     date: '7 October 1571',
     address: 'Gulf of Patras, Greece',
+    entityIds: ['miguel-de-cervantes'],
     wikiSection: '1566_to_1580:_Military_service_and_captivity',
   },
   {
@@ -18573,6 +18964,7 @@ export const moments: Moment[] = [
     year: 1891,
     date: '1891',
     address: 'Berggasse 19, Vienna, Austria',
+    entityIds: ['sigmund-freud'],
     wikiSection: 'Early_career_and_marriage',
   },
   {
@@ -18591,6 +18983,7 @@ export const moments: Moment[] = [
     year: 632,
     date: '8 June 632',
     address: 'Saqifah Bani Saadah, Medina',
+    entityIds: ['umar'],
     wikiSection: 'Foundation_of_the_caliphate',
   },
   {
@@ -18625,6 +19018,7 @@ export const moments: Moment[] = [
     year: 1939,
     date: '23 September 1939',
     address: '20 Maresfield Gardens, Hampstead, London',
+    entityIds: ['sigmund-freud'],
     wikiSection: 'Death',
   },
   {
@@ -18643,6 +19037,7 @@ export const moments: Moment[] = [
     year: 30,
     date: 'c. AD 30',
     address: 'Machaerus fortress, Jordan',
+    entityIds: ['john-the-baptist'],
     wikiSection: 'In_Mark',
   },
   {
@@ -18679,6 +19074,7 @@ export const moments: Moment[] = [
     year: 1750,
     date: '1750',
     address: 'Academy of Dijon, Dijon, France',
+    entityIds: ['jean-jacques-rousseau'],
     wikiSection: 'Discourse_on_the_Arts_and_Sciences',
   },
   {
@@ -18731,6 +19127,7 @@ export const moments: Moment[] = [
     year: 624,
     date: '13 March 624',
     address: 'Badr, Hejaz',
+    entityIds: ['umar'],
     wikiSection: 'Life_in_Medina',
   },
   {
@@ -18749,6 +19146,7 @@ export const moments: Moment[] = [
     year: 1904,
     date: '11 May 1904',
     address: 'Carrer Monturiol 20, Figueres, Catalonia, Spain',
+    entityIds: ['salvador-dali'],
     wikiSection: 'Early_life',
   },
   {
@@ -18817,6 +19215,7 @@ export const moments: Moment[] = [
     year: 1778,
     date: '2 July 1778',
     address: 'Chateau d\'Ermenonville, Ermenonville, France',
+    entityIds: ['jean-jacques-rousseau'],
     wikiSection: 'Death',
   },
   {
@@ -18853,6 +19252,7 @@ export const moments: Moment[] = [
     year: -625,
     date: 'c. 625 BC',
     address: 'Miletus (near modern Didim), Turkey',
+    entityIds: ['thales-of-miletus'],
     wikiSection: 'Life',
   },
   {
@@ -18871,6 +19271,7 @@ export const moments: Moment[] = [
     year: -546,
     date: 'c. 546 BC',
     address: 'Miletus (near modern Didim), Turkey',
+    entityIds: ['thales-of-miletus'],
     wikiSection: 'Diplomacy',
   },
   {
@@ -18889,6 +19290,7 @@ export const moments: Moment[] = [
     year: 1989,
     date: '23 January 1989',
     address: 'Dali Theatre-Museum, Placa Gala i Salvador Dali 5, Figueres, Spain',
+    entityIds: ['salvador-dali'],
     wikiSection: 'Death',
   },
   {
@@ -18907,6 +19309,7 @@ export const moments: Moment[] = [
     year: 28,
     date: 'c. AD 28–29',
     address: 'Jordan River wilderness, near Jericho',
+    entityIds: ['john-the-baptist', 'barbara-jordan'],
     wikiSection: 'In_Mark',
   },
   {
@@ -18941,6 +19344,7 @@ export const moments: Moment[] = [
     year: 1728,
     date: '14 March 1728',
     address: 'Geneva city gates, Republic of Geneva',
+    entityIds: ['jean-jacques-rousseau'],
     wikiSection: 'Youth',
   },
   {
@@ -18959,6 +19363,7 @@ export const moments: Moment[] = [
     year: 1876,
     date: '1876',
     address: 'Trieste, Austria-Hungary (now Italy)',
+    entityIds: ['sigmund-freud'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -19009,6 +19414,7 @@ export const moments: Moment[] = [
     year: 1762,
     date: 'April 1762',
     address: 'Amsterdam, Dutch Republic (publisher: Marc-Michel Rey)',
+    entityIds: ['jean-jacques-rousseau'],
     wikiSection: 'The_Social_Contract',
   },
   {
@@ -19026,6 +19432,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1998,
     address: '301 W South Temple, Salt Lake City, UT 84101',
+    entityIds: ['barbara-jordan'],
   },
   {
     id: 'umar-converts-to-islam-sword-in-hand',
@@ -19043,6 +19450,7 @@ export const moments: Moment[] = [
     year: 616,
     date: '616',
     address: '',
+    entityIds: ['umar'],
     wikiSection: 'Conversion_to_Islam_and_service_under_Muhammad',
   },
   {
@@ -19095,6 +19503,7 @@ export const moments: Moment[] = [
     year: 1938,
     date: '4 June 1938',
     address: '20 Maresfield Gardens, Hampstead, London',
+    entityIds: ['sigmund-freud'],
     wikiSection: 'Escape_from_Nazism',
   },
   {
@@ -19113,6 +19522,7 @@ export const moments: Moment[] = [
     year: 28,
     date: 'c. AD 28–29',
     address: 'Qasr el Yahud, Jordan River',
+    entityIds: ['barbara-jordan', 'jesus'],
     wikiSection: 'Baptism_of_Jesus',
   },
   {
@@ -19163,6 +19573,7 @@ export const moments: Moment[] = [
     year: 637,
     date: '637',
     address: 'Jerusalem',
+    entityIds: ['umar'],
     wikiSection: 'Umar',
   },
   {
@@ -19197,6 +19608,7 @@ export const moments: Moment[] = [
     year: 1810,
     date: 'March 1, 1810',
     address: 'Żelazowa Wola, Poland',
+    entityIds: ['frederic-chopin'],
     wikiSection: 'Childhood',
   },
   {
@@ -19249,6 +19661,7 @@ export const moments: Moment[] = [
     year: 1926,
     date: 'April 1926',
     address: 'Paris, France',
+    entityIds: ['salvador-dali', 'pablo-picasso'],
     wikiSection: 'Madrid,_Barcelona_and_Paris',
   },
   {
@@ -19333,6 +19746,7 @@ export const moments: Moment[] = [
     year: 1704,
     date: 'October 28, 1704',
     address: 'Oates, High Laver, Essex, England',
+    entityIds: ['john-locke'],
     wikiSection: '',
   },
   {
@@ -19350,6 +19764,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1536,
     address: 'Tower of London, Tower Hill, London EC3N 4AB, United Kingdom',
+    entityIds: ['anne-boleyn'],
   },
   {
     id: 'mao-dies-beijing',
@@ -19385,6 +19800,7 @@ export const moments: Moment[] = [
     year: 1883,
     date: 'January 1883',
     address: 'Rapallo, Liguria, Italy',
+    entityIds: ['friedrich-nietzsche'],
     wikiSection: '',
   },
   {
@@ -19403,6 +19819,7 @@ export const moments: Moment[] = [
     year: 1830,
     date: 'October 1830',
     address: 'National Theatre, Warsaw, Poland',
+    entityIds: ['frederic-chopin'],
     wikiSection: 'Education',
   },
   {
@@ -19421,6 +19838,7 @@ export const moments: Moment[] = [
     year: 1928,
     date: '1928',
     address: '2725 Hyperion Avenue, Los Angeles, California',
+    entityIds: ['walt-disney'],
     wikiSection: '1928–1934:_Creation_of_Mickey_Mouse_and_following_successes',
   },
   {
@@ -19475,6 +19893,7 @@ export const moments: Moment[] = [
     year: 1752,
     date: 'June 1752',
     address: 'Philadelphia, Pennsylvania',
+    entityIds: ['benjamin-franklin'],
     wikiSection: '',
   },
   {
@@ -19493,6 +19912,7 @@ export const moments: Moment[] = [
     year: 1778,
     date: 'February 6, 1778',
     address: 'Paris, France',
+    entityIds: ['benjamin-franklin'],
     wikiSection: '',
   },
   {
@@ -19529,6 +19949,7 @@ export const moments: Moment[] = [
     year: 1934,
     date: 'July 4, 1934',
     address: 'Sancellemoz sanatorium, Passy, Haute-Savoie, France',
+    entityIds: ['marie-curie'],
     wikiSection: '',
   },
   {
@@ -19547,6 +19968,7 @@ export const moments: Moment[] = [
     year: 1966,
     date: 'December 15, 1966',
     address: 'St. Joseph Hospital, Burbank, California',
+    entityIds: ['walt-disney'],
     wikiSection: '',
   },
   {
@@ -19597,6 +20019,7 @@ export const moments: Moment[] = [
     year: 1706,
     date: 'January 17, 1706',
     address: 'Milk Street, Boston, Massachusetts',
+    entityIds: ['benjamin-franklin'],
     wikiSection: 'Boston',
   },
   {
@@ -19631,6 +20054,7 @@ export const moments: Moment[] = [
     year: -600,
     date: 'c. 600 BC',
     address: '',
+    entityIds: ['sappho'],
     wikiSection: 'Life',
   },
   {
@@ -19666,6 +20090,7 @@ export const moments: Moment[] = [
     year: 1400,
     date: '25 October 1400',
     address: 'Westminster Abbey, London, England',
+    entityIds: ['geoffrey-chaucer'],
     wikiSection: 'Later_life',
   },
   {
@@ -19684,6 +20109,7 @@ export const moments: Moment[] = [
     year: 1828,
     date: 'September 9, 1828',
     address: 'Yasnaya Polyana, Tula Oblast, Russia',
+    entityIds: ['leo-tolstoy'],
     wikiSection: 'Life_and_career',
   },
   {
@@ -19702,6 +20128,7 @@ export const moments: Moment[] = [
     year: -512,
     date: 'c. 512 BC',
     address: '',
+    entityIds: ['sun-tzu'],
     wikiSection: 'Life',
   },
   {
@@ -19770,6 +20197,7 @@ export const moments: Moment[] = [
     year: 1883,
     date: '1883',
     address: 'Reichstag, Berlin',
+    entityIds: ['otto-von-bismarck'],
     wikiSection: '',
   },
   {
@@ -19788,6 +20216,7 @@ export const moments: Moment[] = [
     year: -6,
     date: '6 BC',
     address: '',
+    entityIds: ['tiberius'],
     wikiSection: 'Retirement_to_Rhodes',
   },
   {
@@ -19806,6 +20235,7 @@ export const moments: Moment[] = [
     year: 1854,
     date: '1854–1855',
     address: 'Sevastopol, Crimea',
+    entityIds: ['leo-tolstoy'],
     wikiSection: 'Life_and_career',
   },
   {
@@ -19824,6 +20254,7 @@ export const moments: Moment[] = [
     year: 1890,
     date: '18 March 1890',
     address: 'Berlin, Germany',
+    entityIds: ['otto-von-bismarck'],
     wikiSection: '',
   },
   {
@@ -19841,6 +20272,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1964,
     address: 'Robben Island, Cape Town 7400, South Africa',
+    entityIds: ['nelson-mandela'],
   },
   {
     id: 'marie-curie-arrives-paris-sorbonne',
@@ -19858,6 +20290,7 @@ export const moments: Moment[] = [
     year: 1891,
     date: 'Late 1891',
     address: 'University of Paris, Latin Quarter, Paris',
+    entityIds: ['marie-curie'],
     wikiSection: 'Life_in_Paris',
   },
   {
@@ -19876,6 +20309,7 @@ export const moments: Moment[] = [
     year: -250,
     date: 'c. 250 BC',
     address: '',
+    entityIds: ['sappho'],
     wikiSection: 'Ancient_editions',
   },
   {
@@ -19912,6 +20346,7 @@ export const moments: Moment[] = [
     year: 54,
     date: 'October AD 54',
     address: 'Palatine Hill, Rome',
+    entityIds: ['charles-v-holy-roman-emperor', 'nero'],
     wikiSection: 'Reign_(AD_54–68)',
   },
   {
@@ -19930,6 +20365,7 @@ export const moments: Moment[] = [
     year: 14,
     date: 'August 19, AD 14',
     address: '',
+    entityIds: ['augustus', 'tiberius', 'charles-v-holy-roman-emperor'],
     wikiSection: 'Heir_to_Augustus',
   },
   {
@@ -19964,6 +20400,7 @@ export const moments: Moment[] = [
     year: 1914,
     date: '1914–1918',
     address: 'Western Front, France',
+    entityIds: ['marie-curie'],
     wikiSection: '',
   },
   {
@@ -19982,6 +20419,7 @@ export const moments: Moment[] = [
     year: 1857,
     date: '1857',
     address: 'Paris, France',
+    entityIds: ['leo-tolstoy'],
     wikiSection: 'Life_and_career',
   },
   {
@@ -20016,6 +20454,7 @@ export const moments: Moment[] = [
     year: 59,
     date: 'AD 59',
     address: 'Baiae, Bay of Naples, Italy',
+    entityIds: ['nero'],
     wikiSection: 'Matricide',
   },
   {
@@ -20052,6 +20491,7 @@ export const moments: Moment[] = [
     year: 1707,
     date: '23 May 1707',
     address: 'Råshult, Småland, Sweden',
+    entityIds: ['carl-linnaeus'],
     wikiSection: 'Childhood',
   },
   {
@@ -20088,6 +20528,7 @@ export const moments: Moment[] = [
     year: -42,
     date: 'November 16, 42 BC',
     address: '',
+    entityIds: ['tiberius'],
     wikiSection: 'Family_and_youth',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Mort_de_Tiberius_Gracchus.jpg', caption: 'Mort de Tiberius Gracchus' },
@@ -20143,6 +20584,7 @@ export const moments: Moment[] = [
     year: 1920,
     date: '1920',
     address: 'Rue Pierre et Marie Curie, Paris, France',
+    entityIds: ['marie-curie'],
     wikiSection: '',
   },
   {
@@ -20161,6 +20603,7 @@ export const moments: Moment[] = [
     year: 31,
     date: 'AD 31',
     address: '',
+    entityIds: ['tiberius'],
     wikiSection: '',
   },
   {
@@ -20195,6 +20638,7 @@ export const moments: Moment[] = [
     year: 67,
     date: 'AD 67',
     address: 'Olympia, Greece',
+    entityIds: ['nero'],
     wikiSection: '',
   },
   {
@@ -20213,6 +20657,7 @@ export const moments: Moment[] = [
     year: 1730,
     date: 'May 1730',
     address: 'Uppsala University, Uppsala, Sweden',
+    entityIds: ['carl-linnaeus'],
     wikiSection: 'Uppsala',
   },
   {
@@ -20231,6 +20676,7 @@ export const moments: Moment[] = [
     year: 1869,
     date: '1869',
     address: 'Yasnaya Polyana, Tula Oblast, Russia',
+    entityIds: ['leo-tolstoy'],
     wikiSection: 'Novels_and_fictional_works',
   },
   {
@@ -20299,6 +20745,7 @@ export const moments: Moment[] = [
     year: 1343,
     date: 'c. 1343',
     address: 'London, England',
+    entityIds: ['geoffrey-chaucer'],
     wikiSection: 'Origin',
   },
   {
@@ -20317,6 +20764,7 @@ export const moments: Moment[] = [
     year: 1683,
     date: '1683–1689',
     address: 'Amsterdam, Netherlands',
+    entityIds: ['john-locke'],
     wikiSection: '',
   },
   {
@@ -20353,6 +20801,7 @@ export const moments: Moment[] = [
     year: 1673,
     date: '17 February 1673',
     address: 'Palais-Royal, Paris',
+    entityIds: ['moliere'],
     wikiSection: '',
   },
   {
@@ -20371,6 +20820,7 @@ export const moments: Moment[] = [
     year: 1778,
     date: '10 January 1778',
     address: 'Uppsala, Sweden',
+    entityIds: ['carl-linnaeus'],
     wikiSection: '',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Prince_Gustaf_statue_Uppsala_Eldh_Signature.jpg/960px-Prince_Gustaf_statue_Uppsala_Eldh_Signature.jpg', caption: 'Prince Gustaf statue Uppsala Eldh Signature' },
@@ -20392,6 +20842,7 @@ export const moments: Moment[] = [
     year: 1332,
     date: 'c. 1332',
     address: '',
+    entityIds: ['ibn-battuta'],
     wikiSection: 'Somalia',
   },
   {
@@ -20442,6 +20893,7 @@ export const moments: Moment[] = [
     year: 1374,
     date: '8 June 1374',
     address: 'Port of London, England',
+    entityIds: ['geoffrey-chaucer'],
     wikiSection: 'Career',
   },
   {
@@ -20460,6 +20912,7 @@ export const moments: Moment[] = [
     year: -370,
     date: 'c. 370 BC',
     address: '',
+    entityIds: ['democritus'],
     wikiSection: 'Life',
   },
   {
@@ -20496,6 +20949,7 @@ export const moments: Moment[] = [
     year: 1643,
     date: 'June 1643',
     address: '',
+    entityIds: ['moliere'],
     wikiSection: 'Life',
   },
   {
@@ -20514,6 +20968,7 @@ export const moments: Moment[] = [
     year: 1881,
     date: 'c. 1881',
     address: 'Apostolou Pavlou Street, Thessaloniki, Greece',
+    entityIds: ['mustafa-kemal-ataturk'],
     wikiSection: 'Early_life',
   },
   {
@@ -20532,6 +20987,7 @@ export const moments: Moment[] = [
     year: 1862,
     date: '30 September 1862',
     address: 'Prussian Landtag, Berlin',
+    entityIds: ['otto-von-bismarck'],
     wikiSection: 'Early_political_career',
   },
   {
@@ -20550,6 +21006,7 @@ export const moments: Moment[] = [
     year: 1355,
     date: 'c. 1355',
     address: '',
+    entityIds: ['ibn-battuta'],
     wikiSection: '',
   },
   {
@@ -20568,6 +21025,7 @@ export const moments: Moment[] = [
     year: 37,
     date: 'March 16, AD 37',
     address: '',
+    entityIds: ['caligula', 'tiberius'],
     wikiSection: '',
   },
   {
@@ -20602,6 +21060,7 @@ export const moments: Moment[] = [
     year: 701,
     date: 'c. 701 CE',
     address: '',
+    entityIds: ['li-bai'],
     wikiSection: 'Background_and_birth',
   },
   {
@@ -20620,6 +21079,7 @@ export const moments: Moment[] = [
     year: 1783,
     date: '24 July 1783',
     address: 'Caracas, Venezuela',
+    entityIds: ['simon-bolivar'],
     wikiSection: 'Early_life_and_family',
   },
   {
@@ -20672,6 +21132,7 @@ export const moments: Moment[] = [
     year: 1632,
     date: 'August 29, 1632',
     address: 'Wrington, Somerset, England',
+    entityIds: ['john-locke'],
     wikiSection: 'Ancestry,_early_life,_and_education',
   },
   {
@@ -20690,6 +21151,7 @@ export const moments: Moment[] = [
     year: 1732,
     date: '12 May 1732',
     address: '',
+    entityIds: ['carl-linnaeus'],
     wikiSection: 'Expedition_to_Lapland',
   },
   {
@@ -20708,6 +21170,7 @@ export const moments: Moment[] = [
     year: 68,
     date: '9 June AD 68',
     address: 'Villa outside Rome, Italy',
+    entityIds: ['nero'],
     wikiSection: '',
   },
   {
@@ -20776,6 +21239,7 @@ export const moments: Moment[] = [
     year: 1735,
     date: '1735',
     address: 'Leiden, Netherlands',
+    entityIds: ['carl-linnaeus'],
     wikiSection: 'Years_in_the_Dutch_Republic_(1735–38)',
   },
   {
@@ -20794,6 +21258,7 @@ export const moments: Moment[] = [
     year: -460,
     date: 'c. 460 BC',
     address: '',
+    entityIds: ['democritus'],
     wikiSection: 'Life',
   },
   {
@@ -20812,6 +21277,7 @@ export const moments: Moment[] = [
     year: 1668,
     date: '1668',
     address: 'Exeter House, The Strand, London',
+    entityIds: ['john-locke'],
     wikiSection: 'Career_after_Oxford',
   },
   {
@@ -20830,6 +21296,7 @@ export const moments: Moment[] = [
     year: 1659,
     date: '18 November 1659',
     address: 'Petit-Bourbon, Paris',
+    entityIds: ['moliere'],
     wikiSection: 'Return_to_Paris',
   },
   {
@@ -20848,6 +21315,7 @@ export const moments: Moment[] = [
     year: 1938,
     date: '10 November 1938',
     address: 'Dolmabahçe Palace, Istanbul, Turkey',
+    entityIds: ['mustafa-kemal-ataturk'],
     wikiSection: '',
   },
   {
@@ -20866,6 +21334,7 @@ export const moments: Moment[] = [
     year: 1805,
     date: '15 August 1805',
     address: 'Monte Sacro, Rome, Italy',
+    entityIds: ['simon-bolivar'],
     wikiSection: 'Return_to_Venezuela_and_second_journey_to_Europe:_1802–1805',
   },
   {
@@ -20884,6 +21353,7 @@ export const moments: Moment[] = [
     year: 1830,
     date: '17 December 1830',
     address: 'Quinta de San Pedro Alejandrino, Santa Marta, Colombia',
+    entityIds: ['simon-bolivar'],
     wikiSection: '',
   },
   {
@@ -20934,6 +21404,7 @@ export const moments: Moment[] = [
     year: 1689,
     date: '1689',
     address: 'London, England',
+    entityIds: ['john-locke'],
     wikiSection: '',
   },
   {
@@ -20952,6 +21423,7 @@ export const moments: Moment[] = [
     year: 1360,
     date: '1360',
     address: 'Reims, France',
+    entityIds: ['geoffrey-chaucer'],
     wikiSection: 'Career',
   },
   {
@@ -20970,6 +21442,7 @@ export const moments: Moment[] = [
     year: 1815,
     date: '1 April 1815',
     address: 'Schönhausen, Saxony-Anhalt, Germany',
+    entityIds: ['otto-von-bismarck'],
     wikiSection: 'Early_years',
   },
   {
@@ -20988,6 +21461,7 @@ export const moments: Moment[] = [
     year: 1664,
     date: '1664',
     address: 'Palais-Royal, Paris',
+    entityIds: ['moliere'],
     wikiSection: 'Height_of_fame',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Royal_Arms_of_Catholic_Monarchy%2C_%281700%29.svg/960px-Royal_Arms_of_Catholic_Monarchy%2C_%281700%29.svg.png', caption: 'Royal Arms of Catholic Monarchy, (1700)' },
@@ -21027,6 +21501,7 @@ export const moments: Moment[] = [
     year: 1330,
     date: 'c. 1330',
     address: '',
+    entityIds: ['ibn-battuta'],
     wikiSection: 'Swahili_coast',
   },
   {
@@ -21045,6 +21520,7 @@ export const moments: Moment[] = [
     year: -610,
     date: 'c. 610 BC',
     address: '',
+    entityIds: ['sappho'],
     wikiSection: 'Works',
   },
   {
@@ -21063,6 +21539,7 @@ export const moments: Moment[] = [
     year: 1373,
     date: '1373',
     address: 'Florence, Italy',
+    entityIds: ['geoffrey-chaucer'],
     wikiSection: 'Career',
   },
   {
@@ -21081,6 +21558,7 @@ export const moments: Moment[] = [
     year: 1658,
     date: 'October 1658',
     address: 'Musée du Louvre, Paris',
+    entityIds: ['moliere'],
     wikiSection: 'Return_to_Paris',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Gipsmodellen_voor_beeldhouwwerken_op_het_Palais_du_Louvre_links_M%C3%A9zeray_door_Louis_Joseph_Daumas_en_rechts_Moli%C3%A8re_door_Gabriel_Bernard_Seurre%2C_RP-F-1999-142-26.jpg/960px-thumbnail.jpg', caption: 'Gipsmodellen voor beeldhouwwerken op het Palais du Louvre links Mézeray door Louis Joseph Daumas en rechts Molière door Gabriel Bernard Seurre, RP-F-1999-142-26' },
@@ -21102,6 +21580,7 @@ export const moments: Moment[] = [
     year: -544,
     date: 'c. 544 BC',
     address: '',
+    entityIds: ['sun-tzu'],
     wikiSection: 'Life',
   },
   {
@@ -21171,6 +21650,7 @@ export const moments: Moment[] = [
     year: 1924,
     date: '3 March 1924',
     address: 'Grand National Assembly, Ankara, Turkey',
+    entityIds: ['mustafa-kemal-ataturk'],
     wikiSection: '',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Atat%C3%BCrk_TBMM%27den_%C3%A7%C4%B1karken.jpg/960px-Atat%C3%BCrk_TBMM%27den_%C3%A7%C4%B1karken.jpg', caption: 'Atatürk TBMM\'den çıkarken' },
@@ -21192,6 +21672,7 @@ export const moments: Moment[] = [
     year: 1871,
     date: '18 January 1871',
     address: 'Hall of Mirrors, Palace of Versailles, France',
+    entityIds: ['otto-von-bismarck'],
     wikiSection: '',
   },
   {
@@ -21210,6 +21691,7 @@ export const moments: Moment[] = [
     year: 744,
     date: '744 CE',
     address: '',
+    entityIds: ['li-bai'],
     wikiSection: '',
   },
   {
@@ -21228,6 +21710,7 @@ export const moments: Moment[] = [
     year: 1901,
     date: 'December 5, 1901',
     address: '1249 Tripp Avenue, Chicago, Illinois',
+    entityIds: ['walt-disney'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -21246,6 +21729,7 @@ export const moments: Moment[] = [
     year: -430,
     date: 'c. 430 BC',
     address: '',
+    entityIds: ['democritus'],
     wikiSection: 'Atomism',
   },
   {
@@ -21264,6 +21748,7 @@ export const moments: Moment[] = [
     year: -341,
     date: 'February 341 BCE',
     address: '',
+    entityIds: ['epicurus'],
     wikiSection: 'Upbringing_and_influences',
   },
   {
@@ -21317,6 +21802,7 @@ export const moments: Moment[] = [
     year: -298,
     date: 'c. 298 BCE',
     address: '',
+    entityIds: ['chanakya'],
     wikiSection: 'Buddhist_version_(5th-6th_cent._CE)',
   },
   {
@@ -21335,6 +21821,7 @@ export const moments: Moment[] = [
     year: 1932,
     date: '1932',
     address: 'Detroit, Michigan, USA',
+    entityIds: ['frida-kahlo'],
     wikiSection: 'Work_in_the_United_States',
   },
   {
@@ -21369,6 +21856,7 @@ export const moments: Moment[] = [
     year: 180,
     date: 'March 17, 180',
     address: 'Vindobona (modern Vienna), Pannonia',
+    entityIds: ['marcus-aurelius'],
     wikiSection: 'Death',
   },
   {
@@ -21387,6 +21875,7 @@ export const moments: Moment[] = [
     year: 1534,
     date: '1534',
     address: 'Agen, France',
+    entityIds: ['nostradamus'],
     wikiSection: 'Marriage_and_healing_work',
   },
   {
@@ -21405,6 +21894,7 @@ export const moments: Moment[] = [
     year: 1048,
     date: '18 May 1048',
     address: 'Nishapur, Khorasan, Iran',
+    entityIds: ['omar-khayyam'],
     wikiSection: 'Life',
   },
   {
@@ -21423,6 +21913,7 @@ export const moments: Moment[] = [
     year: 1952,
     date: 'October 7, 1952',
     address: 'Leningrad, Soviet Union',
+    entityIds: ['vladimir-putin'],
     wikiSection: 'Early_life_and_education',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Vladimir_Kozlov_1.JPG/960px-Vladimir_Kozlov_1.JPG', caption: 'Vladimir Kozlov 1' },
@@ -21494,6 +21985,7 @@ export const moments: Moment[] = [
     year: -1750,
     date: 'c. 1750 BC',
     address: '',
+    entityIds: ['hammurabi'],
     wikiSection: 'Reign_and_conquests',
   },
   {
@@ -21512,6 +22004,7 @@ export const moments: Moment[] = [
     year: 2014,
     date: 'March 18, 2014',
     address: 'Crimea, Ukraine',
+    entityIds: ['vladimir-putin'],
     wikiSection: 'Presidency',
   },
   {
@@ -21530,6 +22023,7 @@ export const moments: Moment[] = [
     year: 1079,
     date: 'c. 1079',
     address: 'Samarkand, Uzbekistan',
+    entityIds: ['omar-khayyam'],
     wikiSection: 'Mathematics',
   },
   {
@@ -21580,6 +22074,7 @@ export const moments: Moment[] = [
     year: 1812,
     date: 'March 10, 1812',
     address: '50 Albemarle Street, London (John Murray\'s office)',
+    entityIds: ['lord-byron'],
     wikiSection: 'Career',
   },
   {
@@ -21598,6 +22093,7 @@ export const moments: Moment[] = [
     year: 1534,
     date: 'July 24, 1534',
     address: '',
+    entityIds: ['jacques-cartier'],
     wikiSection: 'First_voyage_(1534)',
   },
   {
@@ -21616,6 +22112,7 @@ export const moments: Moment[] = [
     year: -325,
     date: 'c. 325 BCE',
     address: '',
+    entityIds: ['chanakya'],
     wikiSection: 'Buddhist_version_(5th-6th_cent._CE)',
   },
   {
@@ -21634,6 +22131,7 @@ export const moments: Moment[] = [
     year: 1555,
     date: '1555',
     address: 'Salon-de-Provence, France',
+    entityIds: ['nostradamus'],
     wikiSection: 'Occultism',
   },
   {
@@ -21670,6 +22168,7 @@ export const moments: Moment[] = [
     year: 2022,
     date: 'February 24, 2022',
     address: 'Kyiv, Ukraine',
+    entityIds: ['vladimir-putin'],
     wikiSection: 'Presidency',
   },
   {
@@ -21688,6 +22187,7 @@ export const moments: Moment[] = [
     year: 1716,
     date: 'November 14, 1716',
     address: 'Hanover, Germany',
+    entityIds: ['gottfried-wilhelm-leibniz'],
     wikiSection: 'House_of_Hanover,_1676–1716',
   },
   {
@@ -21706,6 +22206,7 @@ export const moments: Moment[] = [
     year: -270,
     date: '270 BCE',
     address: '',
+    entityIds: ['epicurus'],
     wikiSection: 'Death',
   },
   {
@@ -21724,6 +22225,7 @@ export const moments: Moment[] = [
     year: 161,
     date: 'March 161',
     address: 'Roman Forum, Rome',
+    entityIds: ['marcus-aurelius', 'charles-v-holy-roman-emperor'],
     wikiSection: 'Succession_to_Hadrian',
   },
   {
@@ -21776,6 +22278,7 @@ export const moments: Moment[] = [
     year: 1087,
     date: '9 September 1087',
     address: 'Rouen, Normandy, France',
+    entityIds: ['william-the-conqueror'],
     wikiSection: 'Death',
   },
   {
@@ -21793,6 +22296,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1100,
     address: 'Great Zimbabwe National Monument, Masvingo Province, Zimbabwe',
+    entityIds: ['constantine-the-great'],
   },
   {
     id: 'hammurabi-conquers-larsa-controls-lower-mesopotamia',
@@ -21810,6 +22314,7 @@ export const moments: Moment[] = [
     year: -1763,
     date: 'c. 1763 BC',
     address: '',
+    entityIds: ['hammurabi'],
     wikiSection: 'Reign_and_conquests',
   },
   {
@@ -21828,6 +22333,7 @@ export const moments: Moment[] = [
     year: 1571,
     date: '27 December 1571',
     address: 'Weil der Stadt, Baden-Wurttemberg, Germany',
+    entityIds: ['johannes-kepler'],
     wikiSection: 'Childhood_(1571–1590)',
   },
   {
@@ -21846,6 +22352,7 @@ export const moments: Moment[] = [
     year: 166,
     date: '166–180',
     address: 'Carnuntum, Pannonia (modern Austria)',
+    entityIds: ['marcus-aurelius'],
     wikiSection: 'Marcomannic_Wars',
   },
   {
@@ -21882,6 +22389,7 @@ export const moments: Moment[] = [
     year: 1889,
     date: 'January 3, 1889',
     address: 'Piazza Carlo Alberto, Turin, Italy',
+    entityIds: ['friedrich-nietzsche'],
     wikiSection: '',
   },
   {
@@ -21916,6 +22424,7 @@ export const moments: Moment[] = [
     year: 1746,
     date: 'March 30, 1746',
     address: 'Fuendetodos, Aragon, Spain',
+    entityIds: ['francisco-goya'],
     wikiSection: 'Early_years_(1746–1771)',
   },
   {
@@ -21951,6 +22460,7 @@ export const moments: Moment[] = [
     year: 1503,
     date: 'December 1503',
     address: 'Saint-Rémy-de-Provence, France',
+    entityIds: ['nostradamus'],
     wikiSection: 'Childhood',
   },
   {
@@ -21969,6 +22479,7 @@ export const moments: Moment[] = [
     year: 1788,
     date: 'January 22, 1788',
     address: 'Holles Street, London, England',
+    entityIds: ['lord-byron'],
     wikiSection: 'Early_life',
   },
   {
@@ -21987,6 +22498,7 @@ export const moments: Moment[] = [
     year: -1770,
     date: 'c. 1770 BC',
     address: '',
+    entityIds: ['hammurabi'],
     wikiSection: 'Code_of_laws',
   },
   {
@@ -22005,6 +22517,7 @@ export const moments: Moment[] = [
     year: -311,
     date: 'c. 311 BCE',
     address: '',
+    entityIds: ['epicurus'],
     wikiSection: 'Teaching_career',
   },
   {
@@ -22057,6 +22570,7 @@ export const moments: Moment[] = [
     year: 1799,
     date: '1799',
     address: 'Royal Palace, Madrid, Spain',
+    entityIds: ['francisco-goya'],
     wikiSection: 'Court_painter',
   },
   {
@@ -22075,6 +22589,7 @@ export const moments: Moment[] = [
     year: 1900,
     date: 'August 25, 1900',
     address: 'Weimar, Germany',
+    entityIds: ['friedrich-nietzsche'],
     wikiSection: '',
   },
   {
@@ -22093,6 +22608,7 @@ export const moments: Moment[] = [
     year: 1529,
     date: '1529',
     address: 'University of Montpellier, Montpellier, France',
+    entityIds: ['nostradamus'],
     wikiSection: 'Student_years',
   },
   {
@@ -22111,6 +22627,7 @@ export const moments: Moment[] = [
     year: 1901,
     date: '1901',
     address: '',
+    entityIds: ['hammurabi'],
     wikiSection: 'Code_of_laws',
   },
   {
@@ -22129,6 +22646,7 @@ export const moments: Moment[] = [
     year: 1999,
     date: 'December 31, 1999',
     address: 'The Kremlin, Moscow, Russia',
+    entityIds: ['vladimir-putin'],
     wikiSection: 'Political_career',
   },
   {
@@ -22163,6 +22681,7 @@ export const moments: Moment[] = [
     year: 1828,
     date: 'April 16, 1828',
     address: 'Bordeaux, France',
+    entityIds: ['francisco-goya'],
     wikiSection: 'Early_years_(1746–1771)',
   },
   {
@@ -22197,6 +22716,7 @@ export const moments: Moment[] = [
     year: 1938,
     date: 'November 1938',
     address: 'East 57th Street, Manhattan, New York',
+    entityIds: ['frida-kahlo'],
     wikiSection: 'Return_to_Mexico_City_and_international_recognition',
   },
   {
@@ -22215,6 +22735,7 @@ export const moments: Moment[] = [
     year: 1079,
     date: '15 March 1079',
     address: 'Isfahan, Iran',
+    entityIds: ['omar-khayyam'],
     wikiSection: 'Life',
   },
   {
@@ -22249,6 +22770,7 @@ export const moments: Moment[] = [
     year: 1816,
     date: 'April 1816',
     address: 'Venice, Italy',
+    entityIds: ['lord-byron'],
     wikiSection: 'Career',
   },
   {
@@ -22285,6 +22807,7 @@ export const moments: Moment[] = [
     year: -322,
     date: 'c. 322 BCE',
     address: '',
+    entityIds: ['chanakya'],
     wikiSection: 'Buddhist_version_(5th-6th_cent._CE)',
   },
   {
@@ -22303,6 +22826,7 @@ export const moments: Moment[] = [
     year: 1826,
     date: 'July 4, 1826',
     address: 'Peacefield, Quincy, Massachusetts',
+    entityIds: ['john-adams'],
     wikiSection: 'Post-presidency',
   },
   {
@@ -22321,6 +22845,7 @@ export const moments: Moment[] = [
     year: 1521,
     date: 'May 25, 1521',
     address: 'Worms, Holy Roman Empire',
+    entityIds: ['martin-luther'],
     wikiSection: 'Inheritances',
   },
   {
@@ -22339,6 +22864,7 @@ export const moments: Moment[] = [
     year: 1703,
     date: 'September 1703',
     address: 'Ospedale della Pieta, Riva degli Schiavoni, Venice',
+    entityIds: ['antonio-vivaldi'],
     wikiSection: 'Ospedale_della_Pietà',
   },
   {
@@ -22373,6 +22899,7 @@ export const moments: Moment[] = [
     year: 1929,
     date: 'August 21, 1929',
     address: 'Coyoacan, Mexico City, Mexico',
+    entityIds: ['frida-kahlo', 'diego-rivera', 'juan-diego'],
     wikiSection: 'Artistic_career',
   },
   {
@@ -22391,6 +22918,7 @@ export const moments: Moment[] = [
     year: 1131,
     date: '4 December 1131',
     address: 'Mausoleum of Omar Khayyam, Nishapur, Iran',
+    entityIds: ['omar-khayyam'],
     wikiSection: 'Life',
   },
   {
@@ -22443,6 +22971,7 @@ export const moments: Moment[] = [
     year: -322,
     date: 'c. 322 BCE',
     address: '',
+    entityIds: ['chanakya'],
     wikiSection: 'Buddhist_version_(5th-6th_cent._CE)',
   },
   {
@@ -22461,6 +22990,7 @@ export const moments: Moment[] = [
     year: 1646,
     date: 'July 1, 1646',
     address: 'Leipzig, Saxony',
+    entityIds: ['gottfried-wilhelm-leibniz'],
     wikiSection: 'Early_life',
   },
   {
@@ -22527,6 +23057,7 @@ export const moments: Moment[] = [
     year: 1092,
     date: 'c. 1092',
     address: 'Mecca, Saudi Arabia',
+    entityIds: ['omar-khayyam'],
     wikiSection: 'Life',
   },
   {
@@ -22579,6 +23110,7 @@ export const moments: Moment[] = [
     year: 1824,
     date: 'April 19, 1824',
     address: 'Missolonghi, Greece',
+    entityIds: ['lord-byron'],
     wikiSection: 'Career',
   },
   {
@@ -22615,6 +23147,7 @@ export const moments: Moment[] = [
     year: 1939,
     date: 'March 1939',
     address: 'Renou et Colle Gallery, Paris, France',
+    entityIds: ['frida-kahlo'],
     wikiSection: 'Return_to_Mexico_City_and_international_recognition',
   },
   {
@@ -22633,6 +23166,7 @@ export const moments: Moment[] = [
     year: 1673,
     date: 'Early 1673',
     address: 'Royal Society, London, England',
+    entityIds: ['gottfried-wilhelm-leibniz'],
     wikiSection: '1666–1676',
   },
   {
@@ -22667,6 +23201,7 @@ export const moments: Moment[] = [
     year: 1741,
     date: 'July 28, 1741',
     address: 'Vienna, Austria',
+    entityIds: ['antonio-vivaldi'],
     wikiSection: 'Death',
   },
   {
@@ -22685,6 +23220,7 @@ export const moments: Moment[] = [
     year: 121,
     date: 'April 26, 121',
     address: 'Caelian Hill, Rome',
+    entityIds: ['marcus-aurelius'],
     wikiSection: 'Early_life',
   },
   {
@@ -22721,6 +23257,7 @@ export const moments: Moment[] = [
     year: -300,
     date: 'c. early 3rd century BCE',
     address: '',
+    entityIds: ['epicurus'],
     wikiSection: 'Physics',
   },
   {
@@ -22789,6 +23326,7 @@ export const moments: Moment[] = [
     year: 1711,
     date: '1711',
     address: 'Amsterdam, Dutch Republic',
+    entityIds: ['antonio-vivaldi'],
     wikiSection: 'Ospedale_della_Pietà',
   },
   {
@@ -22807,6 +23345,7 @@ export const moments: Moment[] = [
     year: 1675,
     date: '1672–1676',
     address: 'Paris, France',
+    entityIds: ['gottfried-wilhelm-leibniz'],
     wikiSection: '1666–1676',
   },
   {
@@ -22824,6 +23363,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1967,
     address: '603 E Avalon Ave, Muscle Shoals, AL 35661',
+    entityIds: ['benjamin-franklin'],
   },
   {
     id: 'charles-v-troops-sack-rome',
@@ -22990,6 +23530,7 @@ export const moments: Moment[] = [
     year: 1814,
     date: '1814',
     address: 'Principe Pio hill, Madrid, Spain',
+    entityIds: ['francisco-goya'],
     wikiSection: 'Middle_period_(1793–1799)',
   },
   {
@@ -23008,6 +23549,7 @@ export const moments: Moment[] = [
     year: 1776,
     date: 'July 4, 1776',
     address: 'Independence Hall, Philadelphia, Pennsylvania',
+    entityIds: ['john-adams'],
     wikiSection: 'Career_before_the_Revolution',
   },
   {
@@ -23057,6 +23599,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1984,
     address: '200 Academy Dr, Austin, TX 78704',
+    entityIds: ['willie-nelson', 'stephen-f-austin'],
   },
   {
     id: 'charles-v-dies-yuste',
@@ -23092,6 +23635,7 @@ export const moments: Moment[] = [
     year: 1206,
     date: '1206',
     address: 'Piazza del Vescovado, Assisi, Italy',
+    entityIds: ['francis-of-assisi'],
     wikiSection: 'Early_life',
   },
   {
@@ -23142,6 +23686,7 @@ export const moments: Moment[] = [
     year: 1735,
     date: 'October 30, 1735',
     address: 'Braintree (now Quincy), Massachusetts',
+    entityIds: ['john-adams'],
     wikiSection: 'Early_life_and_education',
   },
   {
@@ -23278,6 +23823,7 @@ export const moments: Moment[] = [
     year: 1770,
     date: 'October 24, 1770',
     address: 'State Street, Boston, Massachusetts',
+    entityIds: ['john-adams'],
     wikiSection: 'Counsel_for_the_British:_Boston_Massacre',
   },
   {
@@ -23363,6 +23909,7 @@ export const moments: Moment[] = [
     year: 1226,
     date: '3 October 1226',
     address: 'Basilica of Santa Maria degli Angeli, Assisi, Italy',
+    entityIds: ['francis-of-assisi'],
     wikiSection: 'Death_and_canonization',
   },
   {
@@ -23381,6 +23928,7 @@ export const moments: Moment[] = [
     year: 1800,
     date: 'November 1, 1800',
     address: '1600 Pennsylvania Avenue, Washington, D.C.',
+    entityIds: ['jim-white', 'john-adams'],
     wikiSection: 'Presidency',
   },
   {
@@ -23467,6 +24015,7 @@ export const moments: Moment[] = [
     year: 1600,
     date: '4 February 1600',
     address: 'Benatky nad Jizerou, Bohemia (near Prague)',
+    entityIds: ['johannes-kepler'],
     wikiSection: 'Expulsion_from_Graz',
   },
   {
@@ -23585,6 +24134,7 @@ export const moments: Moment[] = [
     year: 1619,
     date: '15 May 1618',
     address: 'Linz, Austria',
+    entityIds: ['johannes-kepler'],
     wikiSection: 'Harmonice_Mundi',
   },
   {
@@ -23603,6 +24153,7 @@ export const moments: Moment[] = [
     year: 1609,
     date: '1609',
     address: 'Prague, Bohemia',
+    entityIds: ['johannes-kepler'],
     wikiSection: 'Astronomia_nova',
   },
   {
@@ -23621,6 +24172,7 @@ export const moments: Moment[] = [
     year: 1791,
     date: '22 September 1791',
     address: 'Newington Butts, Southwark, London',
+    entityIds: ['michael-faraday'],
     wikiSection: 'Early_life',
   },
   {
@@ -23639,6 +24191,7 @@ export const moments: Moment[] = [
     year: 1696,
     date: 'July 1696',
     address: 'Azov, Rostov Oblast, Russia',
+    entityIds: ['constantine-the-great'],
     wikiSection: 'Reign',
   },
   {
@@ -23657,6 +24210,7 @@ export const moments: Moment[] = [
     year: 1725,
     date: '8 February 1725',
     address: 'Winter Palace, St. Petersburg, Russia',
+    entityIds: ['constantine-the-great'],
     wikiSection: 'Death',
   },
   {
@@ -23675,6 +24229,7 @@ export const moments: Moment[] = [
     year: 1672,
     date: '9 June 1672',
     address: 'Moscow Kremlin, Moscow, Russia',
+    entityIds: ['constantine-the-great'],
     wikiSection: 'Early_life',
   },
   {
@@ -23693,6 +24248,7 @@ export const moments: Moment[] = [
     year: 1697,
     date: 'August 1697',
     address: 'Zaandam, Netherlands',
+    entityIds: ['constantine-the-great'],
     wikiSection: 'Grand_Embassy',
   },
   {
@@ -23711,6 +24267,7 @@ export const moments: Moment[] = [
     year: 1945,
     date: '8 May 1945',
     address: 'Buckingham Palace / Whitehall, London',
+    entityIds: ['elizabeth-ii'],
     wikiSection: 'Second_World_War',
   },
   {
@@ -23729,6 +24286,7 @@ export const moments: Moment[] = [
     year: 54,
     date: 'AD 54',
     address: 'Palatine Hill, Rome',
+    entityIds: ['nero'],
     wikiSection: 'Imperial_advisor',
   },
   {
@@ -23763,6 +24321,7 @@ export const moments: Moment[] = [
     year: 1953,
     date: '2 June 1953',
     address: 'Westminster Abbey, London SW1P 3PA',
+    entityIds: ['elizabeth-ii'],
     wikiSection: 'Coronation',
   },
   {
@@ -23799,6 +24358,7 @@ export const moments: Moment[] = [
     year: 1831,
     date: '29 August 1831',
     address: '21 Albemarle Street, London W1S 4BS',
+    entityIds: ['michael-faraday'],
     wikiSection: 'Electricity_and_magnetism',
   },
   {
@@ -23817,6 +24377,7 @@ export const moments: Moment[] = [
     year: 1835,
     date: 'c. 1835',
     address: 'Royal Institution, 21 Albemarle Street, London',
+    entityIds: ['michael-faraday'],
     wikiSection: 'Later_life',
   },
   {
@@ -23835,6 +24396,7 @@ export const moments: Moment[] = [
     year: 1947,
     date: '20 November 1947',
     address: 'Westminster Abbey, London SW1P 3PA',
+    entityIds: ['elizabeth-ii'],
     wikiSection: 'Marriage',
   },
   {
@@ -23869,6 +24431,7 @@ export const moments: Moment[] = [
     year: 1867,
     date: '25 August 1867',
     address: '37 Hampton Court Road, Hampton Court, London',
+    entityIds: ['michael-faraday'],
     wikiSection: 'Later_life',
   },
   {
@@ -23923,6 +24486,7 @@ export const moments: Moment[] = [
     year: 1736,
     date: '1736',
     address: 'Konigsberg, Prussia (now Kaliningrad, Russia)',
+    entityIds: ['leonhard-euler'],
     wikiSection: 'Career',
   },
   {
@@ -23941,6 +24505,7 @@ export const moments: Moment[] = [
     year: 1777,
     date: '30 April 1777',
     address: 'Brunswick, Lower Saxony, Germany',
+    entityIds: ['carl-friedrich-gauss'],
     wikiSection: 'Youth_and_education',
   },
   {
@@ -24046,6 +24611,7 @@ export const moments: Moment[] = [
     year: 1771,
     date: '1771',
     address: 'Imperial Russian Academy of Sciences, St. Petersburg, Russia',
+    entityIds: ['leonhard-euler'],
     wikiSection: 'Second_Saint_Petersburg_period',
   },
   {
@@ -24064,6 +24630,7 @@ export const moments: Moment[] = [
     year: 1796,
     date: '30 March 1796',
     address: 'University of Gottingen, Gottingen, Germany',
+    entityIds: ['carl-friedrich-gauss'],
     wikiSection: 'Youth_and_education',
   },
   {
@@ -24099,6 +24666,7 @@ export const moments: Moment[] = [
     year: -306,
     date: 'c. 306 BCE',
     address: '',
+    entityIds: ['epicurus'],
     wikiSection: 'Teaching_career',
   },
   {
@@ -24117,6 +24685,7 @@ export const moments: Moment[] = [
     year: 1801,
     date: '31 December 1801',
     address: 'Brunswick, Germany',
+    entityIds: ['carl-friedrich-gauss'],
     wikiSection: 'Private_scholar',
   },
   {
@@ -24170,6 +24739,7 @@ export const moments: Moment[] = [
     year: 1761,
     date: 'c. 1760–1762',
     address: 'Berlin, Prussia (Germany)',
+    entityIds: ['leonhard-euler'],
     wikiSection: 'Berlin_period_(1741–1766)',
   },
   {
@@ -24188,6 +24758,7 @@ export const moments: Moment[] = [
     year: 1833,
     date: '1833',
     address: 'Gottingen Observatory, Gottingen, Germany',
+    entityIds: ['carl-friedrich-gauss'],
     wikiSection: 'Professor_in_Göttingen',
   },
   {
@@ -24206,6 +24777,7 @@ export const moments: Moment[] = [
     year: 1783,
     date: '18 September 1783',
     address: 'St. Petersburg, Russia',
+    entityIds: ['leonhard-euler'],
     wikiSection: 'Second_Saint_Petersburg_period',
   },
   {
@@ -24224,6 +24796,7 @@ export const moments: Moment[] = [
     year: 1855,
     date: '23 February 1855',
     address: 'Gottingen Observatory, Gottingen, Germany',
+    entityIds: ['carl-friedrich-gauss'],
     wikiSection: 'Professor_in_Göttingen',
   },
   {
@@ -24278,6 +24851,7 @@ export const moments: Moment[] = [
     year: 1926,
     date: '21 April 1926',
     address: '17 Bruton Street, Mayfair, London',
+    entityIds: ['elizabeth-ii'],
     wikiSection: 'Early_life',
   },
   {
@@ -24296,6 +24870,7 @@ export const moments: Moment[] = [
     year: 1955,
     date: '18 April 1955',
     address: 'Princeton Hospital, 253 Witherspoon Street, Princeton, New Jersey, USA',
+    entityIds: ['albert-einstein'],
     wikiSection: 'Death',
   },
   {
@@ -24314,6 +24889,7 @@ export const moments: Moment[] = [
     year: 1933,
     date: '1933',
     address: '112 Mercer Street, Princeton, New Jersey, USA',
+    entityIds: ['albert-einstein'],
     wikiSection: 'Emigration_to_the_United_States',
   },
   {
@@ -24332,6 +24908,7 @@ export const moments: Moment[] = [
     year: 1915,
     date: '25 November 1915',
     address: 'Unter den Linden 8, Berlin, Germany',
+    entityIds: ['albert-einstein'],
     wikiSection: 'General_relativity',
   },
   {
@@ -24368,6 +24945,7 @@ export const moments: Moment[] = [
     year: 1939,
     date: '2 August 1939',
     address: 'Nassau Point, Peconic, Long Island, New York, USA',
+    entityIds: ['albert-einstein', 'franklin-d-roosevelt'],
     wikiSection: 'World_War_II_and_the_Manhattan_Project',
   },
   {
@@ -24386,6 +24964,7 @@ export const moments: Moment[] = [
     year: 2022,
     date: '8 September 2022',
     address: 'Balmoral Castle, Aberdeenshire, Scotland',
+    entityIds: ['elizabeth-ii'],
     wikiSection: 'Death',
   },
   {
@@ -24404,6 +24983,7 @@ export const moments: Moment[] = [
     year: 1879,
     date: '14 March 1879',
     address: 'Bahnhofstrasse 20, Ulm, Germany',
+    entityIds: ['albert-einstein'],
     wikiSection: 'Childhood,_youth_and_education',
   },
   {
@@ -24440,6 +25020,7 @@ export const moments: Moment[] = [
     year: 1480,
     date: 'c. 1480',
     address: 'Sabrosa, Trás-os-Montes, Portugal',
+    entityIds: ['ferdinand-magellan'],
     wikiSection: 'Early_life_and_travels',
   },
   {
@@ -24494,6 +25075,7 @@ export const moments: Moment[] = [
     year: 1752,
     date: '1752',
     address: 'University of Glasgow, Glasgow, Scotland',
+    entityIds: ['adam-smith'],
     wikiSection: 'Teaching_career',
   },
   {
@@ -24529,6 +25111,7 @@ export const moments: Moment[] = [
     year: -335,
     date: '335 BC',
     address: 'Lyceum, Athens, Greece',
+    entityIds: ['aristotle'],
     wikiSection: 'Life',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_statue_of_Aristotle_near_the_entrance%2C_The_School_of_Aristotle_%28The_Lyceum%29_%287263455202%29.jpg/960px-The_statue_of_Aristotle_near_the_entrance%2C_The_School_of_Aristotle_%28The_Lyceum%29_%287263455202%29.jpg', caption: 'The statue of Aristotle near the entrance, The School of Aristotle (The Lyceum) (7263455202)' },
@@ -24550,6 +25133,7 @@ export const moments: Moment[] = [
     year: 1827,
     date: '26 March 1827',
     address: 'Schwarzspanierstraße 15, 1090 Vienna, Austria',
+    entityIds: ['beethoven'],
     wikiSection: 'Death',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Schwarzspanierstra%C3%9Fe_15%2C_Vienna_%28ca._1902%29.jpg/960px-Schwarzspanierstra%C3%9Fe_15%2C_Vienna_%28ca._1902%29.jpg', caption: 'Schwarzspanierstraße 15, Vienna (ca. 1902)' },
@@ -24571,6 +25155,7 @@ export const moments: Moment[] = [
     year: 370,
     date: 'c. 370 CE',
     address: 'Carthage (modern Tunis, Tunisia)',
+    entityIds: ['cicero'],
     wikiSection: 'Move_to_Carthage,_Rome,_and_Milan',
   },
   {
@@ -24623,6 +25208,7 @@ export const moments: Moment[] = [
     year: 1723,
     date: '5 June 1723',
     address: 'Kirkcaldy, Fife, Scotland',
+    entityIds: ['adam-smith'],
     wikiSection: 'Early_life',
   },
   {
@@ -24641,6 +25227,7 @@ export const moments: Moment[] = [
     year: -367,
     date: 'c. 367 BC',
     address: 'Plato\'s Academy, Kolonos, Athens, Greece',
+    entityIds: ['aristotle'],
     wikiSection: 'Life',
   },
   {
@@ -24694,6 +25281,7 @@ export const moments: Moment[] = [
     year: 1819,
     date: '1819–1823',
     address: 'Quinta del Sordo, Madrid, Spain',
+    entityIds: ['francisco-goya'],
     wikiSection: 'Middle_period_(1793–1799)',
   },
   {
@@ -24744,6 +25332,7 @@ export const moments: Moment[] = [
     year: 1776,
     date: '9 March 1776',
     address: 'London, England',
+    entityIds: ['adam-smith'],
     wikiSection: 'Later_years',
   },
   {
@@ -24762,6 +25351,7 @@ export const moments: Moment[] = [
     year: 1799,
     date: 'June 6, 1799',
     address: '',
+    entityIds: ['alexander-pushkin'],
     wikiSection: 'Early_life',
   },
   {
@@ -24780,6 +25370,7 @@ export const moments: Moment[] = [
     year: 1835,
     date: '8 May 1835',
     address: 'Copenhagen, Denmark',
+    entityIds: ['hans-christian-andersen'],
     wikiSection: 'Literary_fairy_tales',
   },
   {
@@ -24815,6 +25406,7 @@ export const moments: Moment[] = [
     year: 1928,
     date: '1 November 1928',
     address: 'Grand National Assembly, Ankara, Turkey',
+    entityIds: ['mustafa-kemal-ataturk'],
     wikiSection: '',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Atat%C3%BCrk_TBMM%27den_%C3%A7%C4%B1karken.jpg/960px-Atat%C3%BCrk_TBMM%27den_%C3%A7%C4%B1karken.jpg', caption: 'Atatürk TBMM\'den çıkarken' },
@@ -24852,6 +25444,7 @@ export const moments: Moment[] = [
     year: 1028,
     date: 'c. late 1028',
     address: 'Château de Falaise, Falaise, Normandy, France',
+    entityIds: ['william-the-conqueror'],
     wikiSection: 'Early_life',
   },
   {
@@ -24938,6 +25531,7 @@ export const moments: Moment[] = [
     year: -260,
     date: 'c. 260 BCE',
     address: 'Dhauli, Odisha, India',
+    entityIds: ['ashoka'],
     wikiSection: 'Edicts_of_Ashoka',
   },
   {
@@ -24989,6 +25583,7 @@ export const moments: Moment[] = [
     year: 1905,
     date: '1905',
     address: 'Speichergasse 6, Bern, Switzerland',
+    entityIds: ['albert-einstein'],
     wikiSection: 'Annus_mirabilis_papers',
   },
   {
@@ -25025,6 +25620,7 @@ export const moments: Moment[] = [
     year: 1678,
     date: 'March 4, 1678',
     address: 'Church of San Giovanni in Bragora, Venice',
+    entityIds: ['antonio-vivaldi'],
     wikiSection: 'Birth_and_background',
   },
   {
@@ -25060,6 +25656,7 @@ export const moments: Moment[] = [
     year: -321,
     date: 'c. 321 BCE',
     address: '',
+    entityIds: ['chanakya'],
     wikiSection: 'Buddhist_version_(5th-6th_cent._CE)',
   },
   {
@@ -25113,6 +25710,7 @@ export const moments: Moment[] = [
     year: 1790,
     date: '17 July 1790',
     address: 'Panmure House, Canongate, Edinburgh, Scotland',
+    entityIds: ['adam-smith'],
     wikiSection: 'Later_years',
   },
   {
@@ -25131,6 +25729,7 @@ export const moments: Moment[] = [
     year: 1264,
     date: 'c. 1264',
     address: 'Orvieto, Umbria, Italy',
+    entityIds: ['thomas-aquinas'],
     wikiSection: 'Naples,_Orvieto,_Rome_(1259–1268)',
   },
   {
@@ -25149,6 +25748,7 @@ export const moments: Moment[] = [
     year: 1535,
     date: 'October 2, 1535',
     address: '',
+    entityIds: ['jacques-cartier'],
     wikiSection: 'Second_voyage_(1535–1536)',
   },
   {
@@ -25167,6 +25767,7 @@ export const moments: Moment[] = [
     year: 1605,
     date: 'January 1605',
     address: 'Madrid, Spain',
+    entityIds: ['miguel-de-cervantes'],
     wikiSection: 'Don_Quixote',
   },
   {
@@ -25185,6 +25786,7 @@ export const moments: Moment[] = [
     year: 789,
     date: 'c. 789',
     address: 'Aachen, North Rhine-Westphalia, Germany',
+    entityIds: ['charlemagne'],
     wikiSection: 'Carolingian_Renaissance',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Aachen%2C_Dom%2C_Grabplatte_-Carolo_Magno-_--_2016_--_2719_%28crop%29.jpg/960px-Aachen%2C_Dom%2C_Grabplatte_-Carolo_Magno-_--_2016_--_2719_%28crop%29.jpg', caption: 'Aachen, Dom, Grabplatte -Carolo Magno- -- 2016 -- 2719 (crop)' },
@@ -25241,6 +25843,7 @@ export const moments: Moment[] = [
     year: 1816,
     date: 'early 1816',
     address: 'Port-au-Prince, Haiti',
+    entityIds: ['simon-bolivar'],
     wikiSection: 'Political_and_military_career',
   },
   {
@@ -25275,6 +25878,7 @@ export const moments: Moment[] = [
     year: 1765,
     date: '1765',
     address: 'Geneva, Switzerland',
+    entityIds: ['adam-smith', 'voltaire'],
     wikiSection: 'Tutoring,_travels,_European_intellectuals',
   },
   {
@@ -25293,6 +25897,7 @@ export const moments: Moment[] = [
     year: 1857,
     date: 'June 1857',
     address: 'Gad\'s Hill Place, Higham, Kent, England',
+    entityIds: ['hans-christian-andersen', 'charles-dickens'],
     wikiSection: 'Meetings_with_Charles_Dickens',
   },
   {
@@ -25329,6 +25934,7 @@ export const moments: Moment[] = [
     year: 1555,
     date: '1555',
     address: 'Paris, France',
+    entityIds: ['nostradamus'],
     wikiSection: 'Occultism',
   },
   {
@@ -25399,7 +26005,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1901,
     address: '1600 Pennsylvania Avenue NW, Washington, DC 20500',
-    entityIds: ['booker-t-washington', 'theodore-roosevelt'],
+    entityIds: ['booker-t-washington', 'theodore-roosevelt', 'jim-white'],
   },
   {
     id: 'gallipoli-anzac',
@@ -25435,6 +26041,7 @@ export const moments: Moment[] = [
     year: 1961,
     date: 'August 4, 1961',
     address: '1319 Punahou St, Honolulu, HI 96826',
+    entityIds: ['barack-obama'],
     wikiSection: 'Early_life_and_career',
   },
   {
@@ -25453,6 +26060,7 @@ export const moments: Moment[] = [
     year: 1557,
     date: 'September 1, 1557',
     address: '',
+    entityIds: ['jacques-cartier'],
     wikiSection: 'Later_life',
   },
   {
@@ -25471,6 +26079,7 @@ export const moments: Moment[] = [
     year: 1790,
     date: 'April 17, 1790',
     address: 'Philadelphia, Pennsylvania',
+    entityIds: ['benjamin-franklin'],
     wikiSection: '',
   },
   {
