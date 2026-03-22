@@ -1108,6 +1108,119 @@ async function main() {
   }
   .btn-add-note:hover { background: #2ea043; }
 
+  /* Review tab */
+  .review-stats {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+    padding: 12px 16px; background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+  }
+  .review-stat {
+    display: flex; flex-direction: column; min-width: 80px;
+  }
+  .review-stat-value {
+    font-size: 1.4rem; font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .review-stat-label { font-size: 0.72rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.04em; }
+  .review-stat-unreviewed .review-stat-value { color: #d29922; }
+  .review-stat-accepted .review-stat-value { color: #3fb950; }
+  .review-stat-rejected .review-stat-value { color: #f85149; }
+  .review-stat-total .review-stat-value { color: #e6edf3; }
+
+  .review-filters {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+  }
+  .review-filter-btn {
+    background: #21262d; border: 1px solid #30363d; color: #8b949e;
+    padding: 6px 14px; border-radius: 6px; font-size: 0.82rem; cursor: pointer;
+  }
+  .review-filter-btn:hover { border-color: #58a6ff; color: #c9d1d9; }
+  .review-filter-btn.active { background: #388bfd26; border-color: #58a6ff; color: #58a6ff; }
+
+  .review-cards { display: flex; flex-direction: column; gap: 12px; }
+  .review-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 16px; transition: border-color 0.15s;
+  }
+  .review-card:hover { border-color: #484f58; }
+  .review-card.review-accepted { border-left: 3px solid #3fb950; opacity: 0.7; }
+  .review-card.review-rejected { border-left: 3px solid #f85149; opacity: 0.7; }
+
+  .review-card-header {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .review-card-name { font-size: 1rem; font-weight: 600; color: #e6edf3; }
+  .review-card-subtitle { font-size: 0.82rem; color: #8b949e; }
+  .review-card-story {
+    font-size: 0.72rem; color: #58a6ff; background: #388bfd14;
+    padding: 1px 6px; border-radius: 3px; white-space: nowrap;
+  }
+
+  .review-card-description {
+    font-size: 0.85rem; color: #c9d1d9; margin-bottom: 10px; line-height: 1.5;
+  }
+
+  .review-card-meta {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
+    font-size: 0.75rem; color: #8b949e;
+  }
+  .review-meta-item {
+    background: #21262d; padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+  }
+  .review-meta-item strong { color: #c9d1d9; }
+
+  .review-card-entities {
+    display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .review-entity-tag {
+    font-size: 0.7rem; background: #1f6feb26; color: #58a6ff;
+    padding: 2px 6px; border-radius: 3px;
+  }
+
+  .review-card-actions {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .btn-accept {
+    background: #238636; color: #fff; border: none; padding: 6px 14px;
+    border-radius: 6px; font-size: 0.82rem; cursor: pointer; font-weight: 500;
+  }
+  .btn-accept:hover { background: #2ea043; }
+  .btn-accept:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-reject {
+    background: #da3633; color: #fff; border: none; padding: 6px 14px;
+    border-radius: 6px; font-size: 0.82rem; cursor: pointer; font-weight: 500;
+  }
+  .btn-reject:hover { background: #f85149; }
+  .btn-reject:disabled { opacity: 0.5; cursor: not-allowed; }
+  .review-status-badge {
+    font-size: 0.75rem; padding: 3px 10px; border-radius: 4px; font-weight: 500;
+  }
+  .review-status-accepted { background: #23863626; color: #3fb950; }
+  .review-status-rejected { background: #da363326; color: #f85149; }
+
+  .review-feedback-row {
+    display: flex; gap: 6px; margin-top: 8px;
+  }
+  .review-feedback-input {
+    flex: 1; background: #0d1117; border: 1px solid #30363d; color: #c9d1d9;
+    padding: 6px 10px; border-radius: 6px; font-size: 0.82rem;
+  }
+  .review-feedback-input:focus { outline: none; border-color: #f85149; }
+  .btn-submit-reject {
+    background: #da3633; color: #fff; border: none; padding: 6px 12px;
+    border-radius: 6px; font-size: 0.82rem; cursor: pointer; font-weight: 500;
+  }
+  .btn-submit-reject:hover { background: #f85149; }
+  .btn-cancel-reject {
+    background: none; border: 1px solid #30363d; color: #8b949e;
+    padding: 6px 10px; border-radius: 6px; font-size: 0.82rem; cursor: pointer;
+  }
+  .btn-cancel-reject:hover { border-color: #484f58; color: #c9d1d9; }
+
+  .review-card-date {
+    font-size: 0.72rem; color: #484f58; margin-left: auto;
+  }
+
+  .review-loading { color: #8b949e; font-style: italic; padding: 20px; text-align: center; }
+
   @media (max-width: 1024px) {
     .completeness, th.comp-col { display: none; }
     .detail-grid { grid-template-columns: 1fr; }
@@ -1183,6 +1296,7 @@ async function main() {
   <button class="tab-btn" data-tab="organization" onclick="switchTab('organization')">Orgs (${entityTypeCounts.organization?.total || 0})</button>
   <button class="tab-btn" data-tab="work" onclick="switchTab('work')">Works (${entityTypeCounts.work?.total || 0})</button>
   <button class="tab-btn" data-tab="concept" onclick="switchTab('concept')">Concepts (${entityTypeCounts.concept?.total || 0})</button>
+  <button class="tab-btn" data-tab="review" onclick="switchTab('review')">Review</button>
 </div>
 
 <!-- People Tab -->
@@ -1273,6 +1387,25 @@ ${tableRows}
 <!-- Entity Type Tabs -->
 ${entityTabsHtml}
 
+<!-- Review Tab -->
+<div class="tab-content" id="tab-review">
+  <div class="review-stats" id="reviewStats">
+    <div class="review-stat review-stat-total"><span class="review-stat-value" id="reviewTotal">-</span><span class="review-stat-label">Total</span></div>
+    <div class="review-stat review-stat-unreviewed"><span class="review-stat-value" id="reviewUnreviewed">-</span><span class="review-stat-label">Unreviewed</span></div>
+    <div class="review-stat review-stat-accepted"><span class="review-stat-value" id="reviewAccepted">-</span><span class="review-stat-label">Accepted</span></div>
+    <div class="review-stat review-stat-rejected"><span class="review-stat-value" id="reviewRejected">-</span><span class="review-stat-label">Rejected</span></div>
+  </div>
+  <div class="review-filters">
+    <button class="review-filter-btn active" data-filter="unreviewed" onclick="filterReview('unreviewed')">Unreviewed</button>
+    <button class="review-filter-btn" data-filter="all" onclick="filterReview('all')">All</button>
+    <button class="review-filter-btn" data-filter="accepted" onclick="filterReview('accepted')">Accepted</button>
+    <button class="review-filter-btn" data-filter="rejected" onclick="filterReview('rejected')">Rejected</button>
+  </div>
+  <div class="review-cards" id="reviewCards">
+    <div class="review-loading">Loading recent moments...</div>
+  </div>
+</div>
+
 <script>
 (function() {
   var SUPABASE_URL = 'https://fhxyaoaaeztrycfoppeu.supabase.co';
@@ -1301,7 +1434,7 @@ ${entityTabsHtml}
 
   // On load, check hash
   var initialTab = location.hash.replace('#', '') || 'people';
-  if (['people', 'place', 'organization', 'work', 'concept'].indexOf(initialTab) >= 0) {
+  if (['people', 'place', 'organization', 'work', 'concept', 'review'].indexOf(initialTab) >= 0) {
     switchTab(initialTab);
   }
 
@@ -1799,6 +1932,323 @@ ${entityTabsHtml}
     var tempIdx = notesBySlug[slug].findIndex(function(n) { return n.id === tempNote.id; });
     if (tempIdx >= 0 && data && data[0]) notesBySlug[slug][tempIdx] = data[0];
   };
+
+  // ----- Review Tab -----
+  var reviewMoments = [];       // raw moments from Supabase
+  var reviewNotes = {};          // moment_id -> tracker_note (review notes)
+  var reviewFilter = 'unreviewed';
+  var reviewLoaded = false;
+  var reviewStories = {};        // story_id -> story name
+  var reviewEntities = {};       // entity_id -> entity name
+
+  async function loadReviewData() {
+    if (reviewLoaded) return;
+    reviewLoaded = true;
+
+    var cardsEl = document.getElementById('reviewCards');
+    cardsEl.innerHTML = '<div class="review-loading">Loading recent moments from Supabase...</div>';
+
+    try {
+      // Fetch recent moments (limit 200, ordered by created_at DESC)
+      var { data: momData, error: momErr } = await sb
+        .from('moments')
+        .select('id, name, subtitle, description, year, type_id, accuracy, importance, location, created_at')
+        .order('created_at', { ascending: false })
+        .limit(200);
+
+      if (momErr) throw momErr;
+      reviewMoments = momData || [];
+
+      // Fetch story_moments for these moments to get parent story names
+      var momentIds = reviewMoments.map(function(m) { return m.id; });
+      if (momentIds.length > 0) {
+        var { data: smData } = await sb
+          .from('story_moments')
+          .select('moment_id, story_id')
+          .in('moment_id', momentIds);
+
+        if (smData && smData.length > 0) {
+          // Get unique story IDs
+          var storyIds = [];
+          var smMap = {}; // moment_id -> story_id
+          for (var sm of smData) {
+            smMap[sm.moment_id] = sm.story_id;
+            if (storyIds.indexOf(sm.story_id) < 0) storyIds.push(sm.story_id);
+          }
+
+          // Fetch story names
+          var { data: storiesData } = await sb
+            .from('stories')
+            .select('id, name')
+            .in('id', storyIds);
+
+          var storyNameMap = {};
+          if (storiesData) {
+            for (var s of storiesData) storyNameMap[s.id] = s.name;
+          }
+
+          // Attach story name to each moment
+          for (var m of reviewMoments) {
+            var sid = smMap[m.id];
+            m._storyName = sid ? (storyNameMap[sid] || '') : '';
+          }
+        }
+      }
+
+      // Fetch moment_entities for these moments
+      if (momentIds.length > 0) {
+        var { data: meData } = await sb
+          .from('moment_entities')
+          .select('moment_id, entity_id')
+          .in('moment_id', momentIds);
+
+        if (meData && meData.length > 0) {
+          var entityIds = [];
+          var meMap = {}; // moment_id -> [entity_ids]
+          for (var me of meData) {
+            if (!meMap[me.moment_id]) meMap[me.moment_id] = [];
+            meMap[me.moment_id].push(me.entity_id);
+            if (entityIds.indexOf(me.entity_id) < 0) entityIds.push(me.entity_id);
+          }
+
+          // Fetch entity names
+          var { data: entData } = await sb
+            .from('entities')
+            .select('id, name')
+            .in('id', entityIds);
+
+          var entNameMap = {};
+          if (entData) {
+            for (var e of entData) entNameMap[e.id] = e.name;
+          }
+
+          // Attach entity names to each moment
+          for (var m of reviewMoments) {
+            var eids = meMap[m.id] || [];
+            m._entityNames = eids.map(function(eid) { return entNameMap[eid] || eid; });
+          }
+        }
+      }
+
+      // Fetch review notes (tracker_notes with note_type='review')
+      var { data: noteData, error: noteErr } = await sb
+        .from('tracker_notes')
+        .select('*')
+        .eq('note_type', 'review');
+
+      if (noteErr) throw noteErr;
+
+      reviewNotes = {};
+      for (var n of (noteData || [])) {
+        if (n.entity_slug) {
+          reviewNotes[n.entity_slug] = n;
+        }
+      }
+
+      renderReviewCards();
+    } catch (err) {
+      console.error('Failed to load review data:', err);
+      cardsEl.innerHTML = '<div class="review-loading" style="color:#f85149;">Failed to load review data: ' + esc(err.message || String(err)) + '</div>';
+    }
+  }
+
+  function getReviewStatus(momentId) {
+    var note = reviewNotes[momentId];
+    if (!note) return 'unreviewed';
+    return note.category || 'unreviewed';
+  }
+
+  function renderReviewCards() {
+    var cardsEl = document.getElementById('reviewCards');
+    var totalEl = document.getElementById('reviewTotal');
+    var unreviewedEl = document.getElementById('reviewUnreviewed');
+    var acceptedEl = document.getElementById('reviewAccepted');
+    var rejectedEl = document.getElementById('reviewRejected');
+
+    var countUnreviewed = 0, countAccepted = 0, countRejected = 0;
+    for (var i = 0; i < reviewMoments.length; i++) {
+      var status = getReviewStatus(reviewMoments[i].id);
+      if (status === 'accepted') countAccepted++;
+      else if (status === 'rejected') countRejected++;
+      else countUnreviewed++;
+    }
+
+    totalEl.textContent = reviewMoments.length;
+    unreviewedEl.textContent = countUnreviewed;
+    acceptedEl.textContent = countAccepted;
+    rejectedEl.textContent = countRejected;
+
+    // Filter
+    var filtered = reviewMoments.filter(function(m) {
+      var s = getReviewStatus(m.id);
+      if (reviewFilter === 'all') return true;
+      return s === reviewFilter;
+    });
+
+    if (filtered.length === 0) {
+      cardsEl.innerHTML = '<div class="review-loading">No moments match the current filter.</div>';
+      return;
+    }
+
+    cardsEl.innerHTML = filtered.map(function(m) {
+      var status = getReviewStatus(m.id);
+      var statusCls = status === 'accepted' ? ' review-accepted' : status === 'rejected' ? ' review-rejected' : '';
+
+      // Story name (populated by separate query)
+      var storyName = m._storyName || '';
+
+      // Entity tags (populated by separate query)
+      var entityTags = '';
+      if (m._entityNames && m._entityNames.length > 0) {
+        entityTags = m._entityNames.map(function(eName) {
+          return '<span class="review-entity-tag">' + esc(eName) + '</span>';
+        }).join('');
+      }
+
+      var yearStr = m.year ? (m.year < 0 ? Math.abs(m.year) + ' BCE' : String(m.year)) : 'N/A';
+      var createdStr = m.created_at ? new Date(m.created_at).toLocaleDateString() : '';
+      var coordStr = 'N/A';
+      if (m.location && m.location.coordinates) {
+        var lng = m.location.coordinates[0];
+        var lat = m.location.coordinates[1];
+        coordStr = Number(lat).toFixed(4) + ', ' + Number(lng).toFixed(4);
+      }
+
+      var actionsHtml = '';
+      if (status === 'unreviewed') {
+        actionsHtml = '<button class="btn-accept" onclick="event.stopPropagation(); acceptMoment(\\'' + m.id + '\\')">\\u2705 Accept</button>' +
+          '<button class="btn-reject" onclick="event.stopPropagation(); showRejectForm(\\'' + m.id + '\\')">\\u274C Reject</button>' +
+          '<div class="review-feedback-row" id="reject-form-' + m.id + '" style="display:none;width:100%;">' +
+            '<input type="text" class="review-feedback-input" id="reject-input-' + m.id + '" placeholder="What needs fixing?" autocomplete="off">' +
+            '<button class="btn-submit-reject" onclick="event.stopPropagation(); submitReject(\\'' + m.id + '\\')">Submit</button>' +
+            '<button class="btn-cancel-reject" onclick="event.stopPropagation(); hideRejectForm(\\'' + m.id + '\\')">Cancel</button>' +
+          '</div>';
+      } else if (status === 'accepted') {
+        actionsHtml = '<span class="review-status-badge review-status-accepted">\\u2705 Accepted</span>';
+      } else if (status === 'rejected') {
+        var note = reviewNotes[m.id];
+        var feedback = note && note.text ? note.text : '';
+        actionsHtml = '<span class="review-status-badge review-status-rejected">\\u274C Rejected</span>' +
+          (feedback ? '<span style="font-size:0.8rem;color:#f85149;margin-left:4px;">' + esc(feedback) + '</span>' : '');
+      }
+
+      return '<div class="review-card' + statusCls + '">' +
+        '<div class="review-card-header">' +
+          '<span class="review-card-name">' + esc(m.name || '') + '</span>' +
+          (m.subtitle ? '<span class="review-card-subtitle">' + esc(m.subtitle) + '</span>' : '') +
+          (storyName ? '<span class="review-card-story">' + esc(storyName) + '</span>' : '') +
+          '<span class="review-card-date">' + createdStr + '</span>' +
+        '</div>' +
+        (m.description ? '<div class="review-card-description">' + esc(m.description) + '</div>' : '') +
+        '<div class="review-card-meta">' +
+          '<span class="review-meta-item">Year: <strong>' + yearStr + '</strong></span>' +
+          '<span class="review-meta-item">Type: <strong>' + esc(m.type_id || 'N/A') + '</strong></span>' +
+          '<span class="review-meta-item">Accuracy: <strong>' + esc(m.accuracy || 'N/A') + '</strong></span>' +
+          '<span class="review-meta-item">Importance: <strong>' + esc(m.importance || 'N/A') + '</strong></span>' +
+          '<span class="review-meta-item">Coords: <strong>' + coordStr + '</strong></span>' +
+        '</div>' +
+        (entityTags ? '<div class="review-card-entities">' + entityTags + '</div>' : '') +
+        '<div class="review-card-actions">' + actionsHtml + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  window.filterReview = function(filter) {
+    reviewFilter = filter;
+    document.querySelectorAll('.review-filter-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+    renderReviewCards();
+  };
+
+  window.acceptMoment = async function(momentId) {
+    // Optimistic update
+    reviewNotes[momentId] = { id: 'temp-' + Date.now(), entity_slug: momentId, note_type: 'review', category: 'accepted', text: 'Accepted', resolved: false, created_at: new Date().toISOString() };
+    renderReviewCards();
+
+    var { data, error } = await sb.from('tracker_notes').insert({
+      entity_slug: momentId,
+      note_type: 'review',
+      category: 'accepted',
+      text: 'Accepted'
+    }).select();
+
+    if (error) {
+      console.error('Failed to accept moment:', error);
+      delete reviewNotes[momentId];
+      renderReviewCards();
+      return;
+    }
+    if (data && data[0]) reviewNotes[momentId] = data[0];
+  };
+
+  window.showRejectForm = function(momentId) {
+    var form = document.getElementById('reject-form-' + momentId);
+    if (form) {
+      form.style.display = 'flex';
+      var input = document.getElementById('reject-input-' + momentId);
+      if (input) input.focus();
+    }
+  };
+
+  window.hideRejectForm = function(momentId) {
+    var form = document.getElementById('reject-form-' + momentId);
+    if (form) form.style.display = 'none';
+  };
+
+  window.submitReject = async function(momentId) {
+    var input = document.getElementById('reject-input-' + momentId);
+    var text = input ? input.value.trim() : '';
+    if (!text) { if (input) input.focus(); return; }
+
+    // Optimistic update
+    reviewNotes[momentId] = { id: 'temp-' + Date.now(), entity_slug: momentId, note_type: 'review', category: 'rejected', text: text, resolved: false, created_at: new Date().toISOString() };
+    renderReviewCards();
+
+    var { data, error } = await sb.from('tracker_notes').insert({
+      entity_slug: momentId,
+      note_type: 'review',
+      category: 'rejected',
+      text: text
+    }).select();
+
+    if (error) {
+      console.error('Failed to reject moment:', error);
+      delete reviewNotes[momentId];
+      renderReviewCards();
+      return;
+    }
+    if (data && data[0]) reviewNotes[momentId] = data[0];
+  };
+
+  // Intercept tab switch to lazy-load review data
+  var origSwitchTab = window.switchTab;
+  window.switchTab = function(tab) {
+    origSwitchTab(tab);
+    if (tab === 'review') loadReviewData();
+  };
+
+  // Also trigger if starting on review tab
+  if (initialTab === 'review') loadReviewData();
+
+  // Enter key for reject inputs
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.classList.contains('review-feedback-input')) {
+      var momentId = e.target.id.replace('reject-input-', '');
+      if (momentId) window.submitReject(momentId);
+    }
+  });
+
+  // Stop click propagation on review card interactive elements
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('review-feedback-input') ||
+        e.target.classList.contains('btn-submit-reject') ||
+        e.target.classList.contains('btn-cancel-reject') ||
+        e.target.classList.contains('btn-accept') ||
+        e.target.classList.contains('btn-reject')) {
+      e.stopPropagation();
+    }
+  }, true);
 
   // ----- Init -----
   loadNotes();
