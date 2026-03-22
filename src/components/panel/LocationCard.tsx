@@ -20,7 +20,7 @@ const VERIFICATION_DISPLAY: Record<VerificationLevel, { label: string; color: st
 
 interface LocationCardProps {
   location: Moment;
-  story: Story;
+  story?: Story;
   isActive: boolean;
   isExpanded: boolean;
   onClick: (location: Moment) => void;
@@ -49,7 +49,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     showExpandChevron, skipCanonicalFilter, onStoryClick, onEntityClick,
     compact,
   }, ref) {
-    const cat = CATEGORIES[story.category];
+    const cat = story ? CATEGORIES[story.category] : undefined;
 
     // ── Compact mode: dense row for mobile bottom sheet ──
     // When expanded, fall through to full card rendering
@@ -63,10 +63,10 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
               ? 'bg-[var(--bg-card-hover)] border-l-[3px]'
               : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent hover:bg-[var(--bg-card-hover)]'
           } rounded-lg py-2 pl-2.5 pr-3`}
-          style={{ borderLeftColor: isActive ? cat.color : 'transparent' }}
+          style={{ borderLeftColor: isActive ? cat?.color ?? 'var(--text-muted)' : 'transparent' }}
         >
           <div className="flex items-center gap-2">
-            {typeof index === 'number' && (
+            {typeof index === 'number' && cat && (
               <span
                 className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold"
                 style={{ backgroundColor: cat.bgColor, color: cat.color }}
@@ -104,14 +104,14 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         .map((eid) => {
           const entity = entityMap.get(eid);
           if (!entity) return null;
-          if (!skipCanonicalFilter && entity.canonicalStoryId === story.id) return null;
+          if (!skipCanonicalFilter && story && entity.canonicalStoryId === story.id) return null;
           if (excludeSet.has(eid)) return null;
           const entries = getEntityMomentStories(eid);
           const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)).filter(id => !canonicalStoryIds.has(id)));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
         })
         .filter((e): e is NonNullable<typeof e> => e != null);
-    }, [location.entityIds, story.id, onEntityClick, excludeEntityIds, skipCanonicalFilter]);
+    }, [location.entityIds, story?.id, onEntityClick, excludeEntityIds, skipCanonicalFilter]);
 
     // Merge all navigable stories for Dive Deeper (deduplicated, excluding canonical)
     const navigableStories = useMemo(() => {
@@ -142,12 +142,12 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent pl-3 hover:bg-[var(--bg-card-hover)]'
         } rounded-[12px] py-3 pr-4`}
         style={{
-          borderLeftColor: isActive ? cat.color : 'transparent',
+          borderLeftColor: isActive ? cat?.color ?? 'var(--text-muted)' : 'transparent',
         }}
       >
         {/* Number + Name + optional chevron */}
         <div className="flex items-start gap-2">
-          {typeof index === 'number' && (
+          {typeof index === 'number' && cat && (
             <span
               className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold mt-0.5"
               style={{ backgroundColor: cat.bgColor, color: cat.color }}
@@ -186,7 +186,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         <div className="flex items-center gap-2 mt-2 text-[10px] font-mono text-[var(--text-muted)]">
           {showStoryName && (
             <>
-              <span style={{ color: cat.color }}>{story.name}</span>
+              <span style={{ color: cat?.color }}>{story?.name}</span>
               <span>·</span>
             </>
           )}
@@ -335,7 +335,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             )}
             {/* External Wikipedia link — non-story contexts (entity panel, etc.) */}
             {!onWikiJump && (() => {
-              const wikiStory = story.wikipediaSlug ? story : parentStories?.find(s => s.wikipediaSlug);
+              const wikiStory = story?.wikipediaSlug ? story : parentStories?.find(s => s.wikipediaSlug);
               if (!wikiStory) return null;
               const url = `https://en.wikipedia.org/wiki/${wikiStory.wikipediaSlug}${location.wikiSection ? '#' + location.wikiSection : ''}`;
               return (

@@ -333,8 +333,12 @@ Bad wiring makes content invisible in the UI. These are non-negotiable.
 
 ### Every moment MUST have:
 - At least one `entityId` referencing an existing entity
-- Membership in at least one story's `moments[]` array
-- Membership in relevant collection's `momentIds[]` array (if part of a thematic group)
+- Membership in at least one story's `moments[]` array, OR an entity's moments, OR a collection's `momentIds[]` array. A moment does not need a story wrapper to be valid — burial moments, for example, may only connect to a person entity and a place entity.
+
+### Entity tagging rule: physical presence required
+- Only tag a person/org in a moment's `entityIds` if they were **physically present** at that location during that event. Do not tag people who are merely referenced, discussed, or affected remotely.
+- Burial moments ARE valid tags — the person's body is physically there.
+- Artifacts in museums are a gray area (TBD) — e.g., the Rosetta Stone at the British Museum.
 
 ### Every entity MUST have:
 - A `canonicalStoryId` pointing to a real story

@@ -244,11 +244,11 @@ export function ExplorePanel({
       ? stories.filter((s) => s.category === categoryFilter)
       : stories;
 
-    const allInBounds = getLocationsInBounds(sourceStories, bounds, momentMap);
+    const allInBounds = getLocationsInBounds(sourceStories, bounds, momentMap, moments);
     setViewportLocations(allInBounds);
     setViewportStories(getStoriesInBounds(sourceStories, bounds, momentMap));
     setMapZoom(mapInstance.getZoom());
-  }, [mapInstance, stories, categoryFilter, momentMap]);
+  }, [mapInstance, stories, categoryFilter, momentMap, moments]);
 
   useEffect(() => {
     if (!mapInstance) return;
@@ -499,10 +499,10 @@ export function ExplorePanel({
 
         if (closestKey) {
           const vl = viewportLocations.find(
-            (v) => `${v.story.id}-${v.location.id}` === closestKey
+            (v) => `${v.story?.id}-${v.location.id}` === closestKey
           );
           if (vl) {
-            onScrollHighlight([vl.location], vl.story.id);
+            onScrollHighlight([vl.location], vl.story?.id);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
               panToAboveSheet(mapInstance, [vl.location.lat, vl.location.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
@@ -659,7 +659,7 @@ export function ExplorePanel({
         (vl) =>
           vl.location.name.toLowerCase().includes(q) ||
           vl.location.subtitle?.toLowerCase().includes(q) ||
-          vl.story.name.toLowerCase().includes(q)
+          vl.story?.name.toLowerCase().includes(q)
       );
     }
     switch (momentSort) {
@@ -896,7 +896,7 @@ export function ExplorePanel({
                 ))}
               </div>
               {sortedMoments.map((vl) => {
-                const key = `${vl.story.id}-${vl.location.id}`;
+                const key = `${vl.story?.id ?? 'no-story'}-${vl.location.id}`;
                 return (
                   <LocationCard
                     key={key}
@@ -905,13 +905,13 @@ export function ExplorePanel({
                       else locationCardRefs.current.delete(key);
                     }}
                     location={vl.location}
-                    story={vl.story}
+                    story={vl.story ?? undefined}
                     isActive={activeLocationId === vl.location.id}
                     isExpanded={expandedLocationKey === key}
                     compact={useCompactCards && expandedLocationKey !== key}
                     showExpandChevron={!isMobile}
                     skipCanonicalFilter
-                    parentStories={[vl.story]}
+                    parentStories={vl.story ? [vl.story] : []}
                     onClick={(moment) => {
                       setExpandedLocationKey(expandedLocationKey === key ? null : key);
                       onScrollHighlight([moment]);

@@ -4559,7 +4559,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-barbara-jordan',
     name: 'Barbara Jordan Is Interred at the Texas State Cemetery',
-    subtitle: 'The first Black woman elected to Congress from the South rests among governors and generals',
+    subtitle: '909 Navasota St, Austin. Section 2, Row J. Her grave faces the Republic Hill monuments',
     description: 'Barbara Jordan, the first Southern Black woman in Congress, is buried here, making her one of the most prominent African American figures in the cemetery. Her grave stands in a section that once only honored the state\'s white elite, a powerful symbol of the progress of civil rights in Texas.',
     lat: 30.2615,
     lng: -97.7255,
@@ -4574,7 +4574,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-1994-restoration',
     name: 'Governor Bush Restores the Neglected State Cemetery',
-    subtitle: 'Transforming a neglected yard into a national monument',
+    subtitle: '909 Navasota St, Austin. The visitors center and columbarium were added during the restoration',
     description: 'By the early 1990s, the cemetery had fallen into serious disrepair, with toppled stones and overgrown weeds. Governor George W. Bush championed a $4.8 million restoration that added a state-of-the-art visitors center and extensive new landscaping. The project transformed the site into an active memorial and a major tourist attraction.',
     lat: 30.2619,
     lng: -97.7258,
@@ -4963,7 +4963,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-johnston-monument',
     name: 'Elisabet Ney Memorializes General Albert Sidney Johnston',
-    subtitle: 'A masterful marble tribute to a fallen Confederate commander',
+    subtitle: '909 Navasota St, Austin. The recumbent marble statue by Elisabet Ney is near the main entrance',
     description: 'The grave of Albert Sidney Johnston is marked by a stunning recumbent statue by renowned sculptor Elisabet Ney. Johnston, the highest-ranking officer killed in the Civil War, was originally buried in New Orleans before being reinterred here in 1867. The monument is considered one of the finest pieces of funerary art in the United States.',
     lat: 30.2622,
     lng: -97.7265,
@@ -4980,7 +4980,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-hogg-burial',
     name: 'Governor James Hogg Is Interred Under a Pecan Tree',
-    subtitle: 'A "People\'s Governor" whose grave produces food for the public',
+    subtitle: '909 Navasota St, Austin. The pecan tree he requested still stands at the gravesite',
     description: 'James Stephen Hogg, the first native-born Governor of Texas, requested that no monument be built for him, but instead that a pecan tree be planted at his head so the nuts could be distributed to the people of Texas. His grave became a symbol of populist spirit, leading to the pecan being named the official state tree of Texas in 1919.',
     lat: 30.2619,
     lng: -97.7259,
@@ -4997,7 +4997,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-john-connally',
     name: 'Governor John Connally Is Buried Near Political Allies',
-    subtitle: 'The final resting place of a titan of 20th-century Texas politics',
+    subtitle: '909 Navasota St, Austin. Republic Hill section, among governors and Confederate generals',
     description: 'John Connally, who served as Texas Governor and U.S. Treasury Secretary, was buried here following his death in 1993. Most famous nationally for being wounded during the JFK assassination in Dallas, Connally\'s grave in the Republic Hill section places him among the giants of Texas history he spent his life emulating.',
     lat: 30.2617,
     lng: -97.7254,
@@ -5014,7 +5014,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-james-michener',
     name: 'Author James Michener Joins the Ranks of Texas Legends',
-    subtitle: 'A New Yorker who researched his way into the heart of the state',
+    subtitle: '909 Navasota St, Austin. Granted a plot despite not being a native Texan',
     description: 'Pulitzer Prize-winning author James Michener was granted a rare plot in the State Cemetery despite not being a native Texan, in recognition of his monumental novel \'Texas.\' Michener spent years in Austin researching the state\'s history, and his burial here reflects the unique way Texas adopts those who tell its story with sufficient scale.',
     lat: 30.2620,
     lng: -97.7262,
@@ -5031,7 +5031,7 @@ export const moments: Moment[] = [
   {
     id: 'cemetery-ann-richards',
     name: 'Governor Ann Richards Is Laid to Rest with a Final Wit',
-    subtitle: 'The "Silver Fox" takes her place in the hallowed grounds',
+    subtitle: '909 Navasota St, Austin. Her grave is in a prominent section near the visitors center',
     description: 'The burial of Ann Richards in 2006 drew thousands to the cemetery to honor the state\'s second female governor. Her grave, located in a prominent section of the grounds, serves as a pilgrimage site for those who admired her sharp tongue and progressive leadership. Her presence here ensures the cemetery remains a living monument to the diversity of Texas political thought.',
     lat: 30.2616,
     lng: -97.7257,

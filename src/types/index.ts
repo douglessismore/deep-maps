@@ -56,7 +56,7 @@ export type InteractionMode = 'explore' | 'scroll' | 'story' | 'entity';
 
 export interface ViewportLocation {
   location: Moment;
-  story: Story;
+  story: Story | null;
   distance: number;
 }
 

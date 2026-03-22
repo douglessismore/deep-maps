@@ -45,13 +45,17 @@ export function getLocationsInBounds(
   stories: Story[],
   bounds: LatLngBounds,
   momentMap: Map<string, Moment>,
+  allMoments?: Moment[],
 ): ViewportLocation[] {
   const center = bounds.getCenter();
   const results: ViewportLocation[] = [];
+  const seenIds = new Set<string>();
 
+  // Story-linked moments (primary source)
   for (const story of stories) {
     for (const location of resolveLocationsFromMap(story, momentMap)) {
       if (bounds.contains([location.lat, location.lng])) {
+        seenIds.add(location.id);
         results.push({
           location,
           story,
@@ -61,6 +65,19 @@ export function getLocationsInBounds(
             center.lat,
             center.lng
           ),
+        });
+      }
+    }
+  }
+
+  // Story-less moments (e.g., cemetery burials that only connect via entity tags)
+  if (allMoments) {
+    for (const m of allMoments) {
+      if (!seenIds.has(m.id) && bounds.contains([m.lat, m.lng])) {
+        results.push({
+          location: m,
+          story: null,
+          distance: distanceFromCenter(m.lat, m.lng, center.lat, center.lng),
         });
       }
     }
