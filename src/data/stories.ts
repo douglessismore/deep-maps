@@ -81,7 +81,7 @@ export const stories: Story[] = [
   },
   {
     id: 'confederate-mesilla',
-    name: 'The Confederate West',
+    name: 'The Confederate Territory of Arizona',
     nickname: 'When the Confederacy Reached the Rio Grande',
     years: '1862',
     category: 'political-drama',
@@ -309,7 +309,7 @@ export const stories: Story[] = [
     nickname: 'The Father of the Atomic Bomb',
     years: '1904–1967',
     category: 'discovery-science',
-    storyType: 'incident',
+    storyType: 'biography',
     description: 'The brilliant and conflicted physicist who led the Manhattan Project. His journey from the lecture halls of Berkeley to the high-pressure labs of Los Alamos redefined science and global security.',
     tags: ['manhattan-project', 'physics', 'cold-war', 'science'],
     moments: [{ momentId: 'jro-berkeley' }, { momentId: 'jro-tech-area' }, { momentId: 'jro-princeton-ias' }],
@@ -408,7 +408,7 @@ export const stories: Story[] = [
   },
   {
     id: 'tomb-7-treasure',
-    name: 'The Great Tomb 7 Treasure',
+    name: 'The Tomb 7 Treasure of Monte Alban',
     nickname: 'Mexico\'s King Tut',
     years: '1932',
     category: 'discovery-science',
@@ -629,7 +629,7 @@ export const stories: Story[] = [
   },
   {
     id: 'torreon-massacre',
-    name: 'The Massacre of the Chinese',
+    name: 'The Torreon Massacre of 1911',
     nickname: 'Mexico\'s Forgotten Pogrom',
     years: '1911',
     category: 'dark-history',
@@ -723,7 +723,7 @@ export const stories: Story[] = [
   },
   {
     id: 'tlatelolco-massacre-1968',
-    name: 'The Night of Tlatelolco',
+    name: 'The Tlatelolco Massacre',
     nickname: 'The Flare of Death',
     years: '1968',
     category: 'dark-history',
@@ -774,7 +774,7 @@ export const stories: Story[] = [
   },
   {
     id: '1900-granite-dam-disaster',
-    name: 'The 1900 Great Granite Dam Disaster',
+    name: 'The 1900 Austin Dam Disaster',
     years: '1900',
     category: 'everyday-extraordinary',
     storyType: 'incident',
@@ -846,7 +846,7 @@ export const stories: Story[] = [
   },
   {
     id: 'apollo-13-houston',
-    name: '"Houston, We Have a Problem"',
+    name: 'The Apollo 13 Mission',
     years: '1970',
     category: 'discovery-science',
     storyType: 'incident',
@@ -930,7 +930,7 @@ export const stories: Story[] = [
   },
   {
     id: 'chamizal-border-shift',
-    name: 'The Chamizal Border Shift',
+    name: 'The Chamizal Dispute',
     years: '1864–1963',
     category: 'political-drama',
     storyType: 'incident',
@@ -965,7 +965,7 @@ export const stories: Story[] = [
   },
   {
     id: 'palo-duro-final-stand',
-    name: 'The Palo Duro Canyon Final Stand',
+    name: 'The Battle of Palo Duro Canyon',
     years: '1874',
     category: 'battles-conflicts',
     storyType: 'incident',
@@ -1239,7 +1239,7 @@ export const stories: Story[] = [
     description: 'The asteroid impact that ended the age of dinosaurs, buried beneath the Yucatan Peninsula and traced on the surface only by a ring of sinkholes invisible to anyone who doesn\'t know where to look.',
     tags: ['meteorite', 'impact-crater', 'extinction', 'mexico'],
     moments: [{ momentId: 'chicxulub-crater' }],
-    relatedStoryIds: ['ancient-impact-structures', 'famous-impact-craters'],
+    relatedStoryIds: [],
     wikipediaSlug: 'Chicxulub_crater',
   },
   {
@@ -1252,47 +1252,8 @@ export const stories: Story[] = [
     description: 'The two most significant asteroid impacts of the modern era — one that flattened 80 million trees in the Siberian wilderness with no witnesses, and one captured by hundreds of dashcams in a Russian city.',
     tags: ['meteorite', 'impact', 'russia', 'airburst'],
     moments: [{ momentId: 'tunguska-event' }, { momentId: 'chelyabinsk-meteor' }],
-    relatedStoryIds: ['chicxulub-impact', 'famous-impact-craters'],
+    relatedStoryIds: ['chicxulub-impact'],
     wikipediaSlug: 'Tunguska_event',
-  },
-  {
-    id: 'ancient-impact-structures',
-    name: 'Ancient Giant Impact Structures',
-    nickname: 'The Scars of Deep Time',
-    years: '2 billion–35 million years ago',
-    category: 'discovery-science',
-    storyType: 'era',
-    description: 'The largest confirmed impact craters on Earth — structures so old and so vast that cities, lakes, and diamond mines have formed inside them without anyone knowing they were standing in a cosmic scar.',
-    tags: ['meteorite', 'impact-crater', 'geology', 'ancient'],
-    moments: [{ momentId: 'vredefort-crater' }, { momentId: 'sudbury-basin' }, { momentId: 'manicouagan-crater' }, { momentId: 'popigai-crater' }, { momentId: 'chesapeake-bay-crater' }],
-    relatedStoryIds: ['chicxulub-impact', 'famous-impact-craters'],
-    wikipediaSlug: 'Vredefort_impact_structure',
-  },
-  {
-    id: 'famous-impact-craters',
-    name: 'Famous Impact Craters Around the World',
-    nickname: 'Cosmic Scars',
-    years: '1.4 million–3,500 years ago',
-    category: 'discovery-science',
-    storyType: 'era',
-    description: 'From a perfectly preserved hole in the Arizona desert to a medieval German town built unknowingly inside a crater to a sacred Aboriginal ring of hills in the outback — the impact craters you can still see.',
-    tags: ['meteorite', 'impact-crater', 'geology'],
-    moments: [{ momentId: 'barringer-meteor-crater' }, { momentId: 'nordlinger-ries' }, { momentId: 'wolfe-creek-crater' }, { momentId: 'gosses-bluff' }, { momentId: 'lonar-lake' }, { momentId: 'kaali-crater' }, { momentId: 'pingualuit-crater' }],
-    relatedStoryIds: ['ancient-impact-structures', 'meteorite-falls-and-fields'],
-    wikipediaSlug: 'Meteor_Crater',
-  },
-  {
-    id: 'meteorite-falls-and-fields',
-    name: 'Famous Meteorite Falls and Strewn Fields',
-    nickname: 'Iron from the Sky',
-    years: '80,000 years ago–1947',
-    category: 'discovery-science',
-    storyType: 'era',
-    description: 'The places where pieces of space actually survived the journey to Earth\'s surface — from a 60-tonne iron slab that never moved from where it landed in Namibia to an Argentine field the Spanish named "Field of Heaven."',
-    tags: ['meteorite', 'impact', 'geology'],
-    moments: [{ momentId: 'hoba-meteorite' }, { momentId: 'campo-del-cielo' }, { momentId: 'sikhote-alin' }, { momentId: 'siljan-ring' }, { momentId: 'tswaing-crater' }],
-    relatedStoryIds: ['famous-impact-craters', 'modern-impact-events'],
-    wikipediaSlug: 'Hoba_meteorite',
   },
   // ─── Sacred and Pilgrimage Sites ─────────────────────────────────────
   {
@@ -1304,20 +1265,8 @@ export const stories: Story[] = [
     description: 'The square kilometer of ancient stone where three world religions converge — the holiest sites of Christianity, the last wall of the Jewish Temple, and the rock from which Muhammad ascended to heaven, all within walking distance of each other.',
     tags: ['religion', 'pilgrimage', 'jerusalem', 'holy-land'],
     moments: [{ momentId: 'holy-sepulchre' }, { momentId: 'western-wall' }, { momentId: 'dome-of-the-rock' }, { momentId: 'garden-gethsemane' }, { momentId: 'via-dolorosa' }],
-    relatedStoryIds: ['holy-land-biblical-sites', 'islamic-holy-cities'],
+    relatedStoryIds: ['islamic-holy-cities'],
     wikipediaSlug: 'Old_City_(Jerusalem)',
-  },
-  {
-    id: 'holy-land-biblical-sites',
-    name: 'Biblical Sites of the Holy Land',
-    years: '1500 BCE–1st century CE',
-    category: 'sacred-history',
-    storyType: 'era',
-    description: 'From the cave where Jesus was born to the mountain where Moses received the commandments to the fortress where Jewish rebels made their last stand — the physical geography of the Bible.',
-    tags: ['religion', 'pilgrimage', 'bible', 'holy-land', 'archaeology'],
-    moments: [{ momentId: 'church-nativity' }, { momentId: 'capernaum-galilee' }, { momentId: 'mount-sinai-monastery' }, { momentId: 'jordan-river-baptism' }, { momentId: 'nazareth-annunciation' }, { momentId: 'qumran-scrolls' }, { momentId: 'masada-fortress' }],
-    relatedStoryIds: ['jerusalem-holy-sites'],
-    wikipediaSlug: 'Holy_Land',
   },
   {
     id: 'islamic-holy-cities',
@@ -1330,30 +1279,6 @@ export const stories: Story[] = [
     moments: [{ momentId: 'mecca-kaaba' }, { momentId: 'medina-prophets-mosque' }],
     relatedStoryIds: ['jerusalem-holy-sites'],
     wikipediaSlug: 'Hajj',
-  },
-  {
-    id: 'catholic-pilgrimage-sites',
-    name: 'The Great Catholic Pilgrimage Sites',
-    years: '326 CE–present',
-    category: 'sacred-history',
-    storyType: 'era',
-    description: 'The basilica built over Peter\'s bones, the cathedral at the end of a thousand-mile walk, and the grottos where the Virgin Mary appeared to children — the destinations that draw millions of Catholic pilgrims each year.',
-    tags: ['religion', 'pilgrimage', 'catholic', 'europe'],
-    moments: [{ momentId: 'vatican-st-peters' }, { momentId: 'santiago-compostela' }, { momentId: 'lourdes-sanctuary' }, { momentId: 'fatima-sanctuary' }],
-    relatedStoryIds: ['jerusalem-holy-sites', 'holy-land-biblical-sites'],
-    wikipediaSlug: 'Christian_pilgrimage',
-  },
-  {
-    id: 'eastern-pilgrimage-sites',
-    name: 'Sacred Sites of the Eastern Religions',
-    years: '11th century BCE–present',
-    category: 'sacred-history',
-    storyType: 'era',
-    description: 'The tree where the Buddha found enlightenment, the river that washes away sins, the mountain sacred to four religions that no one has ever climbed, and the temple that changed faiths — the pilgrimage destinations of Asia.',
-    tags: ['religion', 'pilgrimage', 'buddhism', 'hinduism', 'asia'],
-    moments: [{ momentId: 'bodh-gaya-temple' }, { momentId: 'varanasi-ganges' }, { momentId: 'mount-kailash' }, { momentId: 'angkor-wat' }, { momentId: 'hagia-sophia' }],
-    relatedStoryIds: ['islamic-holy-cities', 'jerusalem-holy-sites'],
-    wikipediaSlug: 'Pilgrimage',
   },
 
   // ─── BIBLICAL EVENTS ────────────────────────────────────────────────
@@ -1408,7 +1333,7 @@ export const stories: Story[] = [
       { momentId: 'moses-water-meribah' },
       { momentId: 'moses-death-nebo' },
     ],
-    relatedStoryIds: ['jesus-ministry', 'abraham-journey', 'holy-land-biblical-sites'],
+    relatedStoryIds: ['jesus-ministry', 'abraham-journey'],
     wikipediaSlug: 'The_Exodus',
   },
   {
@@ -1476,84 +1401,11 @@ export const stories: Story[] = [
     relatedStoryIds: ['abraham-journey', 'jesus-ministry', 'jerusalem-holy-sites'],
     wikipediaSlug: 'David',
   },
-  {
-    id: 'great-events-hebrew-bible',
-    name: 'Great Events of the Hebrew Bible',
-    years: 'c. 2348–539 BCE (traditional)',
-    category: 'sacred-history',
-    storyType: 'era',
-    description: 'The flood that covered the earth, the tower that reached for heaven, the cities destroyed by fire, the walls that fell to trumpets, the strongman who brought down a temple, the prophet who called down fire, the man who survived a fish, and the exile who survived the lions — the standalone episodes of the Hebrew Bible that have shaped the moral imagination of three civilizations.',
-    tags: ['bible', 'old-testament', 'judaism', 'christianity', 'islam', 'sacred-history'],
-    moments: [
-      { momentId: 'noahs-ark-ararat' },
-      { momentId: 'tower-of-babel' },
-      { momentId: 'sodom-gomorrah-destruction' },
-      { momentId: 'jericho-walls-fall' },
-      { momentId: 'samson-gaza-temple' },
-      { momentId: 'elijah-carmel-fire' },
-      { momentId: 'jonah-nineveh' },
-      { momentId: 'daniel-lions-den' },
-    ],
-    relatedStoryIds: ['moses-exodus', 'abraham-journey', 'king-david-rise'],
-    wikipediaSlug: 'Hebrew_Bible',
-  },
-  // ─── FAMOUS BATTLEFIELDS ───────────────────────────────────────────
-  {
-    id: 'ancient-battles',
-    name: 'Battles of the Ancient World',
-    years: '480–216 BCE',
-    category: 'battles-conflicts',
-    storyType: 'era',
-    description: 'Three engagements that defined Western military history: 300 Spartans holding a mountain pass, Alexander ending the Persian Empire in an afternoon, and Hannibal executing the most studied tactical victory ever recorded. Each changed the trajectory of civilizations.',
-    tags: ['ancient', 'battle', 'greece', 'rome', 'persia', 'carthage'],
-    moments: [
-      { momentId: 'thermopylae-last-stand' },
-      { momentId: 'gaugamela-alexander' },
-      { momentId: 'cannae-hannibal' },
-    ],
-    relatedStoryIds: ['medieval-conquests', 'wars-of-empire'],
-    wikipediaSlug: 'List_of_battles_before_601',
-  },
-  {
-    id: 'medieval-conquests',
-    name: 'Medieval Conquests',
-    years: '1066–1521',
-    category: 'battles-conflicts',
-    storyType: 'era',
-    description: 'A Norman duke seizing England, English longbowmen destroying French chivalry, and a Spanish conquistador and his indigenous allies erasing the Aztec capital from the map. Three battles that ended old worlds and began new ones.',
-    tags: ['medieval', 'battle', 'conquest', 'england', 'france', 'aztec'],
-    moments: [
-      { momentId: 'hastings-norman-conquest' },
-      { momentId: 'agincourt-longbow' },
-      { momentId: 'tenochtitlan-fall' },
-    ],
-    relatedStoryIds: ['ancient-battles', 'wars-of-empire', 'fall-of-tenochtitlan'],
-    wikipediaSlug: 'Medieval_warfare',
-  },
-  {
-    id: 'wars-of-empire',
-    name: 'Wars of Empire',
-    years: '1805–1954',
-    category: 'battles-conflicts',
-    storyType: 'era',
-    description: 'Four battles that tested European empires and their limits: Nelson destroying Napoleon\'s fleet, Napoleon meeting his end at Waterloo, Zulu warriors overwhelming British rifles, and Vietnamese artillery ending French colonialism in Asia.',
-    tags: ['empire', 'colonial', 'napoleon', 'zulu', 'vietnam', 'battle'],
-    moments: [
-      { momentId: 'trafalgar-nelson' },
-      { momentId: 'waterloo-napoleon' },
-      { momentId: 'isandlwana-zulu' },
-      { momentId: 'dien-bien-phu-siege' },
-    ],
-    relatedStoryIds: ['ancient-battles', 'medieval-conquests', 'wwi-battlefields'],
-    wikipediaSlug: 'Colonial_war',
-  },
-  // ─── NOTABLE PEOPLE ────────────────────────────────────────────────
-
   // ─── City Cluster: London ──────────────────────────────────────────────
 
   {
     id: 'london-crown-scaffold',
-    name: 'London\'s Crown and Scaffold',
+    name: 'London\'s Royal History: Crown and Execution',
     years: '1483–1838',
     category: 'political-drama',
     storyType: 'era',
@@ -1571,7 +1423,7 @@ export const stories: Story[] = [
   },
   {
     id: 'londons-trials-fire-war',
-    name: 'London\'s 300 Years of Fire and War',
+    name: 'Disasters and Crises of London',
     years: '1665–1969',
     category: 'dark-history',
     storyType: 'era',
@@ -1596,7 +1448,7 @@ export const stories: Story[] = [
 
   {
     id: 'rise-fall-rome',
-    name: 'The Rise and Fall of the Eternal City',
+    name: 'The Rise and Fall of Ancient Rome',
     years: '753 BCE–410 CE',
     category: 'political-drama',
     storyType: 'era',
@@ -1613,7 +1465,7 @@ export const stories: Story[] = [
     wikipediaSlug: 'History_of_Rome',
   },{
     id: 'modern-rome',
-    name: 'Modern Rome: From Fascism to Freedom',
+    name: 'Rome in the 20th Century',
     years: '1922–1944',
     category: 'political-drama',
     storyType: 'era',
@@ -1648,7 +1500,7 @@ export const stories: Story[] = [
   },
   {
     id: 'paris-capital-culture',
-    name: 'Paris: Capital of Culture',
+    name: 'The Golden Age of Paris',
     years: '1874–1925',
     category: 'arts-culture',
     storyType: 'era',
@@ -1666,7 +1518,7 @@ export const stories: Story[] = [
   },
   {
     id: 'paris-under-fire',
-    name: 'Paris Under Fire',
+    name: 'Crises and Conflicts in Paris',
     years: '1871–2019',
     category: 'political-drama',
     storyType: 'era',
@@ -1688,7 +1540,7 @@ export const stories: Story[] = [
 
   {
     id: 'edo-to-tokyo',
-    name: 'Edo to Tokyo: A City Reborn Twice',
+    name: 'From Edo to Tokyo',
     years: '1603–1920',
     category: 'political-drama',
     storyType: 'era',
@@ -1706,7 +1558,7 @@ export const stories: Story[] = [
   },
   {
     id: 'tokyo-under-fire',
-    name: 'Tokyo Under Fire',
+    name: 'Disasters and War in Tokyo',
     years: '1923–1945',
     category: 'dark-history',
     storyType: 'era',
@@ -1723,7 +1575,7 @@ export const stories: Story[] = [
   },
   {
     id: 'postwar-tokyo',
-    name: 'Postwar Tokyo: From Ashes to Superpower',
+    name: 'Postwar Tokyo',
     years: '1945–1995',
     category: 'everyday-extraordinary',
     storyType: 'era',
@@ -1740,8 +1592,7 @@ export const stories: Story[] = [
     wikipediaSlug: 'Postwar_Japan',
   },
 
-  // ─── Notable People Batch 2 ────────────────────────────────────────────
-// ─── MEXICO: Culture, Sacred History, and Art ─────────────────────────
+  // ─── MEXICO: Culture, Sacred History, and Art ─────────────────────────
   {
     id: 'fall-of-tenochtitlan',
     name: 'The Fall of Tenochtitlán',
@@ -1756,7 +1607,7 @@ export const stories: Story[] = [
       { momentId: 'tenochtitlan-smallpox' },
       { momentId: 'tenochtitlan-fall' },
     ],
-    relatedStoryIds: ['medieval-conquests', 'virgin-of-guadalupe', 'teotihuacan-unknown-city', 'day-of-the-dead'],
+    relatedStoryIds: ['virgin-of-guadalupe', 'teotihuacan-unknown-city', 'day-of-the-dead'],
     wikipediaSlug: 'Fall_of_Tenochtitlan',
   },
   {
@@ -1857,7 +1708,7 @@ export const stories: Story[] = [
   },
   {
     id: 'teotihuacan-unknown-city',
-    name: 'Teotihuacán: The Unknown City',
+    name: 'Teotihuacan',
     years: '100 BC–550 AD',
     category: 'discovery-science',
     storyType: 'place',
