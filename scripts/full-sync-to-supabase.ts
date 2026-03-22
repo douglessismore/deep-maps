@@ -127,6 +127,7 @@ async function syncEntities() {
         id: e.id, name: e.name, type: e.type,
         description: e.description || null, years: e.years || null,
         wikipedia_slug: e.wikipediaSlug || null,
+        canonical_story_id: e.canonicalStoryId || null,
       });
       if (err) { console.error(`  INSERT FAIL ${e.id}: ${err.message}`); totalErrors++; }
       else inserted++;
@@ -138,6 +139,7 @@ async function syncEntities() {
     if (db.description !== (e.description || null)) updates.description = e.description || null;
     if (db.years !== (e.years || null)) updates.years = e.years || null;
     if (db.wikipedia_slug !== (e.wikipediaSlug || null)) updates.wikipedia_slug = e.wikipediaSlug || null;
+    if (db.canonical_story_id !== (e.canonicalStoryId || null)) updates.canonical_story_id = e.canonicalStoryId || null;
 
     if (Object.keys(updates).length > 0) {
       mismatches.push(`${e.id}: ${Object.keys(updates).join(', ')}`);
@@ -194,7 +196,7 @@ async function syncStories() {
 
     const updates: Record<string, any> = {};
     if (db.name !== s.name) updates.name = s.name;
-    if (db.description !== (s.description || null)) updates.description = s.description || null;
+    if (db.description !== (s.description || '')) updates.description = s.description || '';
     if (db.category !== s.category) updates.category = s.category;
     if (db.story_type !== s.storyType) updates.story_type = s.storyType;
 

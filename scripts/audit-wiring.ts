@@ -29,6 +29,24 @@ const sb = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
+const PAGE_SIZE = 1000;
+async function fetchAll<T = any>(table: string, selectCols: string = '*'): Promise<T[]> {
+  const all: T[] = [];
+  let from = 0;
+  while (true) {
+    const { data, error } = await sb
+      .from(table)
+      .select(selectCols)
+      .range(from, from + PAGE_SIZE - 1);
+    if (error) { console.error(`fetchAll ${table} failed at offset ${from}: ${error.message}`); break; }
+    if (!data || data.length === 0) break;
+    all.push(...(data as T[]));
+    if (data.length < PAGE_SIZE) break;
+    from += PAGE_SIZE;
+  }
+  return all;
+}
+
 const args = process.argv.slice(2);
 const DO_FIX = args.includes('--fix');
 const SOURCE_FILTER = (() => {
@@ -52,37 +70,37 @@ function issue(severity: 'error' | 'warning', category: string, id: string, mess
 
 async function loadAllData() {
   const [
-    { data: entities },
-    { data: stories },
-    { data: moments },
-    { data: storyMoments },
-    { data: momentEntities },
-    { data: collections },
-    { data: collectionMoments },
-    { data: relatedStories },
-    { data: momentMedia },
+    entities,
+    stories,
+    moments,
+    storyMoments,
+    momentEntities,
+    collections,
+    collectionMoments,
+    relatedStories,
+    momentMedia,
   ] = await Promise.all([
-    sb.from('entities').select('id, name, type, canonical_story_id, wikipedia_slug, description'),
-    sb.from('stories').select('id, name, category, wikipedia_slug, description'),
-    sb.from('moments').select('id, name, year, source, notability, description'),
-    sb.from('story_moments').select('story_id, moment_id, sort_order, is_primary'),
-    sb.from('moment_entities').select('moment_id, entity_id'),
-    sb.from('collections').select('id, name'),
-    sb.from('collection_moments').select('collection_id, moment_id'),
-    sb.from('related_stories').select('story_id, related_story_id'),
-    sb.from('moment_media').select('moment_id, url'),
+    fetchAll('entities', 'id, name, type, canonical_story_id, wikipedia_slug, description'),
+    fetchAll('stories', 'id, name, category, wikipedia_slug, description'),
+    fetchAll('moments', 'id, name, year, source, notability, description'),
+    fetchAll('story_moments', 'story_id, moment_id, sort_order, is_primary'),
+    fetchAll('moment_entities', 'moment_id, entity_id'),
+    fetchAll('collections', 'id, name'),
+    fetchAll('collection_moments', 'collection_id, moment_id'),
+    fetchAll('related_stories', 'story_id, related_story_id'),
+    fetchAll('moment_media', 'moment_id, url'),
   ]);
 
   return {
-    entities: entities || [],
-    stories: stories || [],
-    moments: moments || [],
-    storyMoments: storyMoments || [],
-    momentEntities: momentEntities || [],
-    collections: collections || [],
-    collectionMoments: collectionMoments || [],
-    relatedStories: relatedStories || [],
-    momentMedia: momentMedia || [],
+    entities,
+    stories,
+    moments,
+    storyMoments,
+    momentEntities,
+    collections,
+    collectionMoments,
+    relatedStories,
+    momentMedia,
   };
 }
 
