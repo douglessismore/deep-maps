@@ -23348,7 +23348,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1967,
     address: '603 E Avalon Ave, Muscle Shoals, AL 35661',
-    entityIds: ['benjamin-franklin'],
+    entityIds: ['aretha-franklin'],
   },
   {
     id: 'charles-v-troops-sack-rome',

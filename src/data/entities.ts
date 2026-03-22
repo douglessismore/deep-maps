@@ -8,6 +8,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1819–1901',
     description: 'Crowned at 18, reigned for 63 years, and gave her name to an era. Her nine children married into every royal house in Europe, earning her the title \'Grandmother of Europe.\' At her death, the British Empire covered a quarter of the globe.',
+    canonicalStoryId: 'queen-victoria-biography',
     wikipediaSlug: 'Queen_Victoria',
   },
   {
@@ -40,6 +41,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 497–406 BC',
     description: 'The playwright who never lost a competition in 50 years. Sophocles won 24 of 30 dramatic contests in Athens, invented the third actor, and wrote Oedipus Rex — still the template for tragedy 2,400 years later.',
+    canonicalStoryId: 'sophocles-biography',
     wikipediaSlug: 'Sophocles',
   },
   {
@@ -64,6 +66,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1961–present',
     description: 'The first Black president of the United States, Obama rose from community organizer on Chicago\'s South Side to the Oval Office in 2008. First Black president of the Harvard Law Review. Ordered the raid that killed Osama bin Laden. Nobel Peace Prize winner, 2009.',
+    canonicalStoryId: 'barack-obama-biography',
     wikipediaSlug: 'Barack_Obama',
   },
   {
@@ -88,6 +91,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1547–1616',
     description: 'One-armed soldier who wrote the first modern novel. Cervantes lost the use of his left hand at the Battle of Lepanto, spent five years as a slave in Algiers, was jailed for tax irregularities, and died in poverty — but Don Quixote, published when he was 57, made Spanish itself "the language of Cervantes."',
+    canonicalStoryId: 'miguel-de-cervantes-biography',
     wikipediaSlug: 'Miguel_de_Cervantes',
   },
   {
@@ -96,6 +100,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1732–1799',
     description: 'The general who refused a crown and built a republic. Washington commanded a ragged Continental Army to victory over Britain, presided over the Constitutional Convention, and set the two-term presidential precedent that held for 150 years.',
+    canonicalStoryId: 'george-washington-biography',
     wikipediaSlug: 'George_Washington',
   },
   {
@@ -104,6 +109,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1946–present',
     description: 'The first U.S. president convicted of a felony, Trump built a real estate empire, hosted a hit reality show, won the presidency twice, survived two impeachments, and reshaped American politics through a polarizing brand of nationalist populism.',
+    canonicalStoryId: 'donald-trump-biography',
     wikipediaSlug: 'Donald_Trump',
   },
   {
@@ -136,6 +142,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 304–232 BCE',
     description: 'The emperor who wept over a battlefield and changed history. Ashoka ruled the Mauryan Empire across most of the Indian subcontinent, then renounced conquest after the Kalinga War and became Buddhism\'s greatest royal patron, embedding his edicts in stone across Asia.',
+    canonicalStoryId: 'ashoka-biography',
     wikipediaSlug: 'Ashoka',
   },
   {
@@ -144,6 +151,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1483–1520',
     description: 'The painter who made perfection look effortless. Born in Urbino, dead at 37, Raphael produced the Vatican\'s most celebrated frescoes, ran the largest workshop in Rome, and was so beloved that his funeral halted the city',
+    canonicalStoryId: 'raphael-biography',
     wikipediaSlug: 'Raphael',
   },
   {
@@ -160,6 +168,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1911–2004',
     description: 'The actor who became president and ended the Cold War. Reagan transformed from a B-movie star into the 40th U.S. president, reshaping American conservatism, tripling the national debt, and negotiating the arms treaty that helped bring down the Soviet Union.',
+    canonicalStoryId: 'ronald-reagan-biography',
     wikipediaSlug: 'Ronald_Reagan',
   },
   {
@@ -168,6 +177,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1926–2022',
     description: 'The longest-reigning British monarch, who served 70 years on the throne. Elizabeth became queen at 25 when her father died unexpectedly during a trip to Kenya, trained as a military mechanic during WWII, and met 14 U.S. presidents. She celebrated VE Day incognito among the crowds in London as a teenager.',
+    canonicalStoryId: 'elizabeth-ii-biography',
     wikipediaSlug: 'Elizabeth_II',
   },
   {
@@ -192,6 +202,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1904–1989',
     description: 'The showman of Surrealism who painted melting clocks and cultivated madness as method. Dali mastered classical technique then weaponized it for the subconscious, producing The Persistence of Memory and co-writing Un Chien Andalou with Bunuel. His flamboyant mustache became as famous as his art.',
+    canonicalStoryId: 'salvador-dali-biography',
     wikipediaSlug: 'Salvador_Dalí',
   },
   {
@@ -200,6 +211,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '12–41',
     description: 'The emperor who made Rome worship him as a god. Gaius Caesar rose from traumatized hostage to absolute ruler at 24, then was stabbed by his own guards after four years of increasingly erratic rule that ended the Julio-Claudian male line.',
+    canonicalStoryId: 'caligula-biography',
     wikipediaSlug: 'Caligula',
   },
   {
@@ -272,6 +284,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1564–1616',
     description: 'A glove-maker\'s son from Stratford who wrote 37 plays and 154 sonnets. Invented over 1,700 English words still in use. Retired wealthy to Stratford and left his wife his \'second-best bed\' in his will.',
+    canonicalStoryId: 'william-shakespeare-biography',
     wikipediaSlug: 'William_Shakespeare',
   },
   {
@@ -297,6 +310,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1878–1953',
     description: 'The shoemaker\'s son who became history\'s deadliest dictator. Born in poverty in Georgia, Stalin rose through bank robberies and exile to rule the Soviet Union for 29 years, industrializing a nation while killing millions through purges, gulags, and engineered famine.',
+    canonicalStoryId: 'joseph-stalin-biography',
     wikipediaSlug: 'Joseph_Stalin',
   },
   {
@@ -305,6 +319,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '272–337',
     description: 'The emperor who made Christianity Rome\'s religion. Constantine won a civil war, legalized Christian worship with the Edict of Milan in 313, convened the Council of Nicaea, and founded Constantinople as a new capital that lasted over a thousand years. He was only baptized on his deathbed.',
+    canonicalStoryId: 'constantine-the-great-biography',
     wikipediaSlug: 'Constantine_the_Great',
   },
   {
@@ -329,6 +344,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '100–44 BCE',
     description: 'Roman general and dictator who conquered Gaul, crossed the Rubicon, defeated Pompey in a civil war, and was stabbed 23 times by senators on the Ides of March. His assassination ended the Roman Republic and his adopted son became the first Emperor.',
+    canonicalStoryId: 'julius-caesar-biography',
     wikipediaSlug: 'Julius_Caesar',
   },
   {
@@ -337,6 +353,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1907–1954',
     description: 'Mexican painter who survived polio and a bus accident that shattered her spine, then produced 143 paintings — 55 of them self-portraits. Married Diego Rivera twice. Largely overlooked until decades after her death.',
+    canonicalStoryId: 'frida-kahlo-biography',
     wikipediaSlug: 'Frida_Kahlo',
   },
   {
@@ -345,6 +362,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1889–1977',
     description: 'The penniless London boy who became cinema\'s first global icon, creating the Tramp from a costume box in 1914. Wrote, directed, composed, and starred in films seen by billions — then was exiled from America for his politics.',
+    canonicalStoryId: 'charlie-chaplin-biography',
     wikipediaSlug: 'Charlie_Chaplin',
   },
   {
@@ -353,6 +371,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '43 BC–AD 17',
     description: 'The poet exiled by Augustus for a poem and a mistake. Ovid wrote the Metamorphoses — 250 myths in one epic — then spent his last decade on the Black Sea, writing heartbroken letters Rome never answered.',
+    canonicalStoryId: 'ovid-biography',
     wikipediaSlug: 'Ovid',
   },
   {
@@ -472,6 +491,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 1225–1274',
     description: 'The friar who fused Aristotle with Christianity forever. Kidnapped by his own family to stop him becoming a monk, Aquinas wrote the Summa Theologiae — the most influential work of medieval philosophy — and was declared a Doctor of the Church.',
+    canonicalStoryId: 'thomas-aquinas-biography',
     wikipediaSlug: 'Thomas_Aquinas',
   },
   {
@@ -504,6 +524,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1847–1931',
     description: 'The inventor who held 1,093 patents and expected 18-hour workdays. American creator of the phonograph, practical light bulb, and motion picture camera, Edison built the world\'s first industrial research laboratory at Menlo Park, New Jersey. Nearly deaf from childhood, he listened to music by biting into the wood of a piano to feel vibrations through his skull.',
+    canonicalStoryId: 'thomas-edison-biography',
     wikipediaSlug: 'Thomas_Edison',
   },
   {
@@ -520,6 +541,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '384–322 BC',
     description: 'The philosopher who invented Western logic and tutored Alexander the Great. Born in Stagira, he founded the Lyceum in Athens and wrote on everything from biology to ethics. Dante called him \'the master of those who know.\'',
+    canonicalStoryId: 'aristotle-biography',
     wikipediaSlug: 'Aristotle',
   },
   {
@@ -536,6 +558,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1706–1790',
     description: 'The runaway apprentice who became America\'s most versatile founding father. Printer, scientist, inventor, diplomat -- the only person to sign the Declaration of Independence, the Treaty of Paris, and the Constitution. Flew a kite in a thunderstorm, charmed the French court, and still signed his letters \'B. Franklin, Printer.\'',
+    canonicalStoryId: 'benjamin-franklin-biography',
     wikipediaSlug: 'Benjamin_Franklin',
   },
   {
@@ -568,6 +591,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1503–1566',
     description: 'The plague doctor who became history\'s most famous prophet. Nostradamus published 942 cryptic quatrains in Les Propheties that people have been arguing about for five centuries. He was also an apothecary expelled from medical school, a widower who lost his first family to plague, and personal astrologer to Catherine de\' Medici.',
+    canonicalStoryId: 'nostradamus-biography',
     wikipediaSlug: 'Nostradamus',
   },
   {
@@ -600,6 +624,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 1137–1193',
     description: 'The Kurdish sultan who recaptured Jerusalem from the Crusaders — Saladin built an empire spanning Egypt to Yemen, then died nearly penniless, having given his treasury away to his subjects',
+    canonicalStoryId: 'saladin-biography',
     wikipediaSlug: 'Saladin',
   },
   {
@@ -632,6 +657,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1469–1527',
     description: 'The man who made \'the ends justify the means\' a political doctrine. Florentine diplomat turned exiled philosopher, Machiavelli wrote The Prince in disgrace — a manual so ruthlessly honest about power that his name became a synonym for cunning.',
+    canonicalStoryId: 'niccolo-machiavelli-biography',
     wikipediaSlug: 'Niccolò_Machiavelli',
   },
   {
@@ -688,6 +714,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '106–43 BC',
     description: 'The lawyer whose words outlasted Rome itself. Cicero rose from provincial obscurity to consul, crushed a coup, was exiled for it, and died with his hands nailed to the Senate podium — his writings later sparked the Renaissance.',
+    canonicalStoryId: 'cicero-biography',
     wikipediaSlug: 'Cicero',
   },
   {
@@ -696,6 +723,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1844–1900',
     description: 'The philosopher who declared God dead and then lost his mind. Became the youngest classics professor in history at 24, wrote his greatest works while sick and nearly blind, then collapsed hugging a beaten horse in Turin. His sister rewrote his legacy to serve the Nazis.',
+    canonicalStoryId: 'friedrich-nietzsche-biography',
     wikipediaSlug: 'Friedrich_Nietzsche',
   },
   {
@@ -720,6 +748,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1451–1506',
     description: 'The navigator who accidentally found a new world while looking for spices. A self-educated Genoese sailor, Columbus opened the Americas to European contact in 1492 — triggering centuries of colonization, exchange, and catastrophe.',
+    canonicalStoryId: 'christopher-columbus-biography',
     wikipediaSlug: 'Christopher_Columbus',
   },
   {
@@ -824,6 +853,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 460–c. 370 BC',
     description: 'The physician who separated medicine from the gods. Born on Kos c. 460 BC, he argued disease came from diet and environment, not divine punishment — founding Western medicine as a rational discipline. His Oath is still sworn today.',
+    canonicalStoryId: 'hippocrates-biography',
     wikipediaSlug: 'Hippocrates',
   },
   {
@@ -856,6 +886,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '63 BC–AD 14',
     description: 'The teenager who inherited an empire and built another. Born Gaius Octavius, he outmaneuvered generals, senators, and a queen to become Rome\'s first emperor, then ruled for 41 years of unprecedented peace.',
+    canonicalStoryId: 'augustus-biography',
     wikipediaSlug: 'Augustus',
   },
   {
@@ -888,6 +919,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1856–1915',
     description: 'The most influential Black leader in America from 1895 to 1915. Born into slavery, founded the Tuskegee Institute, and advised presidents from Roosevelt to Taft. His \'Atlanta Compromise\' speech made him a national figure and a lightning rod for criticism from W.E.B. Du Bois.',
+    canonicalStoryId: 'booker-t-washington-biography',
     wikipediaSlug: 'Booker_T._Washington',
   },
   {
@@ -896,6 +928,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1809–1865',
     description: 'The 16th President who held the Union together through the Civil War and ended slavery, only to be assassinated five days after the war ended.',
+    canonicalStoryId: 'abraham-lincoln-biography',
     wikipediaSlug: 'Abraham_Lincoln',
   },
   {
@@ -904,6 +937,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1917–1963',
     description: 'The 35th President, assassinated in Dallas on November 22, 1963. In just over a thousand days in office, he confronted the Cuban Missile Crisis, launched the space race, and created the Peace Corps.',
+    canonicalStoryId: 'john-f-kennedy-biography',
     wikipediaSlug: 'John_F._Kennedy',
   },
   {
@@ -912,6 +946,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1929–1968',
     description: 'Baptist minister and civil rights leader who led the movement through nonviolent resistance, from the Montgomery Bus Boycott to the March on Washington, before being assassinated in Memphis.',
+    canonicalStoryId: 'martin-luther-king-jr-biography',
     wikipediaSlug: 'Martin_Luther_King_Jr.',
   },
   {
@@ -1000,6 +1035,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 470–399 BC',
     description: 'The philosopher who claimed to know nothing yet changed everything. Born in Athens c. 470 BC, Socrates invented a method of questioning that founded Western philosophy — then was executed for it. He wrote nothing; his ideas survive only through students like Plato.',
+    canonicalStoryId: 'socrates-biography',
     wikipediaSlug: 'Socrates',
   },
   {
@@ -1008,6 +1044,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1694–1778',
     description: 'The satirist who made mockery a weapon against tyranny. Imprisoned twice, exiled to England, and banned across Europe, Voltaire wrote 2,000 works attacking religious dogma and absolutism — then died the most famous man in France.',
+    canonicalStoryId: 'voltaire-biography',
     wikipediaSlug: 'Voltaire',
   },
   {
@@ -1112,6 +1149,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 570–632',
     description: 'The founder of Islam who united Arabia under one God. Born an orphan in Mecca, he received his first revelation at 40, fled persecution to Medina, and returned to conquer Mecca — transforming a fractured peninsula into a civilization that would reshape half the world.',
+    canonicalStoryId: 'muhammad-biography',
     wikipediaSlug: 'Muhammad',
   },
   {
@@ -1120,6 +1158,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1606–1669',
     description: 'The painter who turned light itself into emotion. Rembrandt produced roughly 300 paintings, 300 etchings, and hundreds of drawings during the Dutch Golden Age. He went spectacularly bankrupt in 1656 after spending lavishly on art and curiosities, and died in poverty — buried in a rented grave at the Westerkerk.',
+    canonicalStoryId: 'rembrandt-biography',
     wikipediaSlug: 'Rembrandt',
   },
   {
@@ -1866,6 +1905,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1869–1948',
     description: 'London-trained lawyer who developed nonviolent mass resistance in South Africa and used it to lead India\'s independence from the British Empire. Assassinated by a Hindu nationalist in 1948.',
+    canonicalStoryId: 'mahatma-gandhi-biography',
     wikipediaSlug: 'Mahatma_Gandhi',
   },
   {
@@ -1874,6 +1914,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1918–2013',
     description: 'Imprisoned for 27 years on Robben Island, emerged to become South Africa\'s first Black president in 1994. Dismantled apartheid through negotiation with his former captors rather than retribution.',
+    canonicalStoryId: 'nelson-mandela-biography',
     wikipediaSlug: 'Nelson_Mandela',
   },
   {
@@ -2043,6 +2084,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1867–1934',
     description: 'The first woman to win a Nobel Prize and the only person to win Nobels in two different sciences (Physics 1903, Chemistry 1911). Discovered radium in a leaking shed. Her notebooks are still too radioactive to handle without protection.',
+    canonicalStoryId: 'marie-curie-biography',
     wikipediaSlug: 'Marie_Curie',
   },
   {
@@ -2059,6 +2101,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1821–1881',
     description: 'Russian novelist who survived a mock execution and Siberian hard labor to write Crime and Punishment, The Brothers Karamazov, and The Idiot — the deepest explorations of guilt, faith, and human psychology in literature.',
+    canonicalStoryId: 'fyodor-dostoevsky-biography',
     wikipediaSlug: 'Fyodor_Dostoevsky',
   },
   {
@@ -2067,6 +2110,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1828–1910',
     description: 'Author of War and Peace and Anna Karenina, considered the greatest novels ever written. Russian aristocrat who renounced his wealth, became a Christian anarchist, influenced Gandhi and MLK, and died in a train station at 82.',
+    canonicalStoryId: 'leo-tolstoy-biography',
     wikipediaSlug: 'Leo_Tolstoy',
   },
   {
@@ -2107,6 +2151,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1853–1890',
     description: 'Dutch painter who sold one painting in his lifetime, produced 2,100 artworks in a decade of manic creativity, cut off his ear, and shot himself at 37. His paintings now sell for over $100 million each.',
+    canonicalStoryId: 'vincent-van-gogh-biography',
     wikipediaSlug: 'Vincent_van_Gogh',
   },
   {
@@ -2197,6 +2242,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1475–1564',
     description: 'The sculptor who painted the Sistine Chapel ceiling, carved David from a rejected block of marble, and designed St. Peter\'s Basilica dome. The quintessential Renaissance genius, rivaled only by Leonardo da Vinci.',
+    canonicalStoryId: 'michelangelo-biography',
     wikipediaSlug: 'Michelangelo',
   },
   {
@@ -2213,6 +2259,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1802–1885',
     description: 'The author of Les Misérables and The Hunchback of Notre-Dame, and France\'s most consequential literary figure. Also a politician, senator, and champion of the poor. Two million people attended his funeral.',
+    canonicalStoryId: 'victor-hugo-biography',
     wikipediaSlug: 'Victor_Hugo',
   },
   {
@@ -2270,6 +2317,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1770–1827',
     description: 'Composed his late string quartets and the Ninth Symphony after going completely deaf. Bridged the Classical and Romantic eras and redefined what a symphony could be. His funeral drew 20,000 mourners in Vienna.',
+    canonicalStoryId: 'beethoven-biography',
     wikipediaSlug: 'Ludwig_van_Beethoven',
   },
   {
@@ -2294,6 +2342,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1881–1973',
     description: 'Spanish painter who co-founded Cubism and produced over 50,000 works across seven decades. Painted Guernica in response to the Nazi bombing of a Basque town. It hangs in Madrid\'s Reina Sofia and cannot leave Spain.',
+    canonicalStoryId: 'pablo-picasso-biography',
     wikipediaSlug: 'Pablo_Picasso',
   },
   {
@@ -2334,6 +2383,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1812–1870',
     description: 'Victorian novelist who reinvented Christmas with A Christmas Carol and exposed child labor in Oliver Twist. Published his novels in weekly serial installments that caused public crowds at the docks awaiting shipments from England.',
+    canonicalStoryId: 'charles-dickens-biography',
     wikipediaSlug: 'Charles_Dickens',
   },
   {
@@ -2350,6 +2400,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1856–1939',
     description: 'The father of psychoanalysis who introduced the concepts of the unconscious mind, the id/ego/superego, and the Oedipus complex. His ideas pervaded 20th-century culture even as many were later challenged by science.',
+    canonicalStoryId: 'sigmund-freud-biography',
     wikipediaSlug: 'Sigmund_Freud',
   },
   {
@@ -2358,6 +2409,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 1412–1431',
     description: 'The illiterate French peasant girl who claimed divine voices told her to save France. At 17 she convinced a king to give her an army. She lifted the siege of Orléans, turned the Hundred Years\' War, and was burned at the stake at 19. Canonized as a saint in 1920.',
+    canonicalStoryId: 'joan-of-arc-biography',
     wikipediaSlug: 'Joan_of_Arc',
   },
   {
@@ -2366,6 +2418,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: 'c. 1400–1468',
     description: 'The German goldsmith who invented the movable-type printing press around 1440, making books affordable and launching the information revolution. Died in poverty after losing his press in a lawsuit.',
+    canonicalStoryId: 'johannes-gutenberg-biography',
     wikipediaSlug: 'Johannes_Gutenberg',
   },
   {
@@ -2382,6 +2435,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1473–1543',
     description: 'The Polish astronomer who proposed the heliocentric model — placing the Sun, not Earth, at the center of the solar system. Published his theory on his deathbed in 1543, launching the Scientific Revolution.',
+    canonicalStoryId: 'copernicus-biography',
     wikipediaSlug: 'Nicolaus_Copernicus',
   },
   {
@@ -2398,6 +2452,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1822–1895',
     description: 'French chemist who proved germ theory, invented pasteurization, and developed the first vaccines for rabies and anthrax. His work laid the foundation for microbiology and made surgery survivable.',
+    canonicalStoryId: 'louis-pasteur-biography',
     wikipediaSlug: 'Louis_Pasteur',
   },
   {
@@ -2456,6 +2511,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1952–present',
     description: 'The KGB spy who became Russia\'s modern tsar. A former intelligence officer in Dresden who rose through Saint Petersburg politics to seize the Russian presidency in 2000, Putin has ruled as an increasingly authoritarian leader for over two decades, launching wars in Chechnya, Georgia, and Ukraine.',
+    canonicalStoryId: 'vladimir-putin-biography',
     wikipediaSlug: 'Vladimir_Putin',
   },
   {
@@ -2464,6 +2520,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1743–1826',
     description: 'The man who wrote "all men are created equal" while owning 600 slaves. Third U.S. president, principal author of the Declaration of Independence, founder of the University of Virginia, and architect of the Louisiana Purchase that doubled America\'s size. Died on July 4, 1826 — the 50th anniversary of the Declaration.',
+    canonicalStoryId: 'thomas-jefferson-biography',
     wikipediaSlug: 'Thomas_Jefferson',
   },
   {

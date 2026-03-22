@@ -462,7 +462,6 @@ export function EntityPanel({
                 }
                 return momentEntries.map(({ moment, stories }) => {
                   const primaryStory = stories[0];
-                  if (!primaryStory) return null;
                   return (
                     <LocationCard
                       key={moment.id}
