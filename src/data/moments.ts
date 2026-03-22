@@ -51,7 +51,6 @@ export const moments: Moment[] = [
     year: 1968,
     date: 'May 1968',
     address: 'Latin Quarter (Boulevard Saint-Michel), Paris, France',
-    entityIds: ['charles-de-gaulle'],
   },
   {
     id: 'machiavelli-witnesses-borgia-massacre-sinigaglia-1502',
@@ -121,6 +120,7 @@ export const moments: Moment[] = [
     year: 325,
     date: 'Summer 325 AD',
     address: 'Nicaea (modern Iznik), Turkey',
+    entityIds: ['constantine-the-great'],
     wikiSection: '',
   },
   {
@@ -343,7 +343,7 @@ export const moments: Moment[] = [
     year: 1520,
     date: '21 October 1520',
     address: 'Strait of Magellan, Patagonia, Chile/Argentina',
-    entityIds: ['ferdinand-magellan', 'george-strait'],
+    entityIds: ['ferdinand-magellan'],
     wikiSection: 'Voyage',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/East_Patagonia%2C_Tierra_del_Fuego_and_Strait_of_Magellan_Dispute_between_Argentina_%26_Chile_%281842-1881%29.svg/960px-East_Patagonia%2C_Tierra_del_Fuego_and_Strait_of_Magellan_Dispute_between_Argentina_%26_Chile_%281842-1881%29.svg.png', caption: 'East Patagonia, Tierra del Fuego and Strait of Magellan Dispute between Argentina & Chile (1842-1881)' },
@@ -565,6 +565,7 @@ export const moments: Moment[] = [
     year: 337,
     date: 'May 22, 337 AD',
     address: 'Nicomedia (modern Izmit), Turkey',
+    entityIds: ['constantine-the-great'],
     wikiSection: '',
   },
   {
@@ -924,7 +925,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1884,
     address: '1308 E 4th St, Austin, TX 78702',
-    entityIds: ['adam-smith', 'servant-girl-annihilator'],
+    entityIds: ['servant-girl-annihilator'],
   },
   {
     id: 'mandela-anc-youth-league-cofounded-1944',
@@ -1724,7 +1725,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-federal-trial',
     name: 'Faces Judgment at the Federal Courthouse',
-    subtitle: 'A career-ending conviction for national bank embezzlement',
+    subtitle: 'Federal Courthouse, 6th and Lavaca St, Downtown Austin. The original courthouse was demolished in the 1930s',
     description: 'In February 1898, Porter stood trial at the old U.S. Post Office and Courthouse for embezzling funds from the First National Bank. Despite a lack of clear evidence and his defense of "sloppy bookkeeping," the jury found him guilty. The verdict effectively ended his life in Texas and set him on the path to the Ohio Penitentiary, where he would reinvent himself as a writer.',
     lat: 30.269,
     lng: -97.7424,
@@ -3139,7 +3140,6 @@ export const moments: Moment[] = [
     year: -136,
     date: '136 BCE',
     address: 'Chang\'an (modern Xi\'an), Shaanxi Province, China',
-    entityIds: ['charles-v-holy-roman-emperor'],
     wikiSection: 'Legacy',
   },
   {
@@ -4340,7 +4340,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1916,
     address: 'Columbus, NM',
-    entityIds: ['pancho-villa', 'john-pershing', 'christopher-columbus'],
+    entityIds: ['pancho-villa', 'john-pershing'],
   },
   {
     id: 'angel-gabriel-foretells-johns-birth-in-jerusalem-temple',
@@ -5399,7 +5399,7 @@ export const moments: Moment[] = [
     year: 37,
     date: '16 March AD 37',
     address: 'Misenum (modern Miseno), Campania, Italy',
-    entityIds: ['caligula', 'charles-v-holy-roman-emperor'],
+    entityIds: ['caligula'],
     wikiSection: 'Early_reign',
   },
   {
@@ -6048,7 +6048,7 @@ export const moments: Moment[] = [
     year: 1940,
     date: '15 October 1940',
     address: 'New York City, New York',
-    entityIds: ['constantine-the-great', 'charlie-chaplin'],
+    entityIds: ['charlie-chaplin'],
     wikiSection: 'The_Great_Dictator',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Fairbanks_and_Chaplin%2C_Wall_Street_Rally%2C_New_York_Times%2C_1918.JPG', caption: 'Fairbanks and Chaplin, Wall Street Rally, New York Times, 1918' },
@@ -6994,7 +6994,7 @@ export const moments: Moment[] = [
     year: 1806,
     date: 'January 9, 1806',
     address: 'St. Paul\'s Cathedral, London, England',
-    entityIds: ['willie-nelson', 'horatio-nelson'],
+    entityIds: ['horatio-nelson'],
   },
   {
     id: 'victoria-crowned',
@@ -7475,7 +7475,7 @@ export const moments: Moment[] = [
     year: 800,
     date: '25 December 800',
     address: 'St. Peter\'s Basilica, Vatican City, Rome, Italy',
-    entityIds: ['charlemagne', 'charles-v-holy-roman-emperor'],
+    entityIds: ['charlemagne'],
     wikiSection: 'Imperial_coronation',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Italienischer_Photograph_um_1870_-_Die_Truppen_des_Kirchenstaates_empfangen_auf_dem_Petersplatz_in_Rom_den_Segen_des_Papstes_%28Zeno_Fotografie%29.jpg/960px-Italienischer_Photograph_um_1870_-_Die_Truppen_des_Kirchenstaates_empfangen_auf_dem_Petersplatz_in_Rom_den_Segen_des_Papstes_%28Zeno_Fotografie%29.jpg', caption: 'Italienischer Photograph um 1870 - Die Truppen des Kirchenstaates empfangen auf dem Petersplatz in Rom den Segen des Papstes (Zeno Fotografie)' },
@@ -7952,7 +7952,6 @@ export const moments: Moment[] = [
     year: 1666,
     date: 'September 2–6, 1666',
     address: 'Pudding Lane (Monument), City of London, England',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'freud-interpretation-dreams',
@@ -8083,7 +8082,6 @@ export const moments: Moment[] = [
     year: 1805,
     date: 'October 21, 1805',
     address: 'Off Cape Trafalgar, Cádiz Province, Spain (at sea)',
-    entityIds: ['willie-nelson'],
   },
   {
     id: 'raphael-arrives-florence-studies-leonardo-1504',
@@ -8343,7 +8341,7 @@ export const moments: Moment[] = [
     year: 1981,
     date: 'March 30, 1981',
     address: 'Washington Hilton Hotel, 1919 Connecticut Ave NW, Washington, DC 20009',
-    entityIds: ['george-washington', 'ronald-reagan'],
+    entityIds: ['ronald-reagan'],
     wikiSection: 'First_term',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Photograph_of_chaos_outside_the_Washington_Hilton_Hotel_after_the_assassination_attempt_on_President_Reagan_%28white_border_removed%29.png/960px-Photograph_of_chaos_outside_the_Washington_Hilton_Hotel_after_the_assassination_attempt_on_President_Reagan_%28white_border_removed%29.png', caption: 'Photograph of chaos outside the Washington Hilton Hotel after the assassination attempt on President Reagan (white border removed)' },
@@ -9116,7 +9114,6 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 2021,
-    entityIds: ['jim-white'],
   },
   {
     id: 'okeeffe-abiquiu',
@@ -9414,7 +9411,7 @@ export const moments: Moment[] = [
     year: 1865,
     date: 'April 26, 1865',
     address: 'Near Port Royal, VA (site marked on US Route 301)',
-    entityIds: ['john-wilkes-booth', 'pat-garrett'],
+    entityIds: ['john-wilkes-booth'],
   },
   {
     id: 'jfk-dealey-plaza',
@@ -9448,7 +9445,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1963,
     address: '5201 Harry Hines Blvd, Dallas, TX',
-    entityIds: ['john-f-kennedy', 'lee-harvey-oswald', 'jack-ruby'],
+    entityIds: ['john-f-kennedy'],
   },
   {
     id: 'mlk-sniper-nest',
@@ -10165,7 +10162,6 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1996,
     address: 'Smith Point County Park, Shirley, NY 11967',
-    entityIds: ['adam-smith'],
     wikiSection: 'Memorials',
   },
   {
@@ -11196,7 +11192,7 @@ export const moments: Moment[] = [
   {
     id: 'dam-powerhouse-explosion',
     name: 'Great Granite Dam Explodes During Storm, Killing Eight Workers',
-    subtitle: 'The world\'s largest dam fails, bankrupting the city and causing total darkness',
+    subtitle: 'Austin Dam site, west of Downtown Austin. The 1893 granite dam site is now beneath the 1940 Tom Miller Dam',
     description: 'On April 7, 1900, after days of torrential rain, a massive section of the granite dam gave way. The resulting wall of water obliterated the power house, killing eight workers instantly and destroying the city\'s municipal power and water systems. Chunks of granite the size of houses were carried miles downstream.',
     lat: 30.2982,
     lng: -97.7836,
@@ -11212,7 +11208,7 @@ export const moments: Moment[] = [
   {
     id: 'dam-red-bud-isle',
     name: 'Granite Blocks from Exploded Dam Settle at Red Bud Isle',
-    subtitle: 'Remnants of the 1900 disaster remain visible in the river today',
+    subtitle: 'Red Bud Isle, West Austin. Granite blocks from the 1900 dam collapse are still visible in the Colorado River',
     description: 'The ruins of the 1900 dam are still visible at Red Bud Isle. Massive, smooth granite blocks—remnants of the "world\'s greatest dam"—remain scattered in the water, serving as a permanent grave for the city\'s 19th-century industrial ambitions.',
     lat: 30.2917,
     lng: -97.785,
@@ -11244,7 +11240,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-austin-jail',
     name: 'William Sydney Porter Is Detained While Awaiting Sentencing',
-    subtitle: 'A future literary legend begins writing stories from his cell',
+    subtitle: 'Travis County Courthouse area, Downtown Austin. The original jail building no longer stands',
     description: 'Porter was held here after his arrest. While awaiting sentencing, he began writing short stories to support his daughter. He adopted the pen name \'O. Henry\' to hide his criminal past from editors, a name that would soon become more famous than his own.',
     lat: 30.2727,
     lng: -97.738,
@@ -11256,7 +11252,6 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1898,
     address: '11th St and Brazos St, Austin, TX',
-    entityIds: ['stephen-f-austin'],
   },
   {
     id: 'meiji-shrine-built',
@@ -11551,7 +11546,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2001,
     address: '1400 Smith St, Houston, TX 77002',
-    entityIds: ['enron', 'adam-smith'],
+    entityIds: ['enron'],
   },
   {
     id: 'tokyo-1964-olympics',
@@ -11699,7 +11694,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 2002,
-    entityIds: ['clay-henry', 'o-henry'],
+    entityIds: ['clay-henry'],
   },
   {
     id: 'spindletop-lucas-site',
@@ -12005,7 +12000,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1876,
-    entityIds: ['menger-hotel-rough-riders', 'jim-white'],
+    entityIds: ['menger-hotel-rough-riders'],
   },
   {
     id: 'queen-milam-park',
@@ -12217,7 +12212,7 @@ export const moments: Moment[] = [
   {
     id: 'scholz-political-backroom',
     name: 'LBJ and Lawmakers Make Scholz Garden Their Capitol Clubhouse',
-    subtitle: 'Pitchers of beer and the levers of power',
+    subtitle: '1607 San Jacinto Blvd, Austin. Scholz Garten\'s back rooms hosted decades of Austin political deal-making',
     description: 'Located just three blocks from the Texas Capitol, Scholz Garden became the unofficial clubhouse for the state legislature. LBJ and Ann Richards were regulars, and generations of lobbyists and lawmakers have settled political scores at its long wooden tables. Every election night, the garden is the site of massive watch parties where the state\'s political future is debated in real-time.',
     lat: 30.2777,
     lng: -97.7363,
@@ -12232,7 +12227,7 @@ export const moments: Moment[] = [
   {
     id: 'scholz-longhorn-tradition',
     name: 'Scholz Garden Opens in 1866 and Becomes Austin\'s Longest-Running Gathering Place',
-    subtitle: 'The ultimate pre-game ritual for over 100 years',
+    subtitle: '1607 San Jacinto Blvd, Austin. Scholz Garten is still the traditional pre-game stop for UT fans',
     description: 'For as long as UT has played football, Longhorn fans have gathered at Scholz Garden before and after games. The biergarten atmosphere, complete with a vintage bowling alley and oom-pah bands, creates a unique Texas-German fusion found nowhere else. The Saengerrunde\'s refusal to sell ensured its survival. Today, it remains a living time capsule where a freshman and a state senator can share a pitcher of Shiner.',
     lat: 30.2777,
     lng: -97.7363,
@@ -12298,7 +12293,7 @@ export const moments: Moment[] = [
   {
     id: 'dazed-top-notch',
     name: 'McConaughey Improvises His Catchphrase at a Drive-In Burger Joint',
-    subtitle: 'The Emporium and the breakout of Wooderson',
+    subtitle: '7525 Burnet Rd, Austin. Top Notch Hamburgers is still open',
     description: 'This drive-in burger joint served as "The Emporium," the central hangout where the film\'s characters congregate. It was here that Matthew McConaughey improvised the line "alright, alright, alright," which became a global catchphrase. Top Notch is still open and almost entirely unchanged since its 1971 opening.',
     lat: 30.3474,
     lng: -97.7389,
@@ -12314,7 +12309,7 @@ export const moments: Moment[] = [
   {
     id: 'dazed-moonlight-party',
     name: 'Climactic Keg Party Filmed Beneath an 1894 Moonlight Tower',
-    subtitle: 'Party at the tower under the artificial moon',
+    subtitle: 'Near Duval St and 41st St, Austin. One of the surviving 1894 moonlight towers used as the filming location',
     description: 'The film\'s climactic keg party was filmed at a real Austin moonlight tower near Hemphill Park. These 165-foot towers, originally installed in 1894 to catch a serial killer, are unique to Austin—the only surviving system in the world. Linklater used the tower as a symbol of the city\'s weird and enduring heritage.',
     lat: 30.2856,
     lng: -97.7351,
@@ -12330,7 +12325,7 @@ export const moments: Moment[] = [
   {
     id: 'dazed-bedichek-middle',
     name: 'Linklater Films Iconic Hazing Scenes During Summer Break',
-    subtitle: 'The hazing rituals of Huntsville and Austin',
+    subtitle: 'Bedichek Middle School, 6800 Bill Hughes Rd, South Austin',
     description: 'The school scenes, including the iconic first-day-of-school hazing rituals, were filmed at Bedichek Middle School during the summer break. Linklater, who grew up in Huntsville, Texas, set the film in Austin because he considered it the "freest place in Texas." The success of the film helped establish the infrastructure for the Austin film industry.',
     lat: 30.1906,
     lng: -97.7869,
@@ -12414,7 +12409,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-marriage-athol',
     name: 'Elopes with Athol Estes at Smoot Terrace',
-    subtitle: 'A midnight marriage despite a mother\'s fierce opposition',
+    subtitle: 'Smoot Terrace, West Austin. The boarding house where Porter eloped no longer stands',
     description: 'William Sydney Porter eloped with 17-year-old Athol Estes on July 1, 1887, after her mother forbade the union due to Athol\'s delicate health. They fled to the home of Reverend R. K. Smoot, where they were married in the parlor. This secret ceremony marked the beginning of Porter\'s most stable and creatively formative years in Austin.',
     lat: 30.2745,
     lng: -97.7554,
@@ -12510,7 +12505,7 @@ export const moments: Moment[] = [
   {
     id: 'ohenry-rolling-stone',
     name: 'Launches \'The Rolling Stone\' Humor Weekly',
-    subtitle: 'A short-lived satirical paper that mocked Austin\'s elite',
+    subtitle: 'E 5th St near Congress Ave, Downtown Austin. Porter\'s small print office is long gone',
     description: 'Porter rented a small office at 113 East 7th Street to launch his own satirical weekly, The Rolling Stone. He wrote, illustrated, and typeset the paper, which featured local gossip, political cartoons, and early drafts of his short stories. While the paper eventually failed, it provided the laboratory where he perfected the "O. Henry" style of dry, observational wit.',
     lat: 30.2687,
     lng: -97.7408,
@@ -13473,7 +13468,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 29,
     address: 'Qasr el-Yahud, Jordan Valley, West Bank',
-    entityIds: ['jesus', 'barbara-jordan'],
+    entityIds: ['jesus'],
   },
   {
     id: 'qumran-scrolls',
@@ -14609,7 +14604,6 @@ export const moments: Moment[] = [
     year: 1944,
     date: 'June 6, 1944',
     address: 'Omaha Beach, Colleville-sur-Mer, Normandy, France',
-    entityIds: ['winston-churchill'],
   },
   {
     id: 'el-alamein-montgomery',
@@ -14829,7 +14823,7 @@ export const moments: Moment[] = [
     year: 1984,
     date: 'October 31, 1984',
     address: '1 Safdarjung Road, New Delhi, India',
-    entityIds: ['indira-gandhi', 'mahatma-gandhi'],
+    entityIds: ['indira-gandhi'],
   },
   {
     id: 'evo-joggins-reptiles',
@@ -14881,7 +14875,6 @@ export const moments: Moment[] = [
     year: 1703,
     date: 'May 27, 1703',
     address: 'Peter and Paul Fortress, St. Petersburg, Russia',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'julius-caesar-assassinated',
@@ -15042,7 +15035,6 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: -252000000,
     address: 'Meishan Section D, Changxing County, Zhejiang, China',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'tolstoy-flees-estate',
@@ -15237,7 +15229,6 @@ export const moments: Moment[] = [
     year: 1665,
     date: '1665–1666',
     address: 'City of London, London, England',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'rosetta-stone-british-museum',
@@ -15272,7 +15263,7 @@ export const moments: Moment[] = [
     year: 1851,
     date: 'May 1 – October 15, 1851',
     address: 'Hyde Park (Crystal Palace site), London, England',
-    entityIds: ['queen-victoria', 'constantine-the-great'],
+    entityIds: ['queen-victoria'],
   },
   {
     id: 'got-jesuit-staircase',
@@ -15426,7 +15417,7 @@ export const moments: Moment[] = [
     year: 64,
     date: 'July 18, 64 CE',
     address: 'Circus Maximus area, Rome, Italy',
-    entityIds: ['nero', 'constantine-the-great'],
+    entityIds: ['nero'],
   },
   {
     id: 'colosseum-opens',
@@ -15564,7 +15555,6 @@ export const moments: Moment[] = [
     year: 1944,
     date: 'June 4, 1944',
     address: 'Central Rome, Italy',
-    entityIds: ['mussolini'],
   },
   {
     id: 'marie-antoinette-guillotined',
@@ -15769,7 +15759,6 @@ export const moments: Moment[] = [
     year: 1657,
     date: 'March 2–4, 1657',
     address: 'Central Edo (now Chiyoda/Bunkyo area), Tokyo, Japan',
-    entityIds: ['tokugawa-ieyasu', 'constantine-the-great'],
   },
   {
     id: '47-ronin-sengakuji',
@@ -15804,7 +15793,6 @@ export const moments: Moment[] = [
     year: 1868,
     date: 'November 26, 1868',
     address: 'Imperial Palace (formerly Edo Castle), Tokyo, Japan',
-    entityIds: ['charles-v-holy-roman-emperor'],
   },
   {
     id: 'great-kanto-earthquake',
@@ -15822,7 +15810,6 @@ export const moments: Moment[] = [
     year: 1923,
     date: 'September 1, 1923',
     address: 'Central Tokyo, Japan',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'evo-jebel-irhoud-sapiens',
@@ -16865,7 +16852,7 @@ export const moments: Moment[] = [
     year: 1937,
     date: '1936–1938',
     address: 'Moscow, Soviet Union',
-    entityIds: ['joseph-stalin', 'constantine-the-great'],
+    entityIds: ['joseph-stalin'],
     wikiSection: 'Great_Purge',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Stalin_and_Gazanfar_Musabeyov.jpg', caption: 'Stalin and Gazanfar Musabeyov' },
@@ -17289,7 +17276,6 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1922,
     address: '6 Gateway Drive, Great Neck, NY 11021, USA',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'descartes-dreams-in-stove-room-neuburg',
@@ -17551,7 +17537,6 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1963,
     address: 'Bridego Railway Bridge, Ledburn, near Mentmore, Buckinghamshire',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'norrmalmstorg-kreditbanken',
@@ -17822,7 +17807,6 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1963,
     address: 'Leatherslade Farm, near Oakley, Buckinghamshire HP18',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'inv-farnsworth-tv',
@@ -18075,7 +18059,7 @@ export const moments: Moment[] = [
     year: 306,
     date: 'July 306 AD',
     address: 'Eboracum (modern York), England',
-    entityIds: ['charles-v-holy-roman-emperor'],
+    entityIds: ['constantine-the-great'],
     wikiSection: 'Early_life',
   },
   {
@@ -18286,6 +18270,7 @@ export const moments: Moment[] = [
     year: 272,
     date: 'February 27, 272 AD',
     address: 'Naissus (modern Nis), Serbia',
+    entityIds: ['constantine-the-great'],
     wikiSection: 'Early_life',
   },
   {
@@ -18361,6 +18346,7 @@ export const moments: Moment[] = [
     year: 313,
     date: 'February 313 AD',
     address: 'Mediolanum (modern Milan), Italy',
+    entityIds: ['constantine-the-great'],
     wikiSection: '',
   },
   {
@@ -18839,6 +18825,7 @@ export const moments: Moment[] = [
     year: 330,
     date: 'May 11, 330 AD',
     address: 'Constantinople (modern Istanbul), Turkey',
+    entityIds: ['constantine-the-great'],
     wikiSection: '',
   },
   {
@@ -19309,7 +19296,7 @@ export const moments: Moment[] = [
     year: 28,
     date: 'c. AD 28–29',
     address: 'Jordan River wilderness, near Jericho',
-    entityIds: ['john-the-baptist', 'barbara-jordan'],
+    entityIds: ['john-the-baptist'],
     wikiSection: 'In_Mark',
   },
   {
@@ -19432,7 +19419,6 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1998,
     address: '301 W South Temple, Salt Lake City, UT 84101',
-    entityIds: ['barbara-jordan'],
   },
   {
     id: 'umar-converts-to-islam-sword-in-hand',
@@ -19522,7 +19508,7 @@ export const moments: Moment[] = [
     year: 28,
     date: 'c. AD 28–29',
     address: 'Qasr el Yahud, Jordan River',
-    entityIds: ['barbara-jordan', 'jesus'],
+    entityIds: ['jesus'],
     wikiSection: 'Baptism_of_Jesus',
   },
   {
@@ -20346,7 +20332,7 @@ export const moments: Moment[] = [
     year: 54,
     date: 'October AD 54',
     address: 'Palatine Hill, Rome',
-    entityIds: ['charles-v-holy-roman-emperor', 'nero'],
+    entityIds: ['nero'],
     wikiSection: 'Reign_(AD_54–68)',
   },
   {
@@ -20365,7 +20351,7 @@ export const moments: Moment[] = [
     year: 14,
     date: 'August 19, AD 14',
     address: '',
-    entityIds: ['augustus', 'tiberius', 'charles-v-holy-roman-emperor'],
+    entityIds: ['augustus', 'tiberius'],
     wikiSection: 'Heir_to_Augustus',
   },
   {
@@ -22225,7 +22211,7 @@ export const moments: Moment[] = [
     year: 161,
     date: 'March 161',
     address: 'Roman Forum, Rome',
-    entityIds: ['marcus-aurelius', 'charles-v-holy-roman-emperor'],
+    entityIds: ['marcus-aurelius'],
     wikiSection: 'Succession_to_Hadrian',
   },
   {
@@ -22296,7 +22282,6 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1100,
     address: 'Great Zimbabwe National Monument, Masvingo Province, Zimbabwe',
-    entityIds: ['constantine-the-great'],
   },
   {
     id: 'hammurabi-conquers-larsa-controls-lower-mesopotamia',
@@ -22899,7 +22884,7 @@ export const moments: Moment[] = [
     year: 1929,
     date: 'August 21, 1929',
     address: 'Coyoacan, Mexico City, Mexico',
-    entityIds: ['frida-kahlo', 'diego-rivera', 'juan-diego'],
+    entityIds: ['frida-kahlo', 'diego-rivera'],
     wikiSection: 'Artistic_career',
   },
   {
@@ -23599,7 +23584,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1984,
     address: '200 Academy Dr, Austin, TX 78704',
-    entityIds: ['willie-nelson', 'stephen-f-austin'],
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'charles-v-dies-yuste',
@@ -23928,7 +23913,7 @@ export const moments: Moment[] = [
     year: 1800,
     date: 'November 1, 1800',
     address: '1600 Pennsylvania Avenue, Washington, D.C.',
-    entityIds: ['jim-white', 'john-adams'],
+    entityIds: ['john-adams'],
     wikiSection: 'Presidency',
   },
   {
@@ -24191,7 +24176,6 @@ export const moments: Moment[] = [
     year: 1696,
     date: 'July 1696',
     address: 'Azov, Rostov Oblast, Russia',
-    entityIds: ['constantine-the-great'],
     wikiSection: 'Reign',
   },
   {
@@ -24210,7 +24194,6 @@ export const moments: Moment[] = [
     year: 1725,
     date: '8 February 1725',
     address: 'Winter Palace, St. Petersburg, Russia',
-    entityIds: ['constantine-the-great'],
     wikiSection: 'Death',
   },
   {
@@ -24229,7 +24212,6 @@ export const moments: Moment[] = [
     year: 1672,
     date: '9 June 1672',
     address: 'Moscow Kremlin, Moscow, Russia',
-    entityIds: ['constantine-the-great'],
     wikiSection: 'Early_life',
   },
   {
@@ -24248,7 +24230,6 @@ export const moments: Moment[] = [
     year: 1697,
     date: 'August 1697',
     address: 'Zaandam, Netherlands',
-    entityIds: ['constantine-the-great'],
     wikiSection: 'Grand_Embassy',
   },
   {
@@ -24945,7 +24926,7 @@ export const moments: Moment[] = [
     year: 1939,
     date: '2 August 1939',
     address: 'Nassau Point, Peconic, Long Island, New York, USA',
-    entityIds: ['albert-einstein', 'franklin-d-roosevelt'],
+    entityIds: ['albert-einstein'],
     wikiSection: 'World_War_II_and_the_Manhattan_Project',
   },
   {
@@ -26005,7 +25986,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1901,
     address: '1600 Pennsylvania Avenue NW, Washington, DC 20500',
-    entityIds: ['booker-t-washington', 'theodore-roosevelt', 'jim-white'],
+    entityIds: ['booker-t-washington', 'theodore-roosevelt'],
   },
   {
     id: 'gallipoli-anzac',
@@ -26023,7 +26004,7 @@ export const moments: Moment[] = [
     year: 1915,
     date: 'April 25, 1915 – January 9, 1916',
     address: 'Anzac Cove, Gallipoli Peninsula, Çanakkale Province, Turkey',
-    entityIds: ['winston-churchill', 'mustafa-kemal-ataturk'],
+    entityIds: ['mustafa-kemal-ataturk'],
   },
   {
     id: 'obama-born-kapiolani-honolulu-1961',

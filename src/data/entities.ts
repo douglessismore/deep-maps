@@ -288,6 +288,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1879–1955',
     description: 'Swiss patent clerk who published four papers in 1905 that rewrote physics, including special relativity and E=mc². Fled Nazi Germany in 1933, won the Nobel Prize for the photoelectric effect, and wrote the letter urging FDR to build the atomic bomb.',
+    canonicalStoryId: 'albert-einstein-biography',
     wikipediaSlug: 'Albert_Einstein',
   },
   {

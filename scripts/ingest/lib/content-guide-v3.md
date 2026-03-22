@@ -244,7 +244,7 @@ These rules prevent content sprawl and keep the data model clean.
 
 3. **Check for overlap before creating a collection.** Before creating a new collection, search existing collections by keyword. If an existing collection already covers the theme (e.g., "Famous Battlefields" already includes ancient, medieval, WWI, and WWII battles), do not create a sub-collection. Add moments to the existing collection instead.
 
-4. **Use the most common or official name.** If a story has an established name people already reference (a Wikipedia article title, a historical term of art, or an official designation), use that. Don't invent a literary alternative. "Free State of Galveston" not "When Galveston Was the Gambling Capital of the South." "Tulsa Race Massacre" not "The Day Black Wall Street Burned." Easy reference beats clever framing.
+4. **Use the most common or official name.** Stories and collections should use the most common or official name that people already reference. If there is a Wikipedia article title for the event, phenomenon, or subject, prefer that title. The goal is easy reference and recognition, not clever or literary phrasing. "Free State of Galveston" (Wikipedia title) not "When Galveston Was the Gambling Capital of the South." "Tulsa Race Massacre" not "The Day Black Wall Street Burned." Easy reference beats clever framing.
 
 5. **Collections must have a specific, listable theme.** Every collection name should work as a Wikipedia "List of..." article. Generic themes like "Famous X," "Great Y," or "Notable Z" are too weak. The reader should know exactly what's in the collection before opening it. Good: "Every Place a Nuclear Weapon Has Been Detonated." Bad: "Famous Historical Figures."
 
@@ -337,8 +337,11 @@ Bad wiring makes content invisible in the UI. These are non-negotiable.
 
 ### Entity tagging rule: physical presence required
 - Only tag a person/org in a moment's `entityIds` if they were **physically present** at that location during that event. Do not tag people who are merely referenced, discussed, or affected remotely.
+- References to a person's name, work, legacy, or influence do NOT qualify as physical presence.
+- A person's surname appearing in a place name, street name, or building name is NOT a valid link. "Smith Street" does not justify linking Adam Smith. "Washington Monument" does not justify linking George Washington. The name on the sign is not the person.
 - Burial moments ARE valid tags — the person's body is physically there.
-- Artifacts in museums are a gray area (TBD) — e.g., the Rosetta Stone at the British Museum.
+- Artifacts in museums: the creator may be linked ONLY if they physically created the artifact at that location. Otherwise, only the artifact itself (as a work entity) is relevant to the museum location. E.g., the Rosetta Stone at the British Museum — do not tag the scribes; tag the artifact.
+- **Before linking any entity to a moment, verify the link passes the physical presence rule.** Substring/keyword matching on names is NOT sufficient — the actual historical connection must be verified.
 
 ### Every entity MUST have:
 - A `canonicalStoryId` pointing to a real story
@@ -559,9 +562,10 @@ Entity type `work` covers films, TV shows, books, journals, religious texts, sci
 When ingesting new content, the pipeline must check for existing entities, stories, and moments before creating new ones.
 
 **Pre-flight checks**:
-1. Entity check: Search by `wikipedia_slug` (canonical) and `name` (fuzzy).
+1. Entity check: Before creating any new entity, check if an entity with the same name, a variant of the name, or an overlapping `wikipedia_slug` already exists. Search by `wikipedia_slug` (canonical) and `name` (fuzzy).
 2. Story check: Search for biography stories linked to that entity via `canonical_story_id`.
 3. Moment check: Search by geographic proximity (same lat/lng +/- 0.01 degrees) AND year overlap AND name similarity.
+4. Entity-linking check: Before linking an entity to a moment, verify the link passes the physical presence rule (Part 5). Substring/keyword matching on names is NOT sufficient for entity linking — the actual historical connection must be verified.
 
 **ID canonicalization**:
 - Entity IDs: Use the Wikipedia slug as the canonical ID when possible.
