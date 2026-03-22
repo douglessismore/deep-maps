@@ -825,16 +825,10 @@ function MapController({
 
   useEffect(() => {
     const containerH = map.getSize().y;
-    const containerW = map.getSize().x;
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 
-    // Proportional padding: markers fill ~70% of viewport (15% padding each side)
-    const propPadV = Math.round(containerH * 0.15);
-    const propPadH = Math.round(containerW * 0.15);
-    const storyPad: L.FitBoundsOptions = (!isMobile || sheetSnap === 'full')
-      ? { padding: [propPadH, propPadV] as L.PointTuple }
-      : { paddingTopLeft: [propPadH, propPadV] as L.PointTuple,
-          paddingBottomRight: [propPadH, Math.round(containerH * 0.4)] as L.PointTuple };
+    // Sheet-aware padding: accounts for bottom sheet overlay on mobile
+    const storyPad = getSheetAwarePadding(isMobile, sheetSnap ?? 'peek', containerH);
 
     // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil.
     // Timeout must cover the longest animation duration + buffer.
@@ -862,10 +856,11 @@ function MapController({
       } else {
         const eBounds = L.latLngBounds(coords);
         const currentBounds = map.getBounds();
-        const ePad = (storyPad.padding as [number, number]) ?? [0, 0];
-        const eTargetZoom = map.getBoundsZoom(eBounds, false, L.point(ePad[0], ePad[1]));
+        const eTargetZoom = map.getBoundsZoom(eBounds, false, L.point(40, 40));
         const eZoomDiff = Math.abs(map.getZoom() - eTargetZoom);
-        const eAlreadyVisible = currentBounds.contains(eBounds);
+        // "Already visible" only counts if zoom is also close — at global zoom
+        // everything is technically visible but useless
+        const eAlreadyVisible = currentBounds.contains(eBounds) && eZoomDiff < 2;
         const eNearlyThere = eZoomDiff < 1.2 && currentBounds.intersects(eBounds);
         if (eAlreadyVisible || eNearlyThere) {
           if (!eAlreadyVisible) {
@@ -892,10 +887,11 @@ function MapController({
         // Skip animation if bounds change is negligible (avoids jitter on scroll-to-top
         // for nearby clusters like SRV's Austin moments or single-city stories)
         const currentBounds = map.getBounds();
-        const sPad = (storyPad.padding as [number, number]) ?? [0, 0];
-        const targetZoom = map.getBoundsZoom(bounds, false, L.point(sPad[0], sPad[1]));
+        const targetZoom = map.getBoundsZoom(bounds, false, L.point(40, 40));
         const zoomDiff = Math.abs(map.getZoom() - targetZoom);
-        const alreadyVisible = currentBounds.contains(bounds);
+        // "Already visible" only counts if zoom is also close — at global zoom
+        // everything is technically visible but useless
+        const alreadyVisible = currentBounds.contains(bounds) && zoomDiff < 2;
         const nearlyThere = zoomDiff < 1.2 && currentBounds.intersects(bounds);
         if (alreadyVisible || nearlyThere) {
           // Tiny adjustment — set view instantly, no animation

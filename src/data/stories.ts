@@ -1071,7 +1071,6 @@ export const stories: Story[] = [
     tags: ['jesus', 'bible', 'christianity', 'holy-land', 'gospel'],
     moments: [
       { momentId: 'jesus-born-bethlehem' },
-      { momentId: 'holy-family-egypt' },
       { momentId: 'nazareth-annunciation' },
       { momentId: 'jordan-river-baptism' },
       { momentId: 'jesus-temptation-wilderness' },
