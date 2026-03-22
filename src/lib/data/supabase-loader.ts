@@ -287,5 +287,14 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     );
   }
 
+  // ── Sanity check: warn if row counts look truncated ──
+  if (momentRows.length === PAGE_SIZE) {
+    console.error(`[supabase-loader] WARNING: moments fetch returned exactly ${PAGE_SIZE} rows — pagination may be broken!`);
+  }
+  if (momentEntityRows.length === PAGE_SIZE) {
+    console.error(`[supabase-loader] WARNING: moment_entities fetch returned exactly ${PAGE_SIZE} rows — pagination may be broken!`);
+  }
+  console.log(`[supabase-loader] Loaded ${moments.length} moments, ${entities.length} entities, ${stories.length} stories, ${momentEntityRows.length} entity links`);
+
   return { moments, stories, entities, collections };
 }
