@@ -630,17 +630,8 @@ function MapController({
     }
     pathArrowheadsRef.current.clearLayers();
 
-    // DEBUG: log every polyline decision
-    console.log('[POLYLINE]', {
-      activeCollection: activeCollection?.id ?? null,
-      mode,
-      focusedLocationsCount: focusedLocations?.length ?? 0,
-      scrollHighlightCount: scrollHighlight?.length ?? 0,
-    });
-
     // Never draw polylines for collections. Only in story/entity/scroll modes.
     if (activeCollection || (mode !== 'story' && mode !== 'entity' && mode !== 'scroll')) {
-      console.log('[POLYLINE] BLOCKED — activeCollection:', activeCollection?.id, 'mode:', mode);
       prevPathMomentIds.current = '';
       return;
     }
@@ -660,7 +651,6 @@ function MapController({
     } else if (scrollHighlight && scrollHighlight.length >= 2) {
       // Explore scroll mode — connect highlighted story's moments
       pathMoments = [...scrollHighlight];
-      console.log('[POLYLINE] scrollHighlight path — drawing', pathMoments.length, 'moments');
       // Try to get the category color from the highlighted story
       const hlStory = allStories.find(s =>
         s.moments.some(sm => {
@@ -674,8 +664,6 @@ function MapController({
     }
 
     if (pathMoments.length < 2) return;
-
-    console.log('[POLYLINE] DRAWING polyline with', pathMoments.length, 'points');
 
     // Sort chronologically by year (nulls last)
     const sorted = [...pathMoments].sort((a, b) => {

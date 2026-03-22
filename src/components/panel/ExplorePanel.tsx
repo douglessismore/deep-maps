@@ -313,7 +313,8 @@ export function ExplorePanel({
                 .map(mid => moments.find(m => m.id === mid))
                 .filter((m): m is Moment => m != null);
               if (collMoments.length > 0) {
-                onModeChange('scroll');
+                // Don't set mode to 'scroll' for collection list — prevents polylines.
+                // EmergenceLayer highlights markers via scrollHighlight directly.
                 onScrollHighlight(collMoments);
                 // Pan to first in-view moment (or first overall) — don't fitBounds
                 // on scroll, as that overrides the user's zoom level and causes
