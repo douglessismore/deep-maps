@@ -29,12 +29,21 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 // ─── Fetch helpers ───────────────────────────────────────────────────
 
 async function fetchAll<T>(table: string): Promise<T[]> {
-  const { data, error } = await supabase
-    .from(table)
-    .select('*')
-    .limit(10000);
-  if (error) throw new Error(`Failed to fetch ${table}: ${error.message}`);
-  return (data ?? []) as T[];
+  const PAGE = 1000;
+  const all: T[] = [];
+  let offset = 0;
+  while (true) {
+    const { data, error } = await supabase
+      .from(table)
+      .select('*')
+      .range(offset, offset + PAGE - 1);
+    if (error) throw new Error(`Failed to fetch ${table}: ${error.message}`);
+    if (!data || data.length === 0) break;
+    all.push(...(data as T[]));
+    if (data.length < PAGE) break;
+    offset += PAGE;
+  }
+  return all;
 }
 
 // ─── Serialization helpers ──────────────────────────────────────────
