@@ -113,24 +113,26 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         .filter((e): e is NonNullable<typeof e> => e != null);
     }, [location.entityIds, story?.id, onEntityClick, excludeEntityIds, skipCanonicalFilter]);
 
-    // Merge all navigable stories for Dive Deeper (deduplicated, excluding canonical)
+    // Merge all navigable stories for Dive Deeper (deduplicated, ALWAYS excluding canonical)
+    // Biography stories are invisible infrastructure — users navigate to person entities, not biography stories
     const navigableStories = useMemo(() => {
       const seen = new Set<string>();
       const result: Story[] = [];
       for (const s of [...(parentStories ?? []), ...(alsoInStories ?? [])]) {
-        if (!seen.has(s.id) && (skipCanonicalFilter || !canonicalStoryIds.has(s.id))) {
+        if (!seen.has(s.id) && !canonicalStoryIds.has(s.id)) {
           seen.add(s.id);
           result.push(s);
         }
       }
       return result;
-    }, [parentStories, alsoInStories, skipCanonicalFilter]);
+    }, [parentStories, alsoInStories]);
 
     // Story chips for collapsed state (non-story contexts only)
+    // Always filter canonical stories — they should never be clickable navigation targets
     const storyChips = useMemo(() => {
       if (!parentStories || parentStories.length === 0 || !onStoryClick) return [];
-      return parentStories.filter(s => skipCanonicalFilter || !canonicalStoryIds.has(s.id));
-    }, [parentStories, onStoryClick, skipCanonicalFilter]);
+      return parentStories.filter(s => !canonicalStoryIds.has(s.id));
+    }, [parentStories, onStoryClick]);
 
     return (
       <div
