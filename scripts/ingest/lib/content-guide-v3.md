@@ -212,6 +212,8 @@ Coordinates must be verified against known addresses. The accuracy field must ho
 
 **Verification**: Cross-check coordinates against the address field. If the address says "511 10th St NW, Washington" but the coordinates point to 12th Street, the coordinates are wrong.
 
+**Earth-only coordinates**: Deep Maps uses Leaflet, which only renders Earth. ALL coordinates must be on Earth (lat -90 to 90, lng -180 to 180, pointing to a real terrestrial location). For events that happened off-Earth (Moon landings, space events), place the pin at the most relevant Earth location — typically Mission Control (Houston), the launch site (Cape Canaveral), or the recovery site. Note the actual off-Earth location in the subtitle. NEVER use lunar, Martian, or other planetary coordinates — they will render in the wrong location on Earth's map (e.g., Moon's Tranquility Base coordinates 0.67°N, 23.47°E render in central Africa).
+
 ### 3.2 Em-Dash Usage
 
 Use em-dashes sparingly. Only for parenthetical asides, not for dramatic effect. Maximum one em-dash per description.

@@ -147,6 +147,41 @@ for (const m of moments) {
 console.log(`  ${temporalViolations} temporal impossibilities`);
 
 // ============================================================
+// CHECK 3b: Coordinate sanity (address vs lat/lng mismatch detection)
+// ============================================================
+console.log('\n📋 Check 3b: Coordinate sanity');
+let coordIssues = 0;
+
+for (const m of moments) {
+  const lat = (m as any).lat;
+  const lng = (m as any).lng;
+  const address = (m as any).address || '';
+  const subtitle = (m as any).subtitle || '';
+
+  if (lat != null && lng != null) {
+    // Flag coordinates that look like non-Earth (Moon, Mars, etc.)
+    // Moon's Tranquility Base is 0.67°N, 23.47°E — renders in central Africa
+    const combined = (address + ' ' + subtitle).toLowerCase();
+    // Check for off-Earth addresses (Moon, Mars) — but avoid false positives
+    // like "moonlight", "lunar lab" (on Earth), etc.
+    const offEarthPatterns = /\btranquility base\b|\bsea of tranquility\b|\bmartian surface\b|\bon mars\b|(?<!pyramid of )\bthe moon\b/i;
+    if (offEarthPatterns.test(combined)) {
+      if (!combined.includes('houston') && !combined.includes('cape canaveral') && !combined.includes('kennedy space')) {
+        warn('coordinates', m.id, `Address mentions off-Earth location but coordinates must be on Earth. Pin at Mission Control, launch site, or recovery site instead.`);
+        coordIssues++;
+      }
+    }
+
+    // Flag lat/lng outside reasonable ranges
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      error('coordinates', m.id, `Invalid coordinates: lat=${lat}, lng=${lng}`);
+      coordIssues++;
+    }
+  }
+}
+console.log(`  ${coordIssues} coordinate issues`);
+
+// ============================================================
 // CHECK 4: Story moment references exist
 // ============================================================
 console.log('\n📋 Check 4: Story moment references exist');
