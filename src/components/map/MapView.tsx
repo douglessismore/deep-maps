@@ -233,14 +233,6 @@ function MapController({
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);
-  // Scroll guard: when panels are scrolling, block ALL map movement.
-  // Set by onScrollLocationSelect/onScrollLocationActive via prop, cleared after timeout.
-  const scrollGuardUntil = useRef(0);
-  // Track previous values to detect what actually changed in the zoom effect
-  const prevActiveLocationId = useRef<string | null>(null);
-  const prevSheetSnap = useRef<SheetSnap | undefined>(undefined);
-  const prevMode = useRef<string>('');
-  const prevActiveStoryId = useRef<string | null>(null);
   const [currentZoom, setCurrentZoom] = useState(map.getZoom());
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
@@ -248,14 +240,6 @@ function MapController({
   useEffect(() => {
     onMapReady(map);
   }, [map, onMapReady]);
-
-  // When zoomToActiveLocation becomes false (scroll-driven), set scroll guard
-  // This blocks map movement for 800ms, covering sheet re-snaps and re-renders
-  useEffect(() => {
-    if (!zoomToActiveLocation && activeLocation) {
-      scrollGuardUntil.current = Date.now() + 800;
-    }
-  }, [zoomToActiveLocation, activeLocation]);
 
   // Invalidate Leaflet when container resizes (mobile map collapse/expand)
   useEffect(() => {
@@ -868,32 +852,8 @@ function MapController({
 
     // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil.
     // Timeout must cover the longest animation duration + buffer.
-    // SCROLL GUARD: if panels are actively scrolling, skip ALL map movement.
-    // This prevents the map from panning/zooming in response to scroll-driven
-    // activeLocation changes, sheetSnap re-snaps, or any other re-render.
-    if (!zoomToActiveLocation && Date.now() < scrollGuardUntil.current) {
-      return;
-    }
-
     isProgrammaticMove.current = true;
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
-
-    // Detect what actually changed to avoid redundant map movements
-    const locChanged = (activeLocation?.id ?? null) !== prevActiveLocationId.current;
-    const modeChanged = mode !== prevMode.current;
-    const storyChanged = (activeStory?.id ?? null) !== prevActiveStoryId.current;
-    const snapChanged = sheetSnap !== prevSheetSnap.current;
-    prevActiveLocationId.current = activeLocation?.id ?? null;
-    prevSheetSnap.current = sheetSnap;
-    prevMode.current = mode;
-    prevActiveStoryId.current = activeStory?.id ?? null;
-
-    // If only sheetSnap changed (bottom sheet re-snapped), skip all map movement
-    // This prevents the map from re-fitting story bounds when the sheet settles after scroll
-    if (snapChanged && !locChanged && !modeChanged && !storyChanged) {
-      isProgrammaticMove.current = false;
-      return;
-    }
 
     // Mode-change zooms (entering story/entity view) ALWAYS fire — user clicking
     // a story card is an intentional navigation, not a conflict with map interaction.
@@ -935,12 +895,6 @@ function MapController({
       userInteractUntil.current = 0;
       clearFlag();
     } else if (mode === 'story' && activeStory && !activeLocation) {
-      // Only fit story bounds when entering the story (mode or story changed)
-      // NOT when activeLocation was cleared by scroll-to-top
-      if (!modeChanged && !storyChanged) {
-        isProgrammaticMove.current = false;
-        return; // Location was cleared by scroll — map stays put
-      }
       const storyLocs = resolveLocationsFromMap(activeStory, momentMap);
       if (storyLocs.length <= 1) {
         // Single-moment story: just pan to it, no fitBounds animation (avoids jitter)
@@ -973,16 +927,26 @@ function MapController({
       userInteractUntil.current = 0;
       clearFlag();
     } else if (activeLocation && !isBoundsLocked) {
-      // Single-pin: only move map on explicit click (zoomToActiveLocation=true)
-      // Scroll-driven changes just highlight the pin — map stays completely still
-      if (!zoomToActiveLocation) {
+      // Single-pin pan — respect user interaction guard (don't fight user's drag/zoom)
+      // Exception: explicit click-zoom always fires (user tapped a card deliberately)
+      if (!zoomToActiveLocation && (isUserDragging.current || Date.now() < userInteractUntil.current)) {
         isProgrammaticMove.current = false;
-        return; // Early return — don't touch the map at all for scroll
+        return;
       }
-      // User clicked a moment card — zoom in to it
-      userInteractUntil.current = 0;
-      const targetZoom = Math.max(map.getZoom(), 14);
-      map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.6 });
+      if (zoomToActiveLocation) {
+        // User clicked a moment card — zoom in to it
+        userInteractUntil.current = 0; // Clear interaction guard for intentional clicks
+        const targetZoom = Math.max(map.getZoom(), 14);
+        map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.6 });
+      } else {
+        panToAboveSheet(
+          map,
+          [activeLocation.lat, activeLocation.lng],
+          sheetSnap ?? 'half',
+          isMobile,
+          { animate: true, duration: 0.3 },
+        );
+      }
       clearFlag();
     } else if (activeCollection) {
       // Collection selected — zoom to fit all collection moments
