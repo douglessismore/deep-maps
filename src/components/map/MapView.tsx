@@ -233,6 +233,11 @@ function MapController({
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);
+  // Track previous values to detect what actually changed in the zoom effect
+  const prevActiveLocationId = useRef<string | null>(null);
+  const prevSheetSnap = useRef<SheetSnap | undefined>(undefined);
+  const prevMode = useRef<string>('');
+  const prevActiveStoryId = useRef<string | null>(null);
   const [currentZoom, setCurrentZoom] = useState(map.getZoom());
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
@@ -855,6 +860,23 @@ function MapController({
     isProgrammaticMove.current = true;
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
+    // Detect what actually changed to avoid redundant map movements
+    const locChanged = (activeLocation?.id ?? null) !== prevActiveLocationId.current;
+    const modeChanged = mode !== prevMode.current;
+    const storyChanged = (activeStory?.id ?? null) !== prevActiveStoryId.current;
+    const snapChanged = sheetSnap !== prevSheetSnap.current;
+    prevActiveLocationId.current = activeLocation?.id ?? null;
+    prevSheetSnap.current = sheetSnap;
+    prevMode.current = mode;
+    prevActiveStoryId.current = activeStory?.id ?? null;
+
+    // If only sheetSnap changed (bottom sheet re-snapped), skip all map movement
+    // This prevents the map from re-fitting story bounds when the sheet settles after scroll
+    if (snapChanged && !locChanged && !modeChanged && !storyChanged) {
+      isProgrammaticMove.current = false;
+      return;
+    }
+
     // Mode-change zooms (entering story/entity view) ALWAYS fire — user clicking
     // a story card is an intentional navigation, not a conflict with map interaction.
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
@@ -895,6 +917,12 @@ function MapController({
       userInteractUntil.current = 0;
       clearFlag();
     } else if (mode === 'story' && activeStory && !activeLocation) {
+      // Only fit story bounds when entering the story (mode or story changed)
+      // NOT when activeLocation was cleared by scroll-to-top
+      if (!modeChanged && !storyChanged) {
+        isProgrammaticMove.current = false;
+        return; // Location was cleared by scroll — map stays put
+      }
       const storyLocs = resolveLocationsFromMap(activeStory, momentMap);
       if (storyLocs.length <= 1) {
         // Single-moment story: just pan to it, no fitBounds animation (avoids jitter)
