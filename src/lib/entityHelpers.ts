@@ -59,12 +59,14 @@ export function getEntityMomentStories(
   const seenIds = new Set(taggedMoments.map((m) => m.id));
 
   // Secondary source: moments from the canonical story (catches untagged moments)
+  // ONLY pull from biography stories — era/incident stories are shared by many
+  // entities and would dump all their moments onto each person.
   const entity = entityMap.get(entityId);
   const canonicalStory = entity?.canonicalStoryId
     ? _stories.find((s) => s.id === entity.canonicalStoryId)
     : null;
 
-  const canonicalMoments = canonicalStory
+  const canonicalMoments = canonicalStory && canonicalStory.storyType === 'biography'
     ? canonicalStory.moments
         .map((sm) => _moments.find((m) => m.id === sm.momentId))
         .filter((m): m is Moment => m != null && !seenIds.has(m.id))
