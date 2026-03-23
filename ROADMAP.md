@@ -5,31 +5,35 @@
 
 ---
 
-## 🔴 Immediate / Quick Wins
+## Immediate / Quick Wins
 
-- [ ] **Static map on scroll** — Map stays put when scrolling through cards. Only pan on explicit click. Highlight pin without moving map.
-- [ ] **Fix Einstein duplicate moments** — `publishes-relativity` vs `annus-mirabilis` are same 1905 event at two Bern addresses. Merge.
-- [ ] **Fix tenochtitlan-fall moment** — has Istanbul subtitle text (data bug from seed city batch)
+- [ ] **Fix scroll bounce on short stories** — StoryPanel needs same scrollIntoView fix applied to EntityPanel
+- [ ] **Static map on scroll** — Attempted 4x, reverted. Needs holistic rethink — map stays put when scrolling cards, only pan on explicit click.
+- [ ] **Investigate Armstrong/stuck-story bug** — Back button may not properly reset to explore mode
 - [ ] **Fix 3 Evolution moments** — year overflow in Supabase (bigint migration needed for deep-time years)
-- [ ] **Willie Nelson non-Austin markers** — confusing for "Willie Nelson's Austin" story
 - [ ] **LBJ / Lady Bird story split** — currently combined, should be separate person entities
 - [ ] **Thinkers/Sages collection** — only 4 moments, should be 20+
-- [ ] **content-guide-prompt.ts (v2) cleanup** — still has editorial subtitle rules; v3 is the source of truth
+- [x] ~~**Fix Einstein duplicate moments**~~ — merged (session 2026-03-23)
+- [x] ~~**Fix tenochtitlan-fall moment**~~ — fixed Istanbul subtitle (session 2026-03-23)
+- [x] ~~**Willie Nelson non-Austin markers**~~ — cleaned up (session 2026-03-23)
+- [x] ~~**content-guide-prompt.ts (v2) cleanup**~~ — deprecated (session 2026-03-23)
 
 ---
 
-## 🟡 UX / Frontend
+## UX / Frontend
 
 ### High Priority
-- [ ] **In-app admin panel (`/admin`)** — Full CMS for content management. Tabs: Stories | Moments | People | Places. Queue with approve/reject/edit/notes. User ratings alongside system notability scores. Dive deeper link auditing. Geo accuracy flagging. Reads/writes Supabase directly.
+- [x] ~~**In-app admin panel (`/admin`)**~~ — Full CMS shipped: Overview, Content Queue (2,400+ items, inline editing, ratings, notes, MiniMap, LinkAudit), Roadmap kanban (61 items). Supabase migration 006. (session 2026-03-23)
+- [ ] **Admin panel refinements** — User feedback pending, iterate on UX
 - [ ] **Entity type subtabs** — Add type filter row below Stories/Places tabs (All | Biographies | Film | Music | Books | Artifacts). Preserves familiar tab structure, scales to new entity types.
 - [ ] **Collection click UX** — Don't zoom out from local view when clicking a collection. Show in-viewport moments. "Show all on map" for explicit zoom-out. Plan at `.claude/plans/adaptive-noodling-deer.md`.
 - [ ] **Notability ranking transparency** — System score visible alongside optional user rating. User disagrees Trump should be #1 → user rating provides ground truth for tuning.
+- [ ] **Story/collection zoom UX** — Maintain zoom level when clicking from zoomed-in view
 
 ### Medium Priority
 - [ ] **Hyper-specific pin tier** — Add tier above "exact" for sub-building precision (specific gravesite, specific corner). Visual distinction on map. Parked per user: "not high-pri but the logical conclusion of Deep Maps."
 - [ ] **Place story renaming** — Stories like "Brooklyn Bridge" need narrative names that pass the "So What?" test (e.g., "The Bridge That Killed Its Designer").
-- [ ] **Back button pollution** — clicking moments creates excessive nav history entries
+- [x] ~~**Back button prominence**~~ — made more prominent (13px semibold, persistent background) (session 2026-03-23)
 - [ ] **Moment click zoom inconsistency** — some moments don't zoom on click
 - [ ] **SRV single-moment jitter** — scroll-to-top jitter on single-moment stories
 - [ ] **Polyline overshoot** — 16px offset on story path lines
@@ -43,35 +47,47 @@
 
 ---
 
-## 📚 Content Curation
+## Content Curation
 
 ### In Progress
-- [ ] Fix remaining ~237 orphan moments (not in any story or collection)
-- [ ] 23 person entities still missing biography story wiring
+- [ ] **Fix 323 orphan moments** (not in any story or collection)
+- [ ] **25 biography wiring issues**
 - [ ] Write descriptions for ~196 empty biography stories
+- [ ] Merge overnight content agent drafts (Scandinavia/Nordic, Central Asia, Oceania, Caribbean + Science/Culture/Music/Literature)
+
+### Completed This Session (2026-03-23)
+- [x] Crash sites collection — 27 moments (Tenerife, JAL 123, Lockerbie, MH370, Miracle on Hudson, etc.)
+- [x] Seed cities batch 2 — Cairo 22, Beijing 22, Tokyo 20, Athens 20
+- [x] Notable people — 42 moments (Buddha, Archimedes, Qin Shi Huang, Dante, Marco Polo, al-Khwarizmi, Ibn Khaldun, Murasaki Shikibu, Sima Qian, Zheng He)
+- [x] Film locations — Harry Potter 11, Breaking Bad 8, real-event films 9
+- [x] Geographic gaps — Canada 10, Pacific NW 10, Latin America 10, Sub-Saharan Africa 10, Southeast Asia 9
+- [x] Antimeridian fix (markers show when scrolling west to Asia)
+- [x] Moon landing pins moved to Mission Control Houston
+- [x] Biography story leak permanent fix at data layer
+- [x] Place entities (Brooklyn Bridge, Empire State, Broken Spoke) converted
 
 ### Top-Down Curation (Global Coverage)
-- [ ] **Seed cities batch 2**: Cairo, Beijing, Tokyo, Athens, Jerusalem (20-30 moments each)
+- [x] ~~**Seed cities batch 2**: Cairo, Beijing, Tokyo, Athens~~ — completed (session 2026-03-23)
 - [ ] **Seed cities batch 3**: Mexico City, Delhi, Sydney, Nairobi, Rio de Janeiro
-- [ ] **Notable people pipeline**: Next 30 from ranking (start with Gautama Buddha, rank 9)
+- [x] ~~**Notable people pipeline**: start with Gautama Buddha~~ — Buddha + 41 others added (session 2026-03-23)
 - [ ] **Biblical content audit** — descriptions too narrative, not atomic enough. Compare to Wikipedia. See `feedback_biblical_content.md`.
 
 ### Thematic Collections
 - [ ] **Nonfiction/Documentary Locations** — 29 more from audit (`scripts/output/nonfiction-documentary-stories.md`)
-- [ ] **Comprehensive Crash Sites** — "Every Commercial Airline Crash Site on Earth"
-- [ ] **Music Birthplaces** — Fela Kuti's Lagos, reggae Jamaica, Tropicália São Paulo (fills Africa, Caribbean, South America)
-- [ ] **Film Locations Where Real Events Happened** — Schindler's factory, Hotel Rwanda, Bridge on River Kwai
+- [x] ~~**Comprehensive Crash Sites**~~ — 27 crash sites added (session 2026-03-23)
+- [ ] **Music Birthplaces** — Fela Kuti's Lagos, reggae Jamaica, Tropicalia Sao Paulo (fills Africa, Caribbean, South America)
+- [x] ~~**Film Locations Where Real Events Happened**~~ — 28 film locations added (session 2026-03-23)
 - [ ] **Indigenous History expansion** — Wounded Knee, Mesa Verde, plus more beyond current 15 moments
 - [ ] **Ancient Trade Routes** — Silk Road, spice routes, amber road
 - [ ] **Olympic Host Cities** — Every Olympic venue with key moments
 - [ ] **Space Launch Sites** — Cape Canaveral, Baikonur, Wenchang, Tanegashima
-- [ ] **More collections**: Harry Potter, Breaking Bad, historic concerts
+- [ ] **More collections**: historic concerts, music venues
 - [ ] **Books/Movies entity type** — Add as first-class entities (not just stories)
 
 ### Geographic Gap-Filling
-- [ ] Sub-Saharan Africa (most underrepresented region)
+- [x] ~~Sub-Saharan Africa~~ — 10 moments added (session 2026-03-23), still underrepresented — more needed
+- [x] ~~Southeast Asia~~ — 9 moments added (session 2026-03-23), still needs more (Angkor Wat, Borobudur, modern history)
 - [ ] South America (beyond Machu Picchu/Rio)
-- [ ] Southeast Asia (Angkor Wat, Borobudur, plus modern history)
 - [ ] Grid-based coverage audit (split globe into N squares, ensure each land square has content)
 - [ ] Country-by-country coverage (US has ~3,143 counties for fine-grained audit)
 
@@ -84,20 +100,22 @@
 
 ---
 
-## 🔧 Data Quality / Tooling
+## Data Quality / Tooling
 
-### Implemented ✅
+### Implemented
 - [x] Pre-commit validator (`scripts/validate-data.ts`) — blocks commits with errors
 - [x] Pre-commit hook wired in `.git/hooks/pre-commit`
+- [x] Coordinate sanity check (Earth-only rule) — added session 2026-03-23
 - [x] Ingestion tracker Review tab (accept/reject/feedback workflow)
 - [x] Temporal impossibility detection (dead person on future moment)
 - [x] Entity reference validation + ID uniqueness
 - [x] Content guide v3 with physical presence rule (burial sites, sacred sites, apparitions documented)
 - [x] Validator skill (`/deep-maps-validator`)
 - [x] Entity presence check in tracker (years comparison, temporal violation highlighting)
+- [x] Admin panel with content queue, ratings, notes, MiniMap, LinkAudit
 
 ### Needed
-- [ ] **Duplicate detection** — Automated check for similar moment names/coordinates before creating new content. Prevent recurrence of 9/11 + United Flight 93 overlap.
+- [ ] **Duplicate detection** — Automated check for similar moment names/coordinates before creating new content
 - [ ] **Biography-story-visibility check** — Add to validator: flag any biography story that could leak into user-facing UI
 - [ ] **Supabase row count parity check** — Compare static file counts against API response counts
 - [ ] **Pin accuracy upgrade pipeline** — Systematic geocoding for 869 upgradeable moments
@@ -106,10 +124,10 @@
 
 ---
 
-## 🏗️ Architecture / Scaling
+## Architecture / Scaling
 
 ### When hitting ~3,000-5,000 moments
-- [ ] Static .ts files → Supabase-only writes (dump for backup)
+- [ ] Static .ts files -> Supabase-only writes (dump for backup)
 - [ ] Viewport-based loading (PostGIS spatial queries)
 - [ ] Server-side search (Supabase full-text search)
 - [ ] Pre-computed clustering at zoom levels
@@ -117,7 +135,7 @@
 
 ---
 
-## 💼 Business / Strategy
+## Business / Strategy
 
 ### It Happened Here (Prior Art)
 - Ken Dodelin's app reached #1 iTunes Travel, "Best iPhone Tour App" by Travel+Leisure
@@ -136,7 +154,7 @@
 
 ---
 
-## 📋 Content Principles (Quick Reference)
+## Content Principles (Quick Reference)
 
 - **Content guide**: `scripts/ingest/lib/content-guide-v3.md`
 - **Physical presence rule**: Person must have been at exact coordinates at some point. Burial sites valid. Sacred sites valid if person was there during their lifetime. Apparitions are judgment calls.
@@ -147,7 +165,8 @@
 - **Collections = lists, not narratives**: Names should read like "List of..." articles
 - **Encyclopedic tone**: Wikipedia's matter-of-fact clarity, not BuzzFeed
 - **Dedup rule**: Always search existing content before creating. Check by name, coordinates, and entity links.
+- **Earth-only coordinates**: Validator blocks non-Earth coordinates (moon landing pins go at Mission Control)
 
 ---
 
-*Last updated: 2026-03-22*
+*Last updated: 2026-03-23*
