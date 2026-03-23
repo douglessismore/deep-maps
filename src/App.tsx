@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
-import { Route, Switch } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
@@ -39,7 +39,8 @@ type NavEntry = {
 };
 
 function App() {
-  const { moments, stories, collections } = useAppData();
+  const { moments, stories, collections, entities } = useAppData();
+  const [location, setLocation] = useLocation();
   const { variant } = useUIVariant();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
@@ -157,6 +158,64 @@ function App() {
       { enableHighAccuracy: false, timeout: 30000, maximumAge: 300000 }
     );
   }, []);
+
+  // ── Deep Link Activation ──
+  // On mount: read the URL and activate the corresponding collection/story/entity.
+  // Waits for data to load (stories.length > 0) before activating.
+  const deepLinkHandled = useRef(false);
+  useEffect(() => {
+    if (deepLinkHandled.current) return;
+    if (stories.length === 0 || entities.length === 0 || collections.length === 0) return;
+    deepLinkHandled.current = true;
+
+    const path = window.location.pathname;
+    const collMatch = path.match(/^\/c\/([a-z0-9][a-z0-9-]*[a-z0-9])\/?$/);
+    const storyMatch = path.match(/^\/s\/([a-z0-9][a-z0-9-]*[a-z0-9])\/?$/);
+    const entityMatch = path.match(/^\/e\/([a-z0-9][a-z0-9-]*[a-z0-9])\/?$/);
+
+    if (collMatch) {
+      const coll = collections.find((c) => c.id === collMatch[1]);
+      if (coll) {
+        setActiveCollection(coll);
+        setExploreTab('collections');
+      }
+    } else if (storyMatch) {
+      const story = stories.find((s) => s.id === storyMatch[1]);
+      if (story) {
+        setActiveStory(story);
+        setActiveLocation(null);
+        setMode('story');
+        setZoomToActiveLocation(true);
+      }
+    } else if (entityMatch) {
+      const entity = entities.find((e) => e.id === entityMatch[1]);
+      if (entity) {
+        setActiveEntity(entity);
+        setMode('entity');
+        setZoomToActiveLocation(true);
+      }
+    }
+  }, [stories, entities, collections]);
+
+  // ── URL Push on Navigation ──
+  // When the user navigates inside the app, update the URL to match.
+  // This makes the URL shareable and enables browser back/forward.
+  const suppressUrlPush = useRef(false); // Prevents loops during deep link activation
+  useEffect(() => {
+    if (suppressUrlPush.current) { suppressUrlPush.current = false; return; }
+    let newPath = '/';
+    if (mode === 'entity' && activeEntity) {
+      newPath = `/e/${activeEntity.id}`;
+    } else if (mode === 'story' && activeStory) {
+      newPath = `/s/${activeStory.id}`;
+    } else if (activeCollection) {
+      newPath = `/c/${activeCollection.id}`;
+    }
+    // Only push if the path actually changed (avoids history spam)
+    if (newPath !== location) {
+      setLocation(newPath, { replace: false });
+    }
+  }, [mode, activeStory, activeEntity, activeCollection, location, setLocation]);
 
   // Moment→Story reverse lookup (which story owns each moment?)
   const momentToStoryMap = useMemo(() => {

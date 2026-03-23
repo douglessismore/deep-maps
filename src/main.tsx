@@ -15,6 +15,10 @@ createRoot(document.getElementById('root')!).render(
         <Suspense fallback={<div className="h-screen flex items-center justify-center bg-[#0a0a0a] text-gray-400">Loading...</div>}>
           <Switch>
             <Route path="/admin" nest component={AdminApp} />
+            {/* Deep link routes — App reads :id and activates the item after data loads */}
+            <Route path="/c/:id" component={App} />
+            <Route path="/s/:id" component={App} />
+            <Route path="/e/:id" component={App} />
             <Route component={App} />
           </Switch>
         </Suspense>
