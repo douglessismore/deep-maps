@@ -65,9 +65,11 @@ export function PersonCard({ data, onClick, compact = false, distanceMi }: Perso
               <span className="text-[10px] text-[var(--text-muted)] font-mono">
                 {momentCount} {momentCount === 1 ? 'moment' : 'moments'}
               </span>
-              <span className="text-[10px] text-[var(--text-muted)] font-mono">
-                {storyCount} {storyCount === 1 ? 'story' : 'stories'}
-              </span>
+              {storyCount > 0 && (
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">
+                  {storyCount} {storyCount === 1 ? 'story' : 'stories'}
+                </span>
+              )}
             </div>
           </div>
         </div>
