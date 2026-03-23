@@ -10,6 +10,8 @@ export const collections: StoryCollection[] = [
     momentIds: [
       'la-fords-theatre', 'la-petersen-house', 'la-garrett-farm', 'jfk-dealey-plaza', 'jfk-parkland',
       'jfk-texas-theatre', 'mlk-lorraine-motel', 'mlk-sniper-nest', 'mx-audubon', 'colosio-lomas-taurinas',
+      'gandhi-assassinated-birla-house-delhi-1948', 'indira-gandhi-assassinated',
+      'julius-caesar-assassinated', 'archduke-assassination-sarajevo-1914',
     ],
     tags: ['assassination', 'political', 'dark-history'],
   },
@@ -61,7 +63,7 @@ export const collections: StoryCollection[] = [
     momentIds: [
       'ae-harbour-grace', 'ae-lae-airfield', 'ae-howland-island', 'twa-smith-point', 'twa-impact-zone',
       'twa-calverton', 'vj-memorial', 'vj-crash-site', 'vj-sabretech', 'f93-impact',
-      'f93-tower', 'f93-newark', 'norman-petty-studios',
+      'f93-tower', 'f93-newark',
       // ── Crash sites batch ──
       'tenerife-collision-1977', 'jal123-mount-osutaka-1985', 'air-india-182-atlantic-1985',
       'lockerbie-pan-am-103-1988', 'korean-air-007-sakhalin-1983', 'mh370-disappearance-2014',
@@ -169,6 +171,7 @@ export const collections: StoryCollection[] = [
     subtitle: 'The fields, beaches, passes, and ridges where history was decided by force',
     description: 'From Thermopylae to Normandy, the specific places where armies clashed and the course of civilization changed. Twenty-one battlefields across six continents and three millennia.',
     momentIds: [
+      'battle-marathon-490bce', 'battle-salamis-480bce',
       'thermopylae-last-stand', 'gaugamela-alexander', 'cannae-hannibal', 'hastings-norman-conquest', 'agincourt-longbow',
       'tenochtitlan-fall', 'trafalgar-nelson', 'waterloo-napoleon', 'isandlwana-zulu', 'dien-bien-phu-siege',
       'yorktown-surrender', 'gettysburg-pickett', 'little-bighorn-custer', 'somme-first-day', 'verdun-attrition',
@@ -209,9 +212,9 @@ export const collections: StoryCollection[] = [
     subtitle: 'The exact stadiums, tracks, and arenas where Jesse Owens, Pelé, Ali, Jordan, and others made history',
     description: 'From the marble stadium where the modern Olympics were born in 1896 to the Augusta fairway where Tiger Woods wept in 2019 — 18 moments across eight decades, nine sports, and four continents.',
     momentIds: [
-      'athens-1896-first-modern-olympics', 'jesse-owens-four-golds-berlin-1936', 'ruth-called-shot-wrigley-1932', 'ali-liston-miami-beach-convention-1964', 'jackie-robinson-debut-ebbets-1947',
-      'bannister-four-minute-mile-oxford-1954', 'pele-1000th-goal-maracana-1969', 'secretariat-belmont-triple-crown-1973', 'billie-jean-king-battle-sexes-astrodome-1973',
-      'hank-aaron-715-atlanta-1974', 'comaneci-perfect-10-montreal-forum-1976', 'miracle-on-ice-lake-placid-1980', 'maradona-hand-of-god-azteca-1986', 'jordan-last-shot-delta-center-1998',
+      'athens-1896-first-modern-olympics', 'jesse-owens-four-golds-berlin-1936', 'ali-liston-miami-beach-convention-1964', 'jackie-robinson-debut-ebbets-1947',
+      'bannister-four-minute-mile-oxford-1954', 'pele-1000th-goal-maracana-1969', 'secretariat-belmont-triple-crown-1973',
+      'hank-aaron-715-atlanta-1974', 'miracle-on-ice-lake-placid-1980', 'jordan-last-shot-delta-center-1998',
       'usain-bolt-958-berlin-2009', 'leicester-city-premier-league-2016', 'tiger-woods-masters-comeback-augusta-2019',
       // Merged from iconic-sports-moments:
       'ali-foreman-rumble-in-the-jungle-1974', 'maracana-world-cup-final-1950', 'fischer-spassky-reykjavik-1972',
@@ -241,7 +244,7 @@ export const collections: StoryCollection[] = [
     description: 'Alcatraz to the Bastille, Robben Island to the Hanoi Hilton — fifteen events at the world\'s most consequential prisons: the morning a raincoat raft vanished into San Francisco Bay, the cell where Mandela spent 18 years, the room where Solzhenitsyn began his war against the Soviet state.',
     momentIds: [
       'alcatraz-capone-arrives', 'alcatraz-1962-escape', 'tower-london-anne-boleyn', 'tower-london-thomas-more', 'chateau-dif-mirabeau',
-      'robben-island-mandela-sentenced', 'devils-island-dreyfus', 'eastern-state-capone-cell', 'bastille-storming-1789', 'lubyanka-solzhenitsyn',
+      'robben-island-mandela-sentenced', 'devils-island-dreyfus', 'eastern-state-capone-cell', 'lubyanka-solzhenitsyn',
       'hanoi-hilton-mccain', 'spandau-hess-sole-prisoner', 'san-quentin-cash-concert', 'sing-sing-rosenbergs-execution',
     ],
     tags: [],
@@ -319,6 +322,9 @@ export const collections: StoryCollection[] = [
       'inv-nobel-dynamite', 'inv-ford-assembly-line', 'inv-farnsworth-tv', 'inv-fleming-penicillin', 'inv-eniac-computer',
       'inv-transistor-bell-labs', 'inv-www-cern', 'inv-apple-garage', 'inv-hp-garage', 'inv-google-garage',
       'inv-amazon-garage',
+      // Merged from inventions-that-connected-the-world:
+      'first-arpanet-message-ucla-1969', 'steve-jobs-iphone-moscone-2007',
+      'edison-phonograph-menlo-park-1877', 'first-text-message-vodafone-1992',
     ],
     tags: [],
   },
@@ -417,22 +423,7 @@ export const collections: StoryCollection[] = [
     tags: ['film', 'breaking-bad', 'filming-location'],
   },
   // iconic-sports-moments merged into greatest-sports-moments above
-  {
-    id: 'inventions-that-connected-the-world',
-    name: 'Inventions That Connected the World',
-    subtitle: 'The telephone, the internet, the text message — each one built on the last',
-    description: 'Seven inventions that collapsed distance and time, from Bell\'s first telephone call in 1876 to Jobs unveiling the iPhone in 2007.',
-    momentIds: [
-      'first-arpanet-message-ucla-1969',
-      'steve-jobs-iphone-moscone-2007',
-      'first-telephone-call-boston-1876',
-      'edison-phonograph-menlo-park-1877',
-      'first-text-message-vodafone-1992',
-      'apple-garage-cupertino-1976',
-      'google-founded-menlo-park-1998',
-    ],
-    tags: ['invention', 'technology', 'communication'],
-  },
+  // inventions-that-connected-the-world merged into invention-birthplaces above
   {
     id: 'food-and-drink-origins',
     name: 'Where Iconic Foods and Drinks Were Born',
@@ -446,7 +437,6 @@ export const collections: StoryCollection[] = [
       'escoffier-ritz-paris-1898',
       'julia-child-le-cordon-bleu-1949',
       'first-michelin-guide-paris-1900',
-      'boston-tea-party-1773',
     ],
     tags: ['food', 'drink', 'culinary', 'invention'],
   },
