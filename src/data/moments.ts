@@ -4583,7 +4583,7 @@ export const moments: Moment[] = [
     year: 1504,
     date: '1504',
     address: 'Galleria dell\'Accademia, Via Ricasoli 58-60, Florence',
-    entityIds: ['king-david', 'michelangelo'],
+    entityIds: ['michelangelo'],
     wikiSection: 'Florence,_1499–1505',
   },
   {
@@ -15385,7 +15385,7 @@ export const moments: Moment[] = [
     year: -71,
     date: '71 BCE',
     address: 'Via Appia Antica, Rome, Italy',
-    entityIds: ['spartacus'],
+    entityIds: [],
   },
   {
     id: 'nero-great-fire-rome',
@@ -25106,7 +25106,7 @@ export const moments: Moment[] = [
     year: 370,
     date: 'c. 370 CE',
     address: 'Carthage (modern Tunis, Tunisia)',
-    entityIds: ['cicero'],
+    entityIds: ['augustine-of-hippo'],
     wikiSection: 'Move_to_Carthage,_Rome,_and_Milan',
   },
   {
@@ -29088,7 +29088,7 @@ export const moments: Moment[] = [
     year: 1453,
     date: '29 May 1453',
     address: 'Edirnekapı (Gate of St. Romanus), Fatih, Istanbul, Turkey',
-    entityIds: ['mehmed-ii', 'constantine-the-great'],
+    entityIds: ['mehmed-ii'],
   },
   {
     id: 'mehmed-converts-hagia-sophia-1453',
@@ -29264,7 +29264,7 @@ export const moments: Moment[] = [
     year: 2020,
     date: '24 July 2020',
     address: 'Hagia Sophia, Sultanahmet, Istanbul, Turkey',
-    entityIds: ['hagia-sophia-place', 'mustafa-kemal-ataturk'],
+    entityIds: ['hagia-sophia-place'],
   },
   {
     id: 'bosphorus-bridge-connects-continents-1973',

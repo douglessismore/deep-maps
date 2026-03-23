@@ -2757,6 +2757,17 @@ export const stories: Story[] = [
     wikipediaSlug: 'Pelé',
   },
   {
+    id: 'aretha-franklin-biography',
+    name: 'Aretha Franklin',
+    years: '1942–2018',
+    category: 'arts-culture',
+    storyType: 'biography',
+    description: '',
+    tags: [],
+    moments: [{ momentId: 'aretha-franklin-records-i-never-loved-fame' }],
+    wikipediaSlug: 'Aretha_Franklin',
+  },
+  {
     id: 'anne-boleyn-biography',
     name: 'Anne Boleyn',
     years: 'c. 1501–1536',

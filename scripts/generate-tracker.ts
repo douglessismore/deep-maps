@@ -1174,6 +1174,42 @@ async function main() {
     font-size: 0.7rem; background: #1f6feb26; color: #58a6ff;
     padding: 2px 6px; border-radius: 3px;
   }
+  .review-entity-tag .presence-indicator { margin-left: 3px; }
+  .review-entity-tag .presence-prompt {
+    display: block; font-size: 0.62rem; color: #d29922; font-style: italic; margin-top: 1px;
+  }
+
+  .review-presence-check {
+    background: #21262d; border: 1px solid #30363d; border-radius: 6px;
+    padding: 10px 12px; margin-bottom: 10px;
+  }
+  .review-presence-check-title {
+    font-size: 0.75rem; font-weight: 600; color: #e6edf3; margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .presence-check-row {
+    display: flex; align-items: center; gap: 8px; padding: 4px 0;
+    font-size: 0.78rem; color: #c9d1d9;
+  }
+  .presence-check-row.temporal-violation {
+    color: #f85149; font-weight: 600;
+  }
+  .presence-check-row.temporal-violation .presence-years {
+    background: #da363326; padding: 1px 6px; border-radius: 3px;
+  }
+  .presence-years {
+    font-size: 0.72rem; color: #8b949e; font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .presence-violation-label {
+    font-size: 0.65rem; background: #f8514933; color: #f85149;
+    padding: 1px 6px; border-radius: 3px; text-transform: uppercase; font-weight: 700;
+  }
+  .btn-quick-reject {
+    background: none; border: 1px solid #da3633; color: #f85149;
+    padding: 2px 8px; border-radius: 4px; font-size: 0.68rem; cursor: pointer;
+    margin-left: auto; white-space: nowrap;
+  }
+  .btn-quick-reject:hover { background: #da363326; }
 
   .review-card-actions {
     display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
@@ -2011,21 +2047,22 @@ ${entityTabsHtml}
             if (entityIds.indexOf(me.entity_id) < 0) entityIds.push(me.entity_id);
           }
 
-          // Fetch entity names
+          // Fetch entity names, types, and years
           var { data: entData } = await sb
             .from('entities')
-            .select('id, name')
+            .select('id, name, type, years')
             .in('id', entityIds);
 
-          var entNameMap = {};
+          var entDetailMap = {};
           if (entData) {
-            for (var e of entData) entNameMap[e.id] = e.name;
+            for (var e of entData) entDetailMap[e.id] = { name: e.name, type: e.type || '', years: e.years || '' };
           }
 
-          // Attach entity names to each moment
+          // Attach entity details to each moment
           for (var m of reviewMoments) {
             var eids = meMap[m.id] || [];
-            m._entityNames = eids.map(function(eid) { return entNameMap[eid] || eid; });
+            m._entityNames = eids.map(function(eid) { return (entDetailMap[eid] || {}).name || eid; });
+            m._entityDetails = eids.map(function(eid) { return entDetailMap[eid] || { name: eid, type: '', years: '' }; });
           }
         }
       }
@@ -2097,9 +2134,78 @@ ${entityTabsHtml}
       // Story name (populated by separate query)
       var storyName = m._storyName || '';
 
-      // Entity tags (populated by separate query)
+      // Entity tags with presence indicators (populated by separate query)
       var entityTags = '';
-      if (m._entityNames && m._entityNames.length > 0) {
+      var presenceCheckHtml = '';
+      if (m._entityDetails && m._entityDetails.length > 0) {
+        entityTags = m._entityDetails.map(function(ent) {
+          var indicator = (ent.type === 'place' || ent.type === 'organization')
+            ? '<span class="presence-indicator" title="Presence implied (place/org)">\\ud83d\\udfe2</span>'
+            : (ent.type === 'person'
+              ? '<span class="presence-indicator" title="Needs manual verification">\\ud83d\\udfe1</span>'
+              : '');
+          var prompt = ent.type === 'person'
+            ? '<span class="presence-prompt">Was ' + esc(ent.name) + ' physically here?</span>'
+            : '';
+          return '<span class="review-entity-tag">' + esc(ent.name) + indicator + prompt + '</span>';
+        }).join('');
+
+        // Build Entity Presence Check section for person entities
+        var personEntities = m._entityDetails.filter(function(ent) { return ent.type === 'person'; });
+        if (personEntities.length > 0) {
+          var momentYear = m.year;
+          var checkRows = personEntities.map(function(ent) {
+            // Parse years string like "1809-1865" or "63 BCE-14 CE" or "c. 1450-1519"
+            var birthYear = null, deathYear = null;
+            if (ent.years) {
+              var yearsParts = ent.years.split('-');
+              if (yearsParts.length >= 2) {
+                var rawBirth = yearsParts[0].trim().replace(/^c\\.?\\s*/i, '');
+                var rawDeath = yearsParts.slice(1).join('-').trim().replace(/^c\\.?\\s*/i, '');
+                if (/BCE/i.test(rawBirth)) {
+                  birthYear = -Math.abs(parseInt(rawBirth.replace(/[^0-9]/g, ''), 10));
+                } else {
+                  birthYear = parseInt(rawBirth.replace(/[^0-9]/g, ''), 10);
+                  if (/CE/i.test(rawBirth)) { /* already positive */ }
+                }
+                if (/BCE/i.test(rawDeath)) {
+                  deathYear = -Math.abs(parseInt(rawDeath.replace(/[^0-9]/g, ''), 10));
+                } else {
+                  deathYear = parseInt(rawDeath.replace(/[^0-9]/g, ''), 10);
+                  if (/CE/i.test(rawDeath)) { /* already positive */ }
+                }
+              }
+            }
+            if (isNaN(birthYear)) birthYear = null;
+            if (isNaN(deathYear)) deathYear = null;
+
+            var isViolation = deathYear !== null && momentYear !== null && deathYear < momentYear;
+            var violationCls = isViolation ? ' temporal-violation' : '';
+            var yearsDisplay = ent.years ? esc(ent.years) : '?';
+            var momentYearDisplay = momentYear ? (momentYear < 0 ? Math.abs(momentYear) + ' BCE' : String(momentYear)) : '?';
+
+            var row = '<div class="presence-check-row' + violationCls + '">' +
+              (isViolation ? '\\ud83d\\udd34' : '\\ud83d\\udfe1') + ' ' +
+              '<strong>' + esc(ent.name) + '</strong>' +
+              '<span class="presence-years">' + yearsDisplay + '</span>' +
+              ' vs moment ' +
+              '<span class="presence-years">' + momentYearDisplay + '</span>';
+            if (isViolation) {
+              row += ' <span class="presence-violation-label">TEMPORAL VIOLATION</span>';
+              if (status === 'unreviewed') {
+                row += '<button class="btn-quick-reject" onclick="event.stopPropagation(); quickRejectPresence(\\'' + m.id + '\\', \\'' + esc(ent.name).replace(/'/g, "\\\\'") + '\\')">Reject: not here</button>';
+              }
+            }
+            row += '</div>';
+            return row;
+          }).join('');
+
+          presenceCheckHtml = '<div class="review-presence-check">' +
+            '<div class="review-presence-check-title">Entity Presence Check</div>' +
+            checkRows +
+          '</div>';
+        }
+      } else if (m._entityNames && m._entityNames.length > 0) {
         entityTags = m._entityNames.map(function(eName) {
           return '<span class="review-entity-tag">' + esc(eName) + '</span>';
         }).join('');
@@ -2148,6 +2254,7 @@ ${entityTabsHtml}
           '<span class="review-meta-item">Coords: <strong>' + coordStr + '</strong></span>' +
         '</div>' +
         (entityTags ? '<div class="review-card-entities">' + entityTags + '</div>' : '') +
+        presenceCheckHtml +
         '<div class="review-card-actions">' + actionsHtml + '</div>' +
       '</div>';
     }).join('');
@@ -2221,6 +2328,27 @@ ${entityTabsHtml}
     if (data && data[0]) reviewNotes[momentId] = data[0];
   };
 
+  window.quickRejectPresence = async function(momentId, entityName) {
+    var text = 'Physical presence violation - ' + entityName + ' was not at this location';
+    reviewNotes[momentId] = { id: 'temp-' + Date.now(), entity_slug: momentId, note_type: 'review', category: 'rejected', text: text, resolved: false, created_at: new Date().toISOString() };
+    renderReviewCards();
+
+    var { data, error } = await sb.from('tracker_notes').insert({
+      entity_slug: momentId,
+      note_type: 'review',
+      category: 'rejected',
+      text: text
+    }).select();
+
+    if (error) {
+      console.error('Failed to reject moment:', error);
+      delete reviewNotes[momentId];
+      renderReviewCards();
+      return;
+    }
+    if (data && data[0]) reviewNotes[momentId] = data[0];
+  };
+
   // Intercept tab switch to lazy-load review data
   var origSwitchTab = window.switchTab;
   window.switchTab = function(tab) {
@@ -2245,7 +2373,8 @@ ${entityTabsHtml}
         e.target.classList.contains('btn-submit-reject') ||
         e.target.classList.contains('btn-cancel-reject') ||
         e.target.classList.contains('btn-accept') ||
-        e.target.classList.contains('btn-reject')) {
+        e.target.classList.contains('btn-reject') ||
+        e.target.classList.contains('btn-quick-reject')) {
       e.stopPropagation();
     }
   }, true);

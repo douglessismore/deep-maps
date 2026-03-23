@@ -2130,6 +2130,15 @@ export const entities: Entity[] = [
     wikipediaSlug: 'Mary,_mother_of_Jesus',
   },
   {
+    id: 'aretha-franklin',
+    name: 'Aretha Franklin',
+    type: 'person',
+    years: '1942–2018',
+    description: 'The Queen of Soul who turned a floundering career around in one session at FAME Studios in Muscle Shoals, winning 18 Grammys and becoming the first woman inducted into the Rock and Roll Hall of Fame.',
+    canonicalStoryId: 'aretha-franklin-biography',
+    wikipediaSlug: 'Aretha_Franklin',
+  },
+  {
     id: 'anne-boleyn',
     name: 'Anne Boleyn',
     type: 'person',

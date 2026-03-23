@@ -336,12 +336,29 @@ Bad wiring makes content invisible in the UI. These are non-negotiable.
 - Membership in at least one story's `moments[]` array, OR an entity's moments, OR a collection's `momentIds[]` array. A moment does not need a story wrapper to be valid — burial moments, for example, may only connect to a person entity and a place entity.
 
 ### Entity tagging rule: physical presence required
-- Only tag a person/org in a moment's `entityIds` if they were **physically present** at that location during that event. Do not tag people who are merely referenced, discussed, or affected remotely.
-- References to a person's name, work, legacy, or influence do NOT qualify as physical presence.
-- A person's surname appearing in a place name, street name, or building name is NOT a valid link. "Smith Street" does not justify linking Adam Smith. "Washington Monument" does not justify linking George Washington. The name on the sign is not the person.
-- Burial moments ARE valid tags — the person's body is physically there.
-- Artifacts in museums: the creator may be linked ONLY if they physically created the artifact at that location. Otherwise, only the artifact itself (as a work entity) is relevant to the museum location. E.g., the Rosetta Stone at the British Museum — do not tag the scribes; tag the artifact.
-- **Before linking any entity to a moment, verify the link passes the physical presence rule.** Substring/keyword matching on names is NOT sufficient — the actual historical connection must be verified.
+
+**Core rule**: A person entity may ONLY be tagged in a moment's `entityIds` if the person was **physically present at the exact coordinates** at some point in their life, AND the moment relates to that person at that place.
+
+**What qualifies as physical presence:**
+- The person was alive at this location during the event → ✅ ALWAYS valid
+- The person's remains are at this location (burial, tomb, relics) → ✅ Valid (burial is the last physical presence)
+- The person was at this location during their lifetime but the moment describes a LATER event at the same coordinates (e.g., sacred sites where churches were built centuries later at the site of a historical event) → ✅ Valid IF the moment is fundamentally about that person at that place
+- Tutankhamun's tomb being opened in 1922 → ✅ Valid (his body was physically there)
+- Napoleon's remains transferred to Les Invalides → ✅ Valid (remains are there)
+
+**What does NOT qualify:**
+- A person's name, work, legacy, or influence being referenced at a location they never visited → ❌
+- A person's surname appearing in a place name, street name, or building name → ❌ "Smith Street" ≠ Adam Smith. "Washington Monument" ≠ George Washington.
+- A person who lived centuries before a location existed and never visited the coordinates → ❌ King David on Michelangelo's David in Florence
+- A person merely referenced in a book/work being read at a location → ❌ Cicero tagged on "Augustine reads Cicero in Carthage 370 CE" (Cicero died 43 BCE)
+- Constantine the Great tagged on the 1453 fall of Constantinople (died 337 CE, 1,116 years before the event)
+- Artifacts in museums: the creator may be linked ONLY if they physically created the artifact at that location. Otherwise, only the artifact itself (as a work entity) is relevant. E.g., Rosetta Stone at British Museum — do not tag the scribes.
+
+**Apparition sites** (Fatima, Lourdes, etc.): Tag as a judgment call — the tradition asserts presence but the person was not physically alive. Mark these for reviewer attention.
+
+**Enforcement**: The pre-commit validator (`scripts/validate-data.ts`) flags temporal impossibilities automatically. Any entity whose death year precedes the moment's year is flagged for manual review. The ingestion tracker's Review tab highlights these in red.
+
+**Before linking any entity to a moment:** Verify the link passes the physical presence rule. Substring/keyword matching on names is NOT sufficient — the actual historical connection must be verified.
 
 ### Every entity MUST have:
 - A `canonicalStoryId` pointing to a real story
