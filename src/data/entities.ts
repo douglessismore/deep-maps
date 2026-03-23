@@ -1265,15 +1265,6 @@ export const entities: Entity[] = [
     wikipediaSlug: 'Save_Our_Springs_Alliance',
   },
   {
-    id: 'clyde-barrow-grave',
-    name: 'The Grave of Clyde Barrow',
-    type: 'place',
-    years: '1934',
-    description: 'Public Enemy Number One is buried in a quiet Dallas cemetery because his family refused to let him be buried next to Bonnie Parker. His headstone, which he picked himself, reads "Gone but not forgotten." Visitors still leave flowers and bullet casings.',
-    canonicalStoryId: 'clyde-barrow-grave',
-    wikipediaSlug: 'Clyde_Barrow',
-  },
-  {
     id: 'barbara-jordan',
     name: 'Barbara Jordan',
     type: 'person',

@@ -9751,7 +9751,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1923,
     address: '9050 FL-24, Rosewood, FL 32625',
-    entityIds: ['orville-wright'],
+    entityIds: [],
     wikiSection: 'Attack_on_Rosewood',
   },
   {
