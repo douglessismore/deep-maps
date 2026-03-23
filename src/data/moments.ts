@@ -40546,7 +40546,7 @@ export const moments: Moment[] = [
     importance: 'major',
     accuracy: 'approximate',
     kind: 'event',
-    year: -2229000000,
+    year: -2147483647, // Actual: -2,229,000,000 (overflows int32; using min int32 as placeholder)
     address: 'Near Meekatharra, Western Australia',
     entityIds: [],
     verificationLevel: 'verified',
