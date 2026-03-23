@@ -1063,7 +1063,7 @@ export const stories: Story[] = [
     name: 'The Broken Spoke',
     years: '1964–present',
     category: 'arts-culture',
-    storyType: 'incident',
+    storyType: 'biography',
     description: 'Known as the "last of the true Texas dance halls," the Broken Spoke is an iconic honky-tonk that has refused to change even as luxury condos surrounded it on all sides. George Strait launched his career here, and Willie Nelson is a regular. James White, the legendary owner, turned down millions from developers to keep the sawdust on the floor.',
     tags: ['austin', 'music', 'country', 'honky-tonk', 'preservation', 'texas'],
     moments: [{ momentId: 'spoke-opening-night' }, { momentId: 'spoke-george-strait' }, { momentId: 'spoke-survival-battle' }],

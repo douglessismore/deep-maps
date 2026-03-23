@@ -144,7 +144,7 @@ function parseRoadmap(content: string): ParsedItem[] {
 }
 
 async function main() {
-  const roadmapPath = path.resolve(__dirname, '..', 'ROADMAP.md');
+  const roadmapPath = path.resolve(import.meta.dirname, '..', 'ROADMAP.md');
   const content = fs.readFileSync(roadmapPath, 'utf-8');
   const items = parseRoadmap(content);
 
