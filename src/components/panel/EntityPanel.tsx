@@ -98,6 +98,8 @@ export function EntityPanel({
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const isProgrammaticScroll = useRef(false);
+  // Track scroll-driven activeLocationId changes to avoid scroll-into-view loops
+  const lastScrollDrivenId = useRef<string | null>(null);
 
   // Set initial active to first moment (or activeLocationId if provided)
   useEffect(() => {
@@ -128,8 +130,15 @@ export function EntityPanel({
   }, [entity.id]); // Only on entity mount/change
 
   // External sync: when map pin is clicked, scroll to that moment
+  // Skip if the change came from our own scroll handler (prevents bounce loops)
   useEffect(() => {
     if (!activeLocationId || activeLocationId === scrollActiveId) return;
+    // If this ID was just set by our scroll handler, skip the scrollIntoView
+    if (activeLocationId === lastScrollDrivenId.current) {
+      setScrollActiveId(activeLocationId);
+      lastScrollDrivenId.current = null;
+      return;
+    }
     const el = momentRefs.current.get(activeLocationId);
     if (el) {
       isProgrammaticScroll.current = true;
@@ -189,6 +198,7 @@ export function EntityPanel({
         }
 
         if (closestId && closestId !== scrollActiveId) {
+          lastScrollDrivenId.current = closestId; // Mark as scroll-driven
           setScrollActiveId(closestId);
           const entry = momentEntries.find((e) => e.moment.id === closestId);
           if (entry && onScrollLocationActive && entry.stories.length > 0) {
