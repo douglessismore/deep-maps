@@ -41,7 +41,7 @@ export function useAppData(): AppData {
 
 // ─── Query client ────────────────────────────────────────────────────
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,      // Data loaded once per session

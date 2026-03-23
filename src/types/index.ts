@@ -145,3 +145,40 @@ export type MomentKind = 'event' | 'milestone' | 'presence';
  *  - legendary: Folklore, unverified claims, paranormal — part of cultural record but not historically established
  *  Applies to the MOMENT's primary claim, not the location. A verified event at a "haunted" location is still verified. */
 export type VerificationLevel = 'verified' | 'documented' | 'traditional' | 'legendary';
+
+// ─── Admin Types ──────────────────────────────────────────────────────
+
+export type AdminItemType = 'story' | 'entity' | 'moment' | 'collection';
+
+export type ReviewStatus = 'unreviewed' | 'approved' | 'needs-fix';
+
+export interface AdminRating {
+  id: string;
+  item_type: AdminItemType;
+  item_id: string;
+  rating: number; // 0-100
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AdminNote {
+  id: string;
+  item_type: AdminItemType;
+  item_id: string;
+  field_name: string | null;
+  text: string;
+  resolved: boolean;
+  created_at: string;
+}
+
+export interface RoadmapItem {
+  id: string;
+  category: string;
+  title: string;
+  description: string | null;
+  priority: 'high' | 'medium' | 'low';
+  status: 'todo' | 'in-progress' | 'done';
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
