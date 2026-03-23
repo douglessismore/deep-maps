@@ -33,8 +33,8 @@ export const collections: StoryCollection[] = [
       // John Wayne Gacy
       'jwg-house-site', 'jwg-des-plaines-bridge',
       // Servant Girl Annihilator
-      'annihilator-mollie-smith', 'annihilator-christmas-massacre', 'annihilator-moonlight-tower',
-      'annihilator-eliza-shelley', 'annihilator-o-henry-letter', 'annihilator-gracie-vance',
+      'annihilator-mollie-smith', 'annihilator-christmas-massacre',
+      'annihilator-eliza-shelley', 'annihilator-gracie-vance',
       // H.H. Holmes
       'holmes-builds-murder-castle-1892',
       // Son of Sam
