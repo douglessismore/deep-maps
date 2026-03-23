@@ -80,7 +80,8 @@ export function getEntityMomentStories(
 
   return allMoments.map((moment) => {
     const parentStories = _stories.filter((s) =>
-      s.moments.some((sm) => sm.momentId === moment.id)
+      s.moments.some((sm) => sm.momentId === moment.id) &&
+      !canonicalStoryIds.has(s.id) // Never expose biography stories to UI
     );
     return { moment, stories: parentStories };
   });
@@ -135,7 +136,10 @@ export function getEntityStories(entityId: string): Story[] {
   const result: Story[] = [];
   for (const { stories: parentStories } of entries) {
     for (const s of parentStories) {
-      if (!seenIds.has(s.id)) {
+      // ALWAYS filter out canonical/biography stories at the data layer.
+      // Biography stories are invisible infrastructure — users see person entities,
+      // not biography stories. Filtering here prevents leaks in ANY UI component.
+      if (!seenIds.has(s.id) && !canonicalStoryIds.has(s.id)) {
         seenIds.add(s.id);
         result.push(s);
       }
