@@ -45,6 +45,7 @@ export function ContentQueuePage() {
         subtitle: m.subtitle,
         lat: m.lat,
         lng: m.lng,
+        accuracy: m.accuracy,
         entityIds: m.entityIds,
       });
     }

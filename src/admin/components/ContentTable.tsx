@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { ContentRow, type NormalizedItem } from './ContentRow';
 import { TypeBadge } from './TypeBadge';
 import { StatusBadge } from './StatusBadge';
+import { BulkActionBar } from './BulkActionBar';
 
 interface Column {
   key: string;
@@ -86,102 +87,116 @@ export function ContentTable({ items, columns = DEFAULT_COLUMNS, pageSize = 50 }
     }
   }, [pageItems, selectedIds.size]);
 
+  const clearSelection = useCallback(() => {
+    setSelectedIds(new Set());
+  }, []);
+
+  // Resolve selected items for bulk actions
+  const selectedItems = useMemo(() => {
+    return items.filter(i => selectedIds.has(i.id));
+  }, [items, selectedIds]);
+
   // Reset page when items change
   useMemo(() => { setPage(0); }, [items.length]);
 
   return (
-    <div className="border border-[#2a2a2a] rounded-lg overflow-hidden">
-      {/* Table header */}
-      <div className="flex items-center bg-[#111] border-b border-[#2a2a2a] text-xs text-gray-500 font-mono">
-        <div className="w-10 flex-shrink-0 flex items-center justify-center py-2">
-          <input
-            type="checkbox"
-            checked={selectedIds.size === pageItems.length && pageItems.length > 0}
-            onChange={toggleSelectAll}
-            className="accent-red-500"
-          />
+    <>
+      <div className="border border-[#2a2a2a] rounded-lg overflow-hidden">
+        {/* Table header */}
+        <div className="flex items-center bg-[#111] border-b border-[#2a2a2a] text-xs text-gray-500 font-mono">
+          <div className="w-10 flex-shrink-0 flex items-center justify-center py-2">
+            <input
+              type="checkbox"
+              checked={selectedIds.size === pageItems.length && pageItems.length > 0}
+              onChange={toggleSelectAll}
+              className="accent-red-500"
+            />
+          </div>
+          {columns.map(col => (
+            <div
+              key={col.key}
+              className="py-2 px-3 cursor-pointer hover:text-gray-300 select-none flex items-center gap-1 transition-colors"
+              style={{ width: col.width, flex: col.width ? `0 0 ${col.width}` : '1' }}
+              onClick={() => handleSort(col.key)}
+            >
+              {col.label}
+              {sortKey === col.key && (
+                <span className="text-red-400">{sortDir === 'asc' ? '\u2191' : '\u2193'}</span>
+              )}
+            </div>
+          ))}
         </div>
-        {columns.map(col => (
-          <div
-            key={col.key}
-            className="py-2 px-3 cursor-pointer hover:text-gray-300 select-none flex items-center gap-1 transition-colors"
-            style={{ width: col.width, flex: col.width ? `0 0 ${col.width}` : '1' }}
-            onClick={() => handleSort(col.key)}
-          >
-            {col.label}
-            {sortKey === col.key && (
-              <span className="text-red-400">{sortDir === 'asc' ? '\u2191' : '\u2193'}</span>
-            )}
+
+        {/* Table rows */}
+        {pageItems.map(item => (
+          <div key={item.id}>
+            <div
+              className={`flex items-center border-b border-[#1a1a1a] hover:bg-[#111] cursor-pointer transition-colors text-sm ${
+                expandedId === item.id ? 'bg-[#111]' : ''
+              }`}
+              onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
+            >
+              <div
+                className="w-10 flex-shrink-0 flex items-center justify-center py-2"
+                onClick={(e) => { e.stopPropagation(); toggleSelect(item.id); }}
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedIds.has(item.id)}
+                  onChange={() => toggleSelect(item.id)}
+                  className="accent-red-500"
+                />
+              </div>
+              {columns.map(col => (
+                <div
+                  key={col.key}
+                  className="py-2 px-3 truncate"
+                  style={{ width: col.width, flex: col.width ? `0 0 ${col.width}` : '1' }}
+                >
+                  {col.render ? col.render(item) : (
+                    <span className="text-gray-300">{String((item as unknown as Record<string, unknown>)[col.key] ?? '—')}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* Expanded detail */}
+            {expandedId === item.id && <ContentRow item={item} />}
           </div>
         ))}
-      </div>
 
-      {/* Table rows */}
-      {pageItems.map(item => (
-        <div key={item.id}>
-          <div
-            className={`flex items-center border-b border-[#1a1a1a] hover:bg-[#111] cursor-pointer transition-colors text-sm ${
-              expandedId === item.id ? 'bg-[#111]' : ''
-            }`}
-            onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
-          >
-            <div
-              className="w-10 flex-shrink-0 flex items-center justify-center py-2"
-              onClick={(e) => { e.stopPropagation(); toggleSelect(item.id); }}
-            >
-              <input
-                type="checkbox"
-                checked={selectedIds.has(item.id)}
-                onChange={() => toggleSelect(item.id)}
-                className="accent-red-500"
-              />
-            </div>
-            {columns.map(col => (
-              <div
-                key={col.key}
-                className="py-2 px-3 truncate"
-                style={{ width: col.width, flex: col.width ? `0 0 ${col.width}` : '1' }}
-              >
-                {col.render ? col.render(item) : (
-                  <span className="text-gray-300">{String((item as unknown as Record<string, unknown>)[col.key] ?? '—')}</span>
-                )}
-              </div>
-            ))}
-          </div>
-          {/* Expanded detail */}
-          {expandedId === item.id && <ContentRow item={item} />}
-        </div>
-      ))}
+        {pageItems.length === 0 && (
+          <div className="py-12 text-center text-gray-600 text-sm">No items match the current filters.</div>
+        )}
 
-      {pageItems.length === 0 && (
-        <div className="py-12 text-center text-gray-600 text-sm">No items match the current filters.</div>
-      )}
-
-      {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#111] border-t border-[#2a2a2a] text-xs text-gray-500">
-        <span>
-          {sorted.length} items{selectedIds.size > 0 && ` \u00B7 ${selectedIds.size} selected`}
-        </span>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setPage(p => Math.max(0, p - 1))}
-            disabled={page === 0}
-            className="px-2 py-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded hover:bg-[#222] disabled:opacity-30 disabled:hover:bg-[#1a1a1a] transition-colors"
-          >
-            Prev
-          </button>
-          <span className="text-gray-400 font-mono">
-            {page + 1} / {Math.max(1, totalPages)}
+        {/* Pagination */}
+        <div className="flex items-center justify-between px-4 py-2.5 bg-[#111] border-t border-[#2a2a2a] text-xs text-gray-500">
+          <span>
+            {sorted.length} items{selectedIds.size > 0 && ` \u00B7 ${selectedIds.size} selected`}
           </span>
-          <button
-            onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
-            disabled={page >= totalPages - 1}
-            className="px-2 py-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded hover:bg-[#222] disabled:opacity-30 disabled:hover:bg-[#1a1a1a] transition-colors"
-          >
-            Next
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(p => Math.max(0, p - 1))}
+              disabled={page === 0}
+              className="px-2 py-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded hover:bg-[#222] disabled:opacity-30 disabled:hover:bg-[#1a1a1a] transition-colors"
+            >
+              Prev
+            </button>
+            <span className="text-gray-400 font-mono">
+              {page + 1} / {Math.max(1, totalPages)}
+            </span>
+            <button
+              onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+              disabled={page >= totalPages - 1}
+              className="px-2 py-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded hover:bg-[#222] disabled:opacity-30 disabled:hover:bg-[#1a1a1a] transition-colors"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Bulk action bar */}
+      <BulkActionBar selectedItems={selectedItems} onClearSelection={clearSelection} />
+    </>
   );
 }
