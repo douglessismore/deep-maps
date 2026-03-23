@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
-import { Route, Switch, useLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
@@ -655,8 +655,7 @@ function App() {
 
   // ── Shared panel content (used by both sheet and split layouts) ──
   const panelContent = (
-    <Switch>
-      <Route path="/">
+    <>
         <Suspense fallback={<PanelSkeleton />}>
         {mode === 'entity' && activeEntity ? (
           <FadeIn key="entity">
@@ -736,8 +735,7 @@ function App() {
           </FadeIn>
         )}
         </Suspense>
-      </Route>
-    </Switch>
+    </>
   );
 
   const isSplit = variant === 'split' && isMobile;
