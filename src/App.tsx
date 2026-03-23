@@ -8,7 +8,7 @@ import { ClaudeSheet } from './components/ui/ClaudeSheet';
 import { CinemaSheet } from './components/ui/CinemaSheet';
 import { FadeIn } from './components/ui/FadeIn';
 import { PanelSkeleton } from './components/ui/Skeleton';
-import { VariantToggle } from './components/ui/VariantToggle';
+// VariantToggle removed — split mode is the final UI
 import { getSheetAwarePadding } from './lib/sheetAwareMap';
 import { CATEGORIES } from './lib/categories';
 import { useUIVariant } from './lib/uiVariant';
@@ -672,7 +672,7 @@ function App() {
 
   return (
     <div className="h-full flex flex-col">
-      <VariantToggle />
+      {/* VariantToggle removed — split mode is the final UI */}
       <Header
         mode={mode}
         activeStory={activeStory}
