@@ -542,7 +542,7 @@ function App() {
 
   // Entity-mode location highlight — used for both scroll-driven and click-driven
   const handleEntityScrollLocationActive = useCallback((moment: Moment, _story: Story) => {
-    setZoomToActiveLocation(false);
+    setZoomToActiveLocation(true);
     setActiveLocation(moment);
   }, []);
 

@@ -3762,7 +3762,7 @@ export const stories: Story[] = [
   },
   {
     id: 'devil-in-the-white-city',
-    name: 'The World\'s Columbian Exposition and H.H. Holmes',
+    name: 'Devil in the White City',
     years: '1893',
     category: 'dark-history',
     storyType: 'incident',
