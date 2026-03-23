@@ -233,6 +233,9 @@ function MapController({
   const map = useMap();
   const markersRef = useRef<L.LayerGroup>(L.layerGroup());
   const isUserDragging = useRef(false);
+  // Scroll guard: when panels are scrolling, block ALL map movement.
+  // Set by onScrollLocationSelect/onScrollLocationActive via prop, cleared after timeout.
+  const scrollGuardUntil = useRef(0);
   // Track previous values to detect what actually changed in the zoom effect
   const prevActiveLocationId = useRef<string | null>(null);
   const prevSheetSnap = useRef<SheetSnap | undefined>(undefined);
@@ -245,6 +248,14 @@ function MapController({
   useEffect(() => {
     onMapReady(map);
   }, [map, onMapReady]);
+
+  // When zoomToActiveLocation becomes false (scroll-driven), set scroll guard
+  // This blocks map movement for 800ms, covering sheet re-snaps and re-renders
+  useEffect(() => {
+    if (!zoomToActiveLocation && activeLocation) {
+      scrollGuardUntil.current = Date.now() + 800;
+    }
+  }, [zoomToActiveLocation, activeLocation]);
 
   // Invalidate Leaflet when container resizes (mobile map collapse/expand)
   useEffect(() => {
@@ -857,6 +868,13 @@ function MapController({
 
     // Flag programmatic moves so zoomstart/zoomend don't set userInteractUntil.
     // Timeout must cover the longest animation duration + buffer.
+    // SCROLL GUARD: if panels are actively scrolling, skip ALL map movement.
+    // This prevents the map from panning/zooming in response to scroll-driven
+    // activeLocation changes, sheetSnap re-snaps, or any other re-render.
+    if (!zoomToActiveLocation && Date.now() < scrollGuardUntil.current) {
+      return;
+    }
+
     isProgrammaticMove.current = true;
     const clearFlag = () => { setTimeout(() => { isProgrammaticMove.current = false; }, 2000); };
 
