@@ -122,13 +122,14 @@ export function getKeyLocations(personEntityId: string): Entity[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-/** All entity locations for map display: moment + first parent story. */
+/** All entity locations for map display: moment + first parent story (if any).
+ *  Moments without a parent story still appear on the map — they're valid locations
+ *  even if they're orphans not yet wired into a story. */
 export function getEntityLocations(
   entityId: string
-): Array<{ location: Moment; story: Story }> {
+): Array<{ location: Moment; story: Story | null }> {
   return getEntityMomentStories(entityId)
-    .filter(({ stories: s }) => s.length > 0)
-    .map(({ moment, stories: s }) => ({ location: moment, story: s[0] }));
+    .map(({ moment, stories: s }) => ({ location: moment, story: s[0] ?? null }));
 }
 
 /** All unique stories that contain moments for this entity. Sorted by earliest year. */

@@ -372,7 +372,7 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: 'The self-taught engineers who conquered the sky. From a bicycle shop in Ohio to the wind-swept dunes of North Carolina, they solved the riddle of controlled flight and shrunk the world forever.',
     tags: ['aviation', 'invention', 'ohio', 'north-carolina'],
-    moments: [{ momentId: 'wb-bicycle-shop' }, { momentId: 'inv-wright-dayton-shop' }, { momentId: 'wb-kitty-hawk' }, { momentId: 'inv-wright-kitty-hawk' }, { momentId: 'wb-huffman-prairie' }],
+    moments: [{ momentId: 'wb-bicycle-shop' }, { momentId: 'wb-kitty-hawk' }, { momentId: 'wb-huffman-prairie' }],
     relatedStoryIds: ['dennys-google'],
     wikipediaSlug: 'Wright_brothers',
   },

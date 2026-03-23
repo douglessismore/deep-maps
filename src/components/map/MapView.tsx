@@ -102,7 +102,7 @@ interface MapViewProps {
   userLocation?: { lat: number; lng: number } | null;
   nearMeZoomKey?: number;
   restoreView?: { center: [number, number]; zoom: number } | null;
-  entityLocations?: Array<{ location: Moment; story: Story }>;
+  entityLocations?: Array<{ location: Moment; story: Story | null }>;
   sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
   /** When true, zoom in to activeLocation (user clicked a moment card) */
   zoomToActiveLocation?: boolean;
@@ -395,10 +395,10 @@ function MapController({
       const hasActivePin = activeLocation != null;
 
       focusedLocations.forEach(({ location, story }) => {
-        const key = `pin-${story.id}-${location.id}`;
+        const key = `pin-${story?.id ?? 'orphan'}-${location.id}`;
         nextKeys.add(key);
 
-        const cat = CATEGORIES[story.category];
+        const cat = story ? CATEGORIES[story.category] : { color: '#ef4444', label: 'Uncategorized' };
         const baseSize = IMPORTANCE_SIZE[location.importance] || 10;
         const isActive = activeLocation?.id === location.id;
         const isHighlighted = highlightIds.has(location.id);
@@ -448,7 +448,7 @@ function MapController({
             </div>`,
             { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
           );
-          marker.on('click', () => onLocationClick(location, story));
+          marker.on('click', () => { if (story) onLocationClick(location, story); });
           group.addLayer(marker);
           prevMarkers.set(key, {
             marker, type: 'pin', isActive, isHighlighted, isFaded, permanentTooltip,

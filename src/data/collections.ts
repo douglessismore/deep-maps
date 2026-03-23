@@ -210,7 +210,7 @@ export const collections: StoryCollection[] = [
     description: 'From the marble stadium where the modern Olympics were born in 1896 to the Augusta fairway where Tiger Woods wept in 2019 — 18 moments across eight decades, nine sports, and four continents.',
     momentIds: [
       'athens-1896-first-modern-olympics', 'jesse-owens-four-golds-berlin-1936', 'ruth-called-shot-wrigley-1932', 'ali-liston-miami-beach-convention-1964', 'jackie-robinson-debut-ebbets-1947',
-      'bannister-four-minute-mile-oxford-1954', 'pele-1000th-goal-maracana-1969', 'munich-massacre-connollystrasse-1972', 'secretariat-belmont-triple-crown-1973', 'billie-jean-king-battle-sexes-astrodome-1973',
+      'bannister-four-minute-mile-oxford-1954', 'pele-1000th-goal-maracana-1969', 'secretariat-belmont-triple-crown-1973', 'billie-jean-king-battle-sexes-astrodome-1973',
       'hank-aaron-715-atlanta-1974', 'comaneci-perfect-10-montreal-forum-1976', 'miracle-on-ice-lake-placid-1980', 'maradona-hand-of-god-azteca-1986', 'jordan-last-shot-delta-center-1998',
       'usain-bolt-958-berlin-2009', 'leicester-city-premier-league-2016', 'tiger-woods-masters-comeback-augusta-2019',
     ],
