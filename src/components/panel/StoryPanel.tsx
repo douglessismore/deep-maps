@@ -54,6 +54,8 @@ export function StoryPanel({
   const isScrollDriving = useRef(false);
   const isProgrammaticScroll = useRef(false);
   const isTapGuard = useRef(false); // Suppresses scroll handler after card tap to prevent jitter
+  const isUserScrolling = useRef(false); // Prevents external scroll-to during user scroll
+  const scrollEndTimer = useRef<number | undefined>(undefined);
   const scrollTimeout = useRef<number | null>(null);
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
@@ -93,6 +95,10 @@ export function StoryPanel({
       // Skip if this scroll was triggered by our own scrollIntoView correction, a card tap,
       // or the user is still reading a manually-expanded card (5s grace period)
       if (isProgrammaticScroll.current || isTapGuard.current) return;
+      // Mark user as actively scrolling — prevents external scroll-to from bouncing
+      isUserScrolling.current = true;
+      clearTimeout(scrollEndTimer.current);
+      scrollEndTimer.current = window.setTimeout(() => { isUserScrolling.current = false; }, 500);
 
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {

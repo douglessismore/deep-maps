@@ -131,14 +131,19 @@ export function EntityPanel({
 
   // External sync: when map pin is clicked, scroll to that moment
   // Skip if the change came from our own scroll handler (prevents bounce loops)
+  // Track whether user is actively scrolling — suppress external scroll-to during scrolls
+  const isUserScrolling = useRef(false);
+  const scrollEndTimer = useRef<number | undefined>(undefined);
+
   useEffect(() => {
     if (!activeLocationId || activeLocationId === scrollActiveId) return;
-    // If this ID was just set by our scroll handler, skip the scrollIntoView
+    // If scroll-driven or user is mid-scroll, don't fight the user
     if (activeLocationId === lastScrollDrivenId.current) {
       setScrollActiveId(activeLocationId);
       lastScrollDrivenId.current = null;
       return;
     }
+    if (isUserScrolling.current) return; // User is scrolling, don't bounce back
     const el = momentRefs.current.get(activeLocationId);
     if (el) {
       isProgrammaticScroll.current = true;
@@ -161,6 +166,10 @@ export function EntityPanel({
 
     const onScroll = () => {
       if (isProgrammaticScroll.current) return;
+      // Mark user as actively scrolling — prevents external scroll-to from bouncing
+      isUserScrolling.current = true;
+      clearTimeout(scrollEndTimer.current);
+      scrollEndTimer.current = window.setTimeout(() => { isUserScrolling.current = false; }, 500);
 
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
