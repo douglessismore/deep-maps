@@ -18,39 +18,62 @@ export const collections: StoryCollection[] = [
   {
     id: 'serial-killer-crime-scenes',
     name: 'Serial Killer Crime Scenes',
-    subtitle: 'The homes, hunting grounds, and burial sites of the world\'s most notorious serial killers',
-    description: 'Crime scenes, courthouses, prisons, and dump sites tied to Ed Gein, Dahmer, Bundy, the Zodiac, Gacy, and Austin\'s Servant Girl Annihilator.',
+    subtitle: 'The exact murder sites, dump sites, and hunting grounds of the world\'s most notorious serial killers',
+    description: 'The actual locations where serial killers committed their crimes — from Ed Gein\'s Wisconsin farmhouse to Jack the Ripper\'s Whitechapel. Every pin marks a murder site, abduction point, or body dump location.',
     momentIds: [
-      // Original moments
-      'gein-farm', 'gein-worden-store', 'gein-cemetery', 'gein-school', 'gein-tavern',
-      'gein-mendota', 'dahmer-apartment', 'dahmer-chocolate-factory', 'dahmer-first-victim', 'dahmer-columbia-prison',
-      'tb-chi-omega', 'tb-lake-sammamish', 'tb-florida-prison', 'zk-blue-rock', 'zk-lake-berryessa',
-      'zk-stine-murder', 'jwg-house-site', 'jwg-greyhound', 'jwg-des-plaines-bridge', 'annihilator-mollie-smith',
-      'annihilator-christmas-massacre', 'annihilator-moonlight-tower', 'annihilator-eliza-shelley', 'annihilator-o-henry-letter', 'annihilator-gracie-vance',
-      // Existing moments wired into collection
-      'holmes-builds-murder-castle-1892', 'holmes-arrested-philadelphia-1894', 'holmes-hanged-moyamensing-1896',
+      // Crime scenes, murder sites, dump sites ONLY — no arrests, prisons, or executions
+      // Ed Gein
+      'gein-farm', 'gein-worden-store', 'gein-cemetery',
+      // Jeffrey Dahmer
+      'dahmer-apartment', 'dahmer-first-victim',
+      // Ted Bundy
+      'tb-chi-omega', 'tb-lake-sammamish',
+      // Zodiac Killer
+      'zk-blue-rock', 'zk-lake-berryessa', 'zk-stine-murder',
+      // John Wayne Gacy
+      'jwg-house-site', 'jwg-des-plaines-bridge',
+      // Servant Girl Annihilator
+      'annihilator-mollie-smith', 'annihilator-christmas-massacre', 'annihilator-moonlight-tower',
+      'annihilator-eliza-shelley', 'annihilator-o-henry-letter', 'annihilator-gracie-vance',
+      // H.H. Holmes
+      'holmes-builds-murder-castle-1892',
+      // Son of Sam
       'son-of-sam-first-shooting-1976',
-      // New expansion moments
-      'night-stalker-first-murder-1984', 'night-stalker-captured-1985',
-      'btk-otero-murders-1974', 'btk-arrested-park-city-2005',
-      'green-river-first-victims-1982', 'green-river-ridgway-home-1982',
-      'wuornos-first-victim-1989', 'wuornos-captured-last-resort-1991',
-      'kemper-grandparents-1964', 'kemper-surrender-santa-cruz-1973',
+      // Richard Ramirez (Night Stalker)
+      'night-stalker-first-murder-1984',
+      // Dennis Rader (BTK)
+      'btk-otero-murders-1974',
+      // Gary Ridgway (Green River)
+      'green-river-first-victims-1982',
+      // Aileen Wuornos
+      'wuornos-first-victim-1989',
+      // Edmund Kemper
+      'kemper-grandparents-1964',
+      // Charles Manson
       'manson-tate-murders-1969', 'manson-labianca-murders-1969', 'manson-spahn-ranch-1969',
-      'corll-boat-shed-1973', 'corll-killed-pasadena-1973',
-      'albert-fish-budd-murder-1928', 'albert-fish-executed-sing-sing-1936',
+      // Dean Corll (Candy Man)
+      'corll-boat-shed-1973',
+      // Albert Fish
+      'albert-fish-budd-murder-1928',
+      // Samuel Little
       'samuel-little-confesses-2018', 'samuel-little-convicted-la-2014',
+      // Hillside Stranglers
       'hillside-strangler-buono-shop-1977',
-      'son-of-sam-captured-yonkers-1977',
+      // Wayne Williams (Atlanta Child Murders)
       'atlanta-child-murders-bridge-1981',
-      'dc-sniper-first-shooting-2002', 'dc-sniper-captured-rest-stop-2002',
+      // D.C. Snipers
+      'dc-sniper-first-shooting-2002',
+      // Jack the Ripper
       'ripper-mary-kelly-millers-court-1888',
-      'chikatilo-rostov-station-1978', 'chikatilo-captured-1990',
-      'pedro-lopez-captured-ambato-1980',
+      // Andrei Chikatilo
+      'chikatilo-rostov-station-1978',
+      // Harold Shipman (killed patients at his practice)
       'shipman-practice-hyde-1998',
-      'dahmer-arrested-1991',
+      // Gary Heidnik
       'heidnik-house-of-horrors-1987',
+      // John List
       'john-list-breeze-knoll-1971',
+      // Israel Keyes
       'israel-keyes-abduction-anchorage-2012',
     ],
     tags: ['serial-killer', 'true-crime', 'dark-history'],
