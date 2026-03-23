@@ -176,7 +176,13 @@ function App() {
     if (collMatch) {
       const coll = collections.find((c) => c.id === collMatch[1]);
       if (coll) {
+        // Mirror handleCollectionSelect behavior
         setActiveCollection(coll);
+        setCategoryFilter(null);
+        setActiveStory(null);
+        setActiveLocation(null);
+        setScrollHighlight([]);
+        setMode('explore');
         setExploreTab('collections');
       }
     } else if (storyMatch) {
@@ -184,6 +190,7 @@ function App() {
       if (story) {
         setActiveStory(story);
         setActiveLocation(null);
+        setScrollHighlight([]);
         setMode('story');
         setZoomToActiveLocation(true);
       }
@@ -191,6 +198,8 @@ function App() {
       const entity = entities.find((e) => e.id === entityMatch[1]);
       if (entity) {
         setActiveEntity(entity);
+        setActiveStory(null);
+        setActiveLocation(null);
         setMode('entity');
         setZoomToActiveLocation(true);
       }
