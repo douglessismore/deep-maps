@@ -213,6 +213,11 @@ export const collections: StoryCollection[] = [
       'bannister-four-minute-mile-oxford-1954', 'pele-1000th-goal-maracana-1969', 'secretariat-belmont-triple-crown-1973', 'billie-jean-king-battle-sexes-astrodome-1973',
       'hank-aaron-715-atlanta-1974', 'comaneci-perfect-10-montreal-forum-1976', 'miracle-on-ice-lake-placid-1980', 'maradona-hand-of-god-azteca-1986', 'jordan-last-shot-delta-center-1998',
       'usain-bolt-958-berlin-2009', 'leicester-city-premier-league-2016', 'tiger-woods-masters-comeback-augusta-2019',
+      // Merged from iconic-sports-moments:
+      'ali-foreman-rumble-in-the-jungle-1974', 'maracana-world-cup-final-1950', 'fischer-spassky-reykjavik-1972',
+      'black-power-salute-mexico-city-1968', 'bradman-last-innings-the-oval-1948', 'nadia-comaneci-perfect-10-montreal-1976',
+      'hand-of-god-azteca-1986', 'babe-ruth-called-shot-wrigley-1932', 'jesse-owens-45-minutes-ann-arbor-1935',
+      'billie-jean-king-battle-of-sexes-1973', 'wilma-rudolph-three-golds-rome-1960', 'mandela-rugby-world-cup-1995',
     ],
     tags: [],
   },
@@ -411,29 +416,7 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['film', 'breaking-bad', 'filming-location'],
   },
-  // ─── Sports & Culture batch ──────────────────────────────────────────
-  {
-    id: 'iconic-sports-moments',
-    name: 'Iconic Moments in Sports History',
-    subtitle: 'The goals, races, and defeats that transcended athletics — from Jesse Owens in Berlin to Maradona in Mexico City',
-    description: 'Thirteen moments across eight decades where athletic competition became something larger — Cold War proxy battles, racial breakthroughs, and feats that defied human limits.',
-    momentIds: [
-      'miracle-on-ice-lake-placid-1980',
-      'ali-foreman-rumble-in-the-jungle-1974',
-      'maracana-world-cup-final-1950',
-      'fischer-spassky-reykjavik-1972',
-      'black-power-salute-mexico-city-1968',
-      'bradman-last-innings-the-oval-1948',
-      'nadia-comaneci-perfect-10-montreal-1976',
-      'hand-of-god-azteca-1986',
-      'babe-ruth-called-shot-wrigley-1932',
-      'jesse-owens-45-minutes-ann-arbor-1935',
-      'billie-jean-king-battle-of-sexes-1973',
-      'wilma-rudolph-three-golds-rome-1960',
-      'mandela-rugby-world-cup-1995',
-    ],
-    tags: ['sports', 'athletics', 'olympics'],
-  },
+  // iconic-sports-moments merged into greatest-sports-moments above
   {
     id: 'inventions-that-connected-the-world',
     name: 'Inventions That Connected the World',

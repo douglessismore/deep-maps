@@ -82,6 +82,34 @@ Before adding any new moments, stories, or entities, verify no duplicates exist.
 **Cross-linking requirement:**
 - WARNING if related stories exist but are not connected via `relatedStoryIds`. When moments from one story are relevant to another, the stories should be cross-linked rather than having content duplicated across both.
 
+### Check 1.9: Collection Content Appropriateness
+For every collection, verify that ALL moments in its `momentIds` array are tonally appropriate for the collection's name and theme.
+- CRITICAL if a violent/tragic moment is in a "greatest" or "best" or positive-framed collection (e.g., a massacre in "Greatest Sports Moments", a disaster in "Famous Inventions")
+- CRITICAL if a celebratory moment is in a dark/tragedy-framed collection
+- Use common sense: would a reasonable person be offended seeing this moment categorized this way?
+
+### Check 1.10: Duplicate Collection Detection
+Check for collections that cover overlapping themes:
+- CRITICAL if two collections have the same theme with different names (e.g., "Greatest Sports Moments" and "Iconic Sports Moments")
+- WARNING if two collections share >50% of their momentIds
+- When duplicates found: recommend merging into one collection with the better name
+
+### Check 1.11: False Entity Link Detection (Substring Matching)
+For every moment with entityIds, verify the tagged person was actually at the location:
+- CRITICAL if the entity's surname appears in the moment only as part of a DIFFERENT person's name (e.g., "John Wright" moment tagged with 'orville-wright', "Adam Smith" moment tagged with 'adam-smith' when the Smith in the moment is a different person)
+- CRITICAL if the entity's name appears only in a place name, street name, or building name (e.g., "Washington Monument" tagged with 'george-washington' when Washington wasn't physically at the monument's construction)
+- Pattern to watch: common surnames (Wright, Smith, Johnson, Brown, Wilson, Davis, Clark, Lewis, Walker, King) are high-risk for false matches
+
+### Check 1.12: Duplicate Moment Detection Within Stories/Entities
+For every story and entity, check if multiple moments describe the same event:
+- CRITICAL if two moments in the same story/entity have: same year AND same city/location AND similar names (>60% word overlap)
+- Examples caught by this rule: "Wright Brothers Design the Flyer in a Bicycle Shop" + "Wright Brothers Design Their Airplane in a Bicycle Repair Shop" = DUPLICATE
+
+### Check 1.13: Sensitivity and Tone Check
+- CRITICAL if moments about atrocities, massacres, terrorism, or mass casualties are categorized in collections with positive/celebratory framing
+- WARNING if moment descriptions use inappropriately casual or flippant language for serious events (genocide, slavery, mass murder)
+- All content about sensitive topics should maintain encyclopedic, factual tone — never sensationalize
+
 ## Layer 2: Content Quality (scored checklist)
 
 For **incremental mode**: Run `git diff HEAD --name-only` in the deep-maps directory. If `src/data/moments.ts`, `entities.ts`, or `stories.ts` changed, use `git diff HEAD --unified=0` to find which specific item IDs were added/modified (look for lines starting with `+    id: '`). Only evaluate those items.
