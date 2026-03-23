@@ -347,7 +347,7 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: 'A patent clerk in Bern who published four papers in 1905 that dismantled Newtonian physics, then spent a decade deriving general relativity. Fled Nazi Germany in 1933, urged Roosevelt to build the atomic bomb, and died in Princeton with unfinished equations on his bedside table.',
     tags: ['physics', 'relativity', 'nobel-prize', 'science'],
-    moments: [{ momentId: 'einstein-born-ulm-1879' }, { momentId: 'einstein-publishes-relativity' }, { momentId: 'einstein-annus-mirabilis-bern-1905' }, { momentId: 'einstein-general-relativity-berlin-1915' }, { momentId: 'einstein-flees-germany-princeton-1933' }, { momentId: 'einstein-signs-roosevelt-letter-1939' }, { momentId: 'einstein-dies-princeton-1955' }],
+    moments: [{ momentId: 'einstein-born-ulm-1879' }, { momentId: 'einstein-annus-mirabilis-bern-1905' }, { momentId: 'einstein-general-relativity-berlin-1915' }, { momentId: 'einstein-flees-germany-princeton-1933' }, { momentId: 'einstein-signs-roosevelt-letter-1939' }, { momentId: 'einstein-dies-princeton-1955' }],
     wikipediaSlug: 'Albert_Einstein',
   },
   {

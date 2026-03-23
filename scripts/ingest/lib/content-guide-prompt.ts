@@ -1,4 +1,17 @@
 /**
+ * ⚠️  DEPRECATED — DO NOT USE FOR NEW WORK
+ *
+ * This file is content-guide-prompt v2. It has been superseded by v3:
+ *   scripts/ingest/lib/content-guide-v3.md
+ *
+ * Key conflicts with v3:
+ *   - Subtitle rules here describe editorial hooks; v3 uses place annotations
+ *   - Character limits and type vocabulary differ from the current DB schema
+ *
+ * This file is still imported by notable-people.ts and notable-people-local.ts.
+ * Those scripts should be migrated to v3, after which this file can be deleted.
+ *
+ * Original description:
  * Deep Maps — Content Guide System Prompt (v2)
  *
  * Distilled from content-guide.md into a system prompt for LLM-assisted
