@@ -1119,6 +1119,7 @@ export function MapView(props: MapViewProps) {
         className="h-full w-full"
         zoomControl={true}
         attributionControl={true}
+        worldCopyJump={true}
       >
         <TileLayer
           key={tileStyle}

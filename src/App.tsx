@@ -113,11 +113,15 @@ function App() {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const bounds = mapInstance.getBounds();
+        // Wrap bounds to handle antimeridian crossing (scrolling west past -180°)
+        const sw = bounds.getSouthWest().wrap();
+        const ne = bounds.getNorthEast().wrap();
+        const wrappedBounds = L.latLngBounds(sw, ne);
         const ids = new Set<string>();
         for (const story of stories) {
           for (const sm of story.moments) {
             const m = momentMap.get(sm.momentId);
-            if (m && bounds.contains([m.lat, m.lng])) {
+            if (m && wrappedBounds.contains(L.latLng(m.lat, m.lng).wrap())) {
               ids.add(story.id);
               break; // one visible pin is enough
             }

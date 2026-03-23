@@ -1,3 +1,4 @@
+import L from 'leaflet';
 import type { LatLngBounds } from 'leaflet';
 import type { Moment, Story, ViewportLocation } from '../types';
 import { resolveLocationsFromMap } from './storyHelpers';
@@ -47,6 +48,10 @@ export function getLocationsInBounds(
   momentMap: Map<string, Moment>,
   allMoments?: Moment[],
 ): ViewportLocation[] {
+  // Wrap bounds to handle antimeridian crossing (scrolling west past -180°)
+  const sw = bounds.getSouthWest().wrap();
+  const ne = bounds.getNorthEast().wrap();
+  const wrappedBounds = L.latLngBounds(sw, ne);
   const center = bounds.getCenter();
   const results: ViewportLocation[] = [];
   const seenIds = new Set<string>();
@@ -54,7 +59,7 @@ export function getLocationsInBounds(
   // Story-linked moments (primary source)
   for (const story of stories) {
     for (const location of resolveLocationsFromMap(story, momentMap)) {
-      if (bounds.contains([location.lat, location.lng])) {
+      if (wrappedBounds.contains(L.latLng(location.lat, location.lng).wrap())) {
         seenIds.add(location.id);
         results.push({
           location,
@@ -73,7 +78,7 @@ export function getLocationsInBounds(
   // Story-less moments (e.g., cemetery burials that only connect via entity tags)
   if (allMoments) {
     for (const m of allMoments) {
-      if (!seenIds.has(m.id) && bounds.contains([m.lat, m.lng])) {
+      if (!seenIds.has(m.id) && wrappedBounds.contains(L.latLng(m.lat, m.lng).wrap())) {
         results.push({
           location: m,
           story: null,
