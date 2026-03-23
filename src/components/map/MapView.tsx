@@ -927,15 +927,16 @@ function MapController({
       userInteractUntil.current = 0;
       clearFlag();
     } else if (activeLocation && !isBoundsLocked) {
-      // Single-pin pan — only move map on explicit click (zoomToActiveLocation=true)
-      // Scroll-driven changes (zoomToActiveLocation=false) just highlight the pin, no panning
-      if (zoomToActiveLocation) {
-        // User clicked a moment card — zoom in to it
-        userInteractUntil.current = 0; // Clear interaction guard for intentional clicks
-        const targetZoom = Math.max(map.getZoom(), 14);
-        map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.6 });
+      // Single-pin: only move map on explicit click (zoomToActiveLocation=true)
+      // Scroll-driven changes just highlight the pin — map stays completely still
+      if (!zoomToActiveLocation) {
+        isProgrammaticMove.current = false;
+        return; // Early return — don't touch the map at all for scroll
       }
-      // else: scroll-driven — pin highlights via marker update but map stays put
+      // User clicked a moment card — zoom in to it
+      userInteractUntil.current = 0;
+      const targetZoom = Math.max(map.getZoom(), 14);
+      map.flyTo([activeLocation.lat, activeLocation.lng], targetZoom, { duration: 0.6 });
       clearFlag();
     } else if (activeCollection) {
       // Collection selected — zoom to fit all collection moments
