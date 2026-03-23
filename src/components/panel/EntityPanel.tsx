@@ -229,13 +229,13 @@ export function EntityPanel({
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Mobile breadcrumb (hidden in spotlight peek) */}
       {onBack && !isSpotlightPeek && (
-        <div className="lg:hidden shrink-0 flex items-center gap-1.5 px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+        <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-[12px] font-medium text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-0.5 px-1.5 -ml-1.5 rounded hover:bg-white/5"
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
           >
-            <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-              <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
+              <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             {backLabel || 'Stories'}
           </button>

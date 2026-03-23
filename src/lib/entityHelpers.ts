@@ -31,7 +31,7 @@ export function initEntityHelpers(entities: Entity[], moments: Moment[], stories
   );
   canonicalStoryIds = new Set(
     entities
-      .filter((e) => e.type === 'person' && e.canonicalStoryId && biographyStoryIds.has(e.canonicalStoryId))
+      .filter((e) => e.canonicalStoryId && biographyStoryIds.has(e.canonicalStoryId))
       .map((e) => e.canonicalStoryId!)
   );
 }
