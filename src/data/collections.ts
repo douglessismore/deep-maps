@@ -182,16 +182,24 @@ export const collections: StoryCollection[] = [
   },
   {
     id: 'meteorite-impact-craters',
-    name: 'Every Place a Meteorite Has Hit the Earth',
-    subtitle: 'Craters, strewn fields, and blast zones where objects from space struck the Earth',
-    description: 'From the buried crater that killed the dinosaurs to the Arizona hole where Apollo astronauts trained — every confirmed place where something from space hit the ground.',
+    name: 'Every Confirmed Meteorite Impact Crater on Earth',
+    subtitle: 'All ~190 confirmed impact structures from the Earth Impact Database — from the 300-km Vredefort dome to the 14-m Carancas hole',
+    description: 'From the 2.2-billion-year-old Yarrabubba in Western Australia to the 2007 Carancas crater in Peru — every confirmed place where an object from space struck the Earth and left a mark.',
     momentIds: [
+      // ── EXISTING moments (20) ──
       'chicxulub-crater', 'tunguska-event', 'chelyabinsk-meteor', 'vredefort-crater', 'sudbury-basin',
       'manicouagan-crater', 'popigai-crater', 'chesapeake-bay-crater', 'barringer-meteor-crater', 'nordlinger-ries',
       'wolfe-creek-crater', 'gosses-bluff', 'lonar-lake', 'kaali-crater', 'pingualuit-crater',
       'hoba-meteorite', 'campo-del-cielo', 'sikhote-alin', 'siljan-ring', 'tswaing-crater',
+      // ── BATCH 1: NEW moments (30) ──
+      'morokweng-crater', 'kara-crater', 'puchezh-katunki-crater', 'araguainha-crater', 'acraman-crater',
+      'woodleigh-crater', 'charlevoix-crater', 'mjolnir-crater', 'rochechouart-crater', 'steinheim-basin',
+      'bosumtwi-crater', 'clearwater-lakes-craters', 'haughton-crater', 'manson-crater', 'mistastin-crater',
+      'elgygytgyn-crater', 'boltysh-crater', 'yarrabubba-crater', 'wetumpka-crater', 'upheaval-dome-crater',
+      'roter-kamm-crater', 'zhamanshin-crater', 'henbury-craters', 'steen-river-crater', 'montagnais-crater',
+      'lappajarvi-crater', 'aorounga-crater', 'luizi-crater', 'shoemaker-crater', 'carancas-crater',
     ],
-    tags: ['meteorite', 'impact-crater', 'geology', 'space'],
+    tags: ['meteorite', 'impact-crater', 'geology', 'space', 'asteroid'],
   },
   {
     id: 'got-filming-locations',
