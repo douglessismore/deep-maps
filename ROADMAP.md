@@ -17,6 +17,9 @@
 - [x] ~~**Fix tenochtitlan-fall moment**~~ — fixed Istanbul subtitle (session 2026-03-23)
 - [x] ~~**Willie Nelson non-Austin markers**~~ — cleaned up (session 2026-03-23)
 - [x] ~~**content-guide-prompt.ts (v2) cleanup**~~ — deprecated (session 2026-03-23)
+- [x] ~~**Wikipedia encoding**~~ — fixed 17 percent-encoded slugs (session 2026-03-24)
+- [x] ~~**Search back button**~~ — clears search query so tabs aren't filtered (session 2026-03-24)
+- [x] ~~**Entity panel jump fix**~~ — no longer jumps to first moment on entry (session 2026-03-24)
 
 ---
 
@@ -24,13 +27,19 @@
 
 ### High Priority
 - [x] ~~**In-app admin panel (`/admin`)**~~ — Full CMS shipped: Overview, Content Queue (2,400+ items, inline editing, ratings, notes, MiniMap, LinkAudit), Roadmap kanban (61 items). Supabase migration 006. (session 2026-03-23)
+- [x] ~~**Admin pin editor (Phases 1-8)**~~ — Draggable markers, satellite toggle, geo verification workflow, source URLs, batch review with auto-advance. Supabase migration 007. (session 2026-03-24)
+- [x] ~~**DeepMaps branding**~~ — "Deep Maps" renamed to "DeepMaps" everywhere: loading screen, HTML title, OG tags, admin panel (session 2026-03-24)
 - [ ] **Admin panel refinements** — User feedback pending, iterate on UX
+- [ ] **User-facing "Report Inaccuracy" button** — Crowdsource accuracy fixes from users (v2)
 - [ ] **Entity type subtabs** — Add type filter row below Stories/Places tabs (All | Biographies | Film | Music | Books | Artifacts). Preserves familiar tab structure, scales to new entity types.
 - [ ] **Collection click UX** — Don't zoom out from local view when clicking a collection. Show in-viewport moments. "Show all on map" for explicit zoom-out. Plan at `.claude/plans/adaptive-noodling-deer.md`.
 - [ ] **Notability ranking transparency** — System score visible alongside optional user rating. User disagrees Trump should be #1 → user rating provides ground truth for tuning.
 - [ ] **Story/collection zoom UX** — Maintain zoom level when clicking from zoomed-in view
 
 ### Medium Priority
+- [ ] **Timeline bar clarity on mobile** — Nate feedback: confusing on mobile, needs UX rethink
+- [ ] **Near Me / Surprise Me button clarity** — Nate feedback: buttons unclear, improve labels or onboarding
+- [ ] **Pictures for events** — Nate feedback: add images to moment cards (rights/sourcing TBD)
 - [ ] **Hyper-specific pin tier** — Add tier above "exact" for sub-building precision (specific gravesite, specific corner). Visual distinction on map. Parked per user: "not high-pri but the logical conclusion of Deep Maps."
 - [ ] **Place story renaming** — Stories like "Brooklyn Bridge" need narrative names that pass the "So What?" test (e.g., "The Bridge That Killed Its Designer").
 - [x] ~~**Back button prominence**~~ — made more prominent (13px semibold, persistent background) (session 2026-03-23)
@@ -83,6 +92,8 @@
 - [ ] **Space Launch Sites** — Cape Canaveral, Baikonur, Wenchang, Tanegashima
 - [ ] **More collections**: historic concerts, music venues
 - [ ] **Books/Movies entity type** — Add as first-class entities (not just stories)
+- [ ] **Cool places collection** — Springs, ruins, trails, natural wonders (Nate feedback)
+- [ ] **Current events integration** — Tie moments to news for retention (Nate feedback)
 
 ### Geographic Gap-Filling
 - [x] ~~Sub-Saharan Africa~~ — 10 moments added (session 2026-03-23), still underrepresented — more needed
@@ -169,4 +180,4 @@
 
 ---
 
-*Last updated: 2026-03-23*
+*Last updated: 2026-03-24*

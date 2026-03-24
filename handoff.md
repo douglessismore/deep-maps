@@ -1,6 +1,6 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-03-23
+**Last updated:** 2026-03-24
 **Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** deepmaps.app (Vercel + Supabase)
@@ -50,6 +50,21 @@
 - Collection content audit: 39 issues (broken refs, misplaced moments, duplicate collections)
 - Reports at `scripts/output/serial-killer-geocoding-audit.md`, `all-collections-geocoding-audit.md`, `collection-full-audit.md`
 
+### Admin Pin Editor (Phases 1-8)
+- Draggable markers for coordinate correction
+- Satellite imagery toggle for visual verification
+- Geo verification workflow (verified/unverified status)
+- Source URL tracking per moment
+- Batch review mode with auto-advance
+
+### Branding
+- "Deep Maps" renamed to "DeepMaps" everywhere (loading screen, HTML title, OG tags, admin panel)
+
+### Content Fixes
+- **O. Henry:** 9 orphan moments wired into biography + entityIds added
+- **Trump:** all 6 moments rewritten to encyclopedic-neutral tone
+- **Wikipedia encoding:** fixed 17 percent-encoded slugs
+
 ### Bug Fixes
 - **Entity markers disappearing:** `getEntityLocations` now includes story-less orphan moments
 - **Spartacus/era story leak:** `getEntityMomentStories` only pulls from biography storyType (75 entities affected)
@@ -64,6 +79,8 @@
 - **Devil in the White City** renamed
 - **Entity scroll panning** re-enabled for mobile
 - **Serial killer collection** scoped to crime scenes only (removed arrests, prisons, executions, workplaces)
+- **Entity panel:** no longer jumps to first moment on entry, shows all markers
+- **Search back button:** clears search query so tabs aren't filtered
 
 ### Validator Updated (5 new checks)
 - 1.9: Collection content appropriateness
@@ -113,13 +130,26 @@
 
 ## Immediate Next Session Priorities
 
-1. **Build geo review queue in ingestion tracker** — map view, draggable pins, source URLs, verified/unverified status. This is the blocker for going public.
-2. **Manual geo spot-check of all 38 serial killer crime scene pins** — use the geo queue to verify each pin on Google Maps before posting to Reddit
-3. **Add semantic appropriateness check to validator** — auto-flag non-crime-scenes in crime scene collection, etc.
-4. **Add collection header/description in UI** — currently barely visible what collection you're in
-5. **Post serial killer collection to Reddit** — ONLY after geo verification complete
-6. **Add Plausible analytics** — one script tag
-7. **Continue meteorite crater batches** — 144 more craters to reach comprehensive ~194
+1. **Run migration 007 in Supabase SQL Editor** — required for pin editor to work
+2. **Test pin editor, verify serial killer collection coordinates**
+3. **Post serial killer collection to Reddit** — after geo verification complete
+4. **Build user-facing "Report Inaccuracy" button (v2)** — crowdsource accuracy fixes
+5. **Add Plausible analytics** — one script tag
+6. **Continue meteorite crater batches** — 144 remaining of ~194
+
+---
+
+## User Feedback (Andrew + Nate)
+
+- **Random map panning** (Andrew) — monitoring
+- **Markers disappearing** — may be fixed
+- **Wikipedia preview broken** — fixed (encoding)
+- **Pictures for events** (Nate) — roadmap item
+- **Timeline bar confusing on mobile** (Nate)
+- **Near Me / Surprise Me buttons unclear** (Nate)
+- **Retention idea: incorporate current events** (Nate)
+- **Expansion idea: cool places like springs, ruins, trails** (Nate)
+- **oddstops.com** as a geo-verification source
 
 ---
 
@@ -141,6 +171,9 @@
 7. **5 moments with year overflow** (int32 limit for prehistoric dates)
 8. **Supabase has 5 orphan records** not in static files (need cleanup)
 9. **Search result click** intermittently times out
+10. **Random map panning** reported by Andrew — monitoring, not yet reproduced
+11. **Markers disappearing** — may be fixed by entity panel changes, monitoring
+12. **Supabase migration 007** needs to be run manually for pin editor to work
 
 ---
 
