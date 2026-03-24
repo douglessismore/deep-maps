@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Maps &#8212; Project Dashboard</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a; color: #c9d1d9; line-height: 1.6;
+    padding: 0; margin: 0;
+  }
+
+  .dashboard {
+    max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center; padding: 48px 0 32px; border-bottom: 1px solid #1e1e1e;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 2.2rem; font-weight: 700; color: #f0f0f0;
+    letter-spacing: -0.02em; margin-bottom: 4px;
+  }
+  .header .tagline {
+    font-size: 1rem; color: #6e7681; font-style: italic; margin-bottom: 20px;
+  }
+  .header .timestamp {
+    font-size: 0.75rem; color: #484f58; margin-bottom: 24px;
+  }
+
+  .quick-stats {
+    display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  }
+  .quick-stat {
+    text-align: center;
+  }
+  .quick-stat-value {
+    font-size: 2rem; font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    color: #e6edf3;
+  }
+  .quick-stat-label {
+    font-size: 0.7rem; color: #6e7681; text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 8px; border: 1px solid #1e1e1e; border-radius: 10px;
+    overflow: hidden; background: #111111;
+  }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; cursor: pointer; user-select: none;
+    background: #141414; transition: background 0.15s;
+  }
+  .section-header:hover { background: #1a1a1a; }
+  .section-title {
+    font-size: 1rem; font-weight: 600; color: #e6edf3;
+  }
+  .section-toggle {
+    font-size: 0.8rem; color: #484f58; transition: transform 0.2s;
+  }
+  .section.collapsed .section-toggle { transform: rotate(-90deg); }
+  .section-body {
+    padding: 16px 20px 20px; border-top: 1px solid #1e1e1e;
+  }
+  .section.collapsed .section-body { display: none; }
+
+  /* Progress bar */
+  .pipeline-stats {
+    display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .pipeline-stat { display: flex; flex-direction: column; }
+  .pipeline-stat-value {
+    font-size: 1.5rem; font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .pipeline-stat-label { font-size: 0.7rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.05em; }
+  .ps-complete .pipeline-stat-value { color: #3fb950; }
+  .ps-partial .pipeline-stat-value { color: #d29922; }
+  .ps-notstarted .pipeline-stat-value { color: #6e7681; }
+  .ps-total .pipeline-stat-value { color: #e6edf3; }
+
+  .progress-bar {
+    width: 100%; height: 10px; background: #1e1e1e; border-radius: 5px;
+    overflow: hidden; margin-bottom: 8px;
+  }
+  .progress-inner { display: flex; height: 100%; }
+  .pb-complete { background: #3fb950; }
+  .pb-partial { background: #d29922; }
+  .pb-notstarted { background: #2d2d2d; }
+  .progress-legend {
+    display: flex; gap: 16px; font-size: 0.75rem; color: #6e7681; margin-bottom: 20px;
+  }
+  .legend-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 4px; vertical-align: middle;
+  }
+
+  .subsection-title {
+    font-size: 0.8rem; font-weight: 600; color: #8b949e;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #1e1e1e;
+  }
+
+  .tracker-link {
+    display: inline-block; margin-top: 12px; padding: 8px 16px;
+    background: #1e1e1e; color: #58a6ff; border-radius: 6px;
+    text-decoration: none; font-size: 0.85rem; transition: background 0.15s;
+  }
+  .tracker-link:hover { background: #262626; }
+
+  /* Commits */
+  .commit-group { margin-bottom: 16px; }
+  .commit-date {
+    font-size: 0.75rem; font-weight: 600; color: #8b949e;
+    margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .commit-row {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 4px 0; font-size: 0.85rem;
+  }
+  .commit-hash {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: #58a6ff; font-size: 0.78rem; flex-shrink: 0;
+  }
+  .commit-msg { color: #c9d1d9; flex: 1; }
+  .commit-files {
+    font-size: 0.72rem; color: #6e7681; flex-shrink: 0;
+    background: #1e1e1e; padding: 1px 6px; border-radius: 3px;
+  }
+
+  /* Recent entities */
+  .recent-entity {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 0.85rem;
+  }
+  .recent-entity:last-child { border-bottom: none; }
+  .entity-name { color: #e6edf3; }
+  .entity-date { color: #6e7681; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem; }
+
+  /* Tasks */
+  .task-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 6px; margin-bottom: 4px;
+    font-size: 0.85rem; background: #141414;
+  }
+  .task-row:hover { background: #1a1a1a; }
+  .task-priority { flex-shrink: 0; width: 90px; font-size: 0.78rem; }
+  .task-text { flex: 1; color: #c9d1d9; }
+  .task-category {
+    flex-shrink: 0; font-size: 0.72rem; color: #6e7681;
+    background: #1e1e1e; padding: 2px 8px; border-radius: 3px;
+  }
+  .task-high { border-left: 3px solid #f85149; }
+  .task-medium { border-left: 3px solid #d29922; }
+  .task-low { border-left: 3px solid #3fb950; }
+
+  /* Decisions */
+  .decision-card {
+    padding: 16px; border: 1px solid #1e1e1e; border-radius: 8px;
+    margin-bottom: 12px; background: #141414;
+  }
+  .decision-question {
+    font-weight: 600; color: #e6edf3; font-size: 0.95rem; margin-bottom: 6px;
+  }
+  .decision-context {
+    font-size: 0.82rem; color: #6e7681; margin-bottom: 12px; line-height: 1.5;
+  }
+  .decision-options { display: flex; flex-direction: column; gap: 4px; }
+  .decision-option {
+    font-size: 0.85rem; color: #c9d1d9; padding: 6px 10px;
+    background: #1a1a1a; border-radius: 4px;
+  }
+  .option-letter {
+    display: inline-block; width: 22px; height: 22px; line-height: 22px;
+    text-align: center; background: #262626; border-radius: 4px;
+    font-size: 0.72rem; font-weight: 700; color: #8b949e; margin-right: 8px;
+  }
+
+  /* Architecture */
+  .arch-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .arch-section h4 {
+    font-size: 0.8rem; font-weight: 600; color: #8b949e;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #1e1e1e;
+  }
+  .arch-item {
+    font-size: 0.82rem; padding: 5px 0; display: flex; align-items: baseline; gap: 8px;
+  }
+  .arch-item code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: #58a6ff; font-size: 0.78rem; flex-shrink: 0; background: #1a1a1a;
+    padding: 1px 5px; border-radius: 3px;
+  }
+  .arch-desc { color: #6e7681; }
+
+  .placeholder {
+    color: #484f58; font-style: italic; font-size: 0.85rem;
+  }
+  .placeholder code {
+    font-family: 'SF Mono', 'Fira Code', monospace; color: #58a6ff;
+    background: #1a1a1a; padding: 1px 5px; border-radius: 3px; font-size: 0.8rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dashboard { padding: 16px 12px 48px; }
+    .header h1 { font-size: 1.6rem; }
+    .quick-stats { gap: 16px; }
+    .quick-stat-value { font-size: 1.4rem; }
+    .arch-grid { grid-template-columns: 1fr; }
+    .task-row { flex-wrap: wrap; }
+    .task-priority { width: auto; }
+    .pipeline-stats { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>&#x1F30D; Deep Maps</h1>
+    <div class="tagline">Everything That Ever Happened Happened Somewhere</div>
+    <div class="timestamp">Generated 2026-03-18 01:21:51 UTC</div>
+    <div class="quick-stats">
+      <div class="quick-stat">
+        <div class="quick-stat-value">215</div>
+        <div class="quick-stat-label">Entities</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-value">182</div>
+        <div class="quick-stat-label">Stories</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-value">671</div>
+        <div class="quick-stat-label">Moments</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-value">30</div>
+        <div class="quick-stat-label">Collections</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Pipeline -->
+  <div class="section" id="sec-pipeline">
+    <div class="section-header" onclick="toggleSection('sec-pipeline')">
+      <span class="section-title">&#x1F4CA; Content Pipeline Progress</span>
+      <span class="section-toggle">&#x25BC;</span>
+    </div>
+    <div class="section-body">
+      <div class="pipeline-stats">
+        <div class="pipeline-stat ps-total"><span class="pipeline-stat-value">507</span><span class="pipeline-stat-label">Total People</span></div>
+        <div class="pipeline-stat ps-complete"><span class="pipeline-stat-value">24</span><span class="pipeline-stat-label">Complete (&#x2265;4 moments)</span></div>
+        <div class="pipeline-stat ps-partial"><span class="pipeline-stat-value">57</span><span class="pipeline-stat-label">Partial</span></div>
+        <div class="pipeline-stat ps-notstarted"><span class="pipeline-stat-value">426</span><span class="pipeline-stat-label">Not Started</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-inner">
+        <div class="pb-complete" style="width:4.7%"></div>
+        <div class="pb-partial" style="width:11.2%"></div>
+        <div class="pb-notstarted" style="width:84.1%"></div>
+      </div></div>
+      <div class="progress-legend">
+        <span><span class="legend-dot" style="background:#3fb950"></span> Complete 4.7%</span>
+        <span><span class="legend-dot" style="background:#d29922"></span> Partial 11.2%</span>
+        <span><span class="legend-dot" style="background:#2d2d2d"></span> Not Started 84.1%</span>
+      </div>
+
+      <div class="subsection-title">Last 10 People Processed</div>
+      <div class="recent-entity">
+          <span class="entity-name">Muhammad</span>
+          <span class="entity-date">2026-03-17</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Socrates</span>
+          <span class="entity-date">2026-03-17</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Augustus</span>
+          <span class="entity-date">2026-03-17</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Christopher Columbus</span>
+          <span class="entity-date">2026-03-17</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Aristotle</span>
+          <span class="entity-date">2026-03-17</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Albert Einstein</span>
+          <span class="entity-date">2026-03-16</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">William Shakespeare</span>
+          <span class="entity-date">2026-03-16</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Julius Caesar</span>
+          <span class="entity-date">2026-03-16</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Maxwell House</span>
+          <span class="entity-date">2026-03-16</span>
+        </div>
+<div class="recent-entity">
+          <span class="entity-name">Rosa Parks</span>
+          <span class="entity-date">2026-03-16</span>
+        </div>
+
+      <a class="tracker-link" href="tracker.html">&#x1F50D; Open Full Ingestion Tracker &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Recent Changes -->
+  <div class="section" id="sec-changelog">
+    <div class="section-header" onclick="toggleSection('sec-changelog')">
+      <span class="section-title">&#x1F4DD; Recent Changes</span>
+      <span class="section-toggle">&#x25BC;</span>
+    </div>
+    <div class="section-body">
+      <div class="commit-group">
+        <div class="commit-date">2026-03-17</div>
+        <div class="commit-row">
+              <span class="commit-hash">72ec812</span>
+              <span class="commit-msg">Polish loading screen: animated pin logo, mono tagline</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">982b996</span>
+              <span class="commit-msg">Fix map not filtering by timeline era + rubber-band scroll</span>
+              <span class="commit-files">3 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">4e63845</span>
+              <span class="commit-msg">Timeline zoom+pan, rubber-band scroll, cluster filter fix</span>
+              <span class="commit-files">2 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">9a90d0f</span>
+              <span class="commit-msg">Fix map not filtering by timeline era + BCE parsing + UX overhaul</span>
+              <span class="commit-files">5 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">22eb9ac</span>
+              <span class="commit-msg">Clear timeline filter on DeepMaps logo click and back-to-explore</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">167c7d1</span>
+              <span class="commit-msg">Fix accidental era filtering and chip visual confusion</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">bfa44af</span>
+              <span class="commit-msg">Dim timeline dots based on map viewport — spatial↔temporal feedback</span>
+              <span class="commit-files">2 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">8ac9963</span>
+              <span class="commit-msg">Reduce timeline highlight lag and polish UX</span>
+              <span class="commit-files">3 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">e4786bf</span>
+              <span class="commit-msg">Fix timeline touch UX: smaller dots, tap vs scrub detection, drag-to-scrub eras</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">31e4a37</span>
+              <span class="commit-msg">Redesign timeline with adaptive non-linear scale and era chips</span>
+              <span class="commit-files">2 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">9ede3b5</span>
+              <span class="commit-msg">Add single-page timeline comparison (all 3 options stacked)</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">7956d43</span>
+              <span class="commit-msg">Copy timeline mockups to public/ for Vercel access</span>
+              <span class="commit-files">2 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">2b785aa</span>
+              <span class="commit-msg">Add timeline redesign mockups (Options B and C) for comparison</span>
+              <span class="commit-files">2 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">c53df73</span>
+              <span class="commit-msg">Fix rounded corner gap when bottom sheet is fully expanded</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">970544e</span>
+              <span class="commit-msg">Replace ring highlight with left color bar for active scroll cards</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">1ba2dba</span>
+              <span class="commit-msg">Fix Dive Deeper missing on entity pages + update loading splash</span>
+              <span class="commit-files">2 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">84ee03b</span>
+              <span class="commit-msg">Fix place descriptions not truncating — remove conflicting display:block</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">5febf80</span>
+              <span class="commit-msg">Fix scroll broken by FadeIn wrapper — add overflow-hidden min-h-0</span>
+              <span class="commit-files">1 file</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">471341d</span>
+              <span class="commit-msg">Add Tier 2 micro-interactions + fix Dive Deeper visibility + scroll restore</span>
+              <span class="commit-files">10 files</span>
+            </div>
+<div class="commit-row">
+              <span class="commit-hash">530e6e4</span>
+              <span class="commit-msg">Fix Vercel build — remove unused getSheetPixels import</span>
+              <span class="commit-files">1 file</span>
+            </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Tasks -->
+  <div class="section" id="sec-tasks">
+    <div class="section-header" onclick="toggleSection('sec-tasks')">
+      <span class="section-title">&#x1F4CB; Pending Tasks</span>
+      <span class="section-toggle">&#x25BC;</span>
+    </div>
+    <div class="section-body">
+      <div class="task-row task-high">
+              <span class="task-priority">&#x1F534; High</span>
+              <span class="task-text">Continue people ingestion (offset 28, ~479 remaining)</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-high">
+              <span class="task-priority">&#x1F534; High</span>
+              <span class="task-text">Build bottom-up pipeline: scripts/ingest/places-events.ts</span>
+              <span class="task-category">Pipeline</span>
+            </div>
+<div class="task-row task-high">
+              <span class="task-priority">&#x1F534; High</span>
+              <span class="task-text">Build entity-timeline pipeline: scripts/ingest/entity-timelines.ts (movies, books, orgs)</span>
+              <span class="task-category">Pipeline</span>
+            </div>
+<div class="task-row task-high">
+              <span class="task-priority">&#x1F534; High</span>
+              <span class="task-text">First city deep-dive (Rome or Jerusalem, ~100 moments)</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-high">
+              <span class="task-priority">&#x1F534; High</span>
+              <span class="task-text">Geo-specificity upgrades for 203 approximate/general-area moments</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">Fix Gautama Buddha Wikipedia lookup failure</span>
+              <span class="task-category">Pipeline</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">Fix 4 death moments failing FK constraint (type_id issue)</span>
+              <span class="task-category">Pipeline</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">Wire 12 remaining orphan moments as their people get ingested</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">Content quality audit — spot-check Sonnet output against content guide</span>
+              <span class="task-category">Quality</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">Remaining noun-phrase moment name rewrites (~15)</span>
+              <span class="task-category">Quality</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">Chile Queens description rewrites (#30-31)</span>
+              <span class="task-category">Quality</span>
+            </div>
+<div class="task-row task-medium">
+              <span class="task-priority">&#x1F7E1; Medium</span>
+              <span class="task-text">URL routing for SEO + sharing</span>
+              <span class="task-category">Tech</span>
+            </div>
+<div class="task-row task-low">
+              <span class="task-priority">&#x1F7E2; Low</span>
+              <span class="task-text">Logo redesign — marker hovering over rabbit hole concept</span>
+              <span class="task-category">UI</span>
+            </div>
+<div class="task-row task-low">
+              <span class="task-priority">&#x1F7E2; Low</span>
+              <span class="task-text">Auto-generate collections from structured metadata</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-low">
+              <span class="task-priority">&#x1F7E2; Low</span>
+              <span class="task-text">Cross-person entity deduplication pass</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-low">
+              <span class="task-priority">&#x1F7E2; Low</span>
+              <span class="task-text">First bottom-up batch: UNESCO World Heritage (1,000 moments)</span>
+              <span class="task-category">Content</span>
+            </div>
+<div class="task-row task-low">
+              <span class="task-priority">&#x1F7E2; Low</span>
+              <span class="task-text">First bottom-up batch: NOAA earthquakes (800 moments)</span>
+              <span class="task-category">Content</span>
+            </div>
+    </div>
+  </div>
+
+  <!-- Open Decisions -->
+  <div class="section" id="sec-decisions">
+    <div class="section-header" onclick="toggleSection('sec-decisions')">
+      <span class="section-title">&#x2753; Open Decisions</span>
+      <span class="section-toggle">&#x25BC;</span>
+    </div>
+    <div class="section-body">
+      <div class="decision-card">
+              <div class="decision-question">1. Which mobile layout concept to pursue?</div>
+              <div class="decision-context">Council recommended 3 radically different approaches. Mockups built at /mockups/. User reviewing.</div>
+              <div class="decision-options">
+                <div class="decision-option"><span class="option-letter">A</span> Content-First (feed primary, mini-map)</div>
+<div class="decision-option"><span class="option-letter">B</span> One at a Time (full-bleed toggle)</div>
+<div class="decision-option"><span class="option-letter">C</span> Living Map (cards on map)</div>
+<div class="decision-option"><span class="option-letter">D</span> Keep current layout with improvements</div>
+              </div>
+            </div>
+<div class="decision-card">
+              <div class="decision-question">2. Content review process - manual spot-check or automated quality scoring?</div>
+              <div class="decision-context">Pipeline generates content via Sonnet 4.6. Need to verify quality matches content guide standards.</div>
+              <div class="decision-options">
+                <div class="decision-option"><span class="option-letter">A</span> Manual review of Sonnet output</div>
+<div class="decision-option"><span class="option-letter">B</span> Build automated content quality scorer</div>
+<div class="decision-option"><span class="option-letter">C</span> Both</div>
+              </div>
+            </div>
+<div class="decision-card">
+              <div class="decision-question">3. Batch size for ongoing ingestion?</div>
+              <div class="decision-context">Larger batches = faster progress but harder to review. Each person costs ~$0.03-0.05 in API credits.</div>
+              <div class="decision-options">
+                <div class="decision-option"><span class="option-letter">A</span> 10 people per batch (current)</div>
+<div class="decision-option"><span class="option-letter">B</span> 25 people per batch</div>
+<div class="decision-option"><span class="option-letter">C</span> 50 people per batch</div>
+              </div>
+            </div>
+<div class="decision-card">
+              <div class="decision-question">4. How to handle museum artifacts and 'current location' moments?</div>
+              <div class="decision-context">Moments = 'something happened here.' Artifacts = 'something IS here now.' E.g., Einstein's violin in a museum. Interesting POI but not an event. Need a data model decision.</div>
+              <div class="decision-options">
+                <div class="decision-option"><span class="option-letter">A</span> New moment type: artifact (displayed differently, lower ranking)</div>
+<div class="decision-option"><span class="option-letter">B</span> Entity-location link (entities get current_location field)</div>
+<div class="decision-option"><span class="option-letter">C</span> Defer — not needed until scale</div>
+              </div>
+            </div>
+<div class="decision-card">
+              <div class="decision-question">5. Should memorials get their own moment type or tag?</div>
+              <div class="decision-context">User finds crash sites more compelling than memorials. Memorials exist alongside event moments (e.g., TWA 800 has both crash site and memorial). Could tag and let users filter.</div>
+              <div class="decision-options">
+                <div class="decision-option"><span class="option-letter">A</span> Add moment_type: memorial (filterable, lower default rank)</div>
+<div class="decision-option"><span class="option-letter">B</span> Keep as-is (memorials are valid POIs)</div>
+<div class="decision-option"><span class="option-letter">C</span> Remove memorials where crash/event sites already exist</div>
+              </div>
+            </div>
+    </div>
+  </div>
+
+  <!-- Architecture Reference -->
+  <div class="section collapsed" id="sec-arch">
+    <div class="section-header" onclick="toggleSection('sec-arch')">
+      <span class="section-title">&#x1F3D7;&#xFE0F; Architecture Quick Reference</span>
+      <span class="section-toggle">&#x25BC;</span>
+    </div>
+    <div class="section-body">
+      
+    <div class="arch-grid">
+      <div class="arch-section">
+        <h4>Key Files</h4>
+        <div class="arch-item"><code>src/App.tsx</code> <span class="arch-desc">Main app entry, routing</span></div>
+        <div class="arch-item"><code>src/components/MapView.tsx</code> <span class="arch-desc">Leaflet map with clustering</span></div>
+        <div class="arch-item"><code>src/components/StoryPanel.tsx</code> <span class="arch-desc">Story detail view</span></div>
+        <div class="arch-item"><code>src/lib/supabase.ts</code> <span class="arch-desc">Supabase client config</span></div>
+        <div class="arch-item"><code>scripts/ingest/</code> <span class="arch-desc">Content pipeline (people ingestion)</span></div>
+        <div class="arch-item"><code>scripts/generate-tracker.ts</code> <span class="arch-desc">Ingestion tracker HTML generator</span></div>
+        <div class="arch-item"><code>scripts/generate-dashboard.ts</code> <span class="arch-desc">This dashboard generator</span></div>
+        <div class="arch-item"><code>data/top-people.json</code> <span class="arch-desc">507 target people with scores</span></div>
+      </div>
+      <div class="arch-section">
+        <h4>Common Commands</h4>
+        <div class="arch-item"><code>npx vite --host --port 5174</code> <span class="arch-desc">Dev server</span></div>
+        <div class="arch-item"><code>npx tsx scripts/generate-tracker.ts</code> <span class="arch-desc">Rebuild ingestion tracker</span></div>
+        <div class="arch-item"><code>npx tsx scripts/generate-dashboard.ts</code> <span class="arch-desc">Rebuild this dashboard</span></div>
+        <div class="arch-item"><code>npx tsx scripts/ingest/ingest-people.ts</code> <span class="arch-desc">Run people ingestion pipeline</span></div>
+        <div class="arch-item"><code>npx tsx scripts/audit-wiring.ts</code> <span class="arch-desc">Audit entity/story/moment wiring</span></div>
+        <div class="arch-item"><code>npx tsx scripts/score-moments.ts</code> <span class="arch-desc">Score moment quality</span></div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+</script>
+</body>
+</html>

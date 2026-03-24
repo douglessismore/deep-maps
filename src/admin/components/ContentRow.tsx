@@ -29,6 +29,9 @@ export interface NormalizedItem {
   momentCount?: number;
   storyType?: string;
   canonicalStoryId?: string;
+  geoVerified?: boolean;
+  geoSourceUrl?: string;
+  address?: string;
 }
 
 // Map item_type to Supabase table name
@@ -39,8 +42,8 @@ const TABLE_MAP: Record<AdminItemType, string> = {
   collection: 'collections',
 };
 
-export function ContentRow({ item }: { item: NormalizedItem }) {
-  const { ratings, updateRating, updateReviewStatus, appData } = useAdminData();
+export function ContentRow({ item, onGeoSaved }: { item: NormalizedItem; onGeoSaved?: () => void }) {
+  const { ratings, updateRating, updateReviewStatus, updateMomentGeo, appData } = useAdminData();
   const [ratingInput, setRatingInput] = useState<string>(() => {
     const existing = ratings.find(r => r.item_type === item.type && r.item_id === item.id);
     return existing ? String(existing.rating) : '';
@@ -80,12 +83,22 @@ export function ContentRow({ item }: { item: NormalizedItem }) {
   const isMoment = item.type === 'moment';
   const hasLocation = isMoment && item.lat != null && item.lng != null;
 
+  const handleGeoSave = async (lat: number, lng: number, sourceUrl: string) => {
+    await updateMomentGeo(item.id, lat, lng, sourceUrl || null);
+    onGeoSaved?.();
+  };
+
   return (
     <div className="px-4 py-3 bg-[#0d0d0d] border-t border-[#2a2a2a]">
       {/* Top row: type + status + actions */}
       <div className="flex items-center gap-3 mb-3">
         <TypeBadge type={item.subType ?? item.type} />
         <StatusBadge status={item.status} />
+        {hasLocation && (
+          item.geoVerified
+            ? <span className="px-1.5 py-0.5 text-[10px] border rounded bg-green-500/20 text-green-400 border-green-500/30">&#10003; Geo</span>
+            : <span className="px-1.5 py-0.5 text-[10px] border rounded bg-red-500/20 text-red-400 border-red-500/30">&#10007; Geo</span>
+        )}
         <div className="flex-1" />
         <div className="flex items-center gap-2">
           <button
@@ -199,11 +212,16 @@ export function ContentRow({ item }: { item: NormalizedItem }) {
 
         {/* Right side: MiniMap for moments with location */}
         {hasLocation && (
-          <div className="w-[280px] flex-shrink-0">
+          <div className="w-[320px] flex-shrink-0">
             <MiniMap
               lat={item.lat!}
               lng={item.lng!}
               accuracy={item.accuracy}
+              address={item.address}
+              geoVerified={item.geoVerified}
+              geoSourceUrl={item.geoSourceUrl}
+              editable
+              onSave={handleGeoSave}
               itemType={item.type}
               itemId={item.id}
             />

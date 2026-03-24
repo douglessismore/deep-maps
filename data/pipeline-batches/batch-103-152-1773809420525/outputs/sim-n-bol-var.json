@@ -1,0 +1,100 @@
+{
+  "personName": "Simón Bolívar",
+  "content": {
+    "entity": {
+      "id": "simon-bolivar",
+      "name": "Simón Bolívar",
+      "type": "person",
+      "years": "1783–1830",
+      "description": "El Libertador — the man who liberated six South American nations from Spanish rule. A Venezuelan aristocrat who dreamed of a united South America, fought across 3,000 miles of mountains and jungle, and died in exile at 47.",
+      "wikipediaSlug": "Simón_Bolívar",
+      "canonicalStoryId": "simon-bolivar-life"
+    },
+    "story": {
+      "id": "simon-bolivar-life",
+      "name": "Simón Bolívar",
+      "years": "1783–1830",
+      "category": "political-drama",
+      "storyType": "biography",
+      "description": "An orphaned Venezuelan aristocrat swears on a Roman hilltop to free South America, crosses the Andes with 2,500 soldiers, liberates six nations from Spain, and dies of tuberculosis in exile at 47.",
+      "tags": ["Latin American independence", "revolutionary", "Venezuela", "19th century", "colonialism"],
+      "wikipediaSlug": "Simón_Bolívar",
+      "relatedStoryIds": ["jose-de-san-martin-life", "napoleon-bonaparte-life", "haitian-revolution"]
+    },
+    "moments": [
+      {
+        "id": "bolivar-born-caracas",
+        "name": "Simón Bolívar Is Born into One of Venezuela's Wealthiest Families",
+        "subtitle": "An orphan raised by a slave named Hipólita would grow up to free six nations",
+        "description": "On 24 July 1783, Simón José Antonio de la Santísima Trinidad Bolívar was born in Caracas, the youngest of four children in one of the wealthiest criollo families in the Spanish Americas. His father died of tuberculosis when Simón was two; his mother died when he was nine. Raised largely by an enslaved woman named Hipólita, whom Bolívar later described as both mother and father, the orphaned aristocrat was sent to Europe at 15 for an education. Two countries — Bolivia and Venezuela — would eventually be named after the boy born into privilege and deprivation in equal measure.",
+        "lat": 10.4953,
+        "lng": -66.9169,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": 1783,
+        "date": "24 July 1783",
+        "address": "Caracas, Venezuela",
+        "entityIds": ["simon-bolivar"],
+        "verificationLevel": "verified",
+        "wikiSection": "Early_life_and_family"
+      },
+      {
+        "id": "bolivar-oath-monte-sacro",
+        "name": "Bolívar Swears on a Roman Hill to Liberate South America from Spain",
+        "subtitle": "A 22-year-old widower stands where Roman plebeians once seceded and vows to end an empire",
+        "description": "On 15 August 1805, Simón Bolívar climbed the Mons Sacer (Monte Sacro) outside Rome with his former tutor Simón Rodríguez and friend Fernando del Toro. Standing on the hill where Roman plebeians had famously seceded from the patricians in the 5th century BC, the 22-year-old Venezuelan swore an oath to liberate the Americas from Spanish rule. Bolívar had recently lost his young wife to yellow fever and spent time in Paris witnessing Napoleon's coronation. The oath on Monte Sacro became the founding legend of South American independence — a grieving aristocrat transforming personal loss into continental revolution.",
+        "lat": 41.9097,
+        "lng": 12.5154,
+        "type": "landmark",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1805,
+        "date": "15 August 1805",
+        "address": "Monte Sacro, Rome, Italy",
+        "entityIds": ["simon-bolivar"],
+        "verificationLevel": "documented",
+        "wikiSection": "Return_to_Venezuela_and_second_journey_to_Europe:_1802–1805"
+      },
+      {
+        "id": "bolivar-secures-haitian-support",
+        "name": "Bolívar Promises to Abolish Slavery and Wins Haitian Military Support",
+        "subtitle": "The only successful slave revolution in history bankrolls South America's liberation",
+        "description": "In late 1815, after Spanish forces crushed the Venezuelan republic and drove Simón Bolívar into exile on Jamaica, the revolutionary sailed to Haiti — the only nation in the Western Hemisphere founded by a slave revolt. Haitian president Alexandre Pétion agreed to provide ships, weapons, soldiers, and a printing press on one condition: Bolívar must abolish slavery in every territory he liberated. Bolívar accepted. The Haitian expedition of 1816 allowed Bolívar to return to Venezuela and establish a third republic. It was one of the most consequential alliances in revolutionary history, linking the causes of anti-colonialism and abolition.",
+        "lat": 18.5944,
+        "lng": -72.3074,
+        "type": "historic_meeting",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1816,
+        "date": "early 1816",
+        "address": "Port-au-Prince, Haiti",
+        "entityIds": ["simon-bolivar"],
+        "verificationLevel": "verified",
+        "wikiSection": "Political_and_military_career"
+      },
+      {
+        "id": "bolivar-dies-santa-marta",
+        "name": "Simón Bolívar Dies of Tuberculosis in Exile at Age 47",
+        "subtitle": "The Liberator of six nations dies penniless, abandoned by the republics he created",
+        "description": "On 17 December 1830, Simón Bolívar died of tuberculosis at Quinta de San Pedro Alejandrino, a plantation near Santa Marta, Colombia. He was 47 years old. The man who had liberated Venezuela, Colombia, Ecuador, Panama, Peru, and Bolivia from Spanish rule had resigned the presidency of Gran Colombia months earlier, disillusioned by the political fragmentation of the continent he had fought to unite. He reportedly said he had \"plowed the sea.\" Bolívar died nearly penniless, wearing a borrowed shirt. Today two nations bear his name, and his image appears on the currency of multiple South American countries.",
+        "lat": 11.2472,
+        "lng": -74.2053,
+        "type": "residence",
+        "importance": "major",
+        "accuracy": "exact",
+        "kind": "milestone",
+        "year": 1830,
+        "date": "17 December 1830",
+        "address": "Quinta de San Pedro Alejandrino, Santa Marta, Colombia",
+        "entityIds": ["simon-bolivar"],
+        "verificationLevel": "verified",
+        "wikiSection": ""
+      }
+    ],
+    "suggestedCollections": ["latin-american-independence", "revolutionary-leaders", "famous-oaths-and-vows"]
+  }
+}

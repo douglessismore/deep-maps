@@ -104,6 +104,9 @@ export interface Moment {
   wikiSection?: string;                // Wikipedia section anchor (e.g., "Crimes", "Early_life")
   links?: LocationLink[];              // External links (affiliates, tours, stays, sources)
   verificationLevel?: VerificationLevel; // Epistemological status of the moment's primary claim
+  geoVerified?: boolean;
+  geoSourceUrl?: string;
+  geoVerifiedAt?: string;
 }
 
 /** A story's reference to a shared moment, with optional narrative framing.

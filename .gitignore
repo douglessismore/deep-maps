@@ -29,3 +29,7 @@ handoff.md
 gemini-feedback-prompt.md
 story-generation-prompt.md
 candidates.md
+.gstack/
+data/cross-verified-database.csv
+data/cross-verified-database.csv.gz
+.vercel/

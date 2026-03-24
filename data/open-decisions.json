@@ -1,0 +1,27 @@
+[
+  {
+    "question": "Which mobile layout concept to pursue?",
+    "options": ["Content-First (feed primary, mini-map)", "One at a Time (full-bleed toggle)", "Living Map (cards on map)", "Keep current layout with improvements"],
+    "context": "Council recommended 3 radically different approaches. Mockups built at /mockups/. User reviewing."
+  },
+  {
+    "question": "Content review process - manual spot-check or automated quality scoring?",
+    "options": ["Manual review of Sonnet output", "Build automated content quality scorer", "Both"],
+    "context": "Pipeline generates content via Sonnet 4.6. Need to verify quality matches content guide standards."
+  },
+  {
+    "question": "Batch size for ongoing ingestion?",
+    "options": ["10 people per batch (current)", "25 people per batch", "50 people per batch"],
+    "context": "Larger batches = faster progress but harder to review. Each person costs ~$0.03-0.05 in API credits."
+  },
+  {
+    "question": "How to handle museum artifacts and 'current location' moments?",
+    "options": ["New moment type: artifact (displayed differently, lower ranking)", "Entity-location link (entities get current_location field)", "Defer — not needed until scale"],
+    "context": "Moments = 'something happened here.' Artifacts = 'something IS here now.' E.g., Einstein's violin in a museum. Interesting POI but not an event. Need a data model decision."
+  },
+  {
+    "question": "Should memorials get their own moment type or tag?",
+    "options": ["Add moment_type: memorial (filterable, lower default rank)", "Keep as-is (memorials are valid POIs)", "Remove memorials where crash/event sites already exist"],
+    "context": "User finds crash sites more compelling than memorials. Memorials exist alongside event moments (e.g., TWA 800 has both crash site and memorial). Could tag and let users filter."
+  }
+]

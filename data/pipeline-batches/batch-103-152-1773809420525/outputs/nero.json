@@ -1,0 +1,100 @@
+{
+  "personName": "Nero",
+  "content": {
+    "entity": {
+      "id": "nero",
+      "name": "Nero",
+      "type": "person",
+      "years": "37–68",
+      "description": "The Roman emperor remembered for fiddling while Rome burned (probably a myth), building his Golden Palace on the ashes, and launching the first persecution of Christians. He was declared a public enemy by the Senate and committed suicide at 30.",
+      "wikipediaSlug": "Nero",
+      "canonicalStoryId": "rise-fall-rome"
+    },
+    "story": {
+      "id": "rise-fall-rome",
+      "name": "Rise and Fall of Rome",
+      "years": "753 BC–476 AD",
+      "category": "political-drama",
+      "storyType": "era",
+      "description": "From a boy emperor whose mother murdered his way to the throne, to matricide, to performing onstage while senators seethed, to suicide while the empire crumbled — the last of the Julio-Claudians.",
+      "tags": ["Roman Empire", "Julio-Claudian dynasty", "ancient Rome", "tyranny", "antiquity"],
+      "wikipediaSlug": "Nero",
+      "relatedStoryIds": ["julius-caesar-life", "augustus-life", "caligula-life"]
+    },
+    "moments": [
+      {
+        "id": "nero-becomes-emperor-age-16",
+        "name": "Nero Becomes Roman Emperor at Age 16 After His Mother Poisons Claudius",
+        "subtitle": "Agrippina replaces the Praetorian Guard with loyalists and feeds her husband poisoned mushrooms",
+        "description": "In October AD 54, 16-year-old Nero ascended to the Roman imperial throne after the death of Emperor Claudius — widely believed to have been poisoned by his wife Agrippina the Younger, Nero's mother. According to Tacitus, the poison-maker Locusta prepared a toxin served in a dish of mushrooms, with Claudius's own doctor standing by to administer a second dose if needed. Agrippina had spent years maneuvering: replacing Praetorian Guard officers with loyalists, having Claudius adopt Nero over his biological son Britannicus, and removing rival tutors. The Senate recognized Nero without incident. His first five years would later be praised as a golden age of governance.",
+        "lat": 41.8902,
+        "lng": 12.4922,
+        "type": "political_event",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 54,
+        "date": "October AD 54",
+        "address": "Palatine Hill, Rome",
+        "entityIds": ["nero"],
+        "verificationLevel": "documented",
+        "wikiSection": "Reign_(AD_54–68)"
+      },
+      {
+        "id": "nero-murders-agrippina",
+        "name": "Nero Orders His Own Mother Assassinated After a Rigged Shipwreck Fails",
+        "subtitle": "When the collapsing boat doesn't kill her, Agrippina swims to shore — and soldiers finish the job",
+        "description": "In AD 59, Emperor Nero orchestrated the murder of his mother Agrippina the Younger in the Bay of Baiae near Naples. According to Suetonius, Nero first arranged for a specially rigged boat to collapse and sink during a nighttime crossing. Agrippina survived the wreck and swam to shore. Nero then sent his freedman Anicetus with soldiers to execute her at her villa. Anicetus reported her death as a suicide. The reasons for the matricide remain debated — Tacitus links it to Nero's affair with Poppaea Sabina. Agrippina, who had poisoned an emperor to put her son on the throne, was killed by the very son she had crowned.",
+        "lat": 40.8183,
+        "lng": 14.0694,
+        "type": "crime_scene",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 59,
+        "date": "AD 59",
+        "address": "Baiae, Bay of Naples, Italy",
+        "entityIds": ["nero"],
+        "verificationLevel": "documented",
+        "wikiSection": "Matricide"
+      },
+      {
+        "id": "nero-performs-olympics-greece",
+        "name": "Nero Competes in the Olympic Games and Wins Every Event He Enters",
+        "subtitle": "An emperor who falls out of his chariot still gets declared the winner",
+        "description": "In AD 67, Emperor Nero traveled to Greece and entered the Olympic Games — a scandalous act for a Roman emperor, since athletic competition was considered beneath aristocratic dignity. Nero competed in the chariot race with a ten-horse team, fell out of the chariot during the race, and failed to finish. The judges declared him the winner anyway. He also entered singing and acting competitions across Greece and was awarded first prize in every contest. Nero reportedly won 1,808 prizes during his Greek tour. After his death, all his Olympic victories were officially annulled and the results expunged from the records — making him history's most prominent disqualified athlete.",
+        "lat": 37.6388,
+        "lng": 21.6300,
+        "type": "cultural_venue",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 67,
+        "date": "AD 67",
+        "address": "Olympia, Greece",
+        "entityIds": ["nero"],
+        "verificationLevel": "documented",
+        "wikiSection": ""
+      },
+      {
+        "id": "nero-commits-suicide",
+        "name": "Nero Commits Suicide After the Senate Declares Him a Public Enemy",
+        "subtitle": "His last words: \"What an artist the world is losing in me\"",
+        "description": "On 9 June AD 68, Emperor Nero committed suicide at a villa outside Rome after being declared a public enemy by the Senate and condemned to death by being beaten with rods. When the governor of Gaul, Gaius Julius Vindex, rebelled with the support of Galba, Nero's authority collapsed as province after province defected. Fleeing Rome with a handful of freedmen, the 30-year-old emperor reportedly struggled to drive a dagger into his own throat and required a servant's help. According to Suetonius, his final words were \"Qualis artifex pereo\" — \"What an artist the world is losing.\" His death ended the Julio-Claudian dynasty and triggered the Year of the Four Emperors.",
+        "lat": 41.9241,
+        "lng": 12.5100,
+        "type": "crime_scene",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 68,
+        "date": "9 June AD 68",
+        "address": "Villa outside Rome, Italy",
+        "entityIds": ["nero"],
+        "verificationLevel": "documented",
+        "wikiSection": ""
+      }
+    ],
+    "suggestedCollections": ["roman-emperors", "ancient-rome", "famous-deaths", "dark-history-europe"]
+  }
+}

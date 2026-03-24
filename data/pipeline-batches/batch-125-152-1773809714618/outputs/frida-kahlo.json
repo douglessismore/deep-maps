@@ -1,0 +1,100 @@
+{
+  "personName": "Frida Kahlo",
+  "content": {
+    "entity": {
+      "id": "frida-kahlo",
+      "name": "Frida Kahlo",
+      "type": "person",
+      "years": "1907–1954",
+      "description": "Mexican painter who turned her physical suffering, turbulent marriage to Diego Rivera, and Mexican identity into the most personal art in history. Dismissed in her lifetime, she became one of the most recognized artists of the 20th century.",
+      "wikipediaSlug": "Frida_Kahlo",
+      "canonicalStoryId": "frida-kahlo-life"
+    },
+    "story": {
+      "id": "frida-kahlo-life",
+      "name": "Frida Kahlo",
+      "years": "1907–1954",
+      "category": "arts-culture",
+      "storyType": "biography",
+      "description": "A New York solo show stuns critics, the Louvre buys a painting from a Mexican woman for the first time, and a marriage to Diego Rivera fuels decades of art. The life of Mexico's most iconic painter.",
+      "tags": ["art", "mexico", "feminism", "surrealism", "self-portraits"],
+      "wikipediaSlug": "Frida_Kahlo",
+      "relatedStoryIds": ["diego-rivera-life", "pablo-picasso-life", "georgia-okeeffe-life"]
+    },
+    "moments": [
+      {
+        "id": "frida-kahlo-new-york-exhibition",
+        "name": "Frida Kahlo Opens Her First Solo Exhibition in New York",
+        "subtitle": "Georgia O'Keeffe attends as Kahlo sells half her paintings during the Great Depression",
+        "description": "In November 1938, Frida Kahlo opened her first solo exhibition at the Julien Levy Gallery on East 57th Street in Manhattan. The show featured 25 paintings and attracted prominent attendees including Georgia O'Keeffe and Clare Boothe Luce. Despite the Great Depression, Kahlo sold half the works on display. The exhibition had been arranged by French Surrealist Andre Breton, who championed Kahlo's work after visiting Mexico earlier that year. Critics praised the show, though many adopted condescending tones. The commercial and critical success established Kahlo as an independent artist, not merely the wife of muralist Diego Rivera.",
+        "lat": 40.7614,
+        "lng": -73.9712,
+        "type": "cultural_venue",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1938,
+        "date": "November 1938",
+        "address": "East 57th Street, Manhattan, New York",
+        "entityIds": ["frida-kahlo"],
+        "verificationLevel": "verified",
+        "wikiSection": "Return_to_Mexico_City_and_international_recognition"
+      },
+      {
+        "id": "frida-kahlo-louvre-purchase",
+        "name": "The Louvre Buys a Painting by Frida Kahlo — A First for Any Mexican Artist",
+        "subtitle": "Kahlo dismissed the Parisian Surrealists as lunatics but left with a historic acquisition",
+        "description": "In March 1939, Frida Kahlo's exhibition opened at the Renou et Colle Gallery in Paris, arranged with help from Marcel Duchamp after Andre Breton failed to organize the logistics he had promised. The show was a commercial disappointment, partly due to the looming Second World War. However, the Louvre purchased Kahlo's painting The Frame, making her the first Mexican artist to enter its permanent collection. Kahlo was warmly received by Pablo Picasso and Joan Miro, and Vogue Paris featured her. Yet she despised the Surrealists, writing privately that they were insufferable. The Louvre acquisition secured her legacy in the European art canon.",
+        "lat": 48.8606,
+        "lng": 2.3376,
+        "type": "cultural_venue",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1939,
+        "date": "March 1939",
+        "address": "Renou et Colle Gallery, Paris, France",
+        "entityIds": ["frida-kahlo"],
+        "verificationLevel": "verified",
+        "wikiSection": "Return_to_Mexico_City_and_international_recognition"
+      },
+      {
+        "id": "frida-kahlo-marries-diego-rivera",
+        "name": "Frida Kahlo Marries Diego Rivera — Her Parents Call It a Union of an Elephant and a Dove",
+        "subtitle": "A 21-year-old painter weds the most famous muralist in Mexico, 20 years her senior",
+        "description": "On August 21, 1929, Frida Kahlo married fellow artist Diego Rivera in a civil ceremony at the Coyoacan town hall in Mexico City. Kahlo was 22 and Rivera was 42. Kahlo's mother opposed the marriage, and her father reportedly told Rivera his daughter was a devil — but gave his blessing. Their relationship became legendary for its passion, mutual infidelity, creative intensity, and pain. The couple divorced in 1939 but remarried a year later. Rivera's affairs — including one with Kahlo's own sister — drove much of the anguish that fueled Kahlo's most powerful self-portraits.",
+        "lat": 19.3500,
+        "lng": -99.1620,
+        "type": "landmark",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1929,
+        "date": "August 21, 1929",
+        "address": "Coyoacan, Mexico City, Mexico",
+        "entityIds": ["frida-kahlo", "diego-rivera"],
+        "verificationLevel": "verified",
+        "wikiSection": "Artistic_career"
+      },
+      {
+        "id": "frida-kahlo-detroit-paintings",
+        "name": "Frida Kahlo Paints Her Miscarriage onto a Hospital Bed in Detroit",
+        "subtitle": "A devastating pregnancy loss produces some of the most raw paintings in art history",
+        "description": "In 1932, while living in Detroit with Diego Rivera during his Ford Motor Company mural commission, Frida Kahlo suffered a traumatic miscarriage at Henry Ford Hospital. Confined to bed, Kahlo channeled her grief into Henry Ford Hospital (1932) and My Birth (1932), works of searing autobiographical intensity painted on small metal sheets in the style of Mexican votive images called retablos. These Detroit paintings marked a radical shift in Kahlo's style — abandoning European influences for a deeply personal visual language rooted in Mexican folk art and unflinching depictions of the female body. The works are now considered among her masterpieces.",
+        "lat": 42.3314,
+        "lng": -83.0458,
+        "type": "cultural_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1932,
+        "date": "1932",
+        "address": "Detroit, Michigan, USA",
+        "entityIds": ["frida-kahlo"],
+        "verificationLevel": "verified",
+        "wikiSection": "Work_in_the_United_States"
+      }
+    ],
+    "suggestedCollections": ["famous-artists", "latin-american-icons", "women-who-changed-history"]
+  }
+}

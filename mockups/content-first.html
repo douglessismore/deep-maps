@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Maps — Content-First Concept</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 64px;
+    min-height: 100vh;
+  }
+
+  .concept-description {
+    max-width: 600px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .concept-description h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .concept-description .subtitle {
+    color: #dc2626;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .concept-description p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #999;
+  }
+
+  /* Phone frame */
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    border: 3px solid #333;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    background: #0a0a0a;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: #0a0a0a;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  /* Title bar */
+  .title-bar {
+    padding: 0 16px 12px;
+    background: #0a0a0a;
+    position: sticky;
+    top: 44px;
+    z-index: 90;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .title-bar h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .title-bar h2 span { color: #dc2626; }
+
+  /* Search */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  .search-bar .icon { color: #666; font-size: 14px; }
+  .search-bar span { color: #555; font-size: 14px; }
+
+  /* Category pills */
+  .pills {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .pills::-webkit-scrollbar { display: none; }
+  .pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill.active {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+  }
+  .pill:hover:not(.active) {
+    border-color: rgba(255,255,255,0.2);
+    color: #ccc;
+  }
+
+  /* Content area */
+  .content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    scrollbar-width: none;
+    height: calc(812px - 44px - 100px - 60px);
+  }
+  .content-area::-webkit-scrollbar { display: none; }
+
+  /* Moment cards */
+  .moment-card {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .moment-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+  }
+  .moment-card:active {
+    transform: scale(0.98);
+  }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card-year {
+    background: #dc2626;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+  }
+  .card-collection {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .card-subtitle {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: #555;
+  }
+  .card-meta .location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card-meta .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #444;
+  }
+  .card-entities {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .entity-chip {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(220,38,38,0.1);
+    color: #dc2626;
+    font-weight: 500;
+  }
+
+  /* Featured card variant */
+  .moment-card.featured {
+    border-color: rgba(220,38,38,0.2);
+    background: linear-gradient(135deg, #1a1a1a 0%, #1a1212 100%);
+  }
+  .moment-card.featured .card-image {
+    height: 140px;
+    background: linear-gradient(135deg, #2a1a1a, #1a1a2a);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-image-placeholder {
+    font-size: 40px;
+    opacity: 0.15;
+  }
+  .featured-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #dc2626;
+    background: rgba(10,10,10,0.8);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  /* Mini map widget */
+  .mini-map {
+    position: absolute;
+    top: 52px;
+    right: 12px;
+    width: 120px;
+    height: 120px;
+    border-radius: 14px;
+    background: #111;
+    border: 2px solid rgba(255,255,255,0.1);
+    z-index: 80;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  .mini-map.expanded {
+    width: calc(100% - 24px);
+    height: 50vh;
+    top: 44px;
+    right: 12px;
+    border-radius: 16px;
+  }
+  .mini-map-surface {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: radial-gradient(ellipse at center, #1a2030 0%, #0a0f1a 100%);
+  }
+  /* Map grid lines */
+  .map-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  /* Map dots */
+  .map-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #dc2626;
+    box-shadow: 0 0 8px rgba(220,38,38,0.6);
+    transition: all 0.3s;
+  }
+  .mini-map.expanded .map-dot {
+    width: 10px;
+    height: 10px;
+  }
+  .map-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: rgba(220,38,38,0.15);
+  }
+  .mini-map-label {
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+  }
+  .mini-map.expanded .mini-map-label {
+    font-size: 11px;
+    bottom: 12px;
+  }
+  .mini-map-close {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+  .mini-map.expanded .mini-map-close {
+    display: flex;
+  }
+
+  /* Bottom tab bar */
+  .tab-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+    z-index: 100;
+  }
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    padding: 4px 12px;
+  }
+  .tab-item .tab-icon {
+    font-size: 18px;
+    color: #555;
+    transition: color 0.2s;
+  }
+  .tab-item .tab-label {
+    font-size: 10px;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .tab-item.active .tab-icon,
+  .tab-item.active .tab-label {
+    color: #dc2626;
+  }
+
+  /* Scrollbar for content */
+  .phone-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-description">
+  <div class="subtitle">Concept 1 — Jimmy Wales</div>
+  <h1>Content-First</h1>
+  <p>The feed is primary, the map is secondary. Large, readable cards dominate the experience. A floating mini-map in the corner provides geographic context without stealing screen real estate. Tap the mini-map to expand it as an overlay. Think: Wikipedia mobile meets Instagram stories.</p>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-inner">
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span style="display:flex;gap:4px;align-items:center;">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="4" y="4" width="3" height="8" rx="0.5"/><rect x="8" y="2" width="3" height="10" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+        <svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x="0.5" y="0.5" width="19" height="10" rx="2" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="14" height="7" rx="1" fill="white"/><rect x="21" y="3.5" width="1.5" height="4" rx="0.5" fill="white" fill-opacity="0.4"/></svg>
+      </span>
+    </div>
+
+    <!-- Title bar + search + pills -->
+    <div class="title-bar">
+      <h2>Deep <span>Maps</span></h2>
+      <div class="search-bar">
+        <span class="icon">&#x1F50D;</span>
+        <span>Search moments, places, people...</span>
+      </div>
+      <div class="pills">
+        <div class="pill active">All</div>
+        <div class="pill">Moments</div>
+        <div class="pill">Places</div>
+        <div class="pill">People</div>
+        <div class="pill">Collections</div>
+      </div>
+    </div>
+
+    <!-- Mini map -->
+    <div class="mini-map" id="miniMap" onclick="toggleMap()">
+      <div class="mini-map-surface">
+        <div class="map-grid"></div>
+        <div class="map-dot" style="top: 30%; left: 45%;"></div>
+        <div class="map-dot" style="top: 50%; left: 60%;"></div>
+        <div class="map-dot" style="top: 65%; left: 35%;"></div>
+        <div class="map-dot" style="top: 40%; left: 70%;"></div>
+        <div class="map-dot" style="top: 75%; left: 55%;"></div>
+        <div class="mini-map-label">Dallas, TX area</div>
+        <div class="mini-map-close" onclick="event.stopPropagation(); toggleMap();">&#x2715;</div>
+      </div>
+    </div>
+
+    <!-- Content feed -->
+    <div class="content-area">
+      <!-- Featured card -->
+      <div class="moment-card featured">
+        <div class="card-image">
+          <div class="card-image-placeholder">&#x1F3DB;</div>
+          <div class="featured-badge">Featured Story</div>
+        </div>
+        <div class="card-header">
+          <span class="card-year">1963</span>
+          <span class="card-collection">Assassinations in America</span>
+        </div>
+        <div class="card-title">JFK Is Assassinated in Dallas</div>
+        <div class="card-subtitle">President Kennedy is shot while riding in a motorcade through Dealey Plaza, reshaping American politics and culture for decades.</div>
+        <div class="card-meta">
+          <span class="location">&#x1F4CD; Dallas, TX</span>
+          <span class="dot"></span>
+          <span>Nov 22, 1963</span>
+          <span class="dot"></span>
+          <span>8 entities</span>
+        </div>
+        <div class="card-entities">
+          <span class="entity-chip">John F. Kennedy</span>
+          <span class="entity-chip">Lee Harvey Oswald</span>
+          <span class="entity-chip">Jackie Kennedy</span>
+        </div>
+      </div>
+
+      <!-- Standard cards -->
+      <div class="moment-card">
+        <div class="card-header">
+          <span class="card-year">1955</span>
+          <span class="card-collection">Civil Rights Movement</span>
+        </div>
+        <div class="card-title">Rosa Parks Refuses Her Bus Seat</div>
+        <div class="card-subtitle">An act of defiance on a Montgomery city bus ignites the Montgomery Bus Boycott and becomes a catalyst for the civil rights movement.</div>
+        <div class="card-meta">
+          <span class="location">&#x1F4CD; Montgomery, AL</span>
+          <span class="dot"></span>
+          <span>Dec 1, 1955</span>
+        </div>
+        <div class="card-entities">
+          <span class="entity-chip">Rosa Parks</span>
+          <span class="entity-chip">Martin Luther King Jr.</span>
+        </div>
+      </div>
+
+      <div class="moment-card">
+        <div class="card-header">
+          <span class="card-year">1865</span>
+          <span class="card-collection">Assassinations in America</span>
+        </div>
+        <div class="card-title">Lincoln Is Shot at Ford's Theatre</div>
+        <div class="card-subtitle">John Wilkes Booth shoots President Lincoln during a performance of Our American Cousin, mortally wounding him. Lincoln dies the next morning.</div>
+        <div class="card-meta">
+          <span class="location">&#x1F4CD; Washington, D.C.</span>
+          <span class="dot"></span>
+          <span>Apr 14, 1865</span>
+        </div>
+        <div class="card-entities">
+          <span class="entity-chip">Abraham Lincoln</span>
+          <span class="entity-chip">John Wilkes Booth</span>
+        </div>
+      </div>
+
+      <div class="moment-card">
+        <div class="card-header">
+          <span class="card-year">1969</span>
+          <span class="card-collection">Space Exploration</span>
+        </div>
+        <div class="card-title">Armstrong Walks on the Moon</div>
+        <div class="card-subtitle">Neil Armstrong takes humanity's first steps on the lunar surface during the Apollo 11 mission, watched by an estimated 600 million people on Earth.</div>
+        <div class="card-meta">
+          <span class="location">&#x1F4CD; Sea of Tranquility, Moon</span>
+          <span class="dot"></span>
+          <span>Jul 20, 1969</span>
+        </div>
+        <div class="card-entities">
+          <span class="entity-chip">Neil Armstrong</span>
+          <span class="entity-chip">Buzz Aldrin</span>
+        </div>
+      </div>
+
+      <div class="moment-card">
+        <div class="card-header">
+          <span class="card-year">1941</span>
+          <span class="card-collection">World War II</span>
+        </div>
+        <div class="card-title">Japan Attacks Pearl Harbor</div>
+        <div class="card-subtitle">A surprise military strike by the Imperial Japanese Navy devastates the U.S. Pacific Fleet and draws America into World War II.</div>
+        <div class="card-meta">
+          <span class="location">&#x1F4CD; Pearl Harbor, HI</span>
+          <span class="dot"></span>
+          <span>Dec 7, 1941</span>
+        </div>
+        <div class="card-entities">
+          <span class="entity-chip">Franklin D. Roosevelt</span>
+        </div>
+      </div>
+
+      <!-- Spacer for tab bar -->
+      <div style="height: 70px;"></div>
+    </div>
+
+    <!-- Bottom tab bar -->
+    <div class="tab-bar">
+      <div class="tab-item active">
+        <span class="tab-icon">&#x1F30D;</span>
+        <span class="tab-label">Explore</span>
+      </div>
+      <div class="tab-item">
+        <span class="tab-icon">&#x1F4DA;</span>
+        <span class="tab-label">Stories</span>
+      </div>
+      <div class="tab-item">
+        <span class="tab-icon">&#x2605;</span>
+        <span class="tab-label">Saved</span>
+      </div>
+      <div class="tab-item">
+        <span class="tab-icon">&#x2699;</span>
+        <span class="tab-label">Settings</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleMap() {
+    const map = document.getElementById('miniMap');
+    map.classList.toggle('expanded');
+  }
+
+  // Pill selection
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // Card tap feedback
+  document.querySelectorAll('.moment-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.style.borderColor = 'rgba(220,38,38,0.3)';
+      setTimeout(() => { card.style.borderColor = ''; }, 300);
+    });
+  });
+</script>
+
+</body>
+</html>

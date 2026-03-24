@@ -1,0 +1,100 @@
+{
+  "personName": "Lord Byron",
+  "content": {
+    "entity": {
+      "id": "lord-byron",
+      "name": "Lord Byron",
+      "type": "person",
+      "years": "1788–1824",
+      "description": "The Romantic poet so scandalous that England drove him out. George Gordon Byron became the most famous literary celebrity in Europe with Childe Harold's Pilgrimage, then fled Britain amid rumors of incest and sodomy. He died at 36 fighting for Greek independence, and Greece still reveres him as a national hero.",
+      "wikipediaSlug": "Lord_Byron",
+      "canonicalStoryId": "lord-byron-life"
+    },
+    "story": {
+      "id": "lord-byron-life",
+      "name": "Lord Byron",
+      "years": "1788–1824",
+      "category": "arts-culture",
+      "storyType": "biography",
+      "description": "Overnight fame with Childe Harold, exile from England over scandal, years of poetry and love affairs in Venice, and death fighting for Greek independence at 36.",
+      "tags": ["poetry", "romanticism", "british-literature", "greek-independence", "scandal"],
+      "wikipediaSlug": "Lord_Byron",
+      "relatedStoryIds": ["percy-bysshe-shelley-life", "john-keats-life", "mary-shelley-life", "william-wordsworth-life"]
+    },
+    "moments": [
+      {
+        "id": "byron-born-london",
+        "name": "George Gordon Byron Is Born on Holles Street in London",
+        "subtitle": "A boy with a deformed foot who will become the most famous poet in Europe",
+        "description": "On January 22, 1788, George Gordon Byron was born on Holles Street in London, the only child of Captain John 'Mad Jack' Byron and Catherine Gordon, a Scottish heiress. Byron was born with a deformed right foot, a disability that haunted him throughout his life. His father quickly squandered his mother's fortune — a large estate worth over 23,000 pounds — leaving the family impoverished. When Byron was 10, his great-uncle died, and the boy unexpectedly inherited the title of 6th Baron Byron along with the dilapidated Newstead Abbey in Nottinghamshire. The birthplace on Holles Street is now occupied by a department store.",
+        "lat": 51.5168,
+        "lng": -0.1460,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1788,
+        "date": "January 22, 1788",
+        "address": "Holles Street, London, England",
+        "entityIds": ["lord-byron"],
+        "verificationLevel": "verified",
+        "wikiSection": "Early_life"
+      },
+      {
+        "id": "byron-childe-harold-fame",
+        "name": "Lord Byron Publishes Childe Harold and Wakes Up Famous",
+        "subtitle": "A 24-year-old poet sells out the first edition in three days and becomes a celebrity",
+        "description": "On March 10, 1812, the first two cantos of Childe Harold's Pilgrimage were published by John Murray in London. The poem — a semi-autobiographical travelogue through Portugal, Spain, Albania, and Greece — sold out its first edition of 500 copies in just three days. Byron famously wrote that he awoke one morning and found himself famous. The poem invented the \"Byronic hero\" — a brooding, defiant, emotionally tortured protagonist — that influenced literature for the next two centuries. At 24, Byron became the most celebrated poet in Britain, courted by London's aristocratic salons and pursued by admirers of both sexes.",
+        "lat": 51.5099,
+        "lng": -0.1388,
+        "type": "cultural_site",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1812,
+        "date": "March 10, 1812",
+        "address": "50 Albemarle Street, London (John Murray's office)",
+        "entityIds": ["lord-byron"],
+        "verificationLevel": "verified",
+        "wikiSection": "Career"
+      },
+      {
+        "id": "byron-exile-venice",
+        "name": "Lord Byron Flees England in Scandal and Settles in Venice",
+        "subtitle": "Rumors of incest and sodomy drive Britain's most famous poet into permanent exile",
+        "description": "In April 1816, Lord Byron left England forever, driven out by a devastating combination of scandals: his wife Annabella Milbanke had left him after just one year of marriage, and London society was ablaze with rumors of an incestuous affair with his half-sister Augusta and of homosexual relationships. Byron settled in Venice in late 1816, where he lived for several years in a palazzo on the Grand Canal. During his Italian exile, Byron produced some of his greatest work, including the epic satirical poem Don Juan and the later cantos of Childe Harold. He lived extravagantly, keeping a menagerie of animals and conducting numerous love affairs.",
+        "lat": 45.4342,
+        "lng": 12.3388,
+        "type": "residence",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1816,
+        "date": "April 1816",
+        "address": "Venice, Italy",
+        "entityIds": ["lord-byron"],
+        "verificationLevel": "verified",
+        "wikiSection": "Career"
+      },
+      {
+        "id": "byron-dies-missolonghi",
+        "name": "Lord Byron Dies of Fever Fighting for Greek Independence at Age 36",
+        "subtitle": "Greece mourns a foreign poet as a national hero and declares three days of national grief",
+        "description": "On April 19, 1824, Lord Byron died at Missolonghi in western Greece, aged 36, from a fever contracted while leading a campaign in the Greek War of Independence against the Ottoman Empire. Byron had arrived in Greece in January 1824, spending his personal fortune to equip and supply Greek rebel forces. He fell ill on April 9 after being caught in a rainstorm and was subjected to bloodletting by his doctors, which likely worsened his condition. Greece declared three days of mourning. Byron's death electrified European public opinion in favor of Greek independence, which was achieved in 1832. Greeks still honor him as a national hero.",
+        "lat": 38.3686,
+        "lng": 21.4275,
+        "type": "landmark",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1824,
+        "date": "April 19, 1824",
+        "address": "Missolonghi, Greece",
+        "entityIds": ["lord-byron"],
+        "verificationLevel": "verified",
+        "wikiSection": "Career"
+      }
+    ],
+    "suggestedCollections": ["romantic-poets", "famous-exiles", "literary-giants"]
+  }
+}

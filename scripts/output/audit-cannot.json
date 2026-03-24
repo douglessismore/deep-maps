@@ -1,0 +1,1567 @@
+[
+  {
+    "id": "guiengola-river-stalemate",
+    "name": "The Zapotecs Starve Out the Aztec Army in a Seven-Month Siege",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "may-68-barricades",
+    "name": "Students Build Barricades in the Latin Quarter and Nearly Topple the Government",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "constantine-convenes-council-of-nicaea",
+    "name": "Constantine Convenes 318 Bishops to Define Christian Doctrine at Nicaea",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "zone-silence-impact",
+    "name": "A U.S. Athena Rocket Veers Off Course and Crashes into Mexico\\'s \"Zone of Silence\"",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "kepler-dies-regensburg",
+    "name": "Kepler Dies Penniless in Regensburg While Chasing 12,000 Florins in Unpaid Salary",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "euler-born-basel",
+    "name": "Leonhard Euler Is Born in Basel to a Pastor Who Studied Under Jacob Bernoulli",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "timur-born-shahrisabz",
+    "name": "Timur Is Born to a Minor Mongol Clan Near Kesh",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ashoka-dies-pataliputra",
+    "name": "Ashoka Dies at Pataliputra After 36 Years on the Mauryan Throne",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ashoka-ascends-throne-pataliputra",
+    "name": "Ashoka Seizes the Mauryan Throne After a Violent Succession Struggle",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "constantine-baptized-and-dies-at-nicomedia",
+    "name": "Constantine Is Baptized on His Deathbed After 25 Years as a Christian Patron",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "shakespeare-attacked-by-greene-london-1592",
+    "name": "Robert Greene Calls Shakespeare an \\'Upstart Crow\\' in the Earliest Record of His Career",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "washington-farewell-address-published",
+    "name": "Washington Publishes His Farewell Address Warning Against Parties and Alliances",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "augustine-born-thagaste-354",
+    "name": "Augustine Is Born in Roman North Africa to a Christian Mother and Pagan Father",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "mandela-anc-youth-league-cofounded-1944",
+    "name": "Nelson Mandela Co-founds the ANC Youth League to Push Toward Mass Resistance",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "first-folio-published-london-1623",
+    "name": "Two Fellow Actors Publish Shakespeare\\'s First Folio, Saving 18 Plays from Oblivion",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "augustine-meets-ambrose-milan-384",
+    "name": "Augustine Arrives in Milan and Falls Under the Influence of Bishop Ambrose",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "herodotus-born-halicarnassus",
+    "name": "Herodotus Is Born in Persian-Controlled Halicarnassus",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "herodotus-settles-thurii",
+    "name": "Herodotus Settles in Athens\\'s Colony at Thurii in Southern Italy",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "leonardo-paints-mona-lisa-florence-1503",
+    "name": "Leonardo Begins Painting the Portrait That Becomes the Mona Lisa",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "herodotus-travels-egypt-babylon",
+    "name": "Herodotus Travels to Egypt and Babylon to Research the Histories",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "vasco-da-gama-appointed-viceroy-india",
+    "name": "Da Gama Is Appointed Viceroy of India and Dies Three Months Later",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sophocles-elected-general-441bc",
+    "name": "Athens Elects Sophocles as General After the Success of Antigone",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "annihilator-eliza-shelley",
+    "name": "Eliza Shelley Is Murdered by Axe in Her Cabin",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chopin-settles-paris-salons",
+    "name": "Chopin Arrives in Paris at 21 and Conquers Its Most Elite Salons",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sophocles-dies-406bc",
+    "name": "Sophocles Dies at 90, Never Having Placed Below Second in Competition",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sophocles-hosts-asclepius-cult-420bc",
+    "name": "Sophocles Volunteers His Home to House the Cult of Asclepius",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "descartes-daughter-francine-dies-scarlet-fever",
+    "name": "Descartes Weeps Openly When His Five-Year-Old Daughter Dies of Scarlet Fever",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "machiavelli-born-florence-1469",
+    "name": "Niccolò Machiavelli Is Born in Medici-Ruled Florence",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "caesar-captured-by-pirates-75bc",
+    "name": "Pirates Kidnap Caesar — He Demands They Raise His Ransom, Then Crucifies Them",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "aristotle-flees-athens-impiety-charge",
+    "name": "Aristotle Flees Athens Rather Than Face Trial for Impiety",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "caesar-crosses-rubicon-49bc",
+    "name": "Caesar Crosses the Rubicon with His Legion, Starting Civil War",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cicero-prosecutes-verres",
+    "name": "Cicero Prosecutes Governor Verres So Devastatingly That Verres Flees Before the Verdict",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "caesar-born-rome-100bc",
+    "name": "Julius Caesar Is Born Into a Patrician Family Claiming Descent from Venus",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "voltaire-born-paris-1694",
+    "name": "Francois-Marie Arouet Is Born in Paris to a Treasury Official\\'s Family",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "avicenna-imprisoned-fardajan",
+    "name": "Avicenna Is Imprisoned in Fardajan Fortress for Secret Political Letters",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "avicenna-physician-nuh-ii",
+    "name": "Avicenna Cures the Samanid Emir at Seventeen and Demands Library Access as Payment",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "democritus-studies-with-egyptian-mathematicians",
+    "name": "Democritus Spends Five Years Studying with Egyptian Mathematicians",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "li-bai-dismissed-from-court-after-boot-incident",
+    "name": "Li Bai Makes China\\'s Most Powerful Eunuch Remove His Boots and Is Expelled from Court",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "wu-defeats-chu-at-battle-of-boju",
+    "name": "The State of Wu Crushes the Superpower Chu at the Battle of Boju",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cicero-born-arpinum",
+    "name": "Cicero Is Born in Arpinum, a Hill Town 100 Kilometres from Rome",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "kant-born-konigsberg-1724",
+    "name": "Immanuel Kant Is Born to a Harness-Maker in Konigsberg",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "descartes-publishes-discourse-on-method",
+    "name": "Descartes Publishes Discourse on the Method in French to Reach a Wider Audience",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "aristotle-tutors-alexander-mieza",
+    "name": "Aristotle Begins Tutoring the 13-Year-Old Alexander the Great at Mieza",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "emperor-wu-han-confucianism-official",
+    "name": "Emperor Wu of Han Makes Confucianism Mandatory for All Government Officials",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "picasso-founds-arte-joven-madrid-1901",
+    "name": "Picasso Co-Founds Arte Joven Magazine and Drops His Father\\'s Surname",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hannibal-swears-oath-against-rome",
+    "name": "Nine-Year-Old Hannibal Swears an Oath to Be Rome\\'s Eternal Enemy",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "confucius-begins-14-year-exile",
+    "name": "Confucius Begins 14 Years of Wandering After Leaving Lu",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "dotd-aztec-origins",
+    "name": "The Aztecs Dedicate an Entire Month to the Dead — Presided Over by the Lady of the Underworld",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cicero-executed-formiae",
+    "name": "Cicero Is Beheaded on the Appian Way and His Hands Are Nailed to the Rostra",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "evo-pilbara-stromatolites",
+    "name": "Earth\\'s Oldest Known Life Leaves Its Mark in 3.5-Billion-Year-Old Rock",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "leonardo-qualifies-guild-saint-luke-1472",
+    "name": "Leonardo Is Enrolled in Florence\\'s Guild of Saint Luke as a Master Painter at 20",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "timur-arrow-wounds-disable-him",
+    "name": "Two Arrows Cripple Timur\\'s Right Side and Give the West His Name",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "evo-hamersley-bif",
+    "name": "Cyanobacteria Poison the Atmosphere with Oxygen and Transform the Planet",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "socrates-born-alopece-athens",
+    "name": "Socrates Is Born to a Stoneworker and a Midwife in Athens",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "durer-first-journey-italy-venice-1494",
+    "name": "Dürer Crosses the Alps Alone and Encounters the Italian Renaissance in Venice",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "plato-burns-poems-meets-socrates",
+    "name": "Plato Burns His Poetry After Meeting Socrates",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "columbus-born-genoa-1451",
+    "name": "Christopher Columbus Is Born to a Wool Weaver in the Republic of Genoa",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "li-bai-summoned-to-tang-imperial-court",
+    "name": "Emperor Xuanzong Summons Li Bai to the Imperial Court and Seasons His Soup",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "evo-strelley-pool",
+    "name": "Oldest Confirmed Microfossils Preserve Individual Cells in 3.4-Billion-Year-Old Chert",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "salt-lake-deposits",
+    "name": "Politicians Claim Communal Salt Deposits, Sparking a Border War",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "alexander-born-pella",
+    "name": "Alexander the Great Is Born in Pella as Three Omens Arrive at Once",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "avicenna-isfahan-stable-years",
+    "name": "Avicenna Finds Stability in Isfahan Under the Kakuyid Court",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "alexander-battle-of-hydaspes",
+    "name": "Alexander Defeats King Porus and 200 War Elephants at the Hydaspes River",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hippocrates-travels-teaches-thrace",
+    "name": "Hippocrates Travels the Greek World Teaching Clinical Medicine",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "angel-gabriel-foretells-johns-birth-in-jerusalem-temple",
+    "name": "The Angel Gabriel Appears to the Priest Zechariah in the Jerusalem Temple",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "alexander-battle-of-issus",
+    "name": "Alexander Defeats Darius III at Issus and Captures the Persian Royal Family",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "alexander-dies-babylon",
+    "name": "Alexander the Great Dies in Babylon at 32",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "timur-dies-otrar-1405",
+    "name": "Timur Dies at Otrar While Marching 200,000 Soldiers Toward China",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ovid-first-recitation-rome-25bc",
+    "name": "Ovid Debuts as a Poet in Rome at Eighteen",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "plato-visits-syracuse-dionysius",
+    "name": "Plato Travels to Syracuse to Shape a Tyrant into a Philosopher-King",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "franklin-runs-away-to-philadelphia",
+    "name": "Benjamin Franklin Arrives in Philadelphia as a Penniless Fugitive Apprentice",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gutenberg-strasbourg-secret-experiments",
+    "name": "Gutenberg Begins Secret Printing Experiments in Strasbourg",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "raphael-orphaned-joins-perugino-workshop-1494",
+    "name": "Raphael, Orphaned at Eleven, Enters Perugino\\'s Workshop in Perugia",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gutenberg-born-mainz",
+    "name": "Gutenberg Is Born Into a Patrician Family in Mainz",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "socrates-battlefield-potidaea-432-bc",
+    "name": "Socrates Saves Alcibiades in Battle at Potidaea",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "saladin-born-tikrit",
+    "name": "Saladin Is Born in Tikrit the Night His Family Is Banished",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "saladin-conquers-damascus-1174",
+    "name": "Saladin Enters Damascus Without a Fight, Invited by Its Governor",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "saladin-appointed-vizier-egypt",
+    "name": "Saladin Is Appointed Vizier of Egypt Because Rivals Think Him Too Weak to Matter",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cyrus-dies-battle-massagetae",
+    "name": "Cyrus Is Killed by the Massagetae Near the Syr Darya River",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "saladin-recaptures-jerusalem-1187",
+    "name": "Saladin Recaptures Jerusalem and Spares Its Population",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "octavian-accepts-caesars-will-brundisium",
+    "name": "Octavian Accepts Caesar\\'s Will at Brundisium and Claims His Name",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "solomon-dies-kingdom-splits",
+    "name": "Solomon Dies and Israel Splits into Two Rival Kingdoms",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "queen-of-sheba-visits-solomon",
+    "name": "The Queen of Sheba Crosses the Desert with Gold and Spices to Test Solomon\\'s Wisdom",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "augustus-dies-nola-ad14",
+    "name": "Augustus Dies at Nola After 41 Years as Rome\\'s First Emperor",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "solomon-born-jerusalem",
+    "name": "Solomon Is Born to David and Bathsheba After the Death of Their First Son",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "solomon-judgment-two-mothers",
+    "name": "Solomon Orders a Disputed Baby Cut in Half to Identify the True Mother",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gutenberg-fust-lawsuit",
+    "name": "Gutenberg Loses His Press to Creditor Johann Fust in Court",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tutankhamun-born-amarna",
+    "name": "Tutankhamun Is Born at Amarna, the Capital Built by His Heretic Predecessor",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "timur-sacks-delhi-1398",
+    "name": "Timur Sacks Delhi and Orders 100,000 Prisoners Killed in a Single Day",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chaplin-keystone-tramp-debut-1914",
+    "name": "Chaplin Assembles the Tramp Costume from a Keystone Studios Dressing Room",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "chaplin-great-dictator-released-1940",
+    "name": "Chaplin Releases The Great Dictator, Mocking Hitler While the U.S. Is Still Neutral",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "caligula-nicknamed-little-boot-germania",
+    "name": "Roman Legionaries Nickname a Toddler \\'Caligula\\' on the Rhine Frontier",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hammurabi-inherits-throne-of-minor-babylon",
+    "name": "Hammurabi Inherits the Throne of a Minor City-State Called Babylon",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "li-bai-dies-in-dangtu",
+    "name": "Li Bai Dies at 61, Allegedly Drowning While Reaching for the Moon\\'s Reflection",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gandhi-launches-satyagraha-south-africa-1906",
+    "name": "Gandhi Coins the Term Satyagraha at a Mass Meeting in Johannesburg",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "lenin-assassination-attempt-1918",
+    "name": "Lenin Is Shot Twice at a Moscow Factory and Survives",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "cyrus-born-anshan-persis",
+    "name": "Cyrus Is Born in Persis, Grandson of the Emperor He Will Overthrow",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chaplin-united-artists-founded-1919",
+    "name": "Chaplin, Pickford, Fairbanks, and Griffith Found United Artists",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hippocrates-hippocratic-oath-composed",
+    "name": "The Hippocratic Oath Establishes the First Code of Medical Ethics in the West",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hippocrates-dies-larissa",
+    "name": "Hippocrates Dies in Larissa at Roughly Ninety Years Old",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gutenberg-dies-buried-mainz",
+    "name": "Gutenberg Dies in Mainz and Is Buried in a Church Later Demolished",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "timur-captures-ottoman-sultan-ankara-1402",
+    "name": "Timur Captures the Ottoman Sultan at Ankara",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ovid-completes-metamorphoses-ad8",
+    "name": "Ovid Finishes the Metamorphoses, 250 Myths in 12,000 Lines of Verse",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ovid-dies-tomis-ad17",
+    "name": "Ovid Dies in Exile on the Black Sea, 2,000 km from Rome",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "earhart-disappears",
+    "name": "Amelia Earhart Vanishes Over the Pacific on Her Attempt to Circle the Globe",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cyrus-defeats-astyages-median-empire",
+    "name": "Cyrus Defeats His Grandfather Astyages and Ends the Median Empire",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hannibal-crosses-the-alps-with-elephants",
+    "name": "Hannibal Leads 38 War Elephants and 46,000 Troops Across the Alps",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sophocles-leads-paean-salamis-victory",
+    "name": "Teenage Sophocles Leads the Victory Hymn After the Battle of Salamis",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "michael-jackson-dies-propofol-overdose-bel-air",
+    "name": "Michael Jackson Dies of a Propofol Overdose in His Rented Mansion at 50",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "goethe-publishes-faust-part-one-1808",
+    "name": "Goethe Publishes Faust Part One After 36 Years of Writing",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "raphael-arrives-florence-studies-leonardo-1504",
+    "name": "Raphael Arrives in Florence and Studies Leonardo\\'s Techniques",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "london-ve-day",
+    "name": "A Million Londoners Flood the Streets as Churchill Announces Victory in Europe",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "marx-communist-manifesto-brussels-1848",
+    "name": "Marx and Engels Publish The Communist Manifesto Days Before Revolution Sweeps Europe",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "marx-meets-engels-paris-1844",
+    "name": "Marx and Engels Meet in Paris and Discover Total Intellectual Alignment",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "beethoven-moves-vienna-1792",
+    "name": "Beethoven Leaves Bonn for Vienna to Study Under Haydn",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "reagan-time-for-choosing-speech",
+    "name": "Reagan Delivers \\'A Time for Choosing\\' on National Television",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "alux-bridge-sabotage",
+    "name": "A Bridge Over the Nichupté Lagoon Collapses Three Times with No Explanation",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "galileo-discovers-jupiters-moons-1610",
+    "name": "Galileo Spots Four Moons Orbiting Jupiter and Breaks the Earth-Centred Universe",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "galileo-born-pisa-1564",
+    "name": "Galileo Is Born in Pisa to a Lutenist Father",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "galileo-publishes-dialogue-two-chief-world-systems-1632",
+    "name": "Galileo Publishes the Dialogue and Accidentally Insults Pope Urban VIII",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "coyame-crash-site",
+    "name": "A Cessna Collides with an Unidentified Object at 7,500 Feet over Coyame",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "copernicus-greshams-law-formulated",
+    "name": "Copernicus Formulates \\'Bad Money Drives Out Good\\' Before Gresham",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "joan-of-arc-siege-orleans-lifted",
+    "name": "Joan Lifts the Siege of Orleans in Nine Days",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "timur-proclaimed-sovereign-balkh-1370",
+    "name": "Timur Is Proclaimed Sovereign at Balkh After Killing His Last Rival",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gein-tavern",
+    "name": "A Tavern Owner Vanishes — Her Skull Is Found Three Years Later in a Killer\\'s Farmhouse",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "white-sands-prints",
+    "name": "23,000-Year-Old Footprints Rewrite American History",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "la-garrett-farm",
+    "name": "Booth Is Shot and Killed in a Burning Tobacco Barn",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "flir-campeche-skies",
+    "name": "A Military Patrol Captures 11 Luminous Spheres on Infrared Camera over Campeche",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "halley-tlaxiaco-ritual",
+    "name": "Families Seal Themselves in a Cave to Escape the Comet\\'s Tail",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cobalt-medical-theft",
+    "name": "A Maintenance Worker Steals a Radioactive Cancer Machine for Scrap",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cobalt-foundry-melting",
+    "name": "Foundry Melts Radioactive Scrap into Rebar Shipped Across Two Nations",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "atizapan-market-stall",
+    "name": "A Serial Killer Allegedly Sells Victims\\' Flesh as Pork",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "annihilator-christmas-massacre",
+    "name": "Serial Killer Murders Two Women on Christmas Eve",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "annihilator-o-henry-letter",
+    "name": "William Sydney Porter Coins the Name \\'Servant Girl Annihilators\\'",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "janis-ut-campus",
+    "name": "Fraternity Nominates Janis Joplin for \"Ugliest Man on Campus\" at UT Austin",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "treaty-oak-lab",
+    "name": "Forensic Analysis Confirms Poisoning of Treaty Oak",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cad-ant-farm-studio",
+    "name": "San Francisco Art Collective Pitches the Cadillac Monument",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "willie-luck-ranch",
+    "name": "Willie Nelson Builds a Private Ranch from a Movie Set",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "willie-nashville-fire",
+    "name": "Willie Rescues His Guitar from a Burning Nashville Home",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "monarch-day-of-dead-arrival",
+    "name": "Butterflies Arrive on the Day of the Dead and Locals Believe They Carry the Souls of the Departed",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ohenry-honduras-exile",
+    "name": "Porter Flees Embezzlement Charges to Honduras",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ohenry-new-york-death",
+    "name": "O. Henry Dies in a New York Hotel Room at Forty-Seven",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ohenry-furnished-room",
+    "name": "Writes \\'The Furnished Room\\' in a Chelsea Boarding House",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ohenry-second-marriage",
+    "name": "Marries Childhood Sweetheart Sara Coleman",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "enewetak-ivy-mike",
+    "name": "Ivy Mike Vaporizes the Island of Elugelab — the First Hydrogen Bomb",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "holy-family-egypt",
+    "name": "The Holy Family Flees to Egypt to Escape Herod\\'s Massacre",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "jesus-walks-water",
+    "name": "Jesus Walks on the Water of the Sea of Galilee",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "moses-plagues-egypt",
+    "name": "Ten Plagues Devastate Egypt Until Pharaoh Lets the Israelites Go",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "moses-crosses-red-sea",
+    "name": "Moses Parts the Red Sea and the Israelites Cross on Dry Ground",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "moses-water-meribah",
+    "name": "Moses Strikes the Rock at Meribah and Is Forbidden from the Promised Land",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "evo-franceville-eukaryotes",
+    "name": "Fossils in Gabon Suggest Complex Cells Appeared 2.1 Billion Years Ago",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sodom-gomorrah-destruction",
+    "name": "God Destroys Sodom and Gomorrah with Fire and Brimstone from Heaven",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "samson-gaza-temple",
+    "name": "Samson Brings Down the Temple of Dagon on the Philistines and Himself",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "evo-ordovician-land-plants",
+    "name": "Microscopic Spores Reveal the First Plants to Colonize Dry Land",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "van-gogh-cuts-ear",
+    "name": "Van Gogh Cuts Off His Ear After a Confrontation with Gauguin in Arles",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "mozart-dies-penniless",
+    "name": "Mozart Dies at 35 and Is Buried in an Unmarked Grave in Vienna",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "london-great-plague",
+    "name": "The Great Plague Kills a Quarter of London\\'s Population in a Single Year",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "london-great-exhibition",
+    "name": "Six Million Visitors Pour into the Crystal Palace for the Great Exhibition",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "jack-ripper-whitechapel",
+    "name": "Jack the Ripper Terrorizes Whitechapel with Five Murders in Autumn 1888",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "evo-yixian-flowering-plants",
+    "name": "The Oldest Known Flowering Plant Is Found in a Chinese Lake Bed",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "visigoths-sack-rome",
+    "name": "The Visigoths Sack Rome for the First Time in Eight Hundred Years",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "evo-toros-menalla-hominid",
+    "name": "A Skull Found in the Sahara Pushes the Human Lineage Back to 7 Million Years",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "beethoven-ninth-symphony",
+    "name": "A Completely Deaf Beethoven Premieres His Ninth Symphony and Has to Be Turned Around to See the Applause",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "cleopatra-suicide-alexandria",
+    "name": "Cleopatra Takes Her Own Life as Rome Conquers Egypt",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tubman-escapes-slavery",
+    "name": "Harriet Tubman Escapes Slavery and Returns Thirteen Times to Free Seventy More",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tenochtitlan-smallpox",
+    "name": "Smallpox Kills the Aztec Emperor and Halves the Population Before the Final Siege",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cervantes-conceives-don-quixote-carcel-real",
+    "name": "Cervantes Conceives Don Quixote While Imprisoned in the Royal Jail of Seville",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "wagner-born-leipzig-jewish-quarter",
+    "name": "Richard Wagner Is Born in Leipzig\\'s Jewish Quarter",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "joan-of-arc-captured-compiegne",
+    "name": "Joan of Arc Is Pulled from Her Horse and Captured Outside Compiegne",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "securitas-depot-tonbridge",
+    "name": "A Kidnapped Depot Manager Is Forced to Open the Vaults of Britain\\'s Largest Cash Warehouse",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "hannibal-destroys-roman-army-lake-trasimene",
+    "name": "Hannibal Ambushes and Destroys a Roman Army at Lake Trasimene",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "voltaire-exiled-england-1726",
+    "name": "Voltaire Is Exiled to England After a Nobleman Has Him Beaten in the Street",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "inv-gutenberg-press",
+    "name": "Gutenberg Prints the First Book with Movable Metal Type",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "ovid-born-sulmo-43bc",
+    "name": "Ovid Is Born in Sulmo as the Roman Republic Collapses Around Him",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "descartes-dreams-in-stove-room-neuburg",
+    "name": "Descartes Has Three Dreams in a Heated Room and Conceives Analytic Geometry",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hippocrates-declares-disease-natural",
+    "name": "Hippocrates Declares Disease Has Natural Causes, Not Divine Ones",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "wagner-flees-dresden-uprising",
+    "name": "Wagner Flees Dresden After Joining a Failed Revolution Against the King",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "great-train-robbery-cheddington",
+    "name": "The Great Train Robbery Gang Retreats to Leatherslade Farm with £2.6 Million",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "pasteur-invents-pasteurization-wine",
+    "name": "Pasteur Patents Pasteurization to Save French Wine from Spoilage",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "inv-bell-telephone",
+    "name": "Bell Speaks the First Words Over a Wire: \"Mr. Watson, Come Here\"",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "avicenna-born-afshana",
+    "name": "Avicenna Is Born in a Village Near Bukhara",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "rembrandt-born-leiden",
+    "name": "Rembrandt Is Born in Leiden, Ninth Child of a Miller and a Baker\\'s Daughter",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "dostoevsky-poor-folk-published",
+    "name": "Dostoevsky Publishes Poor Folk at 24 and Russia\\'s Leading Critic Hails Him a Genius",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "constantine-born-in-naissus",
+    "name": "Constantine Is Born in Naissus to a Roman Officer and a Woman of Low Birth",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "dostoevsky-crime-punishment-written",
+    "name": "Dostoevsky Dictates Crime and Punishment at Frantic Speed to Meet a Punishing Deadline",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "constantine-issues-edict-of-milan",
+    "name": "Constantine Issues the Edict of Milan, Ending Three Centuries of Persecution",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "andersen-dies-copenhagen",
+    "name": "Hans Christian Andersen Dies in Copenhagen at Seventy",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "rousseau-born-in-geneva-mother-dies",
+    "name": "Rousseau Is Born in Geneva and His Mother Dies Nine Days Later",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "suleiman-born-in-trabzon",
+    "name": "Suleiman Is Born in Trabzon to a Provincial Governor\\'s Family",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cervantes-captured-algiers",
+    "name": "Corsairs Capture Cervantes at Sea and Hold Him Slave in Algiers for Five Years",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "constantine-founds-constantinople",
+    "name": "Constantine Dedicates Constantinople as the New Capital of the Roman Empire",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cervantes-wounded-lepanto",
+    "name": "Cervantes Takes Three Wounds at the Battle of Lepanto and Loses the Use of His Left Hand",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "umar-helps-elect-abu-bakr-at-saqifah",
+    "name": "Umar Brokers Abu Bakr\\'s Election as Caliph on the Day Muhammad Dies",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "rousseau-wins-dijon-prize-with-discourse",
+    "name": "Rousseau Wins the Dijon Prize by Arguing That Civilization Corrupts Humanity",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "poe-publishes-the-raven",
+    "name": "Poe Publishes The Raven and Becomes Famous Overnight for Nine Dollars",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "suleiman-fails-to-take-vienna",
+    "name": "Suleiman\\'s Army of 120,000 Fails to Take Vienna, Marking the Ottoman Westward Limit",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "thales-born-in-miletus-ionia",
+    "name": "Thales Is Born in Miletus, Where Greek, Phoenician, and Babylonian Knowledge Converge",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "thales-advises-miletus-against-lydian-alliance",
+    "name": "Thales Advises Miletus Against an Alliance with Lydia, Saving It from Persian Conquest",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "john-the-baptist-preaches-repentance-in-jordan-wilderness",
+    "name": "John the Baptist Draws Crowds to the Jordan River Preaching Repentance",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "rousseau-runs-away-from-geneva-at-15",
+    "name": "Rousseau Finds Geneva\\'s Gates Locked After Curfew and Never Returns",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "freud-dissects-eels-in-trieste",
+    "name": "Twenty-Year-Old Sigmund Freud Dissects Hundreds of Eels Searching for Their Gonads",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "rousseau-publishes-social-contract",
+    "name": "Rousseau Publishes The Social Contract and Both Paris and Geneva Burn It",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "umar-converts-to-islam-sword-in-hand",
+    "name": "Umar Draws His Sword to Kill Muhammad, Then Converts Instead",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "poe-born-to-actors-in-boston",
+    "name": "Edgar Poe Is Born to Two Traveling Actors in Boston",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "john-baptizes-jesus-in-the-jordan-river",
+    "name": "John the Baptist Baptizes Jesus in the Jordan River",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "thales-predicts-solar-eclipse",
+    "name": "Thales Predicts a Solar Eclipse That Stops a Battle Between the Lydians and Medes",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "dali-meets-picasso-in-paris",
+    "name": "Salvador Dali Meets Picasso in Paris for the First Time",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "poe-marries-13-year-old-cousin",
+    "name": "Edgar Allan Poe Marries His Thirteen-Year-Old Cousin Virginia Clemm",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "locke-dies-oates-essex",
+    "name": "John Locke Dies at Oates After 14 Years in a Fellow Philosopher\\'s Household",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "mao-dies-beijing",
+    "name": "Mao Zedong Dies at 82, Triggering the End of the Cultural Revolution",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "nietzsche-writes-zarathustra-in-rapallo",
+    "name": "Nietzsche Writes Part One of Zarathustra in Ten Days in a Rapallo Boarding House",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "disney-creates-mickey-mouse",
+    "name": "Disney Creates Mickey Mouse After a Distributor Steals Oswald the Lucky Rabbit",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "poe-found-delirious-dies-in-baltimore",
+    "name": "Poe Is Found Semiconscious in a Baltimore Gutter Wearing Another Man\\'s Clothes",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "franklin-kite-experiment-electricity",
+    "name": "Benjamin Franklin Flies a Kite in a Thunderstorm and Proves Lightning Is Electricity",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "franklin-secures-french-alliance",
+    "name": "Benjamin Franklin Signs the French Alliance That Turns the Revolution",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "sappho-exiled-from-lesbos-to-sicily",
+    "name": "Sappho Is Exiled from Lesbos to Sicily by Rival Aristocrats",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sun-tzu-executes-kings-concubines-to-prove-discipline",
+    "name": "Sun Tzu Executes Two Royal Concubines to Demonstrate Military Discipline",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ali-serves-as-muhammads-decoy-during-hijra",
+    "name": "Ali Sleeps in Muhammad\\'s Bed as a Decoy During an Assassination Plot",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "bismarck-creates-welfare-state",
+    "name": "Bismarck Pushes Through the World\\'s First National Social Insurance Laws",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tiberius-retires-to-rhodes-abandoning-rome",
+    "name": "Tiberius Abandons Rome and Sails to Rhodes in Self-Imposed Exile",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "alexandrian-scholars-compile-sappho-into-nine-books",
+    "name": "Alexandrian Scholars Compile Sappho\\'s Poetry into a Critical Edition",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "ali-defeats-rebels-at-battle-of-the-camel",
+    "name": "Ali Defeats a Rebel Army Led by Muhammad\\'s Widow at the Battle of the Camel",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tiberius-becomes-emperor-after-augustus-dies",
+    "name": "Tiberius Becomes Rome\\'s Second Emperor After Every Other Heir Has Died",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "marie-curie-drives-xray-trucks-wwi",
+    "name": "Marie Curie Builds Mobile X-Ray Units and Drives Them to the Front Lines",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tolstoy-witnesses-execution-paris",
+    "name": "Tolstoy Witnesses a Guillotine Execution in Paris and Turns Against the State",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "nero-murders-agrippina",
+    "name": "Nero Orders His Mother Killed After a Rigged Shipwreck Fails to Drown Her",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ali-fights-muawiya-at-battle-of-siffin",
+    "name": "Ali and Mu\\'awiya Fight to a Standstill at the Battle of Siffin",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "brothers-poem-discovered-on-papyrus",
+    "name": "Scholars Publish a New Sappho Poem Discovered on Ancient Papyrus",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tiberius-born-in-rome-to-claudian-family",
+    "name": "Tiberius Is Born in Rome to the Ancient Claudian Dynasty",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cook-born-marton-yorkshire",
+    "name": "James Cook Is Born Eight Miles from the Sea in a Yorkshire Village",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "tiberius-orders-sejanus-executed-for-treason",
+    "name": "Tiberius Orders Sejanus Executed by Letter from Capri",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chaucer-born-london-vintner",
+    "name": "Geoffrey Chaucer Is Born to a Wine Merchant Family in London",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "locke-flees-to-netherlands-exile",
+    "name": "John Locke Flees to the Netherlands and Writes His Masterworks in Hiding",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "ibn-battuta-visits-mogadishu-at-its-zenith",
+    "name": "Ibn Battuta Arrives in Mogadishu and Describes a Thriving Trading City",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "democritus-dies-in-abdera-possibly-over-100",
+    "name": "Democritus Dies in Abdera, Reportedly Past the Age of 100",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "moliere-founds-illustre-theatre",
+    "name": "Molière Gives Up a Royal Post to Found a Theater Company That Goes Bankrupt",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "tiberius-dies-on-capri-succeeded-by-caligula",
+    "name": "Tiberius Dies at 77 and Is Succeeded by Caligula, Who Drains the Treasury",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "li-bai-born-on-silk-road-in-suyab",
+    "name": "Li Bai Is Born in a Silk Road Trading City in Present-Day Kyrgyzstan",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cook-charts-st-lawrence-quebec",
+    "name": "Cook Charts the St. Lawrence at Night, Enabling the British Capture of Quebec",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "nero-commits-suicide",
+    "name": "Nero Kills Himself After the Senate Declares Him a Public Enemy",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "linnaeus-publishes-systema-naturae",
+    "name": "Linnaeus Publishes an 11-Page Pamphlet That Becomes the Basis for Naming Every Species on Earth",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "democritus-born-in-abdera-thrace",
+    "name": "Democritus Is Born in Abdera to a Family Wealthy Enough to Host King Xerxes",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "locke-saves-shaftesbury-life-surgery",
+    "name": "John Locke Persuades Lord Shaftesbury to Undergo Surgery and Saves His Life",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "moliere-premieres-precieuses-ridicules",
+    "name": "Molière Premieres Les Précieuses Ridicules and Savages Parisian High Society",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "locke-publishes-two-treatises-essay",
+    "name": "Locke Publishes Three Works Anonymously That Reshape Western Political Philosophy",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chaucer-captured-reims",
+    "name": "Chaucer Is Captured Near Reims and Ransomed by King Edward III for 16 Pounds",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sappho-composes-lyric-poetry-on-lesbos",
+    "name": "Sappho Composes 10,000 Lines of Lyric Poetry on Lesbos",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chaucer-visits-italy-meets-petrarch",
+    "name": "Chaucer Travels to Italy on a Diplomatic Mission and Discovers Boccaccio\\'s Decameron",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "sun-tzu-born-in-state-of-qi",
+    "name": "Sun Tzu Is Reportedly Born in the State of Qi, Though His Existence Is Debated",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "li-bai-meets-du-fu-in-luoyang",
+    "name": "Li Bai and Du Fu Meet in Luoyang, Beginning Chinese Literature\\'s Greatest Friendship",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "democritus-proposes-atomic-theory-of-universe",
+    "name": "Democritus Proposes That All Matter Consists of Indivisible Atoms Moving Through Void",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "epicurus-is-born-on-samos",
+    "name": "Epicurus Is Born on Samos, Seven Years After Plato\\'s Death",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "raramuri-running-tradition",
+    "name": "Fleeing the Spanish, the Rarámuri Retreat into the World\\'s Deepest Canyons and Become the Greatest Runners on Earth",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chanakya-saves-bindusara-from-poisoned-empress",
+    "name": "Chanakya Cuts Open a Dying Empress to Save the Unborn Heir to the Maurya Throne",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "marcus-aurelius-dies-vindobona",
+    "name": "Marcus Aurelius Dies on the Danube Frontier and the Pax Romana Ends",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "nostradamus-loses-wife-and-children-to-plague",
+    "name": "Nostradamus Loses His Wife and Two Children to the Plague in Agen",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "khayyam-born-nishapur",
+    "name": "Omar Khayyam Is Born in the Seljuk Metropolis of Nishapur",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "putin-born-leningrad",
+    "name": "Vladimir Putin Is Born in a Communal Apartment in Post-Siege Leningrad",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "khayyam-writes-treatise-algebra-samarkand",
+    "name": "Khayyam Solves All Cubic Equations Geometrically in His Treatise on Algebra",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chanakya-humiliated-at-nanda-court",
+    "name": "Chanakya Is Expelled from the Nanda Court and Vows to Destroy the Dynasty",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "putin-invades-ukraine-2022",
+    "name": "Russia Launches a Full-Scale Invasion of Ukraine",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "epicurus-dies-cheerfully-in-agony",
+    "name": "Epicurus Dies of Kidney Stones in Athens While Writing a Cheerful Final Letter",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "william-the-conqueror-dies-in-rouen",
+    "name": "William the Conqueror Dies in Rouen After His Horse Stumbles on Burning Embers",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "hammurabi-conquers-larsa-controls-lower-mesopotamia",
+    "name": "Hammurabi Conquers Larsa and Unifies Lower Mesopotamia",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "william-orders-the-domesday-book",
+    "name": "William Orders a Survey of Every Landholding in England: the Domesday Book",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "epicurus-is-expelled-from-mytilene",
+    "name": "Epicurus Is Expelled from Mytilene After His Radical Ideas Provoke the Establishment",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "seneca-forced-suicide-rome",
+    "name": "Nero Orders Seneca to Kill Himself After the Pisonian Conspiracy",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "khayyam-measures-solar-year-isfahan",
+    "name": "Khayyam Measures the Solar Year to Six Decimal Places at an Isfahan Observatory",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "byron-exile-venice",
+    "name": "Lord Byron Leaves England Forever Amid Rumors of Incest and Settles in Venice",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chanakya-overthrows-nanda-dynasty",
+    "name": "Chanakya and Chandragupta Seize Pataliputra and Found the Maurya Empire",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "khayyam-falls-from-favor-pilgrimage-mecca",
+    "name": "Khayyam Undertakes a Pilgrimage to Mecca After Losing His Court Patronage",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "coyame-toxic-convoy",
+    "name": "A Mexican Army Recovery Team Dies Under Mysterious Circumstances in the Chihuahua Desert",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "frida-kahlo-louvre-purchase",
+    "name": "The Louvre Acquires a Frida Kahlo Painting, a First for Any Mexican Artist",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "epicurus-proposes-atomic-swerve-theory",
+    "name": "Epicurus Proposes That Atoms Randomly Swerve, Rescuing Free Will from Determinism",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "r66-sundown-town-stroud-oklahoma",
+    "name": "Stroud Posts Sundown Signs Barring Black Travelers from the Mother Road",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "leibniz-develops-calculus-paris",
+    "name": "Leibniz Develops Calculus Independently of Newton While on a Diplomatic Mission in Paris",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "r66-grapes-of-wrath-published",
+    "name": "Steinbeck Publishes The Grapes of Wrath — Names Route 66 \"the Mother Road\"",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "r66-decertification-1985",
+    "name": "AASHTO Removes the Number 66 — Route 66 Is Officially Dead",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "francis-meets-sultan-egypt",
+    "name": "Francis of Assisi Walks Unarmed into the Sultan\\'s Camp During the Fifth Crusade",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gein-school",
+    "name": "A Future Serial Killer Grows Up Isolated by His Mother in Rural Wisconsin",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "kepler-meets-tycho-brahe-prague",
+    "name": "Kepler Meets Tycho Brahe and Gains Access to the Best Astronomical Data on Earth",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "r66-dust-bowl-begins-sallisaw",
+    "name": "Dust Bowl Migrants From Sallisaw Join the Mass Exodus West on Route 66",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "kepler-publishes-harmonice-mundi",
+    "name": "Kepler Discovers His Third Law of Planetary Motion in Linz",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "kepler-publishes-astronomia-nova",
+    "name": "Kepler Publishes Astronomia Nova, Proving Planets Orbit in Ellipses",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "seneca-exiled-corsica",
+    "name": "Emperor Claudius Exiles Seneca to Corsica on Charges of Adultery",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "euler-solves-seven-bridges-konigsberg",
+    "name": "Euler Proves No One Can Cross All Seven Bridges of Konigsberg Exactly Once",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gauss-born-brunswick",
+    "name": "Carl Friedrich Gauss Is Born to a Laborer\\'s Family in Brunswick",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "david-bathsheba",
+    "name": "David Sees Bathsheba Bathing and Sends Her Husband to His Death",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "gauss-proves-heptadecagon-construction",
+    "name": "Gauss Proves a 17-Sided Polygon Can Be Constructed with Compass and Straightedge",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "epicurus-founds-the-garden-in-athens",
+    "name": "Epicurus Founds The Garden, a Philosophical Commune Open to Women and Slaves",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "euler-publishes-letters-german-princess",
+    "name": "Euler Writes Over 200 Letters Explaining Science to a Teenage Princess",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "euler-dies-st-petersburg",
+    "name": "Euler Dies Mid-Conversation After Calculating the Orbit of Uranus",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "abraham-covenant",
+    "name": "According to Genesis, God Makes a Covenant with Abraham",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "seneca-born-cordoba",
+    "name": "Seneca the Younger Is Born in Roman Cordoba",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "einstein-signs-roosevelt-letter-1939",
+    "name": "Einstein Signs a Letter Urging Roosevelt to Build an Atomic Bomb Before Hitler Does",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "einstein-born-ulm-1879",
+    "name": "Albert Einstein Is Born in Ulm, Germany",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "beethoven-death-vienna-1827",
+    "name": "Beethoven Dies During a Thunderstorm in Vienna, Aged 56",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "abraham-lot-separation",
+    "name": "Abraham and Lot Separate After Their Herds Outgrow the Land",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "adam-smith-born-kirkcaldy",
+    "name": "Adam Smith Is Born in Kirkcaldy, Fife, to a Widowed Mother",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "moses-born-nile",
+    "name": "Moses Is Hidden in a Basket on the Nile to Escape Pharaoh\\'s Death Decree",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "goya-black-paintings-quinta",
+    "name": "Goya Paints Fourteen Nightmares Directly onto the Walls of His Own House",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "scm-chivington-town",
+    "name": "The Town of Chivington, Named for the Sand Creek Massacre Commander, Fades Away",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "adam-smith-publishes-wealth-of-nations",
+    "name": "Adam Smith Publishes The Wealth of Nations in London",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "pushkin-born-into-russian-nobility-in-moscow",
+    "name": "Alexander Pushkin Is Born in Moscow to an Extraordinary Lineage",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "andersen-publishes-first-fairy-tales",
+    "name": "Hans Christian Andersen Publishes His First Fairy Tales to Hostile Reviews",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "chanakya-learns-strategy-from-woman-scolding-son",
+    "name": "Chanakya Reverses His Military Strategy After Overhearing a Mother Scold Her Son",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "antonine-plague-devastates-rome",
+    "name": "Soldiers Returning from Parthia Bring a Plague That Kills Millions Across Rome",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "aquinas-writes-corpus-christi-liturgy-orvieto",
+    "name": "Thomas Aquinas Composes the Corpus Christi Hymns in Orvieto",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "cervantes-publishes-don-quixote",
+    "name": "Cervantes Publishes Don Quixote at 57 and Invents the Modern Novel",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "bolivar-secures-haitian-support",
+    "name": "Bolivar Promises to Abolish Slavery in Exchange for Haitian Military Aid",
+    "reason": "Demolished/destroyed"
+  },
+  {
+    "id": "roswell-debris-field",
+    "name": "Mac Brazel Finds Unidentifiable Debris on Foster Ranch",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "adam-smith-meets-voltaire-geneva",
+    "name": "Adam Smith Meets Voltaire in Geneva While Drafting The Wealth of Nations",
+    "reason": "General area, no specific pinnable location"
+  },
+  {
+    "id": "catherine-de-medici-summons-nostradamus-to-paris",
+    "name": "Catherine de\\' Medici Summons Nostradamus to Paris to Read the Royal Future",
+    "reason": "General area, no specific pinnable location"
+  }
+]

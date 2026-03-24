@@ -1,0 +1,28 @@
+{
+  "batchId": "batch-153-155-1773810234690",
+  "offset": 153,
+  "limit": 3,
+  "created": "2026-03-18T05:04:02.366Z",
+  "people": [
+    {
+      "index": 0,
+      "name": "Horace",
+      "status": "ready",
+      "promptFile": "horace.json"
+    },
+    {
+      "index": 1,
+      "name": "Heraclitus",
+      "status": "ready",
+      "promptFile": "heraclitus.json"
+    },
+    {
+      "index": 2,
+      "name": "Ibn Khaldun",
+      "status": "ready",
+      "promptFile": "ibn-khaldun.json"
+    }
+  ],
+  "totalReady": 3,
+  "totalSkipped": 0
+}

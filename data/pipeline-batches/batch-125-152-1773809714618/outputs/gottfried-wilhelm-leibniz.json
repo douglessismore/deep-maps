@@ -1,0 +1,100 @@
+{
+  "personName": "Gottfried Wilhelm Leibniz",
+  "content": {
+    "entity": {
+      "id": "gottfried-wilhelm-leibniz",
+      "name": "Gottfried Wilhelm Leibniz",
+      "type": "person",
+      "years": "1646–1716",
+      "description": "The last universal genius who co-invented calculus independently. A German polymath who created the binary number system, built mechanical calculators, and argued this is the best of all possible worlds — a claim Voltaire mocked for centuries. Leibniz died alone and forgotten in Hanover; only his secretary attended the funeral.",
+      "wikipediaSlug": "Gottfried_Wilhelm_Leibniz",
+      "canonicalStoryId": "gottfried-wilhelm-leibniz-life"
+    },
+    "story": {
+      "id": "gottfried-wilhelm-leibniz-life",
+      "name": "Gottfried Wilhelm Leibniz",
+      "years": "1646–1716",
+      "category": "discovery-science",
+      "storyType": "biography",
+      "description": "A child prodigy earns a doctorate at 20, co-invents calculus in Paris, demonstrates a calculating machine to the Royal Society, and dies forgotten in Hanover. The life of history's last universal genius.",
+      "tags": ["mathematics", "philosophy", "calculus", "enlightenment", "polymath"],
+      "wikipediaSlug": "Gottfried_Wilhelm_Leibniz",
+      "relatedStoryIds": ["isaac-newton-life", "rene-descartes-life", "baruch-spinoza-life", "blaise-pascal-life"]
+    },
+    "moments": [
+      {
+        "id": "leibniz-born-leipzig",
+        "name": "Gottfried Leibniz Is Born in Leipzig to a Philosophy Professor's Family",
+        "subtitle": "His father dies when he is six, leaving a library that makes the boy a prodigy",
+        "description": "On July 1, 1646, Gottfried Wilhelm Leibniz was born in Leipzig, in the Electorate of Saxony, to Friedrich Leibniz, a professor of moral philosophy at the University of Leipzig, and Catharina Schmuck. He was baptized two days later at St. Nicholas Church. When his father died in 1652, six-year-old Leibniz inherited his personal library. Given free access from age seven, the boy taught himself Latin by age 12 and composed 300 hexameters of Latin verse in a single morning at age 13. The library became the foundation for one of the most extraordinary intellects in history — a mind that would contribute to mathematics, philosophy, physics, law, and theology.",
+        "lat": 51.3397,
+        "lng": 12.3731,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1646,
+        "date": "July 1, 1646",
+        "address": "Leipzig, Saxony",
+        "entityIds": ["gottfried-wilhelm-leibniz"],
+        "verificationLevel": "verified",
+        "wikiSection": "Early_life"
+      },
+      {
+        "id": "leibniz-develops-calculus-paris",
+        "name": "Leibniz Develops Calculus Independently of Newton in Paris",
+        "subtitle": "A diplomat's side project in mathematics changes science forever",
+        "description": "In 1672, Gottfried Leibniz arrived in Paris on a diplomatic mission to divert Louis XIV from invading Germany. The political plan failed, but the visit transformed mathematics. Meeting physicist Christiaan Huygens, Leibniz realized his own mathematical knowledge was inadequate and embarked on an intense program of self-study. By 1675, he had independently developed differential and integral calculus — arriving at the same fundamental ideas as Isaac Newton but with entirely different notation. Leibniz's notation (the integral sign and dx/dy) proved more practical and became the standard used worldwide today. The question of who invented calculus first ignited one of history's bitterest intellectual rivalries.",
+        "lat": 48.8566,
+        "lng": 2.3522,
+        "type": "discovery_site",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1675,
+        "date": "1672–1676",
+        "address": "Paris, France",
+        "entityIds": ["gottfried-wilhelm-leibniz"],
+        "verificationLevel": "verified",
+        "wikiSection": "1666–1676"
+      },
+      {
+        "id": "leibniz-demonstrates-calculator-royal-society",
+        "name": "Leibniz Demonstrates a Four-Function Calculating Machine to the Royal Society",
+        "subtitle": "The device can add, subtract, multiply, and divide — a first in mechanical computing",
+        "description": "In early 1673, Gottfried Leibniz traveled to London and presented a mechanical calculating machine to the Royal Society. The device, which he had been designing and building since 1670, could perform all four basic arithmetic operations — addition, subtraction, multiplication, and division — a significant advance over Blaise Pascal's calculator, which could only add and subtract. The Royal Society was so impressed that they elected Leibniz an external member. The machine's core innovation, the Leibniz wheel, would later be used in the arithmometer, the first mass-produced mechanical calculator. Leibniz's work anticipated the digital age by three centuries.",
+        "lat": 51.5074,
+        "lng": -0.0756,
+        "type": "institution",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1673,
+        "date": "Early 1673",
+        "address": "Royal Society, London, England",
+        "entityIds": ["gottfried-wilhelm-leibniz"],
+        "verificationLevel": "verified",
+        "wikiSection": "1666–1676"
+      },
+      {
+        "id": "leibniz-dies-alone-hanover",
+        "name": "Leibniz Dies Forgotten in Hanover — Only His Secretary Attends the Funeral",
+        "subtitle": "The man who knew everything is buried without honors in an unmarked grave",
+        "description": "On November 14, 1716, Gottfried Wilhelm Leibniz died in Hanover at the age of 70, largely forgotten and out of favor with his employer, King George I of Great Britain (who was also the Elector of Hanover). Leibniz had spent the last 40 years in Hanover as a court librarian and advisor, but his patron had grown frustrated with his failure to complete a commissioned history of the House of Brunswick. Neither the Royal Society in London nor the Berlin Academy of Sciences, which Leibniz had founded, honored his death. Only his personal secretary attended the funeral. His grave remained unmarked for over 50 years — a humiliating end for the mind that co-invented calculus.",
+        "lat": 52.3759,
+        "lng": 9.7320,
+        "type": "burial_site",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1716,
+        "date": "November 14, 1716",
+        "address": "Hanover, Germany",
+        "entityIds": ["gottfried-wilhelm-leibniz"],
+        "verificationLevel": "verified",
+        "wikiSection": "House_of_Hanover,_1676–1716"
+      }
+    ],
+    "suggestedCollections": ["scientific-revolutionaries", "enlightenment-thinkers", "mathematicians-who-changed-the-world"]
+  }
+}

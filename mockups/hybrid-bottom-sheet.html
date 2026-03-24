@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Maps — Hybrid Bottom Sheet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #111; color: #e5e5e5; overflow: hidden; }
+
+  /* ── Concept Description ── */
+  .concept-info {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: none;
+  }
+  .concept-info h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .concept-info p { font-size: 13px; color: #888; line-height: 1.6; }
+
+  /* ── Phone Frame ── */
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    margin: 0 auto;
+    border: 3px solid #333;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    background: #0a0a0a;
+  }
+  @media (max-width: 500px) {
+    .phone-frame {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      border-radius: 0;
+    }
+    .concept-info { display: none; }
+    body { background: #0a0a0a; }
+  }
+
+  /* ── App Header ── */
+  .app-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    z-index: 50;
+  }
+  .app-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .app-header .logo .deep { color: #fff; }
+  .app-header .logo .maps { color: #dc2626; }
+  .app-header .logo svg { width: 20px; height: 20px; }
+  .app-header .search-bar {
+    margin-left: auto;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    color: #666;
+    font-size: 12px;
+    width: 140px;
+  }
+
+  /* ── Map ── */
+  .map-container {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0d1117;
+    z-index: 0;
+  }
+  .map-grid {
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 30px 30px;
+    position: relative;
+  }
+  .map-label {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.08);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  /* ── Map Marker Chips ── */
+  .marker-chip {
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .marker-chip:hover { transform: scale(1.08); z-index: 15; }
+  .marker-chip.active { z-index: 15; }
+  .marker-chip.active .chip-label { border-color: rgba(220,38,38,0.4); box-shadow: 0 0 12px rgba(220,38,38,0.2); }
+  .marker-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #dc2626;
+    border: 2px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 10px rgba(220,38,38,0.4);
+    margin: 0 auto 4px;
+  }
+  .marker-dot.blue { background: #3b82f6; box-shadow: 0 0 10px rgba(59,130,246,0.4); }
+  .marker-dot.purple { background: #8b5cf6; box-shadow: 0 0 10px rgba(139,92,246,0.4); }
+  .marker-dot.amber { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,0.4); }
+  .marker-dot.green { background: #10b981; box-shadow: 0 0 10px rgba(16,185,129,0.4); }
+  .chip-label {
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: all 0.2s;
+  }
+  .chip-year {
+    font-size: 9px;
+    font-weight: 700;
+    color: #dc2626;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .chip-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: #ccc;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Bottom Sheet ── */
+  .bottom-sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(100% - 48px);
+    z-index: 30;
+    pointer-events: none;
+  }
+  .sheet-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background: #0a0a0a;
+    border-radius: 16px 16px 0 0;
+    pointer-events: auto;
+    will-change: transform;
+    box-shadow: 0 -4px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet-wrapper.snapping {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ── Drag Handle ── */
+  .drag-handle {
+    padding: 10px 0 6px;
+    cursor: grab;
+    touch-action: none;
+    flex-shrink: 0;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-pill {
+    width: 36px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+
+  /* ── Sheet Content ── */
+  .sheet-content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet-content.scrollable {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── Category Pills ── */
+  .category-pills {
+    display: flex;
+    gap: 6px;
+    padding: 4px 14px 10px;
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+  .category-pills::-webkit-scrollbar { display: none; }
+  .cat-pill {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: #888;
+    transition: all 0.2s;
+  }
+  .cat-pill.active {
+    background: #dc2626;
+    color: #fff;
+    border-color: #dc2626;
+  }
+
+  /* ── Tab Bar ── */
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+    padding: 0 14px;
+  }
+  .tab-btn {
+    padding: 8px 0;
+    margin-right: 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { color: #fff; border-bottom-color: #dc2626; }
+  .tab-btn .count { color: #555; font-weight: 400; }
+
+  /* ── Sort Pills ── */
+  .sort-row {
+    display: flex;
+    gap: 4px;
+    padding: 8px 14px;
+    flex-shrink: 0;
+  }
+  .sort-pill {
+    font-size: 11px;
+    color: #555;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 0;
+  }
+  .sort-pill.active { color: #fff; }
+  .sort-sep { color: #333; font-size: 11px; }
+
+  /* ── Story Cards (Explore) ── */
+  .card-list {
+    padding: 6px 14px 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .story-card {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .story-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  .story-card:hover, .story-card:active {
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .story-card.red::before { background: #dc2626; }
+  .story-card.blue::before { background: #3b82f6; }
+  .story-card.purple::before { background: #8b5cf6; }
+  .story-card.amber::before { background: #f59e0b; }
+  .story-card.green::before { background: #10b981; }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .card-year {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    font-family: 'IBM Plex Mono', monospace;
+    flex-shrink: 0;
+    padding-top: 3px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #555;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .card-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card-badge.red { background: rgba(220,38,38,0.15); color: #dc2626; }
+  .card-badge.blue { background: rgba(59,130,246,0.15); color: #3b82f6; }
+  .card-badge.purple { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+  .card-badge.amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .card-badge.green { background: rgba(16,185,129,0.15); color: #10b981; }
+
+  /* ── Story View ── */
+  .story-view { display: none; flex-direction: column; height: 100%; }
+  .story-view.active { display: flex; }
+
+  .sv-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .sv-back {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .sv-back:hover { color: #fff; }
+
+  .sv-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .sv-color-bar {
+    height: 3px;
+    border-radius: 2px;
+    width: 40px;
+    margin-bottom: 10px;
+  }
+  .sv-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    font-family: 'Crimson Text', Georgia, serif;
+    margin-bottom: 4px;
+  }
+  .sv-meta {
+    font-size: 10px;
+    color: #555;
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .sv-desc {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.6;
+  }
+
+  /* ── Dive Deeper ── */
+  .dive-deeper {
+    padding: 8px 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .dd-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .dd-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .dd-scroll::-webkit-scrollbar { display: none; }
+  .dd-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    max-width: 200px;
+  }
+  .dd-chip:hover { border-color: rgba(255,255,255,0.15); background: #161616; }
+  .dd-chip-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(220,38,38,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .dd-chip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+  }
+  .dd-chip-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ddd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dd-chip-sub {
+    font-size: 10px;
+    color: #555;
+  }
+  .dd-chip-badge {
+    font-size: 8px;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .dd-chip-badge.blue { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .dd-chip-badge.yellow { background: rgba(245,158,11,0.15); color: #fbbf24; }
+
+  /* ── Moment Cards (Story View) ── */
+  .moment-list {
+    padding: 10px 14px 200px;
+  }
+  .moment-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .moment-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .moment-card {
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+  .moment-card.active {
+    background: #1a1a1a;
+    border-color: rgba(255,255,255,0.1);
+    border-left: 3px solid #dc2626;
+  }
+  .moment-card:hover { background: #1a1a1a; }
+  .moment-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(220,38,38,0.15);
+    color: #dc2626;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .moment-body { flex: 1; min-width: 0; }
+  .moment-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #eee;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .moment-subtitle {
+    font-size: 11px;
+    color: #666;
+    font-style: italic;
+    font-family: 'Crimson Text', Georgia, serif;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .moment-meta {
+    font-size: 9px;
+    color: #444;
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    gap: 8px;
+  }
+
+  /* ── Expanded Moment ── */
+  .moment-expand {
+    display: none;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .moment-card.active .moment-expand { display: block; }
+  .moment-expand-desc {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .moment-expand-entities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .entity-chip {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(220,38,38,0.1);
+    color: #dc2626;
+    font-weight: 500;
+    border: 1px solid rgba(220,38,38,0.15);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .entity-chip:hover { background: rgba(220,38,38,0.2); }
+  .also-in {
+    font-size: 10px;
+    color: #444;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 6px;
+  }
+  .also-in a {
+    color: #666;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* ── Snap indicators ── */
+  .snap-indicators {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .snap-btn {
+    padding: 5px 10px;
+    background: rgba(26,26,26,0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #888;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .snap-btn.active { color: #dc2626; border-color: rgba(220,38,38,0.3); }
+  .snap-btn:hover { color: #fff; }
+
+  /* ── Mode toggle ── */
+  .mode-toggle {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mode-btn {
+    padding: 5px 10px;
+    background: rgba(26,26,26,0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #888;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mode-btn.active { color: #dc2626; border-color: rgba(220,38,38,0.3); }
+</style>
+</head>
+<body>
+
+<div class="concept-info">
+  <h1>🗺️ Hybrid Bottom Sheet</h1>
+  <p>Google/Apple Maps-style draggable sheet over a full-screen map. Three snap points: peek (handle + first card), half (50%), full (100%). Combines the Living Map's labeled markers, the mockups' polished card styling, and full strotability (Dive Deeper, entity chips, scroll-driven moment expansion). Drag the handle or use the snap buttons on the right. Click "Story Mode" to see the full strot experience.</p>
+</div>
+
+<div class="phone-frame" id="app">
+  <!-- Header -->
+  <div class="app-header">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#dc2626"/>
+        <circle cx="12" cy="9" r="2.5" fill="#0a0a0a"/>
+      </svg>
+      <span class="deep">Deep</span><span class="maps">Maps</span>
+    </div>
+    <input type="text" class="search-bar" placeholder="Search..." readonly>
+  </div>
+
+  <!-- Map -->
+  <div class="map-container">
+    <div class="map-grid">
+      <span class="map-label" style="top:35%;left:15%;">UNITED STATES</span>
+
+      <!-- Marker chips -->
+      <div class="marker-chip" id="mc-jfk" style="top:52%;left:58%;" onclick="activateMarker('jfk')">
+        <div class="marker-dot"></div>
+        <div class="chip-label"><span class="chip-year">1963</span><span class="chip-name">JFK Assassination</span></div>
+      </div>
+      <div class="marker-chip" id="mc-mlk" style="top:56%;left:62%;" onclick="activateMarker('mlk')">
+        <div class="marker-dot blue"></div>
+        <div class="chip-label"><span class="chip-year">1968</span><span class="chip-name">MLK Shot at Lorraine</span></div>
+      </div>
+      <div class="marker-chip" id="mc-lincoln" style="top:40%;left:72%;" onclick="activateMarker('lincoln')">
+        <div class="marker-dot purple"></div>
+        <div class="chip-label"><span class="chip-year">1865</span><span class="chip-name">Lincoln Shot at Ford's</span></div>
+      </div>
+      <div class="marker-chip" id="mc-rosa" style="top:58%;left:64%;" onclick="activateMarker('rosa')">
+        <div class="marker-dot amber"></div>
+        <div class="chip-label"><span class="chip-year">1955</span><span class="chip-name">Rosa Parks Arrested</span></div>
+      </div>
+      <div class="marker-chip" id="mc-trinity" style="top:55%;left:30%;" onclick="activateMarker('trinity')">
+        <div class="marker-dot green"></div>
+        <div class="chip-label"><span class="chip-year">1945</span><span class="chip-name">Trinity Nuclear Test</span></div>
+      </div>
+      <div class="marker-chip" id="mc-wright" style="top:44%;left:74%;" onclick="activateMarker('wright')">
+        <div class="marker-dot amber"></div>
+        <div class="chip-label"><span class="chip-year">1903</span><span class="chip-name">Wright Brothers Fly</span></div>
+      </div>
+    </div>
+
+    <!-- Snap buttons -->
+    <div class="snap-indicators">
+      <button class="snap-btn" onclick="snapTo('peek')">Peek</button>
+      <button class="snap-btn active" onclick="snapTo('half')">Half</button>
+      <button class="snap-btn" onclick="snapTo('full')">Full</button>
+    </div>
+
+    <!-- Mode toggle -->
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="mode-explore" onclick="setMode('explore')">Explore</button>
+      <button class="mode-btn" id="mode-story" onclick="setMode('story')">Story</button>
+    </div>
+  </div>
+
+  <!-- Bottom Sheet -->
+  <div class="bottom-sheet">
+    <div class="sheet-wrapper" id="sheet">
+      <div class="drag-handle" id="dragHandle">
+        <div class="drag-pill"></div>
+      </div>
+
+      <div class="sheet-content" id="sheetContent">
+        <!-- ══ EXPLORE VIEW ══ -->
+        <div id="exploreView">
+          <div class="tab-bar">
+            <button class="tab-btn active">Stories <span class="count">(118)</span></button>
+            <button class="tab-btn">Moments <span class="count">(217)</span></button>
+            <button class="tab-btn">Places <span class="count">(41)</span></button>
+          </div>
+          <div class="sort-row">
+            <button class="sort-pill active">Notable</button>
+            <span class="sort-sep">·</span>
+            <button class="sort-pill">Nearest</button>
+            <span class="sort-sep">·</span>
+            <button class="sort-pill">A-Z</button>
+          </div>
+          <div class="category-pills">
+            <button class="cat-pill active">All</button>
+            <button class="cat-pill">Dark History</button>
+            <button class="cat-pill">Battles</button>
+            <button class="cat-pill">Discovery</button>
+            <button class="cat-pill">Culture</button>
+            <button class="cat-pill">Leadership</button>
+          </div>
+          <div class="card-list" id="cardList">
+            <div class="story-card red" onclick="enterStory('jfk')">
+              <div class="card-header">
+                <span class="card-title">JFK Is Assassinated in Dallas</span>
+                <span class="card-year">1963</span>
+              </div>
+              <div class="card-desc">Kennedy is shot in the presidential motorcade as it passes through Dealey Plaza, changing the course of American history.</div>
+              <div class="card-footer">
+                <span class="card-badge red">Dark History</span>
+                <span>3 moments</span>
+                <span>· 1.2 mi</span>
+              </div>
+            </div>
+            <div class="story-card blue" onclick="enterStory('mlk')">
+              <div class="card-header">
+                <span class="card-title">Martin Luther King Jr.</span>
+                <span class="card-year">1929–1968</span>
+              </div>
+              <div class="card-desc">The Baptist minister who led the American civil rights movement through nonviolent resistance.</div>
+              <div class="card-footer">
+                <span class="card-badge blue">Leadership</span>
+                <span>8 moments · 3 stories</span>
+              </div>
+            </div>
+            <div class="story-card purple" onclick="enterStory('lincoln')">
+              <div class="card-header">
+                <span class="card-title">Abraham Lincoln</span>
+                <span class="card-year">1809–1865</span>
+              </div>
+              <div class="card-desc">The 16th President who held the Union together through the Civil War and abolished slavery.</div>
+              <div class="card-footer">
+                <span class="card-badge purple">Leadership</span>
+                <span>12 moments · 4 stories</span>
+              </div>
+            </div>
+            <div class="story-card amber">
+              <div class="card-header">
+                <span class="card-title">Rosa Parks Refuses Her Bus Seat</span>
+                <span class="card-year">1955</span>
+              </div>
+              <div class="card-desc">A single act of defiance on a Montgomery city bus sparks the 381-day boycott that dismantles public transit segregation.</div>
+              <div class="card-footer">
+                <span class="card-badge amber">Civil Rights</span>
+                <span>4 moments</span>
+              </div>
+            </div>
+            <div class="story-card green">
+              <div class="card-header">
+                <span class="card-title">The First Nuclear Bomb</span>
+                <span class="card-year">1945</span>
+              </div>
+              <div class="card-desc">The Trinity test detonates at 21 kilotons in the New Mexico desert, fusing sand to glass and ushering in the atomic age.</div>
+              <div class="card-footer">
+                <span class="card-badge green">Discovery</span>
+                <span>3 moments</span>
+              </div>
+            </div>
+            <div class="story-card amber">
+              <div class="card-header">
+                <span class="card-title">Wright Brothers' First Flight</span>
+                <span class="card-year">1903</span>
+              </div>
+              <div class="card-desc">Twelve seconds of powered flight at Kill Devil Hills changes human civilization forever.</div>
+              <div class="card-footer">
+                <span class="card-badge amber">Discovery</span>
+                <span>3 moments</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ STORY VIEW ══ -->
+        <div class="story-view" id="storyView">
+          <div class="sv-breadcrumb">
+            <button class="sv-back" onclick="setMode('explore')">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M6.5 2L3 5l3.5 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Stories
+            </button>
+          </div>
+          <div class="sv-header">
+            <div class="sv-color-bar" style="background:#dc2626;"></div>
+            <div class="sv-title">The JFK Assassination</div>
+            <div class="sv-meta">
+              <span class="card-badge red">Dark History</span>
+              <span>1963</span>
+              <span>· incident</span>
+            </div>
+            <div class="sv-desc">At 12:30 PM on November 22, 1963, President John F. Kennedy is shot while riding in a motorcade through Dealey Plaza in Dallas, Texas.</div>
+          </div>
+
+          <!-- Dive Deeper -->
+          <div class="dive-deeper">
+            <div class="dd-label">Dive Deeper</div>
+            <div class="dd-scroll">
+              <div class="dd-chip" onclick="alert('Navigate to Lee Harvey Oswald entity')">
+                <div class="dd-chip-icon">👤</div>
+                <div class="dd-chip-text">
+                  <span class="dd-chip-name">Lee Harvey Oswald</span>
+                  <span class="dd-chip-sub">6 moments · 2 stories</span>
+                </div>
+              </div>
+              <div class="dd-chip" onclick="alert('Navigate to Jackie Kennedy entity')">
+                <div class="dd-chip-icon">👤</div>
+                <div class="dd-chip-text">
+                  <span class="dd-chip-name">Jackie Kennedy</span>
+                  <span class="dd-chip-sub">4 moments · 1 story</span>
+                </div>
+              </div>
+              <div class="dd-chip">
+                <div class="dd-chip-icon">📍</div>
+                <div class="dd-chip-text">
+                  <span class="dd-chip-name">Jack Ruby Trial</span>
+                  <span class="dd-chip-sub">2 moments · 1963</span>
+                </div>
+                <span class="dd-chip-badge blue">Related</span>
+              </div>
+              <div class="dd-chip">
+                <div class="dd-chip-icon">📍</div>
+                <div class="dd-chip-text">
+                  <span class="dd-chip-name">Abraham Lincoln</span>
+                  <span class="dd-chip-sub">12 moments · 4 stories</span>
+                </div>
+                <span class="dd-chip-badge yellow">Nearby</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moments -->
+          <div class="moment-list" id="momentList">
+            <div class="moment-label">Moments (3)</div>
+            <div class="moment-cards">
+              <div class="moment-card active" onclick="toggleMoment(this)">
+                <div class="moment-num">1</div>
+                <div class="moment-body">
+                  <div class="moment-title">JFK Is Assassinated in Dallas</div>
+                  <div class="moment-subtitle">Kennedy is shot in the presidential motorcade as it passes through Dealey Plaza</div>
+                  <div class="moment-meta">
+                    <span>1963</span>
+                    <span>Dealey Plaza</span>
+                    <span>Dallas, TX</span>
+                  </div>
+                  <div class="moment-expand">
+                    <div class="moment-expand-desc">At 12:30 PM on November 22, 1963, three shots are fired from a sixth-floor window of the Texas School Book Depository. President Kennedy is struck in the back and head. Governor John Connally, seated in front, is also wounded. The presidential limousine races to Parkland Memorial Hospital.</div>
+                    <div class="moment-expand-entities">
+                      <span class="entity-chip">John F. Kennedy</span>
+                      <span class="entity-chip">Lee Harvey Oswald</span>
+                      <span class="entity-chip">Jackie Kennedy</span>
+                    </div>
+                    <div class="also-in">Also in: <a>Lee Harvey Oswald</a> · <a>Cold War America</a></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="moment-card" onclick="toggleMoment(this)">
+                <div class="moment-num">2</div>
+                <div class="moment-body">
+                  <div class="moment-title">Oswald Fires Three Shots from a Sixth-Floor Window</div>
+                  <div class="moment-subtitle">A mail-order Mannlicher-Carcano rifle is found on the sixth floor of the Book Depository</div>
+                  <div class="moment-meta">
+                    <span>1963</span>
+                    <span>Texas School Book Depository</span>
+                  </div>
+                  <div class="moment-expand">
+                    <div class="moment-expand-desc">Lee Harvey Oswald, a 24-year-old former Marine and Soviet defector, fires three shots from a 6.5mm Carcano rifle. Witnesses see a rifle barrel in the sixth-floor window. Within 90 minutes, Oswald is arrested at the Texas Theatre after shooting police officer J.D. Tippit.</div>
+                    <div class="moment-expand-entities">
+                      <span class="entity-chip">Lee Harvey Oswald</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="moment-card" onclick="toggleMoment(this)">
+                <div class="moment-num">3</div>
+                <div class="moment-body">
+                  <div class="moment-title">Jack Ruby Shoots Oswald on Live Television</div>
+                  <div class="moment-subtitle">Millions of viewers watch as Ruby steps from the crowd in the basement of Dallas Police HQ</div>
+                  <div class="moment-meta">
+                    <span>1963</span>
+                    <span>Dallas Police HQ</span>
+                  </div>
+                  <div class="moment-expand">
+                    <div class="moment-expand-desc">Two days after the assassination, nightclub owner Jack Ruby shoots Lee Harvey Oswald during a prisoner transfer in the basement of Dallas Police headquarters. It is the first murder broadcast live on American television. Oswald dies at Parkland Memorial Hospital — the same hospital where Kennedy was pronounced dead.</div>
+                    <div class="moment-expand-entities">
+                      <span class="entity-chip">Lee Harvey Oswald</span>
+                      <span class="entity-chip">Jack Ruby</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sheet = document.getElementById('sheet');
+  const dragHandle = document.getElementById('dragHandle');
+  const sheetContent = document.getElementById('sheetContent');
+  const app = document.getElementById('app');
+
+  // Snap points (translateY from top of sheet area)
+  const appH = 764; // phone height - header
+  const SNAP = {
+    peek: appH - 140,
+    half: appH * 0.5,
+    full: 0
+  };
+
+  let currentSnap = 'half';
+  let startY = 0;
+  let startTranslateY = SNAP.half;
+  let currentTranslateY = SNAP.half;
+  let isDragging = false;
+
+  // Initialize
+  sheet.style.transform = `translateY(${SNAP.half}px)`;
+  updateSnapButtons();
+  updateContentScroll();
+
+  // ── Touch handling on drag handle ──
+  dragHandle.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startY = e.touches[0].clientY;
+    startTranslateY = currentTranslateY;
+    sheet.classList.remove('snapping');
+    e.preventDefault();
+  }, { passive: false });
+
+  dragHandle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    startTranslateY = currentTranslateY;
+    sheet.classList.remove('snapping');
+    e.preventDefault();
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const deltaY = e.touches[0].clientY - startY;
+    currentTranslateY = Math.max(SNAP.full, Math.min(SNAP.peek, startTranslateY + deltaY));
+    sheet.style.transform = `translateY(${currentTranslateY}px)`;
+  }, { passive: true });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const deltaY = e.clientY - startY;
+    currentTranslateY = Math.max(SNAP.full, Math.min(SNAP.peek, startTranslateY + deltaY));
+    sheet.style.transform = `translateY(${currentTranslateY}px)`;
+  });
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    // Find nearest snap
+    let closestSnap = 'half';
+    let closestDist = Infinity;
+    for (const [name, val] of Object.entries(SNAP)) {
+      const dist = Math.abs(currentTranslateY - val);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestSnap = name;
+      }
+    }
+    snapTo(closestSnap);
+  }
+
+  document.addEventListener('touchend', endDrag);
+  document.addEventListener('mouseup', endDrag);
+
+  // ── Overscroll-to-collapse ──
+  let contentStartY = 0;
+  let isOverscrolling = false;
+
+  sheetContent.addEventListener('touchstart', (e) => {
+    contentStartY = e.touches[0].clientY;
+    isOverscrolling = false;
+  }, { passive: true });
+
+  sheetContent.addEventListener('touchmove', (e) => {
+    if (currentSnap !== 'full') return;
+    if (sheetContent.scrollTop <= 0) {
+      const delta = e.touches[0].clientY - contentStartY;
+      if (delta > 20) {
+        isOverscrolling = true;
+        currentTranslateY = Math.min(SNAP.half, delta - 20);
+        sheet.classList.remove('snapping');
+        sheet.style.transform = `translateY(${currentTranslateY}px)`;
+        e.preventDefault();
+      }
+    }
+  }, { passive: false });
+
+  sheetContent.addEventListener('touchend', () => {
+    if (isOverscrolling) {
+      if (currentTranslateY > SNAP.half * 0.4) {
+        snapTo('half');
+      } else {
+        snapTo('full');
+      }
+      isOverscrolling = false;
+    }
+  });
+
+  // ── Content scroll-to-expand ──
+  sheetContent.addEventListener('touchmove', (e) => {
+    if (currentSnap === 'peek' || currentSnap === 'half') {
+      const delta = contentStartY - e.touches[0].clientY;
+      if (delta > 15) {
+        snapTo('full');
+      }
+    }
+  }, { passive: true });
+
+  function snapTo(name) {
+    currentSnap = name;
+    currentTranslateY = SNAP[name];
+    sheet.classList.add('snapping');
+    sheet.style.transform = `translateY(${SNAP[name]}px)`;
+    updateSnapButtons();
+    updateContentScroll();
+  }
+
+  function updateSnapButtons() {
+    document.querySelectorAll('.snap-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === currentSnap);
+    });
+  }
+
+  function updateContentScroll() {
+    if (currentSnap === 'full') {
+      sheetContent.classList.add('scrollable');
+    } else {
+      sheetContent.classList.remove('scrollable');
+    }
+  }
+
+  // ── Mode switching ──
+  let currentMode = 'explore';
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('exploreView').style.display = mode === 'explore' ? 'block' : 'none';
+    document.getElementById('storyView').classList.toggle('active', mode === 'story');
+    document.getElementById('mode-explore').classList.toggle('active', mode === 'explore');
+    document.getElementById('mode-story').classList.toggle('active', mode === 'story');
+
+    if (mode === 'story') {
+      snapTo('half');
+      // Activate first marker
+      document.querySelectorAll('.marker-chip').forEach(m => m.classList.remove('active'));
+      document.getElementById('mc-jfk')?.classList.add('active');
+    } else {
+      document.querySelectorAll('.marker-chip').forEach(m => m.classList.remove('active'));
+    }
+    sheetContent.scrollTop = 0;
+  }
+
+  function enterStory(id) {
+    setMode('story');
+    snapTo('half');
+  }
+
+  // ── Moment card toggle ──
+  function toggleMoment(el) {
+    document.querySelectorAll('.moment-card').forEach(c => {
+      if (c !== el) c.classList.remove('active');
+    });
+    el.classList.toggle('active');
+  }
+
+  // ── Marker activation ──
+  function activateMarker(id) {
+    document.querySelectorAll('.marker-chip').forEach(m => m.classList.remove('active'));
+    document.getElementById('mc-' + id)?.classList.add('active');
+  }
+</script>
+</body>
+</html>

@@ -18,6 +18,7 @@ export interface AdminData {
   addNote: (itemType: AdminItemType, itemId: string, fieldName: string | null, text: string) => Promise<void>;
   resolveNote: (noteId: string) => Promise<void>;
   updateReviewStatus: (table: string, itemId: string, status: ReviewStatus) => Promise<void>;
+  updateMomentGeo: (momentId: string, lat: number, lng: number, sourceUrl: string | null) => Promise<void>;
   addRoadmapItem: (item: Pick<RoadmapItem, 'title' | 'description' | 'category' | 'priority' | 'status'>) => Promise<void>;
   updateRoadmapItem: (id: string, changes: Partial<RoadmapItem>) => Promise<void>;
   deleteRoadmapItem: (id: string) => Promise<void>;
@@ -122,6 +123,18 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
     if (error) { console.error('[admin] updateReviewStatus error:', error); return; }
   }, []);
 
+  // ─── Geo verification ──────────────────────────────────────────────
+
+  const updateMomentGeo = useCallback(async (momentId: string, lat: number, lng: number, sourceUrl: string | null) => {
+    const { error } = await supabase.rpc('update_moment_location', {
+      p_id: momentId,
+      p_lng: lng,
+      p_lat: lat,
+      p_source_url: sourceUrl,
+    });
+    if (error) throw error;
+  }, []);
+
   // ─── Roadmap mutations ──────────────────────────────────────────────
 
   const addRoadmapItem = useCallback(async (item: Pick<RoadmapItem, 'title' | 'description' | 'category' | 'priority' | 'status'>) => {
@@ -170,6 +183,7 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
         addNote,
         resolveNote,
         updateReviewStatus,
+        updateMomentGeo,
         addRoadmapItem,
         updateRoadmapItem,
         deleteRoadmapItem,

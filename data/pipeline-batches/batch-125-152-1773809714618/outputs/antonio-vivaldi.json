@@ -1,0 +1,100 @@
+{
+  "personName": "Antonio Vivaldi",
+  "content": {
+    "entity": {
+      "id": "antonio-vivaldi",
+      "name": "Antonio Vivaldi",
+      "type": "person",
+      "years": "1678–1741",
+      "description": "The Red Priest who composed The Four Seasons for an orphanage orchestra. An ordained Catholic priest who stopped saying Mass due to asthma, Vivaldi wrote over 500 concertos and 50 operas for the all-female ensemble of Venice's Ospedale della Pieta. He died penniless in Vienna, and his music was forgotten for nearly 200 years.",
+      "wikipediaSlug": "Antonio_Vivaldi",
+      "canonicalStoryId": "antonio-vivaldi-life"
+    },
+    "story": {
+      "id": "antonio-vivaldi-life",
+      "name": "Antonio Vivaldi",
+      "years": "1678–1741",
+      "category": "arts-culture",
+      "storyType": "biography",
+      "description": "Ordained as a priest, hired as violin master at a Venetian orphanage, publishes L'estro armonico to Europe-wide acclaim, and dies in poverty in Vienna. The rise and fall of Baroque music's greatest innovator.",
+      "tags": ["baroque", "classical-music", "venice", "violin", "opera"],
+      "wikipediaSlug": "Antonio_Vivaldi",
+      "relatedStoryIds": ["johann-sebastian-bach-life", "george-frideric-handel-life", "claudio-monteverdi-life"]
+    },
+    "moments": [
+      {
+        "id": "vivaldi-born-venice",
+        "name": "Antonio Vivaldi Is Born in Venice and Baptized Immediately Due to Frail Health",
+        "subtitle": "A sickly baby who will become the most prolific composer of the Baroque era",
+        "description": "On March 4, 1678, Antonio Lucio Vivaldi was born in Venice, the capital of the Republic of Venice, to Giovanni Battista Vivaldi, a barber turned professional violinist, and Camilla Calicchio. The infant was so frail that the midwife baptized him immediately at home — an emergency measure suggesting the family feared he might not survive. The formal baptismal ceremonies were performed two months later at the Church of San Giovanni in Bragora. Vivaldi suffered from chronic chest tightness (likely asthma) throughout his life, which prevented him from playing wind instruments but never stopped him from mastering the violin. His father taught him to play from an early age.",
+        "lat": 45.4344,
+        "lng": 12.3431,
+        "type": "religious_site",
+        "importance": "minor",
+        "accuracy": "exact",
+        "kind": "milestone",
+        "year": 1678,
+        "date": "March 4, 1678",
+        "address": "Church of San Giovanni in Bragora, Venice",
+        "entityIds": ["antonio-vivaldi"],
+        "verificationLevel": "verified",
+        "wikiSection": "Birth_and_background"
+      },
+      {
+        "id": "vivaldi-hired-ospedale-pieta",
+        "name": "Vivaldi Becomes Violin Master at Venice's Ospedale della Pieta",
+        "subtitle": "An ordained priest who cannot say Mass begins teaching orphan girls to play",
+        "description": "In September 1703, the 24-year-old Antonio Vivaldi — freshly ordained as a Catholic priest and already nicknamed 'Il Prete Rosso' (The Red Priest) for his red hair — was appointed maestro di violino at the Ospedale della Pieta, a Venetian institution that sheltered abandoned and orphaned children. Vivaldi had been excused from saying public Mass, likely due to his chronic asthma. Over the next 30 years, he composed the majority of his major works for the Ospedale's all-female orchestra and choir, which became one of the most celebrated musical ensembles in Europe. The board voted annually on whether to retain him, and the margin was sometimes razor-thin — 7 to 6 against in 1709.",
+        "lat": 45.4337,
+        "lng": 12.3445,
+        "type": "institution",
+        "importance": "major",
+        "accuracy": "exact",
+        "kind": "event",
+        "year": 1703,
+        "date": "September 1703",
+        "address": "Ospedale della Pieta, Riva degli Schiavoni, Venice",
+        "entityIds": ["antonio-vivaldi"],
+        "verificationLevel": "verified",
+        "wikiSection": "Ospedale_della_Pietà"
+      },
+      {
+        "id": "vivaldi-publishes-lestro-armonico",
+        "name": "Vivaldi Publishes L'estro armonico and Becomes Famous Across Europe",
+        "subtitle": "Twelve concertos printed in Amsterdam make Bach himself copy them out by hand",
+        "description": "In 1711, the Amsterdam publisher Estienne Roger released Vivaldi's L'estro armonico (The Harmonic Inspiration), Opus 3 — a collection of 12 concertos for one, two, and four violins with strings, dedicated to Grand Prince Ferdinand of Tuscany. The publication was a sensation across Europe and established Vivaldi as one of the leading composers of his generation. Johann Sebastian Bach was so impressed that he transcribed six of the concertos for keyboard. L'estro armonico codified the three-movement fast-slow-fast concerto form that became the standard for the next century. The collection was followed in 1714 by La stravaganza (Opus 4), cementing Vivaldi's international reputation.",
+        "lat": 52.3676,
+        "lng": 4.9041,
+        "type": "cultural_site",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1711,
+        "date": "1711",
+        "address": "Amsterdam, Dutch Republic",
+        "entityIds": ["antonio-vivaldi"],
+        "verificationLevel": "verified",
+        "wikiSection": "Ospedale_della_Pietà"
+      },
+      {
+        "id": "vivaldi-dies-penniless-vienna",
+        "name": "Vivaldi Dies Penniless and Forgotten in Vienna",
+        "subtitle": "The most famous composer in Europe is buried in a pauper's grave",
+        "description": "On July 28, 1741, Antonio Vivaldi died in Vienna at the age of 63, impoverished and virtually unknown. Vivaldi had moved to Vienna hoping for patronage from Emperor Charles VI, but the emperor died in October 1740 — just months after Vivaldi's arrival — leaving the composer without a sponsor. Vivaldi received a pauper's burial at the Spitaller Gottesacker cemetery; a young Joseph Haydn, then a choirboy at St. Stephen's Cathedral, may have been among those who sang at the simple funeral. Vivaldi's music fell into near-total obscurity for almost 200 years until scholars rediscovered his vast catalog in the early 20th century. Today The Four Seasons is among the most recorded pieces of music in history.",
+        "lat": 48.2082,
+        "lng": 16.3738,
+        "type": "burial_site",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1741,
+        "date": "July 28, 1741",
+        "address": "Vienna, Austria",
+        "entityIds": ["antonio-vivaldi"],
+        "verificationLevel": "verified",
+        "wikiSection": "Death"
+      }
+    ],
+    "suggestedCollections": ["baroque-composers", "venetian-masters", "classical-music-giants"]
+  }
+}

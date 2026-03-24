@@ -1,0 +1,100 @@
+{
+  "personName": "John the Baptist",
+  "content": {
+    "entity": {
+      "id": "john-the-baptist",
+      "name": "John the Baptist",
+      "type": "person",
+      "years": "c. 6 BC – c. AD 30",
+      "description": "The wilderness preacher who baptized Jesus in the Jordan River. Revered as a prophet in Christianity, Islam, and Mandaeism, John called for repentance and announced the coming of a greater figure. He was beheaded by Herod Antipas after rebuking the king for an unlawful marriage. He is the only saint whose birth and death are both commemorated.",
+      "wikipediaSlug": "John_the_Baptist",
+      "canonicalStoryId": "john-the-baptist-life"
+    },
+    "story": {
+      "id": "john-the-baptist-life",
+      "name": "John the Baptist",
+      "years": "c. 6 BC – c. AD 30",
+      "category": "sacred-history",
+      "storyType": "biography",
+      "description": "A miraculous birth foretold by an angel, baptism of Jesus in the Jordan, imprisonment for defying a king, and beheading at a princess's request. The forerunner's life and death.",
+      "tags": ["christianity", "judaism", "islam", "biblical-figures", "baptism"],
+      "wikipediaSlug": "John_the_Baptist",
+      "relatedStoryIds": ["jesus-of-nazareth-life", "herod-the-great-life", "virgin-mary-life", "paul-the-apostle-life"]
+    },
+    "moments": [
+      {
+        "id": "angel-gabriel-foretells-johns-birth-in-jerusalem-temple",
+        "name": "The Angel Gabriel Foretells John's Birth to His Father in the Jerusalem Temple",
+        "subtitle": "An elderly priest and his barren wife are promised a son who will prepare the way",
+        "description": "According to the Gospel of Luke, the angel Gabriel appeared to the priest Zechariah while he was performing duties in the Temple of Jerusalem, announcing that his wife Elizabeth, who was past menopause, would bear a son named John. Zechariah belonged to the priestly course of Abijah, and Elizabeth was a descendant of Aaron, making John a priest on both sides. The announcement parallels Old Testament birth narratives, particularly that of Samuel. The Catholic, Anglican, and Lutheran churches celebrate John's birth on June 24, six months before Christmas, based on Gabriel's timeline in Luke's account.",
+        "lat": 31.7781,
+        "lng": 35.2354,
+        "type": "biblical_event",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": -7,
+        "date": "c. 7–6 BC",
+        "address": "Temple Mount, Jerusalem",
+        "entityIds": ["john-the-baptist"],
+        "verificationLevel": "traditional",
+        "wikiSection": "In_Luke_and_Acts"
+      },
+      {
+        "id": "john-the-baptist-preaches-repentance-in-jordan-wilderness",
+        "name": "John the Baptist Preaches Repentance in the Judean Wilderness",
+        "subtitle": "A man dressed in camel's hair and eating locusts draws crowds to the Jordan River",
+        "description": "Around AD 28-29, John the Baptist began preaching in the wilderness near the Jordan River, calling for baptism as a sign of repentance for the forgiveness of sins. Described in the Gospels as wearing camel's hair clothing and eating locusts and wild honey, John drew large crowds and announced that a greater figure would follow who would baptize not with water but with the Holy Spirit. Some scholars believe John may have been connected to the Essenes, a semi-ascetic Jewish sect that practiced ritual immersion. John's movement was significant enough to be recorded independently by the Jewish historian Josephus, confirming his historicity outside Christian sources.",
+        "lat": 31.8375,
+        "lng": 35.5494,
+        "type": "religious_site",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 28,
+        "date": "c. AD 28–29",
+        "address": "Jordan River wilderness, near Jericho",
+        "entityIds": ["john-the-baptist"],
+        "verificationLevel": "documented",
+        "wikiSection": "In_Mark"
+      },
+      {
+        "id": "john-baptizes-jesus-in-the-jordan-river",
+        "name": "John Baptizes Jesus in the Jordan River",
+        "subtitle": "The forerunner immerses the man he declared greater than himself",
+        "description": "Around AD 28-29, John the Baptist baptized Jesus of Nazareth in the Jordan River, an event recorded in all four canonical Gospels and considered one of the most historically certain episodes of Jesus's life by biblical scholars. According to Mark and Luke, as Jesus emerged from the water, the heavens opened and the Holy Spirit descended like a dove. In Matthew's account, John initially objected, saying he was unworthy to baptize Jesus. The Gospel of John does not depict the baptism directly but has John testifying that he saw the Spirit descend. Several of Jesus's earliest followers, including Andrew, had originally been disciples of John the Baptist.",
+        "lat": 31.8366,
+        "lng": 35.5505,
+        "type": "biblical_event",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 28,
+        "date": "c. AD 28–29",
+        "address": "Qasr el Yahud, Jordan River",
+        "entityIds": ["john-the-baptist"],
+        "verificationLevel": "documented",
+        "wikiSection": "Baptism_of_Jesus"
+      },
+      {
+        "id": "herod-antipas-beheads-john-the-baptist-at-machaerus",
+        "name": "Herod Antipas Orders John the Baptist Beheaded at Machaerus",
+        "subtitle": "A dancing princess requests a prophet's head on a silver plate",
+        "description": "Around AD 30, Herod Antipas, tetrarch of Galilee, ordered the beheading of John the Baptist at the fortress of Machaerus, east of the Dead Sea in modern Jordan. John had publicly rebuked Herod for divorcing his wife and unlawfully marrying Herodias, the wife of his brother. According to the Gospel of Mark, Herod was reluctant to execute John, recognizing him as righteous, but Herodias's daughter (identified by Josephus as Salome) danced before Herod at a banquet and was offered any reward. At her mother's instruction, she requested John's head on a plate. The historian Josephus independently confirms John's execution at Machaerus, attributing it to Herod's fear of John's political influence.",
+        "lat": 31.5683,
+        "lng": 35.6242,
+        "type": "crime_scene",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 30,
+        "date": "c. AD 30",
+        "address": "Machaerus fortress, Jordan",
+        "entityIds": ["john-the-baptist"],
+        "verificationLevel": "documented",
+        "wikiSection": "In_Mark"
+      }
+    ],
+    "suggestedCollections": ["biblical-events", "prophets-and-preachers", "famous-executions", "jordan-river-history"]
+  }
+}

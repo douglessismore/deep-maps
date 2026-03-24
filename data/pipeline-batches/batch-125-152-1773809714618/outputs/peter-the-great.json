@@ -1,0 +1,100 @@
+{
+  "personName": "Peter the Great",
+  "content": {
+    "entity": {
+      "id": "peter-the-great",
+      "name": "Peter the Great",
+      "type": "person",
+      "years": "1672–1725",
+      "description": "Tsar of Russia who traveled incognito through Europe, worked in Dutch shipyards, built St. Petersburg in a swamp on the bones of 100,000 forced laborers, and transformed Russia from a medieval backwater into a European great power.",
+      "wikipediaSlug": "Peter_the_Great",
+      "canonicalStoryId": "peter-the-great-life"
+    },
+    "story": {
+      "id": "peter-the-great-life",
+      "name": "Peter the Great",
+      "years": "1672–1725",
+      "category": "political-drama",
+      "storyType": "biography",
+      "description": "A 6'8\" tsar watches his relatives murdered as a child, travels incognito to work in Dutch shipyards, captures an Ottoman fortress, and forces Russia into the modern age through sheer will and brutality.",
+      "tags": ["russia", "monarchy", "modernization", "military", "enlightenment"],
+      "wikipediaSlug": "Peter_the_Great",
+      "relatedStoryIds": ["catherine-the-great-life", "russian-empire", "great-northern-war", "ottoman-empire"]
+    },
+    "moments": [
+      {
+        "id": "peter-great-born-moscow",
+        "name": "Peter the Great Is Born to the Tsar of Russia in Moscow",
+        "subtitle": "A future emperor enters a court riven by deadly family rivalries",
+        "description": "On 9 June 1672, Peter Alekseyevich was born in Moscow, the son of Tsar Alexis I and his second wife Natalya Naryshkina. When Alexis died in 1676, Peter's half-brother Feodor III inherited the throne. After Feodor's death in 1682, a succession crisis erupted between the families of the tsar's two wives. The ten-year-old Peter was proclaimed co-tsar alongside his half-brother Ivan V, but real power lay with their half-sister Sophia, who ruled as regent. Peter witnessed members of his own family murdered during a streltsy rebellion, experiences that shaped the ruthless ruler he would become.",
+        "lat": 55.7520,
+        "lng": 37.6175,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": 1672,
+        "date": "9 June 1672",
+        "address": "Moscow Kremlin, Moscow, Russia",
+        "entityIds": ["peter-the-great"],
+        "verificationLevel": "verified",
+        "wikiSection": "Early_life"
+      },
+      {
+        "id": "peter-great-works-dutch-shipyard",
+        "name": "Peter the Great Works Incognito in a Dutch Shipyard as a Carpenter",
+        "subtitle": "A sitting emperor picks up a hammer to learn how to build a navy",
+        "description": "In August 1697, Peter the Great arrived in Zaandam, Netherlands, traveling under the alias 'Peter Mikhailov' as part of his Grand Embassy to Western Europe. Standing 6 feet 8 inches tall, the Russian tsar was not particularly inconspicuous, but he enrolled as a ship's carpenter at the Dutch East India Company shipyard in Amsterdam to learn shipbuilding firsthand. Peter spent about four months in the Netherlands studying navigation, anatomy, and dentistry alongside shipcraft. No tsar had left Russia in over a century. Peter's hands-on apprenticeship laid the foundation for the Russian Navy he would build upon his return.",
+        "lat": 52.4397,
+        "lng": 4.8186,
+        "type": "workplace",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1697,
+        "date": "August 1697",
+        "address": "Zaandam, Netherlands",
+        "entityIds": ["peter-the-great"],
+        "verificationLevel": "verified",
+        "wikiSection": "Grand_Embassy"
+      },
+      {
+        "id": "peter-great-captures-azov",
+        "name": "Peter the Great Captures the Ottoman Fortress of Azov with 30 Ships",
+        "subtitle": "Russia's first naval victory launches an empire's maritime ambitions",
+        "description": "In July 1696, Peter the Great captured the Ottoman fortress of Azov near the Don River after a second campaign backed by a newly built fleet of about 30 ships constructed at Voronezh. The first assault in 1695 had failed disastrously because Russia lacked a navy to blockade the fortress from the sea. Peter returned to Moscow, built an entire fleet over the winter, and launched the second campaign in spring 1696. The victory gave Russia its first foothold on the Black Sea and demonstrated Peter's willingness to create institutions from scratch to achieve military objectives.",
+        "lat": 47.1114,
+        "lng": 39.4167,
+        "type": "battlefield",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1696,
+        "date": "July 1696",
+        "address": "Azov, Rostov Oblast, Russia",
+        "entityIds": ["peter-the-great"],
+        "verificationLevel": "verified",
+        "wikiSection": "Reign"
+      },
+      {
+        "id": "peter-great-dies-winter-palace",
+        "name": "Peter the Great Dies at 52 After Jumping into Freezing Water to Save Drowning Soldiers",
+        "subtitle": "The emperor who modernized Russia could not modernize his own recklessness",
+        "description": "On 8 February 1725, Peter the Great died in St. Petersburg at the age of 52. According to tradition, his final illness was exacerbated by his decision to wade into the freezing waters of the Gulf of Finland in November 1724 to help rescue soldiers from a grounding ship. The resulting fever and bladder complications proved fatal. Peter had transformed Russia from an isolated medieval state into a European power over 43 years of rule, founding a new capital, building a navy, reforming the government, and forcing Western customs on a reluctant nobility. He left no clear succession plan, plunging Russia into decades of palace coups.",
+        "lat": 59.9343,
+        "lng": 30.3351,
+        "type": "residence",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1725,
+        "date": "8 February 1725",
+        "address": "Winter Palace, St. Petersburg, Russia",
+        "entityIds": ["peter-the-great"],
+        "verificationLevel": "documented",
+        "wikiSection": "Death"
+      }
+    ],
+    "suggestedCollections": ["monarchs-and-rulers", "russia-history", "military-leaders", "europe-history"]
+  }
+}

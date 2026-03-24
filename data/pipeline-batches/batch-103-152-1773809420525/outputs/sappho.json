@@ -1,0 +1,100 @@
+{
+  "personName": "Sappho",
+  "content": {
+    "entity": {
+      "id": "sappho",
+      "name": "Sappho",
+      "type": "person",
+      "years": "c. 630–c. 570 BC",
+      "description": "The poet who gave her name to female desire. Ancient Greeks called her the Tenth Muse and The Poetess. Of roughly 10,000 lines she composed, only about 650 survive, mostly in fragments. The words 'sapphic' and 'lesbian' both derive from her name and her island home of Lesbos.",
+      "wikipediaSlug": "Sappho",
+      "canonicalStoryId": "sappho-life"
+    },
+    "story": {
+      "id": "sappho-life",
+      "name": "Sappho",
+      "years": "c. 630–c. 570 BC",
+      "category": "arts-culture",
+      "storyType": "biography",
+      "description": "Composing lyric poetry on Lesbos, exiled to Sicily by political rivals, canonized among the Nine Lyric Poets. A life that shaped Western poetry and gave a name to same-sex desire.",
+      "tags": ["poetry", "ancient-greece", "lyric-poetry", "LGBT-history", "women-in-history"],
+      "wikipediaSlug": "Sappho",
+      "relatedStoryIds": ["alcaeus-life", "homer-life", "pindar-life"]
+    },
+    "moments": [
+      {
+        "id": "sappho-composes-lyric-poetry-on-lesbos",
+        "name": "Sappho Composes Lyric Poetry on the Island of Lesbos",
+        "subtitle": "Ancient Greeks call her the Tenth Muse for poems only fragments would survive",
+        "description": "Around 630-600 BC, the poet Sappho composed lyric poetry on the Greek island of Lesbos, probably in the city of Mytilene. An aristocrat's daughter, Sappho wrote an estimated 10,000 lines of verse meant to be sung with musical accompaniment. Her works explored love, desire, family, and religion with a clarity and emotional directness that stunned contemporaries. The ancient Greeks ranked her among the Nine Lyric Poets and dubbed her the Tenth Muse. Today only about 650 lines survive, mostly in fragments, with just one poem certainly complete: the Ode to Aphrodite.",
+        "lat": 39.1083,
+        "lng": 26.5547,
+        "type": "cultural_site",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "presence",
+        "year": -610,
+        "date": "c. 610 BC",
+        "address": "",
+        "entityIds": ["sappho"],
+        "verificationLevel": "documented",
+        "wikiSection": "Works"
+      },
+      {
+        "id": "sappho-exiled-from-lesbos-to-sicily",
+        "name": "Sappho Is Exiled from Lesbos to Sicily",
+        "subtitle": "Political feuds among aristocratic factions force the poet overseas",
+        "description": "Between 604 and 595 BC, according to the Parian Chronicle, Sappho was exiled from Lesbos to Sicily. The exile was likely a consequence of her family's involvement in political conflicts among aristocratic factions on Lesbos. Her contemporary, the poet Alcaeus, was also exiled during this period when the tyrant Myrsilus seized power. The exile demonstrates that Sappho was embedded in the political life of her island, not merely an isolated literary figure. Despite being forced from her homeland, Sappho apparently continued composing poetry and may have worked until around 570 BC.",
+        "lat": 37.5994,
+        "lng": 14.0154,
+        "type": "political_event",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -600,
+        "date": "c. 600 BC",
+        "address": "",
+        "entityIds": ["sappho"],
+        "verificationLevel": "documented",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "alexandrian-scholars-compile-sappho-into-nine-books",
+        "name": "Alexandrian Scholars Compile Sappho's Poetry into at Least Eight Books",
+        "subtitle": "Her work is organized by meter, preserving what centuries of copying would later destroy",
+        "description": "In the second or third century BC, scholars at the Library of Alexandria produced a critical edition of Sappho's poetry, dividing it into at least eight books organized by meter. Book one contained poems in Sapphic stanzas, ordered alphabetically. This edition, possibly edited by Aristophanes of Byzantium, became the standard text through which Sappho's work circulated in the ancient world. Despite this scholarly effort, the vast majority of her roughly 10,000 lines would eventually be lost. The Alexandrian edition remains the basis for understanding how her poetry was structured and transmitted.",
+        "lat": 31.1981,
+        "lng": 29.9192,
+        "type": "institution",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -250,
+        "date": "c. 250 BC",
+        "address": "",
+        "entityIds": ["sappho"],
+        "verificationLevel": "documented",
+        "wikiSection": "Ancient_editions"
+      },
+      {
+        "id": "brothers-poem-discovered-on-papyrus",
+        "name": "Scholars Discover Sappho's Brothers Poem on Ancient Papyrus",
+        "subtitle": "A 2,600-year-old poem about her brothers Charaxos and Larichos surfaces in 2014",
+        "description": "In 2014, scholars published fragments from a series of papyri containing ten consecutive poems from an ancient edition of Sappho's work, including the Brothers Poem, which mentions her brothers Charaxos and Larichos by name. The discovery challenged the longstanding assumption that Sappho primarily wrote love poetry: at least three of the ten poems concerned family rather than romance. The find was among the most significant additions to Sappho's surviving corpus in over a century, offering new evidence about her biographical details and the range of her literary interests.",
+        "lat": 25.7269,
+        "lng": 32.6539,
+        "type": "discovery_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 2014,
+        "date": "2014",
+        "address": "",
+        "entityIds": ["sappho"],
+        "verificationLevel": "verified",
+        "wikiSection": "Works"
+      }
+    ],
+    "suggestedCollections": ["ancient-greek-culture", "poets-and-writers", "women-who-changed-history"]
+  }
+}

@@ -12,6 +12,7 @@ export function ContentQueuePage() {
   const [typeFilter, setTypeFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [geoFilter, setGeoFilter] = useState('any');
 
   // Normalize all items into a single flat list
   const allItems = useMemo<NormalizedItem[]>(() => {
@@ -47,6 +48,9 @@ export function ContentQueuePage() {
         lng: m.lng,
         accuracy: m.accuracy,
         entityIds: m.entityIds,
+        geoVerified: m.geoVerified,
+        geoSourceUrl: m.geoSourceUrl,
+        address: m.address,
       });
     }
 
@@ -88,13 +92,20 @@ export function ContentQueuePage() {
     if (statusFilter !== 'all') {
       result = result.filter(i => i.status === statusFilter);
     }
+    if (geoFilter !== 'any') {
+      if (geoFilter === 'unverified') {
+        result = result.filter(i => i.type === 'moment' && !i.geoVerified);
+      } else if (geoFilter === 'verified') {
+        result = result.filter(i => i.type === 'moment' && i.geoVerified);
+      }
+    }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       result = result.filter(i => i.name.toLowerCase().includes(q) || i.id.toLowerCase().includes(q));
     }
 
     return result;
-  }, [allItems, typeFilter, statusFilter, searchQuery]);
+  }, [allItems, typeFilter, statusFilter, geoFilter, searchQuery]);
 
   return (
     <div className="max-w-6xl">
@@ -111,6 +122,8 @@ export function ContentQueuePage() {
           onStatusFilterChange={setStatusFilter}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
+          geoFilter={geoFilter}
+          onGeoFilterChange={setGeoFilter}
         />
       </div>
 

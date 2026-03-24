@@ -1,0 +1,150 @@
+{
+  "batchId": "batch-125-152-1773809667107",
+  "offset": 125,
+  "limit": 28,
+  "created": "2026-03-18T04:54:36.354Z",
+  "people": [
+    {
+      "index": 0,
+      "name": "Walt Disney",
+      "status": "no-wiki"
+    },
+    {
+      "index": 1,
+      "name": "Benjamin Franklin",
+      "status": "no-wiki"
+    },
+    {
+      "index": 2,
+      "name": "Marie Curie",
+      "status": "no-wiki"
+    },
+    {
+      "index": 3,
+      "name": "Mao Zedong",
+      "status": "no-wiki"
+    },
+    {
+      "index": 4,
+      "name": "Leo Tolstoy",
+      "status": "no-wiki"
+    },
+    {
+      "index": 5,
+      "name": "Louis XIV of France",
+      "status": "no-wiki"
+    },
+    {
+      "index": 6,
+      "name": "John Locke",
+      "status": "no-wiki"
+    },
+    {
+      "index": 7,
+      "name": "Vladimir Putin",
+      "status": "no-wiki"
+    },
+    {
+      "index": 8,
+      "name": "Frida Kahlo",
+      "status": "no-wiki"
+    },
+    {
+      "index": 9,
+      "name": "Marcus Aurelius",
+      "status": "no-wiki"
+    },
+    {
+      "index": 10,
+      "name": "Lord Byron",
+      "status": "no-wiki"
+    },
+    {
+      "index": 11,
+      "name": "Gottfried Wilhelm Leibniz",
+      "status": "no-wiki"
+    },
+    {
+      "index": 12,
+      "name": "Francisco Goya",
+      "status": "no-wiki"
+    },
+    {
+      "index": 13,
+      "name": "Charles V, Holy Roman Emperor",
+      "status": "no-wiki"
+    },
+    {
+      "index": 14,
+      "name": "John Adams",
+      "status": "no-wiki"
+    },
+    {
+      "index": 15,
+      "name": "Antonio Vivaldi",
+      "status": "no-wiki"
+    },
+    {
+      "index": 16,
+      "name": "Francis of Assisi",
+      "status": "no-wiki"
+    },
+    {
+      "index": 17,
+      "name": "Johannes Kepler",
+      "status": "no-wiki"
+    },
+    {
+      "index": 18,
+      "name": "Peter the Great",
+      "status": "no-wiki"
+    },
+    {
+      "index": 19,
+      "name": "Michael Faraday",
+      "status": "no-wiki"
+    },
+    {
+      "index": 20,
+      "name": "Leonhard Euler",
+      "status": "no-wiki"
+    },
+    {
+      "index": 21,
+      "name": "Elizabeth II",
+      "status": "no-wiki"
+    },
+    {
+      "index": 22,
+      "name": "Carl Friedrich Gauss",
+      "status": "no-wiki"
+    },
+    {
+      "index": 23,
+      "name": "Seneca the Younger",
+      "status": "no-wiki"
+    },
+    {
+      "index": 24,
+      "name": "Omar Khayyam",
+      "status": "no-wiki"
+    },
+    {
+      "index": 25,
+      "name": "Epicurus",
+      "status": "no-wiki"
+    },
+    {
+      "index": 26,
+      "name": "Nostradamus",
+      "status": "no-wiki"
+    },
+    {
+      "index": 27,
+      "name": "William the Conqueror",
+      "status": "no-wiki"
+    }
+  ],
+  "totalReady": 0,
+  "totalSkipped": 0
+}

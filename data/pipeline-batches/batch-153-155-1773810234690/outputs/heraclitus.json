@@ -1,0 +1,100 @@
+{
+  "personName": "Heraclitus",
+  "content": {
+    "entity": {
+      "id": "heraclitus",
+      "name": "Heraclitus",
+      "type": "person",
+      "years": "c. 535 BC–c. 470 BC",
+      "description": "The philosopher who said you cannot step in the same river twice. Heraclitus of Ephesus gave up a hereditary kingship, wrote a single book in riddles, and declared fire the fundamental element of everything. Ancient Greeks nicknamed him \"the Obscure\" and \"the Weeping Philosopher.\" According to Diogenes Laertius, he reportedly died covered in cow dung while trying to cure his own dropsy.",
+      "wikipediaSlug": "Heraclitus",
+      "canonicalStoryId": "heraclitus-life"
+    },
+    "story": {
+      "id": "heraclitus-life",
+      "name": "Heraclitus",
+      "years": "c. 535 BC–c. 470 BC",
+      "category": "discovery-science",
+      "storyType": "biography",
+      "description": "An aristocrat surrenders his kingship in Ephesus, writes a single riddling book and deposits it in the Temple of Artemis, baffles Socrates, and reportedly dies smeared in dung. The life of philosophy's most cryptic voice.",
+      "tags": ["pre-socratic-philosophy", "ancient-greece", "ephesus", "greek-philosophy"],
+      "wikipediaSlug": "Heraclitus",
+      "relatedStoryIds": ["socrates-life", "parmenides-life", "temple-of-artemis-ephesus", "plato-life"]
+    },
+    "moments": [
+      {
+        "id": "heraclitus-is-born-into-royal-family-in-ephesus",
+        "name": "Heraclitus Is Born into the Royal Family of Ephesus",
+        "subtitle": "The future philosopher will give away his hereditary kingship to his younger brother",
+        "description": "Ephesus in the sixth century BC was an Ionian port city on the Cayster River, on the western coast of Asia Minor, thriving under a close relationship with the Persian Empire after Cyrus the Great's conquest around 547 BC. Into this cosmopolitan city, around 535 BC, Heraclitus was born to the aristocratic family that held the hereditary title of basileus — a ceremonial kingship connected to the city's religious life. According to Diogenes Laertius, Heraclitus later relinquished this title to his younger brother. The philosopher-to-be grew up surrounded by the massive construction of the Temple of Artemis, already under way as one of the ancient world's largest building projects. He would later deposit his only written work inside it.",
+        "lat": 37.9397,
+        "lng": 27.3486,
+        "type": "historical_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": -535,
+        "date": "",
+        "address": "",
+        "entityIds": ["heraclitus"],
+        "verificationLevel": "traditional",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "heraclitus-deposits-his-book-in-temple-of-artemis",
+        "name": "Heraclitus Deposits His Only Book in the Temple of Artemis",
+        "subtitle": "Written so obscurely that Socrates later says it takes a deep-sea diver to understand it",
+        "description": "The Temple of Artemis at Ephesus — a forest of 127 marble columns, each 18 meters tall, rising from a platform twice the size of the Parthenon — served as both sanctuary and library for the city's most important texts. Around 500 BC, Heraclitus deposited there a single work on papyrus, now known only through over 100 surviving fragments quoted by later authors. The book opened with a meditation on the logos, the rational principle underlying all things, and declared that most people fail to understand it whether before or after hearing it explained. Heraclitus wrote in deliberately cryptic, oracular prose, earning the nickname \"the Obscure.\" When the playwright Euripides reportedly showed the text to Socrates, Socrates replied that understanding it required a Delian diver.",
+        "lat": 37.9496,
+        "lng": 27.3639,
+        "type": "cultural_site",
+        "importance": "major",
+        "accuracy": "exact",
+        "kind": "event",
+        "year": -500,
+        "date": "",
+        "address": "Temple of Artemis, Ephesus",
+        "entityIds": ["heraclitus"],
+        "verificationLevel": "traditional",
+        "wikiSection": "On_Nature"
+      },
+      {
+        "id": "heraclitus-declares-fire-the-fundamental-element",
+        "name": "Heraclitus Declares Fire the Fundamental Substance of the Universe",
+        "subtitle": "Where rival philosophers chose water or air, Heraclitus picks the element that never holds still",
+        "description": "In the Ionian intellectual tradition, each philosopher proposed an arche — a single fundamental substance underlying all reality. Thales of nearby Miletus had chosen water; Anaximenes chose air. Heraclitus, writing in Ephesus around 500 BC amid the colonnaded streets and busy harbor of one of Ionia's wealthiest ports, chose fire. The choice was deliberate: fire transforms everything it touches while itself constantly changing, embodying his central doctrine that the universe is always in flux. His famous fragments — \"everything flows\" and \"no man ever steps in the same river twice\" — rejected the static metaphysics of his rival Parmenides. Plato later built his entire Theory of Forms partly as a response to Heraclitean flux. Aristotle classified Heraclitus as a dialetheist who denied the law of noncontradiction itself.",
+        "lat": 37.9397,
+        "lng": 27.3486,
+        "type": "historical_site",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -500,
+        "date": "",
+        "address": "",
+        "entityIds": ["heraclitus"],
+        "verificationLevel": "documented",
+        "wikiSection": "Philosophy"
+      },
+      {
+        "id": "heraclitus-reportedly-dies-covered-in-dung",
+        "name": "Heraclitus Reportedly Dies Covered in Cow Dung Trying to Cure Himself",
+        "subtitle": "The philosopher who wrote that dry souls are best dies, according to legend, trying to extract water from his body",
+        "description": "According to Diogenes Laertius, Heraclitus developed dropsy — an accumulation of fluid in the body — and attempted to cure himself through folk medicine. The story, likely a later invention, claims the philosopher smeared himself in cow dung and lay in the sun to draw out the moisture, but died around 470 BC, unrecognizable beneath the coating. Ancient commentators suspected the tale was a parody of Heraclitus's own teaching that water is death for the soul and that a dry soul is wisest and best. Whether fact or fable, the story captured something true about the man: Heraclitus trusted no one else's judgment, calling himself self-taught and dismissing Homer, Hesiod, and Pythagoras alike. He died as he lived — alone, following his own counsel.",
+        "lat": 37.9397,
+        "lng": 27.3486,
+        "type": "historical_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": -470,
+        "date": "",
+        "address": "",
+        "entityIds": ["heraclitus"],
+        "verificationLevel": "legendary",
+        "wikiSection": "Life"
+      }
+    ],
+    "suggestedCollections": ["pre-socratic-philosophers", "ancient-ephesus", "greek-philosophy"]
+  }
+}

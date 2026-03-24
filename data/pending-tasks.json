@@ -1,0 +1,19 @@
+[
+  {"priority": "high", "task": "Continue people ingestion (offset 28, ~479 remaining)", "category": "Content"},
+  {"priority": "high", "task": "Build bottom-up pipeline: scripts/ingest/places-events.ts", "category": "Pipeline"},
+  {"priority": "high", "task": "Build entity-timeline pipeline: scripts/ingest/entity-timelines.ts (movies, books, orgs)", "category": "Pipeline"},
+  {"priority": "high", "task": "First city deep-dive (Rome or Jerusalem, ~100 moments)", "category": "Content"},
+  {"priority": "high", "task": "Geo-specificity upgrades for 203 approximate/general-area moments", "category": "Content"},
+  {"priority": "medium", "task": "Fix Gautama Buddha Wikipedia lookup failure", "category": "Pipeline"},
+  {"priority": "medium", "task": "Fix 4 death moments failing FK constraint (type_id issue)", "category": "Pipeline"},
+  {"priority": "medium", "task": "Wire 12 remaining orphan moments as their people get ingested", "category": "Content"},
+  {"priority": "medium", "task": "Content quality audit — spot-check Sonnet output against content guide", "category": "Quality"},
+  {"priority": "medium", "task": "Remaining noun-phrase moment name rewrites (~15)", "category": "Quality"},
+  {"priority": "medium", "task": "Chile Queens description rewrites (#30-31)", "category": "Quality"},
+  {"priority": "medium", "task": "URL routing for SEO + sharing", "category": "Tech"},
+  {"priority": "low", "task": "Logo redesign — marker hovering over rabbit hole concept", "category": "UI"},
+  {"priority": "low", "task": "Auto-generate collections from structured metadata", "category": "Content"},
+  {"priority": "low", "task": "Cross-person entity deduplication pass", "category": "Content"},
+  {"priority": "low", "task": "First bottom-up batch: UNESCO World Heritage (1,000 moments)", "category": "Content"},
+  {"priority": "low", "task": "First bottom-up batch: NOAA earthquakes (800 moments)", "category": "Content"}
+]

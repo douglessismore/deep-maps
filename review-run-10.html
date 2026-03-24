@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Maps — Run #10 Review</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a; color: #c9d1d9; line-height: 1.5;
+    padding: 0; margin: 0;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  /* Header */
+  .header { padding: 32px 0 24px; border-bottom: 1px solid #1e1e1e; margin-bottom: 24px; }
+  .header h1 { font-size: 1.4rem; font-weight: 700; color: #f0f0f0; margin-bottom: 4px; }
+  .header .run-info { font-size: 0.82rem; color: #6e7681; margin-bottom: 16px; }
+
+  .stats-row {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .stat-pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px; background: #161616; border: 1px solid #1e1e1e;
+    border-radius: 20px; font-size: 0.82rem;
+  }
+  .stat-pill .stat-num {
+    font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .stat-approved .stat-num { color: #3fb950; }
+  .stat-pending .stat-num { color: #d29922; }
+  .stat-rejected .stat-num { color: #f85149; }
+  .stat-errors .stat-num { color: #f85149; }
+  .stat-warnings .stat-num { color: #d29922; }
+  .stat-items .stat-num { color: #e6edf3; }
+
+  /* Filters */
+  .filters {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .filter-btn {
+    padding: 6px 14px; border: 1px solid #1e1e1e; border-radius: 6px;
+    background: #111; color: #8b949e; font-size: 0.78rem; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: #30363d; color: #c9d1d9; }
+  .filter-btn.active { border-color: #58a6ff; color: #58a6ff; background: rgba(88,166,255,0.08); }
+
+  /* Person cards */
+  .person-card {
+    border: 1px solid #1e1e1e; border-radius: 10px; margin-bottom: 12px;
+    overflow: hidden; background: #111;
+  }
+  .person-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; cursor: pointer; user-select: none;
+    background: #141414; transition: background 0.15s; gap: 12px;
+  }
+  .person-header:hover { background: #1a1a1a; }
+  .person-title { flex: 1; min-width: 0; }
+  .person-name { font-weight: 600; color: #e6edf3; font-size: 0.95rem; }
+  .person-meta { font-size: 0.75rem; color: #6e7681; margin-left: 8px; }
+  .person-summary { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .moment-count {
+    font-size: 0.72rem; color: #6e7681; background: #1e1e1e;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .toggle-icon { font-size: 0.7rem; color: #484f58; transition: transform 0.2s; }
+  .person-card.collapsed .toggle-icon { transform: rotate(-90deg); }
+  .person-body { padding: 0 16px 16px; border-top: 1px solid #1e1e1e; }
+  .person-card.collapsed .person-body { display: none; }
+
+  .entity-desc {
+    font-size: 0.82rem; color: #8b949e; padding: 12px 0 8px;
+    border-bottom: 1px solid #1a1a1a; margin-bottom: 8px;
+  }
+
+  /* Story info */
+  .story-info {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 8px 0; font-size: 0.82rem;
+  }
+  .story-label { color: #6e7681; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .story-meta { color: #484f58; font-size: 0.72rem; }
+  .story-desc { font-size: 0.78rem; color: #6e7681; padding-bottom: 8px; }
+
+  /* Moment cards */
+  .moments-list { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; }
+  .moment-card {
+    padding: 12px; background: #161616; border-radius: 8px;
+    border-left: 3px solid #2d2d2d;
+  }
+  .moment-card.moment-warning { border-left-color: #d29922; }
+  .moment-card.moment-error { border-left-color: #f85149; }
+  .moment-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .moment-name { font-weight: 600; color: #e6edf3; font-size: 0.88rem; flex: 1; }
+  .moment-subtitle { font-size: 0.78rem; color: #8b949e; font-style: italic; margin: 2px 0 4px; }
+  .moment-meta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    font-size: 0.72rem; color: #6e7681; margin: 4px 0;
+  }
+  .moment-address { font-size: 0.72rem; color: #6e7681; }
+  .moment-desc { font-size: 0.82rem; color: #8b949e; margin-top: 6px; line-height: 1.5; }
+  .no-moments { font-size: 0.82rem; color: #484f58; font-style: italic; padding: 8px 0; }
+
+  /* Badges */
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge-approved { background: rgba(63,185,80,0.15); color: #3fb950; }
+  .badge-rejected { background: rgba(248,81,73,0.15); color: #f85149; }
+  .badge-pending { background: rgba(210,153,34,0.15); color: #d29922; }
+
+  /* Issues */
+  .issue-count { font-size: 0.68rem; font-weight: 600; }
+  .issue-errors { color: #f85149; }
+  .issue-warnings { color: #d29922; }
+
+  .validation-error, .validation-warning {
+    font-size: 0.75rem; padding: 4px 0; margin-top: 4px;
+  }
+  .validation-error { color: #f85149; }
+  .validation-warning { color: #d29922; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 12px 8px 48px; }
+    .person-meta { display: none; }
+    .moment-meta { gap: 6px; }
+    .stats-row { gap: 8px; }
+    .stat-pill { padding: 4px 10px; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>Run #10 Review</h1>
+  <div class="run-info">
+    Source: notable-people | Started: 3/16/2026, 9:20:19 PM | Generated: 2026-03-18 01:18:16 UTC
+     | Limit: 10 | Offset: 3
+  </div>
+  <div class="stats-row">
+    <div class="stat-pill stat-items"><span class="stat-num">59</span> items</div>
+    <div class="stat-pill stat-items"><span class="stat-num">4</span> people</div>
+    <div class="stat-pill stat-items"><span class="stat-num">7</span> stories</div>
+    <div class="stat-pill stat-items"><span class="stat-num">48</span> moments</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-pill stat-approved"><span class="stat-num">59</span> approved</div>
+    
+    
+    <div class="stat-pill stat-errors"><span class="stat-num">4</span> errors</div>
+    <div class="stat-pill stat-warnings"><span class="stat-num">2</span> warnings</div>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('all')">All</button>
+  <button class="filter-btn" onclick="filterCards('warnings')">Warnings Only</button>
+  <button class="filter-btn" onclick="filterCards('errors')">Errors Only</button>
+  <button class="filter-btn" onclick="filterCards('pending')">Pending Only</button>
+  <button class="filter-btn" onclick="toggleAll(true)">Expand All</button>
+  <button class="filter-btn" onclick="toggleAll(false)">Collapse All</button>
+</div>
+
+<div class="person-card " id="person-0">
+  <div class="person-header" onclick="togglePerson(0)">
+    <div class="person-title">
+      <span class="person-name">Ungrouped Moments</span>
+      
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">5 moments</span>
+      <span class="issue-count issue-errors">4 errors</span>
+      
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    
+    <div class="story-info">
+      <span class="story-label">Story:</span> Confucius
+      <span class="story-meta">political-drama | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">Born in poverty, rises to Minister of Crime, dismantles warlord fortresses through diplomacy alone, then spends 14 years wandering China's courts in exile. The man who shaped civilization died thinkin</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Confucius Is Born in Poverty in the State of Lu</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The son of an elderly soldier and a young mother, raised with nothing but ambition</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -551</span>
+    <span>&#x1F4CD; 35.5999, 116.9833</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Qufu, Shandong Province, China</div>
+  <div class="moment-desc">On or around September 28, 551 BCE, Kong Qiu — later known as Confucius — was born in Zou, a village in the state of Lu (modern Qufu, Shandong province). His father Kong He, an elderly garrison commandant, died when Confucius was just three years old, leaving his mother Yan Zhengzai to raise him in poverty. Despite his humble circumstances, Confucius attended schools for commoners and mastered the Six Arts. His ancestry traced to the Shang dynasty nobility, but that lineage offered no material advantage. The contrast between his aristocratic heritage and impoverished upbringing would shape his lifelong obsession with merit over birthright — a radical idea that would eventually restructure Chinese governance for two millennia.</div>
+  
+</div>
+<div class="moment-card moment-error" data-status="approved" data-has-errors="true" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Confucius Is Appointed Minister of Crime in the State of Lu</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A philosopher handed real power — and uses it to execute a rival scholar</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -501</span>
+    <span>&#x1F4CD; 35.5960, 116.9860</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>government</span>
+  </div>
+  <div class="moment-address">Qufu, Shandong Province, China</div>
+  <div class="moment-desc">In 501 BCE, after years of building a reputation as a teacher and thinker, Confucius was appointed governor of a town in Lu, and subsequently rose to the position of Minister of Crime — one of the highest offices in the state. His tenure was immediately controversial: according to the Xunzi, he ordered the execution of Shaozheng Mao, a rival scholar accused of five capital offenses including 'eloquent duplicity' and 'generosity to evildoers.' Confucius then pursued an audacious political project: convincing Lu's three dominant aristocratic families to voluntarily demolish their fortified city walls, stripping them of military independence and restoring authority to the duke. He succeeded with two of the three families through diplomacy alone — a remarkable feat for a man with no army. The experiment collapsed in 498 BCE when the Meng family refused, and Confucius left Lu in 497 BCE, never to hold office again.</div>
+  <div class="validation-error">&#x274C; <strong>description</strong>: Description too long (923/800)</div>
+</div>
+<div class="moment-card moment-error" data-status="approved" data-has-errors="true" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Confucius Begins 14 Years of Wandering China's Warring Courts</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He preached virtue to princes who wanted power — and none of them listened</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -497</span>
+    <span>&#x1F4CD; 36.0965, 114.3054</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Anyang, Henan Province, China (State of Wey, first stop in exile)</div>
+  <div class="moment-desc">In 497 BCE, Confucius left the state of Lu under a carefully managed pretext — the duke had failed to send him his customary portion of sacrificial meat — and began what would become a 14-year journey through the principality states of northeastern and central China. He visited Wey, Song, Zheng, Cao, Chu, Qi, Chen, Cai, and attempted to reach Jin. At each court, he expounded his philosophy of virtuous governance: that rulers should lead by moral example, not force. No prince implemented his ideas. He was ignored, occasionally endangered, and once reportedly mistaken for a wanted fugitive. The wandering years are among the most documented of his life, preserved in the Analects through the conversations he had with disciples who accompanied him. Confucius finally returned to Lu around 484 BCE, after Viscount Ji Huan — his chief political enemy — had died.</div>
+  <div class="validation-error">&#x274C; <strong>description</strong>: Description too long (865/800)</div>
+</div>
+<div class="moment-card moment-error" data-status="approved" data-has-errors="true" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Confucius Dies at 71, Believing His Life's Work Has Failed</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He mourned that no enlightened ruler had ever heeded him — he was catastrophically wrong</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -479</span>
+    <span>&#x1F4CD; 35.6127, 116.9822</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>burial_site</span>
+  </div>
+  <div class="moment-address">Kong Lin (Cemetery of Confucius), Qufu, Shandong Province, China</div>
+  <div class="moment-desc">Confucius died around 479 BCE in Qufu, aged approximately 71 or 72. In his final years, he had suffered the deaths of his son Kong Li, his most beloved disciple Yan Hui, and another close disciple Zilu — losses he mourned deeply. According to the Analects, he lamented that no ruler had ever truly adopted his principles. He was buried north of Qufu, at what became the Cemetery of Confucius (Kong Lin), which remains one of the largest family cemeteries in the world, continuously maintained for over 2,500 years. Within a century of his death, his ideas began reshaping Chinese statecraft. By 136 BCE, Emperor Wu of Han made Confucian texts mandatory for all government officials. Today, an estimated 1.5 billion people live in societies whose legal, familial, and ethical frameworks trace directly to the man who died convinced he had accomplished nothing.</div>
+  <div class="validation-error">&#x274C; <strong>description</strong>: Description too long (859/800)</div>
+</div>
+<div class="moment-card moment-error" data-status="approved" data-has-errors="true" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Emperor Wu of Han Makes Confucianism the Official State Philosophy</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">136 BCE: a dead philosopher's ideas become mandatory reading for every Chinese official</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -136</span>
+    <span>&#x1F4CD; 34.2658, 108.9541</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>government</span>
+  </div>
+  <div class="moment-address">Chang'an (modern Xi'an), Shaanxi Province, China</div>
+  <div class="moment-desc">In 136 BCE, Emperor Wu of Han issued an edict establishing Confucian texts as the mandatory curriculum for candidates seeking government office, effectively making Confucianism the ideological foundation of the Chinese imperial state. The Five Classics — works attributed to or edited by Confucius — became the basis of the imperial examination system that would govern Chinese bureaucracy for the next two thousand years. This moment transformed Confucius from a respected but marginalized thinker into the intellectual patron of the world's largest continuous civilization. The decision was made in Chang'an (modern Xi'an), the Han capital, roughly 370 years after Confucius's death. No single act of posthumous endorsement in world history has had a longer-lasting institutional impact: the examination system it spawned survived until 1905 CE.</div>
+  <div class="validation-error">&#x274C; <strong>description</strong>: Description too long (847/800)</div>
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card " id="person-1">
+  <div class="person-header" onclick="togglePerson(1)">
+    <div class="person-title">
+      <span class="person-name">Ungrouped Moments</span>
+      
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">4 moments</span>
+      
+      
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    
+    <div class="story-info">
+      <span class="story-label">Story:</span> Plato
+      <span class="story-meta">discovery-science | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">Burns his poems after meeting Socrates; watches his mentor executed; travels to Syracuse three times trying to create a philosopher-king; dies leaving the Laws unfinished. The birth of Western philoso</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Plato Burns His Poems and Turns to Philosophy</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A chance meeting with Socrates ends a promising literary career forever</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -407</span>
+    <span>&#x1F4CD; 37.9755, 23.7348</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>historic_meeting</span>
+  </div>
+  <div class="moment-address">Athens, Greece</div>
+  <div class="moment-desc">Around 407 BC, the young Athenian aristocrat known as Plato — then writing poetry, dithyrambs, and tragedies — encountered Socrates and was so transformed by the philosopher's method of inquiry that he burned all his literary work and devoted himself entirely to philosophy. Ancient writers record the story as a dramatic conversion: one life abandoned, another begun. The meeting likely occurred at a palaestra, the wrestling ground where Socrates famously engaged young Athenians in dialogue. Without this moment, the dialogues that shaped Western thought for 2,400 years would never have been written.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Socrates Is Executed and Plato Abandons Politics Forever</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The death that turned a would-be statesman into history's greatest philosopher</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -399</span>
+    <span>&#x1F4CD; 37.9715, 23.7257</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Athens Agora, Athens, Greece</div>
+  <div class="moment-desc">In 399 BC, the Athenian democracy tried and executed Plato's teacher Socrates on charges of impiety and corrupting the youth. Plato, who had already been disillusioned by the brutality of the Thirty Tyrants — two of whom were his own relatives — had imagined a career in public life. Socrates' death ended that ambition permanently. Plato was reportedly absent from the execution due to illness. The trauma reshaped his entire philosophy: the Republic's ideal state, the Theory of Forms, and the concept of philosopher-kings all emerge directly from his attempt to understand how a just man could be killed by a democratic city.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Plato Travels to Syracuse to Create a Philosopher-King</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The world's greatest philosopher meets a tyrant — and nearly doesn't make it home</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -385</span>
+    <span>&#x1F4CD; 37.0755, 15.2866</span>
+    <span>general-area</span>
+    <span>minor</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Syracuse, Sicily, Italy</div>
+  <div class="moment-desc">Around 385 BC, Plato sailed to Syracuse in Sicily, then ruled by the tyrant Dionysius I, in what would become the first of three fateful visits. Plato's goal was to put his political philosophy into practice by shaping a ruler according to his ideals. Instead, Dionysius turned against him. Ancient sources, including letters attributed to Plato, suggest he was sold into slavery before being ransomed by a friend. His host's brother-in-law, Dion, became a devoted disciple. Plato would return twice more — in 366 and 361 BC — each time failing to produce the philosopher-king he envisioned, and on his final visit being held against his will by Dionysius II.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Plato Dies at His Desk, the Laws Still Unfinished</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">His longest work left incomplete — a student edits it from his notes</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -347</span>
+    <span>&#x1F4CD; 37.9947, 23.7044</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>burial_site</span>
+  </div>
+  <div class="moment-address">Near the Academy, Athens, Greece</div>
+  <div class="moment-desc">Plato died in Athens in 348 or 347 BC, aged around 80, reportedly at a wedding feast or peacefully in his sleep. He had spent his final years at the Academy revising late dialogues — the Timaeus, Sophist, Statesman, and the Laws, his longest work — which scholars believe he intended as a unified final statement of his philosophy. The Laws was still incomplete at his death; his student Philip of Opus edited and published it posthumously. Plato was buried near the Academy he had founded. His nephew Speusippus succeeded him as head of the school. His complete works survived intact — an almost unique achievement among ancient writers — and have been read continuously for over 2,400 years.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card " id="person-2">
+  <div class="person-header" onclick="togglePerson(2)">
+    <div class="person-title">
+      <span class="person-name">Socrates</span>
+      <span class="person-meta">person | c. 470–399 BC</span>
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">5 moments</span>
+      
+      <span class="badge badge-approved">Approved</span>
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    <div class="entity-desc">The philosopher who claimed to know nothing yet changed everything. Born in Athens c. 470 BC, Socrates invented a method of questioning that founded Western philosophy — then was executed for it. He wrote nothing; his ideas survive only through students like Plato.</div>
+    <div class="story-info">
+      <span class="story-label">Story:</span> Socrates
+      <span class="story-meta">political-drama | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">Barefoot philosopher interrogates Athens into fury; defies the Thirty Tyrants; faces trial for corrupting youth; drinks hemlock rather than flee. The founding drama of Western thought.</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Socrates Is Born to a Stoneworker and a Midwife</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The son of tradespeople will become the father of Western philosophy</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -470</span>
+    <span>&#x1F4CD; 37.9475, 23.7525</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Alopece, Athens, Greece</div>
+  <div class="moment-desc">Around 470 BC, Socrates was born in Alopece, a deme (district) on the outskirts of Athens, to Sophroniscus, a stoneworker, and Phaenarete, a midwife. He received a standard Athenian education in reading, writing, gymnastics, poetry, and music. Notoriously ugly — described as having a flat upturned nose, bulging eyes, and a large belly — he would grow into a man indifferent to appearance, wealth, and comfort, walking barefoot and owning a single ragged coat. His humble origins made his eventual intellectual dominance of Athens all the more remarkable.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Socrates Distinguishes Himself in Battle at Potidaea</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The barefoot philosopher saves a young Alcibiades under fire</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -432</span>
+    <span>&#x1F4CD; 40.1950, 23.3833</span>
+    <span>general-area</span>
+    <span>minor</span>
+    <span>battlefield</span>
+  </div>
+  <div class="moment-address">Potidaea, Chalcidice, Greece</div>
+  <div class="moment-desc">In 432 BC, Socrates served as a hoplite soldier in the Athenian siege of Potidaea, a city in northern Greece that had revolted against Athenian rule. According to Plato's Symposium, Socrates saved the life of the young Alcibiades — later one of Athens's most brilliant and destructive generals — during the fighting, and then yielded the prize for valor to him out of modesty. Witnesses reported that Socrates stood motionless in deep thought for an entire day and night during the campaign, apparently lost in philosophical reflection. He went on to serve in two further campaigns. The episode reveals a Socrates far removed from the sedentary image of later tradition.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Socrates Refuses a Death Order from the Thirty Tyrants</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Four men obey; one walks home alone, risking execution</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -404</span>
+    <span>&#x1F4CD; 37.9753, 23.7219</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>government</span>
+  </div>
+  <div class="moment-address">Tholos, Ancient Agora of Athens, Greece</div>
+  <div class="moment-desc">In 404 BC, the oligarchic junta known as the Thirty Tyrants summoned Socrates and four others to the Tholos — the circular government building in the Athenian Agora — and ordered them to arrest Leon of Salamis for execution. The other four complied. Socrates alone refused, walking away rather than participate in what he considered an unjust killing. The Thirty were overthrown before they could punish him, but the episode became a defining illustration of Socratic moral courage: he risked death to avoid complicity in injustice, a principle he would articulate again at his own trial five years later.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Athens Tries Socrates for Corrupting the Youth</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A jury of 500 condemns the city's most famous mind in a single day</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -399</span>
+    <span>&#x1F4CD; 37.9741, 23.7228</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Court of the Heliaia, Ancient Agora of Athens, Greece</div>
+  <div class="moment-desc">In 399 BC, Socrates stood trial before a jury of approximately 500 Athenian citizens on charges of impiety and corrupting the youth. The trial lasted a single day. Socrates, then around 70 years old, refused to beg for mercy or propose exile as an alternative sentence — reportedly suggesting instead that Athens should reward him with free meals for life. The jury voted to convict, then voted for death. Plato's Apology records Socrates's defense speech, in which he argued that the unexamined life is not worth living. The trial became the most consequential legal proceeding in the history of philosophy.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Socrates Drinks Hemlock Rather Than Flee Athens</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Allies offer escape; he refuses, arguing a philosopher must not fear death</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -399</span>
+    <span>&#x1F4CD; 37.9745, 23.7215</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>crime_scene</span>
+  </div>
+  <div class="moment-address">State Prison, Ancient Agora of Athens, Greece</div>
+  <div class="moment-desc">In 399 BC, following his conviction, Socrates was held in an Athenian state prison near the Agora while awaiting execution. Friends and allies — including the wealthy Crito — arranged and urged his escape. Socrates refused, arguing that fleeing would contradict his lifelong respect for Athenian law and undermine his philosophical principles. As recorded by Plato in the Phaedo, Socrates spent his final hours discussing the immortality of the soul with his friends, then calmly drank a cup of hemlock poison. He died surrounded by weeping disciples. His death transformed him from a local irritant into the eternal symbol of intellectual martyrdom.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card collapsed" id="person-3">
+  <div class="person-header" onclick="togglePerson(3)">
+    <div class="person-title">
+      <span class="person-name">Muhammad</span>
+      <span class="person-meta">person | c. 570–632</span>
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">6 moments</span>
+      
+      <span class="badge badge-approved">Approved</span>
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    <div class="entity-desc">The founder of Islam who united Arabia under one God. Born an orphan in Mecca, he received his first revelation at 40, fled persecution to Medina, and returned to conquer Mecca — transforming a fractured peninsula into a civilization that would reshape half the world.</div>
+    <div class="story-info">
+      <span class="story-label">Story:</span> Muhammad
+      <span class="story-meta">sacred-history | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">An orphan receives a revelation in a cave; a persecuted preacher flees to Medina; 10,000 converts march on Mecca unopposed. The life that launched the world's second-largest religion.</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Muhammad Is Born Into the Quraysh Tribe of Mecca</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">His father is already dead; his mother will die before he turns seven</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 570</span>
+    <span>&#x1F4CD; 21.4225, 39.8261</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>religious_site</span>
+  </div>
+  <div class="moment-address">Mecca, Hejaz (modern-day Saudi Arabia)</div>
+  <div class="moment-desc">Around 570 CE, in the month of Rabi' al-Awwal, Muhammad ibn Abdullah was born in Mecca into the Banu Hashim clan of the powerful Quraysh tribe. His father Abdullah had died months before his birth, and his mother Amina died when Muhammad was six, leaving him a double orphan. He was raised first by his grandfather Abd al-Muttalib, then by his uncle Abu Talib. Despite the clan's prestige, the family lived modestly. This inauspicious beginning — fatherless, then motherless, raised by relatives — would later be cited in the Quran itself as evidence of divine providence shaping the prophet's character.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Muhammad Receives His First Revelation in Cave Hira</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The angel Gabriel appears to a 40-year-old merchant meditating alone on a mountain</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 610</span>
+    <span>&#x1F4CD; 21.4572, 39.8617</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>religious_site</span>
+  </div>
+  <div class="moment-address">Cave of Hira, Jabal al-Nour, Mecca, Saudi Arabia</div>
+  <div class="moment-desc">Around 610 CE, during the month of Ramadan, Muhammad was meditating in the Cave of Hira on Jabal al-Nour, a mountain roughly 3 km northeast of Mecca, when he reported being visited by the angel Gabriel. The encounter — described as overwhelming and physically intense — produced the first verses of what would become the Quran: 'Recite in the name of your Lord who created.' Muhammad, then approximately 40 years old and a successful merchant, was reportedly terrified and ran to his wife Khadija, who reassured him and became the first convert to Islam. Muslims regard this night, Laylat al-Qadr, as the holiest in the Islamic calendar. The cave remains one of the most visited pilgrimage sites on Earth.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Muhammad Flees Mecca for Medina, Founding the Islamic Calendar</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A midnight escape from assassins becomes the year zero of a new civilization</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 622</span>
+    <span>&#x1F4CD; 24.4672, 39.6112</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>religious_site</span>
+  </div>
+  <div class="moment-address">Medina (Yathrib), Hejaz, Saudi Arabia</div>
+  <div class="moment-desc">In September 622 CE, facing a Quraysh plot to assassinate him, Muhammad secretly departed Mecca with his companion Abu Bakr, hiding for three days in the Cave of Thawr before completing the 400 km journey north to Yathrib (later renamed Medina). This migration — the Hijra — was not merely a tactical retreat. In Medina, Muhammad united warring Arab and Jewish tribes under the Constitution of Medina, established the first Muslim community-state, and built the Prophet's Mosque, which became the model for Islamic governance and worship. The Islamic lunar calendar (Hijri calendar) counts its year 1 from this event. The Hijra is considered by historians the pivotal turning point that transformed Islam from a persecuted sect into a political and military force.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Muhammad Marches on Mecca with 10,000 Converts and Takes It Without a Battle</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The city that drove him out surrenders in hours; he pardons nearly everyone</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 629</span>
+    <span>&#x1F4CD; 21.4225, 39.8262</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Mecca, Hejaz (modern-day Saudi Arabia)</div>
+  <div class="moment-desc">In December 629 CE (Ramadan 8 AH), Muhammad led an army of approximately 10,000 Muslim soldiers from Medina toward Mecca — the city that had persecuted his followers for 13 years and forced his exile. The Quraysh, outmatched and outmaneuvered, offered minimal resistance. Muhammad entered Mecca largely without bloodshed, declared a general amnesty for most of his former enemies, and proceeded to the Kaaba, where he destroyed the 360 idols housed inside, rededicated the shrine to monotheism, and performed the first Islamic circumambulation. The conquest is regarded as the fulfillment of the Quranic promise of return and the moment Islam became the dominant religion of the Arabian Peninsula. The Kaaba has been the focal point of Muslim prayer ever since.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Muhammad Delivers His Farewell Sermon to 100,000 Pilgrims at Mount Arafat</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He tells the crowd he will not see them again — and he is right</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 632</span>
+    <span>&#x1F4CD; 21.3549, 39.9845</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>religious_site</span>
+  </div>
+  <div class="moment-address">Mount Arafat, near Mecca, Saudi Arabia</div>
+  <div class="moment-desc">In March 632 CE (Dhu al-Hijja 9 AH), Muhammad led what would be his only and final Hajj pilgrimage, accompanied by an estimated 100,000 followers. Standing on the plain of Mount Arafat near Mecca, he delivered the Farewell Sermon — a sweeping address declaring the equality of all Muslims regardless of race, abolishing pre-Islamic blood feuds, affirming women's rights within the existing framework, and proclaiming the completion of the Islamic faith. 'I have left among you that which, if you hold fast to it, you will never go astray: the Book of God,' he told the crowd. Weeks after returning to Medina, Muhammad fell ill. He died on 8 June 632 CE. The sermon is considered Islam's foundational statement of universal brotherhood.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Muhammad Dies in Medina, Leaving No Named Successor</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">His death triggers a succession crisis that splits Islam into Sunni and Shia forever</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 632</span>
+    <span>&#x1F4CD; 24.4672, 39.6112</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>burial_site</span>
+  </div>
+  <div class="moment-address">Al-Masjid an-Nabawi, Medina, Saudi Arabia</div>
+  <div class="moment-desc">On 8 June 632 CE, Muhammad died in Medina at approximately 62 years of age, in the house of his wife Aisha. He had fallen ill weeks after returning from the Farewell Pilgrimage, suffering from what sources describe as fever and severe headaches. He was buried beneath the floor of Aisha's chamber — a site now enclosed within the Prophet's Mosque (Al-Masjid an-Nabawi), the second holiest site in Islam. Muhammad left no unambiguous instructions for succession, a silence that immediately fractured his community: one faction backed Abu Bakr as caliph; another believed Ali ibn Abi Talib, Muhammad's cousin and son-in-law, was the rightful heir. This dispute became the foundational schism between Sunni and Shia Islam, a division that has shaped 1,400 years of history.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card collapsed" id="person-4">
+  <div class="person-header" onclick="togglePerson(4)">
+    <div class="person-title">
+      <span class="person-name">Augustus</span>
+      <span class="person-meta">person | 63 BC–AD 14</span>
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">6 moments</span>
+      <span class="issue-count issue-warnings">1 warning</span>
+      <span class="badge badge-approved">Approved</span>
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    <div class="entity-desc">The teenager who inherited an empire and built another. Born Gaius Octavius, he outmaneuvered generals, senators, and a queen to become Rome's first emperor, then ruled for 41 years of unprecedented peace.</div>
+    <div class="story-info">
+      <span class="story-label">Story:</span> Augustus
+      <span class="story-meta">political-drama | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">A 19-year-old inherits Caesar's name and fortune; defeats Antony and Cleopatra at Actium; founds the Roman Empire; dies after 41 years of Pax Romana. The biography of history's most consequential poli</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Rome's Future First Emperor Is Born on the Palatine Hill</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A minor noble's son who will one day rename a month after himself</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -63</span>
+    <span>&#x1F4CD; 41.8893, 12.4876</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Palatine Hill, Rome</div>
+  <div class="moment-desc">On 23 September 63 BC, Gaius Octavius was born at a family property on the Palatine Hill in Rome. His father was a moderately wealthy equestrian from the gens Octavia — respectable but far from Rome's ruling elite. His mother Atia, however, was a niece of Julius Caesar, a connection that would define everything. Nothing in Octavius's birth suggested imperial destiny; he was a sickly child from a provincial family. Within 77 years, the Senate would rename the month of August in his honor.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Octavian Accepts Caesar's Will and Inherits an Empire's Legacy</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Against all advice, a 19-year-old bets everything on a dead man's name</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -44</span>
+    <span>&#x1F4CD; 40.6326, 17.9417</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Brundisium (modern Brindisi), Apulia, Italy</div>
+  <div class="moment-desc">On 8 May 44 BC, at Brundisium (modern Brindisi) in southern Italy, the 19-year-old Gaius Octavius formally accepted Julius Caesar's will — against the explicit advice of his stepfather. The will named him Caesar's primary heir and bequeathed three-quarters of the dictator's estate, including 700 million sesterces staged at Brundisium for a planned Parthian war. By accepting, Octavian assumed the name Gaius Julius Caesar and immediately began recruiting Caesar's veterans, paying each a bonus of 500 denarii — more than twice a soldier's annual salary. This single decision transformed an obscure teenager into the most dangerous political force in Rome.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Octavian Becomes Rome's Youngest-Ever Consul at Age 19</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He marched an illegal army on Rome and the Senate gave him the job anyway</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -43</span>
+    <span>&#x1F4CD; 41.8925, 12.4853</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>government</span>
+  </div>
+  <div class="moment-address">Roman Forum, Rome</div>
+  <div class="moment-desc">In August 43 BC, Octavian marched his private army on Rome — an act of open military intimidation — and demanded the consulship. The Senate, with no legions to oppose him, capitulated. At 19 years old, Octavian became the youngest consul in Roman history. Within weeks, he, Mark Antony, and Marcus Lepidus formalized the Second Triumvirate, a legally sanctioned three-man dictatorship empowered to proscribe enemies and govern Rome's provinces. The proscriptions that followed killed approximately 300 senators and 2,000 equestrians, including the orator Cicero, who had championed Octavian as a useful tool against Antony. The consulship was the legal foothold from which Octavian never fully retreated.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Agrippa Destroys Antony's Fleet at Actium, Ending the Roman Civil Wars</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Cleopatra flees mid-battle; Antony follows; Rome's fate is decided in an afternoon</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -31</span>
+    <span>&#x1F4CD; 38.9333, 20.7500</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>battlefield</span>
+  </div>
+  <div class="moment-address">Actium, Epirus (modern Preveza, Greece)</div>
+  <div class="moment-desc">On 2 September 31 BC, off the promontory of Actium in northwestern Greece, Octavian's admiral Marcus Agrippa engaged the combined fleet of Mark Antony and Cleopatra VII of Egypt. During the battle, Cleopatra's squadron broke through the lines and fled south toward Egypt; Antony abandoned his own flagship to follow her. His remaining fleet and four legions surrendered within days. The Battle of Actium ended two decades of Roman civil war and left Octavian the unchallenged master of the Mediterranean world. Antony and Cleopatra both died by suicide in Alexandria the following year. Egypt became Octavian's personal property — the richest territory in the ancient world.</div>
+  
+</div>
+<div class="moment-card moment-warning" data-status="approved" data-has-errors="false" data-has-warnings="true">
+  <div class="moment-header">
+    <div class="moment-name">The Senate Grants Octavian the Title 'Augustus,' Founding the Roman Empire</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He pretended to restore the Republic; the Senate gave him a god's name instead</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -27</span>
+    <span>&#x1F4CD; 41.8925, 12.4853</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Curia Julia, Roman Forum, Rome</div>
+  <div class="moment-desc">On 16 January 27 BC, the Roman Senate granted Octavian the honorific title 'Augustus' — meaning 'the revered' — along with the powers of the tribunate, censorship, and command of most Roman armies. Octavian had staged a theatrical resignation of his powers, offering to restore the Republic; the Senate responded by granting him more authority than before, now with a veneer of legitimacy. Historians mark this moment as the founding of the Roman Empire. Augustus would rule for another 41 years, establishing the Pax Romana — roughly two centuries of relative peace across a domain of 70 million people. The month of August was renamed in his honor during his lifetime.</div>
+  <div class="validation-warning">&#x26A0;&#xFE0F; <strong>name</strong>: Name starts with article — should be verb-first</div>
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Augustus Dies at 75 in Nola, Ending 41 Years as Rome's First Emperor</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">His last words asked whether he had played his part well — the audience applauded</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 14</span>
+    <span>&#x1F4CD; 41.0000, 14.5333</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Nola, Campania, Italy</div>
+  <div class="moment-desc">On 19 August AD 14, Augustus died at Nola in Campania, southern Italy, aged 75. He had ruled as Rome's first emperor for 41 years — longer than any subsequent emperor would manage. According to Suetonius, his final words were a theatrical question to those present: had he played his life's role well? Persistent ancient rumors accused his wife Livia of poisoning him, though the cause was likely natural illness. The Senate posthumously deified him, and he was succeeded by his stepson Tiberius. Augustus had transformed a bankrupt, war-torn republic into a professional imperial state with standing armies, a courier road network, police, fire services, and a reformed tax system — the institutional skeleton of Western governance for centuries.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card collapsed" id="person-5">
+  <div class="person-header" onclick="togglePerson(5)">
+    <div class="person-title">
+      <span class="person-name">Ungrouped Moments</span>
+      
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">6 moments</span>
+      
+      
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    
+    <div class="story-info">
+      <span class="story-label">Story:</span> Michelangelo
+      <span class="story-meta">arts-culture | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">Born in Tuscany, sculpts David at 28, carves the Pietà from a single marble block, paints the Sistine ceiling alone, and dies the most celebrated artist in Western history at 88.</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Michelangelo Is Born in a Tuscan Hill Town to a Minor Official</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The future Il Divino arrives in a village no one would otherwise remember</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1475</span>
+    <span>&#x1F4CD; 43.6408, 11.9858</span>
+    <span>approximate</span>
+    <span>minor</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Caprese Michelangelo, Arezzo, Tuscany</div>
+  <div class="moment-desc">On 6 March 1475, Michelangelo di Lodovico Buonarroti Simoni was born in Caprese, a small town in the Valtiberina valley near Arezzo, Tuscany. His father Ludovico was serving as the town's judicial administrator and podestà. The family returned to Florence within months, but Michelangelo later credited the stone-cutting air of the region for his artistic instincts, telling his biographer Vasari: 'Along with the milk of my nurse I received the knack of handling chisel and hammer.' The town was renamed Caprese Michelangelo in his honor centuries later.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Michelangelo Carves the Pietà From a Single Block of Marble at Age 24</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A French cardinal commissions a grief scene that becomes the world's most perfect sculpture</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1499</span>
+    <span>&#x1F4CD; 41.9022, 12.4539</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>religious_site</span>
+  </div>
+  <div class="moment-address">St. Peter's Basilica, Vatican City</div>
+  <div class="moment-desc">In November 1497, French Cardinal Jean de Bilhères-Lagraulas commissioned the 22-year-old Michelangelo to carve a Pietà — the Virgin Mary cradling the dead Christ — for his funeral chapel in Rome. The contract was signed in August 1498. Working from a single block of Carrara marble, Michelangelo completed the sculpture by 1499. Vasari wrote that 'a formless block of stone could ever have been reduced to a perfection that nature is scarcely able to create in the flesh.' It remains Michelangelo's only signed work — his name carved into Mary's sash, reportedly after he overheard visitors attributing it to another sculptor. It now stands in St. Peter's Basilica.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Michelangelo Unveils a 17-Foot David That Redefines Human Sculpture</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A committee including Leonardo da Vinci debates where to put the most famous statue ever made</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1504</span>
+    <span>&#x1F4CD; 43.7767, 11.2592</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>cultural_venue</span>
+  </div>
+  <div class="moment-address">Galleria dell'Accademia, Via Ricasoli 58-60, Florence</div>
+  <div class="moment-desc">In 1501, Michelangelo was commissioned by the Guild of Wool to complete a colossal marble statue of David that had sat unfinished for 40 years. Working from a block of Carrara marble already partially carved and considered ruined, Michelangelo completed the 5.17-meter statue in 1504. A committee of Florence's greatest artists — including Leonardo da Vinci, Botticelli, and Filippino Lippi — convened to decide its placement, ultimately choosing the Piazza della Signoria in front of the Palazzo Vecchio. The statue, intended as a symbol of Florentine republican freedom, established Michelangelo at 28 as the supreme sculptor of his age. The original now stands in the Galleria dell'Accademia.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Michelangelo Designs a Library Staircase That Breaks Every Classical Rule</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The Medici commission a reading room; Michelangelo invents an entirely new architectural language</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1523</span>
+    <span>&#x1F4CD; 43.7736, 11.2543</span>
+    <span>exact</span>
+    <span>minor</span>
+    <span>institution</span>
+  </div>
+  <div class="moment-address">Biblioteca Medicea Laurenziana, Piazza San Lorenzo 9, Florence</div>
+  <div class="moment-desc">Commissioned by the Medici popes Leo X and Clement VII beginning around 1523, Michelangelo designed the Laurentian Library in Florence to house the Medici family's manuscript collection. His vestibule staircase — with its flowing, convex central flight and recessed columns that bear no structural load — deliberately violated classical architectural conventions, treating walls as sculptural surfaces rather than functional structures. The design pioneered Mannerist architecture and influenced centuries of architects. Michelangelo left Florence before the library was completed; it opened in 1571, seven years after his death, with the staircase finished from a clay model he sent from Rome.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Michelangelo Unveils The Last Judgment — and Shocks the Vatican</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Hundreds of nude figures on the altar wall of the Sistine Chapel cause an immediate scandal</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1541</span>
+    <span>&#x1F4CD; 41.9029, 12.4545</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>religious_site</span>
+  </div>
+  <div class="moment-address">Sistine Chapel, Vatican City</div>
+  <div class="moment-desc">On 31 October 1541, Pope Paul III unveiled Michelangelo's The Last Judgment on the altar wall of the Sistine Chapel — 25 years after the ceiling was completed. The massive fresco, measuring 13.7 by 12 meters, depicted over 300 figures in a swirling vision of resurrection, damnation, and divine judgment. The nudity of the figures caused immediate controversy; Vatican official Biagio da Cesena complained they belonged 'in a bathhouse or tavern.' Michelangelo painted Cesena's face onto Minos, judge of the underworld, complete with donkey ears. Pope Paul IV later ordered 'breeches' painted over the most explicit figures — a task completed by Daniele da Volterra, who became known as 'the breeches-maker.'</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Michelangelo Dies at 88 With a Chisel Still in His Hand</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The most celebrated artist in Western history works until three days before his death</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1564</span>
+    <span>&#x1F4CD; 43.7685, 11.2621</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>burial_site</span>
+  </div>
+  <div class="moment-address">Basilica di Santa Croce, Piazza di Santa Croce 16, Florence</div>
+  <div class="moment-desc">Michelangelo died on 18 February 1564 in Rome, just weeks before his 89th birthday, having outlived nearly every contemporary. He had been working on the Rondanini Pietà — his final sculpture — until three days before his death. His body was initially buried in Rome at the Basilica dei Santi Apostoli, but his nephew Leonardo Buonarroti smuggled the corpse to Florence hidden in a bale of merchandise. Michelangelo was reinterred with great ceremony at the Basilica di Santa Croce in Florence on 14 July 1564. His tomb, designed by Giorgio Vasari, stands there today. He had spent 89 years redefining what a single human being could create.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card collapsed" id="person-6">
+  <div class="person-header" onclick="togglePerson(6)">
+    <div class="person-title">
+      <span class="person-name">Christopher Columbus</span>
+      <span class="person-meta">person | 1451–1506</span>
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">5 moments</span>
+      
+      <span class="badge badge-approved">Approved</span>
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    <div class="entity-desc">The navigator who accidentally found a new world while looking for spices. A self-educated Genoese sailor, Columbus opened the Americas to European contact in 1492 — triggering centuries of colonization, exchange, and catastrophe.</div>
+    <div class="story-info">
+      <span class="story-label">Story:</span> Christopher Columbus
+      <span class="story-meta">discovery-science | biography</span>
+      <span class="badge badge-approved">Approved</span>
+    </div><div class="story-desc">Sails west to find Asia, lands in the Bahamas instead. Governs Hispaniola with such brutality he's arrested and sent home in chains. Dies still insisting he'd reached the Far East.</div>
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Christopher Columbus Is Born in the Republic of Genoa</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">A wool weaver's son who will reshape the map of the world</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1451</span>
+    <span>&#x1F4CD; 44.4072, 8.9340</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>landmark</span>
+  </div>
+  <div class="moment-address">Genoa, Republic of Genoa (modern-day Liguria, Italy)</div>
+  <div class="moment-desc">Christopher Columbus was born between 25 August and 31 October 1451 in the Republic of Genoa, the son of Domenico Colombo, a wool weaver, and Susanna Fontanarossa. Growing up on the Ligurian coast, he went to sea by age 14, working as a business agent for wealthy Genoese merchant families. Nothing in his origins predicted that this tradesman's son — largely self-educated — would become the navigator whose 1492 voyage permanently connected two hemispheres of human civilization.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Columbus Departs Palos with Three Ships Bound for Asia</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He is sailing west to find spices; he will find a continent instead</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1492</span>
+    <span>&#x1F4CD; 37.2318, -6.8978</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>historic_meeting</span>
+  </div>
+  <div class="moment-address">Port of Palos de la Frontera, Huelva, Spain</div>
+  <div class="moment-desc">On 3 August 1492, Christopher Columbus departed the Port of Palos de la Frontera, Spain, commanding three ships — the Niña, Pinta, and Santa María — under a commission from Queen Isabella I and King Ferdinand II of Castile and Aragon. The voyage followed years of Columbus lobbying multiple European courts after Portugal rejected his plan. His mission was to reach the East Indies by sailing west, bypassing the Ottoman-controlled Silk Road. The fleet first stopped in the Canary Islands before crossing the Atlantic. Columbus had miscalculated Earth's circumference by roughly a third — a navigational error that, paradoxically, made the voyage seem feasible.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Columbus Makes Landfall in the Americas, Ending the Pre-Columbian Era</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He names the island's people 'Indians' — he believes he is in Asia</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1492</span>
+    <span>&#x1F4CD; 24.0435, -74.4580</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>discovery_site</span>
+  </div>
+  <div class="moment-address">San Salvador Island (Guanahani), The Bahamas</div>
+  <div class="moment-desc">On 12 October 1492, after 36 days at sea from the Canary Islands, Columbus's fleet sighted land and made landfall on an island the indigenous Lucayan people called Guanahani, which Columbus renamed San Salvador. This was the first documented European contact with the Caribbean. Columbus encountered the Lucayan people, whom he called 'indios,' assuming he had reached islands off the coast of Asia. He then sailed to Cuba and Hispaniola, establishing a small colony at La Navidad. The date is now recognized as the moment that ended the pre-Columbian era — permanently altering the trajectory of both hemispheres.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Columbus Is Arrested as Governor and Sent Home in Chains</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The man who found the New World is stripped of power for brutality</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1500</span>
+    <span>&#x1F4CD; 18.4861, -69.9312</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>political_event</span>
+  </div>
+  <div class="moment-address">Santo Domingo, Hispaniola (modern-day Dominican Republic)</div>
+  <div class="moment-desc">In August 1500, royal commissioner Francisco de Bobadilla arrived in Santo Domingo, Hispaniola, to investigate complaints against Columbus's governance. He found Columbus and his brothers presiding over a regime of violent repression — Indigenous Taíno people were enslaved, and Spanish colonists were executed without trial. Bobadilla arrested Columbus, placed him in irons, and shipped him back to Spain. Though King Ferdinand and Queen Isabella ordered his release upon arrival, they permanently stripped him of his governorship. Columbus wore the chains for the Atlantic crossing and reportedly kept them the rest of his life as a symbol of royal ingratitude.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Columbus Dies in Valladolid, Still Believing He Had Reached Asia</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He never knew the continent he found — or what he had set in motion</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1506</span>
+    <span>&#x1F4CD; 41.6523, -4.7245</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Valladolid, Crown of Castile (modern-day Castile and León, Spain)</div>
+  <div class="moment-desc">Christopher Columbus died on 20 May 1506 in Valladolid, Spain, likely from reactive arthritis or heart failure, aged approximately 54. He had spent his final years in legal battles with the Spanish Crown over titles and revenues he believed were owed to him under the 1492 Capitulations of Santa Fe. Despite completing four transatlantic voyages and exploring the Caribbean, Central America, and the northern coast of South America, Columbus never clearly acknowledged that he had reached a continent unknown to Europeans. He died believing he had found the outer islands of Asia. The continent he encountered would be named after a different Italian — Amerigo Vespucci.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+<div class="person-card collapsed" id="person-7">
+  <div class="person-header" onclick="togglePerson(7)">
+    <div class="person-title">
+      <span class="person-name">Ungrouped Moments</span>
+      
+    </div>
+    <div class="person-summary">
+      <span class="moment-count">11 moments</span>
+      <span class="issue-count issue-warnings">1 warning</span>
+      
+      <span class="toggle-icon">&#x25BC;</span>
+    </div>
+  </div>
+  <div class="person-body">
+    
+    
+    <div class="moments-list">
+      <div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Alexander III Is Born in Pella on the Day Artemis's Temple Burns</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Three omens arrive at once — a battle won, an Olympic victory, a wonder destroyed</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -356</span>
+    <span>&#x1F4CD; 40.7600, 22.5192</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>landmark</span>
+  </div>
+  <div class="moment-address">Pella, Kingdom of Macedon (modern Pella, Central Macedonia, Greece)</div>
+  <div class="moment-desc">On 20 July 356 BC, Alexander III was born in Pella, capital of the Kingdom of Macedon, to King Philip II and his wife Olympias. The same day brought Philip news of three events: his general Parmenion had defeated the Illyrian and Paeonian armies, his horses had won at the Olympic Games, and the Temple of Artemis at Ephesus — one of the Seven Wonders of the World — had burned to the ground. Ancient commentators claimed Artemis was absent because she was attending Alexander's birth. Whether legend or coincidence, the convergence of omens was later used to frame Alexander as destined for greatness from his first breath.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Alexander Razes Thebes and Sells 30,000 Survivors Into Slavery</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">One city's revolt ends with every building flattened except Pindar's house</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -335</span>
+    <span>&#x1F4CD; 38.3220, 23.3194</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>battlefield</span>
+  </div>
+  <div class="moment-address">Thebes, Boeotia (modern Thiva, Greece)</div>
+  <div class="moment-desc">In autumn 335 BC, the city of Thebes revolted against Macedonian rule, believing a rumor that Alexander had died in the Balkans. Alexander marched his army south with extraordinary speed and besieged the city. When Theban forces made a sortie and broke through Macedonian lines, Alexander ordered a full assault. The city fell within hours. Alexander's decision was deliberate and total: Thebes was razed to the ground, its population of roughly 30,000 sold into slavery, and its territory divided among neighboring Greek states. Only temples and the house of the poet Pindar were spared. The destruction sent an unmistakable message to every Greek city — rebellion against Macedon carried an existential price.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Alexander Defeats Darius III in Person at the Battle of Issus</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The Persian king flees his own camp, abandoning his mother, wife, and children</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -333</span>
+    <span>&#x1F4CD; 36.8100, 36.1650</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>battlefield</span>
+  </div>
+  <div class="moment-address">Issus, Cilicia (near modern İskenderun, Hatay Province, Turkey)</div>
+  <div class="moment-desc">On 5 November 333 BC, Alexander's army of roughly 40,000 met the Persian force of Darius III — estimated at two to six times larger — at Issus, near the modern Turkish-Syrian border. Alexander personally led the Companion cavalry in a direct charge toward Darius's position. When the Macedonian line threatened to break him, Darius fled the battlefield in his chariot, then on horseback, abandoning his royal tent, treasury, and his entire family — mother Sisygambis, wife Stateira, and daughters. Alexander treated the captured royal women with formal respect. The victory shattered Persian confidence and opened the Levant and Egypt to Macedonian conquest.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Alexander Founds Alexandria, the City That Will Outlast His Empire</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He personally marks the city's boundaries with grain — no chalk was available</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -331</span>
+    <span>&#x1F4CD; 31.2001, 29.9187</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>settlement_site</span>
+  </div>
+  <div class="moment-address">Alexandria, Egypt</div>
+  <div class="moment-desc">In April 331 BC, Alexander founded the city of Alexandria on a narrow strip of land between the Mediterranean Sea and Lake Mareotis in Egypt. According to Plutarch, Alexander personally directed the city's layout, and when no chalk was available to mark the boundaries, he used grain from the soldiers' rations. Seers interpreted the birds that descended to eat the grain as a good omen. Alexandria was designed from the outset as a major port and administrative center. It would become the largest city in the ancient world, home to the Great Library and the Lighthouse — another of the Seven Wonders — and remained the intellectual capital of the Mediterranean for centuries after Alexander's death.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Alexander Wins His Hardest Battle Against War Elephants at the Hydaspes River</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The enemy's 200 elephants terrify Macedonian horses — Alexander adapts and prevails</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -326</span>
+    <span>&#x1F4CD; 32.9260, 73.7464</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>battlefield</span>
+  </div>
+  <div class="moment-address">Hydaspes River (modern Jhelum River, Punjab, Pakistan)</div>
+  <div class="moment-desc">In May 326 BC, Alexander crossed the flooded Hydaspes River (modern Jhelum, Pakistan) at night to surprise the Indian king Porus, who commanded roughly 30,000 troops and 200 war elephants — a weapon Macedonian cavalry had never faced at scale. Alexander's solution was tactical: he used infantry phalanxes to hem in the elephants while his cavalry attacked the flanks. The battle lasted most of a day and was the costliest of his career. Porus, wounded and captured, reportedly told Alexander he wished to be treated as a king — Alexander restored his kingdom and made him an ally. His beloved horse Bucephalas died shortly after, and Alexander founded a city named Bucephala in its honor.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Alexander the Great Dies in Babylon at 32, His Empire Immediately Fractures</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Asked who should inherit his empire, he reportedly said: 'The strongest'</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; -323</span>
+    <span>&#x1F4CD; 32.5420, 44.4210</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>landmark</span>
+  </div>
+  <div class="moment-address">Palace of Nebuchadnezzar II, Babylon (near modern Hillah, Iraq)</div>
+  <div class="moment-desc">On 10 or 11 June 323 BC, Alexander III died in the palace of Nebuchadnezzar II in Babylon, aged 32, after a fever lasting roughly twelve days. He had been planning an invasion of Arabia and intended to make Babylon the capital of his empire. The cause of death remains disputed — typhoid fever complicated by alcohol and exhaustion is the leading modern hypothesis; ancient sources also suggest poisoning. He left no designated heir. When asked who should inherit his empire, he reportedly answered 'the strongest' (or said nothing at all). Within two years, his generals — the Diadochi — were at war with each other, and within fifty years his empire had permanently fragmented.</div>
+  
+</div>
+<div class="moment-card moment-warning" data-status="approved" data-has-errors="false" data-has-warnings="true">
+  <div class="moment-header">
+    <div class="moment-name">A 14-Year-Old Leonardo Joins Florence's Most Powerful Workshop</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">His master will reportedly never paint again after seeing the boy's work</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1466</span>
+    <span>&#x1F4CD; 43.7696, 11.2558</span>
+    <span>approximate</span>
+    <span>major</span>
+    <span>workplace</span>
+  </div>
+  <div class="moment-address">Via dell'Agnolo, Florence, Italy</div>
+  <div class="moment-desc">Around 1466, Leonardo da Vinci entered the Florence workshop of Andrea del Verrocchio as a garzone (studio boy), becoming a full apprentice by age 17. Verrocchio was the leading painter and sculptor in Florence, and his bottega trained an extraordinary generation including Botticelli, Ghirlandaio, and Perugino. Leonardo spent seven years absorbing drafting, metallurgy, plaster casting, and mechanics alongside painting. According to Giorgio Vasari, when Leonardo painted an angel in Verrocchio's Baptism of Christ (c. 1472–75) with such superior skill, Verrocchio put down his brush and never painted again — a story likely apocryphal, but testament to how quickly the apprentice eclipsed the master.</div>
+  <div class="validation-warning">&#x26A0;&#xFE0F; <strong>name</strong>: Name starts with article — should be verb-first</div>
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Leonardo Qualifies as a Master Painter at Age 20</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He keeps living with his teacher anyway — the bond runs too deep</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1472</span>
+    <span>&#x1F4CD; 43.7696, 11.2558</span>
+    <span>general-area</span>
+    <span>minor</span>
+    <span>institution</span>
+  </div>
+  <div class="moment-address">Florence, Italy</div>
+  <div class="moment-desc">In 1472, Leonardo da Vinci was formally enrolled in the Guild of Saint Luke — Florence's guild of painters and physicians — qualifying him as an independent master at age 20. His father Ser Piero set him up with his own workshop, yet Leonardo continued to live and collaborate with Verrocchio for years afterward. The same year, he produced his earliest known dated work: a pen-and-ink drawing of the Arno valley, dated August 5, 1473. He also reportedly proposed, for the first time, making the Arno navigable between Florence and Pisa — an engineering ambition he would revisit decades later. Guild membership marked the formal start of one of history's most consequential careers.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Leonardo Writes Ludovico Sforza a Job Application Listing Ten Military Inventions</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">He mentions almost as an afterthought that he can also paint</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1482</span>
+    <span>&#x1F4CD; 45.4654, 9.1859</span>
+    <span>general-area</span>
+    <span>major</span>
+    <span>historic_meeting</span>
+  </div>
+  <div class="moment-address">Milan, Italy</div>
+  <div class="moment-desc">In 1482, Lorenzo de' Medici sent Leonardo da Vinci to Milan as an ambassador to Ludovico Sforza, the Duke of Milan. Leonardo brought with him a silver lute shaped like a horse's skull — and a letter. In it, he described ten categories of military engineering he could provide: portable bridges, siege machines, armoured vehicles, cannons, and ships. Only in the final paragraph did he note he could also paint and sculpt. Sforza hired him. Leonardo would remain in Milan for seventeen years, the most productive period of his life, painting The Last Supper, designing the unbuilt Gran Cavallo equestrian monument, and filling thousands of notebook pages with anatomical drawings and mechanical inventions.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">King Francis I Invites Leonardo to France as 'Premier Painter and Engineer'</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">The greatest mind of the Renaissance spends his final years in a Loire Valley château</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1516</span>
+    <span>&#x1F4CD; 47.4100, 0.9892</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Château du Clos Lucé, 2 Rue du Clos Lucé, 37400 Amboise, France</div>
+  <div class="moment-desc">In 1516, at age 64, Leonardo da Vinci accepted an invitation from King Francis I of France to relocate to the Château du Clos Lucé in Amboise, near the royal court. Francis granted him the title 'Premier Painter, Engineer, and Architect to the King' and a generous annual stipend of 700 écus. Leonardo brought three paintings with him — the Mona Lisa, Saint John the Baptist, and The Virgin and Child with Saint Anne — which Francis likely acquired after Leonardo's death. Though Leonardo's right hand was partially paralysed, he continued designing, sketching, and advising the king on architectural projects. He died at Clos Lucé on May 2, 1519, reportedly in Francis's arms — a scene almost certainly romanticised but enduring.</div>
+  
+</div>
+<div class="moment-card" data-status="approved" data-has-errors="false" data-has-warnings="false">
+  <div class="moment-header">
+    <div class="moment-name">Leonardo da Vinci Dies in France, His Greatest Notebooks Never Published</div>
+    <span class="badge badge-approved">Approved</span>
+  </div>
+  <div class="moment-subtitle">Seven thousand pages of discoveries sit unseen — medicine and science set back a century</div>
+  <div class="moment-meta">
+    <span>&#x1F4C5; 1519</span>
+    <span>&#x1F4CD; 47.4100, 0.9892</span>
+    <span>exact</span>
+    <span>major</span>
+    <span>residence</span>
+  </div>
+  <div class="moment-address">Château du Clos Lucé, 2 Rue du Clos Lucé, 37400 Amboise, France</div>
+  <div class="moment-desc">Leonardo da Vinci died on May 2, 1519, at the Château du Clos Lucé in Amboise, France, aged 67. He bequeathed his notebooks and drawings to his pupil and companion Francesco Melzi, who guarded them carefully but never published them. After Melzi's death, the manuscripts were dispersed across Europe, their contents — detailed anatomical studies, principles of hydrodynamics, designs for flying machines, and observations on geology — largely unknown to the scientific community for generations. Scholars estimate that had Leonardo's findings been published, they could have advanced anatomy by 100 years and engineering by more. His will left his vineyard in Milan to Melzi and his servant Salaì. He was buried at the Collegiate Church of Saint Florentin in Amboise.</div>
+  
+</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function togglePerson(i) {
+  document.getElementById('person-' + i).classList.toggle('collapsed');
+}
+
+function toggleAll(expand) {
+  document.querySelectorAll('.person-card').forEach(function(card) {
+    if (expand) card.classList.remove('collapsed');
+    else card.classList.add('collapsed');
+  });
+}
+
+function filterCards(mode) {
+  document.querySelectorAll('.filter-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.person-card').forEach(function(card) {
+    var moments = card.querySelectorAll('.moment-card');
+    if (mode === 'all') {
+      card.style.display = '';
+      moments.forEach(function(m) { m.style.display = ''; });
+    } else if (mode === 'warnings') {
+      var hasW = card.querySelector('.moment-warning, .moment-error');
+      card.style.display = hasW ? '' : 'none';
+      moments.forEach(function(m) {
+        m.style.display = (m.classList.contains('moment-warning') || m.classList.contains('moment-error')) ? '' : 'none';
+      });
+      if (hasW) card.classList.remove('collapsed');
+    } else if (mode === 'errors') {
+      var hasE = card.querySelector('.moment-error');
+      card.style.display = hasE ? '' : 'none';
+      moments.forEach(function(m) {
+        m.style.display = m.classList.contains('moment-error') ? '' : 'none';
+      });
+      if (hasE) card.classList.remove('collapsed');
+    } else if (mode === 'pending') {
+      var hasPending = card.querySelector('.badge-pending');
+      card.style.display = hasPending ? '' : 'none';
+      if (hasPending) card.classList.remove('collapsed');
+    }
+  });
+}
+</script>
+</body>
+</html>

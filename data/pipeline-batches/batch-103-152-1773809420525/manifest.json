@@ -1,0 +1,287 @@
+{
+  "batchId": "batch-103-152-1773809420525",
+  "offset": 103,
+  "limit": 50,
+  "created": "2026-03-18T04:50:43.254Z",
+  "people": [
+    {
+      "index": 0,
+      "name": "Molière",
+      "status": "ready",
+      "promptFile": "moli-re.json"
+    },
+    {
+      "index": 1,
+      "name": "Otto von Bismarck",
+      "status": "ready",
+      "promptFile": "otto-von-bismarck.json"
+    },
+    {
+      "index": 2,
+      "name": "Carl Linnaeus",
+      "status": "ready",
+      "promptFile": "carl-linnaeus.json"
+    },
+    {
+      "index": 3,
+      "name": "Simón Bolívar",
+      "status": "ready",
+      "promptFile": "sim-n-bol-var.json"
+    },
+    {
+      "index": 4,
+      "name": "Adam Smith",
+      "status": "ready",
+      "promptFile": "adam-smith.json"
+    },
+    {
+      "index": 5,
+      "name": "James Cook",
+      "status": "ready",
+      "promptFile": "james-cook.json"
+    },
+    {
+      "index": 6,
+      "name": "Mustafa Kemal Atatürk",
+      "status": "ready",
+      "promptFile": "mustafa-kemal-atat-rk.json"
+    },
+    {
+      "index": 7,
+      "name": "Geoffrey Chaucer",
+      "status": "ready",
+      "promptFile": "geoffrey-chaucer.json"
+    },
+    {
+      "index": 8,
+      "name": "Nero",
+      "status": "ready",
+      "promptFile": "nero.json"
+    },
+    {
+      "index": 9,
+      "name": "Ibn Battuta",
+      "status": "ready",
+      "promptFile": "ibn-battuta.json"
+    },
+    {
+      "index": 10,
+      "name": "Sappho",
+      "status": "ready",
+      "promptFile": "sappho.json"
+    },
+    {
+      "index": 11,
+      "name": "Tiberius",
+      "status": "ready",
+      "promptFile": "tiberius.json"
+    },
+    {
+      "index": 12,
+      "name": "Democritus",
+      "status": "ready",
+      "promptFile": "democritus.json"
+    },
+    {
+      "index": 13,
+      "name": "Ali",
+      "status": "ready",
+      "promptFile": "ali.json"
+    },
+    {
+      "index": 14,
+      "name": "Li Bai",
+      "status": "ready",
+      "promptFile": "li-bai.json"
+    },
+    {
+      "index": 15,
+      "name": "Sun Tzu",
+      "status": "ready",
+      "promptFile": "sun-tzu.json"
+    },
+    {
+      "index": 16,
+      "name": "Jacques Cartier",
+      "status": "ready",
+      "promptFile": "jacques-cartier.json"
+    },
+    {
+      "index": 17,
+      "name": "Hammurabi",
+      "status": "ready",
+      "promptFile": "hammurabi.json"
+    },
+    {
+      "index": 18,
+      "name": "Chanakya",
+      "status": "ready",
+      "promptFile": "chanakya.json"
+    },
+    {
+      "index": 19,
+      "name": "Friedrich Nietzsche",
+      "status": "ready",
+      "promptFile": "friedrich-nietzsche.json"
+    },
+    {
+      "index": 20,
+      "name": "John F. Kennedy",
+      "status": "skipped-complete"
+    },
+    {
+      "index": 21,
+      "name": "Franklin D. Roosevelt",
+      "status": "ready",
+      "promptFile": "franklin-d-roosevelt.json"
+    },
+    {
+      "index": 22,
+      "name": "Walt Disney",
+      "status": "ready",
+      "promptFile": "walt-disney.json"
+    },
+    {
+      "index": 23,
+      "name": "Benjamin Franklin",
+      "status": "ready",
+      "promptFile": "benjamin-franklin.json"
+    },
+    {
+      "index": 24,
+      "name": "Marie Curie",
+      "status": "ready",
+      "promptFile": "marie-curie.json"
+    },
+    {
+      "index": 25,
+      "name": "Mao Zedong",
+      "status": "ready",
+      "promptFile": "mao-zedong.json"
+    },
+    {
+      "index": 26,
+      "name": "Leo Tolstoy",
+      "status": "ready",
+      "promptFile": "leo-tolstoy.json"
+    },
+    {
+      "index": 27,
+      "name": "Louis XIV of France",
+      "status": "no-wiki"
+    },
+    {
+      "index": 28,
+      "name": "John Locke",
+      "status": "ready",
+      "promptFile": "john-locke.json"
+    },
+    {
+      "index": 29,
+      "name": "Vladimir Putin",
+      "status": "no-wiki"
+    },
+    {
+      "index": 30,
+      "name": "Frida Kahlo",
+      "status": "no-wiki"
+    },
+    {
+      "index": 31,
+      "name": "Marcus Aurelius",
+      "status": "no-wiki"
+    },
+    {
+      "index": 32,
+      "name": "Lord Byron",
+      "status": "no-wiki"
+    },
+    {
+      "index": 33,
+      "name": "Gottfried Wilhelm Leibniz",
+      "status": "no-wiki"
+    },
+    {
+      "index": 34,
+      "name": "Francisco Goya",
+      "status": "no-wiki"
+    },
+    {
+      "index": 35,
+      "name": "Charles V, Holy Roman Emperor",
+      "status": "no-wiki"
+    },
+    {
+      "index": 36,
+      "name": "John Adams",
+      "status": "no-wiki"
+    },
+    {
+      "index": 37,
+      "name": "Antonio Vivaldi",
+      "status": "no-wiki"
+    },
+    {
+      "index": 38,
+      "name": "Francis of Assisi",
+      "status": "no-wiki"
+    },
+    {
+      "index": 39,
+      "name": "Johannes Kepler",
+      "status": "no-wiki"
+    },
+    {
+      "index": 40,
+      "name": "Peter the Great",
+      "status": "no-wiki"
+    },
+    {
+      "index": 41,
+      "name": "Michael Faraday",
+      "status": "no-wiki"
+    },
+    {
+      "index": 42,
+      "name": "Leonhard Euler",
+      "status": "no-wiki"
+    },
+    {
+      "index": 43,
+      "name": "Elizabeth II",
+      "status": "no-wiki"
+    },
+    {
+      "index": 44,
+      "name": "Carl Friedrich Gauss",
+      "status": "no-wiki"
+    },
+    {
+      "index": 45,
+      "name": "Seneca the Younger",
+      "status": "no-wiki"
+    },
+    {
+      "index": 46,
+      "name": "Omar Khayyam",
+      "status": "no-wiki"
+    },
+    {
+      "index": 47,
+      "name": "Epicurus",
+      "status": "no-wiki"
+    },
+    {
+      "index": 48,
+      "name": "Nostradamus",
+      "status": "no-wiki"
+    },
+    {
+      "index": 49,
+      "name": "William the Conqueror",
+      "status": "no-wiki"
+    }
+  ],
+  "totalReady": 27,
+  "totalSkipped": 1
+}

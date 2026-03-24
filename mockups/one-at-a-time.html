@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Maps — One at a Time Concept</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 64px;
+    min-height: 100vh;
+  }
+
+  .concept-description {
+    max-width: 600px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .concept-description h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .concept-description .subtitle {
+    color: #dc2626;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .concept-description p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #999;
+  }
+
+  /* Mode toggle (outside phone) */
+  .mode-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .mode-btn {
+    padding: 10px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: system-ui;
+    cursor: pointer;
+    background: #1a1a1a;
+    color: #666;
+    border: none;
+    transition: all 0.2s;
+  }
+  .mode-btn.active {
+    background: #dc2626;
+    color: #fff;
+  }
+
+  /* Phone frame */
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    border: 3px solid #333;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    background: #0a0a0a;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .phone-inner {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Status bar */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    z-index: 50;
+  }
+
+  /* ===== MAP VIEW ===== */
+  .map-view {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+  }
+  .map-view.hidden {
+    transform: translateY(-100%);
+  }
+
+  .map-surface {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: radial-gradient(ellipse at 40% 45%, #1a2535 0%, #0a0f1a 60%, #050810 100%);
+    overflow: hidden;
+  }
+
+  .map-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  /* Map roads (decorative lines) */
+  .map-road {
+    position: absolute;
+    background: rgba(255,255,255,0.04);
+    border-radius: 1px;
+  }
+  .road-1 { width: 180px; height: 2px; top: 35%; left: 20%; transform: rotate(-15deg); }
+  .road-2 { width: 250px; height: 2px; top: 55%; left: 10%; transform: rotate(5deg); }
+  .road-3 { width: 2px; height: 200px; top: 25%; left: 55%; transform: rotate(8deg); }
+  .road-4 { width: 150px; height: 2px; top: 45%; left: 40%; transform: rotate(-5deg); }
+
+  /* Map markers */
+  .map-marker {
+    position: absolute;
+    cursor: pointer;
+    z-index: 5;
+  }
+  .marker-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #dc2626;
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 12px rgba(220,38,38,0.5);
+    transition: all 0.2s;
+  }
+  .map-marker:hover .marker-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(220,38,38,0.7);
+  }
+  .marker-pulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(220,38,38,0.3);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .marker-label {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    background: rgba(10,10,10,0.8);
+    padding: 3px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .map-marker:hover .marker-label { opacity: 1; }
+
+  /* Map title overlay */
+  .map-title-overlay {
+    position: absolute;
+    top: 52px;
+    left: 16px;
+    z-index: 10;
+  }
+  .map-title-overlay h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .map-title-overlay h2 span { color: #dc2626; }
+  .map-title-overlay .map-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
+
+  /* Search floating button */
+  .search-fab {
+    position: absolute;
+    top: 56px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(26,26,26,0.9);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  /* Peek card */
+  .peek-card {
+    position: absolute;
+    bottom: 24px;
+    left: 16px;
+    right: 16px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 16px;
+    z-index: 20;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .peek-card:active { transform: scale(0.98); }
+  .peek-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 auto 12px;
+  }
+  .peek-card-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .peek-year {
+    background: #dc2626;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .peek-text h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .peek-text p {
+    font-size: 12px;
+    color: #666;
+  }
+  .peek-arrow {
+    margin-left: auto;
+    color: #555;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .peek-swipe-hint {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.3px;
+  }
+
+  /* ===== FEED VIEW ===== */
+  .feed-view {
+    position: absolute;
+    inset: 0;
+    background: #0a0a0a;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 30;
+    transform: translateY(100%);
+    display: flex;
+    flex-direction: column;
+  }
+  .feed-view.visible {
+    transform: translateY(0);
+  }
+
+  .feed-header {
+    padding: 52px 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .feed-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .map-return-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: system-ui;
+    transition: all 0.2s;
+  }
+  .map-return-btn:hover {
+    border-color: rgba(220,38,38,0.3);
+  }
+
+  /* Feed handle */
+  .feed-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.15);
+    margin: 8px auto 0;
+    flex-shrink: 0;
+  }
+
+  /* Feed cards */
+  .feed-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    scrollbar-width: none;
+  }
+  .feed-scroll::-webkit-scrollbar { display: none; }
+
+  .feed-card {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .feed-card:active { transform: scale(0.98); }
+  .feed-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .feed-card-year {
+    background: #dc2626;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .feed-card-collection {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .feed-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .feed-card p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+  }
+  .feed-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #555;
+  }
+  .feed-card-footer .sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #444;
+  }
+
+  /* Results count */
+  .results-count {
+    font-size: 13px;
+    color: #555;
+    padding: 0 0 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-description">
+  <div class="subtitle">Concept 2 — Steve Jobs</div>
+  <h1>One at a Time</h1>
+  <p>Full-bleed map OR full-bleed feed, never both at once. The map gets 100% of the screen. The feed gets 100% of the screen. A peek card at the bottom of the map view invites you into the feed. Use the toggle below to switch between states, or click the peek card / "Map" button inside the mockup.</p>
+</div>
+
+<div class="mode-toggle">
+  <button class="mode-btn active" id="btnMap" onclick="showMap()">Map View</button>
+  <button class="mode-btn" id="btnFeed" onclick="showFeed()">Feed View</button>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-inner">
+
+    <!-- Status bar (always visible) -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span style="display:flex;gap:4px;align-items:center;">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="4" y="4" width="3" height="8" rx="0.5"/><rect x="8" y="2" width="3" height="10" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+        <svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x="0.5" y="0.5" width="19" height="10" rx="2" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="14" height="7" rx="1" fill="white"/><rect x="21" y="3.5" width="1.5" height="4" rx="0.5" fill="white" fill-opacity="0.4"/></svg>
+      </span>
+    </div>
+
+    <!-- ===== MAP VIEW ===== -->
+    <div class="map-view" id="mapView">
+      <div class="map-surface">
+        <div class="map-grid"></div>
+        <div class="map-road road-1"></div>
+        <div class="map-road road-2"></div>
+        <div class="map-road road-3"></div>
+        <div class="map-road road-4"></div>
+
+        <!-- Title -->
+        <div class="map-title-overlay">
+          <h2>Deep <span>Maps</span></h2>
+          <div class="map-subtitle">Exploring United States</div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-fab">&#x1F50D;</div>
+
+        <!-- Markers -->
+        <div class="map-marker" style="top: 32%; left: 58%;">
+          <div class="marker-dot"></div>
+          <div class="marker-pulse"></div>
+          <div class="marker-label">Dallas, TX — 1963</div>
+        </div>
+        <div class="map-marker" style="top: 48%; left: 38%;">
+          <div class="marker-dot"></div>
+          <div class="marker-label">Montgomery, AL — 1955</div>
+        </div>
+        <div class="map-marker" style="top: 28%; left: 72%;">
+          <div class="marker-dot"></div>
+          <div class="marker-label">Washington, D.C. — 1865</div>
+        </div>
+        <div class="map-marker" style="top: 60%; left: 25%;">
+          <div class="marker-dot"></div>
+          <div class="marker-label">Houston, TX — 1969</div>
+        </div>
+        <div class="map-marker" style="top: 70%; left: 15%;">
+          <div class="marker-dot"></div>
+          <div class="marker-label">Pearl Harbor, HI — 1941</div>
+        </div>
+        <div class="map-marker" style="top: 40%; left: 48%;">
+          <div class="marker-dot"></div>
+          <div class="marker-label">Memphis, TN — 1968</div>
+        </div>
+
+        <!-- Peek card -->
+        <div class="peek-card" onclick="showFeed()">
+          <div class="peek-handle"></div>
+          <div class="peek-card-content">
+            <span class="peek-year">1963</span>
+            <div class="peek-text">
+              <h3>JFK Is Assassinated in Dallas</h3>
+              <p>Dealey Plaza, Dallas, TX</p>
+            </div>
+            <span class="peek-arrow">&#x25B2;</span>
+          </div>
+          <div class="peek-swipe-hint">Swipe up for all moments</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FEED VIEW ===== -->
+    <div class="feed-view" id="feedView">
+      <div class="feed-handle"></div>
+      <div class="feed-header">
+        <h2>Nearby Moments</h2>
+        <button class="map-return-btn" onclick="showMap()">
+          &#x1F5FA; Map
+        </button>
+      </div>
+
+      <div class="feed-scroll">
+        <div class="results-count">6 moments in view</div>
+
+        <div class="feed-card">
+          <div class="feed-card-top">
+            <span class="feed-card-year">1963</span>
+            <span class="feed-card-collection">Assassinations in America</span>
+          </div>
+          <h3>JFK Is Assassinated in Dallas</h3>
+          <p>President Kennedy is shot while riding in a motorcade through Dealey Plaza, reshaping American politics and culture for decades.</p>
+          <div class="feed-card-footer">
+            <span>&#x1F4CD; Dallas, TX</span>
+            <span class="sep"></span>
+            <span>Nov 22, 1963</span>
+            <span class="sep"></span>
+            <span>8 entities</span>
+          </div>
+        </div>
+
+        <div class="feed-card">
+          <div class="feed-card-top">
+            <span class="feed-card-year">1955</span>
+            <span class="feed-card-collection">Civil Rights Movement</span>
+          </div>
+          <h3>Rosa Parks Refuses Her Bus Seat</h3>
+          <p>An act of defiance on a Montgomery city bus ignites the Montgomery Bus Boycott and becomes a catalyst for the civil rights movement.</p>
+          <div class="feed-card-footer">
+            <span>&#x1F4CD; Montgomery, AL</span>
+            <span class="sep"></span>
+            <span>Dec 1, 1955</span>
+          </div>
+        </div>
+
+        <div class="feed-card">
+          <div class="feed-card-top">
+            <span class="feed-card-year">1865</span>
+            <span class="feed-card-collection">Assassinations in America</span>
+          </div>
+          <h3>Lincoln Is Shot at Ford's Theatre</h3>
+          <p>John Wilkes Booth shoots President Lincoln during a performance of Our American Cousin, mortally wounding him.</p>
+          <div class="feed-card-footer">
+            <span>&#x1F4CD; Washington, D.C.</span>
+            <span class="sep"></span>
+            <span>Apr 14, 1865</span>
+          </div>
+        </div>
+
+        <div class="feed-card">
+          <div class="feed-card-top">
+            <span class="feed-card-year">1968</span>
+            <span class="feed-card-collection">Civil Rights Movement</span>
+          </div>
+          <h3>Martin Luther King Jr. Is Assassinated</h3>
+          <p>King is fatally shot while standing on the balcony of the Lorraine Motel in Memphis, sparking nationwide riots and mourning.</p>
+          <div class="feed-card-footer">
+            <span>&#x1F4CD; Memphis, TN</span>
+            <span class="sep"></span>
+            <span>Apr 4, 1968</span>
+          </div>
+        </div>
+
+        <div class="feed-card">
+          <div class="feed-card-top">
+            <span class="feed-card-year">1969</span>
+            <span class="feed-card-collection">Space Exploration</span>
+          </div>
+          <h3>Armstrong Walks on the Moon</h3>
+          <p>Neil Armstrong takes humanity's first steps on the lunar surface during the Apollo 11 mission.</p>
+          <div class="feed-card-footer">
+            <span>&#x1F4CD; Sea of Tranquility, Moon</span>
+            <span class="sep"></span>
+            <span>Jul 20, 1969</span>
+          </div>
+        </div>
+
+        <div class="feed-card">
+          <div class="feed-card-top">
+            <span class="feed-card-year">1941</span>
+            <span class="feed-card-collection">World War II</span>
+          </div>
+          <h3>Japan Attacks Pearl Harbor</h3>
+          <p>A surprise military strike by the Imperial Japanese Navy devastates the U.S. Pacific Fleet and draws America into World War II.</p>
+          <div class="feed-card-footer">
+            <span>&#x1F4CD; Pearl Harbor, HI</span>
+            <span class="sep"></span>
+            <span>Dec 7, 1941</span>
+          </div>
+        </div>
+
+        <div style="height: 40px;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function showMap() {
+    document.getElementById('mapView').classList.remove('hidden');
+    document.getElementById('feedView').classList.remove('visible');
+    document.getElementById('btnMap').classList.add('active');
+    document.getElementById('btnFeed').classList.remove('active');
+  }
+
+  function showFeed() {
+    document.getElementById('mapView').classList.add('hidden');
+    document.getElementById('feedView').classList.add('visible');
+    document.getElementById('btnFeed').classList.add('active');
+    document.getElementById('btnMap').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>

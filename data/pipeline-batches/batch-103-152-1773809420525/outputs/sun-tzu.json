@@ -1,0 +1,100 @@
+{
+  "personName": "Sun Tzu",
+  "content": {
+    "entity": {
+      "id": "sun-tzu",
+      "name": "Sun Tzu",
+      "type": "person",
+      "years": "c. 544–c. 496 BC",
+      "description": "The strategist whose book conquered the world without fighting. Traditionally credited as the author of The Art of War, Sun Tzu may be semi-legendary, yet his 13-chapter treatise on military strategy has influenced generals from Cao Cao to Napoleon to Mao Zedong. Modern scholars doubt he existed as described.",
+      "wikipediaSlug": "Sun_Tzu",
+      "canonicalStoryId": "sun-tzu-life"
+    },
+    "story": {
+      "id": "sun-tzu-life",
+      "name": "Sun Tzu",
+      "years": "c. 544–c. 496 BC",
+      "category": "battles-conflicts",
+      "storyType": "biography",
+      "description": "Training concubines into soldiers by executing two, leading Wu to victory over the mighty Chu at Boju, and writing a 13-chapter text that generals would study for 2,500 years. Strategy as philosophy.",
+      "tags": ["military-strategy", "ancient-China", "philosophy", "warfare", "The-Art-of-War"],
+      "wikipediaSlug": "Sun_Tzu",
+      "relatedStoryIds": ["confucius-life", "alexander-the-great-life", "cao-cao-life"]
+    },
+    "moments": [
+      {
+        "id": "sun-tzu-born-in-state-of-qi",
+        "name": "Sun Tzu Is Born in the State of Qi During the Spring and Autumn Period",
+        "subtitle": "His very existence is debated, but his ideas would outlast every army that used them",
+        "description": "According to Sima Qian's Records of the Grand Historian, written around 97 BC, Sun Tzu was born in the state of Qi near the end of the Spring and Autumn period, around 544 BC. His birth name was said to be Sun Wu, while Sun Tzu is an honorific meaning Master Sun. However, beginning in the 12th century, Chinese scholars noted that the earlier Zuo Zhuan chronicle, which covers this period in detail, never mentions Sun Tzu at all. Modern scholars consider his historical existence uncertain, suggesting he may be a composite or legendary figure based partly on the later strategist Sun Bin.",
+        "lat": 36.4,
+        "lng": 118.4,
+        "type": "historical_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": -544,
+        "date": "c. 544 BC",
+        "address": "",
+        "entityIds": ["sun-tzu"],
+        "verificationLevel": "legendary",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "sun-tzu-executes-kings-concubines-to-prove-discipline",
+        "name": "Sun Tzu Executes Two of the King's Favorite Concubines to Prove a Point",
+        "subtitle": "The king protests, but the remaining 178 concubines start following orders immediately",
+        "description": "According to Sima Qian, King Helu of Wu summoned Sun Tzu and asked him to demonstrate his military theories by training the king's harem of 180 concubines. Sun Tzu divided them into two companies and appointed the king's two favorite concubines as commanders. When the women laughed instead of following orders, Sun Tzu had both favorites executed despite the king's desperate protests. The remaining concubines immediately began obeying every command perfectly. The king, though grieving, recognized Sun Tzu's ability and appointed him as a general. The anecdote, whether true or apocryphal, encapsulates the Art of War's core thesis: discipline precedes victory.",
+        "lat": 31.299,
+        "lng": 120.585,
+        "type": "government",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -512,
+        "date": "c. 512 BC",
+        "address": "",
+        "entityIds": ["sun-tzu"],
+        "verificationLevel": "legendary",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "wu-defeats-chu-at-battle-of-boju",
+        "name": "The State of Wu Defeats the Mighty Chu at the Battle of Boju",
+        "subtitle": "A small state crushes a superpower, vindicating Sun Tzu's theories on the battlefield",
+        "description": "In 506 BC, the state of Wu, traditionally led by Sun Tzu as general, defeated the much larger state of Chu at the Battle of Boju, one of the decisive battles of the Spring and Autumn period. The victory demonstrated that a smaller, well-led force could overcome a larger enemy through superior strategy, a core principle of The Art of War. However, the Zuo Zhuan, which gives a detailed account of this battle, credits the victory to Wu Zixu and other commanders without mentioning Sun Tzu at all. This silence is the strongest evidence against Sun Tzu's historical existence as described by Sima Qian.",
+        "lat": 31.0,
+        "lng": 113.5,
+        "type": "battlefield",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -506,
+        "date": "506 BC",
+        "address": "",
+        "entityIds": ["sun-tzu"],
+        "verificationLevel": "legendary",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "art-of-war-bamboo-slips-discovered-at-yinqueshan",
+        "name": "Construction Workers Unearth The Art of War on Bamboo Slips in Shandong",
+        "subtitle": "A 2,100-year-old text settles a centuries-long debate about two authors named Sun",
+        "description": "In 1972, construction workers at Yinqueshan in Shandong province accidentally unearthed bamboo slips containing texts of both The Art of War and the previously lost Military Methods by Sun Bin, sealed between 134 and 118 BC. The discovery resolved centuries of confusion about whether Sun Tzu and Sun Bin were the same person. The bamboo text contained about one-third of the modern Art of War's chapters, matching existing versions very closely. The find also bolstered the dating of The Art of War to the Warring States period rather than the Spring and Autumn period, suggesting it was written at least a century after Sun Tzu's supposed lifetime.",
+        "lat": 35.58,
+        "lng": 118.33,
+        "type": "discovery_site",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1972,
+        "date": "1972",
+        "address": "",
+        "entityIds": ["sun-tzu"],
+        "verificationLevel": "verified",
+        "wikiSection": "Life"
+      }
+    ],
+    "suggestedCollections": ["ancient-warfare", "military-strategists", "ancient-china"]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "personName": "Leo Tolstoy",
+  "content": {
+    "entity": {
+      "id": "leo-tolstoy",
+      "name": "Leo Tolstoy",
+      "type": "person",
+      "years": "1828–1910",
+      "description": "Author of War and Peace and Anna Karenina, considered the greatest novels ever written. Russian aristocrat who renounced his wealth, became a Christian anarchist, influenced Gandhi and MLK, and died in a train station at 82.",
+      "wikipediaSlug": "Leo_Tolstoy",
+      "canonicalStoryId": "leo-tolstoy-life"
+    },
+    "story": {
+      "id": "leo-tolstoy-life",
+      "name": "Leo Tolstoy",
+      "years": "1828–1910",
+      "category": "arts-culture",
+      "storyType": "biography",
+      "description": "Born an aristocrat at Yasnaya Polyana, fights in the Crimean War, writes War and Peace while his wife copies every draft by hand, witnesses a Paris execution that turns him pacifist, and flees his estate at 82 to die in a train station.",
+      "tags": ["russian-literature", "pacifism", "christian-anarchism", "19th-century", "novels"],
+      "wikipediaSlug": "Leo_Tolstoy",
+      "relatedStoryIds": ["fyodor-dostoevsky-life", "mahatma-gandhi-life", "anton-chekhov-life", "victor-hugo-life"]
+    },
+    "moments": [
+      {
+        "id": "tolstoy-born-yasnaya-polyana",
+        "name": "Leo Tolstoy Is Born on a Noble Estate South of Moscow",
+        "subtitle": "The fourth of five children, orphaned by nine, raised by relatives on a vast country estate",
+        "description": "On September 9, 1828, Count Lev Nikolayevich Tolstoy was born at Yasnaya Polyana, a family estate 200 kilometers south of Moscow in Russia's Tula province. His father, Count Nikolai Ilyich Tolstoy, was a veteran of the 1812 war against Napoleon; his mother was Princess Mariya Volkonskaya. Tolstoy's mother died when he was two, his father when he was nine. Raised by relatives, Tolstoy began studying law and oriental languages at Kazan University in 1844, where teachers described him as 'both unable and unwilling to learn.' He dropped out and returned to Yasnaya Polyana, the estate that would anchor his entire life and literary career.",
+        "lat": 54.0751,
+        "lng": 37.5264,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "exact",
+        "kind": "milestone",
+        "year": 1828,
+        "date": "September 9, 1828",
+        "address": "Yasnaya Polyana, Tula Oblast, Russia",
+        "entityIds": ["leo-tolstoy"],
+        "verificationLevel": "verified",
+        "wikiSection": "Life_and_career"
+      },
+      {
+        "id": "tolstoy-survives-siege-of-sevastopol",
+        "name": "Tolstoy Fights in the Siege of Sevastopol and Is Horrified by War",
+        "subtitle": "An artillery officer's frontline experience produces both a literary masterpiece and a lifelong pacifist",
+        "description": "From 1854 to 1855, Leo Tolstoy served as a young artillery officer during the 11-month Siege of Sevastopol in the Crimean War, including the Battle of the Chernaya. Tolstoy was recognized for his courage and promoted to lieutenant, but was appalled by the scale of death and suffering he witnessed. He channeled his experiences into the Sevastopol Sketches (1855), published while the war was still raging, which brought him literary fame for their unflinching realism. Tolstoy left the army after the war ended. The horrors he witnessed at Sevastopol seeded the pacifism that would later define his philosophy and directly inspire Mahatma Gandhi's nonviolent resistance.",
+        "lat": 44.6167,
+        "lng": 33.5254,
+        "type": "battlefield",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1854,
+        "date": "1854–1855",
+        "address": "Sevastopol, Crimea",
+        "entityIds": ["leo-tolstoy"],
+        "verificationLevel": "verified",
+        "wikiSection": "Life_and_career"
+      },
+      {
+        "id": "tolstoy-witnesses-execution-paris",
+        "name": "Tolstoy Witnesses a Public Execution in Paris That Changes His Worldview",
+        "subtitle": "A guillotine blade falling in a Paris square turns a dissolute aristocrat into an anarchist",
+        "description": "During a visit to Paris in 1857, Leo Tolstoy witnessed a public execution by guillotine, a traumatic experience that marked the rest of his life. In a letter to his friend Vasily Botkin, Tolstoy wrote that the event proved to him the State was 'a conspiracy designed not only to exploit, but above all to corrupt its citizens,' and vowed never to serve any government anywhere. The execution converted Tolstoy from a dissolute, privileged society author into a nonviolent spiritual anarchist. This transformation would produce his philosophical masterworks and, through his correspondence with a young Mohandas Gandhi, help shape the Indian independence movement decades later.",
+        "lat": 48.8566,
+        "lng": 2.3522,
+        "type": "landmark",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 1857,
+        "date": "1857",
+        "address": "Paris, France",
+        "entityIds": ["leo-tolstoy"],
+        "verificationLevel": "documented",
+        "wikiSection": "Life_and_career"
+      },
+      {
+        "id": "tolstoy-publishes-war-and-peace",
+        "name": "Tolstoy Publishes War and Peace, the Novel Many Call the Greatest Ever Written",
+        "subtitle": "His wife Sonya hand-copies the massive manuscript multiple times as Tolstoy endlessly revises",
+        "description": "In 1869, Leo Tolstoy completed War and Peace at his estate Yasnaya Polyana, south of Moscow. The novel, spanning 1,225 pages and featuring over 500 characters, depicts Russian society during the Napoleonic Wars of 1805-1812. Tolstoy's wife Sophia acted as his secretary, hand-copying the entire manuscript multiple times as he continuously revised. The title was borrowed from Pierre-Joseph Proudhon's La Guerre et la Paix, which Tolstoy had discussed with the French anarchist in Brussels in 1861. Virginia Woolf later called Tolstoy 'the greatest of all novelists,' and the novel is consistently ranked among the finest literary achievements in human history.",
+        "lat": 54.0751,
+        "lng": 37.5264,
+        "type": "residence",
+        "importance": "major",
+        "accuracy": "exact",
+        "kind": "event",
+        "year": 1869,
+        "date": "1869",
+        "address": "Yasnaya Polyana, Tula Oblast, Russia",
+        "entityIds": ["leo-tolstoy"],
+        "verificationLevel": "verified",
+        "wikiSection": "Novels_and_fictional_works"
+      }
+    ],
+    "suggestedCollections": ["great-writers", "russian-history", "pacifists-and-activists", "19th-century-europe"]
+  }
+}

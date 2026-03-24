@@ -1,0 +1,100 @@
+{
+  "personName": "Democritus",
+  "content": {
+    "entity": {
+      "id": "democritus",
+      "name": "Democritus",
+      "type": "person",
+      "years": "c. 460–c. 370 BC",
+      "description": "The laughing philosopher who theorized atoms 2,300 years early. A pre-Socratic thinker from Abdera who proposed that all matter consists of tiny indivisible particles moving through void. He spent his inheritance traveling to Egypt, Babylon, and possibly India, then wrote 80 treatises, none of which survive in original form.",
+      "wikipediaSlug": "Democritus",
+      "canonicalStoryId": "democritus-life"
+    },
+    "story": {
+      "id": "democritus-life",
+      "name": "Democritus",
+      "years": "c. 460–c. 370 BC",
+      "category": "discovery-science",
+      "storyType": "biography",
+      "description": "Proposing atomic theory in ancient Abdera, spending a fortune traveling to Egypt and Babylon, writing 80 treatises that survive only in fragments. The laughing philosopher who saw the universe in particles.",
+      "tags": ["philosophy", "ancient-greece", "atomism", "pre-Socratic", "science"],
+      "wikipediaSlug": "Democritus",
+      "relatedStoryIds": ["socrates-life", "aristotle-life", "plato-life", "leucippus-life"]
+    },
+    "moments": [
+      {
+        "id": "democritus-born-in-abdera-thrace",
+        "name": "Democritus Is Born in Abdera to a Wealthy Thracian Family",
+        "subtitle": "His father was rich enough to host the Persian king Xerxes on his march through town",
+        "description": "Around 460 BC, Democritus was born in Abdera, a Greek city on the coast of Thrace. His father, Hegesistratus, was wealthy enough to receive and entertain the Persian king Xerxes during his march through the region. This enormous family fortune would later fund Democritus's extensive travels across the ancient world. Abdera, though sometimes mocked by other Greeks as a provincial backwater, produced one of antiquity's most original thinkers, a man Aristotle would later regard as an important intellectual rival in natural philosophy.",
+        "lat": 40.95,
+        "lng": 24.983,
+        "type": "settlement_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": -460,
+        "date": "c. 460 BC",
+        "address": "",
+        "entityIds": ["democritus"],
+        "verificationLevel": "documented",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "democritus-studies-with-egyptian-mathematicians",
+        "name": "Democritus Studies with Egyptian Mathematicians for Five Years",
+        "subtitle": "He praises their knowledge but considers himself their equal",
+        "description": "Around 440-430 BC, the Greek philosopher Democritus traveled to Egypt and reportedly lived there for five years, according to Diodorus Siculus. Democritus studied with Egyptian mathematicians whose knowledge he praised highly, though he did not consider himself inferior to them. The trip was part of an extensive series of journeys funded by his inheritance that took him across Asia and possibly to India and Ethiopia. Democritus claimed that no contemporary had traveled more widely or met more distinguished scholars. These travels shaped the empirical outlook that informed his atomic theory.",
+        "lat": 29.9792,
+        "lng": 31.1342,
+        "type": "institution",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -440,
+        "date": "c. 440 BC",
+        "address": "",
+        "entityIds": ["democritus"],
+        "verificationLevel": "documented",
+        "wikiSection": "Life"
+      },
+      {
+        "id": "democritus-proposes-atomic-theory-of-universe",
+        "name": "Democritus Proposes That All Matter Is Made of Indivisible Atoms",
+        "subtitle": "Twenty-three centuries before modern physics, a Greek philosopher gets the basic idea right",
+        "description": "In the mid-fifth century BC, Democritus developed and expanded the atomic theory first proposed by his teacher Leucippus, arguing that all matter consists of tiny, indivisible particles called atoms moving through void. Democritus held that atoms are infinite in number, too small to detect, and differ only in shape, size, and arrangement. Everything we perceive, from water to fire to human beings, is merely combinations of atoms in empty space. He called sensory qualities mere convention, not reality. This radical materialist framework, conceived 2,300 years before Dalton's atomic model, made Democritus Aristotle's most formidable philosophical rival.",
+        "lat": 40.95,
+        "lng": 24.983,
+        "type": "discovery_site",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": -430,
+        "date": "c. 430 BC",
+        "address": "",
+        "entityIds": ["democritus"],
+        "verificationLevel": "documented",
+        "wikiSection": "Atomism"
+      },
+      {
+        "id": "democritus-dies-in-abdera-possibly-over-100",
+        "name": "Democritus Dies in Abdera, Reportedly Over 100 Years Old",
+        "subtitle": "The laughing philosopher dies poor but honored by his fellow citizens with bronze statues",
+        "description": "Around 370 BC, Democritus died in his native city of Abdera. Ancient accounts claim he lived to an extraordinary old age, with some sources suggesting he was over 100 years old. Despite having spent his massive inheritance on travel and study, Democritus died in poverty. Yet his fellow citizens honored him with gifts of money and bronze statues, not for his philosophy but because, as Diogenes Laertius noted, he had predicted natural phenomena that proved true. Known as the laughing philosopher for his emphasis on cheerfulness, even the sharp-tongued satirist Timon spoke of him only in praise.",
+        "lat": 40.95,
+        "lng": 24.983,
+        "type": "historical_site",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": -370,
+        "date": "c. 370 BC",
+        "address": "",
+        "entityIds": ["democritus"],
+        "verificationLevel": "documented",
+        "wikiSection": "Life"
+      }
+    ],
+    "suggestedCollections": ["ancient-greek-philosophy", "history-of-science", "pre-socratic-thinkers"]
+  }
+}

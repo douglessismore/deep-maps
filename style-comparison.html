@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style Comparison — Albert Einstein</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 20px; max-width: 900px; margin: 0 auto; }
+h1 { font-size: 22px; margin-bottom: 4px; }
+.page-sub { color: #8b949e; font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
+
+.style-selector { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.style-selector label { font-size: 12px; color: #8b949e; margin-right: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.style-btn { padding: 7px 14px; border-radius: 6px; border: 2px solid #30363d; background: #161b22; color: #e6edf3; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.15s; }
+.style-btn:hover { border-color: #58a6ff; }
+.style-btn.active { border-color: var(--accent); background: var(--accent-bg); }
+.style-btn[data-style="A"] { --accent: #8b949e; --accent-bg: #21262d; }
+.style-btn[data-style="B"] { --accent: #58a6ff; --accent-bg: #0d2240; }
+.style-btn[data-style="C"] { --accent: #3fb950; --accent-bg: #0d2818; }
+.style-btn[data-style="D"] { --accent: #d29922; --accent-bg: #2d2206; }
+
+.pick-btn { background: none; border: 1px solid #30363d; color: #8b949e; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-left: auto; }
+.pick-btn:hover { border-color: #f0c000; color: #f0c000; }
+.pick-btn.picked { border-color: #f0c000; color: #f0c000; background: #2d2206; }
+
+.profile { border: 1px solid #30363d; border-radius: 12px; overflow: hidden; }
+.profile-header { padding: 20px; border-bottom: 1px solid #21262d; }
+.profile-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.profile-bio { color: #c9d1d9; font-size: 14px; line-height: 1.5; }
+
+.moments-list { }
+.moment-item { padding: 16px 20px; border-bottom: 1px solid #1c2128; }
+.moment-item:last-child { border-bottom: none; }
+.moment-item:hover { background: #161b22; }
+.moment-year { font-size: 11px; font-weight: 700; color: #58a6ff; margin-bottom: 2px; }
+.moment-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.moment-subtitle { font-size: 12px; color: #8b949e; margin-bottom: 8px; font-style: italic; }
+.moment-desc { font-size: 13px; color: #c9d1d9; line-height: 1.55; }
+.char-count { font-size: 10px; color: #484f58; margin-top: 4px; }
+
+.compare-toggle { margin-bottom: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.compare-toggle label { font-size: 12px; color: #8b949e; }
+.compare-toggle select { background: #161b22; border: 1px solid #30363d; color: #e6edf3; padding: 4px 8px; border-radius: 4px; font-size: 13px; }
+.compare-wrapper { display: flex; gap: 16px; }
+.compare-wrapper .profile { flex: 1; min-width: 0; }
+.compare-wrapper .profile-name { font-size: 16px; }
+.compare-wrapper .moment-name { font-size: 13px; }
+.compare-wrapper .moment-desc { font-size: 12px; }
+.compare-wrapper .profile-bio { font-size: 13px; }
+
+.mode-tabs { display: flex; gap: 0; margin-bottom: 20px; }
+.mode-tab { padding: 8px 16px; border: 1px solid #30363d; background: #161b22; color: #8b949e; cursor: pointer; font-size: 13px; }
+.mode-tab:first-child { border-radius: 6px 0 0 6px; }
+.mode-tab:last-child { border-radius: 0 6px 6px 0; }
+.mode-tab.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+.style-tag-inline { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
+.hidden { display: none; }
+.style-note { font-size: 11px; color: #8b949e; padding: 8px 12px; background: #161b22; border-radius: 6px; margin-bottom: 16px; border-left: 3px solid var(--note-color, #58a6ff); line-height: 1.5; }
+.field-roles { font-size: 11px; color: #6e7681; padding: 10px 12px; background: #0d1117; border: 1px solid #21262d; border-radius: 6px; margin-bottom: 20px; line-height: 1.6; }
+.field-roles strong { color: #8b949e; }
+</style>
+</head>
+<body>
+
+<h1>Albert Einstein — Content Framework Comparison</h1>
+<p class="page-sub">New framework: Name = what happened, Subtitle = where to find it today, Description = the compact story.</p>
+
+<div class="field-roles">
+  <strong>Name:</strong> Encyclopedic headline. What happened, stated plainly. &nbsp;
+  <strong>Subtitle:</strong> Place annotation. Address, what remains, what to look for. &nbsp;
+  <strong>Description:</strong> The narrative. Place-grounded, factual, economical.
+</div>
+
+<div class="mode-tabs">
+  <div class="mode-tab active" onclick="setMode('single')">Single View</div>
+  <div class="mode-tab" onclick="setMode('compare')">Side-by-Side</div>
+</div>
+
+<div id="single-mode">
+  <div class="style-selector">
+    <label>Style:</label>
+    <button class="style-btn active" data-style="A" onclick="setStyle('A')">A: Current</button>
+    <button class="style-btn" data-style="B" onclick="setStyle('B')">B: Framework</button>
+    <button class="style-btn" data-style="C" onclick="setStyle('C')">C: Framework Tight</button>
+    <button class="style-btn" data-style="D" onclick="setStyle('D')">D: Tour Guide</button>
+    <button class="pick-btn" onclick="pickStyle()" id="pickBtn">★ Pick this style</button>
+  </div>
+  <div id="style-note"></div>
+  <div id="single-profile"></div>
+</div>
+
+<div id="compare-mode" class="hidden">
+  <div class="compare-toggle">
+    <label>Left:</label>
+    <select id="compare-left" onchange="renderCompare()">
+      <option value="A">A: Current</option>
+      <option value="B" selected>B: Framework</option>
+      <option value="C">C: Framework Tight</option>
+      <option value="D">D: Tour Guide</option>
+    </select>
+    <label>Right:</label>
+    <select id="compare-right" onchange="renderCompare()">
+      <option value="A">A: Current</option>
+      <option value="B">B: Framework</option>
+      <option value="C" selected>C: Framework Tight</option>
+      <option value="D">D: Tour Guide</option>
+    </select>
+  </div>
+  <div class="compare-wrapper">
+    <div id="compare-left-profile"></div>
+    <div id="compare-right-profile"></div>
+  </div>
+</div>
+
+<script>
+var DATA = {
+  description: {
+    A: "The physicist who rewrote the laws of the universe. Einstein published four world-altering papers in a single year while working as a patent clerk, won the 1921 Nobel Prize, and fled Nazi Germany to become the most recognizable scientist in history.",
+    B: "German-born physicist (1879\u20131955) who rewrote the laws of physics from a patent desk in Bern, replaced Newton's gravity at the Prussian Academy in Berlin, fled Nazi Germany for Princeton, and signed the letter that launched the Manhattan Project. Nobel Prize in Physics, 1921. Died at 76 with unfinished equations on his nightstand.",
+    C: "German-born physicist (1879\u20131955). Rewrote physics from a patent desk in Bern. Replaced Newton's gravity in Berlin. Fled Nazi Germany for Princeton. Signed the letter that launched the Manhattan Project. Nobel Prize, 1921.",
+    D: "You're about to walk through the life of the most famous scientist who ever lived, place by place. From a modest house in Ulm to a patent office in Bern to the halls of Berlin's Prussian Academy to a hospital bed in Princeton. Six places. One man. The entire universe, rewritten."
+  },
+  moments: [
+    {
+      year: 1879,
+      name: {
+        A: "Albert Einstein Is Born in Ulm, Germany",
+        B: "Einstein Is Born in Ulm",
+        C: "Einstein Is Born in Ulm",
+        D: "Einstein Is Born in Ulm"
+      },
+      subtitle: {
+        A: "His parents feared he had a learning disability \u2014 he barely spoke until age three",
+        B: "Bahnhofstra\u00dfe 20, Ulm. The house was destroyed by Allied bombs in WWII. A memorial marks the site near the Gothic minster.",
+        C: "Bahnhofstra\u00dfe 20, Ulm. Destroyed in WWII. Memorial marks the site.",
+        D: "We\u2019re starting at Bahnhofstra\u00dfe 20 in Ulm. The house is gone now \u2014 Allied bombs \u2014 but you can see the memorial near the minster."
+      },
+      description: {
+        A: "Albert Einstein was born on 14 March 1879 in Ulm, in the Kingdom of W\u00fcrttemberg, to Hermann Einstein, a salesman and engineer, and Pauline Koch, both secular Ashkenazi Jews. His early development alarmed his parents \u2014 he was unusually slow to speak, leading them to worry about a learning disability. The family moved to Munich the following year. At age five, a compass his father gave him during an illness sparked a lifelong obsession with invisible forces; Einstein later said it convinced him that 'something deeply hidden had to be behind things.'",
+        B: "Albert Einstein was born here on 14 March 1879 to Hermann Einstein, a salesman, and Pauline Koch. He was so slow to speak his parents consulted doctors. The family moved to Munich the following year. At five, sick in bed, a compass from his father sparked a lifelong obsession with invisible forces. Einstein later said it convinced him that something deeply hidden had to be behind things.",
+        C: "Born 14 March 1879 to Hermann Einstein, a salesman, and Pauline Koch. So slow to speak his parents consulted doctors. Family moved to Munich a year later. At five, a compass from his father sparked a lifelong obsession with invisible forces.",
+        D: "This is where Albert Einstein was born, on 14 March 1879. His father Hermann was a salesman, his mother Pauline played piano. Picture a modest house near that massive Gothic minster you can still see from here. The boy could barely speak until age three. His parents were worried. Then at five, sick in bed, his father handed him a compass. That invisible force steering the needle changed everything. He never stopped thinking about it."
+      }
+    },
+    {
+      year: 1905,
+      name: {
+        A: "Einstein Publishes Four Papers That Rewrite Physics While Working as a Patent Clerk",
+        B: "Einstein Publishes Four Papers That Rewrite Physics",
+        C: "Einstein Publishes Four Papers That Rewrite Physics",
+        D: "Einstein Publishes Four Papers That Rewrite Physics"
+      },
+      subtitle: {
+        A: "A 26-year-old with no academic position proves that space and time are the same thing",
+        B: "Speichergasse 2, Bern. The building still stands. Einstein worked on the second floor as a third-class patent examiner.",
+        C: "Speichergasse 2, Bern. Building still stands. Second floor.",
+        D: "We\u2019re at Speichergasse 2 in Bern. Look up \u2014 second floor. That\u2019s where he sat. The building is still here."
+      },
+      description: {
+        A: "In 1905, while working six days a week as a third-class examiner at the Swiss Patent Office in Bern, 26-year-old Albert Einstein published four papers that transformed physics. The first explained the photoelectric effect (later earning the Nobel Prize). The second proved atoms exist. The third introduced special relativity. The fourth derived E=mc\u00b2. No scientist has ever had a year remotely comparable. Einstein had been rejected for every academic position he applied for.",
+        B: "In 1905, 26-year-old Einstein published four papers from this patent office that dismantled classical physics. The first explained the photoelectric effect, later earning the Nobel Prize. The second proved atoms exist. The third introduced special relativity. The fourth derived E=mc\u00b2. He worked six days a week and had been rejected from every academic position he applied for. No scientist has matched that year.",
+        C: "In 1905, 26-year-old Einstein published four papers from this patent office that rewrote physics. Photoelectric effect. Proof atoms exist. Special relativity. E=mc\u00b2. He worked six days a week, rejected from every academic post. No scientist has matched that year.",
+        D: "You\u2019re looking at the building where modern physics was born. In 1905, a 26-year-old patent clerk sat at a desk on the second floor up there and published four papers that dismantled everything we thought we knew. Photoelectric effect. Brownian motion. Special relativity. E=mc\u00b2. He worked six days a week. Every university had rejected him. No scientist has ever had a year like it, before or since."
+      }
+    },
+    {
+      year: 1915,
+      name: {
+        A: "Einstein Presents the General Theory of Relativity to the Prussian Academy",
+        B: "Einstein Presents General Relativity",
+        C: "Einstein Presents General Relativity",
+        D: "Einstein Presents General Relativity"
+      },
+      subtitle: {
+        A: "Gravity is not a force \u2014 it is the curvature of spacetime itself",
+        B: "Prussian Academy of Sciences, Unter den Linden, Berlin. The original building was heavily damaged in WWII and later rebuilt.",
+        C: "Unter den Linden, Berlin. Original building damaged in WWII, rebuilt.",
+        D: "We\u2019re on Unter den Linden in Berlin. The Prussian Academy building took heavy damage in the war, but you can still stand where he stood."
+      },
+      description: {
+        A: "On 25 November 1915, Albert Einstein presented the field equations of general relativity to the Prussian Academy of Sciences in Berlin, completing a decade-long effort to extend special relativity to include gravity. The theory replaced Newton's concept of gravity as an instantaneous force with a geometric model: mass curves spacetime, and objects follow that curvature. The theory predicted that light bends around massive objects \u2014 confirmed spectacularly during the 1919 solar eclipse, when Arthur Eddington measured starlight deflecting around the sun exactly as Einstein calculated. The confirmation made Einstein an overnight global celebrity.",
+        B: "On 25 November 1915, Einstein delivered four lectures here presenting general relativity. He replaced Newton\u2019s 228-year-old theory of gravity with a geometric model: mass curves spacetime, and objects follow that curvature. The theory predicted light bends around massive objects. In 1919, Arthur Eddington confirmed it during a solar eclipse by measuring starlight deflection exactly as calculated. Einstein became the most famous scientist alive.",
+        C: "On 25 November 1915, Einstein presented general relativity in four lectures here. Replaced Newton\u2019s gravity with curved spacetime. Predicted light bends around mass. Confirmed by Arthur Eddington during a 1919 solar eclipse. Einstein became the most famous scientist alive.",
+        D: "This is where Newton was overthrown. On 25 November 1915, Einstein stood in this hall and delivered four lectures that replaced 228 years of accepted physics. Gravity isn\u2019t a force, he told them. It\u2019s the curvature of spacetime itself. He predicted that light bends around massive objects. Four years later, during a solar eclipse, Arthur Eddington proved him right. Overnight, the man who stood right here became the most famous scientist on earth."
+      }
+    },
+    {
+      year: 1933,
+      name: {
+        A: "Einstein Learns Hitler Has Taken Power and Never Returns to Germany",
+        B: "Einstein Flees Nazi Germany",
+        C: "Einstein Flees Nazi Germany",
+        D: "Einstein Flees Nazi Germany"
+      },
+      subtitle: {
+        A: "He was on a lecture tour in California when the Nazis seized his Berlin apartment",
+        B: "Haberlandstra\u00dfe 5, Berlin. The apartment building still stands in the Bavarian Quarter. Memorial plaques mark the site.",
+        C: "Haberlandstra\u00dfe 5, Berlin. Building still stands. Memorial plaques on site.",
+        D: "We\u2019re at Haberlandstra\u00dfe 5 in Berlin\u2019s Bavarian Quarter. The building is still here. Look for the memorial plaques."
+      },
+      description: {
+        A: "In January 1933, while Einstein was visiting Caltech in Pasadena, Adolf Hitler was appointed Chancellor of Germany. Einstein, a prominent Jewish intellectual, immediately understood the danger \u2014 Nazi paramilitaries had already raided his Berlin apartment. He resigned from the Prussian Academy by letter and never returned to Europe to live. Later that year he accepted a position at the Institute for Advanced Study in Princeton, where he would remain for life. The Nazi persecution of Jewish scientists drove dozens of Europe's finest physicists to the United States, shifting the center of world physics from Berlin to the American East Coast.",
+        B: "Einstein was at Caltech in Pasadena when Hitler took power in January 1933. Nazi paramilitaries raided this apartment. Einstein resigned from the Prussian Academy by letter, returned to Europe only to surrender his passport, and accepted a position at the Institute for Advanced Study in Princeton. He never saw this building again. He never returned to Germany.",
+        C: "Einstein was at Caltech when Hitler took power in January 1933. Nazis raided this apartment. He resigned from the Prussian Academy by letter. Never returned to Germany. Joined Princeton\u2019s Institute for Advanced Study for life.",
+        D: "Look up at those windows. Einstein lived here. In January 1933, he was 6,000 miles away at Caltech when Hitler became Chancellor. Nazi paramilitaries broke in and ransacked the place. Einstein resigned from the Prussian Academy by letter, crossed back to Europe only to hand over his passport, and left for Princeton. He never came back. Never saw this building again."
+      }
+    },
+    {
+      year: 1939,
+      name: {
+        A: "Einstein Signs the Letter Warning Roosevelt About the Nazi Atomic Bomb",
+        B: "Einstein Signs the Einstein\u2013Szil\u00e1rd Letter to Roosevelt",
+        C: "Einstein Signs the Einstein\u2013Szil\u00e1rd Letter",
+        D: "Einstein Signs the Einstein\u2013Szil\u00e1rd Letter"
+      },
+      subtitle: {
+        A: "The world's most famous pacifist endorses the research that will kill 200,000 people",
+        B: "Nassau Point, Peconic, Long Island. The cottage where Einstein signed is a private residence on the waterfront.",
+        C: "Nassau Point, Peconic, Long Island. Private residence.",
+        D: "We\u2019re on Nassau Point in Peconic, out on Long Island. That cottage on the water is where it happened. It\u2019s a private home now."
+      },
+      description: {
+        A: "On 2 August 1939, Albert Einstein signed a letter drafted by physicist Le\u00f3 Szil\u00e1rd and addressed to President Roosevelt, warning that Germany might be developing nuclear weapons and urging the United States to begin its own atomic program. Einstein had been persuaded that his name alone could compel presidential attention. Roosevelt received the letter in October 1939 and convened an advisory committee that grew into the Manhattan Project \u2014 the $2 billion effort that produced the atomic bombs dropped on Hiroshima and Nagasaki. Einstein, denied security clearance, later called signing the letter 'the one great mistake in my life.'",
+        B: "On 2 August 1939, physicist Leo Szilard brought a letter to this cottage warning Roosevelt that Germany might build nuclear weapons. Einstein signed it. Roosevelt received the letter in October and convened an advisory committee that grew into the Manhattan Project. Einstein was denied security clearance to work on the bomb. He later called signing the letter the greatest mistake of his life.",
+        C: "On 2 August 1939, Leo Szilard brought a letter here warning Roosevelt that Germany might build nuclear weapons. Einstein signed it. Led to the Manhattan Project. Einstein was denied security clearance. Called it the greatest mistake of his life.",
+        D: "This quiet cottage on the water. On 2 August 1939, physicist Leo Szilard drove out here with a letter addressed to President Roosevelt warning that Germany might build nuclear weapons. He needed the most famous signature in science. Einstein signed. Roosevelt read it in October and created a committee that became the Manhattan Project. Einstein himself was denied security clearance. He called signing that letter the greatest mistake of his life."
+      }
+    },
+    {
+      year: 1955,
+      name: {
+        A: "Einstein Dies in Princeton with a Unified Field Theory Still Unfinished",
+        B: "Einstein Dies in Princeton",
+        C: "Einstein Dies in Princeton",
+        D: "Einstein Dies in Princeton"
+      },
+      subtitle: {
+        A: "He asked for his notes the morning he died \u2014 the equations were never completed",
+        B: "Princeton Hospital, Plainsboro, NJ. The original hospital building has been replaced by Penn Medicine Princeton Medical Center.",
+        C: "Princeton Hospital, Plainsboro, NJ. Original building replaced.",
+        D: "The original Princeton Hospital in Plainsboro is gone now. Penn Medicine Princeton Medical Center stands in its place."
+      },
+      description: {
+        A: "Albert Einstein died on 18 April 1955 at Princeton Hospital, New Jersey, of an abdominal aortic aneurysm. He was 76. He had refused surgery, telling his doctors: 'I want to go when I want. It is tasteless to prolong life artificially.' A notebook of unified field theory calculations was found unfinished on his bedside table. His brain was removed without family permission by pathologist Thomas Harvey, who kept it in a jar for decades. Einstein had spent his final 30 years attempting to unify gravity and electromagnetism, increasingly isolated from mainstream quantum physics.",
+        B: "Einstein died here on 18 April 1955, age 76. Abdominal aortic aneurysm. He refused surgery. On the nightstand sat pages of unfinished unified field theory calculations. Pathologist Thomas Harvey removed his brain without the family\u2019s consent during the autopsy and kept it preserved for over forty years.",
+        C: "Einstein died here on 18 April 1955, age 76. Abdominal aortic aneurysm. Refused surgery. Unfinished field theory equations on his nightstand. Pathologist Thomas Harvey removed his brain without permission. Kept it for over forty years.",
+        D: "This is where it ended. 18 April 1955. Einstein was 76. An abdominal aortic aneurysm. The doctors wanted to operate. He refused. On the nightstand sat pages of equations he\u2019d been working on that morning, his latest attempt to unify all of physics into one theory. He never finished. Then the pathologist, Thomas Harvey, removed his brain during the autopsy without asking the family. He kept it in jars for over forty years."
+      }
+    }
+  ]
+};
+
+var STYLE_META = {
+  A: { border: '#8b949e', bg: '#21262d', label: 'Current', note: '<strong>Current content.</strong> Name carries editorial weight. Subtitle = human hook. Description = full narrative with place mixed in. No consistent field roles.' },
+  B: { border: '#58a6ff', bg: '#0d2240', label: 'Framework', note: '<strong>New framework.</strong> Name = encyclopedic headline (what happened). Subtitle = place/visit annotation (address, what remains). Description = compact narrative (~400\u2013500 chars). Clear separation of concerns.' },
+  C: { border: '#3fb950', bg: '#0d2818', label: 'Framework Tight', note: '<strong>New framework, tighter.</strong> Same field roles as B but descriptions cut to ~250\u2013350 chars. Tests whether shorter works on mobile without losing the story.' },
+  D: { border: '#d29922', bg: '#2d2206', label: 'Tour Guide', note: '<strong>Immersive voice.</strong> Second-person, as if leading a walking tour. Same field roles but written for AR/VR/audio. Contrast piece \u2014 not for default text view.' }
+};
+
+var currentStyle = 'A';
+var currentMode = 'single';
+var pickedStyle = null;
+
+function cc(text) { return text ? text.length : 0; }
+
+function renderProfile(style, containerId) {
+  var c = STYLE_META[style];
+  var container = document.getElementById(containerId);
+  var html = '<div class="profile" style="border-color: ' + c.border + '">';
+  html += '<div class="profile-header">';
+  html += '<div class="profile-name">Albert Einstein';
+  html += '<span class="style-tag-inline" style="background:' + c.bg + '; color:' + c.border + '; border:1px solid ' + c.border + '">' + style + ': ' + c.label + '</span>';
+  html += '</div>';
+  html += '<div class="profile-bio">' + DATA.description[style] + '</div>';
+  html += '<div class="char-count">' + cc(DATA.description[style]) + ' chars</div>';
+  html += '</div>';
+  html += '<div class="moments-list">';
+  DATA.moments.forEach(function(m) {
+    html += '<div class="moment-item">';
+    html += '<div class="moment-year">' + m.year + '</div>';
+    html += '<div class="moment-name">' + m.name[style] + '</div>';
+    html += '<div class="moment-subtitle">' + m.subtitle[style] + '</div>';
+    html += '<div class="moment-desc">' + m.description[style] + '</div>';
+    html += '<div class="char-count">Name: ' + cc(m.name[style]) + ' \u00b7 Sub: ' + cc(m.subtitle[style]) + ' \u00b7 Desc: ' + cc(m.description[style]) + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+  container.innerHTML = html;
+}
+
+function setStyle(style) {
+  currentStyle = style;
+  document.querySelectorAll('.style-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.style === style);
+  });
+  updatePickBtn();
+  var c = STYLE_META[style];
+  document.getElementById('style-note').innerHTML = '<div class="style-note" style="--note-color: ' + c.border + '">' + c.note + '</div>';
+  renderProfile(style, 'single-profile');
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(function(t) {
+    t.classList.toggle('active', t.textContent.includes(mode === 'single' ? 'Single' : 'Side'));
+  });
+  document.getElementById('single-mode').classList.toggle('hidden', mode !== 'single');
+  document.getElementById('compare-mode').classList.toggle('hidden', mode !== 'compare');
+  if (mode === 'compare') renderCompare();
+}
+
+function renderCompare() {
+  var left = document.getElementById('compare-left').value;
+  var right = document.getElementById('compare-right').value;
+  renderProfile(left, 'compare-left-profile');
+  renderProfile(right, 'compare-right-profile');
+}
+
+function pickStyle() {
+  if (pickedStyle === currentStyle) { pickedStyle = null; }
+  else { pickedStyle = currentStyle; }
+  updatePickBtn();
+}
+
+function updatePickBtn() {
+  var btn = document.getElementById('pickBtn');
+  if (pickedStyle === currentStyle) {
+    btn.classList.add('picked');
+    btn.textContent = '\u2605 Picked!';
+  } else {
+    btn.classList.remove('picked');
+    btn.textContent = '\u2605 Pick this style';
+  }
+}
+
+setStyle('A');
+</script>
+</body>
+</html>

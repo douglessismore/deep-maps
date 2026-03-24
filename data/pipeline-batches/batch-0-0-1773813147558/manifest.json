@@ -1,0 +1,15 @@
+{
+  "batchId": "batch-0-0-1773813147558",
+  "offset": 0,
+  "limit": 1,
+  "created": "2026-03-18T05:52:28.720Z",
+  "people": [
+    {
+      "index": 0,
+      "name": "Jesus",
+      "status": "skipped-complete"
+    }
+  ],
+  "totalReady": 0,
+  "totalSkipped": 1
+}

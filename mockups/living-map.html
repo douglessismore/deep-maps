@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Maps — Living Map Concept</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 64px;
+    min-height: 100vh;
+  }
+
+  .concept-description {
+    max-width: 600px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .concept-description h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .concept-description .subtitle {
+    color: #dc2626;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .concept-description p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #999;
+  }
+
+  .interaction-hint {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: rgba(220,38,38,0.1);
+    border: 1px solid rgba(220,38,38,0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #dc2626;
+    font-weight: 500;
+  }
+
+  /* Phone frame */
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    border: 3px solid #333;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    background: #0a0a0a;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .phone-inner {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Status bar */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(10,15,26,0.9) 0%, transparent 100%);
+  }
+
+  /* Full-screen map */
+  .map-surface {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 35% 40%, #1a2535 0%, #0d1520 40%, #080d15 100%);
+    overflow: hidden;
+  }
+
+  .map-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Decorative map features */
+  .map-water {
+    position: absolute;
+    border-radius: 40%;
+    background: rgba(30,60,100,0.15);
+  }
+  .water-1 { width: 200px; height: 120px; top: 10%; right: -40px; transform: rotate(-10deg); }
+  .water-2 { width: 150px; height: 80px; bottom: 20%; left: -30px; transform: rotate(5deg); }
+
+  .map-road {
+    position: absolute;
+    background: rgba(255,255,255,0.03);
+    border-radius: 1px;
+  }
+  .road-h1 { width: 100%; height: 1.5px; top: 35%; }
+  .road-h2 { width: 80%; height: 1.5px; top: 55%; left: 10%; }
+  .road-h3 { width: 60%; height: 1.5px; top: 70%; left: 20%; }
+  .road-v1 { width: 1.5px; height: 100%; left: 30%; }
+  .road-v2 { width: 1.5px; height: 80%; left: 60%; top: 10%; }
+  .road-v3 { width: 1.5px; height: 60%; left: 80%; top: 20%; }
+
+  /* Title overlay */
+  .map-header {
+    position: absolute;
+    top: 48px;
+    left: 16px;
+    right: 16px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .map-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .map-header h2 span { color: #dc2626; }
+
+  .header-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  .header-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(26,26,26,0.85);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
+  }
+
+  /* ===== FLOATING CHIPS (on map) ===== */
+  .chip {
+    position: absolute;
+    z-index: 20;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .chip-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #dc2626;
+    border: 2px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 10px rgba(220,38,38,0.4);
+    margin: 0 auto 4px;
+  }
+
+  .chip-label {
+    background: rgba(26,26,26,0.9);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: all 0.2s;
+  }
+  .chip:hover .chip-label {
+    border-color: rgba(220,38,38,0.3);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  .chip-label .chip-year {
+    font-size: 10px;
+    font-weight: 700;
+    color: #dc2626;
+  }
+  .chip-label .chip-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #e0e0e0;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ===== EXPANDED CARD OVERLAY ===== */
+  .expanded-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 16px;
+  }
+  .expanded-overlay.visible {
+    display: flex;
+  }
+  .expanded-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
+  }
+  .expanded-card {
+    position: relative;
+    width: 100%;
+    max-height: 70vh;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .expanded-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 auto 16px;
+  }
+  .expanded-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: #999;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .expanded-card .ec-collection {
+    font-size: 11px;
+    color: #dc2626;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .expanded-card .ec-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .expanded-card .ec-date {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  .expanded-card .ec-body {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .expanded-card .ec-entities-label {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .expanded-card .ec-entities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .ec-entity {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(220,38,38,0.1);
+    color: #dc2626;
+    font-weight: 500;
+    border: 1px solid rgba(220,38,38,0.15);
+  }
+
+  /* ===== BOTTOM STRIP ===== */
+  .bottom-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 60%, transparent 100%);
+    padding: 24px 0 20px;
+  }
+  .strip-label {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    padding: 0 16px;
+    margin-bottom: 8px;
+  }
+  .strip-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .strip-scroll::-webkit-scrollbar { display: none; }
+
+  .strip-pill {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(26,26,26,0.9);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+  }
+  .strip-pill:hover {
+    border-color: rgba(255,255,255,0.15);
+  }
+  .strip-pill:active {
+    transform: scale(0.96);
+  }
+  .strip-pill .sp-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #dc2626;
+    flex-shrink: 0;
+  }
+  .strip-pill .sp-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ddd;
+    white-space: nowrap;
+  }
+  .strip-pill .sp-year {
+    font-size: 11px;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  /* Density indicator */
+  .density-badge {
+    position: absolute;
+    top: 90px;
+    right: 16px;
+    z-index: 50;
+    background: rgba(26,26,26,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 6px 10px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .density-badge span {
+    font-size: 11px;
+    color: #888;
+    font-weight: 500;
+  }
+  .density-badge strong {
+    color: #dc2626;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-description">
+  <div class="subtitle">Concept 3 — Edward Tufte</div>
+  <h1>Living Map</h1>
+  <p>No separate panel at all. Everything lives on the map surface. Story/moment chips float near their markers. Tapping a chip expands it into a card overlay. A thin horizontal strip at the bottom shows nearby moments. Maximum information density, minimum chrome.</p>
+</div>
+
+<div class="interaction-hint">Click any chip on the map or pill at the bottom to expand a moment card</div>
+
+<div class="phone-frame">
+  <div class="phone-inner">
+
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span style="display:flex;gap:4px;align-items:center;">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="4" y="4" width="3" height="8" rx="0.5"/><rect x="8" y="2" width="3" height="10" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+        <svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x="0.5" y="0.5" width="19" height="10" rx="2" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="14" height="7" rx="1" fill="white"/><rect x="21" y="3.5" width="1.5" height="4" rx="0.5" fill="white" fill-opacity="0.4"/></svg>
+      </span>
+    </div>
+
+    <!-- Full-screen map -->
+    <div class="map-surface">
+      <div class="map-grid"></div>
+      <div class="map-water water-1"></div>
+      <div class="map-water water-2"></div>
+      <div class="map-road road-h1"></div>
+      <div class="map-road road-h2"></div>
+      <div class="map-road road-h3"></div>
+      <div class="map-road road-v1"></div>
+      <div class="map-road road-v2"></div>
+      <div class="map-road road-v3"></div>
+
+      <!-- Header -->
+      <div class="map-header">
+        <h2>Deep <span>Maps</span></h2>
+        <div class="header-buttons">
+          <div class="header-btn">&#x1F50D;</div>
+          <div class="header-btn">&#x2630;</div>
+        </div>
+      </div>
+
+      <!-- Density badge -->
+      <div class="density-badge">
+        <span><strong>6</strong> moments in view</span>
+      </div>
+
+      <!-- ===== FLOATING CHIPS ===== -->
+      <div class="chip" style="top: 22%; left: 52%;" onclick="openCard(0)">
+        <div class="chip-marker"></div>
+        <div class="chip-label">
+          <span class="chip-year">1963</span>
+          <span class="chip-name">JFK Assassination</span>
+        </div>
+      </div>
+
+      <div class="chip" style="top: 38%; left: 12%;" onclick="openCard(1)">
+        <div class="chip-marker"></div>
+        <div class="chip-label">
+          <span class="chip-year">1955</span>
+          <span class="chip-name">Rosa Parks</span>
+        </div>
+      </div>
+
+      <div class="chip" style="top: 15%; left: 62%;" onclick="openCard(2)">
+        <div class="chip-marker"></div>
+        <div class="chip-label">
+          <span class="chip-year">1865</span>
+          <span class="chip-name">Lincoln Shot</span>
+        </div>
+      </div>
+
+      <div class="chip" style="top: 48%; left: 55%;" onclick="openCard(3)">
+        <div class="chip-marker"></div>
+        <div class="chip-label">
+          <span class="chip-year">1968</span>
+          <span class="chip-name">MLK Assassination</span>
+        </div>
+      </div>
+
+      <div class="chip" style="top: 56%; left: 18%;" onclick="openCard(4)">
+        <div class="chip-marker"></div>
+        <div class="chip-label">
+          <span class="chip-year">1969</span>
+          <span class="chip-name">Moon Landing</span>
+        </div>
+      </div>
+
+      <div class="chip" style="top: 68%; left: 42%;" onclick="openCard(5)">
+        <div class="chip-marker"></div>
+        <div class="chip-label">
+          <span class="chip-year">1941</span>
+          <span class="chip-name">Pearl Harbor</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom strip -->
+    <div class="bottom-strip">
+      <div class="strip-label">Nearby</div>
+      <div class="strip-scroll">
+        <div class="strip-pill" onclick="openCard(0)">
+          <div class="sp-dot"></div>
+          <span class="sp-name">JFK Assassination</span>
+          <span class="sp-year">1963</span>
+        </div>
+        <div class="strip-pill" onclick="openCard(1)">
+          <div class="sp-dot"></div>
+          <span class="sp-name">Rosa Parks</span>
+          <span class="sp-year">1955</span>
+        </div>
+        <div class="strip-pill" onclick="openCard(2)">
+          <div class="sp-dot"></div>
+          <span class="sp-name">Lincoln Shot</span>
+          <span class="sp-year">1865</span>
+        </div>
+        <div class="strip-pill" onclick="openCard(3)">
+          <div class="sp-dot"></div>
+          <span class="sp-name">MLK Assassination</span>
+          <span class="sp-year">1968</span>
+        </div>
+        <div class="strip-pill" onclick="openCard(4)">
+          <div class="sp-dot"></div>
+          <span class="sp-name">Moon Landing</span>
+          <span class="sp-year">1969</span>
+        </div>
+        <div class="strip-pill" onclick="openCard(5)">
+          <div class="sp-dot"></div>
+          <span class="sp-name">Pearl Harbor</span>
+          <span class="sp-year">1941</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EXPANDED CARD OVERLAY ===== -->
+    <div class="expanded-overlay" id="expandedOverlay">
+      <div class="expanded-backdrop" onclick="closeCard()"></div>
+      <div class="expanded-card" id="expandedCard">
+        <div class="expanded-handle"></div>
+        <button class="expanded-close" onclick="closeCard()">&#x2715;</button>
+        <div class="ec-collection" id="ecCollection"></div>
+        <div class="ec-title" id="ecTitle"></div>
+        <div class="ec-date" id="ecDate"></div>
+        <div class="ec-body" id="ecBody"></div>
+        <div class="ec-entities-label">Key Figures</div>
+        <div class="ec-entities" id="ecEntities"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const moments = [
+    {
+      collection: "Assassinations in America",
+      title: "JFK Is Assassinated in Dallas",
+      date: "November 22, 1963 \u2014 Dealey Plaza, Dallas, TX",
+      body: "President Kennedy is shot while riding in a motorcade through Dealey Plaza. The assassination reshapes American politics and culture for decades, spawning countless investigations and conspiracy theories. Governor John Connally is also wounded in the attack.",
+      entities: ["John F. Kennedy", "Lee Harvey Oswald", "Jackie Kennedy", "John Connally", "Jack Ruby"]
+    },
+    {
+      collection: "Civil Rights Movement",
+      title: "Rosa Parks Refuses Her Bus Seat",
+      date: "December 1, 1955 \u2014 Montgomery, AL",
+      body: "Rosa Parks refuses to give up her seat to a white passenger on a Montgomery city bus. Her arrest sparks the Montgomery Bus Boycott, a 381-day protest that becomes one of the largest and most successful mass movements against racial segregation.",
+      entities: ["Rosa Parks", "Martin Luther King Jr.", "E.D. Nixon"]
+    },
+    {
+      collection: "Assassinations in America",
+      title: "Lincoln Is Shot at Ford's Theatre",
+      date: "April 14, 1865 \u2014 Washington, D.C.",
+      body: "John Wilkes Booth shoots President Abraham Lincoln during a performance of Our American Cousin at Ford's Theatre. Lincoln is carried to a boarding house across the street, where he dies the following morning. The assassination comes just days after the end of the Civil War.",
+      entities: ["Abraham Lincoln", "John Wilkes Booth", "Mary Todd Lincoln"]
+    },
+    {
+      collection: "Civil Rights Movement",
+      title: "Martin Luther King Jr. Is Assassinated",
+      date: "April 4, 1968 \u2014 Lorraine Motel, Memphis, TN",
+      body: "Martin Luther King Jr. is fatally shot while standing on the second-floor balcony of the Lorraine Motel. He had come to Memphis to support a sanitation workers' strike. His death sparks riots in more than 100 cities across the United States.",
+      entities: ["Martin Luther King Jr.", "James Earl Ray", "Ralph Abernathy"]
+    },
+    {
+      collection: "Space Exploration",
+      title: "Armstrong Walks on the Moon",
+      date: "July 20, 1969 \u2014 Sea of Tranquility, Moon",
+      body: "Neil Armstrong becomes the first human to set foot on the lunar surface during the Apollo 11 mission. Buzz Aldrin joins him shortly after while Michael Collins orbits above. An estimated 600 million people watch the broadcast on television.",
+      entities: ["Neil Armstrong", "Buzz Aldrin", "Michael Collins"]
+    },
+    {
+      collection: "World War II",
+      title: "Japan Attacks Pearl Harbor",
+      date: "December 7, 1941 \u2014 Pearl Harbor, Oahu, HI",
+      body: "A surprise military strike by the Imperial Japanese Navy Air Service devastates the U.S. Pacific Fleet anchored at Pearl Harbor. The attack kills 2,403 Americans and damages or destroys 19 ships. The next day, Congress declares war on Japan.",
+      entities: ["Franklin D. Roosevelt", "Husband Kimmel", "Isoroku Yamamoto"]
+    }
+  ];
+
+  function openCard(index) {
+    const m = moments[index];
+    document.getElementById('ecCollection').textContent = m.collection;
+    document.getElementById('ecTitle').textContent = m.title;
+    document.getElementById('ecDate').textContent = m.date;
+    document.getElementById('ecBody').textContent = m.body;
+
+    const entitiesEl = document.getElementById('ecEntities');
+    entitiesEl.innerHTML = m.entities.map(e =>
+      '<span class="ec-entity">' + e + '</span>'
+    ).join('');
+
+    document.getElementById('expandedOverlay').classList.add('visible');
+  }
+
+  function closeCard() {
+    document.getElementById('expandedOverlay').classList.remove('visible');
+  }
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCard();
+  });
+</script>
+
+</body>
+</html>

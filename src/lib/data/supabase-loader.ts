@@ -25,6 +25,9 @@ interface MomentRow {
   wiki_section: string | null;
   source: string | null;
   source_id: string | null;
+  geo_verified: boolean;
+  geo_source_url: string | null;
+  geo_verified_at: string | null;
 }
 
 interface StoryRow {
@@ -242,6 +245,9 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     ...(momentEntityMap.has(r.id) ? { entityIds: momentEntityMap.get(r.id)! } : {}),
     ...(mediaMap.has(r.id) ? { media: mediaMap.get(r.id)! } : {}),
     ...(linkMap.has(r.id) ? { links: linkMap.get(r.id)! } : {}),
+    ...(r.geo_verified ? { geoVerified: true } : {}),
+    ...(r.geo_source_url ? { geoSourceUrl: r.geo_source_url } : {}),
+    ...(r.geo_verified_at ? { geoVerifiedAt: r.geo_verified_at } : {}),
   }));
 
   const stories: Story[] = storyRows.map((r) => ({

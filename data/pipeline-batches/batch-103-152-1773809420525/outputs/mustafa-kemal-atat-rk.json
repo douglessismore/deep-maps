@@ -1,0 +1,100 @@
+{
+  "personName": "Mustafa Kemal Atatürk",
+  "content": {
+    "entity": {
+      "id": "mustafa-kemal-ataturk",
+      "name": "Mustafa Kemal Atatürk",
+      "type": "person",
+      "years": "1881–1938",
+      "description": "The military commander who defended Gallipoli, led the Turkish War of Independence, abolished the caliphate, and single-handedly dragged a medieval empire into the modern age.",
+      "wikipediaSlug": "Mustafa_Kemal_Atatürk",
+      "canonicalStoryId": "mustafa-kemal-ataturk-life"
+    },
+    "story": {
+      "id": "mustafa-kemal-ataturk-life",
+      "name": "Mustafa Kemal Atatürk",
+      "years": "1881–1938",
+      "category": "political-drama",
+      "storyType": "biography",
+      "description": "A military cadet from Salonica defends Gallipoli, wins Turkish independence against Allied partition, abolishes the 1,300-year-old caliphate, replaces Arabic script with Latin letters, and dies at 57 in the palace of the sultans he deposed.",
+      "tags": ["Turkish Republic", "secularism", "nation-building", "World War I", "decolonization"],
+      "wikipediaSlug": "Mustafa_Kemal_Atatürk",
+      "relatedStoryIds": ["ottoman-empire-fall", "gallipoli-campaign", "winston-churchill-life"]
+    },
+    "moments": [
+      {
+        "id": "ataturk-born-salonica",
+        "name": "Mustafa Kemal Is Born in Ottoman Salonica",
+        "subtitle": "A boy who secretly enrolled himself in military school against his mother's wishes",
+        "description": "Around 1881, Mustafa Kemal was born in a house on Islahhane Street in the Koca Kasim Pasha neighborhood of Salonica (modern Thessaloniki, Greece), then part of the Ottoman Empire. His father Ali Riza Efendi was a minor military officer and lumber trader; his mother Zubeyde Hanim wanted him to attend religious school. When his father died and his mother pushed him toward a trade, Mustafa Kemal secretly took the entrance exam for the Salonica Military School in 1893 without consulting his family. His mathematics teacher gave him the second name \"Kemal\" — meaning perfection — to distinguish him from another student. The city where Ataturk was born is now in Greece, a country he would later fight against.",
+        "lat": 40.6403,
+        "lng": 22.9356,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "approximate",
+        "kind": "milestone",
+        "year": 1881,
+        "date": "c. 1881",
+        "address": "Apostolou Pavlou Street, Thessaloniki, Greece",
+        "entityIds": ["mustafa-kemal-ataturk"],
+        "verificationLevel": "verified",
+        "wikiSection": "Early_life"
+      },
+      {
+        "id": "ataturk-abolishes-caliphate",
+        "name": "Atatürk Abolishes the 1,300-Year-Old Islamic Caliphate",
+        "subtitle": "The last caliph is put on the Orient Express and told never to return",
+        "description": "On 3 March 1924, the Turkish Grand National Assembly in Ankara voted to abolish the Ottoman caliphate — the institution that had claimed spiritual authority over the world's Muslims for over 1,300 years. President Mustafa Kemal Ataturk engineered the vote as part of his campaign to create a fully secular republic. The last caliph, Abdulmecid II, was given a one-way ticket on the Orient Express to Switzerland with 2,000 pounds sterling. The abolition sent shockwaves across the Muslim world and remains one of the most consequential acts of secularization in modern history. No universally recognized caliphate has existed since.",
+        "lat": 39.9208,
+        "lng": 32.8541,
+        "type": "government",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1924,
+        "date": "3 March 1924",
+        "address": "Grand National Assembly, Ankara, Turkey",
+        "entityIds": ["mustafa-kemal-ataturk"],
+        "verificationLevel": "verified",
+        "wikiSection": ""
+      },
+      {
+        "id": "ataturk-introduces-latin-alphabet",
+        "name": "Atatürk Replaces the Arabic Alphabet with Latin Letters Overnight",
+        "subtitle": "An entire nation of 14 million people must learn to read and write all over again",
+        "description": "On 1 November 1928, the Turkish Grand National Assembly passed the Law on the Adoption and Implementation of the Turkish Alphabet, replacing the Arabic script that had been used to write Turkish for centuries with a modified Latin alphabet. President Mustafa Kemal Ataturk personally toured the country with a blackboard, teaching the new letters in town squares. Citizens were given a few months to switch; all government documents, newspapers, and signs had to use the new script. The reform severed Turkey's literate connection to its Ottoman past and oriented the nation firmly toward the West. Literacy rates rose from around 10% to over 90% within a generation.",
+        "lat": 39.9179,
+        "lng": 32.8597,
+        "type": "government",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 1928,
+        "date": "1 November 1928",
+        "address": "Grand National Assembly, Ankara, Turkey",
+        "entityIds": ["mustafa-kemal-ataturk"],
+        "verificationLevel": "verified",
+        "wikiSection": ""
+      },
+      {
+        "id": "ataturk-dies-dolmabahce",
+        "name": "Atatürk Dies at Dolmabahçe Palace at Age 57",
+        "subtitle": "Every clock in the palace is stopped at 9:05 AM and remains frozen to this day",
+        "description": "On 10 November 1938, Mustafa Kemal Ataturk died of cirrhosis at Dolmabahce Palace in Istanbul at the age of 57. The palace had been the seat of the Ottoman sultans he had deposed. All clocks in the palace were stopped at 9:05 AM, the moment of his death, and many remain frozen at that time today. Ataturk had served as president of the Turkish Republic for 15 years, transforming a defeated Ottoman rump state into a secular, industrializing nation. He was succeeded by his prime minister Ismet Inonu. Every year on 10 November at 9:05 AM, Turkey observes a moment of silence — the entire country pauses for the man who built it.",
+        "lat": 41.0392,
+        "lng": 29.0006,
+        "type": "residence",
+        "importance": "major",
+        "accuracy": "exact",
+        "kind": "milestone",
+        "year": 1938,
+        "date": "10 November 1938",
+        "address": "Dolmabahçe Palace, Istanbul, Turkey",
+        "entityIds": ["mustafa-kemal-ataturk"],
+        "verificationLevel": "verified",
+        "wikiSection": ""
+      }
+    ],
+    "suggestedCollections": ["nation-builders", "world-war-i", "decolonization-leaders"]
+  }
+}

@@ -5,6 +5,8 @@ interface FilterBarProps {
   onStatusFilterChange: (status: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  geoFilter?: string;
+  onGeoFilterChange?: (geo: string) => void;
 }
 
 export function FilterBar({
@@ -14,6 +16,8 @@ export function FilterBar({
   onStatusFilterChange,
   searchQuery,
   onSearchChange,
+  geoFilter,
+  onGeoFilterChange,
 }: FilterBarProps) {
   return (
     <div className="flex items-center gap-3 p-3 bg-[#111] border border-[#2a2a2a] rounded-lg">
@@ -45,6 +49,17 @@ export function FilterBar({
         <option value="approved">Approved</option>
         <option value="needs-fix">Needs Fix</option>
       </select>
+      {geoFilter !== undefined && onGeoFilterChange && (
+        <select
+          value={geoFilter}
+          onChange={(e) => onGeoFilterChange(e.target.value)}
+          className="px-3 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-sm text-gray-200 focus:outline-none focus:border-red-500/50"
+        >
+          <option value="any">Geo: Any</option>
+          <option value="unverified">Geo: Unverified</option>
+          <option value="verified">Geo: Verified</option>
+        </select>
+      )}
     </div>
   );
 }

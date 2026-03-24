@@ -1,0 +1,100 @@
+{
+  "personName": "Seneca the Younger",
+  "content": {
+    "entity": {
+      "id": "seneca-the-younger",
+      "name": "Seneca the Younger",
+      "type": "person",
+      "years": "4 BC–AD 65",
+      "description": "Nero's tutor who preached Stoic poverty while amassing 300 million sestertii. Seneca was Rome's most influential philosopher, a senator exiled to Corsica, and an imperial advisor who helped govern competently for five years before Nero ordered him to kill himself. His calm suicide became one of the most painted scenes in Western art.",
+      "wikipediaSlug": "Seneca_the_Younger",
+      "canonicalStoryId": "seneca-the-younger-life"
+    },
+    "story": {
+      "id": "seneca-the-younger-life",
+      "name": "Seneca the Younger",
+      "years": "4 BC–AD 65",
+      "category": "political-drama",
+      "storyType": "biography",
+      "description": "A Spanish-born philosopher is exiled to Corsica for eight years, recalled to tutor a future tyrant, guides the Roman Empire through five competent years, and is forced to slit his own veins when the emperor turns against him. Stoicism tested to the ultimate extreme.",
+      "tags": ["stoicism", "philosophy", "roman-empire", "nero", "ancient-rome"],
+      "wikipediaSlug": "Seneca_the_Younger",
+      "relatedStoryIds": ["nero-life", "marcus-aurelius-life", "cicero-life", "roman-empire"]
+    },
+    "moments": [
+      {
+        "id": "seneca-born-cordoba",
+        "name": "Seneca the Younger Is Born in Roman Cordoba, Spain",
+        "subtitle": "A future philosopher of Rome begins life in a provincial colony on the Iberian Peninsula",
+        "description": "Around 4 BC, Lucius Annaeus Seneca was born in Colonia Patricia Corduba (modern Cordoba) in the Roman province of Baetica, Hispania. His father, Seneca the Elder, was a wealthy Roman knight and renowned teacher of rhetoric. Young Seneca was taken to Rome around age five by his aunt and received elite education in rhetoric and philosophy, studying under the Stoic philosopher Attalus. Chronic respiratory illness, probably asthma, plagued him throughout his life and at one point drove him to Egypt for a decade of convalescence. His nephew Lucan would become one of Rome's greatest poets.",
+        "lat": 37.8833,
+        "lng": -4.7667,
+        "type": "residence",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "milestone",
+        "year": -4,
+        "date": "c. 4 BC",
+        "address": "Cordoba, Spain",
+        "entityIds": ["seneca-the-younger"],
+        "verificationLevel": "documented",
+        "wikiSection": "Early_life,_family_and_adulthood"
+      },
+      {
+        "id": "seneca-exiled-corsica",
+        "name": "Emperor Claudius Exiles Seneca to Corsica for Alleged Adultery",
+        "subtitle": "Rome's greatest living philosopher spends eight years on a remote island",
+        "description": "In AD 41, the Roman Senate condemned Seneca to death on charges of adultery with Julia Livilla, sister of the late emperor Caligula. Emperor Claudius commuted the sentence to exile, and Seneca spent the next eight years on the island of Corsica. The charges were likely politically motivated by Empress Messalina, who wanted to eliminate Julia Livilla's supporters. During exile, Seneca wrote philosophical consolations, including one to his grieving mother Helvia and a flattering one to Claudius's freedman Polybius, transparently hoping to secure his recall. He was finally brought back to Rome in AD 49 by Agrippina to tutor her son, the future Emperor Nero.",
+        "lat": 42.1596,
+        "lng": 9.3000,
+        "type": "political_event",
+        "importance": "minor",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 41,
+        "date": "AD 41",
+        "address": "Corsica",
+        "entityIds": ["seneca-the-younger"],
+        "verificationLevel": "verified",
+        "wikiSection": "Politics_and_exile"
+      },
+      {
+        "id": "seneca-becomes-nero-advisor",
+        "name": "Seneca Becomes Chief Advisor to the New Emperor Nero in Rome",
+        "subtitle": "A philosopher gets to test Stoic political theory on the most powerful man alive",
+        "description": "In AD 54, when 16-year-old Nero became Emperor of Rome, Seneca and the praetorian prefect Burrus became his chief advisors. Seneca wrote Nero's accession speeches promising to restore authority to the Senate. For the next five years, the pair provided what ancient historians considered competent government. Seneca composed his treatise On Clemency to steer Nero toward virtuous rule. But the philosopher's position grew increasingly compromised: in AD 59, Seneca reluctantly assented to the murder of Nero's mother Agrippina and wrote the letter justifying it to the Senate. Seneca's influence eroded steadily after Burrus's death in AD 62.",
+        "lat": 41.8902,
+        "lng": 12.4922,
+        "type": "government",
+        "importance": "major",
+        "accuracy": "approximate",
+        "kind": "event",
+        "year": 54,
+        "date": "AD 54",
+        "address": "Palatine Hill, Rome",
+        "entityIds": ["seneca-the-younger"],
+        "verificationLevel": "verified",
+        "wikiSection": "Imperial_advisor"
+      },
+      {
+        "id": "seneca-forced-suicide-rome",
+        "name": "Nero Orders Seneca to Kill Himself After the Pisonian Conspiracy",
+        "subtitle": "The Stoic philosopher who wrote about death for decades finally faces his own",
+        "description": "In AD 65, Emperor Nero ordered Seneca to commit suicide for alleged complicity in the Pisonian conspiracy to assassinate him. Seneca, who was likely innocent, followed Roman tradition by severing his veins. His wife Pompeia Paulina attempted to die with him but was saved on Nero's orders. The 69-year-old Seneca bled slowly due to his age and lean diet. He took poison, which also failed. Finally, he was carried into a warm bath to hasten blood loss and suffocated from the steam. According to Tacitus, Seneca dictated philosophical reflections to scribes throughout the ordeal. His calm death became one of the most depicted scenes in Renaissance art.",
+        "lat": 41.8902,
+        "lng": 12.4922,
+        "type": "crime_scene",
+        "importance": "major",
+        "accuracy": "general-area",
+        "kind": "event",
+        "year": 65,
+        "date": "AD 65",
+        "address": "Rome",
+        "entityIds": ["seneca-the-younger"],
+        "verificationLevel": "verified",
+        "wikiSection": "Death"
+      }
+    ],
+    "suggestedCollections": ["ancient-rome", "philosophers", "stoicism", "political-drama"]
+  }
+}

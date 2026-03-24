@@ -160,7 +160,17 @@ export function ContentTable({ items, columns = DEFAULT_COLUMNS, pageSize = 50 }
               ))}
             </div>
             {/* Expanded detail */}
-            {expandedId === item.id && <ContentRow item={item} />}
+            {expandedId === item.id && (
+              <ContentRow
+                item={item}
+                onGeoSaved={() => {
+                  const idx = pageItems.findIndex(i => i.id === item.id);
+                  if (idx >= 0 && idx < pageItems.length - 1) {
+                    setExpandedId(pageItems[idx + 1].id);
+                  }
+                }}
+              />
+            )}
           </div>
         ))}
 

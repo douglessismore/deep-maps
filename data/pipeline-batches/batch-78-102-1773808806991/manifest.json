@@ -1,0 +1,155 @@
+{
+  "batchId": "batch-78-102-1773808806991",
+  "offset": 78,
+  "limit": 25,
+  "created": "2026-03-18T04:40:20.487Z",
+  "people": [
+    {
+      "index": 0,
+      "name": "Elizabeth I of England",
+      "status": "no-wiki"
+    },
+    {
+      "index": 1,
+      "name": "Queen Victoria",
+      "status": "ready",
+      "promptFile": "queen-victoria.json"
+    },
+    {
+      "index": 2,
+      "name": "Fyodor Dostoevsky",
+      "status": "ready",
+      "promptFile": "fyodor-dostoevsky.json"
+    },
+    {
+      "index": 3,
+      "name": "Henry VIII of England",
+      "status": "no-wiki"
+    },
+    {
+      "index": 4,
+      "name": "Hans Christian Andersen",
+      "status": "ready",
+      "promptFile": "hans-christian-andersen.json"
+    },
+    {
+      "index": 5,
+      "name": "Miguel de Cervantes",
+      "status": "ready",
+      "promptFile": "miguel-de-cervantes.json"
+    },
+    {
+      "index": 6,
+      "name": "Rembrandt",
+      "status": "ready",
+      "promptFile": "rembrandt.json"
+    },
+    {
+      "index": 7,
+      "name": "Alexander Pushkin",
+      "status": "ready",
+      "promptFile": "alexander-pushkin.json"
+    },
+    {
+      "index": 8,
+      "name": "Constantine the Great",
+      "status": "ready",
+      "promptFile": "constantine-the-great.json"
+    },
+    {
+      "index": 9,
+      "name": "Muhammad ibn Musa al-Khwarizmi",
+      "status": "no-wiki"
+    },
+    {
+      "index": 10,
+      "name": "Suleiman the Magnificent",
+      "status": "ready",
+      "promptFile": "suleiman-the-magnificent.json"
+    },
+    {
+      "index": 11,
+      "name": "David",
+      "status": "skipped-complete"
+    },
+    {
+      "index": 12,
+      "name": "John the Baptist",
+      "status": "ready",
+      "promptFile": "john-the-baptist.json"
+    },
+    {
+      "index": 13,
+      "name": "Thales of Miletus",
+      "status": "ready",
+      "promptFile": "thales-of-miletus.json"
+    },
+    {
+      "index": 14,
+      "name": "Umar",
+      "status": "ready",
+      "promptFile": "umar.json"
+    },
+    {
+      "index": 15,
+      "name": "Winston Churchill",
+      "status": "skipped-complete"
+    },
+    {
+      "index": 16,
+      "name": "Sigmund Freud",
+      "status": "ready",
+      "promptFile": "sigmund-freud.json"
+    },
+    {
+      "index": 17,
+      "name": "Salvador Dalí",
+      "status": "ready",
+      "promptFile": "salvador-dal.json"
+    },
+    {
+      "index": 18,
+      "name": "Edgar Allan Poe",
+      "status": "ready",
+      "promptFile": "edgar-allan-poe.json"
+    },
+    {
+      "index": 19,
+      "name": "Jean-Jacques Rousseau",
+      "status": "ready",
+      "promptFile": "jean-jacques-rousseau.json"
+    },
+    {
+      "index": 20,
+      "name": "Frédéric Chopin",
+      "status": "ready",
+      "promptFile": "fr-d-ric-chopin.json"
+    },
+    {
+      "index": 21,
+      "name": "Thomas Jefferson",
+      "status": "ready",
+      "promptFile": "thomas-jefferson.json"
+    },
+    {
+      "index": 22,
+      "name": "Richard Wagner",
+      "status": "ready",
+      "promptFile": "richard-wagner.json"
+    },
+    {
+      "index": 23,
+      "name": "Thomas Edison",
+      "status": "ready",
+      "promptFile": "thomas-edison.json"
+    },
+    {
+      "index": 24,
+      "name": "Louis Pasteur",
+      "status": "ready",
+      "promptFile": "louis-pasteur.json"
+    }
+  ],
+  "totalReady": 20,
+  "totalSkipped": 2
+}
