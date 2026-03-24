@@ -511,50 +511,18 @@ function App() {
 
   // Search result: moment clicked — find its parent story and navigate
   const handleMomentSelect = useCallback((moment: Moment) => {
-    const ownerStory = momentToStoryMap.get(moment.id);
-    if (ownerStory) {
-      handleLocationSelect(moment, ownerStory);
-    } else {
-      // Orphan moment (not in any story) — check if it belongs to a person entity
-      const entityId = moment.entityIds?.[0];
-      const entity = entityId ? entities.find(e => e.id === entityId) : null;
-      if (entity) {
-        // Navigate to the entity view, which will show this moment
-        pushNav();
-        setActiveEntity(entity);
-        setActiveStory(null);
-        setActiveLocation(moment);
-        setCategoryFilter(null);
-        setScrollHighlight([]);
-        scrollHighlightIdsRef.current = '';
-        setMode('entity');
-        setZoomToActiveLocation(true);
-      } else {
-        // No entity — check if it's in a collection
-        const parentCollection = collections.find(c => c.momentIds.includes(moment.id));
-        if (parentCollection) {
-          // Navigate to the collection, then highlight this moment
-          pushNav();
-          setActiveCollection(parentCollection);
-          setActiveStory(null);
-          setActiveEntity(null);
-          setActiveLocation(moment);
-          setCategoryFilter(null);
-          setMode('explore');
-          setZoomToActiveLocation(true);
-        } else {
-          // Truly orphan — zoom to pin (explore mode will at least show the pin)
-          pushNav();
-          setActiveStory(null);
-          setActiveEntity(null);
-          setActiveLocation(moment);
-          setCategoryFilter(null);
-          setMode('explore');
-          setZoomToActiveLocation(true);
-        }
-      }
-    }
-  }, [momentToStoryMap, handleLocationSelect, entities, pushNav]);
+    // Moments are atomic — always go to the moments tab and zoom to the pin.
+    // The user can jump to any parent story/collection/entity from the moment card.
+    pushNav();
+    setActiveStory(null);
+    setActiveEntity(null);
+    setActiveCollection(null);
+    setActiveLocation(moment);
+    setCategoryFilter(null);
+    setExploreTab('moments');
+    setMode('explore');
+    setZoomToActiveLocation(true);
+  }, [pushNav]);
 
   const handleSurpriseMe = useCallback(() => {
     pushNav();
