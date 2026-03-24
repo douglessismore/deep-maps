@@ -739,6 +739,9 @@ function App() {
             onCollectionMomentClick={handleCollectionMomentClick}
             onCollectionScrollHighlight={handleCollectionScrollHighlight}
             activeLocationId={activeLocation?.id ?? null}
+            onBack={handleBack}
+            onHome={handleBackToExplore}
+            hasNavHistory={navHistory.length > 0}
           />
           </FadeIn>
         )}

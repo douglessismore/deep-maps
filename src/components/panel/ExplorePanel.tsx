@@ -53,6 +53,10 @@ interface ExplorePanelProps {
   onCollectionScrollHighlight?: (moment: Moment) => void;
   /** Currently active location ID (for highlighting collection moment cards) */
   activeLocationId?: string | null;
+  /** Back button handler — shown when nav history exists */
+  onBack?: () => void;
+  onHome?: () => void;
+  hasNavHistory?: boolean;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -126,6 +130,9 @@ export function ExplorePanel({
   onCollectionMomentClick,
   onCollectionScrollHighlight,
   activeLocationId,
+  onBack,
+  onHome,
+  hasNavHistory,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -794,6 +801,31 @@ export function ExplorePanel({
 
   return (
     <div className="flex flex-col h-full relative">
+      {/* Back bar — shown when there's nav history (e.g., after search click) */}
+      {hasNavHistory && (
+        <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+          >
+            <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
+              <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Stories
+          </button>
+          {onHome && (
+            <button
+              onClick={onHome}
+              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1"
+            >
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7L7 2.5L11.5 7M4 5.5V11.5h2.5V9h3v2.5H12V5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Home
+            </button>
+          )}
+        </div>
+      )}
       {/* Tabs — hidden when inside a collection (collection is a full destination) */}
       {!activeCollection && <div className="flex border-b border-[var(--border-subtle)] shrink-0 relative">
         <button
