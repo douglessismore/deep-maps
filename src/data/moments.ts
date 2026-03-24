@@ -1976,6 +1976,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1887,
     address: '112 E 11th St, Austin, TX 78701',
+    entityIds: ['o-henry'],
   },
   {
     id: 'twa-calverton',
@@ -7489,9 +7490,9 @@ export const moments: Moment[] = [
   },
   {
     id: 'trump-wins-2016-presidential-election',
-    name: 'Trump Defeats Clinton Despite Losing the Popular Vote by 2.9 Million',
+    name: 'Donald Trump Wins the 2016 Presidential Election',
     subtitle: 'The White House, 1600 Pennsylvania Avenue NW, Washington, D.C.',
-    description: 'On 8 November 2016, Donald Trump won 306 Electoral College votes to defeat Hillary Clinton and become the 45th President, despite losing the popular vote by nearly 2.9 million ballots. He had announced his candidacy at Trump Tower in June 2015, running as a political outsider on immigration restriction, trade protectionism, and the slogan \'Make America Great Again.\' The result defied nearly every major poll and prediction. No previous president had reached the White House with zero prior political or military office.',
+    description: 'On 8 November 2016, Donald Trump won 306 Electoral College votes to Hillary Clinton\'s 232, becoming the 45th President. Clinton received approximately 2.9 million more popular votes. Trump had announced his candidacy at Trump Tower in June 2015, campaigning on immigration enforcement, trade renegotiation, and the slogan \'Make America Great Again.\' He was the first president elected without prior political or military office.',
     lat: 38.8977,
     lng: -77.0365,
     type: 'political_event',
@@ -7511,9 +7512,9 @@ export const moments: Moment[] = [
   },
   {
     id: 'january-6-capitol-attack-trump-incitement',
-    name: 'Trump Supporters Storm the U.S. Capitol to Block Certification of Biden\'s Victory',
+    name: 'Supporters Breach the U.S. Capitol During Certification of the 2020 Election',
     subtitle: 'United States Capitol, First Street SE, Washington, D.C. The building has been fully restored',
-    description: 'On 6 January 2021, thousands of supporters stormed this building after a rally where Trump repeated false claims that the 2020 election had been stolen. The attack left five people dead, injured 140 police officers, and forced lawmakers to shelter for hours as rioters breached the Senate chamber. It was the first violent disruption of a presidential transfer of power in American history. The House impeached Trump a second time for \'incitement of insurrection\'; the Senate acquitted him.',
+    description: 'On 6 January 2021, a crowd breached the U.S. Capitol following a rally at which Trump alleged widespread fraud in the 2020 election, claims that courts and election officials had rejected. Five people died in connection with the event, approximately 140 police officers were injured, and lawmakers evacuated the chambers. The House subsequently impeached Trump for \'incitement of insurrection\'; the Senate voted 57-43 to acquit, short of the two-thirds majority required for conviction.',
     lat: 38.8899,
     lng: -77.0091,
     type: 'political_event',
@@ -7609,9 +7610,9 @@ export const moments: Moment[] = [
   },
   {
     id: 'trump-convicted-34-felony-counts-new-york',
-    name: 'Trump Is Convicted on 34 Felony Counts in Manhattan',
+    name: 'A Manhattan Jury Convicts Trump on 34 Felony Counts',
     subtitle: 'Manhattan Criminal Court, 100 Centre Street, New York. The courthouse still stands',
-    description: 'Inside this Manhattan courtroom on 30 May 2024, a jury found Donald Trump guilty on all 34 counts of falsifying business records tied to hush-money payments before the 2016 election. The verdict made him the first former U.S. president and first major-party nominee convicted of a felony. He was sentenced in January 2025 to an unconditional discharge: no jail, no probation, no fine. The conviction did not bar him from running; Trump won the 2024 presidential election months after the verdict.',
+    description: 'On 30 May 2024, a Manhattan jury found Donald Trump guilty on all 34 counts of falsifying business records related to payments made before the 2016 election. He was the first former U.S. president convicted of a felony. In January 2025, the judge sentenced him to an unconditional discharge with no jail time, probation, or fine. The conviction did not disqualify him from holding office; Trump won the 2024 presidential election in November.',
     lat: 40.7143,
     lng: -74.0037,
     type: 'crime_scene',
@@ -7647,9 +7648,9 @@ export const moments: Moment[] = [
   },
   {
     id: 'trump-mar-a-lago-primary-residence-declared',
-    name: 'Trump Buys Mar-a-Lago for $8 Million and Makes It His Political Base',
+    name: 'Trump Purchases Mar-a-Lago and Later Designates It His Primary Residence',
     subtitle: '1100 S Ocean Blvd, Palm Beach, FL. The estate still operates as a private club',
-    description: 'Trump purchased this Palm Beach estate in 1985 for roughly $8 million and converted it into a private club in 1995. He declared it his primary residence in 2019 and moved here permanently after leaving the White House in January 2021. In August 2022, the FBI executed a search warrant at the property and recovered over 100 classified documents. A federal indictment followed in 2023, though the case was dismissed without prejudice in 2024. Mar-a-Lago has since functioned as an informal seat of Republican political power.',
+    description: 'Trump purchased the 126-room Palm Beach estate in 1985 for approximately $8 million and converted it into a private club in 1995. He designated it his primary residence in 2019 and relocated there after leaving the White House in January 2021. In August 2022, the FBI executed a search warrant at the property, recovering classified documents. A federal indictment followed in June 2023; the case was dismissed without prejudice in July 2024.',
     lat: 26.6799,
     lng: -80.0377,
     type: 'residence',
@@ -8088,9 +8089,9 @@ export const moments: Moment[] = [
   },
   {
     id: 'trump-tower-opens-midtown-manhattan',
-    name: 'Trump Tower Opens on Fifth Avenue in Midtown Manhattan',
+    name: 'Trump Tower Opens at 725 Fifth Avenue in Manhattan',
     subtitle: '725 Fifth Avenue, New York. The 58-story tower and its gilded atrium lobby still stand',
-    description: 'Trump Tower opened here at 725 Fifth Avenue in 1983, a 58-story mixed-use skyscraper housing corporate offices, luxury condominiums, and a gilded atrium. Trump had secured development rights after his renovation of the adjacent Commodore Hotel, backed by a $400 million city tax abatement arranged through his father\'s political connections. He lived in a triplex penthouse until 2019 and ran his 2016 presidential campaign from inside the building. The tower became the most visible symbol of his brand and his political rise.',
+    description: 'Trump Tower opened at 725 Fifth Avenue in 1983 as a 58-story mixed-use skyscraper containing corporate offices, luxury condominiums, and a six-story atrium. The project followed Trump\'s renovation of the adjacent Commodore Hotel and received a 40-year city tax abatement. Trump maintained a triplex penthouse residence in the building until 2019 and headquartered his 2016 presidential campaign there.',
     lat: 40.7625,
     lng: -73.9738,
     type: 'landmark',
@@ -8110,9 +8111,9 @@ export const moments: Moment[] = [
   },
   {
     id: 'trump-born-jamaica-hospital-queens',
-    name: 'Donald Trump Is Born at Jamaica Hospital in Queens to a Real Estate Family',
+    name: 'Donald Trump Is Born at Jamaica Hospital in Queens',
     subtitle: 'Jamaica Hospital Medical Center, 8900 Van Wyck Expressway, Jamaica, Queens, NY',
-    description: 'Donald John Trump was born here at Jamaica Hospital on 14 June 1946, the fourth of five children of developer Fred Trump and Mary Anne MacLeod Trump. Fred paid each child roughly $20,000 a year, equivalent to about $265,000 in 2024 dollars, making Donald a millionaire in inflation-adjusted terms by age eight. The family lived in a 23-room mansion in Jamaica Estates, far from Manhattan\'s social elite.',
+    description: 'Donald John Trump was born at Jamaica Hospital on 14 June 1946, the fourth of five children of real estate developer Fred Trump and Mary Anne MacLeod Trump. The family resided in a 23-room house in the Jamaica Estates neighborhood of Queens. Fred Trump\'s company, Elizabeth Trump & Son, developed and managed middle-income housing in New York\'s outer boroughs.',
     lat: 40.7005,
     lng: -73.816,
     type: 'residence',
@@ -11172,6 +11173,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1894,
     address: '601 Congress Ave, Austin, TX',
+    entityIds: ['o-henry'],
   },
   {
     id: 'dam-powerhouse-explosion',
@@ -11220,6 +11222,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1884,
     address: 'East 8th St, Austin, TX',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-austin-jail',
@@ -11236,6 +11239,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1898,
     address: '11th St and Brazos St, Austin, TX',
+    entityIds: ['o-henry'],
   },
   {
     id: 'meiji-shrine-built',
@@ -11269,6 +11273,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1886,
     address: '1607 San Jacinto Blvd, Austin, TX 78701',
+    entityIds: ['o-henry'],
   },
   {
     id: 'junk-cathedral-site',
@@ -12405,6 +12410,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1887,
     address: '1316 W 6th St, Austin, TX 78703',
+    entityIds: ['o-henry'],
   },
   {
     id: 'monarch-day-of-dead-arrival',
@@ -12454,6 +12460,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1896,
     address: 'Trujillo, Honduras',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-ohio-pen',
@@ -12470,6 +12477,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1898,
     address: '248 W Spring St, Columbus, OH 43215',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-new-york-death',
@@ -12485,6 +12493,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1910,
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-rolling-stone',

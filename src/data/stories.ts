@@ -2521,7 +2521,7 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'annihilator-o-henry-letter' }],
+    moments: [{ momentId: 'ohenry-greensboro-birth' }, { momentId: 'ohenry-morley-brothers' }, { momentId: 'ohenry-scholz-garden' }, { momentId: 'ohenry-marriage-athol' }, { momentId: 'ohenry-land-office' }, { momentId: 'ohenry-first-national-bank' }, { momentId: 'ohenry-honduras-exile' }, { momentId: 'ohenry-austin-jail' }, { momentId: 'ohenry-ohio-pen' }, { momentId: 'ohenry-new-york-death' }],
     wikipediaSlug: 'O._Henry',
   },
   {

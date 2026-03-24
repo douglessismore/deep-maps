@@ -65,7 +65,7 @@ async function fetchOgData(link: DeepLink): Promise<OgData | null> {
     if (!res.ok) return null;
     const rows = await res.json();
     if (!rows?.[0]) return null;
-    return { title: rows[0].name || 'Deep Maps', description: rows[0].description || '' };
+    return { title: rows[0].name || 'DeepMaps', description: rows[0].description || '' };
   } catch {
     return null; // Timeout or network error → fallback
   }
@@ -77,7 +77,7 @@ const esc = (s: string) =>
 
 // ── OG HTML ──
 function buildOgHtml(data: OgData | null, url: string): string {
-  const title = data ? `${data.title} — Deep Maps` : 'Deep Maps';
+  const title = data ? `${data.title} — DeepMaps` : 'DeepMaps';
   const desc = data?.description || 'Everything that ever happened, happened somewhere. Explore history pinned to the exact coordinates where it happened.';
   // Truncate description to 200 chars for OG tags
   const shortDesc = desc.length > 200 ? desc.slice(0, 197) + '...' : desc;
@@ -94,7 +94,7 @@ function buildOgHtml(data: OgData | null, url: string): string {
 <meta property="og:image" content="${origin}/og-default.png"/>
 <meta property="og:url" content="${esc(url)}"/>
 <meta property="og:type" content="article"/>
-<meta property="og:site_name" content="Deep Maps"/>
+<meta property="og:site_name" content="DeepMaps"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${esc(title)}"/>
 <meta name="twitter:description" content="${esc(shortDesc)}"/>

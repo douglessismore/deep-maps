@@ -34,7 +34,7 @@ export function AdminSidebar() {
       {/* Brand */}
       <div className="px-4 py-4 border-b border-[#2a2a2a]">
         <Link href="/" className="block">
-          <div className="text-sm font-bold text-gray-200 tracking-wide">Deep Maps</div>
+          <div className="text-sm font-bold text-gray-200 tracking-wide"><span className="text-[#e74c3c]">Deep</span>Maps</div>
           <div className="text-xs text-red-500 font-mono mt-0.5">admin</div>
         </Link>
       </div>
