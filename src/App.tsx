@@ -519,6 +519,7 @@ function App() {
     setActiveCollection(null);
     setActiveLocation(moment);
     setCategoryFilter(null);
+    setSearchQuery(''); // Clear search so tabs aren't filtered on back
     setExploreTab('moments');
     setMode('explore');
     setZoomToActiveLocation(true);
