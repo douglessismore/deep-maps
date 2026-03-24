@@ -1199,7 +1199,7 @@ export const entities: Entity[] = [
     years: '1887–1986',
     description: 'The "Mother of American Modernism" whose oversized flower paintings and bleached desert skulls redefined American art. Painted prolifically until her eyesight failed at 84, then switched to pottery and clay. Lived to 98.',
     canonicalStoryId: 'georgia-okeeffe-biography',
-    wikipediaSlug: 'Georgia_O%27Keeffe',
+    wikipediaSlug: 'Georgia_O\'Keeffe',
   },
   {
     id: 'leonhard-euler',
@@ -1288,7 +1288,7 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1975–present',
     description: 'Austin\'s "Home of the Blues," founded by Clifford Antone. The club launched the careers of Stevie Ray Vaughan, Gary Clark Jr., and countless others while hosting legends like Muddy Waters and B.B. King.',
-    wikipediaSlug: 'Antone%27s',
+    wikipediaSlug: 'Antone\'s',
   },
   {
     id: 'charles-whitman',
@@ -1331,7 +1331,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '?–1692',
     description: 'Tewa religious leader who coordinated the 1680 Pueblo Revolt, the most successful Native uprising in North American history, driving the Spanish entirely out of New Mexico for 12 years.',
-    wikipediaSlug: 'Pop%C3%A9',
+    wikipediaSlug: 'Popé',
   },
   {
     id: 'antonio-de-otermin',
@@ -1339,7 +1339,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '?–?',
     description: 'Spanish colonial governor of New Mexico who was besieged by Pueblo warriors in the Palace of the Governors during the 1680 revolt and forced to retreat south.',
-    wikipediaSlug: 'Antonio_de_Oterm%C3%ADn',
+    wikipediaSlug: 'Antonio_de_Otermín',
   },
   {
     id: 'john-wilkes-booth',
@@ -1635,7 +1635,7 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1933–2020',
     description: 'Kenneth Threadgill\'s converted Gulf gas station in Austin, which held the city\'s first post-Prohibition beer license and hosted the hootenannies where Janis Joplin honed her voice.',
-    wikipediaSlug: 'Threadgill%27s',
+    wikipediaSlug: 'Threadgill\'s',
   },
   {
     id: 'santiago-tlatelolco-church',
@@ -1735,7 +1735,7 @@ export const entities: Entity[] = [
     type: 'place',
     years: '1754–present',
     description: 'Small northern New Mexico village where Georgia O\'Keeffe purchased an adobe house in 1945 and spent four decades painting the surrounding red cliffs and mesas.',
-    wikipediaSlug: 'Abiqui%C3%BA,_New_Mexico',
+    wikipediaSlug: 'Abiquiú,_New_Mexico',
   },
   {
     id: 'ghost-ranch',
@@ -2919,7 +2919,7 @@ export const entities: Entity[] = [
     type: 'place',
     description: 'The film studio complex that Mussolini built and Fellini made immortal. Opened in 1937 as a propaganda factory, Cinecitta became Hollywood on the Tiber in the 1950s, hosting Ben-Hur, Cleopatra, and La Dolce Vita. Over 3,000 films have been shot on its 99 acres southeast of Rome.',
     canonicalStoryId: 'modern-rome',
-    wikipediaSlug: 'Cinecitt%C3%A0',
+    wikipediaSlug: 'Cinecittà',
   },
   // === Indigenous History Entities ===
   {
@@ -3732,7 +3732,7 @@ export const entities: Entity[] = [
     years: '1852-1926',
     description: 'The Catalan architect who turned Barcelona into a fever dream of organic stone. His final decades were consumed by the Sagrada Familia, a basilica he knew he would never finish. He was struck by a tram in 1926 and, mistaken for a beggar, was taken to a pauper\'s hospital. He is buried in the crypt of his unfinished church.',
     canonicalStoryId: 'antoni-gaudi-biography',
-    wikipediaSlug: 'Antoni_Gaud%C3%AD',
+    wikipediaSlug: 'Antoni_Gaudí',
   },
   {
     id: 'jorn-utzon',
@@ -3741,7 +3741,7 @@ export const entities: Entity[] = [
     years: '1918-2008',
     description: 'The Danish architect who won an international competition for the Sydney Opera House at 38, then was forced off the project by politicians before it was finished. He never returned to Australia to see the completed building. In 2003, he won the Pritzker Prize, and the Opera House was declared a UNESCO World Heritage Site.',
     canonicalStoryId: 'jorn-utzon-biography',
-    wikipediaSlug: 'J%C3%B8rn_Utzon',
+    wikipediaSlug: 'Jørn_Utzon',
   },
   // ─── Diverse Stories ──────────────────────────────────────────
   {
@@ -3996,7 +3996,7 @@ export const entities: Entity[] = [
     years: '1961–',
     description: 'The 14-year-old Romanian who scored the first perfect 10 in Olympic gymnastics — a mark so unexpected that the scoreboard could only display 1.00. Defected to the United States in 1989, weeks before the Romanian Revolution. Lives in Norman, Oklahoma.',
     canonicalStoryId: 'nadia-comaneci-biography',
-    wikipediaSlug: 'Nadia_Com%C4%83neci',
+    wikipediaSlug: 'Nadia_Comăneci',
   },
   {
     id: 'billie-jean-king',
@@ -4302,7 +4302,7 @@ export const entities: Entity[] = [
     type: 'person',
     years: '1896–1966',
     description: 'French writer and poet who founded the Surrealist movement. His 1924 Manifesto of Surrealism defined the movement\'s principles, and he held court at Parisian caf\u00e9s where he attracted Dal\u00ed, Ernst, and Magritte to the cause.',
-    wikipediaSlug: 'Andr%C3%A9_Breton',
+    wikipediaSlug: 'André_Breton',
   },
   {
     id: 'virginia-woolf',

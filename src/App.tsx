@@ -341,10 +341,11 @@ function App() {
   const handleBack = useCallback(() => {
     setNavHistory((prev) => {
       if (prev.length === 0) {
-        // No history — go to explore (full reset including timeline)
+        // No history — go to explore (full reset including timeline + collection)
         setActiveStory(null);
         setActiveLocation(null);
         setActiveEntity(null);
+        setActiveCollection(null);
         setCategoryFilter(null);
         setTimelineViewRange(null);
         setMode('explore');

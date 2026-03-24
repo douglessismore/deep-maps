@@ -112,7 +112,7 @@ export const stories: Story[] = [
     description: 'In 1540, Francisco Vásquez de Coronado marched an army of 300 Spaniards and 1,000 Native allies into the desert, seeking the fabled Seven Cities of Gold. When he arrived at Hawikku, he found only adobe villages. The greatest treasure hunt in American history ended in disappointment.',
     tags: ['colonial', 'exploration', 'new-mexico', 'spanish'],
     moments: [{ momentId: 'hawikku' }],
-    wikipediaSlug: 'Francisco_V%C3%A1squez_de_Coronado',
+    wikipediaSlug: 'Francisco_Vásquez_de_Coronado',
   },
   {
     id: 'tulsa-race-massacre',
@@ -594,7 +594,7 @@ export const stories: Story[] = [
     contentWarning: 'Suicide and mass hysteria.',
     moments: [{ momentId: 'halley-tacubaya-observatory' }, { momentId: 'halley-tlaxiaco-ritual' }],
     relatedStoryIds: ['monchito-phantom-boy', 'tlatelolco-massacre-1968'],
-    wikipediaSlug: 'Halley%27s_Comet',
+    wikipediaSlug: 'Halley\'s_Comet',
   },
   {
     id: 'cannibal-of-roma',
@@ -2467,7 +2467,7 @@ export const stories: Story[] = [
     description: '',
     tags: [],
     moments: [{ momentId: 'okeeffe-ghost-ranch' }, { momentId: 'okeeffe-abiquiu' }],
-    wikipediaSlug: 'Georgia_O%27Keeffe',
+    wikipediaSlug: 'Georgia_O\'Keeffe',
   },
   {
     id: 'john-wayne-gacy-biography',
@@ -5078,7 +5078,7 @@ export const stories: Story[] = [
     tags: ["gymnastics", "olympics", "sports"],
     moments: [{ momentId: "nadia-comaneci-perfect-10-montreal-1976" }],
     relatedStoryIds: [],
-    wikipediaSlug: 'Nadia_Com%C4%83neci',
+    wikipediaSlug: 'Nadia_Comăneci',
   },
   {
     id: 'billie-jean-king-biography',
@@ -5570,7 +5570,7 @@ export const stories: Story[] = [
     description: 'The Catalan architect who turned Barcelona into a fever dream of organic stone. His final decades were consumed by the Sagrada Familia, a basilica he knew he would never finish.',
     tags: ['architecture', 'barcelona', 'modernism'],
     moments: [{ momentId: 'gaudi-begins-sagrada-familia-1882' }],
-    wikipediaSlug: 'Antoni_Gaud%C3%AD',
+    wikipediaSlug: 'Antoni_Gaudí',
   },
   {
     id: 'jorn-utzon-biography',
@@ -5581,6 +5581,6 @@ export const stories: Story[] = [
     description: 'The Danish architect who won an international competition for the Sydney Opera House, was forced off the project by politicians, and never returned to see the finished building.',
     tags: ['architecture', 'sydney', 'opera'],
     moments: [{ momentId: 'sydney-opera-house-opens-1973' }],
-    wikipediaSlug: 'J%C3%B8rn_Utzon',
+    wikipediaSlug: 'Jørn_Utzon',
   },
 ];

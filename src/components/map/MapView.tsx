@@ -843,7 +843,28 @@ function MapController({
   // immediately override the overview. The user must actually scroll to trigger zoom.
   const boundsLockUntil = useRef(0);
 
+  // Track previous key values to prevent spurious re-fires from reference changes
+  // (stories array, sheetSnap, entityLocations) that shouldn't trigger map movement
+  const prevZoomEffectKey = useRef({ mode: '', activeStoryId: '', activeLocationId: '', activeCollectionId: '', categoryFilter: '', entityLocCount: 0, zoomToActiveLocation: false });
+
   useEffect(() => {
+    // Only fire when something meaningful changed — not just reference identity
+    const key = {
+      mode,
+      activeStoryId: activeStory?.id ?? '',
+      activeLocationId: activeLocation?.id ?? '',
+      activeCollectionId: activeCollection?.id ?? '',
+      categoryFilter: categoryFilter ?? '',
+      entityLocCount: entityLocations?.length ?? 0,
+      zoomToActiveLocation: zoomToActiveLocation ?? false,
+    };
+    const prev = prevZoomEffectKey.current;
+    const changed = key.mode !== prev.mode || key.activeStoryId !== prev.activeStoryId ||
+      key.activeLocationId !== prev.activeLocationId || key.activeCollectionId !== prev.activeCollectionId ||
+      key.categoryFilter !== prev.categoryFilter || key.entityLocCount !== prev.entityLocCount ||
+      key.zoomToActiveLocation !== prev.zoomToActiveLocation;
+    prevZoomEffectKey.current = key;
+    if (!changed) return; // Skip — only stories/sheetSnap/etc reference changed
     const containerH = map.getSize().y;
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 

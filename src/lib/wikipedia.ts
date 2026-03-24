@@ -27,13 +27,17 @@ const cache = new Map<string, WikiArticle>();
  * Fetch a Wikipedia article's parsed HTML and section data.
  */
 export async function fetchWikiArticle(slug: string): Promise<WikiArticle> {
-  if (cache.has(slug)) {
-    return cache.get(slug)!;
+  // Decode any percent-encoded slugs (e.g., Francisco_V%C3%A1squez_de_Coronado)
+  // to prevent double-encoding by URLSearchParams
+  const decodedSlug = decodeURIComponent(slug);
+
+  if (cache.has(decodedSlug)) {
+    return cache.get(decodedSlug)!;
   }
 
   const params = new URLSearchParams({
     action: 'parse',
-    page: slug,
+    page: decodedSlug,
     prop: 'text|sections|displaytitle',
     format: 'json',
     origin: '*', // Enable CORS
@@ -64,10 +68,10 @@ export async function fetchWikiArticle(slug: string): Promise<WikiArticle> {
       anchor: s.anchor as string,
       heading: s.line as string,
     })),
-    pageUrl: `https://en.wikipedia.org/wiki/${slug}`,
+    pageUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(decodedSlug)}`,
   };
 
-  cache.set(slug, article);
+  cache.set(decodedSlug, article);
   return article;
 }
 
