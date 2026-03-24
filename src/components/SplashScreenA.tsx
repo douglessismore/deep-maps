@@ -112,7 +112,7 @@ export function SplashScreenA() {
             opacity: 0,
           }}
         >
-          Deep Maps
+          <span style={{ color: '#e74c3c' }}>Deep</span>Maps
         </div>
 
         {/* Tagline — two lines */}

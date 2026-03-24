@@ -6,6 +6,9 @@ import { ContentQueuePage } from './pages/ContentQueuePage';
 import { RoadmapPage } from './pages/RoadmapPage';
 
 function AdminApp() {
+  // Set admin flag so the main app's LocationCard shows edit buttons
+  try { localStorage.setItem('deepmaps-admin', 'true'); } catch { /* SSR guard */ }
+
   return (
     <AdminDataProvider>
       <AdminLayout>

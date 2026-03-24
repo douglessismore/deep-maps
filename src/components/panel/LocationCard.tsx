@@ -1,9 +1,18 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, useState, useCallback } from 'react';
 import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, canonicalStoryIds, getEntityIcon } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
+import { PinEditor } from '../ui/PinEditor';
+
+function isAdminMode(): boolean {
+  try {
+    return localStorage.getItem('deepmaps-admin') === 'true';
+  } catch {
+    return false;
+  }
+}
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
   exact: { label: 'Exact', color: '#22c55e', title: 'Coordinates pinpoint the actual location' },
@@ -50,6 +59,13 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     compact,
   }, ref) {
     const cat = story ? CATEGORIES[story.category] : undefined;
+    const [pinEditorOpen, setPinEditorOpen] = useState(false);
+    const [adminSaved, setAdminSaved] = useState(false);
+    const admin = useMemo(() => isAdminMode(), []);
+
+    const handlePinSaved = useCallback((_lat: number, _lng: number, _address: string) => {
+      setAdminSaved(true);
+    }, []);
 
     // ── Compact mode: dense row for mobile bottom sheet ──
     // When expanded, fall through to full card rendering
@@ -299,6 +315,33 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
               <p className="text-[10px] font-mono text-[var(--text-muted)]">
                 &#128205; {location.address}
               </p>
+            )}
+            {/* Admin: Edit Location button */}
+            {admin && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPinEditorOpen(true);
+                }}
+                className="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded border transition-colors bg-yellow-500/10 text-yellow-400 border-yellow-500/20 hover:bg-yellow-500/20"
+              >
+                {adminSaved ? '\u2713' : '\ud83d\udccd'} {adminSaved ? 'Saved' : 'Edit Location'}
+              </button>
+            )}
+            {/* Admin: PinEditor modal */}
+            {pinEditorOpen && (
+              <PinEditor
+                momentId={location.id}
+                lat={location.lat}
+                lng={location.lng}
+                address={location.address}
+                accuracy={location.accuracy}
+                geoVerified={location.geoVerified}
+                geoSourceUrl={location.geoSourceUrl}
+                momentName={location.name}
+                onClose={() => setPinEditorOpen(false)}
+                onSaved={handlePinSaved}
+              />
             )}
             {/* Google Maps link */}
             <a

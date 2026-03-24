@@ -181,3 +181,13 @@
 ---
 
 *Last updated: 2026-03-24*
+
+## Proximity Notifications (PWA Push + Geofencing)
+
+- [ ] Background geolocation watch (Geolocation API watchPosition)
+- [ ] Trigger notification when within 200m of a moment
+- [ ] Web Push API integration (works on Android, iOS 16.4+ with installed PWA)
+- [ ] User opt-in flow: Enable nearby story alerts
+- [ ] Notification content: moment name + one-line description
+- [ ] Cooldown logic (max 1 notification per 5 min)
+- [ ] Proactive tour guide mode for tourists
