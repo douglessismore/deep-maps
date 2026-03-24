@@ -771,6 +771,7 @@ function App() {
         onEntitySelect={handleEntitySelect}
         onCollectionSelect={handleCollectionSelect}
         onMomentSelect={handleMomentSelect}
+        hasNavHistory={navHistory.length > 0}
       />
       {mode !== 'story' && mode !== 'entity' && (
         <TimelineBar

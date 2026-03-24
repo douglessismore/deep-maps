@@ -23,6 +23,7 @@ interface HeaderProps {
   onEntitySelect?: (entity: Entity) => void;
   onCollectionSelect?: (collection: StoryCollection) => void;
   onMomentSelect?: (moment: Moment) => void;
+  hasNavHistory?: boolean;
 }
 
 export function Header({
@@ -45,6 +46,7 @@ export function Header({
   onEntitySelect,
   onCollectionSelect,
   onMomentSelect,
+  hasNavHistory,
 }: HeaderProps) {
   const [searchFocused, setSearchFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -139,8 +141,8 @@ export function Header({
 
         {/* Right side actions */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Back + Home — story/entity mode navigation */}
-          {(mode === 'story' || mode === 'entity') && (
+          {/* Back + Home — story/entity mode or when there's nav history (e.g., after search click) */}
+          {(mode === 'story' || mode === 'entity' || hasNavHistory) && (
             <>
               <button
                 onClick={onBack || onBackToExplore}
