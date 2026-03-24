@@ -514,8 +514,33 @@ function App() {
     const ownerStory = momentToStoryMap.get(moment.id);
     if (ownerStory) {
       handleLocationSelect(moment, ownerStory);
+    } else {
+      // Orphan moment (not in any story) — check if it belongs to a person entity
+      const entityId = moment.entityIds?.[0];
+      const entity = entityId ? entities.find(e => e.id === entityId) : null;
+      if (entity) {
+        // Navigate to the entity view, which will show this moment
+        pushNav();
+        setActiveEntity(entity);
+        setActiveStory(null);
+        setActiveLocation(moment);
+        setCategoryFilter(null);
+        setScrollHighlight([]);
+        scrollHighlightIdsRef.current = '';
+        setMode('entity');
+        setZoomToActiveLocation(true);
+      } else {
+        // Truly orphan — just zoom to the pin on the map
+        pushNav();
+        setActiveStory(null);
+        setActiveEntity(null);
+        setActiveLocation(moment);
+        setCategoryFilter(null);
+        setMode('explore');
+        setZoomToActiveLocation(true);
+      }
     }
-  }, [momentToStoryMap, handleLocationSelect]);
+  }, [momentToStoryMap, handleLocationSelect, entities, pushNav]);
 
   const handleSurpriseMe = useCallback(() => {
     pushNav();

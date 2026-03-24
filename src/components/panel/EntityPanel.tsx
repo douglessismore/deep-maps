@@ -108,8 +108,11 @@ export function EntityPanel({
       const entry = momentEntries.find((e) => e.moment.id === initialId);
       if (entry) {
         setScrollActiveId(entry.moment.id);
-        if (onScrollLocationActive && entry.stories.length > 0) {
-          onScrollLocationActive(entry.moment, entry.stories[0]);
+        if (onScrollLocationActive) {
+          // Use first parent story if available, otherwise pass a placeholder
+          // (the App handler only uses the moment, not the story)
+          const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
+          onScrollLocationActive(entry.moment, fallbackStory);
         }
         if (activeLocationId) {
           requestAnimationFrame(() => {
@@ -210,8 +213,9 @@ export function EntityPanel({
           lastScrollDrivenId.current = closestId; // Mark as scroll-driven
           setScrollActiveId(closestId);
           const entry = momentEntries.find((e) => e.moment.id === closestId);
-          if (entry && onScrollLocationActive && entry.stories.length > 0) {
-            onScrollLocationActive(entry.moment, entry.stories[0]);
+          if (entry && onScrollLocationActive) {
+            const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
+            onScrollLocationActive(entry.moment, fallbackStory);
           }
         }
       });
@@ -229,12 +233,11 @@ export function EntityPanel({
     (moment: Moment, parentStories: Story[]) => {
       setScrollActiveId(moment.id);
       setExpandedLocationKey(prev => prev === moment.id ? null : moment.id);
-      if (parentStories.length > 0) {
-        if (onMomentClick) {
-          onMomentClick(moment, parentStories[0]);
-        } else if (onScrollLocationActive) {
-          onScrollLocationActive(moment, parentStories[0]);
-        }
+      const story = parentStories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
+      if (onMomentClick) {
+        onMomentClick(moment, story);
+      } else if (onScrollLocationActive) {
+        onScrollLocationActive(moment, story);
       }
     },
     [onMomentClick, onScrollLocationActive]
