@@ -104,19 +104,17 @@ export function EntityPanel({
   // Set initial active to first moment (or activeLocationId if provided)
   useEffect(() => {
     if (momentEntries.length > 0) {
-      const initialId = activeLocationId ?? momentEntries[0].moment.id;
-      const entry = momentEntries.find((e) => e.moment.id === initialId);
-      if (entry) {
-        setScrollActiveId(entry.moment.id);
-        if (onScrollLocationActive) {
-          // Use first parent story if available, otherwise pass a placeholder
-          // (the App handler only uses the moment, not the story)
-          const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
-          onScrollLocationActive(entry.moment, fallbackStory);
-        }
-        if (activeLocationId) {
+      if (activeLocationId) {
+        // Entering entity with a specific moment pre-selected (e.g., from search)
+        const entry = momentEntries.find((e) => e.moment.id === activeLocationId);
+        if (entry) {
+          setScrollActiveId(entry.moment.id);
+          if (onScrollLocationActive) {
+            const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
+            onScrollLocationActive(entry.moment, fallbackStory);
+          }
           requestAnimationFrame(() => {
-            const el = momentRefs.current.get(initialId);
+            const el = momentRefs.current.get(activeLocationId);
             if (el) {
               isProgrammaticScroll.current = true;
               el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -128,6 +126,10 @@ export function EntityPanel({
             }
           });
         }
+      } else {
+        // Fresh entity entry — show all markers, don't zoom to first moment.
+        // Just highlight the first card without triggering map zoom.
+        setScrollActiveId(momentEntries[0].moment.id);
       }
     }
   }, [entity.id]); // Only on entity mount/change
