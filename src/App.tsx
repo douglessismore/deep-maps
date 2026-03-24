@@ -530,14 +530,28 @@ function App() {
         setMode('entity');
         setZoomToActiveLocation(true);
       } else {
-        // Truly orphan — just zoom to the pin on the map
-        pushNav();
-        setActiveStory(null);
-        setActiveEntity(null);
-        setActiveLocation(moment);
-        setCategoryFilter(null);
-        setMode('explore');
-        setZoomToActiveLocation(true);
+        // No entity — check if it's in a collection
+        const parentCollection = collections.find(c => c.momentIds.includes(moment.id));
+        if (parentCollection) {
+          // Navigate to the collection, then highlight this moment
+          pushNav();
+          setActiveCollection(parentCollection);
+          setActiveStory(null);
+          setActiveEntity(null);
+          setActiveLocation(moment);
+          setCategoryFilter(null);
+          setMode('explore');
+          setZoomToActiveLocation(true);
+        } else {
+          // Truly orphan — zoom to pin (explore mode will at least show the pin)
+          pushNav();
+          setActiveStory(null);
+          setActiveEntity(null);
+          setActiveLocation(moment);
+          setCategoryFilter(null);
+          setMode('explore');
+          setZoomToActiveLocation(true);
+        }
       }
     }
   }, [momentToStoryMap, handleLocationSelect, entities, pushNav]);
