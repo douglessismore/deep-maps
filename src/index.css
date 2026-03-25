@@ -26,12 +26,12 @@
   --bg-card: #201f1f;
   --bg-card-hover: #2a2a2a;
   --text-primary: #e5e2e1;
-  --text-secondary: #bccac0;
-  --text-muted: #87948b;
-  --accent-red: #68dba9;
-  --accent-red-dim: rgba(104, 219, 169, 0.3);
-  --border-subtle: rgba(61, 74, 66, 0.15);
-  --border-hover: rgba(61, 74, 66, 0.30);
+  --text-secondary: #c4b8ab;
+  --text-muted: #8a7e72;
+  --accent-red: #c2703a;
+  --accent-red-dim: rgba(194, 112, 58, 0.3);
+  --border-subtle: rgba(74, 62, 52, 0.15);
+  --border-hover: rgba(74, 62, 52, 0.30);
   --font-serif: 'Newsreader', Georgia, serif;
   --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
   --font-mono: 'Space Grotesk', 'Courier New', monospace;

@@ -342,7 +342,7 @@ export function Header({
             className={v2
               ? `shrink-0 px-4 py-2 rounded-full text-[10px] font-mono font-medium tracking-widest uppercase transition-all ${
                   categoryFilter === null
-                    ? 'bg-[var(--accent-red)] text-[#003825]'
+                    ? 'bg-[var(--accent-red)] text-white'
                     : 'bg-[var(--bg-card-hover)] text-[var(--text-muted)] hover:bg-[var(--bg-card-hover)]/80'
                 }`
               : `shrink-0 px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
