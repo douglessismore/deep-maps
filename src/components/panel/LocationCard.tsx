@@ -5,6 +5,7 @@ import { entityMap, getEntityMomentStories, canonicalStoryIds, getEntityIcon } f
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
+import { isV2 } from '../../lib/theme';
 
 function isAdminMode(): boolean {
   try {
@@ -151,22 +152,28 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
       return parentStories.filter(s => !canonicalStoryIds.has(s.id));
     }, [parentStories, onStoryClick]);
 
+    const v2 = isV2();
+
     return (
       <div
         ref={ref}
         onClick={() => onClick(location)}
         className={`cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isActive
-            ? 'bg-[var(--bg-card-hover)] border-l-[3px] pl-3'
-            : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent pl-3 hover:bg-[var(--bg-card-hover)]'
-        } rounded-[12px] py-3 pr-4`}
+            ? v2
+              ? 'bg-[var(--bg-secondary)] border-l-4 pl-3'
+              : 'bg-[var(--bg-card-hover)] border-l-[3px] pl-3'
+            : v2
+              ? 'bg-[var(--bg-card)] border-l-4 border-l-transparent pl-3 hover:bg-[var(--bg-secondary)]'
+              : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent pl-3 hover:bg-[var(--bg-card-hover)]'
+        } ${v2 ? 'rounded-xl py-4 pr-5' : 'rounded-[12px] py-3 pr-4'}`}
         style={{
           borderLeftColor: isActive ? cat?.color ?? 'var(--text-muted)' : 'transparent',
         }}
       >
         {/* Number + Name + optional chevron */}
         <div className="flex items-start gap-2">
-          {typeof index === 'number' && cat && (
+          {typeof index === 'number' && cat && !v2 && (
             <span
               className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold mt-0.5"
               style={{ backgroundColor: cat.bgColor, color: cat.color }}
@@ -176,7 +183,10 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           )}
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline justify-between gap-2">
-              <h4 className="font-sans text-[14px] font-bold text-white leading-[1.3]">
+              <h4 className={v2
+                ? 'font-serif text-base font-bold text-white leading-tight'
+                : 'font-sans text-[14px] font-bold text-white leading-[1.3]'
+              }>
                 {location.name}
               </h4>
               {showExpandChevron && (
@@ -202,7 +212,10 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         </div>
 
         {/* Meta */}
-        <div className="flex items-center gap-2 mt-2 text-[10px] font-mono text-[var(--text-muted)]">
+        <div className={v2
+          ? 'flex items-center gap-2 mt-3 text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider'
+          : 'flex items-center gap-2 mt-2 text-[10px] font-mono text-[var(--text-muted)]'
+        }>
           {showStoryName && (
             <>
               <span style={{ color: cat?.color }}>{story?.name}</span>

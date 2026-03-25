@@ -13,6 +13,7 @@ import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
+import { isV2 } from '../../lib/theme';
 
 type MixedListItem =
   | { kind: 'story'; story: Story; distance: number; notability: number }
@@ -831,7 +832,10 @@ export function ExplorePanel({
         </div>
       )}
       {/* Tabs — hidden when inside a collection (collection is a full destination) */}
-      {!activeCollection && <div className="flex border-b border-[var(--border-subtle)] shrink-0 relative">
+      {!activeCollection && <div className={isV2()
+        ? 'flex shrink-0 relative'
+        : 'flex border-b border-[var(--border-subtle)] shrink-0 relative'
+      }>
         <button
           onClick={() => setActiveTab('moments')}
           className={`flex-1 py-2.5 text-xs font-mono transition-colors ${

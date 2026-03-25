@@ -1,6 +1,7 @@
 import type { Story } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { CategoryBadge } from '../ui/CategoryBadge';
+import { isV2 } from '../../lib/theme';
 
 interface StoryCardProps {
   story: Story;
@@ -12,6 +13,7 @@ interface StoryCardProps {
 export function StoryCard({ story, onClick, compact = false, distanceMi }: StoryCardProps) {
   const cat = CATEGORIES[story.category];
   const locationCount = story.moments.length;
+  const v2 = isV2();
 
   return (
     <button
@@ -19,16 +21,27 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
       className="w-full text-left group"
     >
       <div
-        className="bg-[var(--bg-card)] rounded-[14px] overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg hover:shadow-black/30 active:scale-[0.97]"
+        className={v2
+          ? 'bg-[var(--bg-card)] rounded-xl overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[var(--bg-card-hover)] active:scale-[0.97]'
+          : 'bg-[var(--bg-card)] rounded-[14px] overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg hover:shadow-black/30 active:scale-[0.97]'
+        }
       >
-        {/* Category color bar */}
-        <div className="h-[3px]" style={{ backgroundColor: cat.color }} />
+        {/* Category color bar — V2: thicker accent pill */}
+        <div className={v2 ? 'h-1' : 'h-[3px]'} style={{ backgroundColor: cat.color }} />
 
-        <div className={compact ? 'p-3' : 'p-4'}>
+        <div className={compact ? 'p-3' : (v2 ? 'p-5' : 'p-4')}>
           {/* Header */}
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="flex-1 min-w-0">
-              <h3 className={`font-sans font-bold text-white group-hover:text-white transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`}>
+              {v2 && !compact && (
+                <span className="text-[10px] font-mono font-bold tracking-widest uppercase mb-1 block" style={{ color: cat.color }}>
+                  {cat.label}
+                </span>
+              )}
+              <h3 className={v2
+                ? `font-serif font-bold text-white group-hover:text-white transition-colors leading-tight ${compact ? 'text-sm' : 'text-lg'}`
+                : `font-sans font-bold text-white group-hover:text-white transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`
+              }>
                 {story.name}
               </h3>
               {story.nickname && !compact && (
@@ -43,16 +56,22 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
           </div>
 
           {/* Description */}
-          <p className={`text-[var(--text-secondary)] leading-[1.5] mt-2 ${compact ? 'text-xs line-clamp-1' : 'text-[13px] line-clamp-2'}`}>
+          <p className={v2
+            ? `text-[var(--text-secondary)] leading-relaxed mt-2 font-light ${compact ? 'text-xs line-clamp-1' : 'text-sm line-clamp-2'}`
+            : `text-[var(--text-secondary)] leading-[1.5] mt-2 ${compact ? 'text-xs line-clamp-1' : 'text-[13px] line-clamp-2'}`
+          }>
             {story.description}
           </p>
 
           {/* Footer */}
-          <div className="flex items-center justify-between mt-3 gap-2">
+          <div className={v2 ? 'flex items-center justify-between mt-4 gap-2' : 'flex items-center justify-between mt-3 gap-2'}>
             <div className="flex items-center gap-2">
-              <CategoryBadge category={story.category} />
+              {!v2 && <CategoryBadge category={story.category} />}
               {story.storyType && story.storyType !== 'incident' && (
-                <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
+                <span className={v2
+                  ? 'text-[10px] font-mono text-[var(--text-muted)] capitalize tracking-wider uppercase'
+                  : 'text-[10px] font-mono text-[var(--text-muted)] capitalize'
+                }>
                   {story.storyType}
                 </span>
               )}

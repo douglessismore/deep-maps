@@ -1,4 +1,5 @@
 import type { StoryCollection } from '../../types';
+import { isV2 } from '../../lib/theme';
 
 interface CollectionCardProps {
   collection: StoryCollection;
@@ -7,24 +8,38 @@ interface CollectionCardProps {
 }
 
 export function CollectionCard({ collection, momentCount, onClick }: CollectionCardProps) {
+  const v2 = isV2();
+
   return (
     <button
       onClick={() => onClick(collection)}
-      className="w-full text-left rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-hover)] bg-[var(--bg-card)] p-3.5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] active:scale-[0.97] group"
+      className={v2
+        ? 'w-full text-left rounded-xl bg-[var(--bg-card)] p-5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] active:scale-[0.97] group'
+        : 'w-full text-left rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-hover)] bg-[var(--bg-card)] p-3.5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] active:scale-[0.97] group'
+      }
     >
       {/* Title */}
       <div className="mb-2">
-        <h3 className="text-sm font-sans font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors">
+        <h3 className={v2
+          ? 'text-base font-serif font-bold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors'
+          : 'text-sm font-sans font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors'
+        }>
           {collection.name}
         </h3>
-        <p className="text-[11px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-2">
+        <p className={v2
+          ? 'text-xs text-[var(--text-secondary)] mt-1 leading-relaxed line-clamp-2 font-light'
+          : 'text-[11px] text-[var(--text-secondary)] mt-0.5 leading-snug line-clamp-2'
+        }>
           {collection.subtitle}
         </p>
       </div>
 
       {/* Stats row */}
-      <div className="flex items-center gap-3 mt-2.5">
-        <span className="text-[10px] font-mono text-[var(--text-muted)]">
+      <div className={v2 ? 'flex items-center gap-3 mt-3' : 'flex items-center gap-3 mt-2.5'}>
+        <span className={v2
+          ? 'text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider'
+          : 'text-[10px] font-mono text-[var(--text-muted)]'
+        }>
           {momentCount} {momentCount === 1 ? 'moment' : 'moments'}
         </span>
 

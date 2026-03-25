@@ -8,6 +8,7 @@ import {
   canonicalStoryIds,
   getEntityIcon,
 } from '../../lib/entityHelpers';
+import { isV2 } from '../../lib/theme';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { useUIVariant } from '../../lib/uiVariant';
 import { GoDeeperCard } from './GoDeeperCard';
@@ -332,24 +333,41 @@ export function EntityPanel({
               )}
             </div>
 
-            {/* Desktop: full header */}
-            <div className="hidden lg:block p-4">
-              <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />
-              <h2 className="font-serif text-xl font-bold text-white">{entity.name}</h2>
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
-                  {entity.type}
-                </span>
-                {entity.years && (
-                  <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+            {/* Desktop: full header — V2 gets hero treatment */}
+            <div className={isV2() ? 'hidden lg:block px-6 py-8 text-center' : 'hidden lg:block p-4'}>
+              {!isV2() && <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />}
+              <h2 className={isV2()
+                ? 'font-serif text-4xl font-bold text-white tracking-tight'
+                : 'font-serif text-xl font-bold text-white'
+              }>{entity.name}</h2>
+              <div className={isV2() ? 'flex items-center justify-center gap-2 mt-3' : 'flex items-center gap-2 mt-2'}>
+                {isV2() ? (
+                  <span className="text-xs font-mono text-[var(--accent-red)] uppercase tracking-[0.3em]">
+                    {entity.years ? `${entity.years} · ` : ''}{entity.type}
+                  </span>
+                ) : (
+                  <>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+                      {entity.type}
+                    </span>
+                    {entity.years && (
+                      <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+                    )}
+                  </>
                 )}
               </div>
               {entity.description && (
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">{entity.description}</p>
+                <p className={isV2()
+                  ? 'text-[var(--text-secondary)] text-base leading-relaxed mt-4 max-w-lg mx-auto font-light'
+                  : 'text-sm text-[var(--text-secondary)] leading-relaxed mt-3'
+                }>{entity.description}</p>
               )}
               {entity.wikipediaSlug && (
                 <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
+                  className={isV2()
+                    ? 'inline-flex items-center gap-1.5 mt-4 text-xs font-mono text-[var(--accent-red)] hover:text-white transition-colors'
+                    : 'inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors'
+                  }>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
                     <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>

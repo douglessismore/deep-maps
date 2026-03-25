@@ -11,6 +11,7 @@ import { LocationCard } from './LocationCard';
 import { WikiPanel } from './WikiPanel';
 import { GoDeeperCard } from './GoDeeperCard';
 import type { SheetSnap } from '../ui/BottomSheet';
+import { isV2 } from '../../lib/theme';
 
 type StoryTab = 'locations' | 'wiki';
 
@@ -429,37 +430,79 @@ export function StoryPanel({
               )}
             </div>
 
-            {/* Desktop: full header (always visible) */}
-            <div className="hidden lg:block p-4">
-              <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
-              <h2 className="font-serif text-xl font-bold text-white">{story.name}</h2>
-              {story.nickname && (
-                <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
+            {/* Desktop: full header (always visible) — V2 gets editorial treatment */}
+            <div className={isV2() ? 'hidden lg:block px-6 py-6' : 'hidden lg:block p-4'}>
+              {isV2() ? (
+                /* V2: category label above, large serif title, italic description */
+                <>
+                  <div className="inline-block px-3 py-1 rounded-sm mb-3" style={{ backgroundColor: cat.color }}>
+                    <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-white">
+                      {cat.label}
+                    </span>
+                  </div>
+                  <h2 className="font-serif text-3xl font-bold text-white tracking-tight leading-tight">{story.name}</h2>
+                  {story.nickname && (
+                    <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
+                  )}
+                  <div className="flex items-center gap-4 mt-3 text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest">
+                    <span>{story.years}</span>
+                    {story.storyType && story.storyType !== 'incident' && (
+                      <>
+                        <span className="w-6 h-[1px] bg-[var(--border-subtle)]" />
+                        <span className="capitalize">{story.storyType}</span>
+                      </>
+                    )}
+                  </div>
+                  {story.contentWarning && (
+                    <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
+                  )}
+                  <p className="font-serif text-lg italic text-[var(--text-secondary)] leading-relaxed mt-5">{story.description}</p>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {story.tags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+                        className="px-3 py-1 rounded-full text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)] transition-colors cursor-pointer uppercase tracking-wider italic"
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                /* Default */
+                <>
+                  <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
+                  <h2 className="font-serif text-xl font-bold text-white">{story.name}</h2>
+                  {story.nickname && (
+                    <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
+                  )}
+                  <div className="flex items-center gap-2 mt-3">
+                    <CategoryBadge category={story.category} />
+                    {story.storyType && story.storyType !== 'incident' && (
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
+                        {story.storyType}
+                      </span>
+                    )}
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
+                  </div>
+                  {story.contentWarning && (
+                    <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
+                  )}
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">{story.description}</p>
+                  <div className="flex flex-wrap gap-1 mt-3">
+                    {story.tags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+                      >
+                        #{tag}
+                      </button>
+                    ))}
+                  </div>
+                </>
               )}
-              <div className="flex items-center gap-2 mt-3">
-                <CategoryBadge category={story.category} />
-                {story.storyType && story.storyType !== 'incident' && (
-                  <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
-                    {story.storyType}
-                  </span>
-                )}
-                <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
-              </div>
-              {story.contentWarning && (
-                <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
-              )}
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">{story.description}</p>
-              <div className="flex flex-wrap gap-1 mt-3">
-                {story.tags.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
-                    className="px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
-                  >
-                    #{tag}
-                  </button>
-                ))}
-              </div>
             </div>
           </div>}
 
