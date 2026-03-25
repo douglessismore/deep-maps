@@ -6504,7 +6504,7 @@ export const moments: Moment[] = [
   {
     id: 'btk-death',
     name: 'Pat Garrett Shoots Billy the Kid in a Darkened Bedroom',
-    subtitle: 'Fort Sumner Historic Site, Billy the Kid Rd, Fort Sumner, NM. The Maxwell house is gone — washed away in the 1937 Pecos River floods. A marker stands near the spot, on the grounds of the Bosque Redondo Memorial',
+    subtitle: 'Fort Sumner Historic Site, Billy the Kid Rd, Fort Sumner, NM. Maxwell house gone (1937 floods); "DIED HERE" marker at stop 23',
     description: 'On the night of 14 July 1881, Sheriff Pat Garrett waited in the darkened bedroom of Pete Maxwell\'s house here in Fort Sumner. Billy the Kid entered unexpectedly and was shot dead. The Pete Maxwell ranch house fell into disrepair after the killing and its ruins were finally washed away in the 1937 Pecos River floods. A marker near the spot now stands on the grounds of the Fort Sumner/Bosque Redondo National Memorial Site. The old Fort Sumner Cemetery where Billy was buried is nearby.',
     lat: 34.4048,
     lng: -104.1946,
