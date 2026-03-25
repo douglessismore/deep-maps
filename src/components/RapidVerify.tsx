@@ -230,13 +230,35 @@ export function RapidVerify() {
     return urlsPart + '\n---NOTES---\n' + notesPart;
   }, []);
 
-  /** Filtered search results for jump-to */
-  const searchResults = searchQuery.trim().length >= 2
+  /** Search results — check local array first, fall back to Supabase for full search */
+  const [supabaseSearchResults, setSupabaseSearchResults] = useState<{ id: string; name: string }[]>([]);
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Local search (instant, within loaded moments)
+  const localSearchResults = searchQuery.trim().length >= 2
     ? moments
         .map((m, i) => ({ moment: m, index: i }))
         .filter(({ moment }) => moment.name.toLowerCase().includes(searchQuery.toLowerCase()))
         .slice(0, 8)
     : [];
+
+  // Supabase search (debounced, searches ALL moments)
+  useEffect(() => {
+    if (searchQuery.trim().length < 2) { setSupabaseSearchResults([]); return; }
+    if (localSearchResults.length >= 3) { setSupabaseSearchResults([]); return; } // local has enough
+    if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    searchDebounceRef.current = setTimeout(async () => {
+      const { data } = await supabase
+        .from('moments')
+        .select('id, name')
+        .ilike('name', `%${searchQuery.trim()}%`)
+        .limit(8);
+      if (data) setSupabaseSearchResults(data.filter(d => !moments.some(m => m.id === d.id)));
+    }, 300);
+    return () => { if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current); };
+  }, [searchQuery, moments, localSearchResults.length]);
+
+  const searchResults = localSearchResults;
 
   // ─── Fetch collections ────────────────────────────────────────────
 
@@ -774,7 +796,7 @@ export function RapidVerify() {
                   className="w-full px-2 py-0.5 bg-[#111] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50"
                   autoFocus
                 />
-                {searchResults.length > 0 && (
+                {(searchResults.length > 0 || supabaseSearchResults.length > 0) && (
                   <div className="fixed left-4 right-4 mt-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-xl z-[9999] max-h-64 overflow-y-auto" style={{ top: searchInputRef.current ? searchInputRef.current.getBoundingClientRect().bottom + 4 : 60 }}>
                     {searchResults.map(({ moment, index }) => (
                       <button
@@ -788,6 +810,31 @@ export function RapidVerify() {
                       >
                         <span className="font-medium line-clamp-1">{moment.name}</span>
                         <span className="text-[9px] text-gray-600 ml-1">#{index + 1}</span>
+                      </button>
+                    ))}
+                    {supabaseSearchResults.length > 0 && searchResults.length > 0 && (
+                      <div className="px-3 py-1 text-[9px] text-gray-600 bg-[#111] border-b border-[#2a2a2a]">Also found (not in current filter):</div>
+                    )}
+                    {supabaseSearchResults.map((m) => (
+                      <button
+                        key={m.id}
+                        onClick={async () => {
+                          // Uncheck filters to load all moments, then search again
+                          setUnverifiedOnly(false);
+                          setFlaggedOnly(false);
+                          setSelectedCollection('');
+                          setSearchOpen(false);
+                          setSearchQuery('');
+                          // The moment will appear after refetch — set a pending jump
+                          setTimeout(() => {
+                            const idx = moments.findIndex(mm => mm.id === m.id);
+                            if (idx >= 0) setCurrentIndex(idx);
+                          }, 2000);
+                        }}
+                        className="w-full text-left px-3 py-2 text-[11px] text-gray-500 hover:bg-white/5 border-b border-[#2a2a2a] last:border-b-0 transition-colors italic"
+                      >
+                        <span className="line-clamp-1">{m.name}</span>
+                        <span className="text-[9px] text-gray-600 ml-1">(clear filters to view)</span>
                       </button>
                     ))}
                   </div>
