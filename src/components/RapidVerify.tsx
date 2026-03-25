@@ -724,7 +724,7 @@ export function RapidVerify() {
       </div>
 
       {/* ─── Map — smaller on mobile ─────────────────────────────────── */}
-      <div className="flex-none relative" style={{ height: 'clamp(35dvh, 35dvh, 45dvh)' }}>
+      <div className="flex-none relative" style={{ height: 'min(35dvh, 280px)' }}>
         <div ref={mapContainerRef} className="w-full h-full" />
         {/* Address overlay — no truncation */}
         {current.address && (
@@ -736,7 +736,7 @@ export function RapidVerify() {
 
       {/* ─── Card content (scrollable middle) ────────────────────────── */}
       <div
-        className={`flex-1 overflow-y-auto px-4 py-3 space-y-2.5 pb-48 ${
+        className={`flex-1 min-h-0 overflow-y-auto px-4 py-2 space-y-2 ${
           cardAnim === 'out' ? 'rv-slide-out' : cardAnim === 'in' ? 'rv-slide-in' : ''
         }`}
         onTouchStart={handleTouchStart}
