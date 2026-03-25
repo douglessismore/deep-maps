@@ -775,7 +775,7 @@ export function RapidVerify() {
                   autoFocus
                 />
                 {searchResults.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+                  <div className="fixed left-4 right-4 mt-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-xl z-[9999] max-h-64 overflow-y-auto" style={{ top: searchInputRef.current ? searchInputRef.current.getBoundingClientRect().bottom + 4 : 60 }}>
                     {searchResults.map(({ moment, index }) => (
                       <button
                         key={moment.id}
