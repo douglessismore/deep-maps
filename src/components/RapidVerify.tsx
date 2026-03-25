@@ -23,15 +23,41 @@ const DRAGGABLE_MARKER_ICON = L.divIcon({
   iconAnchor: [11, 11],
 });
 
-const ACCURACY_OPTIONS: { value: LocationAccuracy; icon: string; label: string }[] = [
-  { value: 'exact', icon: '\ud83c\udfe0', label: 'Building' },
-  { value: 'exact', icon: '\ud83d\udccd', label: 'Exact' },
-  { value: 'general-area', icon: '\ud83d\uddfa\ufe0f', label: 'Area' },
+const ACCURACY_OPTIONS: { value: LocationAccuracy; icon: string; label: string; desc: string }[] = [
+  { value: 'exact' as LocationAccuracy, icon: '📍', label: 'Pinpoint', desc: '~3m — the exact spot' },
+  { value: 'approximate' as LocationAccuracy, icon: '🎯', label: 'Exact', desc: '~10-50m — correct building' },
+  { value: 'general-area' as LocationAccuracy, icon: '🗺️', label: 'Area', desc: '~100m+ — right neighborhood' },
 ];
-// Fix: Building = approximate, Exact = exact, Area = general-area
-ACCURACY_OPTIONS[0] = { value: 'approximate' as LocationAccuracy, icon: '\ud83c\udfe0', label: 'Building' };
-ACCURACY_OPTIONS[1] = { value: 'exact', icon: '\ud83d\udccd', label: 'Exact' };
-ACCURACY_OPTIONS[2] = { value: 'general-area', icon: '\ud83d\uddfa\ufe0f', label: 'Area' };
+
+/** Generate verification source links for a moment */
+function getSourceLinks(m: VerifyMoment): { label: string; url: string }[] {
+  const links: { label: string; url: string }[] = [];
+  // Google Maps search for the address
+  if (m.address) {
+    links.push({
+      label: `📍 Google Maps: "${m.address}"`,
+      url: `https://www.google.com/maps/search/${encodeURIComponent(m.address)}`,
+    });
+  }
+  // Google Maps at exact coords
+  links.push({
+    label: `🛰️ Satellite at pin coords`,
+    url: `https://www.google.com/maps/@${m.lat},${m.lng},18z/data=!3m1!1e1`,
+  });
+  // Web search for the event + location
+  const searchTerms = m.name.replace(/[''""]/g, '').slice(0, 80);
+  links.push({
+    label: `🔍 Search: "${searchTerms.slice(0, 40)}..."`,
+    url: `https://www.google.com/search?q=${encodeURIComponent(searchTerms + ' location address')}`,
+  });
+  // Wikipedia if the name suggests a notable event
+  const wikiSearch = m.name.replace(/[''""]/g, '').slice(0, 60);
+  links.push({
+    label: `📖 Wikipedia search`,
+    url: `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(wikiSearch)}`,
+  });
+  return links;
+}
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -112,6 +138,7 @@ export function RapidVerify() {
   const [sessionStats, setSessionStats] = useState<SessionStats>(loadSessionStats);
   const [selectedAccuracy, setSelectedAccuracy] = useState<LocationAccuracy | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [quickSourceUrl, setQuickSourceUrl] = useState('');
 
   // Adjust mode inputs
   const [adjustCoords, setAdjustCoords] = useState('');
@@ -308,6 +335,7 @@ export function RapidVerify() {
 
   const advanceToNext = useCallback(() => {
     setAdjustMode(false);
+    setQuickSourceUrl('');
     if (currentIndex < moments.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else if (hasMore) {
@@ -328,12 +356,12 @@ export function RapidVerify() {
       if (selectedAccuracy && selectedAccuracy !== current.accuracy) {
         await supabase.from('moments').update({ accuracy: selectedAccuracy }).eq('id', current.id);
       }
-      // Mark verified via RPC
+      // Mark verified via RPC (include source URL if provided)
       const { error: rpcError } = await supabase.rpc('update_moment_location', {
         p_id: current.id,
         p_lng: current.lng,
         p_lat: current.lat,
-        p_source_url: null,
+        p_source_url: quickSourceUrl.trim() || null,
       });
       if (rpcError) throw rpcError;
 
@@ -347,7 +375,7 @@ export function RapidVerify() {
       console.error('[RapidVerify] correct error:', err);
       setError(err instanceof Error ? err.message : 'Failed to save');
     }
-  }, [current, selectedAccuracy, sessionStats, advanceToNext, showFlash]);
+  }, [current, selectedAccuracy, quickSourceUrl, sessionStats, advanceToNext, showFlash]);
 
   const handleSkip = useCallback(() => {
     showFlash('gray');
@@ -640,6 +668,7 @@ export function RapidVerify() {
                     ? 'border-white/30 bg-white/10 text-white'
                     : 'border-[#2a2a2a] bg-[#111] text-gray-500 hover:text-gray-300'
                 }`}
+                title={opt.desc}
               >
                 {opt.icon} {opt.label}
               </button>
@@ -688,6 +717,36 @@ export function RapidVerify() {
             >
               Save &amp; Next
             </button>
+          </div>
+        )}
+
+        {/* Verify sources — quick links to check location */}
+        {!adjustMode && (
+          <div className="flex flex-wrap gap-1.5 pb-1">
+            {getSourceLinks(current).map((link, i) => (
+              <a
+                key={i}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] px-2 py-1 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20 hover:bg-blue-500/10 transition-colors truncate max-w-[48%]"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Quick source URL (optional, shown in normal mode too) */}
+        {!adjustMode && (
+          <div className="flex gap-1.5 items-center">
+            <input
+              type="text"
+              value={quickSourceUrl}
+              onChange={(e) => setQuickSourceUrl(e.target.value)}
+              placeholder="Paste source URL (optional)"
+              className="flex-1 px-2 py-1.5 bg-[#111] border border-[#2a2a2a] rounded text-[11px] text-gray-300 placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50"
+            />
           </div>
         )}
 
