@@ -94,6 +94,10 @@
 - [ ] **Books/Movies entity type** — Add as first-class entities (not just stories)
 - [ ] **Cool places collection** — Springs, ruins, trails, natural wonders (Nate feedback)
 - [ ] **Current events integration** — Tie moments to news for retention (Nate feedback)
+- [ ] **Famous Cemeteries collection** — Père Lachaise, Highgate, Hollywood Forever, Green-Wood, Woodlawn, Recoleta, Westminster Abbey. Each cemetery as a strollable cluster of pinpoint burial moments. BG pipeline provides GPS.
+- [ ] **US Presidents: Burials & Birthplaces** — All 46 presidents with pinpoint burial + birthplace coordinates. BG for burials, historical markers for birthplaces. Two sub-collections: "Where Presidents Are Buried" + "Where Presidents Were Born"
+- [ ] **Notable Graves by Category** — Sub-collections: Scientists' Graves, Writers' Graves, Musicians' Graves, Artists' Graves. Each organized by field, every grave GPS-verified via BG.
+- [ ] **Famous Last Resting Places** — Cross-cemetery collection of the most visited individual graves worldwide (Jim Morrison, Elvis, Princess Diana, Marx, Wilde, etc.)
 
 ### Geographic Gap-Filling
 - [x] ~~Sub-Saharan Africa~~ — 10 moments added (session 2026-03-23), still underrepresented — more needed

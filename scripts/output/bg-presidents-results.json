@@ -1,0 +1,2090 @@
+[
+  {
+    "entityId": "george-washington",
+    "name": "George Washington",
+    "deathYear": 1799,
+    "burial": "Mount Vernon, Virginia",
+    "bgResults": [
+      {
+        "id": 38091108,
+        "name": "Maurika Monique 'Rika' Washington (Washington)",
+        "ctx": "Maurika Monique 'Rika' Washington (Washington) | Born: 20 Aug 1981 | Died: 9 Oct 2006 | Location: Evergreen Cemetery: United States, Tennessee, Murfreesboro"
+      },
+      {
+        "id": 14636481,
+        "name": "Peggy Washington-Dunnahoe (Washington)",
+        "ctx": "Peggy Washington-Dunnahoe (Washington) | Born: 4 May 1949 | Died: 28 Dec 2004 | Location: Shafter Cemetery: United States, California, Shafter"
+      },
+      {
+        "id": 140486543,
+        "name": "George Calhoun (Washington)",
+        "ctx": "George Calhoun (Washington) | Born: 31 Jul 1900 | Died: 26 Jan 1918 | Location: Page Jackson Cemetery: United States, Florida, Sanford"
+      },
+      {
+        "id": 45985312,
+        "name": "George Gedney (Washington)",
+        "ctx": "George Gedney (Washington) | Born: 1808 | Died: 1879 | Location: Washingtonville Cemetery: United States, New York, Washingtonville"
+      },
+      {
+        "id": 54160381,
+        "name": "George Wells (Washington)",
+        "ctx": "George Wells (Washington) | Born: 24 Dec 1928 | Died: 1 Aug 1954 | Location: Danville National Cemetery: United States, Virginia, Danville"
+      },
+      {
+        "id": 53226756,
+        "name": "George Washington",
+        "ctx": "George Washington | Born: 22 Feb 1732 | Died: 14 Dec 1799 | Location: Mount Comfort Cemetery: United States, Virginia, Alexandria"
+      },
+      {
+        "id": 27950659,
+        "name": "President George Washington",
+        "ctx": "President George Washington | Born: 22 Feb 1732 | Died: 14 Dec 1799 | Location: Washington Family Tomb: United States, Virginia, Alexandria"
+      },
+      {
+        "id": 96362255,
+        "name": "President George Washington",
+        "ctx": "President George Washington | Born: 22 Feb 1732 | Died: 14 Dec 1799 | Location: St Pauls Cathedral, London: United Kingdom, England, City of London"
+      },
+      {
+        "id": 104835803,
+        "name": "George Washington",
+        "ctx": "George Washington | Born: 1732 | Died: 1799 | Location: Riverview Cemetery: United States, Missouri, Jefferson City"
+      },
+      {
+        "id": 4014173,
+        "name": "George Washington",
+        "ctx": "George Washington | Born: 21 Dec 1878 | Died: 12 Oct 1959 | Location: Odd Fellows Cemetery: United States, Mississippi, Starkville"
+      }
+    ]
+  },
+  {
+    "entityId": "john-adams",
+    "name": "John Adams",
+    "deathYear": 1826,
+    "burial": "United First Parish Church, Quincy, MA",
+    "bgResults": [
+      {
+        "id": 30382511,
+        "name": "Essie Elizabeth Adams (Adams)",
+        "ctx": "Essie Elizabeth Adams (Adams) | Born: 21 Aug 1896 | Died: 15 Oct 1972 | Location: Sharon Memorial Park: United States, North Carolina, 1, Charlotte"
+      },
+      {
+        "id": 8644191,
+        "name": "Maatje Adams (Adams)",
+        "ctx": "Maatje Adams (Adams) | Born: 30 Aug 1890 | Died: 16 Jul 1981 | Location: Begraafplaats Ede: Netherlands, Gelderland, Ede"
+      },
+      {
+        "id": 7312019,
+        "name": "Violet Beatrice Adams (Adams)",
+        "ctx": "Violet Beatrice Adams (Adams) | Born: 21 Apr 1872 | Died: 5 Aug 1947 | Location: Carr Villa Memorial Park: Australia, Tasmania, Launceston"
+      },
+      {
+        "id": 640786,
+        "name": "John Adams",
+        "ctx": "John Adams | Born: 13 May 1813 | Died: 23 Dec 1831 | Location: Anaheim Cemetery: United States, California, Anaheim"
+      },
+      {
+        "id": 20610498,
+        "name": "John Adams",
+        "ctx": "John Adams | Born: Not Available | Died: 4 Apr 1826 | Location: Butternut Ridge Cemetery: United States, Ohio, North Olmsted"
+      },
+      {
+        "id": 25543185,
+        "name": "John Adams",
+        "ctx": "John Adams | Born: 1820 | Died: 1821 | Location: Vine Lake Cemetery: United States, Massachusetts, Medfield"
+      },
+      {
+        "id": 25543186,
+        "name": "John Adams",
+        "ctx": "John Adams | Born: 1823 | Died: 1823 | Location: Vine Lake Cemetery: United States, Massachusetts, Medfield"
+      },
+      {
+        "id": 38071922,
+        "name": "John Adams Sr",
+        "ctx": "John Adams Sr | Born: 1733 | Died: 24 Mar 1828 | Location: Adams Cemetery: United States, Massachusetts, Wilbraham"
+      },
+      {
+        "id": 38075258,
+        "name": "John Adams Jr",
+        "ctx": "John Adams Jr | Born: Not Available | Died: 3 Mar 1826 | Location: Adams Cemetery: United States, Massachusetts, Wilbraham"
+      },
+      {
+        "id": 41396108,
+        "name": "John Adams",
+        "ctx": "John Adams | Born: Not Available | Died: 27 Dec 1831 | Location: St Davids Church, Abergwili: United Kingdom, Wales, Abergwili"
+      }
+    ]
+  },
+  {
+    "entityId": "thomas-jefferson",
+    "name": "Thomas Jefferson",
+    "deathYear": 1826,
+    "burial": "Monticello, Charlottesville, VA",
+    "bgResults": [
+      {
+        "id": 15170148,
+        "name": "President Thomas Jefferson",
+        "ctx": "President Thomas Jefferson | Born: 2 Apr 1743 | Died: 4 Jul 1826 | Location: Monticello Graveyard: United States, Virginia, Charlottesville"
+      },
+      {
+        "id": 6295343,
+        "name": "Thomas Hall (Jefferson) Jr",
+        "ctx": "Thomas Hall (Jefferson) Jr | Born: 10 Mar 1943 | Died: 24 Dec 2007 | Location: Jefferson Barracks National Cemetery: United States, Missouri, St Louis"
+      },
+      {
+        "id": 82135796,
+        "name": "Thomas Motes (Jefferson)",
+        "ctx": "Thomas Motes (Jefferson) | Born: 6 Jul 1958 | Died: 30 Oct 2015 | Location: Southern Heritage Cemetery: United States, Alabama, Pelham"
+      },
+      {
+        "id": 140179238,
+        "name": "Thomas Snead (Jefferson)",
+        "ctx": "Thomas Snead (Jefferson) | Born: 1853 | Died: 1938 | Location: Pinewood Cemetery: United States, Florida, Daytona Beach"
+      },
+      {
+        "id": 132338123,
+        "name": "Thomas Twining (Jefferson)",
+        "ctx": "Thomas Twining (Jefferson) | Born: 30 Jan 1851 | Died: 3 Jan 1920 | Location: Lindenwood Cemetery: United States, Indiana, Fort Wayne"
+      },
+      {
+        "id": 1199981,
+        "name": "Thomas Jefferson",
+        "ctx": "Thomas Jefferson | Born: 1 Jun 1900 | Died: 23 Feb 1982 | Location: Mount Pleasant Cemetery: United States, Mississippi, Madison"
+      },
+      {
+        "id": 2728362,
+        "name": "Thomas Jefferson",
+        "ctx": "Thomas Jefferson | Born: 1877 | Died: 1952 | Location: Shenandoah Heights Odd Fellows Cemetery: United States, Pennsylvania, Shenandoah Heights"
+      },
+      {
+        "id": 4363170,
+        "name": "Thomas Jefferson",
+        "ctx": "Thomas Jefferson | Born: 17 Oct 1890 | Died: 9 Dec 1937 | Location: Cross Creek Cemetery #2: United States, North Carolina, Cross Creek"
+      },
+      {
+        "id": 19051313,
+        "name": "Thomas Jefferson",
+        "ctx": "Thomas Jefferson | Born: Not Available | Died: 23 Apr 1921 | Location: Laurencekirk Cemetery: United Kingdom, Scotland, Laurencekirk"
+      },
+      {
+        "id": 21088967,
+        "name": "Thomas Jefferson",
+        "ctx": "Thomas Jefferson | Born: 12 Nov 1931 | Died: 23 Jul 2014 | Location: Miramar National Cemetery: United States, California, San Diego"
+      }
+    ]
+  },
+  {
+    "entityId": "andrew-jackson",
+    "name": "Andrew Jackson",
+    "deathYear": 1845,
+    "burial": "The Hermitage, Nashville, TN",
+    "bgResults": [
+      {
+        "id": 55669973,
+        "name": "President Andrew Jackson",
+        "ctx": "President Andrew Jackson | Born: 15 Mar 1767 | Died: 8 Jun 1845 | Location: Hermitage Plantation: United States, Tennessee, Metropolitan Government"
+      },
+      {
+        "id": 125886091,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 17 Jan 1841 | Died: 16 Aug 1845 | Location: Union Cemetery: United States, Tennessee, Dunlap"
+      },
+      {
+        "id": 1670702,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 1881 | Died: 1944 | Location: The Evergreens Cemetery: United States, New York, Brooklyn"
+      },
+      {
+        "id": 1865737,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 1882 | Died: 1944 | Location: Woodlawn Cemetery: United States, Kansas, Kansas City"
+      },
+      {
+        "id": 1975467,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 8 Jun 1912 | Died: 4 Dec 1945 | Location: Little Bethel Baptist Church Cemetery: United States, Georgia, Statesboro"
+      },
+      {
+        "id": 3860549,
+        "name": "SR Andrew Jackson",
+        "ctx": "SR Andrew Jackson | Born: 1900 | Died: 1990 | Location: Oakland-Tildenville Cemetery: United States, Florida, Oakland"
+      },
+      {
+        "id": 4068255,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: Not Available | Died: 22 Aug 1961 | Location: Saintfield First Presbyterian Church: United Kingdom, Northern Ireland, Saintfield"
+      },
+      {
+        "id": 4957754,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 1850 | Died: 1918 | Location: Mount Auburn Cemetery: United States, Maryland, Baltimore"
+      },
+      {
+        "id": 5006787,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 1847 | Died: 1924 | Location: Chippiannock Cemetery: United States, Illinois, Rock Island"
+      },
+      {
+        "id": 4273868,
+        "name": "Andrew Jackson",
+        "ctx": "Andrew Jackson | Born: 15 Apr 1880 | Died: 22 Feb 1955 | Location: Jerome Cemetery: United States, Idaho, Jerome"
+      }
+    ]
+  },
+  {
+    "entityId": "john-f-kennedy",
+    "name": "John F. Kennedy",
+    "deathYear": 1963,
+    "burial": "Arlington National Cemetery, VA",
+    "bgResults": [
+      {
+        "id": 123027250,
+        "name": "Catharine Kennedy (Kennedy)",
+        "ctx": "Catharine Kennedy (Kennedy) | Born: Jun 1821 | Died: Mar 1894 | Location: Bethel Cemetery: United States, Pennsylvania, Lower Burrell"
+      },
+      {
+        "id": 109113546,
+        "name": "Ruth B Lyman Kennedy (Kennedy)",
+        "ctx": "Ruth B Lyman Kennedy (Kennedy) | Born: 18 Feb 1922 | Died: 8 May 2012 | Location: Parklawn Memorial Park: United States, Virginia, Hampton"
+      },
+      {
+        "id": 122517299,
+        "name": "Maude McL Kennedy (Kennedy)",
+        "ctx": "Maude McL Kennedy (Kennedy) | Born: 28 Jan 1888 | Died: 27 Oct 1916 | Location: Woodlawn Memorial Park: Canada, Ontario, Guelph"
+      },
+      {
+        "id": 43743448,
+        "name": "John F Kennedy",
+        "ctx": "John F Kennedy | Born: 1899 | Died: 1964 | Location: 29 Palms Public Cemetery: United States, California, Twentynine Palms"
+      },
+      {
+        "id": 45198711,
+        "name": "John F Kennedy",
+        "ctx": "John F Kennedy | Born: Not Available | Died: 22 Jan 1963 | Location: Adamsville Cemetery: United States, Michigan, Edwardsburg"
+      },
+      {
+        "id": 82420949,
+        "name": "John F Kennedy",
+        "ctx": "John F Kennedy | Born: 7 Mar 1878 | Died: 5 Aug 1964 | Location: Calvary Cemetery: United States, Pennsylvania, Pittsburgh"
+      },
+      {
+        "id": 40985500,
+        "name": "John F. Kennedy Jr.",
+        "ctx": "John F. Kennedy Jr. | Born: 1905 | Died: 1967 | Location: New Hope Cemetery: United States, South Carolina, Seneca"
+      },
+      {
+        "id": 152915757,
+        "name": "John F. Kennedy",
+        "ctx": "John F. Kennedy | Born: 1902 | Died: 1968 | Location: Lake Worth Memory Gardens: United States, Florida, Lake Worth"
+      },
+      {
+        "id": 4699305,
+        "name": "John F. Kennedy",
+        "ctx": "John F. Kennedy | Born: 1888 | Died: 1958 | Location: Bayview Cemetery: Canada, Ontario, Wiarton"
+      },
+      {
+        "id": 70286533,
+        "name": "John F. Kennedy",
+        "ctx": "John F. Kennedy | Born: 1885 | Died: 1960 | Location: Saint Stephen Cemetery: United States, Massachusetts, Framingham"
+      }
+    ]
+  },
+  {
+    "entityId": "lyndon-b-johnson",
+    "name": "Lyndon B. Johnson",
+    "deathYear": 1973,
+    "burial": "LBJ Ranch, Stonewall, TX",
+    "bgResults": [
+      {
+        "id": 25196719,
+        "name": "Lyndon B. Johnson",
+        "ctx": "Lyndon B. Johnson | Born: 9 Sep 1967 | Died: 2 Jun 1992 | Location: Silver Hill Cemetery: United States, Florida, Frostproof"
+      },
+      {
+        "id": 25626667,
+        "name": "Lyndon Johnson",
+        "ctx": "Lyndon Johnson | Born: Not Available | Died: Not Available | Location: Annis Little Butte Cemetery: United States, Idaho, Rigby"
+      },
+      {
+        "id": 45335437,
+        "name": "Lyndon Johnson",
+        "ctx": "Lyndon Johnson | Born: 1943 | Died: 2004 | Location: Florida National Cemetery (Bushnell): United States, Florida, Bushnell"
+      },
+      {
+        "id": 108463119,
+        "name": "London B Johnson",
+        "ctx": "London B Johnson | Born: 20 Jan 1904 | Died: 13 Jul 1985 | Location: Roosevelt Memorial Park: United States, Virginia, Chesapeake"
+      },
+      {
+        "id": 34470468,
+        "name": "Lindon Johnson",
+        "ctx": "Lindon Johnson | Born: 18 Sep 1894 | Died: 5 Aug 1970 | Location: Floydsburg Cemetery: United States, Kentucky, Crestwood"
+      },
+      {
+        "id": 18833850,
+        "name": "Glyndon Johnson",
+        "ctx": "Glyndon Johnson | Born: 1920 | Died: 1998 | Location: Huntsville Cemetery: United States, Arkansas, Huntsvllle"
+      },
+      {
+        "id": 31403378,
+        "name": "Lendon Johnson Sr",
+        "ctx": "Lendon Johnson Sr | Born: 13 Feb 1933 | Died: 10 May 2006 | Location: San Joaquin Valley National Cemetery: United States, California, Santa Nella"
+      },
+      {
+        "id": 5039476,
+        "name": "Brian Lyndon Johnson",
+        "ctx": "Brian Lyndon Johnson | Born: 11 Feb 1961 | Died: 8 Jul 1978 | Location: Archmount Cemetery: Canada, Alberta, Lethbridge"
+      },
+      {
+        "id": 13128845,
+        "name": "President Lyndon Baines Johnson",
+        "ctx": "President Lyndon Baines Johnson | Born: 27 Aug 1908 | Died: 22 Jan 1973 | Location: Johnson Family Cemetery: United States, Texas, Stonewall"
+      },
+      {
+        "id": 22564100,
+        "name": "Landon Johnson",
+        "ctx": "Landon Johnson | Born: 31 Oct 1915 | Died: 7 Dec 2000 | Location: Resthaven Memorial Park: United States, Oklahoma, Ponca City"
+      }
+    ]
+  },
+  {
+    "entityId": "ronald-reagan",
+    "name": "Ronald Reagan",
+    "deathYear": 2004,
+    "burial": "Ronald Reagan Presidential Library, Simi Valley, CA",
+    "bgResults": [
+      {
+        "id": 167873826,
+        "name": "Ronald Reagan",
+        "ctx": "Ronald Reagan | Born: Not Available | Died: 19 Aug 2021 | Location: Greenwich Cemetery: United States, Georgia, Savannah"
+      },
+      {
+        "id": 158610979,
+        "name": "Ronald Reagan",
+        "ctx": "Ronald Reagan | Born: Not Available | Died: Not Available | Location: Liberty Veterans Cemetery: United States, California, Fresno"
+      },
+      {
+        "id": 2418900,
+        "name": "Ronald J Reagan Jr",
+        "ctx": "Ronald J Reagan Jr | Born: 7 Jan 1960 | Died: 5 Mar 2008 | Location: Bayou Gauche Cemetery: United States, Louisiana, Des Allemands"
+      },
+      {
+        "id": 31911863,
+        "name": "President Ronald Wilson Reagan",
+        "ctx": "President Ronald Wilson Reagan | Born: 6 Feb 1911 | Died: 5 Jun 2004 | Location: Ronald Reagan Presidential Library: United States, California, Simi Valley"
+      },
+      {
+        "id": 18454382,
+        "name": "Ronald Allen Reagan",
+        "ctx": "Ronald Allen Reagan | Born: 1939 | Died: 1946 | Location: Prairie Home Cemetery: United States, Nebraska, Holdrege"
+      },
+      {
+        "id": 42088501,
+        "name": "Ronald Byron Reagan",
+        "ctx": "Ronald Byron Reagan | Born: 26 Sep 1951 | Died: 30 Dec 1994 | Location: Riverside National Cemetery Quadrant I: United States, California, Riverside"
+      },
+      {
+        "id": 90452534,
+        "name": "Ronald Edward Reagan",
+        "ctx": "Ronald Edward Reagan | Born: 1 Sep 1946 | Died: 23 Apr 2017 | Location: East Tennessee State Veterans Cemetery: United States, Tennessee, Knoxville"
+      },
+      {
+        "id": 4742322,
+        "name": "Ronald G Reagan",
+        "ctx": "Ronald G Reagan | Born: 1937 | Died: 1981 | Location: Valley Memorial Park: United States, California, Novato"
+      },
+      {
+        "id": 2747429,
+        "name": "Ronald J Reagan SR",
+        "ctx": "Ronald J Reagan SR | Born: 1 Jun 1938 | Died: 4 Jul 1975 | Location: Bayou Gauche Cemetery: United States, Louisiana, Des Allemands"
+      },
+      {
+        "id": 123254573,
+        "name": "Ronald K Reagan",
+        "ctx": "Ronald K Reagan | Born: 13 Jul 1950 | Died: 5 Jul 2017 | Location: Good Shepherd Memorial Gardens: United States, Florida, Ocala"
+      }
+    ]
+  },
+  {
+    "entityId": "james-madison",
+    "name": "James Madison",
+    "deathYear": 1836,
+    "burial": "Montpelier, Orange, VA",
+    "bgResults": [
+      {
+        "id": 42853365,
+        "name": "President James Madison Jr.",
+        "ctx": "President James Madison Jr. | Born: 16 Mar 1751 | Died: 28 Jun 1836 | Location: James Madison Cemetery: United States, Virginia, Somerset"
+      },
+      {
+        "id": 1074921,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 1876 | Died: 1947 | Location: Mount Olivet Cemetery: United States, Missouri, Kansas City"
+      },
+      {
+        "id": 21443011,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 1870 | Died: 1946 | Location: Forest Lawn: United States, New York, Buffalo"
+      },
+      {
+        "id": 20892241,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 1917 | Died: 2005 | Location: Eternal Hills Memorial Park: United States, California, Oceanside"
+      },
+      {
+        "id": 21552332,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: Not Available | Died: Not Available | Location: Gonzales City Cemetery: United States, Texas, Gonzales"
+      },
+      {
+        "id": 20834805,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 1900 | Died: 1977 | Location: Highland Park Cemetery: United States, Ohio, Highland Hills"
+      },
+      {
+        "id": 26083704,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: Not Available | Died: 9 Sep 1863 | Location: Holy Trinity Lutheran Memorial Churchyard: United States, New Jersey, Manasquan"
+      },
+      {
+        "id": 39644810,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 1848 | Died: 1918 | Location: North McDonald Cemetery: United States, Iowa, Van Meter"
+      },
+      {
+        "id": 39385346,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 5 May 1855 | Died: 29 Nov 1917 | Location: Tolle Cemetery: United States, Missouri, Trenton"
+      },
+      {
+        "id": 37965042,
+        "name": "James Madison",
+        "ctx": "James Madison | Born: 1978 | Died: 2010 | Location: El Paso Cemetery: United States, Kansas, Derby"
+      }
+    ]
+  },
+  {
+    "entityId": "james-monroe",
+    "name": "James Monroe",
+    "deathYear": 1831,
+    "burial": "Hollywood Cemetery, Richmond, VA",
+    "bgResults": [
+      {
+        "id": 128345078,
+        "name": "Isabell Olevea Monroe (Monroe)",
+        "ctx": "Isabell Olevea Monroe (Monroe) | Born: 30 Apr 1922 | Died: 4 May 1996 | Location: Hickory Memorial Gardens: United States, Louisiana, Pearl River"
+      },
+      {
+        "id": 140100706,
+        "name": "Leona Beverly Monroe (Monroe)",
+        "ctx": "Leona Beverly Monroe (Monroe) | Born: 12 Oct 1907 | Died: 3 Apr 1919 | Location: Saint John Cemetery: United States, Florida, Pensacola"
+      },
+      {
+        "id": 11358299,
+        "name": "Stella May Monroe (Monroe)",
+        "ctx": "Stella May Monroe (Monroe) | Born: Not Available | Died: 25 Aug 1806 | Location: Mount Hope Cemetery: United States, Nebraska, Springview"
+      },
+      {
+        "id": 52098146,
+        "name": "President James Monroe",
+        "ctx": "President James Monroe | Born: 28 Apr 1758 | Died: 4 Jul 1831 | Location: Hollywood Cemetery: United States, Virginia, Richmond"
+      },
+      {
+        "id": 164465582,
+        "name": "James Miller (Monroe )",
+        "ctx": "James Miller (Monroe ) | Born: 25 Apr 1875 | Died: 22 Sep 1929 | Location: Fairview Cemetery: United States, Oregon, Gates"
+      },
+      {
+        "id": 2241958,
+        "name": "James Monroe",
+        "ctx": "James Monroe | Born: Not Available | Died: Not Available | Location: Hernley Mennonite Cemetery: United States, Pennsylvania, Manheim, Rapho Twp"
+      },
+      {
+        "id": 3163639,
+        "name": "James Monroe",
+        "ctx": "James Monroe | Born: 1 May 1893 | Died: 12 Jun 1915 | Location: Owsley Union Cemetery: United States, Missouri, Longview"
+      },
+      {
+        "id": 2878948,
+        "name": "James Monroe",
+        "ctx": "James Monroe | Born: Not Available | Died: 29 Jun 1891 | Location: Shenandoah Heights Odd Fellows Cemetery: United States, Pennsylvania, Shenandoah Heights"
+      },
+      {
+        "id": 3808453,
+        "name": "James Monroe Jr.",
+        "ctx": "James Monroe Jr. | Born: 9 Jul 1910 | Died: 2 May 1914 | Location: Woodlawn Cemetery: United States, Florida, Macclenny"
+      },
+      {
+        "id": 4536309,
+        "name": "James Monroe",
+        "ctx": "James Monroe | Born: 18 Apr 1952 | Died: 10 Aug 1952 | Location: Ririe-Shelton Cemetery: United States, Idaho, Ririe"
+      }
+    ]
+  },
+  {
+    "entityId": "john-quincy-adams",
+    "name": "John Quincy Adams",
+    "deathYear": 1848,
+    "burial": "United First Parish Church, Quincy, MA",
+    "bgResults": [
+      {
+        "id": 21008130,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 11 Jul 1767 | Died: 23 Feb 1848 | Location: Adams Crypt (United First Parish Church): United States, Massachusetts, Quincy"
+      },
+      {
+        "id": 44260666,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: Not Available | Died: 1 Apr 1850 | Location: Riverside Cemetery: United States, Massachusetts, North Chelmsford Chelmsford"
+      },
+      {
+        "id": 20051502,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 28 Nov 1839 | Died: 22 Jan 1926 | Location: Grand Island Cemetery: United States, Nebraska, Grand Island"
+      },
+      {
+        "id": 2118563,
+        "name": "Jr John Quincy Adams",
+        "ctx": "Jr John Quincy Adams | Born: 15 Oct 1940 | Died: 20 Dec 1940 | Location: Golden Ridge Cemetery: United States, Idaho, Winchester"
+      },
+      {
+        "id": 4851411,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 11 Jan 1888 | Died: 2 Jan 1955 | Location: Delta City Cemetery: United States, Utah, Delta"
+      },
+      {
+        "id": 4526089,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 29 Jun 1907 | Died: 10 Mar 1971 | Location: Glenwood Cemetery: United States, Florida, Chipley"
+      },
+      {
+        "id": 4230796,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 15 Jul 1942 | Died: 9 Oct 2004 | Location: Syracuse City Cemetery: United States, Utah, Syracuse"
+      },
+      {
+        "id": 1337086,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 21 Nov 1905 | Died: 22 Apr 2004 | Location: Alpine Cemetery: United States, Utah, Alpine"
+      },
+      {
+        "id": 1292095,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: 4 Aug 1929 | Died: 12 Aug 1992 | Location: Rocky Gap Veterans Cemetery: United States, Maryland, Flintstone"
+      },
+      {
+        "id": 1145760,
+        "name": "John Quincy Adams",
+        "ctx": "John Quincy Adams | Born: Not Available | Died: 6 May 1906 | Location: Grand Army of the Republic Cemetery: United States, Washington, Seattle"
+      }
+    ]
+  },
+  {
+    "entityId": "martin-van-buren",
+    "name": "Martin Van Buren",
+    "deathYear": 1862,
+    "burial": "Kinderhook Cemetery, Kinderhook, NY",
+    "bgResults": [
+      {
+        "id": 28175925,
+        "name": "President Martin Van Buren",
+        "ctx": "President Martin Van Buren | Born: 5 Dec 1782 | Died: 24 Jul 1862 | Location: Kinderhook Reformed Church Cemetery: United States, New York, Kinderhook Kinderhook"
+      },
+      {
+        "id": 3838822,
+        "name": "Martin Van Buren",
+        "ctx": "Martin Van Buren | Born: Not Available | Died: 22 Nov 1842 | Location: Aldrich-Thayer Lot: United States, Rhode Island, Burrillville"
+      },
+      {
+        "id": 1485864,
+        "name": "Martin Van Buren",
+        "ctx": "Martin Van Buren | Born: Not Available | Died: Not Available | Location: Valley Cemetery: United States, Minnesota, Shakopee"
+      },
+      {
+        "id": 39063459,
+        "name": "Martin Van Buren",
+        "ctx": "Martin Van Buren | Born: 1807 | Died: 1880 | Location: Fairview Cemetery: United States, Michigan, Ann Arbor"
+      },
+      {
+        "id": 28175930,
+        "name": "Martin Van Buren Jr.",
+        "ctx": "Martin Van Buren Jr. | Born: 20 Dec 1812 | Died: 19 Mar 1855 | Location: Kinderhook Reformed Church Cemetery: United States, New York, Kinderhook Kinderhook"
+      },
+      {
+        "id": 80782565,
+        "name": "Martin Van Buren",
+        "ctx": "Martin Van Buren | Born: Not Available | Died: 18 Mar 1935 | Location: Dayton National Cemetery: United States, Ohio, Dayton"
+      },
+      {
+        "id": 81828678,
+        "name": "Martin Van Buren",
+        "ctx": "Martin Van Buren | Born: Not Available | Died: 3 Oct 1890 | Location: Dayton National Cemetery: United States, Ohio, Dayton"
+      },
+      {
+        "id": 31020859,
+        "name": "Martin Van Buren",
+        "ctx": "Martin Van Buren | Born: 20 Dec 1812 | Died: 19 Mar 1855 | Location: Kinderhook Reformed Church Cemetery: United States, New York, Kinderhook Kinderhook"
+      },
+      {
+        "id": 82545262,
+        "name": "Daniel Martin Van Buren",
+        "ctx": "Daniel Martin Van Buren | Born: Not Available | Died: 15 Dec 1973 | Location: Jewish Hove Cemetery: United Kingdom, England, Brighton and Hove"
+      },
+      {
+        "id": 39523348,
+        "name": "Frank Martin Van Buren",
+        "ctx": "Frank Martin Van Buren | Born: 24 Nov 1902 | Died: 23 Nov 1968 | Location: Greenwood Cemetery: United States, Wyoming, Newcastle"
+      }
+    ]
+  },
+  {
+    "entityId": "william-henry-harrison",
+    "name": "William Henry Harrison",
+    "deathYear": 1841,
+    "burial": "Harrison Tomb, North Bend, OH",
+    "bgResults": [
+      {
+        "id": 4310459,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: 3 Sep 1804 | Died: 6 Feb 1838 | Location: Congress Green Cemetery: United States, Ohio, North Bend"
+      },
+      {
+        "id": 3195916,
+        "name": "William henry Hoedt (Harrison)",
+        "ctx": "William henry Hoedt (Harrison) | Born: 8 Dec 1935 | Died: 5 Nov 2011 | Location: Lutz Cemetery: United States, Florida, Lutz"
+      },
+      {
+        "id": 94831255,
+        "name": "Henry William Harrison",
+        "ctx": "Henry William Harrison | Born: Not Available | Died: 22 Nov 1961 | Location: Springvale Botanical Cemetery: Australia, Victoria, Melbourne"
+      },
+      {
+        "id": 34614644,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: 1898 | Died: 1960 | Location: Woodlawn Cemetery: United States, California, Santa Monica"
+      },
+      {
+        "id": 3123287,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: Not Available | Died: 1914 | Location: St John the Evangelist Church, Merrow: United Kingdom, England, Guildford"
+      },
+      {
+        "id": 4922096,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: Not Available | Died: 7 Nov 1952 | Location: Atherton Cemetery: United Kingdom, England, Manchester"
+      },
+      {
+        "id": 3815388,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: Not Available | Died: 3 Sep 1889 | Location: Brockley and Ladywell Cemeteries, London: United Kingdom, England, London"
+      },
+      {
+        "id": 5152546,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: Mar 1839 | Died: 7 Aug 1850 | Location: Congress Green Cemetery: United States, Ohio, North Bend"
+      },
+      {
+        "id": 97160498,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: Not Available | Died: 7 Nov 1864 | Location: Preston Cemetery: United Kingdom, England, Preston"
+      },
+      {
+        "id": 79171226,
+        "name": "William Henry Harrison",
+        "ctx": "William Henry Harrison | Born: 28 Nov 1859 | Died: 26 Oct 1947 | Location: Highland Park Cemetery: United States, Kansas, Kansas City"
+      }
+    ]
+  },
+  {
+    "entityId": "john-tyler",
+    "name": "John Tyler",
+    "deathYear": 1862,
+    "burial": "Hollywood Cemetery, Richmond, VA",
+    "bgResults": [
+      {
+        "id": 27880108,
+        "name": "Mary R. Tyler (Tyler)",
+        "ctx": "Mary R. Tyler (Tyler) | Born: 1842 | Died: 1915 | Location: Forest Lawn Cemetery: United States, Michigan, Dexter Scio Township"
+      },
+      {
+        "id": 4372846,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: 1843 | Died: 28 Apr 1867 | Location: Tyler Cemetery: United States, Michigan, Wayne"
+      },
+      {
+        "id": 98818135,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: 1787 | Died: 3 Dec 1866 | Location: Dunmow Cemetery: United Kingdom, England, Dunmow"
+      },
+      {
+        "id": 39138865,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: Not Available | Died: 8 Aug 1864 | Location: New Norfolk (Saint Matthew) Anglican Cemetery: Australia, Tasmania, New Norfolk"
+      },
+      {
+        "id": 32199968,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: Not Available | Died: 31 Oct 1861 | Location: Camp Moore Confederate Cemetery: United States, Louisiana, Kentwood"
+      },
+      {
+        "id": 68427432,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: 1849 | Died: 1862 | Location: Old Oak Hill Cemetery: United States, Georgia, Griffin"
+      },
+      {
+        "id": 79914516,
+        "name": "President John Tyler",
+        "ctx": "President John Tyler | Born: 29 Mar 1790 | Died: 18 Jan 1862 | Location: Hollywood Cemetery: United States, Virginia, Richmond"
+      },
+      {
+        "id": 63142101,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: 20 Mar 1790 | Died: 18 Jan 1862 | Location: Hollywood Cemetery: United States, Virginia, Richmond"
+      },
+      {
+        "id": 63142130,
+        "name": "John Tyler",
+        "ctx": "John Tyler | Born: 29 Mar 1790 | Died: 18 Jan 1862 | Location: Hollywood Cemetery: United States, Virginia, Richmond"
+      },
+      {
+        "id": 33617303,
+        "name": "John Emman Tyler",
+        "ctx": "John Emman Tyler | Born: Not Available | Died: 2 Oct 1860 | Location: Tolland South Cemetery: United States, Connecticut, Tolland"
+      }
+    ]
+  },
+  {
+    "entityId": "james-k-polk",
+    "name": "James K. Polk",
+    "deathYear": 1849,
+    "burial": "Tennessee State Capitol, Nashville, TN",
+    "bgResults": [
+      {
+        "id": 4914797,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 24 Oct 1864 | Died: 11 Jan 1879 | Location: Elmo Cemetery: United States, Texas, Terrell"
+      },
+      {
+        "id": 25758525,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 23 May 1873 | Died: 12 May 1876 | Location: Decatur Cemetery: United States, Georgia, Decatur"
+      },
+      {
+        "id": 41245452,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 1843 | Died: 1928 | Location: Riverside Cemetery: United States, Ohio, Montpelier"
+      },
+      {
+        "id": 45585483,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 1868 | Died: 1950 | Location: Leonard Cemetery: United States, Texas, Leonard"
+      },
+      {
+        "id": 44863891,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 1 Sep 1844 | Died: 14 Apr 1922 | Location: Cedar Grove Church Cemetery: United States, North Carolina, Polkton"
+      },
+      {
+        "id": 37358605,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 30 Nov 1916 | Died: 2 Sep 1962 | Location: Warren Cemetery: United States, Oklahoma, Norman"
+      },
+      {
+        "id": 3317987,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 13 Mar 1891 | Died: 21 Jan 1963 | Location: Hall Springs Cemetery: United States, Texas, Nacogdoches"
+      },
+      {
+        "id": 111550553,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: 1914 | Died: 1961 | Location: Green Acres Memorial Park: United States, California, Bloomington"
+      },
+      {
+        "id": 53167046,
+        "name": "James K Polk",
+        "ctx": "James K Polk | Born: Not Available | Died: Not Available | Location: Fairmount Cemetery & Crematory: United States, Colorado, Denver"
+      },
+      {
+        "id": 2734797,
+        "name": "James K. Polk",
+        "ctx": "James K. Polk | Born: Not Available | Died: Not Available | Location: Decatur Cemetery: United States, Georgia, Decatur"
+      }
+    ]
+  },
+  {
+    "entityId": "zachary-taylor",
+    "name": "Zachary Taylor",
+    "deathYear": 1850,
+    "burial": "Zachary Taylor National Cemetery, Louisville, KY",
+    "bgResults": [
+      {
+        "id": 37813513,
+        "name": "President Zachary Taylor",
+        "ctx": "President Zachary Taylor | Born: 24 Nov 1784 | Died: 9 Jul 1850 | Location: Zachary Taylor National Cemetery: United States, Kentucky, Louisville"
+      },
+      {
+        "id": 72683992,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1891 | Died: 1946 | Location: Odd Fellows Memorial Park: United States, Washington, Tumwater"
+      },
+      {
+        "id": 5376765,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 14 Jun 1992 | Died: 13 Mar 2013 | Location: Grand Valley Cemetery: United States, Utah, Moab"
+      },
+      {
+        "id": 6750356,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1858 | Died: 27 Apr 1864 | Location: Oakland Cemetery: United States, Louisiana, Shreveport"
+      },
+      {
+        "id": 41496849,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1906 | Died: 1993 | Location: Rockville Cemetery: United States, New York, Lynbrook, NY 11563"
+      },
+      {
+        "id": 40005801,
+        "name": "Zachary Taylor Sr.",
+        "ctx": "Zachary Taylor Sr. | Born: 1902 | Died: 1977 | Location: Middleburg Memorial Cemetery: United States, Virginia, Middleburg"
+      },
+      {
+        "id": 43596275,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1854 | Died: 1921 | Location: Forest Hill Cemetery: United States, New York, Fredonia"
+      },
+      {
+        "id": 38396491,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1848 | Died: 6 Mar 1920 | Location: Charlottsville Cemetery: United States, Pennsylvania, Tyrone"
+      },
+      {
+        "id": 28563398,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1855 | Died: 1927 | Location: Ridge Municipal Cemetery: United States, Nebraska, Fremont"
+      },
+      {
+        "id": 45406324,
+        "name": "Zachary Taylor",
+        "ctx": "Zachary Taylor | Born: 1850 | Died: 1938 | Location: Tabernacle United Methodist Church: United States, New Jersey, Lower Township"
+      }
+    ]
+  },
+  {
+    "entityId": "millard-fillmore",
+    "name": "Millard Fillmore",
+    "deathYear": 1874,
+    "burial": "Forest Lawn Cemetery, Buffalo, NY",
+    "bgResults": [
+      {
+        "id": 19160779,
+        "name": "President Millard Fillmore",
+        "ctx": "President Millard Fillmore | Born: 7 Jan 1800 | Died: 8 Mar 1874 | Location: Forest Lawn: United States, New York, Buffalo"
+      },
+      {
+        "id": 3725435,
+        "name": "Millard Fillmore",
+        "ctx": "Millard Fillmore | Born: Not Available | Died: Not Available | Location: Holy Trinity Catholic Cemetery : United States, Oregon, Bandon"
+      },
+      {
+        "id": 23039359,
+        "name": "Millard Fillmore",
+        "ctx": "Millard Fillmore | Born: 1850 | Died: 1892 | Location: Mount Hope Cemetery: United States, Nebraska, Sargent"
+      },
+      {
+        "id": 25749891,
+        "name": "Millard Fillmore",
+        "ctx": "Millard Fillmore | Born: 1843 | Died: 1910 | Location: San Gabriel Cemetery: United States, California, San Gabriel"
+      },
+      {
+        "id": 22164847,
+        "name": "Millard Fillmore",
+        "ctx": "Millard Fillmore | Born: 4 Jan 1906 | Died: 17 Sep 1970 | Location: Memorial Park Cemetery: United States, Oklahoma, Tulsa"
+      },
+      {
+        "id": 16802755,
+        "name": "Millard Fillmore",
+        "ctx": "Millard Fillmore | Born: 1857 | Died: 1915 | Location: Ivy Hill Cemetery: United States, Maryland, Laurel"
+      },
+      {
+        "id": 115896869,
+        "name": "Millard Fillmore",
+        "ctx": "Millard Fillmore | Born: Not Available | Died: Not Available | Location: Beatrice Cemetery: United States, Nebraska, Beatrice"
+      },
+      {
+        "id": 109237328,
+        "name": "James Millard Fillmore",
+        "ctx": "James Millard Fillmore | Born: 12 May 1933 | Died: 24 Feb 2021 | Location: Arlington National Cemetery - Quadrant II: United States, Virginia, Arlington"
+      },
+      {
+        "id": 105875561,
+        "name": "Lewis Millard Fillmore",
+        "ctx": "Lewis Millard Fillmore | Born: 27 Dec 1907 | Died: 15 Mar 1984 | Location: Salisbury Memorial Park: Australia, South Australia, Adelaide"
+      },
+      {
+        "id": 127930183,
+        "name": "Millard A Fillmore",
+        "ctx": "Millard A Fillmore | Born: 1878 | Died: 1972 | Location: Greenwood Cemetery: United States, Florida, Panama City"
+      }
+    ]
+  },
+  {
+    "entityId": "franklin-pierce",
+    "name": "Franklin Pierce",
+    "deathYear": 1869,
+    "burial": "Old North Cemetery, Concord, NH",
+    "bgResults": [
+      {
+        "id": 27102891,
+        "name": "President Franklin Pierce",
+        "ctx": "President Franklin Pierce | Born: 23 Nov 1804 | Died: 8 Oct 1869 | Location: Old North Cemetery: United States, New Hampshire, Concord"
+      },
+      {
+        "id": 18472066,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: Not Available | Died: 25 Aug 1865 | Location: Alexandria National Cemetery: United States, Louisiana, Pineville"
+      },
+      {
+        "id": 1825784,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: 1862 | Died: 1927 | Location: Pecan Grove Cemetery: United States, Texas, McKinney"
+      },
+      {
+        "id": 20636613,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: 1897 | Died: 1897 | Location: Butternut Ridge Cemetery: United States, Ohio, North Ridgeville"
+      },
+      {
+        "id": 25732192,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: 1866 | Died: 1 Mar 1940 | Location: San Gabriel Cemetery: United States, California, San Gabriel"
+      },
+      {
+        "id": 26362733,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: 1834 | Died: 1886 | Location: Dayton City Cemetery: United States, Washington, Dayton"
+      },
+      {
+        "id": 28973695,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: 28 Aug 1825 | Died: 27 Apr 1826 | Location: Spring Grove Cemetery: United States, Ohio, Cincinnati"
+      },
+      {
+        "id": 37239042,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: 6 Mar 1852 | Died: Feb 1934 | Location: Lee's Summit Cemetery: United States, Missouri, Lee's Summit"
+      },
+      {
+        "id": 43203630,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: Not Available | Died: Not Available | Location: Calvary Cemetery: United States, Washington, Seattle"
+      },
+      {
+        "id": 53017715,
+        "name": "Franklin Pierce",
+        "ctx": "Franklin Pierce | Born: Not Available | Died: 11 Sep 1887 | Location: Pine Grove Cemetery: United States, Massachusetts, Leominster"
+      }
+    ]
+  },
+  {
+    "entityId": "james-buchanan",
+    "name": "James Buchanan",
+    "deathYear": 1868,
+    "burial": "Woodward Hill Cemetery, Lancaster, PA",
+    "bgResults": [
+      {
+        "id": 18171788,
+        "name": "Joyce Aileen Buchanan (Buchanan)",
+        "ctx": "Joyce Aileen Buchanan (Buchanan) | Born: 20 Jan 1985 | Died: 15 Oct 2001 | Location: Mountain View Chapel & Cemetery: United States, Arizona, Casa Grande"
+      },
+      {
+        "id": 92179903,
+        "name": "Leslie Alexander Buchanan (Buchanan)",
+        "ctx": "Leslie Alexander Buchanan (Buchanan) | Born: 1902 | Died: 1983 | Location: Tower Hill Cemetery : Australia, Victoria, Illowa"
+      },
+      {
+        "id": 33694717,
+        "name": "Mary Jane Buchanan (Buchanan)",
+        "ctx": "Mary Jane Buchanan (Buchanan) | Born: 1890 | Died: 7 May 1972 | Location: West Terrace Cemetery: Australia, South Australia, Adelaide"
+      },
+      {
+        "id": 29768450,
+        "name": "Norma U. Buchanan (Buchanan)",
+        "ctx": "Norma U. Buchanan (Buchanan) | Born: 18 May 1929 | Died: 1 Apr 1985 | Location: Greenview Memorial Gardens: United States, Illinois, East Moline"
+      },
+      {
+        "id": 22680235,
+        "name": "James Buchanan",
+        "ctx": "James Buchanan | Born: Not Available | Died: 29 Jul 1870 | Location: Glasgow Western Necropolis: United Kingdom, Scotland, Glasgow"
+      },
+      {
+        "id": 34494657,
+        "name": "James Buchanan Sr., D.D., LL.D.",
+        "ctx": "James Buchanan Sr., D.D., LL.D. | Born: 14 Apr 1804 | Died: 19 Apr 1870 | Location: Grange Cemetery, Edinburgh: United Kingdom, Scotland, Edinburgh"
+      },
+      {
+        "id": 44677282,
+        "name": "James Buchanan",
+        "ctx": "James Buchanan | Born: Not Available | Died: 1 Apr 1868 | Location: Leslie Cemetery: United Kingdom, Scotland, Leslie"
+      },
+      {
+        "id": 18844791,
+        "name": "James Buchanan",
+        "ctx": "James Buchanan | Born: 23 May 1824 | Died: 17 Dec 1865 | Location: Odd Fellows Cemetery on Witham Hill: United States, Oregon, Corvallis"
+      },
+      {
+        "id": 115539558,
+        "name": "James Buchanan",
+        "ctx": "James Buchanan | Born: Not Available | Died: 22 Aug 1865 | Location: Dalton Cemetery: United States, Ohio, Dalton"
+      },
+      {
+        "id": 72400266,
+        "name": "James Buchanan",
+        "ctx": "James Buchanan | Born: 1859 | Died: 1872 | Location: Brownville Cemetery: United States, New York, Brownville"
+      }
+    ]
+  },
+  {
+    "entityId": "andrew-johnson",
+    "name": "Andrew Johnson",
+    "deathYear": 1875,
+    "burial": "Andrew Johnson National Cemetery, Greeneville, TN",
+    "bgResults": [
+      {
+        "id": 2216360,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 1833 | Died: 1875 | Location: Riverside Cemetery: United States, Illinois, Moline"
+      },
+      {
+        "id": 86001609,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 27 Apr 1870 | Died: 29 Aug 1872 | Location: Spring Hill Cemetery: United States, Iowa, Dundee"
+      },
+      {
+        "id": 98025313,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 1834 | Died: 1880 | Location: Donaldson Cemetery: United States, Indiana, Plymouth"
+      },
+      {
+        "id": 30451740,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: Not Available | Died: 22 Feb 1880 | Location: Argo Cemetery: United States, Nebraska, Craig"
+      },
+      {
+        "id": 29692985,
+        "name": "President Andrew Johnson",
+        "ctx": "President Andrew Johnson | Born: 29 Dec 1808 | Died: 31 Jul 1875 | Location: Andrew Johnson National Cemetery: United States, Tennessee, Greeneville"
+      },
+      {
+        "id": 70362617,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 2 Jun 1837 | Died: 2 Mar 1875 | Location: Hinkle Creek Cemetery: United States, Indiana, Noblesville"
+      },
+      {
+        "id": 22535808,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 1894 | Died: 1945 | Location: Boot Hill, Pioche City aka Pioche Public, Pioche I.O.O.F. and Masonic : United States, Nevada, Pioche"
+      },
+      {
+        "id": 4641200,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 1835 | Died: 1890 | Location: Anaheim Cemetery: United States, California, Anaheim"
+      },
+      {
+        "id": 4761772,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 1932 | Died: 1988 | Location: Camellia Memorial Lawn Cemetery: United States, California, Sacramento"
+      },
+      {
+        "id": 4779646,
+        "name": "Andrew Johnson",
+        "ctx": "Andrew Johnson | Born: 3 Mar 1898 | Died: 30 Dec 1918 | Location: Faith Lutheran Church Cemetery: United States, North Dakota, Valley City"
+      }
+    ]
+  },
+  {
+    "entityId": "ulysses-s-grant",
+    "name": "Ulysses S. Grant",
+    "deathYear": 1885,
+    "burial": "Grant's Tomb, New York, NY",
+    "bgResults": [
+      {
+        "id": 37529073,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 29 Mar 1912 | Died: 20 Apr 2004 | Location: Centerville City Cemetery: United States, Utah, Centerville"
+      },
+      {
+        "id": 43884629,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 4 Jul 1940 | Died: 27 Oct 2009 | Location: Milford Community Cemetery New: United States, Delaware, Milford"
+      },
+      {
+        "id": 50405903,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: Not Available | Died: Not Available | Location: General Grant National Memorial \"Grant's Tomb\": United States, New York, New York"
+      },
+      {
+        "id": 34674735,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 2 Jan 1896 | Died: 29 Jul 1956 | Location: Los Angeles National Cemetery: United States, California, Los Angeles"
+      },
+      {
+        "id": 13977624,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 1900 | Died: 1983 | Location: New Zion Cemetery: United States, Florida, Ona"
+      },
+      {
+        "id": 73881950,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 1897 | Died: 1975 | Location: Seaville United Methodist Church: United States, New Jersey, Ocean View"
+      },
+      {
+        "id": 126962510,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 12 Apr 1896 | Died: 20 Sep 1965 | Location: Riverside Memorial Park: United States, Florida, Jacksonville"
+      },
+      {
+        "id": 583865,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: Not Available | Died: 12 Jul 1944 | Location: Westlawn Cemetery: United States, Kansas, Kansas City"
+      },
+      {
+        "id": 1708014,
+        "name": "Ulysses S Grant",
+        "ctx": "Ulysses S Grant | Born: 1869 | Died: 1953 | Location: Hillside Cemetery: Canada, Alberta, Medicine Hat"
+      },
+      {
+        "id": 2969886,
+        "name": "Ulysses S. Grant",
+        "ctx": "Ulysses S. Grant | Born: 1915 | Died: 1976 | Location: Edgewood - Greenwood Cemetery: United States, Florida, Apopka"
+      }
+    ]
+  },
+  {
+    "entityId": "rutherford-b-hayes",
+    "name": "Rutherford B. Hayes",
+    "deathYear": 1893,
+    "burial": "Spiegel Grove, Fremont, OH",
+    "bgResults": [
+      {
+        "id": 157174663,
+        "name": "Rutherford B Hayes",
+        "ctx": "Rutherford B Hayes | Born: 2 Oct 1887 | Died: 27 Nov 1888 | Location: Oakwood Cemetery: United States, Ohio, Ballville"
+      },
+      {
+        "id": 2316465,
+        "name": "Rutherford B Hayes",
+        "ctx": "Rutherford B Hayes | Born: 19 Jul 1886 | Died: 5 Nov 1970 | Location: Oak Grove Cemetery: United States, Louisiana, Effie"
+      },
+      {
+        "id": 34697887,
+        "name": "Rutherford B Hayes",
+        "ctx": "Rutherford B Hayes | Born: 1914 | Died: 1992 | Location: Eternal Valley Memorial Park: United States, California, Newhall"
+      },
+      {
+        "id": 4661854,
+        "name": "Rutherford B Hayes",
+        "ctx": "Rutherford B Hayes | Born: 29 Dec 1876 | Died: 14 Apr 1960 | Location: Maple Grove Cemetery: United States, Iowa, Audubon"
+      },
+      {
+        "id": 14885061,
+        "name": "Rutherford B Hayes",
+        "ctx": "Rutherford B Hayes | Born: 1878 | Died: 1939 | Location: Kingwood IOOF Cemetery: United States, Pennsylvania, Markleton"
+      },
+      {
+        "id": 369915,
+        "name": "Rutherford B Hayes",
+        "ctx": "Rutherford B Hayes | Born: 1902 | Died: 1973 | Location: Edwardsville Cemetery: United States, Kansas, Edwardsville"
+      },
+      {
+        "id": 40214903,
+        "name": "Rutherford B. Hayes",
+        "ctx": "Rutherford B. Hayes | Born: 27 Jun 1879 | Died: 23 Jan 1943 | Location: Park Grove Cemetery: United States, Oklahoma, Broken Arrow"
+      },
+      {
+        "id": 43715687,
+        "name": "Rutherford B. Hayes",
+        "ctx": "Rutherford B. Hayes | Born: 1898 | Died: 1979 | Location: Roosevelt Memorial Park: United States, California, Los Angeles"
+      },
+      {
+        "id": 157174511,
+        "name": "Rutherford B. Hayes",
+        "ctx": "Rutherford B. Hayes | Born: 1896 | Died: 1902 | Location: Oakwood Cemetery: United States, Ohio, Ballville"
+      },
+      {
+        "id": 19347700,
+        "name": "Rutherford B. Hayes",
+        "ctx": "Rutherford B. Hayes | Born: 2 Jun 1922 | Died: 24 Jan 1963 | Location: Fairview Cemetery: United States, California, Rio Oso"
+      }
+    ]
+  },
+  {
+    "entityId": "james-a-garfield",
+    "name": "James A. Garfield",
+    "deathYear": 1881,
+    "burial": "Lake View Cemetery, Cleveland, OH",
+    "bgResults": [
+      {
+        "id": 30747443,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: Not Available | Died: 20 Aug 1884 | Location: America City Cemetery: United States, Kansas, Havensville"
+      },
+      {
+        "id": 28851861,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: Not Available | Died: Not Available | Location: Masonic Cemetery: United States, California, Bridgeport"
+      },
+      {
+        "id": 44564069,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: 1922 | Died: 2020 | Location: Sacramento Valley National Cemetery: United States, California, Dixon"
+      },
+      {
+        "id": 79411711,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: 1850 | Died: 1926 | Location: Hanley Cemetery: United States, Michigan, Grandville"
+      },
+      {
+        "id": 112073245,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: 11 May 1883 | Died: 2 Oct 1974 | Location: Highland Cemetery: United States, Washington, Colville"
+      },
+      {
+        "id": 34480708,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: 19 Jun 1883 | Died: 24 May 1893 | Location: Ridge Municipal Cemetery: United States, Nebraska, Fremont"
+      },
+      {
+        "id": 826217,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: 5 Oct 1880 | Died: 28 Aug 1888 | Location: Fairview Cemetery: United States, Pennsylvania, Wrightsville"
+      },
+      {
+        "id": 154090056,
+        "name": "James A Garfield",
+        "ctx": "James A Garfield | Born: 3 Apr 1898 | Died: 27 Oct 1961 | Location: Mountain View Memorial Park Cemetery: United States, Washington, Tacoma"
+      },
+      {
+        "id": 62680031,
+        "name": "James A. Garfield",
+        "ctx": "James A. Garfield | Born: 1883 | Died: 1939 | Location: Highland Cemetery: United States, Missouri, Kansas City"
+      },
+      {
+        "id": 19419165,
+        "name": "James A. Garfield",
+        "ctx": "James A. Garfield | Born: 1881 | Died: 1939 | Location: Grandview Cemetery: United States, Pennsylvania, North Versailles Township"
+      }
+    ]
+  },
+  {
+    "entityId": "chester-a-arthur",
+    "name": "Chester A. Arthur",
+    "deathYear": 1886,
+    "burial": "Albany Rural Cemetery, Menands, NY",
+    "bgResults": [
+      {
+        "id": 49946437,
+        "name": "Annie Arthur (Arthur)",
+        "ctx": "Annie Arthur (Arthur) | Born: 1881 | Died: 1965 | Location: Spring Hill Cemetery: United States, Virginia, Lynchburg"
+      },
+      {
+        "id": 159419611,
+        "name": "Hazel G Arthur (Arthur)",
+        "ctx": "Hazel G Arthur (Arthur) | Born: 7 Mar 1918 | Died: 24 Feb 1995 | Location: Saint John Cemetery: United States, Utah, Rush Valley"
+      },
+      {
+        "id": 11202238,
+        "name": "Chester A Arthur",
+        "ctx": "Chester A Arthur | Born: 1892 | Died: 1972 | Location: Union Cemetery: United States, Ohio, Symmes Township"
+      },
+      {
+        "id": 46785635,
+        "name": "Chester A Arthur",
+        "ctx": "Chester A Arthur | Born: 1908 | Died: 1978 | Location: Valhalla Memory Gardens and Crematorium: United States, Indiana, Bloomington"
+      },
+      {
+        "id": 9326651,
+        "name": "Chester A Arthur",
+        "ctx": "Chester A Arthur | Born: 23 Jun 1923 | Died: 26 Aug 2001 | Location: San Joaquin Valley National Cemetery: United States, California, Santa Nella"
+      },
+      {
+        "id": 125091431,
+        "name": "Chester A Arthur",
+        "ctx": "Chester A Arthur | Born: 29 Mar 1888 | Died: 17 Jul 1951 | Location: Riverside Memorial Park: United States, Florida, Jacksonville"
+      },
+      {
+        "id": 16806849,
+        "name": "Chester A Arthur",
+        "ctx": "Chester A Arthur | Born: 1877 | Died: 1929 | Location: Fairview Cemetery: Canada, Alberta, Pincher Creek"
+      },
+      {
+        "id": 11517404,
+        "name": "Rev Chester A Arthur",
+        "ctx": "Rev Chester A Arthur | Born: 1886 | Died: 1965 | Location: Pleasant Hill Cemetery: United States, Ohio, Leesburg"
+      },
+      {
+        "id": 40874209,
+        "name": "Chester A. Arthur",
+        "ctx": "Chester A. Arthur | Born: 1904 | Died: 1983 | Location: Mountain View Cemetery: United States, Oregon, Oregon City"
+      },
+      {
+        "id": 10778127,
+        "name": "Chester A. Arthur",
+        "ctx": "Chester A. Arthur | Born: 1881 | Died: 1955 | Location: Riverside Cemetery: United States, Michigan, Plymouth"
+      }
+    ]
+  },
+  {
+    "entityId": "grover-cleveland",
+    "name": "Grover Cleveland",
+    "deathYear": 1908,
+    "burial": "Princeton Cemetery, Princeton, NJ",
+    "bgResults": [
+      {
+        "id": 34895612,
+        "name": "President Grover Cleveland",
+        "ctx": "President Grover Cleveland | Born: 18 Mar 1837 | Died: 24 Jun 1908 | Location: Princeton Cemetery: United States, New Jersey, Princeton"
+      },
+      {
+        "id": 44841144,
+        "name": "Grover Burgess (Cleveland)",
+        "ctx": "Grover Burgess (Cleveland) | Born: 9 Jul 1909 | Died: 10 Mar 1980 | Location: Westminster Gardens: United States, North Carolina, Greensboro"
+      },
+      {
+        "id": 21210320,
+        "name": "Grover Cleveland",
+        "ctx": "Grover Cleveland | Born: 25 Aug 1888 | Died: 4 Jan 1953 | Location: Gonzales City Cemetery: United States, Texas, Gonzales"
+      },
+      {
+        "id": 41861044,
+        "name": "Grover Cleveland",
+        "ctx": "Grover Cleveland | Born: 30 Sep 1884 | Died: 19 Dec 1965 | Location: Liveoak Park Memorial Cemetery: United States, Florida, Crestview"
+      },
+      {
+        "id": 36396085,
+        "name": "Grover Cleveland",
+        "ctx": "Grover Cleveland | Born: 1888 | Died: 1950 | Location: Maple Hill Cemetery: United States, Kansas, Kansas City"
+      },
+      {
+        "id": 32866516,
+        "name": "Grover Cleveland",
+        "ctx": "Grover Cleveland | Born: 11 Feb 1887 | Died: 8 Jan 1939 | Location: Old City Cemetery: United States, Texas, Brownsville"
+      },
+      {
+        "id": 35452971,
+        "name": "Grover Cleveland",
+        "ctx": "Grover Cleveland | Born: 16 Apr 1885 | Died: 21 Sep 1920 | Location: Rockport Cemetery: United States, Texas, Rockport"
+      },
+      {
+        "id": 59595937,
+        "name": "Grover Cleveland Sr",
+        "ctx": "Grover Cleveland Sr | Born: 9 Feb 1910 | Died: 7 Aug 1976 | Location: Lakewood Memorial Park: United States, Mississippi, Jackson"
+      },
+      {
+        "id": 59595496,
+        "name": "Grover Cleveland Sr",
+        "ctx": "Grover Cleveland Sr | Born: 9 Feb 1910 | Died: 7 Aug 1976 | Location: Lakewood Memorial Park: United States, Mississippi, Jackson"
+      },
+      {
+        "id": 43647945,
+        "name": "Grover Cleveland",
+        "ctx": "Grover Cleveland | Born: 1890 | Died: 1966 | Location: Berwick Cemetery: Canada, Nova Scotia, Berwick"
+      }
+    ]
+  },
+  {
+    "entityId": "benjamin-harrison",
+    "name": "Benjamin Harrison",
+    "deathYear": 1901,
+    "burial": "Crown Hill Cemetery, Indianapolis, IN",
+    "bgResults": [
+      {
+        "id": 3731687,
+        "name": "Dr Benjamin Harrison",
+        "ctx": "Dr Benjamin Harrison | Born: 27 May 1859 | Died: 10 Sep 1900 | Location: Old Chapel Cemetery: United States, Virginia, Berryville"
+      },
+      {
+        "id": 26727727,
+        "name": "Benjamin Harrison",
+        "ctx": "Benjamin Harrison | Born: 11 Jul 1832 | Died: 14 Sep 1905 | Location: Wakefield Cemetery: United States, Nebraska, Wakefield"
+      },
+      {
+        "id": 38847181,
+        "name": "Benjamin Harrison",
+        "ctx": "Benjamin Harrison | Born: 20 Aug 1833 | Died: 12 Mar 1901 | Location: Crown Hill Cemetery- Quadrant II: United States, Indiana, Indianapolis"
+      },
+      {
+        "id": 47184662,
+        "name": "Benjamin Harrison",
+        "ctx": "Benjamin Harrison | Born: 8 Feb 1815 | Died: 24 Aug 1902 | Location: Kirkwood Cemetery: United States, Ohio, London"
+      },
+      {
+        "id": 121892151,
+        "name": "Benjamin Harrison",
+        "ctx": "Benjamin Harrison | Born: 5 Oct 1826 | Died: 16 Mar 1898 | Location: Blandford Cemetery: United States, Virginia, Petersburg"
+      },
+      {
+        "id": 8411048,
+        "name": "Dr Benjamin Harrison",
+        "ctx": "Dr Benjamin Harrison | Born: 27 May 1830 | Died: 30 Sep 1900 | Location: Old Chapel Cemetery: United States, Virginia, Berryville"
+      },
+      {
+        "id": 109651090,
+        "name": "Benjamin Harrison",
+        "ctx": "Benjamin Harrison | Born: 1905 | Died: 1905 | Location: Blandford Cemetery: United States, Virginia, Petersburg"
+      },
+      {
+        "id": 1813553,
+        "name": "President Benjamin Harrison",
+        "ctx": "President Benjamin Harrison | Born: 20 Aug 1833 | Died: 13 Mar 1901 | Location: Crown Hill Cemetery- Quadrant II: United States, Indiana, Indianapolis"
+      },
+      {
+        "id": 2301347,
+        "name": "Benjamin Harrison",
+        "ctx": "Benjamin Harrison | Born: Not Available | Died: Not Available | Location: Rock Island Confederate Cemetery: United States, Illinois, Rock Island"
+      },
+      {
+        "id": 4772216,
+        "name": "Dr Benjamin Harrison",
+        "ctx": "Dr Benjamin Harrison | Born: 6 Sep 1806 | Died: 17 Jun 1840 | Location: Congress Green Cemetery: United States, Ohio, North Bend"
+      }
+    ]
+  },
+  {
+    "entityId": "william-mckinley",
+    "name": "William McKinley",
+    "deathYear": 1901,
+    "burial": "McKinley National Memorial, Canton, OH",
+    "bgResults": [
+      {
+        "id": 4043302,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: 1901 | Died: 10 Dec 1901 | Location: Twin Bridges Cemetery: United States, Montana, Twin Bridges"
+      },
+      {
+        "id": 36794754,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: 22 Jan 1820 | Died: 6 Feb 1898 | Location: Cedar Creek Cemetery: United States, Indiana, DeKalb"
+      },
+      {
+        "id": 36039286,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: Not Available | Died: 12 Aug 1898 | Location: St Patrick and St Brigids Church, Ballycastle: United Kingdom, Northern Ireland, Ballycastle"
+      },
+      {
+        "id": 32384497,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: Not Available | Died: 28 Oct 1901 | Location: St. Matthew's Anglican: Canada, Ontario, Meaford"
+      },
+      {
+        "id": 24667039,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: 4 May 1841 | Died: 2 Aug 1905 | Location: Oakland Cemetery and Mausoleum: United States, Pennsylvania, Indiana"
+      },
+      {
+        "id": 10719907,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: 1823 | Died: 1903 | Location: Saint George's Cemetery: United States, New York, Newburgh"
+      },
+      {
+        "id": 15818730,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: 29 Jan 1843 | Died: 14 Sep 1901 | Location: Poland Riverside Cemetery: United States, Ohio, Poland"
+      },
+      {
+        "id": 31271547,
+        "name": "William McKinley",
+        "ctx": "William McKinley | Born: 25 Dec 1841 | Died: 7 May 1898 | Location: Calvary Cemetery: United States, Tennessee, Nashville"
+      },
+      {
+        "id": 44528904,
+        "name": "Helen 'Pete' McKinney (McKinley)",
+        "ctx": "Helen 'Pete' McKinney (McKinley) | Born: 1927 | Died: 2015 | Location: Union Cemetery: United States, Indiana, Eaton"
+      },
+      {
+        "id": 132475298,
+        "name": "William Carter (McKINLEY) MACK",
+        "ctx": "William Carter (McKINLEY) MACK | Born: 5 Aug 1932 | Died: 16 May 1966 | Location: Resthaven Cemetery: United States, West Virginia, Princeton"
+      }
+    ]
+  },
+  {
+    "entityId": "william-howard-taft",
+    "name": "William Howard Taft",
+    "deathYear": 1930,
+    "burial": "Arlington National Cemetery, VA",
+    "bgResults": [
+      {
+        "id": 107145805,
+        "name": "Grace Helen Taft (Taft)",
+        "ctx": "Grace Helen Taft (Taft) | Born: 31 Mar 1895 | Died: 8 Jun 1983 | Location: George Cemetery: United States, Massachusetts, Mendon"
+      },
+      {
+        "id": 9747962,
+        "name": "President William Howard Taft",
+        "ctx": "President William Howard Taft | Born: 15 Sep 1857 | Died: 8 Mar 1930 | Location: Arlington National Cemetery - Quadrant II: United States, Virginia, Arlington"
+      },
+      {
+        "id": 14033944,
+        "name": "Howard William Taft",
+        "ctx": "Howard William Taft | Born: 12 Jun 1927 | Died: 27 Feb 2002 | Location: Valley View Cemetery: United States, Arizona, Clarkdale"
+      },
+      {
+        "id": 58178045,
+        "name": "William Howard Taft  II",
+        "ctx": "William Howard Taft II | Born: 11 Dec 1887 | Died: 10 Feb 1952 | Location: Calvary Cemetery: United States, Pennsylvania, Pittsburgh"
+      },
+      {
+        "id": 161508952,
+        "name": "William Howard Taft",
+        "ctx": "William Howard Taft | Born: 1960 | Died: 1979 | Location: Highland Garden of Memories: United States, Illinois, Belvidere"
+      },
+      {
+        "id": 41805624,
+        "name": "Howard Taft",
+        "ctx": "Howard Taft | Born: 1921 | Died: 1979 | Location: Carrying Place Cemetery: Canada, Ontario, Quinte West"
+      },
+      {
+        "id": 10642284,
+        "name": "Howard Taft",
+        "ctx": "Howard Taft | Born: 1898 | Died: 1986 | Location: Riverside Cemetery: United States, Michigan, Plymouth"
+      },
+      {
+        "id": 19820991,
+        "name": "Howard Taft",
+        "ctx": "Howard Taft | Born: 1900 | Died: 1968 | Location: Grove Hill Cemetery: United States, Connecticut, Rockville"
+      },
+      {
+        "id": 29031666,
+        "name": "Charles Howard Taft",
+        "ctx": "Charles Howard Taft | Born: Jun 1883 | Died: Feb 1931 | Location: Spring Grove Cemetery: United States, Ohio, Cincinnati"
+      },
+      {
+        "id": 52293320,
+        "name": "William Taft",
+        "ctx": "William Taft | Born: 1869 | Died: 1935 | Location: Kingston Cemetery : United States, Missouri, Kingston Kingston Township"
+      }
+    ]
+  },
+  {
+    "entityId": "woodrow-wilson",
+    "name": "Woodrow Wilson",
+    "deathYear": 1924,
+    "burial": "Washington National Cathedral, DC",
+    "bgResults": [
+      {
+        "id": 4275414,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 1918 | Died: 1922 | Location: Greenlawn Cemetery: United States, Ohio, Milford"
+      },
+      {
+        "id": 2044203,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 24 Jul 1916 | Died: 26 May 1920 | Location: Upper Mill Creek Cemetery: United States, Georgia, Statesboro"
+      },
+      {
+        "id": 38199480,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 17 Dec 1912 | Died: 26 Jul 1926 | Location: South Heights Cemetery: United States, Oklahoma, Sapulpa"
+      },
+      {
+        "id": 10717564,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 1914 | Died: 1924"
+      },
+      {
+        "id": 13297691,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 25 Mar 1925 | Died: 2 Aug 1925 | Location: Clinton Oaks Cemetery: United States, Oklahoma, Tulsa"
+      },
+      {
+        "id": 1721106,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 1914 | Died: 1967 | Location: Floyd Greenlawn Memorial Gardens: United States, South Carolina, Spartanburg"
+      },
+      {
+        "id": 3198285,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 4 Jun 1917 | Died: 30 Nov 1985 | Location: Decatur Cemetery: United States, Georgia, Decatur"
+      },
+      {
+        "id": 2969487,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 23 Sep 1914 | Died: 6 Mar 1995 | Location: Sandy Springs Baptist Church Cemetery: United States, North Carolina, Green Creek"
+      },
+      {
+        "id": 4998315,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 1916 | Died: 1999 | Location: Cherokee Memorial Park Cemetery: United States, Georgia, Canton"
+      },
+      {
+        "id": 5083315,
+        "name": "Woodrow Wilson",
+        "ctx": "Woodrow Wilson | Born: 19 Dec 1915 | Died: 12 Aug 2009 | Location: Dallas-Fort Worth National Cemetery Quadrant II: United States, Texas, Dallas"
+      }
+    ]
+  },
+  {
+    "entityId": "warren-g-harding",
+    "name": "Warren G. Harding",
+    "deathYear": 1923,
+    "burial": "Harding Memorial, Marion, OH",
+    "bgResults": [
+      {
+        "id": 143824943,
+        "name": "Ada Maxene Harding (Harding)",
+        "ctx": "Ada Maxene Harding (Harding) | Born: 7 Dec 1954 | Died: 10 Oct 2002 | Location: Forest Lawn Cemetery: United States, Indiana, Greenwood"
+      },
+      {
+        "id": 53074352,
+        "name": "Grace Gaynelle Harding (Harding)",
+        "ctx": "Grace Gaynelle Harding (Harding) | Born: 5 Apr 1913 | Died: 24 Jan 1997 | Location: Oakwood Cemetery: United States, Virginia, Richmond"
+      },
+      {
+        "id": 32342978,
+        "name": "Warren G Harding",
+        "ctx": "Warren G Harding | Born: 27 Apr 1921 | Died: 7 Sep 1970 | Location: Baltimore National Cemetery: United States, Maryland, Baltimore"
+      },
+      {
+        "id": 27734670,
+        "name": "Warren G Harding",
+        "ctx": "Warren G Harding | Born: 15 Dec 1922 | Died: 3 Jun 1999 | Location: Florida National Cemetery (Bushnell): United States, Florida, Bushnell"
+      },
+      {
+        "id": 130471043,
+        "name": "Warren G Harding (Lucinda)",
+        "ctx": "Warren G Harding (Lucinda) | Born: 1920 | Died: 1937 | Location: Warren Cemetery & Mausoleum: United States, Illinois, Gurnee"
+      },
+      {
+        "id": 80672453,
+        "name": "Warren G Harding",
+        "ctx": "Warren G Harding | Born: 6 Mar 1921 | Died: 6 Jan 1998 | Location: Lakeside Memorial Lawn Cemetery: United States, California, Folsom"
+      },
+      {
+        "id": 5292146,
+        "name": "Warren G. Harding",
+        "ctx": "Warren G. Harding | Born: 1921 | Died: 1979 | Location: Goodland Cemetery: United States, Kansas, Goodland"
+      },
+      {
+        "id": 27588125,
+        "name": "Warren G. Harding",
+        "ctx": "Warren G. Harding | Born: 1917 | Died: 1984 | Location: Eternal Valley Memorial Park: United States, California, Newhall"
+      },
+      {
+        "id": 29041546,
+        "name": "Warren G. Harding",
+        "ctx": "Warren G. Harding | Born: 4 Jul 1922 | Died: 12 Aug 1994 | Location: Highland Cemetery: United States, Iowa, Eddyville"
+      },
+      {
+        "id": 39042979,
+        "name": "Warren G. Harding",
+        "ctx": "Warren G. Harding | Born: 19 Sep 1921 | Died: 16 Feb 1985 | Location: Greenlawn Memorial Park: United States, Indiana, Fort Wayne"
+      }
+    ]
+  },
+  {
+    "entityId": "calvin-coolidge",
+    "name": "Calvin Coolidge",
+    "deathYear": 1933,
+    "burial": "Plymouth Notch Cemetery, Plymouth Notch, VT",
+    "bgResults": [
+      {
+        "id": 98437152,
+        "name": "Calvin Coolidge",
+        "ctx": "Calvin Coolidge | Born: 4 Jul 1872 | Died: 5 Jan 1933 | Location: Plymouth Notch Cemetery: United States, Vermont, Plymouth"
+      },
+      {
+        "id": 4790640,
+        "name": "Calvin Coolidge",
+        "ctx": "Calvin Coolidge | Born: 27 Mar 1780 | Died: 30 Apr 1853 | Location: Plymouth Notch Cemetery: United States, Vermont, Plymouth"
+      },
+      {
+        "id": 26180873,
+        "name": "Calvin Coolidge Jr.",
+        "ctx": "Calvin Coolidge Jr. | Born: 13 Apr 1908 | Died: 7 Jul 1924 | Location: Plymouth Notch Cemetery: United States, Vermont, Plymouth"
+      },
+      {
+        "id": 58926765,
+        "name": "Calvin Coolidge",
+        "ctx": "Calvin Coolidge | Born: Not Available | Died: 7 Feb 1892 | Location: Evergreen Cemetery: United States, Massachusetts, Leominster"
+      },
+      {
+        "id": 4550796,
+        "name": "President John Calvin Coolidge Jr.",
+        "ctx": "President John Calvin Coolidge Jr. | Born: 4 Jul 1872 | Died: 5 Jan 1933 | Location: Plymouth Notch Cemetery: United States, Vermont, Plymouth"
+      },
+      {
+        "id": 27476301,
+        "name": "Calvin E Coolidge",
+        "ctx": "Calvin E Coolidge | Born: 20 Dec 1935 | Died: 13 Jun 2006 | Location: Hillcrest Memorial Park Cemetery: United States, Nebraska, Norfolk"
+      },
+      {
+        "id": 11319223,
+        "name": "Calvin Edward Coolidge",
+        "ctx": "Calvin Edward Coolidge | Born: 15 May 1921 | Died: 13 Feb 1977 | Location: Mountain View Cemetery: Canada, Alberta, Lethbridge"
+      },
+      {
+        "id": 59935178,
+        "name": "Calvin Harold Coolidge",
+        "ctx": "Calvin Harold Coolidge | Born: 1892 | Died: 1967 | Location: Evergreen Cemetery: United States, Massachusetts, Leominster"
+      },
+      {
+        "id": 23350876,
+        "name": "Calvin M Coolidge",
+        "ctx": "Calvin M Coolidge | Born: 18 Aug 1928 | Died: 10 Jul 1986 | Location: Willamette National Cemetery: United States, Oregon, Portland"
+      },
+      {
+        "id": 98437167,
+        "name": "John Calvin Coolidge Sr.",
+        "ctx": "John Calvin Coolidge Sr. | Born: 31 Mar 1845 | Died: 18 Mar 1926 | Location: Plymouth Notch Cemetery: United States, Vermont, Plymouth"
+      }
+    ]
+  },
+  {
+    "entityId": "herbert-hoover",
+    "name": "Herbert Hoover",
+    "deathYear": 1964,
+    "burial": "Herbert Hoover Presidential Library, West Branch, IA",
+    "bgResults": [
+      {
+        "id": 41673693,
+        "name": "Herbert Hoover",
+        "ctx": "Herbert Hoover | Born: 17 Nov 1940 | Died: 17 Jun 2011 | Location: Strong Cemetery: United States, Indiana, Albany"
+      },
+      {
+        "id": 139706072,
+        "name": "Herbert Hoover",
+        "ctx": "Herbert Hoover | Born: 1876 | Died: 1944 | Location: Highland Cemetery: United States, Ohio, Covington"
+      },
+      {
+        "id": 26967052,
+        "name": "Herbert Hoover",
+        "ctx": "Herbert Hoover | Born: 29 Nov 1909 | Died: 17 Mar 1911 | Location: Mansfield Cemetery: United States, Missouri, Mansfield"
+      },
+      {
+        "id": 23571345,
+        "name": "Herbert Hoover",
+        "ctx": "Herbert Hoover | Born: 24 Jun 1928 | Died: 12 Jul 1953 | Location: Arlington National Cemetery - Quadrant V: United States, Virginia, Arlington"
+      },
+      {
+        "id": 32537777,
+        "name": "Herbert Hoover",
+        "ctx": "Herbert Hoover | Born: 13 Nov 1924 | Died: 16 Nov 1982 | Location: Cashmere Cemetery: United States, Washington, Cashmere"
+      },
+      {
+        "id": 158214579,
+        "name": "Herbert Hoover",
+        "ctx": "Herbert Hoover | Born: 5 Dec 1885 | Died: 2 Nov 1891 | Location: O'Brien Cemetery: United States, Tennessee, Christiana"
+      },
+      {
+        "id": 29747796,
+        "name": "Bernice Herbert Hoover",
+        "ctx": "Bernice Herbert Hoover | Born: 3 Jul 1903 | Died: 30 Dec 1963 | Location: Greenlawn Cemetery: United States, Louisiana, Hammond"
+      },
+      {
+        "id": 88656646,
+        "name": "Herbert Clark Hoover",
+        "ctx": "Herbert Clark Hoover | Born: 1874 | Died: 1964 | Location: Herbert Hoover Presidential Library and Museum: United States, Iowa, Springdale"
+      },
+      {
+        "id": 88656660,
+        "name": "Herbert Clark Hoover",
+        "ctx": "Herbert Clark Hoover | Born: 1874 | Died: 1964 | Location: Herbert Hoover Presidential Library and Museum: United States, Iowa, Springdale"
+      },
+      {
+        "id": 88656663,
+        "name": "Herbert Clark Hoover",
+        "ctx": "Herbert Clark Hoover | Born: 1874 | Died: 1964 | Location: Herbert Hoover Presidential Library and Museum: United States, Iowa, Springdale"
+      }
+    ]
+  },
+  {
+    "entityId": "harry-s-truman",
+    "name": "Harry S. Truman",
+    "deathYear": 1972,
+    "burial": "Harry S. Truman Presidential Library, Independence, MO",
+    "bgResults": [
+      {
+        "id": 168147381,
+        "name": "President Harry S. Truman",
+        "ctx": "President Harry S. Truman | Born: 8 May 1884 | Died: 26 Dec 1972 | Location: Harry S. Truman Presidential Library and Museum: United States, Missouri, Blue"
+      },
+      {
+        "id": 44106510,
+        "name": "Harry S Truman",
+        "ctx": "Harry S Truman | Born: Not Available | Died: Not Available | Location: Harry S. Truman Presidential Library and Museum: United States, Missouri, Blue"
+      },
+      {
+        "id": 21534421,
+        "name": "Harry S. Truman",
+        "ctx": "Harry S. Truman | Born: Not Available | Died: Not Available | Location: Fairview Cemetery: United States, Maryland, Frederick"
+      },
+      {
+        "id": 28751186,
+        "name": "Harry Truman",
+        "ctx": "Harry Truman | Born: Not Available | Died: 25 Mar 2003 | Location: Akatarawa Cemetery: New Zealand, Wellington, Upper Hutt"
+      },
+      {
+        "id": 16401111,
+        "name": "Harry Truman",
+        "ctx": "Harry Truman | Born: 1881 | Died: 1952 | Location: Mount Washington Cemetery: United States, Pennsylvania, Perryopolis"
+      },
+      {
+        "id": 5816714,
+        "name": "Harry Truman",
+        "ctx": "Harry Truman | Born: 12 Aug 1947 | Died: 17 Aug 1947 | Location: Clay Township Cemetery: United States, Ohio, Elmore"
+      },
+      {
+        "id": 15760626,
+        "name": "Harry Truman",
+        "ctx": "Harry Truman | Born: 1880 | Died: 1947 | Location: Lima Center Cemetery: United States, Wisconsin, Whitewater"
+      },
+      {
+        "id": 8220495,
+        "name": "Harry J Truman Jr",
+        "ctx": "Harry J Truman Jr | Born: 1930 | Died: 1968 | Location: Sylvan Heights Cemetery and Memorial Gardens: United States, Pennsylvania, Uniontown"
+      },
+      {
+        "id": 20723395,
+        "name": "S Truman",
+        "ctx": "S Truman | Born: Not Available | Died: Not Available | Location: Lybrook Mission Cemetery: United States, New Mexico, Cuba"
+      },
+      {
+        "id": 20893544,
+        "name": "S. Truman",
+        "ctx": "S. Truman | Born: Not Available | Died: Not Available | Location: Lybrook Mission Cemetery: United States, New Mexico, Cuba"
+      }
+    ]
+  },
+  {
+    "entityId": "dwight-d-eisenhower",
+    "name": "Dwight D. Eisenhower",
+    "deathYear": 1969,
+    "burial": "Eisenhower Presidential Library, Abilene, KS",
+    "bgResults": [
+      {
+        "id": 128607630,
+        "name": "Dwight David Eisenhower",
+        "ctx": "Dwight David Eisenhower | Born: 14 Oct 1890 | Died: 28 Mar 1969 | Location: Eisenhower Presidential Center: United States, Kansas, Abilene"
+      },
+      {
+        "id": 44042775,
+        "name": "David Dwight Eisenhower",
+        "ctx": "David Dwight Eisenhower | Born: 15 Jul 1945 | Died: 23 Dec 2015 | Location: Union Cemetery: United States, Pennsylvania, Bellefonte"
+      },
+      {
+        "id": 31230727,
+        "name": "Doud Dwight Eisenhower",
+        "ctx": "Doud Dwight Eisenhower | Born: 24 Sep 1917 | Died: 2 Jan 1921 | Location: Eisenhower Presidential Center: United States, Kansas, Abilene"
+      },
+      {
+        "id": 31230721,
+        "name": "President Dwight David 'Ike' (born David Dwight) Eisenhower",
+        "ctx": "President Dwight David 'Ike' (born David Dwight) Eisenhower | Born: 14 Oct 1890 | Died: 28 Mar 1969 | Location: Eisenhower Presidential Center: United States, Kansas, Abilene"
+      },
+      {
+        "id": 122308505,
+        "name": "Estella D Eisenhower",
+        "ctx": "Estella D Eisenhower | Born: 13 Aug 1890 | Died: 1 May 1973 | Location: Laureldale Cemetery: United States, Pennsylvania, Reading"
+      },
+      {
+        "id": 160776661,
+        "name": "Gordon D. Eisenhower",
+        "ctx": "Gordon D. Eisenhower | Born: 1930 | Died: 1972 | Location: Laureldale Cemetery: United States, Pennsylvania, Reading"
+      },
+      {
+        "id": 4439769,
+        "name": "Brian D Eisenhower",
+        "ctx": "Brian D Eisenhower | Born: 1967 | Died: 2006 | Location: Moscow Cemetery: United States, Idaho, Moscow"
+      },
+      {
+        "id": 870272,
+        "name": "Dennis D Eisenhower",
+        "ctx": "Dennis D Eisenhower | Born: 1950 | Died: 2004 | Location: Laurel Hill Memorial Gardens: United States, Pennsylvania, Columbia"
+      },
+      {
+        "id": 41356005,
+        "name": "Earnest D. Eisenhower",
+        "ctx": "Earnest D. Eisenhower | Born: 1907 | Died: 1907 | Location: Dover Union Cemetery: United States, Pennsylvania, Dover"
+      },
+      {
+        "id": 41297555,
+        "name": "James D Eisenhower",
+        "ctx": "James D Eisenhower | Born: 5 Jul 1946 | Died: 31 Jan 2019 | Location: Riverside National Cemetery Quadrant I: United States, California, Riverside"
+      }
+    ]
+  },
+  {
+    "entityId": "richard-nixon",
+    "name": "Richard Nixon",
+    "deathYear": 1994,
+    "burial": "Richard Nixon Presidential Library, Yorba Linda, CA",
+    "bgResults": [
+      {
+        "id": 6074840,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: 21 Jun 1990 | Location: Hindley Cemetery: United Kingdom, England, Hindley"
+      },
+      {
+        "id": 3860974,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: 15 Apr 1825 | Died: 14 Nov 1891 | Location: Ballarat New Cemetery: Australia, Victoria, Ballarat"
+      },
+      {
+        "id": 1994087,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: 8 Jan 1915 | Location: Halton Cemetery: United Kingdom, England, Halton"
+      },
+      {
+        "id": 1957452,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: 17 Mar 1925 | Location: Halton Cemetery: United Kingdom, England, Halton"
+      },
+      {
+        "id": 29062796,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: Not Available | Location: Rushworth Cemetery: Australia, Victoria, Rushworth"
+      },
+      {
+        "id": 45781307,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: 1939 | Location: Rushworth Cemetery: Australia, Victoria, Rushworth"
+      },
+      {
+        "id": 42757242,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: Not Available | Location: Carlisle Cemetery: United Kingdom, England, Carlisle"
+      },
+      {
+        "id": 45081010,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: 3 Jun 1947 | Location: St Marys Church, Newsham: United Kingdom, England, Preston"
+      },
+      {
+        "id": 35318006,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: Jun 1920 | Location: Cheltenham Cemetery: Australia, South Australia, Adelaide"
+      },
+      {
+        "id": 33342788,
+        "name": "Richard Nixon",
+        "ctx": "Richard Nixon | Born: Not Available | Died: 14 Dec 1926 | Location: St John the Evangelist Church, Crosby-on-Eden: United Kingdom, England, Crosby-on-Eden"
+      }
+    ]
+  },
+  {
+    "entityId": "gerald-ford",
+    "name": "Gerald Ford",
+    "deathYear": 2006,
+    "burial": "Gerald R. Ford Presidential Museum, Grand Rapids, MI",
+    "bgResults": [
+      {
+        "id": 10468716,
+        "name": "Gerald Ford",
+        "ctx": "Gerald Ford | Born: 1914 | Died: 1955 | Location: Riverside Cemetery: United States, Michigan, Plymouth"
+      },
+      {
+        "id": 86805741,
+        "name": "Elizabeth Ford (Ford)",
+        "ctx": "Elizabeth Ford (Ford) | Born: 1820 | Died: 7 Aug 1850 | Location: Batsto-Pleasant Mills Cemetery: United States, New Jersey, Mullica"
+      },
+      {
+        "id": 6785519,
+        "name": "Donald Gerald Ford",
+        "ctx": "Donald Gerald Ford | Born: 1 Sep 1919 | Died: 8 Nov 2003 | Location: Northern Nevada Veterans Memorial Cemetery: United States, Nevada, Fernley"
+      },
+      {
+        "id": 24982722,
+        "name": "Gerald C Ford",
+        "ctx": "Gerald C Ford | Born: 4 Jul 1936 | Died: 24 May 2010 | Location: Victoria West Peoples / Presbyterian / United Cemetery: Canada, Prince Edward Island, Lot 13"
+      },
+      {
+        "id": 4321897,
+        "name": "Gerald D Ford",
+        "ctx": "Gerald D Ford | Born: 24 Dec 1920 | Died: 28 Sep 2011 | Location: Fayetteville National Cemetery: United States, Arkansas, Fayetteville"
+      },
+      {
+        "id": 81362304,
+        "name": "Gerald D Ford",
+        "ctx": "Gerald D Ford | Born: 1949 | Died: 2003 | Location: Fairhaven Memorial Park: United States, California, Santa Ana"
+      },
+      {
+        "id": 33923254,
+        "name": "Gerald D Ford Jr",
+        "ctx": "Gerald D Ford Jr | Born: 3 Apr 1989 | Died: 18 Jun 2009 | Location: Crown Hill Cemetery- Quadrant II: United States, Indiana, Indianapolis"
+      },
+      {
+        "id": 34091879,
+        "name": "Gerald D. Ford",
+        "ctx": "Gerald D. Ford | Born: 1929 | Died: 2008 | Location: Covington Memorial Gardens: United States, Indiana, Fort Wayne"
+      },
+      {
+        "id": 37623935,
+        "name": "Gerald H Ford",
+        "ctx": "Gerald H Ford | Born: 1919 | Died: 2005 | Location: Youngs United Methodist Church Cemetery: United States, Pennsylvania, Shermans Dale"
+      },
+      {
+        "id": 163899658,
+        "name": "Gerald (Jewell) Ford Sr.",
+        "ctx": "Gerald (Jewell) Ford Sr. | Born: 13 Sep 1927 | Died: 18 Jan 2003 | Location: West Memory Gardens Cemetery: United States, Ohio, Moraine"
+      }
+    ]
+  },
+  {
+    "entityId": "george-h-w-bush",
+    "name": "George H. W. Bush",
+    "deathYear": 2018,
+    "burial": "George H.W. Bush Presidential Library, College Station, TX",
+    "bgResults": [
+      {
+        "id": 168751320,
+        "name": "Sarah Hewlett Bush (Bush)",
+        "ctx": "Sarah Hewlett Bush (Bush) | Born: Not Available | Died: 18 Jul 1913 | Location: Greenwood Union Cemetery: United States, New York, Rye"
+      },
+      {
+        "id": 40085894,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 18 Feb 1924 | Died: 24 Mar 2013 | Location: Elmwood Cemetery: United States, Colorado, Brighton"
+      },
+      {
+        "id": 36265905,
+        "name": "George W. Bush Jr.",
+        "ctx": "George W. Bush Jr. | Born: 4 May 1964 | Died: 2 Mar 2019 | Location: Forest Hills Memorial Park And Mausoleum: United States, Florida, Palm City"
+      },
+      {
+        "id": 434128,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 12 Sep 1907 | Died: 15 Mar 2006 | Location: Bonner Springs Cemetery: United States, Kansas, Bonner Springs"
+      },
+      {
+        "id": 2578611,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 3 Oct 1883 | Died: 27 Aug 1958 | Location: Rock Island National Cemetery: United States, Illinois, Rock Island"
+      },
+      {
+        "id": 33696964,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 8 Oct 1922 | Died: 26 Oct 1978 | Location: Iowa Veterans Cemetery: United States, Iowa, Adel"
+      },
+      {
+        "id": 13808606,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: Not Available | Died: 2 May 1937 | Location: Fort Lewis Post Cemetery: United States, Washington, Joint Base Lewis-McChord"
+      },
+      {
+        "id": 11537944,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 4 Jan 1877 | Died: 11 Oct 1953 | Location: Acton Memorial Cemetery: United States, Alabama, Vestavia Hills"
+      },
+      {
+        "id": 11585924,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 8 May 1868 | Died: 30 Jul 1950 | Location: Nauvoo Two Cemetery: United States, Illinois, Nauvoo"
+      },
+      {
+        "id": 88686760,
+        "name": "George H Bush",
+        "ctx": "George H Bush | Born: 12 Feb 1882 | Died: 7 Mar 1942 | Location: Saint Patrick Cemetery: United States, Indiana, Chesterton"
+      }
+    ]
+  }
+]

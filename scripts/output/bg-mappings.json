@@ -1,0 +1,18 @@
+[
+  {
+    "momentId": "bac-western-heights",
+    "entityId": "clyde-barrow",
+    "entityName": "Clyde Barrow",
+    "bgRecordId": 503307,
+    "bgUrl": "https://billiongraves.com/grave/Clyde-C-Barrow/503307",
+    "notes": "Clyde C Barrow, Born 24 Mar 1909, Died 23 May 1934, Western Heights Cemetery, West Dallas TX"
+  },
+  {
+    "momentId": "cemetery-barbara-jordan",
+    "entityId": "texas-state-cemetery",
+    "entityName": "Barbara Jordan",
+    "bgRecordId": 3215971,
+    "bgUrl": "https://billiongraves.com/grave/Barbara-Jordan/3215971",
+    "notes": "Barbara Jordan, Born 1936, Died 1996, Texas State Cemetery, Austin TX"
+  }
+]

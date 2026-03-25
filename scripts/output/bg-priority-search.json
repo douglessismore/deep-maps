@@ -1,0 +1,602 @@
+[
+  {
+    "entityId": "abraham-lincoln",
+    "name": "Abraham Lincoln",
+    "years": "1809–1865",
+    "deathYear": 1865,
+    "given": "Abraham",
+    "surname": "Lincoln",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Abraham&FamilyName=Lincoln&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1865&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "albert-einstein",
+    "name": "Albert Einstein",
+    "years": "1879–1955",
+    "deathYear": 1955,
+    "given": "Albert",
+    "surname": "Einstein",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Albert&FamilyName=Einstein&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1955&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "alexander-graham-bell",
+    "name": "Alexander Graham Bell",
+    "years": "1847–1922",
+    "deathYear": 1922,
+    "given": "Alexander Graham",
+    "surname": "Bell",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Alexander+Graham&FamilyName=Bell&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1922&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "alexander-hamilton",
+    "name": "Alexander Hamilton",
+    "years": "1755/1757–1804",
+    "deathYear": 1804,
+    "given": "Alexander",
+    "surname": "Hamilton",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Alexander&FamilyName=Hamilton&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1804&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "amelia-earhart",
+    "name": "Amelia Earhart",
+    "years": "1897–1937",
+    "deathYear": 1937,
+    "given": "Amelia",
+    "surname": "Earhart",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Amelia&FamilyName=Earhart&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1937&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "andrew-jackson",
+    "name": "Andrew Jackson",
+    "years": "1767–1845",
+    "deathYear": 1845,
+    "given": "Andrew",
+    "surname": "Jackson",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Andrew&FamilyName=Jackson&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1845&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "aretha-franklin",
+    "name": "Aretha Franklin",
+    "years": "1942–2018",
+    "deathYear": 2018,
+    "given": "Aretha",
+    "surname": "Franklin",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Aretha&FamilyName=Franklin&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2018&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "babe-ruth",
+    "name": "Babe Ruth",
+    "years": "1895–1948",
+    "deathYear": 1948,
+    "given": "Babe",
+    "surname": "Ruth",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Babe&FamilyName=Ruth&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1948&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "billy-the-kid",
+    "name": "Billy the Kid",
+    "years": "1859–1881",
+    "deathYear": 1881,
+    "given": "Billy the",
+    "surname": "Kid",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Billy+the&FamilyName=Kid&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1881&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "bob-marley",
+    "name": "Bob Marley",
+    "years": "1945–1981",
+    "deathYear": 1981,
+    "given": "Bob",
+    "surname": "Marley",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Bob&FamilyName=Marley&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1981&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "booker-t-washington",
+    "name": "Booker T. Washington",
+    "years": "1856–1915",
+    "deathYear": 1915,
+    "given": "Booker T.",
+    "surname": "Washington",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Booker+T.&FamilyName=Washington&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1915&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "charles-darwin",
+    "name": "Charles Darwin",
+    "years": "1809–1882",
+    "deathYear": 1882,
+    "given": "Charles",
+    "surname": "Darwin",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Charles&FamilyName=Darwin&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1882&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "charles-dickens",
+    "name": "Charles Dickens",
+    "years": "1812–1870",
+    "deathYear": 1870,
+    "given": "Charles",
+    "surname": "Dickens",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Charles&FamilyName=Dickens&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1870&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "charlie-chaplin",
+    "name": "Charlie Chaplin",
+    "years": "1889–1977",
+    "deathYear": 1977,
+    "given": "Charlie",
+    "surname": "Chaplin",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Charlie&FamilyName=Chaplin&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1977&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "che-guevara",
+    "name": "Che Guevara",
+    "years": "1928–1967",
+    "deathYear": 1967,
+    "given": "Che",
+    "surname": "Guevara",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Che&FamilyName=Guevara&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1967&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "christa-mcauliffe",
+    "name": "Christa McAuliffe",
+    "years": "1948–1986",
+    "deathYear": 1986,
+    "given": "Christa",
+    "surname": "McAuliffe",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Christa&FamilyName=McAuliffe&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1986&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "edgar-allan-poe",
+    "name": "Edgar Allan Poe",
+    "years": "1809–1849",
+    "deathYear": 1849,
+    "given": "Edgar Allan",
+    "surname": "Poe",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Edgar+Allan&FamilyName=Poe&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1849&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "franklin-d-roosevelt",
+    "name": "Franklin D. Roosevelt",
+    "years": "1882–1945",
+    "deathYear": 1945,
+    "given": "Franklin D.",
+    "surname": "Roosevelt",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Franklin+D.&FamilyName=Roosevelt&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1945&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "frida-kahlo",
+    "name": "Frida Kahlo",
+    "years": "1907–1954",
+    "deathYear": 1954,
+    "given": "Frida",
+    "surname": "Kahlo",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Frida&FamilyName=Kahlo&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1954&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "harriet-tubman",
+    "name": "Harriet Tubman",
+    "years": "1822–1913",
+    "deathYear": 1913,
+    "given": "Harriet",
+    "surname": "Tubman",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Harriet&FamilyName=Tubman&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1913&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "john-f-kennedy",
+    "name": "John F. Kennedy",
+    "years": "1917–1963",
+    "deathYear": 1963,
+    "given": "John F.",
+    "surname": "Kennedy",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=John+F.&FamilyName=Kennedy&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1963&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "karl-marx",
+    "name": "Karl Marx",
+    "years": "1818–1883",
+    "deathYear": 1883,
+    "given": "Karl",
+    "surname": "Marx",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Karl&FamilyName=Marx&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1883&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "marie-curie",
+    "name": "Marie Curie",
+    "years": "1867–1934",
+    "deathYear": 1934,
+    "given": "Marie",
+    "surname": "Curie",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Marie&FamilyName=Curie&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1934&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "mark-twain",
+    "name": "Mark Twain",
+    "years": "1835–1910",
+    "deathYear": 1910,
+    "given": "Mark",
+    "surname": "Twain",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Mark&FamilyName=Twain&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1910&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "martin-luther-king-jr",
+    "name": "Martin Luther King Jr.",
+    "years": "1929–1968",
+    "deathYear": 1968,
+    "given": "Martin Luther King",
+    "surname": ".",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Martin+Luther+King&FamilyName=.&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1968&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "muhammad-ali",
+    "name": "Muhammad Ali",
+    "years": "1942–2016",
+    "deathYear": 2016,
+    "given": "Muhammad",
+    "surname": "Ali",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Muhammad&FamilyName=Ali&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2016&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "neil-armstrong",
+    "name": "Neil Armstrong",
+    "years": "1930–2012",
+    "deathYear": 2012,
+    "given": "Neil",
+    "surname": "Armstrong",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Neil&FamilyName=Armstrong&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2012&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "nikola-tesla",
+    "name": "Nikola Tesla",
+    "years": "1856–1943",
+    "deathYear": 1943,
+    "given": "Nikola",
+    "surname": "Tesla",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Nikola&FamilyName=Tesla&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1943&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "oscar-wilde",
+    "name": "Oscar Wilde",
+    "years": "1854–1900",
+    "deathYear": 1900,
+    "given": "Oscar",
+    "surname": "Wilde",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Oscar&FamilyName=Wilde&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1900&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "rosa-parks",
+    "name": "Rosa Parks",
+    "years": "1913–2005",
+    "deathYear": 2005,
+    "given": "Rosa",
+    "surname": "Parks",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Rosa&FamilyName=Parks&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2005&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "sitting-bull",
+    "name": "Sitting Bull",
+    "years": "1831–1890",
+    "deathYear": 1890,
+    "given": "Sitting",
+    "surname": "Bull",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Sitting&FamilyName=Bull&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1890&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "steve-jobs",
+    "name": "Steve Jobs",
+    "years": "1955–2011",
+    "deathYear": 2011,
+    "given": "Steve",
+    "surname": "Jobs",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Steve&FamilyName=Jobs&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2011&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "theodore-roosevelt",
+    "name": "Theodore Roosevelt",
+    "years": "1858–1919",
+    "deathYear": 1919,
+    "given": "Theodore",
+    "surname": "Roosevelt",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Theodore&FamilyName=Roosevelt&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1919&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "thomas-edison",
+    "name": "Thomas Edison",
+    "years": "1847–1931",
+    "deathYear": 1931,
+    "given": "Thomas",
+    "surname": "Edison",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Thomas&FamilyName=Edison&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1931&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "thomas-jefferson",
+    "name": "Thomas Jefferson",
+    "years": "1743–1826",
+    "deathYear": 1826,
+    "given": "Thomas",
+    "surname": "Jefferson",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Thomas&FamilyName=Jefferson&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1826&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "walt-disney",
+    "name": "Walt Disney",
+    "years": "1901–1966",
+    "deathYear": 1966,
+    "given": "Walt",
+    "surname": "Disney",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Walt&FamilyName=Disney&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1966&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "winston-churchill",
+    "name": "Winston Churchill",
+    "years": "1874–1965",
+    "deathYear": 1965,
+    "given": "Winston",
+    "surname": "Churchill",
+    "priority": 1,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Winston&FamilyName=Churchill&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1965&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "akira-kurosawa",
+    "name": "Akira Kurosawa",
+    "years": "1910–1998",
+    "deathYear": 1998,
+    "given": "Akira",
+    "surname": "Kurosawa",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Akira&FamilyName=Kurosawa&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1998&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "alexander-fleming",
+    "name": "Alexander Fleming",
+    "years": "1881–1955",
+    "deathYear": 1955,
+    "given": "Alexander",
+    "surname": "Fleming",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Alexander&FamilyName=Fleming&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1955&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "alexander-mcqueen",
+    "name": "Alexander McQueen",
+    "years": "1969–2010",
+    "deathYear": 2010,
+    "given": "Alexander",
+    "surname": "McQueen",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Alexander&FamilyName=McQueen&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2010&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "alexander-pushkin",
+    "name": "Alexander Pushkin",
+    "years": "1799–1837",
+    "deathYear": 1837,
+    "given": "Alexander",
+    "surname": "Pushkin",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Alexander&FamilyName=Pushkin&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1837&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "alfred-nobel",
+    "name": "Alfred Nobel",
+    "years": "1833–1896",
+    "deathYear": 1896,
+    "given": "Alfred",
+    "surname": "Nobel",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Alfred&FamilyName=Nobel&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1896&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "andre-breton",
+    "name": "André Breton",
+    "years": "1896–1966",
+    "deathYear": 1966,
+    "given": "Andre",
+    "surname": "Breton",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Andre&FamilyName=Breton&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1966&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "antoni-gaudi",
+    "name": "Antoni Gaudi",
+    "years": "1852-1926",
+    "deathYear": 1926,
+    "given": "Antoni",
+    "surname": "Gaudi",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Antoni&FamilyName=Gaudi&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1926&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "ardeshir-irani",
+    "name": "Ardeshir Irani",
+    "years": "1886–1969",
+    "deathYear": 1969,
+    "given": "Ardeshir",
+    "surname": "Irani",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Ardeshir&FamilyName=Irani&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1969&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "auguste-escoffier",
+    "name": "Auguste Escoffier",
+    "years": "1846–1935",
+    "deathYear": 1935,
+    "given": "Auguste",
+    "surname": "Escoffier",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Auguste&FamilyName=Escoffier&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1935&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "mussolini",
+    "name": "Benito Mussolini",
+    "years": "1883–1945",
+    "deathYear": 1945,
+    "given": "Benito",
+    "surname": "Mussolini",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Benito&FamilyName=Mussolini&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1945&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "bobby-fischer",
+    "name": "Bobby Fischer",
+    "years": "1943–2008",
+    "deathYear": 2008,
+    "given": "Bobby",
+    "surname": "Fischer",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Bobby&FamilyName=Fischer&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2008&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "carl-friedrich-gauss",
+    "name": "Carl Friedrich Gauss",
+    "years": "1777–1855",
+    "deathYear": 1855,
+    "given": "Carl Friedrich",
+    "surname": "Gauss",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Carl+Friedrich&FamilyName=Gauss&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1855&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "carter-harrison-sr",
+    "name": "Carter Harrison Sr.",
+    "years": "1825–1893",
+    "deathYear": 1893,
+    "given": "Carter Harrison",
+    "surname": ".",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Carter+Harrison&FamilyName=.&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1893&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "charles-de-gaulle",
+    "name": "Charles de Gaulle",
+    "years": "1890–1970",
+    "deathYear": 1970,
+    "given": "Charles",
+    "surname": "de Gaulle",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Charles&FamilyName=de+Gaulle&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1970&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "charles-whitman",
+    "name": "Charles Whitman",
+    "years": "1941–1966",
+    "deathYear": 1966,
+    "given": "Charles",
+    "surname": "Whitman",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Charles&FamilyName=Whitman&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1966&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "christian-dior",
+    "name": "Christian Dior",
+    "years": "1905–1957",
+    "deathYear": 1957,
+    "given": "Christian",
+    "surname": "Dior",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Christian&FamilyName=Dior&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1957&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "coco-chanel",
+    "name": "Coco Chanel",
+    "years": "1883–1971",
+    "deathYear": 1971,
+    "given": "Coco",
+    "surname": "Chanel",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Coco&FamilyName=Chanel&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1971&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "daniel-burnham",
+    "name": "Daniel Burnham",
+    "years": "1846–1912",
+    "deathYear": 1912,
+    "given": "Daniel",
+    "surname": "Burnham",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Daniel&FamilyName=Burnham&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1912&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "david-koresh",
+    "name": "David Koresh",
+    "years": "1959–1993",
+    "deathYear": 1993,
+    "given": "David",
+    "surname": "Koresh",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=David&FamilyName=Koresh&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1993&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "david-livingstone",
+    "name": "David Livingstone",
+    "years": "1813–1873",
+    "deathYear": 1873,
+    "given": "David",
+    "surname": "Livingstone",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=David&FamilyName=Livingstone&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1873&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "dennis-hopper",
+    "name": "Dennis Hopper",
+    "years": "1936–2010",
+    "deathYear": 2010,
+    "given": "Dennis",
+    "surname": "Hopper",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Dennis&FamilyName=Hopper&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2010&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "dick-hickock",
+    "name": "Dick Hickock",
+    "years": "1931–1965",
+    "deathYear": 1965,
+    "given": "Dick",
+    "surname": "Hickock",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Dick&FamilyName=Hickock&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1965&EventDeathYearRange=5"
+  },
+  {
+    "entityId": "diego-maradona",
+    "name": "Diego Maradona",
+    "years": "1960–2020",
+    "deathYear": 2020,
+    "given": "Diego",
+    "surname": "Maradona",
+    "priority": 2,
+    "searchUrl": "https://billiongraves.com/search/results?GivenNames=Diego&FamilyName=Maradona&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2020&EventDeathYearRange=5"
+  }
+]

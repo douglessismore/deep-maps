@@ -1,0 +1,2012 @@
+[
+  {
+    "entityId": "abraham",
+    "name": "Abraham",
+    "years": "c. 2166–1991 BCE",
+    "wikipediaSlug": "Abraham"
+  },
+  {
+    "entityId": "abraham-lincoln",
+    "name": "Abraham Lincoln",
+    "years": "1809–1865",
+    "wikipediaSlug": "Abraham_Lincoln"
+  },
+  {
+    "entityId": "adam-smith",
+    "name": "Adam Smith",
+    "years": "1723–1790",
+    "wikipediaSlug": "Adam_Smith"
+  },
+  {
+    "entityId": "akira-kurosawa",
+    "name": "Akira Kurosawa",
+    "years": "1910–1998",
+    "wikipediaSlug": "Akira_Kurosawa"
+  },
+  {
+    "entityId": "albert-einstein",
+    "name": "Albert Einstein",
+    "years": "1879–1955",
+    "wikipediaSlug": "Albert_Einstein"
+  },
+  {
+    "entityId": "albrecht-durer",
+    "name": "Albrecht Dürer",
+    "years": "1471–1528",
+    "wikipediaSlug": "Albrecht_Dürer"
+  },
+  {
+    "entityId": "alexander-fleming",
+    "name": "Alexander Fleming",
+    "years": "1881–1955",
+    "wikipediaSlug": "Alexander_Fleming"
+  },
+  {
+    "entityId": "alexander-graham-bell",
+    "name": "Alexander Graham Bell",
+    "years": "1847–1922",
+    "wikipediaSlug": "Alexander_Graham_Bell"
+  },
+  {
+    "entityId": "alexander-hamilton",
+    "name": "Alexander Hamilton",
+    "years": "1755/1757–1804",
+    "wikipediaSlug": "Alexander_Hamilton"
+  },
+  {
+    "entityId": "alexander-mcqueen",
+    "name": "Alexander McQueen",
+    "years": "1969–2010",
+    "wikipediaSlug": "Alexander_McQueen"
+  },
+  {
+    "entityId": "alexander-pushkin",
+    "name": "Alexander Pushkin",
+    "years": "1799–1837",
+    "wikipediaSlug": "Alexander_Pushkin"
+  },
+  {
+    "entityId": "alexander-the-great",
+    "name": "Alexander the Great",
+    "years": "356–323 BCE",
+    "wikipediaSlug": "Alexander_the_Great"
+  },
+  {
+    "entityId": "alfred-nobel",
+    "name": "Alfred Nobel",
+    "years": "1833–1896",
+    "wikipediaSlug": "Alfred_Nobel"
+  },
+  {
+    "entityId": "ali-ibn-abi-talib",
+    "name": "Ali ibn Abi Talib",
+    "years": "c. 600–661",
+    "wikipediaSlug": "Ali"
+  },
+  {
+    "entityId": "amelia-earhart",
+    "name": "Amelia Earhart",
+    "years": "1897–1937",
+    "wikipediaSlug": "Amelia_Earhart"
+  },
+  {
+    "entityId": "andre-breton",
+    "name": "André Breton",
+    "years": "1896–1966",
+    "wikipediaSlug": "André_Breton"
+  },
+  {
+    "entityId": "andrew-jackson",
+    "name": "Andrew Jackson",
+    "years": "1767–1845",
+    "wikipediaSlug": "Andrew_Jackson"
+  },
+  {
+    "entityId": "anne-boleyn",
+    "name": "Anne Boleyn",
+    "years": "c. 1501–1536",
+    "wikipediaSlug": "Anne_Boleyn"
+  },
+  {
+    "entityId": "antoni-gaudi",
+    "name": "Antoni Gaudi",
+    "years": "1852-1926",
+    "wikipediaSlug": "Antoni_Gaudí"
+  },
+  {
+    "entityId": "antonio-vivaldi",
+    "name": "Antonio Vivaldi",
+    "years": "1678–1741",
+    "wikipediaSlug": "Antonio_Vivaldi"
+  },
+  {
+    "entityId": "archimedes",
+    "name": "Archimedes",
+    "years": "c. 287–212 BCE",
+    "wikipediaSlug": "Archimedes"
+  },
+  {
+    "entityId": "ardeshir-irani",
+    "name": "Ardeshir Irani",
+    "years": "1886–1969",
+    "wikipediaSlug": "Ardeshir_Irani"
+  },
+  {
+    "entityId": "aretha-franklin",
+    "name": "Aretha Franklin",
+    "years": "1942–2018",
+    "wikipediaSlug": "Aretha_Franklin"
+  },
+  {
+    "entityId": "aristotle",
+    "name": "Aristotle",
+    "years": "384–322 BC",
+    "wikipediaSlug": "Aristotle"
+  },
+  {
+    "entityId": "ashoka",
+    "name": "Ashoka the Great",
+    "years": "c. 304–232 BCE",
+    "wikipediaSlug": "Ashoka"
+  },
+  {
+    "entityId": "auguste-escoffier",
+    "name": "Auguste Escoffier",
+    "years": "1846–1935",
+    "wikipediaSlug": "Auguste_Escoffier"
+  },
+  {
+    "entityId": "augustine-of-hippo",
+    "name": "Augustine of Hippo",
+    "years": "354–430",
+    "wikipediaSlug": "Augustine_of_Hippo"
+  },
+  {
+    "entityId": "avicenna",
+    "name": "Avicenna (Ibn Sina)",
+    "years": "980–1037",
+    "wikipediaSlug": "Avicenna"
+  },
+  {
+    "entityId": "babe-ruth",
+    "name": "Babe Ruth",
+    "years": "1895–1948",
+    "wikipediaSlug": "Babe_Ruth"
+  },
+  {
+    "entityId": "mussolini",
+    "name": "Benito Mussolini",
+    "years": "1883–1945",
+    "wikipediaSlug": "Benito_Mussolini"
+  },
+  {
+    "entityId": "benjamin-franklin",
+    "name": "Benjamin Franklin",
+    "years": "1706–1790",
+    "wikipediaSlug": "Benjamin_Franklin"
+  },
+  {
+    "entityId": "billy-the-kid",
+    "name": "Billy the Kid",
+    "years": "1859–1881",
+    "wikipediaSlug": "Billy_the_Kid"
+  },
+  {
+    "entityId": "bob-marley",
+    "name": "Bob Marley",
+    "years": "1945–1981",
+    "wikipediaSlug": "Bob_Marley"
+  },
+  {
+    "entityId": "bobby-fischer",
+    "name": "Bobby Fischer",
+    "years": "1943–2008",
+    "wikipediaSlug": "Bobby_Fischer"
+  },
+  {
+    "entityId": "booker-t-washington",
+    "name": "Booker T. Washington",
+    "years": "1856–1915",
+    "wikipediaSlug": "Booker_T._Washington"
+  },
+  {
+    "entityId": "caravaggio",
+    "name": "Caravaggio",
+    "years": "1571–1610",
+    "wikipediaSlug": "Caravaggio"
+  },
+  {
+    "entityId": "carl-friedrich-gauss",
+    "name": "Carl Friedrich Gauss",
+    "years": "1777–1855",
+    "wikipediaSlug": "Carl_Friedrich_Gauss"
+  },
+  {
+    "entityId": "carl-linnaeus",
+    "name": "Carl Linnaeus",
+    "years": "1707–1778",
+    "wikipediaSlug": "Carl_Linnaeus"
+  },
+  {
+    "entityId": "carter-harrison-sr",
+    "name": "Carter Harrison Sr.",
+    "years": "1825–1893",
+    "wikipediaSlug": "Carter_Harrison_Sr."
+  },
+  {
+    "entityId": "chanakya",
+    "name": "Chanakya",
+    "years": "375–283 BCE",
+    "wikipediaSlug": "Chanakya"
+  },
+  {
+    "entityId": "charlemagne",
+    "name": "Charlemagne",
+    "years": "748–814",
+    "wikipediaSlug": "Charlemagne"
+  },
+  {
+    "entityId": "charles-darwin",
+    "name": "Charles Darwin",
+    "years": "1809–1882",
+    "wikipediaSlug": "Charles_Darwin"
+  },
+  {
+    "entityId": "charles-de-gaulle",
+    "name": "Charles de Gaulle",
+    "years": "1890–1970",
+    "wikipediaSlug": "Charles_de_Gaulle"
+  },
+  {
+    "entityId": "charles-dickens",
+    "name": "Charles Dickens",
+    "years": "1812–1870",
+    "wikipediaSlug": "Charles_Dickens"
+  },
+  {
+    "entityId": "charles-i",
+    "name": "Charles I",
+    "years": "1600–1649",
+    "wikipediaSlug": "Charles_I_of_England"
+  },
+  {
+    "entityId": "charles-v-holy-roman-emperor",
+    "name": "Charles V",
+    "years": "1500–1558",
+    "wikipediaSlug": "Charles_V,_Holy_Roman_Emperor"
+  },
+  {
+    "entityId": "charles-whitman",
+    "name": "Charles Whitman",
+    "years": "1941–1966",
+    "wikipediaSlug": "Charles_Whitman"
+  },
+  {
+    "entityId": "charlie-chaplin",
+    "name": "Charlie Chaplin",
+    "years": "1889–1977",
+    "wikipediaSlug": "Charlie_Chaplin"
+  },
+  {
+    "entityId": "che-guevara",
+    "name": "Che Guevara",
+    "years": "1928–1967",
+    "wikipediaSlug": "Che_Guevara"
+  },
+  {
+    "entityId": "christa-mcauliffe",
+    "name": "Christa McAuliffe",
+    "years": "1948–1986",
+    "wikipediaSlug": "Christa_McAuliffe"
+  },
+  {
+    "entityId": "christian-dior",
+    "name": "Christian Dior",
+    "years": "1905–1957",
+    "wikipediaSlug": "Christian_Dior"
+  },
+  {
+    "entityId": "christopher-columbus",
+    "name": "Christopher Columbus",
+    "years": "1451–1506",
+    "wikipediaSlug": "Christopher_Columbus"
+  },
+  {
+    "entityId": "coco-chanel",
+    "name": "Coco Chanel",
+    "years": "1883–1971",
+    "wikipediaSlug": "Coco_Chanel"
+  },
+  {
+    "entityId": "confucius",
+    "name": "Confucius",
+    "years": "551–479 BCE",
+    "wikipediaSlug": "Confucius"
+  },
+  {
+    "entityId": "constantine-the-great",
+    "name": "Constantine the Great",
+    "years": "272–337",
+    "wikipediaSlug": "Constantine_the_Great"
+  },
+  {
+    "entityId": "cyrus-the-great",
+    "name": "Cyrus the Great",
+    "years": "c. 600–530 BC",
+    "wikipediaSlug": "Cyrus_the_Great"
+  },
+  {
+    "entityId": "daniel-burnham",
+    "name": "Daniel Burnham",
+    "years": "1846–1912",
+    "wikipediaSlug": "Daniel_Burnham"
+  },
+  {
+    "entityId": "dante-alighieri",
+    "name": "Dante Alighieri",
+    "years": "1265–1321",
+    "wikipediaSlug": "Dante_Alighieri"
+  },
+  {
+    "entityId": "david-koresh",
+    "name": "David Koresh",
+    "years": "1959–1993",
+    "wikipediaSlug": "David_Koresh"
+  },
+  {
+    "entityId": "david-livingstone",
+    "name": "David Livingstone",
+    "years": "1813–1873",
+    "wikipediaSlug": "David_Livingstone"
+  },
+  {
+    "entityId": "dennis-hopper",
+    "name": "Dennis Hopper",
+    "years": "1936–2010",
+    "wikipediaSlug": "Dennis_Hopper"
+  },
+  {
+    "entityId": "dick-hickock",
+    "name": "Dick Hickock",
+    "years": "1931–1965",
+    "wikipediaSlug": "Richard_Hickock"
+  },
+  {
+    "entityId": "diego-maradona",
+    "name": "Diego Maradona",
+    "years": "1960–2020",
+    "wikipediaSlug": "Diego_Maradona"
+  },
+  {
+    "entityId": "diego-rivera",
+    "name": "Diego Rivera",
+    "years": "1886–1957",
+    "wikipediaSlug": "Diego_Rivera"
+  },
+  {
+    "entityId": "don-bradman",
+    "name": "Don Bradman",
+    "years": "1908–2001",
+    "wikipediaSlug": "Don_Bradman"
+  },
+  {
+    "entityId": "douglas-mawson",
+    "name": "Douglas Mawson",
+    "years": "1882–1958",
+    "wikipediaSlug": "Douglas_Mawson"
+  },
+  {
+    "entityId": "ed-gein",
+    "name": "Ed Gein",
+    "years": "1906–1984",
+    "wikipediaSlug": "Ed_Gein"
+  },
+  {
+    "entityId": "edgar-allan-poe",
+    "name": "Edgar Allan Poe",
+    "years": "1809–1849",
+    "wikipediaSlug": "Edgar_Allan_Poe"
+  },
+  {
+    "entityId": "edwin-hubble",
+    "name": "Edwin Hubble",
+    "years": "1889-1953",
+    "wikipediaSlug": "Edwin_Hubble"
+  },
+  {
+    "entityId": "elfego-baca",
+    "name": "Elfego Baca",
+    "years": "1865–1945",
+    "wikipediaSlug": "Elfego_Baca"
+  },
+  {
+    "entityId": "elizabeth-ii",
+    "name": "Elizabeth II",
+    "years": "1926–2022",
+    "wikipediaSlug": "Elizabeth_II"
+  },
+  {
+    "entityId": "emily-davison",
+    "name": "Emily Davison",
+    "years": "1872–1913",
+    "wikipediaSlug": "Emily_Davison"
+  },
+  {
+    "entityId": "emmeline-pankhurst",
+    "name": "Emmeline Pankhurst",
+    "years": "1858–1928",
+    "wikipediaSlug": "Emmeline_Pankhurst"
+  },
+  {
+    "entityId": "emperor-meiji",
+    "name": "Emperor Meiji",
+    "years": "1852–1912",
+    "wikipediaSlug": "Emperor_Meiji"
+  },
+  {
+    "entityId": "cixi",
+    "name": "Empress Dowager Cixi",
+    "years": "1835–1908",
+    "wikipediaSlug": "Empress_Dowager_Cixi"
+  },
+  {
+    "entityId": "epicurus",
+    "name": "Epicurus",
+    "years": "341–270 BCE",
+    "wikipediaSlug": "Epicurus"
+  },
+  {
+    "entityId": "eratosthenes",
+    "name": "Eratosthenes",
+    "years": "c. 276–194 BCE",
+    "wikipediaSlug": "Eratosthenes"
+  },
+  {
+    "entityId": "ernest-hemingway",
+    "name": "Ernest Hemingway",
+    "years": "1899–1961",
+    "wikipediaSlug": "Ernest_Hemingway"
+  },
+  {
+    "entityId": "ernest-shackleton",
+    "name": "Ernest Shackleton",
+    "years": "1874–1922",
+    "wikipediaSlug": "Ernest_Shackleton"
+  },
+  {
+    "entityId": "euclid",
+    "name": "Euclid",
+    "years": "c. 325–265 BCE",
+    "wikipediaSlug": "Euclid"
+  },
+  {
+    "entityId": "eva-peron",
+    "name": "Eva Perón",
+    "years": "1919–1952",
+    "wikipediaSlug": "Eva_Perón"
+  },
+  {
+    "entityId": "federico-fellini",
+    "name": "Federico Fellini",
+    "years": "1920–1993",
+    "wikipediaSlug": "Federico_Fellini"
+  },
+  {
+    "entityId": "fela-kuti",
+    "name": "Fela Kuti",
+    "years": "1938-1997",
+    "wikipediaSlug": "Fela_Kuti"
+  },
+  {
+    "entityId": "ferdinand-magellan",
+    "name": "Ferdinand Magellan",
+    "years": "c. 1480–1521",
+    "wikipediaSlug": "Ferdinand_Magellan"
+  },
+  {
+    "entityId": "fidel-castro",
+    "name": "Fidel Castro",
+    "years": "1926–2016",
+    "wikipediaSlug": "Fidel_Castro"
+  },
+  {
+    "entityId": "florence-nightingale",
+    "name": "Florence Nightingale",
+    "years": "1820–1910",
+    "wikipediaSlug": "Florence_Nightingale"
+  },
+  {
+    "entityId": "francis-crick",
+    "name": "Francis Crick",
+    "years": "1916-2004",
+    "wikipediaSlug": "Francis_Crick"
+  },
+  {
+    "entityId": "francis-drake",
+    "name": "Francis Drake",
+    "years": "c. 1540–1596",
+    "wikipediaSlug": "Francis_Drake"
+  },
+  {
+    "entityId": "francis-of-assisi",
+    "name": "Francis of Assisi",
+    "years": "1182–1226",
+    "wikipediaSlug": "Francis_of_Assisi"
+  },
+  {
+    "entityId": "francisco-goya",
+    "name": "Francisco Goya",
+    "years": "1746–1828",
+    "wikipediaSlug": "Francisco_Goya"
+  },
+  {
+    "entityId": "francisco-pizarro",
+    "name": "Francisco Pizarro",
+    "years": "c. 1478–1541",
+    "wikipediaSlug": "Francisco_Pizarro"
+  },
+  {
+    "entityId": "frank-wild",
+    "name": "Frank Wild",
+    "years": "1873–1939",
+    "wikipediaSlug": "Frank_Wild"
+  },
+  {
+    "entityId": "frank-worsley",
+    "name": "Frank Worsley",
+    "years": "1872–1943",
+    "wikipediaSlug": "Frank_Worsley"
+  },
+  {
+    "entityId": "franklin-d-roosevelt",
+    "name": "Franklin D. Roosevelt",
+    "years": "1882–1945",
+    "wikipediaSlug": "Franklin_D._Roosevelt"
+  },
+  {
+    "entityId": "franz-kafka",
+    "name": "Franz Kafka",
+    "years": "1883–1924",
+    "wikipediaSlug": "Franz_Kafka"
+  },
+  {
+    "entityId": "frederic-chopin",
+    "name": "Frédéric Chopin",
+    "years": "1810–1849",
+    "wikipediaSlug": "Frédéric_Chopin"
+  },
+  {
+    "entityId": "frederick-banting",
+    "name": "Frederick Banting",
+    "years": "1891–1941",
+    "wikipediaSlug": "Frederick_Banting"
+  },
+  {
+    "entityId": "frederick-fleet",
+    "name": "Frederick Fleet",
+    "years": "1887–1965",
+    "wikipediaSlug": "Frederick_Fleet"
+  },
+  {
+    "entityId": "frederick-law-olmsted",
+    "name": "Frederick Law Olmsted",
+    "years": "1822–1903",
+    "wikipediaSlug": "Frederick_Law_Olmsted"
+  },
+  {
+    "entityId": "frida-kahlo",
+    "name": "Frida Kahlo",
+    "years": "1907–1954",
+    "wikipediaSlug": "Frida_Kahlo"
+  },
+  {
+    "entityId": "friedrich-nietzsche",
+    "name": "Friedrich Nietzsche",
+    "years": "1844–1900",
+    "wikipediaSlug": "Friedrich_Nietzsche"
+  },
+  {
+    "entityId": "fyodor-dostoevsky",
+    "name": "Fyodor Dostoevsky",
+    "years": "1821–1881",
+    "wikipediaSlug": "Fyodor_Dostoevsky"
+  },
+  {
+    "entityId": "gabriel-garcia-marquez",
+    "name": "Gabriel García Márquez",
+    "years": "1927–2014",
+    "wikipediaSlug": "Gabriel_García_Márquez"
+  },
+  {
+    "entityId": "galileo-galilei",
+    "name": "Galileo Galilei",
+    "years": "1564–1642",
+    "wikipediaSlug": "Galileo_Galilei"
+  },
+  {
+    "entityId": "gamal-abdel-nasser",
+    "name": "Gamal Abdel Nasser",
+    "years": "1918–1970",
+    "wikipediaSlug": "Gamal_Abdel_Nasser"
+  },
+  {
+    "entityId": "gautama-buddha",
+    "name": "Gautama Buddha",
+    "years": "c. 563–483 BCE",
+    "wikipediaSlug": "Gautama_Buddha"
+  },
+  {
+    "entityId": "genghis-khan",
+    "name": "Genghis Khan",
+    "years": "c. 1162–1227",
+    "wikipediaSlug": "Genghis_Khan"
+  },
+  {
+    "entityId": "geoffrey-chaucer",
+    "name": "Geoffrey Chaucer",
+    "years": "c. 1343–1400",
+    "wikipediaSlug": "Geoffrey_Chaucer"
+  },
+  {
+    "entityId": "george-stephenson",
+    "name": "George Stephenson",
+    "years": "1781–1848",
+    "wikipediaSlug": "George_Stephenson"
+  },
+  {
+    "entityId": "george-washington",
+    "name": "George Washington",
+    "years": "1732–1799",
+    "wikipediaSlug": "George_Washington"
+  },
+  {
+    "entityId": "george-ferris",
+    "name": "George Washington Gale Ferris Jr.",
+    "years": "1859–1896",
+    "wikipediaSlug": "George_Washington_Gale_Ferris_Jr."
+  },
+  {
+    "entityId": "georgia-okeeffe",
+    "name": "Georgia O'Keeffe",
+    "years": "1887–1986",
+    "wikipediaSlug": "Georgia_O'Keeffe"
+  },
+  {
+    "entityId": "geronimo",
+    "name": "Geronimo",
+    "years": "1829–1909",
+    "wikipediaSlug": "Geronimo"
+  },
+  {
+    "entityId": "bernini",
+    "name": "Gian Lorenzo Bernini",
+    "years": "1598–1680",
+    "wikipediaSlug": "Gian_Lorenzo_Bernini"
+  },
+  {
+    "entityId": "gian-lorenzo-bernini",
+    "name": "Gian Lorenzo Bernini",
+    "years": "1598–1680",
+    "wikipediaSlug": "Gian_Lorenzo_Bernini"
+  },
+  {
+    "entityId": "giordano-bruno",
+    "name": "Giordano Bruno",
+    "years": "1548–1600",
+    "wikipediaSlug": "Giordano_Bruno"
+  },
+  {
+    "entityId": "giuseppe-garibaldi",
+    "name": "Giuseppe Garibaldi",
+    "years": "1807–1882",
+    "wikipediaSlug": "Giuseppe_Garibaldi"
+  },
+  {
+    "entityId": "gottfried-wilhelm-leibniz",
+    "name": "Gottfried Wilhelm Leibniz",
+    "years": "1646–1716",
+    "wikipediaSlug": "Gottfried_Wilhelm_Leibniz"
+  },
+  {
+    "entityId": "gunter-schabowski",
+    "name": "Gunter Schabowski",
+    "years": "1929–2015",
+    "wikipediaSlug": "Günter_Schabowski"
+  },
+  {
+    "entityId": "gustave-eiffel",
+    "name": "Gustave Eiffel",
+    "years": "1832–1923",
+    "wikipediaSlug": "Gustave_Eiffel"
+  },
+  {
+    "entityId": "guy-fawkes",
+    "name": "Guy Fawkes",
+    "years": "1570–1606",
+    "wikipediaSlug": "Guy_Fawkes"
+  },
+  {
+    "entityId": "hh-holmes",
+    "name": "H.H. Holmes",
+    "years": "1861–1896",
+    "wikipediaSlug": "H._H._Holmes"
+  },
+  {
+    "entityId": "hadrian",
+    "name": "Hadrian",
+    "years": "76–138",
+    "wikipediaSlug": "Hadrian"
+  },
+  {
+    "entityId": "haile-selassie",
+    "name": "Haile Selassie",
+    "years": "1892–1975",
+    "wikipediaSlug": "Haile_Selassie"
+  },
+  {
+    "entityId": "hannibal-barca",
+    "name": "Hannibal Barca",
+    "years": "247–183 BCE",
+    "wikipediaSlug": "Hannibal"
+  },
+  {
+    "entityId": "hans-christian-andersen",
+    "name": "Hans Christian Andersen",
+    "years": "1805–1875",
+    "wikipediaSlug": "Hans_Christian_Andersen"
+  },
+  {
+    "entityId": "harald-hardrada",
+    "name": "Harald Hardrada",
+    "years": "1015–1066",
+    "wikipediaSlug": "Harald_Hardrada"
+  },
+  {
+    "entityId": "harold-godwinson",
+    "name": "Harold Godwinson",
+    "years": "1022–1066",
+    "wikipediaSlug": "Harold_Godwinson"
+  },
+  {
+    "entityId": "harper-lee",
+    "name": "Harper Lee",
+    "years": "1926–2016",
+    "wikipediaSlug": "Harper_Lee"
+  },
+  {
+    "entityId": "harriet-tubman",
+    "name": "Harriet Tubman",
+    "years": "1822–1913",
+    "wikipediaSlug": "Harriet_Tubman"
+  },
+  {
+    "entityId": "hatshepsut",
+    "name": "Hatshepsut",
+    "years": "c. 1507–1458 BC",
+    "wikipediaSlug": "Hatshepsut"
+  },
+  {
+    "entityId": "schliemann",
+    "name": "Heinrich Schliemann",
+    "years": "1822–1890",
+    "wikipediaSlug": "Heinrich_Schliemann"
+  },
+  {
+    "entityId": "henry-ford",
+    "name": "Henry Ford",
+    "years": "1863–1947",
+    "wikipediaSlug": "Henry_Ford"
+  },
+  {
+    "entityId": "henry-morgan",
+    "name": "Henry Morgan",
+    "years": "1635–1688",
+    "wikipediaSlug": "Henry_Morgan"
+  },
+  {
+    "entityId": "henry-morton-stanley",
+    "name": "Henry Morton Stanley",
+    "years": "1841–1904",
+    "wikipediaSlug": "Henry_Morton_Stanley"
+  },
+  {
+    "entityId": "hernan-cortes",
+    "name": "Hernán Cortés",
+    "years": "1485–1547",
+    "wikipediaSlug": "Hernán_Cortés"
+  },
+  {
+    "entityId": "horatio-nelson",
+    "name": "Horatio Nelson",
+    "years": "1758–1805",
+    "wikipediaSlug": "Horatio_Nelson,_1st_Viscount_Nelson"
+  },
+  {
+    "entityId": "howard-carter",
+    "name": "Howard Carter",
+    "years": "1874–1939",
+    "wikipediaSlug": "Howard_Carter"
+  },
+  {
+    "entityId": "hulagu-khan",
+    "name": "Hulagu Khan",
+    "years": "c. 1217–1265",
+    "wikipediaSlug": "Hulagu_Khan"
+  },
+  {
+    "entityId": "ibn-battuta",
+    "name": "Ibn Battuta",
+    "years": "1304–1368",
+    "wikipediaSlug": "Ibn_Battuta"
+  },
+  {
+    "entityId": "ibn-khaldun",
+    "name": "Ibn Khaldun",
+    "years": "1332–1406",
+    "wikipediaSlug": "Ibn_Khaldun"
+  },
+  {
+    "entityId": "immanuel-kant",
+    "name": "Immanuel Kant",
+    "years": "1724–1804",
+    "wikipediaSlug": "Immanuel_Kant"
+  },
+  {
+    "entityId": "indira-gandhi",
+    "name": "Indira Gandhi",
+    "years": "1917–1984",
+    "wikipediaSlug": "Indira_Gandhi"
+  },
+  {
+    "entityId": "isaac-newton",
+    "name": "Isaac Newton",
+    "years": "1643–1727",
+    "wikipediaSlug": "Isaac_Newton"
+  },
+  {
+    "entityId": "robert-oppenheimer",
+    "name": "J. Robert Oppenheimer",
+    "years": "1904–1967",
+    "wikipediaSlug": "J._Robert_Oppenheimer"
+  },
+  {
+    "entityId": "jack-fawcett",
+    "name": "Jack Fawcett",
+    "years": "1903–1925?",
+    "wikipediaSlug": "Percy_Fawcett"
+  },
+  {
+    "entityId": "jack-ruby",
+    "name": "Jack Ruby",
+    "years": "1911–1967",
+    "wikipediaSlug": "Jack_Ruby"
+  },
+  {
+    "entityId": "jacques-cartier",
+    "name": "Jacques Cartier",
+    "years": "1491–1557",
+    "wikipediaSlug": "Jacques_Cartier"
+  },
+  {
+    "entityId": "jacques-piccard",
+    "name": "Jacques Piccard",
+    "years": "1922–2008",
+    "wikipediaSlug": "Jacques_Piccard"
+  },
+  {
+    "entityId": "james-cook",
+    "name": "James Cook",
+    "years": "1728–1779",
+    "wikipediaSlug": "James_Cook"
+  },
+  {
+    "entityId": "james-earl-ray",
+    "name": "James Earl Ray",
+    "years": "1928–1998",
+    "wikipediaSlug": "James_Earl_Ray"
+  },
+  {
+    "entityId": "james-joyce",
+    "name": "James Joyce",
+    "years": "1882-1941",
+    "wikipediaSlug": "James_Joyce"
+  },
+  {
+    "entityId": "janis-joplin",
+    "name": "Janis Joplin",
+    "years": "1943–1970",
+    "wikipediaSlug": "Janis_Joplin"
+  },
+  {
+    "entityId": "jean-jacques-rousseau",
+    "name": "Jean-Jacques Rousseau",
+    "years": "1712–1778",
+    "wikipediaSlug": "Jean-Jacques_Rousseau"
+  },
+  {
+    "entityId": "jeffrey-dahmer",
+    "name": "Jeffrey Dahmer",
+    "years": "1960–1994",
+    "wikipediaSlug": "Jeffrey_Dahmer"
+  },
+  {
+    "entityId": "jesse-owens",
+    "name": "Jesse Owens",
+    "years": "1913–1980",
+    "wikipediaSlug": "Jesse_Owens"
+  },
+  {
+    "entityId": "jim-white",
+    "name": "Jim White",
+    "years": "1882–1946",
+    "wikipediaSlug": "Jim_White_(caver)"
+  },
+  {
+    "entityId": "joan-of-arc",
+    "name": "Joan of Arc",
+    "years": "c. 1412–1431",
+    "wikipediaSlug": "Joan_of_Arc"
+  },
+  {
+    "entityId": "johann-sebastian-bach",
+    "name": "Johann Sebastian Bach",
+    "years": "1685–1750",
+    "wikipediaSlug": "Johann_Sebastian_Bach"
+  },
+  {
+    "entityId": "johann-wolfgang-von-goethe",
+    "name": "Johann Wolfgang von Goethe",
+    "years": "1749–1832",
+    "wikipediaSlug": "Johann_Wolfgang_von_Goethe"
+  },
+  {
+    "entityId": "johannes-gutenberg",
+    "name": "Johannes Gutenberg",
+    "years": "c. 1400–1468",
+    "wikipediaSlug": "Johannes_Gutenberg"
+  },
+  {
+    "entityId": "johannes-kepler",
+    "name": "Johannes Kepler",
+    "years": "1571–1630",
+    "wikipediaSlug": "Johannes_Kepler"
+  },
+  {
+    "entityId": "john-pershing",
+    "name": "John \"Black Jack\" Pershing",
+    "years": "1860–1948",
+    "wikipediaSlug": "John_J._Pershing"
+  },
+  {
+    "entityId": "john-adams",
+    "name": "John Adams",
+    "years": "1735–1826",
+    "wikipediaSlug": "John_Adams"
+  },
+  {
+    "entityId": "john-f-kennedy",
+    "name": "John F. Kennedy",
+    "years": "1917–1963",
+    "wikipediaSlug": "John_F._Kennedy"
+  },
+  {
+    "entityId": "john-lennon",
+    "name": "John Lennon",
+    "years": "1940–1980",
+    "wikipediaSlug": "John_Lennon"
+  },
+  {
+    "entityId": "john-locke",
+    "name": "John Locke",
+    "years": "1632–1704",
+    "wikipediaSlug": "John_Locke"
+  },
+  {
+    "entityId": "john-pemberton",
+    "name": "John Stith Pemberton",
+    "years": "1831–1888",
+    "wikipediaSlug": "John_Stith_Pemberton"
+  },
+  {
+    "entityId": "john-tunstall",
+    "name": "John Tunstall",
+    "years": "1853–1878",
+    "wikipediaSlug": "John_Tunstall"
+  },
+  {
+    "entityId": "john-wayne-gacy",
+    "name": "John Wayne Gacy",
+    "years": "1942–1994",
+    "wikipediaSlug": "John_Wayne_Gacy"
+  },
+  {
+    "entityId": "john-wilkes-booth",
+    "name": "John Wilkes Booth",
+    "years": "1838–1865",
+    "wikipediaSlug": "John_Wilkes_Booth"
+  },
+  {
+    "entityId": "jorn-utzon",
+    "name": "Jorn Utzon",
+    "years": "1918-2008",
+    "wikipediaSlug": "Jørn_Utzon"
+  },
+  {
+    "entityId": "joseph-stalin",
+    "name": "Joseph Stalin",
+    "years": "1878–1953",
+    "wikipediaSlug": "Joseph_Stalin"
+  },
+  {
+    "entityId": "josephine-baker",
+    "name": "Josephine Baker",
+    "years": "1906–1975",
+    "wikipediaSlug": "Josephine_Baker"
+  },
+  {
+    "entityId": "juan-diego",
+    "name": "Juan Diego",
+    "years": "1474–1548",
+    "wikipediaSlug": "Juan_Diego"
+  },
+  {
+    "entityId": "julia-child",
+    "name": "Julia Child",
+    "years": "1912–2004",
+    "wikipediaSlug": "Julia_Child"
+  },
+  {
+    "entityId": "justinian-i",
+    "name": "Justinian I",
+    "years": "482–565",
+    "wikipediaSlug": "Justinian_I"
+  },
+  {
+    "entityId": "karl-jansky",
+    "name": "Karl Jansky",
+    "years": "1905–1950",
+    "wikipediaSlug": "Karl_Guthe_Jansky"
+  },
+  {
+    "entityId": "karl-marx",
+    "name": "Karl Marx",
+    "years": "1818–1883",
+    "wikipediaSlug": "Karl_Marx"
+  },
+  {
+    "entityId": "king-david",
+    "name": "King David",
+    "years": "c. 1040–970 BCE",
+    "wikipediaSlug": "David"
+  },
+  {
+    "entityId": "lady-bird-johnson",
+    "name": "Lady Bird Johnson",
+    "years": "1912–2007",
+    "wikipediaSlug": "Lady_Bird_Johnson"
+  },
+  {
+    "entityId": "langston-hughes",
+    "name": "Langston Hughes",
+    "years": "1901–1967",
+    "wikipediaSlug": "Langston_Hughes"
+  },
+  {
+    "entityId": "lee-harvey-oswald",
+    "name": "Lee Harvey Oswald",
+    "years": "1939–1963",
+    "wikipediaSlug": "Lee_Harvey_Oswald"
+  },
+  {
+    "entityId": "leif-erikson",
+    "name": "Leif Erikson",
+    "years": "970–1020",
+    "wikipediaSlug": "Leif_Erikson"
+  },
+  {
+    "entityId": "leo-tolstoy",
+    "name": "Leo Tolstoy",
+    "years": "1828–1910",
+    "wikipediaSlug": "Leo_Tolstoy"
+  },
+  {
+    "entityId": "leonardo-da-vinci",
+    "name": "Leonardo da Vinci",
+    "years": "1452–1519",
+    "wikipediaSlug": "Leonardo_da_Vinci"
+  },
+  {
+    "entityId": "leonhard-euler",
+    "name": "Leonhard Euler",
+    "years": "1707–1783",
+    "wikipediaSlug": "Leonhard_Euler"
+  },
+  {
+    "entityId": "leonidas",
+    "name": "Leonidas I",
+    "years": "c. 540–480 BCE",
+    "wikipediaSlug": "Leonidas_I"
+  },
+  {
+    "entityId": "li-bai",
+    "name": "Li Bai",
+    "years": "701–762",
+    "wikipediaSlug": "Li_Bai"
+  },
+  {
+    "entityId": "lord-byron",
+    "name": "Lord Byron",
+    "years": "1788–1824",
+    "wikipediaSlug": "Lord_Byron"
+  },
+  {
+    "entityId": "lord-carnarvon",
+    "name": "Lord Carnarvon",
+    "years": "1866–1923",
+    "wikipediaSlug": "George_Herbert,_5th_Earl_of_Carnarvon"
+  },
+  {
+    "entityId": "louis-pasteur",
+    "name": "Louis Pasteur",
+    "years": "1822–1895",
+    "wikipediaSlug": "Louis_Pasteur"
+  },
+  {
+    "entityId": "beethoven",
+    "name": "Ludwig van Beethoven",
+    "years": "1770–1827",
+    "wikipediaSlug": "Ludwig_van_Beethoven"
+  },
+  {
+    "entityId": "lyndon-b-johnson",
+    "name": "Lyndon B. Johnson",
+    "years": "1908–1973",
+    "wikipediaSlug": "Lyndon_B._Johnson"
+  },
+  {
+    "entityId": "mahatma-gandhi",
+    "name": "Mahatma Gandhi",
+    "years": "1869–1948",
+    "wikipediaSlug": "Mahatma_Gandhi"
+  },
+  {
+    "entityId": "malcolm-x",
+    "name": "Malcolm X",
+    "years": "1925–1965",
+    "wikipediaSlug": "Malcolm_X"
+  },
+  {
+    "entityId": "mao-zedong",
+    "name": "Mao Zedong",
+    "years": "1893–1976",
+    "wikipediaSlug": "Mao_Zedong"
+  },
+  {
+    "entityId": "marco-polo",
+    "name": "Marco Polo",
+    "years": "1254–1324",
+    "wikipediaSlug": "Marco_Polo"
+  },
+  {
+    "entityId": "marcus-aurelius",
+    "name": "Marcus Aurelius",
+    "years": "121–180",
+    "wikipediaSlug": "Marcus_Aurelius"
+  },
+  {
+    "entityId": "marie-antoinette",
+    "name": "Marie Antoinette",
+    "years": "1755–1793",
+    "wikipediaSlug": "Marie_Antoinette"
+  },
+  {
+    "entityId": "marie-curie",
+    "name": "Marie Curie",
+    "years": "1867–1934",
+    "wikipediaSlug": "Marie_Curie"
+  },
+  {
+    "entityId": "mark-twain",
+    "name": "Mark Twain",
+    "years": "1835–1910",
+    "wikipediaSlug": "Mark_Twain"
+  },
+  {
+    "entityId": "martin-luther",
+    "name": "Martin Luther",
+    "years": "1483–1546",
+    "wikipediaSlug": "Martin_Luther"
+  },
+  {
+    "entityId": "martin-luther-king-jr",
+    "name": "Martin Luther King Jr.",
+    "years": "1929–1968",
+    "wikipediaSlug": "Martin_Luther_King_Jr."
+  },
+  {
+    "entityId": "commodore-perry",
+    "name": "Matthew C. Perry",
+    "years": "1794–1858",
+    "wikipediaSlug": "Matthew_C._Perry"
+  },
+  {
+    "entityId": "matthew-henson",
+    "name": "Matthew Henson",
+    "years": "1866–1955",
+    "wikipediaSlug": "Matthew_Henson"
+  },
+  {
+    "entityId": "maximilien-robespierre",
+    "name": "Maximilien Robespierre",
+    "years": "1758–1794",
+    "wikipediaSlug": "Maximilien_Robespierre"
+  },
+  {
+    "entityId": "mehmed-ii",
+    "name": "Mehmed II",
+    "years": "1432–1481",
+    "wikipediaSlug": "Mehmed_the_Conqueror"
+  },
+  {
+    "entityId": "meriwether-lewis",
+    "name": "Meriwether Lewis",
+    "years": "1774–1809",
+    "wikipediaSlug": "Meriwether_Lewis"
+  },
+  {
+    "entityId": "michael-collins-astronaut",
+    "name": "Michael Collins",
+    "years": "1930–2021",
+    "wikipediaSlug": "Michael_Collins_(astronaut)"
+  },
+  {
+    "entityId": "michael-faraday",
+    "name": "Michael Faraday",
+    "years": "1791–1867",
+    "wikipediaSlug": "Michael_Faraday"
+  },
+  {
+    "entityId": "michael-jackson",
+    "name": "Michael Jackson",
+    "years": "1958–2009",
+    "wikipediaSlug": "Michael_Jackson"
+  },
+  {
+    "entityId": "michelangelo",
+    "name": "Michelangelo",
+    "years": "1475–1564",
+    "wikipediaSlug": "Michelangelo"
+  },
+  {
+    "entityId": "miguel-de-cervantes",
+    "name": "Miguel de Cervantes",
+    "years": "1547–1616",
+    "wikipediaSlug": "Miguel_de_Cervantes"
+  },
+  {
+    "entityId": "moctezuma-ii",
+    "name": "Moctezuma II",
+    "years": "1466–1520",
+    "wikipediaSlug": "Moctezuma_II"
+  },
+  {
+    "entityId": "moliere",
+    "name": "Molière",
+    "years": "1622–1673",
+    "wikipediaSlug": "Molière"
+  },
+  {
+    "entityId": "moses",
+    "name": "Moses",
+    "years": "c. 1525–1405 BCE",
+    "wikipediaSlug": "Moses"
+  },
+  {
+    "entityId": "muhammad",
+    "name": "Muhammad",
+    "years": "c. 570–632",
+    "wikipediaSlug": "Muhammad"
+  },
+  {
+    "entityId": "muhammad-ali",
+    "name": "Muhammad Ali",
+    "years": "1942–2016",
+    "wikipediaSlug": "Muhammad_Ali"
+  },
+  {
+    "entityId": "al-khwarizmi",
+    "name": "Muhammad ibn Musa al-Khwarizmi",
+    "years": "c. 780–850",
+    "wikipediaSlug": "Muhammad_ibn_Musa_al-Khwarizmi"
+  },
+  {
+    "entityId": "murasaki-shikibu",
+    "name": "Murasaki Shikibu",
+    "years": "c. 973–1014",
+    "wikipediaSlug": "Murasaki_Shikibu"
+  },
+  {
+    "entityId": "mustafa-kemal-ataturk",
+    "name": "Mustafa Kemal Atatürk",
+    "years": "1881–1938",
+    "wikipediaSlug": "Mustafa_Kemal_Atatürk"
+  },
+  {
+    "entityId": "napoleon-bonaparte",
+    "name": "Napoleon Bonaparte",
+    "years": "1769–1821",
+    "wikipediaSlug": "Napoleon"
+  },
+  {
+    "entityId": "nefertiti",
+    "name": "Nefertiti",
+    "years": "c. 1370–1330 BC",
+    "wikipediaSlug": "Nefertiti"
+  },
+  {
+    "entityId": "neil-armstrong",
+    "name": "Neil Armstrong",
+    "years": "1930–2012",
+    "wikipediaSlug": "Neil_Armstrong"
+  },
+  {
+    "entityId": "nelson-mandela",
+    "name": "Nelson Mandela",
+    "years": "1918–2013",
+    "wikipediaSlug": "Nelson_Mandela"
+  },
+  {
+    "entityId": "nelson-miles",
+    "name": "Nelson Miles",
+    "years": "1839–1925",
+    "wikipediaSlug": "Nelson_A._Miles"
+  },
+  {
+    "entityId": "niccolo-machiavelli",
+    "name": "Niccolò Machiavelli",
+    "years": "1469–1527",
+    "wikipediaSlug": "Niccolò_Machiavelli"
+  },
+  {
+    "entityId": "copernicus",
+    "name": "Nicolaus Copernicus",
+    "years": "1473–1543",
+    "wikipediaSlug": "Nicolaus_Copernicus"
+  },
+  {
+    "entityId": "nikita-khrushchev",
+    "name": "Nikita Khrushchev",
+    "years": "1894–1971",
+    "wikipediaSlug": "Nikita_Khrushchev"
+  },
+  {
+    "entityId": "nikola-tesla",
+    "name": "Nikola Tesla",
+    "years": "1856–1943",
+    "wikipediaSlug": "Nikola_Tesla"
+  },
+  {
+    "entityId": "nostradamus",
+    "name": "Nostradamus",
+    "years": "1503–1566",
+    "wikipediaSlug": "Nostradamus"
+  },
+  {
+    "entityId": "o-henry",
+    "name": "O. Henry",
+    "years": "1862–1910",
+    "wikipediaSlug": "O._Henry"
+  },
+  {
+    "entityId": "omar-khayyam",
+    "name": "Omar Khayyam",
+    "years": "1048–1131",
+    "wikipediaSlug": "Omar_Khayyam"
+  },
+  {
+    "entityId": "orville-wright",
+    "name": "Orville Wright",
+    "years": "1871–1948",
+    "wikipediaSlug": "Wright_brothers"
+  },
+  {
+    "entityId": "oscar-wilde",
+    "name": "Oscar Wilde",
+    "years": "1854–1900",
+    "wikipediaSlug": "Oscar_Wilde"
+  },
+  {
+    "entityId": "oskar-schindler",
+    "name": "Oskar Schindler",
+    "years": "1908–1974",
+    "wikipediaSlug": "Oskar_Schindler"
+  },
+  {
+    "entityId": "otto-von-bismarck",
+    "name": "Otto von Bismarck",
+    "years": "1815–1898",
+    "wikipediaSlug": "Otto_von_Bismarck"
+  },
+  {
+    "entityId": "pablo-escobar",
+    "name": "Pablo Escobar",
+    "years": "1949–1993",
+    "wikipediaSlug": "Pablo_Escobar"
+  },
+  {
+    "entityId": "pablo-neruda",
+    "name": "Pablo Neruda",
+    "years": "1904–1973",
+    "wikipediaSlug": "Pablo_Neruda"
+  },
+  {
+    "entityId": "pablo-picasso",
+    "name": "Pablo Picasso",
+    "years": "1881–1973",
+    "wikipediaSlug": "Pablo_Picasso"
+  },
+  {
+    "entityId": "pachacuti",
+    "name": "Pachacuti",
+    "years": "1418–1472",
+    "wikipediaSlug": "Pachacuti"
+  },
+  {
+    "entityId": "pancho-villa",
+    "name": "Pancho Villa",
+    "years": "1878–1923",
+    "wikipediaSlug": "Pancho_Villa"
+  },
+  {
+    "entityId": "pat-garrett",
+    "name": "Pat Garrett",
+    "years": "1850–1908",
+    "wikipediaSlug": "Pat_Garrett"
+  },
+  {
+    "entityId": "pele",
+    "name": "Pelé",
+    "years": "1940–2022",
+    "wikipediaSlug": "Pelé"
+  },
+  {
+    "entityId": "percy-fawcett",
+    "name": "Percy Fawcett",
+    "years": "1867–1925?",
+    "wikipediaSlug": "Percy_Fawcett"
+  },
+  {
+    "entityId": "pericles",
+    "name": "Pericles",
+    "years": "c. 495–429 BC",
+    "wikipediaSlug": "Pericles"
+  },
+  {
+    "entityId": "perry-smith",
+    "name": "Perry Smith",
+    "years": "1928–1965",
+    "wikipediaSlug": "Perry_Smith_(murderer)"
+  },
+  {
+    "entityId": "peter-fechter",
+    "name": "Peter Fechter",
+    "years": "1944–1962",
+    "wikipediaSlug": "Peter_Fechter"
+  },
+  {
+    "entityId": "peter-higgs",
+    "name": "Peter Higgs",
+    "years": "1929-2024",
+    "wikipediaSlug": "Peter_Higgs"
+  },
+  {
+    "entityId": "peter-the-great",
+    "name": "Peter the Great",
+    "years": "1672–1725",
+    "wikipediaSlug": "Peter_the_Great"
+  },
+  {
+    "entityId": "pheidippides",
+    "name": "Pheidippides",
+    "years": "c. 530–490 BC",
+    "wikipediaSlug": "Pheidippides"
+  },
+  {
+    "entityId": "plato",
+    "name": "Plato",
+    "years": "c. 428–348 BCE",
+    "wikipediaSlug": "Plato"
+  },
+  {
+    "entityId": "pope-tewa",
+    "name": "Popé",
+    "years": "?–1692",
+    "wikipediaSlug": "Popé"
+  },
+  {
+    "entityId": "pope-julius-ii",
+    "name": "Pope Julius II",
+    "years": "1443–1513",
+    "wikipediaSlug": "Pope_Julius_II"
+  },
+  {
+    "entityId": "prince-carl-solms",
+    "name": "Prince Carl of Solms-Braunfels",
+    "years": "1812–1875",
+    "wikipediaSlug": "Carl_of_Solms-Braunfels"
+  },
+  {
+    "entityId": "puyi",
+    "name": "Puyi",
+    "years": "1906–1967",
+    "wikipediaSlug": "Puyi"
+  },
+  {
+    "entityId": "qianlong-emperor",
+    "name": "Qianlong Emperor",
+    "years": "1711–1799",
+    "wikipediaSlug": "Qianlong_Emperor"
+  },
+  {
+    "entityId": "qin-shi-huang",
+    "name": "Qin Shi Huang",
+    "years": "259–210 BCE",
+    "wikipediaSlug": "Qin_Shi_Huang"
+  },
+  {
+    "entityId": "queen-victoria",
+    "name": "Queen Victoria",
+    "years": "1819–1901",
+    "wikipediaSlug": "Queen_Victoria"
+  },
+  {
+    "entityId": "rabindranath-tagore",
+    "name": "Rabindranath Tagore",
+    "years": "1861–1941",
+    "wikipediaSlug": "Rabindranath_Tagore"
+  },
+  {
+    "entityId": "ramesses-ii",
+    "name": "Ramesses II",
+    "years": "c. 1303–1213 BC",
+    "wikipediaSlug": "Ramesses_II"
+  },
+  {
+    "entityId": "ranald-mackenzie",
+    "name": "Ranald S. Mackenzie",
+    "years": "1840–1889",
+    "wikipediaSlug": "Ranald_S._Mackenzie"
+  },
+  {
+    "entityId": "raphael",
+    "name": "Raphael",
+    "years": "1483–1520",
+    "wikipediaSlug": "Raphael"
+  },
+  {
+    "entityId": "ray-kroc",
+    "name": "Ray Kroc",
+    "years": "1902–1984",
+    "wikipediaSlug": "Ray_Kroc"
+  },
+  {
+    "entityId": "rembrandt",
+    "name": "Rembrandt",
+    "years": "1606–1669",
+    "wikipediaSlug": "Rembrandt"
+  },
+  {
+    "entityId": "rene-descartes",
+    "name": "René Descartes",
+    "years": "1596–1650",
+    "wikipediaSlug": "René_Descartes"
+  },
+  {
+    "entityId": "richard-iii",
+    "name": "Richard III",
+    "years": "1452–1485",
+    "wikipediaSlug": "Richard_III_of_England"
+  },
+  {
+    "entityId": "richard-wagner",
+    "name": "Richard Wagner",
+    "years": "1813–1883",
+    "wikipediaSlug": "Richard_Wagner"
+  },
+  {
+    "entityId": "roald-amundsen",
+    "name": "Roald Amundsen",
+    "years": "1872–1928",
+    "wikipediaSlug": "Roald_Amundsen"
+  },
+  {
+    "entityId": "rob-hall",
+    "name": "Rob Hall",
+    "years": "1961–1996",
+    "wikipediaSlug": "Rob_Hall"
+  },
+  {
+    "entityId": "robert-falcon-scott",
+    "name": "Robert Falcon Scott",
+    "years": "1868–1912",
+    "wikipediaSlug": "Robert_Falcon_Scott"
+  },
+  {
+    "entityId": "robert-peary",
+    "name": "Robert Peary",
+    "years": "1856–1920",
+    "wikipediaSlug": "Robert_Peary"
+  },
+  {
+    "entityId": "ronald-reagan",
+    "name": "Ronald Reagan",
+    "years": "1911–2004",
+    "wikipediaSlug": "Ronald_Reagan"
+  },
+  {
+    "entityId": "rosa-parks",
+    "name": "Rosa Parks",
+    "years": "1913–2005",
+    "wikipediaSlug": "Rosa_Parks"
+  },
+  {
+    "entityId": "rosalind-franklin",
+    "name": "Rosalind Franklin",
+    "years": "1920-1958",
+    "wikipediaSlug": "Rosalind_Franklin"
+  },
+  {
+    "entityId": "rumi",
+    "name": "Rumi",
+    "years": "1207–1273",
+    "wikipediaSlug": "Rumi"
+  },
+  {
+    "entityId": "saladin",
+    "name": "Saladin",
+    "years": "c. 1137–1193",
+    "wikipediaSlug": "Saladin"
+  },
+  {
+    "entityId": "salvador-allende",
+    "name": "Salvador Allende",
+    "years": "1908–1973",
+    "wikipediaSlug": "Salvador_Allende"
+  },
+  {
+    "entityId": "salvador-dali",
+    "name": "Salvador Dali",
+    "years": "1904–1989",
+    "wikipediaSlug": "Salvador_Dalí"
+  },
+  {
+    "entityId": "sam-houston",
+    "name": "Sam Houston",
+    "years": "1793–1863",
+    "wikipediaSlug": "Sam_Houston"
+  },
+  {
+    "entityId": "samuel-adams",
+    "name": "Samuel Adams",
+    "years": "1722–1803",
+    "wikipediaSlug": "Samuel_Adams"
+  },
+  {
+    "entityId": "samuel-de-champlain",
+    "name": "Samuel de Champlain",
+    "years": "c. 1567–1635",
+    "wikipediaSlug": "Samuel_de_Champlain"
+  },
+  {
+    "entityId": "scott-fischer",
+    "name": "Scott Fischer",
+    "years": "1955–1996",
+    "wikipediaSlug": "Scott_Fischer"
+  },
+  {
+    "entityId": "selim-i",
+    "name": "Selim I",
+    "years": "1470–1520",
+    "wikipediaSlug": "Selim_I"
+  },
+  {
+    "entityId": "sigmund-freud",
+    "name": "Sigmund Freud",
+    "years": "1856–1939",
+    "wikipediaSlug": "Sigmund_Freud"
+  },
+  {
+    "entityId": "simon-bolivar",
+    "name": "Simón Bolívar",
+    "years": "1783–1830",
+    "wikipediaSlug": "Simón_Bolívar"
+  },
+  {
+    "entityId": "sitting-bull",
+    "name": "Sitting Bull",
+    "years": "1831–1890",
+    "wikipediaSlug": "Sitting_Bull"
+  },
+  {
+    "entityId": "socrates",
+    "name": "Socrates",
+    "years": "c. 470–399 BC",
+    "wikipediaSlug": "Socrates"
+  },
+  {
+    "entityId": "solomon",
+    "name": "Solomon",
+    "years": "c. 970–931 BCE",
+    "wikipediaSlug": "Solomon"
+  },
+  {
+    "entityId": "sophocles",
+    "name": "Sophocles",
+    "years": "c. 497–406 BC",
+    "wikipediaSlug": "Sophocles"
+  },
+  {
+    "entityId": "steve-jobs",
+    "name": "Steve Jobs",
+    "years": "1955–2011",
+    "wikipediaSlug": "Steve_Jobs"
+  },
+  {
+    "entityId": "stevie-ray-vaughan",
+    "name": "Stevie Ray Vaughan",
+    "years": "1954–1990",
+    "wikipediaSlug": "Stevie_Ray_Vaughan"
+  },
+  {
+    "entityId": "suleiman-the-magnificent",
+    "name": "Suleiman the Magnificent",
+    "years": "1494–1566",
+    "wikipediaSlug": "Suleiman_the_Magnificent"
+  },
+  {
+    "entityId": "tecumseh",
+    "name": "Tecumseh",
+    "years": "1768–1813",
+    "wikipediaSlug": "Tecumseh"
+  },
+  {
+    "entityId": "ted-bundy",
+    "name": "Ted Bundy",
+    "years": "1946–1989",
+    "wikipediaSlug": "Ted_Bundy"
+  },
+  {
+    "entityId": "terry-fox",
+    "name": "Terry Fox",
+    "years": "1958–1981",
+    "wikipediaSlug": "Terry_Fox"
+  },
+  {
+    "entityId": "zodiac-killer",
+    "name": "The Zodiac Killer",
+    "years": "1968–1969",
+    "wikipediaSlug": "Zodiac_Killer"
+  },
+  {
+    "entityId": "theodora-byzantine",
+    "name": "Theodora",
+    "years": "c. 497–548",
+    "wikipediaSlug": "Theodora_(wife_of_Justinian_I)"
+  },
+  {
+    "entityId": "theodore-roosevelt",
+    "name": "Theodore Roosevelt",
+    "years": "1858–1919",
+    "wikipediaSlug": "Theodore_Roosevelt"
+  },
+  {
+    "entityId": "thomas-aquinas",
+    "name": "Thomas Aquinas",
+    "years": "c. 1225–1274",
+    "wikipediaSlug": "Thomas_Aquinas"
+  },
+  {
+    "entityId": "thomas-edison",
+    "name": "Thomas Edison",
+    "years": "1847–1931",
+    "wikipediaSlug": "Thomas_Edison"
+  },
+  {
+    "entityId": "thomas-jefferson",
+    "name": "Thomas Jefferson",
+    "years": "1743–1826",
+    "wikipediaSlug": "Thomas_Jefferson"
+  },
+  {
+    "entityId": "thor-heyerdahl",
+    "name": "Thor Heyerdahl",
+    "years": "1914–2002",
+    "wikipediaSlug": "Thor_Heyerdahl"
+  },
+  {
+    "entityId": "timur",
+    "name": "Timur (Tamerlane)",
+    "years": "1336–1405",
+    "wikipediaSlug": "Timur"
+  },
+  {
+    "entityId": "tokugawa-ieyasu",
+    "name": "Tokugawa Ieyasu",
+    "years": "1543–1616",
+    "wikipediaSlug": "Tokugawa_Ieyasu"
+  },
+  {
+    "entityId": "tom-crean",
+    "name": "Tom Crean",
+    "years": "1877–1938",
+    "wikipediaSlug": "Tom_Crean_(explorer)"
+  },
+  {
+    "entityId": "toussaint-louverture",
+    "name": "Toussaint Louverture",
+    "years": "1743–1803",
+    "wikipediaSlug": "Toussaint_Louverture"
+  },
+  {
+    "entityId": "truman-capote",
+    "name": "Truman Capote",
+    "years": "1924–1984",
+    "wikipediaSlug": "Truman_Capote"
+  },
+  {
+    "entityId": "tutankhamun",
+    "name": "Tutankhamun",
+    "years": "c. 1341–1323 BC",
+    "wikipediaSlug": "Tutankhamun"
+  },
+  {
+    "entityId": "ulugh-beg",
+    "name": "Ulugh Beg",
+    "years": "1394–1449",
+    "wikipediaSlug": "Ulugh_Beg"
+  },
+  {
+    "entityId": "umar",
+    "name": "Umar",
+    "years": "584–644",
+    "wikipediaSlug": "Umar"
+  },
+  {
+    "entityId": "vasco-da-gama",
+    "name": "Vasco da Gama",
+    "years": "c. 1460s–1524",
+    "wikipediaSlug": "Vasco_da_Gama"
+  },
+  {
+    "entityId": "vittorio-emanuele-ii",
+    "name": "Victor Emmanuel II",
+    "years": "1820–1878",
+    "wikipediaSlug": "Victor_Emmanuel_II"
+  },
+  {
+    "entityId": "victor-hugo",
+    "name": "Victor Hugo",
+    "years": "1802–1885",
+    "wikipediaSlug": "Victor_Hugo"
+  },
+  {
+    "entityId": "vincent-van-gogh",
+    "name": "Vincent van Gogh",
+    "years": "1853–1890",
+    "wikipediaSlug": "Vincent_van_Gogh"
+  },
+  {
+    "entityId": "virginia-woolf",
+    "name": "Virginia Woolf",
+    "years": "1882–1941",
+    "wikipediaSlug": "Virginia_Woolf"
+  },
+  {
+    "entityId": "vladimir-lenin",
+    "name": "Vladimir Lenin",
+    "years": "1870–1924",
+    "wikipediaSlug": "Vladimir_Lenin"
+  },
+  {
+    "entityId": "voltaire",
+    "name": "Voltaire",
+    "years": "1694–1778",
+    "wikipediaSlug": "Voltaire"
+  },
+  {
+    "entityId": "walt-disney",
+    "name": "Walt Disney",
+    "years": "1901–1966",
+    "wikipediaSlug": "Walt_Disney"
+  },
+  {
+    "entityId": "walter-gropius",
+    "name": "Walter Gropius",
+    "years": "1883–1969",
+    "wikipediaSlug": "Walter_Gropius"
+  },
+  {
+    "entityId": "wernher-von-braun",
+    "name": "Wernher von Braun",
+    "years": "1912–1977",
+    "wikipediaSlug": "Wernher_von_Braun"
+  },
+  {
+    "entityId": "wilbur-wright",
+    "name": "Wilbur Wright",
+    "years": "1867–1912",
+    "wikipediaSlug": "Wright_brothers"
+  },
+  {
+    "entityId": "william-barret-travis",
+    "name": "William Barret Travis",
+    "years": "1809–1836",
+    "wikipediaSlug": "William_B._Travis"
+  },
+  {
+    "entityId": "william-boeing",
+    "name": "William Boeing",
+    "years": "1881–1956",
+    "wikipediaSlug": "William_Boeing"
+  },
+  {
+    "entityId": "william-clark",
+    "name": "William Clark",
+    "years": "1770–1838",
+    "wikipediaSlug": "William_Clark_(explorer)"
+  },
+  {
+    "entityId": "william-shakespeare",
+    "name": "William Shakespeare",
+    "years": "1564–1616",
+    "wikipediaSlug": "William_Shakespeare"
+  },
+  {
+    "entityId": "william-the-conqueror",
+    "name": "William the Conqueror",
+    "years": "1028–1087",
+    "wikipediaSlug": "William_the_Conqueror"
+  },
+  {
+    "entityId": "wilma-rudolph",
+    "name": "Wilma Rudolph",
+    "years": "1940–1994",
+    "wikipediaSlug": "Wilma_Rudolph"
+  },
+  {
+    "entityId": "winston-churchill",
+    "name": "Winston Churchill",
+    "years": "1874–1965",
+    "wikipediaSlug": "Winston_Churchill"
+  },
+  {
+    "entityId": "wolfgang-mozart",
+    "name": "Wolfgang Amadeus Mozart",
+    "years": "1756–1791",
+    "wikipediaSlug": "Wolfgang_Amadeus_Mozart"
+  },
+  {
+    "entityId": "yongle-emperor",
+    "name": "Yongle Emperor",
+    "years": "1360–1424",
+    "wikipediaSlug": "Yongle_Emperor"
+  },
+  {
+    "entityId": "yukio-mishima",
+    "name": "Yukio Mishima",
+    "years": "1925–1970",
+    "wikipediaSlug": "Yukio_Mishima"
+  },
+  {
+    "entityId": "yuri-gagarin",
+    "name": "Yuri Gagarin",
+    "years": "1934–1968",
+    "wikipediaSlug": "Yuri_Gagarin"
+  },
+  {
+    "entityId": "zheng-he",
+    "name": "Zheng He",
+    "years": "1371–1433",
+    "wikipediaSlug": "Zheng_He"
+  }
+]

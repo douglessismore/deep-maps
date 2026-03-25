@@ -1,0 +1,548 @@
+[
+  {
+    "entity": {
+      "id": "george-washington",
+      "name": "George Washington",
+      "type": "person",
+      "years": "1732–1799",
+      "description": "Farmer-general who refused a crown twice. Washington commanded the Continental Army, presided over the Constitutional Convention, and set the two-term precedent. He kept a beloved hound named Sweetlips.",
+      "wikipedia_slug": "George_Washington",
+      "isNew": false
+    },
+    "moment": {
+      "id": "george-washington-burial",
+      "name": "Washington Rests Far From the Tomb Built in His Honor",
+      "subtitle": "Mount Comfort Cemetery, 9100 Richmond Hwy, Alexandria, VA — unmarked fieldstone boundary wall",
+      "description": "George Washington died December 14, 1799, at Mount Vernon after a rapid throat infection, likely epiglottitis worsened by aggressive bloodletting. Though a grand brick tomb at Mount Vernon bears his name and draws millions of visitors annually, Washington's actual remains were interred at Mount Comfort Cemetery in Alexandria — a quiet irony that the nation's most celebrated founder lies largely forgotten beneath a modest plot while tourists photograph an empty monument miles away.",
+      "year": 1799,
+      "date": "December 18, 1799"
+    },
+    "gps": {
+      "lat": 38.779587,
+      "lng": -77.08752
+    },
+    "cemetery": "Mount Comfort Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/53226756",
+    "bgRecordId": 53226756
+  },
+  {
+    "entity": {
+      "id": "thomas-jefferson",
+      "name": "Thomas Jefferson",
+      "type": "person",
+      "years": "1743–1826",
+      "description": "Founding Father who wrote America's birth certificate. Third President, architect of the Louisiana Purchase, and founder of the University of Virginia. Jefferson kept a mockingbird named Dick as a beloved companion.",
+      "wikipedia_slug": "Thomas_Jefferson",
+      "isNew": false
+    },
+    "moment": {
+      "id": "thomas-jefferson-burial",
+      "name": "Thomas Jefferson Buried Beneath an Obelisk That Omits the Presidency",
+      "subtitle": "Monticello Graveyard · 931 Thomas Jefferson Pkwy, Charlottesville, VA · rough-hewn granite obelisk stands six feet tall",
+      "description": "Jefferson died July 4, 1826 — the 50th anniversary of the Declaration he authored — hours before John Adams. Interred at Monticello Graveyard on his beloved mountaintop estate, Jefferson personally drafted his epitaph listing three achievements. Conspicuously absent: two terms as U.S. President. Jefferson considered the Declaration, the Virginia Statute for Religious Freedom, and founding the University of Virginia his true legacy.",
+      "year": 1826,
+      "date": "July 5, 1826"
+    },
+    "gps": {
+      "lat": 38.008526,
+      "lng": -78.455826
+    },
+    "cemetery": "Monticello Graveyard",
+    "bgUrl": "https://billiongraves.com/grave/r/15170148",
+    "bgRecordId": 15170148
+  },
+  {
+    "entity": {
+      "id": "andrew-jackson",
+      "name": "Andrew Jackson",
+      "type": "person",
+      "years": "1767–1845",
+      "description": "Old Hickory's iron will shaped a nation. The 7th President dismantled the National Bank, survived the first presidential assassination attempt, and kept a pet parrot named Poll who reportedly cursed at Jackson's funeral.",
+      "wikipedia_slug": "Andrew_Jackson",
+      "isNew": false
+    },
+    "moment": {
+      "id": "andrew-jackson-burial",
+      "name": "Andrew Jackson Buried Beside His Wife at the Plantation He Called Home",
+      "subtitle": "The Hermitage, 4580 Rachel's Lane, Nashville — a domed Greek Revival tomb shaded by cedar trees",
+      "description": "Andrew Jackson died June 8, 1845, at The Hermitage, aged 78, from heart failure and tuberculosis. Jackson was interred in the garden tomb beside his beloved wife Rachel, who died just days before his 1829 inauguration. The tomb's inscription honors Rachel rather than Jackson's presidency — a deliberate choice. Poll the parrot, Jackson's pet, had to be removed from the funeral for repeatedly swearing at mourners.",
+      "year": 1845,
+      "date": "June 10, 1845"
+    },
+    "gps": {
+      "lat": 36.21475492278917,
+      "lng": -86.61195946808816
+    },
+    "cemetery": "Hermitage Plantation",
+    "bgUrl": "https://billiongraves.com/grave/r/55669973",
+    "bgRecordId": 55669973
+  },
+  {
+    "entity": {
+      "id": "lyndon-b-johnson",
+      "name": "Lyndon B. Johnson",
+      "type": "person",
+      "years": "1963–1969",
+      "description": "Texan titan who signed the Civil Rights Act. LBJ escalated Vietnam while building the Great Society—Medicare, Voting Rights, federal education funding. Privately, Johnson was famous for conducting meetings from his bathroom.",
+      "wikipedia_slug": "Lyndon_B._Johnson",
+      "isNew": false
+    },
+    "moment": {
+      "id": "lyndon-b-johnson-burial",
+      "name": "Lyndon B. Johnson Returns to the Pedernales, Buried Beneath a Live Oak He Played Under as a Boy",
+      "subtitle": "Johnson Family Cemetery, LBJ Ranch, Stonewall, TX 78671 — a simple flat limestone slab among family graves",
+      "description": "Johnson died of a heart attack on January 22, 1973 — just two days before peace accords ended the Vietnam War Johnson had so desperately sought. Buried on the LBJ Ranch along the Pedernales River, the grave sits yards from the house where Johnson was born. The modest limestone marker stands in stark contrast to the massive political machinery Johnson commanded from Washington.",
+      "year": 1973,
+      "date": "January 25, 1973"
+    },
+    "gps": {
+      "lat": 30.23988999894842,
+      "lng": -98.610181622299
+    },
+    "cemetery": "Johnson Family Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/13128845",
+    "bgRecordId": 13128845
+  },
+  {
+    "entity": {
+      "id": "ronald-reagan",
+      "name": "Ronald Reagan",
+      "type": "person",
+      "years": "1911–2004",
+      "description": "The Great Communicator reshaped American conservatism forever. Reagan's presidency defined Cold War endgame, slashed taxes, and rebuilt military confidence. A former Hollywood actor, Reagan once co-starred with a chimpanzee.",
+      "wikipedia_slug": "Ronald_Reagan",
+      "isNew": false
+    },
+    "moment": {
+      "id": "ronald-reagan-burial",
+      "name": "Reagan Rests Facing the Pacific, Buried as the Sun Sets Over California",
+      "subtitle": "Ronald Reagan Presidential Library · 40 Presidential Dr, Simi Valley, CA · west-facing marble crypt",
+      "description": "Ronald Reagan died June 5, 2004, after a decade-long battle with Alzheimer's disease — a diagnosis he disclosed publicly in a handwritten letter to the nation in 1994. Reagan is interred at his presidential library in Simi Valley, California, in a west-facing crypt deliberately oriented so the setting sun illuminates the grave each evening. The site's inscription reads: 'I know in my heart that man is good.'",
+      "year": 2004,
+      "date": "June 11, 2004"
+    },
+    "gps": {
+      "lat": 34.259001037603,
+      "lng": -118.82047492091
+    },
+    "cemetery": "Ronald Reagan Presidential Library",
+    "bgUrl": "https://billiongraves.com/grave/r/31911863",
+    "bgRecordId": 31911863
+  },
+  {
+    "entity": {
+      "id": "james-monroe",
+      "name": "James Monroe",
+      "type": "person",
+      "years": "1758–1831",
+      "description": "Died broke, buried twice — Monroe shaped a nation. The last Founding Father president, Monroe authored the doctrine bearing his name, oversaw the Era of Good Feelings, and acquired Florida. He kept pet sheep on the White House lawn.",
+      "wikipedia_slug": "James_Monroe",
+      "isNew": true
+    },
+    "moment": {
+      "id": "james-monroe-burial",
+      "name": "James Monroe Rests Far From Home, Reburied 27 Years After Death",
+      "subtitle": "Hollywood Cemetery, 412 S Cherry St, Richmond, VA — Gothic cast-iron cage tomb on a bluff above the James River",
+      "description": "Monroe died July 4, 1831 — the third president to die on Independence Day — penniless and in New York City, far from his Virginia roots. He was first interred at Gouverneur Kip's vault in Manhattan. In 1858, Virginia reclaimed its native son, reburying Monroe at Hollywood Cemetery in a striking ornate iron sarcophagus. The tomb's elaborate Gothic cage, unique among presidential graves, was designed to signal Monroe's belated homecoming with unmistakable grandeur.",
+      "year": 1831,
+      "date": "July 4, 1831"
+    },
+    "gps": {
+      "lat": 37.53373665076995,
+      "lng": -77.45649817314286
+    },
+    "cemetery": "Hollywood Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/52098146",
+    "bgRecordId": 52098146
+  },
+  {
+    "entity": {
+      "id": "john-quincy-adams",
+      "name": "John Quincy Adams",
+      "type": "person",
+      "years": "1825–1829",
+      "description": "Collapsed on the House floor, still fighting at 80. Son of a Founding Father, JQA served as the only president to return to Congress after the White House — and died with his boots on.",
+      "wikipedia_slug": "John_Quincy_Adams",
+      "isNew": true
+    },
+    "moment": {
+      "id": "john-quincy-adams-burial",
+      "name": "John Quincy Adams Rests Beneath the Church He Helped Build With His Own Funds",
+      "subtitle": "United First Parish Church, 1306 Hancock St, Quincy, MA — a granite crypt beneath the sanctuary floor",
+      "description": "On February 23, 1848, Adams collapsed at his desk in the U.S. House of Representatives mid-session and died two days later, still in the Capitol. The former president was interred in the Adams Crypt beneath United First Parish Church in Quincy — the same granite church Adams personally helped finance. He lies beside his father, John Adams, making this the only American site holding two presidents and their wives in a single family vault.",
+      "year": 1848,
+      "date": "February 26, 1848"
+    },
+    "gps": {
+      "lat": 42.251295,
+      "lng": -71.0029675
+    },
+    "cemetery": "Adams Crypt (United First Parish Church)",
+    "bgUrl": "https://billiongraves.com/grave/r/21008130",
+    "bgRecordId": 21008130
+  },
+  {
+    "entity": {
+      "id": "martin-van-buren",
+      "name": "Martin Van Buren",
+      "type": "person",
+      "years": "1782–1862",
+      "description": "The Little Magician who conjured a nation's politics. Van Buren founded the Democratic Party, navigated the Panic of 1837, and was the first president born a U.S. citizen. He spoke English as a second language — Dutch was his mother tongue.",
+      "wikipedia_slug": "Martin_Van_Buren",
+      "isNew": true
+    },
+    "moment": {
+      "id": "martin-van-buren-burial",
+      "name": "Martin Van Buren Returns to Kinderhook, Buried Steps from His Birthplace",
+      "subtitle": "Kinderhook Reformed Church Cemetery, 35 Broad St, Kinderhook, NY — a modest granite obelisk marks the plot",
+      "description": "Van Buren died July 24, 1862, of asthma and heart failure at Lindenwald, his Kinderhook estate. The eighth president was laid to rest in the village churchyard where he had worshipped as a Dutch-speaking child — a rare presidential homecoming. The plain granite obelisk stands in quiet contrast to the political empire Van Buren built. He outlived his presidency by 22 years, long enough to oppose the Mexican-American War and run again in 1848.",
+      "year": 1862,
+      "date": "July 1862"
+    },
+    "gps": {
+      "lat": 42.40333765283451,
+      "lng": -73.70251086547384
+    },
+    "cemetery": "Kinderhook Reformed Church Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/28175925",
+    "bgRecordId": 28175925
+  },
+  {
+    "entity": {
+      "id": "john-tyler",
+      "name": "John Tyler",
+      "type": "person",
+      "years": "1790–1862",
+      "description": "Died a traitor to the nation he once led. Tyler, the 10th President, annexed Texas and pioneered the vice-presidential succession precedent. He owned enslaved people and died serving the Confederate Congress.",
+      "wikipedia_slug": "John_Tyler",
+      "isNew": true
+    },
+    "moment": {
+      "id": "john-tyler-burial",
+      "name": "John Tyler Buried Beneath a Confederate Flag, Mourned by Enemies of the Union",
+      "subtitle": "Hollywood Cemetery, 412 S Cherry St, Richmond, VA — obelisk draped in Confederate gray granite",
+      "description": "John Tyler died January 18, 1862, in Richmond, days before taking his seat in the Confederate House of Representatives. He is the only U.S. President whose death the federal government did not officially mourn. Buried at Hollywood Cemetery beneath a tall Confederate-flagged obelisk, Tyler rests among rebel soldiers — a former American president interred as an enemy of the United States.",
+      "year": 1862,
+      "date": "January 18, 1862"
+    },
+    "gps": {
+      "lat": 37.533740737607,
+      "lng": -77.456316467093
+    },
+    "cemetery": "Hollywood Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/63142101",
+    "bgRecordId": 63142101
+  },
+  {
+    "entity": {
+      "id": "zachary-taylor",
+      "name": "Zachary Taylor",
+      "type": "person",
+      "years": "1784–1850",
+      "description": "Died in office after just 16 months as president. Taylor, a career soldier who never voted before his own election, opposed the Compromise of 1850 despite owning enslaved people — a stance that shocked his Southern base.",
+      "wikipedia_slug": "Zachary_Taylor",
+      "isNew": true
+    },
+    "moment": {
+      "id": "zachary-taylor-burial",
+      "name": "Zachary Taylor Rests in a Cemetery Named in His Own Honor",
+      "subtitle": "Zachary Taylor National Cemetery, 4701 Brownsboro Rd, Louisville — a granite sarcophagus beneath a limestone pavilion",
+      "description": "Taylor died July 9, 1850, just five days after collapsing at a Fourth of July ceremony — likely from acute gastroenteritis. Originally interred in Washington, Taylor's remains were returned to the family estate in Louisville. The surrounding grounds became a national cemetery in 1928, making Taylor one of the few presidents buried in a facility bearing his own name. In 1991, the body was exhumed to test arsenic-poisoning theories; no foul play was found.",
+      "year": 1850,
+      "date": "July 13, 1850"
+    },
+    "gps": {
+      "lat": 38.27948508688162,
+      "lng": -85.64366854232789
+    },
+    "cemetery": "Zachary Taylor National Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/37813513",
+    "bgRecordId": 37813513
+  },
+  {
+    "entity": {
+      "id": "millard-fillmore",
+      "name": "Millard Fillmore",
+      "type": "person",
+      "years": "1800–1874",
+      "description": "Last Whig president reshaped America's uneasy peace. Signed the Compromise of 1850, including the Fugitive Slave Act. Kept a pet miniature horse named Billy in the White House stables.",
+      "wikipedia_slug": "Millard_Fillmore",
+      "isNew": true
+    },
+    "moment": {
+      "id": "millard-fillmore-burial",
+      "name": "Millard Fillmore Rests Beneath Buffalo's Most Visited Presidential Grave",
+      "subtitle": "Forest Lawn Cemetery, 1411 Delaware Ave, Buffalo, NY — tall granite obelisk marks the plot",
+      "description": "Fillmore died March 8, 1874, in Buffalo following a stroke, his last words reportedly about the taste of soup. Buried at Forest Lawn Cemetery, the 13th president lies beneath a soaring granite obelisk shared with both wives. The man who signed the law forcing free states to return escaped enslaved people spent his final decades as a forgotten figure — yet his Buffalo grave draws more visitors annually than those of many celebrated presidents.",
+      "year": 1874,
+      "date": "March 12, 1874"
+    },
+    "gps": {
+      "lat": 42.9293885,
+      "lng": -78.86346
+    },
+    "cemetery": "Forest Lawn Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/19160779",
+    "bgRecordId": 19160779
+  },
+  {
+    "entity": {
+      "id": "franklin-pierce",
+      "name": "Franklin Pierce",
+      "type": "person",
+      "years": "1853–1857",
+      "description": "Forgotten president who signed America's most explosive law. Pierce's Kansas-Nebraska Act of 1854 ripped open the slavery debate and accelerated the Civil War. He never forgave himself for losing his only surviving son in a train wreck weeks before his inauguration.",
+      "wikipedia_slug": "Franklin_Pierce",
+      "isNew": true
+    },
+    "moment": {
+      "id": "franklin-pierce-burial",
+      "name": "Franklin Pierce Buried Quietly in the State That Never Forgot Him",
+      "subtitle": "Old North Cemetery, 17 N State St, Concord, NH — modest granite headstone beneath towering elms",
+      "description": "Franklin Pierce died October 8, 1869, in Concord, NH, of stomach inflammation worsened by decades of heavy drinking. The nation largely ignored his passing — no state funeral, no national mourning. Pierce rests in Old North Cemetery beside his wife Jane and their three sons, all of whom predeceased him. The man who once commanded the presidency was buried with less ceremony than many private citizens of his era.",
+      "year": 1869,
+      "date": "October 16, 1869"
+    },
+    "gps": {
+      "lat": 43.215033438629,
+      "lng": -71.54508816218
+    },
+    "cemetery": "Old North Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/27102891",
+    "bgRecordId": 27102891
+  },
+  {
+    "entity": {
+      "id": "andrew-johnson",
+      "name": "Andrew Johnson",
+      "type": "person",
+      "years": "1808–1875",
+      "description": "Tailor-turned-president who defied a nation's grief. The only president impeached in the 19th century, Johnson clashed bitterly with Congress over Reconstruction. He learned to read as an adult, taught by his wife Eliza.",
+      "wikipedia_slug": "Andrew_Johnson",
+      "isNew": true
+    },
+    "moment": {
+      "id": "andrew-johnson-burial",
+      "name": "Andrew Johnson Buried Wrapped in the American Flag, Head Resting on the Constitution",
+      "subtitle": "Andrew Johnson National Cemetery, 121 Monument Ave, Greeneville, TN — white marble obelisk atop a wooded hill",
+      "description": "Andrew Johnson died July 31, 1875, of a stroke at age 66, just months after returning to the U.S. Senate — the only ex-president to do so. Buried in Greeneville, Tennessee, Johnson was interred per his own request: shrouded in an American flag, his head pillowed on a copy of the Constitution. The monument, a tall white obelisk, bears an eagle and the words 'His Faith in the People Never Wavered.'",
+      "year": 1875,
+      "date": "August 3, 1875"
+    },
+    "gps": {
+      "lat": 36.155594,
+      "lng": -82.837616
+    },
+    "cemetery": "Andrew Johnson National Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/29692985",
+    "bgRecordId": 29692985
+  },
+  {
+    "entity": {
+      "id": "ulysses-s-grant",
+      "name": "Ulysses S. Grant",
+      "type": "person",
+      "years": "1822–1885",
+      "description": "Broke and dying, Grant raced death to finish his memoirs. Commanded Union forces to Civil War victory; served two presidential terms marked by Reconstruction and scandal. Never smoked before the war — cigars became his public symbol after Vicksburg.",
+      "wikipedia_slug": "Ulysses_S._Grant",
+      "isNew": true
+    },
+    "moment": {
+      "id": "ulysses-s-grant-burial",
+      "name": "Grant Lies in the Largest Mausoleum in North America, Finished Writing 4 Days Before Death",
+      "subtitle": "General Grant National Memorial · Riverside Dr & W 122nd St, New York, NY · twin red granite sarcophagi",
+      "description": "Ulysses S. Grant died July 23, 1885, of throat cancer — a cruel end for the cigar-loving general. Buried at Riverside Park after 90,000 people helped fund the tomb, Grant's Memorial took 12 years to complete after the 1885 interment. The famous riddle 'Who is buried in Grant's Tomb?' has a trick answer: technically, Grant and wife Julia are entombed, not buried, in those twin sarcophagi.",
+      "year": 1885,
+      "date": "August 8, 1885"
+    },
+    "gps": {
+      "lat": 40.812907,
+      "lng": -73.963344
+    },
+    "cemetery": "General Grant National Memorial",
+    "bgUrl": "https://billiongraves.com/grave/r/50405903",
+    "bgRecordId": 50405903
+  },
+  {
+    "entity": {
+      "id": "grover-cleveland",
+      "name": "Grover Cleveland",
+      "type": "person",
+      "years": "1885–1889, 1893–1897",
+      "description": "The only president to serve two non-consecutive terms. Cleveland vetoed more bills than all predecessors combined, earning the nickname 'Veto President.' An avid fisherman, Cleveland once skipped a cabinet meeting to cast a line.",
+      "wikipedia_slug": "Grover_Cleveland",
+      "isNew": true
+    },
+    "moment": {
+      "id": "grover-cleveland-burial",
+      "name": "Grover Cleveland Rests Between Two Ivy League Giants, Yards from Einstein's Final Walk",
+      "subtitle": "Princeton Cemetery, 29 Greenview Ave, Princeton, NJ — a modest granite headstone beneath a canopy of oak",
+      "description": "Grover Cleveland died June 24, 1908, of heart and kidney failure at his Princeton home, Westland Mansion. Buried in Princeton Cemetery, the twice-elected, non-consecutive president lies just steps from the grave of Aaron Burr. The irony: Cleveland, a man who defined political stubbornness, chose a college town he never attended — Princeton University awarded Cleveland an honorary degree, and the town claimed him as its own.",
+      "year": 1908,
+      "date": "June 26, 1908"
+    },
+    "gps": {
+      "lat": 40.35298960752818,
+      "lng": -74.66077806435028
+    },
+    "cemetery": "Princeton Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/34895612",
+    "bgRecordId": 34895612
+  },
+  {
+    "entity": {
+      "id": "benjamin-harrison",
+      "name": "Benjamin Harrison",
+      "type": "person",
+      "years": "1833–1901",
+      "description": "Only grandson of a president to win the White House, Harrison served one term (1889–1893), signed the Sherman Antitrust Act, and admitted six states to the Union — more than any president since. He once memorized every soldier's name before shaking hands.",
+      "wikipedia_slug": "Benjamin_Harrison",
+      "isNew": true
+    },
+    "moment": {
+      "id": "benjamin-harrison-burial",
+      "name": "Benjamin Harrison Rests Between Two Wives Beneath a Granite Obelisk He Never Chose",
+      "subtitle": "Crown Hill Cemetery, Quadrant II — 700 W. 38th St., Indianapolis — a 16-foot pink granite shaft marks the plot",
+      "description": "Benjamin Harrison died March 13, 1901, of pneumonia complicated by influenza, just eight years after leaving office. He was interred at Crown Hill Cemetery in Indianapolis, where his first wife Caroline and second wife Mary are buried on either side of him — a domestic arrangement that reportedly unsettled both families. Crown Hill, the third-largest non-military cemetery in the United States, holds more than 200,000 burials. Harrison's grave sits in Quadrant II beneath a commanding obelisk, ...",
+      "year": 1901,
+      "date": "March 13, 1901"
+    },
+    "gps": {
+      "lat": 39.818913,
+      "lng": -86.17558
+    },
+    "cemetery": "Crown Hill Cemetery- Quadrant II",
+    "bgUrl": "https://billiongraves.com/grave/r/38847181",
+    "bgRecordId": 38847181
+  },
+  {
+    "entity": {
+      "id": "william-howard-taft",
+      "name": "William Howard Taft",
+      "type": "person",
+      "years": "1857–1930",
+      "description": "The only man to lead both branches: Taft served as 27th President (1909–1913) and later Chief Justice of the Supreme Court. Weighed over 300 lbs, he famously got stuck in the White House bathtub.",
+      "wikipedia_slug": "William_Howard_Taft",
+      "isNew": true
+    },
+    "moment": {
+      "id": "william-howard-taft-burial",
+      "name": "William Howard Taft Rests Where Soldiers Sleep, the Only President Buried Among Them",
+      "subtitle": "Arlington National Cemetery, 1 Memorial Ave, Arlington, VA — marked by a simple white granite slab",
+      "description": "William Howard Taft died March 8, 1930, of heart failure and arteriosclerosis in Washington, D.C. Buried March 11 at Arlington National Cemetery, Taft shares the grounds with over 400,000 military veterans — despite never serving in combat. A second president, John F. Kennedy, joined Taft at Arlington in 1963. Taft's grave is notably modest for a man who held the two highest offices in American government.",
+      "year": 1930,
+      "date": "March 11, 1930"
+    },
+    "gps": {
+      "lat": 38.88367076953572,
+      "lng": -77.0693386588955
+    },
+    "cemetery": "Arlington National Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/9747962",
+    "bgRecordId": 9747962
+  },
+  {
+    "entity": {
+      "id": "calvin-coolidge",
+      "name": "Calvin Coolidge",
+      "type": "person",
+      "years": "1923–1929",
+      "description": "Silent Cal governed with Yankee frugality and few words. Presided over the Roaring Twenties boom, slashed federal debt, and famously napped two hours daily. Kept a pet raccoon named Rebecca at the White House.",
+      "wikipedia_slug": "Calvin_Coolidge",
+      "isNew": true
+    },
+    "moment": {
+      "id": "calvin-coolidge-burial",
+      "name": "Calvin Coolidge Returns to the Vermont Hillside He Never Really Left",
+      "subtitle": "Plymouth Notch Cemetery, 978 VT-100A, Plymouth Notch, VT — a plain granite headstone among six generations of Coolidges",
+      "description": "Calvin Coolidge died of coronary thrombosis on January 5, 1933, at his Northampton, Massachusetts home — found alone on the laundry room floor. Buried January 7 in the same tiny hilltop cemetery holding his father, mother, and son Calvin Jr. The headstone is deliberately modest: just his name and dates. A man who presided over a decade of excess chose, in death, a $3 plot in a Vermont village of 500.",
+      "year": 1933,
+      "date": "January 7, 1933"
+    },
+    "gps": {
+      "lat": 43.53159228050612,
+      "lng": -72.72389227805648
+    },
+    "cemetery": "Plymouth Notch Cemetery",
+    "bgUrl": "https://billiongraves.com/grave/r/98437152",
+    "bgRecordId": 98437152
+  },
+  {
+    "entity": {
+      "id": "herbert-hoover",
+      "name": "Herbert Hoover",
+      "type": "person",
+      "years": "1929–1933",
+      "description": "Blamed for the Depression, Hoover outlived his reputation. Presided over the 1929 crash and Great Depression; later redeemed by post-WWII humanitarian work. An orphan by age nine who became a self-made millionaire.",
+      "wikipedia_slug": "Herbert_Hoover",
+      "isNew": true
+    },
+    "moment": {
+      "id": "herbert-hoover-burial",
+      "name": "Herbert Hoover Returns to the Iowa Prairie He Fled as a Penniless Orphan",
+      "subtitle": "Herbert Hoover Presidential Library and Museum · 210 Parkside Dr, West Branch, IA · simple granite slab flush with the hillside",
+      "description": "Herbert Hoover died October 20, 1964, in New York City at age 90 — the longest-lived president at the time. Buried alongside wife Lou Henry Hoover on a quiet grass knoll steps from the tiny West Branch cottage where Hoover was born in 1874. The stark, unadorned granite marker stands in deliberate contrast to the grandiose memorials of other presidents, reflecting Hoover's Quaker faith and lifelong distrust of ostentation.",
+      "year": 1964,
+      "date": "October 25, 1964"
+    },
+    "gps": {
+      "lat": 41.668163,
+      "lng": -91.352036
+    },
+    "cemetery": "Herbert Hoover Presidential Library and Museum",
+    "bgUrl": "https://billiongraves.com/grave/r/88656646",
+    "bgRecordId": 88656646
+  },
+  {
+    "entity": {
+      "id": "harry-s-truman",
+      "name": "Harry S. Truman",
+      "type": "person",
+      "years": "1884–1972",
+      "description": "Plain-spoken Missourian who ended WWII with atomic bombs. Truman desegregated the U.S. military, launched the Marshall Plan, and famously kept a desk sign reading 'The Buck Stops Here.' Never attended college.",
+      "wikipedia_slug": "Harry_S._Truman",
+      "isNew": true
+    },
+    "moment": {
+      "id": "harry-s-truman-burial",
+      "name": "Harry S. Truman Rests in the Courtyard He Chose Himself, Steps from His Own Archives",
+      "subtitle": "Harry S. Truman Presidential Library & Museum, 500 W US Hwy 24, Independence, MO — white marble slab flush with open sky",
+      "description": "Truman died December 26, 1972, in Kansas City, Missouri, at age 88. Rather than Arlington National Cemetery, Truman chose the courtyard of his own presidential library in Independence — the hometown he never truly left. Bess Truman, who outlived her husband by a decade, was interred beside him in 1982. The marble slabs lie in a quiet garden, surrounded by the very documents cataloging every decision Truman made in office.",
+      "year": 1972,
+      "date": "December 28, 1972"
+    },
+    "gps": {
+      "lat": 39.10351,
+      "lng": -94.4214
+    },
+    "cemetery": "Harry S. Truman Presidential Library and Museum",
+    "bgUrl": "https://billiongraves.com/grave/r/168147381",
+    "bgRecordId": 168147381
+  },
+  {
+    "entity": {
+      "id": "dwight-d-eisenhower",
+      "name": "Dwight D. Eisenhower",
+      "type": "person",
+      "years": "1890–1969",
+      "description": "Five-star general who became America's 34th president. Eisenhower commanded the D-Day invasion, ended the Korean War, and warned of the 'military-industrial complex' in his farewell address. Loved painting landscapes and cooking beef stew.",
+      "wikipedia_slug": "Dwight_D._Eisenhower",
+      "isNew": true
+    },
+    "moment": {
+      "id": "dwight-d-eisenhower-burial",
+      "name": "Eisenhower Rests in the Kansas Hometown He Once Fled for West Point",
+      "subtitle": "Place of Meditation, Eisenhower Presidential Center, 200 SE 4th St, Abilene, KS — white marble crypt set flush with the floor",
+      "description": "Dwight D. Eisenhower died March 28, 1969, of congestive heart failure at Walter Reed Army Medical Center, aged 78. He is interred alongside wife Mamie in the Place of Meditation chapel at the Eisenhower Presidential Center in Abilene — the small Kansas town he left at 20 and never expected to define his legacy. The chapel also holds the grave of the couple's firstborn son, Doud, who died at age three in 1921.",
+      "year": 1969,
+      "date": "April 2, 1969"
+    },
+    "gps": {
+      "lat": 38.911816,
+      "lng": -97.21303
+    },
+    "cemetery": "Eisenhower Presidential Center",
+    "bgUrl": "https://billiongraves.com/grave/r/128607630",
+    "bgRecordId": 128607630
+  }
+]

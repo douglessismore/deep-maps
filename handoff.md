@@ -129,16 +129,68 @@ Mobile-first geo-verification workflow:
 
 ---
 
+## BillionGraves Integration (Built This Session)
+
+### Pipeline Architecture (Two-Phase)
+- **Phase 1 (Discovery):** Chrome browser automation searches BG for each entity. Uses Next.js client-side router trick for batch navigation (~5 min for 60 entities). Outputs search results JSON.
+- **Phase 2 (Verification):** `npx tsx scripts/ingest/billiongraves.ts` reads mapping file → fetches GPS from BG record pages via `__NEXT_DATA__` → compares with existing coords → auto-updates or flags for review.
+
+### Key Finding: BG GPS Extraction
+BG record pages embed full data in `__NEXT_DATA__.props.pageProps.apiData.Record` including `lat`, `lon`, `cemetery_name`, etc. No auth needed — just fetch the page and parse JSON. Headstone-level GPS (~3m precision).
+
+### What Was Published
+1. **2 existing burial GPS corrections:** Clyde Barrow (50m), Barbara Jordan (437m) → pinpoint accuracy
+2. **15 burial moments for existing entities:** Lincoln, Hamilton, Poe, Marx, Curie, Ali, FDR, TR, Edison, Churchill, Livingstone, Rosa Parks, Burnham, Gauss, Dick Hickock
+3. **14 NEW person entities + burial moments from notable cemeteries:** Proust, Stein (Père Lachaise), Faraday, Litvinenko (Highgate), Garland, DeMille, Fairbanks, Ramone, Rooney (Hollywood Forever), Berlin, Stanton, Pulitzer, La Guardia (Woodlawn), Bernstein, Tiffany (Green-Wood)
+
+### Known Issues
+- 8 of 15 existing-entity burial descriptions exceed 500 char limit (need trimming)
+- Validator skill was NOT run on new content — should be run before considering production-ready
+- Some BG matches were false positives (wrong person at wrong cemetery) — filtered by cemetery-aware scoring
+
+### Key Files
+| File | Purpose |
+|------|---------|
+| `scripts/ingest/billiongraves.ts` | Phase 2: mapping-based GPS verification pipeline |
+| `scripts/ingest/lib/billiongraves-client.ts` | BG page fetch + `__NEXT_DATA__` GPS extraction |
+| `scripts/ingest/lib/name-matching.ts` | Jaro-Winkler + death year + cemetery scoring |
+| `scripts/ingest/bg-score-matches.ts` | Score BG search results against entities |
+| `scripts/ingest/bg-generate-moments.ts` | LLM burial moment generation for existing entities |
+| `scripts/ingest/bg-cemetery-generate.ts` | LLM burial moment + entity generation for new people |
+| `scripts/ingest/bg-publish.ts` | Publish reviewed moments to Supabase |
+| `scripts/output/bg-*.json` | Various intermediate data files |
+
+---
+
+## Critical Fixes Deployed This Session
+
+1. **Black screen crash (FIXED, deployed):** `accuracy: 'pinpoint'` not in frontend `ACCURACY_DISPLAY` lookup → React crash. Added `pinpoint` to `LocationAccuracy` type, `LocationCard.tsx`, `MiniMap.tsx`, `RapidVerify.tsx`. Commit `d46991f`, deployed to Vercel.
+2. **46 deleted stories restored to Supabase:** Commit `6409e36` incorrectly deleted 46 stories (Servant Girl Annihilator, Ed Gein, Dahmer, Bundy, JFK, MLK, Rosa Parks, Willie Nelson, Congress Ave Bats, Texas State Cemetery, etc.). All 46 restored to Supabase with 138 story_moments links. NOT yet restored to static `stories.ts` file (Supabase is source of truth for production).
+
+## Stitch MCP Integration (In Progress)
+
+- User ran `npx @_davideast/stitch-mcp init --client cc --transport stdio --yes`
+- Selected API Key auth, pasted key
+- **Next:** Restart Claude Code to activate MCP tools (`get_screen_code`, `get_screen_image`, `build_site`)
+- Stitch project has Deep Maps redesign mockups: dark/light explore, entity profile, story detail, timeline
+
+## Design Redesign Plan
+
+- Create `design-v2` branch for full redesign
+- Implement Stitch design ideas incrementally (highest-impact first)
+- Priority order: (A) color palette + typography, (B) card redesign, (C) timeline bar polish, (D) mobile bottom nav, (E) "Follow This Rabbit Hole" CTA
+- Keep all existing functionality (scroll-driven map, clustering, story mode, etc.)
+
 ## Immediate Next Session Priorities
 
-1. **Fix remaining UX bugs:** map panning randomly (Andrew), markers disappearing
-2. **Verify serial killer collection geo-accuracy** (all pins) before Reddit post
-3. **Build entity/story/collection browse mode** in Rapid Verify
-4. **Run /design-review on main app** (not just /verify)
-5. **Trump content rewrite**
-6. **Post first collection to Reddit** (after geo-verification)
-7. **Add Plausible analytics**
-8. **Build BillionGraves integration** for burial moment coordinates
+1. **Test Stitch MCP connection** — verify tools work after restart
+2. **Create `design-v2` branch** — start implementing Stitch design ideas
+3. **Create biography stories for 33 orphan BG entities** — so their burial moments show as proper stories
+4. **Complete US Presidents collection** — 15 missing presidents, create Supabase collection
+5. **Run `/deep-maps-validator`** on all 51 BG burial moments
+6. **Fix remaining UX bugs:** map panning randomly (Andrew), markers disappearing
+7. **Post first collection to Reddit** (after geo-verification)
+8. **Restore 46 deleted stories to static `stories.ts`** — currently only in Supabase
 
 ---
 

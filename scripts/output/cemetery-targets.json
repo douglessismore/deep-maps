@@ -1,0 +1,107 @@
+[
+  {
+    "cemetery": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "country": "France",
+    "lat": 48.8614,
+    "lng": 2.3934,
+    "notableBurials": [
+      {"name": "Edith Piaf", "years": "1915–1963", "search": "Edith Piaf"},
+      {"name": "Marcel Proust", "years": "1871–1922", "search": "Marcel Proust"},
+      {"name": "Honoré de Balzac", "years": "1799–1850", "search": "Honore Balzac"},
+      {"name": "Molière", "years": "1622–1673", "search": "Moliere"},
+      {"name": "Amedeo Modigliani", "years": "1884–1920", "search": "Amedeo Modigliani"},
+      {"name": "Isadora Duncan", "years": "1877–1927", "search": "Isadora Duncan"},
+      {"name": "Gertrude Stein", "years": "1874–1946", "search": "Gertrude Stein"},
+      {"name": "Richard Wright", "years": "1908–1960", "search": "Richard Wright"},
+      {"name": "Georges Bizet", "years": "1838–1875", "search": "Georges Bizet"},
+      {"name": "Eugène Delacroix", "years": "1798–1863", "search": "Eugene Delacroix"},
+      {"name": "Sarah Bernhardt", "years": "1844–1923", "search": "Sarah Bernhardt"},
+      {"name": "Georges Haussmann", "years": "1809–1891", "search": "Georges Haussmann"},
+      {"name": "Colette", "years": "1873–1954", "search": "Colette"},
+      {"name": "Max Ernst", "years": "1891–1976", "search": "Max Ernst"},
+      {"name": "Maria Callas", "years": "1923–1977", "search": "Maria Callas"},
+      {"name": "Yves Montand", "years": "1921–1991", "search": "Yves Montand"},
+      {"name": "Camille Pissarro", "years": "1830–1903", "search": "Camille Pissarro"}
+    ]
+  },
+  {
+    "cemetery": "Highgate Cemetery",
+    "city": "London",
+    "country": "England",
+    "lat": 51.5672,
+    "lng": -0.1466,
+    "notableBurials": [
+      {"name": "George Eliot", "years": "1819–1880", "search": "George Eliot"},
+      {"name": "Douglas Adams", "years": "1952–2001", "search": "Douglas Adams"},
+      {"name": "Michael Faraday", "years": "1791–1867", "search": "Michael Faraday"},
+      {"name": "Christina Rossetti", "years": "1830–1894", "search": "Christina Rossetti"},
+      {"name": "Patrick Caulfield", "years": "1936–2005", "search": "Patrick Caulfield"},
+      {"name": "Alexander Litvinenko", "years": "1962–2006", "search": "Alexander Litvinenko"},
+      {"name": "Malcolm McLaren", "years": "1946–2010", "search": "Malcolm McLaren"},
+      {"name": "George Michael", "years": "1963–2016", "search": "George Michael"}
+    ]
+  },
+  {
+    "cemetery": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "country": "United States",
+    "lat": 34.0905,
+    "lng": -118.3185,
+    "notableBurials": [
+      {"name": "Judy Garland", "years": "1922–1969", "search": "Judy Garland"},
+      {"name": "Cecil B. DeMille", "years": "1881–1959", "search": "Cecil DeMille"},
+      {"name": "Rudolph Valentino", "years": "1895–1926", "search": "Rudolph Valentino"},
+      {"name": "Douglas Fairbanks", "years": "1883–1939", "search": "Douglas Fairbanks"},
+      {"name": "Johnny Ramone", "years": "1948–2004", "search": "Johnny Ramone"},
+      {"name": "Chris Cornell", "years": "1964–2017", "search": "Chris Cornell"},
+      {"name": "Jayne Mansfield", "years": "1933–1967", "search": "Jayne Mansfield"},
+      {"name": "Mickey Rooney", "years": "1920–2014", "search": "Mickey Rooney"}
+    ]
+  },
+  {
+    "cemetery": "Recoleta Cemetery",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.5879,
+    "lng": -58.3936,
+    "notableBurials": [
+      {"name": "Domingo Sarmiento", "years": "1811–1888", "search": "Domingo Sarmiento"},
+      {"name": "Raúl Alfonsín", "years": "1927–2009", "search": "Raul Alfonsin"},
+      {"name": "Luis Federico Leloir", "years": "1906–1987", "search": "Luis Leloir"},
+      {"name": "Adolfo Bioy Casares", "years": "1914–1999", "search": "Adolfo Bioy Casares"}
+    ]
+  },
+  {
+    "cemetery": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "country": "United States",
+    "lat": 40.8971,
+    "lng": -73.8701,
+    "notableBurials": [
+      {"name": "Duke Ellington", "years": "1899–1974", "search": "Duke Ellington"},
+      {"name": "Miles Davis", "years": "1926–1991", "search": "Miles Davis"},
+      {"name": "Herman Melville", "years": "1819–1891", "search": "Herman Melville"},
+      {"name": "Irving Berlin", "years": "1888–1989", "search": "Irving Berlin"},
+      {"name": "Elizabeth Cady Stanton", "years": "1815–1902", "search": "Elizabeth Cady Stanton"},
+      {"name": "Joseph Pulitzer", "years": "1847–1911", "search": "Joseph Pulitzer"},
+      {"name": "Fiorello La Guardia", "years": "1882–1947", "search": "Fiorello La Guardia"},
+      {"name": "Celia Cruz", "years": "1925–2003", "search": "Celia Cruz"}
+    ]
+  },
+  {
+    "cemetery": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "country": "United States",
+    "lat": 40.6583,
+    "lng": -73.9947,
+    "notableBurials": [
+      {"name": "Leonard Bernstein", "years": "1918–1990", "search": "Leonard Bernstein"},
+      {"name": "Jean-Michel Basquiat", "years": "1960–1988", "search": "Jean-Michel Basquiat"},
+      {"name": "Boss Tweed", "years": "1823–1878", "search": "William Tweed"},
+      {"name": "Louis Comfort Tiffany", "years": "1848–1933", "search": "Louis Tiffany"},
+      {"name": "Samuel Morse", "years": "1791–1872", "search": "Samuel Morse"},
+      {"name": "Henry Ward Beecher", "years": "1813–1887", "search": "Henry Beecher"}
+    ]
+  }
+]

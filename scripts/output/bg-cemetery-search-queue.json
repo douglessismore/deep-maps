@@ -1,0 +1,394 @@
+[
+  {
+    "e": "edith-piaf",
+    "n": "Edith Piaf",
+    "d": 1963,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Edith&FamilyName=Piaf&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1963&EventDeathYearRange=5"
+  },
+  {
+    "e": "marcel-proust",
+    "n": "Marcel Proust",
+    "d": 1922,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Marcel&FamilyName=Proust&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1922&EventDeathYearRange=5"
+  },
+  {
+    "e": "honor-de-balzac",
+    "n": "Honoré de Balzac",
+    "d": 1850,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Honore&FamilyName=Balzac&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1850&EventDeathYearRange=5"
+  },
+  {
+    "e": "amedeo-modigliani",
+    "n": "Amedeo Modigliani",
+    "d": 1920,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Amedeo&FamilyName=Modigliani&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1920&EventDeathYearRange=5"
+  },
+  {
+    "e": "isadora-duncan",
+    "n": "Isadora Duncan",
+    "d": 1927,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Isadora&FamilyName=Duncan&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1927&EventDeathYearRange=5"
+  },
+  {
+    "e": "gertrude-stein",
+    "n": "Gertrude Stein",
+    "d": 1946,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Gertrude&FamilyName=Stein&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1946&EventDeathYearRange=5"
+  },
+  {
+    "e": "richard-wright",
+    "n": "Richard Wright",
+    "d": 1960,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Richard&FamilyName=Wright&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1960&EventDeathYearRange=5"
+  },
+  {
+    "e": "georges-bizet",
+    "n": "Georges Bizet",
+    "d": 1875,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Georges&FamilyName=Bizet&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1875&EventDeathYearRange=5"
+  },
+  {
+    "e": "eug-ne-delacroix",
+    "n": "Eugène Delacroix",
+    "d": 1863,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Eugene&FamilyName=Delacroix&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1863&EventDeathYearRange=5"
+  },
+  {
+    "e": "sarah-bernhardt",
+    "n": "Sarah Bernhardt",
+    "d": 1923,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Sarah&FamilyName=Bernhardt&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1923&EventDeathYearRange=5"
+  },
+  {
+    "e": "georges-haussmann",
+    "n": "Georges Haussmann",
+    "d": 1891,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Georges&FamilyName=Haussmann&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1891&EventDeathYearRange=5"
+  },
+  {
+    "e": "max-ernst",
+    "n": "Max Ernst",
+    "d": 1976,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Max&FamilyName=Ernst&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1976&EventDeathYearRange=5"
+  },
+  {
+    "e": "maria-callas",
+    "n": "Maria Callas",
+    "d": 1977,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Maria&FamilyName=Callas&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1977&EventDeathYearRange=5"
+  },
+  {
+    "e": "yves-montand",
+    "n": "Yves Montand",
+    "d": 1991,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Yves&FamilyName=Montand&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1991&EventDeathYearRange=5"
+  },
+  {
+    "e": "camille-pissarro",
+    "n": "Camille Pissarro",
+    "d": 1903,
+    "cem": "Père Lachaise Cemetery",
+    "city": "Paris",
+    "u": "https://billiongraves.com/search/results?GivenNames=Camille&FamilyName=Pissarro&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1903&EventDeathYearRange=5"
+  },
+  {
+    "e": "george-eliot",
+    "n": "George Eliot",
+    "d": 1880,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=George&FamilyName=Eliot&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1880&EventDeathYearRange=5"
+  },
+  {
+    "e": "douglas-adams",
+    "n": "Douglas Adams",
+    "d": 2001,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=Douglas&FamilyName=Adams&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2001&EventDeathYearRange=5"
+  },
+  {
+    "e": "michael-faraday",
+    "n": "Michael Faraday",
+    "d": 1867,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=Michael&FamilyName=Faraday&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1867&EventDeathYearRange=5"
+  },
+  {
+    "e": "christina-rossetti",
+    "n": "Christina Rossetti",
+    "d": 1894,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=Christina&FamilyName=Rossetti&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1894&EventDeathYearRange=5"
+  },
+  {
+    "e": "patrick-caulfield",
+    "n": "Patrick Caulfield",
+    "d": 2005,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=Patrick&FamilyName=Caulfield&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2005&EventDeathYearRange=5"
+  },
+  {
+    "e": "alexander-litvinenko",
+    "n": "Alexander Litvinenko",
+    "d": 2006,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=Alexander&FamilyName=Litvinenko&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2006&EventDeathYearRange=5"
+  },
+  {
+    "e": "malcolm-mclaren",
+    "n": "Malcolm McLaren",
+    "d": 2010,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=Malcolm&FamilyName=McLaren&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2010&EventDeathYearRange=5"
+  },
+  {
+    "e": "george-michael",
+    "n": "George Michael",
+    "d": 2016,
+    "cem": "Highgate Cemetery",
+    "city": "London",
+    "u": "https://billiongraves.com/search/results?GivenNames=George&FamilyName=Michael&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2016&EventDeathYearRange=5"
+  },
+  {
+    "e": "judy-garland",
+    "n": "Judy Garland",
+    "d": 1969,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Judy&FamilyName=Garland&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1969&EventDeathYearRange=5"
+  },
+  {
+    "e": "cecil-b-demille",
+    "n": "Cecil B. DeMille",
+    "d": 1959,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Cecil&FamilyName=DeMille&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1959&EventDeathYearRange=5"
+  },
+  {
+    "e": "rudolph-valentino",
+    "n": "Rudolph Valentino",
+    "d": 1926,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Rudolph&FamilyName=Valentino&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1926&EventDeathYearRange=5"
+  },
+  {
+    "e": "douglas-fairbanks",
+    "n": "Douglas Fairbanks",
+    "d": 1939,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Douglas&FamilyName=Fairbanks&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1939&EventDeathYearRange=5"
+  },
+  {
+    "e": "johnny-ramone",
+    "n": "Johnny Ramone",
+    "d": 2004,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Johnny&FamilyName=Ramone&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2004&EventDeathYearRange=5"
+  },
+  {
+    "e": "chris-cornell",
+    "n": "Chris Cornell",
+    "d": 2017,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Chris&FamilyName=Cornell&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2017&EventDeathYearRange=5"
+  },
+  {
+    "e": "jayne-mansfield",
+    "n": "Jayne Mansfield",
+    "d": 1967,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Jayne&FamilyName=Mansfield&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1967&EventDeathYearRange=5"
+  },
+  {
+    "e": "mickey-rooney",
+    "n": "Mickey Rooney",
+    "d": 2014,
+    "cem": "Hollywood Forever Cemetery",
+    "city": "Los Angeles",
+    "u": "https://billiongraves.com/search/results?GivenNames=Mickey&FamilyName=Rooney&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2014&EventDeathYearRange=5"
+  },
+  {
+    "e": "domingo-sarmiento",
+    "n": "Domingo Sarmiento",
+    "d": 1888,
+    "cem": "Recoleta Cemetery",
+    "city": "Buenos Aires",
+    "u": "https://billiongraves.com/search/results?GivenNames=Domingo&FamilyName=Sarmiento&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1888&EventDeathYearRange=5"
+  },
+  {
+    "e": "ra-l-alfons-n",
+    "n": "Raúl Alfonsín",
+    "d": 2009,
+    "cem": "Recoleta Cemetery",
+    "city": "Buenos Aires",
+    "u": "https://billiongraves.com/search/results?GivenNames=Raul&FamilyName=Alfonsin&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2009&EventDeathYearRange=5"
+  },
+  {
+    "e": "luis-federico-leloir",
+    "n": "Luis Federico Leloir",
+    "d": 1987,
+    "cem": "Recoleta Cemetery",
+    "city": "Buenos Aires",
+    "u": "https://billiongraves.com/search/results?GivenNames=Luis&FamilyName=Leloir&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1987&EventDeathYearRange=5"
+  },
+  {
+    "e": "adolfo-bioy-casares",
+    "n": "Adolfo Bioy Casares",
+    "d": 1999,
+    "cem": "Recoleta Cemetery",
+    "city": "Buenos Aires",
+    "u": "https://billiongraves.com/search/results?GivenNames=Adolfo+Bioy&FamilyName=Casares&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1999&EventDeathYearRange=5"
+  },
+  {
+    "e": "duke-ellington",
+    "n": "Duke Ellington",
+    "d": 1974,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Duke&FamilyName=Ellington&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1974&EventDeathYearRange=5"
+  },
+  {
+    "e": "miles-davis",
+    "n": "Miles Davis",
+    "d": 1991,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Miles&FamilyName=Davis&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1991&EventDeathYearRange=5"
+  },
+  {
+    "e": "herman-melville",
+    "n": "Herman Melville",
+    "d": 1891,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Herman&FamilyName=Melville&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1891&EventDeathYearRange=5"
+  },
+  {
+    "e": "irving-berlin",
+    "n": "Irving Berlin",
+    "d": 1989,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Irving&FamilyName=Berlin&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1989&EventDeathYearRange=5"
+  },
+  {
+    "e": "elizabeth-cady-stanton",
+    "n": "Elizabeth Cady Stanton",
+    "d": 1902,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Elizabeth+Cady&FamilyName=Stanton&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1902&EventDeathYearRange=5"
+  },
+  {
+    "e": "joseph-pulitzer",
+    "n": "Joseph Pulitzer",
+    "d": 1911,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Joseph&FamilyName=Pulitzer&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1911&EventDeathYearRange=5"
+  },
+  {
+    "e": "fiorello-la-guardia",
+    "n": "Fiorello La Guardia",
+    "d": 1947,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Fiorello&FamilyName=La+Guardia&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1947&EventDeathYearRange=5"
+  },
+  {
+    "e": "celia-cruz",
+    "n": "Celia Cruz",
+    "d": 2003,
+    "cem": "Woodlawn Cemetery",
+    "city": "Bronx, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Celia&FamilyName=Cruz&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=2003&EventDeathYearRange=5"
+  },
+  {
+    "e": "leonard-bernstein",
+    "n": "Leonard Bernstein",
+    "d": 1990,
+    "cem": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Leonard&FamilyName=Bernstein&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1990&EventDeathYearRange=5"
+  },
+  {
+    "e": "jean-michel-basquiat",
+    "n": "Jean-Michel Basquiat",
+    "d": 1988,
+    "cem": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Jean-Michel&FamilyName=Basquiat&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1988&EventDeathYearRange=5"
+  },
+  {
+    "e": "boss-tweed",
+    "n": "Boss Tweed",
+    "d": 1878,
+    "cem": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=William&FamilyName=Tweed&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1878&EventDeathYearRange=5"
+  },
+  {
+    "e": "louis-comfort-tiffany",
+    "n": "Louis Comfort Tiffany",
+    "d": 1933,
+    "cem": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Louis&FamilyName=Tiffany&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1933&EventDeathYearRange=5"
+  },
+  {
+    "e": "samuel-morse",
+    "n": "Samuel Morse",
+    "d": 1872,
+    "cem": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Samuel&FamilyName=Morse&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1872&EventDeathYearRange=5"
+  },
+  {
+    "e": "henry-ward-beecher",
+    "n": "Henry Ward Beecher",
+    "d": 1887,
+    "cem": "Green-Wood Cemetery",
+    "city": "Brooklyn, New York",
+    "u": "https://billiongraves.com/search/results?GivenNames=Henry&FamilyName=Beecher&GivenNamesExact=false&FamilyNameExact=false&PageSize=20&PageNumber=1&EventDeathYear=1887&EventDeathYearRange=5"
+  }
+]
