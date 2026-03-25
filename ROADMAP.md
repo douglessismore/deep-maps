@@ -32,6 +32,7 @@
 - [ ] **Admin panel refinements** — User feedback pending, iterate on UX
 - [ ] **User-facing "Report Inaccuracy" button** — Crowdsource accuracy fixes from users (v2)
 - [ ] **Entity type subtabs** — Add type filter row below Stories/Places tabs (All | Biographies | Film | Music | Books | Artifacts). Preserves familiar tab structure, scales to new entity types.
+- [ ] **Place type filtering** — Filter/sort moments by `type_id` (burial, residence, battlefield, landmark, church, cemetery, etc.). Could enable "show me all cemeteries" or "show me all battlefields" browsing. Data already exists in `moment_types` table — needs UI.
 - [ ] **Collection click UX** — Don't zoom out from local view when clicking a collection. Show in-viewport moments. "Show all on map" for explicit zoom-out. Plan at `.claude/plans/adaptive-noodling-deer.md`.
 - [ ] **Notability ranking transparency** — System score visible alongside optional user rating. User disagrees Trump should be #1 → user rating provides ground truth for tuning.
 - [ ] **Story/collection zoom UX** — Maintain zoom level when clicking from zoomed-in view
@@ -54,6 +55,10 @@
 - [ ] PWA wrapper for app store distribution
 - [ ] SEO landing pages for collections
 
+### Long-Term / Premium Features
+- [ ] **Tour Guide Mode** — Give your route (A→B), DeepMaps suggests minor detours to pass the most interesting stories. User picks theme preferences ("dark history only", "sports focused", "mix of everything"). LLM generates a geo-coded, geo-triggered narration that strings stories together as a tailored tour — flowing between moments as you walk/drive. Notifications fire at proximity triggers. Could start with simple "what's around me" alerts and build toward the full route-planning + narrative generation. Likely premium feature (LLM token cost per tour). Key tech: PWA geofencing, route optimization, narrative generation pipeline.
+- [ ] **Curated walking tours as collections** — Pre-built walking paths (Rome, Paris, London) ordered by geography so moments flow naturally. Could be the "lite" version of Tour Guide Mode — no LLM generation, just curated sequence.
+
 ---
 
 ## Content Curation
@@ -63,6 +68,11 @@
 - [ ] **25 biography wiring issues**
 - [ ] Write descriptions for ~196 empty biography stories
 - [ ] Merge overnight content agent drafts (Scandinavia/Nordic, Central Asia, Oceania, Caribbean + Science/Culture/Music/Literature)
+
+### Collection Fixes
+- [ ] **Rename "Indigenous Peoples: Resistance and Survival"** — too stylized. Should be matter-of-fact so users know what they're filtering to (e.g., "Indigenous History Sites" or similar). Match the directness of other collections.
+- [ ] **Walking tour / road trip collections** — Curate collections for specific walking paths (start with Rome, Paris, London) and road trip routes. Pull from best walking tour guides, compile into geo-sequenced collections. Test with seed cities first.
+- [x] **US Presidents Burials** — "Where Every US President Is Buried" collection created with all 39 deceased presidents (session 2026-03-25)
 
 ### Completed This Session (2026-03-23)
 - [x] Crash sites collection — 27 moments (Tenerife, JAL 123, Lockerbie, MH370, Miracle on Hudson, etc.)

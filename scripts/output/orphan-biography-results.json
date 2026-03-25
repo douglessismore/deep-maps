@@ -1,0 +1,845 @@
+[
+  {
+    "entityId": "edgar-allan-poe",
+    "storyId": "edgar-allan-poe-biography",
+    "id": "edgar-allan-poe-biography",
+    "name": "Edgar Allan Poe",
+    "years": "1809–1849",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Orphaned at 2, expelled from West Point, buried twice in Baltimore — Poe's life of gothic chaos fed the horror and detective fiction he invented.",
+    "tags": [
+      "literature",
+      "gothic",
+      "baltimore",
+      "arts-culture",
+      "19th-century"
+    ],
+    "wikipedia_slug": "Edgar_Allan_Poe"
+  },
+  {
+    "entityId": "franklin-d-roosevelt",
+    "storyId": "franklin-d-roosevelt-biography",
+    "id": "franklin-d-roosevelt-biography",
+    "name": "Franklin D. Roosevelt",
+    "years": "1882–1945",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Led the U.S. through Depression and World War II, survived polio, hid his wheelchair from the public, and died in office at Warm Springs — four terms of concealed struggle and open power.",
+    "tags": [
+      "political-drama",
+      "world-war-ii",
+      "new-deal",
+      "hyde-park",
+      "warm-springs"
+    ],
+    "wikipedia_slug": "Franklin_D._Roosevelt"
+  },
+  {
+    "entityId": "rosa-parks",
+    "storyId": "rosa-parks-biography",
+    "id": "rosa-parks-biography",
+    "name": "Rosa Parks",
+    "years": "1913–2005",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Refused her seat on a Montgomery bus, sparked a 381-day boycott, then spent decades in Detroit carrying the movement forward. One act that rewired American civil rights.",
+    "tags": [
+      "civil-rights",
+      "political-drama",
+      "montgomery",
+      "detroit",
+      "activism"
+    ],
+    "wikipedia_slug": "Rosa_Parks"
+  },
+  {
+    "entityId": "john-pershing",
+    "storyId": "john-pershing-biography",
+    "id": "john-pershing-biography",
+    "name": "John \"Black Jack\" Pershing",
+    "years": "1860–1948",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Chased Villa into Mexico, commanded all AEF forces in WWI, and earned his fourth star — America's last General of the Armies. A soldier's soldier across three wars.",
+    "tags": [
+      "military",
+      "world-war-i",
+      "mexico",
+      "american-west",
+      "political-drama"
+    ],
+    "wikipedia_slug": "John_J._Pershing"
+  },
+  {
+    "entityId": "jack-ruby",
+    "storyId": "jack-ruby-biography",
+    "id": "jack-ruby-biography",
+    "name": "Jack Ruby",
+    "years": "1911–1967",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Shot Oswald on live TV, silencing the only suspect in JFK's murder. Nightclub owner turned history's most-watched killer — the Dallas moment that deepened every conspiracy.",
+    "tags": [
+      "assassination",
+      "political-drama",
+      "dallas",
+      "organized-crime",
+      "cold-war-era"
+    ],
+    "wikipedia_slug": "Jack_Ruby"
+  },
+  {
+    "entityId": "james-earl-ray",
+    "storyId": "james-earl-ray-biography",
+    "id": "james-earl-ray-biography",
+    "name": "James Earl Ray",
+    "years": "1928–1998",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Fired one shot from a Memphis bathroom window, killing MLK. Fled to London before capture. Recanted, confessed, died imprisoned. A life defined by one trigger pull.",
+    "tags": [
+      "assassination",
+      "civil-rights-era",
+      "memphis",
+      "fugitive",
+      "political-drama"
+    ],
+    "wikipedia_slug": "James_Earl_Ray"
+  },
+  {
+    "entityId": "sam-houston",
+    "storyId": "sam-houston-biography",
+    "id": "sam-houston-biography",
+    "name": "Sam Houston",
+    "years": "1793–1863",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Fled Tennessee governorship in disgrace, led Texas to independence at San Jacinto, twice president of the Republic — Houston's archive power play sparked a cannon in the street. Frontier statesman, two nations governed.",
+    "tags": [
+      "texas",
+      "republic-of-texas",
+      "political-drama",
+      "frontier-politics",
+      "tennessee"
+    ],
+    "wikipedia_slug": "Sam_Houston"
+  },
+  {
+    "entityId": "george-strait",
+    "storyId": "george-strait-biography",
+    "id": "george-strait-biography",
+    "name": "George Strait",
+    "years": "1952–present",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Played Gruene Hall for beer money, then sold 100M records without a crossover gimmick. 60 No. 1 hits, a Vegas residency, the king who never left Texas country.",
+    "tags": [
+      "country-music",
+      "texas",
+      "honky-tonk",
+      "live-performance"
+    ],
+    "wikipedia_slug": "George_Strait"
+  },
+  {
+    "entityId": "napoleon-bonaparte",
+    "storyId": "napoleon-bonaparte-biography",
+    "id": "napoleon-bonaparte-biography",
+    "name": "Napoleon Bonaparte",
+    "years": "1769–1821",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Seized power from a crumbling Republic, snatched the crown from the Pope's hands, routed the Mamluks beneath the Pyramids. A soldier who became emperor — and a corpse Paris refused to forget.",
+    "tags": [
+      "political-drama",
+      "military",
+      "france",
+      "empire",
+      "revolution"
+    ],
+    "wikipedia_slug": "Napoleon"
+  },
+  {
+    "entityId": "langston-hughes",
+    "storyId": "langston-hughes-biography",
+    "id": "langston-hughes-biography",
+    "name": "Langston Hughes",
+    "years": "1901–1967",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Publishes 'The Negro Speaks of Rivers' at 19, anchors the Harlem Renaissance, faces McCarthy-era interrogation, dies as the poet laureate of Black America. A life of verse forged into political witness.",
+    "tags": [
+      "poetry",
+      "harlem-renaissance",
+      "civil-rights",
+      "harlem",
+      "jazz"
+    ],
+    "wikipedia_slug": "Langston_Hughes"
+  },
+  {
+    "entityId": "steve-jobs",
+    "storyId": "steve-jobs-biography",
+    "id": "steve-jobs-biography",
+    "name": "Steve Jobs",
+    "years": "1955–2011",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Garage in Cupertino births Apple; exile and return reshape Silicon Valley. One stage, one device, three gadgets erased — the arc of a tech visionary.",
+    "tags": [
+      "technology",
+      "entrepreneurship",
+      "silicon-valley",
+      "cupertino",
+      "computing"
+    ],
+    "wikipedia_slug": "Steve_Jobs"
+  },
+  {
+    "entityId": "jesse-owens",
+    "storyId": "jesse-owens-biography",
+    "id": "jesse-owens-biography",
+    "name": "Jesse Owens",
+    "years": "1913–1980",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "45 minutes, four world records, one college track meet. Then Berlin 1936: four golds under Hitler's gaze. A Black American rewrote the rules of race and sport in the same breath.",
+    "tags": [
+      "athletics",
+      "olympic-games",
+      "civil-rights",
+      "berlin",
+      "track-and-field"
+    ],
+    "wikipedia_slug": "Jesse_Owens"
+  },
+  {
+    "entityId": "gian-lorenzo-bernini",
+    "storyId": "gian-lorenzo-bernini-biography",
+    "id": "gian-lorenzo-bernini-biography",
+    "name": "Gian Lorenzo Bernini",
+    "years": "1598–1680",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "A chisel turns marble into myth: Apollo lunges, Daphne sprouts laurel at 24. Decades later, four river gods erupt from travertine at Navona's heart. Stone made to breathe — the arc of a sculptor who rewrote Rome.",
+    "tags": [
+      "sculpture",
+      "baroque",
+      "rome",
+      "architecture",
+      "papal-patronage"
+    ],
+    "wikipedia_slug": "Gian_Lorenzo_Bernini"
+  },
+  {
+    "entityId": "andre-breton",
+    "storyId": "andre-breton-biography",
+    "id": "andre-breton-biography",
+    "name": "André Breton",
+    "years": "1896–1966",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Drafted the Surrealist Manifesto at a Paris café, led the movement that rewired modern art. Expelled rivals, fled Nazi-occupied France, shaped Frida Kahlo. A life of manifestos and ruptures.",
+    "tags": [
+      "surrealism",
+      "avant-garde",
+      "paris",
+      "literature",
+      "political-drama"
+    ],
+    "wikipedia_slug": "André_Breton"
+  },
+  {
+    "entityId": "virginia-woolf",
+    "storyId": "virginia-woolf-biography",
+    "id": "virginia-woolf-biography",
+    "name": "Virginia Woolf",
+    "years": "1882–1941",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "46 Gordon Square ignites the Bloomsbury Group; Mrs Dalloway and To the Lighthouse rewrite the novel's interior; a Sussex river ends it all. Literature's great modernist mind.",
+    "tags": [
+      "modernist-literature",
+      "bloomsbury",
+      "london",
+      "stream-of-consciousness"
+    ],
+    "wikipedia_slug": "Virginia_Woolf"
+  },
+  {
+    "entityId": "oskar-schindler",
+    "storyId": "oskar-schindler-biography",
+    "id": "oskar-schindler-biography",
+    "name": "Oskar Schindler",
+    "years": "1908–1974",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Bribed Nazi officers, ran a black-market empire, then sheltered 1,100 Jews inside his Kraków factory walls. War profiteer turned rescuer — one list changed everything.",
+    "tags": [
+      "world-war-ii",
+      "holocaust",
+      "kraków",
+      "resistance",
+      "political-drama"
+    ],
+    "wikipedia_slug": "Oskar_Schindler"
+  },
+  {
+    "entityId": "marcel-proust",
+    "storyId": "marcel-proust-biography",
+    "id": "marcel-proust-biography",
+    "name": "Marcel Proust",
+    "years": "?–1922",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Died with pages still wet: Proust buried mid-revision of his 7-volume novel. Cork-lined room, lost time, a masterpiece finished only by death. Literature's great obsessive.",
+    "tags": [
+      "literature",
+      "modernism",
+      "paris",
+      "french-fiction",
+      "arts-culture"
+    ],
+    "wikipedia_slug": "Marcel_Proust"
+  },
+  {
+    "entityId": "gertrude-stein",
+    "storyId": "gertrude-stein-biography",
+    "id": "gertrude-stein-biography",
+    "name": "Gertrude Stein",
+    "years": "?–1946",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Buried under a stone naming both sides of a love story: Stein's Paris salon shaped Picasso, Hemingway, and modernism itself. A life of radical prose and radical love.",
+    "tags": [
+      "literature",
+      "modernism",
+      "paris",
+      "arts-culture",
+      "expatriate"
+    ],
+    "wikipedia_slug": "Gertrude_Stein"
+  },
+  {
+    "entityId": "alexander-litvinenko",
+    "storyId": "alexander-litvinenko-biography",
+    "id": "alexander-litvinenko-biography",
+    "name": "Alexander Litvinenko",
+    "years": "?–2006",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Poisoned by polonium-210 in a London hotel, died 23 days later under armed guard — a KGB defector's death that became an international incident. Cold War espionage turned fatal.",
+    "tags": [
+      "espionage",
+      "cold-war",
+      "russia",
+      "london",
+      "political-drama"
+    ],
+    "wikipedia_slug": "Alexander_Litvinenko"
+  },
+  {
+    "entityId": "judy-garland",
+    "storyId": "judy-garland-biography",
+    "id": "judy-garland-biography",
+    "name": "Judy Garland",
+    "years": "?–1969",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Blacklisted at 29, comeback at Carnegie Hall, five marriages, final curtain in London — Garland's life was American showbiz at its most brilliant and brutal.",
+    "tags": [
+      "hollywood",
+      "film",
+      "music",
+      "arts-culture",
+      "los-angeles"
+    ],
+    "wikipedia_slug": "Judy_Garland"
+  },
+  {
+    "entityId": "cecil-b-demille",
+    "storyId": "cecil-b-demille-biography",
+    "id": "cecil-b-demille-biography",
+    "name": "Cecil B. DeMille",
+    "years": "?–1959",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Staged the parting of the Red Sea, invented the Hollywood epic, ruled Paramount for decades. Buried yards from the studio lot. The man who built the industry from the ground up.",
+    "tags": [
+      "film",
+      "hollywood",
+      "director",
+      "paramount",
+      "los-angeles"
+    ],
+    "wikipedia_slug": "Cecil_B._DeMille"
+  },
+  {
+    "entityId": "douglas-fairbanks",
+    "storyId": "douglas-fairbanks-biography",
+    "id": "douglas-fairbanks-biography",
+    "name": "Douglas Fairbanks",
+    "years": "?–1939",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Swashbuckling silent film icon, co-founded United Artists, built Pickfair with Mary Pickford — buried beneath a reflecting pool his son commissioned. The acrobat who invented Hollywood stardom.",
+    "tags": [
+      "silent film",
+      "hollywood",
+      "arts-culture",
+      "los angeles",
+      "united artists"
+    ],
+    "wikipedia_slug": "Douglas_Fairbanks"
+  },
+  {
+    "entityId": "johnny-ramone",
+    "storyId": "johnny-ramone-biography",
+    "id": "johnny-ramone-biography",
+    "name": "Johnny Ramone",
+    "years": "?–2004",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Forest Lawn burial beneath a bronze effigy, Mosrite guitar in hand — co-founder of the Ramones, architect of punk's jackhammer downstroke. A life of three-chord revolution.",
+    "tags": [
+      "punk",
+      "rock",
+      "new-york",
+      "guitar",
+      "arts-culture"
+    ],
+    "wikipedia_slug": "Johnny_Ramone"
+  },
+  {
+    "entityId": "mickey-rooney",
+    "storyId": "mickey-rooney-biography",
+    "id": "mickey-rooney-biography",
+    "name": "Mickey Rooney",
+    "years": "?–2014",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Child star turned Andy Hardy icon, Judy Garland's on-screen partner, eight marriages, bankruptcy — Rooney outlived an era and was buried among Hollywood's golden age dead.",
+    "tags": [
+      "film",
+      "hollywood",
+      "vaudeville",
+      "los-angeles"
+    ],
+    "wikipedia_slug": "Mickey_Rooney"
+  },
+  {
+    "entityId": "irving-berlin",
+    "storyId": "irving-berlin-biography",
+    "id": "irving-berlin-biography",
+    "name": "Irving Berlin",
+    "years": "?–1989",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Immigrant boy became America's composer: 'White Christmas,' 'God Bless America,' 'Alexander's Ragtime Band' — then buried quietly at 101. A century of writing the nation's soul.",
+    "tags": [
+      "music",
+      "songwriting",
+      "broadway",
+      "new-york",
+      "arts-culture"
+    ],
+    "wikipedia_slug": "Irving_Berlin"
+  },
+  {
+    "entityId": "elizabeth-cady-stanton",
+    "storyId": "elizabeth-cady-stanton-biography",
+    "id": "elizabeth-cady-stanton-biography",
+    "name": "Elizabeth Cady Stanton",
+    "years": "?–1902",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Drafted the Declaration of Sentiments at Seneca Falls, co-founded the suffrage movement, then died in 1902 — 18 years before women voted. A life of unfinished revolutions.",
+    "tags": [
+      "suffrage",
+      "women's-rights",
+      "political-drama",
+      "seneca-falls",
+      "19th-century-america"
+    ],
+    "wikipedia_slug": "Elizabeth_Cady_Stanton"
+  },
+  {
+    "entityId": "joseph-pulitzer",
+    "storyId": "joseph-pulitzer-biography",
+    "id": "joseph-pulitzer-biography",
+    "name": "Joseph Pulitzer",
+    "years": "?–1911",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Built New York World into a circulation war weapon, funded the Statue of Liberty pedestal, waged yellow journalism battles from a soundproofed yacht — a press empire built despite total blindness and deafness.",
+    "tags": [
+      "journalism",
+      "media",
+      "new-york",
+      "publishing",
+      "gilded-age"
+    ],
+    "wikipedia_slug": "Joseph_Pulitzer"
+  },
+  {
+    "entityId": "fiorello-la-guardia",
+    "storyId": "fiorello-la-guardia-biography",
+    "id": "fiorello-la-guardia-biography",
+    "name": "Fiorello La Guardia",
+    "years": "?–1947",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Buried in the Bronx he championed — La Guardia read comics on strike radio, banned organ grinders, flew to disaster zones as mayor. New York's most theatrical political life.",
+    "tags": [
+      "politics",
+      "new york city",
+      "mayor",
+      "new deal era",
+      "urban reform"
+    ],
+    "wikipedia_slug": "Fiorello_La_Guardia"
+  },
+  {
+    "entityId": "leonard-bernstein",
+    "storyId": "leonard-bernstein-biography",
+    "id": "leonard-bernstein-biography",
+    "name": "Leonard Bernstein",
+    "years": "?–1990",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Buried with a baton and Mahler's Ninth. Conducted the Berlin Wall concert, wrote West Side Story, led the New York Philharmonic for a decade. A life lived at full orchestral volume.",
+    "tags": [
+      "music",
+      "conducting",
+      "classical",
+      "new-york",
+      "theater"
+    ],
+    "wikipedia_slug": "Leonard_Bernstein"
+  },
+  {
+    "entityId": "louis-comfort-tiffany",
+    "storyId": "louis-comfort-tiffany-biography",
+    "id": "louis-comfort-tiffany-biography",
+    "name": "Louis Comfort Tiffany",
+    "years": "?–1933",
+    "category": "arts-culture",
+    "story_type": "biography",
+    "description": "Stained glass reinvented, lamps that turned light into color, a Long Island estate swallowed by fire — Tiffany's life in art, glass, and loss.",
+    "tags": [
+      "arts-culture",
+      "decorative-arts",
+      "stained-glass",
+      "new-york",
+      "gilded-age"
+    ],
+    "wikipedia_slug": "Louis_Comfort_Tiffany"
+  },
+  {
+    "entityId": "james-monroe",
+    "storyId": "james-monroe-biography",
+    "id": "james-monroe-biography",
+    "name": "James Monroe",
+    "years": "1758–1831",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Wounded at Trenton, negotiated Louisiana Purchase, declared the Monroe Doctrine — then buried in New York, repatriated to Virginia 27 years later. A founder's long journey home.",
+    "tags": [
+      "political-drama",
+      "founding-era",
+      "virginia",
+      "diplomacy",
+      "presidency"
+    ],
+    "wikipedia_slug": "James_Monroe"
+  },
+  {
+    "entityId": "martin-van-buren",
+    "storyId": "martin-van-buren-biography",
+    "id": "martin-van-buren-biography",
+    "name": "Martin Van Buren",
+    "years": "1782–1862",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Built the Democratic Party machine, won the White House, then lost it amid the Panic of 1837. Ran again — twice — and lost both. Died in Kinderhook, buried steps from where he started.",
+    "tags": [
+      "political-drama",
+      "new-york",
+      "presidency",
+      "party-politics",
+      "kinderhook"
+    ],
+    "wikipedia_slug": "Martin_Van_Buren"
+  },
+  {
+    "entityId": "zachary-taylor",
+    "storyId": "zachary-taylor-biography",
+    "id": "zachary-taylor-biography",
+    "name": "Zachary Taylor",
+    "years": "1784–1850",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Survived Black Hawk War and Mexican-American War, won presidency without ever voting, died 16 months into office — a soldier who outlasted every battlefield but the White House.",
+    "tags": [
+      "military",
+      "presidency",
+      "mexican-american war",
+      "kentucky",
+      "political-drama"
+    ],
+    "wikipedia_slug": "Zachary_Taylor"
+  },
+  {
+    "entityId": "franklin-pierce",
+    "storyId": "franklin-pierce-biography",
+    "id": "franklin-pierce-biography",
+    "name": "Franklin Pierce",
+    "years": "1853–1857",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Signed Kansas-Nebraska Act, igniting Bleeding Kansas. Lost renomination after one term. Buried in Concord as the president history couldn't forgive. A cautionary tale of compromise undone.",
+    "tags": [
+      "political-drama",
+      "antebellum",
+      "new-hampshire",
+      "presidency",
+      "slavery-crisis"
+    ],
+    "wikipedia_slug": "Franklin_Pierce"
+  },
+  {
+    "entityId": "ulysses-s-grant",
+    "storyId": "ulysses-s-grant-biography",
+    "id": "ulysses-s-grant-biography",
+    "name": "Ulysses S. Grant",
+    "years": "1822–1885",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Surrendered Lee at Appomattox, drank through scandal-plagued presidency, then raced terminal cancer to finish his memoirs — dying four days after the final page. Buried in America's largest mausoleum.",
+    "tags": [
+      "civil-war",
+      "presidency",
+      "new-york",
+      "military",
+      "reconstruction"
+    ],
+    "wikipedia_slug": "Ulysses_S._Grant"
+  },
+  {
+    "entityId": "benjamin-harrison",
+    "storyId": "benjamin-harrison-biography",
+    "id": "benjamin-harrison-biography",
+    "name": "Benjamin Harrison",
+    "years": "1833–1901",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Grandson of a president, Civil War brigadier, won White House despite losing popular vote — Harrison's life bookended by family legacy and a granite obelisk shared with two wives.",
+    "tags": [
+      "politics",
+      "civil-war",
+      "presidency",
+      "indianapolis",
+      "political-drama"
+    ],
+    "wikipedia_slug": "Benjamin_Harrison"
+  },
+  {
+    "entityId": "calvin-coolidge",
+    "storyId": "calvin-coolidge-biography",
+    "id": "calvin-coolidge-biography",
+    "name": "Calvin Coolidge",
+    "years": "1923–1929",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Sworn in by lamplight after Harding's death, rode a roaring economy, then stunned the nation: 'I do not choose to run.' A president defined by silence and Vermont stone.",
+    "tags": [
+      "presidency",
+      "1920s",
+      "vermont",
+      "political-drama",
+      "republican-party"
+    ],
+    "wikipedia_slug": "Calvin_Coolidge"
+  },
+  {
+    "entityId": "harry-s-truman",
+    "storyId": "harry-s-truman-biography",
+    "id": "harry-s-truman-biography",
+    "name": "Harry S. Truman",
+    "years": "1884–1972",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Dropped the atomic bomb, fired MacArthur, won the '48 upset no one saw coming — then walked home to Independence. A presidency defined by impossible calls.",
+    "tags": [
+      "political-drama",
+      "presidency",
+      "cold-war",
+      "missouri",
+      "world-war-ii"
+    ],
+    "wikipedia_slug": "Harry_S._Truman"
+  },
+  {
+    "entityId": "john-quincy-adams",
+    "storyId": "john-quincy-adams-biography",
+    "id": "john-quincy-adams-biography",
+    "name": "John Quincy Adams",
+    "years": "1825–1829",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Son of a Founder, won the presidency in a backroom deal, lost it to Jackson's fury — then returned to Congress to fight slavery until he collapsed at his desk. Political resurrection.",
+    "tags": [
+      "politics",
+      "presidency",
+      "congress",
+      "massachusetts",
+      "abolitionism"
+    ],
+    "wikipedia_slug": "John_Quincy_Adams"
+  },
+  {
+    "entityId": "john-tyler",
+    "storyId": "john-tyler-biography",
+    "id": "john-tyler-biography",
+    "name": "John Tyler",
+    "years": "1790–1862",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Expelled from his own party while president, annexed Texas, buried under a Confederate flag — Tyler's career was a chain of ruptures that ended with treason to the Union.",
+    "tags": [
+      "political-drama",
+      "presidency",
+      "virginia",
+      "confederacy",
+      "antebellum"
+    ],
+    "wikipedia_slug": "John_Tyler"
+  },
+  {
+    "entityId": "millard-fillmore",
+    "storyId": "millard-fillmore-biography",
+    "id": "millard-fillmore-biography",
+    "name": "Millard Fillmore",
+    "years": "1800–1874",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Signed the Fugitive Slave Act, inherited the presidency after Taylor's death, lost his party's nomination, ran third-party in 1856. America's accidental president, buried in Buffalo.",
+    "tags": [
+      "politics",
+      "presidency",
+      "whig-party",
+      "buffalo",
+      "antebellum"
+    ],
+    "wikipedia_slug": "Millard_Fillmore"
+  },
+  {
+    "entityId": "andrew-johnson",
+    "storyId": "andrew-johnson-biography",
+    "id": "andrew-johnson-biography",
+    "name": "Andrew Johnson",
+    "years": "1808–1875",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Tailor-turned-president survived impeachment by one vote, clashed with Congress over Reconstruction, and was buried with the Constitution beneath his head — a life defined by defiance and division.",
+    "tags": [
+      "political-drama",
+      "reconstruction",
+      "impeachment",
+      "tennessee",
+      "presidency"
+    ],
+    "wikipedia_slug": "Andrew_Johnson"
+  },
+  {
+    "entityId": "grover-cleveland",
+    "storyId": "grover-cleveland-biography",
+    "id": "grover-cleveland-biography",
+    "name": "Grover Cleveland",
+    "years": "1885–1889, 1893–1897",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Only president to serve two non-consecutive terms — vetoed 584 bills in one term, survived a secret cancer surgery at sea, and anchored Princeton between two Ivy giants.",
+    "tags": [
+      "politics",
+      "presidency",
+      "princeton",
+      "gilded-age",
+      "new-york"
+    ],
+    "wikipedia_slug": "Grover_Cleveland"
+  },
+  {
+    "entityId": "william-howard-taft",
+    "storyId": "william-howard-taft-biography",
+    "id": "william-howard-taft-biography",
+    "name": "William Howard Taft",
+    "years": "1857–1930",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Weighed 340 lbs in the White House, got stuck in a bathtub, lost to both Roosevelt and Wilson in 1912 — then became Chief Justice, the job he always wanted. One man, two branches.",
+    "tags": [
+      "political-drama",
+      "presidency",
+      "supreme-court",
+      "ohio",
+      "washington-dc"
+    ],
+    "wikipedia_slug": "William_Howard_Taft"
+  },
+  {
+    "entityId": "herbert-hoover",
+    "storyId": "herbert-hoover-biography",
+    "id": "herbert-hoover-biography",
+    "name": "Herbert Hoover",
+    "years": "1929–1933",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Orphaned at 9, self-made millionaire by 40, president by 54 — then the Depression hit. Hoover's arc from Iowa prairie to White House collapse is American ambition meeting catastrophe.",
+    "tags": [
+      "political-drama",
+      "great-depression",
+      "iowa",
+      "presidency",
+      "progressive-era"
+    ],
+    "wikipedia_slug": "Herbert_Hoover"
+  },
+  {
+    "entityId": "dwight-d-eisenhower",
+    "storyId": "dwight-d-eisenhower-biography",
+    "id": "dwight-d-eisenhower-biography",
+    "name": "Dwight D. Eisenhower",
+    "years": "1890–1969",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Fled Abilene for West Point, commanded D-Day's 156,000-man invasion, warned of the military-industrial complex, then came home to Kansas. Soldier and president who reshaped the 20th century.",
+    "tags": [
+      "military",
+      "presidency",
+      "cold-war",
+      "kansas",
+      "political-drama"
+    ],
+    "wikipedia_slug": "Dwight_D._Eisenhower"
+  },
+  {
+    "entityId": "bill-gates",
+    "storyId": "bill-gates-biography",
+    "id": "bill-gates-biography",
+    "name": "Bill Gates",
+    "years": "1955–present",
+    "category": "political-drama",
+    "story_type": "biography",
+    "description": "Relocated Microsoft from Albuquerque to Bellevue, then built a software empire from Seattle's suburbs. The IBM deal, the antitrust trial, the Gates Foundation pivot — a life of boardrooms and turning points.",
+    "tags": [
+      "technology",
+      "software",
+      "seattle",
+      "philanthropy",
+      "entrepreneurship"
+    ],
+    "wikipedia_slug": "Bill_Gates"
+  }
+]

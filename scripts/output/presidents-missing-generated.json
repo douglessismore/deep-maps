@@ -1,0 +1,452 @@
+[
+  {
+    "entity": {
+      "id": "john-adams",
+      "name": "John Adams",
+      "type": "person",
+      "years": "1735–1826",
+      "description": "Second president died on America's 50th birthday. Adams defended the Boston Massacre soldiers, negotiated the Treaty of Paris, and served one term before losing to Jefferson. A voracious reader, Adams owned one of early America's largest private libraries.",
+      "wikipedia_slug": "John_Adams"
+    },
+    "moment": {
+      "id": "john-adams-burial",
+      "name": "John Adams Buried Beneath the Church He Helped Build, Beside His Son's Grave",
+      "subtitle": "United First Parish Church, 1306 Hancock St, Quincy, MA — granite crypt beneath the sanctuary floor",
+      "description": "John Adams died July 4, 1826 — the 50th anniversary of the Declaration of Independence — hours after his rival Thomas Jefferson died in Virginia. Adams was 90. The second president and his wife Abigail rest in a granite crypt directly beneath the sanctuary of United First Parish Church, a building Adams helped fund. President John Quincy Adams, the sixth president and Adams's son, is entombed in the same crypt alongside wife Louisa.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1826,
+      "date": "July 4, 1826",
+      "address": "United First Parish Church, Quincy, Massachusetts",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 42.251,
+      "lng": -71.0025
+    },
+    "cemetery": "United First Parish Church"
+  },
+  {
+    "entity": {
+      "id": "james-madison",
+      "name": "James Madison",
+      "type": "person",
+      "years": "1751–1836",
+      "description": "Father of the Constitution who never stood tall — Madison drafted the Bill of Rights, co-authored the Federalist Papers, and led the U.S. through the War of 1812. The shortest president at 5'4\", Madison outlived every other Founder.",
+      "wikipedia_slug": "James_Madison"
+    },
+    "moment": {
+      "id": "james-madison-burial",
+      "name": "James Madison Rests Beneath a Simple Obelisk, Outlasting Every Fellow Founder",
+      "subtitle": "Madison Family Cemetery, Montpelier Estate, Orange, VA — marble obelisk enclosed by a wrought-iron fence",
+      "description": "James Madison died June 28, 1836, at Montpelier, his Virginia plantation, reportedly refusing stimulants that might have kept him alive until July 4th — the date three prior presidents had died. Madison is buried in the family cemetery on the Montpelier grounds, marked by a white marble obelisk. The grave sits just yards from the mansion where Madison drafted foundational American documents, making the distance between his life's work and final rest measurably small.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1836,
+      "date": "June 28, 1836",
+      "address": "Montpelier, Orange, Virginia",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 38.2201,
+      "lng": -78.1725
+    },
+    "cemetery": "Montpelier"
+  },
+  {
+    "entity": {
+      "id": "william-henry-harrison",
+      "name": "William Henry Harrison",
+      "type": "person",
+      "years": "1773–1841",
+      "description": "Died after 31 days — the shortest presidency. Harrison defeated Tecumseh's confederacy at the Battle of Tippecanoe, rode that fame to the White House, then delivered a 2-hour inaugural address in freezing rain and was dead within a month. Kept a pet goat named His Whiskers.",
+      "wikipedia_slug": "William_Henry_Harrison"
+    },
+    "moment": {
+      "id": "william-henry-harrison-burial",
+      "name": "William Henry Harrison Lies Beneath a Hilltop Tomb He Never Knew Would Define His Legacy",
+      "subtitle": "Harrison Tomb State Memorial, Cliff Rd, North Bend, OH — a 60-foot limestone shaft visible from the Ohio River",
+      "description": "Harrison died April 4, 1841, of pneumonia and pleuritis — almost certainly contracted during that fateful two-hour inaugural address in a cold March downpour. The body was first interred in Washington, D.C., then returned to North Bend, Ohio, in 1841. The irony: Harrison spent decades as a celebrated war hero, yet the limestone obelisk marking his tomb is visited almost entirely because of how spectacularly briefly he served.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1841,
+      "date": "April 4, 1841",
+      "address": "Harrison Tomb State Memorial, North Bend, Ohio",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 39.1458,
+      "lng": -84.7336
+    },
+    "cemetery": "Harrison Tomb State Memorial"
+  },
+  {
+    "entity": {
+      "id": "james-k-polk",
+      "name": "James K. Polk",
+      "type": "person",
+      "years": "1795–1849",
+      "description": "Polk kept every campaign promise — then died. The 11th president annexed Texas, won the Mexican-American War, and secured the Oregon Territory, adding more land than any president since Jefferson. Polk played poker to unwind.",
+      "wikipedia_slug": "James_K._Polk"
+    },
+    "moment": {
+      "id": "james-k-polk-burial",
+      "name": "James K. Polk Rests Beneath the Capitol He Helped Build, Outlasting His Own Tomb Twice",
+      "subtitle": "Tennessee State Capitol Grounds, 600 Charlotte Ave, Nashville — marble tomb on the north lawn",
+      "description": "Polk died June 15, 1849, just 103 days after leaving office — the shortest post-presidency in US history. Cholera, contracted during a Southern goodwill tour, killed the 53-year-old within weeks of returning home. Polk was first buried at Polk Place, his Nashville estate, then moved to City Cemetery, then relocated again to the State Capitol grounds in 1893 after Polk Place was demolished. The tomb also holds wife Sarah Childress Polk.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1849,
+      "date": "June 15, 1849",
+      "address": "Tennessee State Capitol, Nashville, Tennessee",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 36.1658,
+      "lng": -86.7844
+    },
+    "cemetery": "Tennessee State Capitol"
+  },
+  {
+    "entity": {
+      "id": "james-buchanan",
+      "name": "James Buchanan",
+      "type": "person",
+      "years": "1791–1868",
+      "description": "America's only bachelor president never married. Served 1857–1861, Buchanan watched the Union fracture over slavery while insisting the crisis was constitutional, not his to solve. Kept a pet eagle named Lara.",
+      "wikipedia_slug": "James_Buchanan"
+    },
+    "moment": {
+      "id": "james-buchanan-burial",
+      "name": "James Buchanan Buried Miles from the Union He Failed to Save",
+      "subtitle": "Woodward Hill Cemetery, 301 E. Strawberry St., Lancaster, PA — plain granite obelisk, no epitaph",
+      "description": "James Buchanan died June 1, 1868, of respiratory failure at Wheatland, his Lancaster estate, aged 77. Buried at Woodward Hill Cemetery beneath a modest granite obelisk, Buchanan rests just two miles from the home where he watched the Civil War unfold — a war many historians argue his inaction made inevitable. He reportedly told a friend days before death: 'History will vindicate my memory.' It has not.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1868,
+      "date": "June 1, 1868",
+      "address": "Woodward Hill Cemetery, Lancaster, Pennsylvania",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 40.0378,
+      "lng": -76.3028
+    },
+    "cemetery": "Woodward Hill Cemetery"
+  },
+  {
+    "entity": {
+      "id": "rutherford-b-hayes",
+      "name": "Rutherford B. Hayes",
+      "type": "person",
+      "years": "1822–1893",
+      "description": "Disputed election decided by Congress, not voters. Hayes ended Reconstruction, withdrew federal troops from the South, and served a single term by choice. Lucy Hayes banned alcohol from the White House, earning her the nickname 'Lemonade Lucy.'",
+      "wikipedia_slug": "Rutherford_B._Hayes"
+    },
+    "moment": {
+      "id": "rutherford-b-hayes-burial",
+      "name": "Rutherford B. Hayes Buried Beneath the Trees He Planted Himself",
+      "subtitle": "Spiegel Grove State Park, 1337 Hayes Ave, Fremont, OH — a knoll shaded by old-growth forest",
+      "description": "Hayes died January 17, 1893, of a heart attack at Spiegel Grove, his 25-acre wooded estate. Originally interred at Oakwood Cemetery, Hayes and wife Lucy were reburied on the estate grounds in 1915 — beneath trees Hayes personally planted during his lifetime. The man whose presidency began in controversy, decided by a partisan electoral commission, chose to rest not in a national cemetery but in his own backyard.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1893,
+      "date": "January 17, 1893",
+      "address": "Spiegel Grove, Fremont, Ohio",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 41.3516,
+      "lng": -83.1147
+    },
+    "cemetery": "Spiegel Grove"
+  },
+  {
+    "entity": {
+      "id": "james-a-garfield",
+      "name": "James A. Garfield",
+      "type": "person",
+      "years": "1831–1881",
+      "description": "Shot after just 200 days in office, Garfield championed civil service reform and racial equality in education. A self-made man who rose from canal boy to president, Garfield could write Latin with one hand and Greek with the other simultaneously.",
+      "wikipedia_slug": "James_A._Garfield"
+    },
+    "moment": {
+      "id": "james-a-garfield-burial",
+      "name": "Garfield Lies Beneath a 180-Foot Romanesque Tower His Assassin Inadvertently Funded",
+      "subtitle": "Lake View Cemetery · 12316 Euclid Ave, Cleveland, OH · a domed granite memorial visible across the city skyline",
+      "description": "James A. Garfield died September 19, 1881—not from Charles Guiteau's bullet, but from infections caused by doctors probing the wound with unsterilized fingers. Buried at Lake View Cemetery in Cleveland, Garfield rests inside a soaring Romanesque memorial completed in 1890, funded by a grief-stricken public that donated over $135,000. Visitors can climb to the tower's observation deck and view Garfield's terra-cotta sarcophagus below.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1881,
+      "date": "September 26, 1881",
+      "address": "Lake View Cemetery, Cleveland, Ohio",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 41.5137,
+      "lng": -81.5923
+    },
+    "cemetery": "Lake View Cemetery"
+  },
+  {
+    "entity": {
+      "id": "chester-a-arthur",
+      "name": "Chester A. Arthur",
+      "type": "person",
+      "years": "1829–1886",
+      "description": "Dapper widower who surprised everyone by governing well. Signed the Pendleton Act, dismantling the spoils system that had made Arthur's own career. Kept a lock of his late wife Ellen's hair beside him until death.",
+      "wikipedia_slug": "Chester_A._Arthur"
+    },
+    "moment": {
+      "id": "chester-a-arthur-burial",
+      "name": "Chester Arthur Rests Beneath a Bronze Angel, Far From the Gilded Age He Embodied",
+      "subtitle": "Albany Rural Cemetery, Cemetery Ave, Menands, NY — draped sarcophagus shaded by a towering Egyptian Revival obelisk",
+      "description": "Chester A. Arthur died November 18, 1886, in New York City of Bright's disease — a kidney condition he had concealed from the public throughout his presidency. Arthur was interred at Albany Rural Cemetery beside his wife Ellen, who had died just before his unexpected ascension to the presidency. A bronze palm frond drapes the sarcophagus — a Victorian symbol of victory and mourning. Arthur ordered the destruction of nearly all his personal papers before death, ensuring history would struggle to fully know him.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1886,
+      "date": "November 22, 1886",
+      "address": "Albany Rural Cemetery, Menands, New York",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 42.6917,
+      "lng": -73.7256
+    },
+    "cemetery": "Albany Rural Cemetery"
+  },
+  {
+    "entity": {
+      "id": "william-mckinley",
+      "name": "William McKinley",
+      "type": "person",
+      "years": "1843–1901",
+      "description": "Shot twice, McKinley lingered eight agonizing days. The 25th president presided over the Spanish-American War and America's rise as a global power. McKinley kept a red carnation in his lapel for luck — and gave it away moments before his assassination.",
+      "wikipedia_slug": "William_McKinley"
+    },
+    "moment": {
+      "id": "william-mckinley-burial",
+      "name": "McKinley Rests Beneath a Domed Granite Mausoleum Visible from Miles Away",
+      "subtitle": "McKinley National Memorial · 800 McKinley Monument Dr NW, Canton, OH · 96 steps lead to the tomb",
+      "description": "William McKinley was shot on September 6, 1901, at the Pan-American Exposition in Buffalo, NY, by anarchist Leon Czolgosz. McKinley died eight days later on September 14. Canton's memorial — a 96-foot pink granite dome completed in 1907 — was funded by over $600,000 in public donations. Ironically, McKinley's assassin was executed by electric chair just 45 days after the president's death.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1901,
+      "date": "September 30, 1901",
+      "address": "McKinley National Memorial, Canton, Ohio",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 40.7995,
+      "lng": -81.3786
+    },
+    "cemetery": "McKinley National Memorial"
+  },
+  {
+    "entity": {
+      "id": "woodrow-wilson",
+      "name": "Woodrow Wilson",
+      "type": "person",
+      "years": "1856–1924",
+      "description": "Only president buried inside Washington, D.C. limits. Led U.S. through WWI, championed the League of Nations, suffered a devastating stroke in office. Kept a pet flock of sheep on the White House lawn during wartime.",
+      "wikipedia_slug": "Woodrow_Wilson"
+    },
+    "moment": {
+      "id": "woodrow-wilson-burial",
+      "name": "Woodrow Wilson Rests Beneath a Cathedral He Never Saw Completed",
+      "subtitle": "Washington National Cathedral, 3101 Wisconsin Ave NW — a simple white marble sarcophagus in the nave",
+      "description": "Wilson died February 3, 1924, in his S Street townhouse, his body broken by a stroke suffered while barnstorming for the League of Nations in 1919. He is the only U.S. president interred within Washington, D.C. itself. A plain white marble sarcophagus sits in the cathedral's nave — no grand tomb, just a crusader's sword carved in relief. The cathedral Wilson was buried in wasn't fully completed until 1990, 66 years after the funeral.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1924,
+      "date": "February 6, 1924",
+      "address": "Washington National Cathedral, Washington, D.C.",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 38.9306,
+      "lng": -77.0711
+    },
+    "cemetery": "Washington National Cathedral"
+  },
+  {
+    "entity": {
+      "id": "warren-g-harding",
+      "name": "Warren G. Harding",
+      "type": "person",
+      "years": "1865–1923",
+      "description": "Scandal-plagued president whose sudden death silenced investigations. Harding presided over post-WWI prosperity while his Ohio Gang cronies looted federal oil reserves. Loved poker, jazz, and a secret mistress hidden in White House closets.",
+      "wikipedia_slug": "Warren_G._Harding"
+    },
+    "moment": {
+      "id": "warren-g-harding-burial",
+      "name": "Warren G. Harding Lies Beneath Marble Grander Than His Legacy Deserved",
+      "subtitle": "Harding Memorial, 380 Mt. Vernon Ave, Marion, OH — a gleaming 52-foot circular white marble colonnade",
+      "description": "Harding died August 2, 1923, in San Francisco — cause disputed, possibly a heart attack, possibly stroke — while the Teapot Dome scandal was unraveling his administration. Harding and wife Florence were interred here in 1927, four years after death, awaiting completion of this monumental tomb. The $978,000 neoclassical rotunda, funded by public donation, was dedicated by two future presidents: Herbert Hoover and Calvin Coolidge.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1927,
+      "date": "December 21, 1927",
+      "address": "Harding Memorial, Marion, Ohio",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 40.5969,
+      "lng": -83.1195
+    },
+    "cemetery": "Harding Memorial"
+  },
+  {
+    "entity": {
+      "id": "john-f-kennedy",
+      "name": "John F. Kennedy",
+      "type": "person",
+      "years": "1917–1963",
+      "description": "Youngest elected president changed America forever. Kennedy's 1,000-day presidency launched the Space Race, faced down Soviet missiles in Cuba, and ignited the civil rights era. A voracious reader, JFK devoured 1,200 words per minute.",
+      "wikipedia_slug": "John_F._Kennedy"
+    },
+    "moment": {
+      "id": "john-f-kennedy-burial",
+      "name": "Kennedy Lies Beneath an Eternal Flame That Has Never Once Gone Out",
+      "subtitle": "Arlington National Cemetery, 1 Memorial Ave, Arlington, VA — flat granite plaza flush with the hillside",
+      "description": "John F. Kennedy was assassinated on November 22, 1963, in Dallas, Texas, shot while riding in a presidential motorcade through Dealey Plaza. Buried three days later at Arlington National Cemetery, Kennedy's grave sits on a gentle slope facing the Lincoln Memorial across the Potomac. Jacqueline Kennedy personally lit the eternal flame at the graveside — modeled on France's Tomb of the Unknown Soldier — ensuring it has burned continuously for over six decades.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1963,
+      "date": "November 25, 1963",
+      "address": "Arlington National Cemetery, Arlington, Virginia",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 38.8808,
+      "lng": -77.0711
+    },
+    "cemetery": "Arlington National Cemetery"
+  },
+  {
+    "entity": {
+      "id": "richard-nixon",
+      "name": "Richard Nixon",
+      "type": "person",
+      "years": "1913–1994",
+      "description": "Disgraced yet rehabilitated, Nixon reshaped Cold War diplomacy. The only president to resign, Nixon opened China, ended Vietnam draft, and created the EPA. He kept a notebook of phone numbers he memorized by heart.",
+      "wikipedia_slug": "Richard_Nixon"
+    },
+    "moment": {
+      "id": "richard-nixon-burial",
+      "name": "Richard Nixon Lies Buried Yards from the House Where a President Was Born",
+      "subtitle": "Richard Nixon Presidential Library & Museum · 18001 Yorba Linda Blvd, Yorba Linda, CA · simple granite slab flush with the lawn",
+      "description": "Richard Nixon died April 22, 1994, of a stroke in New York City, four days after suffering a cerebral hemorrhage. Nixon and Pat Nixon are interred side by side on the grounds of his Yorba Linda birthplace, beneath matching low granite markers — a deliberately modest design for a man consumed by grand ambitions. The man who resigned in disgrace in 1974 received a state funeral attended by all five living presidents.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 1994,
+      "date": "April 27, 1994",
+      "address": "Richard Nixon Presidential Library, Yorba Linda, California",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 33.8692,
+      "lng": -117.8117
+    },
+    "cemetery": "Richard Nixon Presidential Library"
+  },
+  {
+    "entity": {
+      "id": "gerald-ford",
+      "name": "Gerald Ford",
+      "type": "person",
+      "years": "1913–2006",
+      "description": "The only president never elected to office. Ford pardoned Nixon, ending Watergate's grip on the nation — a decision that likely cost Ford the 1976 election. An Eagle Scout, Ford remained the longest-lived U.S. president until Jimmy Carter surpassed him.",
+      "wikipedia_slug": "Gerald_Ford"
+    },
+    "moment": {
+      "id": "gerald-ford-burial",
+      "name": "Gerald Ford Buried on the Grounds of His Own Presidential Museum",
+      "subtitle": "Gerald R. Ford Presidential Museum, 303 Pearl St NW, Grand Rapids — a sloped granite plaza beside the Grand River",
+      "description": "Gerald Ford died December 26, 2006, at his home in Rancho Mirage, California, at age 93. Ford was interred January 3, 2007, in a terraced outdoor courtyard at the Gerald R. Ford Presidential Museum in Grand Rapids — the city where Ford launched his political career. Betty Ford was buried beside Gerald in 2011. The site faces the Grand River, steps from the museum's permanent exhibits on the presidency Ford never won a national election to hold.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 2007,
+      "date": "January 3, 2007",
+      "address": "Gerald R. Ford Presidential Museum, Grand Rapids, Michigan",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 42.9681,
+      "lng": -85.6775
+    },
+    "cemetery": "Gerald R. Ford Presidential Museum"
+  },
+  {
+    "entity": {
+      "id": "jimmy-carter",
+      "name": "Jimmy Carter",
+      "type": "person",
+      "years": "1924–2024",
+      "description": "Peanut farmer who became America's conscience. Carter brokered the Camp David Accords, won the Nobel Peace Prize in 2002, and spent decades building Habitat for Humanity homes well into his 90s.",
+      "wikipedia_slug": "Jimmy_Carter"
+    },
+    "moment": {
+      "id": "jimmy-carter-burial",
+      "name": "Jimmy Carter Buried Steps from the Childhood Home He Never Really Left",
+      "subtitle": "Maranatha Baptist Church, 148 Buena Vista Rd, Plains, GA — beneath a simple flat granite slab",
+      "description": "Jimmy Carter died December 29, 2024, at age 100, in the same small Georgia town where he was born. Carter and Rosalynn — who predeceased him in November 2023 — are interred side by side in the garden of their Plains home, adjacent to Maranatha Baptist Church. The 39th president, who taught Sunday school there for decades, chose a deliberately modest granite marker, a striking contrast to the marble grandeur of most presidential memorials.",
+      "type_id": "burial",
+      "importance": "minor",
+      "accuracy": "exact",
+      "kind": "milestone",
+      "year": 2025,
+      "date": "January 9, 2025",
+      "address": "Maranatha Baptist Church, Plains, Georgia",
+      "verification_level": "verified",
+      "source": "editorial"
+    },
+    "gps": {
+      "lat": 32.0341,
+      "lng": -84.3932
+    },
+    "cemetery": "Maranatha Baptist Church"
+  }
+]

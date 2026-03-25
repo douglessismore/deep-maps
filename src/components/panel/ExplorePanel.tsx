@@ -150,6 +150,8 @@ export function ExplorePanel({
   useEffect(() => { hasTabRendered.current = true; }, []);
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
+  const viewportLocationsRef = useRef<ViewportLocation[]>(viewportLocations);
+  viewportLocationsRef.current = viewportLocations;
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
   const [storySort, setStorySort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
@@ -505,8 +507,8 @@ export function ExplorePanel({
         });
 
         if (closestKey) {
-          const vl = viewportLocations.find(
-            (v) => `${v.story?.id}-${v.location.id}` === closestKey
+          const vl = viewportLocationsRef.current.find(
+            (v) => `${v.story?.id ?? 'no-story'}-${v.location.id}` === closestKey
           );
           if (vl) {
             onScrollHighlight([vl.location], vl.story?.id);
@@ -528,7 +530,7 @@ export function ExplorePanel({
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       isScrollDriving.current = false;
     };
-  }, [activeTab, mapInstance, viewportLocations, onScrollHighlight, updateViewport]);
+  }, [activeTab, mapInstance, onScrollHighlight, updateViewport]);
 
   // Stories tab: show viewport stories if available, else filtered stories
   // Filter out canonical stories — they're invisible infrastructure
