@@ -10,7 +10,7 @@ export type StoryCategory =
 
 export type LocationImportance = 'major' | 'minor' | 'contextual';
 
-export type LocationAccuracy = 'exact' | 'approximate' | 'general-area';
+export type LocationAccuracy = 'pinpoint' | 'exact' | 'approximate' | 'general-area';
 
 export interface StoryMedia {
   type: 'image' | 'youtube';

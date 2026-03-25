@@ -24,9 +24,10 @@ const DRAGGABLE_MARKER_ICON = L.divIcon({
 });
 
 const ACCURACY_OPTIONS: { value: LocationAccuracy; icon: string; label: string; desc: string }[] = [
-  { value: 'exact' as LocationAccuracy, icon: '📍', label: 'Pinpoint', desc: '~3m — the exact spot' },
-  { value: 'approximate' as LocationAccuracy, icon: '🎯', label: 'Exact', desc: '~10-50m — correct building' },
-  { value: 'general-area' as LocationAccuracy, icon: '🗺️', label: 'Area', desc: '~100m+ — right neighborhood' },
+  { value: 'pinpoint' as LocationAccuracy, icon: '🎯', label: 'Pinpoint', desc: '~3m — GPS-verified exact spot' },
+  { value: 'exact' as LocationAccuracy, icon: '📍', label: 'Exact', desc: '~10-50m — correct building' },
+  { value: 'approximate' as LocationAccuracy, icon: '🗺️', label: 'Approximate', desc: '~100-500m — right block' },
+  { value: 'general-area' as LocationAccuracy, icon: '🌍', label: 'Area', desc: '1km+ — right neighborhood' },
 ];
 
 /** CSS for card slide animation and streak pulse */

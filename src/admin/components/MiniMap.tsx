@@ -9,6 +9,7 @@ const SAT_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World
 const SAT_TILE_ATTR = '&copy; <a href="https://www.esri.com/">Esri</a>';
 
 const ACCURACY_COLORS: Record<LocationAccuracy, string> = {
+  pinpoint: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
   exact: 'bg-green-500/20 text-green-400 border-green-500/30',
   approximate: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
   'general-area': 'bg-orange-500/20 text-orange-400 border-orange-500/30',

@@ -15,6 +15,7 @@ function isAdminMode(): boolean {
 }
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
+  pinpoint: { label: 'Pinpoint', color: '#10b981', title: 'GPS-verified to within 3 meters of the exact spot' },
   exact: { label: 'Exact', color: '#22c55e', title: 'Coordinates pinpoint the actual location' },
   approximate: { label: 'Approx', color: '#eab308', title: 'Coordinates are close but not exact' },
   'general-area': { label: 'Area', color: '#f97316', title: 'General area — exact location unknown' },
