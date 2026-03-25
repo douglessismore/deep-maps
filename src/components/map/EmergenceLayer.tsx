@@ -108,6 +108,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const canvasRenderer = useRef(L.canvas({ padding: 0.5, tolerance: 16 }));
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const activeOverlayRef = useRef<L.Marker | null>(null);
+  const scrollOverlayRef = useRef<L.Marker | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -250,6 +251,49 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       marker.setStyle({ fillOpacity: opacity });
     }
   }, [scrollHighlight, map]);
+
+  // ── Scroll highlight overlay (DOM marker + permanent label) ──────────
+  // Canvas CircleMarkers can't show permanent tooltips, so we overlay a
+  // real DOM marker for the single scroll-highlighted moment. This gives
+  // users a visible ring + the moment name on the map as they scroll.
+  useEffect(() => {
+    if (scrollOverlayRef.current) {
+      map.removeLayer(scrollOverlayRef.current);
+      scrollOverlayRef.current = null;
+    }
+
+    if (scrollHighlight && scrollHighlight.length === 1) {
+      const moment = scrollHighlight[0];
+      const category = momentCategoryMap.get(moment.id);
+      const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="story-marker active" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};"></div>`,
+        iconSize: [12, 12],
+        iconAnchor: [6, 6],
+      });
+      const marker = L.marker([moment.lat, moment.lng], {
+        icon,
+        zIndexOffset: 900,
+        interactive: false,
+      });
+      marker.bindTooltip(
+        `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+          <strong>${moment.name}</strong>
+        </div>`,
+        { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: true }
+      );
+      marker.addTo(map);
+      scrollOverlayRef.current = marker;
+    }
+
+    return () => {
+      if (scrollOverlayRef.current) {
+        map.removeLayer(scrollOverlayRef.current);
+        scrollOverlayRef.current = null;
+      }
+    };
+  }, [scrollHighlight, map, momentCategoryMap]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
   useEffect(() => {
