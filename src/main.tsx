@@ -6,6 +6,12 @@ import App from './App.tsx'
 import { DataProvider } from './lib/data/provider'
 import { UIVariantProvider } from './lib/uiVariant'
 
+// Apply V2 design theme if ?theme=v2 is in the URL
+const themeParam = new URLSearchParams(window.location.search).get('theme');
+if (themeParam === 'v2') {
+  document.documentElement.dataset.theme = 'v2';
+}
+
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 const RapidVerify = lazy(() => import('./components/RapidVerify'));
 

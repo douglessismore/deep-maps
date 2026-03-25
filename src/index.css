@@ -19,6 +19,24 @@
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
 }
 
+/* ===== V2 Design Theme (Stitch mockups) — activate via ?theme=v2 ===== */
+[data-theme="v2"] {
+  --bg-primary: #131313;
+  --bg-secondary: #1c1b1b;
+  --bg-card: #201f1f;
+  --bg-card-hover: #2a2a2a;
+  --text-primary: #e5e2e1;
+  --text-secondary: #bccac0;
+  --text-muted: #87948b;
+  --accent-red: #68dba9;
+  --accent-red-dim: rgba(104, 219, 169, 0.3);
+  --border-subtle: rgba(61, 74, 66, 0.15);
+  --border-hover: rgba(61, 74, 66, 0.30);
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Grotesk', 'Courier New', monospace;
+}
+
 /* ===== Base ===== */
 html, body, #root {
   height: 100%;
