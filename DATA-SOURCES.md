@@ -56,17 +56,48 @@
 
 ---
 
+## Community Waypoints & Location Databases
+- **[Waymarking.com](https://www.waymarking.com/)** — Community-placed GPS waypoints for landmarks, markers, historical sites. Searchable by category.
+- **[OpenHistoricalMap](https://www.openhistoricalmap.org/)** — Historical locations mapped with OSM-level coordinate precision.
+
 ## Future Potential Sources
 - Texas Historical Commission markers
 - UK Listed Buildings database
 - European cultural heritage databases
 - iNaturalist (for natural history overlaps)
-- OpenHistoricalMap (historical boundary data)
 - Chronicling America (newspaper archives for location mentions)
 
+---
+
+## Data Ingestion Pipeline
+
+External databases serve TWO purposes:
+1. **Verify existing content** — update coordinates for moments we already have
+2. **Discover new content** — find notable sites we don't have yet
+
+### Pipeline Flow
+```
+External DB (BillionGraves, HMdb, etc.)
+  → Name matching against our entities/moments
+  → Split: EXISTING (update coords) / NEW (score + generate)
+  → Notability filter (cross-verified DB + Wikipedia pageviews)
+  → Content generation (LLM + content guide v3)
+  → Validator skill check (13 automated checks)
+  → Review queue (Rapid Verify or admin panel)
+  → Production (Supabase sync)
+```
+
+### Notability Scoring
+- Source: `data/cross-verified-database.csv` (2.29M people)
+- Scoring: Wikipedia language count × pageviews × occupation weight
+- Pipeline: `scripts/ingest/build-top-people.ts`
+- Used by: `scripts/ingest/notable-people.ts`
+
 ## Data Import Priorities
-1. HMdb.org markers — download GPX, cross-reference with our moments
-2. Find A Grave — verify all burial moments
-3. OddStops — verify all crime scene moments
-4. Earth Impact Database — complete crater collection
-5. Pleiades — verify all ancient world moments
+1. **BillionGraves** — per-headstone GPS for all burial moments (auto-verify existing, discover new)
+2. **HMdb.org markers** — download GPX, cross-reference with our moments
+3. **Find A Grave** — verify burial moments where BillionGraves has no match
+4. **OddStops** — verify all crime scene moments
+5. **Earth Impact Database** — complete crater collection (batch 2-4)
+6. **Pleiades** — verify all ancient world moments
+7. **Wikidata coordinates** — bulk cross-reference for everything with a Wikipedia article
