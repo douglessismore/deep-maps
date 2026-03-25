@@ -192,8 +192,8 @@ export function Header({
             </>
           )}
 
-          {/* Near Me — geolocation, explore mode only */}
-          {mode !== 'story' && mode !== 'entity' && onNearMe && (
+          {/* Near Me — geolocation, explore mode only. V2: hidden from header (moves to map overlay) */}
+          {!v2 && mode !== 'story' && mode !== 'entity' && onNearMe && (
             <button
               onClick={onNearMe}
               disabled={geoLoading}
@@ -228,25 +228,70 @@ export function Header({
             </button>
           )}
 
-          {/* Surprise Me — always visible for endless discovery */}
-          <button
-            onClick={onSurpriseMe}
-            className={v2
-              ? 'bg-[var(--accent-red)] text-[#003825] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase transition-all hover:brightness-110 flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-[var(--accent-red-dim)]'
-              : 'bg-[var(--accent-red)] hover:bg-[#ef4444] text-white px-2.5 sm:px-3 py-1 rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 shadow-sm'
-            }
-            title="Go somewhere unexpected"
-          >
-            {/* Shuffle arrows icon — "take me somewhere random" */}
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 4h3.5c1.5 0 2.5 1 3.5 3s2 3 3.5 3H13m0 0l-2-2m2 2l-2 2M1 10h3.5c1 0 1.8-.5 2.5-1.2M13 4h-1.5c-1 0-1.8.5-2.5 1.2M13 4l-2-2m2 2l-2 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className={v2 ? '' : 'hidden sm:inline'}>{v2 ? 'Surprise Me' : 'Surprise Me'}</span>
-          </button>
+          {/* Surprise Me — default: standalone button. V2 explore: inside search pill */}
+          {!v2 && (
+            <button
+              onClick={onSurpriseMe}
+              className="bg-[var(--accent-red)] hover:bg-[#ef4444] text-white px-2.5 sm:px-3 py-1 rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 shadow-sm"
+              title="Go somewhere unexpected"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M1 4h3.5c1.5 0 2.5 1 3.5 3s2 3 3.5 3H13m0 0l-2-2m2 2l-2 2M1 10h3.5c1 0 1.8-.5 2.5-1.2M13 4h-1.5c-1 0-1.8.5-2.5 1.2M13 4l-2-2m2 2l-2 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span className="hidden sm:inline">Surprise Me</span>
+            </button>
+          )}
 
           {mode !== 'story' && mode !== 'entity' && (
             <>
-              {/* Search — with real-time overlay */}
+              {/* V2: Combined search pill with Surprise Me inside */}
+              {v2 ? (
+                <div className="relative flex items-center bg-[var(--bg-card-hover)] rounded-full backdrop-blur-md">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="absolute left-3 text-[var(--text-muted)]">
+                    <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.3"/>
+                    <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
+                  <input
+                    ref={inputRef}
+                    type="search"
+                    enterKeyHint="search"
+                    value={searchQuery}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    onFocus={() => setSearchFocused(true)}
+                    placeholder="Search for secrets..."
+                    className="bg-transparent border-none rounded-full pl-9 pr-2 py-2 text-xs w-28 sm:w-40 placeholder:text-[var(--text-muted)]/50 focus:outline-none font-sans"
+                  />
+                  <button
+                    onClick={onSurpriseMe}
+                    className="bg-[var(--accent-red)] text-[#003825] px-3 py-1.5 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase transition-all hover:brightness-110 mr-1 shrink-0"
+                    title="Go somewhere unexpected"
+                  >
+                    Surprise Me
+                  </button>
+                  {searchQuery && (
+                    <button
+                      onClick={handleClear}
+                      className="absolute right-24 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    >
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M8 2L2 8M2 2L8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                  )}
+                  {showOverlay && (
+                    <SearchOverlay
+                      query={searchQuery}
+                      onStorySelect={onStorySelect!}
+                      onEntitySelect={onEntitySelect!}
+                      onCollectionSelect={onCollectionSelect!}
+                      onMomentSelect={onMomentSelect!}
+                      onClose={handleCloseOverlay}
+                    />
+                  )}
+                </div>
+              ) : (
+              <>
+              {/* Default: standalone search input */}
               <div className="relative">
                 <input
                   ref={inputRef}
@@ -255,11 +300,8 @@ export function Header({
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
-                  placeholder={v2 ? 'Search for secrets...' : 'Search...'}
-                  className={v2
-                    ? 'bg-[var(--bg-card-hover)] border-none rounded-full px-4 py-2 text-sm w-36 sm:w-48 placeholder:text-[var(--text-muted)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--accent-red-dim)] font-sans text-xs backdrop-blur-md'
-                    : 'bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-md px-3 py-1 text-sm w-32 sm:w-44 placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-red-dim)] font-mono text-xs'
-                  }
+                  placeholder="Search..."
+                  className="bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-md px-3 py-1 text-sm w-32 sm:w-44 placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-red-dim)] font-mono text-xs"
                 />
                 {searchQuery && (
                   <button
@@ -282,6 +324,8 @@ export function Header({
                   />
                 )}
               </div>
+            </>
+          )}
             </>
           )}
         </div>
