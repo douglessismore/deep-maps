@@ -24,6 +24,8 @@ interface HeaderProps {
   onCollectionSelect?: (collection: StoryCollection) => void;
   onMomentSelect?: (moment: Moment) => void;
   hasNavHistory?: boolean;
+  activeCollection?: StoryCollection | null;
+  onClearCollection?: () => void;
 }
 
 export function Header({
@@ -47,6 +49,8 @@ export function Header({
   onCollectionSelect,
   onMomentSelect,
   hasNavHistory,
+  activeCollection,
+  onClearCollection,
 }: HeaderProps) {
   const [searchFocused, setSearchFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -141,18 +145,18 @@ export function Header({
 
         {/* Right side actions */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Back + Home — story/entity mode or when there's nav history (e.g., after search click) */}
-          {(mode === 'story' || mode === 'entity' || hasNavHistory) && (
+          {/* Back + Home — story/entity mode, active collection, or when there's nav history */}
+          {(mode === 'story' || mode === 'entity' || hasNavHistory || activeCollection) && (
             <>
               <button
-                onClick={onBack || onBackToExplore}
+                onClick={activeCollection ? (onClearCollection || onBackToExplore) : (onBack || onBackToExplore)}
                 className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
-                title={backLabel ? `Back to ${backLabel}` : 'Back'}
+                title={activeCollection ? 'Back to Collections' : (backLabel ? `Back to ${backLabel}` : 'Back')}
               >
                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none" className="shrink-0">
                   <path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="truncate">{backLabel || 'Back'}</span>
+                <span className="truncate">{activeCollection ? 'Collections' : (backLabel || 'Back')}</span>
               </button>
               <button
                 onClick={onBackToExplore}

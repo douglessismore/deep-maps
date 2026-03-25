@@ -776,6 +776,8 @@ function App() {
         onCollectionSelect={handleCollectionSelect}
         onMomentSelect={handleMomentSelect}
         hasNavHistory={navHistory.length > 0}
+        activeCollection={activeCollection}
+        onClearCollection={() => setActiveCollection(null)}
       />
       {mode !== 'story' && mode !== 'entity' && (
         <TimelineBar

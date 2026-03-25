@@ -805,8 +805,8 @@ export function ExplorePanel({
 
   return (
     <div className="flex flex-col h-full relative">
-      {/* Back bar — shown when there's nav history (e.g., after search click) */}
-      {hasNavHistory && (
+      {/* Back bar — shown when there's nav history (not for collections — Header handles that) */}
+      {hasNavHistory && !activeCollection && (
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
@@ -1017,17 +1017,6 @@ export function ExplorePanel({
             /* Active collection — moment list with back header */
             <>
               <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5 flex items-center gap-1.5">
-                <button
-                  onClick={onClearCollection}
-                  className="flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors shrink-0"
-                  title="Back to all collections"
-                >
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Collections
-                </button>
-                <span className="text-[11px] font-mono text-[var(--text-muted)]">·</span>
                 <p className="text-[11px] font-mono text-[var(--text-primary)] truncate min-w-0">
                   {activeCollection.name}
                 </p>
