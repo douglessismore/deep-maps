@@ -191,3 +191,35 @@
 - [ ] Notification content: moment name + one-line description
 - [ ] Cooldown logic (max 1 notification per 5 min)
 - [ ] Proactive tour guide mode for tourists
+
+## Community Verification (iNaturalist Model)
+
+Crowdsourced pin verification with accuracy tiers and gamification.
+
+### Accuracy Tiers
+- **Unverified** — LLM-generated, no human check
+- **Admin Verified** — Doug manually verified
+- **Community Verified** — 2+ users agree on location
+- **Research Grade** — verified with primary source (book, archive, plaque photo)
+- **Expedition** — original research that located something for the first time
+
+### Gamification
+- [ ] User accounts + verification history
+- [ ] Points for verifying pins (harder pins = more points)
+- [ ] Leaderboard: top verifiers
+- [ ] Streaks: verify X pins in a row
+- [ ] Badges: "Verified 100 pins", "Found a new location", "Research Grade contributor"
+- [ ] Bounties on hard-to-verify pins (e.g., exact Chisholm Trail start)
+
+### Inspiration
+- **iNaturalist**: millions of user submissions → research grade data
+- **OpenStreetMap**: community-built map data
+- **Wikipedia**: volunteer knowledge curation
+- **Geocaching**: gamified location discovery
+
+### Implementation Phases
+1. Admin-only verification (current — Rapid Verify tool)
+2. Invite-only beta verifiers (trusted friends/historians)
+3. Open verification with agreement threshold
+4. Bounty system for unverified/hard pins
+5. Expedition mode: guided historical research challenges

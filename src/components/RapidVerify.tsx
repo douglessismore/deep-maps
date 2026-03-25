@@ -768,12 +768,28 @@ export function RapidVerify() {
                 className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-yellow-500/50"
               />
             </div>
-            <button
-              onClick={handleSaveAdjust}
-              className="w-full px-3 py-2 text-xs font-medium rounded bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-600/30 transition-colors"
-            >
-              Save &amp; Next
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setAdjustMode(false);
+                  // Reset marker to original position
+                  if (markerRef.current && mapRef.current) {
+                    markerRef.current.setLatLng([current.lat, current.lng]);
+                    mapRef.current.setView([current.lat, current.lng], 17, { animate: true });
+                  }
+                  setAdjustCoords(`${current.lat}, ${current.lng}`);
+                }}
+                className="flex-1 px-3 py-2 text-xs font-medium rounded bg-[#1a1a1a] text-gray-400 border border-[#2a2a2a] hover:bg-[#222] transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveAdjust}
+                className="flex-1 px-3 py-2 text-xs font-medium rounded bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-600/30 transition-colors"
+              >
+                Save &amp; Next
+              </button>
+            </div>
           </div>
         )}
 
