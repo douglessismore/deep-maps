@@ -261,15 +261,40 @@ export function RapidVerify() {
 
   const searchResults = localSearchResults;
 
-  // Resolve pending jump when moments array updates
+  // Resolve pending jump — fetch the specific moment and prepend it
   useEffect(() => {
-    if (pendingJumpId.current && moments.length > 0) {
-      const idx = moments.findIndex(m => m.id === pendingJumpId.current);
-      if (idx >= 0) {
-        setCurrentIndex(idx);
-        pendingJumpId.current = null;
-      }
+    if (!pendingJumpId.current || moments.length === 0) return;
+    const jumpId = pendingJumpId.current;
+    // Check if already in loaded moments
+    const idx = moments.findIndex(m => m.id === jumpId);
+    if (idx >= 0) {
+      setCurrentIndex(idx);
+      pendingJumpId.current = null;
+      return;
     }
+    // Not in loaded moments — fetch it directly and prepend
+    (async () => {
+      const { data } = await supabase
+        .from('moments')
+        .select('id, name, description, location, address, accuracy, importance, year, geo_verified, geo_source_url')
+        .eq('id', jumpId)
+        .single();
+      if (data) {
+        const coords = data.location?.coordinates ?? [0, 0];
+        const mapped: VerifyMoment = {
+          id: data.id, name: data.name, description: data.description ?? '',
+          subtitle: (data as any).subtitle ?? '',
+          lat: coords[1], lng: coords[0],
+          address: data.address, accuracy: data.accuracy ?? 'approximate',
+          importance: data.importance ?? 'minor', year: data.year,
+          geo_verified: data.geo_verified, geo_source_url: data.geo_source_url,
+          geo_verified_at: (data as any).geo_verified_at ?? null,
+        };
+        setMoments(prev => [mapped, ...prev]);
+        setCurrentIndex(0);
+      }
+      pendingJumpId.current = null;
+    })();
   }, [moments]);
 
   // ─── Fetch collections ────────────────────────────────────────────
