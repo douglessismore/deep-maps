@@ -263,7 +263,7 @@ export function Header({
                   />
                   <button
                     onClick={onSurpriseMe}
-                    className="bg-[var(--accent-red)] text-[#003825] px-3 py-1.5 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase transition-all hover:brightness-110 mr-1 shrink-0"
+                    className="bg-[var(--accent-red)]/15 text-[var(--accent-red)] border border-[var(--accent-red)]/30 px-3 py-1.5 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase transition-all hover:bg-[var(--accent-red)]/25 mr-1 shrink-0"
                     title="Go somewhere unexpected"
                   >
                     Surprise Me
