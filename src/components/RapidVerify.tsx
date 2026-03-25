@@ -175,7 +175,6 @@ export function RapidVerify() {
   const [sessionStats, setSessionStats] = useState<SessionStats>(loadSessionStats);
   const [selectedAccuracy, setSelectedAccuracy] = useState<LocationAccuracy | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [quickSourceUrl, setQuickSourceUrl] = useState('');
   const [descExpanded, setDescExpanded] = useState(false);
   const [geocoding, setGeocoding] = useState(false);
   const [geocodeResult, setGeocodeResult] = useState<{ lat: number; lng: number } | null>(null);
@@ -188,6 +187,20 @@ export function RapidVerify() {
   const [showToast, setShowToast] = useState(false);
   const [precisionOpen, setPrecisionOpen] = useState(false);
 
+  // Search / jump-to
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Sources + Notes
+  const [sourceUrls, setSourceUrls] = useState<string[]>([]);
+  const [newSourceUrl, setNewSourceUrl] = useState('');
+  const [verifyNotes, setVerifyNotes] = useState('');
+  const [sourcesOpen, setSourcesOpen] = useState(false);
+
+  // Flagged filter
+  const [flaggedOnly, setFlaggedOnly] = useState(false);
+
   // Adjust mode inputs
   const [adjustCoords, setAdjustCoords] = useState('');
   const [adjustAddress, setAdjustAddress] = useState('');
@@ -199,11 +212,31 @@ export function RapidVerify() {
   const markerRef = useRef<L.Marker | null>(null);
   const draftCoordsRef = useRef<{ lat: number; lng: number }>({ lat: 0, lng: 0 });
 
+  // Search click-away ref
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
   // Swipe refs
   const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
   const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const current = moments[currentIndex] ?? null;
+
+  /** Build combined geo_source_url value from sources + notes */
+  const buildSourceField = useCallback((urls: string[], notes: string): string | null => {
+    const urlsPart = urls.filter(Boolean).join('\n');
+    const notesPart = notes.trim();
+    if (!urlsPart && !notesPart) return null;
+    if (!notesPart) return urlsPart;
+    return urlsPart + '\n---NOTES---\n' + notesPart;
+  }, []);
+
+  /** Filtered search results for jump-to */
+  const searchResults = searchQuery.trim().length >= 2
+    ? moments
+        .map((m, i) => ({ moment: m, index: i }))
+        .filter(({ moment }) => moment.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .slice(0, 8)
+    : [];
 
   // ─── Fetch collections ────────────────────────────────────────────
 
@@ -257,7 +290,10 @@ export function RapidVerify() {
         .order('importance', { ascending: true }) // 'major' sorts before 'minor' alphabetically — but we want major first
         .order('created_at', { ascending: true });
 
-      if (unverifiedOnly) {
+      if (flaggedOnly) {
+        // Flagged = unverified AND has an address (attempted geocode)
+        query = query.eq('geo_verified', false).not('address', 'is', null);
+      } else if (unverifiedOnly) {
         query = query.eq('geo_verified', false);
       }
       if (collectionMomentIds) {
@@ -305,7 +341,7 @@ export function RapidVerify() {
     } finally {
       setLoading(false);
     }
-  }, [unverifiedOnly, collectionMomentIds]);
+  }, [unverifiedOnly, flaggedOnly, collectionMomentIds]);
 
   // Initial fetch + refetch on filter change
   useEffect(() => {
@@ -320,8 +356,23 @@ export function RapidVerify() {
       setAdjustMode(false);
       setAdjustCoords(`${current.lat.toFixed(6)}, ${current.lng.toFixed(6)}`);
       setAdjustAddress(current.address ?? '');
-      setAdjustSourceUrl(current.geo_source_url ?? '');
       setPrecisionOpen(false);
+
+      // Parse geo_source_url into sources + notes
+      const raw = current.geo_source_url ?? '';
+      if (raw.includes('\n---NOTES---\n')) {
+        const [urlsPart, notesPart] = raw.split('\n---NOTES---\n');
+        setSourceUrls(urlsPart ? urlsPart.split('\n').filter(Boolean) : []);
+        setVerifyNotes(notesPart ?? '');
+      } else {
+        setSourceUrls(raw ? raw.split('\n').filter(Boolean) : []);
+        setVerifyNotes('');
+      }
+      setNewSourceUrl('');
+      setSourcesOpen(false);
+
+      // Adjust mode source URL — use raw value
+      setAdjustSourceUrl(raw);
     }
   }, [current]);
 
@@ -389,7 +440,10 @@ export function RapidVerify() {
 
   const advanceToNext = useCallback(() => {
     setAdjustMode(false);
-    setQuickSourceUrl('');
+    setSourceUrls([]);
+    setNewSourceUrl('');
+    setVerifyNotes('');
+    setSourcesOpen(false);
     setDescExpanded(false);
     setGeocodeResult(null);
     setCardAnim('in');
@@ -419,12 +473,13 @@ export function RapidVerify() {
       if (selectedAccuracy && selectedAccuracy !== current.accuracy) {
         await supabase.from('moments').update({ accuracy: selectedAccuracy }).eq('id', current.id);
       }
-      // Mark verified via RPC (include source URL if provided)
+      // Mark verified via RPC (include source URLs + notes if provided)
+      const sourceField = buildSourceField(sourceUrls, verifyNotes);
       const { error: rpcError } = await supabase.rpc('update_moment_location', {
         p_id: current.id,
         p_lng: current.lng,
         p_lat: current.lat,
-        p_source_url: quickSourceUrl.trim() || null,
+        p_source_url: sourceField,
       });
       if (rpcError) throw rpcError;
 
@@ -457,7 +512,7 @@ export function RapidVerify() {
       console.error('[RapidVerify] correct error:', err);
       setError(err instanceof Error ? err.message : 'Failed to save');
     }
-  }, [current, selectedAccuracy, quickSourceUrl, sessionStats, advanceToNext, showFlash, triggerProgressPulse]);
+  }, [current, selectedAccuracy, sourceUrls, verifyNotes, buildSourceField, sessionStats, advanceToNext, showFlash, triggerProgressPulse]);
 
   const handleSkip = useCallback(() => {
     showFlash('gray');
@@ -557,6 +612,20 @@ export function RapidVerify() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [adjustMode, handleCorrect, handleSkip, toggleAdjustMode]);
+
+  // ─── Click-away for search ───────────────────────────────────────
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [searchOpen]);
 
   // ─── Touch / swipe gestures ───────────────────────────────────────
 
@@ -691,13 +760,62 @@ export function RapidVerify() {
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-2">
             <span className="text-base">{'\ud83d\udccd'}</span>
-            <span className="text-sm font-bold tracking-tight">Rapid Verify</span>
+            {searchOpen ? (
+              <div ref={searchContainerRef} className="relative flex-1">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') { setSearchOpen(false); setSearchQuery(''); }
+                  }}
+                  placeholder="Jump to moment..."
+                  className="w-full px-2 py-0.5 bg-[#111] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50"
+                  autoFocus
+                />
+                {searchResults.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+                    {searchResults.map(({ moment, index }) => (
+                      <button
+                        key={moment.id}
+                        onClick={() => {
+                          setCurrentIndex(index);
+                          setSearchOpen(false);
+                          setSearchQuery('');
+                        }}
+                        className="w-full text-left px-3 py-2 text-[11px] text-gray-300 hover:bg-white/5 border-b border-[#2a2a2a] last:border-b-0 transition-colors"
+                      >
+                        <span className="font-medium line-clamp-1">{moment.name}</span>
+                        <span className="text-[9px] text-gray-600 ml-1">#{index + 1}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <span className="text-sm font-bold tracking-tight">Rapid Verify</span>
+            )}
           </div>
           <div className="flex items-center gap-2">
+            {/* Search toggle */}
+            <button
+              onClick={() => {
+                setSearchOpen((o) => {
+                  if (!o) setTimeout(() => searchInputRef.current?.focus(), 50);
+                  else setSearchQuery('');
+                  return !o;
+                });
+              }}
+              className="text-gray-500 hover:text-gray-300 transition-colors"
+              title="Search moments (jump-to)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
             {/* Streak counter */}
             {streak >= 3 && (
               <span className={`text-sm font-bold ${streakPulse ? 'rv-streak-pulse' : ''}`}>
-                🔥 {streak}
+                {'\ud83d\udd25'} {streak}
               </span>
             )}
             <span className="text-xs font-mono text-gray-500">
@@ -914,16 +1032,88 @@ export function RapidVerify() {
           </div>
         )}
 
-        {/* Quick source URL (optional, shown in normal mode) */}
+        {/* Sources + Notes (collapsible, shown in normal mode) */}
         {!adjustMode && (
-          <div className="flex gap-1.5 items-center">
-            <input
-              type="text"
-              value={quickSourceUrl}
-              onChange={(e) => setQuickSourceUrl(e.target.value)}
-              placeholder="Paste source URL (optional)"
-              className="flex-1 px-2 py-1.5 bg-[#111] border border-[#2a2a2a] rounded text-[11px] text-gray-300 placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50"
-            />
+          <div className="border border-[#2a2a2a] rounded-lg overflow-hidden">
+            {/* Sources header — tappable to expand */}
+            <button
+              onClick={() => setSourcesOpen((o) => !o)}
+              className="w-full flex items-center justify-between px-3 py-1.5 bg-[#111] hover:bg-[#161616] transition-colors"
+            >
+              <span className="text-[11px] text-gray-400 font-medium">
+                Sources ({sourceUrls.length}){verifyNotes ? ' + Notes' : ''}
+              </span>
+              <span className="text-[10px] text-gray-600">{sourcesOpen ? '\u25b2' : '\u25bc'}</span>
+            </button>
+
+            {sourcesOpen && (
+              <div className="px-3 py-2 space-y-2 bg-[#0d0d0d]">
+                {/* Existing source URLs */}
+                {sourceUrls.length > 0 && (
+                  <div className="space-y-1">
+                    {sourceUrls.map((url, i) => (
+                      <div key={i} className="flex items-center gap-1.5 group">
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 text-[10px] text-blue-400 truncate hover:underline"
+                          title={url}
+                        >
+                          {url}
+                        </a>
+                        <button
+                          onClick={() => setSourceUrls((prev) => prev.filter((_, j) => j !== i))}
+                          className="shrink-0 text-[10px] text-gray-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity px-1"
+                        >
+                          {'\u2715'}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Add new source URL */}
+                <div className="flex gap-1.5 items-center">
+                  <input
+                    type="text"
+                    value={newSourceUrl}
+                    onChange={(e) => setNewSourceUrl(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && newSourceUrl.trim()) {
+                        setSourceUrls((prev) => [...prev, newSourceUrl.trim()]);
+                        setNewSourceUrl('');
+                      }
+                    }}
+                    placeholder="Paste source URL"
+                    className="flex-1 px-2 py-1 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-[10px] text-gray-300 placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50"
+                  />
+                  <button
+                    onClick={() => {
+                      if (newSourceUrl.trim()) {
+                        setSourceUrls((prev) => [...prev, newSourceUrl.trim()]);
+                        setNewSourceUrl('');
+                      }
+                    }}
+                    className="shrink-0 px-2 py-1 text-[10px] font-medium text-blue-400 border border-blue-500/30 rounded hover:bg-blue-500/10 transition-colors"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                {/* Notes textarea */}
+                <div>
+                  <label className="block text-[10px] text-gray-600 mb-0.5">Notes</label>
+                  <textarea
+                    value={verifyNotes}
+                    onChange={(e) => setVerifyNotes(e.target.value)}
+                    placeholder="Triangulation notes, reasoning, uncertainties..."
+                    rows={2}
+                    className="w-full px-2 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-[10px] text-gray-300 placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 resize-y"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -949,15 +1139,30 @@ export function RapidVerify() {
         )}
 
         {/* Filter controls */}
-        <div className="flex items-center gap-2 pt-1 pb-2">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1 pb-2">
           <label className="flex items-center gap-1.5 text-[11px] text-gray-500 cursor-pointer">
             <input
               type="checkbox"
               checked={unverifiedOnly}
-              onChange={(e) => setUnverifiedOnly(e.target.checked)}
+              onChange={(e) => {
+                setUnverifiedOnly(e.target.checked);
+                if (e.target.checked && flaggedOnly) setFlaggedOnly(false);
+              }}
               className="rounded border-gray-600 bg-[#111] text-green-500 focus:ring-0 focus:ring-offset-0 w-3.5 h-3.5"
             />
-            Unverified only
+            Unverified
+          </label>
+          <label className="flex items-center gap-1.5 text-[11px] text-gray-500 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={flaggedOnly}
+              onChange={(e) => {
+                setFlaggedOnly(e.target.checked);
+                if (e.target.checked) setUnverifiedOnly(false);
+              }}
+              className="rounded border-gray-600 bg-[#111] text-orange-500 focus:ring-0 focus:ring-offset-0 w-3.5 h-3.5"
+            />
+            Flagged (&gt;5km)
           </label>
           <select
             value={selectedCollection}
@@ -977,12 +1182,14 @@ export function RapidVerify() {
         <div className="flex-none px-4 pb-4 pt-2 bg-[#0a0a0a] border-t border-[#1a1a1a]"
           style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
         >
-          {/* Correct button — HUGE, full width, green */}
+          {/* Question framing */}
+          <p className="text-[11px] text-gray-500 text-center mb-1.5">Is this pin in the right spot?</p>
+          {/* Yes button — full width, green */}
           <button
             onClick={handleCorrect}
-            className="w-full h-12 text-sm font-bold rounded-lg bg-[#22c55e] text-white hover:bg-[#16a34a] active:scale-[0.98] transition-all shadow-lg shadow-green-500/20"
+            className="w-full h-11 text-sm font-bold rounded-lg bg-[#22c55e]/90 text-white hover:bg-[#22c55e] active:scale-[0.98] transition-all shadow-lg shadow-green-500/15"
           >
-            ✓ Correct
+            ✓ Yes, looks right
             <span className="ml-2 text-[10px] font-normal opacity-70">C</span>
           </button>
 
