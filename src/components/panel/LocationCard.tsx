@@ -225,6 +225,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                   style={{ backgroundColor: ACCURACY_DISPLAY[location.accuracy].color }}
                 />
                 {ACCURACY_DISPLAY[location.accuracy].label}
+                {(location as any).geoVerified && (
+                  <span title="Location verified" className="ml-0.5 text-green-500">✓</span>
+                )}
               </span>
             </>
           )}

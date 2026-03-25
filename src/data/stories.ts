@@ -1882,7 +1882,14 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'btk-tunstall-store' }, { momentId: 'btk-death' }, { momentId: 'btk-courthouse-escape' }],
+    moments: [
+      { momentId: 'btk-born-nyc-1859' },
+      { momentId: 'btk-tunstall-store' },
+      { momentId: 'btk-regulators-kill-morton-baker' },
+      { momentId: 'btk-courthouse-escape' },
+      { momentId: 'btk-death' },
+      { momentId: 'btk-burial-fort-sumner' },
+    ],
     wikipediaSlug: 'Billy_the_Kid',
   },
   {
