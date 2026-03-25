@@ -35,28 +35,34 @@ function getSourceLinks(m: VerifyMoment): { label: string; url: string }[] {
   // Google Maps search for the address
   if (m.address) {
     links.push({
-      label: `📍 Google Maps: "${m.address}"`,
+      label: `📍 Maps: "${m.address.slice(0, 35)}${m.address.length > 35 ? '...' : ''}"`,
       url: `https://www.google.com/maps/search/${encodeURIComponent(m.address)}`,
     });
   }
-  // Google Maps at exact coords
-  links.push({
-    label: `🛰️ Satellite at pin coords`,
-    url: `https://www.google.com/maps/@${m.lat},${m.lng},18z/data=!3m1!1e1`,
-  });
   // Web search for the event + location
   const searchTerms = m.name.replace(/[''""]/g, '').slice(0, 80);
   links.push({
-    label: `🔍 Search: "${searchTerms.slice(0, 40)}..."`,
-    url: `https://www.google.com/search?q=${encodeURIComponent(searchTerms + ' location address')}`,
-  });
-  // Wikipedia if the name suggests a notable event
-  const wikiSearch = m.name.replace(/[''""]/g, '').slice(0, 60);
-  links.push({
-    label: `📖 Wikipedia search`,
-    url: `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(wikiSearch)}`,
+    label: `🔍 "${searchTerms.slice(0, 35)}..."`,
+    url: `https://www.google.com/search?q=${encodeURIComponent(searchTerms + ' exact location address')}`,
   });
   return links;
+}
+
+/** Geocode an address using Nominatim (OpenStreetMap) — free, no API key */
+async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
+  try {
+    const resp = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`,
+      { headers: { 'User-Agent': 'DeepMaps/1.0 (deepmaps.app)' } }
+    );
+    const results = await resp.json();
+    if (results.length > 0) {
+      return { lat: parseFloat(results[0].lat), lng: parseFloat(results[0].lon) };
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 // ─── Types ───────────────────────────────────────────────────────────
@@ -139,6 +145,9 @@ export function RapidVerify() {
   const [selectedAccuracy, setSelectedAccuracy] = useState<LocationAccuracy | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [quickSourceUrl, setQuickSourceUrl] = useState('');
+  const [descExpanded, setDescExpanded] = useState(false);
+  const [geocoding, setGeocoding] = useState(false);
+  const [geocodeResult, setGeocodeResult] = useState<{ lat: number; lng: number } | null>(null);
 
   // Adjust mode inputs
   const [adjustCoords, setAdjustCoords] = useState('');
@@ -302,6 +311,11 @@ export function RapidVerify() {
     });
 
     L.tileLayer(SAT_TILE_URL, { attribution: SAT_TILE_ATTR, maxZoom: 19 }).addTo(map);
+    // Street labels overlay on satellite for navigation
+    L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      opacity: 0.85,
+    }).addTo(map);
 
     // Zoom control top-right
     L.control.zoom({ position: 'topright' }).addTo(map);
@@ -336,6 +350,8 @@ export function RapidVerify() {
   const advanceToNext = useCallback(() => {
     setAdjustMode(false);
     setQuickSourceUrl('');
+    setDescExpanded(false);
+    setGeocodeResult(null);
     if (currentIndex < moments.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else if (hasMore) {
@@ -633,9 +649,38 @@ export function RapidVerify() {
         <div>
           <h2 className="text-sm font-bold leading-tight">{current.name}</h2>
           {current.address && (
-            <p className="text-[11px] text-gray-400 mt-0.5 truncate">
-              {'\ud83d\udccd'} {current.address}
-            </p>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <p className="text-[11px] text-gray-400 truncate flex-1">
+                {'\ud83d\udccd'} {current.address}
+              </p>
+              {/* Geocode button — snap pin to address */}
+              <button
+                onClick={async () => {
+                  if (!current.address || geocoding) return;
+                  setGeocoding(true);
+                  const result = await geocodeAddress(current.address);
+                  setGeocoding(false);
+                  if (result) {
+                    setGeocodeResult(result);
+                    // Move the marker to geocoded location
+                    if (markerRef.current && mapRef.current) {
+                      markerRef.current.setLatLng([result.lat, result.lng]);
+                      mapRef.current.setView([result.lat, result.lng], 17, { animate: true });
+                    }
+                  } else {
+                    setError('Geocode failed — address not found');
+                  }
+                }}
+                className={`shrink-0 px-1.5 py-0.5 rounded text-[9px] font-medium border transition-colors ${
+                  geocodeResult
+                    ? 'border-green-500/30 bg-green-500/10 text-green-400'
+                    : 'border-blue-500/30 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'
+                }`}
+                title="Move pin to this address using geocoding"
+              >
+                {geocoding ? '...' : geocodeResult ? '\u2705 Snapped' : '\ud83c\udfaf Snap to address'}
+              </button>
+            </div>
           )}
           <div className="flex items-center gap-2 mt-1 text-[10px] text-gray-500">
             <span className="capitalize">{current.importance}</span>
@@ -646,7 +691,19 @@ export function RapidVerify() {
             )}
           </div>
           {current.description && (
-            <p className="text-[11px] text-gray-400 mt-1 line-clamp-2">{current.description}</p>
+            <div className="mt-1">
+              <p className={`text-[11px] text-gray-400 ${descExpanded ? '' : 'line-clamp-2'}`}>
+                {current.description}
+              </p>
+              {current.description.length > 120 && (
+                <button
+                  onClick={() => setDescExpanded(!descExpanded)}
+                  className="text-[10px] text-blue-400 hover:text-blue-300 mt-0.5"
+                >
+                  {descExpanded ? 'Show less' : 'Show more'}
+                </button>
+              )}
+            </div>
           )}
         </div>
 
