@@ -29,20 +29,51 @@ const ACCURACY_OPTIONS: { value: LocationAccuracy; icon: string; label: string; 
   { value: 'general-area' as LocationAccuracy, icon: '🗺️', label: 'Area', desc: '~100m+ — right neighborhood' },
 ];
 
+/** CSS for card slide animation and streak pulse */
+const ANIMATION_STYLES = `
+@keyframes rv-slide-out-left {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+@keyframes rv-slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes rv-pulse-progress {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes rv-streak-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+@keyframes rv-toast-fade {
+  0% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; transform: translateY(-8px); }
+  100% { opacity: 0; transform: translateY(-16px); }
+}
+.rv-slide-out { animation: rv-slide-out-left 0.25s ease-in forwards; }
+.rv-slide-in { animation: rv-slide-in-right 0.25s ease-out forwards; }
+.rv-progress-pulse { animation: rv-pulse-progress 0.6s ease-in-out; }
+.rv-streak-pulse { animation: rv-streak-pulse 0.3s ease-in-out; }
+.rv-toast { animation: rv-toast-fade 0.8s ease-out forwards; }
+`;
+
 /** Generate verification source links for a moment */
-function getSourceLinks(m: VerifyMoment): { label: string; url: string }[] {
-  const links: { label: string; url: string }[] = [];
+function getSourceLinks(m: VerifyMoment): { label: string; url: string; primary?: boolean }[] {
+  const links: { label: string; url: string; primary?: boolean }[] = [];
   // Google Maps search for the address
   if (m.address) {
     links.push({
-      label: `📍 Maps: "${m.address.slice(0, 35)}${m.address.length > 35 ? '...' : ''}"`,
+      label: `📍 Google Maps: "${m.address.slice(0, 40)}${m.address.length > 40 ? '...' : ''}"`,
       url: `https://www.google.com/maps/search/${encodeURIComponent(m.address)}`,
+      primary: true,
     });
   }
   // Web search for the event + location
   const searchTerms = m.name.replace(/[''""]/g, '').slice(0, 80);
   links.push({
-    label: `🔍 "${searchTerms.slice(0, 35)}..."`,
+    label: `🔍 Search: "${searchTerms.slice(0, 40)}..."`,
     url: `https://www.google.com/search?q=${encodeURIComponent(searchTerms + ' exact location address')}`,
   });
   return links;
@@ -148,6 +179,14 @@ export function RapidVerify() {
   const [descExpanded, setDescExpanded] = useState(false);
   const [geocoding, setGeocoding] = useState(false);
   const [geocodeResult, setGeocodeResult] = useState<{ lat: number; lng: number } | null>(null);
+
+  // New UI state
+  const [streak, setStreak] = useState(0);
+  const [streakPulse, setStreakPulse] = useState(false);
+  const [progressPulse, setProgressPulse] = useState(false);
+  const [cardAnim, setCardAnim] = useState<'idle' | 'out' | 'in'>('idle');
+  const [showToast, setShowToast] = useState(false);
+  const [precisionOpen, setPrecisionOpen] = useState(false);
 
   // Adjust mode inputs
   const [adjustCoords, setAdjustCoords] = useState('');
@@ -282,6 +321,7 @@ export function RapidVerify() {
       setAdjustCoords(`${current.lat.toFixed(6)}, ${current.lng.toFixed(6)}`);
       setAdjustAddress(current.address ?? '');
       setAdjustSourceUrl(current.geo_source_url ?? '');
+      setPrecisionOpen(false);
     }
   }, [current]);
 
@@ -352,6 +392,8 @@ export function RapidVerify() {
     setQuickSourceUrl('');
     setDescExpanded(false);
     setGeocodeResult(null);
+    setCardAnim('in');
+    setTimeout(() => setCardAnim('idle'), 300);
     if (currentIndex < moments.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else if (hasMore) {
@@ -362,7 +404,12 @@ export function RapidVerify() {
 
   const showFlash = useCallback((color: 'green' | 'gray') => {
     setFlash(color);
-    setTimeout(() => setFlash(null), 400);
+    setTimeout(() => setFlash(null), 200);
+  }, []);
+
+  const triggerProgressPulse = useCallback(() => {
+    setProgressPulse(true);
+    setTimeout(() => setProgressPulse(false), 600);
   }, []);
 
   const handleCorrect = useCallback(async () => {
@@ -382,19 +429,39 @@ export function RapidVerify() {
       if (rpcError) throw rpcError;
 
       showFlash('green');
+      triggerProgressPulse();
+
+      // Streak
+      setStreak((s) => {
+        const next = s + 1;
+        if (next >= 3) {
+          setStreakPulse(true);
+          setTimeout(() => setStreakPulse(false), 300);
+        }
+        return next;
+      });
+
+      // Toast
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 800);
+
+      // Card slide-out animation
+      setCardAnim('out');
+
       const updated = { ...sessionStats, verified: sessionStats.verified + 1 };
       setSessionStats(updated);
       saveSessionStats(updated);
       setVerifiedCount((c) => c + 1);
-      setTimeout(advanceToNext, 400);
+      setTimeout(advanceToNext, 250);
     } catch (err) {
       console.error('[RapidVerify] correct error:', err);
       setError(err instanceof Error ? err.message : 'Failed to save');
     }
-  }, [current, selectedAccuracy, quickSourceUrl, sessionStats, advanceToNext, showFlash]);
+  }, [current, selectedAccuracy, quickSourceUrl, sessionStats, advanceToNext, showFlash, triggerProgressPulse]);
 
   const handleSkip = useCallback(() => {
     showFlash('gray');
+    setStreak(0);
     const updated = { ...sessionStats, skipped: sessionStats.skipped + 1 };
     setSessionStats(updated);
     saveSessionStats(updated);
@@ -433,6 +500,8 @@ export function RapidVerify() {
       if (rpcError) throw rpcError;
 
       showFlash('green');
+      triggerProgressPulse();
+      setStreak(0); // Adjust resets streak
       const updated = { ...sessionStats, adjusted: sessionStats.adjusted + 1 };
       setSessionStats(updated);
       saveSessionStats(updated);
@@ -442,10 +511,11 @@ export function RapidVerify() {
       console.error('[RapidVerify] adjust error:', err);
       setError(err instanceof Error ? err.message : 'Failed to save');
     }
-  }, [current, adjustCoords, adjustAddress, adjustSourceUrl, selectedAccuracy, sessionStats, advanceToNext, showFlash]);
+  }, [current, adjustCoords, adjustAddress, adjustSourceUrl, selectedAccuracy, sessionStats, advanceToNext, showFlash, triggerProgressPulse]);
 
   const toggleAdjustMode = useCallback(() => {
     setAdjustMode((prev) => !prev);
+    setStreak(0); // Opening adjust resets streak
   }, []);
 
   // ─── Keyboard shortcuts ───────────────────────────────────────────
@@ -461,6 +531,7 @@ export function RapidVerify() {
           e.preventDefault();
           if (!adjustMode) handleCorrect();
           break;
+        case 'ArrowLeft':
         case 's':
           e.preventDefault();
           if (!adjustMode) handleSkip();
@@ -588,38 +659,63 @@ export function RapidVerify() {
   }
 
   const progressPct = totalCount > 0 ? Math.round((verifiedCount / totalCount) * 100) : 0;
+  // Gradient from red (0%) to yellow (50%) to green (100%)
+  const progressGradient = `linear-gradient(90deg, #ef4444 0%, #eab308 50%, #22c55e 100%)`;
+
+  const accuracyLabel = ACCURACY_OPTIONS.find((o) => o.value === selectedAccuracy);
 
   return (
     <div className="h-[100dvh] flex flex-col bg-[#0a0a0a] text-white overflow-hidden select-none">
+      {/* Inject animation styles */}
+      <style>{ANIMATION_STYLES}</style>
+
       {/* Flash overlays */}
       {flash === 'green' && (
-        <div className="fixed inset-0 z-50 pointer-events-none bg-green-500/15 transition-opacity" />
+        <div className="fixed inset-0 z-50 pointer-events-none bg-green-500/20 transition-opacity" />
       )}
       {flash === 'gray' && (
         <div className="fixed inset-0 z-50 pointer-events-none bg-gray-500/15 transition-opacity" />
       )}
 
-      {/* ─── Header ────────────────────────────────────────────────── */}
+      {/* Toast on Correct */}
+      {showToast && (
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none rv-toast">
+          <span className="bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
+            ✓
+          </span>
+        </div>
+      )}
+
+      {/* ─── Header + Progress ──────────────────────────────────────── */}
       <div className="flex-none px-4 pt-3 pb-2">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-2">
             <span className="text-base">{'\ud83d\udccd'}</span>
             <span className="text-sm font-bold tracking-tight">Rapid Verify</span>
           </div>
-          <span className="text-xs font-mono text-gray-500">
-            {currentIndex + 1}/{moments.length}{hasMore ? '+' : ''}
-          </span>
+          <div className="flex items-center gap-2">
+            {/* Streak counter */}
+            {streak >= 3 && (
+              <span className={`text-sm font-bold ${streakPulse ? 'rv-streak-pulse' : ''}`}>
+                🔥 {streak}
+              </span>
+            )}
+            <span className="text-xs font-mono text-gray-500">
+              {currentIndex + 1}/{moments.length}{hasMore ? '+' : ''}
+            </span>
+          </div>
         </div>
-        {/* Progress bar */}
-        <div className="w-full h-1.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+
+        {/* Progress bar — 6px, gradient, with pulse */}
+        <div className={`w-full h-1.5 bg-[#1a1a1a] rounded-full overflow-hidden ${progressPulse ? 'rv-progress-pulse' : ''}`}>
           <div
-            className="h-full bg-green-500/70 rounded-full transition-all duration-300"
-            style={{ width: `${progressPct}%` }}
+            className="h-full rounded-full transition-all duration-500"
+            style={{ width: `${progressPct}%`, background: progressGradient }}
           />
         </div>
         <div className="flex items-center justify-between mt-1">
-          <span className="text-[10px] text-gray-600">
-            {verifiedCount}/{totalCount} verified ({progressPct}%)
+          <span className="text-[11px] font-medium text-gray-400">
+            {progressPct}% verified ({verifiedCount.toLocaleString()} of {totalCount.toLocaleString()})
           </span>
           <span className="text-[10px] text-gray-600">
             Session: {sessionStats.verified}v {sessionStats.adjusted}a {sessionStats.skipped}s
@@ -627,20 +723,22 @@ export function RapidVerify() {
         </div>
       </div>
 
-      {/* ─── Map ───────────────────────────────────────────────────── */}
-      <div className="flex-none relative" style={{ height: '55dvh' }}>
+      {/* ─── Map — smaller on mobile ─────────────────────────────────── */}
+      <div className="flex-none relative" style={{ height: 'clamp(35dvh, 35dvh, 45dvh)' }}>
         <div ref={mapContainerRef} className="w-full h-full" />
-        {/* Address overlay */}
+        {/* Address overlay — no truncation */}
         {current.address && (
           <div className="absolute bottom-0 left-0 right-0 z-[1000] bg-black/60 backdrop-blur-sm px-3 py-1.5">
-            <p className="text-xs text-gray-200 truncate">{current.address}</p>
+            <p className="text-xs text-gray-200 leading-snug">{current.address}</p>
           </div>
         )}
       </div>
 
-      {/* ─── Card + controls (scrollable) ──────────────────────────── */}
+      {/* ─── Card content (scrollable middle) ────────────────────────── */}
       <div
-        className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5"
+        className={`flex-1 overflow-y-auto px-4 py-3 space-y-2.5 pb-48 ${
+          cardAnim === 'out' ? 'rv-slide-out' : cardAnim === 'in' ? 'rv-slide-in' : ''
+        }`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -650,7 +748,7 @@ export function RapidVerify() {
           <h2 className="text-sm font-bold leading-tight">{current.name}</h2>
           {current.address && (
             <div className="flex items-center gap-1.5 mt-0.5">
-              <p className="text-[11px] text-gray-400 truncate flex-1">
+              <p className="text-[11px] text-gray-400 flex-1 leading-snug">
                 {'\ud83d\udccd'} {current.address}
               </p>
               {/* Geocode button — snap pin to address */}
@@ -712,25 +810,48 @@ export function RapidVerify() {
           <p className="text-[11px] text-red-400">{error}</p>
         )}
 
-        {/* Precision selector */}
+        {/* Precision selector — collapsed by default */}
         <div>
-          <label className="block text-[10px] text-gray-600 mb-1">Precision</label>
-          <div className="flex gap-1.5">
-            {ACCURACY_OPTIONS.map((opt) => (
-              <button
-                key={opt.label}
-                onClick={() => setSelectedAccuracy(opt.value)}
-                className={`flex-1 px-2 py-1.5 rounded text-[11px] font-medium border transition-colors ${
-                  selectedAccuracy === opt.value
-                    ? 'border-white/30 bg-white/10 text-white'
-                    : 'border-[#2a2a2a] bg-[#111] text-gray-500 hover:text-gray-300'
-                }`}
-                title={opt.desc}
-              >
-                {opt.icon} {opt.label}
-              </button>
-            ))}
-          </div>
+          {!precisionOpen ? (
+            <button
+              onClick={() => setPrecisionOpen(true)}
+              className="flex items-center gap-1.5 text-[11px] text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <span className="text-[10px] text-gray-600">Precision:</span>
+              <span className="px-1.5 py-0.5 rounded bg-white/5 border border-[#2a2a2a] text-[10px] font-medium text-gray-400">
+                {accuracyLabel ? `${accuracyLabel.icon} ${accuracyLabel.label}` : 'exact'}
+              </span>
+              <span className="text-[9px] text-gray-600">tap to change</span>
+            </button>
+          ) : (
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-[10px] text-gray-600">Precision</label>
+                <button
+                  onClick={() => setPrecisionOpen(false)}
+                  className="text-[9px] text-gray-600 hover:text-gray-400"
+                >
+                  close
+                </button>
+              </div>
+              <div className="flex gap-1.5">
+                {ACCURACY_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.label}
+                    onClick={() => setSelectedAccuracy(opt.value)}
+                    className={`flex-1 px-2 py-1.5 rounded text-[11px] font-medium border transition-colors ${
+                      selectedAccuracy === opt.value
+                        ? 'border-white/30 bg-white/10 text-white'
+                        : 'border-[#2a2a2a] bg-[#111] text-gray-500 hover:text-gray-300'
+                    }`}
+                    title={opt.desc}
+                  >
+                    {opt.icon} {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Adjust mode inputs */}
@@ -793,24 +914,7 @@ export function RapidVerify() {
           </div>
         )}
 
-        {/* Verify sources — quick links to check location */}
-        {!adjustMode && (
-          <div className="flex flex-wrap gap-1.5 pb-1">
-            {getSourceLinks(current).map((link, i) => (
-              <a
-                key={i}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] px-2 py-1 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20 hover:bg-blue-500/10 transition-colors truncate max-w-[48%]"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        )}
-
-        {/* Quick source URL (optional, shown in normal mode too) */}
+        {/* Quick source URL (optional, shown in normal mode) */}
         {!adjustMode && (
           <div className="flex gap-1.5 items-center">
             <input
@@ -823,27 +927,24 @@ export function RapidVerify() {
           </div>
         )}
 
-        {/* Action buttons */}
+        {/* Verify sources — full-width pills ABOVE action buttons */}
         {!adjustMode && (
-          <div className="flex gap-2">
-            <button
-              onClick={handleCorrect}
-              className="flex-1 px-3 py-2.5 text-xs font-medium rounded bg-green-600/20 text-green-400 border border-green-500/30 hover:bg-green-600/30 transition-colors active:scale-95"
-            >
-              {'\u2705'} Correct
-            </button>
-            <button
-              onClick={toggleAdjustMode}
-              className="flex-1 px-3 py-2.5 text-xs font-medium rounded bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-600/30 transition-colors active:scale-95"
-            >
-              {'\ud83d\udccd'} Adjust
-            </button>
-            <button
-              onClick={handleSkip}
-              className="flex-1 px-3 py-2.5 text-xs font-medium rounded bg-gray-600/20 text-gray-400 border border-gray-500/30 hover:bg-gray-600/30 transition-colors active:scale-95"
-            >
-              {'\u23ed'} Skip
-            </button>
+          <div className="space-y-1.5">
+            {getSourceLinks(current).map((link, i) => (
+              <a
+                key={i}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`block w-full text-[11px] px-3 py-2 rounded-lg font-medium text-center transition-colors ${
+                  link.primary
+                    ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30 hover:bg-blue-500/25'
+                    : 'bg-[#1a1a2e] text-blue-400 border border-blue-500/20 hover:bg-blue-500/10'
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         )}
 
@@ -870,6 +971,40 @@ export function RapidVerify() {
           </select>
         </div>
       </div>
+
+      {/* ─── Sticky action bar (fixed bottom) ────────────────────────── */}
+      {!adjustMode && (
+        <div className="flex-none px-4 pb-4 pt-2 bg-[#0a0a0a] border-t border-[#1a1a1a]"
+          style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+        >
+          {/* Correct button — HUGE, full width, green */}
+          <button
+            onClick={handleCorrect}
+            className="w-full h-12 text-sm font-bold rounded-lg bg-[#22c55e] text-white hover:bg-[#16a34a] active:scale-[0.98] transition-all shadow-lg shadow-green-500/20"
+          >
+            ✓ Correct
+            <span className="ml-2 text-[10px] font-normal opacity-70">C</span>
+          </button>
+
+          {/* Adjust + Skip row */}
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={toggleAdjustMode}
+              className="flex-1 h-9 text-xs font-medium rounded-lg text-yellow-400 border border-yellow-500/40 hover:bg-yellow-500/10 active:scale-[0.98] transition-all"
+            >
+              📍 Adjust
+              <span className="ml-1 text-[9px] font-normal opacity-60">A</span>
+            </button>
+            <button
+              onClick={handleSkip}
+              className="px-6 h-9 text-xs font-medium rounded-lg text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              Skip
+              <span className="ml-1 text-[9px] font-normal opacity-60">S</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
