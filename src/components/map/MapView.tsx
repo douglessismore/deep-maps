@@ -324,13 +324,14 @@ function MapController({
     return null; // null = use cluster mode
   }, [mode, activeStory, entityLocations, activeCollection, momentById, momentToStory, momentMap]);
 
-  // Index map for numbered markers in story/entity mode (1-based)
+  // Index map for numbered markers in story mode (1-based)
+  // Skip numbering in entity mode — place entity moments cluster on/near the same pin
   const focusedIndexMap = useMemo(() => {
-    if (!focusedLocations) return null;
+    if (!focusedLocations || mode === 'entity') return null;
     const map = new Map<string, number>();
     focusedLocations.forEach(({ location }, i) => map.set(location.id, i + 1));
     return map;
-  }, [focusedLocations]);
+  }, [focusedLocations, mode]);
 
   // ── Cluster data for explore/scroll mode ───────────────────────────
 
