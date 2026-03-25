@@ -233,6 +233,7 @@ export function RapidVerify() {
   /** Search results — check local array first, fall back to Supabase for full search */
   const [supabaseSearchResults, setSupabaseSearchResults] = useState<{ id: string; name: string }[]>([]);
   const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingJumpId = useRef<string | null>(null);
 
   // Local search (instant, within loaded moments)
   const localSearchResults = searchQuery.trim().length >= 2
@@ -259,6 +260,17 @@ export function RapidVerify() {
   }, [searchQuery, moments, localSearchResults.length]);
 
   const searchResults = localSearchResults;
+
+  // Resolve pending jump when moments array updates
+  useEffect(() => {
+    if (pendingJumpId.current && moments.length > 0) {
+      const idx = moments.findIndex(m => m.id === pendingJumpId.current);
+      if (idx >= 0) {
+        setCurrentIndex(idx);
+        pendingJumpId.current = null;
+      }
+    }
+  }, [moments]);
 
   // ─── Fetch collections ────────────────────────────────────────────
 
@@ -825,11 +837,8 @@ export function RapidVerify() {
                           setSelectedCollection('');
                           setSearchOpen(false);
                           setSearchQuery('');
-                          // The moment will appear after refetch — set a pending jump
-                          setTimeout(() => {
-                            const idx = moments.findIndex(mm => mm.id === m.id);
-                            if (idx >= 0) setCurrentIndex(idx);
-                          }, 2000);
+                          // Set pending jump — will be resolved when moments array updates
+                          pendingJumpId.current = m.id;
                         }}
                         className="w-full text-left px-3 py-2 text-[11px] text-gray-500 hover:bg-white/5 border-b border-[#2a2a2a] last:border-b-0 transition-colors italic"
                       >
