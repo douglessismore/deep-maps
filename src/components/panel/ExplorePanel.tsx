@@ -161,6 +161,7 @@ export function ExplorePanel({
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
   const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
+  const [scrollActiveMomentKey, setScrollActiveMomentKey] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
   // Compact cards on mobile to show more stories below the map
@@ -511,6 +512,7 @@ export function ExplorePanel({
             (v) => `${v.story?.id ?? 'no-story'}-${v.location.id}` === closestKey
           );
           if (vl) {
+            setScrollActiveMomentKey(closestKey);
             onScrollHighlight([vl.location], vl.story?.id);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {
@@ -940,7 +942,7 @@ export function ExplorePanel({
                     }}
                     location={vl.location}
                     story={vl.story ?? undefined}
-                    isActive={activeLocationId === vl.location.id}
+                    isActive={activeLocationId === vl.location.id || scrollActiveMomentKey === key}
                     isExpanded={expandedLocationKey === key}
                     compact={useCompactCards && expandedLocationKey !== key}
                     showExpandChevron={!isMobile}
