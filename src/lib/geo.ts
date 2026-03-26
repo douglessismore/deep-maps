@@ -56,10 +56,10 @@ export function getLocationsInBounds(
   const results: ViewportLocation[] = [];
   const seenIds = new Set<string>();
 
-  // Story-linked moments (primary source)
+  // Story-linked moments (primary source — deduplicate by moment ID)
   for (const story of stories) {
     for (const location of resolveLocationsFromMap(story, momentMap)) {
-      if (wrappedBounds.contains(L.latLng(location.lat, location.lng).wrap())) {
+      if (!seenIds.has(location.id) && wrappedBounds.contains(L.latLng(location.lat, location.lng).wrap())) {
         seenIds.add(location.id);
         results.push({
           location,
