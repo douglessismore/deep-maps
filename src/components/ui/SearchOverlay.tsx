@@ -97,7 +97,7 @@ export function SearchOverlay({
     if (trimmed.length < 2) return null;
 
     const matchedStories = stories
-      .filter(s => s.storyType !== 'biography' && !canonicalStoryIds.has(s.id))
+      .filter(s => s.storyType !== 'biography' && s.storyType !== 'place' && !canonicalStoryIds.has(s.id))
       .filter(s => matches(trimmed, s.name, s.nickname, s.description, ...s.tags))
       .slice(0, MAX_PER_GROUP);
 

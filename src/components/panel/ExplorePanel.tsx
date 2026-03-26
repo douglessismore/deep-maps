@@ -543,8 +543,8 @@ export function ExplorePanel({
     else if (viewportStories.length > 0) result = viewportStories;
     else result = filteredStories;
 
-    // Suppress biography stories from browseable list (invisible infrastructure)
-    result = result.filter(s => s.storyType !== 'biography' && !canonicalStoryIds.has(s.id));
+    // Suppress biography + place stories from browseable list (invisible infrastructure)
+    result = result.filter(s => s.storyType !== 'biography' && s.storyType !== 'place' && !canonicalStoryIds.has(s.id));
 
     // Sort by active story sort mode
     if (storySort === 'nearest' && userLocation) {
