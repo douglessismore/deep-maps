@@ -114,19 +114,18 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
 
     // Resolve entities for "Dive Deeper" chips/cards — always computed for strottability
     // Excludes: entity whose canonicalStoryId === story.id (self-link in story view)
-    //           + concept entities whose canonicalStoryId is a parent story (dupe prevention)
+    //           + concept entities (abstract labels, not navigable — use person/place/org/work)
     //           + any explicitly excluded entities (e.g. the entity being viewed in EntityPanel)
     const resolvedEntities = useMemo(() => {
       if (!location.entityIds || location.entityIds.length === 0 || !onEntityClick) return [];
       const excludeSet = new Set(excludeEntityIds ?? []);
-      const parentStoryIds = new Set((parentStories ?? []).map(s => s.id));
       return location.entityIds
         .map((eid) => {
           const entity = entityMap.get(eid);
           if (!entity) return null;
           if (!skipCanonicalFilter && story && entity.canonicalStoryId === story.id) return null;
-          // Filter concept entities that duplicate a parent story (same canonical story)
-          if (entity.type === 'concept' && entity.canonicalStoryId && parentStoryIds.has(entity.canonicalStoryId)) return null;
+          // Concept entities are abstract labels, not navigable destinations
+          if (entity.type === 'concept') return null;
           if (excludeSet.has(eid)) return null;
           const entries = getEntityMomentStories(eid);
           const incidentStories = entries.flatMap(({ stories: s }) => s).filter(s => s.storyType === 'incident');
