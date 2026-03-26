@@ -102,8 +102,8 @@ export const collections: StoryCollection[] = [
   },
   {
     id: 'outlaw-gunfighter-sites',
-    name: 'Outlaw and Gunfighter Sites of the American West',
-    subtitle: 'Jailbreaks, ambush sites, hideouts, and graves of Old West outlaws and Depression-era bandits',
+    name: 'Where Outlaws Lived and Died',
+    subtitle: 'The courthouses, canyons, and crossroads of Billy the Kid, Bonnie & Clyde, and Pancho Villa',
     description: 'Billy the Kid, Geronimo, Bonnie & Clyde, Pancho Villa — the courthouses, canyons, and crossroads where outlaws lived and died.',
     momentIds: [
       'btk-courthouse-escape', 'btk-death', 'btk-tunstall-store', 'geronimo-skeleton-canyon', 'baca-standoff',

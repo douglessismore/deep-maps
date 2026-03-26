@@ -3483,6 +3483,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1866,
+    entityIds: ['scholz-garden'],
     address: '1607 San Jacinto Blvd, Austin, TX 78701',
   },
   {
@@ -12168,6 +12169,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1915,
     address: '713 Congress Ave, Austin, TX 78701',
+    entityIds: ['paramount-theatre-austin'],
   },
   {
     id: 'paramount-near-death',
@@ -12183,6 +12185,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1975,
+    entityIds: ['paramount-theatre-austin'],
   },
   {
     id: 'paramount-film-revival',
@@ -12198,6 +12201,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1993,
+    entityIds: ['paramount-theatre-austin'],
   },
   {
     id: 'scholz-political-backroom',
@@ -12213,6 +12217,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1948,
+    entityIds: ['scholz-garden'],
   },
   {
     id: 'scholz-longhorn-tradition',
@@ -12228,6 +12233,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1920,
+    entityIds: ['scholz-garden'],
   },
   {
     id: 'guadalupe-tilma-reveal',

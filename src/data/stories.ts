@@ -2,17 +2,7 @@
 import type { Story } from '../types';
 
 export const stories: Story[] = [
-  {
-    id: 'booker-t-washington-denied-capitol',
-    name: 'Booker T. Washington Denied the Texas Capitol',
-    years: '1911',
-    category: 'political-drama',
-    storyType: 'incident',
-    description: 'Denied the right to speak at the Texas Capitol by a racist administration, the most famous Black educator in America drew a crowd of over 5,000—nearly 20% of Austin\'s population—to a public park. The refusal backfired, creating a monumental demonstration for civil discourse.',
-    tags: [],
-    moments: [{ momentId: 'btw-capitol-refusal' }, { momentId: 'btw-wooldridge-square' }],
-    wikipediaSlug: 'Booker_T._Washington',
-  },
+  // booker-t-washington-denied-capitol removed — moments remain linked to Booker T entity
   {
     id: 'evolution-of-life',
     name: 'Evolution of Life on Earth',
@@ -1059,7 +1049,7 @@ export const stories: Story[] = [
   },
   {
     id: 'dazed-and-confused-austin',
-    name: 'Dazed and Confused — Austin on Film',
+    name: 'Dazed and Confused',
     years: '1993',
     category: 'arts-culture',
     storyType: 'incident',
