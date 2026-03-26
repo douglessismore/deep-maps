@@ -38,6 +38,7 @@
 - [ ] **Story/collection zoom UX** — Maintain zoom level when clicking from zoomed-in view
 
 ### Medium Priority
+- [ ] **Desktop header layout cleanup** — Category pills + Near Me + Surprise Me + Search crowd the header on desktop. V2 header is cleaner. Flagged session 2026-03-26.
 - [ ] **Timeline bar clarity on mobile** — Nate feedback: confusing on mobile, needs UX rethink
 - [ ] **Near Me / Surprise Me button clarity** — Nate feedback: buttons unclear, improve labels or onboarding
 - [ ] **Pictures for events** — Nate feedback: add images to moment cards (rights/sourcing TBD)
@@ -72,6 +73,7 @@
 ### Collection Fixes
 - [ ] **Rename "Indigenous Peoples: Resistance and Survival"** — too stylized. Should be matter-of-fact so users know what they're filtering to (e.g., "Indigenous History Sites" or similar). Match the directness of other collections.
 - [ ] **Walking tour / road trip collections** — Curate collections for specific walking paths (start with Rome, Paris, London) and road trip routes. Pull from best walking tour guides, compile into geo-sequenced collections. Test with seed cities first.
+- [ ] **Texas State Cemetery ArcGIS scrape** — cemetery.texas.gov uses ArcGIS map with ~3,200 burials. Find REST endpoint, extract notable burials with pinpoint GPS + section/row/plot data. Format subtitles like: "Republic Hill Section 1 Row N Number 6". Source: https://cemetery.texas.gov/locate-a-plot/
 - [x] **US Presidents Burials** — "Where Every US President Is Buried" collection created with all 39 deceased presidents (session 2026-03-25)
 
 ### Completed This Session (2026-03-23)
@@ -141,11 +143,12 @@
 
 ### Needed
 - [ ] **Duplicate detection** — Automated check for similar moment names/coordinates before creating new content
-- [ ] **Biography-story-visibility check** — Add to validator: flag any biography story that could leak into user-facing UI
-- [ ] **Supabase row count parity check** — Compare static file counts against API response counts
+- [ ] **Biography-story-visibility check** — Add to validator: flag any biography story that could leak into user-facing UI (see TODOS.md #2)
+- [x] ~~**Supabase row count parity check**~~ — `scripts/check-drift.ts` compares counts (session 2026-03-26)
 - [ ] **Pin accuracy upgrade pipeline** — Systematic geocoding for 869 upgradeable moments
 - [ ] **Full entity link audit automation** — Scan ALL moment-entity links for false positives (not just Rome batch)
-- [ ] **Check for other storyType: 'place' stories** — Brooklyn Bridge/Empire State fixed, but may be others
+- [x] ~~**Content-type boundary enforcement**~~ — Whitelist `browseableStories` in DataProvider, concept entities filtered from Dive Deeper (session 2026-03-26)
+- [ ] **Reclassify 14 concept entities** — Some should be organizations, some should just be stories. 6 have canonicalStoryIds (caught by filter), 8 don't.
 
 ---
 
@@ -156,7 +159,7 @@
 - [ ] Viewport-based loading (PostGIS spatial queries)
 - [ ] Server-side search (Supabase full-text search)
 - [ ] Pre-computed clustering at zoom levels
-- [ ] Automated testing (zero tests currently)
+- [x] ~~Automated testing~~ — Vitest installed, first tests for content-type filter (session 2026-03-26). Expand coverage.
 
 ---
 
@@ -194,7 +197,7 @@
 
 ---
 
-*Last updated: 2026-03-24*
+*Last updated: 2026-03-26*
 
 ## Proximity Notifications (PWA Push + Geofencing)
 
