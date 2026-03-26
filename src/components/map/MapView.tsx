@@ -136,7 +136,7 @@ function createMarkerIcon(color: string, size: number, isActive: boolean, isScro
 
   // Number label inside the marker (story/entity mode only)
   const labelHtml = label !== undefined && displaySize >= 10
-    ? `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:${Math.max(8, displaySize * 0.55)}px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#000;opacity:0.8;pointer-events:none;">${label}</span>`
+    ? `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:${Math.max(8, displaySize * 0.55)}px;font-weight:700;font-family:'Space Grotesk','Courier New',monospace;color:#000;opacity:0.8;pointer-events:none;">${label}</span>`
     : '';
 
   // On mobile, wrap small markers in a larger transparent touch target
@@ -429,7 +429,7 @@ function MapController({
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
             existing.marker.unbindTooltip();
             existing.marker.bindTooltip(
-              `<strong style="font-family:'Crimson Text',serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
+              `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
               { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
             );
           }
@@ -444,7 +444,7 @@ function MapController({
           const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
           const marker = L.marker([location.lat, location.lng], { icon });
           marker.bindTooltip(
-            `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+            `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
               <strong>${location.name}</strong>
             </div>`,
             { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
@@ -593,9 +593,9 @@ function MapController({
               existing.marker.unbindTooltip();
               const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
               existing.marker.bindTooltip(
-                `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+                `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
                   <strong>${moment.name}</strong>
-                  <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+                  <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${story.name}</div>
                 </div>`,
                 { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
               );
@@ -624,9 +624,9 @@ function MapController({
             const marker = L.marker([moment.lat, moment.lng], { icon });
             const displaySize = isHighlighted && !isActive ? Math.max(effectiveSize * 1.6, 16) : effectiveSize;
             marker.bindTooltip(
-              `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+              `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
                 <strong>${moment.name}</strong>
-                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${story.name}</div>
+                <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${story.name}</div>
               </div>`,
               { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
             );

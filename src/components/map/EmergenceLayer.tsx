@@ -186,9 +186,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         // Tooltip
         const storyName = story?.name || '';
         marker.bindTooltip(
-          `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
             <strong>${moment.name}</strong>
-            <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'IBM Plex Mono',monospace;">${storyName}</div>
+            <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${storyName}</div>
           </div>`,
           { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
         );
@@ -278,7 +278,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         interactive: false,
       });
       marker.bindTooltip(
-        `<div style="font-family:'Crimson Text',serif;font-size:13px;max-width:220px;">
+        `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
           <strong>${moment.name}</strong>
         </div>`,
         { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: true }

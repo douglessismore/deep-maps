@@ -161,7 +161,7 @@ function createClassicSVG(
       ${segments}
     </g>
     <text x="${center}" y="${center}" text-anchor="middle" dominant-baseline="central"
-      fill="#e5e5e5" font-size="${fontSize}" font-family="'IBM Plex Mono', monospace"
+      fill="#e5e5e5" font-size="${fontSize}" font-family="'Space Grotesk', 'Courier New', monospace"
       font-weight="600" letter-spacing="0.5px">
       ${countStr}
     </text>
@@ -513,12 +513,12 @@ export function createConstellationTooltip(
     `<div style="font-size:11px;color:#d4d4d4;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;">${s.name}</div>`
   ).join('');
 
-  return `<div style="font-family:'Crimson Text',serif;max-width:240px;">
+  return `<div style="font-family:'Newsreader',Georgia,serif;max-width:240px;">
     <div style="font-size:13px;font-weight:700;color:#e5e5e5;margin-bottom:4px;">
       ${point_count} moments
     </div>
     ${storyHtml}
-    ${topStories.length < point_count ? `<div style="font-size:10px;color:#737373;margin-top:2px;font-family:'IBM Plex Mono',monospace;">+ ${point_count - topStories.length} more…</div>` : ''}
+    ${topStories.length < point_count ? `<div style="font-size:10px;color:#737373;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">+ ${point_count - topStories.length} more…</div>` : ''}
     <div style="margin-top:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.06);">
       ${catHtml}
     </div>
