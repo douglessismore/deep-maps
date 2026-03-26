@@ -1,10 +1,10 @@
 # Deep Maps — Session Handoff
 
 **Last updated:** 2026-03-26 (Session 5)
-**Branch:** `fix/content-type-enforcement` (not yet merged to main)
+**Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** deepmaps.app (Vercel + Supabase)
-**Latest commit on branch:** `c9930be` — Apply V2 serif font to all card titles
+**Latest commit:** `7fd9307` — Merged `fix/content-type-enforcement` → deployed to Vercel
 
 ---
 
@@ -94,25 +94,24 @@ NOT from the parent directory. MCP servers, slash commands, and settings only lo
 
 ## Not Yet Done (Needs Action)
 
-### Must Do Before Merging to Main
-1. **Merge branch** `fix/content-type-enforcement` → `main` and push to deploy
-
-### Supabase Actions (After Merge)
-1. **Run migration 008** against Supabase (validation triggers + backslash cleanup)
+### Supabase Actions (FIRST PRIORITY next session)
+1. **Run migration 008** against Supabase SQL Editor — `supabase/migrations/008_content_type_constraints.sql`. Adds validation triggers (entity-story type matching, backslash cleanup on write) + one-time data cleanup of existing trailing backslashes. Safe and reversible.
 2. **Remove SGA concept entity** from Supabase `entities` table + its `moment_entities` rows
 3. **Clean 3 duplicate moments** in Supabase (Jordan River baptism, Comaneci perfect 10, Einstein papers)
 4. **Fix Treaty Oak related-story wiring** — remove from SGA's `related_stories` (should be "nearby" not "related")
-5. **6 content fixes from Session 4:** Dazed rename, Booker T delete, Paramount/Scholz wiring, Outlaw rename
+5. **6 content fixes from Session 4:** Dazed rename, Booker T delete, Paramount/Scholz wiring, Outlaw rename, backslash audit
+6. **Run Supabase data integrity audit** — query for all orphan moments (no entity links), unlinked moments (no story_moments), concept entities, and duplicate moments. Batch-fix with scripts.
+7. **Run `dump-from-supabase.ts`** to sync static files (46 stories behind)
+8. **Reclassify 14 concept entities** — most should be stories or organizations, not concepts
 
 ---
 
 ## Immediate Next Session Priorities
 
-1. **Merge and deploy** the content-type enforcement branch
-2. **Run Supabase actions** listed above
-3. **Ship shareable collection URLs with OG tags** — #1 strategic priority per office hours doc
-4. **Add Plausible analytics** — one script tag, tracks collection performance
-5. **Post first collection to Reddit** — Serial Killer Crime Scenes to r/TrueCrime
+1. **Supabase data integrity cleanup** — Run migration 008, remove SGA concept, fix orphans/dupes/wiring. See "Supabase Actions" above.
+2. **Ship shareable collection URLs with OG tags** — #1 strategic priority per office hours doc
+3. **Add Plausible analytics** — one script tag, tracks collection performance
+4. **Post first collection to Reddit** — Serial Killer Crime Scenes to r/TrueCrime
 
 ---
 
