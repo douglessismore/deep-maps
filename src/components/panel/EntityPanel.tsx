@@ -294,7 +294,7 @@ export function EntityPanel({
                 className="w-full flex items-center gap-2 px-4 py-2.5"
               >
                 <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
-                <h2 className="font-sans text-sm font-bold text-white truncate">{entity.name}</h2>
+                <h2 className="font-serif text-sm font-bold text-white truncate">{entity.name}</h2>
                 <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize shrink-0">{entity.type}</span>
                 {entity.years && (
                   <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{entity.years}</span>

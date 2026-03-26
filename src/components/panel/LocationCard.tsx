@@ -188,7 +188,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             <div className="flex items-baseline justify-between gap-2">
               <h4 className={v2
                 ? 'font-serif text-base font-bold text-white leading-tight'
-                : 'font-sans text-[14px] font-bold text-white leading-[1.3]'
+                : 'font-serif text-[14px] font-bold text-white leading-[1.3]'
               }>
                 {location.name}
               </h4>
