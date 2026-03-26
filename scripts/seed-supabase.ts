@@ -20,6 +20,9 @@ import { collections } from '../src/data/collections';
 
 const DRY_RUN = process.argv.includes('--dry-run');
 
+/** Strip trailing backslashes from string fields (pipeline artifact). */
+const cleanStr = (s: string | null | undefined): string => (s ?? '').replace(/\\+$/, '') || '';
+
 const SUPABASE_URL = 'https://fhxyaoaaeztrycfoppeu.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 if (!SUPABASE_KEY) {
@@ -63,8 +66,8 @@ async function syncMoments() {
     if (!db) {
       if (DRY_RUN) { console.log(`  [dry-run] Would INSERT moment: ${m.id}`); inserted++; continue; }
       const { error: err } = await supabase.from('moments').insert({
-        id: m.id, name: m.name, subtitle: m.subtitle || null,
-        description: m.description || null,
+        id: m.id, name: cleanStr(m.name), subtitle: cleanStr(m.subtitle) || null,
+        description: cleanStr(m.description) || null,
         location: `POINT(${m.lng} ${m.lat})`,
         type_id: typeId, importance: m.importance || 'minor',
         year: m.year, date: (m as any).date || null,
@@ -123,8 +126,8 @@ async function syncEntities() {
     if (!db) {
       if (DRY_RUN) { console.log(`  [dry-run] Would INSERT entity: ${e.id}`); inserted++; continue; }
       const { error: err } = await supabase.from('entities').insert({
-        id: e.id, name: e.name, type: e.type,
-        description: e.description || null, years: e.years || null,
+        id: e.id, name: cleanStr(e.name), type: e.type,
+        description: cleanStr(e.description) || null, years: e.years || null,
         wikipedia_slug: e.wikipediaSlug || null,
       });
       if (err) { console.error(`  INSERT FAIL ${e.id}: ${err.message}`); totalErrors++; }
@@ -185,10 +188,10 @@ async function syncStories() {
     if (!db) {
       if (DRY_RUN) { console.log(`  [dry-run] Would INSERT story: ${s.id}`); inserted++; continue; }
       const { error: err } = await supabase.from('stories').insert({
-        id: s.id, name: s.name, description: s.description || null,
+        id: s.id, name: cleanStr(s.name), description: cleanStr(s.description) || null,
         category: s.category, story_type: s.storyType,
         years: s.years || null, wikipedia_slug: s.wikipediaSlug || null,
-        nickname: s.nickname || null, content_warning: s.contentWarning || null,
+        nickname: cleanStr(s.nickname) || null, content_warning: s.contentWarning || null,
       });
       if (err) { console.error(`  INSERT FAIL ${s.id}: ${err.message}`); totalErrors++; }
       else inserted++;

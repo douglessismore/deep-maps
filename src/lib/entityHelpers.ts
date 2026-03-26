@@ -223,6 +223,15 @@ export function getViewportEntities(
   return result.sort((a, b) => b.momentCount - a.momentCount);
 }
 
+/**
+ * Whitelist filter: only incident stories are browseable by users.
+ * Biography, place, and era stories are invisible infrastructure.
+ * Uses a whitelist (not blacklist) so new story types are hidden by default.
+ */
+export function filterBrowseableStories(stories: Story[]): Story[] {
+  return stories.filter(s => s.storyType === 'incident');
+}
+
 /** Entity type → icon emoji. Handles `work` subtypes (film, book, etc.) */
 export function getEntityIcon(entity: Entity): string {
   if (entity.type === 'work') {

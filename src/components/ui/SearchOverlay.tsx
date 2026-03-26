@@ -2,7 +2,6 @@ import { useMemo, useRef, useEffect } from 'react';
 import type { Story, Entity, Moment, StoryCollection } from '../../types';
 import { useAppData } from '../../lib/data/provider';
 import { CATEGORIES } from '../../lib/categories';
-import { canonicalStoryIds } from '../../lib/entityHelpers';
 
 interface SearchOverlayProps {
   query: string;
@@ -68,7 +67,7 @@ export function SearchOverlay({
   onMomentSelect,
   onClose,
 }: SearchOverlayProps) {
-  const { stories, entities, moments, collections } = useAppData();
+  const { browseableStories, entities, moments, collections } = useAppData();
   const overlayRef = useRef<HTMLDivElement>(null);
 
   // Close on click outside
@@ -96,8 +95,7 @@ export function SearchOverlay({
   const results = useMemo(() => {
     if (trimmed.length < 2) return null;
 
-    const matchedStories = stories
-      .filter(s => s.storyType !== 'biography' && s.storyType !== 'place' && !canonicalStoryIds.has(s.id))
+    const matchedStories = browseableStories
       .filter(s => matches(trimmed, s.name, s.nickname, s.description, ...s.tags))
       .slice(0, MAX_PER_GROUP);
 
@@ -117,7 +115,7 @@ export function SearchOverlay({
       matchedMoments.length + matchedCollections.length;
 
     return { matchedStories, matchedEntities, matchedMoments, matchedCollections, totalCount };
-  }, [trimmed, stories, entities, moments, collections]);
+  }, [trimmed, browseableStories, entities, moments, collections]);
 
   if (!results) return null;
 

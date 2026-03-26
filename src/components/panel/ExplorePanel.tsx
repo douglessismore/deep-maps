@@ -4,7 +4,7 @@ import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLoc
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, groupAlphabetically, getMomentsForEntity, canonicalStoryIds, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
 import { panToAboveSheet } from '../../lib/sheetAwareMap';
@@ -542,9 +542,6 @@ export function ExplorePanel({
     if (searchQuery.trim()) result = filteredStories;
     else if (viewportStories.length > 0) result = viewportStories;
     else result = filteredStories;
-
-    // Suppress biography + place stories from browseable list (invisible infrastructure)
-    result = result.filter(s => s.storyType !== 'biography' && s.storyType !== 'place' && !canonicalStoryIds.has(s.id));
 
     // Sort by active story sort mode
     if (storySort === 'nearest' && userLocation) {

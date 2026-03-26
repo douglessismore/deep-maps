@@ -5,7 +5,6 @@ import {
   getEntityStories,
   getNotableFigures,
   getKeyLocations,
-  canonicalStoryIds,
   getEntityIcon,
 } from '../../lib/entityHelpers';
 import { isV2 } from '../../lib/theme';
@@ -56,9 +55,9 @@ export function EntityPanel({
     [entity.id, entity.type]
   );
 
-  // Stories — filter out canonical stories (invisible infrastructure)
+  // Stories — whitelist: only incident stories are browseable
   const entityStories = useMemo(
-    () => getEntityStories(entity.id).filter(s => !canonicalStoryIds.has(s.id)),
+    () => getEntityStories(entity.id).filter(s => s.storyType === 'incident'),
     [entity.id]
   );
 

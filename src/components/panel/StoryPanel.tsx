@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getStoryEntities, getEntityIcon, canonicalStoryIds } from '../../lib/entityHelpers';
+import { getStoryEntities, getEntityIcon } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
 import { CategoryBadge } from '../ui/CategoryBadge';
@@ -228,11 +228,11 @@ export function StoryPanel({
     });
   }, [story, allStories, relatedStories]);
 
-  // All connected stories with reason labels for the navigation strip
-  // Filter out canonical/biography stories — users see the person entity instead
+  // All connected stories with reason labels for the navigation strip.
+  // Whitelist: only incident stories are browseable (biography/place/era are hidden).
   const connectedEntries = useMemo(() => [
-    ...relatedStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'related' as const })),
-    ...nearbyStories.filter(s => !canonicalStoryIds.has(s.id)).map(s => ({ story: s, reason: 'nearby' as const })),
+    ...relatedStories.filter(s => s.storyType === 'incident').map(s => ({ story: s, reason: 'related' as const })),
+    ...nearbyStories.filter(s => s.storyType === 'incident').map(s => ({ story: s, reason: 'nearby' as const })),
   ], [relatedStories, nearbyStories]);
 
   // Story-level entities for DIVE DEEPER header section

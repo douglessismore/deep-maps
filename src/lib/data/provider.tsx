@@ -11,7 +11,7 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Moment, Story, Entity, StoryCollection } from '../../types';
-import { initEntityHelpers } from '../entityHelpers';
+import { initEntityHelpers, filterBrowseableStories } from '../entityHelpers';
 import { initClustering } from '../clustering';
 import { SplashScreenA } from '../../components/SplashScreenA';
 
@@ -25,6 +25,9 @@ export const dataSource: 'supabase' | 'static' = import.meta.env.VITE_DATA_SOURC
 export interface AppData {
   moments: Moment[];
   stories: Story[];
+  /** Only incident stories — filtered for browse tabs, search, related/nearby.
+   *  Use `stories` (unfiltered) for entity panels, admin, and map rendering. */
+  browseableStories: Story[];
   entities: Entity[];
   collections: StoryCollection[];
 }
@@ -60,7 +63,7 @@ async function loadStaticData(): Promise<AppData> {
   const { stories } = await import('../../data/stories');
   const { entities } = await import('../../data/entities');
   const { collections } = await import('../../data/collections');
-  return { moments, stories, entities, collections };
+  return { moments, stories, browseableStories: filterBrowseableStories(stories), entities, collections };
 }
 
 // ─── Loader function ─────────────────────────────────────────────────
@@ -84,7 +87,7 @@ async function loadData(): Promise<AppData> {
       return loadStaticData();
     }
 
-    return data;
+    return { ...data, browseableStories: filterBrowseableStories(data.stories) };
   } catch (err) {
     console.warn('[data] Supabase load failed — falling back to static seed data:', err);
     return loadStaticData();
@@ -106,6 +109,7 @@ function DataLoader({ children }: { children: ReactNode }) {
     initEntityHelpers(data.entities, data.moments, data.stories);
     initClustering(data.moments, data.stories);
   }, [data]);
+
 
   if (isLoading) {
     return <SplashScreenA />;

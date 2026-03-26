@@ -12,6 +12,9 @@ const SUPABASE_URL = 'https://fhxyaoaaeztrycfoppeu.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+/** Strip trailing backslashes from string fields (pipeline artifact). */
+const cleanStr = (s: string | null | undefined): string => (s ?? '').replace(/\\+$/, '') || '';
+
 let totalUpdated = 0, totalInserted = 0, totalDeleted = 0, totalErrors = 0;
 
 const PAGE_SIZE = 1000;
@@ -69,8 +72,8 @@ async function syncMoments() {
 
     if (!db) {
       const { error: err } = await supabase.from('moments').insert({
-        id: m.id, name: m.name, subtitle: m.subtitle || null,
-        description: m.description || null,
+        id: m.id, name: cleanStr(m.name), subtitle: cleanStr(m.subtitle) || null,
+        description: cleanStr(m.description) || null,
         location: `POINT(${m.lng} ${m.lat})`,
         type_id: typeId, importance: m.importance || 'minor',
         year: m.year, date: (m as any).date || null,
@@ -124,8 +127,8 @@ async function syncEntities() {
     const db = dbMap.get(e.id);
     if (!db) {
       const { error: err } = await supabase.from('entities').insert({
-        id: e.id, name: e.name, type: e.type,
-        description: e.description || null, years: e.years || null,
+        id: e.id, name: cleanStr(e.name), type: e.type,
+        description: cleanStr(e.description) || null, years: e.years || null,
         wikipedia_slug: e.wikipediaSlug || null,
         canonical_story_id: e.canonicalStoryId || null,
       });
@@ -184,10 +187,10 @@ async function syncStories() {
     const db = dbMap.get(s.id);
     if (!db) {
       const { error: err } = await supabase.from('stories').insert({
-        id: s.id, name: s.name, description: s.description || '',
+        id: s.id, name: cleanStr(s.name), description: cleanStr(s.description) || '',
         category: s.category, story_type: s.storyType,
         years: s.years || null, wikipedia_slug: s.wikipediaSlug || null,
-        nickname: s.nickname || null, content_warning: s.contentWarning || null,
+        nickname: cleanStr(s.nickname) || null, content_warning: s.contentWarning || null,
       });
       if (err) { console.error(`  INSERT FAIL ${s.id}: ${err.message}`); totalErrors++; }
       else inserted++;

@@ -1,7 +1,7 @@
 import { forwardRef, useMemo, useState, useCallback } from 'react';
 import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
-import { entityMap, getEntityMomentStories, canonicalStoryIds, getEntityIcon } from '../../lib/entityHelpers';
+import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
@@ -125,19 +125,19 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           if (!skipCanonicalFilter && story && entity.canonicalStoryId === story.id) return null;
           if (excludeSet.has(eid)) return null;
           const entries = getEntityMomentStories(eid);
-          const storyIds = new Set(entries.flatMap(({ stories: s }) => s.map((st) => st.id)).filter(id => !canonicalStoryIds.has(id)));
+          const incidentStories = entries.flatMap(({ stories: s }) => s).filter(s => s.storyType === 'incident');
+          const storyIds = new Set(incidentStories.map(s => s.id));
           return { entity, momentCount: entries.length, storyCount: storyIds.size };
         })
         .filter((e): e is NonNullable<typeof e> => e != null);
     }, [location.entityIds, story?.id, onEntityClick, excludeEntityIds, skipCanonicalFilter]);
 
-    // Merge all navigable stories for Dive Deeper (deduplicated, ALWAYS excluding canonical)
-    // Biography stories are invisible infrastructure — users navigate to person entities, not biography stories
+    // Merge all navigable stories for Dive Deeper (deduplicated, incident-only whitelist)
     const navigableStories = useMemo(() => {
       const seen = new Set<string>();
       const result: Story[] = [];
       for (const s of [...(parentStories ?? []), ...(alsoInStories ?? [])]) {
-        if (!seen.has(s.id) && !canonicalStoryIds.has(s.id)) {
+        if (!seen.has(s.id) && s.storyType === 'incident') {
           seen.add(s.id);
           result.push(s);
         }
@@ -146,10 +146,10 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     }, [parentStories, alsoInStories]);
 
     // Story chips for collapsed state (non-story contexts only)
-    // Always filter canonical stories — they should never be clickable navigation targets
+    // Whitelist: only incident stories are clickable navigation targets
     const storyChips = useMemo(() => {
       if (!parentStories || parentStories.length === 0 || !onStoryClick) return [];
-      return parentStories.filter(s => !canonicalStoryIds.has(s.id));
+      return parentStories.filter(s => s.storyType === 'incident');
     }, [parentStories, onStoryClick]);
 
     const v2 = isV2();

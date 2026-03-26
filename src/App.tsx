@@ -39,7 +39,7 @@ type NavEntry = {
 };
 
 function App() {
-  const { moments, stories, collections, entities } = useAppData();
+  const { moments, stories, browseableStories, collections, entities } = useAppData();
   const [location, setLocation] = useLocation();
   const { variant } = useUIVariant();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
@@ -244,12 +244,14 @@ function App() {
     return moments.filter(m => idSet.has(m.id));
   }, [activeCollection, moments]);
 
-  // When a collection is active, filter stories to those that have moments in the collection
+  // When a collection is active, filter stories to those that have moments in the collection.
+  // Uses browseableStories (incident-only whitelist) so biography/place/era stories never
+  // appear in browse tabs, search, or related stories.
   const displayStories = useMemo(() => {
-    if (!activeCollection) return stories;
+    if (!activeCollection) return browseableStories;
     const midSet = new Set(activeCollection.momentIds);
-    return stories.filter(s => s.moments.some(sm => midSet.has(sm.momentId)));
-  }, [activeCollection, stories]);
+    return browseableStories.filter(s => s.moments.some(sm => midSet.has(sm.momentId)));
+  }, [activeCollection, browseableStories]);
 
   // Filter stories by timeline view range (when user has interacted with timeline)
   const timelineFilteredStories = useMemo(() => {
