@@ -236,9 +236,11 @@ export function StoryPanel({
   ], [relatedStories, nearbyStories]);
 
   // Story-level entities for DIVE DEEPER header section
-  // Excludes the entity that "owns" this story to avoid self-links
+  // Excludes: the entity that "owns" this story (self-link) + concept entities (abstract labels)
   const storyEntities = useMemo(
-    () => getStoryEntities(story.id).filter(({ entity }) => entity.canonicalStoryId !== story.id),
+    () => getStoryEntities(story.id).filter(({ entity }) =>
+      entity.canonicalStoryId !== story.id && entity.type !== 'concept'
+    ),
     [story.id]
   );
 
