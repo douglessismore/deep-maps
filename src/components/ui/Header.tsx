@@ -93,32 +93,22 @@ export function Header({
             className="flex items-center gap-2 shrink-0 group"
             title="Back to full map"
           >
-            {v2 ? (
-              /* V2: Material-style pin + italic serif logo */
-              <>
-                <svg width="20" height="28" viewBox="0 0 16 22" fill="none">
-                  <path d="M8 0C3.58 0 0 3.58 0 8c0 5.25 7.2 13.2 7.5 13.5.15.15.35.23.5.23s.35-.08.5-.23C8.8 21.2 16 13.25 16 8c0-4.42-3.58-8-8-8z" fill="var(--accent-red)"/>
-                  <circle cx="8" cy="8" r="3" fill="var(--bg-primary)"/>
-                </svg>
-                <h1 className="font-serif text-xl sm:text-2xl italic tracking-tighter leading-none text-[var(--accent-red)]">
-                  Deep Maps
-                </h1>
-              </>
-            ) : (
-              /* Default: pin + bold serif */
+            {/* Logo: same red "Deep" + white "Maps" in both themes */}
               <>
                 <div className="relative w-6 h-7 flex items-start justify-center">
                   <svg width="16" height="22" viewBox="0 0 16 22" fill="none">
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 5.25 7.2 13.2 7.5 13.5.15.15.35.23.5.23s.35-.08.5-.23C8.8 21.2 16 13.25 16 8c0-4.42-3.58-8-8-8z" fill="var(--accent-red)"/>
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 5.25 7.2 13.2 7.5 13.5.15.15.35.23.5.23s.35-.08.5-.23C8.8 21.2 16 13.25 16 8c0-4.42-3.58-8-8-8z" fill="#dc2626"/>
                     <circle cx="8" cy="8" r="3" fill="var(--bg-primary)"/>
-                    <circle cx="8" cy="8" r="2.2" stroke="rgba(220,38,38,0.3)" strokeWidth="0.5" fill="none"/>
-                    <circle cx="8" cy="8" r="1.4" stroke="rgba(220,38,38,0.2)" strokeWidth="0.4" fill="none"/>
-                    <circle cx="8" cy="8" r="0.6" fill="rgba(220,38,38,0.4)"/>
+                    {!v2 && <>
+                      <circle cx="8" cy="8" r="2.2" stroke="rgba(220,38,38,0.3)" strokeWidth="0.5" fill="none"/>
+                      <circle cx="8" cy="8" r="1.4" stroke="rgba(220,38,38,0.2)" strokeWidth="0.4" fill="none"/>
+                      <circle cx="8" cy="8" r="0.6" fill="rgba(220,38,38,0.4)"/>
+                    </>}
                   </svg>
                 </div>
                 <div>
                   <h1 className="font-serif text-lg font-bold tracking-tight leading-none">
-                    <span className="text-[var(--accent-red)]">Deep</span><span className="text-white group-hover:text-[var(--text-secondary)] transition-colors">Maps</span>
+                    <span className="text-[#dc2626]">Deep</span><span className="text-white group-hover:text-[var(--text-secondary)] transition-colors">Maps</span>
                   </h1>
                   {mode !== 'story' && mode !== 'entity' && (
                     <p className="hidden sm:block text-[9px] font-mono text-[var(--text-muted)] tracking-widest uppercase leading-none mt-0.5">
@@ -127,7 +117,6 @@ export function Header({
                   )}
                 </div>
               </>
-            )}
           </button>
 
           {/* Story breadcrumb — shown when in story mode */}

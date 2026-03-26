@@ -5,6 +5,9 @@
 import { supabase } from '../supabase';
 import type { Moment, Story, StoryMoment, Entity, StoryCollection, StoryMedia, LocationLink } from '../../types';
 
+/** Strip trailing backslashes from string fields (Supabase data artifact). */
+const cleanStr = (s: string | null | undefined): string => (s ?? '').replace(/\\+$/, '');
+
 // ─── Row types (what PostgREST returns) ──────────────────────────────
 
 interface MomentRow {
@@ -227,9 +230,9 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
 
   const moments: Moment[] = momentRows.map((r) => ({
     id: r.id,
-    name: r.name,
-    subtitle: r.subtitle,
-    description: r.description,
+    name: cleanStr(r.name),
+    subtitle: cleanStr(r.subtitle),
+    description: cleanStr(r.description),
     lat: r.location.coordinates[1],
     lng: r.location.coordinates[0],
     type: r.type_id,
@@ -252,12 +255,12 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
 
   const stories: Story[] = storyRows.map((r) => ({
     id: r.id,
-    name: r.name,
-    ...(r.nickname ? { nickname: r.nickname } : {}),
+    name: cleanStr(r.name),
+    ...(r.nickname ? { nickname: cleanStr(r.nickname) } : {}),
     years: r.years,
     category: r.category as Story['category'],
     storyType: r.story_type as Story['storyType'],
-    description: r.description,
+    description: cleanStr(r.description),
     tags: r.tags,
     ...(r.content_warning ? { contentWarning: r.content_warning } : {}),
     moments: storyMomentsMap.get(r.id) ?? [],
@@ -267,10 +270,10 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
 
   const entities: Entity[] = entityRows.map((r) => ({
     id: r.id,
-    name: r.name,
+    name: cleanStr(r.name),
     type: r.type as Entity['type'],
     ...(r.years ? { years: r.years } : {}),
-    ...(r.description ? { description: r.description } : {}),
+    ...(r.description ? { description: cleanStr(r.description) } : {}),
     ...(r.canonical_story_id ? { canonicalStoryId: r.canonical_story_id } : {}),
     ...(r.wikipedia_slug ? { wikipediaSlug: r.wikipedia_slug } : {}),
   }));
