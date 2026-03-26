@@ -281,14 +281,8 @@ export const entities: Entity[] = [
     description: 'Oldest continuously operated business in Austin and oldest bar in Texas, open since 1866. O. Henry sang here with the Hill City Quartette and LBJ brokered political deals over pitchers. A center of German-Texan cultural life for 160 years.',
     wikipediaSlug: 'Scholz_Garten',
   },
-  {
-    id: 'servant-girl-annihilator',
-    name: 'The Servant Girl Annihilator',
-    type: 'concept',
-    years: '1884–1885',
-    description: 'Unidentified serial killer who murdered eight people in Austin over one year. The case inspired the city to install moonlight towers and was named by a young William Sydney Porter (O. Henry).',
-    wikipediaSlug: 'Servant_Girl_Annihilator',
-  },
+  // REMOVED: servant-girl-annihilator concept entity — duplicated the incident story.
+  // Moments retain their story_moments links. Entity references cleaned from entityIds.
   {
     id: 'william-shakespeare',
     name: 'William Shakespeare',

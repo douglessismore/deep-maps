@@ -927,7 +927,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1884,
     address: '901 W Pecan St (now W 6th St), Austin, TX',
-    entityIds: ['servant-girl-annihilator'],
+    entityIds: [],
   },
   {
     id: 'mandela-anc-youth-league-cofounded-1944',
@@ -1464,7 +1464,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1885,
-    entityIds: ['servant-girl-annihilator'],
+    entityIds: [],
   },
   {
     id: 'vasco-da-gama-rounds-cape-good-hope',
@@ -10891,7 +10891,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1885,
     address: '9th and Lavaca St, Austin, TX',
-    entityIds: ['servant-girl-annihilator'],
+    entityIds: [],
   },
   {
     id: 'annihilator-moonlight-tower',
@@ -10908,7 +10908,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1894,
     address: '9th and Guadalupe St, Austin, TX',
-    entityIds: ['servant-girl-annihilator', 'moonlight-towers'],
+    entityIds: ['moonlight-towers'],
   },
   {
     id: 'annihilator-o-henry-letter',
@@ -10924,7 +10924,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     kind: 'event',
     year: 1885,
-    entityIds: ['o-henry', 'servant-girl-annihilator'],
+    entityIds: ['o-henry'],
   },
   {
     id: 'annihilator-gracie-vance',
@@ -10940,7 +10940,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1885,
-    entityIds: ['servant-girl-annihilator'],
+    entityIds: [],
   },
   {
     id: 'archive-war-land-office',
