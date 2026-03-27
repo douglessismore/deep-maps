@@ -4,7 +4,7 @@ import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLoc
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
 import { panToAboveSheet } from '../../lib/sheetAwareMap';
@@ -13,6 +13,7 @@ import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
+import { PersonChip } from './PersonChip';
 import { isV2 } from '../../lib/theme';
 
 type MixedListItem =
@@ -161,7 +162,8 @@ export function ExplorePanel({
   // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
-  // scrollActiveEntityId removed — Places tab removed in 3-tab redesign
+  // Anchor & Stream: selected person in horizontal strip (People tab)
+  const [anchorPersonId, setAnchorPersonId] = useState<string | null>(null);
   const [scrollActiveMomentKey, setScrollActiveMomentKey] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
@@ -584,11 +586,34 @@ export function ExplorePanel({
     [viewportEntities]
   );
 
-  // Alphabetical grouping of people for A-Z mode in Stories tab
-  const personAlphabeticalGroups = useMemo(
-    () => groupAlphabetically(personEntities),
-    [personEntities]
-  );
+  // Anchor & Stream: auto-select highest-notability person when entering People tab
+  useEffect(() => {
+    if (activeTab === 'people' && personEntities.length > 0 && !anchorPersonId) {
+      // Sort by max notability descending, pick first
+      const sorted = [...personEntities].sort((a, b) => b.maxNotability - a.maxNotability);
+      setAnchorPersonId(sorted[0].entity.id);
+    }
+    if (activeTab !== 'people') {
+      setAnchorPersonId(null);
+    }
+  }, [activeTab, personEntities]);
+
+  // Anchor & Stream: moments for the selected person
+  const anchorMoments = useMemo(() => {
+    if (!anchorPersonId) return [];
+    return getMomentsForEntity(anchorPersonId).sort((a, b) => (a.year ?? 0) - (b.year ?? 0));
+  }, [anchorPersonId]);
+
+  // Anchor & Stream: highlight selected person's moments on map
+  useEffect(() => {
+    if (activeTab !== 'people' || !anchorPersonId) return;
+    const moments = getMomentsForEntity(anchorPersonId);
+    if (moments.length > 0) {
+      onScrollHighlight(moments);
+    }
+  }, [anchorPersonId, activeTab]);
+
+  // personAlphabeticalGroups removed — People tab uses horizontal strip, not A-Z list
 
   // Mixed list: stories + people sorted by distance (or stories first if no location)
   const mixedList: MixedListItem[] = useMemo(() => {
@@ -749,7 +774,40 @@ export function ExplorePanel({
       </div>}
 
       {/* Content */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-24 lg:pb-[40vh]">
+      {/* Horizontal person strip — People tab only */}
+      {activeTab === 'people' && personEntities.length > 0 && (
+        <div
+          className="flex gap-2 px-3 py-2 overflow-x-auto shrink-0 border-b border-[var(--border-subtle)]"
+          style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}
+        >
+          <button
+            onClick={() => setAnchorPersonId(null)}
+            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-sans whitespace-nowrap transition-all duration-200 ${
+              !anchorPersonId
+                ? 'bg-[var(--accent-red)] text-white font-semibold shadow-md'
+                : 'bg-[var(--bg-card)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+            }`}
+            style={{ scrollSnapAlign: 'start' }}
+          >
+            All
+          </button>
+          {[...personEntities]
+            .sort((a, b) => b.maxNotability - a.maxNotability)
+            .map((data) => (
+              <div key={data.entity.id} style={{ scrollSnapAlign: 'start' }}>
+                <PersonChip
+                  entity={data.entity}
+                  momentCount={data.momentCount}
+                  isActive={anchorPersonId === data.entity.id}
+                  onClick={(e) => setAnchorPersonId(e.id)}
+                />
+              </div>
+            ))
+          }
+        </div>
+      )}
+
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-24 lg:pb-[40vh]" style={{ touchAction: 'pan-y' }}>
         {/* Inner wrapper: min-height forces tiny overflow so iOS bounce/rubber-band always works */}
         <div style={{ minHeight: 'calc(100% + 1px)' }} className="space-y-3">
         {activeTab === 'map' ? (
@@ -909,114 +967,98 @@ export function ExplorePanel({
               </>
             )
           )
-        ) : /* people tab */ (storySort === 'a-z' ? personEntities.length === 0 : mixedList.length === 0) ? (
+        ) : /* people tab — Anchor & Stream */ personEntities.length === 0 ? (
           <EmptyState
-            message={searchQuery ? 'No people match your search' : storySort === 'a-z' ? 'No people in this area — zoom out or pan around' : 'No people or stories in this area — zoom out or pan around'}
+            message={searchQuery ? 'No people match your search' : 'No known people in this area — try zooming out'}
             onSurpriseMe={onSurpriseMe}
           />
-        ) : (
+        ) : anchorPersonId ? (
+          /* Stream: selected person's moments */
           <>
-            {/* Sort toggle */}
-            <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-              {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
-                <span key={mode} className="flex items-center">
-                  {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
+            {(() => {
+              const person = personEntities.find(p => p.entity.id === anchorPersonId);
+              return person ? (
+                <div className="mb-2">
+                  <p className="text-[11px] font-mono text-[var(--text-muted)]">
+                    {person.entity.name} · {anchorMoments.length} {anchorMoments.length === 1 ? 'event' : 'events'}
+                  </p>
+                  {person.entity.description && (
+                    <p className="text-[10px] text-[var(--text-muted)] mt-0.5 line-clamp-2">{person.entity.description}</p>
+                  )}
                   <button
-                    onClick={() => {
-                      hasManualSort.current = true;
-                      setStorySort(mode);
-                      if (mode === 'nearest' && !userLocation) onRequestGeo?.();
-                    }}
-                    className={`transition-colors ${
-                      storySort === mode
-                        ? 'text-[var(--text-primary)]'
-                        : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                    }`}
+                    onClick={() => onEntityClick?.(person.entity)}
+                    className="text-[10px] text-[var(--accent-red)] hover:underline mt-1"
                   >
-                    {mode === 'a-z' ? 'A-Z (People)' : mode.charAt(0).toUpperCase() + mode.slice(1)}
+                    View full profile →
                   </button>
-                </span>
-              ))}
-            </div>
-            {storySort === 'a-z' ? (
-              /* A-Z people with letter headers */
-              <>
-                {Array.from(personAlphabeticalGroups.entries()).map(([letter, items]) => (
-                  <div key={letter}>
-                    <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
-                      {letter}
-                    </div>
-                    {items.map((personData) => (
-                      <div
-                        key={`person-${personData.entity.id}`}
-                        ref={(el) => {
-                          if (el) cardRefs.current.set(personData.entity.id, el);
-                          else cardRefs.current.delete(personData.entity.id);
-                        }}
-                        className={scrollActiveStoryId === personData.entity.id
-                          ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                          : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                      >
-                        <PersonCard
-                          data={personData}
-                          onClick={(e) => onEntityClick?.(e)}
-                          compact={useCompactCards}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </>
+                </div>
+              ) : null;
+            })()}
+            {anchorMoments.length === 0 ? (
+              <p className="text-xs text-[var(--text-muted)] py-4 text-center">No events for this person in view</p>
             ) : (
-              /* Mixed story + person cards (Notable / Nearest) */
-              mixedList.map((item) => {
-                if (item.kind === 'story') {
-                  return (
-                    <div
-                      key={item.story.id}
-                      ref={(el) => {
-                        if (el) cardRefs.current.set(item.story.id, el);
-                        else cardRefs.current.delete(item.story.id);
-                      }}
-                      className={scrollActiveStoryId === item.story.id
-                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                    >
-                      <StoryCard
-                        story={item.story}
-                        onClick={onStorySelect}
-                        compact={useCompactCards}
-                        distanceMi={
-                          userLocation
-                            ? nearestDistance(item.story, userLocation.lat, userLocation.lng, momentMap)
-                            : undefined
-                        }
-                      />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div
-                      key={`person-${item.data.entity.id}`}
-                      ref={(el) => {
-                        if (el) cardRefs.current.set(item.data.entity.id, el);
-                        else cardRefs.current.delete(item.data.entity.id);
-                      }}
-                      className={scrollActiveStoryId === item.data.entity.id
-                        ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                    >
-                      <PersonCard
-                        data={item.data}
-                        onClick={(entity) => onEntityClick?.(entity)}
-                        compact={useCompactCards}
-                        distanceMi={item.distance > 0 ? item.distance : undefined}
-                      />
-                    </div>
-                  );
-                }
+              anchorMoments.map((moment) => {
+                const parentStory = momentToStoryMap.get(moment.id);
+                const storyOrStub = parentStory ?? ({
+                  id: '__person-stub__',
+                  name: 'Event',
+                  subtitle: '',
+                  description: '',
+                  category: 'dark-history',
+                  moments: [],
+                  years: '',
+                  storyType: 'incident',
+                  tags: [],
+                } as Story);
+                return (
+                  <LocationCard
+                    key={moment.id}
+                    location={moment}
+                    story={storyOrStub}
+                    isActive={activeLocationId === moment.id}
+                    isExpanded={expandedLocationKey === moment.id}
+                    showExpandChevron
+                    skipCanonicalFilter
+                    parentStories={parentStory ? [parentStory] : []}
+                    onClick={(m) => {
+                      setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
+                      onScrollHighlight([m]);
+                      if (mapInstance) {
+                        panToAboveSheet(mapInstance, [m.lat, m.lng], sheetSnap, isSheetMobile, { duration: 0.6 });
+                      }
+                    }}
+                    onStoryClick={parentStory ? (story) => onLocationSelect(moment, story) : undefined}
+                    onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
+                  />
+                );
               })
             )}
+            <div className="h-16" />
+          </>
+        ) : (
+          /* "All" selected — show mixed people + stories list */
+          <>
+            {mixedList.map((item) => {
+              if (item.kind === 'story') {
+                return (
+                  <StoryCard
+                    key={item.story.id}
+                    story={item.story}
+                    onClick={onStorySelect}
+                    compact={useCompactCards}
+                  />
+                );
+              } else {
+                return (
+                  <PersonCard
+                    key={`person-${item.data.entity.id}`}
+                    data={item.data}
+                    onClick={(entity) => onEntityClick?.(entity)}
+                    compact={useCompactCards}
+                  />
+                );
+              }
+            })}
           </>
         )}
 
