@@ -60,9 +60,9 @@ interface ExplorePanelProps {
   hasNavHistory?: boolean;
 }
 
-export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
+export type PanelTab = 'map' | 'people' | 'collections';
 
-const TAB_INDEX: Record<PanelTab, number> = { moments: 0, stories: 1, places: 2, collections: 3 };
+const TAB_INDEX: Record<PanelTab, number> = { map: 0, people: 1, collections: 2 };
 
 /** Get the nearest location distance from a story to a point */
 function nearestDistance(story: Story, lat: number, lng: number, mMap: Map<string, Moment>): number {
@@ -140,7 +140,7 @@ export function ExplorePanel({
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const isSheetMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
-  const [internalTab, setInternalTab] = useState<PanelTab>('stories');
+  const [internalTab, setInternalTab] = useState<PanelTab>('map');
   const activeTab = controlledTab ?? internalTab;
   const setActiveTab = useCallback((tab: PanelTab) => {
     if (onTabChange) onTabChange(tab);
@@ -155,13 +155,13 @@ export function ExplorePanel({
   viewportLocationsRef.current = viewportLocations;
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
   const [storySort, setStorySort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
-  const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
+  // placeSort removed — Places tab removed in 3-tab redesign
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
-  const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
+  // scrollActiveEntityId removed — Places tab removed in 3-tab redesign
   const [scrollActiveMomentKey, setScrollActiveMomentKey] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
@@ -183,7 +183,7 @@ export function ExplorePanel({
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const collectionListCardRefs = useRef<Map<string, HTMLElement>>(new Map());
-  const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
+  // placesCardRefs removed — Places tab removed in 3-tab redesign
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
@@ -209,8 +209,8 @@ export function ExplorePanel({
 
   // Clear scroll highlight + active collection when switching tabs
   useEffect(() => {
-    if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
-    if (activeTab !== 'places') setScrollActiveEntityId(null);
+    if (activeTab !== 'people' && activeTab !== 'collections') setScrollActiveStoryId(null);
+    // scrollActiveEntityId removed — Places tab removed in 3-tab redesign
     // Clear collection when leaving collections tab — collection is a destination, not a filter
     if (activeTab !== 'collections' && activeCollection) onClearCollection();
     // Clear map highlight and reset mode to prevent polylines from carrying over
@@ -288,10 +288,10 @@ export function ExplorePanel({
 
   // Scroll-driven navigation (Stories tab + Collections views)
   useEffect(() => {
-    const isStoriesTab = activeTab === 'stories';
+    const isPeopleTab = activeTab === 'people';
     const isActiveCollectionTab = activeTab === 'collections' && activeCollection != null;
     const isCollectionsListTab = activeTab === 'collections' && activeCollection == null;
-    if ((!isStoriesTab && !isActiveCollectionTab && !isCollectionsListTab) || !mapInstance) return;
+    if ((!isPeopleTab && !isActiveCollectionTab && !isCollectionsListTab) || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -477,7 +477,7 @@ export function ExplorePanel({
 
   // Scroll-driven location navigation (Moments tab)
   useEffect(() => {
-    if (activeTab !== 'moments' || !mapInstance) return;
+    if (activeTab !== 'map' || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -624,40 +624,7 @@ export function ExplorePanel({
     return combined;
   }, [displayStories, personEntities, userLocation, storySort, mapZoom]);
 
-  // Place entities — shown in Places tab
-  const placeEntities = useMemo(
-    () => viewportEntities.filter((e) => e.entity.type === 'place'),
-    [viewportEntities]
-  );
-
-  const placeAlphabeticalGroups = useMemo(
-    () => groupAlphabetically(placeEntities),
-    [placeEntities]
-  );
-
-  // Sorted places for Notable/Nearest modes
-  const sortedPlaces = useMemo(() => {
-    const arr = [...placeEntities];
-    if (placeSort === 'notable') {
-      return arr.sort((a, b) => {
-        // Sort by max notability of associated moments, then momentCount as tiebreaker
-        const diff = b.maxNotability - a.maxNotability;
-        return diff !== 0 ? diff : b.momentCount - a.momentCount;
-      });
-    }
-    if (placeSort === 'nearest' && userLocation) {
-      return arr.sort((a, b) => {
-        const aMoments = getMomentsForEntity(a.entity.id);
-        const bMoments = getMomentsForEntity(b.entity.id);
-        const aDist = aMoments.length > 0 ? Math.min(...aMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
-        const bDist = bMoments.length > 0 ? Math.min(...bMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
-        return hybridNearestScore(aDist, a.maxNotability, mapZoom) -
-               hybridNearestScore(bDist, b.maxNotability, mapZoom);
-      });
-    }
-    // a-z handled by placeAlphabeticalGroups
-    return arr.sort((a, b) => a.entity.name.localeCompare(b.entity.name));
-  }, [placeEntities, placeSort, userLocation, mapZoom]);
+  // placeEntities + computed values removed — Places tab removed in 3-tab redesign
 
   const sortedMoments = useMemo(() => {
     let arr = [...viewportLocations];
@@ -694,112 +661,8 @@ export function ExplorePanel({
     }
   }, [viewportLocations, momentSort, userLocation, mapZoom, searchQuery]);
 
-  // Scroll-driven entity highlighting (Places tab)
-  // Shows single primary pin for each entity (not all moments)
-  useEffect(() => {
-    if (activeTab !== 'places' || !mapInstance) return;
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const onScroll = () => {
-      cancelAnimationFrame(scrollRafId.current);
-      scrollRafId.current = requestAnimationFrame(() => {
-        // Suppress viewport updates while scrolling — same guard as Stories/Moments tabs
-        isScrollDriving.current = true;
-        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-        scrollTimeout.current = window.setTimeout(() => {
-          isScrollDriving.current = false;
-          updateViewport();
-        }, 400);
-
-        const containerRect = container.getBoundingClientRect();
-        const centerY = containerRect.top + containerRect.height * 0.4;
-        let closestId: string | null = null;
-        let closestDist = Infinity;
-
-        placesCardRefs.current.forEach((el, id) => {
-          const rect = el.getBoundingClientRect();
-          const cardCenter = rect.top + rect.height / 2;
-          const dist = Math.abs(cardCenter - centerY);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestId = id;
-          }
-        });
-
-        if (closestId) {
-          setScrollActiveEntityId(closestId);
-          // Highlight only the first (primary) moment for this entity — single pin
-          const entityMoments = getMomentsForEntity(closestId);
-          if (entityMoments.length > 0) {
-            onScrollHighlight([entityMoments[0]]);
-            clearTimeout(panTimeout.current);
-            panTimeout.current = window.setTimeout(() => {
-              panToAboveSheet(mapInstance, [entityMoments[0].lat, entityMoments[0].lng], sheetSnap, isSheetMobile, { duration: 0.6 });
-            }, 150);
-          }
-        }
-      });
-    };
-
-    container.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      container.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(scrollRafId.current);
-      clearTimeout(panTimeout.current);
-      clearTimeout(highlightDebounce.current);
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      isScrollDriving.current = false;
-    };
-  }, [activeTab, mapInstance, placeEntities, onScrollHighlight, updateViewport]);
-
-  const renderPlaceRow = (entity: Entity, momentCount: number, isActive: boolean) => (
-    <button
-      key={entity.id}
-      ref={(el) => {
-        if (el) placesCardRefs.current.set(entity.id, el);
-        else placesCardRefs.current.delete(entity.id);
-      }}
-      onClick={() => onEntityClick?.(entity)}
-      className={`w-full flex items-start gap-2.5 px-1 py-2.5 text-left transition-colors group rounded border-b border-[var(--border-subtle)]/30 ${
-        isActive ? 'bg-[var(--bg-card-hover)]' : 'hover:bg-[var(--bg-card)]'
-      }`}
-    >
-      {/* Place icon */}
-      <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)] mt-0.5">
-        <svg width="11" height="11" viewBox="0 0 14 14" fill="none" className="text-[rgba(59,130,246,0.7)]">
-          <path d="M7 1C4.24 1 2 3.24 2 6c0 3.5 5 7 5 7s5-3.5 5-7c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5z" fill="currentColor"/>
-        </svg>
-      </span>
-      {/* Name + description */}
-      <div className="flex-1 min-w-0">
-        <span className={`text-xs font-sans font-semibold transition-colors truncate block ${
-          isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
-        }`}>
-          {entity.name}
-        </span>
-        {entity.description && (
-          <span className="text-[10px] text-[var(--text-muted)] line-clamp-1 mt-0.5">
-            {entity.description}
-          </span>
-        )}
-      </div>
-      {/* Years */}
-      {entity.years && (
-        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
-          {entity.years}
-        </span>
-      )}
-      {/* Moment count */}
-      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
-        {momentCount}m
-      </span>
-      {/* Chevron */}
-      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50 mt-1.5">
-        <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    </button>
-  );
+  // Places tab removed in 3-tab redesign (Map / People / Collections)
+  // Place entities will appear in the Map tab alongside moments in a future iteration
 
   return (
     <div className="flex flex-col h-full relative">
@@ -834,14 +697,14 @@ export function ExplorePanel({
         : 'flex border-b border-[var(--border-subtle)] shrink-0 relative'
       }>
         <button
-          onClick={() => setActiveTab('moments')}
+          onClick={() => setActiveTab('map')}
           className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'moments'
+            activeTab === 'map'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
-          Moments
+          Map
           {sortedMoments.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">
               ({sortedMoments.length})
@@ -849,34 +712,21 @@ export function ExplorePanel({
           )}
         </button>
         <button
-          onClick={() => setActiveTab('stories')}
+          onClick={() => setActiveTab('people')}
           className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'stories'
+            activeTab === 'people'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
-          Stories
+          People
           {mixedList.length > 0 && (
             <span className="ml-1 text-[10px] text-[var(--text-muted)]">({mixedList.length})</span>
           )}
         </button>
         <button
-          onClick={() => setActiveTab('places')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'places'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Places
-          {placeEntities.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeEntities.length})</span>
-          )}
-        </button>
-        <button
           onClick={() => setActiveTab('collections')}
-          className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors ${
+          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
             activeTab === 'collections'
               ? 'text-[var(--text-primary)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
@@ -894,7 +744,7 @@ export function ExplorePanel({
               ? 'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]'
               : ''
           }`}
-          style={{ width: '25%', transform: `translateX(${TAB_INDEX[activeTab] * 100}%)` }}
+          style={{ width: '33.33%', transform: `translateX(${TAB_INDEX[activeTab] * 100}%)` }}
         />
       </div>}
 
@@ -902,10 +752,10 @@ export function ExplorePanel({
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-24 lg:pb-[40vh]">
         {/* Inner wrapper: min-height forces tiny overflow so iOS bounce/rubber-band always works */}
         <div style={{ minHeight: 'calc(100% + 1px)' }} className="space-y-3">
-        {activeTab === 'moments' ? (
+        {activeTab === 'map' ? (
           sortedMoments.length === 0 ? (
             <EmptyState
-              message={searchQuery ? 'No moments match your search' : 'Pan or zoom the map to see moments in this area'}
+              message={searchQuery ? 'No events match your search' : 'Pan or zoom the map to see events in this area'}
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
@@ -965,54 +815,6 @@ export function ExplorePanel({
               <div className="h-16" />
             </>
           )
-        ) : activeTab === 'places' ? (
-          placeEntities.length === 0 ? (
-            <EmptyState
-              message="Pan or zoom the map to see places in this area"
-              onSurpriseMe={onSurpriseMe}
-            />
-          ) : (
-            <div>
-              {/* Sort toggle */}
-              <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-                {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
-                  <span key={mode} className="flex items-center">
-                    {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
-                    <button
-                      onClick={() => {
-                        hasManualSort.current = true;
-                        setPlaceSort(mode);
-                        if (mode === 'nearest' && !userLocation) onRequestGeo?.();
-                      }}
-                      className={`transition-colors ${
-                        placeSort === mode
-                          ? 'text-[var(--text-primary)]'
-                          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                      }`}
-                    >
-                      {mode === 'a-z' ? 'A-Z' : mode.charAt(0).toUpperCase() + mode.slice(1)}
-                    </button>
-                  </span>
-                ))}
-              </div>
-              {placeSort === 'a-z' ? (
-                /* Alphabetical with letter headers */
-                Array.from(placeAlphabeticalGroups.entries()).map(([letter, items]) => (
-                  <div key={letter}>
-                    <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
-                      {letter}
-                    </div>
-                    {items.map(({ entity, momentCount }) => renderPlaceRow(entity, momentCount, scrollActiveEntityId === entity.id))}
-                  </div>
-                ))
-              ) : (
-                /* Notable / Nearest — flat sorted list */
-                sortedPlaces.map(({ entity, momentCount }) => renderPlaceRow(entity, momentCount, scrollActiveEntityId === entity.id))
-              )}
-              {/* Bottom padding for scroll detection — minimal to avoid black space */}
-              <div className="h-16" />
-            </div>
-          )
         ) : activeTab === 'collections' ? (
           activeCollection ? (
             /* Active collection — moment list with back header */
@@ -1022,12 +824,12 @@ export function ExplorePanel({
                   {activeCollection.name}
                 </p>
                 <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
-                  {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
+                  {displayMoments.length} {displayMoments.length === 1 ? 'event' : 'events'}
                 </span>
               </div>
               {displayMoments.length === 0 ? (
                 <div className="py-12 text-center">
-                  <p className="text-sm text-[var(--text-muted)] font-mono">No moments in this collection</p>
+                  <p className="text-sm text-[var(--text-muted)] font-mono">No events in this collection</p>
                 </div>
               ) : (
                 <div className="p-2 space-y-1">
@@ -1107,9 +909,9 @@ export function ExplorePanel({
               </>
             )
           )
-        ) : /* stories tab (default) */ (storySort === 'a-z' ? personEntities.length === 0 : mixedList.length === 0) ? (
+        ) : /* people tab */ (storySort === 'a-z' ? personEntities.length === 0 : mixedList.length === 0) ? (
           <EmptyState
-            message={searchQuery ? 'No stories match your search' : storySort === 'a-z' ? 'No people in this area — zoom out or pan around' : 'No stories in this area — zoom out or pan around'}
+            message={searchQuery ? 'No people match your search' : storySort === 'a-z' ? 'No people in this area — zoom out or pan around' : 'No people or stories in this area — zoom out or pan around'}
             onSurpriseMe={onSurpriseMe}
           />
         ) : (
