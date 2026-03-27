@@ -57,7 +57,7 @@ function App() {
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
   const [mapVisibleStoryIds, setMapVisibleStoryIds] = useState<Set<string> | null>(null);
   const [navHistory, setNavHistory] = useState<NavEntry[]>([]);
-  const [exploreTab, setExploreTab] = useState<PanelTab>('stories');
+  const [exploreTab, setExploreTab] = useState<PanelTab>('map');
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [geoLoading, setGeoLoading] = useState(false);
@@ -522,7 +522,7 @@ function App() {
     setActiveLocation(moment);
     setCategoryFilter(null);
     setSearchQuery(''); // Clear search so tabs aren't filtered on back
-    setExploreTab('moments');
+    setExploreTab('map');
     setMode('explore');
     setZoomToActiveLocation(true);
   }, [pushNav]);
@@ -605,21 +605,20 @@ function App() {
 
   // Contextual back label from navigation history
   const backLabel = useMemo(() => {
-    if (navHistory.length === 0) return 'Stories';
+    if (navHistory.length === 0) return 'Map';
     const prev = navHistory[navHistory.length - 1];
     if (prev.activeEntity) return prev.activeEntity.name;
     if (prev.activeStory) return prev.activeStory.name;
     if (prev.activeCollection) return prev.activeCollection.name;
     if (prev.mode === 'explore' && prev.exploreTab) {
       const tabLabels: Record<PanelTab, string> = {
-        stories: 'Stories',
-        places: 'Places',
-        moments: 'Moments',
+        map: 'Map',
+        people: 'People',
         collections: 'Collections',
       };
       return tabLabels[prev.exploreTab];
     }
-    return 'Stories';
+    return 'Map';
   }, [navHistory]);
 
   // ── Context labels for variant drag handles / HUDs ──
