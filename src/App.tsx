@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo, useEffect, useRef, lazy, Suspense } fro
 import { useLocation } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
 import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
+import { BrowsePanel } from './components/panel/BrowsePanel';
 import { Header } from './components/ui/Header';
 import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
 import { ClaudeSheet } from './components/ui/ClaudeSheet';
@@ -36,6 +37,8 @@ type NavEntry = {
   savedMapView?: SavedMapView;
   exploreTab?: PanelTab;
   exploreScrollTop?: number;
+  browseMode?: boolean;
+  browseScrollTop?: number;
 };
 
 function App() {
@@ -67,6 +70,34 @@ function App() {
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
   const autoGeoRequested = useRef(false);
+
+  // ── Browse Mode (Map/Browse toggle) ──
+  const [browseMode, setBrowseMode] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('mode') === 'browse';
+  });
+  const browseScrollTop = useRef(0);
+  const browsePanelRef = useRef<HTMLDivElement>(null);
+
+  // Sync URL query param on browseMode toggle (replaceState — view preference, not navigation)
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const currentMode = url.searchParams.get('mode');
+    if (browseMode && currentMode !== 'browse') {
+      url.searchParams.set('mode', 'browse');
+      window.history.replaceState(window.history.state, '', url.toString());
+    } else if (!browseMode && currentMode === 'browse') {
+      url.searchParams.delete('mode');
+      window.history.replaceState(window.history.state, '', url.toString());
+    }
+  }, [browseMode]);
+
+  // Auto-snap sheet to full when entering browse mode on mobile
+  useEffect(() => {
+    if (browseMode && isMobile) {
+      setTargetSheetSnap('full');
+    }
+  }, [browseMode, isMobile]);
 
   // Bottom sheet snap state (mobile only)
   const [sheetSnap, setSheetSnap] = useState<SheetSnap>('peek');
@@ -287,13 +318,13 @@ function App() {
     // Save current sheet snap before navigating deeper
     preNavSheetSnap.current = sheetSnap;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current, browseMode, browseScrollTop: browseScrollTop.current };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
     // Expand sheet to half when navigating into content
     setTargetSheetSnap('half');
-  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, sheetSnap]);
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, sheetSnap, browseMode]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -368,6 +399,16 @@ function App() {
       setCategoryFilter(entry.categoryFilter);
       if (entry.exploreTab) setExploreTab(entry.exploreTab);
       if (entry.exploreScrollTop != null) setRestoreScrollTop(entry.exploreScrollTop);
+      // Restore browse mode if the saved entry was in browse
+      setBrowseMode(entry.browseMode ?? false);
+      if (entry.browseMode && entry.browseScrollTop != null) {
+        browseScrollTop.current = entry.browseScrollTop;
+        requestAnimationFrame(() => {
+          if (browsePanelRef.current) {
+            browsePanelRef.current.scrollTop = entry.browseScrollTop!;
+          }
+        });
+      }
       if (!entry.activeStory && !entry.activeEntity) {
         // Restore saved map view if available, otherwise reset to US center
         if (entry.savedMapView) {
@@ -583,6 +624,36 @@ function App() {
     setMode('story');
   }, [activeCollection, pushNav]);
 
+  // ── Browse Mode Handlers ──
+  // Wrap existing handlers to exit browse mode on item tap.
+  // pushState so back button returns to Browse with preserved scroll.
+  // Helper: transition from Browse to Map via item tap.
+  // Creates a history entry for Browse (so back returns there),
+  // then navigates to the item with the correct URL.
+  // Browse→Item handlers: exit browse mode and navigate.
+  // pushNav() saves browseMode=true in the nav stack, so handleBack restores it.
+  const handleBrowseStorySelect = useCallback((story: Story) => {
+    browseScrollTop.current = browsePanelRef.current?.scrollTop ?? 0;
+    setBrowseMode(false);
+    handleStorySelect(story); // calls pushNav() internally
+  }, [handleStorySelect]);
+
+  const handleBrowseEntitySelect = useCallback((entity: Entity) => {
+    browseScrollTop.current = browsePanelRef.current?.scrollTop ?? 0;
+    setBrowseMode(false);
+    handleEntitySelect(entity); // calls pushNav() internally
+  }, [handleEntitySelect]);
+
+  const handleBrowseCollectionSelect = useCallback((collection: StoryCollection) => {
+    browseScrollTop.current = browsePanelRef.current?.scrollTop ?? 0;
+    setBrowseMode(false);
+    handleCollectionSelect(collection); // calls pushNav() internally
+  }, [handleCollectionSelect]);
+
+  const handleBrowseModeToggle = useCallback(() => {
+    setBrowseMode(prev => !prev);
+  }, []);
+
   // Map pin click — in entity/collection mode, stay in current mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
     if (mode === 'entity') {
@@ -709,6 +780,18 @@ function App() {
             onExpandRequest={handleExpandRequest}
           />
           </FadeIn>
+        ) : browseMode ? (
+          <FadeIn key="browse">
+          <BrowsePanel
+            ref={browsePanelRef}
+            collections={collections}
+            browseableStories={browseableStories}
+            entities={entities}
+            onCollectionSelect={handleBrowseCollectionSelect}
+            onStorySelect={handleBrowseStorySelect}
+            onEntitySelect={handleBrowseEntitySelect}
+          />
+          </FadeIn>
         ) : (
           <FadeIn key="explore">
           <ExplorePanel
@@ -773,15 +856,17 @@ function App() {
         geoLoading={geoLoading}
         geoError={geoError}
         userLocation={userLocation}
-        onStorySelect={handleStorySelect}
-        onEntitySelect={handleEntitySelect}
-        onCollectionSelect={handleCollectionSelect}
+        onStorySelect={browseMode ? handleBrowseStorySelect : handleStorySelect}
+        onEntitySelect={browseMode ? handleBrowseEntitySelect : handleEntitySelect}
+        onCollectionSelect={browseMode ? handleBrowseCollectionSelect : handleCollectionSelect}
         onMomentSelect={handleMomentSelect}
         hasNavHistory={navHistory.length > 0}
         activeCollection={activeCollection}
         onClearCollection={() => setActiveCollection(null)}
+        browseMode={browseMode}
+        onBrowseModeToggle={handleBrowseModeToggle}
       />
-      {mode !== 'story' && mode !== 'entity' && (
+      {mode !== 'story' && mode !== 'entity' && !browseMode && (
         <TimelineBar
           stories={stories}
           categoryFilter={categoryFilter}
@@ -827,7 +912,10 @@ function App() {
         /* ── Current / Spotlight: map full screen + BottomSheet overlay ── */
         <div className="flex-1 flex flex-col lg:flex-row mobile-landscape:flex-row overflow-hidden relative">
           {/* Map — mobile: full screen behind sheet. Desktop: flex-1 fills left side. */}
-          <div className="absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden" style={{ isolation: 'isolate' }}>
+          <div
+            className={`absolute inset-0 lg:relative lg:h-full lg:flex-1 overflow-hidden transition-opacity duration-300 ease-out ${browseMode && !isMobile ? 'opacity-40 pointer-events-none' : ''}`}
+            style={{ isolation: 'isolate' }}
+          >
             <MapView
               stories={timelineFilteredStories}
               activeStory={activeStory}

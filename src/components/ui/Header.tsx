@@ -27,6 +27,8 @@ interface HeaderProps {
   hasNavHistory?: boolean;
   activeCollection?: StoryCollection | null;
   onClearCollection?: () => void;
+  browseMode?: boolean;
+  onBrowseModeToggle?: () => void;
 }
 
 export function Header({
@@ -52,6 +54,8 @@ export function Header({
   hasNavHistory,
   activeCollection,
   onClearCollection,
+  browseMode,
+  onBrowseModeToggle,
 }: HeaderProps) {
   const [searchFocused, setSearchFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -160,7 +164,7 @@ export function Header({
           {(mode === 'story' || mode === 'entity' || hasNavHistory || activeCollection) && (
             <>
               <button
-                onClick={activeCollection ? (onClearCollection || onBackToExplore) : (onBack || onBackToExplore)}
+                onClick={activeCollection && !hasNavHistory ? (onClearCollection || onBackToExplore) : (onBack || onBackToExplore)}
                 className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
                 title={activeCollection ? 'Back to Collections' : (backLabel ? `Back to ${backLabel}` : 'Back')}
               >
@@ -179,6 +183,40 @@ export function Header({
                 </svg>
               </button>
             </>
+          )}
+
+          {/* Map/Browse toggle — explore mode only */}
+          {mode !== 'story' && mode !== 'entity' && onBrowseModeToggle && (
+            <div
+              className="flex rounded-full overflow-hidden border border-[var(--border-subtle)] h-[32px]"
+              role="tablist"
+              aria-label="View mode"
+            >
+              <button
+                role="tab"
+                aria-selected={!browseMode}
+                onClick={browseMode ? onBrowseModeToggle : undefined}
+                className={`px-3 text-xs font-sans font-medium transition-colors ${
+                  !browseMode
+                    ? 'bg-[#25a475] text-white'
+                    : 'bg-[#353534] text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                }`}
+              >
+                Map
+              </button>
+              <button
+                role="tab"
+                aria-selected={!!browseMode}
+                onClick={browseMode ? undefined : onBrowseModeToggle}
+                className={`px-3 text-xs font-sans font-medium transition-colors ${
+                  browseMode
+                    ? 'bg-[#25a475] text-white'
+                    : 'bg-[#353534] text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                }`}
+              >
+                Browse
+              </button>
+            </div>
           )}
 
           {/* Near Me — geolocation, explore mode only */}
@@ -275,8 +313,8 @@ export function Header({
         </div>
       </div>
 
-      {/* Category filter bar — only in explore mode, hidden on mobile to save vertical space */}
-      {mode !== 'story' && mode !== 'entity' && (
+      {/* Category filter bar — only in explore mode, hidden on mobile and in browse mode */}
+      {mode !== 'story' && mode !== 'entity' && !browseMode && (
         <div className={v2
           ? 'hidden lg:flex items-center gap-3 px-6 pb-3 overflow-x-auto'
           : 'hidden lg:flex items-center gap-1 px-4 pb-2 overflow-x-auto'
