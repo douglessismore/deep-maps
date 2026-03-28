@@ -56,7 +56,7 @@ function SectionHeading({
   onToggle: () => void;
 }) {
   return (
-    <div className="flex items-baseline justify-between px-4 mb-3">
+    <div className="flex items-baseline justify-between px-4 mb-4">
       <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
         {title}
       </h2>
@@ -73,7 +73,7 @@ function SectionHeading({
 /** Simple section heading without toggle */
 function SectionTitle({ title }: { title: string }) {
   return (
-    <div className="px-4 mb-3">
+    <div className="px-4 mb-4">
       <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
         {title}
       </h2>
@@ -94,7 +94,7 @@ function CategoryFilterPills({
 }) {
   return (
     <div
-      className="flex gap-2 overflow-x-auto px-4 pb-2 no-scrollbar"
+      className="flex gap-2.5 overflow-x-auto px-4 pb-2 no-scrollbar"
       style={{
         WebkitOverflowScrolling: 'touch',
         touchAction: 'manipulation',
@@ -530,7 +530,7 @@ export function HomePage({
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
         {/* ── Tagline ── */}
-        <div className="px-4 pt-5 pb-2">
+        <div className="px-4 pt-6 pb-4">
           <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
             {hasGps ? (
               <>Dive into history <span className="text-[var(--accent-red)]">around you</span></>
@@ -538,18 +538,18 @@ export function HomePage({
               <>Dive into the map <span className="text-[var(--accent-red)]">of history</span></>
             )}
           </h1>
-          <p className="text-[13px] text-[var(--text-muted)] font-sans mt-1.5">
+          <p className="text-[13px] text-[var(--text-muted)] font-sans mt-2">
             Every place has a story
           </p>
         </div>
 
         {/* ── Category filter pills ── */}
-        <div className="pt-1 pb-3">
+        <div className="pb-5">
           <CategoryFilterPills selected={categoryFilter} onSelect={setCategoryFilter} />
         </div>
 
         {/* ── Section 1: Near You ── */}
-        <div className="pb-2">
+        <div className="pb-4">
           <SectionHeading
             title={nearYouTitle}
             expanded={expandedSection === 'nearYou'}
@@ -605,10 +605,10 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 2: Collections ── */}
-        <div className="pt-4 pb-2">
+        <div className="pt-4 pb-4">
           <SectionHeading
             title="Collections"
             expanded={expandedSection === 'collections'}
@@ -648,10 +648,10 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 3: Notable People (grid) ── */}
-        <div className="pt-4 pb-2">
+        <div className="pt-4 pb-4">
           <SectionHeading
             title="Notable People"
             expanded={expandedSection === 'people'}
@@ -693,10 +693,10 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 4: Browse the Encyclopedia ── */}
-        <div className="pt-4 pb-2">
+        <div className="pt-4 pb-4">
           <SectionTitle title="Browse the Encyclopedia" />
           <div className="px-4">
             <div className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-4">
@@ -720,10 +720,10 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 5: Surprise Me ── */}
-        <div className="px-4 pt-4 pb-6 flex justify-center">
+        <div className="px-4 pt-6 pb-8 flex justify-center">
           <button
             onClick={onSurpriseMe}
             className="w-[65%] rounded-xl border border-[var(--accent-red)] hover:bg-[var(--accent-red)]/10 transition-all duration-200 active:scale-[0.98] py-3 px-4 text-center group"

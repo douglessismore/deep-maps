@@ -845,8 +845,8 @@ export function ExplorePanel({
   return (
     <div className="flex flex-col h-full min-h-0 relative">
       {/* Back bar — shown when there's nav history or inside a collection */}
-      {(hasNavHistory || activeCollection) && (
-        <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+      {(hasNavHistory || activeCollection) ? (
+        <div className="shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={activeCollection && !hasNavHistory ? onClearCollection : onBack}
             className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
@@ -867,6 +867,18 @@ export function ExplorePanel({
               Home
             </button>
           )}
+        </div>
+      ) : onHome && (
+        <div className="shrink-0 flex items-center px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+          <button
+            onClick={onHome}
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+          >
+            <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
+              <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Home
+          </button>
         </div>
       )}
       {/* Tabs — hidden when inside a collection (collection is a full destination) */}
