@@ -13,6 +13,7 @@ import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
+import { HomePage } from './HomePage';
 import { isV2 } from '../../lib/theme';
 
 type MixedListItem =
@@ -58,6 +59,10 @@ interface ExplorePanelProps {
   onBack?: () => void;
   onHome?: () => void;
   hasNavHistory?: boolean;
+  /** Panel view: 'home' shows the curated home page, 'explorer' shows the tab-based explorer */
+  panelView?: 'home' | 'explorer';
+  /** Callback when panel view changes (e.g., user taps a card on home page) */
+  onPanelViewChange?: (view: 'home' | 'explorer') => void;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -134,6 +139,8 @@ export function ExplorePanel({
   onBack,
   onHome,
   hasNavHistory,
+  panelView = 'explorer',
+  onPanelViewChange,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -800,6 +807,36 @@ export function ExplorePanel({
       </svg>
     </button>
   );
+
+  // ── Home page view: curated horizontal sections ──
+  if (panelView === 'home') {
+    return (
+      <div className="flex flex-col h-full relative">
+        <HomePage
+          viewportLocations={viewportLocations}
+          collections={collections}
+          personEntities={personEntities}
+          userLocation={userLocation ?? null}
+          onMomentClick={(moment, story) => {
+            onPanelViewChange?.('explorer');
+            onLocationSelect(moment, story);
+          }}
+          onCollectionSelect={(collection) => {
+            onPanelViewChange?.('explorer');
+            onCollectionSelect(collection);
+          }}
+          onEntityClick={(entity) => {
+            onPanelViewChange?.('explorer');
+            onEntityClick?.(entity);
+          }}
+          onSurpriseMe={() => {
+            onPanelViewChange?.('explorer');
+            onSurpriseMe();
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full relative">
