@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { useLocation } from 'wouter';
 import { MapView, smartFlyToBounds } from './components/map/MapView';
-import { ExplorePanel, type PanelTab } from './components/panel/ExplorePanel';
+import { ExplorePanel, type PanelTab, type PanelView } from './components/panel/ExplorePanel';
 import { Header } from './components/ui/Header';
 import { BottomSheet, type SheetSnap } from './components/ui/BottomSheet';
 import { ClaudeSheet } from './components/ui/ClaudeSheet';
@@ -35,6 +35,7 @@ type NavEntry = {
   categoryFilter: StoryCategory | null;
   savedMapView?: SavedMapView;
   exploreTab?: PanelTab;
+  panelView?: PanelView;
   exploreScrollTop?: number;
 };
 
@@ -57,7 +58,8 @@ function App() {
   const [timelineViewRange, setTimelineViewRange] = useState<[number, number] | null>(null);
   const [mapVisibleStoryIds, setMapVisibleStoryIds] = useState<Set<string> | null>(null);
   const [navHistory, setNavHistory] = useState<NavEntry[]>([]);
-  const [exploreTab, setExploreTab] = useState<PanelTab>('stories');
+  const [exploreTab, setExploreTab] = useState<PanelTab>('moments');
+  const [panelView, setPanelView] = useState<PanelView>('feed');
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [geoLoading, setGeoLoading] = useState(false);
@@ -183,6 +185,7 @@ function App() {
         setActiveLocation(null);
         setScrollHighlight([]);
         setMode('explore');
+        setPanelView('feed');
         setExploreTab('collections');
       }
     } else if (storyMatch) {
@@ -287,13 +290,13 @@ function App() {
     // Save current sheet snap before navigating deeper
     preNavSheetSnap.current = sheetSnap;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, panelView, exploreScrollTop: exploreScrollTop.current };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
     // Expand sheet to half when navigating into content
     setTargetSheetSnap('half');
-  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, sheetSnap]);
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, panelView, sheetSnap]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -367,6 +370,7 @@ function App() {
       setActiveCollection(entry.activeCollection);
       setCategoryFilter(entry.categoryFilter);
       if (entry.exploreTab) setExploreTab(entry.exploreTab);
+      if (entry.panelView) setPanelView(entry.panelView);
       if (entry.exploreScrollTop != null) setRestoreScrollTop(entry.exploreScrollTop);
       if (!entry.activeStory && !entry.activeEntity) {
         // Restore saved map view if available, otherwise reset to US center
@@ -396,6 +400,7 @@ function App() {
     setNavHistory([]);
     setTimelineViewRange(null);
     setMode('explore');
+    setPanelView('feed');
     setResetViewKey((k) => k + 1);
     setTargetSheetSnap('peek');
   }, []);
@@ -422,6 +427,11 @@ function App() {
   const handleCollectionScrollHighlight = useCallback((moment: Moment) => {
     setActiveLocation(moment);
     setZoomToActiveLocation(false);
+  }, []);
+
+  // Library toggle — opens/closes the library directory view
+  const handleLibraryToggle = useCallback(() => {
+    setPanelView((prev) => prev === 'library' ? 'feed' : 'library');
   }, []);
 
   const handleModeChange = useCallback((newMode: InteractionMode) => {
@@ -522,6 +532,7 @@ function App() {
     setActiveLocation(moment);
     setCategoryFilter(null);
     setSearchQuery(''); // Clear search so tabs aren't filtered on back
+    setPanelView('feed');
     setExploreTab('moments');
     setMode('explore');
     setZoomToActiveLocation(true);
@@ -610,16 +621,10 @@ function App() {
     if (prev.activeEntity) return prev.activeEntity.name;
     if (prev.activeStory) return prev.activeStory.name;
     if (prev.activeCollection) return prev.activeCollection.name;
-    if (prev.mode === 'explore' && prev.exploreTab) {
-      const tabLabels: Record<PanelTab, string> = {
-        stories: 'Stories',
-        places: 'Places',
-        moments: 'Moments',
-        collections: 'Collections',
-      };
-      return tabLabels[prev.exploreTab];
+    if (prev.mode === 'explore') {
+      return prev.panelView === 'library' ? 'Library' : 'Feed';
     }
-    return 'Stories';
+    return 'Feed';
   }, [navHistory]);
 
   // ── Context labels for variant drag handles / HUDs ──
@@ -732,8 +737,8 @@ function App() {
             userLocation={userLocation}
             onRequestGeo={handleRequestGeo}
             onEntityClick={handleEntitySelect}
-            activeTab={exploreTab}
-            onTabChange={setExploreTab}
+            panelView={panelView}
+            onPanelViewChange={setPanelView}
             sheetSnap={effectiveSheetSnap}
             onScrollPosition={(top) => { exploreScrollTop.current = top; }}
             restoreScrollTop={restoreScrollTop}
@@ -780,6 +785,8 @@ function App() {
         hasNavHistory={navHistory.length > 0}
         activeCollection={activeCollection}
         onClearCollection={() => setActiveCollection(null)}
+        onLibraryToggle={handleLibraryToggle}
+        isLibraryOpen={panelView === 'library'}
       />
       {mode !== 'story' && mode !== 'entity' && (
         <TimelineBar

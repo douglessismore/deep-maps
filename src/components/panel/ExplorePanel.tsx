@@ -4,21 +4,14 @@ import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLoc
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
 import { panToAboveSheet } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { StoryCard } from './StoryCard';
-import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
-import { isV2 } from '../../lib/theme';
-
-type MixedListItem =
-  | { kind: 'story'; story: Story; distance: number; notability: number }
-  | { kind: 'person'; data: EntityWithCounts; distance: number; notability: number };
-
 
 interface ExplorePanelProps {
   stories: Story[];
@@ -41,8 +34,8 @@ interface ExplorePanelProps {
   userLocation?: { lat: number; lng: number } | null;
   onRequestGeo?: () => void;
   onEntityClick?: (entity: Entity) => void;
-  activeTab?: PanelTab;
-  onTabChange?: (tab: PanelTab) => void;
+  panelView?: PanelView;
+  onPanelViewChange?: (view: PanelView) => void;
   sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
   onScrollPosition?: (scrollTop: number) => void;
   restoreScrollTop?: number | null;
@@ -60,9 +53,10 @@ interface ExplorePanelProps {
   hasNavHistory?: boolean;
 }
 
+/** @deprecated Use PanelView instead — kept for backward compatibility during migration */
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
 
-const TAB_INDEX: Record<PanelTab, number> = { moments: 0, stories: 1, places: 2, collections: 3 };
+export type PanelView = 'feed' | 'library';
 
 /** Get the nearest location distance from a story to a point */
 function nearestDistance(story: Story, lat: number, lng: number, mMap: Map<string, Moment>): number {
@@ -121,8 +115,8 @@ export function ExplorePanel({
   userLocation,
   onRequestGeo,
   onEntityClick,
-  activeTab: controlledTab,
-  onTabChange,
+  panelView: controlledView,
+  onPanelViewChange,
   sheetSnap: sheetSnapProp,
   onScrollPosition,
   restoreScrollTop,
@@ -140,28 +134,25 @@ export function ExplorePanel({
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const isSheetMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
-  const [internalTab, setInternalTab] = useState<PanelTab>('stories');
-  const activeTab = controlledTab ?? internalTab;
-  const setActiveTab = useCallback((tab: PanelTab) => {
-    if (onTabChange) onTabChange(tab);
-    else setInternalTab(tab);
-  }, [onTabChange]);
-  // Suppress initial-render slide animation for tab underline
-  const hasTabRendered = useRef(false);
-  useEffect(() => { hasTabRendered.current = true; }, []);
+  const [internalView, setInternalView] = useState<PanelView>('feed');
+  const panelView = controlledView ?? internalView;
+  const setPanelView = useCallback((view: PanelView) => {
+    if (onPanelViewChange) onPanelViewChange(view);
+    else setInternalView(view);
+  }, [onPanelViewChange]);
+  // activeTab alias removed in cold-open — panelView drives the UI directly
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [viewportLocations, setViewportLocations] = useState<ViewportLocation[]>([]);
   const viewportLocationsRef = useRef<ViewportLocation[]>(viewportLocations);
   viewportLocationsRef.current = viewportLocations;
   const [momentSort, setMomentSort] = useState<'notable' | 'nearest' | 'oldest'>('notable');
   const [storySort, setStorySort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
-  const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
-  const [scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
+  const [_scrollActiveEntityId, setScrollActiveEntityId] = useState<string | null>(null);
   const [scrollActiveMomentKey, setScrollActiveMomentKey] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(mapInstance?.getZoom() ?? 10);
 
@@ -182,8 +173,6 @@ export function ExplorePanel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const locationCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-  const collectionListCardRefs = useRef<Map<string, HTMLElement>>(new Map());
-  const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
@@ -200,23 +189,22 @@ export function ExplorePanel({
     prevUserLocation.current = userLocation;
   }, [userLocation]);
 
-  // Auto-switch to collections tab when a collection is selected
+  // Auto-switch to feed when a collection is selected (collection moments show in the feed)
   useEffect(() => {
     if (activeCollection) {
-      setActiveTab('collections');
+      setPanelView('feed');
     }
   }, [activeCollection]);
 
-  // Clear scroll highlight + active collection when switching tabs
+  // Clear scroll highlight when switching between feed and library
   useEffect(() => {
-    if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
-    if (activeTab !== 'places') setScrollActiveEntityId(null);
-    // Clear collection when leaving collections tab — collection is a destination, not a filter
-    if (activeTab !== 'collections' && activeCollection) onClearCollection();
-    // Clear map highlight and reset mode to prevent polylines from carrying over
-    onScrollHighlight([]);
-    onModeChange('explore');
-  }, [activeTab]);
+    if (panelView === 'library') {
+      setScrollActiveStoryId(null);
+      setScrollActiveEntityId(null);
+      onScrollHighlight([]);
+      onModeChange('explore');
+    }
+  }, [panelView]);
 
   // Filter stories by search + category (timeline filtering already done in App.tsx)
   const filteredStories = useMemo(() => {
@@ -286,12 +274,10 @@ export function ExplorePanel({
     );
   }, [collections, mapInstance, viewportLocations]); // viewportLocations triggers recompute on map move
 
-  // Scroll-driven navigation (Stories tab + Collections views)
+  // Scroll-driven navigation (active collection view)
   useEffect(() => {
-    const isStoriesTab = activeTab === 'stories';
-    const isActiveCollectionTab = activeTab === 'collections' && activeCollection != null;
-    const isCollectionsListTab = activeTab === 'collections' && activeCollection == null;
-    if ((!isStoriesTab && !isActiveCollectionTab && !isCollectionsListTab) || !mapInstance) return;
+    const isActiveCollectionTab = panelView === 'feed' && activeCollection != null;
+    if (!isActiveCollectionTab || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -302,56 +288,13 @@ export function ExplorePanel({
         if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
         scrollTimeout.current = window.setTimeout(() => {
           isScrollDriving.current = false;
-          // Don't reshuffle the collections list during scroll — it causes
-          // the highlighted collection to snap to a different one when the
-          // list reorders based on viewport changes from scroll-driven panTo.
-          if (!isCollectionsListTab) {
-            updateViewport();
-          }
+          updateViewport();
         }, 600);
 
         const containerRect = container.getBoundingClientRect();
         const centerY = containerRect.top + containerRect.height * 0.4;
 
-        // Collection list — highlight collection's moments on map
-        if (isCollectionsListTab) {
-          let closestCollId: string | null = null;
-          let closestCollDist = Infinity;
-          collectionListCardRefs.current.forEach((el, id) => {
-            const rect = el.getBoundingClientRect();
-            const cardCenter = rect.top + rect.height / 2;
-            const dist = Math.abs(cardCenter - centerY);
-            if (dist < closestCollDist) {
-              closestCollDist = dist;
-              closestCollId = id;
-            }
-          });
-          if (closestCollId) {
-            const coll = collections.find(c => c.id === closestCollId);
-            if (coll) {
-              setScrollActiveStoryId(closestCollId);
-              const collMoments = coll.momentIds
-                .map(mid => moments.find(m => m.id === mid))
-                .filter((m): m is Moment => m != null);
-              if (collMoments.length > 0) {
-                // Don't set mode to 'scroll' for collection list — prevents polylines.
-                // EmergenceLayer highlights markers via scrollHighlight directly.
-                onScrollHighlight(collMoments);
-                // Pan to first in-view moment (or first overall) — don't fitBounds
-                // on scroll, as that overrides the user's zoom level and causes
-                // the map to snap back when they try to zoom into an area.
-                clearTimeout(panTimeout.current);
-                panTimeout.current = window.setTimeout(() => {
-                  const mapBounds = mapInstance.getBounds();
-                  const inView = collMoments.filter(m => mapBounds.contains([m.lat, m.lng]));
-                  const panTarget = inView[0] || collMoments[0];
-                  panToAboveSheet(mapInstance, [panTarget.lat, panTarget.lng], sheetSnap, isSheetMobile, { duration: 0.15 });
-                }, 80);
-              }
-            }
-          }
-          return; // Don't fall through to story/entity logic
-        }
+        // Collection list scroll removed in cold-open (collection list is in library)
 
         let closestId: string | null = null;
         let closestDist = Infinity;
@@ -430,7 +373,7 @@ export function ExplorePanel({
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       isScrollDriving.current = false; // Prevent stuck flag when switching tabs mid-scroll
     };
-  }, [activeTab, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments, onCollectionScrollHighlight]);
+  }, [panelView, activeCollection, collections, mapInstance, filteredStories, viewportStories, onModeChange, updateViewport, displayMoments, onCollectionScrollHighlight]);
 
   // Track scroll position for navigation history save/restore
   useEffect(() => {
@@ -457,9 +400,9 @@ export function ExplorePanel({
 
 
   // Initial activation for collections list — highlight the first collection's pins on mount
-  // so the map shows relevant markers immediately instead of waiting for user to scroll
+  // (only relevant in library view, which doesn't have bidirectional scroll — disabled in cold-open)
   useEffect(() => {
-    const isCollectionsListTab = activeTab === 'collections' && activeCollection == null;
+    const isCollectionsListTab = false; // Disabled in cold-open — collections list is in library
     if (!isCollectionsListTab || !mapInstance || viewportCollections.length === 0) return;
     // Small delay to allow DOM refs to populate
     const timer = setTimeout(() => {
@@ -473,11 +416,11 @@ export function ExplorePanel({
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, [activeTab, activeCollection, viewportCollections, mapInstance]);
+  }, [panelView, activeCollection, viewportCollections, mapInstance]);
 
-  // Scroll-driven location navigation (Moments tab)
+  // Scroll-driven location navigation (Feed view — moments)
   useEffect(() => {
-    if (activeTab !== 'moments' || !mapInstance) return;
+    if (panelView !== 'feed' || activeCollection || !mapInstance) return;
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -533,7 +476,7 @@ export function ExplorePanel({
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       isScrollDriving.current = false;
     };
-  }, [activeTab, mapInstance, onScrollHighlight, updateViewport]);
+  }, [panelView, activeCollection, mapInstance, onScrollHighlight, updateViewport]);
 
   // Stories tab: show viewport stories if available, else filtered stories
   // Filter out canonical stories — they're invisible infrastructure
@@ -584,80 +527,7 @@ export function ExplorePanel({
     [viewportEntities]
   );
 
-  // Alphabetical grouping of people for A-Z mode in Stories tab
-  const personAlphabeticalGroups = useMemo(
-    () => groupAlphabetically(personEntities),
-    [personEntities]
-  );
-
-  // Mixed list: stories + people sorted by distance (or stories first if no location)
-  const mixedList: MixedListItem[] = useMemo(() => {
-    const storyItems: MixedListItem[] = displayStories.map((story) => ({
-      kind: 'story' as const,
-      story,
-      distance: userLocation
-        ? nearestDistance(story, userLocation.lat, userLocation.lng, momentMap)
-        : 0,
-      notability: storyNotability(story, momentMap),
-    }));
-    const personItems: MixedListItem[] = personEntities.map((data) => {
-      let dist = Infinity;
-      if (userLocation) {
-        const entityMoments = getMomentsForEntity(data.entity.id);
-        for (const m of entityMoments) {
-          const d = distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng);
-          if (d < dist) dist = d;
-        }
-      }
-      return { kind: 'person' as const, data, distance: dist === Infinity ? 0 : dist, notability: data.maxNotability };
-    });
-
-    const combined = [...storyItems, ...personItems];
-    if (storySort === 'nearest' && userLocation) {
-      combined.sort((a, b) =>
-        hybridNearestScore(a.distance, a.notability, mapZoom) -
-        hybridNearestScore(b.distance, b.notability, mapZoom)
-      );
-    } else if (storySort === 'notable') {
-      combined.sort((a, b) => b.notability - a.notability);
-    }
-    return combined;
-  }, [displayStories, personEntities, userLocation, storySort, mapZoom]);
-
-  // Place entities — shown in Places tab
-  const placeEntities = useMemo(
-    () => viewportEntities.filter((e) => e.entity.type === 'place'),
-    [viewportEntities]
-  );
-
-  const placeAlphabeticalGroups = useMemo(
-    () => groupAlphabetically(placeEntities),
-    [placeEntities]
-  );
-
-  // Sorted places for Notable/Nearest modes
-  const sortedPlaces = useMemo(() => {
-    const arr = [...placeEntities];
-    if (placeSort === 'notable') {
-      return arr.sort((a, b) => {
-        // Sort by max notability of associated moments, then momentCount as tiebreaker
-        const diff = b.maxNotability - a.maxNotability;
-        return diff !== 0 ? diff : b.momentCount - a.momentCount;
-      });
-    }
-    if (placeSort === 'nearest' && userLocation) {
-      return arr.sort((a, b) => {
-        const aMoments = getMomentsForEntity(a.entity.id);
-        const bMoments = getMomentsForEntity(b.entity.id);
-        const aDist = aMoments.length > 0 ? Math.min(...aMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
-        const bDist = bMoments.length > 0 ? Math.min(...bMoments.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : Infinity;
-        return hybridNearestScore(aDist, a.maxNotability, mapZoom) -
-               hybridNearestScore(bDist, b.maxNotability, mapZoom);
-      });
-    }
-    // a-z handled by placeAlphabeticalGroups
-    return arr.sort((a, b) => a.entity.name.localeCompare(b.entity.name));
-  }, [placeEntities, placeSort, userLocation, mapZoom]);
+  // (Stories mixed list, places, place sorts removed in cold-open — those are in the library now)
 
   const sortedMoments = useMemo(() => {
     let arr = [...viewportLocations];
@@ -694,112 +564,7 @@ export function ExplorePanel({
     }
   }, [viewportLocations, momentSort, userLocation, mapZoom, searchQuery]);
 
-  // Scroll-driven entity highlighting (Places tab)
-  // Shows single primary pin for each entity (not all moments)
-  useEffect(() => {
-    if (activeTab !== 'places' || !mapInstance) return;
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const onScroll = () => {
-      cancelAnimationFrame(scrollRafId.current);
-      scrollRafId.current = requestAnimationFrame(() => {
-        // Suppress viewport updates while scrolling — same guard as Stories/Moments tabs
-        isScrollDriving.current = true;
-        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-        scrollTimeout.current = window.setTimeout(() => {
-          isScrollDriving.current = false;
-          updateViewport();
-        }, 400);
-
-        const containerRect = container.getBoundingClientRect();
-        const centerY = containerRect.top + containerRect.height * 0.4;
-        let closestId: string | null = null;
-        let closestDist = Infinity;
-
-        placesCardRefs.current.forEach((el, id) => {
-          const rect = el.getBoundingClientRect();
-          const cardCenter = rect.top + rect.height / 2;
-          const dist = Math.abs(cardCenter - centerY);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestId = id;
-          }
-        });
-
-        if (closestId) {
-          setScrollActiveEntityId(closestId);
-          // Highlight only the first (primary) moment for this entity — single pin
-          const entityMoments = getMomentsForEntity(closestId);
-          if (entityMoments.length > 0) {
-            onScrollHighlight([entityMoments[0]]);
-            clearTimeout(panTimeout.current);
-            panTimeout.current = window.setTimeout(() => {
-              panToAboveSheet(mapInstance, [entityMoments[0].lat, entityMoments[0].lng], sheetSnap, isSheetMobile, { duration: 0.6 });
-            }, 150);
-          }
-        }
-      });
-    };
-
-    container.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      container.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(scrollRafId.current);
-      clearTimeout(panTimeout.current);
-      clearTimeout(highlightDebounce.current);
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      isScrollDriving.current = false;
-    };
-  }, [activeTab, mapInstance, placeEntities, onScrollHighlight, updateViewport]);
-
-  const renderPlaceRow = (entity: Entity, momentCount: number, isActive: boolean) => (
-    <button
-      key={entity.id}
-      ref={(el) => {
-        if (el) placesCardRefs.current.set(entity.id, el);
-        else placesCardRefs.current.delete(entity.id);
-      }}
-      onClick={() => onEntityClick?.(entity)}
-      className={`w-full flex items-start gap-2.5 px-1 py-2.5 text-left transition-colors group rounded border-b border-[var(--border-subtle)]/30 ${
-        isActive ? 'bg-[var(--bg-card-hover)]' : 'hover:bg-[var(--bg-card)]'
-      }`}
-    >
-      {/* Place icon */}
-      <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-[rgba(59,130,246,0.12)] ring-1 ring-[rgba(59,130,246,0.3)] mt-0.5">
-        <svg width="11" height="11" viewBox="0 0 14 14" fill="none" className="text-[rgba(59,130,246,0.7)]">
-          <path d="M7 1C4.24 1 2 3.24 2 6c0 3.5 5 7 5 7s5-3.5 5-7c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5z" fill="currentColor"/>
-        </svg>
-      </span>
-      {/* Name + description */}
-      <div className="flex-1 min-w-0">
-        <span className={`text-xs font-sans font-semibold transition-colors truncate block ${
-          isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
-        }`}>
-          {entity.name}
-        </span>
-        {entity.description && (
-          <span className="text-[10px] text-[var(--text-muted)] line-clamp-1 mt-0.5">
-            {entity.description}
-          </span>
-        )}
-      </div>
-      {/* Years */}
-      {entity.years && (
-        <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
-          {entity.years}
-        </span>
-      )}
-      {/* Moment count */}
-      <span className="text-[9px] font-mono text-[var(--text-muted)] shrink-0 mt-0.5">
-        {momentCount}m
-      </span>
-      {/* Chevron */}
-      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors opacity-50 mt-1.5">
-        <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    </button>
-  );
+  // Places scroll-driven highlighting removed in cold-open (places are in the library now)
 
   return (
     <div className="flex flex-col h-full relative">
@@ -813,7 +578,7 @@ export function ExplorePanel({
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            {activeCollection ? 'Collections' : 'Stories'}
+            {activeCollection ? 'Feed' : 'Back'}
           </button>
           {onHome && (
             <button
@@ -828,84 +593,86 @@ export function ExplorePanel({
           )}
         </div>
       )}
-      {/* Tabs — hidden when inside a collection (collection is a full destination) */}
-      {!activeCollection && <div className={isV2()
-        ? 'flex shrink-0 relative'
-        : 'flex border-b border-[var(--border-subtle)] shrink-0 relative'
-      }>
-        <button
-          onClick={() => setActiveTab('moments')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'moments'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Moments
-          {sortedMoments.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">
-              ({sortedMoments.length})
-            </span>
-          )}
-        </button>
-        <button
-          onClick={() => setActiveTab('stories')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'stories'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Stories
-          {mixedList.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({mixedList.length})</span>
-          )}
-        </button>
-        <button
-          onClick={() => setActiveTab('places')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'places'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Places
-          {placeEntities.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeEntities.length})</span>
-          )}
-        </button>
-        <button
-          onClick={() => setActiveTab('collections')}
-          className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors ${
-            activeTab === 'collections'
-              ? 'text-[var(--text-primary)]'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-          }`}
-        >
-          Collections
-          {viewportCollections.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportCollections.length})</span>
-          )}
-        </button>
-        {/* Sliding tab underline */}
-        <div
-          className={`absolute bottom-0 left-0 h-0.5 bg-[var(--accent-red)] ${
-            hasTabRendered.current
-              ? 'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]'
-              : ''
-          }`}
-          style={{ width: '25%', transform: `translateX(${TAB_INDEX[activeTab] * 100}%)` }}
-        />
-      </div>}
+      {/* Tab bar removed in cold-open — single feed or library */}
 
       {/* Content */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-24 lg:pb-[40vh]">
         {/* Inner wrapper: min-height forces tiny overflow so iOS bounce/rubber-band always works */}
         <div style={{ minHeight: 'calc(100% + 1px)' }} className="space-y-3">
-        {activeTab === 'moments' ? (
+
+        {panelView === 'library' ? (
+          /* ── Library / Directory View ── */
+          <LibraryView
+            collections={collections}
+            browseableStories={stories}
+            personEntities={personEntities}
+            onCollectionSelect={onCollectionSelect}
+            onStorySelect={onStorySelect}
+            onEntityClick={onEntityClick}
+            onClose={() => setPanelView('feed')}
+          />
+        ) : activeCollection ? (
+          /* ── Active Collection — moment cards ── */
+          <>
+            <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5 flex items-center gap-1.5">
+              <p className="text-[11px] font-mono text-[var(--text-primary)] truncate min-w-0">
+                {activeCollection.name}
+              </p>
+              <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
+                {displayMoments.length} {displayMoments.length === 1 ? 'event' : 'events'}
+              </span>
+            </div>
+            {displayMoments.length === 0 ? (
+              <div className="py-12 text-center">
+                <p className="text-sm text-[var(--text-muted)] font-mono">No events in this collection</p>
+              </div>
+            ) : (
+              <div className="p-2 space-y-1">
+                {displayMoments.map((moment) => {
+                  const parentStory = momentToStoryMap.get(moment.id);
+                  const storyOrStub = parentStory ?? ({
+                    id: '__collection-stub__',
+                    name: activeCollection?.name ?? 'Collection',
+                    subtitle: '',
+                    description: '',
+                    category: 'dark-history',
+                    moments: [],
+                    years: '',
+                    storyType: 'incident',
+                    tags: [],
+                  } as Story);
+                  return (
+                    <LocationCard
+                      key={moment.id}
+                      ref={(el) => {
+                        if (el) cardRefs.current.set(moment.id, el);
+                        else cardRefs.current.delete(moment.id);
+                      }}
+                      location={moment}
+                      story={storyOrStub}
+                      isActive={activeLocationId === moment.id || scrollActiveStoryId === moment.id}
+                      isExpanded={expandedLocationKey === moment.id}
+                      showExpandChevron
+                      skipCanonicalFilter
+                      parentStories={parentStory ? [parentStory] : []}
+                      onClick={(m) => {
+                        setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
+                        onScrollHighlight([m]);
+                        onCollectionMomentClick?.(m);
+                      }}
+                      onStoryClick={parentStory ? (story) => onLocationSelect(moment, story) : undefined}
+                      onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </>
+        ) : (
+          /* ── Feed View — viewport-filtered moments ── */
           sortedMoments.length === 0 ? (
             <EmptyState
-              message={searchQuery ? 'No moments match your search' : 'Pan or zoom the map to see moments in this area'}
+              message={searchQuery ? 'No events match your search' : 'Pan or zoom the map to discover events in this area'}
               onSurpriseMe={onSurpriseMe}
             />
           ) : (
@@ -932,294 +699,170 @@ export function ExplorePanel({
                   </span>
                 ))}
               </div>
-              {sortedMoments.map((vl) => {
+              {sortedMoments.map((vl, index) => {
                 const key = `${vl.story?.id ?? 'no-story'}-${vl.location.id}`;
+                const isHero = index === 0;
                 return (
-                  <LocationCard
-                    key={key}
-                    ref={(el) => {
-                      if (el) locationCardRefs.current.set(key, el);
-                      else locationCardRefs.current.delete(key);
-                    }}
-                    location={vl.location}
-                    story={vl.story ?? undefined}
-                    isActive={activeLocationId === vl.location.id || scrollActiveMomentKey === key}
-                    isExpanded={expandedLocationKey === key}
-                    compact={useCompactCards && expandedLocationKey !== key}
-                    showExpandChevron={!isMobile}
-                    skipCanonicalFilter
-                    parentStories={vl.story ? [vl.story] : []}
-                    onClick={(moment) => {
-                      setExpandedLocationKey(expandedLocationKey === key ? null : key);
-                      onScrollHighlight([moment]);
-                      if (mapInstance) {
-                        panToAboveSheet(mapInstance, [moment.lat, moment.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
-                      }
-                    }}
-                    onStoryClick={(story) => onLocationSelect(vl.location, story)}
-                    onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
-                  />
+                  <div key={key} className={isHero ? 'cold-open-hero' : ''}>
+                    <LocationCard
+                      ref={(el) => {
+                        if (el) locationCardRefs.current.set(key, el);
+                        else locationCardRefs.current.delete(key);
+                      }}
+                      location={vl.location}
+                      story={vl.story ?? undefined}
+                      isActive={activeLocationId === vl.location.id || scrollActiveMomentKey === key}
+                      isExpanded={isHero || expandedLocationKey === key}
+                      compact={!isHero && useCompactCards && expandedLocationKey !== key}
+                      showExpandChevron={!isMobile}
+                      skipCanonicalFilter
+                      parentStories={vl.story ? [vl.story] : []}
+                      onClick={(moment) => {
+                        setExpandedLocationKey(expandedLocationKey === key ? null : key);
+                        onScrollHighlight([moment]);
+                        if (mapInstance) {
+                          panToAboveSheet(mapInstance, [moment.lat, moment.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
+                        }
+                      }}
+                      onStoryClick={(story) => onLocationSelect(vl.location, story)}
+                      onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
+                    />
+                  </div>
                 );
               })}
-              {/* Bottom padding for scroll detection — minimal to avoid black space */}
+              {/* Bottom padding for scroll detection */}
               <div className="h-16" />
             </>
           )
-        ) : activeTab === 'places' ? (
-          placeEntities.length === 0 ? (
-            <EmptyState
-              message="Pan or zoom the map to see places in this area"
-              onSurpriseMe={onSurpriseMe}
-            />
-          ) : (
-            <div>
-              {/* Sort toggle */}
-              <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-                {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
-                  <span key={mode} className="flex items-center">
-                    {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
-                    <button
-                      onClick={() => {
-                        hasManualSort.current = true;
-                        setPlaceSort(mode);
-                        if (mode === 'nearest' && !userLocation) onRequestGeo?.();
-                      }}
-                      className={`transition-colors ${
-                        placeSort === mode
-                          ? 'text-[var(--text-primary)]'
-                          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                      }`}
-                    >
-                      {mode === 'a-z' ? 'A-Z' : mode.charAt(0).toUpperCase() + mode.slice(1)}
-                    </button>
-                  </span>
-                ))}
-              </div>
-              {placeSort === 'a-z' ? (
-                /* Alphabetical with letter headers */
-                Array.from(placeAlphabeticalGroups.entries()).map(([letter, items]) => (
-                  <div key={letter}>
-                    <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
-                      {letter}
-                    </div>
-                    {items.map(({ entity, momentCount }) => renderPlaceRow(entity, momentCount, scrollActiveEntityId === entity.id))}
-                  </div>
-                ))
-              ) : (
-                /* Notable / Nearest — flat sorted list */
-                sortedPlaces.map(({ entity, momentCount }) => renderPlaceRow(entity, momentCount, scrollActiveEntityId === entity.id))
-              )}
-              {/* Bottom padding for scroll detection — minimal to avoid black space */}
-              <div className="h-16" />
-            </div>
-          )
-        ) : activeTab === 'collections' ? (
-          activeCollection ? (
-            /* Active collection — moment list with back header */
-            <>
-              <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5 flex items-center gap-1.5">
-                <p className="text-[11px] font-mono text-[var(--text-primary)] truncate min-w-0">
-                  {activeCollection.name}
-                </p>
-                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
-                  {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
-                </span>
-              </div>
-              {displayMoments.length === 0 ? (
-                <div className="py-12 text-center">
-                  <p className="text-sm text-[var(--text-muted)] font-mono">No moments in this collection</p>
-                </div>
-              ) : (
-                <div className="p-2 space-y-1">
-                  {displayMoments.map((moment) => {
-                    const parentStory = momentToStoryMap.get(moment.id);
-                    // Fallback stub for collection moments without a parent story
-                    const storyOrStub = parentStory ?? ({
-                      id: '__collection-stub__',
-                      name: activeCollection?.name ?? 'Collection',
-                      subtitle: '',
-                      description: '',
-                      category: 'dark-history',
-                      moments: [],
-                      years: '',
-                      storyType: 'incident',
-                      tags: [],
-                    } as Story);
-                    return (
-                      <LocationCard
-                        key={moment.id}
-                        ref={(el) => {
-                          if (el) cardRefs.current.set(moment.id, el);
-                          else cardRefs.current.delete(moment.id);
-                        }}
-                        location={moment}
-                        story={storyOrStub}
-                        isActive={activeLocationId === moment.id || scrollActiveStoryId === moment.id}
-                        isExpanded={expandedLocationKey === moment.id}
-                        showExpandChevron
-                        skipCanonicalFilter
-                        parentStories={parentStory ? [parentStory] : []}
-                        onClick={(m) => {
-                          setExpandedLocationKey(expandedLocationKey === m.id ? null : m.id);
-                          onScrollHighlight([m]);
-                          onCollectionMomentClick?.(m);
-                        }}
-                        onStoryClick={parentStory ? (story) => onLocationSelect(moment, story) : undefined}
-                        onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
-                      />
-                    );
-                  })}
-                </div>
-              )}
-            </>
-          ) : (
-            /* Collection list — no active collection */
-            viewportCollections.length === 0 ? (
-              <div className="py-12 text-center">
-                <p className="text-sm text-[var(--text-muted)] font-mono">Pan or zoom the map to see collections in this area</p>
-              </div>
-            ) : (
-              <>
-                <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">
-                  Curated Collections
-                </p>
-                {viewportCollections.map((collection) => {
-                  const momentCount = collection.momentIds.length;
-                  return (
-                    <div
-                      key={collection.id}
-                      ref={(el) => {
-                        if (el) collectionListCardRefs.current.set(collection.id, el);
-                        else collectionListCardRefs.current.delete(collection.id);
-                      }}
-                      className={scrollActiveStoryId === collection.id
-                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                    >
-                      <CollectionCard
-                        collection={collection}
-                        momentCount={momentCount}
-                        onClick={onCollectionSelect}
-                      />
-                    </div>
-                  );
-                })}
-              </>
-            )
-          )
-        ) : /* stories tab (default) */ (storySort === 'a-z' ? personEntities.length === 0 : mixedList.length === 0) ? (
-          <EmptyState
-            message={searchQuery ? 'No stories match your search' : storySort === 'a-z' ? 'No people in this area — zoom out or pan around' : 'No stories in this area — zoom out or pan around'}
-            onSurpriseMe={onSurpriseMe}
-          />
-        ) : (
-          <>
-            {/* Sort toggle */}
-            <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-              {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
-                <span key={mode} className="flex items-center">
-                  {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
-                  <button
-                    onClick={() => {
-                      hasManualSort.current = true;
-                      setStorySort(mode);
-                      if (mode === 'nearest' && !userLocation) onRequestGeo?.();
-                    }}
-                    className={`transition-colors ${
-                      storySort === mode
-                        ? 'text-[var(--text-primary)]'
-                        : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                    }`}
-                  >
-                    {mode === 'a-z' ? 'A-Z (People)' : mode.charAt(0).toUpperCase() + mode.slice(1)}
-                  </button>
-                </span>
-              ))}
-            </div>
-            {storySort === 'a-z' ? (
-              /* A-Z people with letter headers */
-              <>
-                {Array.from(personAlphabeticalGroups.entries()).map(([letter, items]) => (
-                  <div key={letter}>
-                    <div className="sticky top-0 z-[9] px-1 py-0.5 text-[10px] font-mono font-semibold text-[var(--text-muted)] bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
-                      {letter}
-                    </div>
-                    {items.map((personData) => (
-                      <div
-                        key={`person-${personData.entity.id}`}
-                        ref={(el) => {
-                          if (el) cardRefs.current.set(personData.entity.id, el);
-                          else cardRefs.current.delete(personData.entity.id);
-                        }}
-                        className={scrollActiveStoryId === personData.entity.id
-                          ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                          : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                      >
-                        <PersonCard
-                          data={personData}
-                          onClick={(e) => onEntityClick?.(e)}
-                          compact={useCompactCards}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </>
-            ) : (
-              /* Mixed story + person cards (Notable / Nearest) */
-              mixedList.map((item) => {
-                if (item.kind === 'story') {
-                  return (
-                    <div
-                      key={item.story.id}
-                      ref={(el) => {
-                        if (el) cardRefs.current.set(item.story.id, el);
-                        else cardRefs.current.delete(item.story.id);
-                      }}
-                      className={scrollActiveStoryId === item.story.id
-                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                    >
-                      <StoryCard
-                        story={item.story}
-                        onClick={onStorySelect}
-                        compact={useCompactCards}
-                        distanceMi={
-                          userLocation
-                            ? nearestDistance(item.story, userLocation.lat, userLocation.lng, momentMap)
-                            : undefined
-                        }
-                      />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div
-                      key={`person-${item.data.entity.id}`}
-                      ref={(el) => {
-                        if (el) cardRefs.current.set(item.data.entity.id, el);
-                        else cardRefs.current.delete(item.data.entity.id);
-                      }}
-                      className={scrollActiveStoryId === item.data.entity.id
-                        ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
-                    >
-                      <PersonCard
-                        data={item.data}
-                        onClick={(entity) => onEntityClick?.(entity)}
-                        compact={useCompactCards}
-                        distanceMi={item.distance > 0 ? item.distance : undefined}
-                      />
-                    </div>
-                  );
-                }
-              })
-            )}
-          </>
         )}
 
         </div>{/* end rubber-band wrapper */}
       </div>
+    </div>
+  );
+}
+
+/** Library / Directory view — collections, people, stories */
+function LibraryView({
+  collections,
+  browseableStories,
+  personEntities: _viewportPeople,
+  onCollectionSelect,
+  onStorySelect,
+  onEntityClick,
+  onClose,
+}: {
+  collections: StoryCollection[];
+  browseableStories: Story[];
+  personEntities: EntityWithCounts[];
+  onCollectionSelect: (c: StoryCollection) => void;
+  onStorySelect: (s: Story) => void;
+  onEntityClick?: (e: Entity) => void;
+  onClose: () => void;
+}) {
+  // Get ALL entities (not viewport-filtered) for the library directory
+  const { entities } = useAppData();
+  const allPeople = useMemo(
+    () => entities
+      .filter(e => e.type === 'person')
+      .sort((a, b) => (a.name > b.name ? 1 : -1)),
+    [entities]
+  );
+
+  // Sort stories by notability (uses story name as proxy — already sorted by App.tsx)
+  const sortedStories = useMemo(
+    () => [...browseableStories].slice(0, 50), // Limit for performance
+    [browseableStories]
+  );
+
+  return (
+    <div className="space-y-6">
+      {/* Back to feed */}
+      <button
+        onClick={onClose}
+        className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors py-1 px-2 -ml-1 rounded-md bg-white/[0.04] hover:bg-white/10"
+      >
+        <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
+          <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        Back to feed
+      </button>
+
+      {/* Collections section */}
+      {collections.length > 0 && (
+        <div>
+          <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+            Collections
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {collections.map((collection) => (
+              <CollectionCard
+                key={collection.id}
+                collection={collection}
+                momentCount={collection.momentIds.length}
+                onClick={onCollectionSelect}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* People section */}
+      {allPeople.length > 0 && (
+        <div>
+          <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+            People ({allPeople.length})
+          </p>
+          <div className="space-y-0.5">
+            {allPeople.map((entity) => (
+              <button
+                key={`lib-person-${entity.id}`}
+                onClick={() => onEntityClick?.(entity)}
+                className="w-full flex items-center gap-2 px-2 py-2 text-left rounded-md hover:bg-[var(--bg-card)] transition-colors group"
+              >
+                <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-[rgba(139,92,246,0.12)] ring-1 ring-[rgba(139,92,246,0.3)]">
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none" className="text-[rgba(139,92,246,0.7)]">
+                    <circle cx="7" cy="5" r="3" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                    <path d="M2 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                  </svg>
+                </span>
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs font-sans font-medium text-[var(--text-primary)] group-hover:text-white truncate block">
+                    {entity.name}
+                  </span>
+                  {entity.years && (
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+                  )}
+                </div>
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0 text-[var(--text-muted)] opacity-50">
+                  <path d="M3 1.5L5.5 4 3 6.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Stories section */}
+      {sortedStories.length > 0 && (
+        <div>
+          <p className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">
+            Stories
+          </p>
+          <div className="space-y-2">
+            {sortedStories.map((story) => (
+              <StoryCard
+                key={`lib-story-${story.id}`}
+                story={story}
+                onClick={onStorySelect}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Bottom padding */}
+      <div className="h-16" />
     </div>
   );
 }

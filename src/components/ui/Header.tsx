@@ -27,6 +27,8 @@ interface HeaderProps {
   hasNavHistory?: boolean;
   activeCollection?: StoryCollection | null;
   onClearCollection?: () => void;
+  onLibraryToggle?: () => void;
+  isLibraryOpen?: boolean;
 }
 
 export function Header({
@@ -52,6 +54,8 @@ export function Header({
   hasNavHistory,
   activeCollection,
   onClearCollection,
+  onLibraryToggle,
+  isLibraryOpen,
 }: HeaderProps) {
   const [searchFocused, setSearchFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -231,6 +235,22 @@ export function Header({
             </svg>
             <span className="hidden sm:inline">Surprise Me</span>
           </button>
+
+          {/* Library button — explore mode only */}
+          {mode !== 'story' && mode !== 'entity' && onLibraryToggle && (
+            <button
+              onClick={onLibraryToggle}
+              className={`px-2 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1 border ${
+                isLibraryOpen
+                  ? 'bg-[var(--accent-red)]/15 text-[var(--accent-red)] border-[var(--accent-red)]/30'
+                  : 'bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] hover:text-white border-[var(--border-subtle)]'
+              }`}
+              title={isLibraryOpen ? 'Back to feed' : 'Browse collections, people, and stories'}
+            >
+              <span className="text-sm">&#x1F4DA;</span>
+              <span className="hidden sm:inline">{isLibraryOpen ? 'Feed' : 'Library'}</span>
+            </button>
+          )}
 
           {mode !== 'story' && mode !== 'entity' && (
             <>
