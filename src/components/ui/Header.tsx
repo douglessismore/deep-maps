@@ -160,7 +160,7 @@ export function Header({
           {(mode === 'story' || mode === 'entity' || hasNavHistory || activeCollection) && (
             <>
               <button
-                onClick={activeCollection ? (onClearCollection || onBackToExplore) : (onBack || onBackToExplore)}
+                onClick={activeCollection && !hasNavHistory ? (onClearCollection || onBackToExplore) : (onBack || onBackToExplore)}
                 className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
                 title={activeCollection ? 'Back to Collections' : (backLabel ? `Back to ${backLabel}` : 'Back')}
               >

@@ -845,7 +845,7 @@ export function ExplorePanel({
       {(hasNavHistory || activeCollection) && (
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
-            onClick={activeCollection ? onClearCollection : onBack}
+            onClick={activeCollection && !hasNavHistory ? onClearCollection : onBack}
             className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
           >
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">

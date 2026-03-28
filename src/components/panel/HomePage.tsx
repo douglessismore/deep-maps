@@ -329,12 +329,15 @@ export function HomePage({
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
+  // Filter to moments that have a parent story so every card is clickable
   const nearYouMoments = useMemo(() => {
-    const sorted = [...viewportLocations].sort((a, b) => {
-      const aN = getEffectiveNotability(a.location);
-      const bN = getEffectiveNotability(b.location);
-      return bN - aN || a.distance - b.distance;
-    });
+    const sorted = [...viewportLocations]
+      .filter((vl) => vl.story !== null)
+      .sort((a, b) => {
+        const aN = getEffectiveNotability(a.location);
+        const bN = getEffectiveNotability(b.location);
+        return bN - aN || a.distance - b.distance;
+      });
     return sorted.slice(0, 20);
   }, [viewportLocations]);
 
@@ -423,8 +426,15 @@ export function HomePage({
     >
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
+        {/* ── Tagline ── */}
+        <div className="px-4 pt-4 pb-1">
+          <h1 className="text-xl font-serif font-bold text-[var(--accent-red)]">
+            {hasGps ? 'What happened here?' : 'Explore history everywhere'}
+          </h1>
+        </div>
+
         {/* ── Section 1: Near You ── */}
-        <div className="pt-4 pb-2">
+        <div className="pt-2 pb-2">
           <SectionHeading
             title={nearYouTitle}
             expanded={expandedSection === 'nearYou'}
