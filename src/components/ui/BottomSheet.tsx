@@ -346,6 +346,7 @@ export function BottomSheet({ children, onSnapChange, targetSnap, contextLabel, 
         <div className="overflow-hidden flex flex-col" style={{
           overscrollBehavior: 'contain',
           height: visibleContentHeight,
+          minHeight: 0,
         }}>
           {children}
         </div>

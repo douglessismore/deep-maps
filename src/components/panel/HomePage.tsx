@@ -418,8 +418,8 @@ export function HomePage({
 
   return (
     <div
-      className="flex-1 overflow-y-auto custom-scrollbar pb-24 lg:pb-[40vh]"
-      style={{ touchAction: 'pan-y' }}
+      className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pb-24 lg:pb-[40vh]"
+      style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
     >
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
