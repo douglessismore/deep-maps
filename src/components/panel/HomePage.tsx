@@ -1,9 +1,10 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
-import type { Entity, Moment, Story, StoryCollection, ViewportLocation } from '../../types';
+import type { Entity, Moment, Story, StoryCategory, StoryCollection, ViewportLocation } from '../../types';
 import type { EntityWithCounts } from '../../lib/entityHelpers';
 import { CATEGORIES } from '../../lib/categories';
 import { distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
+import { useAppData } from '../../lib/data/provider';
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -23,6 +24,8 @@ interface HomePageProps {
   onCollectionSelect: (collection: StoryCollection) => void;
   onEntityClick: (entity: Entity) => void;
   onSurpriseMe: () => void;
+  /** Navigate to the explorer/4-tab view */
+  onBrowseAll: () => void;
   /** Scroll highlight — called when a card scrolls into view in the horizontal row */
   onScrollHighlight?: (locations: Moment[], storyId?: string) => void;
 }
@@ -34,6 +37,11 @@ function formatDistance(miles: number): string {
   if (miles < 1) return `${(miles * 5280).toFixed(0)} ft`;
   if (miles < 100) return `${miles.toFixed(1)} mi`;
   return `${Math.round(miles)} mi`;
+}
+
+/** Get the story category for a ViewportLocation */
+function getVlCategory(vl: ViewportLocation): StoryCategory | null {
+  return vl.story?.category ?? null;
 }
 
 // ─── Section heading ─────────────────────────────────────────────────
@@ -58,6 +66,69 @@ function SectionHeading({
       >
         {expanded ? '\u2190 Show less' : 'See all \u2192'}
       </button>
+    </div>
+  );
+}
+
+/** Simple section heading without toggle */
+function SectionTitle({ title }: { title: string }) {
+  return (
+    <div className="px-4 mb-3">
+      <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+// ─── Category filter pills ──────────────────────────────────────────
+
+const CATEGORY_ENTRIES = Object.entries(CATEGORIES) as [StoryCategory, { label: string; color: string; bgColor: string; borderColor: string }][];
+
+function CategoryFilterPills({
+  selected,
+  onSelect,
+}: {
+  selected: StoryCategory | null;
+  onSelect: (cat: StoryCategory | null) => void;
+}) {
+  return (
+    <div
+      className="flex gap-2 overflow-x-auto px-4 pb-2 no-scrollbar"
+      style={{
+        WebkitOverflowScrolling: 'touch',
+        touchAction: 'manipulation',
+      }}
+    >
+      {/* "All" pill */}
+      <button
+        onClick={() => onSelect(null)}
+        className="shrink-0 px-3 py-1 rounded-full text-[11px] font-sans font-medium transition-all duration-150"
+        style={{
+          backgroundColor: selected === null ? 'rgba(255,255,255,0.12)' : 'transparent',
+          color: selected === null ? 'var(--text-primary)' : 'var(--text-muted)',
+          border: `1px solid ${selected === null ? 'rgba(255,255,255,0.2)' : 'var(--border-subtle)'}`,
+        }}
+      >
+        All
+      </button>
+      {CATEGORY_ENTRIES.map(([key, config]) => {
+        const isActive = selected === key;
+        return (
+          <button
+            key={key}
+            onClick={() => onSelect(isActive ? null : key)}
+            className="shrink-0 px-3 py-1 rounded-full text-[11px] font-sans font-medium transition-all duration-150 whitespace-nowrap"
+            style={{
+              backgroundColor: isActive ? config.bgColor : 'transparent',
+              color: isActive ? config.color : 'var(--text-muted)',
+              border: `1px solid ${isActive ? config.borderColor : 'var(--border-subtle)'}`,
+            }}
+          >
+            {config.label}
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -229,9 +300,9 @@ function CollectionGridCard({
   );
 }
 
-// ─── Person pill ─────────────────────────────────────────────────────
+// ─── Person grid card ───────────────────────────────────────────────
 
-function PersonPill({
+function PersonGridCard({
   entity,
   momentCount,
   onClick,
@@ -243,18 +314,29 @@ function PersonPill({
   return (
     <button
       onClick={onClick}
-      className="shrink-0 inline-flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[rgba(139,92,246,0.4)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] snap-start"
+      className="flex items-start gap-2.5 p-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[rgba(139,92,246,0.4)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left"
     >
       {/* Avatar circle */}
-      <span className="w-6 h-6 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[10px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
+      <span className="w-8 h-8 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[11px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 mt-0.5">
         {entity.name[0].toUpperCase()}
       </span>
-      <span className="text-[12px] font-sans font-medium text-[var(--text-primary)] whitespace-nowrap">
-        {entity.name}
-      </span>
-      <span className="text-[10px] font-mono text-[var(--text-muted)] whitespace-nowrap">
-        {momentCount}
-      </span>
+      <div className="min-w-0 flex-1">
+        <h3 className="text-[12px] font-sans font-semibold text-[var(--text-primary)] leading-tight line-clamp-1">
+          {entity.name}
+        </h3>
+        {entity.description ? (
+          <p className="text-[10px] text-[var(--text-muted)] leading-snug mt-0.5 line-clamp-1">
+            {entity.description}
+          </p>
+        ) : entity.years ? (
+          <p className="text-[10px] text-[var(--text-muted)] leading-snug mt-0.5">
+            {entity.years}
+          </p>
+        ) : null}
+        <span className="text-[9px] font-mono text-[var(--text-muted)] mt-1 block">
+          {momentCount} {momentCount === 1 ? 'event' : 'events'}
+        </span>
+      </div>
     </button>
   );
 }
@@ -278,9 +360,16 @@ function PersonRow({
       <span className="w-8 h-8 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[11px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
         {entity.name[0].toUpperCase()}
       </span>
-      <span className="text-[13px] font-sans font-medium text-[var(--text-primary)] flex-1 min-w-0 truncate">
-        {entity.name}
-      </span>
+      <div className="flex-1 min-w-0">
+        <span className="text-[13px] font-sans font-medium text-[var(--text-primary)] block truncate">
+          {entity.name}
+        </span>
+        {entity.description && (
+          <span className="text-[10px] text-[var(--text-muted)] block truncate">
+            {entity.description}
+          </span>
+        )}
+      </div>
       <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">
         {momentCount} events
       </span>
@@ -324,31 +413,45 @@ export function HomePage({
   onCollectionSelect,
   onEntityClick,
   onSurpriseMe,
+  onBrowseAll,
   onScrollHighlight,
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
+  const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
+
+  // Global data for counts
+  const { moments: allMoments, browseableStories: allStories } = useAppData();
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
   // Filter to moments that have a parent story so every card is clickable
   const nearYouMoments = useMemo(() => {
     const sorted = [...viewportLocations]
       .filter((vl) => vl.story !== null)
+      .filter((vl) => categoryFilter === null || getVlCategory(vl) === categoryFilter)
       .sort((a, b) => {
         const aN = getEffectiveNotability(a.location);
         const bN = getEffectiveNotability(b.location);
         return bN - aN || a.distance - b.distance;
       });
     return sorted.slice(0, 20);
-  }, [viewportLocations]);
+  }, [viewportLocations, categoryFilter]);
 
   const hasGps = !!userLocation;
   const nearYouTitle = hasGps ? 'Near You' : 'Notable Events';
 
-  // Section 3: Notable People — sorted by maxNotability
-  const topPeople = useMemo(() => {
+  // Filtered collections
+  const filteredCollections = useMemo(() => {
+    if (categoryFilter === null) return collections;
+    // Collections don't have a single category — show all when filter is active
+    // (they span multiple categories)
+    return collections;
+  }, [collections, categoryFilter]);
+
+  // Section 3: Notable People — sorted by maxNotability, grid of 10
+  const gridPeople = useMemo(() => {
     return [...personEntities]
       .sort((a, b) => b.maxNotability - a.maxNotability)
-      .slice(0, 30);
+      .slice(0, 10);
   }, [personEntities]);
 
   // All people for expanded view
@@ -427,14 +530,26 @@ export function HomePage({
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
         {/* ── Tagline ── */}
-        <div className="px-4 pt-4 pb-1">
-          <h1 className="text-xl font-serif font-bold text-[var(--accent-red)]">
-            {hasGps ? 'What happened here?' : 'Explore history everywhere'}
+        <div className="px-4 pt-5 pb-2">
+          <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
+            {hasGps ? (
+              <>Dive into history <span className="text-[var(--accent-red)]">around you</span></>
+            ) : (
+              <>Dive into the map <span className="text-[var(--accent-red)]">of history</span></>
+            )}
           </h1>
+          <p className="text-[13px] text-[var(--text-muted)] font-sans mt-1.5">
+            Every place has a story
+          </p>
+        </div>
+
+        {/* ── Category filter pills ── */}
+        <div className="pt-1 pb-3">
+          <CategoryFilterPills selected={categoryFilter} onSelect={setCategoryFilter} />
         </div>
 
         {/* ── Section 1: Near You ── */}
-        <div className="pt-2 pb-2">
+        <div className="pb-2">
           <SectionHeading
             title={nearYouTitle}
             expanded={expandedSection === 'nearYou'}
@@ -499,11 +614,11 @@ export function HomePage({
             expanded={expandedSection === 'collections'}
             onToggle={() => toggleSection('collections')}
           />
-          {collections.length > 0 ? (
+          {filteredCollections.length > 0 ? (
             expandedSection === 'collections' ? (
               // Expanded: 2-column grid
               <div className="grid grid-cols-2 gap-2 px-4">
-                {collections.map((collection) => (
+                {filteredCollections.map((collection) => (
                   <CollectionGridCard
                     key={collection.id}
                     collection={collection}
@@ -514,7 +629,7 @@ export function HomePage({
             ) : (
               // Collapsed: horizontal scroll
               <HScrollRow>
-                {collections.map((collection) => (
+                {filteredCollections.map((collection) => (
                   <HomeCollectionCard
                     key={collection.id}
                     collection={collection}
@@ -535,14 +650,14 @@ export function HomePage({
         {/* Divider */}
         <div className="mx-4 border-t border-[var(--border-subtle)]" />
 
-        {/* ── Section 3: Notable People ── */}
+        {/* ── Section 3: Notable People (grid) ── */}
         <div className="pt-4 pb-2">
           <SectionHeading
             title="Notable People"
             expanded={expandedSection === 'people'}
             onToggle={() => toggleSection('people')}
           />
-          {(expandedSection === 'people' ? allPeople : topPeople).length > 0 ? (
+          {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
             expandedSection === 'people' ? (
               // Expanded: vertical list
               <div className="flex flex-col">
@@ -556,17 +671,17 @@ export function HomePage({
                 ))}
               </div>
             ) : (
-              // Collapsed: horizontal scroll
-              <HScrollRow>
-                {topPeople.map(({ entity, momentCount }) => (
-                  <PersonPill
+              // Collapsed: 2-column grid
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 px-4">
+                {gridPeople.map(({ entity, momentCount }) => (
+                  <PersonGridCard
                     key={entity.id}
                     entity={entity}
                     momentCount={momentCount}
                     onClick={() => onEntityClick(entity)}
                   />
                 ))}
-              </HScrollRow>
+              </div>
             )
           ) : (
             <div className="px-4 py-8 text-center">
@@ -580,7 +695,34 @@ export function HomePage({
         {/* Divider */}
         <div className="mx-4 border-t border-[var(--border-subtle)]" />
 
-        {/* ── Section 4: Surprise Me ── */}
+        {/* ── Section 4: Browse the Encyclopedia ── */}
+        <div className="pt-4 pb-2">
+          <SectionTitle title="Browse the Encyclopedia" />
+          <div className="px-4">
+            <div className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-4">
+              <p className="text-[13px] text-[var(--text-secondary)] font-sans leading-relaxed">
+                Explore{' '}
+                <span className="text-[var(--text-primary)] font-semibold">{allMoments.length.toLocaleString()}</span>{' '}
+                moments across{' '}
+                <span className="text-[var(--text-primary)] font-semibold">{allStories.length.toLocaleString()}</span>{' '}
+                stories. Search, filter, and find the events that shaped the world.
+              </p>
+              <button
+                onClick={onBrowseAll}
+                className="mt-3 w-full rounded-lg bg-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.1)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-200 active:scale-[0.98] py-2.5 px-4 text-center"
+              >
+                <span className="text-[13px] font-sans font-semibold text-[var(--text-primary)]">
+                  Browse all &rarr;
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="mx-4 border-t border-[var(--border-subtle)]" />
+
+        {/* ── Section 5: Surprise Me ── */}
         <div className="px-4 pt-4 pb-6 flex justify-center">
           <button
             onClick={onSurpriseMe}

@@ -833,6 +833,9 @@ export function ExplorePanel({
             onPanelViewChange?.('explorer');
             onSurpriseMe();
           }}
+          onBrowseAll={() => {
+            onPanelViewChange?.('explorer');
+          }}
           onScrollHighlight={onScrollHighlight}
         />
       </div>
