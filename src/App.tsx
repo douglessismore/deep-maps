@@ -798,7 +798,7 @@ function App() {
         activeCollection={activeCollection}
         onClearCollection={() => setActiveCollection(null)}
       />
-      {mode !== 'story' && mode !== 'entity' && (
+      {mode !== 'story' && mode !== 'entity' && panelView !== 'home' && (
         <TimelineBar
           stories={stories}
           categoryFilter={categoryFilter}

@@ -833,6 +833,7 @@ export function ExplorePanel({
             onPanelViewChange?.('explorer');
             onSurpriseMe();
           }}
+          onScrollHighlight={onScrollHighlight}
         />
       </div>
     );
