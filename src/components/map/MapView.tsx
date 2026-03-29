@@ -137,9 +137,8 @@ const MIN_TOUCH_TARGET = 32;
 const isMobileDevice = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
 
 function createMarkerIcon(color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean, opacity?: number, label?: number): L.DivIcon {
-  const highlighted = isActive || isScrollHighlighted;
   const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
-  const classes = `story-marker${highlighted ? ' active pulsing' : ''}`;
+  const classes = `story-marker${isActive ? ' active pulsing' : isScrollHighlighted ? ' scroll-highlighted' : ''}`;
   const opacityStyle = opacity !== undefined ? `opacity:${opacity};` : '';
 
   // Number label inside the marker (story/entity mode only)
@@ -152,7 +151,7 @@ function createMarkerIcon(color: string, size: number, isActive: boolean, isScro
     return L.divIcon({
       className: '',
       html: `<div style="width:${MIN_TOUCH_TARGET}px;height:${MIN_TOUCH_TARGET}px;display:flex;align-items:center;justify-content:center;">` +
-            `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}">${labelHtml}</div></div>`,
+            `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};color:${color};${opacityStyle}">${labelHtml}</div></div>`,
       iconSize: [MIN_TOUCH_TARGET, MIN_TOUCH_TARGET],
       iconAnchor: [MIN_TOUCH_TARGET / 2, MIN_TOUCH_TARGET / 2],
     });
@@ -160,7 +159,7 @@ function createMarkerIcon(color: string, size: number, isActive: boolean, isScro
 
   return L.divIcon({
     className: '',
-    html: `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};${opacityStyle}">${labelHtml}</div>`,
+    html: `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};color:${color};${opacityStyle}">${labelHtml}</div>`,
     iconSize: [displaySize, displaySize],
     iconAnchor: [displaySize / 2, displaySize / 2],
   });
@@ -1164,7 +1163,7 @@ export function MapView(props: MapViewProps) {
   const tile = TILE_URLS[tileStyle];
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full map-atmosphere">
       <MapContainer
         center={[39.5, -98.5]}
         zoom={4}

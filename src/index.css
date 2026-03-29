@@ -149,6 +149,21 @@ html, body, #root {
   transform: translateY(0);
 }
 
+/* ===== Map Atmosphere ===== */
+.map-atmosphere::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 70% at center,
+    transparent 50%,
+    rgba(10, 10, 10, 0.3) 80%,
+    rgba(10, 10, 10, 0.6) 100%
+  );
+}
+
 /* ===== Marker Styles ===== */
 .story-marker {
   border-radius: 50%;
@@ -198,6 +213,17 @@ html, body, #root {
 @keyframes marker-pulse {
   0%, 100% { box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); }
   50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+}
+
+/* Scroll-highlighted markers: category-colored glow (distinct from active/clicked) */
+.story-marker.scroll-highlighted {
+  animation: marker-glow 1.8s ease-in-out infinite;
+  border-color: rgba(255, 255, 255, 0.7);
+  z-index: 10;
+}
+@keyframes marker-glow {
+  0%, 100% { box-shadow: 0 0 8px currentColor, 0 0 4px rgba(255, 255, 255, 0.2); }
+  50% { box-shadow: 0 0 24px currentColor, 0 0 12px rgba(255, 255, 255, 0.3); }
 }
 
 @keyframes portal-ripple {
