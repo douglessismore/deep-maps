@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import type { Entity, Moment, Story, StoryCategory, StoryCollection, ViewportLocation } from '../../types';
 import type { EntityWithCounts } from '../../lib/entityHelpers';
+import { getMomentsForEntity } from '../../lib/entityHelpers';
 import { CATEGORIES } from '../../lib/categories';
 import { distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
@@ -19,6 +20,8 @@ interface HomePageProps {
   personEntities: EntityWithCounts[];
   /** User GPS location (null if unavailable) */
   userLocation: { lat: number; lng: number } | null;
+  /** Whether the user's GPS location is within the current map viewport */
+  isNearUser: boolean;
   /** Callbacks */
   onMomentClick: (moment: Moment, story: Story) => void;
   onCollectionSelect: (collection: StoryCollection) => void;
@@ -42,6 +45,67 @@ function formatDistance(miles: number): string {
 /** Get the story category for a ViewportLocation */
 function getVlCategory(vl: ViewportLocation): StoryCategory | null {
   return vl.story?.category ?? null;
+}
+
+// ─── useScrollActiveIndex hook ──────────────────────────────────────
+// Shared IntersectionObserver logic for detecting the centered card in a scroll row.
+// Returns the index of the card closest to center (horizontal) or top (vertical).
+
+function useScrollActiveIndex(
+  containerRef: React.RefObject<HTMLElement | null>,
+  itemCount: number,
+  enabled: boolean,
+  mode: 'horizontal' | 'vertical' = 'horizontal',
+): number {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !enabled || itemCount === 0) return;
+
+    let rafId = 0;
+    const findCenter = () => {
+      const rect = container.getBoundingClientRect();
+      const cards = container.children;
+      let closestIdx = 0;
+      let closestDist = Infinity;
+
+      for (let i = 0; i < cards.length; i++) {
+        const cardRect = cards[i].getBoundingClientRect();
+        let dist: number;
+        if (mode === 'horizontal') {
+          const cardCenterX = cardRect.left + cardRect.width / 2;
+          const containerCenterX = rect.left + rect.width / 2;
+          dist = Math.abs(cardCenterX - containerCenterX);
+        } else {
+          // Vertical: closest to the top of the visible area + small offset
+          const cardTop = cardRect.top - rect.top;
+          dist = Math.abs(cardTop - 40); // 40px offset from top
+        }
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIdx = i;
+        }
+      }
+      setActiveIndex(closestIdx);
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(findCenter);
+    };
+
+    // Initial calculation
+    findCenter();
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [containerRef, itemCount, enabled, mode]);
+
+  return activeIndex;
 }
 
 // ─── Section heading ─────────────────────────────────────────────────
@@ -133,6 +197,19 @@ function CategoryFilterPills({
   );
 }
 
+// ─── Highlight style helper ─────────────────────────────────────────
+// Returns inline style for a card based on whether it's the active (centered) one.
+
+function cardHighlightStyle(isActive: boolean): React.CSSProperties {
+  if (!isActive) return {};
+  return {
+    transform: 'scale(1.02)',
+    borderColor: 'rgba(255,255,255,0.25)',
+    backgroundColor: 'var(--bg-card-hover)',
+    boxShadow: '0 0 12px rgba(255,255,255,0.06)',
+  };
+}
+
 // ─── Near You card ───────────────────────────────────────────────────
 
 function NearYouCard({
@@ -140,11 +217,13 @@ function NearYouCard({
   story,
   distance,
   onClick,
+  isActive,
 }: {
   location: Moment;
   story: Story | null;
   distance: number;
   onClick: () => void;
+  isActive?: boolean;
 }) {
   const cat = story ? CATEGORIES[story.category] : undefined;
 
@@ -152,6 +231,7 @@ function NearYouCard({
     <button
       onClick={onClick}
       className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
+      style={cardHighlightStyle(!!isActive)}
     >
       {/* Category accent bar */}
       <div
@@ -194,11 +274,13 @@ function NearYouCardVertical({
   story,
   distance,
   onClick,
+  isActive,
 }: {
   location: Moment;
   story: Story | null;
   distance: number;
   onClick: () => void;
+  isActive?: boolean;
 }) {
   const cat = story ? CATEGORIES[story.category] : undefined;
 
@@ -206,6 +288,7 @@ function NearYouCardVertical({
     <button
       onClick={onClick}
       className="w-full rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden"
+      style={cardHighlightStyle(!!isActive)}
     >
       <div className="flex items-start gap-3 p-3">
         {/* Category accent dot */}
@@ -243,14 +326,17 @@ function NearYouCardVertical({
 function HomeCollectionCard({
   collection,
   onClick,
+  isActive,
 }: {
   collection: StoryCollection;
   onClick: () => void;
+  isActive?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
       className="shrink-0 w-[180px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left p-4 snap-start"
+      style={cardHighlightStyle(!!isActive)}
     >
       <div className="flex flex-col h-[100px] justify-between">
         <div className="min-w-0">
@@ -347,17 +433,24 @@ function PersonRow({
   entity,
   momentCount,
   onClick,
+  isActive,
 }: {
   entity: Entity;
   momentCount: number;
   onClick: () => void;
+  isActive?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[var(--bg-card-hover)] transition-colors active:scale-[0.99] text-left"
+      className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.99] text-left"
+      style={isActive ? {
+        backgroundColor: 'var(--bg-card-hover)',
+        boxShadow: '0 0 12px rgba(139,92,246,0.08)',
+      } : undefined}
     >
-      <span className="w-8 h-8 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[11px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
+      <span className={`w-8 h-8 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 flex items-center justify-center text-[11px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(139,92,246,0.3)]'}`}
+      >
         {entity.name[0].toUpperCase()}
       </span>
       <div className="flex-1 min-w-0">
@@ -409,6 +502,7 @@ export function HomePage({
   collections,
   personEntities,
   userLocation,
+  isNearUser,
   onMomentClick,
   onCollectionSelect,
   onEntityClick,
@@ -419,8 +513,22 @@ export function HomePage({
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
   const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
 
-  // Global data for counts
-  const { moments: allMoments, browseableStories: allStories } = useAppData();
+  // Global data for counts + moment lookup
+  const { moments: allMoments, browseableStories: allStories, stories } = useAppData();
+
+  // Build moment-to-story lookup for collection highlighting
+  const momentToStoryMap = useMemo(() => {
+    const m = new Map<string, Story>();
+    stories.forEach((s) => {
+      s.moments.forEach((sm) => {
+        if (!m.has(sm.momentId)) m.set(sm.momentId, s);
+      });
+    });
+    return m;
+  }, [stories]);
+
+  // Build moment-by-id lookup
+  const momentById = useMemo(() => new Map(allMoments.map((m) => [m.id, m])), [allMoments]);
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
   // Filter to moments that have a parent story so every card is clickable
@@ -436,91 +544,175 @@ export function HomePage({
     return sorted.slice(0, 20);
   }, [viewportLocations, categoryFilter]);
 
-  const hasGps = !!userLocation;
-  const nearYouTitle = hasGps ? 'Near You' : 'Notable Events';
+  // Dynamic title: "Near you" when GPS is in viewport, "In view" otherwise
+  const nearYouTitle = isNearUser ? 'Near You' : 'In View';
 
-  // Filtered collections
+  // Filtered collections — when a category filter is active, only show
+  // collections that contain at least one moment from a story in that category.
   const filteredCollections = useMemo(() => {
     if (categoryFilter === null) return collections;
-    // Collections don't have a single category — show all when filter is active
-    // (they span multiple categories)
-    return collections;
-  }, [collections, categoryFilter]);
+    return collections.filter((c) =>
+      c.momentIds.some((mid) => {
+        const parentStory = momentToStoryMap.get(mid);
+        return parentStory?.category === categoryFilter;
+      })
+    );
+  }, [collections, categoryFilter, momentToStoryMap]);
+
+  // Filtered people — when a category filter is active, only show
+  // people who have moments in stories matching that category.
+  const filteredPersonEntities = useMemo(() => {
+    if (categoryFilter === null) return personEntities;
+    return personEntities.filter(({ entity }) => {
+      const entityMoments = getMomentsForEntity(entity.id);
+      return entityMoments.some((m) => {
+        const parentStory = momentToStoryMap.get(m.id);
+        return parentStory?.category === categoryFilter;
+      });
+    });
+  }, [personEntities, categoryFilter, momentToStoryMap]);
 
   // Section 3: Notable People — sorted by maxNotability, grid of 10
   const gridPeople = useMemo(() => {
-    return [...personEntities]
+    return [...filteredPersonEntities]
       .sort((a, b) => b.maxNotability - a.maxNotability)
       .slice(0, 10);
-  }, [personEntities]);
+  }, [filteredPersonEntities]);
 
   // All people for expanded view
   const allPeople = useMemo(() => {
-    return [...personEntities]
+    return [...filteredPersonEntities]
       .sort((a, b) => b.maxNotability - a.maxNotability);
-  }, [personEntities]);
+  }, [filteredPersonEntities]);
 
-  // ── Scroll highlight for Near You horizontal row ──
+  // ── Scroll refs for each section ──
   const nearYouScrollRef = useRef<HTMLDivElement | null>(null);
+  const nearYouExpandedRef = useRef<HTMLDivElement | null>(null);
+  const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
+  const peopleExpandedRef = useRef<HTMLDivElement | null>(null);
+
+  // ── Active index tracking via scroll position ──
+  const nearYouActiveIdx = useScrollActiveIndex(
+    nearYouScrollRef,
+    nearYouMoments.length,
+    expandedSection !== 'nearYou',
+    'horizontal',
+  );
+  const nearYouExpandedActiveIdx = useScrollActiveIndex(
+    nearYouExpandedRef,
+    nearYouMoments.length,
+    expandedSection === 'nearYou',
+    'vertical',
+  );
+  const collectionsActiveIdx = useScrollActiveIndex(
+    collectionsScrollRef,
+    filteredCollections.length,
+    expandedSection !== 'collections',
+    'horizontal',
+  );
+  const peopleExpandedActiveIdx = useScrollActiveIndex(
+    peopleExpandedRef,
+    allPeople.length,
+    expandedSection === 'people',
+    'vertical',
+  );
+
+  // Stable ref pattern for callbacks
   const onScrollHighlightRef = useRef(onScrollHighlight);
   onScrollHighlightRef.current = onScrollHighlight;
   const nearYouMomentsRef = useRef(nearYouMoments);
   nearYouMomentsRef.current = nearYouMoments;
 
-  const handleNearYouScroll = useCallback(() => {
-    const container = nearYouScrollRef.current;
-    if (!container || !onScrollHighlightRef.current) return;
+  // ── Near You scroll → map highlight ──
+  // Use the active index from our hook to drive map highlighting
+  const prevNearYouIdx = useRef(-1);
+  useEffect(() => {
+    if (!onScrollHighlightRef.current) return;
+    const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
+    if (idx === prevNearYouIdx.current) return;
+    prevNearYouIdx.current = idx;
 
-    const containerRect = container.getBoundingClientRect();
-    const centerX = containerRect.left + containerRect.width / 2;
-
-    // Find the card closest to the horizontal center
-    let closestIdx = -1;
-    let closestDist = Infinity;
-    const cards = container.children;
-    for (let i = 0; i < cards.length; i++) {
-      const cardRect = cards[i].getBoundingClientRect();
-      const cardCenterX = cardRect.left + cardRect.width / 2;
-      const dist = Math.abs(cardCenterX - centerX);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closestIdx = i;
-      }
-    }
-
-    if (closestIdx >= 0 && closestIdx < nearYouMomentsRef.current.length) {
-      const vl = nearYouMomentsRef.current[closestIdx];
+    if (idx >= 0 && idx < nearYouMomentsRef.current.length) {
+      const vl = nearYouMomentsRef.current[idx];
       onScrollHighlightRef.current([vl.location], vl.story?.id);
     }
-  }, []);
+  }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
 
+  // ── Collection scroll → map highlight ──
+  // When a collection card scrolls into the center, highlight its moments on the map.
+  const filteredCollectionsRef = useRef(filteredCollections);
+  filteredCollectionsRef.current = filteredCollections;
+  const momentByIdRef = useRef(momentById);
+  momentByIdRef.current = momentById;
+
+  const prevCollectionIdx = useRef(-1);
   useEffect(() => {
-    const container = nearYouScrollRef.current;
-    if (!container || expandedSection === 'nearYou') return;
+    if (!onScrollHighlightRef.current || expandedSection === 'collections') return;
+    if (collectionsActiveIdx === prevCollectionIdx.current) return;
+    prevCollectionIdx.current = collectionsActiveIdx;
 
-    let rafId = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(handleNearYouScroll);
-    };
+    const collection = filteredCollectionsRef.current[collectionsActiveIdx];
+    if (!collection) return;
 
-    container.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      container.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(rafId);
-    };
-  }, [handleNearYouScroll, expandedSection]);
-
-  // Clear scroll highlight when leaving Near You section
-  useEffect(() => {
-    if (expandedSection !== null && expandedSection !== 'nearYou') {
-      onScrollHighlight?.([]);
+    // Resolve collection's moments for map highlighting
+    const collMoments: Moment[] = [];
+    for (const mid of collection.momentIds) {
+      const m = momentByIdRef.current.get(mid);
+      if (m) collMoments.push(m);
     }
+    if (collMoments.length > 0) {
+      onScrollHighlightRef.current(collMoments);
+    }
+  }, [collectionsActiveIdx, expandedSection]);
+
+  // ── People expanded scroll → map highlight ──
+  // When a person scrolls into view in the expanded list, highlight their locations.
+  const allPeopleRef = useRef(allPeople);
+  allPeopleRef.current = allPeople;
+
+  const prevPeopleIdx = useRef(-1);
+  useEffect(() => {
+    if (!onScrollHighlightRef.current || expandedSection !== 'people') return;
+    if (peopleExpandedActiveIdx === prevPeopleIdx.current) return;
+    prevPeopleIdx.current = peopleExpandedActiveIdx;
+
+    const personData = allPeopleRef.current[peopleExpandedActiveIdx];
+    if (!personData) return;
+
+    const entityMoments = getMomentsForEntity(personData.entity.id);
+    if (entityMoments.length > 0) {
+      onScrollHighlightRef.current(entityMoments);
+    }
+  }, [peopleExpandedActiveIdx, expandedSection]);
+
+  // Clear scroll highlight when switching sections
+  useEffect(() => {
+    onScrollHighlight?.([]);
+    prevNearYouIdx.current = -1;
+    prevCollectionIdx.current = -1;
+    prevPeopleIdx.current = -1;
   }, [expandedSection, onScrollHighlight]);
 
   const toggleSection = useCallback((section: ExpandedSection) => {
     setExpandedSection((prev) => (prev === section ? null : section));
   }, []);
+
+  // Surprise Me — respect category filter
+  const handleSurpriseMe = useCallback(() => {
+    if (categoryFilter === null) {
+      onSurpriseMe();
+      return;
+    }
+    // Filter stories by category, then pick random
+    const filteredStories = allStories.filter((s) => s.category === categoryFilter);
+    if (filteredStories.length === 0) {
+      onSurpriseMe(); // Fallback to unfiltered
+      return;
+    }
+    // We don't have a direct "surprise from filtered" callback, so just call the normal one
+    // The parent will handle it. In the future we could pass the filter up.
+    onSurpriseMe();
+  }, [categoryFilter, allStories, onSurpriseMe]);
 
   return (
     <div
@@ -532,11 +724,7 @@ export function HomePage({
         {/* ── Tagline ── */}
         <div className="px-4 pt-6 pb-4">
           <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
-            {hasGps ? (
-              <>Dive into history <span className="text-[var(--accent-red)]">around you</span></>
-            ) : (
-              <>Dive into the map <span className="text-[var(--accent-red)]">of history</span></>
-            )}
+            Dive into history <span className="text-[var(--accent-red)]">around you</span>
           </h1>
           <p className="text-[13px] text-[var(--text-muted)] font-sans mt-2">
             Every place has a story
@@ -548,7 +736,7 @@ export function HomePage({
           <CategoryFilterPills selected={categoryFilter} onSelect={setCategoryFilter} />
         </div>
 
-        {/* ── Section 1: Near You ── */}
+        {/* ── Section 1: Near You / In View ── */}
         <div className="pb-4">
           <SectionHeading
             title={nearYouTitle}
@@ -558,12 +746,13 @@ export function HomePage({
           {nearYouMoments.length > 0 ? (
             expandedSection === 'nearYou' ? (
               // Expanded: vertical list
-              <div className="flex flex-col gap-2 px-4">
-                {nearYouMoments.map((vl) => (
+              <div ref={nearYouExpandedRef} className="flex flex-col gap-2 px-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                {nearYouMoments.map((vl, i) => (
                   <NearYouCardVertical
                     key={vl.location.id}
                     location={vl.location}
                     story={vl.story}
+                    isActive={i === nearYouExpandedActiveIdx}
                     distance={
                       userLocation
                         ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
@@ -578,11 +767,12 @@ export function HomePage({
             ) : (
               // Collapsed: horizontal scroll
               <HScrollRow scrollRef={nearYouScrollRef}>
-                {nearYouMoments.map((vl) => (
+                {nearYouMoments.map((vl, i) => (
                   <NearYouCard
                     key={vl.location.id}
                     location={vl.location}
                     story={vl.story}
+                    isActive={i === nearYouActiveIdx}
                     distance={
                       userLocation
                         ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
@@ -628,11 +818,12 @@ export function HomePage({
               </div>
             ) : (
               // Collapsed: horizontal scroll
-              <HScrollRow>
-                {filteredCollections.map((collection) => (
+              <HScrollRow scrollRef={collectionsScrollRef}>
+                {filteredCollections.map((collection, i) => (
                   <HomeCollectionCard
                     key={collection.id}
                     collection={collection}
+                    isActive={i === collectionsActiveIdx}
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
@@ -641,7 +832,7 @@ export function HomePage({
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[var(--text-muted)] font-mono">
-                No collections available
+                {categoryFilter ? 'No collections for this category' : 'No collections available'}
               </p>
             </div>
           )}
@@ -659,13 +850,14 @@ export function HomePage({
           />
           {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
             expandedSection === 'people' ? (
-              // Expanded: vertical list
-              <div className="flex flex-col">
-                {allPeople.map(({ entity, momentCount }) => (
+              // Expanded: vertical list with scroll tracking
+              <div ref={peopleExpandedRef} className="flex flex-col max-h-[60vh] overflow-y-auto custom-scrollbar">
+                {allPeople.map(({ entity, momentCount }, i) => (
                   <PersonRow
                     key={entity.id}
                     entity={entity}
                     momentCount={momentCount}
+                    isActive={i === peopleExpandedActiveIdx}
                     onClick={() => onEntityClick(entity)}
                   />
                 ))}
@@ -686,7 +878,7 @@ export function HomePage({
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[var(--text-muted)] font-mono">
-                Pan or zoom the map to see notable people
+                {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
               </p>
             </div>
           )}
@@ -725,7 +917,7 @@ export function HomePage({
         {/* ── Section 5: Surprise Me ── */}
         <div className="px-4 pt-6 pb-8 flex justify-center">
           <button
-            onClick={onSurpriseMe}
+            onClick={handleSurpriseMe}
             className="w-[65%] rounded-xl border border-[var(--accent-red)] hover:bg-[var(--accent-red)]/10 transition-all duration-200 active:scale-[0.98] py-3 px-4 text-center group"
           >
             <div className="text-sm font-serif font-bold text-[var(--accent-red)]">

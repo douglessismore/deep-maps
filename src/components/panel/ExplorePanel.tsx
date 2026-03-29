@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
@@ -809,6 +810,18 @@ export function ExplorePanel({
   );
 
   // ── Home page view: curated horizontal sections ──
+  // Determine if user's GPS location is within the current map viewport.
+  // Depends on viewportLocations (which updates on every map move) to re-check bounds.
+  const isNearUser = useMemo(() => {
+    if (!userLocation || !mapInstance) return false;
+    try {
+      return mapInstance.getBounds().contains(L.latLng(userLocation.lat, userLocation.lng));
+    } catch {
+      return false;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userLocation, mapInstance, viewportLocations]);
+
   if (panelView === 'home') {
     return (
       <div className="flex flex-col h-full min-h-0 relative">
@@ -817,6 +830,7 @@ export function ExplorePanel({
           collections={collections}
           personEntities={personEntities}
           userLocation={userLocation ?? null}
+          isNearUser={isNearUser}
           onMomentClick={(moment, story) => {
             onPanelViewChange?.('explorer');
             onLocationSelect(moment, story);
