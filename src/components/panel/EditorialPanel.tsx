@@ -27,11 +27,11 @@ interface EditorialPanelProps {
 
 // ─── Horizontal scroll row ───────────────────────────────────────────
 
-function HScrollRow({ children }: { children: React.ReactNode }) {
+function HScrollRow({ children, minHeight }: { children: React.ReactNode; minHeight?: number }) {
   return (
     <div
-      className="flex gap-3 overflow-x-auto px-4 pb-2 no-scrollbar snap-x snap-mandatory"
-      style={{ WebkitOverflowScrolling: 'touch' }}
+      className="flex gap-3 overflow-x-auto px-4 pb-2 no-scrollbar snap-x snap-mandatory shrink-0"
+      style={{ WebkitOverflowScrolling: 'touch', minHeight: minHeight ?? 'auto' }}
     >
       {children}
     </div>
@@ -42,7 +42,7 @@ function HScrollRow({ children }: { children: React.ReactNode }) {
 
 function SectionHeading({ title, count }: { title: string; count?: number }) {
   return (
-    <div className="flex items-baseline gap-2 px-4 mb-3 mt-6 first:mt-2">
+    <div className="flex items-baseline gap-2 px-4 mb-3 mt-6 first:mt-2 shrink-0">
       <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
         {title}
       </h2>
@@ -337,7 +337,7 @@ export function EditorialPanel({
       {notableMoments.length > 0 && (
         <>
           <SectionHeading title="Most Notable" count={notableMoments.length} />
-          <HScrollRow>
+          <HScrollRow minHeight={168}>
             {notableMoments.map(vl => (
               <NotableMomentCard
                 key={vl.location.id}
@@ -354,7 +354,7 @@ export function EditorialPanel({
       {viewportCollections.length > 0 && (
         <>
           <SectionHeading title="Collections" count={viewportCollections.length} />
-          <HScrollRow>
+          <HScrollRow minHeight={140}>
             {viewportCollections.map(coll => (
               <EditorialCollectionCard
                 key={coll.id}
@@ -370,7 +370,7 @@ export function EditorialPanel({
       {personEntities.length > 0 && (
         <>
           <SectionHeading title="Notable People" count={personEntities.length} />
-          <HScrollRow>
+          <HScrollRow minHeight={64}>
             {personEntities.map(ec => (
               <PersonChip
                 key={ec.entity.id}

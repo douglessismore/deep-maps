@@ -818,7 +818,7 @@ export function ExplorePanel({
     return (
       <div className="flex flex-col h-full relative">
         <div
-          className="flex-1 overflow-hidden transition-opacity duration-300"
+          className="flex-1 overflow-y-auto transition-opacity duration-300 no-scrollbar"
           style={{ opacity: 1 }}
         >
           <EditorialPanel

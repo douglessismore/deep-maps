@@ -475,7 +475,16 @@ function App() {
 
   const handleZoomChange = useCallback((zoom: number) => {
     setZoomLevel(zoom);
-  }, []);
+    // Auto-expand sheet to half when zooming out to editorial mode (zoom < 10)
+    // so editorial sections are visible. Auto-collapse back to peek when zooming in.
+    if (isMobile && mode === 'explore' && !activeCollection) {
+      if (zoom < 10 && sheetSnap === 'peek') {
+        setTargetSheetSnap('half');
+      } else if (zoom >= 10 && sheetSnap === 'half') {
+        setTargetSheetSnap('peek');
+      }
+    }
+  }, [isMobile, mode, activeCollection, sheetSnap]);
 
   const handleNearMe = useCallback(() => {
     if (!navigator.geolocation) {
