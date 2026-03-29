@@ -364,12 +364,18 @@ function HomeCollectionCard({
   imageUrl,
   onClick,
   isActive,
+  inViewCount,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
   onClick: () => void;
   isActive?: boolean;
+  /** How many of this collection's moments are currently visible on the map */
+  inViewCount?: number;
 }) {
+  const total = collection.momentIds.length;
+  const hasMore = isActive && inViewCount != null && inViewCount < total;
+
   return (
     <button
       onClick={onClick}
@@ -395,9 +401,22 @@ function HomeCollectionCard({
             {collection.subtitle}
           </p>
         </div>
-        <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mt-auto pt-1">
-          {collection.momentIds.length} events
-        </span>
+        <div className="mt-auto pt-1 flex items-baseline gap-1.5">
+          {hasMore ? (
+            <>
+              <span className="text-[10px] font-mono text-[var(--text-primary)] uppercase tracking-wider">
+                {inViewCount} of {total} in view
+              </span>
+              <span className="text-[9px] font-mono text-[var(--accent-red)] opacity-80">
+                zoom out ↗
+              </span>
+            </>
+          ) : (
+            <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+              {total} events
+            </span>
+          )}
+        </div>
       </div>
     </button>
   );
@@ -1075,6 +1094,7 @@ export function HomePage({
                     key={collection.id}
                     collection={collection}
                     isActive={i === collectionsActiveIdx}
+                    inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
