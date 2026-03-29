@@ -78,6 +78,15 @@ html, body, #root {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Hide scrollbar for horizontal scroll sections */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* ===== Leaflet Overrides for Dark Theme ===== */
 .leaflet-container {
   background: #0a0a0a;
@@ -101,6 +110,11 @@ html, body, #root {
 
 .leaflet-control-attribution a {
   color: #a3a3a3 !important;
+}
+
+/* Warm dark tile filter — CSS-filtered Voyager tiles for a warm, muted dark aesthetic */
+.leaflet-tile-pane.warm-dark-tiles {
+  filter: brightness(0.55) contrast(1.2) saturate(0.7) sepia(0.15);
 }
 
 .leaflet-popup-content-wrapper {

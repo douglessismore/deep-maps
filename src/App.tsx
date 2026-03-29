@@ -36,6 +36,7 @@ type NavEntry = {
   savedMapView?: SavedMapView;
   exploreTab?: PanelTab;
   exploreScrollTop?: number;
+  panelView?: 'home' | 'explorer';
 };
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
   const exploreScrollTop = useRef(0);
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
+  const [panelView, setPanelView] = useState<'home' | 'explorer'>('home');
   const autoGeoRequested = useRef(false);
 
   // Bottom sheet snap state (mobile only)
@@ -184,6 +186,7 @@ function App() {
         setScrollHighlight([]);
         setMode('explore');
         setExploreTab('collections');
+        setPanelView('explorer');
       }
     } else if (storyMatch) {
       const story = stories.find((s) => s.id === storyMatch[1]);
@@ -193,6 +196,7 @@ function App() {
         setScrollHighlight([]);
         setMode('story');
         setZoomToActiveLocation(true);
+        setPanelView('explorer');
       }
     } else if (entityMatch) {
       const entity = entities.find((e) => e.id === entityMatch[1]);
@@ -202,6 +206,7 @@ function App() {
         setActiveLocation(null);
         setMode('entity');
         setZoomToActiveLocation(true);
+        setPanelView('explorer');
       }
     }
   }, [stories, entities, collections]);
@@ -287,13 +292,13 @@ function App() {
     // Save current sheet snap before navigating deeper
     preNavSheetSnap.current = sheetSnap;
     setNavHistory((prev) => {
-      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current };
+      const entry: NavEntry = { mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, savedMapView, exploreTab, exploreScrollTop: exploreScrollTop.current, panelView };
       const next = [...prev, entry];
       return next.length > 10 ? next.slice(-10) : next;
     });
     // Expand sheet to half when navigating into content
     setTargetSheetSnap('half');
-  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, sheetSnap]);
+  }, [mode, activeStory, activeLocation, activeEntity, activeCollection, categoryFilter, mapInstance, exploreTab, sheetSnap, panelView]);
 
   // Clear activeCollection when navigating to a story NOT in the collection
   const handleStorySelect = useCallback((story: Story) => {
@@ -309,6 +314,7 @@ function App() {
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
     setMode('story');
+    setPanelView('explorer');
   }, [activeCollection, pushNav]);
 
   const handleLocationSelect = useCallback((location: Moment, story: Story) => {
@@ -324,6 +330,7 @@ function App() {
     scrollHighlightIdsRef.current = '';
     setZoomToActiveLocation(true);
     setMode('story');
+    setPanelView('explorer');
   }, [activeCollection, pushNav]);
 
   // Scroll-driven location select — no history push (avoids back-button pollution)
@@ -343,7 +350,7 @@ function App() {
   const handleBack = useCallback(() => {
     setNavHistory((prev) => {
       if (prev.length === 0) {
-        // No history — go to explore (full reset including timeline + collection)
+        // No history — go to home page (full reset including timeline + collection)
         setActiveStory(null);
         setActiveLocation(null);
         setActiveEntity(null);
@@ -351,6 +358,7 @@ function App() {
         setCategoryFilter(null);
         setTimelineViewRange(null);
         setMode('explore');
+        setPanelView('home');
         setResetViewKey((k) => k + 1);
         // Restore sheet to pre-navigation position (or peek for full reset)
         setTargetSheetSnap(preNavSheetSnap.current);
@@ -366,6 +374,7 @@ function App() {
       setActiveEntity(entry.activeEntity);
       setActiveCollection(entry.activeCollection);
       setCategoryFilter(entry.categoryFilter);
+      if (entry.panelView) setPanelView(entry.panelView);
       if (entry.exploreTab) setExploreTab(entry.exploreTab);
       if (entry.exploreScrollTop != null) setRestoreScrollTop(entry.exploreScrollTop);
       if (!entry.activeStory && !entry.activeEntity) {
@@ -386,6 +395,7 @@ function App() {
   }, []);
 
   // Full reset → clears everything including collection, history, and timeline filter
+  // Returns to the home page view
   const handleBackToExplore = useCallback(() => {
     setActiveStory(null);
     setActiveLocation(null);
@@ -396,6 +406,7 @@ function App() {
     setNavHistory([]);
     setTimelineViewRange(null);
     setMode('explore');
+    setPanelView('home');
     setResetViewKey((k) => k + 1);
     setTargetSheetSnap('peek');
   }, []);
@@ -409,6 +420,7 @@ function App() {
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
     setMode('explore');
+    setPanelView('explorer');
     // Zoom handled by MapController's zoom effect when activeCollection changes
   }, [pushNav]);
 
@@ -524,6 +536,7 @@ function App() {
     setSearchQuery(''); // Clear search so tabs aren't filtered on back
     setExploreTab('moments');
     setMode('explore');
+    setPanelView('explorer');
     setZoomToActiveLocation(true);
   }, [pushNav]);
 
@@ -537,6 +550,7 @@ function App() {
     setActiveStory(randomStory);
     setActiveLocation(randomLoc);
     setMode('story');
+    setPanelView('explorer');
   }, [pushNav, stories, momentMap]);
 
   const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
@@ -549,6 +563,7 @@ function App() {
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
     setMode('entity');
+    setPanelView('explorer');
   }, [pushNav]);
 
   // Entity-mode location highlight — used for both scroll-driven and click-driven
@@ -745,6 +760,8 @@ function App() {
             onBack={handleBack}
             onHome={handleBackToExplore}
             hasNavHistory={navHistory.length > 0}
+            panelView={panelView}
+            onPanelViewChange={setPanelView}
           />
           </FadeIn>
         )}
@@ -781,7 +798,7 @@ function App() {
         activeCollection={activeCollection}
         onClearCollection={() => setActiveCollection(null)}
       />
-      {mode !== 'story' && mode !== 'entity' && (
+      {mode !== 'story' && mode !== 'entity' && panelView !== 'home' && (
         <TimelineBar
           stories={stories}
           categoryFilter={categoryFilter}

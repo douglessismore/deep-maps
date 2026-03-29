@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
 import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
@@ -13,6 +14,7 @@ import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
+import { HomePage } from './HomePage';
 import { isV2 } from '../../lib/theme';
 
 type MixedListItem =
@@ -58,6 +60,10 @@ interface ExplorePanelProps {
   onBack?: () => void;
   onHome?: () => void;
   hasNavHistory?: boolean;
+  /** Panel view: 'home' shows the curated home page, 'explorer' shows the tab-based explorer */
+  panelView?: 'home' | 'explorer';
+  /** Callback when panel view changes (e.g., user taps a card on home page) */
+  onPanelViewChange?: (view: 'home' | 'explorer') => void;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -117,6 +123,7 @@ export function ExplorePanel({
   onModeChange,
   searchQuery,
   categoryFilter,
+  onCategoryFilter,
   onSurpriseMe,
   userLocation,
   onRequestGeo,
@@ -134,6 +141,8 @@ export function ExplorePanel({
   onBack,
   onHome,
   hasNavHistory,
+  panelView = 'explorer',
+  onPanelViewChange,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -188,6 +197,7 @@ export function ExplorePanel({
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
+  const homePanTimeout = useRef(0);
   const highlightDebounce = useRef(0);
 
   // Auto-sort by Nearest when GPS is first acquired (unless user manually chose a sort)
@@ -801,13 +811,72 @@ export function ExplorePanel({
     </button>
   );
 
+  // ── Home page view: curated horizontal sections ──
+  // Determine if user's GPS location is within the current map viewport.
+  // Depends on viewportLocations (which updates on every map move) to re-check bounds.
+  const isNearUser = useMemo(() => {
+    if (!userLocation || !mapInstance) return false;
+    try {
+      return mapInstance.getBounds().contains(L.latLng(userLocation.lat, userLocation.lng));
+    } catch {
+      return false;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userLocation, mapInstance, viewportLocations]);
+
+  // Scroll-driven pan for V2 home page — debounced like V1's panTimeout pattern
+  const handleHomeScrollPan = useCallback((lat: number, lng: number) => {
+    if (!mapInstance) return;
+    clearTimeout(homePanTimeout.current);
+    homePanTimeout.current = window.setTimeout(() => {
+      panToAboveSheet(mapInstance, [lat, lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+    }, 80);
+  }, [mapInstance, sheetSnap, isSheetMobile]);
+
+  if (panelView === 'home') {
+    return (
+      <div className="flex flex-col h-full min-h-0 relative">
+        <HomePage
+          viewportLocations={viewportLocations}
+          collections={collections}
+          personEntities={personEntities}
+          userLocation={userLocation ?? null}
+          isNearUser={isNearUser}
+          onMomentClick={(moment, story) => {
+            onPanelViewChange?.('explorer');
+            onLocationSelect(moment, story);
+          }}
+          onCollectionSelect={(collection) => {
+            onPanelViewChange?.('explorer');
+            onCollectionSelect(collection);
+          }}
+          onEntityClick={(entity) => {
+            onPanelViewChange?.('explorer');
+            onEntityClick?.(entity);
+          }}
+          onSurpriseMe={() => {
+            onPanelViewChange?.('explorer');
+            onSurpriseMe();
+          }}
+          onBrowseAll={() => {
+            onPanelViewChange?.('explorer');
+          }}
+          onScrollHighlight={onScrollHighlight}
+          onScrollPan={handleHomeScrollPan}
+          categoryFilter={categoryFilter}
+          onCategoryFilter={onCategoryFilter}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="flex flex-col h-full min-h-0 relative">
       {/* Back bar — shown when there's nav history or inside a collection */}
-      {(hasNavHistory || activeCollection) && (
-        <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+      {(hasNavHistory || activeCollection) ? (
+        <div className="shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
-            onClick={activeCollection ? onClearCollection : onBack}
+            onClick={activeCollection && !hasNavHistory ? onClearCollection : onBack}
             className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
           >
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
@@ -826,6 +895,18 @@ export function ExplorePanel({
               Home
             </button>
           )}
+        </div>
+      ) : onHome && (
+        <div className="shrink-0 flex items-center px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
+          <button
+            onClick={onHome}
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+          >
+            <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
+              <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Home
+          </button>
         </div>
       )}
       {/* Tabs — hidden when inside a collection (collection is a full destination) */}

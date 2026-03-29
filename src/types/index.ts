@@ -60,7 +60,7 @@ export interface ViewportLocation {
   distance: number;
 }
 
-export type TileStyle = 'dark' | 'light' | 'satellite';
+export type TileStyle = 'dark' | 'light' | 'satellite' | 'warm-dark';
 
 /** A curated collection of moments (map pins) around a theme (e.g., "Nuclear Test Sites") */
 export interface StoryCollection {
@@ -129,6 +129,7 @@ export interface Entity {
   description?: string;                // Brief bio/description
   canonicalStoryId?: string;           // Their "main" story: 'o-henry-life'
   wikipediaSlug?: string;              // Entity's own Wikipedia article
+  imageUrl?: string;                   // Wikipedia thumbnail URL (backfilled)
 }
 
 /** Story taxonomy — what kind of narrative thread is this? */

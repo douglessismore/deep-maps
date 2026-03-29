@@ -83,6 +83,10 @@ const TILE_URLS: Record<TileStyle, { url: string; attribution: string }> = {
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri, Maxar, Earthstar Geographics',
   },
+  'warm-dark': {
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  },
 };
 
 interface MapViewProps {
@@ -1085,6 +1089,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
     { key: 'dark', label: 'Dark', icon: '🌑' },
     { key: 'light', label: 'Light', icon: '☀️' },
     { key: 'satellite', label: 'Satellite', icon: '🛰' },
+    { key: 'warm-dark', label: 'Warm Dark', icon: '🌘' },
   ];
   return (
     <div>
@@ -1124,6 +1129,23 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
   );
 }
 
+// ── Tile filter ─────────────────────────────────────────────────────────
+// Toggles a CSS class on the tile pane for warm-dark filtered tiles.
+
+function TileFilter({ tileStyle }: { tileStyle: TileStyle }) {
+  const map = useMap();
+  useEffect(() => {
+    const pane = map.getPane('tilePane');
+    if (!pane) return;
+    if (tileStyle === 'warm-dark') {
+      pane.classList.add('warm-dark-tiles');
+    } else {
+      pane.classList.remove('warm-dark-tiles');
+    }
+  }, [map, tileStyle]);
+  return null;
+}
+
 // ── MapView ────────────────────────────────────────────────────────────
 
 export function MapView(props: MapViewProps) {
@@ -1149,6 +1171,7 @@ export function MapView(props: MapViewProps) {
           attribution={tile.attribution}
           maxZoom={19}
         />
+        <TileFilter tileStyle={tileStyle} />
         <MapController {...props} constellationVariant={constellationVariant} />
         {props.mode !== 'story' && props.mode !== 'entity' && (
           <EmergenceLayer
