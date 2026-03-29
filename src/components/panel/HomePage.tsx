@@ -262,15 +262,15 @@ function NearYouCard({
         <div className="min-w-0">
           {story && (
             <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+              {story.nickname || story.name}
             </span>
           )}
           <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
-          {location.subtitle && (
+          {(location.subtitle || location.address) && (
             <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-1 italic">
-              {location.subtitle}
+              {location.subtitle || location.address}
             </p>
           )}
         </div>
@@ -326,15 +326,15 @@ function NearYouCardVertical({
         <div className="min-w-0 flex-1">
           {story && (
             <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+              {story.nickname || story.name}
             </span>
           )}
           <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
-          {location.subtitle && (
+          {(location.subtitle || location.address) && (
             <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1 italic">
-              {location.subtitle}
+              {location.subtitle || location.address}
             </p>
           )}
         </div>
@@ -589,17 +589,29 @@ export function HomePage({
   // Dynamic title: "Near you" when GPS is in viewport, "In view" otherwise
   const nearYouTitle = isNearUser ? 'Near You' : 'In View';
 
-  // Filtered collections — when a category filter is active, only show
-  // collections that contain at least one moment from a story in that category.
+  // Set of moment IDs visible on the map — used to filter collections
+  const viewportMomentIds = useMemo(
+    () => new Set(viewportLocations.map((vl) => vl.location.id)),
+    [viewportLocations],
+  );
+
+  // Filtered collections — only show collections that have at least one
+  // moment visible on the current map viewport (+ respect category filter).
   const filteredCollections = useMemo(() => {
-    if (categoryFilter === null) return collections;
-    return collections.filter((c) =>
-      c.momentIds.some((mid) => {
-        const parentStory = momentToStoryMap.get(mid);
-        return parentStory?.category === categoryFilter;
-      })
-    );
-  }, [collections, categoryFilter, momentToStoryMap]);
+    return collections.filter((c) => {
+      // Must have at least one moment on the map
+      const hasVisibleMoment = c.momentIds.some((mid) => viewportMomentIds.has(mid));
+      if (!hasVisibleMoment) return false;
+      // Respect category filter if active
+      if (categoryFilter !== null) {
+        return c.momentIds.some((mid) => {
+          const parentStory = momentToStoryMap.get(mid);
+          return parentStory?.category === categoryFilter;
+        });
+      }
+      return true;
+    });
+  }, [collections, categoryFilter, momentToStoryMap, viewportMomentIds]);
 
   // Filtered people — when a category filter is active, only show
   // people who have moments in stories matching that category.
