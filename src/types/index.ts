@@ -129,6 +129,7 @@ export interface Entity {
   description?: string;                // Brief bio/description
   canonicalStoryId?: string;           // Their "main" story: 'o-henry-life'
   wikipediaSlug?: string;              // Entity's own Wikipedia article
+  imageUrl?: string;                   // Wikipedia thumbnail URL (backfilled)
 }
 
 /** Story taxonomy — what kind of narrative thread is this? */

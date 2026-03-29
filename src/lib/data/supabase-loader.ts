@@ -56,6 +56,7 @@ interface EntityRow {
   description: string | null;
   canonical_story_id: string | null;
   wikipedia_slug: string | null;
+  image_url: string | null;
 }
 
 interface CollectionRow {
@@ -276,6 +277,7 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     ...(r.description ? { description: cleanStr(r.description) } : {}),
     ...(r.canonical_story_id ? { canonicalStoryId: r.canonical_story_id } : {}),
     ...(r.wikipedia_slug ? { wikipediaSlug: r.wikipedia_slug } : {}),
+    ...(r.image_url ? { imageUrl: r.image_url } : {}),
   }));
 
   const collections: StoryCollection[] = collectionRows.map((r) => ({

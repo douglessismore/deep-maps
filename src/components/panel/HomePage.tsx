@@ -413,21 +413,29 @@ function PersonRow({
         boxShadow: '0 0 12px rgba(139,92,246,0.08)',
       } : undefined}
     >
-      <span className={`w-8 h-8 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 flex items-center justify-center text-[11px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(139,92,246,0.3)]'}`}
-      >
-        {entity.name[0].toUpperCase()}
-      </span>
+      {entity.imageUrl ? (
+        <img
+          src={entity.imageUrl}
+          alt={entity.name}
+          className={`w-9 h-9 rounded-full object-cover shrink-0 ring-1 ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(255,255,255,0.1)]'}`}
+          loading="lazy"
+        />
+      ) : (
+        <span className={`w-9 h-9 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 flex items-center justify-center text-[12px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(139,92,246,0.3)]'}`}>
+          {entity.name[0].toUpperCase()}
+        </span>
+      )}
       <div className="flex-1 min-w-0">
-        <span className="text-[13px] font-sans font-medium text-[var(--text-primary)] block truncate">
+        <span className="text-[14px] font-sans font-semibold text-[var(--text-primary)] block truncate">
           {entity.name}
         </span>
         {entity.description && (
-          <span className="text-[10px] text-[var(--text-muted)] block truncate">
+          <span className="text-[12px] text-[var(--text-muted)] block truncate mt-0.5">
             {entity.description}
           </span>
         )}
       </div>
-      <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+      <span className="text-[11px] font-mono text-[var(--text-muted)] shrink-0">
         {momentCount} events
       </span>
     </button>
