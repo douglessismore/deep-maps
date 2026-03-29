@@ -334,20 +334,32 @@ function NearYouCardVertical({
 
 function HomeCollectionCard({
   collection,
+  imageUrl,
   onClick,
   isActive,
 }: {
   collection: StoryCollection;
+  imageUrl?: string;
   onClick: () => void;
   isActive?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
-      className="shrink-0 w-[180px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left p-4 snap-start"
+      className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
       style={cardHighlightStyle(!!isActive)}
     >
-      <div className="flex flex-col h-[100px] justify-between">
+      {imageUrl && (
+        <div className="h-[80px] w-full overflow-hidden">
+          <img
+            src={imageUrl}
+            alt=""
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      <div className="p-3 flex flex-col justify-between" style={{ height: imageUrl ? '90px' : '100px' }}>
         <div className="min-w-0">
           <h3 className="text-[13px] font-serif font-bold text-white leading-tight line-clamp-2">
             {collection.name}
@@ -368,17 +380,29 @@ function HomeCollectionCard({
 
 function CollectionGridCard({
   collection,
+  imageUrl,
   onClick,
 }: {
   collection: StoryCollection;
+  imageUrl?: string;
   onClick: () => void;
 }) {
   return (
     <button
       onClick={onClick}
-      className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left p-3"
+      className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden"
     >
-      <div className="flex flex-col h-[90px] justify-between">
+      {imageUrl && (
+        <div className="h-[70px] w-full overflow-hidden">
+          <img
+            src={imageUrl}
+            alt=""
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      <div className="p-3 flex flex-col justify-between" style={{ height: imageUrl ? '80px' : '90px' }}>
         <div className="min-w-0">
           <h3 className="text-[12px] font-serif font-bold text-white leading-tight line-clamp-2">
             {collection.name}
@@ -508,6 +532,30 @@ export function HomePage({
 
   // Build moment-by-id lookup
   const momentById = useMemo(() => new Map(allMoments.map((m) => [m.id, m])), [allMoments]);
+
+  // Derive hero images for collections from their first moment with media
+  const collectionImages = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const collection of collections) {
+      for (const mid of collection.momentIds) {
+        const moment = momentById.get(mid);
+        if (!moment?.media?.length) continue;
+        const media = moment.media[0];
+        if (media.type === 'image') {
+          map.set(collection.id, media.url);
+          break;
+        }
+        if (media.type === 'youtube') {
+          const match = media.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+          if (match) {
+            map.set(collection.id, `https://img.youtube.com/vi/${match[1]}/mqdefault.jpg`);
+            break;
+          }
+        }
+      }
+    }
+    return map;
+  }, [collections, momentById]);
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
   // Filter to moments that have a parent story so every card is clickable
@@ -885,6 +933,7 @@ export function HomePage({
                   <CollectionGridCard
                     key={collection.id}
                     collection={collection}
+                    imageUrl={collectionImages.get(collection.id)}
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
@@ -896,6 +945,7 @@ export function HomePage({
                   <HomeCollectionCard
                     key={collection.id}
                     collection={collection}
+                    imageUrl={collectionImages.get(collection.id)}
                     isActive={i === collectionsActiveIdx}
                     onClick={() => onCollectionSelect(collection)}
                   />
