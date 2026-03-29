@@ -117,6 +117,11 @@ html, body, #root {
   filter: brightness(0.55) contrast(1.2) saturate(0.7) sepia(0.15);
 }
 
+/* Vivid satellite — boosted contrast and saturation for more striking aerial imagery */
+.leaflet-tile-pane.vivid-satellite-tiles {
+  filter: contrast(1.15) saturate(1.3) brightness(0.95);
+}
+
 .leaflet-popup-content-wrapper {
   background: #1a1a1a !important;
   color: #e5e5e5 !important;

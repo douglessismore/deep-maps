@@ -255,7 +255,7 @@ function NearYouCard({
         <div className="min-w-0">
           {story && (
             <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname ?? story.name}
+              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
             </span>
           )}
           <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
@@ -319,7 +319,7 @@ function NearYouCardVertical({
         <div className="min-w-0 flex-1">
           {story && (
             <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname ?? story.name}
+              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
             </span>
           )}
           <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
@@ -654,8 +654,10 @@ export function HomePage({
   nearYouMomentsRef.current = nearYouMoments;
 
   // ── Near You scroll → map highlight ──
-  // Use the active index from our hook to drive map highlighting
+  // Use the active index from our hook to drive map highlighting.
+  // hasMountedRef prevents panning on first render (e.g. after back navigation).
   const prevNearYouIdx = useRef(-1);
+  const hasMountedNearYou = useRef(false);
   useEffect(() => {
     if (!onScrollHighlightRef.current) return;
     const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
@@ -665,11 +667,13 @@ export function HomePage({
     if (idx >= 0 && idx < nearYouMomentsRef.current.length) {
       const vl = nearYouMomentsRef.current[idx];
       onScrollHighlightRef.current([vl.location], vl.story?.id);
-      // Only pan in collapsed (horizontal) mode — expanded Near You is viewport-derived,
-      // so panning would change the viewport → rebuild the list → feedback loop.
-      if (expandedSection !== 'nearYou') {
+      // Only pan after initial render and in collapsed mode — expanded Near You is
+      // viewport-derived, so panning would change the viewport → feedback loop.
+      // Skip first render to prevent pan on back navigation.
+      if (hasMountedNearYou.current && expandedSection !== 'nearYou') {
         onScrollPanRef.current?.(vl.location.lat, vl.location.lng);
       }
+      hasMountedNearYou.current = true;
     }
   }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
 
@@ -848,17 +852,18 @@ export function HomePage({
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
         {/* ── Tagline ── */}
-        <div className="px-4 pt-6 pb-4">
-          <h1 className="text-[24px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
+        <div className="px-4 pt-4 pb-2">
+          <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
             Discover what happened <span className="text-[#D4A853]">here</span>
           </h1>
-          <p className="text-[14px] text-[var(--text-muted)] font-sans mt-2 leading-relaxed">
-            The map of everything that ever happened. Start anywhere.
+          <p className="text-[13px] text-[var(--text-muted)] font-sans mt-1">
+            The map of everything that ever happened.{' '}
+            <span className="whitespace-nowrap">Start anywhere.</span>
           </p>
         </div>
 
         {/* ── Category filter pills ── */}
-        <div className="pb-5">
+        <div className="pb-3">
           <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} />
         </div>
 

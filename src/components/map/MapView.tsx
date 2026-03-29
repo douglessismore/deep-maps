@@ -87,6 +87,10 @@ const TILE_URLS: Record<TileStyle, { url: string; attribution: string }> = {
     url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
   },
+  'vivid-satellite': {
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attribution: '&copy; Esri, Maxar, Earthstar Geographics',
+  },
 };
 
 interface MapViewProps {
@@ -1089,6 +1093,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
     { key: 'dark', label: 'Dark', icon: '🌑' },
     { key: 'light', label: 'Light', icon: '☀️' },
     { key: 'satellite', label: 'Satellite', icon: '🛰' },
+    { key: 'vivid-satellite', label: 'Vivid Satellite', icon: '🌍' },
     { key: 'warm-dark', label: 'Warm Dark', icon: '🌘' },
   ];
   return (
@@ -1132,16 +1137,20 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
 // ── Tile filter ─────────────────────────────────────────────────────────
 // Toggles a CSS class on the tile pane for warm-dark filtered tiles.
 
+const TILE_FILTER_CLASSES: Partial<Record<TileStyle, string>> = {
+  'warm-dark': 'warm-dark-tiles',
+  'vivid-satellite': 'vivid-satellite-tiles',
+};
+
 function TileFilter({ tileStyle }: { tileStyle: TileStyle }) {
   const map = useMap();
   useEffect(() => {
     const pane = map.getPane('tilePane');
     if (!pane) return;
-    if (tileStyle === 'warm-dark') {
-      pane.classList.add('warm-dark-tiles');
-    } else {
-      pane.classList.remove('warm-dark-tiles');
-    }
+    // Remove all filter classes, then add the active one
+    Object.values(TILE_FILTER_CLASSES).forEach(cls => pane.classList.remove(cls));
+    const cls = TILE_FILTER_CLASSES[tileStyle];
+    if (cls) pane.classList.add(cls);
   }, [map, tileStyle]);
   return null;
 }

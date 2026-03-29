@@ -60,6 +60,8 @@ interface ExplorePanelProps {
   onBack?: () => void;
   onHome?: () => void;
   hasNavHistory?: boolean;
+  /** Dynamic back button label (e.g. "Home", "Stories", entity name) */
+  backLabel?: string;
   /** Panel view: 'home' shows the curated home page, 'explorer' shows the tab-based explorer */
   panelView?: 'home' | 'explorer';
   /** Callback when panel view changes (e.g., user taps a card on home page) */
@@ -141,6 +143,7 @@ export function ExplorePanel({
   onBack,
   onHome,
   hasNavHistory,
+  backLabel: backLabelProp,
   panelView = 'explorer',
   onPanelViewChange,
 }: ExplorePanelProps) {
@@ -882,7 +885,7 @@ export function ExplorePanel({
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            {activeCollection ? 'Collections' : 'Stories'}
+            {activeCollection ? 'Collections' : (backLabelProp ?? 'Home')}
           </button>
           {onHome && (
             <button

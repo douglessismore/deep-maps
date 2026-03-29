@@ -620,8 +620,9 @@ function App() {
 
   // Contextual back label from navigation history
   const backLabel = useMemo(() => {
-    if (navHistory.length === 0) return 'Stories';
+    if (navHistory.length === 0) return 'Home';
     const prev = navHistory[navHistory.length - 1];
+    if (prev.panelView === 'home') return 'Home';
     if (prev.activeEntity) return prev.activeEntity.name;
     if (prev.activeStory) return prev.activeStory.name;
     if (prev.activeCollection) return prev.activeCollection.name;
@@ -634,7 +635,7 @@ function App() {
       };
       return tabLabels[prev.exploreTab];
     }
-    return 'Stories';
+    return 'Home';
   }, [navHistory]);
 
   // ── Context labels for variant drag handles / HUDs ──
@@ -760,6 +761,7 @@ function App() {
             onBack={handleBack}
             onHome={handleBackToExplore}
             hasNavHistory={navHistory.length > 0}
+            backLabel={backLabel}
             panelView={panelView}
             onPanelViewChange={setPanelView}
           />
