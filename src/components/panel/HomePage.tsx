@@ -31,6 +31,9 @@ interface HomePageProps {
   onBrowseAll: () => void;
   /** Scroll highlight — called when a card scrolls into view in the horizontal row */
   onScrollHighlight?: (locations: Moment[], storyId?: string) => void;
+  /** Category filter — synced with App.tsx to also filter map markers */
+  categoryFilter: StoryCategory | null;
+  onCategoryFilter: (category: StoryCategory | null) => void;
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────
@@ -120,7 +123,7 @@ function SectionHeading({
   onToggle: () => void;
 }) {
   return (
-    <div className="flex items-baseline justify-between px-4 mb-4">
+    <div className="flex items-baseline justify-between px-4 mb-4 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
       <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
         {title}
       </h2>
@@ -137,7 +140,7 @@ function SectionHeading({
 /** Simple section heading without toggle */
 function SectionTitle({ title }: { title: string }) {
   return (
-    <div className="px-4 mb-4">
+    <div className="px-4 mb-4 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
       <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
         {title}
       </h2>
@@ -238,18 +241,18 @@ function NearYouCard({
         className="h-1 w-full"
         style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
       />
-      <div className="p-3 flex flex-col justify-between h-[112px]">
+      <div className="p-3 flex flex-col justify-between h-[120px]">
         <div className="min-w-0">
-          <h3 className="text-[13px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2 italic">
+          <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2 italic">
             {location.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-2 mt-auto pt-1">
           {location.year && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            <span className="text-[11px] font-mono text-[var(--text-muted)]">
               {location.year}
             </span>
           )}
@@ -257,7 +260,7 @@ function NearYouCard({
             <span className="text-[var(--text-muted)]">&middot;</span>
           )}
           {distance > 0 && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            <span className="text-[11px] font-mono text-[var(--text-muted)]">
               {formatDistance(distance)}
             </span>
           )}
@@ -290,28 +293,28 @@ function NearYouCardVertical({
       className="w-full rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden"
       style={cardHighlightStyle(!!isActive)}
     >
-      <div className="flex items-start gap-3 p-3">
+      <div className="flex items-start gap-3 p-3.5">
         {/* Category accent dot */}
         <div
-          className="w-2 h-2 rounded-full mt-1.5 shrink-0"
+          className="w-2.5 h-2.5 rounded-full mt-1.5 shrink-0"
           style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
         />
         <div className="min-w-0 flex-1">
-          <h3 className="text-[13px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1 italic">
+          <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1 italic">
             {location.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0 pt-0.5">
           {location.year && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            <span className="text-[11px] font-mono text-[var(--text-muted)]">
               {location.year}
             </span>
           )}
           {distance > 0 && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            <span className="text-[11px] font-mono text-[var(--text-muted)]">
               {formatDistance(distance)}
             </span>
           )}
@@ -509,9 +512,10 @@ export function HomePage({
   onSurpriseMe,
   onBrowseAll,
   onScrollHighlight,
+  categoryFilter,
+  onCategoryFilter,
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
-  const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
 
   // Global data for counts + moment lookup
   const { moments: allMoments, browseableStories: allStories, stories } = useAppData();
@@ -723,17 +727,17 @@ export function HomePage({
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
         {/* ── Tagline ── */}
         <div className="px-4 pt-6 pb-4">
-          <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
+          <h1 className="text-[24px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
             Discover what happened <span className="text-[#D4A853]">here</span>
           </h1>
-          <p className="text-[13px] text-[var(--text-muted)] font-sans mt-2">
+          <p className="text-[14px] text-[var(--text-muted)] font-sans mt-2 leading-relaxed">
             The map of everything that ever happened. Start anywhere.
           </p>
         </div>
 
         {/* ── Category filter pills ── */}
         <div className="pb-5">
-          <CategoryFilterPills selected={categoryFilter} onSelect={setCategoryFilter} />
+          <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} />
         </div>
 
         {/* ── Section 1: Near You / In View ── */}
@@ -746,7 +750,7 @@ export function HomePage({
           {nearYouMoments.length > 0 ? (
             expandedSection === 'nearYou' ? (
               // Expanded: vertical list
-              <div ref={nearYouExpandedRef} className="flex flex-col gap-2 px-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+              <div ref={nearYouExpandedRef} className="flex flex-col gap-2 px-4">
                 {nearYouMoments.map((vl, i) => (
                   <NearYouCardVertical
                     key={vl.location.id}
@@ -794,8 +798,12 @@ export function HomePage({
           )}
         </div>
 
-        {/* Divider */}
-        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
+        {/* Everywhere divider */}
+        <div className="mx-4 my-4 flex items-center gap-3">
+          <div className="flex-1 border-t border-[var(--border-subtle)]" />
+          <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider">Everywhere</span>
+          <div className="flex-1 border-t border-[var(--border-subtle)]" />
+        </div>
 
         {/* ── Section 2: Collections ── */}
         <div className="pt-4 pb-4">
@@ -851,7 +859,7 @@ export function HomePage({
           {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
             expandedSection === 'people' ? (
               // Expanded: vertical list with scroll tracking
-              <div ref={peopleExpandedRef} className="flex flex-col max-h-[60vh] overflow-y-auto custom-scrollbar">
+              <div ref={peopleExpandedRef} className="flex flex-col">
                 {allPeople.map(({ entity, momentCount }, i) => (
                   <PersonRow
                     key={entity.id}
@@ -889,15 +897,14 @@ export function HomePage({
 
         {/* ── Section 4: Browse the Encyclopedia ── */}
         <div className="pt-4 pb-4">
-          <SectionTitle title="Browse the Encyclopedia" />
+          <SectionTitle title="The Full Encyclopedia" />
           <div className="px-4">
             <div className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-4">
-              <p className="text-[13px] text-[var(--text-secondary)] font-sans leading-relaxed">
-                Explore{' '}
+              <p className="text-[14px] text-[var(--text-secondary)] font-sans leading-relaxed">
                 <span className="text-[var(--text-primary)] font-semibold">{allMoments.length.toLocaleString()}</span>{' '}
-                moments across{' '}
+                moments.{' '}
                 <span className="text-[var(--text-primary)] font-semibold">{allStories.length.toLocaleString()}</span>{' '}
-                stories. Search, filter, and find the events that shaped the world.
+                stories. All searchable, all connected.
               </p>
               <button
                 onClick={onBrowseAll}

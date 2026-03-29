@@ -123,6 +123,7 @@ export function ExplorePanel({
   onModeChange,
   searchQuery,
   categoryFilter,
+  onCategoryFilter,
   onSurpriseMe,
   userLocation,
   onRequestGeo,
@@ -851,6 +852,8 @@ export function ExplorePanel({
             onPanelViewChange?.('explorer');
           }}
           onScrollHighlight={onScrollHighlight}
+          categoryFilter={categoryFilter}
+          onCategoryFilter={onCategoryFilter}
         />
       </div>
     );
