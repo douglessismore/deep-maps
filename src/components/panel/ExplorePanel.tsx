@@ -895,7 +895,7 @@ export function ExplorePanel({
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            {backLabelProp ?? (activeCollection ? 'Collections' : 'Home')}
+            {backLabelProp ?? 'Home'}
           </button>
           {onHome && (
             <button
