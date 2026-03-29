@@ -112,6 +112,11 @@ html, body, #root {
   color: #a3a3a3 !important;
 }
 
+/* Warm dark tile filter — CSS-filtered Voyager tiles for a warm, muted dark aesthetic */
+.leaflet-tile-pane.warm-dark-tiles {
+  filter: brightness(0.55) contrast(1.2) saturate(0.7) sepia(0.15);
+}
+
 .leaflet-popup-content-wrapper {
   background: #1a1a1a !important;
   color: #e5e5e5 !important;

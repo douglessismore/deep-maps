@@ -253,12 +253,19 @@ function NearYouCard({
       />
       <div className="p-3 flex flex-col justify-between h-[120px]">
         <div className="min-w-0">
+          {story && (
+            <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
+              {story.nickname ?? story.name}
+            </span>
+          )}
           <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
-          <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2 italic">
-            {location.subtitle}
-          </p>
+          {location.subtitle && (
+            <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-1 italic">
+              {location.subtitle}
+            </p>
+          )}
         </div>
         <div className="flex items-center gap-2 mt-auto pt-1">
           {location.year && (
@@ -310,12 +317,19 @@ function NearYouCardVertical({
           style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
         />
         <div className="min-w-0 flex-1">
+          {story && (
+            <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
+              {story.nickname ?? story.name}
+            </span>
+          )}
           <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
-          <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1 italic">
-            {location.subtitle}
-          </p>
+          {location.subtitle && (
+            <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1 italic">
+              {location.subtitle}
+            </p>
+          )}
         </div>
         <div className="flex items-center gap-2 shrink-0 pt-0.5">
           {location.year && (
@@ -651,7 +665,11 @@ export function HomePage({
     if (idx >= 0 && idx < nearYouMomentsRef.current.length) {
       const vl = nearYouMomentsRef.current[idx];
       onScrollHighlightRef.current([vl.location], vl.story?.id);
-      onScrollPanRef.current?.(vl.location.lat, vl.location.lng);
+      // Only pan in collapsed (horizontal) mode — expanded Near You is viewport-derived,
+      // so panning would change the viewport → rebuild the list → feedback loop.
+      if (expandedSection !== 'nearYou') {
+        onScrollPanRef.current?.(vl.location.lat, vl.location.lng);
+      }
     }
   }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
 

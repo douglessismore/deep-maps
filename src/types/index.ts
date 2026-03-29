@@ -60,7 +60,7 @@ export interface ViewportLocation {
   distance: number;
 }
 
-export type TileStyle = 'dark' | 'light' | 'satellite';
+export type TileStyle = 'dark' | 'light' | 'satellite' | 'warm-dark';
 
 /** A curated collection of moments (map pins) around a theme (e.g., "Nuclear Test Sites") */
 export interface StoryCollection {
