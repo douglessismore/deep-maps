@@ -141,7 +141,7 @@ function SectionHeading({
 }) {
   return (
     <div className="flex items-baseline justify-between px-4 mb-4 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
-      <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
+      <h2 className="text-[18px] font-serif font-semibold text-[var(--text-primary)] tracking-[-0.01em]">
         {title}
       </h2>
       <button
@@ -158,7 +158,7 @@ function SectionHeading({
 function SectionTitle({ title }: { title: string }) {
   return (
     <div className="px-4 mb-4 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
-      <h2 className="text-base font-sans font-semibold text-[var(--text-primary)]">
+      <h2 className="text-[18px] font-serif font-semibold text-[var(--text-primary)] tracking-[-0.01em]">
         {title}
       </h2>
     </div>
@@ -265,7 +265,7 @@ function NearYouCard({
               {story.nickname || story.name}
             </span>
           )}
-          <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
           {(location.subtitle || location.address) && (
@@ -329,7 +329,7 @@ function NearYouCardVertical({
               {story.nickname || story.name}
             </span>
           )}
-          <h3 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
           </h3>
           {(location.subtitle || location.address) && (
@@ -922,11 +922,12 @@ export function HomePage({
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
         {/* ── Tagline ── */}
-        <div className="px-4 pt-4 pb-2">
-          <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
-            Discover what happened <span className="text-[#D4A853]">here</span>
+        <div className="px-4 pt-4 pb-4">
+          <h1 className="text-[28px] lg:text-[36px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.02em]">
+            Discover what happened{' '}
+            <span className="text-[#D4A853] border-b-2 border-[#D4A853] pb-0.5">here</span>
           </h1>
-          <p className="text-[13px] text-[var(--text-muted)] font-sans mt-1">
+          <p className="text-[14px] text-[var(--text-secondary)] font-sans mt-2">
             The map of everything that ever happened.{' '}
             <span className="whitespace-nowrap">Start anywhere.</span>
           </p>
@@ -1044,7 +1045,7 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 3: Notable People ── */}
         <div ref={peopleSectionRef} className="pt-4 pb-4">
@@ -1076,7 +1077,7 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 4: Browse the Encyclopedia ── */}
         <div className="pt-4 pb-4">
@@ -1102,7 +1103,7 @@ export function HomePage({
         </div>
 
         {/* Divider */}
-        <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
+        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 5: Surprise Me ── */}
         <div className="px-4 pt-6 pb-8 flex justify-center">
