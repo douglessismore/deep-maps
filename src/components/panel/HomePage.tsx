@@ -263,11 +263,11 @@ function NearYouCard({
         className="h-1 w-full"
         style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
       />
-      <div className="p-3 flex flex-col justify-between h-[120px]">
+      <div className="p-3 flex flex-col justify-between h-[140px]">
         <div className="min-w-0">
           {story && (
             <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname || story.name}
+              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
             </span>
           )}
           <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
@@ -340,7 +340,7 @@ function NearYouCardVertical({
         <div className="min-w-0 flex-1">
           {story && (
             <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname || story.name}
+              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
             </span>
           )}
           <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
