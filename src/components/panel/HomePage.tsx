@@ -567,8 +567,11 @@ export function HomePage({
   // Re-enable when we have curated images per collection.
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
-  // Filter to moments that have a parent story so every card is clickable
-  const nearYouMoments = useMemo(() => {
+  // Filter to moments that have a parent story so every card is clickable.
+  // Frozen while user scrolls to prevent card reshuffling mid-scroll (map pan changes viewport).
+  const [isNearYouScrolling, setIsNearYouScrolling] = useState(false);
+  const nearYouScrollTimeout = useRef(0);
+  const nearYouMomentsLive = useMemo(() => {
     const sorted = [...viewportLocations]
       .filter((vl) => vl.story !== null)
       .filter((vl) => categoryFilter === null || getVlCategory(vl) === categoryFilter)
@@ -579,6 +582,9 @@ export function HomePage({
       });
     return sorted.slice(0, 20);
   }, [viewportLocations, categoryFilter]);
+  const frozenNearYou = useRef(nearYouMomentsLive);
+  if (!isNearYouScrolling) frozenNearYou.current = nearYouMomentsLive;
+  const nearYouMoments = isNearYouScrolling ? frozenNearYou.current : nearYouMomentsLive;
 
   // Dynamic title: "Near you" when GPS is in viewport, "In view" otherwise
   const nearYouTitle = isNearUser ? 'Near You' : 'In View';
@@ -636,6 +642,23 @@ export function HomePage({
     container.addEventListener('scroll', handler, { passive: true });
     return () => container.removeEventListener('scroll', handler);
   }, [onScrollPosition]);
+
+  // ── Freeze Near You list during horizontal scroll ──
+  // Prevents card reshuffling caused by map pan → viewport change → list recompute.
+  useEffect(() => {
+    const container = nearYouScrollRef.current;
+    if (!container) return;
+    const handler = () => {
+      setIsNearYouScrolling(true);
+      clearTimeout(nearYouScrollTimeout.current);
+      nearYouScrollTimeout.current = window.setTimeout(() => setIsNearYouScrolling(false), 800);
+    };
+    container.addEventListener('scroll', handler, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', handler);
+      clearTimeout(nearYouScrollTimeout.current);
+    };
+  }, []);
 
   // ── Restore scroll position after back navigation ──
   // Nudge 100px upward so the clicked card is comfortably in view, not at the bottom edge.
