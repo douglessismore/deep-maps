@@ -36,6 +36,11 @@ interface HomePageProps {
   /** Category filter — synced with App.tsx to also filter map markers */
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
+  /** Scroll position tracking — saves scroll position for back navigation */
+  onScrollPosition?: (scrollTop: number) => void;
+  /** Restore scroll position after back navigation */
+  restoreScrollTop?: number | null;
+  onScrollRestored?: () => void;
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────
@@ -532,6 +537,9 @@ export function HomePage({
   onScrollPan,
   categoryFilter,
   onCategoryFilter,
+  onScrollPosition,
+  restoreScrollTop,
+  onScrollRestored,
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
 
@@ -616,6 +624,24 @@ export function HomePage({
   const nearYouExpandedRef = useRef<HTMLDivElement | null>(null);
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
   const peopleExpandedRef = useRef<HTMLDivElement | null>(null);
+
+  // ── Scroll position tracking for back navigation ──
+  useEffect(() => {
+    const container = homeScrollRef.current;
+    if (!container || !onScrollPosition) return;
+    const handler = () => onScrollPosition(container.scrollTop);
+    container.addEventListener('scroll', handler, { passive: true });
+    return () => container.removeEventListener('scroll', handler);
+  }, [onScrollPosition]);
+
+  // ── Restore scroll position after back navigation ──
+  useEffect(() => {
+    if (restoreScrollTop == null || !homeScrollRef.current) return;
+    requestAnimationFrame(() => {
+      if (homeScrollRef.current) homeScrollRef.current.scrollTop = restoreScrollTop;
+      onScrollRestored?.();
+    });
+  }, [restoreScrollTop, onScrollRestored]);
 
   // ── Active index tracking via scroll position ──
   const nearYouActiveIdx = useScrollActiveIndex(

@@ -841,7 +841,7 @@ export function ExplorePanel({
       <div className="flex flex-col h-full min-h-0 relative">
         <HomePage
           viewportLocations={viewportLocations}
-          collections={collections}
+          collections={viewportCollections}
           personEntities={personEntities}
           userLocation={userLocation ?? null}
           isNearUser={isNearUser}
@@ -867,6 +867,9 @@ export function ExplorePanel({
           onScrollHighlight={onScrollHighlight}
           onScrollPan={handleHomeScrollPan}
           categoryFilter={categoryFilter}
+          onScrollPosition={onScrollPosition}
+          restoreScrollTop={restoreScrollTop}
+          onScrollRestored={onScrollRestored}
           onCategoryFilter={onCategoryFilter}
         />
       </div>
@@ -885,7 +888,7 @@ export function ExplorePanel({
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            {activeCollection ? 'Collections' : (backLabelProp ?? 'Home')}
+            {backLabelProp ?? (activeCollection ? 'Collections' : 'Home')}
           </button>
           {onHome && (
             <button
