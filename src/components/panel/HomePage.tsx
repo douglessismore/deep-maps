@@ -538,29 +538,8 @@ export function HomePage({
   // Build moment-by-id lookup
   const momentById = useMemo(() => new Map(allMoments.map((m) => [m.id, m])), [allMoments]);
 
-  // Derive hero images for collections from their first moment with media
-  const collectionImages = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const collection of collections) {
-      for (const mid of collection.momentIds) {
-        const moment = momentById.get(mid);
-        if (!moment?.media?.length) continue;
-        const media = moment.media[0];
-        if (media.type === 'image') {
-          map.set(collection.id, media.url);
-          break;
-        }
-        if (media.type === 'youtube') {
-          const match = media.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
-          if (match) {
-            map.set(collection.id, `https://img.youtube.com/vi/${match[1]}/mqdefault.jpg`);
-            break;
-          }
-        }
-      }
-    }
-    return map;
-  }, [collections, momentById]);
+  // Collection hero images disabled — Wikipedia lead images were poor picks.
+  // Re-enable when we have curated images per collection.
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
   // Filter to moments that have a parent story so every card is clickable
@@ -736,7 +715,9 @@ export function HomePage({
     const entityMoments = getMomentsForEntity(personData.entity.id);
     if (entityMoments.length > 0) {
       onScrollHighlightRef.current(entityMoments);
-      onScrollPanRef.current?.(entityMoments[0].lat, entityMoments[0].lng);
+      // NOTE: No panTo here — people list is viewport-derived, so panning would
+      // change the viewport → rebuild the people list → shift active index → pan
+      // again, creating a feedback loop that strands the user in a new location.
     }
   }, [peopleExpandedActiveIdx, expandedSection]);
 
@@ -943,7 +924,6 @@ export function HomePage({
                   <CollectionGridCard
                     key={collection.id}
                     collection={collection}
-                    imageUrl={collectionImages.get(collection.id)}
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
@@ -955,7 +935,6 @@ export function HomePage({
                   <HomeCollectionCard
                     key={collection.id}
                     collection={collection}
-                    imageUrl={collectionImages.get(collection.id)}
                     isActive={i === collectionsActiveIdx}
                     onClick={() => onCollectionSelect(collection)}
                   />
