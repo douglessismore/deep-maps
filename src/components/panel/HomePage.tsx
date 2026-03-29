@@ -727,7 +727,7 @@ export function HomePage({
             Discover what happened <span className="text-[#D4A853]">here</span>
           </h1>
           <p className="text-[13px] text-[var(--text-muted)] font-sans mt-2">
-            Every place has a story
+            The map of everything that ever happened. Start anywhere.
           </p>
         </div>
 
