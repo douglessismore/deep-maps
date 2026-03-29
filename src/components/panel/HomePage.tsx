@@ -391,46 +391,7 @@ function CollectionGridCard({
 
 // ─── Person grid card ───────────────────────────────────────────────
 
-function PersonGridCard({
-  entity,
-  momentCount,
-  onClick,
-}: {
-  entity: Entity;
-  momentCount: number;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-start gap-2.5 p-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[rgba(139,92,246,0.4)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left"
-    >
-      {/* Avatar circle */}
-      <span className="w-8 h-8 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[11px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 mt-0.5">
-        {entity.name[0].toUpperCase()}
-      </span>
-      <div className="min-w-0 flex-1">
-        <h3 className="text-[12px] font-sans font-semibold text-[var(--text-primary)] leading-tight line-clamp-1">
-          {entity.name}
-        </h3>
-        {entity.description ? (
-          <p className="text-[10px] text-[var(--text-muted)] leading-snug mt-0.5 line-clamp-1">
-            {entity.description}
-          </p>
-        ) : entity.years ? (
-          <p className="text-[10px] text-[var(--text-muted)] leading-snug mt-0.5">
-            {entity.years}
-          </p>
-        ) : null}
-        <span className="text-[9px] font-mono text-[var(--text-muted)] mt-1 block">
-          {momentCount} {momentCount === 1 ? 'event' : 'events'}
-        </span>
-      </div>
-    </button>
-  );
-}
-
-// ─── Person row (expanded) ──────────────────────────────────────────
+// ─── Person row ─────────────────────────────────────────────────────
 
 function PersonRow({
   entity,
@@ -616,8 +577,8 @@ export function HomePage({
   );
   const peopleExpandedActiveIdx = useScrollActiveIndex(
     peopleExpandedRef,
-    allPeople.length,
-    expandedSection === 'people',
+    (expandedSection === 'people' ? allPeople : gridPeople).length,
+    true, // Always active — people are always vertical rows now
     'vertical',
   );
 
@@ -641,6 +602,19 @@ export function HomePage({
       onScrollHighlightRef.current([vl.location], vl.story?.id);
     }
   }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
+
+  // ── Initial highlight on mount ──
+  // Highlight the first Near You moment so pins are visible on page load.
+  // Without this, no scrollHighlight is set and the map only shows tiny cluster dots.
+  const initialHighlightDone = useRef(false);
+  useEffect(() => {
+    if (initialHighlightDone.current || !onScrollHighlightRef.current) return;
+    if (nearYouMomentsRef.current.length === 0) return;
+    initialHighlightDone.current = true;
+    // Highlight first moment — triggers the map to show an enlarged/pulsing pin
+    const first = nearYouMomentsRef.current[0];
+    onScrollHighlightRef.current([first.location], first.story?.id);
+  }, [nearYouMoments]);
 
   // ── Collection scroll → map highlight ──
   // When a collection card scrolls into the center, highlight its moments on the map.
@@ -673,14 +647,17 @@ export function HomePage({
   // When a person scrolls into view in the expanded list, highlight their locations.
   const allPeopleRef = useRef(allPeople);
   allPeopleRef.current = allPeople;
+  const gridPeopleRef = useRef(gridPeople);
+  gridPeopleRef.current = gridPeople;
 
   const prevPeopleIdx = useRef(-1);
   useEffect(() => {
-    if (!onScrollHighlightRef.current || expandedSection !== 'people') return;
+    if (!onScrollHighlightRef.current) return;
     if (peopleExpandedActiveIdx === prevPeopleIdx.current) return;
     prevPeopleIdx.current = peopleExpandedActiveIdx;
 
-    const personData = allPeopleRef.current[peopleExpandedActiveIdx];
+    const currentPeople = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
+    const personData = currentPeople[peopleExpandedActiveIdx];
     if (!personData) return;
 
     const entityMoments = getMomentsForEntity(personData.entity.id);
@@ -857,32 +834,18 @@ export function HomePage({
             onToggle={() => toggleSection('people')}
           />
           {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-            expandedSection === 'people' ? (
-              // Expanded: vertical list with scroll tracking
-              <div ref={peopleExpandedRef} className="flex flex-col">
-                {allPeople.map(({ entity, momentCount }, i) => (
-                  <PersonRow
-                    key={entity.id}
-                    entity={entity}
-                    momentCount={momentCount}
-                    isActive={i === peopleExpandedActiveIdx}
-                    onClick={() => onEntityClick(entity)}
-                  />
-                ))}
-              </div>
-            ) : (
-              // Collapsed: 2-column grid
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 px-4">
-                {gridPeople.map(({ entity, momentCount }) => (
-                  <PersonGridCard
-                    key={entity.id}
-                    entity={entity}
-                    momentCount={momentCount}
-                    onClick={() => onEntityClick(entity)}
-                  />
-                ))}
-              </div>
-            )
+            // Vertical list — always rows, "See all" shows all vs top 10
+            <div ref={peopleExpandedRef} className="flex flex-col">
+              {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
+                <PersonRow
+                  key={entity.id}
+                  entity={entity}
+                  momentCount={momentCount}
+                  isActive={i === peopleExpandedActiveIdx}
+                  onClick={() => onEntityClick(entity)}
+                />
+              ))}
+            </div>
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[var(--text-muted)] font-mono">
