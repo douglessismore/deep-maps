@@ -548,6 +548,12 @@ export function HomePage({
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
 
+  // A/B test: section ordering via ?order=people-first
+  const [sectionOrder] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('order') === 'people-first' ? 'people-first' : 'moments-first';
+  });
+
   // Global data for counts + moment lookup
   const { moments: allMoments, browseableStories: allStories, stories } = useAppData();
 
@@ -943,7 +949,41 @@ export function HomePage({
           <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} />
         </div>
 
-        {/* ── Section 1: Near You / In View ── */}
+        {/* ── Sections: order controlled by ?order=people-first ── */}
+        {sectionOrder === 'people-first' && (
+          <>
+            {/* Notable People (first when people-first) */}
+            <div ref={peopleSectionRef} className="pt-4 pb-4">
+              <SectionHeading
+                title="Notable People"
+                expanded={expandedSection === 'people'}
+                onToggle={() => toggleSection('people')}
+              />
+              {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
+                <div ref={peopleExpandedRef} className="flex flex-col">
+                  {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
+                    <PersonRow
+                      key={entity.id}
+                      entity={entity}
+                      momentCount={momentCount}
+                      isActive={i === peopleExpandedActiveIdx}
+                      onClick={() => onEntityClick(entity)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="px-4 py-8 text-center">
+                  <p className="text-sm text-[var(--text-muted)] font-mono">
+                    {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
+          </>
+        )}
+
+        {/* Near You / In View */}
         <div ref={nearYouSectionRef} className="pb-4">
           <SectionHeading
             title={nearYouTitle}
@@ -1052,34 +1092,35 @@ export function HomePage({
         {/* Divider */}
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
-        {/* ── Section 3: Notable People ── */}
-        <div ref={peopleSectionRef} className="pt-4 pb-4">
-          <SectionHeading
-            title="Notable People"
-            expanded={expandedSection === 'people'}
-            onToggle={() => toggleSection('people')}
-          />
-          {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-            // Vertical list — always rows, "See all" shows all vs top 10
-            <div ref={peopleExpandedRef} className="flex flex-col">
-              {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
-                <PersonRow
-                  key={entity.id}
-                  entity={entity}
-                  momentCount={momentCount}
-                  isActive={i === peopleExpandedActiveIdx}
-                  onClick={() => onEntityClick(entity)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="px-4 py-8 text-center">
-              <p className="text-sm text-[var(--text-muted)] font-mono">
-                {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
-              </p>
-            </div>
-          )}
-        </div>
+        {/* ── Section 3: Notable People (default order) ── */}
+        {sectionOrder !== 'people-first' && (
+          <div ref={peopleSectionRef} className="pt-4 pb-4">
+            <SectionHeading
+              title="Notable People"
+              expanded={expandedSection === 'people'}
+              onToggle={() => toggleSection('people')}
+            />
+            {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
+              <div ref={peopleExpandedRef} className="flex flex-col">
+                {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
+                  <PersonRow
+                    key={entity.id}
+                    entity={entity}
+                    momentCount={momentCount}
+                    isActive={i === peopleExpandedActiveIdx}
+                    onClick={() => onEntityClick(entity)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="px-4 py-8 text-center">
+                <p className="text-sm text-[var(--text-muted)] font-mono">
+                  {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Divider */}
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
