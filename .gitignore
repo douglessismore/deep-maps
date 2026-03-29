@@ -33,3 +33,4 @@ candidates.md
 data/cross-verified-database.csv
 data/cross-verified-database.csv.gz
 .vercel/
+*.worktrees

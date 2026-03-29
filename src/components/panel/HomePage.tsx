@@ -6,6 +6,7 @@ import { CATEGORIES } from '../../lib/categories';
 import { distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { useAppData } from '../../lib/data/provider';
+import { ContextStrip } from './ContextStrip';
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -507,8 +508,8 @@ export function HomePage({
   userLocation,
   isNearUser,
   onMomentClick,
-  onCollectionSelect,
-  onEntityClick,
+  onCollectionSelect: _onCollectionSelect,
+  onEntityClick: _onEntityClick,
   onSurpriseMe,
   onBrowseAll,
   onScrollHighlight,
@@ -516,6 +517,13 @@ export function HomePage({
   onCategoryFilter,
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
+
+  // ── Context Strip state ──
+  type StripContextType =
+    | { type: 'nearby' }
+    | { type: 'collection'; collection: StoryCollection }
+    | { type: 'person'; entity: Entity };
+  const [stripContext, setStripContext] = useState<StripContextType>({ type: 'nearby' });
 
   // Global data for counts + moment lookup
   const { moments: allMoments, browseableStories: allStories, stories } = useAppData();
@@ -533,6 +541,62 @@ export function HomePage({
 
   // Build moment-by-id lookup
   const momentById = useMemo(() => new Map(allMoments.map((m) => [m.id, m])), [allMoments]);
+
+  // ── Context Strip: resolve moments based on context ──
+  const stripMoments = useMemo(() => {
+    if (stripContext.type === 'collection') {
+      const coll = stripContext.collection;
+      return coll.momentIds
+        .map((mid) => momentById.get(mid))
+        .filter((m): m is Moment => m != null)
+        .sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
+    }
+    if (stripContext.type === 'person') {
+      return getMomentsForEntity(stripContext.entity.id)
+        .sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
+    }
+    // Default: nearby — use the same viewport moments as Near You section
+    return viewportLocations
+      .filter((vl) => vl.story !== null)
+      .sort((a, b) => getEffectiveNotability(b.location) - getEffectiveNotability(a.location))
+      .slice(0, 30)
+      .map((vl) => vl.location);
+  }, [stripContext, momentById, viewportLocations]);
+
+  const stripLabel = useMemo(() => {
+    if (stripContext.type === 'collection') return stripContext.collection.name;
+    if (stripContext.type === 'person') return `👤 ${stripContext.entity.name}`;
+    return isNearUser ? 'Near You' : 'In View';
+  }, [stripContext, isNearUser]);
+
+  const stripSublabel = `${stripMoments.length} moment${stripMoments.length !== 1 ? 's' : ''}`;
+
+  const categoryForMoment = useCallback((momentId: string): StoryCategory | undefined => {
+    return momentToStoryMap.get(momentId)?.category;
+  }, [momentToStoryMap]);
+
+  const handleStripCardTap = useCallback((moment: Moment) => {
+    const story = momentToStoryMap.get(moment.id);
+    if (story) onMomentClick(moment, story);
+  }, [momentToStoryMap, onMomentClick]);
+
+  const handleStripScrollHighlight = useCallback((moment: Moment) => {
+    onScrollHighlight?.([moment], momentToStoryMap.get(moment.id)?.id);
+  }, [momentToStoryMap, onScrollHighlight]);
+
+  // V4: When tapping a collection, update the strip instead of navigating
+  const handleCollectionTapForStrip = useCallback((collection: StoryCollection) => {
+    setStripContext({ type: 'collection', collection });
+  }, []);
+
+  // V4: When tapping a person, update the strip instead of navigating
+  const handlePersonTapForStrip = useCallback((entity: Entity) => {
+    setStripContext({ type: 'person', entity });
+  }, []);
+
+  const handleStripClear = useCallback(() => {
+    setStripContext({ type: 'nearby' });
+  }, []);
 
   // Section 1: Near You — top moments by hybridNearestScore (already sorted from parent)
   // Filter to moments that have a parent story so every card is clickable
@@ -735,8 +799,21 @@ export function HomePage({
           </p>
         </div>
 
+        {/* ── Context Strip (V4) ── */}
+        <ContextStrip
+          moments={stripMoments}
+          contextLabel={stripLabel}
+          contextSublabel={stripSublabel}
+          showClear={stripContext.type !== 'nearby'}
+          onClear={handleStripClear}
+          onCardTap={handleStripCardTap}
+          onScrollHighlight={handleStripScrollHighlight}
+          userLocation={userLocation}
+          categoryForMoment={categoryForMoment}
+        />
+
         {/* ── Category filter pills ── */}
-        <div className="pb-5">
+        <div className="pb-5 pt-2">
           <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} />
         </div>
 
@@ -820,7 +897,7 @@ export function HomePage({
                   <CollectionGridCard
                     key={collection.id}
                     collection={collection}
-                    onClick={() => onCollectionSelect(collection)}
+                    onClick={() => handleCollectionTapForStrip(collection)}
                   />
                 ))}
               </div>
@@ -832,7 +909,7 @@ export function HomePage({
                     key={collection.id}
                     collection={collection}
                     isActive={i === collectionsActiveIdx}
-                    onClick={() => onCollectionSelect(collection)}
+                    onClick={() => handleCollectionTapForStrip(collection)}
                   />
                 ))}
               </HScrollRow>
@@ -866,7 +943,7 @@ export function HomePage({
                     entity={entity}
                     momentCount={momentCount}
                     isActive={i === peopleExpandedActiveIdx}
-                    onClick={() => onEntityClick(entity)}
+                    onClick={() => handlePersonTapForStrip(entity)}
                   />
                 ))}
               </div>
@@ -878,7 +955,7 @@ export function HomePage({
                     key={entity.id}
                     entity={entity}
                     momentCount={momentCount}
-                    onClick={() => onEntityClick(entity)}
+                    onClick={() => handlePersonTapForStrip(entity)}
                   />
                 ))}
               </div>
