@@ -59,12 +59,18 @@ function useScrollActiveIndex(
   itemCount: number,
   enabled: boolean,
   mode: 'horizontal' | 'vertical' = 'horizontal',
+  /** For vertical mode: listen for scroll on this parent instead of containerRef */
+  scrollParentRef?: React.RefObject<HTMLElement | null>,
 ): number {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !enabled || itemCount === 0) return;
+
+    // For vertical mode, scroll events fire on the parent scroll container,
+    // not on the items container itself (which is just a flex-col div).
+    const scrollTarget = (mode === 'vertical' && scrollParentRef?.current) ? scrollParentRef.current : container;
 
     let rafId = 0;
     const findCenter = () => {
@@ -101,12 +107,12 @@ function useScrollActiveIndex(
     // Initial calculation
     findCenter();
 
-    container.addEventListener('scroll', onScroll, { passive: true });
+    scrollTarget.addEventListener('scroll', onScroll, { passive: true });
     return () => {
-      container.removeEventListener('scroll', onScroll);
+      scrollTarget.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafId);
     };
-  }, [containerRef, itemCount, enabled, mode]);
+  }, [containerRef, scrollParentRef, itemCount, enabled, mode]);
 
   return activeIndex;
 }
@@ -559,6 +565,7 @@ export function HomePage({
   }, [filteredPersonEntities]);
 
   // ── Scroll refs for each section ──
+  const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
   const nearYouScrollRef = useRef<HTMLDivElement | null>(null);
   const nearYouExpandedRef = useRef<HTMLDivElement | null>(null);
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
@@ -576,6 +583,7 @@ export function HomePage({
     nearYouMoments.length,
     expandedSection === 'nearYou',
     'vertical',
+    homeScrollRef,
   );
   const collectionsActiveIdx = useScrollActiveIndex(
     collectionsScrollRef,
@@ -588,6 +596,7 @@ export function HomePage({
     (expandedSection === 'people' ? allPeople : gridPeople).length,
     true, // Always active — people are always vertical rows now
     'vertical',
+    homeScrollRef,
   );
 
   // Stable ref pattern for callbacks
@@ -704,7 +713,6 @@ export function HomePage({
 
   // ── Vertical scroll → section-aware map highlighting ──
   // As user scrolls the home page vertically, highlight pins for whichever section is in view.
-  const homeScrollRef = useRef<HTMLDivElement>(null);
   const nearYouSectionRef = useRef<HTMLDivElement>(null);
   const collectionsSectionRef = useRef<HTMLDivElement>(null);
   const peopleSectionRef = useRef<HTMLDivElement>(null);
