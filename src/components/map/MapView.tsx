@@ -1158,7 +1158,7 @@ function TileFilter({ tileStyle }: { tileStyle: TileStyle }) {
 // ── MapView ────────────────────────────────────────────────────────────
 
 export function MapView(props: MapViewProps) {
-  const [tileStyle, setTileStyle] = useState<TileStyle>('light');
+  const [tileStyle, setTileStyle] = useState<TileStyle>('vivid-satellite');
   // Emergence is the only rendering mode — canvas-based, no DOM overhead
   const constellationVariant: ConstellationVariant = 'emergence';
   const tile = TILE_URLS[tileStyle];

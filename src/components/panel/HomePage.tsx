@@ -713,7 +713,8 @@ export function HomePage({
     }
     if (collMoments.length > 0) {
       onScrollHighlightRef.current(collMoments);
-      onScrollPanRef.current?.(collMoments[0].lat, collMoments[0].lng);
+      // No panTo for collections — their moments span the country, so panning
+      // to the first one zooms away from the rest. Markers highlight in place.
     }
   }, [collectionsActiveIdx, expandedSection]);
 
