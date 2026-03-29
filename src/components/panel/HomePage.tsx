@@ -36,6 +36,8 @@ interface HomePageProps {
   /** Category filter — synced with App.tsx to also filter map markers */
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
+  /** Ref callback for the home scroll container (used by parent to snapshot scroll on nav) */
+  scrollRef?: (el: HTMLDivElement | null) => void;
   /** Scroll position tracking — saves scroll position for back navigation */
   onScrollPosition?: (scrollTop: number) => void;
   /** Restore scroll position after back navigation */
@@ -537,6 +539,7 @@ export function HomePage({
   onScrollPan,
   categoryFilter,
   onCategoryFilter,
+  scrollRef,
   onScrollPosition,
   restoreScrollTop,
   onScrollRestored,
@@ -636,14 +639,16 @@ export function HomePage({
 
   // ── Restore scroll position after back navigation ──
   // Nudge 100px upward so the clicked card is comfortably in view, not at the bottom edge.
+  // Use a short timeout to let the DOM fully render before restoring scroll position.
   useEffect(() => {
     if (restoreScrollTop == null || !homeScrollRef.current) return;
-    requestAnimationFrame(() => {
+    const timer = setTimeout(() => {
       if (homeScrollRef.current) {
         homeScrollRef.current.scrollTop = Math.max(0, restoreScrollTop - 100);
       }
       onScrollRestored?.();
-    });
+    }, 50);
+    return () => clearTimeout(timer);
   }, [restoreScrollTop, onScrollRestored]);
 
   // ── Active index tracking via scroll position ──
@@ -875,7 +880,7 @@ export function HomePage({
 
   return (
     <div
-      ref={homeScrollRef}
+      ref={(el) => { homeScrollRef.current = el; scrollRef?.(el); }}
       className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pb-24 lg:pb-[40vh]"
       style={{ WebkitOverflowScrolling: 'touch' }}
     >

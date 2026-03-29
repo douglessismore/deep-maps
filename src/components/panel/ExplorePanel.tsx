@@ -201,6 +201,7 @@ export function ExplorePanel({
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
   const homePanTimeout = useRef(0);
+  const homeScrollElRef = useRef<HTMLDivElement | null>(null);
   const highlightDebounce = useRef(0);
 
   // Auto-sort by Nearest when GPS is first acquired (unless user manually chose a sort)
@@ -846,24 +847,30 @@ export function ExplorePanel({
           userLocation={userLocation ?? null}
           isNearUser={isNearUser}
           onMomentClick={(moment, story) => {
+            // Snapshot scroll position before navigating away (passive listener may not have fired)
+            if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
             onPanelViewChange?.('explorer');
             onLocationSelect(moment, story);
           }}
           onCollectionSelect={(collection) => {
+            if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
             onPanelViewChange?.('explorer');
             onCollectionSelect(collection);
           }}
           onEntityClick={(entity) => {
+            if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
             onPanelViewChange?.('explorer');
             onEntityClick?.(entity);
           }}
           onSurpriseMe={() => {
+            if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
             onPanelViewChange?.('explorer');
             onSurpriseMe();
           }}
           onBrowseAll={() => {
             onPanelViewChange?.('explorer');
           }}
+          scrollRef={(el) => { homeScrollElRef.current = el; }}
           onScrollHighlight={onScrollHighlight}
           onScrollPan={handleHomeScrollPan}
           categoryFilter={categoryFilter}
