@@ -240,12 +240,15 @@ function NearYouCard({
   distance,
   onClick,
   isActive,
+  contextLine,
 }: {
   location: Moment;
   story: Story | null;
   distance: number;
   onClick: () => void;
   isActive?: boolean;
+  /** "Serial Killer Crime Scenes" or "3 people · 2 places connected" */
+  contextLine?: string | null;
 }) {
   const cat = story ? CATEGORIES[story.category] : undefined;
 
@@ -276,20 +279,27 @@ function NearYouCard({
             </p>
           )}
         </div>
-        <div className="flex items-center gap-2 mt-auto pt-1">
-          {location.year && (
-            <span className="text-[11px] font-mono text-[var(--text-muted)]">
-              {location.year}
-            </span>
+        <div className="mt-auto pt-1">
+          {contextLine && (
+            <p className="text-[10px] font-mono text-[var(--accent-red)] opacity-70 truncate mb-0.5">
+              {contextLine}
+            </p>
           )}
-          {location.year && distance > 0 && (
-            <span className="text-[var(--text-muted)]">&middot;</span>
-          )}
-          {distance > 0 && (
-            <span className="text-[11px] font-mono text-[var(--text-muted)]">
-              {formatDistance(distance)}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {location.year && (
+              <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                {location.year}
+              </span>
+            )}
+            {location.year && distance > 0 && (
+              <span className="text-[var(--text-muted)]">&middot;</span>
+            )}
+            {distance > 0 && (
+              <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                {formatDistance(distance)}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </button>
@@ -304,12 +314,14 @@ function NearYouCardVertical({
   distance,
   onClick,
   isActive,
+  contextLine,
 }: {
   location: Moment;
   story: Story | null;
   distance: number;
   onClick: () => void;
   isActive?: boolean;
+  contextLine?: string | null;
 }) {
   const cat = story ? CATEGORIES[story.category] : undefined;
 
@@ -337,6 +349,11 @@ function NearYouCardVertical({
           {(location.subtitle || location.address) && (
             <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1 italic">
               {location.subtitle || location.address}
+            </p>
+          )}
+          {contextLine && (
+            <p className="text-[10px] font-mono text-[var(--accent-red)] opacity-70 truncate mt-1">
+              {contextLine}
             </p>
           )}
         </div>
@@ -574,7 +591,7 @@ export function HomePage({
   });
 
   // Global data for counts + moment lookup
-  const { moments: allMoments, browseableStories: allStories, stories } = useAppData();
+  const { moments: allMoments, browseableStories: allStories, stories, entities } = useAppData();
 
   // Build moment-to-story lookup for collection highlighting
   const momentToStoryMap = useMemo(() => {
@@ -589,6 +606,41 @@ export function HomePage({
 
   // Build moment-by-id lookup
   const momentById = useMemo(() => new Map(allMoments.map((m) => [m.id, m])), [allMoments]);
+
+  // ── Context line for moment cards ──
+  // Priority: collection name pill > entity count ("3 people · 2 places")
+  const entityById = useMemo(() => new Map(entities.map((e) => [e.id, e])), [entities]);
+  const momentToCollectionName = useMemo(() => {
+    const m = new Map<string, string>();
+    collections.forEach((c) => {
+      c.momentIds.forEach((mid) => {
+        if (!m.has(mid)) m.set(mid, c.name);
+      });
+    });
+    return m;
+  }, [collections]);
+
+  const getMomentContextLine = useCallback((moment: Moment): string | null => {
+    // Priority 1: collection name
+    const collName = momentToCollectionName.get(moment.id);
+    if (collName) return collName;
+
+    // Priority 2: entity counts by type
+    if (!moment.entityIds?.length) return null;
+    let people = 0;
+    let places = 0;
+    for (const eid of moment.entityIds) {
+      const e = entityById.get(eid);
+      if (!e) continue;
+      if (e.type === 'person') people++;
+      else if (e.type === 'place' || e.type === 'organization') places++;
+    }
+    const parts: string[] = [];
+    if (people > 0) parts.push(`${people} ${people === 1 ? 'person' : 'people'}`);
+    if (places > 0) parts.push(`${places} ${places === 1 ? 'place' : 'places'}`);
+    if (parts.length === 0) return null;
+    return parts.join(' · ') + ' connected';
+  }, [entityById, momentToCollectionName]);
 
   // Collection hero images disabled — Wikipedia lead images were poor picks.
   // Re-enable when we have curated images per collection.
@@ -1019,6 +1071,7 @@ export function HomePage({
                     location={vl.location}
                     story={vl.story}
                     isActive={i === nearYouExpandedActiveIdx}
+                    contextLine={getMomentContextLine(vl.location)}
                     distance={
                       userLocation
                         ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
@@ -1039,6 +1092,7 @@ export function HomePage({
                     location={vl.location}
                     story={vl.story}
                     isActive={i === nearYouActiveIdx}
+                    contextLine={getMomentContextLine(vl.location)}
                     distance={
                       userLocation
                         ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
