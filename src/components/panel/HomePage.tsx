@@ -799,18 +799,20 @@ export function HomePage({
           </p>
         </div>
 
-        {/* ── Context Strip (V4) ── */}
-        <ContextStrip
-          moments={stripMoments}
-          contextLabel={stripLabel}
-          contextSublabel={stripSublabel}
-          showClear={stripContext.type !== 'nearby'}
-          onClear={handleStripClear}
-          onCardTap={handleStripCardTap}
-          onScrollHighlight={handleStripScrollHighlight}
-          userLocation={userLocation}
-          categoryForMoment={categoryForMoment}
-        />
+        {/* ── Context Strip (V4) — sticky so it stays visible while scrolling ── */}
+        <div className="sticky top-0 z-20 bg-[var(--bg-primary)]">
+          <ContextStrip
+            moments={stripMoments}
+            contextLabel={stripLabel}
+            contextSublabel={stripSublabel}
+            showClear={stripContext.type !== 'nearby'}
+            onClear={handleStripClear}
+            onCardTap={handleStripCardTap}
+            onScrollHighlight={handleStripScrollHighlight}
+            userLocation={userLocation}
+            categoryForMoment={categoryForMoment}
+          />
+        </div>
 
         {/* ── Category filter pills ── */}
         <div className="pb-5 pt-2">
