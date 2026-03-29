@@ -724,7 +724,7 @@ export function HomePage({
         {/* ── Tagline ── */}
         <div className="px-4 pt-6 pb-4">
           <h1 className="text-[22px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.01em]">
-            Dive into history <span className="text-[var(--accent-red)]">around you</span>
+            Discover what happened <span className="text-[#D4A853]">here</span>
           </h1>
           <p className="text-[13px] text-[var(--text-muted)] font-sans mt-2">
             Every place has a story
@@ -918,9 +918,9 @@ export function HomePage({
         <div className="px-4 pt-6 pb-8 flex justify-center">
           <button
             onClick={handleSurpriseMe}
-            className="w-[65%] rounded-xl border border-[var(--accent-red)] hover:bg-[var(--accent-red)]/10 transition-all duration-200 active:scale-[0.98] py-3 px-4 text-center group"
+            className="w-[65%] rounded-xl border border-[#D4A853] hover:bg-[#D4A853]/10 transition-all duration-200 active:scale-[0.98] py-3 px-4 text-center group"
           >
-            <div className="text-sm font-serif font-bold text-[var(--accent-red)]">
+            <div className="text-sm font-serif font-bold text-[#D4A853]">
               Surprise Me
             </div>
             <p className="text-[11px] text-[var(--text-muted)] font-sans mt-0.5">
