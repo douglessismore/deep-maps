@@ -635,10 +635,13 @@ export function HomePage({
   }, [onScrollPosition]);
 
   // ── Restore scroll position after back navigation ──
+  // Nudge 100px upward so the clicked card is comfortably in view, not at the bottom edge.
   useEffect(() => {
     if (restoreScrollTop == null || !homeScrollRef.current) return;
     requestAnimationFrame(() => {
-      if (homeScrollRef.current) homeScrollRef.current.scrollTop = restoreScrollTop;
+      if (homeScrollRef.current) {
+        homeScrollRef.current.scrollTop = Math.max(0, restoreScrollTop - 100);
+      }
       onScrollRestored?.();
     });
   }, [restoreScrollTop, onScrollRestored]);
