@@ -604,16 +604,15 @@ export function HomePage({
   }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
 
   // ── Initial highlight on mount ──
-  // Highlight the first Near You moment so pins are visible on page load.
-  // Without this, no scrollHighlight is set and the map only shows tiny cluster dots.
+  // Highlight ALL Near You moments so pins are prominently visible on page load.
+  // Without this, only tiny cluster dots appear.
   const initialHighlightDone = useRef(false);
   useEffect(() => {
     if (initialHighlightDone.current || !onScrollHighlightRef.current) return;
     if (nearYouMomentsRef.current.length === 0) return;
     initialHighlightDone.current = true;
-    // Highlight first moment — triggers the map to show an enlarged/pulsing pin
-    const first = nearYouMomentsRef.current[0];
-    onScrollHighlightRef.current([first.location], first.story?.id);
+    const allLocs = nearYouMomentsRef.current.map(vl => vl.location);
+    onScrollHighlightRef.current(allLocs);
   }, [nearYouMoments]);
 
   // ── Collection scroll → map highlight ──
@@ -695,8 +694,81 @@ export function HomePage({
     onSurpriseMe();
   }, [categoryFilter, allStories, onSurpriseMe]);
 
+  // ── Vertical scroll → section-aware map highlighting ──
+  // As user scrolls the home page vertically, highlight pins for whichever section is in view.
+  const homeScrollRef = useRef<HTMLDivElement>(null);
+  const nearYouSectionRef = useRef<HTMLDivElement>(null);
+  const collectionsSectionRef = useRef<HTMLDivElement>(null);
+  const peopleSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = homeScrollRef.current;
+    if (!container || !onScrollHighlightRef.current) return;
+
+    let rafId = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const containerRect = container.getBoundingClientRect();
+        const midY = containerRect.top + containerRect.height * 0.4;
+
+        // Check which section is at the midpoint
+        const sections = [
+          { ref: nearYouSectionRef, type: 'nearYou' as const },
+          { ref: collectionsSectionRef, type: 'collections' as const },
+          { ref: peopleSectionRef, type: 'people' as const },
+        ];
+
+        let activeSection: typeof sections[0] | null = null;
+        for (const section of sections) {
+          const el = section.ref.current;
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= midY && rect.bottom >= midY) {
+            activeSection = section;
+            break;
+          }
+        }
+
+        if (!activeSection) return;
+
+        // For Near You: highlight the first moment (horizontal scroll handles the rest)
+        if (activeSection.type === 'nearYou' && nearYouMomentsRef.current.length > 0) {
+          const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
+          const vl = nearYouMomentsRef.current[Math.max(0, idx)];
+          if (vl) onScrollHighlightRef.current!([vl.location], vl.story?.id);
+        }
+
+        // For Collections: highlight the active collection's moments
+        if (activeSection.type === 'collections' && filteredCollectionsRef.current.length > 0) {
+          const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
+          const collection = filteredCollectionsRef.current[Math.max(0, idx)];
+          if (collection) {
+            const collMoments: Moment[] = [];
+            for (const mid of collection.momentIds) {
+              const m = momentByIdRef.current.get(mid);
+              if (m) collMoments.push(m);
+            }
+            if (collMoments.length > 0) {
+              onScrollHighlightRef.current!(collMoments);
+            }
+          }
+        }
+
+        // For People: highlight is already handled by the peopleExpandedActiveIdx effect
+      });
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [expandedSection, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx]);
+
   return (
     <div
+      ref={homeScrollRef}
       className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pb-24 lg:pb-[40vh]"
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
@@ -718,7 +790,7 @@ export function HomePage({
         </div>
 
         {/* ── Section 1: Near You / In View ── */}
-        <div className="pb-4">
+        <div ref={nearYouSectionRef} className="pb-4">
           <SectionHeading
             title={nearYouTitle}
             expanded={expandedSection === 'nearYou'}
@@ -783,7 +855,7 @@ export function HomePage({
         </div>
 
         {/* ── Section 2: Collections ── */}
-        <div className="pt-4 pb-4">
+        <div ref={collectionsSectionRef} className="pt-4 pb-4">
           <SectionHeading
             title="Collections"
             expanded={expandedSection === 'collections'}
@@ -826,8 +898,8 @@ export function HomePage({
         {/* Divider */}
         <div className="mx-4 my-2 border-t border-[var(--border-subtle)]" />
 
-        {/* ── Section 3: Notable People (grid) ── */}
-        <div className="pt-4 pb-4">
+        {/* ── Section 3: Notable People ── */}
+        <div ref={peopleSectionRef} className="pt-4 pb-4">
           <SectionHeading
             title="Notable People"
             expanded={expandedSection === 'people'}
