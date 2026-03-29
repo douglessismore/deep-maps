@@ -897,7 +897,7 @@ export function HomePage({
 
         {/* ── Section 4: Browse the Encyclopedia ── */}
         <div className="pt-4 pb-4">
-          <SectionTitle title="The Full Encyclopedia" />
+          <SectionTitle title="The Encyclopedia of Everything That Ever Happened" />
           <div className="px-4">
             <div className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-4">
               <p className="text-[14px] text-[var(--text-secondary)] font-sans leading-relaxed">
