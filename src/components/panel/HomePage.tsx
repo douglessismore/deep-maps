@@ -74,26 +74,28 @@ function useScrollActiveIndex(
 
     let rafId = 0;
     const findCenter = () => {
-      const rect = container.getBoundingClientRect();
       const cards = container.children;
       let closestIdx = 0;
       let closestDist = Infinity;
 
-      for (let i = 0; i < cards.length; i++) {
-        const cardRect = cards[i].getBoundingClientRect();
-        let dist: number;
-        if (mode === 'horizontal') {
+      if (mode === 'horizontal') {
+        const rect = container.getBoundingClientRect();
+        const containerCenterX = rect.left + rect.width / 2;
+        for (let i = 0; i < cards.length; i++) {
+          const cardRect = cards[i].getBoundingClientRect();
           const cardCenterX = cardRect.left + cardRect.width / 2;
-          const containerCenterX = rect.left + rect.width / 2;
-          dist = Math.abs(cardCenterX - containerCenterX);
-        } else {
-          // Vertical: closest to the top of the visible area + small offset
-          const cardTop = cardRect.top - rect.top;
-          dist = Math.abs(cardTop - 40); // 40px offset from top
+          const dist = Math.abs(cardCenterX - containerCenterX);
+          if (dist < closestDist) { closestDist = dist; closestIdx = i; }
         }
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestIdx = i;
+      } else {
+        // Vertical: use the scroll parent's visible area as reference
+        const parentRect = scrollTarget.getBoundingClientRect();
+        const targetY = parentRect.top + parentRect.height * 0.35; // 35% from top of visible area
+        for (let i = 0; i < cards.length; i++) {
+          const cardRect = cards[i].getBoundingClientRect();
+          const cardCenterY = cardRect.top + cardRect.height / 2;
+          const dist = Math.abs(cardCenterY - targetY);
+          if (dist < closestDist) { closestDist = dist; closestIdx = i; }
         }
       }
       setActiveIndex(closestIdx);
