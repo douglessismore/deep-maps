@@ -6,6 +6,7 @@ import { CATEGORIES } from '../../lib/categories';
 import { distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { useAppData } from '../../lib/data/provider';
+import { useInViewAnimation } from '../../lib/useInViewAnimation';
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -220,13 +221,14 @@ function CategoryFilterPills({
 // ─── Highlight style helper ─────────────────────────────────────────
 // Returns inline style for a card based on whether it's the active (centered) one.
 
-function cardHighlightStyle(isActive: boolean): React.CSSProperties {
+function cardHighlightStyle(isActive: boolean, categoryColor?: string): React.CSSProperties {
   if (!isActive) return {};
+  const catGlow = categoryColor ? `0 -2px 16px ${categoryColor}26` : ''; // 26 = ~15% alpha
   return {
-    transform: 'scale(1.02)',
-    borderColor: 'rgba(255,255,255,0.25)',
+    transform: 'scale(1.04)',
+    borderColor: 'rgba(255,255,255,0.35)',
     backgroundColor: 'var(--bg-card-hover)',
-    boxShadow: '0 0 12px rgba(255,255,255,0.06)',
+    boxShadow: `0 0 24px rgba(255,255,255,0.12)${catGlow ? `, ${catGlow}` : ''}`,
   };
 }
 
@@ -250,8 +252,8 @@ function NearYouCard({
   return (
     <button
       onClick={onClick}
-      className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
-      style={cardHighlightStyle(!!isActive)}
+      className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
+      style={cardHighlightStyle(!!isActive, cat?.color)}
     >
       {/* Category accent bar */}
       <div
@@ -314,8 +316,8 @@ function NearYouCardVertical({
   return (
     <button
       onClick={onClick}
-      className="w-full rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden"
-      style={cardHighlightStyle(!!isActive)}
+      className="w-full rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden card-animate-in"
+      style={cardHighlightStyle(!!isActive, cat?.color)}
     >
       <div className="flex items-start gap-3 p-3.5">
         {/* Category accent dot */}
@@ -371,7 +373,7 @@ function HomeCollectionCard({
   return (
     <button
       onClick={onClick}
-      className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
+      className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
       style={cardHighlightStyle(!!isActive)}
     >
       {imageUrl && (
@@ -462,10 +464,10 @@ function PersonRow({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.99] text-left"
+      className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.99] text-left card-animate-in"
       style={isActive ? {
-        backgroundColor: 'var(--bg-card-hover)',
-        boxShadow: '0 0 12px rgba(139,92,246,0.08)',
+        backgroundColor: 'rgba(139,92,246,0.06)',
+        boxShadow: '0 0 20px rgba(139,92,246,0.15), inset 2px 0 0 rgba(139,92,246,0.6)',
       } : undefined}
     >
       {entity.imageUrl ? (
@@ -641,6 +643,9 @@ export function HomePage({
 
   // ── Scroll refs for each section ──
   const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
+
+  // Card entry animations — fade + slide up on first appearance
+  useInViewAnimation(homeScrollRef);
   const nearYouScrollRef = useRef<HTMLDivElement | null>(null);
   const nearYouExpandedRef = useRef<HTMLDivElement | null>(null);
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
