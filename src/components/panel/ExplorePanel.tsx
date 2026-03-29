@@ -197,6 +197,7 @@ export function ExplorePanel({
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
+  const homePanTimeout = useRef(0);
   const highlightDebounce = useRef(0);
 
   // Auto-sort by Nearest when GPS is first acquired (unless user manually chose a sort)
@@ -823,6 +824,15 @@ export function ExplorePanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLocation, mapInstance, viewportLocations]);
 
+  // Scroll-driven pan for V2 home page — debounced like V1's panTimeout pattern
+  const handleHomeScrollPan = useCallback((lat: number, lng: number) => {
+    if (!mapInstance) return;
+    clearTimeout(homePanTimeout.current);
+    homePanTimeout.current = window.setTimeout(() => {
+      panToAboveSheet(mapInstance, [lat, lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+    }, 80);
+  }, [mapInstance, sheetSnap, isSheetMobile]);
+
   if (panelView === 'home') {
     return (
       <div className="flex flex-col h-full min-h-0 relative">
@@ -852,6 +862,7 @@ export function ExplorePanel({
             onPanelViewChange?.('explorer');
           }}
           onScrollHighlight={onScrollHighlight}
+          onScrollPan={handleHomeScrollPan}
           categoryFilter={categoryFilter}
           onCategoryFilter={onCategoryFilter}
         />

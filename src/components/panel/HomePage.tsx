@@ -31,6 +31,8 @@ interface HomePageProps {
   onBrowseAll: () => void;
   /** Scroll highlight — called when a card scrolls into view in the horizontal row */
   onScrollHighlight?: (locations: Moment[], storyId?: string) => void;
+  /** Scroll-driven map pan — called with lat/lng to gently follow the highlighted card */
+  onScrollPan?: (lat: number, lng: number) => void;
   /** Category filter — synced with App.tsx to also filter map markers */
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
@@ -513,6 +515,7 @@ export function HomePage({
   onSurpriseMe,
   onBrowseAll,
   onScrollHighlight,
+  onScrollPan,
   categoryFilter,
   onCategoryFilter,
 }: HomePageProps) {
@@ -652,6 +655,8 @@ export function HomePage({
   // Stable ref pattern for callbacks
   const onScrollHighlightRef = useRef(onScrollHighlight);
   onScrollHighlightRef.current = onScrollHighlight;
+  const onScrollPanRef = useRef(onScrollPan);
+  onScrollPanRef.current = onScrollPan;
   const nearYouMomentsRef = useRef(nearYouMoments);
   nearYouMomentsRef.current = nearYouMoments;
 
@@ -667,6 +672,7 @@ export function HomePage({
     if (idx >= 0 && idx < nearYouMomentsRef.current.length) {
       const vl = nearYouMomentsRef.current[idx];
       onScrollHighlightRef.current([vl.location], vl.story?.id);
+      onScrollPanRef.current?.(vl.location.lat, vl.location.lng);
     }
   }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
 
@@ -706,6 +712,7 @@ export function HomePage({
     }
     if (collMoments.length > 0) {
       onScrollHighlightRef.current(collMoments);
+      onScrollPanRef.current?.(collMoments[0].lat, collMoments[0].lng);
     }
   }, [collectionsActiveIdx, expandedSection]);
 
@@ -729,6 +736,7 @@ export function HomePage({
     const entityMoments = getMomentsForEntity(personData.entity.id);
     if (entityMoments.length > 0) {
       onScrollHighlightRef.current(entityMoments);
+      onScrollPanRef.current?.(entityMoments[0].lat, entityMoments[0].lng);
     }
   }, [peopleExpandedActiveIdx, expandedSection]);
 
