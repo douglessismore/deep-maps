@@ -63,6 +63,7 @@ function App() {
   const [geoLoading, setGeoLoading] = useState(false);
   const [nearMeZoomKey, setNearMeZoomKey] = useState(0);
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(4); // Track map zoom for zoom-mode UI
   const exploreScrollTop = useRef(0);
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
@@ -472,6 +473,10 @@ function App() {
     );
   }, [userLocation]);
 
+  const handleZoomChange = useCallback((zoom: number) => {
+    setZoomLevel(zoom);
+  }, []);
+
   const handleNearMe = useCallback(() => {
     if (!navigator.geolocation) {
       setGeoError('Geolocation is not supported by your browser');
@@ -745,6 +750,12 @@ function App() {
             onBack={handleBack}
             onHome={handleBackToExplore}
             hasNavHistory={navHistory.length > 0}
+            zoomLevel={zoomLevel}
+            onZoomToLocation={(lat, lng) => {
+              if (mapInstance) {
+                mapInstance.flyTo([lat, lng], 14, { duration: 2.0 });
+              }
+            }}
           />
           </FadeIn>
         )}
@@ -781,7 +792,7 @@ function App() {
         activeCollection={activeCollection}
         onClearCollection={() => setActiveCollection(null)}
       />
-      {mode !== 'story' && mode !== 'entity' && (
+      {mode !== 'story' && mode !== 'entity' && zoomLevel >= 10 && (
         <TimelineBar
           stories={stories}
           categoryFilter={categoryFilter}
@@ -816,6 +827,7 @@ function App() {
               entityLocations={entityLocations}
               sheetSnap="full"
               zoomToActiveLocation={zoomToActiveLocation}
+              onZoomChange={handleZoomChange}
             />
           </div>
           {/* Panel — bottom 55%, normal scroll */}
@@ -847,6 +859,7 @@ function App() {
               entityLocations={entityLocations}
               sheetSnap={sheetSnap}
               zoomToActiveLocation={zoomToActiveLocation}
+              onZoomChange={handleZoomChange}
             />
           </div>
 

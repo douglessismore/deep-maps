@@ -13,6 +13,7 @@ import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
+import { EditorialPanel } from './EditorialPanel';
 import { isV2 } from '../../lib/theme';
 
 type MixedListItem =
@@ -58,6 +59,10 @@ interface ExplorePanelProps {
   onBack?: () => void;
   onHome?: () => void;
   hasNavHistory?: boolean;
+  /** Current map zoom level — drives editorial vs card feed */
+  zoomLevel?: number;
+  /** Zoom the map to a specific lat/lng */
+  onZoomToLocation?: (lat: number, lng: number) => void;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -117,6 +122,7 @@ export function ExplorePanel({
   onModeChange,
   searchQuery,
   categoryFilter,
+  onCategoryFilter,
   onSurpriseMe,
   userLocation,
   onRequestGeo,
@@ -134,6 +140,8 @@ export function ExplorePanel({
   onBack,
   onHome,
   hasNavHistory,
+  zoomLevel: zoomLevelProp,
+  onZoomToLocation,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -141,7 +149,8 @@ export function ExplorePanel({
   const isSheetMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const sheetSnap: SheetSnap = sheetSnapProp ?? 'half';
   const [internalTab, setInternalTab] = useState<PanelTab>('stories');
-  const activeTab = controlledTab ?? internalTab;
+  // When zoom-mode is active and zoomed in, force moments tab (tabs are hidden)
+  const activeTab = zoomLevelProp != null && !activeCollection ? 'moments' : (controlledTab ?? internalTab);
   const setActiveTab = useCallback((tab: PanelTab) => {
     if (onTabChange) onTabChange(tab);
     else setInternalTab(tab);
@@ -801,6 +810,35 @@ export function ExplorePanel({
     </button>
   );
 
+  // Zoom-mode: show editorial panel when zoomed out (zoom < 10) and not in a collection
+  const isZoomedOut = (zoomLevelProp ?? 10) < 10 && !activeCollection;
+
+  // Editorial panel (zoomed-out mode)
+  if (isZoomedOut && onZoomToLocation) {
+    return (
+      <div className="flex flex-col h-full relative">
+        <div
+          className="flex-1 overflow-hidden transition-opacity duration-300"
+          style={{ opacity: 1 }}
+        >
+          <EditorialPanel
+            stories={stories}
+            collections={collections}
+            mapInstance={mapInstance}
+            categoryFilter={categoryFilter}
+            onStorySelect={onStorySelect}
+            onLocationSelect={onLocationSelect}
+            onCollectionSelect={onCollectionSelect}
+            onEntityClick={onEntityClick ?? (() => {})}
+            onSurpriseMe={onSurpriseMe}
+            onCategoryFilter={onCategoryFilter}
+            onZoomToLocation={onZoomToLocation}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-full relative">
       {/* Back bar — shown when there's nav history or inside a collection */}
@@ -828,8 +866,8 @@ export function ExplorePanel({
           )}
         </div>
       )}
-      {/* Tabs — hidden when inside a collection (collection is a full destination) */}
-      {!activeCollection && <div className={isV2()
+      {/* Tabs — hidden when inside a collection or when zoom-mode is active (zoom replaces tabs) */}
+      {!activeCollection && zoomLevelProp == null && <div className={isV2()
         ? 'flex shrink-0 relative'
         : 'flex border-b border-[var(--border-subtle)] shrink-0 relative'
       }>
@@ -910,6 +948,17 @@ export function ExplorePanel({
             />
           ) : (
             <>
+              {/* Zoom-mode header: show mode label + count when tabs are hidden */}
+              {zoomLevelProp != null && (
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)]">
+                    Explorer
+                  </span>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                    · {sortedMoments.length} moments in view
+                  </span>
+                </div>
+              )}
               {/* Sort toggle */}
               <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
                 {(['notable', 'nearest', 'oldest'] as const).map((mode, i) => (

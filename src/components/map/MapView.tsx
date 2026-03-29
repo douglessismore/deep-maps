@@ -106,6 +106,8 @@ interface MapViewProps {
   sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
   /** When true, zoom in to activeLocation (user clicked a moment card) */
   zoomToActiveLocation?: boolean;
+  /** Called when the map zoom level changes */
+  onZoomChange?: (zoom: number) => void;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -224,6 +226,7 @@ function MapController({
   entityLocations,
   sheetSnap: sheetSnapProp,
   zoomToActiveLocation,
+  onZoomChange,
   constellationVariant,
 }: MapViewProps & { constellationVariant: ConstellationVariant }) {
   const { moments: allMoments, stories: allStories } = useAppData();
@@ -272,7 +275,9 @@ function MapController({
       }
     },
     zoomend: () => {
-      setCurrentZoom(map.getZoom());
+      const z = map.getZoom();
+      setCurrentZoom(z);
+      onZoomChange?.(z);
       if (!isUserDragging.current && !isProgrammaticMove.current) {
         userInteractUntil.current = Date.now() + 4000; // Block flyTo for 4s after user zoom
       }
