@@ -19,6 +19,7 @@ import { TimelineBar } from './components/ui/TimelineBar';
 import { parseYears } from './lib/timeline';
 import { buildMomentMap, resolveLocationsFromMap } from './lib/storyHelpers';
 import { getEntityLocations } from './lib/entityHelpers';
+import { distanceMiles } from './lib/geo';
 import { useAppData } from './lib/data/provider';
 import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
@@ -248,8 +249,18 @@ function App() {
   const displayMoments = useMemo(() => {
     if (!activeCollection) return [];
     const idSet = new Set(activeCollection.momentIds);
-    return moments.filter(m => idSet.has(m.id));
-  }, [activeCollection, moments]);
+    const collMoments = moments.filter(m => idSet.has(m.id));
+    // Sort by distance from current map center (closest first)
+    if (mapInstance) {
+      const center = mapInstance.getCenter();
+      const cLat = center.lat;
+      const cLng = center.lng;
+      collMoments.sort((a, b) =>
+        distanceMiles(a.lat, a.lng, cLat, cLng) - distanceMiles(b.lat, b.lng, cLat, cLng)
+      );
+    }
+    return collMoments;
+  }, [activeCollection, moments, mapInstance]);
 
   // When a collection is active, filter stories to those that have moments in the collection.
   // Uses browseableStories (incident-only whitelist) so biography/place/era stories never
