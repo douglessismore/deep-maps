@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
-import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
+import { getLocationsInBounds, getStoriesInBounds, getExpandedBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
@@ -174,6 +174,7 @@ export function ExplorePanel({
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [homeViewportStories, setHomeViewportStories] = useState<Story[]>([]);
+  const [backfillStories, setBackfillStories] = useState<Story[]>([]);
   // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
@@ -293,7 +294,17 @@ export function ExplorePanel({
     const browseSrc = categoryFilter
       ? browseableStories.filter((s) => s.category === categoryFilter)
       : browseableStories;
-    setHomeViewportStories(getStoriesInBounds(browseSrc, bounds, momentMap));
+    const homeStories = getStoriesInBounds(browseSrc, bounds, momentMap);
+    setHomeViewportStories(homeStories);
+    // Backfill stories from expanded bounds when viewport has few
+    if (homeStories.length < 5) {
+      const expanded = getExpandedBounds(bounds, 3);
+      const nearbyStories = getStoriesInBounds(browseSrc, expanded, momentMap);
+      const inViewIds = new Set(homeStories.map(s => s.id));
+      setBackfillStories(nearbyStories.filter(s => !inViewIds.has(s.id)).slice(0, 10 - homeStories.length));
+    } else {
+      setBackfillStories([]);
+    }
     setMapZoom(mapInstance.getZoom());
   }, [mapInstance, stories, browseableStories, categoryFilter, momentMap, moments]);
 
@@ -620,6 +631,19 @@ export function ExplorePanel({
     [viewportEntities]
   );
 
+  // Backfill people from expanded bounds when viewport has few people
+  const backfillPeople = useMemo(() => {
+    if (personEntities.length >= 5 || !mapInstance) return [];
+    const bounds = mapInstance.getBounds();
+    const expanded = getExpandedBounds(bounds, 3); // 3x viewport diagonal
+    const expandedLocs = getLocationsInBounds(stories, expanded, momentMap, moments);
+    const expandedIds = new Set(expandedLocs.map((vl) => vl.location.id));
+    const inViewIds = new Set(personEntities.map((p) => p.entity.id));
+    return getViewportEntities(expandedIds)
+      .filter((e) => e.entity.type === 'person' && !inViewIds.has(e.entity.id))
+      .slice(0, 10 - personEntities.length); // fill up to 10 total
+  }, [personEntities, mapInstance, stories, momentMap, moments]);
+
   // Alphabetical grouping of people for A-Z mode in Stories tab
   const personAlphabeticalGroups = useMemo(
     () => groupAlphabetically(personEntities),
@@ -875,6 +899,7 @@ export function ExplorePanel({
           viewportLocations={viewportLocations}
           collections={viewportCollections}
           personEntities={personEntities}
+          backfillPeople={backfillPeople}
           userLocation={userLocation ?? null}
           isNearUser={isNearUser}
           onMomentClick={(moment, story) => {
@@ -915,6 +940,7 @@ export function ExplorePanel({
           onScrollRestored={onScrollRestored}
           onCategoryFilter={onCategoryFilter}
           viewportStories={homeViewportStories}
+          backfillStories={backfillStories}
           onStorySelect={(story) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
             onPreserveViewport?.();

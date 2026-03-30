@@ -19,6 +19,8 @@ interface HomePageProps {
   collections: StoryCollection[];
   /** Person entities sorted by maxNotability */
   personEntities: EntityWithCounts[];
+  /** Backfill people from expanded bounds when viewport has few people */
+  backfillPeople?: EntityWithCounts[];
   /** User GPS location (null if unavailable) */
   userLocation: { lat: number; lng: number } | null;
   /** Whether the user's GPS location is within the current map viewport */
@@ -41,6 +43,8 @@ interface HomePageProps {
   allCategoriesInView?: Set<StoryCategory>;
   /** Browseable stories with at least one moment in viewport */
   viewportStories?: Story[];
+  /** Backfill stories from expanded bounds */
+  backfillStories?: Story[];
   /** Story click handler */
   onStorySelect?: (story: Story) => void;
   /** Ref callback for the home scroll container (used by parent to snapshot scroll on nav) */
@@ -583,11 +587,13 @@ function PersonRow({
   momentCount,
   onClick,
   isActive,
+  isBackfill,
 }: {
   entity: Entity;
   momentCount: number;
   onClick: () => void;
   isActive?: boolean;
+  isBackfill?: boolean;
 }) {
   return (
     <button
@@ -620,9 +626,14 @@ function PersonRow({
           </span>
         )}
       </div>
-      <span className="text-[11px] font-mono text-[var(--text-muted)] shrink-0">
-        {momentCount} events
-      </span>
+      <div className="shrink-0 text-right">
+        <span className="text-[11px] font-mono text-[var(--text-muted)]">
+          {momentCount} events
+        </span>
+        {isBackfill && (
+          <span className="text-[9px] font-mono text-[var(--text-muted)] block opacity-60">nearby</span>
+        )}
+      </div>
     </button>
   );
 }
@@ -658,6 +669,7 @@ export function HomePage({
   viewportLocations,
   collections,
   personEntities,
+  backfillPeople,
   userLocation,
   isNearUser,
   onMomentClick,
@@ -671,6 +683,7 @@ export function HomePage({
   onCategoryFilter,
   allCategoriesInView,
   viewportStories,
+  backfillStories,
   onStorySelect,
   scrollRef,
   onScrollPosition,
@@ -813,15 +826,25 @@ export function HomePage({
     });
   }, [collections, categoryFilter, momentToStoryMap, viewportMomentIds]);
 
+  // Combined stories: viewport + backfill (for Stories Near You section)
+  const allHomeStories = useMemo(() => {
+    const inView = viewportStories ?? [];
+    const fill = (backfillStories ?? []).filter(s => !inView.some(vs => vs.id === s.id));
+    return [...inView, ...fill];
+  }, [viewportStories, backfillStories]);
+
+  const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
+  const storiesSectionTitle = (viewportStories ?? []).length > 0 ? 'Stories Near You' : 'Stories Nearby';
+
   // Story in-view counts — how many of each story's moments are visible on the map
   const storyInViewCounts = useMemo(() => {
     const counts = new Map<string, number>();
-    for (const s of (viewportStories ?? [])) {
+    for (const s of allHomeStories) {
       const inView = s.moments.filter((sm) => viewportMomentIds.has(sm.momentId)).length;
       counts.set(s.id, inView);
     }
     return counts;
-  }, [viewportStories, viewportMomentIds]);
+  }, [allHomeStories, viewportMomentIds]);
 
   // Filtered people — when a category filter is active, only show
   // people who have moments in stories matching that category.
@@ -837,17 +860,28 @@ export function HomePage({
   }, [personEntities, categoryFilter, momentToStoryMap]);
 
   // Section 3: Notable People — sorted by maxNotability, grid of 10
+  // Merge in backfill people (off-screen but nearby) when viewport has few
+  const backfillIds = useMemo(() => new Set((backfillPeople ?? []).map(p => p.entity.id)), [backfillPeople]);
+
   const gridPeople = useMemo(() => {
-    return [...filteredPersonEntities]
-      .sort((a, b) => b.maxNotability - a.maxNotability)
-      .slice(0, 10);
-  }, [filteredPersonEntities]);
+    const inView = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
+    const fill = (backfillPeople ?? [])
+      .filter(p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id))
+      .sort((a, b) => b.maxNotability - a.maxNotability);
+    return [...inView, ...fill].slice(0, 10);
+  }, [filteredPersonEntities, backfillPeople]);
 
   // All people for expanded view
   const allPeople = useMemo(() => {
-    return [...filteredPersonEntities]
+    const inView = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
+    const fill = (backfillPeople ?? [])
+      .filter(p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id))
       .sort((a, b) => b.maxNotability - a.maxNotability);
-  }, [filteredPersonEntities]);
+    return [...inView, ...fill];
+  }, [filteredPersonEntities, backfillPeople]);
+
+  // Title adapts based on whether we're showing backfill people
+  const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Notable People' : 'Notable People Nearby';
 
   // ── Scroll refs for each section ──
   const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
@@ -1155,7 +1189,7 @@ export function HomePage({
         {/* ── Section 1: Notable People (always first — highest signal) ── */}
         <div ref={peopleSectionRef} className="pt-4 pb-4">
           <SectionHeading
-            title="Notable People"
+            title={peopleSectionTitle}
             expanded={expandedSection === 'people'}
             onToggle={() => toggleSection('people')}
           />
@@ -1167,6 +1201,7 @@ export function HomePage({
                   entity={entity}
                   momentCount={momentCount}
                   isActive={i === peopleExpandedActiveIdx}
+                  isBackfill={backfillIds.has(entity.id)}
                   onClick={() => onEntityClick(entity)}
                 />
               ))}
@@ -1194,17 +1229,17 @@ export function HomePage({
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
         {/* ── Stories Near You ── */}
-        {(viewportStories ?? []).length > 0 && (
+        {allHomeStories.length > 0 && (
           <>
             <div className="pb-4">
               <SectionHeading
-                title="Stories Near You"
+                title={storiesSectionTitle}
                 expanded={expandedSection === 'stories'}
                 onToggle={() => toggleSection('stories')}
               />
               {expandedSection === 'stories' ? (
                 <div className="flex flex-col gap-2 px-4">
-                  {(viewportStories ?? []).map((story) => (
+                  {allHomeStories.map((story) => (
                     <button
                       key={story.id}
                       onClick={() => onStorySelect?.(story)}
@@ -1217,7 +1252,9 @@ export function HomePage({
                             {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
                           </h4>
                           <p className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
-                            {story.years} · {storyInViewCounts.get(story.id) ?? 0} of {story.moments.length} moments in view
+                            {story.years} · {backfillStoryIds.has(story.id)
+                              ? `${story.moments.length} moments · nearby`
+                              : `${storyInViewCounts.get(story.id) ?? 0} of ${story.moments.length} moments in view`}
                           </p>
                         </div>
                       </div>
@@ -1226,7 +1263,7 @@ export function HomePage({
                 </div>
               ) : (
                 <HScrollRow>
-                  {(viewportStories ?? []).map((story) => (
+                  {allHomeStories.map((story) => (
                     <HomeStoryCard
                       key={story.id}
                       story={story}

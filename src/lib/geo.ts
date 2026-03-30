@@ -91,6 +91,20 @@ export function getLocationsInBounds(
   return results.sort((a, b) => a.distance - b.distance);
 }
 
+/** Expand bounds by a multiplier (e.g., 2 = 2x viewport diagonal for backfill) */
+export function getExpandedBounds(bounds: LatLngBounds, multiplier: number): LatLngBounds {
+  const ne = bounds.getNorthEast();
+  const sw = bounds.getSouthWest();
+  const latSpan = ne.lat - sw.lat;
+  const lngSpan = ne.lng - sw.lng;
+  const latExpand = latSpan * (multiplier - 1) / 2;
+  const lngExpand = lngSpan * (multiplier - 1) / 2;
+  return L.latLngBounds(
+    [sw.lat - latExpand, sw.lng - lngExpand],
+    [ne.lat + latExpand, ne.lng + lngExpand],
+  );
+}
+
 export function getStoriesInBounds(
   stories: Story[],
   bounds: LatLngBounds,
