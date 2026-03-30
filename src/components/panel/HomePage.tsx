@@ -12,6 +12,10 @@ import { useInViewAnimation } from '../../lib/useInViewAnimation';
 
 type ExpandedSection = 'nearYou' | 'stories' | 'collections' | 'people' | null;
 
+// Module-level: persists across HomePage unmount/remount so horizontal scroll
+// positions survive back navigation (component unmounts when viewing entity/story).
+let savedPeopleScrollLeft = 0;
+
 interface HomePageProps {
   /** Viewport-filtered moments sorted by hybridNearestScore */
   viewportLocations: ViewportLocation[];
@@ -976,6 +980,18 @@ export function HomePage({
   const peopleExpandedRef = useRef<HTMLDivElement | null>(null);
   const peopleScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed people
   const storiesScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed stories
+
+  // Save people horizontal scroll on unmount, restore on mount
+  useEffect(() => {
+    if (peopleScrollRef.current && savedPeopleScrollLeft > 0) {
+      peopleScrollRef.current.scrollLeft = savedPeopleScrollLeft;
+    }
+    return () => {
+      if (peopleScrollRef.current) {
+        savedPeopleScrollLeft = peopleScrollRef.current.scrollLeft;
+      }
+    };
+  }, []);
 
   // ── Scroll position tracking for back navigation ──
   useEffect(() => {

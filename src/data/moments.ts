@@ -1,9 +1,12 @@
 // SEED DATA ONLY — Do not edit directly. Use Supabase as source of truth. Run scripts/dump-from-supabase.ts to update.
 import type { Moment } from '../types';
+import { delValleMoments } from './del-valle-content';
+import { mesaPhoenixMoments } from './mesa-phoenix-content';
+import { seattleMoments } from './seattle-portorchard-content';
 
 // Array too large for TS literal inference at 1500+ items — must pre-declare type
 // @ts-expect-error TS2590: union type too complex for inline array literal
-export const moments: Moment[] = [
+const _baseMoments: Moment[] = [
   {
     id: 'jfk-texas-theatre',
     name: 'Oswald Is Arrested in a Darkened Movie Theatre',
@@ -40838,4 +40841,11 @@ export const moments: Moment[] = [
     entityIds: [],
     verificationLevel: 'verified',
   },
+];
+
+export const moments: Moment[] = [
+  ..._baseMoments,
+  ...delValleMoments,
+  ...mesaPhoenixMoments,
+  ...seattleMoments,
 ];
