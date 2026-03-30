@@ -567,7 +567,7 @@ function HomeStoryCard({
       <div className="p-3 flex flex-col justify-between h-[110px]">
         <div className="min-w-0">
           <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
-            {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+            {story.name}
           </h4>
           <p className="text-[11px] text-[var(--text-muted)] font-mono mt-1">{story.years}</p>
         </div>
@@ -1228,12 +1228,10 @@ export function HomePage({
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
-    // Run once on mount to detect initial section
-    const initTimer = setTimeout(onScroll, 100);
+    // Don't run on mount — no section should highlight until the user scrolls
     return () => {
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafId);
-      clearTimeout(initTimer);
     };
   }, [expandedSection]);
 
