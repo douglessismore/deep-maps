@@ -1,7 +1,7 @@
 import type { Entity, Moment, Story } from '../../types';
 import type L from 'leaflet';
 import { CATEGORIES } from '../../lib/categories';
-import { getExpandedBounds } from '../../lib/geo';
+import { getExpandedBounds, distanceMiles } from '../../lib/geo';
 import {
   getEntityMomentStories,
   getEntityStories,
@@ -58,22 +58,29 @@ export function EntityPanel({
     [entity.id]
   );
 
-  // When navigating from homepage, split moments into "nearby" (in/near viewport) and "full story"
-  const { nearbyEntries, fullStoryEntries, hasNearbySection } = useMemo(() => {
-    if (!mapInstance) return { nearbyEntries: allMomentEntries, fullStoryEntries: [], hasNearbySection: false };
+  // Sort modes: "nearest" (by distance from map center) or "timeline" (chronological)
+  const hasDistantMoments = useMemo(() => {
+    if (!mapInstance) return false;
     const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 2); // 2x viewport for "nearby"
+    const expanded = getExpandedBounds(bounds, 2);
     const nearby = allMomentEntries.filter(e => expanded.contains([e.moment.lat, e.moment.lng]));
-    const far = allMomentEntries.filter(e => !expanded.contains([e.moment.lat, e.moment.lng]));
-    // Only split if there are both nearby and far moments
-    if (nearby.length > 0 && far.length > 0) {
-      return { nearbyEntries: nearby, fullStoryEntries: allMomentEntries, hasNearbySection: true };
-    }
-    return { nearbyEntries: allMomentEntries, fullStoryEntries: [], hasNearbySection: false };
+    return nearby.length > 0 && nearby.length < allMomentEntries.length;
   }, [allMomentEntries, mapInstance]);
 
-  // Use nearby entries as the primary display when navigating from homepage
-  const momentEntries = nearbyEntries;
+  const [entitySort, setEntitySort] = useState<'nearest' | 'timeline'>(
+    // Default to nearest when there are distant moments (likely came from homepage)
+    hasDistantMoments ? 'nearest' : 'timeline'
+  );
+
+  const momentEntries = useMemo(() => {
+    if (entitySort === 'timeline' || !mapInstance) return allMomentEntries;
+    const center = mapInstance.getCenter();
+    return [...allMomentEntries].sort((a, b) => {
+      const distA = distanceMiles(center.lat, center.lng, a.moment.lat, a.moment.lng);
+      const distB = distanceMiles(center.lat, center.lng, b.moment.lat, b.moment.lng);
+      return distA - distB;
+    });
+  }, [allMomentEntries, entitySort, mapInstance]);
 
   // Connections: place → Notable Figures (people), person → Key Locations (places)
   const connections = useMemo(
@@ -536,6 +543,32 @@ export function EntityPanel({
           </div>
         )}
 
+        {/* Sort toggle for moments — nearest vs timeline */}
+        {activeTab === 'moments' && hasDistantMoments && (
+          <div className="px-4 pt-2 pb-1 flex items-center gap-2">
+            <button
+              onClick={() => setEntitySort('nearest')}
+              className={`px-2.5 py-1 text-[11px] font-mono rounded-full transition-colors ${
+                entitySort === 'nearest'
+                  ? 'bg-white/10 text-[var(--text-primary)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              }`}
+            >
+              Nearest
+            </button>
+            <button
+              onClick={() => setEntitySort('timeline')}
+              className={`px-2.5 py-1 text-[11px] font-mono rounded-full transition-colors ${
+                entitySort === 'timeline'
+                  ? 'bg-white/10 text-[var(--text-primary)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+              }`}
+            >
+              Timeline
+            </button>
+          </div>
+        )}
+
         {/* Tab content */}
         {activeTab === 'wiki' && hasWiki ? (
           <EntityWikiPanel entity={entity} />
@@ -603,45 +636,7 @@ export function EntityPanel({
                 });
               })()}
 
-              {/* Full chronological story — shown when nearby moments are a subset */}
-              {hasNearbySection && fullStoryEntries.length > 0 && (
-                <>
-                  <div className="mx-4 my-6 flex items-center gap-3">
-                    <div className="flex-1 border-t border-[var(--border-subtle)]" />
-                    <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider whitespace-nowrap">
-                      Full Timeline · {fullStoryEntries.length} moments
-                    </span>
-                    <div className="flex-1 border-t border-[var(--border-subtle)]" />
-                  </div>
-                  {fullStoryEntries.map(({ moment, stories: parentStories }) => {
-                    const primaryStory = parentStories[0];
-                    // Use prefixed key so full timeline refs don't overwrite nearby refs
-                    const fullKey = `full-${moment.id}`;
-                    return (
-                      <LocationCard
-                        key={fullKey}
-                        ref={(el) => {
-                          if (el) {
-                            momentRefs.current.set(fullKey, el);
-                            el.dataset.momentId = moment.id;
-                          }
-                        }}
-                        location={moment}
-                        story={primaryStory}
-                        isActive={scrollActiveId === moment.id}
-                        isExpanded={expandedLocationKey === moment.id}
-                        compact={useCompactCards}
-                        skipCanonicalFilter
-                        parentStories={parentStories}
-                        excludeEntityIds={[entity.id]}
-                        onClick={() => handleMomentClick(moment, parentStories)}
-                        onStoryClick={(story) => onStoryClick(story, moment)}
-                        onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
-                      />
-                    );
-                  })}
-                </>
-              )}
+              {/* Full timeline section removed — replaced by Nearest/Timeline toggle */}
             </div>
           )}
           {/* Bottom padding so last card can scroll fully into view */}
