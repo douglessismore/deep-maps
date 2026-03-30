@@ -281,9 +281,12 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       const hasLabel = scrollHighlightLabel && isMulti;
 
       if (hasLabel) {
-        // Multi-moment: show parent name at the center of the cluster
-        const lats = scrollHighlight.map(m => m.lat);
-        const lngs = scrollHighlight.map(m => m.lng);
+        // Multi-moment: show parent name at the center of VISIBLE markers in viewport
+        const bounds = map.getBounds();
+        const visibleMoments = scrollHighlight.filter(m => bounds.contains([m.lat, m.lng]));
+        const labelMoments = visibleMoments.length > 0 ? visibleMoments : scrollHighlight;
+        const lats = labelMoments.map(m => m.lat);
+        const lngs = labelMoments.map(m => m.lng);
         const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
         const centerLng = (Math.min(...lngs) + Math.max(...lngs)) / 2;
         const icon = L.divIcon({ className: '', html: '', iconSize: [0, 0] });
