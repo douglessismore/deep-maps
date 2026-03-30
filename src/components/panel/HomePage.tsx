@@ -1011,6 +1011,8 @@ export function HomePage({
     const timer = setTimeout(() => {
       if (homeScrollRef.current) {
         homeScrollRef.current.scrollTop = Math.max(0, restoreScrollTop - 100);
+        // Dispatch scroll event so the section observer detects the restored position
+        homeScrollRef.current.dispatchEvent(new Event('scroll'));
       }
       onScrollRestored?.();
     }, 50);
@@ -1142,7 +1144,41 @@ export function HomePage({
     }
   }, [activeHomeSection, computeHighlight, highlightDataKey]);
 
-  // Initial highlight handled by unified system (activeHomeSection defaults to 'people')
+  // Horizontal scroll within a section should activate that section even if
+  // the user hasn't scrolled vertically yet. Track the initial index to avoid
+  // triggering on mount (which would highlight LBJ before user interacts).
+  const prevPeopleIdx = useRef(peopleActiveIdx);
+  const prevStoriesIdx = useRef(storiesActiveIdx);
+  const prevCollectionsIdx = useRef(collectionsActiveIdx);
+  const prevNearYouIdx = useRef(nearYouActiveIdx);
+
+  useEffect(() => {
+    if (peopleActiveIdx !== prevPeopleIdx.current) {
+      prevPeopleIdx.current = peopleActiveIdx;
+      setActiveHomeSection('people');
+    }
+  }, [peopleActiveIdx]);
+
+  useEffect(() => {
+    if (storiesActiveIdx !== prevStoriesIdx.current) {
+      prevStoriesIdx.current = storiesActiveIdx;
+      setActiveHomeSection('stories');
+    }
+  }, [storiesActiveIdx]);
+
+  useEffect(() => {
+    if (collectionsActiveIdx !== prevCollectionsIdx.current) {
+      prevCollectionsIdx.current = collectionsActiveIdx;
+      setActiveHomeSection('collections');
+    }
+  }, [collectionsActiveIdx]);
+
+  useEffect(() => {
+    if (nearYouActiveIdx !== prevNearYouIdx.current) {
+      prevNearYouIdx.current = nearYouActiveIdx;
+      setActiveHomeSection('nearYou');
+    }
+  }, [nearYouActiveIdx]);
 
   // Clear highlights on expanded section change
   useEffect(() => {
