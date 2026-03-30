@@ -1102,9 +1102,15 @@ export function HomePage({
   momentByIdRef.current = momentById;
 
   const prevCollectionIdx = useRef(-1);
+  const hasCollectionsScrolled = useRef(false);
   useEffect(() => {
     if (!onScrollHighlightRef.current || expandedSection === 'collections') return;
     if (collectionsActiveIdx === prevCollectionIdx.current) return;
+    if (!hasCollectionsScrolled.current) {
+      hasCollectionsScrolled.current = true;
+      prevCollectionIdx.current = collectionsActiveIdx;
+      return;
+    }
     prevCollectionIdx.current = collectionsActiveIdx;
 
     const collection = filteredCollectionsRef.current[collectionsActiveIdx];
@@ -1131,9 +1137,16 @@ export function HomePage({
   gridPeopleRef.current = gridPeople;
 
   const prevPeopleIdx = useRef(-1);
+  const hasPeopleScrolled = useRef(false);
   useEffect(() => {
     if (!onScrollHighlightRef.current) return;
     if (currentPeopleIdx === prevPeopleIdx.current) return;
+    // Skip the very first index change (mount) — let the initial Near You highlight remain
+    if (!hasPeopleScrolled.current) {
+      hasPeopleScrolled.current = true;
+      prevPeopleIdx.current = currentPeopleIdx;
+      return;
+    }
     prevPeopleIdx.current = currentPeopleIdx;
 
     const currentPeople = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;

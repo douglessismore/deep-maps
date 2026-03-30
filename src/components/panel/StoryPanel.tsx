@@ -202,12 +202,12 @@ export function StoryPanel({
       const el = locationRefs.current.get(activeLocation.id);
       if (el) {
         isProgrammaticScroll.current = true;
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            isProgrammaticScroll.current = false;
-          });
-        });
+        // Use instant scroll when coming from homepage to avoid rapid fly-through
+        const behavior = suppressDetailPan?.current ? 'instant' as const : 'smooth' as const;
+        el.scrollIntoView({ behavior, block: 'center' });
+        // Keep programmatic guard for longer during smooth scroll
+        const guardMs = behavior === 'smooth' ? 600 : 50;
+        setTimeout(() => { isProgrammaticScroll.current = false; }, guardMs);
       }
     });
   }, [story.id]); // Only on story mount/change
