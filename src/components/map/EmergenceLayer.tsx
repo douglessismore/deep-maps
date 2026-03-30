@@ -192,7 +192,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           renderer: canvasRenderer.current,
           fillColor: color,
           fillOpacity: opacity,
-          stroke: false,
+          stroke: true,
+          color: 'rgba(255,255,255,0.6)',
+          weight: 1,
           interactive: true,
           bubblingMouseEvents: false,
         });

@@ -147,11 +147,12 @@ function App() {
     };
   }, [mapInstance, stories, momentMap]);
 
-  // Auto-request geolocation on first load
+  // Auto-request geolocation on first load + continuous tracking
   useEffect(() => {
     if (autoGeoRequested.current || !navigator.geolocation) return;
     autoGeoRequested.current = true;
-    navigator.geolocation.getCurrentPosition(
+    // Use watchPosition for continuous updates (driving, walking)
+    const watchId = navigator.geolocation.watchPosition(
       (position) => {
         setUserLocation({
           lat: position.coords.latitude,
@@ -161,8 +162,9 @@ function App() {
       () => {
         // Silently fail — user denied or timed out, fall back to default view
       },
-      { enableHighAccuracy: false, timeout: 30000, maximumAge: 300000 }
+      { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
     );
+    return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
   // ── Deep Link Activation ──
