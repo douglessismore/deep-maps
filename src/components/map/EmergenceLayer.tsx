@@ -295,11 +295,17 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           zIndexOffset: 900,
           interactive: false,
         });
+        // Auto-detect label direction based on where the cluster center is in the viewport
+        const point = map.latLngToContainerPoint([centerLat, centerLng]);
+        const mapSize = map.getSize();
+        const isRightHalf = point.x > mapSize.x * 0.5;
+        const tooltipDir = isRightHalf ? 'left' as const : 'right' as const;
+        const tooltipOffset: [number, number] = isRightHalf ? [-12, 0] : [12, 0];
         marker.bindTooltip(
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
             <strong>${scrollHighlightLabel}</strong>
           </div>`,
-          { direction: 'right', offset: [12, 0], className: 'dark-tooltip', permanent: true }
+          { direction: tooltipDir, offset: tooltipOffset, className: 'dark-tooltip', permanent: true }
         );
         marker.addTo(map);
         scrollOverlayRef.current = marker;
