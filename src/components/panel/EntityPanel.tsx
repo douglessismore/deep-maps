@@ -196,16 +196,16 @@ export function EntityPanel({
     }
   }, [activeLocationId, scrollActiveId]);
 
+  // If we entered from homepage, disable scroll-driven panning for the entire panel session
+  // Captured once at mount, before any effect can clear the global ref
+  const disableScrollPanForSession = useRef(!!suppressDetailPan?.current);
+
   // Scroll handler — find moment closest to 40% viewport line
   const scrollRafId = useRef(0);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
-
-    // If we entered from homepage, disable scroll-driven panning for this entire panel session
-    // Uses a closure variable captured at mount time — persists for panel lifetime
-    const disableScrollPanForSession = !!suppressDetailPan?.current;
 
     const onScroll = () => {
       if (isProgrammaticScroll.current) return;
@@ -260,7 +260,7 @@ export function EntityPanel({
           if (entry && onScrollLocationActive) {
             const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
             // When coming from homepage, highlight but don't zoom/pan
-            if (disableScrollPanForSession) {
+            if (disableScrollPanForSession.current) {
               onHighlightOnly?.(entry.moment);
             } else {
               onScrollLocationActive(entry.moment, fallbackStory);

@@ -1086,8 +1086,8 @@ export function HomePage({
   allHomeStoriesRef.current = allHomeStories;
 
   type HomeSection = 'people' | 'stories' | 'nearYou' | 'collections' | null;
-  // Default to 'people' since it's the first section — observer updates on scroll
-  const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>('people');
+  // Null on mount — section observer sets it when user scrolls to a section
+  const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
 
   // Compute highlight for a given section + horizontal index
   const computeHighlight = useCallback((section: HomeSection): Moment[] => {

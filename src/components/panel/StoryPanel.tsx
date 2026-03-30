@@ -90,12 +90,12 @@ export function StoryPanel({
   // (expandedLocationIdRef removed — no expansion state)
 
   // Scroll-driven location navigation + header auto-collapse
+  // Captured once at mount, before any effect can clear the global ref
+  const disableScrollPanForSession = useRef(!!suppressDetailPan?.current);
+
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
-
-    // If we entered from homepage, disable scroll-driven panning for this entire panel session
-    const disableScrollPanForSession = !!suppressDetailPan?.current;
 
     const onScroll = () => {
       // Skip if this scroll was triggered by our own scrollIntoView correction, a card tap,
@@ -164,7 +164,7 @@ export function StoryPanel({
         if (closestId && closestId !== scrollActiveId) {
           setScrollActiveId(closestId);
           const location = storyLocations.find((l) => l.id === closestId);
-          if (location && !disableScrollPanForSession) {
+          if (location && !disableScrollPanForSession.current) {
             onScrollLocationSelect(location);
           }
         }
