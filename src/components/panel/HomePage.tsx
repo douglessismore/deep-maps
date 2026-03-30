@@ -638,6 +638,57 @@ function PersonRow({
   );
 }
 
+function PersonCard({
+  entity,
+  momentCount,
+  onClick,
+  isActive,
+  isBackfill,
+}: {
+  entity: Entity;
+  momentCount: number;
+  onClick: () => void;
+  isActive?: boolean;
+  isBackfill?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex flex-col items-center w-[130px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97] card-animate-in"
+      style={{
+        scrollSnapAlign: 'start',
+        ...(isActive ? {
+          transform: 'scale(1.04)',
+          backgroundColor: 'rgba(139,92,246,0.06)',
+          boxShadow: '0 0 20px rgba(139,92,246,0.15)',
+        } : {}),
+      }}
+    >
+      {entity.imageUrl ? (
+        <img
+          src={entity.imageUrl}
+          alt={entity.name}
+          className={`w-14 h-14 rounded-full object-cover ring-1 ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(255,255,255,0.1)]'}`}
+          loading="lazy"
+        />
+      ) : (
+        <span className={`w-14 h-14 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 flex items-center justify-center text-[16px] font-bold text-[rgba(139,92,246,0.8)] ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(139,92,246,0.3)]'}`}>
+          {entity.name[0].toUpperCase()}
+        </span>
+      )}
+      <span className="mt-1.5 text-[14px] font-serif font-bold text-[var(--text-primary)] w-full text-center truncate px-1">
+        {entity.name}
+      </span>
+      <span className="text-[11px] font-mono text-[var(--text-muted)]">
+        {momentCount} events
+      </span>
+      {isBackfill && (
+        <span className="text-[9px] font-mono text-[var(--text-muted)] opacity-60">nearby</span>
+      )}
+    </button>
+  );
+}
+
 // ─── Horizontal scroll container ─────────────────────────────────────
 
 function HScrollRow({
@@ -692,8 +743,36 @@ export function HomePage({
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
 
-  // A/B test: section ordering via ?order=people-first
-  // Section order: People first (permanent — highest signal for hooking users)
+  // Layout variant switcher — tap hero text 3 times to cycle through orderings
+  type LayoutVariant = 'A' | 'B' | 'C' | 'D';
+  const LAYOUT_LABELS: Record<LayoutVariant, string> = {
+    A: 'People → Stories → Moments → Collections',
+    B: 'Stories → People → Moments → Collections',
+    C: 'Moments → People → Stories → Collections',
+    D: 'Collections → People → Stories → Moments',
+  };
+  const LAYOUT_ORDERS: Record<LayoutVariant, string[]> = {
+    A: ['people', 'stories', 'moments', 'collections'],
+    B: ['stories', 'people', 'moments', 'collections'],
+    C: ['moments', 'people', 'stories', 'collections'],
+    D: ['collections', 'people', 'stories', 'moments'],
+  };
+  const [layoutVariant, setLayoutVariant] = useState<LayoutVariant>('A');
+  const layoutTapCount = useRef(0);
+  const layoutTapTimer = useRef(0);
+  const handleHeroTap = useCallback(() => {
+    layoutTapCount.current++;
+    clearTimeout(layoutTapTimer.current);
+    layoutTapTimer.current = window.setTimeout(() => { layoutTapCount.current = 0; }, 800);
+    if (layoutTapCount.current >= 3) {
+      layoutTapCount.current = 0;
+      setLayoutVariant((prev) => {
+        const variants: LayoutVariant[] = ['A', 'B', 'C', 'D'];
+        const idx = variants.indexOf(prev);
+        return variants[(idx + 1) % variants.length];
+      });
+    }
+  }, []);
 
   // Global data for counts + moment lookup
   const { moments: allMoments, browseableStories: allStories, stories, entities } = useAppData();
@@ -1169,8 +1248,8 @@ export function HomePage({
     >
       {/* Inner wrapper for iOS rubber-band */}
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
-        {/* ── Tagline ── */}
-        <div className="px-4 pt-4 pb-4">
+        {/* ── Tagline (tap 3x to cycle layout variants) ── */}
+        <div className="px-4 pt-4 pb-4" onClick={handleHeroTap}>
           <h1 className="text-[28px] lg:text-[36px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.02em]">
             Discover what happened{' '}
             <span className="text-[#D4A853] border-b-2 border-[#D4A853] pb-0.5">here</span>
@@ -1179,6 +1258,11 @@ export function HomePage({
             The map of everything that ever happened.{' '}
             <span className="whitespace-nowrap">Start anywhere.</span>
           </p>
+          {layoutVariant !== 'A' && (
+            <p className="text-[10px] font-mono text-[#D4A853] mt-1 opacity-70">
+              Layout {layoutVariant}: {LAYOUT_LABELS[layoutVariant]}
+            </p>
+          )}
         </div>
 
         {/* ── Category filter pills ── */}
@@ -1186,7 +1270,14 @@ export function HomePage({
           <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} categoriesInView={allCategoriesInView} />
         </div>
 
-        {/* ── Section 1: Notable People (always first — highest signal) ── */}
+        {/* ── Sections: order controlled by layoutVariant (tap hero 3x to cycle) ── */}
+        {(() => {
+          const order = LAYOUT_ORDERS[layoutVariant];
+          const o = (key: string) => order.indexOf(key);
+          return (<div className="flex flex-col">
+
+        {/* ── People ── */}
+        <div style={{ order: o('people') }}>
         <div ref={peopleSectionRef} className="pt-4 pb-4">
           <SectionHeading
             title={peopleSectionTitle}
@@ -1194,30 +1285,43 @@ export function HomePage({
             onToggle={() => toggleSection('people')}
           />
           {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-            <div ref={peopleExpandedRef} className="relative flex flex-col">
-              {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
-                <PersonRow
-                  key={entity.id}
-                  entity={entity}
-                  momentCount={momentCount}
-                  isActive={i === peopleExpandedActiveIdx}
-                  isBackfill={backfillIds.has(entity.id)}
-                  onClick={() => onEntityClick(entity)}
-                />
-              ))}
-              {expandedSection !== 'people' && allPeople.length > gridPeople.length && (
-                <>
-                  <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                    style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
+            expandedSection === 'people' ? (
+              <div ref={peopleExpandedRef} className="relative flex flex-col">
+                {allPeople.map(({ entity, momentCount }, i) => (
+                  <PersonRow
+                    key={entity.id}
+                    entity={entity}
+                    momentCount={momentCount}
+                    isActive={i === peopleExpandedActiveIdx}
+                    isBackfill={backfillIds.has(entity.id)}
+                    onClick={() => onEntityClick(entity)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div ref={peopleExpandedRef}>
+                <HScrollRow>
+                  {gridPeople.map(({ entity, momentCount }, i) => (
+                    <PersonCard
+                      key={entity.id}
+                      entity={entity}
+                      momentCount={momentCount}
+                      isActive={i === peopleExpandedActiveIdx}
+                      isBackfill={backfillIds.has(entity.id)}
+                      onClick={() => onEntityClick(entity)}
+                    />
+                  ))}
+                </HScrollRow>
+                {allPeople.length > gridPeople.length && (
                   <button
                     onClick={() => toggleSection('people')}
-                    className="relative z-10 mx-auto mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
+                    className="mx-auto block mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
                   >
                     See all {allPeople.length} people →
                   </button>
-                </>
-              )}
-            </div>
+                )}
+              </div>
+            )
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[var(--text-muted)] font-mono">
@@ -1226,9 +1330,10 @@ export function HomePage({
             </div>
           )}
         </div>
-        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
+        </div>{/* end People order wrapper */}
 
         {/* ── Stories Near You ── */}
+        <div style={{ order: o('stories') }}>
         {allHomeStories.length > 0 && (
           <>
             <div className="pb-4">
@@ -1277,8 +1382,10 @@ export function HomePage({
             <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
           </>
         )}
+        </div>{/* end Stories order wrapper */}
 
         {/* Near You / In View */}
+        <div style={{ order: o('moments') }}>
         <div ref={nearYouSectionRef} className="pb-4">
           <SectionHeading
             title={nearYouTitle}
@@ -1340,14 +1447,10 @@ export function HomePage({
           )}
         </div>
 
-        {/* Everywhere divider */}
-        <div className="mx-4 my-4 flex items-center gap-3">
-          <div className="flex-1 border-t border-[var(--border-subtle)]" />
-          <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider">Everywhere</span>
-          <div className="flex-1 border-t border-[var(--border-subtle)]" />
-        </div>
+        </div>{/* end Moments order wrapper */}
 
-        {/* ── Section 2: Collections ── */}
+        {/* ── Collections ── */}
+        <div style={{ order: o('collections') }}>
         <div ref={collectionsSectionRef} className="pt-4 pb-4">
           <SectionHeading
             title="Collections"
@@ -1389,8 +1492,10 @@ export function HomePage({
           )}
         </div>
 
-        {/* Divider */}
-        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
+        </div>{/* end Collections order wrapper */}
+
+        </div>); /* end flex container + IIFE */
+        })()}
 
         {/* Divider before encyclopedia */}
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
