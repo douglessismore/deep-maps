@@ -630,10 +630,7 @@ export function HomePage({
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
 
   // A/B test: section ordering via ?order=people-first
-  const [sectionOrder] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('order') === 'people-first' ? 'people-first' : 'moments-first';
-  });
+  // Section order: People first (permanent — highest signal for hooking users)
 
   // Global data for counts + moment lookup
   const { moments: allMoments, browseableStories: allStories, stories, entities } = useAppData();
@@ -1095,51 +1092,46 @@ export function HomePage({
           <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} categoriesInView={allCategoriesInView} />
         </div>
 
-        {/* ── Sections: order controlled by ?order=people-first ── */}
-        {sectionOrder === 'people-first' && (
-          <>
-            {/* Notable People (first when people-first) */}
-            <div ref={peopleSectionRef} className="pt-4 pb-4">
-              <SectionHeading
-                title="Notable People"
-                expanded={expandedSection === 'people'}
-                onToggle={() => toggleSection('people')}
-              />
-              {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-                <div ref={peopleExpandedRef} className="relative flex flex-col">
-                  {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
-                    <PersonRow
-                      key={entity.id}
-                      entity={entity}
-                      momentCount={momentCount}
-                      isActive={i === peopleExpandedActiveIdx}
-                      onClick={() => onEntityClick(entity)}
-                    />
-                  ))}
-                  {expandedSection !== 'people' && allPeople.length > gridPeople.length && (
-                    <>
-                      <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                        style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
-                      <button
-                        onClick={() => toggleSection('people')}
-                        className="relative z-10 mx-auto mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
-                      >
-                        See all {allPeople.length} people →
-                      </button>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <div className="px-4 py-8 text-center">
-                  <p className="text-sm text-[var(--text-muted)] font-mono">
-                    {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
-                  </p>
-                </div>
+        {/* ── Section 1: Notable People (always first — highest signal) ── */}
+        <div ref={peopleSectionRef} className="pt-4 pb-4">
+          <SectionHeading
+            title="Notable People"
+            expanded={expandedSection === 'people'}
+            onToggle={() => toggleSection('people')}
+          />
+          {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
+            <div ref={peopleExpandedRef} className="relative flex flex-col">
+              {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
+                <PersonRow
+                  key={entity.id}
+                  entity={entity}
+                  momentCount={momentCount}
+                  isActive={i === peopleExpandedActiveIdx}
+                  onClick={() => onEntityClick(entity)}
+                />
+              ))}
+              {expandedSection !== 'people' && allPeople.length > gridPeople.length && (
+                <>
+                  <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+                    style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
+                  <button
+                    onClick={() => toggleSection('people')}
+                    className="relative z-10 mx-auto mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
+                  >
+                    See all {allPeople.length} people →
+                  </button>
+                </>
               )}
             </div>
-            <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
-          </>
-        )}
+          ) : (
+            <div className="px-4 py-8 text-center">
+              <p className="text-sm text-[var(--text-muted)] font-mono">
+                {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
+              </p>
+            </div>
+          )}
+        </div>
+        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
         {/* Near You / In View */}
         <div ref={nearYouSectionRef} className="pb-4">
@@ -1255,50 +1247,7 @@ export function HomePage({
         {/* Divider */}
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
-        {/* ── Section 3: Notable People (default order) ── */}
-        {sectionOrder !== 'people-first' && (
-          <div ref={peopleSectionRef} className="pt-4 pb-4">
-            <SectionHeading
-              title="Notable People"
-              expanded={expandedSection === 'people'}
-              onToggle={() => toggleSection('people')}
-            />
-            {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-              <div ref={peopleExpandedRef} className="relative flex flex-col">
-                {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
-                  <PersonRow
-                    key={entity.id}
-                    entity={entity}
-                    momentCount={momentCount}
-                    isActive={i === peopleExpandedActiveIdx}
-                    onClick={() => onEntityClick(entity)}
-                  />
-                ))}
-                {/* Fade gradient + "See all" when collapsed and more people exist */}
-                {expandedSection !== 'people' && allPeople.length > gridPeople.length && (
-                  <>
-                    <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                      style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
-                    <button
-                      onClick={() => toggleSection('people')}
-                      className="relative z-10 mx-auto mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
-                    >
-                      See all {allPeople.length} people →
-                    </button>
-                  </>
-                )}
-              </div>
-            ) : (
-              <div className="px-4 py-8 text-center">
-                <p className="text-sm text-[var(--text-muted)] font-mono">
-                  {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Divider */}
+        {/* Divider before encyclopedia */}
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
 
         {/* ── Section 4: Browse the Encyclopedia ── */}

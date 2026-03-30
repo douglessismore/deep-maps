@@ -66,6 +66,8 @@ interface ExplorePanelProps {
   panelView?: 'home' | 'explorer';
   /** Callback when panel view changes (e.g., user taps a card on home page) */
   onPanelViewChange?: (view: 'home' | 'explorer') => void;
+  /** Signal to preserve map viewport on next navigation (homepage → detail) */
+  onPreserveViewport?: () => void;
 }
 
 export type PanelTab = 'moments' | 'stories' | 'places' | 'collections';
@@ -146,6 +148,7 @@ export function ExplorePanel({
   backLabel: backLabelProp,
   panelView = 'explorer',
   onPanelViewChange,
+  onPreserveViewport,
 }: ExplorePanelProps) {
   const { moments } = useAppData();
   const { variant } = useUIVariant();
@@ -871,21 +874,25 @@ export function ExplorePanel({
           onMomentClick={(moment, story) => {
             // Snapshot scroll position before navigating away (passive listener may not have fired)
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
+            onPreserveViewport?.(); // stay local — don't zoom map away
             onPanelViewChange?.('explorer');
             onLocationSelect(moment, story);
           }}
           onCollectionSelect={(collection) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
+            onPreserveViewport?.();
             onPanelViewChange?.('explorer');
             onCollectionSelect(collection);
           }}
           onEntityClick={(entity) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
+            onPreserveViewport?.();
             onPanelViewChange?.('explorer');
             onEntityClick?.(entity);
           }}
           onSurpriseMe={() => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
+            // Don't preserve viewport for Surprise Me — it should fly to the new story
             onPanelViewChange?.('explorer');
             onSurpriseMe();
           }}

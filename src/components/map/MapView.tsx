@@ -114,6 +114,8 @@ interface MapViewProps {
   sheetSnap?: import('../../lib/sheetAwareMap').SheetSnap;
   /** When true, zoom in to activeLocation (user clicked a moment card) */
   zoomToActiveLocation?: boolean;
+  /** When set, skip fitBounds on next mode change (homepage → detail, stay local) */
+  preserveViewport?: React.RefObject<boolean>;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -231,6 +233,7 @@ function MapController({
   entityLocations,
   sheetSnap: sheetSnapProp,
   zoomToActiveLocation,
+  preserveViewport,
   constellationVariant,
 }: MapViewProps & { constellationVariant: ConstellationVariant }) {
   const { moments: allMoments, stories: allStories } = useAppData();
@@ -873,6 +876,13 @@ function MapController({
       key.zoomToActiveLocation !== prev.zoomToActiveLocation;
     prevZoomEffectKey.current = key;
     if (!changed) return; // Skip — only stories/sheetSnap/etc reference changed
+
+    // "Stay local" — homepage navigation set this flag to skip fitBounds
+    if (preserveViewport?.current) {
+      preserveViewport.current = false; // consume the flag
+      return;
+    }
+
     const containerH = map.getSize().y;
     const isBoundsLocked = Date.now() < boundsLockUntil.current;
 

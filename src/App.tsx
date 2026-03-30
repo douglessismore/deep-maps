@@ -65,6 +65,7 @@ function App() {
   const [nearMeZoomKey, setNearMeZoomKey] = useState(0);
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
   const exploreScrollTop = useRef(0);
+  const preserveViewport = useRef(false); // skip fitBounds on next mode change (homepage → detail)
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
   const [panelView, setPanelView] = useState<'home' | 'explorer'>('home');
@@ -766,6 +767,7 @@ function App() {
             backLabel={backLabel}
             panelView={panelView}
             onPanelViewChange={setPanelView}
+            onPreserveViewport={() => { preserveViewport.current = true; }}
           />
           </FadeIn>
         )}
@@ -837,6 +839,7 @@ function App() {
               entityLocations={entityLocations}
               sheetSnap="full"
               zoomToActiveLocation={zoomToActiveLocation}
+              preserveViewport={preserveViewport}
             />
           </div>
           {/* Panel — bottom 55%, normal scroll */}
@@ -868,6 +871,7 @@ function App() {
               entityLocations={entityLocations}
               sheetSnap={sheetSnap}
               zoomToActiveLocation={zoomToActiveLocation}
+              preserveViewport={preserveViewport}
             />
           </div>
 
