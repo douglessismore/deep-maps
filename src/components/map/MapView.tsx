@@ -1193,6 +1193,7 @@ export function MapView(props: MapViewProps) {
             onLocationClick={props.onLocationClick}
             activeLocation={props.activeLocation}
             scrollHighlight={props.scrollHighlight}
+            softHighlight={props.mode === 'explore'}
           />
         )}
       </MapContainer>

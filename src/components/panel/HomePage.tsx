@@ -1248,7 +1248,18 @@ export function HomePage({
           }
         }
 
-        // For People: highlight is already handled by the peopleExpandedActiveIdx effect
+        // For People: highlight the active person's moments
+        if (activeSection.type === 'people') {
+          const currentPeople = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
+          const idx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
+          const personData = currentPeople[Math.max(0, idx)];
+          if (personData) {
+            const entityMoments = getMomentsForEntity(personData.entity.id);
+            if (entityMoments.length > 0) {
+              onScrollHighlightRef.current!(entityMoments);
+            }
+          }
+        }
       });
     };
 
@@ -1257,7 +1268,7 @@ export function HomePage({
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafId);
     };
-  }, [expandedSection, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx]);
+  }, [expandedSection, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, peopleActiveIdx, peopleExpandedActiveIdx]);
 
   return (
     <div

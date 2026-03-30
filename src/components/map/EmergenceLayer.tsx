@@ -47,9 +47,12 @@ function getHighlightOpacity(
   moment: Moment,
   zoom: number,
   isCollection?: boolean,
+  isSoft?: boolean,
 ): number {
   if (!hasHighlight) return computeAlpha(moment, zoom);
   if (highlightIds.has(momentId)) return 1;
+  // Soft mode (homepage): don't dim non-highlighted markers, keep normal alpha
+  if (isSoft) return computeAlpha(moment, zoom);
   // Collections: dim other moments gently (still visible). Stories: fade hard.
   return isCollection ? 0.3 : 0.08;
 }
@@ -76,9 +79,11 @@ interface EmergenceLayerProps {
   onLocationClick: (location: Moment, story: Story) => void;
   activeLocation: Moment | null;
   scrollHighlight?: Moment[];
+  /** When true, scroll highlight is "soft" — don't dim non-highlighted markers (homepage mode) */
+  softHighlight?: boolean;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -113,6 +118,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
   onClickRef.current = onLocationClick;
+
+  const softHighlightRef = useRef(softHighlight);
+  softHighlightRef.current = softHighlight;
 
   // Keep a ref to scrollHighlight so all effects and event handlers can
   // read the latest value without being listed as dependencies.
@@ -164,7 +172,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const moment of filteredMoments) {
       const category = momentCategoryMap.get(moment.id);
       const color = category ? CATEGORIES[category]?.color || '#666' : '#666';
-      const opacity = getHighlightOpacity(moment.id, highlightIds, hasHighlight, moment, zoom, !!activeCollection);
+      const opacity = getHighlightOpacity(moment.id, highlightIds, hasHighlight, moment, zoom, !!activeCollection, softHighlightRef.current);
       const effectiveRadius = getHighlightRadius(moment.id, highlightIds, hasHighlight, radius);
 
       const existing = currentMarkers.get(moment.id);
@@ -226,7 +234,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       for (const [id, marker] of markersRef.current) {
         const moment = momentById.get(id);
         if (!moment) continue;
-        const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection);
+        const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection, softHighlightRef.current);
         const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
         marker.setRadius(radius);
         marker.setStyle({ fillOpacity: opacity });
@@ -245,7 +253,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const [id, marker] of markersRef.current) {
       const moment = momentById.get(id);
       if (!moment) continue;
-      const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection);
+      const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection, softHighlightRef.current);
       const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
       marker.setRadius(radius);
       marker.setStyle({ fillOpacity: opacity });
