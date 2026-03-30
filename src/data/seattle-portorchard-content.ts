@@ -1,0 +1,610 @@
+/**
+ * Seattle / Port Orchard / Kitsap County, Washington — Curated content
+ *
+ * Stories, moments, and entities for the greater Seattle and Kitsap Peninsula area.
+ * These are NEW items — do not duplicate IDs from stories.ts / moments.ts / entities.ts.
+ *
+ * To integrate: import and spread into the main arrays in the respective seed files,
+ * or load via Supabase.
+ */
+import type { Story, Moment, Entity } from '../types';
+
+// ─── ENTITIES ────────────────────────────────────────────────────────
+// NOTE: ted-bundy and william-boeing already exist in entities.ts — do NOT duplicate here.
+
+export const seattleEntities: Entity[] = [
+  {
+    id: 'chief-seattle',
+    name: 'Chief Seattle',
+    type: 'person',
+    years: 'c. 1786–1866',
+    description:
+      'The diplomat who chose peace while his people\'s land became a city. Leader of the Suquamish and Duwamish, Si\'ahl navigated white settlement through negotiation rather than war. His 1854 speech to Governor Stevens became one of history\'s most quoted environmental statements. He is buried on the Kitsap Peninsula, nine miles across the water from the skyline named for him.',
+    canonicalStoryId: 'chief-seattle-suquamish',
+    wikipediaSlug: 'Chief_Seattle',
+  },
+  {
+    id: 'gary-ridgway',
+    name: 'Gary Ridgway',
+    type: 'person',
+    years: '1949–present',
+    description:
+      'A truck painter who killed at least 49 women over 16 years without detection. Ridgway targeted sex workers along the Pacific Highway South corridor near Sea-Tac airport. He passed a polygraph in 1984 and kept killing until a 1987 DNA sample finally matched three victims in 2001.',
+    canonicalStoryId: 'green-river-killer',
+    wikipediaSlug: 'Gary_Ridgway',
+  },
+  {
+    id: 'kurt-cobain',
+    name: 'Kurt Cobain',
+    type: 'person',
+    years: '1967–1994',
+    description:
+      'The voice that turned a regional punk scene into a global earthquake. Born in Aberdeen, Washington, Cobain formed Nirvana and released "Smells Like Teen Spirit" in 1991, redefining rock music overnight. He died by suicide at his Seattle home on 5 April 1994, age 27.',
+    canonicalStoryId: 'seattle-grunge-era',
+    wikipediaSlug: 'Kurt_Cobain',
+  },
+  {
+    id: 'db-cooper',
+    name: 'D.B. Cooper',
+    type: 'person',
+    years: 'unknown',
+    description:
+      'The phantom skyjacker who vanished into a rainstorm with $200,000. On Thanksgiving Eve 1971, a man using the alias Dan Cooper hijacked a 727 out of Seattle, collected ransom in $20 bills, and parachuted into the night over southwest Washington. He was never found or identified.',
+    canonicalStoryId: 'db-cooper-hijacking',
+    wikipediaSlug: 'D._B._Cooper',
+  },
+  {
+    id: 'harry-truman-mtsthelens',
+    name: 'Harry R. Truman',
+    type: 'person',
+    years: '1896–1980',
+    description:
+      'The innkeeper who refused to leave his mountain and became a folk hero. Truman ran the Mount St. Helens Lodge on Spirit Lake for 52 years and told reporters he would not evacuate. On 18 May 1980, he and his 16 cats were buried under 150 feet of volcanic debris.',
+    canonicalStoryId: 'mount-st-helens-eruption',
+    wikipediaSlug: 'Harry_R._Truman',
+  },
+];
+
+// ─── MOMENTS ─────────────────────────────────────────────────────────
+
+export const seattleMoments: Moment[] = [
+  // ── Story: Chief Seattle and the Suquamish ──
+  {
+    id: 'sea-chief-seattle-speech',
+    name: 'Chief Seattle Addresses Governor Stevens as White Settlers Claim His People\'s Land',
+    subtitle: 'Pioneer Square area, Seattle. The approximate site of the 1854 meeting; now a National Historic District',
+    description:
+      'In late 1854, Chief Si\'ahl addressed Territorial Governor Isaac Stevens here at an open-air gathering near what is now Pioneer Square. The speech was not recorded verbatim and was reconstructed from memory by Henry Smith in 1887, then further embellished by a screenwriter in 1972. But the core message endured: the earth does not belong to man. Si\'ahl navigated the collision of two worlds by choosing diplomacy over war. The city named for him was built on the land he was asked to leave.',
+    lat: 47.6020,
+    lng: -122.3321,
+    type: 'political_event',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1854,
+    entityIds: ['chief-seattle'],
+    wikiSection: 'Speeches',
+  },
+  {
+    id: 'sea-chief-seattle-grave',
+    name: 'Chief Seattle Is Buried on the Kitsap Peninsula, Across the Water from His Namesake City',
+    subtitle: 'Suquamish Tribal Cemetery, Suquamish, WA. Behind St. Peter\'s Catholic Mission on the Port Madison Reservation',
+    description:
+      'Chief Seattle died here on 7 June 1866, on the Port Madison Reservation in Kitsap County. His funeral blended Catholic and Suquamish traditions. In 1890, Seattle pioneers erected a monument over his grave inscribed: "The Firm Friend of the Whites." The grave sits on a bluff overlooking Puget Sound, nine miles across the water from the downtown skyline of the city that bears his name.',
+    lat: 47.7310,
+    lng: -122.5590,
+    type: 'burial',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'milestone',
+    year: 1866,
+    date: '7 June 1866',
+    entityIds: ['chief-seattle'],
+    wikiSection: 'Death_and_legacy',
+  },
+
+  // ── Story: Puget Sound Naval Shipyard ──
+  {
+    id: 'sea-psns-established',
+    name: 'The Navy Establishes Its First West Coast Dry Dock on Sinclair Inlet',
+    subtitle: 'Puget Sound Naval Shipyard, Bremerton, WA. The shipyard is a National Historic Landmark and still active',
+    description:
+      'The U.S. Navy broke ground here on Sinclair Inlet in 1891, creating the first facility on the West Coast capable of dry-docking the largest warships. By World War II this shipyard was the principal Pacific Coast repair yard, handling aircraft carriers and battleships. Workers here repaired 344 warships during the war. It remains one of the Navy\'s four public shipyards and the Kitsap Peninsula\'s largest employer.',
+    lat: 47.5581,
+    lng: -122.6461,
+    type: 'military_site',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'milestone',
+    year: 1891,
+    address: 'Puget Sound Naval Shipyard, Bremerton, WA 98314',
+    wikiSection: 'History',
+  },
+  {
+    id: 'sea-missouri-mothball',
+    name: 'The USS Missouri Sits Mothballed in Bremerton for 30 Years After Japan\'s Surrender',
+    subtitle: 'PSNS Mothball Fleet, Sinclair Inlet, Bremerton. The Missouri was moored here 1954-1984',
+    description:
+      'Japan formally surrendered aboard the USS Missouri in Tokyo Bay on 2 September 1945. Nine years later, the battleship was decommissioned and towed here to Bremerton\'s Puget Sound Naval Shipyard, where it anchored a "mothball fleet" of 36 decommissioned warships in Sinclair Inlet. For three decades the Missouri drew 180,000 tourists a year. She was reactivated in 1984, then transferred to Pearl Harbor in 1998 as a museum ship moored near the sunken USS Arizona, bookending the war.',
+    lat: 47.5536,
+    lng: -122.6520,
+    type: 'military_site',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'presence',
+    year: 1954,
+    date: '1954-1984; returned 1992-1998',
+  },
+
+  // ── Story: DB Cooper ──
+  {
+    id: 'sea-cooper-seatac',
+    name: 'A Man Calling Himself Dan Cooper Hijacks a Boeing 727 at Sea-Tac and Demands $200,000',
+    subtitle: 'Seattle-Tacoma International Airport, SeaTac, WA. The terminal where Cooper collected the ransom',
+    description:
+      'On 24 November 1971, Thanksgiving Eve, a man using the alias Dan Cooper boarded Northwest Orient Flight 305 in Portland and handed a flight attendant a note claiming he had a bomb. After landing here at Sea-Tac, Cooper released the 36 passengers in exchange for $200,000 in $20 bills and four parachutes. He ordered the crew to take off toward Mexico City. Somewhere over southwest Washington, Cooper lowered the 727\'s rear airstair and jumped into a rainstorm. He was never seen again.',
+    lat: 47.4502,
+    lng: -122.3088,
+    type: 'crime_scene',
+    importance: 'major',
+    notability: 70,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1971,
+    date: '24 November 1971',
+    entityIds: ['db-cooper'],
+    wikiSection: 'Hijacking',
+  },
+  {
+    id: 'sea-cooper-money-found',
+    name: 'A Boy Finds $5,800 of Cooper\'s Ransom Money Buried on the Columbia River',
+    subtitle: 'Tena Bar, Vancouver, WA. A sandy stretch along the Columbia River where the bills surfaced',
+    description:
+      'Eight-year-old Brian Ingram was digging a campfire pit here on Tena Bar on 10 February 1980 when he uncovered three bundles of deteriorating $20 bills totaling $5,800. The serial numbers matched Cooper\'s ransom. It remains the only physical evidence ever recovered. How the money traveled from Cooper\'s likely jump zone to this riverbank has never been explained. The FBI officially suspended the case in 2016, leaving Cooper\'s identity as the only unsolved skyjacking in U.S. history.',
+    lat: 45.7135,
+    lng: -122.7580,
+    type: 'crime_scene',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1980,
+    date: '10 February 1980',
+    entityIds: ['db-cooper'],
+    wikiSection: 'Physical_evidence',
+  },
+
+  // ── Story: Ted Bundy ──
+  {
+    id: 'sea-bundy-sammamish',
+    name: 'Ted Bundy Abducts Two Women in Broad Daylight in Front of 40,000 Beachgoers',
+    subtitle: 'Lake Sammamish State Park, 2000 NW Sammamish Rd, Issaquah, WA. The park is open to the public',
+    description:
+      'At this crowded public beach on 14 July 1974, Ted Bundy wore a sling and called himself "Ted" as he asked women for help loading a sailboat. Janice Ott, 23, walked away with him around noon. Hours later, Denise Naslund, 19, vanished the same way. An estimated 40,000 people were here that Sunday. Despite multiple witnesses, nobody saw the actual abductions. Their remains surfaced two months later near Issaquah. The brazenness of using his real name before tens of thousands remains one of the most disturbing facts of the case.',
+    lat: 47.5617,
+    lng: -122.0619,
+    type: 'crime_scene',
+    importance: 'major',
+    notability: 60,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1974,
+    date: '14 July 1974',
+    entityIds: ['ted-bundy'],
+    wikiSection: 'Pacific_Northwest_murders',
+  },
+
+  // ── Story: Green River Killer ──
+  {
+    id: 'sea-green-river-first-body',
+    name: 'The First Body Surfaces in the Green River and a Twenty-Year Nightmare Begins',
+    subtitle: 'Green River near Meeker Street bridge, Kent, WA. The stretch of river south of Seattle',
+    description:
+      'Two boys riding bicycles along the Green River here in Kent spotted the body of 16-year-old Wendy Coffield caught on pilings beneath a bridge on 15 July 1982. Within a month, four more women\'s bodies surfaced from the same stretch. Gary Ridgway, a truck painter from nearby Auburn, would murder at least 49 women over the next 16 years. He gave a DNA sample in 1987 and passed a polygraph in 1984, yet was not arrested until 2001 when that sample finally matched three victims.',
+    lat: 47.3848,
+    lng: -122.2350,
+    type: 'crime_scene',
+    importance: 'major',
+    notability: 60,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1982,
+    date: '15 July 1982',
+    entityIds: ['gary-ridgway'],
+    wikiSection: 'Murders',
+  },
+
+  // ── Story: Grunge ──
+  {
+    id: 'sea-nirvana-paramount',
+    name: 'Nirvana Plays the Paramount Theatre and Seattle Becomes the Center of Rock Music',
+    subtitle: 'Paramount Theatre, 911 Pine St, Seattle. The theatre still hosts concerts and events',
+    description:
+      'On Halloween night, 31 October 1991, Nirvana performed here at the Paramount Theatre for a live concert filmed by the BBC. "Smells Like Teen Spirit" had been out for six weeks and was already number one. The footage captured the precise moment when Seattle\'s underground music scene went global. Within months, "grunge" was a household word, flannel shirts were fashion, and major labels were flying here to sign anyone with distorted guitars.',
+    lat: 47.6133,
+    lng: -122.3313,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1991,
+    date: '31 October 1991',
+    address: '911 Pine St, Seattle, WA 98101',
+    entityIds: ['kurt-cobain'],
+  },
+  {
+    id: 'sea-cobain-death',
+    name: 'Kurt Cobain Dies at 27 in the Greenhouse Above His Garage',
+    subtitle: '171 Lake Washington Blvd E, Seattle (private). Viretta Park next door serves as an informal memorial',
+    description:
+      'Kurt Cobain died by suicide here in the greenhouse above the garage of his Lake Washington Boulevard home on 5 April 1994. He was 27 and had owned the house for three months. His body was not found until 8 April, when an electrician arrived to install security lighting. Neighboring Viretta Park became an immediate and lasting memorial, its benches covered in fan graffiti. His death bookended the grunge era that had remade American music in under three years.',
+    lat: 47.6180,
+    lng: -122.2820,
+    type: 'residence',
+    importance: 'major',
+    notability: 60,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'milestone',
+    year: 1994,
+    date: '5 April 1994',
+    entityIds: ['kurt-cobain'],
+    wikiSection: 'Death',
+  },
+
+  // ── Story: Boeing ──
+  {
+    id: 'sea-boeing-red-barn',
+    name: 'A Timber Baron Builds His First Airplane in a Boathouse on the Duwamish River',
+    subtitle: 'Museum of Flight (Red Barn), 9404 E Marginal Way S, Tukwila, WA. The restored Red Barn is open to the public',
+    description:
+      'Timber magnate William Boeing and Navy engineer Conrad Westervelt built a seaplane here in a boathouse on the Duwamish River in 1916. Boeing had taken one flying lesson and decided he could do better. He founded Pacific Aero Products Company and began production in a red wooden barn at the water\'s edge. The barn was nearly demolished in the 1970s but was instead floated downriver by barge and trucked to Boeing Field. The company that started here became the world\'s largest aerospace manufacturer.',
+    lat: 47.5180,
+    lng: -122.2965,
+    type: 'landmark',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'milestone',
+    year: 1916,
+    address: '9404 E Marginal Way S, Tukwila, WA 98108',
+    entityIds: ['william-boeing'],
+    wikiSection: 'Formation',
+  },
+
+  // ── Story: Mount St. Helens ──
+  {
+    id: 'sea-mtsthelens-eruption',
+    name: 'Mount St. Helens Erupts with the Force of 500 Hiroshimas and Kills 57 People',
+    subtitle: 'Mount St. Helens National Volcanic Monument, WA. Johnston Ridge Observatory offers views of the blast zone',
+    description:
+      'A 5.1-magnitude earthquake triggered the collapse of this mountain\'s entire north face at 8:32 a.m. on 18 May 1980, producing the largest landslide in recorded history. The lateral blast traveled at 670 mph, flattening 230 square miles of forest. Fifty-seven people died here, including 83-year-old innkeeper Harry Truman, buried under 150 feet of debris at his Spirit Lake Lodge. The mountain lost 1,300 feet of elevation in seconds.',
+    lat: 46.1912,
+    lng: -122.1944,
+    type: 'natural_site',
+    importance: 'major',
+    notability: 75,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1980,
+    date: '18 May 1980',
+    entityIds: ['harry-truman-mtsthelens'],
+    wikiSection: '1980_eruption',
+  },
+  {
+    id: 'sea-mtsthelens-harry-truman',
+    name: 'Harry Truman Tells Reporters He Will Not Leave His Mountain and Becomes a Folk Hero',
+    subtitle: 'Spirit Lake Lodge site (destroyed), Spirit Lake, WA. The lodge is buried under volcanic debris',
+    description:
+      'In the weeks before the eruption, 83-year-old Harry Truman became a national celebrity here at his Spirit Lake Lodge for refusing to evacuate. He had run the lodge for 52 years and told reporters: "I am part of that mountain." Television crews made pilgrimages to film the cantankerous old man and his 16 cats. On 18 May, a pyroclastic flow traveling over 600 mph reached Spirit Lake in minutes. Truman likely died of heat shock in less than a second.',
+    lat: 46.2726,
+    lng: -122.1533,
+    type: 'residence',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'milestone',
+    year: 1980,
+    date: 'March-May 1980',
+    entityIds: ['harry-truman-mtsthelens'],
+    wikiSection: 'Pre-eruption_media_attention',
+  },
+
+  // ── Story: Battle of Seattle ──
+  {
+    id: 'sea-wto-protests',
+    name: 'Fifty Thousand Protesters Shut Down the WTO and Tear Gas Fills Downtown Seattle',
+    subtitle: 'Washington State Convention Center, 705 Pike St, Seattle. The convention center where the WTO met',
+    description:
+      'An estimated 40,000 to 50,000 protesters surrounded this convention center on 30 November 1999, preventing WTO delegates from reaching the venue for their ministerial conference. Demonstrators locked arms at key intersections here in downtown Seattle. The opening ceremony was cancelled. Police fired tear gas and rubber bullets; the governor called in the National Guard. Secretary of State Albright was trapped in her hotel. The mayor declared a 50-block no-protest zone and imposed a curfew.',
+    lat: 47.6117,
+    lng: -122.3317,
+    type: 'political_event',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1999,
+    date: '30 November 1999',
+    address: '705 Pike St, Seattle, WA 98101',
+    wikiSection: 'Timeline',
+  },
+
+  // ── Story: Pike Place ──
+  {
+    id: 'sea-pike-place-opening',
+    name: 'Farmers Sell Directly to Customers for the First Time and Pike Place Market Is Born',
+    subtitle: 'Pike Place Market, 85 Pike St, Seattle. The market is open daily and largely unchanged since 1907',
+    description:
+      'Eight farmers parked their wagons here at the corner of Pike Place and First Avenue on 17 August 1907, selling produce directly to Seattle residents furious over skyrocketing onion prices. They sold out by noon; 10,000 customers showed up. By 1911 the market had a permanent structure. Developers nearly bulldozed it in the 1960s for a hotel and parking garage. Architect Victor Steinbrueck led the campaign that saved it. Pike Place is now the oldest continuously operating farmer\'s market in the United States.',
+    lat: 47.6097,
+    lng: -122.3422,
+    type: 'cultural_site',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'milestone',
+    year: 1907,
+    date: '17 August 1907',
+    address: '85 Pike St, Seattle, WA 98101',
+    wikiSection: 'History',
+  },
+  {
+    id: 'sea-original-starbucks',
+    name: 'Three Friends Open a Coffee Bean Shop Near Pike Place and Call It Starbucks',
+    subtitle: 'Original Starbucks, 1912 Pike Place, Seattle. The store still operates with its original brown logo',
+    description:
+      'Jerry Baldwin, Zev Siegl, and Gordon Bowker opened a small storefront here near Pike Place Market on 30 March 1971, selling whole-bean coffee roasted by Peet\'s in Berkeley. No espresso, no Frappuccinos, just beans named after the first mate in Moby-Dick. The store moved to 1912 Pike Place in 1976. Howard Schultz visited in 1981, fell in love with Italian espresso culture, and bought the company for $3.8 million in 1987. As of 2024, Starbucks operates over 38,000 stores in 86 countries.',
+    lat: 47.6101,
+    lng: -122.3426,
+    type: 'cultural_site',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'milestone',
+    year: 1971,
+    date: '30 March 1971',
+    address: '1912 Pike Place, Seattle, WA 98101',
+    wikiSection: 'History',
+  },
+
+  // ── Story: Kitsap & Port Orchard ──
+  {
+    id: 'sea-port-orchard-founding',
+    name: 'A Sawmill Town Tricks the Legislature Into Renaming It "Port Orchard"',
+    subtitle: 'Port Orchard, WA. The waterfront downtown retains its small-town character along Bay Street',
+    description:
+      'Originally platted as Sidney in 1886, this town became the first incorporated in Kitsap County in 1890 and won the county seat by building a courthouse and donating it. But the residents wanted the more prestigious name "Port Orchard," shared with a nearby bay named during Captain Vancouver\'s 1792 exploration. Neighboring Charleston also claimed the name. In 1903, newspaper editor Will Thompson lobbied the state legislature to officially rename Sidney as Port Orchard, stealing the name from under Charleston\'s nose. Charleston was eventually absorbed into Bremerton.',
+    lat: 47.5401,
+    lng: -122.6368,
+    type: 'government',
+    importance: 'minor',
+    notability: 20,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'milestone',
+    year: 1903,
+  },
+  {
+    id: 'sea-suquamish-old-man-house',
+    name: 'The Suquamish Build the Largest Longhouse on Puget Sound and the Army Burns It Down',
+    subtitle: 'Old Man House Park, Suquamish, WA. A small waterfront park marks the site on Agate Passage',
+    description:
+      'For centuries the Suquamish maintained Old Man House (d\'SUQWUB) here on the shores of Agate Passage. At over 500 feet long and 60 feet wide, it was the largest longhouse on Puget Sound, housing several hundred people. Chief Seattle was born here around 1786. After the 1855 Treaty of Point Elliott confined the Suquamish to the Port Madison Reservation, the federal government viewed the longhouse as an obstacle to assimilation. In 1870, the U.S. Army burned it to the ground. A small park now offers views across Agate Passage to Bainbridge Island.',
+    lat: 47.7285,
+    lng: -122.5755,
+    type: 'archaeological_site',
+    importance: 'major',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1870,
+    entityIds: ['chief-seattle'],
+    wikiSection: 'Old_Man_House',
+  },
+];
+
+// ─── STORIES ─────────────────────────────────────────────────────────
+
+export const seattleStories: Story[] = [
+  {
+    id: 'chief-seattle-suquamish',
+    name: 'Chief Seattle',
+    nickname: 'The Man Whose Name Outlived His World',
+    years: 'c. 1786–1866',
+    category: 'political-drama',
+    storyType: 'biography',
+    description:
+      'A speech to a territorial governor, a longhouse burned by the Army, and a grave overlooking the skyline of the city built on his people\'s land.',
+    tags: ['indigenous', 'seattle', 'kitsap', 'diplomacy'],
+    moments: [
+      { momentId: 'sea-chief-seattle-speech' },
+      { momentId: 'sea-suquamish-old-man-house' },
+      { momentId: 'sea-chief-seattle-grave' },
+    ],
+    relatedStoryIds: ['port-orchard-kitsap-history'],
+    wikipediaSlug: 'Chief_Seattle',
+  },
+  {
+    id: 'puget-sound-naval-shipyard',
+    name: 'Puget Sound Naval Shipyard',
+    nickname: 'Bremerton\'s Beating Heart',
+    years: '1891–present',
+    category: 'everyday-extraordinary',
+    storyType: 'place',
+    description:
+      'The first West Coast dry dock, 344 warships repaired in WWII, and the USS Missouri mothballed in Sinclair Inlet for 30 years as Bremerton\'s top tourist attraction.',
+    tags: ['navy', 'bremerton', 'kitsap', 'wwii', 'cold-war'],
+    moments: [
+      { momentId: 'sea-psns-established' },
+      { momentId: 'sea-missouri-mothball' },
+    ],
+    relatedStoryIds: ['port-orchard-kitsap-history'],
+    wikipediaSlug: 'Puget_Sound_Naval_Shipyard',
+  },
+  {
+    id: 'db-cooper-hijacking',
+    name: 'The D.B. Cooper Hijacking',
+    nickname: 'The Man Who Jumped and Vanished',
+    years: '1971',
+    category: 'mystery-unexplained',
+    storyType: 'incident',
+    description:
+      'A man hijacks a 727 at Sea-Tac on Thanksgiving Eve, collects $200,000, parachutes into a rainstorm, and vanishes. Nine years later, a boy digs up $5,800 of the ransom on the Columbia River.',
+    tags: ['hijacking', 'seattle', 'cold-case', 'fbi'],
+    moments: [
+      { momentId: 'sea-cooper-seatac' },
+      { momentId: 'sea-cooper-money-found' },
+    ],
+    relatedStoryIds: ['roswell'],
+    wikipediaSlug: 'D._B._Cooper',
+  },
+  {
+    id: 'bundy-seattle-years',
+    name: 'Ted Bundy\'s Seattle Abductions',
+    nickname: 'The Charming Volunteer',
+    years: '1974',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'A law student and crisis hotline volunteer abducts two women in broad daylight at Lake Sammamish, using his real name in front of 40,000 beachgoers.',
+    tags: ['serial-killer', 'seattle', 'true-crime', '1970s'],
+    contentWarning: 'Contains references to kidnapping and serial murder.',
+    moments: [{ momentId: 'sea-bundy-sammamish' }],
+    relatedStoryIds: ['green-river-killer'],
+    wikipediaSlug: 'Ted_Bundy',
+  },
+  {
+    id: 'green-river-killer',
+    name: 'The Green River Killer',
+    nickname: 'America\'s Most Prolific Serial Killer Hid in Plain Sight for 19 Years',
+    years: '1982–2001',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'Bodies surface in the Green River. A truck painter passes a polygraph in 1984 and keeps killing for 14 more years. A DNA sample from 1987 finally catches him in 2001: 49 victims.',
+    tags: ['serial-killer', 'seattle', 'kent', 'true-crime'],
+    contentWarning: 'Contains references to serial murder of women.',
+    moments: [{ momentId: 'sea-green-river-first-body' }],
+    relatedStoryIds: ['bundy-seattle-years'],
+    wikipediaSlug: 'Gary_Ridgway',
+  },
+  {
+    id: 'seattle-grunge-era',
+    name: 'The Grunge Explosion',
+    nickname: 'The Sound That Burned Bright and Burned Out',
+    years: '1991–1994',
+    category: 'arts-culture',
+    storyType: 'era',
+    description:
+      'Nirvana plays the Paramount on Halloween 1991 with "Teen Spirit" at number one. Three years later, Cobain is dead at 27. The fastest rise and fall in rock history.',
+    tags: ['music', 'grunge', 'seattle', 'nirvana'],
+    contentWarning: 'Contains references to suicide and drug use.',
+    moments: [
+      { momentId: 'sea-nirvana-paramount' },
+      { momentId: 'sea-cobain-death' },
+    ],
+    relatedStoryIds: ['bundy-seattle-years'],
+    wikipediaSlug: 'Grunge',
+  },
+  {
+    id: 'boeing-seattle-origins',
+    name: 'Boeing\'s Red Barn',
+    nickname: 'From Boathouse to Behemoth',
+    years: '1916',
+    category: 'everyday-extraordinary',
+    storyType: 'place',
+    description:
+      'A timber baron takes one flying lesson, builds a seaplane in a boathouse, and founds a company in a red barn on the Duwamish River. The barn was nearly demolished, then floated downriver by barge.',
+    tags: ['aviation', 'seattle', 'boeing', 'industry'],
+    moments: [{ momentId: 'sea-boeing-red-barn' }],
+    relatedStoryIds: ['puget-sound-naval-shipyard'],
+    wikipediaSlug: 'Boeing',
+  },
+  {
+    id: 'mount-st-helens-eruption',
+    name: 'The 1980 Eruption of Mount St. Helens',
+    nickname: 'The Mountain That Blew Its Top',
+    years: '1980',
+    category: 'discovery-science',
+    storyType: 'incident',
+    description:
+      'An 83-year-old innkeeper refuses to leave his lodge. A 5.1-magnitude earthquake triggers the largest landslide in recorded history. 57 dead, 230 square miles of forest flattened, 1,300 feet of mountain gone in seconds.',
+    tags: ['volcano', 'washington', 'natural-disaster', 'geology'],
+    moments: [
+      { momentId: 'sea-mtsthelens-harry-truman' },
+      { momentId: 'sea-mtsthelens-eruption' },
+    ],
+    relatedStoryIds: ['chief-seattle-suquamish'],
+    wikipediaSlug: '1980_eruption_of_Mount_St._Helens',
+  },
+  {
+    id: 'battle-of-seattle-wto',
+    name: 'The 1999 Seattle WTO Protests',
+    nickname: 'The Day Protesters Shut Down Global Trade',
+    years: '1999',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      '50,000 protesters surround the WTO conference, cancel the opening ceremony, and are met with tear gas, rubber bullets, and the National Guard. The mayor declares a 50-block no-protest zone.',
+    tags: ['protest', 'seattle', 'wto', 'globalization'],
+    moments: [{ momentId: 'sea-wto-protests' }],
+    relatedStoryIds: ['chief-seattle-suquamish'],
+    wikipediaSlug: '1999_Seattle_WTO_protests',
+  },
+  {
+    id: 'pike-place-market-story',
+    name: 'Pike Place Market',
+    nickname: 'The Market They Almost Bulldozed',
+    years: '1907–present',
+    category: 'everyday-extraordinary',
+    storyType: 'place',
+    description:
+      'Eight farmers sell out by noon to 10,000 angry customers in 1907. Developers nearly demolish it for a parking garage. It survives and spawns a coffee empire with 38,000 stores worldwide.',
+    tags: ['seattle', 'market', 'starbucks', 'preservation'],
+    moments: [
+      { momentId: 'sea-pike-place-opening' },
+      { momentId: 'sea-original-starbucks' },
+    ],
+    relatedStoryIds: ['boeing-seattle-origins'],
+    wikipediaSlug: 'Pike_Place_Market',
+  },
+  {
+    id: 'port-orchard-kitsap-history',
+    name: 'Kitsap Peninsula',
+    nickname: 'The Peninsula That Named Itself',
+    years: '1792–present',
+    category: 'everyday-extraordinary',
+    storyType: 'era',
+    description:
+      'A town spends a decade fighting its neighbor for the right to use a name. The Army burns the largest longhouse on Puget Sound. A naval shipyard transforms a peninsula.',
+    tags: ['kitsap', 'port-orchard', 'suquamish', 'indigenous', 'naval'],
+    moments: [
+      { momentId: 'sea-suquamish-old-man-house' },
+      { momentId: 'sea-port-orchard-founding' },
+    ],
+    relatedStoryIds: ['chief-seattle-suquamish', 'puget-sound-naval-shipyard'],
+    wikipediaSlug: 'Port_Orchard,_Washington',
+  },
+];
