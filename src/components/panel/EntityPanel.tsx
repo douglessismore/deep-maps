@@ -28,6 +28,7 @@ interface EntityPanelProps {
   onHome?: () => void;
   sheetSnap?: SheetSnap;
   onExpandRequest?: () => void;
+  suppressDetailPan?: React.RefObject<boolean>;
 }
 
 export function EntityPanel({
@@ -43,6 +44,7 @@ export function EntityPanel({
   onHome,
   sheetSnap,
   onExpandRequest,
+  suppressDetailPan,
 }: EntityPanelProps) {
   const momentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
@@ -104,12 +106,13 @@ export function EntityPanel({
   // Set initial active to first moment (or activeLocationId if provided)
   useEffect(() => {
     if (momentEntries.length > 0) {
+      const shouldSuppressPan = suppressDetailPan?.current;
       if (activeLocationId) {
         // Entering entity with a specific moment pre-selected (e.g., from search)
         const entry = momentEntries.find((e) => e.moment.id === activeLocationId);
         if (entry) {
           setScrollActiveId(entry.moment.id);
-          if (onScrollLocationActive) {
+          if (onScrollLocationActive && !shouldSuppressPan) {
             const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
             onScrollLocationActive(entry.moment, fallbackStory);
           }
@@ -132,7 +135,7 @@ export function EntityPanel({
         const first = momentEntries[0];
         setScrollActiveId(first.moment.id);
         const firstStory = first.stories[0];
-        if (firstStory) {
+        if (firstStory && !shouldSuppressPan) {
           setTimeout(() => {
             onScrollLocationActive?.(first.moment, firstStory);
           }, 800);
@@ -178,6 +181,10 @@ export function EntityPanel({
 
     const onScroll = () => {
       if (isProgrammaticScroll.current) return;
+      // First real user scroll clears the homepage→detail pan suppression
+      if (suppressDetailPan?.current) {
+        suppressDetailPan.current = false;
+      }
       // Mark user as actively scrolling — prevents external scroll-to from bouncing
       isUserScrolling.current = true;
       clearTimeout(scrollEndTimer.current);

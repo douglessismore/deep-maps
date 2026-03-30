@@ -30,6 +30,7 @@ interface StoryPanelProps {
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
   sheetSnap?: SheetSnap;
   onExpandRequest?: () => void;
+  suppressDetailPan?: React.RefObject<boolean>;
 }
 
 export function StoryPanel({
@@ -47,6 +48,7 @@ export function StoryPanel({
   onEntityClick,
   sheetSnap,
   onExpandRequest,
+  suppressDetailPan,
 }: StoryPanelProps) {
   const { moments } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
@@ -96,6 +98,10 @@ export function StoryPanel({
       // Skip if this scroll was triggered by our own scrollIntoView correction, a card tap,
       // or the user is still reading a manually-expanded card (5s grace period)
       if (isProgrammaticScroll.current || isTapGuard.current) return;
+      // First real user scroll clears the homepage→detail pan suppression
+      if (suppressDetailPan?.current) {
+        suppressDetailPan.current = false;
+      }
       // Mark user as actively scrolling — prevents external scroll-to from bouncing
       isUserScrolling.current = true;
       clearTimeout(scrollEndTimer.current);
@@ -179,8 +185,11 @@ export function StoryPanel({
     if (storyLocations.length > 0) {
       const initialId = activeLocation?.id ?? storyLocations[0].id;
       setScrollActiveId(initialId);
-      const initialLocation = storyLocations.find(l => l.id === initialId) ?? storyLocations[0];
-      onScrollLocationSelect(initialLocation);
+      // Skip the map pan if navigating from homepage (viewport is being preserved)
+      if (!suppressDetailPan?.current) {
+        const initialLocation = storyLocations.find(l => l.id === initialId) ?? storyLocations[0];
+        onScrollLocationSelect(initialLocation);
+      }
     }
   }, [story.id]); // Only on story mount/change
 

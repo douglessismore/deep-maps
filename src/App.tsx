@@ -66,6 +66,7 @@ function App() {
   const [restoreView, setRestoreView] = useState<SavedMapView | null>(null);
   const exploreScrollTop = useRef(0);
   const preserveViewport = useRef(false); // skip fitBounds on next mode change (homepage → detail)
+  const suppressDetailPan = useRef(false); // skip initial scroll-driven pan in detail panels after homepage nav
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
   const [panelView, setPanelView] = useState<'home' | 'explorer'>('home');
@@ -702,6 +703,7 @@ function App() {
             onHome={handleBackToExplore}
             sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
+            suppressDetailPan={suppressDetailPan}
           />
           </FadeIn>
         ) : mode === 'story' && activeStory ? (
@@ -726,6 +728,7 @@ function App() {
             onEntityClick={handleEntitySelect}
             sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
+            suppressDetailPan={suppressDetailPan}
           />
           </FadeIn>
         ) : (
@@ -767,7 +770,7 @@ function App() {
             backLabel={backLabel}
             panelView={panelView}
             onPanelViewChange={setPanelView}
-            onPreserveViewport={() => { preserveViewport.current = true; }}
+            onPreserveViewport={() => { preserveViewport.current = true; suppressDetailPan.current = true; }}
           />
           </FadeIn>
         )}

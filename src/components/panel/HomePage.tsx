@@ -971,6 +971,7 @@ export function HomePage({
   const nearYouExpandedRef = useRef<HTMLDivElement | null>(null);
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
   const peopleExpandedRef = useRef<HTMLDivElement | null>(null);
+  const peopleScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed people
 
   // ── Scroll position tracking for back navigation ──
   useEffect(() => {
@@ -1032,13 +1033,21 @@ export function HomePage({
     expandedSection !== 'collections',
     'horizontal',
   );
+  const peopleActiveIdx = useScrollActiveIndex(
+    peopleScrollRef,
+    gridPeople.length,
+    expandedSection !== 'people', // active when collapsed (horizontal)
+    'horizontal',
+  );
   const peopleExpandedActiveIdx = useScrollActiveIndex(
     peopleExpandedRef,
-    (expandedSection === 'people' ? allPeople : gridPeople).length,
-    true, // Always active — people are always vertical rows now
+    allPeople.length,
+    expandedSection === 'people', // active when expanded (vertical)
     'vertical',
     homeScrollRef,
   );
+  // Unified people index — use horizontal when collapsed, vertical when expanded
+  const currentPeopleIdx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
 
   // Stable ref pattern for callbacks
   const onScrollHighlightRef = useRef(onScrollHighlight);
@@ -1124,21 +1133,18 @@ export function HomePage({
   const prevPeopleIdx = useRef(-1);
   useEffect(() => {
     if (!onScrollHighlightRef.current) return;
-    if (peopleExpandedActiveIdx === prevPeopleIdx.current) return;
-    prevPeopleIdx.current = peopleExpandedActiveIdx;
+    if (currentPeopleIdx === prevPeopleIdx.current) return;
+    prevPeopleIdx.current = currentPeopleIdx;
 
     const currentPeople = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
-    const personData = currentPeople[peopleExpandedActiveIdx];
+    const personData = currentPeople[currentPeopleIdx];
     if (!personData) return;
 
     const entityMoments = getMomentsForEntity(personData.entity.id);
     if (entityMoments.length > 0) {
       onScrollHighlightRef.current(entityMoments);
-      // NOTE: No panTo here — people list is viewport-derived, so panning would
-      // change the viewport → rebuild the people list → shift active index → pan
-      // again, creating a feedback loop that strands the user in a new location.
     }
-  }, [peopleExpandedActiveIdx, expandedSection]);
+  }, [currentPeopleIdx, expandedSection]);
 
   // Clear scroll highlight when switching sections
   useEffect(() => {
@@ -1299,14 +1305,14 @@ export function HomePage({
                 ))}
               </div>
             ) : (
-              <div ref={peopleExpandedRef}>
-                <HScrollRow>
+              <div>
+                <HScrollRow scrollRef={peopleScrollRef}>
                   {gridPeople.map(({ entity, momentCount }, i) => (
                     <PersonCard
                       key={entity.id}
                       entity={entity}
                       momentCount={momentCount}
-                      isActive={i === peopleExpandedActiveIdx}
+                      isActive={i === peopleActiveIdx}
                       isBackfill={backfillIds.has(entity.id)}
                       onClick={() => onEntityClick(entity)}
                     />
