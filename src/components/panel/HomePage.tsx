@@ -37,6 +37,8 @@ interface HomePageProps {
   /** Category filter — synced with App.tsx to also filter map markers */
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
+  /** Categories with moments in the viewport (computed from UNFILTERED data) */
+  allCategoriesInView?: Set<StoryCategory>;
   /** Ref callback for the home scroll container (used by parent to snapshot scroll on nav) */
   scrollRef?: (el: HTMLDivElement | null) => void;
   /** Scroll position tracking — saves scroll position for back navigation */
@@ -619,6 +621,7 @@ export function HomePage({
   onScrollPan,
   categoryFilter,
   onCategoryFilter,
+  allCategoriesInView,
   scrollRef,
   onScrollPosition,
   restoreScrollTop,
@@ -691,15 +694,6 @@ export function HomePage({
   // Filter to moments that have a parent story so every card is clickable.
   // Frozen while user scrolls to prevent card reshuffling mid-scroll (map pan changes viewport).
   const [isNearYouScrolling, setIsNearYouScrolling] = useState(false);
-  // Categories that have at least one moment visible on the map
-  const categoriesInView = useMemo(() => {
-    const cats = new Set<StoryCategory>();
-    for (const vl of viewportLocations) {
-      if (vl.story) cats.add(vl.story.category);
-    }
-    return cats;
-  }, [viewportLocations]);
-
   const isNavigating = useRef(false);
   const nearYouScrollTimeout = useRef(0);
   const nearYouMomentsLive = useMemo(() => {
@@ -1098,7 +1092,7 @@ export function HomePage({
 
         {/* ── Category filter pills ── */}
         <div className="pb-3">
-          <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} categoriesInView={categoriesInView} />
+          <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} categoriesInView={allCategoriesInView} />
         </div>
 
         {/* ── Sections: order controlled by ?order=people-first ── */}

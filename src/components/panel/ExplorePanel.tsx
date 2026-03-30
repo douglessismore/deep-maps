@@ -259,17 +259,30 @@ export function ExplorePanel({
     return result;
   }, [stories, searchQuery, categoryFilter]);
 
+  // Categories present in the viewport (unfiltered) — used for pill visibility
+  const [allCategoriesInView, setAllCategoriesInView] = useState<Set<StoryCategory>>(new Set());
+
   // Update viewport data when map moves (panel shows ALL moments — no notability filter)
   const updateViewport = useCallback(() => {
     if (!mapInstance || isScrollDriving.current) return;
     const bounds = mapInstance.getBounds();
+
+    // Compute unfiltered categories in viewport (for pill visibility)
+    const allInBoundsUnfiltered = getLocationsInBounds(stories, bounds, momentMap, moments);
+    const cats = new Set<StoryCategory>();
+    for (const vl of allInBoundsUnfiltered) {
+      if (vl.story) cats.add(vl.story.category);
+    }
+    setAllCategoriesInView(cats);
 
     // Filter by category if active
     const sourceStories = categoryFilter
       ? stories.filter((s) => s.category === categoryFilter)
       : stories;
 
-    const allInBounds = getLocationsInBounds(sourceStories, bounds, momentMap, moments);
+    const allInBounds = categoryFilter
+      ? getLocationsInBounds(sourceStories, bounds, momentMap, moments)
+      : allInBoundsUnfiltered;
     setViewportLocations(allInBounds);
     setViewportStories(getStoriesInBounds(sourceStories, bounds, momentMap));
     setMapZoom(mapInstance.getZoom());
@@ -883,6 +896,7 @@ export function ExplorePanel({
           onScrollHighlight={onScrollHighlight}
           onScrollPan={handleHomeScrollPan}
           categoryFilter={categoryFilter}
+          allCategoriesInView={allCategoriesInView}
           onScrollPosition={onScrollPosition}
           restoreScrollTop={restoreScrollTop}
           onScrollRestored={onScrollRestored}
