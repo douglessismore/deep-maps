@@ -914,7 +914,9 @@ export function HomePage({
   }, [viewportStories, backfillStories]);
 
   const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
-  const storiesSectionTitle = (viewportStories ?? []).length > 0 ? 'Stories Near You' : 'Stories Nearby';
+  const storiesSectionTitle = (viewportStories ?? []).length > 0
+    ? (isNearUser ? 'Stories Near You' : 'Stories In View')
+    : (isNearUser ? 'Stories Nearby' : 'Notable Stories');
 
   // Story in-view counts — how many of each story's moments are visible on the map
   const storyInViewCounts = useMemo(() => {
