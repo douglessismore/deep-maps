@@ -179,9 +179,13 @@ export function EntityPanel({
     const container = scrollContainerRef.current;
     if (!container) return;
 
+    // If we entered from homepage, disable scroll-driven panning for this entire panel session
+    // Uses a closure variable captured at mount time — persists for panel lifetime
+    const disableScrollPanForSession = !!suppressDetailPan?.current;
+
     const onScroll = () => {
       if (isProgrammaticScroll.current) return;
-      // First real user scroll clears the homepage→detail pan suppression
+      // Clear the global flag so other panels don't inherit it
       if (suppressDetailPan?.current) {
         suppressDetailPan.current = false;
       }
@@ -229,7 +233,7 @@ export function EntityPanel({
           lastScrollDrivenId.current = closestId; // Mark as scroll-driven
           setScrollActiveId(closestId);
           const entry = momentEntries.find((e) => e.moment.id === closestId);
-          if (entry && onScrollLocationActive) {
+          if (entry && onScrollLocationActive && !disableScrollPanForSession) {
             const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
             onScrollLocationActive(entry.moment, fallbackStory);
           }

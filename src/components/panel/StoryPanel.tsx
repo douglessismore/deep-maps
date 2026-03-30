@@ -94,11 +94,14 @@ export function StoryPanel({
     const container = scrollContainerRef.current;
     if (!container) return;
 
+    // If we entered from homepage, disable scroll-driven panning for this entire panel session
+    const disableScrollPanForSession = !!suppressDetailPan?.current;
+
     const onScroll = () => {
       // Skip if this scroll was triggered by our own scrollIntoView correction, a card tap,
       // or the user is still reading a manually-expanded card (5s grace period)
       if (isProgrammaticScroll.current || isTapGuard.current) return;
-      // First real user scroll clears the homepage→detail pan suppression
+      // Clear the global flag so other panels don't inherit it
       if (suppressDetailPan?.current) {
         suppressDetailPan.current = false;
       }
@@ -161,7 +164,7 @@ export function StoryPanel({
         if (closestId && closestId !== scrollActiveId) {
           setScrollActiveId(closestId);
           const location = storyLocations.find((l) => l.id === closestId);
-          if (location) {
+          if (location && !disableScrollPanForSession) {
             onScrollLocationSelect(location);
           }
         }

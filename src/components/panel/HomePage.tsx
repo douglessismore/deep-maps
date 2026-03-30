@@ -1195,6 +1195,8 @@ export function HomePage({
         ];
 
         let activeSection: typeof sections[0] | null = null;
+        let closestSection: typeof sections[0] | null = null;
+        let closestDist = Infinity;
         for (const section of sections) {
           const el = section.ref.current;
           if (!el) continue;
@@ -1203,8 +1205,16 @@ export function HomePage({
             activeSection = section;
             break;
           }
+          // Track closest section as fallback (e.g., hero is at midpoint but people is close)
+          const dist = Math.min(Math.abs(rect.top - midY), Math.abs(rect.bottom - midY));
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestSection = section;
+          }
         }
 
+        // Use closest section as fallback if none exactly straddles the midpoint
+        if (!activeSection) activeSection = closestSection;
         if (!activeSection) return;
 
         // Just set which section is active — the unified highlight effect handles the rest
@@ -1213,9 +1223,12 @@ export function HomePage({
     };
 
     container.addEventListener('scroll', onScroll, { passive: true });
+    // Run once on mount to detect initial section
+    const initTimer = setTimeout(onScroll, 100);
     return () => {
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafId);
+      clearTimeout(initTimer);
     };
   }, [expandedSection]);
 
