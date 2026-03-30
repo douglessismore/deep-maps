@@ -197,12 +197,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           bubblingMouseEvents: false,
         });
 
-        // Tooltip
+        // Tooltip with category color accent
         const storyName = story?.name || '';
+        const catColor = category ? CATEGORIES[category]?.color || '#888' : '#888';
         marker.bindTooltip(
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;border-left:3px solid ${catColor};padding-left:6px;">
             <strong>${moment.name}</strong>
-            <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${storyName}</div>
+            <div style="font-size:11px;color:#999;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${storyName}</div>
           </div>`,
           { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
         );
@@ -332,7 +333,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           interactive: true,
         });
         marker.bindTooltip(
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;">
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;border-left:3px solid ${color};padding-left:6px;margin:-2px -4px;border-radius:2px;">
             <strong>${moment.name}</strong>
           </div>`,
           { direction: 'right', offset: [8, 0], className: 'dark-tooltip clickable-tooltip', permanent: true }
