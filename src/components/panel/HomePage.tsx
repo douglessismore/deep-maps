@@ -173,13 +173,19 @@ const CATEGORY_ENTRIES = Object.entries(CATEGORIES) as [StoryCategory, { label: 
 function CategoryFilterPills({
   selected,
   onSelect,
+  categoriesInView,
 }: {
   selected: StoryCategory | null;
   onSelect: (cat: StoryCategory | null) => void;
+  categoriesInView?: Set<StoryCategory>;
 }) {
+  // Split categories: in-view first, then out-of-view
+  const inView = CATEGORY_ENTRIES.filter(([key]) => !categoriesInView || categoriesInView.has(key));
+  const outOfView = categoriesInView ? CATEGORY_ENTRIES.filter(([key]) => !categoriesInView.has(key)) : [];
+
   return (
     <div
-      className="flex gap-2.5 overflow-x-auto px-4 pb-2 no-scrollbar"
+      className="flex gap-2.5 overflow-x-auto px-4 pb-2 no-scrollbar items-center"
       style={{
         WebkitOverflowScrolling: 'touch',
         touchAction: 'manipulation',
@@ -197,7 +203,8 @@ function CategoryFilterPills({
       >
         All
       </button>
-      {CATEGORY_ENTRIES.map(([key, config]) => {
+      {/* Categories with moments in view */}
+      {inView.map(([key, config]) => {
         const isActive = selected === key;
         return (
           <button
@@ -214,6 +221,31 @@ function CategoryFilterPills({
           </button>
         );
       })}
+      {/* Separator + out-of-view categories (dimmed, with "zoom out" hint) */}
+      {outOfView.length > 0 && (
+        <>
+          <span className="shrink-0 text-[10px] font-sans text-[var(--text-muted)] opacity-50 px-1">
+            zoom out
+          </span>
+          {outOfView.map(([key, config]) => {
+            const isActive = selected === key;
+            return (
+              <button
+                key={key}
+                onClick={() => onSelect(isActive ? null : key)}
+                className="shrink-0 px-3 py-1 rounded-full text-[11px] font-sans font-medium transition-all duration-150 whitespace-nowrap opacity-40"
+                style={{
+                  backgroundColor: isActive ? config.bgColor : 'transparent',
+                  color: isActive ? config.color : 'var(--text-muted)',
+                  border: `1px solid ${isActive ? config.borderColor : 'var(--border-subtle)'}`,
+                }}
+              >
+                {config.label}
+              </button>
+            );
+          })}
+        </>
+      )}
     </div>
   );
 }
@@ -659,6 +691,15 @@ export function HomePage({
   // Filter to moments that have a parent story so every card is clickable.
   // Frozen while user scrolls to prevent card reshuffling mid-scroll (map pan changes viewport).
   const [isNearYouScrolling, setIsNearYouScrolling] = useState(false);
+  // Categories that have at least one moment visible on the map
+  const categoriesInView = useMemo(() => {
+    const cats = new Set<StoryCategory>();
+    for (const vl of viewportLocations) {
+      if (vl.story) cats.add(vl.story.category);
+    }
+    return cats;
+  }, [viewportLocations]);
+
   const isNavigating = useRef(false);
   const nearYouScrollTimeout = useRef(0);
   const nearYouMomentsLive = useMemo(() => {
@@ -1057,7 +1098,7 @@ export function HomePage({
 
         {/* ── Category filter pills ── */}
         <div className="pb-3">
-          <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} />
+          <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} categoriesInView={categoriesInView} />
         </div>
 
         {/* ── Sections: order controlled by ?order=people-first ── */}
