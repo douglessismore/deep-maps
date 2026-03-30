@@ -99,17 +99,13 @@ function useScrollActiveIndex(
       let closestDist = Infinity;
 
       if (mode === 'horizontal') {
-        // If not scrolled, default to first card (index 0)
-        if (container.scrollLeft <= 5) {
-          setActiveIndex(0);
-          return;
-        }
+        // Use 30% from left edge as reference — biases toward the first/leftmost visible card
         const rect = container.getBoundingClientRect();
-        const containerCenterX = rect.left + rect.width / 2;
+        const referenceX = rect.left + rect.width * 0.3;
         for (let i = 0; i < cards.length; i++) {
           const cardRect = cards[i].getBoundingClientRect();
           const cardCenterX = cardRect.left + cardRect.width / 2;
-          const dist = Math.abs(cardCenterX - containerCenterX);
+          const dist = Math.abs(cardCenterX - referenceX);
           if (dist < closestDist) { closestDist = dist; closestIdx = i; }
         }
       } else {
@@ -1127,8 +1123,7 @@ export function HomePage({
           const m = momentByIdRef.current.get(sm.momentId);
           if (m) moments.push(m);
         }
-        const name = story.nickname && story.nickname.includes(' ') ? story.nickname : story.name;
-        return { moments, label: name };
+        return { moments, label: story.name };
       }
     }
     return { moments: [], label: null };
@@ -1218,9 +1213,15 @@ export function HomePage({
           }
         }
 
-        // Use closest section as fallback if none exactly straddles the midpoint
-        if (!activeSection) activeSection = closestSection;
-        if (!activeSection) return;
+        // Use closest section as fallback, but only if reasonably close (within 150px)
+        if (!activeSection && closestDist < 150) activeSection = closestSection;
+
+        if (!activeSection) {
+          // Scrolled to hero or between sections — clear highlight
+          setActiveHomeSection(null);
+          onScrollHighlightRef.current?.([]);
+          return;
+        }
 
         // Just set which section is active — the unified highlight effect handles the rest
         setActiveHomeSection(activeSection.type as HomeSection);
