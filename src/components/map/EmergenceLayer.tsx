@@ -33,7 +33,9 @@ function computeAlpha(moment: Moment, zoom: number): number {
   if (threshold <= 0) return 1;
   const notability = getEffectiveNotability(moment);
   if (notability >= threshold) return 1;
-  return Math.max(0.15, notability / threshold);
+  // Raised minimum from 0.15 to 0.35 so low-notability markers remain visible
+  // in sparse areas where they may be the only markers
+  return Math.max(0.35, notability / threshold);
 }
 
 // ── Highlight-aware opacity helpers ────────────────────────────────
