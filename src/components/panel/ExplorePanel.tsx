@@ -829,11 +829,15 @@ export function ExplorePanel({
   }, [userLocation, mapInstance, viewportLocations]);
 
   // Scroll-driven pan for V2 home page — debounced like V1's panTimeout pattern
+  // Sets isScrollDriving to suppress updateViewport during scroll-driven map pans
+  // (prevents Near You cards from reshuffling mid-scroll)
   const handleHomeScrollPan = useCallback((lat: number, lng: number) => {
     if (!mapInstance) return;
+    isScrollDriving.current = true;
     clearTimeout(homePanTimeout.current);
     homePanTimeout.current = window.setTimeout(() => {
       panToAboveSheet(mapInstance, [lat, lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+      setTimeout(() => { isScrollDriving.current = false; }, 300);
     }, 80);
   }, [mapInstance, sheetSnap, isSheetMobile]);
 

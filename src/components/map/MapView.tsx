@@ -989,7 +989,8 @@ function MapController({
       clearFlag();
     } else if (categoryFilter) {
       const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
-      const catStories = stories.filter((s) => s.category === categoryFilter);
+      // Use allStories (not viewport-filtered stories) so fitBounds covers ALL moments for this category
+      const catStories = allStories.filter((s) => s.category === categoryFilter);
       const coords = catStories.flatMap((s) =>
         resolveLocationsFromMap(s, momentMap).map((l) => [l.lat, l.lng] as [number, number])
       );

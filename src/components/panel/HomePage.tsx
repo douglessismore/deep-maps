@@ -649,6 +649,7 @@ export function HomePage({
   // Filter to moments that have a parent story so every card is clickable.
   // Frozen while user scrolls to prevent card reshuffling mid-scroll (map pan changes viewport).
   const [isNearYouScrolling, setIsNearYouScrolling] = useState(false);
+  const isNavigating = useRef(false);
   const nearYouScrollTimeout = useRef(0);
   const nearYouMomentsLive = useMemo(() => {
     const sorted = [...viewportLocations]
@@ -745,7 +746,7 @@ export function HomePage({
     const handler = () => {
       setIsNearYouScrolling(true);
       clearTimeout(nearYouScrollTimeout.current);
-      nearYouScrollTimeout.current = window.setTimeout(() => setIsNearYouScrolling(false), 800);
+      nearYouScrollTimeout.current = window.setTimeout(() => setIsNearYouScrolling(false), 1500);
     };
     container.addEventListener('scroll', handler, { passive: true });
     return () => {
@@ -807,10 +808,11 @@ export function HomePage({
   // ── Near You scroll → map highlight ──
   // Use the active index from our hook to drive map highlighting.
   // hasMountedRef prevents panning on first render (e.g. after back navigation).
+  // isNavigating prevents fly-through cascade when clicking a card (scroll fires for intermediate cards).
   const prevNearYouIdx = useRef(-1);
   const hasMountedNearYou = useRef(false);
   useEffect(() => {
-    if (!onScrollHighlightRef.current) return;
+    if (!onScrollHighlightRef.current || isNavigating.current) return;
     const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
     if (idx === prevNearYouIdx.current) return;
     prevNearYouIdx.current = idx;
@@ -1078,6 +1080,7 @@ export function HomePage({
                         : 0
                     }
                     onClick={() => {
+                      isNavigating.current = true;
                       if (vl.story) onMomentClick(vl.location, vl.story);
                     }}
                   />
@@ -1099,6 +1102,7 @@ export function HomePage({
                         : 0
                     }
                     onClick={() => {
+                      isNavigating.current = true;
                       if (vl.story) onMomentClick(vl.location, vl.story);
                     }}
                   />
