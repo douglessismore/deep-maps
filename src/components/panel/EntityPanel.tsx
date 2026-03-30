@@ -615,12 +615,14 @@ export function EntityPanel({
                   </div>
                   {fullStoryEntries.map(({ moment, stories: parentStories }) => {
                     const primaryStory = parentStories[0];
+                    // Use prefixed key so full timeline refs don't overwrite nearby refs
+                    const fullKey = `full-${moment.id}`;
                     return (
                       <LocationCard
-                        key={`full-${moment.id}`}
+                        key={fullKey}
                         ref={(el) => {
                           if (el) {
-                            momentRefs.current.set(moment.id, el);
+                            momentRefs.current.set(fullKey, el);
                             el.dataset.momentId = moment.id;
                           }
                         }}
