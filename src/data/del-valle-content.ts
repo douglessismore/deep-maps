@@ -87,6 +87,126 @@ export const delValleMoments: Moment[] = [
     entityIds: ['max-verstappen', 'cota'],
   },
 
+  // ── Lewis Hamilton ─────────────────────────────────────────────────
+
+  {
+    id: 'lewis-hamilton-first-win-montreal-2007',
+    name: 'Lewis Hamilton Wins His First Formula One Race in Only His Sixth Start',
+    subtitle: 'Circuit Gilles Villeneuve, Île Notre-Dame, Montreal. The track loops the man-made island built for Expo 67',
+    description: 'The 22-year-old rookie led here from pole position on 10 June 2007, pulling away from the field on this island circuit in the St. Lawrence River to win by more than four seconds. Hamilton had finished on the podium in each of his first five races without winning. At Montreal he converted pole to victory on a track known for punishing mistakes, its concrete walls inches from the racing line. He finished his debut season one point short of the championship.',
+    lat: 45.5000,
+    lng: -73.5228,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 48,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2007,
+    date: '10 June 2007',
+    address: 'Circuit Gilles Villeneuve, Île Notre-Dame, Montreal, QC H3C, Canada',
+    entityIds: ['lewis-hamilton'],
+  },
+
+  {
+    id: 'lewis-hamilton-three-wheels-silverstone-2020',
+    name: 'Hamilton Wins the British Grand Prix on Three Wheels After a Last-Lap Puncture',
+    subtitle: 'Silverstone Circuit, Towcester, Northamptonshire. The circuit hosted the first-ever F1 race in 1950',
+    description: 'Hamilton was cruising to a record-extending seventh British Grand Prix victory here on 2 August 2020 when his left-front tyre failed on the final lap. With rubber shredding off the rim, he limped the 3.66-mile circuit at reduced speed while Verstappen closed from 30 seconds behind. Hamilton crossed the line on three intact tyres with just 5.8 seconds to spare. The win tied him with Michael Schumacher at 91 career victories.',
+    lat: 52.0786,
+    lng: -1.0169,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 52,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2020,
+    date: '2 August 2020',
+    address: 'Silverstone Circuit, Towcester, Northamptonshire NN12 8TN, UK',
+    entityIds: ['lewis-hamilton', 'max-verstappen'],
+  },
+
+  // ── Max Verstappen ────────────────────────────────────────────────
+
+  {
+    id: 'max-verstappen-youngest-winner-barcelona-2016',
+    name: 'Max Verstappen Becomes the Youngest Formula One Race Winner at 18',
+    subtitle: 'Circuit de Barcelona-Catalunya, Montmeló, Spain. The track hosts annual pre-season testing and the Spanish Grand Prix',
+    description: 'Verstappen was 18 years and 228 days old when he won here on 15 May 2016 in his first race after being promoted from Toro Rosso to Red Bull Racing. The two Mercedes drivers collided on the first lap, but Verstappen still had to fend off Kimi Räikkönen on older tyres in the closing laps at this 4.66-kilometre circuit northeast of Barcelona. He remains the youngest race winner in the sport\'s history.',
+    lat: 41.5700,
+    lng: 2.2611,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2016,
+    date: '15 May 2016',
+    address: 'Circuit de Barcelona-Catalunya, 08160 Montmeló, Barcelona, Spain',
+    entityIds: ['max-verstappen'],
+  },
+
+  {
+    id: 'max-verstappen-championship-abu-dhabi-2021',
+    name: 'Verstappen Passes Hamilton on the Final Lap to Win His First World Championship',
+    subtitle: 'Yas Marina Circuit, Yas Island, Abu Dhabi. The track wraps around a marina and hotel; lit for night racing',
+    description: 'Verstappen and Hamilton arrived here at Yas Marina on 12 December 2021 tied on points after 21 races. Hamilton led comfortably until a late safety car bunched the field. Race director Michael Masi controversially let only the lapped cars between them unlap themselves, setting up a one-lap shootout. Verstappen, on fresh tyres, passed Hamilton at Turn 5 and held on to win. The decision triggered protests, a rule change, and Masi\'s removal.',
+    lat: 24.4672,
+    lng: 54.6031,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 58,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2021,
+    date: '12 December 2021',
+    address: 'Yas Marina Circuit, Yas Island, Abu Dhabi, UAE',
+    entityIds: ['max-verstappen', 'lewis-hamilton'],
+  },
+
+  // ── Mario Andretti ────────────────────────────────────────────────
+
+  {
+    id: 'mario-andretti-indy-500-1969',
+    name: 'Mario Andretti Wins the Indianapolis 500 in His Backup Car',
+    subtitle: 'Indianapolis Motor Speedway, 4790 W 16th St, Speedway, IN. The 2.5-mile oval has hosted the race since 1911',
+    description: 'Andretti qualified his primary car on the front row here but switched to his backup Hawk III after mechanical trouble. On 30 May 1969, he started from the second row and led 116 of 200 laps around the 2.5-mile oval known as the Brickyard. He won by more than two minutes. The victory was the crowning achievement of a career that already included USAC championships, but Andretti would later call this the one race that defined him in America.',
+    lat: 39.7955,
+    lng: -86.2347,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1969,
+    date: '30 May 1969',
+    address: '4790 W 16th St, Speedway, IN 46222',
+    entityIds: ['mario-andretti'],
+  },
+
+  {
+    id: 'mario-andretti-f1-championship-monza-1978',
+    name: 'Andretti Clinches the Formula One World Championship at Monza',
+    subtitle: 'Autodromo Nazionale Monza, Monza, Italy. The track in a royal park has hosted F1 since the inaugural 1950 season',
+    description: 'Andretti needed only a fourth-place finish here on 10 September 1978 to clinch the title, but the race turned tragic. His Lotus teammate Ronnie Peterson crashed at the start on the approach to the first chicane and died the next morning. Andretti won the race and the championship at this high-speed circuit in a royal park north of Milan, but the celebration was hollow. He remains the last American to win the F1 World Championship.',
+    lat: 45.6206,
+    lng: 9.2891,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1978,
+    date: '10 September 1978',
+    address: 'Autodromo Nazionale Monza, 20900 Monza MB, Italy',
+    entityIds: ['mario-andretti'],
+  },
+
   // ── Pilot Knob / McKinney Falls ─────────────────────────────────────
 
   {
@@ -358,21 +478,68 @@ export const delValleStories: Story[] = [
     relatedStoryIds: ['cota-birth-of-f1-in-austin', 'mckinney-falls-nine-thousand-years'],
     wikipediaSlug: 'Austin–Bergstrom_International_Airport',
   },
+
+  // ── Biography stories (invisible infrastructure) ──────────────────
+
+  {
+    id: 'lewis-hamilton-biography',
+    name: 'Lewis Hamilton',
+    years: '2007–present',
+    category: 'everyday-extraordinary',
+    storyType: 'biography',
+    description: 'A rookie\'s first win on an island circuit in Montreal, a three-wheeled finish at Silverstone, and six victories at the Texas track where he introduced F1 to America.',
+    tags: ['f1', 'motorsport', 'racing'],
+    moments: [
+      { momentId: 'lewis-hamilton-first-win-montreal-2007' },
+      { momentId: 'cota-first-usgp', isPrimary: true },
+      { momentId: 'lewis-hamilton-three-wheels-silverstone-2020' },
+    ],
+    relatedStoryIds: ['cota-birth-of-f1-in-austin', 'max-verstappen-biography'],
+    wikipediaSlug: 'Lewis_Hamilton',
+  },
+
+  {
+    id: 'max-verstappen-biography',
+    name: 'Max Verstappen',
+    years: '2016–present',
+    category: 'everyday-extraordinary',
+    storyType: 'biography',
+    description: 'The youngest F1 winner at 18 in Barcelona, a last-lap championship pass in Abu Dhabi, and a COTA victory before the largest crowd in the sport\'s history.',
+    tags: ['f1', 'motorsport', 'racing'],
+    moments: [
+      { momentId: 'max-verstappen-youngest-winner-barcelona-2016' },
+      { momentId: 'cota-attendance-record' },
+      { momentId: 'max-verstappen-championship-abu-dhabi-2021', isPrimary: true },
+    ],
+    relatedStoryIds: ['cota-birth-of-f1-in-austin', 'lewis-hamilton-biography'],
+    wikipediaSlug: 'Max_Verstappen',
+  },
+
+  {
+    id: 'mario-andretti-biography',
+    name: 'Mario Andretti',
+    years: '1969–2012',
+    category: 'everyday-extraordinary',
+    storyType: 'biography',
+    description: 'An Indy 500 victory in a backup car, an F1 championship shadowed by a teammate\'s death at Monza, and a ceremonial first lap at 72 on America\'s newest circuit.',
+    tags: ['f1', 'motorsport', 'racing', 'indycar'],
+    moments: [
+      { momentId: 'mario-andretti-indy-500-1969', isPrimary: true },
+      { momentId: 'mario-andretti-f1-championship-monza-1978' },
+      { momentId: 'cota-andretti-first-lap' },
+    ],
+    relatedStoryIds: ['cota-birth-of-f1-in-austin', 'lewis-hamilton-biography'],
+    wikipediaSlug: 'Mario_Andretti',
+  },
 ];
 
 // ─── ENTITIES ───────────────────────────────────────────────────────────
 
-export const delValleEntities: Entity[] = [
-  {
-    id: 'tavo-hellmund',
-    name: 'Tavo Hellmund',
-    type: 'person',
-    description: 'The promoter who convinced Formula One to come to Texas. Son of a Mexican racing family, Hellmund spent years lobbying Bernie Ecclestone and secured the initial COTA deal, but was ousted from the project before the first race was held.',
-    wikipediaSlug: 'Tavo_Hellmund',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
-  },
+// Demoted entities (tag-only, not shown as Notable People cards):
+// tavo-hellmund, kevin-schwantz, thomas-mckinney, john-bergstrom
+// Their IDs remain in moment entityIds[] arrays for tagging.
 
+export const delValleEntities: Entity[] = [
   {
     id: 'lewis-hamilton',
     name: 'Lewis Hamilton',
@@ -380,8 +547,8 @@ export const delValleEntities: Entity[] = [
     years: '1985–present',
     description: 'Seven world championships and more race wins than any driver in Formula One history. Hamilton won the inaugural US Grand Prix at COTA in 2012 and made Austin his most dominant circuit, winning there five more times.',
     wikipediaSlug: 'Lewis_Hamilton',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg/300px-Lewis_Hamilton_2016_Malaysia_2.jpg',
+    canonicalStoryId: 'lewis-hamilton-biography',
   },
 
   {
@@ -391,8 +558,8 @@ export const delValleEntities: Entity[] = [
     years: '1997–present',
     description: 'The youngest F1 race winner at 18, Verstappen won four consecutive world championships starting in 2021. His COTA victory that year came before the largest crowd in F1 history — 400,000 over the weekend.',
     wikipediaSlug: 'Max_Verstappen',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Max_Verstappen_2017_Malaysia_3.jpg/300px-Max_Verstappen_2017_Malaysia_3.jpg',
+    canonicalStoryId: 'max-verstappen-biography',
   },
 
   {
@@ -402,19 +569,8 @@ export const delValleEntities: Entity[] = [
     years: '1940–present',
     description: 'One of only two drivers to win races in Formula One, IndyCar, and NASCAR. Andretti won the F1 title in 1978, the Indy 500 in 1969, and the Daytona 500 in 1967. He drove the ceremonial first lap at COTA in 2012 at age 72.',
     wikipediaSlug: 'Mario_Andretti',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
-  },
-
-  {
-    id: 'kevin-schwantz',
-    name: 'Kevin Schwantz',
-    type: 'person',
-    years: '1964–present',
-    description: 'Texas-born motorcycle champion who won the 1993 500cc Grand Prix World Championship. Schwantz helped design the Circuit of the Americas layout, contributing his knowledge of racing lines and corner sequences to Hermann Tilke\'s engineering.',
-    wikipediaSlug: 'Kevin_Schwantz',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mario_Andretti_2008_Indy_Japan.jpg/300px-Mario_Andretti_2008_Indy_Japan.jpg',
+    canonicalStoryId: 'mario-andretti-biography',
   },
 
   {
@@ -426,25 +582,4 @@ export const delValleEntities: Entity[] = [
     wikipediaSlug: 'Circuit_of_the_Americas',
   },
 
-  {
-    id: 'thomas-mckinney',
-    name: 'Thomas F. McKinney',
-    type: 'person',
-    years: '1801–1873',
-    description: 'One of Stephen F. Austin\'s original colonists who bankrolled the Texas Revolution. McKinney co-signed $100,000 in loans to fund the Texian army — debts the Republic never fully repaid. He built a homestead and gristmill on Onion Creek, where McKinney Falls State Park now stands.',
-    wikipediaSlug: 'Thomas_F._McKinney',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
-  },
-
-  {
-    id: 'john-bergstrom',
-    name: 'John August Earl Bergstrom',
-    type: 'person',
-    years: '1907–1941',
-    description: 'An Austin-born Army Air Corps captain killed at Clark Field in the Philippines on 8 December 1941, hours after Pearl Harbor. Austin citizens named their new air base in his honor, and the name carried through to the city\'s international airport.',
-    wikipediaSlug: 'Austin–Bergstrom_International_Airport',
-    // TODO: needs canonicalStoryId — no biography story exists yet
-    canonicalStoryId: '',
-  },
 ];

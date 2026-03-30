@@ -22,6 +22,7 @@ export const seattleEntities: Entity[] = [
       'The diplomat who chose peace while his people\'s land became a city. Leader of the Suquamish and Duwamish, Si\'ahl navigated white settlement through negotiation rather than war. His 1854 speech to Governor Stevens became one of history\'s most quoted environmental statements. He is buried on the Kitsap Peninsula, nine miles across the water from the skyline named for him.',
     canonicalStoryId: 'chief-seattle-suquamish',
     wikipediaSlug: 'Chief_Seattle',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Chief_si%27ahl.jpg/300px-Chief_si%27ahl.jpg',
   },
   {
     id: 'gary-ridgway',
@@ -32,6 +33,7 @@ export const seattleEntities: Entity[] = [
       'A truck painter who killed at least 49 women over 16 years without detection. Ridgway targeted sex workers along the Pacific Highway South corridor near Sea-Tac airport. He passed a polygraph in 1984 and kept killing until a 1987 DNA sample finally matched three victims in 2001.',
     canonicalStoryId: 'green-river-killer',
     wikipediaSlug: 'Gary_Ridgway',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Gary_Ridgway_in_2011.jpg/300px-Gary_Ridgway_in_2011.jpg',
   },
   {
     id: 'kurt-cobain',
@@ -42,6 +44,7 @@ export const seattleEntities: Entity[] = [
       'The voice that turned a regional punk scene into a global earthquake. Born in Aberdeen, Washington, Cobain formed Nirvana and released "Smells Like Teen Spirit" in 1991, redefining rock music overnight. He died by suicide at his Seattle home on 5 April 1994, age 27.',
     canonicalStoryId: 'seattle-grunge-era',
     wikipediaSlug: 'Kurt_Cobain',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Nirvana_around_1992.jpg/300px-Nirvana_around_1992.jpg',
   },
   {
     id: 'db-cooper',
@@ -52,17 +55,10 @@ export const seattleEntities: Entity[] = [
       'The phantom skyjacker who vanished into a rainstorm with $200,000. On Thanksgiving Eve 1971, a man using the alias Dan Cooper hijacked a 727 out of Seattle, collected ransom in $20 bills, and parachuted into the night over southwest Washington. He was never found or identified.',
     canonicalStoryId: 'db-cooper-hijacking',
     wikipediaSlug: 'D._B._Cooper',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/FBI-CompositeB-DBCooper.jpg',
   },
-  {
-    id: 'harry-truman-mtsthelens',
-    name: 'Harry R. Truman',
-    type: 'person',
-    years: '1896–1980',
-    description:
-      'The innkeeper who refused to leave his mountain and became a folk hero. Truman ran the Mount St. Helens Lodge on Spirit Lake for 52 years and told reporters he would not evacuate. On 18 May 1980, he and his 16 cats were buried under 150 feet of volcanic debris.',
-    canonicalStoryId: 'mount-st-helens-eruption',
-    wikipediaSlug: 'Harry_R._Truman',
-  },
+  // Demoted entity (tag-only): harry-truman-mtsthelens
+  // ID remains in moment entityIds[] for tagging.
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────
@@ -224,6 +220,47 @@ export const seattleMoments: Moment[] = [
     date: '15 July 1982',
     entityIds: ['gary-ridgway'],
     wikiSection: 'Murders',
+  },
+
+  {
+    id: 'sea-ridgway-arrest',
+    name: 'A 1987 DNA Sample Finally Matches and Police Arrest Gary Ridgway at His Workplace',
+    subtitle: 'Kenworth Truck Company, 10630 SE 192nd St, Renton, WA. The plant where Ridgway worked as a truck painter',
+    description:
+      'Detectives arrested Gary Ridgway here at the Kenworth truck factory in Renton on 30 November 2001 as he walked to his pickup truck after a shift painting big rigs. New STR DNA technology had matched a saliva sample Ridgway gave in 1987 to semen found on three victims. He had worked at this plant for 32 years, commuting daily from his Auburn home past the same Pacific Highway strip where he had picked up dozens of his victims. Coworkers described him as quiet and unremarkable.',
+    lat: 47.4389,
+    lng: -122.1669,
+    type: 'workplace',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 2001,
+    date: '30 November 2001',
+    address: '10630 SE 192nd St, Renton, WA 98055',
+    entityIds: ['gary-ridgway'],
+    wikiSection: 'Arrest',
+  },
+  {
+    id: 'sea-ridgway-plea',
+    name: 'Ridgway Pleads Guilty to 48 Murders and Leads Detectives to Undiscovered Remains',
+    subtitle: 'King County Courthouse, 516 Third Ave, Seattle. The courthouse is open to the public',
+    description:
+      'Inside this courthouse here on Third Avenue, Gary Ridgway pleaded guilty on 5 November 2003 to 48 counts of aggravated first-degree murder, making him the most prolific convicted serial killer in American history at the time. The plea deal spared him the death penalty in exchange for disclosing the locations of still-missing victims. Over the following months he led detectives to remains scattered across King County ravines and wooded lots. He later confessed to a 49th murder. He received 48 consecutive life sentences without parole.',
+    lat: 47.6015,
+    lng: -122.3310,
+    type: 'government',
+    importance: 'major',
+    notability: 60,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2003,
+    date: '5 November 2003',
+    address: '516 Third Ave, Seattle, WA 98104',
+    entityIds: ['gary-ridgway'],
+    wikiSection: 'Plea_bargain_and_confession',
   },
 
   // ── Story: Grunge ──
@@ -503,10 +540,14 @@ export const seattleStories: Story[] = [
     category: 'dark-history',
     storyType: 'incident',
     description:
-      'Bodies surface in the Green River. A truck painter passes a polygraph in 1984 and keeps killing for 14 more years. A DNA sample from 1987 finally catches him in 2001: 49 victims.',
+      'Bodies surface in the Green River, a truck painter passes a polygraph and keeps killing for 14 years, a 1987 DNA sample finally catches him at his factory, and he pleads guilty to 48 murders to avoid the needle.',
     tags: ['serial-killer', 'seattle', 'kent', 'true-crime'],
     contentWarning: 'Contains references to serial murder of women.',
-    moments: [{ momentId: 'sea-green-river-first-body' }],
+    moments: [
+      { momentId: 'sea-green-river-first-body' },
+      { momentId: 'sea-ridgway-arrest' },
+      { momentId: 'sea-ridgway-plea' },
+    ],
     relatedStoryIds: ['bundy-seattle-years'],
     wikipediaSlug: 'Gary_Ridgway',
   },

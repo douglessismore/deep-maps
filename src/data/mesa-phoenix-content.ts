@@ -21,6 +21,7 @@ export const mesaPhoenixEntities: Entity[] = [
       'A Phoenix laborer whose botched interrogation reached the Supreme Court and gave every arrested person in America the right to remain silent. Stabbed to death in a bar fight ten years later; his killer was read Miranda rights and released.',
     canonicalStoryId: '', // TODO: no biography story exists yet
     wikipediaSlug: 'Ernesto_Miranda',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Ernesto_Miranda_crop.jpg/300px-Ernesto_Miranda_crop.jpg',
   },
   {
     id: 'barry-goldwater',
@@ -31,6 +32,7 @@ export const mesaPhoenixEntities: Entity[] = [
       'The father of modern American conservatism and five-term Arizona senator. A department-store heir who flew 163 different aircraft, set up one of Arizona\'s first radio transmitters at age 13, and spent his final years advocating for gay rights and marijuana legalization.',
     canonicalStoryId: 'barry-goldwater-life',
     wikipediaSlug: 'Barry_Goldwater',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Barry_Goldwater_photo1962.jpg/300px-Barry_Goldwater_photo1962.jpg',
   },
   {
     id: 'frank-lloyd-wright',
@@ -39,29 +41,12 @@ export const mesaPhoenixEntities: Entity[] = [
     years: '1867–1959',
     description:
       'America\'s most famous architect designed over 1,000 structures across 70 years. He built Taliesin West in the Scottsdale desert as a winter laboratory, hand-mixing local rock and sand into the concrete to make the building look like it grew out of the earth.',
-    canonicalStoryId: '', // TODO: no biography story exists yet
+    canonicalStoryId: 'frank-lloyd-wright-biography',
     wikipediaSlug: 'Frank_Lloyd_Wright',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Frank_Lloyd_Wright_portrait.jpg/300px-Frank_Lloyd_Wright_portrait.jpg',
   },
-  {
-    id: 'winnie-ruth-judd',
-    name: 'Winnie Ruth Judd',
-    type: 'person',
-    years: '1905–1998',
-    description:
-      'The "Trunk Murderess" who killed two friends in Phoenix in 1931, packed their bodies into luggage, and shipped them by train to Los Angeles. Sentenced to hang, declared insane, she escaped the state asylum seven times over 38 years.',
-    canonicalStoryId: '', // TODO: no biography story exists yet
-    wikipediaSlug: 'Winnie_Ruth_Judd',
-  },
-  {
-    id: 'don-bolles',
-    name: 'Don Bolles',
-    type: 'person',
-    years: '1928–1976',
-    description:
-      'An Arizona Republic reporter who spent a decade exposing land fraud and organized crime in Phoenix. A car bomb killed him on 2 June 1976 in a hotel parking lot. His murder triggered the largest collaborative journalism investigation in American history.',
-    canonicalStoryId: '', // TODO: no biography story exists yet
-    wikipediaSlug: 'Don_Bolles',
-  },
+  // Demoted entities (tag-only): winnie-ruth-judd, don-bolles
+  // Their IDs remain in moment entityIds[] for tagging.
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────
@@ -299,6 +284,48 @@ export const mesaPhoenixMoments: Moment[] = [
     wikiSection: 'Design_and_construction',
   },
 
+  // ── Story: Frank Lloyd Wright (biography) ──
+  {
+    id: 'flw-fallingwater-built',
+    name: 'Frank Lloyd Wright Builds a House Over a Waterfall and Rescues His Career',
+    subtitle: 'Fallingwater, 1491 Mill Run Rd, Mill Run, PA. Open for tours; the house cantilevers directly over Bear Run falls',
+    description:
+      'Wright was 67 and nearly forgotten when department store heir Edgar Kaufmann Sr. commissioned a weekend home here in the Laurel Highlands. Instead of placing the house with a view of the waterfall, Wright cantilevered it directly over the falls on 15 September 1935. Engineers warned the concrete would collapse. Kaufmann\'s contractor secretly doubled the steel reinforcement. The house held. Time magazine put Wright on its cover in 1938, and the AIA later named Fallingwater the best all-time work of American architecture.',
+    lat: 39.9064,
+    lng: -79.4681,
+    type: 'landmark',
+    importance: 'major',
+    notability: 65,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1935,
+    date: '15 September 1935',
+    address: '1491 Mill Run Rd, Mill Run, PA 15464',
+    entityIds: ['frank-lloyd-wright'],
+    wikiSection: 'History',
+  },
+  {
+    id: 'flw-guggenheim-opens',
+    name: 'The Guggenheim Museum Opens Six Months After Wright Dies',
+    subtitle: '1071 Fifth Ave, New York, NY. The spiral ramp museum is open to the public on Museum Mile',
+    description:
+      'Wright spent 16 years fighting with Solomon Guggenheim, city officials, and 21 artists who signed a letter protesting the design of this museum here on Fifth Avenue. The building inverts the typical gallery: visitors take an elevator to the top and walk down a continuous quarter-mile spiral ramp. Wright died on 9 April 1959 at age 91. The museum opened on 21 October 1959 to divided reviews. Today it is a UNESCO World Heritage Site and one of the most recognized buildings on Earth.',
+    lat: 40.7830,
+    lng: -73.9590,
+    type: 'landmark',
+    importance: 'major',
+    notability: 70,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1959,
+    date: '21 October 1959',
+    address: '1071 Fifth Ave, New York, NY 10128',
+    entityIds: ['frank-lloyd-wright'],
+    wikiSection: 'History',
+  },
+
   // ── Story: Japanese Internment in Arizona ──
   {
     id: 'phx-gila-river-camp',
@@ -475,8 +502,26 @@ export const mesaPhoenixStories: Story[] = [
       'Frank Lloyd Wright spends two decades building and rebuilding his Scottsdale compound with desert masonry mixed from local rock. Canvas roofs filter the light. Now a UNESCO World Heritage Site.',
     tags: ['architecture', 'scottsdale', 'frank-lloyd-wright', 'unesco'],
     moments: [{ momentId: 'phx-taliesin-west' }],
-    relatedStoryIds: ['barry-goldwater-life'],
+    relatedStoryIds: ['barry-goldwater-life', 'frank-lloyd-wright-biography'],
     wikipediaSlug: 'Taliesin_West',
+  },
+  {
+    id: 'frank-lloyd-wright-biography',
+    name: 'Frank Lloyd Wright',
+    nickname: 'America\'s Architect',
+    years: '1867–1959',
+    category: 'arts-culture',
+    storyType: 'biography',
+    description:
+      'A house cantilevered over a waterfall rescues a 67-year-old\'s career, a spiral museum on Fifth Avenue opens six months after he dies, and a desert compound built from local rock becomes a UNESCO site.',
+    tags: ['architecture', 'frank-lloyd-wright', 'unesco', 'modernism'],
+    moments: [
+      { momentId: 'flw-fallingwater-built' },
+      { momentId: 'phx-taliesin-west' },
+      { momentId: 'flw-guggenheim-opens' },
+    ],
+    relatedStoryIds: ['taliesin-west'],
+    wikipediaSlug: 'Frank_Lloyd_Wright',
   },
   {
     id: 'japanese-internment-arizona',
