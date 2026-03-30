@@ -296,7 +296,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
             <strong>${scrollHighlightLabel}</strong>
           </div>`,
-          { direction: 'top', offset: [0, -8], className: 'dark-tooltip', permanent: true }
+          { direction: 'right', offset: [12, 0], className: 'dark-tooltip', permanent: true }
         );
         marker.addTo(map);
         scrollOverlayRef.current = marker;

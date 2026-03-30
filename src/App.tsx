@@ -462,8 +462,8 @@ function App() {
   const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string, label?: string) => {
     // Inside a collection, never allow multi-moment highlights (prevents polylines)
     const safeLocations = activeCollection && locations.length > 1 ? [locations[0]] : locations;
-    const key = safeLocations.map(m => m.id).join(',');
-    if (key === scrollHighlightIdsRef.current) return; // same set — skip re-render
+    const key = safeLocations.map(m => m.id).join(',') + (label ? `::${label}` : '');
+    if (key === scrollHighlightIdsRef.current) return; // same set + label — skip re-render
     scrollHighlightIdsRef.current = key;
     setScrollHighlightDirectId(storyId ?? null);
     setScrollHighlight(safeLocations);

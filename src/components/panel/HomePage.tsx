@@ -99,6 +99,11 @@ function useScrollActiveIndex(
       let closestDist = Infinity;
 
       if (mode === 'horizontal') {
+        // If not scrolled, default to first card (index 0)
+        if (container.scrollLeft <= 5) {
+          setActiveIndex(0);
+          return;
+        }
         const rect = container.getBoundingClientRect();
         const containerCenterX = rect.left + rect.width / 2;
         for (let i = 0; i < cards.length; i++) {
