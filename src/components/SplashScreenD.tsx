@@ -24,18 +24,19 @@ export function SplashScreenD() {
           height: 140,
         }}
       >
-        {/* The hole/circle target — always visible */}
+        {/* The hole — 3D ellipse with depth shadow */}
         <div
           style={{
             position: 'absolute',
-            bottom: 0,
+            bottom: -2,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 28,
-            height: 28,
+            width: 36,
+            height: 14,
             borderRadius: '50%',
-            border: '2px solid rgba(234, 179, 8, 0.35)',
-            background: 'rgba(234, 179, 8, 0.06)',
+            border: '2px solid rgba(234, 179, 8, 0.3)',
+            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(234,179,8,0.08) 100%)',
+            boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.8), inset 0 -1px 3px rgba(234,179,8,0.15), 0 0 12px rgba(234,179,8,0.1)',
             opacity: 0,
             animation: 'splashD-hole-in 0.3s ease-out 0.1s forwards',
           }}
@@ -45,13 +46,14 @@ export function SplashScreenD() {
         <div
           style={{
             position: 'absolute',
-            bottom: 4,
+            bottom: 2,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 20,
-            height: 6,
+            width: 24,
+            height: 8,
             borderRadius: '50%',
-            background: 'rgba(234, 179, 8, 0.15)',
+            background: 'rgba(234, 179, 8, 0.18)',
+            filter: 'blur(2px)',
             opacity: 0,
             animation: 'splashD-shadow 1.7s ease-out 0.25s forwards',
           }}
