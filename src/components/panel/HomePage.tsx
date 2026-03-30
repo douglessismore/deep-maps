@@ -1058,26 +1058,8 @@ export function HomePage({
   // Use the active index from our hook to drive map highlighting.
   // hasMountedRef prevents panning on first render (e.g. after back navigation).
   // isNavigating prevents fly-through cascade when clicking a card (scroll fires for intermediate cards).
-  const prevNearYouIdx = useRef(-1);
-  const hasMountedNearYou = useRef(false);
-  useEffect(() => {
-    if (!onScrollHighlightRef.current || isNavigating.current) return;
-    const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
-    if (idx === prevNearYouIdx.current) return;
-    prevNearYouIdx.current = idx;
-
-    if (idx >= 0 && idx < nearYouMomentsRef.current.length) {
-      const vl = nearYouMomentsRef.current[idx];
-      onScrollHighlightRef.current([vl.location], vl.story?.id);
-      // Only pan after initial render and in collapsed mode — expanded Near You is
-      // viewport-derived, so panning would change the viewport → feedback loop.
-      // Skip first render to prevent pan on back navigation.
-      if (hasMountedNearYou.current && expandedSection !== 'nearYou') {
-        onScrollPanRef.current?.(vl.location.lat, vl.location.lng);
-      }
-      hasMountedNearYou.current = true;
-    }
-  }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
+  // Near You scroll panning removed — all sections stay in place now.
+  // The unified highlight system handles marker highlighting for all sections.
 
   // ── Initial highlight on mount ──
   // ═══════════════════════════════════════════════════════════════════
@@ -1125,8 +1107,16 @@ export function HomePage({
       }
     }
     if (section === 'stories') {
-      // TODO: wire stories scroll index — for now highlight nothing
-      return [];
+      // Highlight the first story's moments (no horizontal scroll index yet)
+      const story = allHomeStoriesRef.current[0];
+      if (story) {
+        const moments: Moment[] = [];
+        for (const sm of story.moments) {
+          const m = momentByIdRef.current.get(sm.momentId);
+          if (m) moments.push(m);
+        }
+        return moments;
+      }
     }
     return [];
   }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx]);

@@ -66,6 +66,8 @@ function getHighlightRadius(
   if (hasHighlight && highlightIds.has(momentId)) {
     return Math.max(baseRadius, 5);
   }
+  // Shrink non-highlighted markers when something is highlighted
+  if (hasHighlight) return Math.max(1.5, baseRadius * 0.5);
   return baseRadius;
 }
 
