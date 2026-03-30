@@ -1,7 +1,10 @@
 // SEED DATA ONLY — Do not edit directly. Use Supabase as source of truth. Run scripts/dump-from-supabase.ts to update.
 import type { Entity } from '../types';
+import { delValleEntities } from './del-valle-content';
+import { mesaPhoenixEntities } from './mesa-phoenix-content';
+import { seattleEntities } from './seattle-portorchard-content';
 
-export const entities: Entity[] = [
+const _baseEntities: Entity[] = [
   {
     id: 'queen-victoria',
     name: 'Queen Victoria',
@@ -4322,4 +4325,11 @@ export const entities: Entity[] = [
     description: 'Poet, novelist, and playwright who became the voice of the Harlem Renaissance. Hughes wrote "The Negro Speaks of Rivers" at 17, coined the term "the dream deferred," and spent four decades chronicling Black American life in jazz-inflected verse.',
     wikipediaSlug: 'Langston_Hughes',
   },
+];
+
+export const entities: Entity[] = [
+  ..._baseEntities,
+  ...delValleEntities,
+  ...mesaPhoenixEntities,
+  ...seattleEntities,
 ];

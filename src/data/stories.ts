@@ -1,7 +1,10 @@
 // SEED DATA ONLY — Do not edit directly. Use Supabase as source of truth. Run scripts/dump-from-supabase.ts to update.
 import type { Story } from '../types';
+import { delValleStories } from './del-valle-content';
+import { mesaPhoenixStories } from './mesa-phoenix-content';
+import { seattleStories } from './seattle-portorchard-content';
 
-export const stories: Story[] = [
+const _baseStories: Story[] = [
   // booker-t-washington-denied-capitol removed — moments remain linked to Booker T entity
   {
     id: 'evolution-of-life',
@@ -5580,4 +5583,11 @@ export const stories: Story[] = [
     moments: [{ momentId: 'sydney-opera-house-opens-1973' }],
     wikipediaSlug: 'Jørn_Utzon',
   },
+];
+
+export const stories: Story[] = [
+  ..._baseStories,
+  ...delValleStories,
+  ...mesaPhoenixStories,
+  ...seattleStories,
 ];

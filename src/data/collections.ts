@@ -27,7 +27,7 @@ export const collections: StoryCollection[] = [
       // Jeffrey Dahmer
       'dahmer-apartment', 'dahmer-first-victim',
       // Ted Bundy
-      'tb-chi-omega', 'tb-lake-sammamish',
+      'tb-chi-omega', 'tb-lake-sammamish', 'sea-bundy-sammamish',
       // Zodiac Killer
       'zk-blue-rock', 'zk-lake-berryessa', 'zk-stine-murder',
       // John Wayne Gacy
@@ -44,7 +44,7 @@ export const collections: StoryCollection[] = [
       // Dennis Rader (BTK)
       'btk-otero-murders-1974',
       // Gary Ridgway (Green River)
-      'green-river-first-victims-1982',
+      'green-river-first-victims-1982', 'sea-green-river-first-body',
       // Aileen Wuornos
       'wuornos-first-victim-1989',
       // Edmund Kemper
@@ -151,6 +151,8 @@ export const collections: StoryCollection[] = [
       'pakal-museum-anthropology', 'tomb-7-discovery', 'tomb-7-museum', 'teotihuacan-tunnel-entrance', 'teotihuacan-mercury-chamber',
       'chichen-el-castillo-equinox', 'chichen-sacred-cenote', 'chichen-thompson-dredging', 'olmec-tres-zapotes-discovery', 'olmec-san-lorenzo',
       'olmec-la-venta-museum', 'teotihuacan-pyramid-sun', 'teotihuacan-avenue-dead', 'teotihuacan-burning',
+      // Hohokam + McKinney Falls
+      'phx-hohokam-pueblo-grande', 'phx-hohokam-mesa-grande', 'phx-hohokam-park-canals', 'mckinney-falls-indigenous',
     ],
     tags: ['archaeology', 'ancient-history', 'indigenous', 'mesoamerican'],
   },
@@ -163,6 +165,8 @@ export const collections: StoryCollection[] = [
       'roswell-debris-field', 'roswell-airfield', 'coyame-crash-site', 'coyame-toxic-convoy', 'marfa-viewing-area',
       'eclipse-ufo-zocalo', 'eclipse-ufo-pyramids', 'diaz-ajusco-sighting', 'diaz-press-demonstration', 'flir-campeche-skies',
       'flir-press-conference',
+      // Phoenix Lights
+      'phx-lights-piestewa-peak', 'phx-lights-sierra-estrella',
     ],
     tags: ['ufo', 'paranormal', 'mystery-unexplained'],
   },
@@ -401,6 +405,8 @@ export const collections: StoryCollection[] = [
       'cahokia-woodhenge',
       'sitting-bull-little-bighorn-vision',
       'sitting-bull-assassination-1890',
+      // Suquamish + Hohokam
+      'sea-suquamish-old-man-house', 'sea-chief-seattle-speech', 'phx-hohokam-pueblo-grande',
       'tecumseh-prophetstown-1808',
       'tecumseh-death-thames-1813',
       'navajo-code-talkers-iwo-jima-1945',
