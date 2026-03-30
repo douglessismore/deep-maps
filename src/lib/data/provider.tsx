@@ -13,7 +13,7 @@ import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-quer
 import type { Moment, Story, Entity, StoryCollection } from '../../types';
 import { initEntityHelpers, filterBrowseableStories } from '../entityHelpers';
 import { initClustering } from '../clustering';
-import { SplashScreenA } from '../../components/SplashScreenA';
+import { SplashScreenD } from '../../components/SplashScreenD';
 
 // ─── Data source ─────────────────────────────────────────────────────
 // Supabase is always the primary. Static files are only a dev/offline fallback.
@@ -112,7 +112,7 @@ function DataLoader({ children }: { children: ReactNode }) {
 
 
   if (isLoading) {
-    return <SplashScreenA />;
+    return <SplashScreenD />;
   }
 
   if (error) {
