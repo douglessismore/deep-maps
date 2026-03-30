@@ -529,6 +529,8 @@ html, body, #root {
   min-width: 140px !important;
   white-space: normal !important;
   line-height: 1.3 !important;
+  cursor: pointer;
+  pointer-events: auto !important;
 }
 
 .dark-tooltip::before {
@@ -549,6 +551,18 @@ html, body, #root {
 
 .leaflet-tooltip-left.dark-tooltip::before {
   border-left-color: #1a1a1a !important;
+}
+
+.clickable-tooltip {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.clickable-tooltip:hover {
+  background: #2a2a2a !important;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3) !important;
+  border-color: rgba(139, 92, 246, 0.4) !important;
 }
 
 /* ===== Mobile Timeline Range Input ===== */

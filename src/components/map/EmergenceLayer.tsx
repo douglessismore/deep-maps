@@ -293,7 +293,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const marker = L.marker([centerLat, centerLng], {
           icon,
           zIndexOffset: 900,
-          interactive: false,
+          interactive: true,
         });
         // Auto-detect label direction based on where the cluster center is in the viewport
         const point = map.latLngToContainerPoint([centerLat, centerLng]);
@@ -302,11 +302,17 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const tooltipDir = isRightHalf ? 'left' as const : 'right' as const;
         const tooltipOffset: [number, number] = isRightHalf ? [-12, 0] : [12, 0];
         marker.bindTooltip(
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;">
             <strong>${scrollHighlightLabel}</strong>
           </div>`,
-          { direction: tooltipDir, offset: tooltipOffset, className: 'dark-tooltip', permanent: true }
+          { direction: tooltipDir, offset: tooltipOffset, className: 'dark-tooltip clickable-tooltip', permanent: true }
         );
+        // Click the label → navigate to the first highlighted moment's story
+        const firstMoment = scrollHighlight[0];
+        const firstStory = momentStoryMap.get(firstMoment.id);
+        if (firstStory) {
+          marker.on('click', () => onClickRef.current(firstMoment, firstStory));
+        }
         marker.addTo(map);
         scrollOverlayRef.current = marker;
       } else {
@@ -323,14 +329,18 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const marker = L.marker([moment.lat, moment.lng], {
           icon,
           zIndexOffset: 900,
-          interactive: false,
+          interactive: true,
         });
         marker.bindTooltip(
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;">
             <strong>${moment.name}</strong>
           </div>`,
-          { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: true }
+          { direction: 'right', offset: [8, 0], className: 'dark-tooltip clickable-tooltip', permanent: true }
         );
+        const story = momentStoryMap.get(moment.id);
+        if (story) {
+          marker.on('click', () => onClickRef.current(moment, story));
+        }
         marker.addTo(map);
         scrollOverlayRef.current = marker;
       }
