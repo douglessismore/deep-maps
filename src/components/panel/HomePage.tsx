@@ -1071,7 +1071,7 @@ export function HomePage({
                 onToggle={() => toggleSection('people')}
               />
               {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-                <div ref={peopleExpandedRef} className="flex flex-col">
+                <div ref={peopleExpandedRef} className="relative flex flex-col">
                   {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
                     <PersonRow
                       key={entity.id}
@@ -1081,6 +1081,18 @@ export function HomePage({
                       onClick={() => onEntityClick(entity)}
                     />
                   ))}
+                  {expandedSection !== 'people' && allPeople.length > gridPeople.length && (
+                    <>
+                      <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+                        style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
+                      <button
+                        onClick={() => toggleSection('people')}
+                        className="relative z-10 mx-auto mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
+                      >
+                        See all {allPeople.length} people →
+                      </button>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div className="px-4 py-8 text-center">
@@ -1217,7 +1229,7 @@ export function HomePage({
               onToggle={() => toggleSection('people')}
             />
             {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
-              <div ref={peopleExpandedRef} className="flex flex-col">
+              <div ref={peopleExpandedRef} className="relative flex flex-col">
                 {(expandedSection === 'people' ? allPeople : gridPeople).map(({ entity, momentCount }, i) => (
                   <PersonRow
                     key={entity.id}
@@ -1227,6 +1239,19 @@ export function HomePage({
                     onClick={() => onEntityClick(entity)}
                   />
                 ))}
+                {/* Fade gradient + "See all" when collapsed and more people exist */}
+                {expandedSection !== 'people' && allPeople.length > gridPeople.length && (
+                  <>
+                    <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+                      style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
+                    <button
+                      onClick={() => toggleSection('people')}
+                      className="relative z-10 mx-auto mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
+                    >
+                      See all {allPeople.length} people →
+                    </button>
+                  </>
+                )}
               </div>
             ) : (
               <div className="px-4 py-8 text-center">

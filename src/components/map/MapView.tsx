@@ -988,15 +988,8 @@ function MapController({
       userInteractUntil.current = 0;
       clearFlag();
     } else if (categoryFilter) {
-      const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
-      // Use allStories (not viewport-filtered stories) so fitBounds covers ALL moments for this category
-      const catStories = allStories.filter((s) => s.category === categoryFilter);
-      const coords = catStories.flatMap((s) =>
-        resolveLocationsFromMap(s, momentMap).map((l) => [l.lat, l.lng] as [number, number])
-      );
-      if (coords.length > 0) {
-        smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 10, duration: 1.8 });
-      }
+      // Don't pan — just filter markers in place. The user chose their viewport;
+      // category pills should refine what's visible, not teleport the map.
       clearFlag();
     } else {
       isProgrammaticMove.current = false;
