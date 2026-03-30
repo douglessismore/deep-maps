@@ -10,7 +10,12 @@ import { useInViewAnimation } from '../../lib/useInViewAnimation';
 
 // ─── Types ───────────────────────────────────────────────────────────
 
-type ExpandedSection = 'nearYou' | 'stories' | 'collections' | 'people' | null;
+type ExpandedSection = 'nearYou' | 'collections' | 'people' | 'places' | null;
+
+/** Union item for the merged Near You section — interleaves stories and moments */
+type NearYouItem =
+  | { type: 'moment'; data: ViewportLocation }
+  | { type: 'story'; data: Story };
 
 // Module-level: persists across HomePage unmount/remount so horizontal scroll
 // positions survive back navigation (component unmounts when viewing entity/story).
@@ -25,6 +30,10 @@ interface HomePageProps {
   personEntities: EntityWithCounts[];
   /** Backfill people from expanded bounds when viewport has few people */
   backfillPeople?: EntityWithCounts[];
+  /** Place entities sorted by momentCount */
+  placeEntities?: EntityWithCounts[];
+  /** Backfill places from expanded bounds when viewport has few places */
+  backfillPlaces?: EntityWithCounts[];
   /** User GPS location (null if unavailable) */
   userLocation: { lat: number; lng: number } | null;
   /** Whether the user's GPS location is within the current map viewport */
@@ -557,22 +566,31 @@ function HomeStoryCard({
   return (
     <button
       onClick={onClick}
-      className={`w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] ${
-        isActive ? 'scale-[1.04] shadow-lg' : ''
-      }`}
-      style={isActive ? { boxShadow: `0 0 24px ${cat?.color ?? '#D4A853'}33` } : undefined}
+      className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] card-animate-in"
+      style={{
+        borderLeftWidth: '3px',
+        borderLeftColor: cat?.color ?? '#666',
+        ...(isActive ? {
+          transform: 'scale(1.04)',
+          boxShadow: `0 0 24px ${cat?.color ?? '#D4A853'}33`,
+          borderColor: 'rgba(255,255,255,0.35)',
+          borderLeftColor: cat?.color ?? '#666',
+          backgroundColor: 'var(--bg-card-hover)',
+        } : {}),
+      }}
     >
-      {/* Category color bar */}
-      <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
-      <div className="p-3 flex flex-col justify-between h-[110px]">
+      <div className="p-3 flex flex-col justify-between h-[180px]">
         <div className="min-w-0">
           <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {story.name}
           </h4>
           <p className="text-[11px] text-[var(--text-muted)] font-mono mt-1">{story.years}</p>
+          <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1.5 line-clamp-2">
+            {story.description}
+          </p>
         </div>
         <div className="flex items-center justify-between mt-auto pt-1">
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+          <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>
             {inViewCount < total
               ? `${inViewCount} of ${total} moments`
               : `${total} moments`}
@@ -694,6 +712,50 @@ function PersonCard({
   );
 }
 
+// ─── Place card (horizontal) ────────────────────────────────────────
+
+function PlaceCard({
+  entity,
+  momentCount,
+  onClick,
+  isActive,
+  isBackfill,
+}: {
+  entity: Entity;
+  momentCount: number;
+  onClick: () => void;
+  isActive?: boolean;
+  isBackfill?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex flex-col items-center w-[130px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97] card-animate-in"
+      style={{
+        scrollSnapAlign: 'start',
+        ...(isActive ? {
+          transform: 'scale(1.04)',
+          backgroundColor: 'rgba(16,185,129,0.06)',
+          boxShadow: '0 0 20px rgba(16,185,129,0.15)',
+        } : {}),
+      }}
+    >
+      <span className={`w-14 h-14 rounded-full bg-[rgba(16,185,129,0.15)] ring-1 flex items-center justify-center text-[20px] ${isActive ? 'ring-[rgba(16,185,129,0.6)]' : 'ring-[rgba(16,185,129,0.3)]'}`}>
+        📍
+      </span>
+      <span className="mt-1.5 text-[14px] font-serif font-bold text-[var(--text-primary)] w-full text-center truncate px-1">
+        {entity.name}
+      </span>
+      <span className="text-[11px] font-mono text-[var(--text-muted)]">
+        {momentCount} events
+      </span>
+      {isBackfill && (
+        <span className="text-[9px] font-mono text-[var(--text-muted)] opacity-60">nearby</span>
+      )}
+    </button>
+  );
+}
+
 // ─── Horizontal scroll container ─────────────────────────────────────
 
 function HScrollRow({
@@ -726,6 +788,8 @@ export function HomePage({
   collections,
   personEntities,
   backfillPeople,
+  placeEntities,
+  backfillPlaces,
   userLocation,
   isNearUser,
   onMomentClick,
@@ -751,16 +815,16 @@ export function HomePage({
   // Layout variant switcher — tap hero text 3 times to cycle through orderings
   type LayoutVariant = 'A' | 'B' | 'C' | 'D';
   const LAYOUT_LABELS: Record<LayoutVariant, string> = {
-    A: 'People → Stories → Moments → Collections',
-    B: 'Stories → People → Moments → Collections',
-    C: 'Moments → People → Stories → Collections',
-    D: 'Collections → People → Stories → Moments',
+    A: 'People → Places → Near You → Collections',
+    B: 'Near You → People → Places → Collections',
+    C: 'Places → People → Near You → Collections',
+    D: 'Collections → People → Places → Near You',
   };
   const LAYOUT_ORDERS: Record<LayoutVariant, string[]> = {
-    A: ['people', 'stories', 'moments', 'collections'],
-    B: ['stories', 'people', 'moments', 'collections'],
-    C: ['moments', 'people', 'stories', 'collections'],
-    D: ['collections', 'people', 'stories', 'moments'],
+    A: ['people', 'places', 'moments', 'collections'],
+    B: ['moments', 'people', 'places', 'collections'],
+    C: ['places', 'people', 'moments', 'collections'],
+    D: ['collections', 'people', 'places', 'moments'],
   };
   const [layoutVariant, setLayoutVariant] = useState<LayoutVariant>('A');
   const layoutTapCount = useRef(0);
@@ -917,10 +981,12 @@ export function HomePage({
     return [...inView, ...fill];
   }, [viewportStories, backfillStories]);
 
-  const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
-  const storiesSectionTitle = (viewportStories ?? []).length > 0
-    ? (isNearUser ? 'Stories Near You' : 'Stories In View')
-    : (isNearUser ? 'Stories Nearby' : 'Notable Stories');
+  // ── Combined Near You items: stories first, then moments ──
+  const nearYouItems: NearYouItem[] = useMemo(() => {
+    const storyItems: NearYouItem[] = allHomeStories.map(s => ({ type: 'story' as const, data: s }));
+    const momentItems: NearYouItem[] = nearYouMoments.map(vl => ({ type: 'moment' as const, data: vl }));
+    return [...storyItems, ...momentItems];
+  }, [allHomeStories, nearYouMoments]);
 
   // Story in-view counts — how many of each story's moments are visible on the map
   const storyInViewCounts = useMemo(() => {
@@ -969,6 +1035,37 @@ export function HomePage({
   // Title adapts based on whether we're showing backfill people
   const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Notable People' : 'Notable People Nearby';
 
+  // ── Place entities ──
+  const filteredPlaceEntities = useMemo(() => {
+    const base = placeEntities ?? [];
+    if (categoryFilter === null) return base;
+    return base.filter(({ entity }) => {
+      const entityMoments = getMomentsForEntity(entity.id);
+      return entityMoments.some((m) => {
+        const parentStory = momentToStoryMap.get(m.id);
+        return parentStory?.category === categoryFilter;
+      });
+    });
+  }, [placeEntities, categoryFilter, momentToStoryMap]);
+
+  const backfillPlaceIds = useMemo(() => new Set((backfillPlaces ?? []).map(p => p.entity.id)), [backfillPlaces]);
+
+  const gridPlaces = useMemo(() => {
+    const inView = [...filteredPlaceEntities].sort((a, b) => b.momentCount - a.momentCount);
+    const fill = (backfillPlaces ?? [])
+      .filter(p => !filteredPlaceEntities.some(fp => fp.entity.id === p.entity.id))
+      .sort((a, b) => b.momentCount - a.momentCount);
+    return [...inView, ...fill].slice(0, 10);
+  }, [filteredPlaceEntities, backfillPlaces]);
+
+  const allPlaces = useMemo(() => {
+    const inView = [...filteredPlaceEntities].sort((a, b) => b.momentCount - a.momentCount);
+    const fill = (backfillPlaces ?? [])
+      .filter(p => !filteredPlaceEntities.some(fp => fp.entity.id === p.entity.id))
+      .sort((a, b) => b.momentCount - a.momentCount);
+    return [...inView, ...fill];
+  }, [filteredPlaceEntities, backfillPlaces]);
+
   // ── Scroll refs for each section ──
   const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
 
@@ -979,7 +1076,7 @@ export function HomePage({
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
   const peopleExpandedRef = useRef<HTMLDivElement | null>(null);
   const peopleScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed people
-  const storiesScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed stories
+  const placesScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed places
 
   // Save people horizontal scroll on unmount, restore on mount
   useEffect(() => {
@@ -1038,13 +1135,13 @@ export function HomePage({
   // ── Active index tracking via scroll position ──
   const nearYouActiveIdx = useScrollActiveIndex(
     nearYouScrollRef,
-    nearYouMoments.length,
+    nearYouItems.length,
     expandedSection !== 'nearYou',
     'horizontal',
   );
   const nearYouExpandedActiveIdx = useScrollActiveIndex(
     nearYouExpandedRef,
-    nearYouMoments.length,
+    nearYouItems.length,
     expandedSection === 'nearYou',
     'vertical',
     homeScrollRef,
@@ -1061,10 +1158,10 @@ export function HomePage({
     expandedSection !== 'people', // active when collapsed (horizontal)
     'horizontal',
   );
-  const storiesActiveIdx = useScrollActiveIndex(
-    storiesScrollRef,
-    allHomeStories.length,
-    expandedSection !== 'stories', // active when collapsed (horizontal)
+  const placesActiveIdx = useScrollActiveIndex(
+    placesScrollRef,
+    gridPlaces.length,
+    expandedSection !== 'places', // active when collapsed (horizontal)
     'horizontal',
   );
   const peopleExpandedActiveIdx = useScrollActiveIndex(
@@ -1105,8 +1202,12 @@ export function HomePage({
   gridPeopleRef.current = gridPeople;
   const allHomeStoriesRef = useRef(allHomeStories);
   allHomeStoriesRef.current = allHomeStories;
+  const gridPlacesRef = useRef(gridPlaces);
+  gridPlacesRef.current = gridPlaces;
+  const nearYouItemsRef = useRef(nearYouItems);
+  nearYouItemsRef.current = nearYouItems;
 
-  type HomeSection = 'people' | 'stories' | 'nearYou' | 'collections' | null;
+  type HomeSection = 'people' | 'places' | 'nearYou' | 'collections' | null;
   // Null on mount — section observer sets it when user scrolls to a section
   const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
 
@@ -1118,10 +1219,25 @@ export function HomePage({
       const person = people[Math.max(0, idx)];
       if (person) return { moments: getMomentsForEntity(person.entity.id), label: person.entity.name };
     }
+    if (section === 'places') {
+      const place = gridPlacesRef.current[Math.max(0, placesActiveIdx)];
+      if (place) return { moments: getMomentsForEntity(place.entity.id), label: place.entity.name };
+    }
     if (section === 'nearYou') {
       const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
-      const vl = nearYouMomentsRef.current[Math.max(0, idx)];
-      if (vl) return { moments: [vl.location], label: null }; // single moment — show moment name
+      const item = nearYouItemsRef.current[Math.max(0, idx)];
+      if (item) {
+        if (item.type === 'moment') {
+          return { moments: [item.data.location], label: null };
+        }
+        // Story item — highlight all its moments
+        const moments: Moment[] = [];
+        for (const sm of item.data.moments) {
+          const m = momentByIdRef.current.get(sm.momentId);
+          if (m) moments.push(m);
+        }
+        return { moments, label: item.data.name };
+      }
     }
     if (section === 'collections') {
       const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
@@ -1135,23 +1251,12 @@ export function HomePage({
         return { moments, label: coll.name };
       }
     }
-    if (section === 'stories') {
-      const story = allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
-      if (story) {
-        const moments: Moment[] = [];
-        for (const sm of story.moments) {
-          const m = momentByIdRef.current.get(sm.momentId);
-          if (m) moments.push(m);
-        }
-        return { moments, label: story.name };
-      }
-    }
     return { moments: [], label: null };
-  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx]);
+  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, placesActiveIdx]);
 
   // Fire highlight whenever the active section or its horizontal index changes
   // Also re-fire when data changes (gridPeople/allHomeStories may load async)
-  const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${allHomeStories[0]?.id ?? ''}-${nearYouMoments[0]?.location.id ?? ''}-${filteredCollections[0]?.id ?? ''}`;
+  const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${gridPlaces[0]?.entity.id ?? ''}-${nearYouItems[0]?.type === 'moment' ? nearYouItems[0].data.location.id : nearYouItems[0]?.type === 'story' ? nearYouItems[0].data.id : ''}-${filteredCollections[0]?.id ?? ''}`;
   useEffect(() => {
     if (!onScrollHighlightRef.current || !activeHomeSection) return;
     const { moments, label } = computeHighlight(activeHomeSection);
@@ -1164,7 +1269,7 @@ export function HomePage({
   // the user hasn't scrolled vertically yet. Track the initial index to avoid
   // triggering on mount (which would highlight LBJ before user interacts).
   const prevPeopleIdx = useRef(peopleActiveIdx);
-  const prevStoriesIdx = useRef(storiesActiveIdx);
+  const prevPlacesIdx = useRef(placesActiveIdx);
   const prevCollectionsIdx = useRef(collectionsActiveIdx);
   const prevNearYouIdx = useRef(nearYouActiveIdx);
 
@@ -1176,11 +1281,11 @@ export function HomePage({
   }, [peopleActiveIdx]);
 
   useEffect(() => {
-    if (storiesActiveIdx !== prevStoriesIdx.current) {
-      prevStoriesIdx.current = storiesActiveIdx;
-      setActiveHomeSection('stories');
+    if (placesActiveIdx !== prevPlacesIdx.current) {
+      prevPlacesIdx.current = placesActiveIdx;
+      setActiveHomeSection('places');
     }
-  }, [storiesActiveIdx]);
+  }, [placesActiveIdx]);
 
   useEffect(() => {
     if (collectionsActiveIdx !== prevCollectionsIdx.current) {
@@ -1227,7 +1332,7 @@ export function HomePage({
   const nearYouSectionRef = useRef<HTMLDivElement>(null);
   const collectionsSectionRef = useRef<HTMLDivElement>(null);
   const peopleSectionRef = useRef<HTMLDivElement>(null);
-  const storiesSectionRef = useRef<HTMLDivElement>(null);
+  const placesSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = homeScrollRef.current;
@@ -1243,7 +1348,7 @@ export function HomePage({
         // Check which section is at the midpoint
         const sections = [
           { ref: peopleSectionRef, type: 'people' as const },
-          { ref: storiesSectionRef, type: 'stories' as const },
+          { ref: placesSectionRef, type: 'places' as const },
           { ref: nearYouSectionRef, type: 'nearYou' as const },
           { ref: collectionsSectionRef, type: 'collections' as const },
         ];
@@ -1382,60 +1487,72 @@ export function HomePage({
         </div>
         </div>{/* end People order wrapper */}
 
-        {/* ── Stories Near You ── */}
-        <div style={{ order: o('stories') }}>
-        {allHomeStories.length > 0 && (
-          <>
-            <div ref={storiesSectionRef} className="pb-4">
-              <SectionHeading
-                title={storiesSectionTitle}
-                expanded={expandedSection === 'stories'}
-                onToggle={() => toggleSection('stories')}
-              />
-              {expandedSection === 'stories' ? (
-                <div className="flex flex-col gap-2 px-4">
-                  {allHomeStories.map((story) => (
-                    <button
-                      key={story.id}
-                      onClick={() => onStorySelect?.(story)}
-                      className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] p-3 text-left transition-all active:scale-[0.98]"
-                    >
-                      <div className="flex items-start gap-2">
-                        <div className="w-1 h-8 rounded-full shrink-0 mt-0.5" style={{ background: CATEGORIES[story.category]?.color ?? '#666' }} />
-                        <div className="min-w-0 flex-1">
-                          <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight truncate">
-                            {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
-                          </h4>
-                          <p className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
-                            {story.years} · {backfillStoryIds.has(story.id)
-                              ? `${story.moments.length} moments · nearby`
-                              : `${storyInViewCounts.get(story.id) ?? 0} of ${story.moments.length} moments in view`}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <HScrollRow scrollRef={storiesScrollRef}>
-                  {allHomeStories.map((story, i) => (
-                    <HomeStoryCard
-                      key={story.id}
-                      story={story}
-                      isActive={i === storiesActiveIdx}
-                      inViewCount={storyInViewCounts.get(story.id) ?? 0}
-                      onClick={() => onStorySelect?.(story)}
-                    />
-                  ))}
-                </HScrollRow>
-              )}
+        {/* ── Notable Places ── */}
+        <div style={{ order: o('places') }}>
+        <div ref={placesSectionRef} className="pt-4 pb-4">
+          <SectionHeading
+            title="Notable Places"
+            expanded={expandedSection === 'places'}
+            onToggle={() => toggleSection('places')}
+          />
+          {(expandedSection === 'places' ? allPlaces : gridPlaces).length > 0 ? (
+            expandedSection === 'places' ? (
+              <div className="flex flex-col">
+                {allPlaces.map(({ entity, momentCount }) => (
+                  <button
+                    key={entity.id}
+                    onClick={() => onEntityClick(entity)}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.99] text-left card-animate-in"
+                  >
+                    <span className="w-9 h-9 rounded-full bg-[rgba(16,185,129,0.15)] ring-1 ring-[rgba(16,185,129,0.3)] flex items-center justify-center text-[14px] shrink-0">
+                      📍
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[14px] font-sans font-semibold text-[var(--text-primary)] block truncate">
+                        {entity.name}
+                      </span>
+                      {entity.description && (
+                        <span className="text-[12px] text-[var(--text-muted)] block truncate mt-0.5">
+                          {entity.description}
+                        </span>
+                      )}
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                        {momentCount} events
+                      </span>
+                      {backfillPlaceIds.has(entity.id) && (
+                        <span className="text-[9px] font-mono text-[var(--text-muted)] block opacity-60">nearby</span>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <HScrollRow scrollRef={placesScrollRef}>
+                {gridPlaces.map(({ entity, momentCount }, i) => (
+                  <PlaceCard
+                    key={entity.id}
+                    entity={entity}
+                    momentCount={momentCount}
+                    isActive={i === placesActiveIdx}
+                    isBackfill={backfillPlaceIds.has(entity.id)}
+                    onClick={() => onEntityClick(entity)}
+                  />
+                ))}
+              </HScrollRow>
+            )
+          ) : (
+            <div className="px-4 py-8 text-center">
+              <p className="text-sm text-[var(--text-muted)] font-mono">
+                {categoryFilter ? 'No places for this category' : 'Pan or zoom the map to see notable places'}
+              </p>
             </div>
-            <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
-          </>
-        )}
-        </div>{/* end Stories order wrapper */}
+          )}
+        </div>
+        </div>{/* end Places order wrapper */}
 
-        {/* Near You / In View */}
+        {/* ── Near You / In View (unified: stories + moments) ── */}
         <div style={{ order: o('moments') }}>
         <div ref={nearYouSectionRef} className="pb-4">
           <SectionHeading
@@ -1443,50 +1560,99 @@ export function HomePage({
             expanded={expandedSection === 'nearYou'}
             onToggle={() => toggleSection('nearYou')}
           />
-          {nearYouMoments.length > 0 ? (
+          {nearYouItems.length > 0 ? (
             expandedSection === 'nearYou' ? (
               // Expanded: vertical list
               <div ref={nearYouExpandedRef} className="flex flex-col gap-2 px-4">
-                {nearYouMoments.map((vl, i) => (
-                  <NearYouCardVertical
-                    key={vl.location.id}
-                    location={vl.location}
-                    story={vl.story}
-                    isActive={i === nearYouExpandedActiveIdx}
-                    contextLine={getMomentContextLine(vl.location)}
-                    distance={
-                      userLocation
-                        ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
-                        : 0
-                    }
-                    onClick={() => {
-                      isNavigating.current = true;
-                      if (vl.story) onMomentClick(vl.location, vl.story);
-                    }}
-                  />
-                ))}
+                {nearYouItems.map((item, i) => {
+                  if (item.type === 'story') {
+                    const story = item.data;
+                    const cat = CATEGORIES[story.category];
+                    return (
+                      <button
+                        key={`story-${story.id}`}
+                        onClick={() => onStorySelect?.(story)}
+                        className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] p-3 text-left transition-all active:scale-[0.98] card-animate-in"
+                        style={{
+                          borderLeftWidth: '3px',
+                          borderLeftColor: cat?.color ?? '#666',
+                          ...(i === nearYouExpandedActiveIdx ? {
+                            backgroundColor: 'var(--bg-card-hover)',
+                            boxShadow: `0 0 24px ${cat?.color ?? '#D4A853'}33`,
+                          } : {}),
+                        }}
+                      >
+                        <div className="min-w-0">
+                          <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight truncate">
+                            {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+                          </h4>
+                          <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+                            {story.description}
+                          </p>
+                          <p className="text-[11px] text-[var(--text-muted)] font-mono mt-1">
+                            {story.years} · {storyInViewCounts.get(story.id) ?? 0} of {story.moments.length} moments
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  }
+                  const vl = item.data;
+                  return (
+                    <NearYouCardVertical
+                      key={`moment-${vl.location.id}`}
+                      location={vl.location}
+                      story={vl.story}
+                      isActive={i === nearYouExpandedActiveIdx}
+                      contextLine={getMomentContextLine(vl.location)}
+                      distance={
+                        userLocation
+                          ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
+                          : 0
+                      }
+                      onClick={() => {
+                        isNavigating.current = true;
+                        if (vl.story) onMomentClick(vl.location, vl.story);
+                      }}
+                    />
+                  );
+                })}
               </div>
             ) : (
-              // Collapsed: horizontal scroll
+              // Collapsed: horizontal scroll — stories (taller) then moments
               <HScrollRow scrollRef={nearYouScrollRef}>
-                {nearYouMoments.map((vl, i) => (
-                  <NearYouCard
-                    key={vl.location.id}
-                    location={vl.location}
-                    story={vl.story}
-                    isActive={i === nearYouActiveIdx}
-                    contextLine={getMomentContextLine(vl.location)}
-                    distance={
-                      userLocation
-                        ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
-                        : 0
-                    }
-                    onClick={() => {
-                      isNavigating.current = true;
-                      if (vl.story) onMomentClick(vl.location, vl.story);
-                    }}
-                  />
-                ))}
+                {nearYouItems.map((item, i) => {
+                  if (item.type === 'story') {
+                    const story = item.data;
+                    return (
+                      <HomeStoryCard
+                        key={`story-${story.id}`}
+                        story={story}
+                        isActive={i === nearYouActiveIdx}
+                        inViewCount={storyInViewCounts.get(story.id) ?? 0}
+                        onClick={() => onStorySelect?.(story)}
+                      />
+                    );
+                  }
+                  const vl = item.data;
+                  return (
+                    <NearYouCard
+                      key={`moment-${vl.location.id}`}
+                      location={vl.location}
+                      story={vl.story}
+                      isActive={i === nearYouActiveIdx}
+                      contextLine={getMomentContextLine(vl.location)}
+                      distance={
+                        userLocation
+                          ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
+                          : 0
+                      }
+                      onClick={() => {
+                        isNavigating.current = true;
+                        if (vl.story) onMomentClick(vl.location, vl.story);
+                      }}
+                    />
+                  );
+                })}
               </HScrollRow>
             )
           ) : (
