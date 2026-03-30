@@ -266,9 +266,11 @@ function NearYouCard({
       <div className="p-3 flex flex-col justify-between h-[140px]">
         <div className="min-w-0">
           {story && (
-            <span className="text-[11px] font-sans text-[var(--text-muted)] block truncate mb-0.5">
-              {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
-            </span>
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className="text-[11px] font-sans text-[var(--text-muted)] truncate">
+                {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+              </span>
+            </div>
           )}
           <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
             {location.name}
@@ -280,9 +282,13 @@ function NearYouCard({
           )}
         </div>
         <div className="mt-auto pt-1">
-          {contextLine && (
+          {contextLine ? (
             <p className="text-[10px] font-mono text-[var(--accent-red)] opacity-70 truncate mb-0.5">
               {contextLine}
+            </p>
+          ) : cat && (
+            <p className="text-[10px] font-mono opacity-60 truncate mb-0.5" style={{ color: cat.color }}>
+              {cat.label}
             </p>
           )}
           <div className="flex items-center gap-2">
@@ -351,9 +357,13 @@ function NearYouCardVertical({
               {location.subtitle || location.address}
             </p>
           )}
-          {contextLine && (
+          {contextLine ? (
             <p className="text-[10px] font-mono text-[var(--accent-red)] opacity-70 truncate mt-1">
               {contextLine}
+            </p>
+          ) : cat && (
+            <p className="text-[10px] font-mono opacity-60 truncate mt-1" style={{ color: cat.color }}>
+              {cat.label}
             </p>
           )}
         </div>
@@ -662,12 +672,40 @@ export function HomePage({
       });
     return sorted.slice(0, 20);
   }, [viewportLocations, categoryFilter]);
+  // Fallback: when viewport has no moments, show nearest globally (so content is never empty)
+  // Fallback: when viewport has no moments, show nearest globally (so content is never empty)
+  const nearestFallback = useMemo(() => {
+    if (nearYouMomentsLive.length > 0 || !userLocation) return [];
+    // Build moment→story lookup
+    const momentToStory = new Map<string, Story>();
+    for (const s of stories) {
+      for (const sm of s.moments) {
+        momentToStory.set(sm.momentId, s);
+      }
+    }
+    return allMoments
+      .filter(m => {
+        const s = momentToStory.get(m.id);
+        return s && (categoryFilter === null || s.category === categoryFilter);
+      })
+      .map(m => ({
+        location: m,
+        story: momentToStory.get(m.id) ?? null,
+        distance: distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng),
+      }))
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 20);
+  }, [nearYouMomentsLive.length, userLocation, allMoments, stories, categoryFilter]);
+
   const frozenNearYou = useRef(nearYouMomentsLive);
   if (!isNearYouScrolling) frozenNearYou.current = nearYouMomentsLive;
-  const nearYouMoments = isNearYouScrolling ? frozenNearYou.current : nearYouMomentsLive;
+  const nearYouMoments = isNearYouScrolling
+    ? frozenNearYou.current
+    : (nearYouMomentsLive.length > 0 ? nearYouMomentsLive : nearestFallback);
 
-  // Dynamic title: "Near you" when GPS is in viewport, "In view" otherwise
-  const nearYouTitle = isNearUser ? 'Near You' : 'In View';
+  // Dynamic title: context-aware
+  const isUsingFallback = nearYouMomentsLive.length === 0 && nearestFallback.length > 0;
+  const nearYouTitle = isUsingFallback ? 'Nearest' : (isNearUser ? 'Near You' : 'In View');
 
   // Set of moment IDs visible on the map — used to filter collections
   const viewportMomentIds = useMemo(

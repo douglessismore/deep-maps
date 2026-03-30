@@ -329,9 +329,14 @@ export function EntityPanel({
                   </span>
                 )}
               </button>
-              {/* Always show description preview; expand for full + wiki link */}
+              {/* Always show description preview with gradient fade — signals "there's more" */}
               {entity.description && !headerExpanded && (
-                <p className="px-4 pb-2 text-xs text-[var(--text-muted)] leading-relaxed line-clamp-2">{entity.description}</p>
+                <div className="relative px-4 pb-2">
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed max-h-[2.8em] overflow-hidden">{entity.description}</p>
+                  <div className="absolute bottom-2 left-4 right-4 h-[1.2em]" style={{
+                    background: 'linear-gradient(transparent, var(--bg-primary))'
+                  }} />
+                </div>
               )}
               {headerExpanded && (
                 <div className="px-4 pb-3 space-y-2">
