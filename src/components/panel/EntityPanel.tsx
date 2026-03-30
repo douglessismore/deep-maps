@@ -32,6 +32,8 @@ interface EntityPanelProps {
   onExpandRequest?: () => void;
   suppressDetailPan?: React.RefObject<boolean>;
   mapInstance?: L.Map | null;
+  /** Highlight a moment on the map without zooming/panning (for stay-local mode) */
+  onHighlightOnly?: (moment: Moment) => void;
 }
 
 export function EntityPanel({
@@ -49,6 +51,7 @@ export function EntityPanel({
   onExpandRequest,
   suppressDetailPan,
   mapInstance,
+  onHighlightOnly,
 }: EntityPanelProps) {
   const allMomentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
@@ -254,9 +257,14 @@ export function EntityPanel({
           lastScrollDrivenId.current = closestId; // Mark as scroll-driven
           setScrollActiveId(closestId);
           const entry = momentEntries.find((e) => e.moment.id === closestId);
-          if (entry && onScrollLocationActive && !disableScrollPanForSession) {
+          if (entry && onScrollLocationActive) {
             const fallbackStory = entry.stories[0] ?? { id: '__orphan__', name: '', category: 'discovery-science' as const, storyType: 'incident' as const, years: '', description: '', tags: [], moments: [], wikipediaSlug: '' };
-            onScrollLocationActive(entry.moment, fallbackStory);
+            // When coming from homepage, highlight but don't zoom/pan
+            if (disableScrollPanForSession) {
+              onHighlightOnly?.(entry.moment);
+            } else {
+              onScrollLocationActive(entry.moment, fallbackStory);
+            }
           }
         }
       });

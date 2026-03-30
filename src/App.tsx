@@ -705,6 +705,7 @@ function App() {
             onExpandRequest={handleExpandRequest}
             suppressDetailPan={suppressDetailPan}
             mapInstance={mapInstance}
+            onHighlightOnly={(moment) => { setActiveLocation(moment); setZoomToActiveLocation(false); }}
           />
           </FadeIn>
         ) : mode === 'story' && activeStory ? (
