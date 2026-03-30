@@ -972,6 +972,7 @@ export function HomePage({
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
   const peopleExpandedRef = useRef<HTMLDivElement | null>(null);
   const peopleScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed people
+  const storiesScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed stories
 
   // ── Scroll position tracking for back navigation ──
   useEffect(() => {
@@ -1039,6 +1040,12 @@ export function HomePage({
     expandedSection !== 'people', // active when collapsed (horizontal)
     'horizontal',
   );
+  const storiesActiveIdx = useScrollActiveIndex(
+    storiesScrollRef,
+    allHomeStories.length,
+    expandedSection !== 'stories', // active when collapsed (horizontal)
+    'horizontal',
+  );
   const peopleExpandedActiveIdx = useScrollActiveIndex(
     peopleExpandedRef,
     allPeople.length,
@@ -1079,7 +1086,8 @@ export function HomePage({
   allHomeStoriesRef.current = allHomeStories;
 
   type HomeSection = 'people' | 'stories' | 'nearYou' | 'collections' | null;
-  const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
+  // Default to 'people' since it's the first section — observer updates on scroll
+  const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>('people');
 
   // Compute highlight for a given section + horizontal index
   const computeHighlight = useCallback((section: HomeSection): Moment[] => {
@@ -1107,8 +1115,7 @@ export function HomePage({
       }
     }
     if (section === 'stories') {
-      // Highlight the first story's moments (no horizontal scroll index yet)
-      const story = allHomeStoriesRef.current[0];
+      const story = allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
       if (story) {
         const moments: Moment[] = [];
         for (const sm of story.moments) {
@@ -1119,7 +1126,7 @@ export function HomePage({
       }
     }
     return [];
-  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx]);
+  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx]);
 
   // Fire highlight whenever the active section or its horizontal index changes
   useEffect(() => {
@@ -1130,17 +1137,7 @@ export function HomePage({
     }
   }, [activeHomeSection, computeHighlight]);
 
-  // On mount: set initial highlight to Near You (all moments visible)
-  const initialHighlightDone = useRef(false);
-  useEffect(() => {
-    if (initialHighlightDone.current || !onScrollHighlightRef.current) return;
-    if (nearYouMomentsRef.current.length === 0) return;
-    initialHighlightDone.current = true;
-    // Don't set activeHomeSection yet — let section observer pick it up on first scroll
-    // Just show all viewport moments as the initial state
-    const allLocs = nearYouMomentsRef.current.map(vl => vl.location);
-    onScrollHighlightRef.current(allLocs);
-  }, [nearYouMoments]);
+  // Initial highlight handled by unified system (activeHomeSection defaults to 'people')
 
   // Clear highlights on expanded section change
   useEffect(() => {
@@ -1359,11 +1356,12 @@ export function HomePage({
                   ))}
                 </div>
               ) : (
-                <HScrollRow>
-                  {allHomeStories.map((story) => (
+                <HScrollRow scrollRef={storiesScrollRef}>
+                  {allHomeStories.map((story, i) => (
                     <HomeStoryCard
                       key={story.id}
                       story={story}
+                      isActive={i === storiesActiveIdx}
                       inViewCount={storyInViewCounts.get(story.id) ?? 0}
                       onClick={() => onStorySelect?.(story)}
                     />
