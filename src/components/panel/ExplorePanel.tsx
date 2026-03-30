@@ -833,6 +833,11 @@ export function ExplorePanel({
   // (prevents Near You cards from reshuffling mid-scroll)
   const handleHomeScrollPan = useCallback((lat: number, lng: number) => {
     if (!mapInstance) return;
+    // Only pan if the moment is within or near the current viewport.
+    // Prevents jarring jumps when scrolling through filtered moments spread across the country.
+    const bounds = mapInstance.getBounds();
+    const padded = bounds.pad(0.5); // 50% padding — generous "nearby" zone
+    if (!padded.contains([lat, lng])) return; // too far away, skip pan
     isScrollDriving.current = true;
     clearTimeout(homePanTimeout.current);
     homePanTimeout.current = window.setTimeout(() => {

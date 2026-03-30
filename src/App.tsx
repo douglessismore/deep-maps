@@ -459,6 +459,8 @@ function App() {
     setCategoryFilter(category);
     setActiveStory(null);
     setActiveLocation(null);
+    setScrollHighlight([]);
+    scrollHighlightIdsRef.current = '';
     setMode('explore');
   }, []);
 
