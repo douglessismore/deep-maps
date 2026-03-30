@@ -10,7 +10,7 @@ import { useInViewAnimation } from '../../lib/useInViewAnimation';
 
 // ─── Types ───────────────────────────────────────────────────────────
 
-type ExpandedSection = 'nearYou' | 'collections' | 'people' | null;
+type ExpandedSection = 'nearYou' | 'stories' | 'collections' | 'people' | null;
 
 interface HomePageProps {
   /** Viewport-filtered moments sorted by hybridNearestScore */
@@ -39,6 +39,10 @@ interface HomePageProps {
   onCategoryFilter: (category: StoryCategory | null) => void;
   /** Categories with moments in the viewport (computed from UNFILTERED data) */
   allCategoriesInView?: Set<StoryCategory>;
+  /** Browseable stories with at least one moment in viewport */
+  viewportStories?: Story[];
+  /** Story click handler */
+  onStorySelect?: (story: Story) => void;
   /** Ref callback for the home scroll container (used by parent to snapshot scroll on nav) */
   scrollRef?: (el: HTMLDivElement | null) => void;
   /** Scroll position tracking — saves scroll position for back navigation */
@@ -526,6 +530,50 @@ function CollectionGridCard({
   );
 }
 
+// ─── Story card (horizontal scroll) ─────────────────────────────────
+
+function HomeStoryCard({
+  story,
+  inViewCount,
+  isActive,
+  onClick,
+}: {
+  story: Story;
+  inViewCount: number;
+  isActive?: boolean;
+  onClick: () => void;
+}) {
+  const cat = CATEGORIES[story.category];
+  const total = story.moments.length;
+  return (
+    <button
+      onClick={onClick}
+      className={`w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] ${
+        isActive ? 'scale-[1.04] shadow-lg' : ''
+      }`}
+      style={isActive ? { boxShadow: `0 0 24px ${cat?.color ?? '#D4A853'}33` } : undefined}
+    >
+      {/* Category color bar */}
+      <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
+      <div className="p-3 flex flex-col justify-between h-[110px]">
+        <div className="min-w-0">
+          <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+            {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+          </h4>
+          <p className="text-[11px] text-[var(--text-muted)] font-mono mt-1">{story.years}</p>
+        </div>
+        <div className="flex items-center justify-between mt-auto pt-1">
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {inViewCount < total
+              ? `${inViewCount} of ${total} moments`
+              : `${total} moments`}
+          </span>
+        </div>
+      </div>
+    </button>
+  );
+}
+
 // ─── Person grid card ───────────────────────────────────────────────
 
 // ─── Person row ─────────────────────────────────────────────────────
@@ -622,6 +670,8 @@ export function HomePage({
   categoryFilter,
   onCategoryFilter,
   allCategoriesInView,
+  viewportStories,
+  onStorySelect,
   scrollRef,
   onScrollPosition,
   restoreScrollTop,
@@ -762,6 +812,16 @@ export function HomePage({
       return true;
     });
   }, [collections, categoryFilter, momentToStoryMap, viewportMomentIds]);
+
+  // Story in-view counts — how many of each story's moments are visible on the map
+  const storyInViewCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const s of (viewportStories ?? [])) {
+      const inView = s.moments.filter((sm) => viewportMomentIds.has(sm.momentId)).length;
+      counts.set(s.id, inView);
+    }
+    return counts;
+  }, [viewportStories, viewportMomentIds]);
 
   // Filtered people — when a category filter is active, only show
   // people who have moments in stories matching that category.
@@ -1132,6 +1192,54 @@ export function HomePage({
           )}
         </div>
         <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
+
+        {/* ── Stories Near You ── */}
+        {(viewportStories ?? []).length > 0 && (
+          <>
+            <div className="pb-4">
+              <SectionHeading
+                title="Stories Near You"
+                expanded={expandedSection === 'stories'}
+                onToggle={() => toggleSection('stories')}
+              />
+              {expandedSection === 'stories' ? (
+                <div className="flex flex-col gap-2 px-4">
+                  {(viewportStories ?? []).map((story) => (
+                    <button
+                      key={story.id}
+                      onClick={() => onStorySelect?.(story)}
+                      className="rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] p-3 text-left transition-all active:scale-[0.98]"
+                    >
+                      <div className="flex items-start gap-2">
+                        <div className="w-1 h-8 rounded-full shrink-0 mt-0.5" style={{ background: CATEGORIES[story.category]?.color ?? '#666' }} />
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight truncate">
+                            {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
+                          </h4>
+                          <p className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
+                            {story.years} · {storyInViewCounts.get(story.id) ?? 0} of {story.moments.length} moments in view
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <HScrollRow>
+                  {(viewportStories ?? []).map((story) => (
+                    <HomeStoryCard
+                      key={story.id}
+                      story={story}
+                      inViewCount={storyInViewCounts.get(story.id) ?? 0}
+                      onClick={() => onStorySelect?.(story)}
+                    />
+                  ))}
+                </HScrollRow>
+              )}
+            </div>
+            <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
+          </>
+        )}
 
         {/* Near You / In View */}
         <div ref={nearYouSectionRef} className="pb-4">

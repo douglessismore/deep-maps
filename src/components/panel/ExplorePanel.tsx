@@ -150,7 +150,7 @@ export function ExplorePanel({
   onPanelViewChange,
   onPreserveViewport,
 }: ExplorePanelProps) {
-  const { moments } = useAppData();
+  const { moments, browseableStories } = useAppData();
   const { variant } = useUIVariant();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const isSheetMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
@@ -173,6 +173,7 @@ export function ExplorePanel({
   const [placeSort, setPlaceSort] = useState<'notable' | 'nearest' | 'a-z'>('notable');
   const hasManualSort = useRef(false);
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
+  const [homeViewportStories, setHomeViewportStories] = useState<Story[]>([]);
   // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
@@ -288,8 +289,13 @@ export function ExplorePanel({
       : allInBoundsUnfiltered;
     setViewportLocations(allInBounds);
     setViewportStories(getStoriesInBounds(sourceStories, bounds, momentMap));
+    // Browseable stories in viewport — for homepage Stories Near You section
+    const browseSrc = categoryFilter
+      ? browseableStories.filter((s) => s.category === categoryFilter)
+      : browseableStories;
+    setHomeViewportStories(getStoriesInBounds(browseSrc, bounds, momentMap));
     setMapZoom(mapInstance.getZoom());
-  }, [mapInstance, stories, categoryFilter, momentMap, moments]);
+  }, [mapInstance, stories, browseableStories, categoryFilter, momentMap, moments]);
 
   useEffect(() => {
     if (!mapInstance) return;
@@ -908,6 +914,13 @@ export function ExplorePanel({
           restoreScrollTop={restoreScrollTop}
           onScrollRestored={onScrollRestored}
           onCategoryFilter={onCategoryFilter}
+          viewportStories={homeViewportStories}
+          onStorySelect={(story) => {
+            if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
+            onPreserveViewport?.();
+            onPanelViewChange?.('explorer');
+            onStorySelect(story);
+          }}
         />
       </div>
     );
