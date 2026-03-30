@@ -127,9 +127,16 @@ export function EntityPanel({
           });
         }
       } else {
-        // Fresh entity entry — show all markers, don't zoom to first moment.
-        // Just highlight the first card without triggering map zoom.
-        setScrollActiveId(momentEntries[0].moment.id);
+        // Fresh entity entry — highlight first card and zoom to it after a brief pause
+        // so the user sees all markers before zooming to the first moment.
+        const first = momentEntries[0];
+        setScrollActiveId(first.moment.id);
+        const firstStory = first.stories[0];
+        if (firstStory) {
+          setTimeout(() => {
+            onScrollLocationActive?.(first.moment, firstStory);
+          }, 800);
+        }
       }
     }
   }, [entity.id]); // Only on entity mount/change
@@ -293,23 +300,39 @@ export function EntityPanel({
                 onClick={() => setHeaderExpanded(!headerExpanded)}
                 className="w-full flex items-center gap-2 px-4 py-2.5"
               >
-                <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
+                {entity.imageUrl ? (
+                  <img src={entity.imageUrl} alt={entity.name}
+                    className="w-8 h-8 rounded-full object-cover shrink-0 ring-1 ring-[rgba(255,255,255,0.15)]"
+                    loading="lazy" />
+                ) : (
+                  <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
+                )}
                 <h2 className="font-serif text-sm font-bold text-white truncate">{entity.name}</h2>
                 <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize shrink-0">{entity.type}</span>
                 {entity.years && (
                   <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{entity.years}</span>
                 )}
-                <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
-                  headerExpanded ? 'text-[var(--text-muted)]' : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
-                }`}>
-                  {headerExpanded ? 'Less' : 'More'}
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                    className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
-                  >
-                    <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
+                {entity.description && !headerExpanded && (
+                  <span className="shrink-0 text-[10px] font-mono text-[var(--text-secondary)] bg-[var(--bg-card)] px-1.5 py-0.5 rounded">
+                    More
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="inline ml-0.5">
+                      <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                )}
+                {headerExpanded && (
+                  <span className="shrink-0 text-[10px] font-mono text-[var(--text-muted)] px-1.5 py-0.5 rounded">
+                    Less
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="inline ml-0.5 rotate-180">
+                      <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                )}
               </button>
+              {/* Always show description preview; expand for full + wiki link */}
+              {entity.description && !headerExpanded && (
+                <p className="px-4 pb-2 text-xs text-[var(--text-muted)] leading-relaxed line-clamp-2">{entity.description}</p>
+              )}
               {headerExpanded && (
                 <div className="px-4 pb-3 space-y-2">
                   {entity.description && (
@@ -335,6 +358,11 @@ export function EntityPanel({
             {/* Desktop: full header — V2 gets hero treatment */}
             <div className={isV2() ? 'hidden lg:block px-6 py-8 text-center' : 'hidden lg:block p-4'}>
               {!isV2() && <div className="h-1 rounded-full mb-4" style={{ backgroundColor: 'var(--accent-red)' }} />}
+              {isV2() && entity.imageUrl && (
+                <img src={entity.imageUrl} alt={entity.name}
+                  className="w-20 h-20 rounded-full object-cover mx-auto mb-4 ring-2 ring-[rgba(255,255,255,0.1)]"
+                  loading="lazy" />
+              )}
               <h2 className={isV2()
                 ? 'font-serif text-4xl font-bold text-white tracking-tight'
                 : 'font-serif text-xl font-bold text-white'
