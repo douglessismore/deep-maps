@@ -274,7 +274,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       scrollOverlayRef.current = null;
     }
 
-    if (scrollHighlight && scrollHighlight.length === 1) {
+    if (scrollHighlight && scrollHighlight.length >= 1) {
+      // Show tooltip on the first highlighted moment (most prominent)
       const moment = scrollHighlight[0];
       const category = momentCategoryMap.get(moment.id);
       const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
