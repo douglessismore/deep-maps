@@ -1129,13 +1129,15 @@ export function HomePage({
   }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx]);
 
   // Fire highlight whenever the active section or its horizontal index changes
+  // Also re-fire when data changes (gridPeople/allHomeStories may load async)
+  const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${allHomeStories[0]?.id ?? ''}-${nearYouMoments[0]?.location.id ?? ''}-${filteredCollections[0]?.id ?? ''}`;
   useEffect(() => {
     if (!onScrollHighlightRef.current || !activeHomeSection) return;
     const moments = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
       onScrollHighlightRef.current(moments);
     }
-  }, [activeHomeSection, computeHighlight]);
+  }, [activeHomeSection, computeHighlight, highlightDataKey]);
 
   // Initial highlight handled by unified system (activeHomeSection defaults to 'people')
 
