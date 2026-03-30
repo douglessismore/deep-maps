@@ -208,11 +208,16 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
         );
 
-        // Click handler (uses ref for stable reference)
+        // Click handler — both marker and tooltip text are clickable
         if (story) {
           const m = moment;
           const s = story;
-          marker.on('click', () => onClickRef.current(m, s));
+          const handler = () => onClickRef.current(m, s);
+          marker.on('click', handler);
+          marker.on('tooltipopen', () => {
+            const el = marker.getTooltip()?.getElement();
+            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
+          });
         }
 
         marker.addTo(map);
@@ -312,7 +317,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const firstMoment = scrollHighlight[0];
         const firstStory = momentStoryMap.get(firstMoment.id);
         if (firstStory) {
-          marker.on('click', () => onClickRef.current(firstMoment, firstStory));
+          const handler = () => onClickRef.current(firstMoment, firstStory);
+          marker.on('click', handler);
+          // Also make the tooltip text itself clickable (Leaflet tooltips don't propagate clicks to marker)
+          marker.on('tooltipopen', () => {
+            const el = marker.getTooltip()?.getElement();
+            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
+          });
         }
         marker.addTo(map);
         scrollOverlayRef.current = marker;
@@ -340,7 +351,12 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         );
         const story = momentStoryMap.get(moment.id);
         if (story) {
-          marker.on('click', () => onClickRef.current(moment, story));
+          const handler = () => onClickRef.current(moment, story);
+          marker.on('click', handler);
+          marker.on('tooltipopen', () => {
+            const el = marker.getTooltip()?.getElement();
+            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
+          });
         }
         marker.addTo(map);
         scrollOverlayRef.current = marker;

@@ -92,6 +92,16 @@ html, body, #root {
   background: #0a0a0a;
 }
 
+/* Allow tooltips to overflow the map boundary so edge labels aren't clipped */
+.leaflet-tooltip-pane,
+.leaflet-popup-pane {
+  overflow: visible !important;
+}
+
+.leaflet-map-pane {
+  overflow: visible !important;
+}
+
 .leaflet-control-zoom a {
   background: #1a1a1a !important;
   color: #e5e5e5 !important;
