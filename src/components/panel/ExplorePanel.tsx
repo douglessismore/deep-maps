@@ -33,7 +33,7 @@ interface ExplorePanelProps {
   onLocationSelect: (location: Moment, story: Story) => void;
   onCollectionSelect: (collection: StoryCollection) => void;
   onClearCollection: () => void;
-  onScrollHighlight: (locations: Moment[], storyId?: string) => void;
+  onScrollHighlight: (locations: Moment[], storyId?: string, label?: string) => void;
   onModeChange: (mode: InteractionMode) => void;
   mode: InteractionMode;
   searchQuery: string;

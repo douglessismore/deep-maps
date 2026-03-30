@@ -33,7 +33,7 @@ interface HomePageProps {
   /** Navigate to the explorer/4-tab view */
   onBrowseAll: () => void;
   /** Scroll highlight — called when a card scrolls into view in the horizontal row */
-  onScrollHighlight?: (locations: Moment[], storyId?: string) => void;
+  onScrollHighlight?: (locations: Moment[], storyId?: string, label?: string) => void;
   /** Scroll-driven map pan — called with lat/lng to gently follow the highlighted card */
   onScrollPan?: (lat: number, lng: number) => void;
   /** Category filter — synced with App.tsx to also filter map markers */
@@ -1090,17 +1090,17 @@ export function HomePage({
   const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
 
   // Compute highlight for a given section + horizontal index
-  const computeHighlight = useCallback((section: HomeSection): Moment[] => {
+  const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null } => {
     if (section === 'people') {
       const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
       const idx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
       const person = people[Math.max(0, idx)];
-      if (person) return getMomentsForEntity(person.entity.id);
+      if (person) return { moments: getMomentsForEntity(person.entity.id), label: person.entity.name };
     }
     if (section === 'nearYou') {
       const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
       const vl = nearYouMomentsRef.current[Math.max(0, idx)];
-      if (vl) return [vl.location];
+      if (vl) return { moments: [vl.location], label: null }; // single moment — show moment name
     }
     if (section === 'collections') {
       const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
@@ -1111,7 +1111,7 @@ export function HomePage({
           const m = momentByIdRef.current.get(mid);
           if (m) moments.push(m);
         }
-        return moments;
+        return { moments, label: coll.name };
       }
     }
     if (section === 'stories') {
@@ -1122,10 +1122,11 @@ export function HomePage({
           const m = momentByIdRef.current.get(sm.momentId);
           if (m) moments.push(m);
         }
-        return moments;
+        const name = story.nickname && story.nickname.includes(' ') ? story.nickname : story.name;
+        return { moments, label: name };
       }
     }
-    return [];
+    return { moments: [], label: null };
   }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx]);
 
   // Fire highlight whenever the active section or its horizontal index changes
@@ -1133,9 +1134,9 @@ export function HomePage({
   const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${allHomeStories[0]?.id ?? ''}-${nearYouMoments[0]?.location.id ?? ''}-${filteredCollections[0]?.id ?? ''}`;
   useEffect(() => {
     if (!onScrollHighlightRef.current || !activeHomeSection) return;
-    const moments = computeHighlight(activeHomeSection);
+    const { moments, label } = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
-      onScrollHighlightRef.current(moments);
+      onScrollHighlightRef.current(moments, undefined, label ?? undefined);
     }
   }, [activeHomeSection, computeHighlight, highlightDataKey]);
 

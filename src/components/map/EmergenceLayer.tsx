@@ -85,9 +85,11 @@ interface EmergenceLayerProps {
   scrollHighlight?: Moment[];
   /** When true, scroll highlight is "soft" — don't dim non-highlighted markers (homepage mode) */
   softHighlight?: boolean;
+  /** Label to show on map for multi-moment scroll highlights (e.g., "Lady Bird Johnson") */
+  scrollHighlightLabel?: string | null;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -275,29 +277,54 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     }
 
     if (scrollHighlight && scrollHighlight.length >= 1) {
-      // Show tooltip on the first highlighted moment (most prominent)
-      const moment = scrollHighlight[0];
-      const category = momentCategoryMap.get(moment.id);
-      const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
-      const icon = L.divIcon({
-        className: '',
-        html: `<div class="story-marker active" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};"></div>`,
-        iconSize: [12, 12],
-        iconAnchor: [6, 6],
-      });
-      const marker = L.marker([moment.lat, moment.lng], {
-        icon,
-        zIndexOffset: 900,
-        interactive: false,
-      });
-      marker.bindTooltip(
-        `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
-          <strong>${moment.name}</strong>
-        </div>`,
-        { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: true }
-      );
-      marker.addTo(map);
-      scrollOverlayRef.current = marker;
+      const isMulti = scrollHighlight.length > 1;
+      const hasLabel = scrollHighlightLabel && isMulti;
+
+      if (hasLabel) {
+        // Multi-moment: show parent name at the center of the cluster
+        const lats = scrollHighlight.map(m => m.lat);
+        const lngs = scrollHighlight.map(m => m.lng);
+        const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+        const centerLng = (Math.min(...lngs) + Math.max(...lngs)) / 2;
+        const icon = L.divIcon({ className: '', html: '', iconSize: [0, 0] });
+        const marker = L.marker([centerLat, centerLng], {
+          icon,
+          zIndexOffset: 900,
+          interactive: false,
+        });
+        marker.bindTooltip(
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
+            <strong>${scrollHighlightLabel}</strong>
+          </div>`,
+          { direction: 'top', offset: [0, -8], className: 'dark-tooltip', permanent: true }
+        );
+        marker.addTo(map);
+        scrollOverlayRef.current = marker;
+      } else {
+        // Single moment: show moment name on the highlighted pin
+        const moment = scrollHighlight[0];
+        const category = momentCategoryMap.get(moment.id);
+        const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
+        const icon = L.divIcon({
+          className: '',
+          html: `<div class="story-marker active" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};"></div>`,
+          iconSize: [12, 12],
+          iconAnchor: [6, 6],
+        });
+        const marker = L.marker([moment.lat, moment.lng], {
+          icon,
+          zIndexOffset: 900,
+          interactive: false,
+        });
+        marker.bindTooltip(
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
+            <strong>${moment.name}</strong>
+          </div>`,
+          { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: true }
+        );
+        marker.addTo(map);
+        scrollOverlayRef.current = marker;
+      }
     }
 
     return () => {
@@ -306,7 +333,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         scrollOverlayRef.current = null;
       }
     };
-  }, [scrollHighlight, map, momentCategoryMap]);
+  }, [scrollHighlight, scrollHighlightLabel, map, momentCategoryMap]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
   useEffect(() => {

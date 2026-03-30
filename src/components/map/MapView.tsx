@@ -116,6 +116,8 @@ interface MapViewProps {
   zoomToActiveLocation?: boolean;
   /** When set, skip fitBounds on next mode change (homepage → detail, stay local) */
   preserveViewport?: React.RefObject<boolean>;
+  /** Label to show on map for multi-moment scroll highlights (e.g., person name) */
+  scrollHighlightLabel?: string | null;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -1194,6 +1196,7 @@ export function MapView(props: MapViewProps) {
             activeLocation={props.activeLocation}
             scrollHighlight={props.scrollHighlight}
             softHighlight={props.mode === 'explore'}
+            scrollHighlightLabel={props.scrollHighlightLabel}
           />
         )}
       </MapContainer>
