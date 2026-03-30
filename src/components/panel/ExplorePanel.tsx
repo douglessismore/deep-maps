@@ -15,7 +15,7 @@ import { PersonCard } from './PersonCard';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
 import { HomePage } from './HomePage';
-import { isV2 } from '../../lib/theme';
+
 
 type MixedListItem =
   | { kind: 'story'; story: Story; distance: number; notability: number }
@@ -927,67 +927,64 @@ export function ExplorePanel({
         </div>
       )}
       {/* Tabs — hidden when inside a collection (collection is a full destination) */}
-      {!activeCollection && <div className={isV2()
-        ? 'flex shrink-0 relative'
-        : 'flex border-b border-[var(--border-subtle)] shrink-0 relative'
-      }>
+      {!activeCollection && <div className="flex shrink-0 relative px-1 py-1 mx-2 my-1 bg-[var(--bg-secondary)]/50 rounded-xl gap-0.5">
         <button
           onClick={() => setActiveTab('moments')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
+          className={`flex-1 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'moments'
-              ? 'text-[var(--text-primary)]'
+              ? 'text-[var(--text-primary)] bg-white/[0.08]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
           Moments
           {sortedMoments.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">
+            <span className={`ml-1 text-[10px] ${activeTab === 'moments' ? 'text-[var(--text-secondary)]' : 'text-[var(--text-muted)]'}`}>
               ({sortedMoments.length})
             </span>
           )}
         </button>
         <button
           onClick={() => setActiveTab('stories')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
+          className={`flex-1 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'stories'
-              ? 'text-[var(--text-primary)]'
+              ? 'text-[var(--text-primary)] bg-white/[0.08]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
           Stories
           {mixedList.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({mixedList.length})</span>
+            <span className={`ml-1 text-[10px] ${activeTab === 'stories' ? 'text-[var(--text-secondary)]' : 'text-[var(--text-muted)]'}`}>({mixedList.length})</span>
           )}
         </button>
         <button
           onClick={() => setActiveTab('places')}
-          className={`flex-1 py-2.5 text-xs font-mono transition-colors ${
+          className={`flex-1 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'places'
-              ? 'text-[var(--text-primary)]'
+              ? 'text-[var(--text-primary)] bg-white/[0.08]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
           Places
           {placeEntities.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({placeEntities.length})</span>
+            <span className={`ml-1 text-[10px] ${activeTab === 'places' ? 'text-[var(--text-secondary)]' : 'text-[var(--text-muted)]'}`}>({placeEntities.length})</span>
           )}
         </button>
         <button
           onClick={() => setActiveTab('collections')}
-          className={`flex-1 min-w-0 py-2.5 text-xs font-mono transition-colors ${
+          className={`flex-1 min-w-0 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'collections'
-              ? 'text-[var(--text-primary)]'
+              ? 'text-[var(--text-primary)] bg-white/[0.08]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
           Collections
           {viewportCollections.length > 0 && (
-            <span className="ml-1 text-[10px] text-[var(--text-muted)]">({viewportCollections.length})</span>
+            <span className={`ml-1 text-[10px] ${activeTab === 'collections' ? 'text-[var(--text-secondary)]' : 'text-[var(--text-muted)]'}`}>({viewportCollections.length})</span>
           )}
         </button>
         {/* Sliding tab underline */}
         <div
-          className={`absolute bottom-0 left-0 h-0.5 bg-[var(--accent-red)] ${
+          className={`absolute bottom-0 left-0 h-[3px] rounded-full bg-[var(--accent-red)] ${
             hasTabRendered.current
               ? 'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]'
               : ''
@@ -997,7 +994,8 @@ export function ExplorePanel({
       </div>}
 
       {/* Content */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar p-3 pb-24 lg:pb-[40vh]">
+      <div className="relative flex-1 min-h-0">
+      <div ref={scrollContainerRef} className="h-full overflow-y-auto custom-scrollbar p-3 pb-24 lg:pb-[40vh]">
         {/* Inner wrapper: min-height forces tiny overflow so iOS bounce/rubber-band always works */}
         <div style={{ minHeight: 'calc(100% + 1px)' }} className="space-y-3">
         {activeTab === 'moments' ? (
@@ -1191,8 +1189,8 @@ export function ExplorePanel({
                         else collectionListCardRefs.current.delete(collection.id);
                       }}
                       className={scrollActiveStoryId === collection.id
-                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
+                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30 scale-[1.02] shadow-[0_0_20px_rgba(194,112,58,0.12)]'
+                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300 scale-100'}
                     >
                       <CollectionCard
                         collection={collection}
@@ -1250,8 +1248,8 @@ export function ExplorePanel({
                           else cardRefs.current.delete(personData.entity.id);
                         }}
                         className={scrollActiveStoryId === personData.entity.id
-                          ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                          : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
+                          ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30 scale-[1.02] shadow-[0_0_20px_rgba(139,92,246,0.12)]'
+                          : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300 scale-100'}
                       >
                         <PersonCard
                           data={personData}
@@ -1275,8 +1273,8 @@ export function ExplorePanel({
                         else cardRefs.current.delete(item.story.id);
                       }}
                       className={scrollActiveStoryId === item.story.id
-                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
+                        ? 'border-l-[3px] border-l-[var(--accent-red)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30 scale-[1.02] shadow-[0_0_20px_rgba(194,112,58,0.12)]'
+                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300 scale-100'}
                     >
                       <StoryCard
                         story={item.story}
@@ -1299,8 +1297,8 @@ export function ExplorePanel({
                         else cardRefs.current.delete(item.data.entity.id);
                       }}
                       className={scrollActiveStoryId === item.data.entity.id
-                        ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30'
-                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300'}
+                        ? 'border-l-[3px] border-l-[rgba(139,92,246,0.6)] rounded-lg transition-all duration-300 bg-[var(--bg-card-hover)]/30 scale-[1.02] shadow-[0_0_20px_rgba(139,92,246,0.12)]'
+                        : 'border-l-[3px] border-l-transparent rounded-lg transition-all duration-300 scale-100'}
                     >
                       <PersonCard
                         data={item.data}
@@ -1318,6 +1316,10 @@ export function ExplorePanel({
 
         </div>{/* end rubber-band wrapper */}
       </div>
+      {/* Gradient fade at bottom — signals more content below */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 z-10"
+        style={{ background: 'linear-gradient(transparent, var(--bg-primary))' }} />
+      </div>{/* end relative scroll wrapper */}
     </div>
   );
 }

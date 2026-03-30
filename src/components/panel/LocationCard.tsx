@@ -164,14 +164,15 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         className={`cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isActive
             ? v2
-              ? 'bg-[var(--bg-secondary)] border-l-4 pl-3'
+              ? 'bg-[var(--bg-secondary)] border-l-4 pl-3 scale-[1.02]'
               : 'bg-[var(--bg-card-hover)] border-l-[3px] pl-3'
             : v2
-              ? 'bg-[var(--bg-card)] border-l-4 border-l-transparent pl-3 hover:bg-[var(--bg-secondary)]'
+              ? 'bg-[var(--bg-card)] border-l-4 border-l-transparent pl-3 hover:bg-[var(--bg-secondary)] scale-100'
               : 'bg-[var(--bg-card)] border-l-[3px] border-l-transparent pl-3 hover:bg-[var(--bg-card-hover)]'
         } ${v2 ? 'rounded-xl py-4 pr-5' : 'rounded-[12px] py-3 pr-4'}`}
         style={{
           borderLeftColor: isActive ? cat?.color ?? 'var(--text-muted)' : 'transparent',
+          boxShadow: isActive && v2 ? `0 0 20px ${cat?.color ?? 'transparent'}1a` : undefined,
         }}
       >
         {/* Number + Name + optional chevron */}

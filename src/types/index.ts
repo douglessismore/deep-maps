@@ -68,6 +68,7 @@ export interface StoryCollection {
   name: string;
   subtitle: string; // Descriptive hook
   description: string; // 1-2 sentences
+  icon?: string; // Emoji icon for visual personality
   momentIds: string[]; // Individual moment IDs — each = one map pin
   tags: string[];
 }

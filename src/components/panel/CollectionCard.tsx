@@ -18,8 +18,12 @@ export function CollectionCard({ collection, momentCount, onClick }: CollectionC
         : 'w-full text-left rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-hover)] bg-[var(--bg-card)] p-3.5 transition-all duration-200 hover:bg-[var(--bg-card-hover)] active:scale-[0.97] group'
       }
     >
-      {/* Title */}
-      <div className="mb-2">
+      {/* Title with emoji icon */}
+      <div className={v2 && collection.icon ? 'mb-2 flex items-start gap-3' : 'mb-2'}>
+        {v2 && collection.icon && (
+          <span className="text-2xl leading-none shrink-0 mt-0.5">{collection.icon}</span>
+        )}
+        <div>
         <h3 className={v2
           ? 'text-base font-serif font-bold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors'
           : 'text-sm font-serif font-semibold text-[var(--text-primary)] leading-tight group-hover:text-white transition-colors'
@@ -32,6 +36,7 @@ export function CollectionCard({ collection, momentCount, onClick }: CollectionC
         }>
           {collection.subtitle}
         </p>
+        </div>
       </div>
 
       {/* Stats row */}
