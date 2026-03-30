@@ -690,19 +690,6 @@ export function ExplorePanel({
     [viewportEntities]
   );
 
-  // Backfill places from expanded bounds when viewport has few places
-  const backfillPlaces = useMemo(() => {
-    if (placeEntities.length >= 5 || !mapInstance) return [];
-    const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 3);
-    const expandedLocs = getLocationsInBounds(stories, expanded, momentMap, moments);
-    const expandedIds = new Set(expandedLocs.map((vl) => vl.location.id));
-    const inViewIds = new Set(placeEntities.map((p) => p.entity.id));
-    return getViewportEntities(expandedIds)
-      .filter((e) => e.entity.type === 'place' && !inViewIds.has(e.entity.id))
-      .slice(0, 10 - placeEntities.length);
-  }, [placeEntities, mapInstance, stories, momentMap, moments]);
-
   const placeAlphabeticalGroups = useMemo(
     () => groupAlphabetically(placeEntities),
     [placeEntities]
@@ -913,8 +900,6 @@ export function ExplorePanel({
           collections={viewportCollections}
           personEntities={personEntities}
           backfillPeople={backfillPeople}
-          placeEntities={placeEntities}
-          backfillPlaces={backfillPlaces}
           userLocation={userLocation ?? null}
           isNearUser={isNearUser}
           onMomentClick={(moment, story) => {
