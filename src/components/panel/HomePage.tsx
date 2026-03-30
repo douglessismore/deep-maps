@@ -1046,9 +1046,6 @@ export function HomePage({
     'vertical',
     homeScrollRef,
   );
-  // Unified people index — use horizontal when collapsed, vertical when expanded
-  const currentPeopleIdx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
-
   // Stable ref pattern for callbacks
   const onScrollHighlightRef = useRef(onScrollHighlight);
   onScrollHighlightRef.current = onScrollHighlight;
@@ -1083,75 +1080,81 @@ export function HomePage({
   }, [nearYouActiveIdx, nearYouExpandedActiveIdx, expandedSection]);
 
   // ── Initial highlight on mount ──
-  // Highlight ALL Near You moments so pins are prominently visible on page load.
-  // Without this, only tiny cluster dots appear.
+  // ═══════════════════════════════════════════════════════════════════
+  // UNIFIED SCROLL HIGHLIGHT SYSTEM
+  // One source of truth: `activeHomeSection` tracks which section is
+  // visible. Only the active section drives map highlights.
+  // ═══════════════════════════════════════════════════════════════════
+  const filteredCollectionsRef = useRef(filteredCollections);
+  filteredCollectionsRef.current = filteredCollections;
+  const momentByIdRef = useRef(momentById);
+  momentByIdRef.current = momentById;
+  const allPeopleRef = useRef(allPeople);
+  allPeopleRef.current = allPeople;
+  const gridPeopleRef = useRef(gridPeople);
+  gridPeopleRef.current = gridPeople;
+  const allHomeStoriesRef = useRef(allHomeStories);
+  allHomeStoriesRef.current = allHomeStories;
+
+  type HomeSection = 'people' | 'stories' | 'nearYou' | 'collections' | null;
+  const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
+
+  // Compute highlight for a given section + horizontal index
+  const computeHighlight = useCallback((section: HomeSection): Moment[] => {
+    if (section === 'people') {
+      const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
+      const idx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
+      const person = people[Math.max(0, idx)];
+      if (person) return getMomentsForEntity(person.entity.id);
+    }
+    if (section === 'nearYou') {
+      const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
+      const vl = nearYouMomentsRef.current[Math.max(0, idx)];
+      if (vl) return [vl.location];
+    }
+    if (section === 'collections') {
+      const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
+      const coll = filteredCollectionsRef.current[Math.max(0, idx)];
+      if (coll) {
+        const moments: Moment[] = [];
+        for (const mid of coll.momentIds) {
+          const m = momentByIdRef.current.get(mid);
+          if (m) moments.push(m);
+        }
+        return moments;
+      }
+    }
+    if (section === 'stories') {
+      // TODO: wire stories scroll index — for now highlight nothing
+      return [];
+    }
+    return [];
+  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx]);
+
+  // Fire highlight whenever the active section or its horizontal index changes
+  useEffect(() => {
+    if (!onScrollHighlightRef.current || !activeHomeSection) return;
+    const moments = computeHighlight(activeHomeSection);
+    if (moments.length > 0) {
+      onScrollHighlightRef.current(moments);
+    }
+  }, [activeHomeSection, computeHighlight]);
+
+  // On mount: set initial highlight to Near You (all moments visible)
   const initialHighlightDone = useRef(false);
   useEffect(() => {
     if (initialHighlightDone.current || !onScrollHighlightRef.current) return;
     if (nearYouMomentsRef.current.length === 0) return;
     initialHighlightDone.current = true;
+    // Don't set activeHomeSection yet — let section observer pick it up on first scroll
+    // Just show all viewport moments as the initial state
     const allLocs = nearYouMomentsRef.current.map(vl => vl.location);
     onScrollHighlightRef.current(allLocs);
   }, [nearYouMoments]);
 
-  // ── Collection scroll → map highlight ──
-  // When a collection card scrolls into the center, highlight its moments on the map.
-  const filteredCollectionsRef = useRef(filteredCollections);
-  filteredCollectionsRef.current = filteredCollections;
-  const momentByIdRef = useRef(momentById);
-  momentByIdRef.current = momentById;
-
-  const prevCollectionIdx = useRef(-1);
-  useEffect(() => {
-    if (!onScrollHighlightRef.current || expandedSection === 'collections') return;
-    if (collectionsActiveIdx === prevCollectionIdx.current) return;
-    prevCollectionIdx.current = collectionsActiveIdx;
-
-    const collection = filteredCollectionsRef.current[collectionsActiveIdx];
-    if (!collection) return;
-
-    // Resolve collection's moments for map highlighting
-    const collMoments: Moment[] = [];
-    for (const mid of collection.momentIds) {
-      const m = momentByIdRef.current.get(mid);
-      if (m) collMoments.push(m);
-    }
-    if (collMoments.length > 0) {
-      onScrollHighlightRef.current(collMoments);
-      // No panTo for collections — their moments span the country, so panning
-      // to the first one zooms away from the rest. Markers highlight in place.
-    }
-  }, [collectionsActiveIdx, expandedSection]);
-
-  // ── People expanded scroll → map highlight ──
-  // When a person scrolls into view in the expanded list, highlight their locations.
-  const allPeopleRef = useRef(allPeople);
-  allPeopleRef.current = allPeople;
-  const gridPeopleRef = useRef(gridPeople);
-  gridPeopleRef.current = gridPeople;
-
-  const prevPeopleIdx = useRef(-1);
-  useEffect(() => {
-    if (!onScrollHighlightRef.current) return;
-    if (currentPeopleIdx === prevPeopleIdx.current) return;
-    prevPeopleIdx.current = currentPeopleIdx;
-
-    const currentPeople = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
-    const personData = currentPeople[currentPeopleIdx];
-    if (!personData) return;
-
-    const entityMoments = getMomentsForEntity(personData.entity.id);
-    if (entityMoments.length > 0) {
-      onScrollHighlightRef.current(entityMoments);
-    }
-  }, [currentPeopleIdx, expandedSection]);
-
-  // Clear scroll highlight when switching sections
+  // Clear highlights on expanded section change
   useEffect(() => {
     onScrollHighlight?.([]);
-    prevNearYouIdx.current = -1;
-    prevCollectionIdx.current = -1;
-    prevPeopleIdx.current = -1;
   }, [expandedSection, onScrollHighlight]);
 
   const toggleSection = useCallback((section: ExpandedSection) => {
@@ -1180,6 +1183,7 @@ export function HomePage({
   const nearYouSectionRef = useRef<HTMLDivElement>(null);
   const collectionsSectionRef = useRef<HTMLDivElement>(null);
   const peopleSectionRef = useRef<HTMLDivElement>(null);
+  const storiesSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = homeScrollRef.current;
@@ -1194,9 +1198,10 @@ export function HomePage({
 
         // Check which section is at the midpoint
         const sections = [
+          { ref: peopleSectionRef, type: 'people' as const },
+          { ref: storiesSectionRef, type: 'stories' as const },
           { ref: nearYouSectionRef, type: 'nearYou' as const },
           { ref: collectionsSectionRef, type: 'collections' as const },
-          { ref: peopleSectionRef, type: 'people' as const },
         ];
 
         let activeSection: typeof sections[0] | null = null;
@@ -1212,31 +1217,8 @@ export function HomePage({
 
         if (!activeSection) return;
 
-        // For Near You: highlight the first moment (horizontal scroll handles the rest)
-        if (activeSection.type === 'nearYou' && nearYouMomentsRef.current.length > 0) {
-          const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
-          const vl = nearYouMomentsRef.current[Math.max(0, idx)];
-          if (vl) onScrollHighlightRef.current!([vl.location], vl.story?.id);
-        }
-
-        // For Collections: highlight the active collection's moments
-        if (activeSection.type === 'collections' && filteredCollectionsRef.current.length > 0) {
-          const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
-          const collection = filteredCollectionsRef.current[Math.max(0, idx)];
-          if (collection) {
-            const collMoments: Moment[] = [];
-            for (const mid of collection.momentIds) {
-              const m = momentByIdRef.current.get(mid);
-              if (m) collMoments.push(m);
-            }
-            if (collMoments.length > 0) {
-              onScrollHighlightRef.current!(collMoments);
-            }
-          }
-        }
-
-        // For People: handled by the peopleActiveIdx / peopleExpandedActiveIdx effects
-        // (horizontal scroll effects are the authority — don't override them here)
+        // Just set which section is active — the unified highlight effect handles the rest
+        setActiveHomeSection(activeSection.type as HomeSection);
       });
     };
 
@@ -1245,7 +1227,7 @@ export function HomePage({
       container.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafId);
     };
-  }, [expandedSection, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx]);
+  }, [expandedSection]);
 
   return (
     <div
@@ -1343,7 +1325,7 @@ export function HomePage({
         <div style={{ order: o('stories') }}>
         {allHomeStories.length > 0 && (
           <>
-            <div className="pb-4">
+            <div ref={storiesSectionRef} className="pb-4">
               <SectionHeading
                 title={storiesSectionTitle}
                 expanded={expandedSection === 'stories'}

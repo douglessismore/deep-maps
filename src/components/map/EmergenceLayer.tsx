@@ -51,8 +51,8 @@ function getHighlightOpacity(
 ): number {
   if (!hasHighlight) return computeAlpha(moment, zoom);
   if (highlightIds.has(momentId)) return 1;
-  // Soft mode (homepage): don't dim non-highlighted markers, keep normal alpha
-  if (isSoft) return computeAlpha(moment, zoom);
+  // Soft mode (homepage): dim non-highlighted but keep visible (not 0.08 invisible)
+  if (isSoft) return Math.max(0.12, computeAlpha(moment, zoom) * 0.3);
   // Collections: dim other moments gently (still visible). Stories: fade hard.
   return isCollection ? 0.3 : 0.08;
 }
