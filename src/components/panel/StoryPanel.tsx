@@ -20,6 +20,7 @@ interface StoryPanelProps {
   activeLocation: Moment | null;
   onLocationSelect: (location: Moment) => void;
   onScrollLocationSelect: (location: Moment) => void;
+  onHighlightOnly?: (location: Moment) => void;
   onScrollToTop?: () => void;
   onRelatedStoryClick: (story: Story) => void;
   onTagClick?: (tag: string) => void;
@@ -38,6 +39,7 @@ export function StoryPanel({
   activeLocation,
   onLocationSelect,
   onScrollLocationSelect,
+  onHighlightOnly,
   onScrollToTop,
   onRelatedStoryClick,
   onTagClick,
@@ -164,8 +166,12 @@ export function StoryPanel({
         if (closestId && closestId !== scrollActiveId) {
           setScrollActiveId(closestId);
           const location = storyLocations.find((l) => l.id === closestId);
-          if (location && !disableScrollPanForSession.current) {
-            onScrollLocationSelect(location);
+          if (location) {
+            if (disableScrollPanForSession.current) {
+              onHighlightOnly?.(location);
+            } else {
+              onScrollLocationSelect(location);
+            }
           }
         }
       });

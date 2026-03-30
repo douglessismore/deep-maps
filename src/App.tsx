@@ -733,6 +733,7 @@ function App() {
               setZoomToActiveLocation(true);
             }}
             onScrollLocationSelect={(loc) => handleScrollLocationSelect(loc, activeStory)}
+            onHighlightOnly={(moment) => { setActiveLocation(moment); setZoomToActiveLocation(false); }}
             onScrollToTop={() => { setActiveLocation(null); setZoomToActiveLocation(false); }}
             onRelatedStoryClick={handleStorySelect}
             onTagClick={handleTagClick}
