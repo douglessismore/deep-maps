@@ -704,6 +704,7 @@ function App() {
             sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
             suppressDetailPan={suppressDetailPan}
+            mapInstance={mapInstance}
           />
           </FadeIn>
         ) : mode === 'story' && activeStory ? (

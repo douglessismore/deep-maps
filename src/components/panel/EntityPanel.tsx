@@ -1,5 +1,7 @@
 import type { Entity, Moment, Story } from '../../types';
+import type L from 'leaflet';
 import { CATEGORIES } from '../../lib/categories';
+import { getExpandedBounds } from '../../lib/geo';
 import {
   getEntityMomentStories,
   getEntityStories,
@@ -29,6 +31,7 @@ interface EntityPanelProps {
   sheetSnap?: SheetSnap;
   onExpandRequest?: () => void;
   suppressDetailPan?: React.RefObject<boolean>;
+  mapInstance?: L.Map | null;
 }
 
 export function EntityPanel({
@@ -45,11 +48,29 @@ export function EntityPanel({
   sheetSnap,
   onExpandRequest,
   suppressDetailPan,
+  mapInstance,
 }: EntityPanelProps) {
-  const momentEntries = useMemo(
+  const allMomentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
     [entity.id]
   );
+
+  // When navigating from homepage, split moments into "nearby" (in/near viewport) and "full story"
+  const { nearbyEntries, fullStoryEntries, hasNearbySection } = useMemo(() => {
+    if (!mapInstance) return { nearbyEntries: allMomentEntries, fullStoryEntries: [], hasNearbySection: false };
+    const bounds = mapInstance.getBounds();
+    const expanded = getExpandedBounds(bounds, 2); // 2x viewport for "nearby"
+    const nearby = allMomentEntries.filter(e => expanded.contains([e.moment.lat, e.moment.lng]));
+    const far = allMomentEntries.filter(e => !expanded.contains([e.moment.lat, e.moment.lng]));
+    // Only split if there are both nearby and far moments
+    if (nearby.length > 0 && far.length > 0) {
+      return { nearbyEntries: nearby, fullStoryEntries: allMomentEntries, hasNearbySection: true };
+    }
+    return { nearbyEntries: allMomentEntries, fullStoryEntries: [], hasNearbySection: false };
+  }, [allMomentEntries, mapInstance]);
+
+  // Use nearby entries as the primary display when navigating from homepage
+  const momentEntries = nearbyEntries;
 
   // Connections: place → Notable Figures (people), person → Key Locations (places)
   const connections = useMemo(
@@ -573,6 +594,44 @@ export function EntityPanel({
                   );
                 });
               })()}
+
+              {/* Full chronological story — shown when nearby moments are a subset */}
+              {hasNearbySection && fullStoryEntries.length > 0 && (
+                <>
+                  <div className="mx-4 my-6 flex items-center gap-3">
+                    <div className="flex-1 border-t border-[var(--border-subtle)]" />
+                    <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider whitespace-nowrap">
+                      Full Timeline · {fullStoryEntries.length} moments
+                    </span>
+                    <div className="flex-1 border-t border-[var(--border-subtle)]" />
+                  </div>
+                  {fullStoryEntries.map(({ moment, stories: parentStories }) => {
+                    const primaryStory = parentStories[0];
+                    return (
+                      <LocationCard
+                        key={`full-${moment.id}`}
+                        ref={(el) => {
+                          if (el) {
+                            momentRefs.current.set(moment.id, el);
+                            el.dataset.momentId = moment.id;
+                          }
+                        }}
+                        location={moment}
+                        story={primaryStory}
+                        isActive={scrollActiveId === moment.id}
+                        isExpanded={expandedLocationKey === moment.id}
+                        compact={useCompactCards}
+                        skipCanonicalFilter
+                        parentStories={parentStories}
+                        excludeEntityIds={[entity.id]}
+                        onClick={() => handleMomentClick(moment, parentStories)}
+                        onStoryClick={(story) => onStoryClick(story, moment)}
+                        onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
+                      />
+                    );
+                  })}
+                </>
+              )}
             </div>
           )}
           {/* Bottom padding so last card can scroll fully into view */}
