@@ -57,8 +57,14 @@ export const seattleEntities: Entity[] = [
     wikipediaSlug: 'D._B._Cooper',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/CompositeB-FBI-1973.jpg/330px-CompositeB-FBI-1973.jpg',
   },
-  // Demoted entity (tag-only): harry-truman-mtsthelens
-  // ID remains in moment entityIds[] for tagging.
+  // stub — demoted from Notable People
+  {
+    id: 'harry-truman-mtsthelens',
+    name: 'Harry R. Truman',
+    type: 'person',
+    description:
+      'The 83-year-old innkeeper of Spirit Lake Lodge who refused to evacuate before the 1980 eruption of Mount St. Helens and was buried under 150 feet of volcanic debris.',
+  },
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────
@@ -70,7 +76,7 @@ export const seattleMoments: Moment[] = [
     name: 'Chief Seattle Addresses Governor Stevens as White Settlers Claim His People\'s Land',
     subtitle: 'Pioneer Square area, Seattle. The approximate site of the 1854 meeting; now a National Historic District',
     description:
-      'In late 1854, Chief Si\'ahl addressed Territorial Governor Isaac Stevens here at an open-air gathering near what is now Pioneer Square. The speech was not recorded verbatim and was reconstructed from memory by Henry Smith in 1887, then further embellished by a screenwriter in 1972. But the core message endured: the earth does not belong to man. Si\'ahl navigated the collision of two worlds by choosing diplomacy over war. The city named for him was built on the land he was asked to leave.',
+      'In late 1854, Chief Si\'ahl addressed Territorial Governor Isaac Stevens here at an open-air gathering near what is now Pioneer Square. The speech was reconstructed from memory by Henry Smith in 1887, then embellished by a screenwriter in 1972. But the core message endured: the earth does not belong to man. The city named for him was built on the land he was asked to leave.',
     lat: 47.6020,
     lng: -122.3321,
     type: 'political_event',
@@ -80,6 +86,7 @@ export const seattleMoments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1854,
+    address: 'Pioneer Square, Seattle, WA 98104',
     entityIds: ['chief-seattle'],
     wikiSection: 'Speeches',
   },
@@ -120,6 +127,7 @@ export const seattleMoments: Moment[] = [
     kind: 'milestone',
     year: 1891,
     address: 'Puget Sound Naval Shipyard, Bremerton, WA 98314',
+    entityIds: [],
     wikiSection: 'History',
   },
   {
@@ -127,7 +135,7 @@ export const seattleMoments: Moment[] = [
     name: 'The USS Missouri Sits Mothballed in Bremerton for 30 Years After Japan\'s Surrender',
     subtitle: 'PSNS Mothball Fleet, Sinclair Inlet, Bremerton. The Missouri was moored here 1954-1984',
     description:
-      'Japan formally surrendered aboard the USS Missouri in Tokyo Bay on 2 September 1945. Nine years later, the battleship was decommissioned and towed here to Bremerton\'s Puget Sound Naval Shipyard, where it anchored a "mothball fleet" of 36 decommissioned warships in Sinclair Inlet. For three decades the Missouri drew 180,000 tourists a year. She was reactivated in 1984, then transferred to Pearl Harbor in 1998 as a museum ship moored near the sunken USS Arizona, bookending the war.',
+      'Japan formally surrendered aboard the USS Missouri in Tokyo Bay on 2 September 1945. Nine years later, the battleship was decommissioned and towed here to Bremerton\'s Puget Sound Naval Shipyard, where it anchored a mothball fleet of 36 warships in Sinclair Inlet. For three decades the Missouri drew 180,000 tourists a year here. She was reactivated in 1984, then transferred to Pearl Harbor in 1998 as a museum ship moored near the sunken USS Arizona, bookending the war.',
     lat: 47.5536,
     lng: -122.6520,
     type: 'military_site',
@@ -138,6 +146,8 @@ export const seattleMoments: Moment[] = [
     kind: 'presence',
     year: 1954,
     date: '1954-1984; returned 1992-1998',
+    address: 'Puget Sound Naval Shipyard, Bremerton, WA 98314',
+    entityIds: [],
   },
 
   // ── Story: DB Cooper ──
@@ -146,7 +156,7 @@ export const seattleMoments: Moment[] = [
     name: 'A Man Calling Himself Dan Cooper Hijacks a Boeing 727 at Sea-Tac and Demands $200,000',
     subtitle: 'Seattle-Tacoma International Airport, SeaTac, WA. The terminal where Cooper collected the ransom',
     description:
-      'On 24 November 1971, Thanksgiving Eve, a man using the alias Dan Cooper boarded Northwest Orient Flight 305 in Portland and handed a flight attendant a note claiming he had a bomb. After landing here at Sea-Tac, Cooper released the 36 passengers in exchange for $200,000 in $20 bills and four parachutes. He ordered the crew to take off toward Mexico City. Somewhere over southwest Washington, Cooper lowered the 727\'s rear airstair and jumped into a rainstorm. He was never seen again.',
+      'On Thanksgiving Eve 1971, a man using the alias Dan Cooper boarded Northwest Orient Flight 305 in Portland and handed a flight attendant a note claiming he had a bomb. After landing here at Sea-Tac, he released 36 passengers in exchange for $200,000 in $20 bills and four parachutes. He ordered the crew to fly toward Mexico City. Somewhere over southwest Washington, Cooper lowered the 727\'s rear airstair and jumped into a rainstorm. He was never seen again.',
     lat: 47.4502,
     lng: -122.3088,
     type: 'crime_scene',
@@ -186,7 +196,7 @@ export const seattleMoments: Moment[] = [
     name: 'Ted Bundy Abducts Two Women in Broad Daylight in Front of 40,000 Beachgoers',
     subtitle: 'Lake Sammamish State Park, 2000 NW Sammamish Rd, Issaquah, WA. The park is open to the public',
     description:
-      'At this crowded public beach on 14 July 1974, Ted Bundy wore a sling and called himself "Ted" as he asked women for help loading a sailboat. Janice Ott, 23, walked away with him around noon. Hours later, Denise Naslund, 19, vanished the same way. An estimated 40,000 people were here that Sunday. Despite multiple witnesses, nobody saw the actual abductions. Their remains surfaced two months later near Issaquah. The brazenness of using his real name before tens of thousands remains one of the most disturbing facts of the case.',
+      'At this crowded public beach on 14 July 1974, Ted Bundy wore a sling and called himself "Ted" as he asked women for help loading a sailboat. Janice Ott, 23, walked away with him around noon. Hours later, Denise Naslund, 19, vanished the same way. An estimated 40,000 people were here that Sunday. Their remains surfaced two months later near Issaquah. He used his real name before tens of thousands.',
     lat: 47.5617,
     lng: -122.0619,
     type: 'crime_scene',
@@ -207,7 +217,7 @@ export const seattleMoments: Moment[] = [
     name: 'The First Body Surfaces in the Green River and a Twenty-Year Nightmare Begins',
     subtitle: 'Green River near Meeker Street bridge, Kent, WA. The stretch of river south of Seattle',
     description:
-      'Two boys riding bicycles along the Green River here in Kent spotted the body of 16-year-old Wendy Coffield caught on pilings beneath a bridge on 15 July 1982. Within a month, four more women\'s bodies surfaced from the same stretch. Gary Ridgway, a truck painter from nearby Auburn, would murder at least 49 women over the next 16 years. He gave a DNA sample in 1987 and passed a polygraph in 1984, yet was not arrested until 2001 when that sample finally matched three victims.',
+      'Two boys on bicycles spotted the body of 16-year-old Wendy Coffield caught on pilings beneath a bridge here on 15 July 1982. Within a month, four more women surfaced from this same stretch of the Green River. Gary Ridgway, a truck painter from nearby Auburn, would kill at least 49 women over 16 years. He passed a polygraph in 1984 and gave a DNA sample in 1987, yet was not arrested until 2001 when that sample finally matched three victims.',
     lat: 47.3848,
     lng: -122.2350,
     type: 'crime_scene',
@@ -227,7 +237,7 @@ export const seattleMoments: Moment[] = [
     name: 'A 1987 DNA Sample Finally Matches and Police Arrest Gary Ridgway at His Workplace',
     subtitle: 'Kenworth Truck Company, 10630 SE 192nd St, Renton, WA. The plant where Ridgway worked as a truck painter',
     description:
-      'Detectives arrested Gary Ridgway here at the Kenworth truck factory in Renton on 30 November 2001 as he walked to his pickup truck after a shift painting big rigs. New STR DNA technology had matched a saliva sample Ridgway gave in 1987 to semen found on three victims. He had worked at this plant for 32 years, commuting daily from his Auburn home past the same Pacific Highway strip where he had picked up dozens of his victims. Coworkers described him as quiet and unremarkable.',
+      'Detectives arrested Gary Ridgway here at the Kenworth truck factory in Renton on 30 November 2001 as he walked to his pickup after a shift painting big rigs. New STR DNA technology matched a saliva sample he gave in 1987 to semen found on three victims. He had worked here for 32 years, commuting daily past the same Pacific Highway strip where he picked up dozens of his victims.',
     lat: 47.4389,
     lng: -122.1669,
     type: 'workplace',
@@ -247,7 +257,7 @@ export const seattleMoments: Moment[] = [
     name: 'Ridgway Pleads Guilty to 48 Murders and Leads Detectives to Undiscovered Remains',
     subtitle: 'King County Courthouse, 516 Third Ave, Seattle. The courthouse is open to the public',
     description:
-      'Inside this courthouse here on Third Avenue, Gary Ridgway pleaded guilty on 5 November 2003 to 48 counts of aggravated first-degree murder, making him the most prolific convicted serial killer in American history at the time. The plea deal spared him the death penalty in exchange for disclosing the locations of still-missing victims. Over the following months he led detectives to remains scattered across King County ravines and wooded lots. He later confessed to a 49th murder. He received 48 consecutive life sentences without parole.',
+      'Inside this courthouse here on Third Avenue, Gary Ridgway pleaded guilty on 5 November 2003 to 48 counts of aggravated first-degree murder, the most by a single convicted killer in American history at the time. The plea spared him the death penalty in exchange for disclosing locations of missing victims. He led detectives to remains scattered across King County ravines, later confessed to a 49th murder, and received 48 consecutive life sentences without parole.',
     lat: 47.6015,
     lng: -122.3310,
     type: 'government',
@@ -341,6 +351,7 @@ export const seattleMoments: Moment[] = [
     kind: 'event',
     year: 1980,
     date: '18 May 1980',
+    address: 'Mount St. Helens, Skamania County, WA 98616',
     entityIds: ['harry-truman-mtsthelens'],
     wikiSection: '1980_eruption',
   },
@@ -349,7 +360,7 @@ export const seattleMoments: Moment[] = [
     name: 'Harry Truman Tells Reporters He Will Not Leave His Mountain and Becomes a Folk Hero',
     subtitle: 'Spirit Lake Lodge site (destroyed), Spirit Lake, WA. The lodge is buried under volcanic debris',
     description:
-      'In the weeks before the eruption, 83-year-old Harry Truman became a national celebrity here at his Spirit Lake Lodge for refusing to evacuate. He had run the lodge for 52 years and told reporters: "I am part of that mountain." Television crews made pilgrimages to film the cantankerous old man and his 16 cats. On 18 May, a pyroclastic flow traveling over 600 mph reached Spirit Lake in minutes. Truman likely died of heat shock in less than a second.',
+      'In the weeks before the eruption, 83-year-old Harry Truman became a national celebrity here at his Spirit Lake Lodge for refusing to evacuate. He had run the lodge for 52 years. Television crews made pilgrimages here to film the cantankerous old man and his 16 cats. On 18 May, a pyroclastic flow traveling over 600 mph reached Spirit Lake in minutes. Truman likely died of heat shock in less than a second.',
     lat: 46.2726,
     lng: -122.1533,
     type: 'residence',
@@ -360,6 +371,7 @@ export const seattleMoments: Moment[] = [
     kind: 'milestone',
     year: 1980,
     date: 'March-May 1980',
+    address: 'Spirit Lake, Skamania County, WA 98616',
     entityIds: ['harry-truman-mtsthelens'],
     wikiSection: 'Pre-eruption_media_attention',
   },
@@ -382,6 +394,7 @@ export const seattleMoments: Moment[] = [
     year: 1999,
     date: '30 November 1999',
     address: '705 Pike St, Seattle, WA 98101',
+    entityIds: [],
     wikiSection: 'Timeline',
   },
 
@@ -391,7 +404,7 @@ export const seattleMoments: Moment[] = [
     name: 'Farmers Sell Directly to Customers for the First Time and Pike Place Market Is Born',
     subtitle: 'Pike Place Market, 85 Pike St, Seattle. The market is open daily and largely unchanged since 1907',
     description:
-      'Eight farmers parked their wagons here at the corner of Pike Place and First Avenue on 17 August 1907, selling produce directly to Seattle residents furious over skyrocketing onion prices. They sold out by noon; 10,000 customers showed up. By 1911 the market had a permanent structure. Developers nearly bulldozed it in the 1960s for a hotel and parking garage. Architect Victor Steinbrueck led the campaign that saved it. Pike Place is now the oldest continuously operating farmer\'s market in the United States.',
+      'Eight farmers parked their wagons here at the corner of Pike Place and First Avenue on 17 August 1907, selling produce directly to customers furious over skyrocketing onion prices. They sold out by noon; 10,000 people showed up. Developers nearly bulldozed the market in the 1960s for a hotel and parking garage. Architect Victor Steinbrueck led the campaign that saved it. Pike Place is now the oldest continuously operating farmer\'s market in the United States.',
     lat: 47.6097,
     lng: -122.3422,
     type: 'cultural_site',
@@ -403,6 +416,7 @@ export const seattleMoments: Moment[] = [
     year: 1907,
     date: '17 August 1907',
     address: '85 Pike St, Seattle, WA 98101',
+    entityIds: [],
     wikiSection: 'History',
   },
   {
@@ -410,7 +424,7 @@ export const seattleMoments: Moment[] = [
     name: 'Three Friends Open a Coffee Bean Shop Near Pike Place and Call It Starbucks',
     subtitle: 'Original Starbucks, 1912 Pike Place, Seattle. The store still operates with its original brown logo',
     description:
-      'Jerry Baldwin, Zev Siegl, and Gordon Bowker opened a small storefront here near Pike Place Market on 30 March 1971, selling whole-bean coffee roasted by Peet\'s in Berkeley. No espresso, no Frappuccinos, just beans named after the first mate in Moby-Dick. The store moved to 1912 Pike Place in 1976. Howard Schultz visited in 1981, fell in love with Italian espresso culture, and bought the company for $3.8 million in 1987. As of 2024, Starbucks operates over 38,000 stores in 86 countries.',
+      'Jerry Baldwin, Zev Siegl, and Gordon Bowker opened a small storefront here near Pike Place Market on 30 March 1971, selling whole-bean coffee roasted by Peet\'s in Berkeley. No espresso, no Frappuccinos — just beans named after the first mate in Moby-Dick. Howard Schultz visited in 1981, fell in love with Italian espresso culture, and bought the company for $3.8 million in 1987. Starbucks now operates over 38,000 stores in 86 countries.',
     lat: 47.6101,
     lng: -122.3426,
     type: 'cultural_site',
@@ -422,6 +436,7 @@ export const seattleMoments: Moment[] = [
     year: 1971,
     date: '30 March 1971',
     address: '1912 Pike Place, Seattle, WA 98101',
+    entityIds: [],
     wikiSection: 'History',
   },
 
@@ -431,7 +446,7 @@ export const seattleMoments: Moment[] = [
     name: 'A Sawmill Town Tricks the Legislature Into Renaming It "Port Orchard"',
     subtitle: 'Port Orchard, WA. The waterfront downtown retains its small-town character along Bay Street',
     description:
-      'Originally platted as Sidney in 1886, this town became the first incorporated in Kitsap County in 1890 and won the county seat by building a courthouse and donating it. But the residents wanted the more prestigious name "Port Orchard," shared with a nearby bay named during Captain Vancouver\'s 1792 exploration. Neighboring Charleston also claimed the name. In 1903, newspaper editor Will Thompson lobbied the state legislature to officially rename Sidney as Port Orchard, stealing the name from under Charleston\'s nose. Charleston was eventually absorbed into Bremerton.',
+      'Originally platted as Sidney in 1886, this town here became the first incorporated in Kitsap County in 1890 and won the county seat by building a courthouse and donating it. But the residents wanted the more prestigious name "Port Orchard," shared with a nearby bay named during Captain Vancouver\'s 1792 exploration. Neighboring Charleston also claimed the name. In 1903, newspaper editor Will Thompson lobbied the state legislature to officially rename Sidney as Port Orchard, stealing the name from under Charleston\'s nose.',
     lat: 47.5401,
     lng: -122.6368,
     type: 'government',
@@ -441,13 +456,15 @@ export const seattleMoments: Moment[] = [
     accuracy: 'approximate',
     kind: 'milestone',
     year: 1903,
+    address: 'Port Orchard, WA 98366',
+    entityIds: [],
   },
   {
     id: 'sea-suquamish-old-man-house',
     name: 'The Suquamish Build the Largest Longhouse on Puget Sound and the Army Burns It Down',
     subtitle: 'Old Man House Park, Suquamish, WA. A small waterfront park marks the site on Agate Passage',
     description:
-      'For centuries the Suquamish maintained Old Man House (d\'SUQWUB) here on the shores of Agate Passage. At over 500 feet long and 60 feet wide, it was the largest longhouse on Puget Sound, housing several hundred people. Chief Seattle was born here around 1786. After the 1855 Treaty of Point Elliott confined the Suquamish to the Port Madison Reservation, the federal government viewed the longhouse as an obstacle to assimilation. In 1870, the U.S. Army burned it to the ground. A small park now offers views across Agate Passage to Bainbridge Island.',
+      'For centuries the Suquamish maintained Old Man House (d\'SUQWUB) here on the shores of Agate Passage. At over 500 feet long and 60 feet wide, it was the largest longhouse on Puget Sound. Chief Seattle was born here around 1786. After the 1855 Treaty of Point Elliott confined the Suquamish to the Port Madison Reservation, the government viewed the longhouse as an obstacle to assimilation. In 1870, the U.S. Army burned it to the ground. A small park here now marks the site.',
     lat: 47.7285,
     lng: -122.5755,
     type: 'archaeological_site',
@@ -457,6 +474,7 @@ export const seattleMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1870,
+    address: 'Old Man House Park, Suquamish, WA 98392',
     entityIds: ['chief-seattle'],
     wikiSection: 'Old_Man_House',
   },

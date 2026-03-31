@@ -93,7 +93,7 @@ export const delValleMoments: Moment[] = [
     id: 'lewis-hamilton-first-win-montreal-2007',
     name: 'Lewis Hamilton Wins His First Formula One Race in Only His Sixth Start',
     subtitle: 'Circuit Gilles Villeneuve, Île Notre-Dame, Montreal. The track loops the man-made island built for Expo 67',
-    description: 'The 22-year-old rookie led here from pole position on 10 June 2007, pulling away from the field on this island circuit in the St. Lawrence River to win by more than four seconds. Hamilton had finished on the podium in each of his first five races without winning. At Montreal he converted pole to victory on a track known for punishing mistakes, its concrete walls inches from the racing line. He finished his debut season one point short of the championship.',
+    description: 'The 22-year-old rookie led here from pole position on 10 June 2007, pulling away on this island circuit in the St. Lawrence River to win by more than four seconds. Hamilton had finished on the podium in his first five races without winning. At Montreal he converted pole to victory on a track known for punishing mistakes, concrete walls inches from the racing line.',
     lat: 45.5000,
     lng: -73.5228,
     type: 'cultural_venue',
@@ -173,7 +173,7 @@ export const delValleMoments: Moment[] = [
     id: 'mario-andretti-indy-500-1969',
     name: 'Mario Andretti Wins the Indianapolis 500 in His Backup Car',
     subtitle: 'Indianapolis Motor Speedway, 4790 W 16th St, Speedway, IN. The 2.5-mile oval has hosted the race since 1911',
-    description: 'Andretti qualified his primary car on the front row here but switched to his backup Hawk III after mechanical trouble. On 30 May 1969, he started from the second row and led 116 of 200 laps around the 2.5-mile oval known as the Brickyard. He won by more than two minutes. The victory was the crowning achievement of a career that already included USAC championships, but Andretti would later call this the one race that defined him in America.',
+    description: 'Andretti qualified on the front row here but switched to his backup Hawk III after mechanical trouble. On 30 May 1969, he led 116 of 200 laps around the 2.5-mile oval known as the Brickyard and won by more than two minutes. Andretti would later call this the one race that defined him in America.',
     lat: 39.7955,
     lng: -86.2347,
     type: 'cultural_venue',
@@ -225,6 +225,7 @@ export const delValleMoments: Moment[] = [
     year: -80000000,
     date: 'c. 80 million years ago',
     address: 'Pilot Knob, Del Valle, TX',
+    entityIds: ['pilot-knob'],
   },
 
   {
@@ -243,6 +244,7 @@ export const delValleMoments: Moment[] = [
     year: -7000,
     date: 'c. 9,000 years ago – 1830s',
     address: 'McKinney Falls State Park, Austin, TX 78744',
+    entityIds: ['thomas-mckinney'],
   },
 
   {
@@ -280,6 +282,7 @@ export const delValleMoments: Moment[] = [
     year: 2013,
     date: '31 October 2013',
     address: 'Onion Creek at Pleasant Valley Road, Austin, TX',
+    entityIds: ['onion-creek'],
   },
 
   // ── Austin-Bergstrom Airport / Bergstrom AFB ────────────────────────
@@ -307,7 +310,7 @@ export const delValleMoments: Moment[] = [
     id: 'bergstrom-afb-established',
     name: 'Austin Donates 3,000 Acres for Bergstrom Air Force Base',
     subtitle: 'Bergstrom AFB (now Austin-Bergstrom International Airport), Austin, TX. The base operated 1942–1993',
-    description: 'In 1942, citizens of Austin and Travis County donated approximately 3,000 acres of farmland here southeast of the city to the U.S. Army Air Corps, with one condition: the base would be named for Captain John Bergstrom. The donation included a reversion clause — if the military abandoned the land, it reverted to public use. That clause would become the legal foundation for Austin\'s future airport. During the Cold War, Bergstrom housed B-52 bombers as a Strategic Air Command base.',
+    description: 'In 1942, citizens of Austin and Travis County donated 3,000 acres of farmland here southeast of the city to the Army Air Corps, with one condition: the base would be named for Captain John Bergstrom. The donation included a reversion clause — if the military left, the land reverted to public use. That clause would become the legal foundation for Austin\'s future airport.',
     lat: 30.1945,
     lng: -97.6699,
     type: 'military_site',
@@ -356,13 +359,14 @@ export const delValleMoments: Moment[] = [
     year: 1993,
     date: '30 September 1993',
     address: 'Bergstrom AFB, Del Valle, TX',
+    entityIds: ['john-bergstrom'],
   },
 
   {
     id: 'aus-airport-opens',
     name: 'Austin-Bergstrom International Airport Opens on the Old Bomber Base',
     subtitle: '3600 Presidential Blvd, Austin, TX. The Barbara Jordan Terminal opened in 1999; the airport now serves 22 million passengers annually',
-    description: 'On 23 May 1999, Austin-Bergstrom International Airport opened here for commercial service on the former Air Force base. President Clinton attended the dedication. The terminal was named for Barbara Jordan, the trailblazing congresswoman who taught at UT Austin. A bronze statue of Jordan stands inside. The airport critics said was too far from downtown became the engine of the city\'s explosive growth.',
+    description: 'On 23 May 1999, Austin-Bergstrom International Airport opened here for commercial service on the former Air Force base. The terminal was named for Barbara Jordan, the trailblazing congresswoman who taught at UT Austin. A bronze statue of Jordan stands inside. The airport critics said was too far from downtown became the engine of Austin\'s explosive growth.',
     lat: 30.1975,
     lng: -97.6664,
     type: 'institution',
@@ -394,6 +398,7 @@ export const delValleMoments: Moment[] = [
     year: 2008,
     date: '15 September 2008',
     address: '3600 Presidential Blvd, Austin, TX 78719',
+    entityIds: ['austin-bergstrom-airport'],
   },
 
   // ── Del Valle Land Grant ────────────────────────────────────────────
@@ -413,6 +418,7 @@ export const delValleMoments: Moment[] = [
     kind: 'event',
     year: 1832,
     address: 'Del Valle, TX',
+    entityIds: ['santiago-del-valle'],
   },
 ];
 
@@ -580,6 +586,70 @@ export const delValleEntities: Entity[] = [
     years: '2012–present',
     description: 'A $400 million, 3.41-mile purpose-built motorsport circuit in Del Valle, Texas. COTA hosts the Formula One United States Grand Prix, MotoGP, and major concerts. Its 2021 race weekend drew an estimated 400,000 fans, the largest F1 attendance ever recorded.',
     wikipediaSlug: 'Circuit_of_the_Americas',
+    canonicalStoryId: 'cota-birth-of-f1-in-austin',
+  },
+
+  // stub — demoted from Notable People
+  {
+    id: 'tavo-hellmund',
+    name: 'Tavo Hellmund',
+    type: 'person',
+    description: 'Austin promoter who conceived and co-founded Circuit of the Americas before being ousted in a dispute with co-investors.',
+  },
+
+  // stub — demoted from Notable People
+  {
+    id: 'kevin-schwantz',
+    name: 'Kevin Schwantz',
+    type: 'person',
+    description: '1993 500cc motorcycle world champion from Texas who helped promote COTA and rode the ceremonial first lap alongside Andretti.',
+  },
+
+  // stub — demoted from Notable People
+  {
+    id: 'thomas-mckinney',
+    name: 'Thomas F. McKinney',
+    type: 'person',
+    description: 'One of Stephen F. Austin\'s original colonists and financier of the Texas Revolution. His homestead and gristmill gave McKinney Falls its name.',
+  },
+
+  // stub — demoted from Notable People
+  {
+    id: 'john-bergstrom',
+    name: 'John August Earl Bergstrom',
+    type: 'person',
+    description: 'Austin pilot killed at Clark Field hours after Pearl Harbor. The air base and later the airport were named in his honor.',
+  },
+
+  // place entities for moment wiring
+  {
+    id: 'pilot-knob',
+    name: 'Pilot Knob',
+    type: 'place',
+    description: 'Eroded remnant of an 80-million-year-old submarine volcano in southeast Austin, the most visible volcanic feature in the area.',
+  },
+
+  {
+    id: 'onion-creek',
+    name: 'Onion Creek',
+    type: 'place',
+    description: 'Major tributary of the Colorado River flowing through southeast Austin. Its floodplain has been inhabited for 9,000 years.',
+  },
+
+  {
+    id: 'austin-bergstrom-airport',
+    name: 'Austin-Bergstrom International Airport',
+    type: 'place',
+    years: '1999–present',
+    description: 'Austin\'s commercial airport, built on the former Bergstrom Air Force Base. Named for Captain John Bergstrom and featuring the Barbara Jordan Terminal.',
+    canonicalStoryId: 'bergstrom-bombers-to-boarding-passes',
+  },
+
+  {
+    id: 'santiago-del-valle',
+    name: 'Santiago del Valle',
+    type: 'person',
+    description: 'Recipient of a 10-league Mexican land grant in 1832 covering much of southeast Travis County. The Del Valle community bears his name.',
   },
 
 ];

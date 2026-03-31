@@ -19,7 +19,7 @@ export const mesaPhoenixEntities: Entity[] = [
     years: '1941–1976',
     description:
       'A Phoenix laborer whose botched interrogation reached the Supreme Court and gave every arrested person in America the right to remain silent. Stabbed to death in a bar fight ten years later; his killer was read Miranda rights and released.',
-    canonicalStoryId: '', // TODO: no biography story exists yet
+    canonicalStoryId: 'miranda-rights-phoenix',
     wikipediaSlug: 'Ernesto_Miranda',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ernesto_Miranda_1967.jpg/330px-Ernesto_Miranda_1967.jpg',
   },
@@ -45,8 +45,38 @@ export const mesaPhoenixEntities: Entity[] = [
     wikipediaSlug: 'Frank_Lloyd_Wright',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Frank_Lloyd_Wright_portrait.jpg/300px-Frank_Lloyd_Wright_portrait.jpg',
   },
-  // Demoted entities (tag-only): winnie-ruth-judd, don-bolles
-  // Their IDs remain in moment entityIds[] for tagging.
+  {
+    id: 'hohokam-civilization',
+    name: 'Hohokam',
+    type: 'place',
+    description:
+      'A pre-Columbian civilization that built over 1,000 miles of irrigation canals across the Sonoran Desert between 450 and 1450 AD, then vanished for reasons archaeologists still debate.',
+    wikipediaSlug: 'Hohokam',
+  },
+  {
+    id: 'phoenix-az',
+    name: 'Phoenix',
+    type: 'place',
+    description:
+      'The capital of Arizona and fifth-largest city in the United States, built atop Hohokam canal routes in the Salt River Valley.',
+    wikipediaSlug: 'Phoenix,_Arizona',
+  },
+  // stub — demoted from Notable People
+  {
+    id: 'winnie-ruth-judd',
+    name: 'Winnie Ruth Judd',
+    type: 'person',
+    description:
+      'A Phoenix medical secretary convicted of murdering two friends in 1931 and shipping their bodies by train in trunks. Escaped the Arizona State Asylum seven times over three decades.',
+  },
+  // stub — demoted from Notable People
+  {
+    id: 'don-bolles',
+    name: 'Don Bolles',
+    type: 'person',
+    description:
+      'An Arizona Republic investigative reporter murdered by car bomb in 1976 while pursuing land fraud stories. His death triggered the largest collaborative journalism project in American history.',
+  },
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────
@@ -70,6 +100,7 @@ export const mesaPhoenixMoments: Moment[] = [
     year: 1100,
     date: 'c. 450–1450 AD',
     address: '4619 E Washington St, Phoenix, AZ 85034',
+    entityIds: ['hohokam-civilization'],
     wikiSection: 'Irrigation',
   },
   {
@@ -89,6 +120,7 @@ export const mesaPhoenixMoments: Moment[] = [
     year: 1200,
     date: 'c. 1100–1400 AD',
     address: '1000 N Date, Mesa, AZ 85201',
+    entityIds: ['hohokam-civilization'],
   },
   {
     id: 'phx-hohokam-park-canals',
@@ -107,6 +139,7 @@ export const mesaPhoenixMoments: Moment[] = [
     year: 1450,
     date: 'c. 1450 AD',
     address: '1710 N Horne, Mesa, AZ 85203',
+    entityIds: ['hohokam-civilization'],
   },
 
   // ── Story: Miranda Rights ──
@@ -185,6 +218,7 @@ export const mesaPhoenixMoments: Moment[] = [
     kind: 'event',
     year: 1944,
     date: '23 December 1944',
+    entityIds: ['phoenix-az'],
     wikiSection: 'The_escape',
   },
 
@@ -242,6 +276,7 @@ export const mesaPhoenixMoments: Moment[] = [
     kind: 'event',
     year: 1997,
     date: '13 March 1997',
+    entityIds: ['phoenix-az'],
     wikiSection: 'Events',
   },
   {
@@ -260,6 +295,7 @@ export const mesaPhoenixMoments: Moment[] = [
     kind: 'event',
     year: 1997,
     date: '13 March 1997',
+    entityIds: ['phoenix-az'],
     wikiSection: 'Explanations',
   },
 
@@ -290,7 +326,7 @@ export const mesaPhoenixMoments: Moment[] = [
     name: 'Frank Lloyd Wright Builds a House Over a Waterfall and Rescues His Career',
     subtitle: 'Fallingwater, 1491 Mill Run Rd, Mill Run, PA. Open for tours; the house cantilevers directly over Bear Run falls',
     description:
-      'Wright was 67 and nearly forgotten when department store heir Edgar Kaufmann Sr. commissioned a weekend home here in the Laurel Highlands. Instead of placing the house with a view of the waterfall, Wright cantilevered it directly over the falls on 15 September 1935. Engineers warned the concrete would collapse. Kaufmann\'s contractor secretly doubled the steel reinforcement. The house held. Time magazine put Wright on its cover in 1938, and the AIA later named Fallingwater the best all-time work of American architecture.',
+      'Wright was 67 and nearly forgotten when Edgar Kaufmann Sr. commissioned a weekend home here in the Laurel Highlands. Instead of facing the waterfall, Wright cantilevered the house directly over the falls. Engineers warned the concrete would collapse; Kaufmann\'s contractor secretly doubled the reinforcement. The house held. The AIA later named Fallingwater the best all-time work of American architecture.',
     lat: 39.9064,
     lng: -79.4681,
     type: 'landmark',
@@ -310,7 +346,7 @@ export const mesaPhoenixMoments: Moment[] = [
     name: 'The Guggenheim Museum Opens Six Months After Wright Dies',
     subtitle: '1071 Fifth Ave, New York, NY. The spiral ramp museum is open to the public on Museum Mile',
     description:
-      'Wright spent 16 years fighting with Solomon Guggenheim, city officials, and 21 artists who signed a letter protesting the design of this museum here on Fifth Avenue. The building inverts the typical gallery: visitors take an elevator to the top and walk down a continuous quarter-mile spiral ramp. Wright died on 9 April 1959 at age 91. The museum opened on 21 October 1959 to divided reviews. Today it is a UNESCO World Heritage Site and one of the most recognized buildings on Earth.',
+      'Wright spent 16 years fighting with Guggenheim, city officials, and artists who protested this museum here on Fifth Avenue. The building inverts the typical gallery: visitors take an elevator to the top and walk down a continuous quarter-mile spiral ramp. Wright died on 9 April 1959. The museum opened six months later to divided reviews and is now a UNESCO World Heritage Site.',
     lat: 40.7830,
     lng: -73.9590,
     type: 'landmark',
@@ -343,6 +379,7 @@ export const mesaPhoenixMoments: Moment[] = [
     kind: 'presence',
     year: 1942,
     date: 'May 1942 – November 1945',
+    entityIds: ['phoenix-az'],
     wikiSection: 'History',
   },
 
@@ -352,7 +389,7 @@ export const mesaPhoenixMoments: Moment[] = [
     name: 'A Car Bomb Kills Investigative Reporter Don Bolles in a Hotel Parking Lot',
     subtitle: 'Hotel Clarendon (demolished), 4th Ave & Clarendon, Phoenix. Commemorative street sign at the intersection',
     description:
-      'Arizona Republic reporter Don Bolles drove to the Hotel Clarendon here in midtown Phoenix on 2 June 1976 to meet a source promising information about land fraud. While he waited in the lobby, someone wired six sticks of dynamite to his Datsun. The remote-detonated explosion cost Bolles both legs and an arm; he died eleven days later. His murder triggered the "Arizona Project," in which 38 journalists descended on Phoenix to finish his stories, producing a 23-part series on organized crime.',
+      'Arizona Republic reporter Don Bolles drove to the Hotel Clarendon here on 2 June 1976 to meet a source promising land fraud information. Someone wired six sticks of dynamite to his Datsun. The remote-detonated blast cost Bolles both legs and an arm; he died eleven days later. His murder triggered the "Arizona Project," in which 38 journalists descended on Phoenix to finish his stories.',
     lat: 33.4787,
     lng: -112.0764,
     type: 'crime_scene',
