@@ -293,7 +293,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         // Multi-moment: show parent name at the center of VISIBLE markers in viewport
         const bounds = map.getBounds();
         const visibleMoments = scrollHighlight.filter(m => bounds.contains([m.lat, m.lng]));
-        const labelMoments = visibleMoments.length > 0 ? visibleMoments : scrollHighlight;
+        // Only show label if at least one marker is in the viewport — skip if all off-screen
+        if (visibleMoments.length === 0) return;
+        const labelMoments = visibleMoments;
         const lats = labelMoments.map(m => m.lat);
         const lngs = labelMoments.map(m => m.lng);
         const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
