@@ -1170,7 +1170,7 @@ export function MapView(props: MapViewProps) {
   const tile = TILE_URLS[tileStyle];
 
   return (
-    <div className="relative h-full w-full map-atmosphere">
+    <div className="relative h-full w-full map-atmosphere overflow-visible">
       <MapContainer
         center={[39.5, -98.5]}
         zoom={4}

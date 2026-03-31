@@ -298,13 +298,20 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const lngs = visibleMoments.map(m => m.lng);
         const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
         const centerLng = (Math.min(...lngs) + Math.max(...lngs)) / 2;
-        // Detect direction: label goes left or right of center point
+        // Detect direction: label goes beside or above/below center point
         const point = map.latLngToContainerPoint([centerLat, centerLng]);
         const mapSize = map.getSize();
         const labelRight = point.x <= mapSize.x * 0.5;
+        const nearBottom = point.y > mapSize.y * 0.75;
+        const nearTop = point.y < mapSize.y * 0.15;
+        const containerStyle = nearBottom
+          ? 'flex-direction:column-reverse;align-items:center;'
+          : nearTop
+            ? 'flex-direction:column;align-items:center;'
+            : labelRight ? '' : 'flex-direction:row-reverse;';
         const icon = L.divIcon({
           className: '',
-          html: `<div class="scroll-label-container" style="${labelRight ? '' : 'flex-direction:row-reverse;'}">
+          html: `<div class="scroll-label-container" style="${containerStyle}">
             <div class="scroll-label-dot" style="width:0;height:0;"></div>
             <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
           </div>`,
@@ -329,11 +336,22 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
         const sz = map.getSize();
         const labelRight = pt.x <= sz.x * 0.5;
+        const nearBottom = pt.y > sz.y * 0.75;
+        const nearTop = pt.y < sz.y * 0.15;
+        // Near bottom/top: label goes above/below the dot; otherwise beside it
+        const containerStyle = nearBottom
+          ? 'flex-direction:column-reverse;align-items:center;'
+          : nearTop
+            ? 'flex-direction:column;align-items:center;'
+            : labelRight ? '' : 'flex-direction:row-reverse;';
+        const borderStyle = nearBottom || nearTop
+          ? `border-bottom:3px solid ${color};padding-bottom:4px;`
+          : `border-left:3px solid ${color};`;
         const icon = L.divIcon({
           className: '',
-          html: `<div class="scroll-label-container" style="${labelRight ? '' : 'flex-direction:row-reverse;'}">
+          html: `<div class="scroll-label-container" style="${containerStyle}">
             <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
-            <div class="scroll-label-text dark-tooltip" style="border-left:3px solid ${color};">${tooltipText}</div>
+            <div class="scroll-label-text dark-tooltip" style="${borderStyle}">${tooltipText}</div>
           </div>`,
           iconSize: [12, 12],
           iconAnchor: [6, 6],
