@@ -123,6 +123,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const activeOverlayRef = useRef<L.Marker | null>(null);
   const scrollOverlayRef = useRef<L.Marker | null>(null);
   const offScreenArrowRef = useRef<HTMLDivElement | null>(null);
+  // Track active arrow-click flyTo so the arrow tracks during animation
+  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; cleanup: () => void } | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -279,47 +281,82 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
   // ── Off-screen arrow helper ──────────────────────────────────────────
   // Shows/hides a directional arrow at the map edge pointing toward off-screen content.
-  const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string) => {
-    hideOffScreenArrow();
-    const container = map.getContainer();
+  // Computes position, rotation, and distance for the arrow DOM element.
+  const updateArrowPosition = (div: HTMLDivElement, targetLat: number, targetLng: number, label?: string) => {
     const sz = map.getSize();
     const target = map.latLngToContainerPoint([targetLat, targetLng]);
     const cx = sz.x / 2;
     const cy = sz.y / 2;
     const dx = target.x - cx;
     const dy = target.y - cy;
-    if (dx === 0 && dy === 0) return; // target is at center (shouldn't happen)
 
-    // Ray-rectangle intersection: find where the ray from center hits the map edge
+    // If target is now in viewport, hide arrow
+    const bounds = map.getBounds();
+    if (bounds.contains([targetLat, targetLng])) {
+      div.style.display = 'none';
+      return;
+    }
+    div.style.display = 'flex';
+
+    if (dx === 0 && dy === 0) return;
+
+    // Ray-rectangle intersection
     const pad = 48;
     const halfW = sz.x / 2 - pad;
     const halfH = sz.y / 2 - pad;
-    // Scale factor to reach the bounding box edge
     const scaleX = dx !== 0 ? halfW / Math.abs(dx) : Infinity;
     const scaleY = dy !== 0 ? halfH / Math.abs(dy) : Infinity;
     const scale = Math.min(scaleX, scaleY);
     const edgeX = cx + dx * scale;
     const edgeY = cy + dy * scale;
-
-    // Arrow rotation: angle from center to target in screen coords
     const degrees = Math.atan2(dy, dx) * (180 / Math.PI);
 
-    // Distance from map center to target
     const center = map.getCenter();
     const dist = distanceMiles(center.lat, center.lng, targetLat, targetLng);
     const distStr = dist < 1 ? `${(dist * 5280).toFixed(0)} ft` : dist < 10 ? `${dist.toFixed(1)} mi` : `${Math.round(dist)} mi`;
 
-    const div = document.createElement('div');
-    div.className = 'offscreen-arrow';
-    div.style.cssText = `position:absolute;left:${edgeX}px;top:${edgeY}px;z-index:800;cursor:pointer;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;`;
+    div.style.left = `${edgeX}px`;
+    div.style.top = `${edgeY}px`;
     div.innerHTML = `
       <div style="transform:rotate(${degrees}deg);font-size:22px;color:rgba(212,168,83,0.95);text-shadow:0 0 10px rgba(212,168,83,0.5);filter:drop-shadow(0 0 4px rgba(212,168,83,0.3));">&#x27A4;</div>
       <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:rgba(212,168,83,0.85);white-space:nowrap;">${distStr}</span>
       ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:9px;color:rgba(255,255,255,0.5);max-width:90px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</span>` : ''}
     `;
+  };
+
+  const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string) => {
+    // Don't override an active arrow-click flyTo
+    if (arrowFlyRef.current) return;
+    hideOffScreenArrow();
+    const container = map.getContainer();
+
+    // Check if target is already in viewport
+    if (map.getBounds().contains([targetLat, targetLng])) return;
+
+    const div = document.createElement('div');
+    div.className = 'offscreen-arrow';
+    div.style.cssText = `position:absolute;z-index:800;cursor:pointer;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;`;
+    updateArrowPosition(div, targetLat, targetLng, label);
+
     div.addEventListener('click', (e) => {
       e.stopPropagation();
-      hideOffScreenArrow();
+      // Lock in this target — prevent scroll highlight from overriding
+      const onMove = () => updateArrowPosition(div, targetLat, targetLng, label);
+      const onMoveEnd = () => {
+        // If target is now in view, clean up
+        if (map.getBounds().contains([targetLat, targetLng])) {
+          map.off('move', onMove);
+          map.off('moveend', onMoveEnd);
+          hideOffScreenArrow();
+          arrowFlyRef.current = null;
+        }
+      };
+      arrowFlyRef.current = {
+        lat: targetLat, lng: targetLng, label,
+        cleanup: () => { map.off('move', onMove); map.off('moveend', onMoveEnd); }
+      };
+      map.on('move', onMove);
+      map.on('moveend', onMoveEnd);
       map.flyTo([targetLat, targetLng], map.getZoom(), { duration: 1.5 });
     });
     container.appendChild(div);
@@ -327,6 +364,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   };
 
   const hideOffScreenArrow = () => {
+    if (arrowFlyRef.current) {
+      arrowFlyRef.current.cleanup();
+      arrowFlyRef.current = null;
+    }
     if (offScreenArrowRef.current) {
       offScreenArrowRef.current.remove();
       offScreenArrowRef.current = null;
