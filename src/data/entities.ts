@@ -13,6 +13,7 @@ const _baseEntities: Entity[] = [
     description: 'Crowned at 18, reigned for 63 years, and gave her name to an era. Her nine children married into every royal house in Europe, earning her the title \'Grandmother of Europe.\' At her death, the British Empire covered a quarter of the globe.',
     canonicalStoryId: 'queen-victoria-biography',
     wikipediaSlug: 'Queen_Victoria',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Queen_Victoria_by_Bassano.jpg/330px-Queen_Victoria_by_Bassano.jpg',
   },
   {
     id: 'charles-i',
@@ -22,6 +23,7 @@ const _baseEntities: Entity[] = [
     description: 'The only English king executed by his own people — he wore two shirts to the scaffold so he wouldn\'t shiver and look afraid. His eleven-year attempt to rule without Parliament triggered the English Civil War.',
     canonicalStoryId: 'charles-i-biography',
     wikipediaSlug: 'Charles_I_of_England',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/King_Charles_I_after_original_by_van_Dyck.jpg/330px-King_Charles_I_after_original_by_van_Dyck.jpg',
   },
   {
     id: 'the-beatles',
@@ -39,6 +41,7 @@ const _baseEntities: Entity[] = [
     description: 'A Black woman from St. Louis who became the highest-paid entertainer in 1920s Paris, served in the French Resistance during WWII, adopted twelve children from around the world, and was the first Black woman interred in the Panthéon.',
     canonicalStoryId: 'josephine-baker-biography',
     wikipediaSlug: 'Josephine_Baker',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Baker_Harcourt_1940_2.jpg/330px-Baker_Harcourt_1940_2.jpg',
   },
   {
     id: 'sophocles',
@@ -48,6 +51,7 @@ const _baseEntities: Entity[] = [
     description: 'The playwright who never lost a competition in 50 years. Sophocles won 24 of 30 dramatic contests in Athens, invented the third actor, and wrote Oedipus Rex — still the template for tragedy 2,400 years later.',
     canonicalStoryId: 'sophocles-biography',
     wikipediaSlug: 'Sophocles',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Sophocles_pushkin.jpg/330px-Sophocles_pushkin.jpg',
   },
   {
     id: 'charlemagne',
@@ -57,6 +61,7 @@ const _baseEntities: Entity[] = [
     description: 'The king who united Europe after Rome\'s fall. Charlemagne conquered Saxony, Italy, and Bavaria, was crowned the West\'s first emperor in 300 years, and launched the Carolingian Renaissance — all from a palace in modern-day Germany.',
     canonicalStoryId: 'charlemagne-biography',
     wikipediaSlug: 'Charlemagne',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Charlemagne_denier_Mayence_812_814.jpg/330px-Charlemagne_denier_Mayence_812_814.jpg',
   },
   {
     id: 'michael-jackson',
@@ -66,6 +71,7 @@ const _baseEntities: Entity[] = [
     description: 'The entertainer who moonwalked into history and never left. Born the eighth of ten children in a Gary, Indiana, two-bedroom house, Jackson sold 500 million records, invented the music video as art form, and died at 50 preparing his comeback.',
     canonicalStoryId: 'michael-jackson-biography',
     wikipediaSlug: 'Michael_Jackson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg/330px-Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg',
   },
   {
     id: 'barack-obama',
@@ -75,6 +81,7 @@ const _baseEntities: Entity[] = [
     description: 'The first Black president of the United States, Obama rose from community organizer on Chicago\'s South Side to the Oval Office in 2008. First Black president of the Harvard Law Review. Ordered the raid that killed Osama bin Laden. Nobel Peace Prize winner, 2009.',
     canonicalStoryId: 'barack-obama-biography',
     wikipediaSlug: 'Barack_Obama',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/330px-President_Barack_Obama.jpg',
   },
   {
     id: 'herodotus',
@@ -84,6 +91,7 @@ const _baseEntities: Entity[] = [
     description: 'The man who invented history as we know it. Born in Persian-controlled Halicarnassus, Herodotus traveled Egypt, Babylon, and Greece to write the Histories — the first great work of Western prose, earning him Cicero\'s title \'Father of History.\'',
     canonicalStoryId: 'herodotus-biography',
     wikipediaSlug: 'Herodotus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Marble_bust_of_Herodotos_MET_DT11742_%28cropped%29.jpg/330px-Marble_bust_of_Herodotos_MET_DT11742_%28cropped%29.jpg',
   },
   {
     id: 'frederic-chopin',
@@ -93,6 +101,7 @@ const _baseEntities: Entity[] = [
     description: 'The pianist who redefined what a piano could say. Polish-born composer who wrote almost exclusively for solo piano, producing mazurkas, nocturnes, and ballades that expanded the instrument\'s emotional and technical range. He gave only 30 public concerts in his life, preferring intimate salons. Died in Paris at 39, likely of tuberculosis.',
     canonicalStoryId: 'frederic-chopin-biography',
     wikipediaSlug: 'Frédéric_Chopin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Frederic_Chopin_photo.jpeg/330px-Frederic_Chopin_photo.jpeg',
   },
   {
     id: 'miguel-de-cervantes',
@@ -102,6 +111,7 @@ const _baseEntities: Entity[] = [
     description: 'One-armed soldier who wrote the first modern novel. Cervantes lost the use of his left hand at the Battle of Lepanto, spent five years as a slave in Algiers, was jailed for tax irregularities, and died in poverty — but Don Quixote, published when he was 57, made Spanish itself "the language of Cervantes."',
     canonicalStoryId: 'miguel-de-cervantes-biography',
     wikipediaSlug: 'Miguel_de_Cervantes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cervantes_J%C3%A1uregui.jpg/330px-Cervantes_J%C3%A1uregui.jpg',
   },
   {
     id: 'george-washington',
@@ -111,6 +121,7 @@ const _baseEntities: Entity[] = [
     description: 'The general who refused a crown and built a republic. Washington commanded a ragged Continental Army to victory over Britain, presided over the Constitutional Convention, and set the two-term presidential precedent that held for 150 years.',
     canonicalStoryId: 'george-washington-biography',
     wikipediaSlug: 'George_Washington',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/330px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg',
   },
   {
     id: 'donald-trump',
@@ -120,6 +131,7 @@ const _baseEntities: Entity[] = [
     description: 'The first U.S. president convicted of a felony, Trump built a real estate empire, hosted a hit reality show, won the presidency twice, survived two impeachments, and reshaped American politics through a polarizing brand of nationalist populism.',
     canonicalStoryId: 'donald-trump-biography',
     wikipediaSlug: 'Donald_Trump',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29.jpg/330px-Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29.jpg',
   },
   {
     id: 'vasco-da-gama',
@@ -129,6 +141,7 @@ const _baseEntities: Entity[] = [
     description: 'The navigator who linked Europe and Asia by sea, da Gama\'s 1497–99 voyage around Africa to India was the longest ocean journey ever completed and shattered Venice\'s spice monopoly, reshaping global trade for centuries.',
     canonicalStoryId: 'vasco-da-gama-biography',
     wikipediaSlug: 'Vasco_da_Gama',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Ignoto_portoghese%2C_ritratto_di_un_cavaliere_dell%27ordine_di_cristo%2C_1525-50_ca._02.jpg/330px-Ignoto_portoghese%2C_ritratto_di_un_cavaliere_dell%27ordine_di_cristo%2C_1525-50_ca._02.jpg',
   },
   {
     id: 'johann-sebastian-bach',
@@ -138,6 +151,7 @@ const _baseEntities: Entity[] = [
     description: 'The composer who mapped every corner of music\'s universe. Born into a dynasty of musicians, Bach produced over 1,000 works across 65 years, then was largely forgotten until Mendelssohn resurrected him in 1829. He died after botched eye surgery.',
     canonicalStoryId: 'johann-sebastian-bach-biography',
     wikipediaSlug: 'Johann_Sebastian_Bach',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Johann_Sebastian_Bach.jpg/330px-Johann_Sebastian_Bach.jpg',
   },
   {
     id: 'augustine-of-hippo',
@@ -147,6 +161,7 @@ const _baseEntities: Entity[] = [
     description: 'The theologian who invented Western guilt and shaped Christianity for 1,600 years. Born in Roman Africa, he spent his youth as a Manichaean and libertine before a dramatic conversion in Milan. His Confessions invented the memoir; his City of God saved the Church after Rome fell.',
     canonicalStoryId: 'augustine-of-hippo-biography',
     wikipediaSlug: 'Augustine_of_Hippo',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Saint_Augustine_by_Philippe_de_Champaigne.jpg/330px-Saint_Augustine_by_Philippe_de_Champaigne.jpg',
   },
   {
     id: 'ashoka',
@@ -156,6 +171,7 @@ const _baseEntities: Entity[] = [
     description: 'The emperor who wept over a battlefield and changed history. Ashoka ruled the Mauryan Empire across most of the Indian subcontinent, then renounced conquest after the Kalinga War and became Buddhism\'s greatest royal patron, embedding his edicts in stone across Asia.',
     canonicalStoryId: 'ashoka-biography',
     wikipediaSlug: 'Ashoka',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Ashoka%27s_visit_to_the_Ramagrama_stupa_Sanchi_Stupa_1_Southern_gateway.jpg/330px-Ashoka%27s_visit_to_the_Ramagrama_stupa_Sanchi_Stupa_1_Southern_gateway.jpg',
   },
   {
     id: 'raphael',
@@ -165,6 +181,7 @@ const _baseEntities: Entity[] = [
     description: 'The painter who made perfection look effortless. Born in Urbino, dead at 37, Raphael produced the Vatican\'s most celebrated frescoes, ran the largest workshop in Rome, and was so beloved that his funeral halted the city',
     canonicalStoryId: 'raphael-biography',
     wikipediaSlug: 'Raphael',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Raffaello_Sanzio.jpg/330px-Raffaello_Sanzio.jpg',
   },
   {
     id: 'johann-wolfgang-von-goethe',
@@ -174,6 +191,7 @@ const _baseEntities: Entity[] = [
     description: 'The writer who defined German literature for all time. Poet, playwright, novelist, scientist, and statesman, Goethe authored Faust and The Sorrows of Young Werther, shaped Weimar Classicism, and influenced every major Western thinker from Beethoven to Nietzsche.',
     canonicalStoryId: 'johann-wolfgang-von-goethe-biography',
     wikipediaSlug: 'Johann_Wolfgang_von_Goethe',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Goethe_%28Stieler_1828%29.jpg/330px-Goethe_%28Stieler_1828%29.jpg',
   },
   {
     id: 'ronald-reagan',
@@ -183,6 +201,7 @@ const _baseEntities: Entity[] = [
     description: 'The actor who became president and ended the Cold War. Reagan transformed from a B-movie star into the 40th U.S. president, reshaping American conservatism, tripling the national debt, and negotiating the arms treaty that helped bring down the Soviet Union.',
     canonicalStoryId: 'ronald-reagan-biography',
     wikipediaSlug: 'Ronald_Reagan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/330px-Official_Portrait_of_President_Reagan_1981.jpg',
   },
   {
     id: 'elizabeth-ii',
@@ -192,6 +211,7 @@ const _baseEntities: Entity[] = [
     description: 'The longest-reigning British monarch, who served 70 years on the throne. Elizabeth became queen at 25 when her father died unexpectedly during a trip to Kenya, trained as a military mechanic during WWII, and met 14 U.S. presidents. She celebrated VE Day incognito among the crowds in London as a teenager.',
     canonicalStoryId: 'elizabeth-ii-biography',
     wikipediaSlug: 'Elizabeth_II',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Queen_Elizabeth_II_official_portrait_for_1959_tour_%28retouched%29_%28cropped%29_%283-to-4_aspect_ratio%29.jpg/330px-Queen_Elizabeth_II_official_portrait_for_1959_tour_%28retouched%29_%28cropped%29_%283-to-4_aspect_ratio%29.jpg',
   },
   {
     id: 'los-alamos-national-laboratory',
@@ -209,6 +229,7 @@ const _baseEntities: Entity[] = [
     description: 'The king who carved 282 laws into stone and changed justice forever. Sixth king of Babylon\'s First Dynasty, Hammurabi transformed a minor city-state into an empire spanning all of Mesopotamia. His law code, inscribed on a black diorite stele, introduced the presumption of innocence and was declared by the god Shamash himself.',
     canonicalStoryId: 'hammurabi-biography',
     wikipediaSlug: 'Hammurabi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/F0182_Louvre_Code_Hammourabi_Bas-relief_Sb8_rwk.jpg/330px-F0182_Louvre_Code_Hammourabi_Bas-relief_Sb8_rwk.jpg',
   },
   {
     id: 'salvador-dali',
@@ -218,6 +239,7 @@ const _baseEntities: Entity[] = [
     description: 'The showman of Surrealism who painted melting clocks and cultivated madness as method. Dali mastered classical technique then weaponized it for the subconscious, producing The Persistence of Memory and co-writing Un Chien Andalou with Bunuel. His flamboyant mustache became as famous as his art.',
     canonicalStoryId: 'salvador-dali-biography',
     wikipediaSlug: 'Salvador_Dalí',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Salvador_Dal%C3%AD_1939.jpg/330px-Salvador_Dal%C3%AD_1939.jpg',
   },
   {
     id: 'caligula',
@@ -227,6 +249,7 @@ const _baseEntities: Entity[] = [
     description: 'The emperor who made Rome worship him as a god. Gaius Caesar rose from traumatized hostage to absolute ruler at 24, then was stabbed by his own guards after four years of increasingly erratic rule that ended the Julio-Claudian male line.',
     canonicalStoryId: 'caligula-biography',
     wikipediaSlug: 'Caligula',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Caligula.Carlsberg_Glyptotek.%28cropped%29.jpg/330px-Caligula.Carlsberg_Glyptotek.%28cropped%29.jpg',
   },
   {
     id: 'carlsbad-caverns',
@@ -294,6 +317,7 @@ const _baseEntities: Entity[] = [
     description: 'A glove-maker\'s son from Stratford who wrote 37 plays and 154 sonnets. Invented over 1,700 English words still in use. Retired wealthy to Stratford and left his wife his \'second-best bed\' in his will.',
     canonicalStoryId: 'william-shakespeare-biography',
     wikipediaSlug: 'William_Shakespeare',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/William_Shakespeare_by_John_Taylor%2C_edited.jpg/330px-William_Shakespeare_by_John_Taylor%2C_edited.jpg',
   },
   {
     id: 'vladimir-lenin',
@@ -303,6 +327,7 @@ const _baseEntities: Entity[] = [
     description: 'The revolutionary who turned Marx into a state: Lenin founded the world\'s first communist government in 1917, survived assassination, and built a one-party dictatorship that shaped the 20th century. His embalmed body still lies in Red Square.',
     canonicalStoryId: 'vladimir-lenin-biography',
     wikipediaSlug: 'Vladimir_Lenin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Lenin_in_1920_%28cropped%29.jpg/330px-Lenin_in_1920_%28cropped%29.jpg',
   },
   {
     id: 'albert-einstein',
@@ -312,6 +337,7 @@ const _baseEntities: Entity[] = [
     description: 'Swiss patent clerk who published four papers in 1905 that rewrote physics, including special relativity and E=mc². Fled Nazi Germany in 1933, won the Nobel Prize for the photoelectric effect, and wrote the letter urging FDR to build the atomic bomb.',
     canonicalStoryId: 'albert-einstein-biography',
     wikipediaSlug: 'Albert_Einstein',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Albert_Einstein_Head_cleaned.jpg/330px-Albert_Einstein_Head_cleaned.jpg',
   },
   {
     id: 'joseph-stalin',
@@ -321,6 +347,7 @@ const _baseEntities: Entity[] = [
     description: 'The shoemaker\'s son who became history\'s deadliest dictator. Born in poverty in Georgia, Stalin rose through bank robberies and exile to rule the Soviet Union for 29 years, industrializing a nation while killing millions through purges, gulags, and engineered famine.',
     canonicalStoryId: 'joseph-stalin-biography',
     wikipediaSlug: 'Joseph_Stalin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Joseph_Stalin_in_1932_%284%29_%28cropped%29%282%29.jpg/330px-Joseph_Stalin_in_1932_%284%29_%28cropped%29%282%29.jpg',
   },
   {
     id: 'constantine-the-great',
@@ -330,6 +357,7 @@ const _baseEntities: Entity[] = [
     description: 'The emperor who made Christianity Rome\'s religion. Constantine won a civil war, legalized Christian worship with the Edict of Milan in 313, convened the Council of Nicaea, and founded Constantinople as a new capital that lasted over a thousand years. He was only baptized on his deathbed.',
     canonicalStoryId: 'constantine-the-great-biography',
     wikipediaSlug: 'Constantine_the_Great',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Statua_di_Costantino_ai_musei_capitolini.jpg/330px-Statua_di_Costantino_ai_musei_capitolini.jpg',
   },
   {
     id: 'adam-smith',
@@ -339,6 +367,7 @@ const _baseEntities: Entity[] = [
     description: 'The absent-minded professor who invented modern economics. A Scottish philosopher who got punished at Oxford for reading Hume, befriended Voltaire in Geneva and Benjamin Franklin in Paris, then went home to Kirkcaldy and spent ten years writing The Wealth of Nations. He ordered all his unpublished manuscripts burned before he died.',
     canonicalStoryId: 'adam-smith-biography',
     wikipediaSlug: 'Adam_Smith',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Adam_Smith_The_Muir_portrait.jpg/330px-Adam_Smith_The_Muir_portrait.jpg',
   },
   {
     id: 'carl-friedrich-gauss',
@@ -348,6 +377,7 @@ const _baseEntities: Entity[] = [
     description: 'The child prodigy who summed 1 to 100 in seconds and became the greatest mathematician of his era. Gauss proved how to construct a 17-sided polygon at 19, tracked the dwarf planet Ceres from just three observations, and co-invented the electromagnetic telegraph. Over 100 mathematical concepts bear his name, yet he famously refused to publish work he considered incomplete.',
     canonicalStoryId: 'carl-friedrich-gauss-biography',
     wikipediaSlug: 'Carl_Friedrich_Gauss',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Carl_Friedrich_Gauss_1840_by_Jensen.jpg/330px-Carl_Friedrich_Gauss_1840_by_Jensen.jpg',
   },
   {
     id: 'julius-caesar',
@@ -357,6 +387,7 @@ const _baseEntities: Entity[] = [
     description: 'Roman general and dictator who conquered Gaul, crossed the Rubicon, defeated Pompey in a civil war, and was stabbed 23 times by senators on the Ides of March. His assassination ended the Roman Republic and his adopted son became the first Emperor.',
     canonicalStoryId: 'julius-caesar-biography',
     wikipediaSlug: 'Julius_Caesar',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Retrato_de_Julio_C%C3%A9sar_%2826724093101%29_%28cropped%29.jpg/330px-Retrato_de_Julio_C%C3%A9sar_%2826724093101%29_%28cropped%29.jpg',
   },
   {
     id: 'frida-kahlo',
@@ -366,6 +397,7 @@ const _baseEntities: Entity[] = [
     description: 'Mexican painter who survived polio and a bus accident that shattered her spine, then produced 143 paintings — 55 of them self-portraits. Married Diego Rivera twice. Largely overlooked until decades after her death.',
     canonicalStoryId: 'frida-kahlo-biography',
     wikipediaSlug: 'Frida_Kahlo',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg/330px-Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg',
   },
   {
     id: 'charlie-chaplin',
@@ -375,6 +407,7 @@ const _baseEntities: Entity[] = [
     description: 'The penniless London boy who became cinema\'s first global icon, creating the Tramp from a costume box in 1914. Wrote, directed, composed, and starred in films seen by billions — then was exiled from America for his politics.',
     canonicalStoryId: 'charlie-chaplin-biography',
     wikipediaSlug: 'Charlie_Chaplin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Charlie_Chaplin_portrait_Getty_1739411952.jpg/330px-Charlie_Chaplin_portrait_Getty_1739411952.jpg',
   },
   {
     id: 'ovid',
@@ -384,6 +417,7 @@ const _baseEntities: Entity[] = [
     description: 'The poet exiled by Augustus for a poem and a mistake. Ovid wrote the Metamorphoses — 250 myths in one epic — then spent his last decade on the Black Sea, writing heartbroken letters Rome never answered.',
     canonicalStoryId: 'ovid-biography',
     wikipediaSlug: 'Ovid',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Ovid_by_an_anonymous_sculptor.jpg/330px-Ovid_by_an_anonymous_sculptor.jpg',
   },
   {
     id: 'antonio-vivaldi',
@@ -393,6 +427,7 @@ const _baseEntities: Entity[] = [
     description: 'The Red Priest who composed The Four Seasons for an orphanage orchestra. An ordained Catholic priest who stopped saying Mass due to asthma, Vivaldi wrote over 500 concertos and 50 operas for the all-female ensemble of Venice\'s Ospedale della Pieta. He died penniless in Vienna, and his music was forgotten for nearly 200 years.',
     canonicalStoryId: 'antonio-vivaldi-biography',
     wikipediaSlug: 'Antonio_Vivaldi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Vivaldi.jpg/330px-Vivaldi.jpg',
   },
   {
     id: 'tutankhamun',
@@ -402,6 +437,7 @@ const _baseEntities: Entity[] = [
     description: 'The boy-king who reversed Egypt\'s religious revolution, dying at 18 before his tomb was finished. Forgotten for 3,000 years, his 1922 discovery sparked global Egyptomania and the legend of the pharaoh\'s curse.',
     canonicalStoryId: 'tutankhamun-biography',
     wikipediaSlug: 'Tutankhamun',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CairoEgMuseumTaaMaskMostlyPhotographed.jpg/330px-CairoEgMuseumTaaMaskMostlyPhotographed.jpg',
   },
   {
     id: 'william-the-conqueror',
@@ -411,6 +447,7 @@ const _baseEntities: Entity[] = [
     description: 'The illegitimate duke who conquered England in a single afternoon. William was the bastard son of a Norman duke and a tanner\'s daughter, orphaned at seven, nearly murdered as a child, and grew up to win the most consequential battle in English history. He ordered the Domesday Book and died when his horse stumbled on hot embers.',
     canonicalStoryId: 'william-the-conqueror-biography',
     wikipediaSlug: 'William_the_Conqueror',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/William_the_Conqueror_%28TFA%29.jpg/330px-William_the_Conqueror_%28TFA%29.jpg',
   },
   {
     id: 'carl-linnaeus',
@@ -420,6 +457,7 @@ const _baseEntities: Entity[] = [
     description: 'The man who named every living thing on Earth. A Swedish pastor\'s son who gave a flower whenever he cried as a child, Linnaeus invented binomial nomenclature — the two-word naming system (Homo sapiens, Canis lupus) still used for every species. He even designated himself as the type specimen for the human race.',
     canonicalStoryId: 'carl-linnaeus-biography',
     wikipediaSlug: 'Carl_Linnaeus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Carl_von_Linn%C3%A9%2C_1707-1778%2C_botanist%2C_professor_%28Alexander_Roslin%29_-_Nationalmuseum_-_15723_%28cropped%29.tif/lossy-page1-330px-Carl_von_Linn%C3%A9%2C_1707-1778%2C_botanist%2C_professor_%28Alexander_Roslin%29_-_Nationalmuseum_-_15723_%28cropped%29.tif.jpg',
   },
   {
     id: 'austin-1928-plan',
@@ -461,6 +499,7 @@ const _baseEntities: Entity[] = [
     description: 'The Iron Chancellor who unified Germany through three wars. A Junker landowner who spoke six languages and mastered Realpolitik, Bismarck provoked conflicts with Denmark, Austria, and France to forge a new empire — then kept the peace for two decades through sheer diplomatic cunning. He also invented the welfare state, not out of compassion, but to undercut the socialists.',
     canonicalStoryId: 'otto-von-bismarck-biography',
     wikipediaSlug: 'Otto_von_Bismarck',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Otto_von_Bismarck_1885_%28cropped%29.jpg/330px-Otto_von_Bismarck_1885_%28cropped%29.jpg',
   },
   {
     id: 'jean-jacques-rousseau',
@@ -470,6 +509,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher whose pen helped ignite the French Revolution. Rousseau argued that civilization corrupts humanity\'s natural goodness, wrote The Social Contract, and invented modern autobiography with his Confessions. He abandoned all five of his children to foundling homes while writing a treatise on the ideal education of children.',
     canonicalStoryId: 'jean-jacques-rousseau-biography',
     wikipediaSlug: 'Jean-Jacques_Rousseau',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Jean-Jacques_Rousseau_%28painted_portrait%29.jpg/330px-Jean-Jacques_Rousseau_%28painted_portrait%29.jpg',
   },
   {
     id: 'hans-christian-andersen',
@@ -479,6 +519,7 @@ const _baseEntities: Entity[] = [
     description: 'The shoemaker\'s son who invented the modern fairy tale. Andersen wrote 156 stories — including The Little Mermaid, The Ugly Duckling, and The Emperor\'s New Clothes — translated into more than 125 languages. He traveled compulsively across Europe and once overstayed his welcome at Charles Dickens\' house by four weeks.',
     canonicalStoryId: 'hans-christian-andersen-biography',
     wikipediaSlug: 'Hans_Christian_Andersen',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/HCA_by_Thora_Hallager_1869_crop.jpg/330px-HCA_by_Thora_Hallager_1869_crop.jpg',
   },
   {
     id: 'timur',
@@ -488,6 +529,7 @@ const _baseEntities: Entity[] = [
     description: 'The conqueror who built pyramids of skulls across Asia — Timur rose from a minor Mongol clan to defeat the Ottomans, Mamluks, and Delhi Sultanate, killing millions while sponsoring poets and architects. He walked with a limp from an arrow wound and never lost a battle.',
     canonicalStoryId: 'timur-biography',
     wikipediaSlug: 'Timur',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Timur_reconstruction03.jpg/330px-Timur_reconstruction03.jpg',
   },
   {
     id: 'maxwell-house',
@@ -504,6 +546,7 @@ const _baseEntities: Entity[] = [
     description: 'Mexican muralist who painted epic histories of civilization on public walls across Mexico and the U.S. Nelson Rockefeller commissioned a mural at 30 Rock, then destroyed it when Rivera included Lenin. Married Frida Kahlo twice.',
     canonicalStoryId: 'diego-rivera-biography',
     wikipediaSlug: 'Diego_Rivera',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Diego_Rivera_-_Google_Art_Project_%28cropped%29.jpg/330px-Diego_Rivera_-_Google_Art_Project_%28cropped%29.jpg',
   },
   {
     id: 'thomas-aquinas',
@@ -513,6 +556,7 @@ const _baseEntities: Entity[] = [
     description: 'The friar who fused Aristotle with Christianity forever. Kidnapped by his own family to stop him becoming a monk, Aquinas wrote the Summa Theologiae — the most influential work of medieval philosophy — and was declared a Doctor of the Church.',
     canonicalStoryId: 'thomas-aquinas-biography',
     wikipediaSlug: 'Thomas_Aquinas',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/St-thomas-aquinasFXD.jpg/330px-St-thomas-aquinasFXD.jpg',
   },
   {
     id: 'edgar-allan-poe',
@@ -521,6 +565,7 @@ const _baseEntities: Entity[] = [
     years: '1809–1849',
     description: 'The master of macabre who invented detective fiction and died under circumstances as mysterious as his stories. Poe pioneered the short story, wrote The Raven, and married his 13-year-old cousin. He was the first major American author to live by writing alone, and it nearly starved him.',
     wikipediaSlug: 'Edgar_Allan_Poe',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Edgar_Allan_Poe%2C_circa_1849%2C_restored%2C_squared_off.jpg/330px-Edgar_Allan_Poe%2C_circa_1849%2C_restored%2C_squared_off.jpg',
   },
   {
     id: 'lord-byron',
@@ -530,6 +575,7 @@ const _baseEntities: Entity[] = [
     description: 'The Romantic poet so scandalous that England drove him out. George Gordon Byron became the most famous literary celebrity in Europe with Childe Harold\'s Pilgrimage, then fled Britain amid rumors of incest and sodomy. He died at 36 fighting for Greek independence, and Greece still reveres him as a national hero.',
     canonicalStoryId: 'lord-byron-biography',
     wikipediaSlug: 'Lord_Byron',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Byron_1813_by_Phillips.jpg/330px-Byron_1813_by_Phillips.jpg',
   },
   {
     id: 'jacques-cartier',
@@ -539,6 +585,7 @@ const _baseEntities: Entity[] = [
     description: 'The explorer who accidentally named Canada from a misunderstood word. A Breton mariner who made three voyages to the St. Lawrence River, Cartier mistook the Iroquoian word for village, kanata, as the name of an entire country. He kidnapped two chiefs\' sons, survived scurvy thanks to Indigenous medicine, and brought back fake diamonds.',
     canonicalStoryId: 'jacques-cartier-biography',
     wikipediaSlug: 'Jacques_Cartier',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Jacques_Cartier_1851-1852.jpg/330px-Jacques_Cartier_1851-1852.jpg',
   },
   {
     id: 'thomas-edison',
@@ -548,6 +595,7 @@ const _baseEntities: Entity[] = [
     description: 'The inventor who held 1,093 patents and expected 18-hour workdays. American creator of the phonograph, practical light bulb, and motion picture camera, Edison built the world\'s first industrial research laboratory at Menlo Park, New Jersey. Nearly deaf from childhood, he listened to music by biting into the wood of a piano to feel vibrations through his skull.',
     canonicalStoryId: 'thomas-edison-biography',
     wikipediaSlug: 'Thomas_Edison',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/330px-Thomas_Edison2.jpg',
   },
   {
     id: 'john-the-baptist',
@@ -557,6 +605,7 @@ const _baseEntities: Entity[] = [
     description: 'The wilderness preacher who baptized Jesus in the Jordan River. Revered as a prophet in Christianity, Islam, and Mandaeism, John called for repentance and announced the coming of a greater figure. He was beheaded by Herod Antipas after rebuking the king for an unlawful marriage. He is the only saint whose birth and death are both commemorated.',
     canonicalStoryId: 'john-the-baptist-biography',
     wikipediaSlug: 'John_the_Baptist',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg/330px-Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg',
   },
   {
     id: 'aristotle',
@@ -566,6 +615,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who invented Western logic and tutored Alexander the Great. Born in Stagira, he founded the Lyceum in Athens and wrote on everything from biology to ethics. Dante called him \'the master of those who know.\'',
     canonicalStoryId: 'aristotle-biography',
     wikipediaSlug: 'Aristotle',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/330px-Aristotle_Altemps_Inv8575.jpg',
   },
   {
     id: 'cyrus-the-great',
@@ -574,6 +624,7 @@ const _baseEntities: Entity[] = [
     years: 'c. 600–530 BC',
     description: 'The conqueror who freed slaves and built history\'s largest empire. Cyrus II founded the Achaemenid Empire, defeated three empires in 20 years, and issued the first known human rights charter — then died fighting nomads at the edge of the known world.',
     wikipediaSlug: 'Cyrus_the_Great',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Cyrus_II_%28The_Great%29_%28cropped%29.jpg/330px-Cyrus_II_%28The_Great%29_%28cropped%29.jpg',
   },
   {
     id: 'benjamin-franklin',
@@ -583,6 +634,7 @@ const _baseEntities: Entity[] = [
     description: 'The runaway apprentice who became America\'s most versatile founding father. Printer, scientist, inventor, diplomat -- the only person to sign the Declaration of Independence, the Treaty of Paris, and the Constitution. Flew a kite in a thunderstorm, charmed the French court, and still signed his letters \'B. Franklin, Printer.\'',
     canonicalStoryId: 'benjamin-franklin-biography',
     wikipediaSlug: 'Benjamin_Franklin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg/330px-Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg',
   },
   {
     id: 'michael-faraday',
@@ -592,6 +644,7 @@ const _baseEntities: Entity[] = [
     description: 'A bookbinder\'s apprentice who taught himself science and invented the electric motor. Faraday discovered electromagnetic induction, benzene, and the laws of electrolysis despite knowing no math beyond basic algebra. Einstein kept his portrait on the wall alongside Newton\'s. He turned down a knighthood, preferring to remain \'plain Mr Faraday.\'',
     canonicalStoryId: 'michael-faraday-biography',
     wikipediaSlug: 'Michael_Faraday',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Michael_Faraday_sitting_crop.jpg/330px-Michael_Faraday_sitting_crop.jpg',
   },
   {
     id: 'immanuel-kant',
@@ -601,6 +654,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who rewired how humans understand reality. Kant spent his entire life in one Prussian city, yet his Critique of Pure Reason (1781) reshaped epistemology, ethics, and metaphysics so thoroughly that philosophy is still divided into pre-Kantian and post-Kantian eras.',
     canonicalStoryId: 'immanuel-kant-biography',
     wikipediaSlug: 'Immanuel_Kant',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Immanuel_Kant_-_Gemaelde_1.jpg/330px-Immanuel_Kant_-_Gemaelde_1.jpg',
   },
   {
     id: 'suleiman-the-magnificent',
@@ -610,6 +664,7 @@ const _baseEntities: Entity[] = [
     description: 'The sultan who made the Ottoman Empire the most powerful state on Earth. Suleiman reigned for 46 years, conquered Belgrade, Rhodes, and Hungary, besieged Vienna, reformed Ottoman law, and ruled 25 million subjects. He broke tradition by marrying a harem woman and died in his tent during his 13th military campaign, aged 71.',
     canonicalStoryId: 'suleiman-the-magnificent-biography',
     wikipediaSlug: 'Suleiman_the_Magnificent',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/EmperorSuleiman.jpg/330px-EmperorSuleiman.jpg',
   },
   {
     id: 'nostradamus',
@@ -619,6 +674,7 @@ const _baseEntities: Entity[] = [
     description: 'The plague doctor who became history\'s most famous prophet. Nostradamus published 942 cryptic quatrains in Les Propheties that people have been arguing about for five centuries. He was also an apothecary expelled from medical school, a widower who lost his first family to plague, and personal astrologer to Catherine de\' Medici.',
     canonicalStoryId: 'nostradamus-biography',
     wikipediaSlug: 'Nostradamus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Nostradamus_by_Cesar.jpg/330px-Nostradamus_by_Cesar.jpg',
   },
   {
     id: 'sun-tzu',
@@ -628,6 +684,7 @@ const _baseEntities: Entity[] = [
     description: 'The strategist whose book conquered the world without fighting. Traditionally credited as the author of The Art of War, Sun Tzu may be semi-legendary, yet his 13-chapter treatise on military strategy has influenced generals from Cao Cao to Napoleon to Mao Zedong. Modern scholars doubt he existed as described.',
     canonicalStoryId: 'sun-tzu-biography',
     wikipediaSlug: 'Sun_Tzu',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg',
   },
   {
     id: 'francis-of-assisi',
@@ -637,6 +694,7 @@ const _baseEntities: Entity[] = [
     description: 'The rich kid who stripped naked in court to renounce his inheritance and embrace poverty. Founded the Franciscan Order, walked unarmed into a Crusader battlefield to meet the Sultan of Egypt, and reportedly received the stigmata. Patron saint of animals and Italy, and namesake of San Francisco.',
     canonicalStoryId: 'francis-of-assisi-biography',
     wikipediaSlug: 'Francis_of_Assisi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Philip_Fruytiers_-_St._Francis_of_Assisi.jpg/330px-Philip_Fruytiers_-_St._Francis_of_Assisi.jpg',
   },
   {
     id: 'michael-dell',
@@ -646,6 +704,7 @@ const _baseEntities: Entity[] = [
     description: 'Founder of Dell Technologies who started upgrading and selling computers from his UT Austin dorm room in 1984, was nearly evicted by the fire marshal, and dropped out to build a tech empire.',
     canonicalStoryId: 'michael-dell-biography',
     wikipediaSlug: 'Michael_Dell',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Michael_Dell_%2852548152888%29_%28cropped%29.jpg/330px-Michael_Dell_%2852548152888%29_%28cropped%29.jpg',
   },
   {
     id: 'saladin',
@@ -655,6 +714,7 @@ const _baseEntities: Entity[] = [
     description: 'The Kurdish sultan who recaptured Jerusalem from the Crusaders — Saladin built an empire spanning Egypt to Yemen, then died nearly penniless, having given his treasury away to his subjects',
     canonicalStoryId: 'saladin-biography',
     wikipediaSlug: 'Saladin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Al-Nasir_I_Salah_al-Din_Yusuf_%28Saladin%29._AH_564-589_%281169-1193_CE%29_%C3%86_Dirham_%2830.1mm%2C_13.28_g%2C_6h%29._Without_mint-name._Dated_AH_586_%28AD_1190-91%29._Sultan_sitting_facing%2C_cross-legged%2C_on_high-backed_throne_%28obverse%29.jpg/330px-thumbnail.jpg',
   },
   {
     id: 'solomon',
@@ -664,6 +724,7 @@ const _baseEntities: Entity[] = [
     description: 'The king who built God\'s house and lost his kingdom: Solomon ruled Israel at its peak, collected 666 talents of gold annually, married 700 wives, and authored Proverbs — yet his foreign alliances split the nation after his death.',
     canonicalStoryId: 'solomon-biography',
     wikipediaSlug: 'Solomon',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Simeon_Solomon%2C_King_Solomon%2C_1872_or_1874%2C_NGA_76152_%28cropped%29.jpg/330px-Simeon_Solomon%2C_King_Solomon%2C_1872_or_1874%2C_NGA_76152_%28cropped%29.jpg',
   },
   {
     id: 'walt-disney',
@@ -673,6 +734,7 @@ const _baseEntities: Entity[] = [
     description: 'The animator who built a magic kingdom from a bankrupt cartoon studio. Won 22 Academy Awards (still the individual record), created Mickey Mouse after losing his first cartoon character, and opened Disneyland when Hollywood thought theme parks were insane. Died of lung cancer before Disney World opened.',
     canonicalStoryId: 'walt-disney-biography',
     wikipediaSlug: 'Walt_Disney',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Walt_Disney_1946_%28cropped2%29.JPG/330px-Walt_Disney_1946_%28cropped2%29.JPG',
   },
   {
     id: 'alexander-pushkin',
@@ -682,6 +744,7 @@ const _baseEntities: Entity[] = [
     description: 'The poet who invented modern Russian literature. Pushkin published his first poem at 15, was exiled by two emperors for political verse, and wrote Russia\'s greatest novel in verse while under surveillance. Part African through his great-grandfather, a kidnapped prince raised by Peter the Great. Killed at 37 in a duel over his wife\'s honor.',
     canonicalStoryId: 'alexander-pushkin-biography',
     wikipediaSlug: 'Alexander_Pushkin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Orest_Kiprensky_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BF%D0%BE%D1%8D%D1%82%D0%B0_%D0%90.%D0%A1.%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D0%B0_-_Google_Art_Project.jpg/330px-Orest_Kiprensky_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BF%D0%BE%D1%8D%D1%82%D0%B0_%D0%90.%D0%A1.%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D0%B0_-_Google_Art_Project.jpg',
   },
   {
     id: 'niccolo-machiavelli',
@@ -691,6 +754,7 @@ const _baseEntities: Entity[] = [
     description: 'The man who made \'the ends justify the means\' a political doctrine. Florentine diplomat turned exiled philosopher, Machiavelli wrote The Prince in disgrace — a manual so ruthlessly honest about power that his name became a synonym for cunning.',
     canonicalStoryId: 'niccolo-machiavelli-biography',
     wikipediaSlug: 'Niccolò_Machiavelli',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg',
   },
   {
     id: 'franklin-d-roosevelt',
@@ -699,6 +763,7 @@ const _baseEntities: Entity[] = [
     years: '1882–1945',
     description: 'The only U.S. president elected four times, who led from a wheelchair. Overcame paralysis to defeat the Great Depression with the New Deal, guided America through World War II, and died in office weeks before victory in Europe. Historians consistently rank him among the three greatest presidents.',
     wikipediaSlug: 'Franklin_D._Roosevelt',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/FDR-1944-Campaign-Portrait_%283x4_retouched%2C_cropped%29.jpg/330px-FDR-1944-Campaign-Portrait_%283x4_retouched%2C_cropped%29.jpg',
   },
   {
     id: 'li-bai',
@@ -708,6 +773,7 @@ const _baseEntities: Entity[] = [
     description: 'The drunken sword-fighting poet China calls the Immortal of Poetry. Tang dynasty China\'s greatest lyric voice, Li Bai wrote roughly 1,000 surviving poems celebrating wine, friendship, and nature. He killed several men as a young knight-errant, drank with emperors, and legend says he drowned reaching for the moon\'s reflection.',
     canonicalStoryId: 'li-bai-biography',
     wikipediaSlug: 'Li_Bai',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/LiBai.jpg/330px-LiBai.jpg',
   },
   {
     id: 'ali-ibn-abi-talib',
@@ -716,6 +782,7 @@ const _baseEntities: Entity[] = [
     years: 'c. 600–661',
     description: 'Muhammad\'s cousin who split Islam into two branches. The fourth caliph and first Shia Imam, Ali married the Prophet\'s daughter Fatima and was renowned as the bravest warrior of early Islam. His assassination by a Kharijite dissident in 661 paved the way for the Umayyad dynasty and the permanent Sunni-Shia divide.',
     wikipediaSlug: 'Ali',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Istanbul_-_Santa_Sofia_-_Medall%C3%B3_%28cropped%29.JPG/330px-Istanbul_-_Santa_Sofia_-_Medall%C3%B3_%28cropped%29.JPG',
   },
   {
     id: 'ferdinand-magellan',
@@ -725,6 +792,7 @@ const _baseEntities: Entity[] = [
     description: 'The Portuguese captain who sailed west to prove the world was round — and nearly made it. Rejected by his own king, he switched allegiance to Spain, discovered the Pacific\'s true size the hard way, and died in the Philippines 50 miles short of completing the first solo circumnavigation.',
     canonicalStoryId: 'ferdinand-magellan-biography',
     wikipediaSlug: 'Ferdinand_Magellan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Ferdinand_Magellan.jpg/330px-Ferdinand_Magellan.jpg',
   },
   {
     id: 'moliere',
@@ -734,6 +802,7 @@ const _baseEntities: Entity[] = [
     description: 'The playwright who died onstage playing a hypochondriac. France\'s greatest comic writer spent 13 years as a traveling actor before winning Louis XIV\'s patronage. His satires of religious hypocrisy got banned by the Church; the French language itself is still called "the language of Molière."',
     canonicalStoryId: 'moliere-biography',
     wikipediaSlug: 'Molière',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Pierre_Mignard_-_Portrait_de_Jean-Baptiste_Poquelin_dit_Moli%C3%A8re_%281622-1673%29_-_Google_Art_Project_%28cropped%29.jpg/330px-Pierre_Mignard_-_Portrait_de_Jean-Baptiste_Poquelin_dit_Moli%C3%A8re_%281622-1673%29_-_Google_Art_Project_%28cropped%29.jpg',
   },
   {
     id: 'marcus-aurelius',
@@ -743,6 +812,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher-emperor who ruled Rome while writing a private journal on suffering. Last of the Five Good Emperors, Marcus Aurelius spent most of his reign fighting Germanic tribes and a devastating plague that killed millions, yet his Meditations became one of history\'s most influential works of Stoic philosophy.',
     canonicalStoryId: 'marcus-aurelius-biography',
     wikipediaSlug: 'Marcus_Aurelius',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg',
   },
   {
     id: 'cicero',
@@ -752,6 +822,7 @@ const _baseEntities: Entity[] = [
     description: 'The lawyer whose words outlasted Rome itself. Cicero rose from provincial obscurity to consul, crushed a coup, was exiled for it, and died with his hands nailed to the Senate podium — his writings later sparked the Renaissance.',
     canonicalStoryId: 'cicero-biography',
     wikipediaSlug: 'Cicero',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bust_of_Cicero_%281st-cent._BC%29_-_Palazzo_Nuovo_-_Musei_Capitolini_-_Rome_2016.jpg/330px-Bust_of_Cicero_%281st-cent._BC%29_-_Palazzo_Nuovo_-_Musei_Capitolini_-_Rome_2016.jpg',
   },
   {
     id: 'friedrich-nietzsche',
@@ -761,6 +832,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who declared God dead and then lost his mind. Became the youngest classics professor in history at 24, wrote his greatest works while sick and nearly blind, then collapsed hugging a beaten horse in Turin. His sister rewrote his legacy to serve the Nazis.',
     canonicalStoryId: 'friedrich-nietzsche-biography',
     wikipediaSlug: 'Friedrich_Nietzsche',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg',
   },
   {
     id: 'gottfried-wilhelm-leibniz',
@@ -770,6 +842,7 @@ const _baseEntities: Entity[] = [
     description: 'The last universal genius who co-invented calculus independently. A German polymath who created the binary number system, built mechanical calculators, and argued this is the best of all possible worlds — a claim Voltaire mocked for centuries. Leibniz died alone and forgotten in Hanover; only his secretary attended the funeral.',
     canonicalStoryId: 'gottfried-wilhelm-leibniz-biography',
     wikipediaSlug: 'Gottfried_Wilhelm_Leibniz',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg/330px-Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg',
   },
   {
     id: 'epicurus',
@@ -779,6 +852,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who told humanity to stop fearing death. Epicurus founded one of antiquity\'s most influential schools in an Athenian garden, teaching that atoms and void compose all reality, that gods ignore human affairs, and that pleasure—defined as the absence of pain—is life\'s highest good. He wrote over 300 works; nearly all are lost.',
     canonicalStoryId: 'epicurus-biography',
     wikipediaSlug: 'Epicurus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Epikouros_BM_1843.jpg/330px-Epikouros_BM_1843.jpg',
   },
   {
     id: 'christopher-columbus',
@@ -788,6 +862,7 @@ const _baseEntities: Entity[] = [
     description: 'The navigator who accidentally found a new world while looking for spices. A self-educated Genoese sailor, Columbus opened the Americas to European contact in 1492 — triggering centuries of colonization, exchange, and catastrophe.',
     canonicalStoryId: 'christopher-columbus-biography',
     wikipediaSlug: 'Christopher_Columbus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Portrait_of_a_Man%2C_Said_to_be_Christopher_Columbus.jpg/330px-Portrait_of_a_Man%2C_Said_to_be_Christopher_Columbus.jpg',
   },
   {
     id: 'francisco-goya',
@@ -797,6 +872,7 @@ const _baseEntities: Entity[] = [
     description: 'The court painter who went deaf and started painting nightmares. Francisco Goya rose from a provincial Aragonese family to become Spain\'s Prime Court Painter, then produced The Third of May 1808 and the terrifying Black Paintings on his own walls. Often called the last Old Master and the first modern artist.',
     canonicalStoryId: 'francisco-goya-biography',
     wikipediaSlug: 'Francisco_Goya',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Vicente_L%C3%B3pez_Porta%C3%B1a_-_el_pintor_Francisco_de_Goya.jpg/330px-Vicente_L%C3%B3pez_Porta%C3%B1a_-_el_pintor_Francisco_de_Goya.jpg',
   },
   {
     id: 'menger-hotel-rough-riders',
@@ -822,6 +898,7 @@ const _baseEntities: Entity[] = [
     description: 'The laughing philosopher who theorized atoms 2,300 years early. A pre-Socratic thinker from Abdera who proposed that all matter consists of tiny indivisible particles moving through void. He spent his inheritance traveling to Egypt, Babylon, and possibly India, then wrote 80 treatises, none of which survive in original form.',
     canonicalStoryId: 'democritus-biography',
     wikipediaSlug: 'Democritus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Unknown_greek_pushkin.jpg/330px-Unknown_greek_pushkin.jpg',
   },
   {
     id: 'john-locke',
@@ -831,6 +908,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who gave America its founding ideas before America existed. His Two Treatises of Government directly shaped Jefferson\'s Declaration of Independence. Argued the mind begins as a blank slate, championed religious tolerance, and spent five years in political exile writing his masterworks.',
     canonicalStoryId: 'john-locke-biography',
     wikipediaSlug: 'John_Locke',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Godfrey_Kneller_-_Portrait_of_John_Locke_%28Hermitage%29.jpg/330px-Godfrey_Kneller_-_Portrait_of_John_Locke_%28Hermitage%29.jpg',
   },
   {
     id: 'texas-state-cemetery',
@@ -856,6 +934,7 @@ const _baseEntities: Entity[] = [
     description: 'America\'s master of the twist ending — a pharmacist, bank teller, fugitive, and convicted embezzler who reinvented himself as the country\'s most popular short story writer. His years in Austin and a federal prison cell shaped his literary voice.',
     canonicalStoryId: 'o-henry-biography',
     wikipediaSlug: 'O._Henry',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/William_Sydney_Porter_by_doubleday.jpg/330px-William_Sydney_Porter_by_doubleday.jpg',
   },
   {
     id: 'janis-joplin',
@@ -865,6 +944,7 @@ const _baseEntities: Entity[] = [
     description: 'Texas blues singer who was voted \'Ugliest Man on Campus\' at UT Austin, fled to San Francisco, and became the greatest white female blues vocalist of the 1960s. Died of a heroin overdose in a Hollywood hotel at 27.',
     canonicalStoryId: 'janis-joplin-biography',
     wikipediaSlug: 'Janis_Joplin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Janis_Joplin_1969.JPG/330px-Janis_Joplin_1969.JPG',
   },
   {
     id: 'willie-nelson',
@@ -874,6 +954,7 @@ const _baseEntities: Entity[] = [
     description: 'Country music outlaw who fled Nashville for Austin and fused redneck and hippie cultures into the "cosmic cowboy" movement. His 4th of July picnics and Luck ranch are sacred sites of Texas outlaw country.',
     canonicalStoryId: 'willie-nelson-biography',
     wikipediaSlug: 'Willie_Nelson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Willie_UK2K7_2.JPG/330px-Willie_UK2K7_2.JPG',
   },
   {
     id: 'omar-khayyam',
@@ -883,6 +964,7 @@ const _baseEntities: Entity[] = [
     description: 'The Persian poet-mathematician who calculated the solar year to six decimal places. Khayyam solved cubic equations three centuries before European mathematicians, designed a calendar more accurate than the Gregorian, and wrote quatrains that became some of the most quoted poetry in the English language through Edward FitzGerald\'s 1859 translation.',
     canonicalStoryId: 'omar-khayyam-biography',
     wikipediaSlug: 'Omar_Khayyam',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Hakim_Omar_Khayam_-_panoramio.jpg/330px-Hakim_Omar_Khayam_-_panoramio.jpg',
   },
   {
     id: 'rene-descartes',
@@ -892,6 +974,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who proved his own existence by doubting everything. Descartes fused algebra and geometry into analytic geometry, coined the Cartesian coordinate system, and wrote \'cogito, ergo sum\'—all while hiding from the Inquisition in the Netherlands.',
     canonicalStoryId: 'rene-descartes-biography',
     wikipediaSlug: 'René_Descartes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg/330px-Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg',
   },
   {
     id: 'hippocrates',
@@ -901,6 +984,7 @@ const _baseEntities: Entity[] = [
     description: 'The physician who separated medicine from the gods. Born on Kos c. 460 BC, he argued disease came from diet and environment, not divine punishment — founding Western medicine as a rational discipline. His Oath is still sworn today.',
     canonicalStoryId: 'hippocrates-biography',
     wikipediaSlug: 'Hippocrates',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Hippocrates.jpg/330px-Hippocrates.jpg',
   },
   {
     id: 'congress-avenue-bats',
@@ -934,6 +1018,7 @@ const _baseEntities: Entity[] = [
     description: 'The teenager who inherited an empire and built another. Born Gaius Octavius, he outmaneuvered generals, senators, and a queen to become Rome\'s first emperor, then ruled for 41 years of unprecedented peace.',
     canonicalStoryId: 'augustus-biography',
     wikipediaSlug: 'Augustus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Augustus_of_Prima_Porta_%28inv._2290%29.jpg/330px-Augustus_of_Prima_Porta_%28inv._2290%29.jpg',
   },
   {
     id: 'billy-the-kid',
@@ -943,6 +1028,7 @@ const _baseEntities: Entity[] = [
     description: 'The most famous outlaw of the American West, who killed his first man at 17, escaped jail twice, and was shot dead by Pat Garrett at age 21 in Fort Sumner, New Mexico.',
     canonicalStoryId: 'billy-the-kid-biography',
     wikipediaSlug: 'Billy_the_Kid',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Billy_the_Kid_tintype%2C_Fort_Sumner%2C_1879-80-Edit2.jpg/330px-Billy_the_Kid_tintype%2C_Fort_Sumner%2C_1879-80-Edit2.jpg',
   },
   {
     id: 'geronimo',
@@ -952,6 +1038,7 @@ const _baseEntities: Entity[] = [
     description: 'Chiricahua Apache leader who led 25 years of resistance against Mexican and American forces. His 1886 surrender in Skeleton Canyon ended the last major armed Native resistance in the Southwest.',
     canonicalStoryId: 'geronimo-biography',
     wikipediaSlug: 'Geronimo',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/GeronimoRinehart.jpg/330px-GeronimoRinehart.jpg',
   },
   {
     id: 'johannes-kepler',
@@ -961,6 +1048,7 @@ const _baseEntities: Entity[] = [
     description: 'The astronomer who proved planets move in ellipses, not circles. Kepler discovered three laws of planetary motion that became the foundation for Newton\'s theory of gravity. A sickly child with weak eyesight who could barely observe the stars he mathematically mastered, he also defended his mother against charges of witchcraft.',
     canonicalStoryId: 'johannes-kepler-biography',
     wikipediaSlug: 'Johannes_Kepler',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/JKepler.jpg/330px-JKepler.jpg',
   },
   {
     id: 'booker-t-washington',
@@ -970,6 +1058,7 @@ const _baseEntities: Entity[] = [
     description: 'The most influential Black leader in America from 1895 to 1915. Born into slavery, founded the Tuskegee Institute, and advised presidents from Roosevelt to Taft. His \'Atlanta Compromise\' speech made him a national figure and a lightning rod for criticism from W.E.B. Du Bois.',
     canonicalStoryId: 'booker-t-washington-biography',
     wikipediaSlug: 'Booker_T._Washington',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Booker_T_Washington_retouched_flattened-crop.jpg/330px-Booker_T_Washington_retouched_flattened-crop.jpg',
   },
   {
     id: 'abraham-lincoln',
@@ -979,6 +1068,7 @@ const _baseEntities: Entity[] = [
     description: 'The 16th President who held the Union together through the Civil War and ended slavery, only to be assassinated five days after the war ended.',
     canonicalStoryId: 'abraham-lincoln-biography',
     wikipediaSlug: 'Abraham_Lincoln',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Abraham_Lincoln_1863_Portrait_%283x4_cropped%29.jpg/330px-Abraham_Lincoln_1863_Portrait_%283x4_cropped%29.jpg',
   },
   {
     id: 'john-f-kennedy',
@@ -988,6 +1078,7 @@ const _baseEntities: Entity[] = [
     description: 'The 35th President, assassinated in Dallas on November 22, 1963. In just over a thousand days in office, he confronted the Cuban Missile Crisis, launched the space race, and created the Peace Corps.',
     canonicalStoryId: 'john-f-kennedy-biography',
     wikipediaSlug: 'John_F._Kennedy',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/330px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg',
   },
   {
     id: 'martin-luther-king-jr',
@@ -997,6 +1088,7 @@ const _baseEntities: Entity[] = [
     description: 'Baptist minister and civil rights leader who led the movement through nonviolent resistance, from the Montgomery Bus Boycott to the March on Washington, before being assassinated in Memphis.',
     canonicalStoryId: 'martin-luther-king-jr-biography',
     wikipediaSlug: 'Martin_Luther_King_Jr.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Martin_Luther_King%2C_Jr..jpg/330px-Martin_Luther_King%2C_Jr..jpg',
   },
   {
     id: 'malcolm-x',
@@ -1006,6 +1098,7 @@ const _baseEntities: Entity[] = [
     description: 'Nation of Islam minister who preached Black self-defense and separatism, then broke with Elijah Muhammad after a pilgrimage to Mecca reshaped his worldview. Assassinated at the Audubon Ballroom in Harlem at 39.',
     canonicalStoryId: 'malcolm-x-biography',
     wikipediaSlug: 'Malcolm_X',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Malcolm_X_1963_press_photo.jpg/330px-Malcolm_X_1963_press_photo.jpg',
   },
   {
     id: 'harriet-tubman',
@@ -1015,6 +1108,7 @@ const _baseEntities: Entity[] = [
     description: 'Escaped slave who returned to the South 13 times to lead hundreds to freedom via the Underground Railroad, then became the first woman to lead an armed military raid in American history.',
     canonicalStoryId: 'harriet-tubman-biography',
     wikipediaSlug: 'Harriet_Tubman',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Carte-de-visite_portrait_of_Harriet_Tubman_%28cropped%29.jpg/330px-Carte-de-visite_portrait_of_Harriet_Tubman_%28cropped%29.jpg',
   },
   {
     id: 'amelia-earhart',
@@ -1024,6 +1118,7 @@ const _baseEntities: Entity[] = [
     description: 'Aviation pioneer and first woman to fly solo across the Atlantic who vanished over the Pacific during an attempt to circumnavigate the globe — the most enduring mystery in aviation history.',
     canonicalStoryId: 'amelia-earhart-biography',
     wikipediaSlug: 'Amelia_Earhart',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra%2C_small_%28cropped%29.jpg/330px-Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra%2C_small_%28cropped%29.jpg',
   },
   {
     id: 'tiberius',
@@ -1033,6 +1128,7 @@ const _baseEntities: Entity[] = [
     description: 'The reluctant emperor Pliny called the gloomiest of men. Rome\'s second emperor and one of its greatest generals, Tiberius conquered Pannonia and Dalmatia before inheriting a throne he never wanted. Forced to divorce the wife he loved, he retreated to Capri and ruled by letter for the last decade of his reign.',
     canonicalStoryId: 'tiberius-biography',
     wikipediaSlug: 'Tiberius',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/%28Toulouse%29_Tib%C3%A8re_-_Mus%C3%A9e_Saint-Raymond_Ra_342_b.jpg/330px-%28Toulouse%29_Tib%C3%A8re_-_Mus%C3%A9e_Saint-Raymond_Ra_342_b.jpg',
   },
   {
     id: 'albrecht-durer',
@@ -1042,6 +1138,7 @@ const _baseEntities: Entity[] = [
     description: 'The German master who made printmaking a fine art — Dürer\'s woodcuts and engravings spread Renaissance ideas across Northern Europe before he turned 30. He corresponded with Leonardo, was patronized by emperors, and painted himself with the gravity of Christ.',
     canonicalStoryId: 'albrecht-durer-biography',
     wikipediaSlug: 'Albrecht_Dürer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/D%C3%BCrer_Alte_Pinakothek.jpg/330px-D%C3%BCrer_Alte_Pinakothek.jpg',
   },
   {
     id: 'charles-v-holy-roman-emperor',
@@ -1050,6 +1147,7 @@ const _baseEntities: Entity[] = [
     years: '1500–1558',
     description: 'The emperor who ruled half the world and quit. Charles V inherited Spain, the Netherlands, Austria, and vast American colonies — the first empire where the sun never set. He fought Protestants, Ottomans, and France simultaneously, then stunned Europe by abdicating and retiring to a monastery at age 56.',
     wikipediaSlug: 'Charles_V,_Holy_Roman_Emperor',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Portrait_of_Charles_V%2C_Holy_Roman_Emperor%2C_seated_%281500%E2%80%931558%29%2C_formerly_attributed_to_Titian_%28Alte_Pinakothek%2C_Munich%29.jpg/330px-Portrait_of_Charles_V%2C_Holy_Roman_Emperor%2C_seated_%281500%E2%80%931558%29%2C_formerly_attributed_to_Titian_%28Alte_Pinakothek%2C_Munich%29.jpg',
   },
   {
     id: 'stevie-ray-vaughan',
@@ -1058,6 +1156,7 @@ const _baseEntities: Entity[] = [
     years: '1954–1990',
     description: 'Texas blues guitar legend who resurrected the blues from Austin\'s dive bars. His incendiary playing at Antone\'s led to discovery by David Bowie, global stardom, and a legacy cut short by a helicopter crash at age 35.',
     wikipediaSlug: 'Stevie_Ray_Vaughan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Stevie_Ray_Vaughan_Live_1983.jpg/330px-Stevie_Ray_Vaughan_Live_1983.jpg',
   },
   {
     id: 'ed-gein',
@@ -1067,6 +1166,7 @@ const _baseEntities: Entity[] = [
     description: 'The "Butcher of Plainfield" whose farmhouse concealed furniture made from human remains. His crimes inspired Psycho, The Texas Chain Saw Massacre, and The Silence of the Lambs.',
     canonicalStoryId: 'ed-gein-biography',
     wikipediaSlug: 'Ed_Gein',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ed-Gein.jpeg/330px-Ed-Gein.jpeg',
   },
   {
     id: 'jeffrey-dahmer',
@@ -1076,6 +1176,7 @@ const _baseEntities: Entity[] = [
     description: 'The "Milwaukee Cannibal" who murdered 17 men and boys between 1978 and 1991. His crimes exposed catastrophic failures in policing and were ended when Tracy Edwards escaped his apartment.',
     canonicalStoryId: 'jeffrey-dahmer-biography',
     wikipediaSlug: 'Jeffrey_Dahmer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Jeffrey_Dahmer_Milwaukee_Police_1991_mugshot.jpg',
   },
   {
     id: 'chanakya',
@@ -1085,6 +1186,7 @@ const _baseEntities: Entity[] = [
     description: 'The kingmaker who toppled an empire with cunning alone. Ancient Indian strategist who mentored Chandragupta Maurya, orchestrated the fall of the Nanda dynasty, and is credited with authoring the Arthashastra, one of history\'s most ruthless treatises on statecraft. His legends span Buddhist, Jain, and Hindu traditions.',
     canonicalStoryId: 'chanakya-biography',
     wikipediaSlug: 'Chanakya',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Chanakya_artistic_depiction.jpg/330px-Chanakya_artistic_depiction.jpg',
   },
   {
     id: 'socrates',
@@ -1094,6 +1196,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher who claimed to know nothing yet changed everything. Born in Athens c. 470 BC, Socrates invented a method of questioning that founded Western philosophy — then was executed for it. He wrote nothing; his ideas survive only through students like Plato.',
     canonicalStoryId: 'socrates-biography',
     wikipediaSlug: 'Socrates',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Socrate_du_Louvre.jpg/330px-Socrate_du_Louvre.jpg',
   },
   {
     id: 'voltaire',
@@ -1103,6 +1206,7 @@ const _baseEntities: Entity[] = [
     description: 'The satirist who made mockery a weapon against tyranny. Imprisoned twice, exiled to England, and banned across Europe, Voltaire wrote 2,000 works attacking religious dogma and absolutism — then died the most famous man in France.',
     canonicalStoryId: 'voltaire-biography',
     wikipediaSlug: 'Voltaire',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire%2C_d%C3%A9tail_%28mus%C3%A9e_Carnavalet%29_-002.jpg/330px-Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire%2C_d%C3%A9tail_%28mus%C3%A9e_Carnavalet%29_-002.jpg',
   },
   {
     id: 'cathedral-of-junk',
@@ -1120,6 +1224,7 @@ const _baseEntities: Entity[] = [
     description: 'A 19-year-old self-appointed deputy who survived 4,000 rounds in a 33-hour standoff against 80 Texas cowboys in 1884. He later became a lawyer and politician.',
     canonicalStoryId: 'elfego-baca-biography',
     wikipediaSlug: 'Elfego_Baca',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Elfebo_Baca_1883.png',
   },
   {
     id: 'john-wayne-gacy',
@@ -1129,6 +1234,7 @@ const _baseEntities: Entity[] = [
     description: 'Community leader and part-time clown who buried 26 victims in the crawlspace beneath his suburban Chicago home — the most prolific serial killer in Illinois history.',
     canonicalStoryId: 'john-wayne-gacy-biography',
     wikipediaSlug: 'John_Wayne_Gacy',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/John_Wayne_Gacy_1978_mugshot.jpg/330px-John_Wayne_Gacy_1978_mugshot.jpg',
   },
   {
     id: 'seneca-the-younger',
@@ -1137,6 +1243,7 @@ const _baseEntities: Entity[] = [
     years: '4 BC–AD 65',
     description: 'Nero\'s tutor who preached Stoic poverty while amassing 300 million sestertii. Seneca was Rome\'s most influential philosopher, a senator exiled to Corsica, and an imperial advisor who helped govern competently for five years before Nero ordered him to kill himself. His calm suicide became one of the most painted scenes in Western art.',
     wikipediaSlug: 'Seneca_the_Younger',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/330px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg',
   },
   {
     id: 'umar',
@@ -1146,6 +1253,7 @@ const _baseEntities: Entity[] = [
     description: 'The caliph who conquered two empires in a decade. Umar ibn al-Khattab transformed from a fierce opponent of Islam into its most powerful early ruler, expanding the caliphate across Persia and two-thirds of the Byzantine Empire. He introduced the Islamic Hijri calendar and was assassinated by a Persian slave in 644.',
     canonicalStoryId: 'umar-biography',
     wikipediaSlug: 'Umar',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Hagia_Sopia_6163502494_%28cropped%29.jpg/330px-Hagia_Sopia_6163502494_%28cropped%29.jpg',
   },
   {
     id: 'geoffrey-chaucer',
@@ -1155,6 +1263,7 @@ const _baseEntities: Entity[] = [
     description: 'The wine merchant\'s son who invented English literature. A diplomat, spy, customs inspector, and war prisoner who wrote The Canterbury Tales in his spare time, introducing nearly 2,000 words into the English language. He was the first writer buried in what became Poets\' Corner at Westminster Abbey.',
     canonicalStoryId: 'geoffrey-chaucer-biography',
     wikipediaSlug: 'Geoffrey_Chaucer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Chaucer_manuscrit_portrait_%28d%C3%A9tail%29.jpeg/330px-Chaucer_manuscrit_portrait_%28d%C3%A9tail%29.jpeg',
   },
   {
     id: 'ibn-battuta',
@@ -1164,6 +1273,7 @@ const _baseEntities: Entity[] = [
     description: 'The man who out-traveled Marco Polo threefold. A Moroccan legal scholar who left home at 21 for a pilgrimage and didn\'t return for 24 years, covering 117,000 km across Africa, Asia, and Europe. His travelogue, the Rihla, remains one of the most detailed accounts of the medieval world.',
     canonicalStoryId: 'ibn-battuta-biography',
     wikipediaSlug: 'Ibn_Battuta',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Handmade_oil_painting_reproduction_of_Ibn_Battuta_in_Egypt%2C_a_painting_by_Hippolyte_Leon_Benett..jpg/330px-Handmade_oil_painting_reproduction_of_Ibn_Battuta_in_Egypt%2C_a_painting_by_Hippolyte_Leon_Benett..jpg',
   },
   {
     id: 'rosa-parks',
@@ -1172,6 +1282,7 @@ const _baseEntities: Entity[] = [
     years: '1913–2005',
     description: 'Seamstress who refused to give up her bus seat in Montgomery, triggering the 381-day boycott that launched the civil rights movement. Worked with the NAACP for decades and later moved to Detroit, where she served on John Conyers\' staff until retirement.',
     wikipediaSlug: 'Rosa_Parks',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Rosa_Parks%2C_November_1956_%28cropped%29.jpg/330px-Rosa_Parks%2C_November_1956_%28cropped%29.jpg',
   },
   {
     id: 'aluxes-cancun-bridge',
@@ -1206,6 +1317,7 @@ const _baseEntities: Entity[] = [
     description: 'The most prolific mathematician in history, with 866 published works. Euler invented modern mathematical notation including f(x), pi, and the imaginary unit i. He went completely blind in his 50s and simply increased his output, dictating roughly one paper per week. Laplace said it best: \'Read Euler, he is the master of us all.\'',
     canonicalStoryId: 'leonhard-euler-biography',
     wikipediaSlug: 'Leonhard_Euler',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Leonhard_Euler_-_Jakob_Emanuel_Handmann_%28Kunstmuseum_Basel%29.jpg/330px-Leonhard_Euler_-_Jakob_Emanuel_Handmann_%28Kunstmuseum_Basel%29.jpg',
   },
   {
     id: 'muhammad',
@@ -1215,6 +1327,7 @@ const _baseEntities: Entity[] = [
     description: 'The founder of Islam who united Arabia under one God. Born an orphan in Mecca, he received his first revelation at 40, fled persecution to Medina, and returned to conquer Mecca — transforming a fractured peninsula into a civilization that would reshape half the world.',
     canonicalStoryId: 'muhammad-biography',
     wikipediaSlug: 'Muhammad',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Al-Masjid_AL-Nabawi_Door.jpg/330px-Al-Masjid_AL-Nabawi_Door.jpg',
   },
   {
     id: 'rembrandt',
@@ -1224,6 +1337,7 @@ const _baseEntities: Entity[] = [
     description: 'The painter who turned light itself into emotion. Rembrandt produced roughly 300 paintings, 300 etchings, and hundreds of drawings during the Dutch Golden Age. He went spectacularly bankrupt in 1656 after spending lavishly on art and curiosities, and died in poverty — buried in a rented grave at the Westerkerk.',
     canonicalStoryId: 'rembrandt-biography',
     wikipediaSlug: 'Rembrandt',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg/330px-Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg',
   },
   {
     id: 'thales-of-miletus',
@@ -1233,6 +1347,7 @@ const _baseEntities: Entity[] = [
     description: 'The first philosopher in Western history, who replaced gods with reason. Thales proposed that water was the fundamental substance of all matter, predicted a solar eclipse in 585 BC, and calculated the height of Egypt\'s pyramids using shadows. Named the first of the Seven Sages of Greece, he told his mother it was always either too early or too late to marry.',
     canonicalStoryId: 'thales-of-miletus-biography',
     wikipediaSlug: 'Thales_of_Miletus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Illustrerad_Verldshistoria_band_I_Ill_107.jpg/330px-Illustrerad_Verldshistoria_band_I_Ill_107.jpg',
   },
   {
     id: 'pat-garrett',
@@ -1242,6 +1357,7 @@ const _baseEntities: Entity[] = [
     description: 'Lincoln County sheriff who shot and killed Billy the Kid in Pete Maxwell\'s darkened bedroom on July 14, 1881. He later wrote a bestselling account of the Kid\'s life.',
     canonicalStoryId: 'pat-garrett-biography',
     wikipediaSlug: 'Pat_Garrett',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Pat_Garrett2.jpg/330px-Pat_Garrett2.jpg',
   },
   {
     id: 'john-tunstall',
@@ -1251,6 +1367,7 @@ const _baseEntities: Entity[] = [
     description: 'Young English rancher and merchant whose murder by the Murphy-Dolan faction on February 18, 1878 sparked the Lincoln County War and Billy the Kid\'s quest for vengeance.',
     canonicalStoryId: 'john-tunstall-biography',
     wikipediaSlug: 'John_Tunstall',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/John_Tunstall_seated_pose_cropped_and_retouched.jpg',
   },
   {
     id: 'barton-springs-sos',
@@ -1269,6 +1386,7 @@ const _baseEntities: Entity[] = [
     description: 'The first Southern Black woman elected to the U.S. Congress. Her booming oratory during the Watergate hearings made her a national icon. She later became a professor at UT Austin and a champion of ethics in government.',
     canonicalStoryId: 'barbara-jordan-biography',
     wikipediaSlug: 'Barbara_Jordan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Barbara_Jordan%2C_Congresswoman%2C_1972-78_%28cropped%29.tif/lossy-page1-330px-Barbara_Jordan%2C_Congresswoman%2C_1972-78_%28cropped%29.tif.jpg',
   },
   {
     id: 'stephen-f-austin',
@@ -1278,6 +1396,7 @@ const _baseEntities: Entity[] = [
     description: 'The "Father of Texas" who led the colonization of the region, negotiated with Mexico, and helped forge the Republic. He died penniless just months after Texas won independence.',
     canonicalStoryId: 'stephen-f-austin-biography',
     wikipediaSlug: 'Stephen_F._Austin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Stephen_Fuller_Austin_Posthumous_Portrait.jpg/330px-Stephen_Fuller_Austin_Posthumous_Portrait.jpg',
   },
   {
     id: 'antones',
@@ -1295,6 +1414,7 @@ const _baseEntities: Entity[] = [
     description: 'Former Marine who killed 14 people and wounded 31 others during a 96-minute shooting spree from the UT Austin Tower observation deck on August 1, 1966.',
     canonicalStoryId: 'ut-tower-shooting',
     wikipediaSlug: 'Charles_Whitman',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Charles_Whitman_%281963%29.jpg/330px-Charles_Whitman_%281963%29.jpg',
   },
   {
     id: 'john-pershing',
@@ -1303,6 +1423,7 @@ const _baseEntities: Entity[] = [
     years: '1860–1948',
     description: 'U.S. Army general who led the Punitive Expedition of 10,000 troops into Mexico to pursue Pancho Villa after the 1916 Columbus raid. Later commanded the American Expeditionary Forces in WWI.',
     wikipediaSlug: 'John_J._Pershing',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/General_John_Joseph_Pershing_head_on_shoulders.jpg/330px-General_John_Joseph_Pershing_head_on_shoulders.jpg',
   },
   {
     id: 'robert-oppenheimer',
@@ -1312,6 +1433,7 @@ const _baseEntities: Entity[] = [
     description: 'The "Father of the Atomic Bomb" who directed the Manhattan Project at Los Alamos. After quoting the Bhagavad Gita at Trinity, he spent the rest of his life grappling with what he had created.',
     canonicalStoryId: 'j-robert-oppenheimer',
     wikipediaSlug: 'J._Robert_Oppenheimer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Oppenheimer_%28cropped%29.jpg/330px-Oppenheimer_%28cropped%29.jpg',
   },
   {
     id: 'lady-bird-johnson',
@@ -1321,6 +1443,7 @@ const _baseEntities: Entity[] = [
     description: 'First Lady who championed the Highway Beautification Act of 1965 and transformed the American environmental movement. A shrewd businesswoman who built a media empire in Austin, she was LBJ\'s closest political advisor for 39 years.',
     canonicalStoryId: 'lbj-lady-bird-austin',
     wikipediaSlug: 'Lady_Bird_Johnson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Lady_Bird_Johnson%2C_photo_portrait%2C_standing_at_rear_of_White_House%2C_color%2C_crop.jpg/330px-Lady_Bird_Johnson%2C_photo_portrait%2C_standing_at_rear_of_White_House%2C_color%2C_crop.jpg',
   },
   {
     id: 'pope-tewa',
@@ -1329,6 +1452,7 @@ const _baseEntities: Entity[] = [
     years: '?–1692',
     description: 'Tewa religious leader who coordinated the 1680 Pueblo Revolt, the most successful Native uprising in North American history, driving the Spanish entirely out of New Mexico for 12 years.',
     wikipediaSlug: 'Popé',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/U.S._Capitol_Po%E2%80%99pay_Statue.jpg/330px-U.S._Capitol_Po%E2%80%99pay_Statue.jpg',
   },
   {
     id: 'antonio-de-otermin',
@@ -1346,6 +1470,7 @@ const _baseEntities: Entity[] = [
     description: 'The actor who killed Lincoln — a famous stage performer and Confederate sympathizer who shot the president at Ford\'s Theatre, broke his leg leaping to the stage, and was killed 12 days later in a burning barn.',
     canonicalStoryId: 'lincoln-assassination',
     wikipediaSlug: 'John_Wilkes_Booth',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/John_Wilkes_Booth-portrait.jpg/330px-John_Wilkes_Booth-portrait.jpg',
   },
   {
     id: 'lee-harvey-oswald',
@@ -1355,6 +1480,7 @@ const _baseEntities: Entity[] = [
     description: 'Former Marine and Soviet defector who shot Kennedy from the sixth floor of the Texas School Book Depository, killed a police officer during his flight, and was himself murdered on live television two days later.',
     canonicalStoryId: 'lee-harvey-oswald',
     wikipediaSlug: 'Lee_Harvey_Oswald',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Lee_Harvey_Oswald_1963.jpg/330px-Lee_Harvey_Oswald_1963.jpg',
   },
   {
     id: 'jack-ruby',
@@ -1363,6 +1489,7 @@ const _baseEntities: Entity[] = [
     years: '1911–1967',
     description: 'Dallas nightclub owner who shot Lee Harvey Oswald in the basement of Dallas Police HQ on live television, spawning decades of conspiracy theories about organized crime links to the assassination.',
     wikipediaSlug: 'Jack_Ruby',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Jack_Ruby_1963_Mugshot_Extracted_%283x4_cropped%29.jpg/330px-Jack_Ruby_1963_Mugshot_Extracted_%283x4_cropped%29.jpg',
   },
   {
     id: 'james-earl-ray',
@@ -1371,6 +1498,7 @@ const _baseEntities: Entity[] = [
     years: '1928–1998',
     description: 'Escaped convict who assassinated MLK from a rooming house across from the Lorraine Motel, fled to London, and spent the rest of his life in prison claiming he was a patsy.',
     wikipediaSlug: 'James_Earl_Ray',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Mugshot_of_James_Earl_Ray_-_July_8%2C_1955.jpg/330px-Mugshot_of_James_Earl_Ray_-_July_8%2C_1955.jpg',
   },
   {
     id: 'orville-wright',
@@ -1380,6 +1508,7 @@ const _baseEntities: Entity[] = [
     description: 'Piloted the first controlled, powered flight at Kill Devil Hills — 12 seconds, 120 feet, on December 17, 1903. The bicycle mechanic from Dayton who beat every government-funded aviation program in the world.',
     canonicalStoryId: 'wright-brothers',
     wikipediaSlug: 'Wright_brothers',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Orville_Wright_1905-crop.jpg/330px-Orville_Wright_1905-crop.jpg',
   },
   {
     id: 'wilbur-wright',
@@ -1389,6 +1518,7 @@ const _baseEntities: Entity[] = [
     description: 'The elder Wright brother and the primary engineer behind the airplane\'s wing-warping control system. Died of typhoid fever at 45, only nine years after Kitty Hawk.',
     canonicalStoryId: 'wright-brothers',
     wikipediaSlug: 'Wright_brothers',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Orville_Wright_1905-crop.jpg/330px-Orville_Wright_1905-crop.jpg',
   },
   {
     id: 'ted-bundy',
@@ -1397,6 +1527,7 @@ const _baseEntities: Entity[] = [
     years: '1946–1989',
     description: 'Charismatic law student who murdered at least 30 women across seven states, escaped custody twice, and was executed in Florida\'s electric chair.',
     wikipediaSlug: 'Ted_Bundy',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Ted_Bundy_headshot.jpg/330px-Ted_Bundy_headshot.jpg',
   },
   {
     id: 'nelson-miles',
@@ -1406,6 +1537,7 @@ const _baseEntities: Entity[] = [
     description: 'U.S. Army general who accepted Geronimo\'s final surrender at Skeleton Canyon in 1886, ending the Apache Wars.',
     canonicalStoryId: 'nelson-miles-biography',
     wikipediaSlug: 'Nelson_A._Miles',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Nelson_A._Miles_by_Brands_Studios%2C_1898.jpg/330px-Nelson_A._Miles_by_Brands_Studios%2C_1898.jpg',
   },
   {
     id: 'pancho-villa',
@@ -1415,6 +1547,7 @@ const _baseEntities: Entity[] = [
     description: 'Mexican revolutionary who led the last armed invasion of the continental United States at Columbus, New Mexico in 1916. The U.S. sent 10,000 troops after him but never caught him.',
     canonicalStoryId: 'pancho-villa-raid',
     wikipediaSlug: 'Pancho_Villa',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Pancho_Villa_bandolier_%28cropped%29.jpg/330px-Pancho_Villa_bandolier_%28cropped%29.jpg',
   },
   {
     id: 'jim-white',
@@ -1432,6 +1565,7 @@ const _baseEntities: Entity[] = [
     years: '1905–1950',
     description: 'Radio engineer who accidentally discovered radio waves emanating from the Milky Way in 1932, founding the field of radio astronomy. The Very Large Array is officially named after him.',
     wikipediaSlug: 'Karl_Guthe_Jansky',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Jansky-Pose.jpg/330px-Jansky-Pose.jpg',
   },
   {
     id: 'sam-houston',
@@ -1440,6 +1574,7 @@ const _baseEntities: Entity[] = [
     years: '1793–1863',
     description: 'Hero of the Texas Revolution, president of the Republic of Texas, and later U.S. senator and governor. He tried to move the Republic\'s archives out of Austin, triggering the Archive War.',
     wikipediaSlug: 'Sam_Houston',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/SHouston_2.jpg/330px-SHouston_2.jpg',
   },
   {
     id: 'lyndon-b-johnson',
@@ -1449,6 +1584,7 @@ const _baseEntities: Entity[] = [
     description: 'The 36th President who escalated the Vietnam War while passing the most sweeping civil rights and social welfare legislation since the New Deal. Assumed office after JFK\'s assassination in Dallas and chose not to seek re-election in 1968.',
     canonicalStoryId: 'lbj-lady-bird-austin',
     wikipediaSlug: 'Lyndon_B._Johnson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Lyndon_B._Johnson%2C_photo_portrait%2C_color_%283x4_cropped%29%283%29.jpg/330px-Lyndon_B._Johnson%2C_photo_portrait%2C_color_%283x4_cropped%29%283%29.jpg',
   },
   {
     id: 'david-koresh',
@@ -1458,6 +1594,7 @@ const _baseEntities: Entity[] = [
     description: 'Self-proclaimed messiah who led the Branch Davidians at Mount Carmel near Waco, Texas. The 51-day ATF/FBI siege of his compound ended in a fire that killed 76 people.',
     canonicalStoryId: 'waco-siege',
     wikipediaSlug: 'David_Koresh',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/David_koresh.jpg/330px-David_koresh.jpg',
   },
   {
     id: 'theodore-roosevelt',
@@ -1467,6 +1604,7 @@ const _baseEntities: Entity[] = [
     description: 'The 26th President who charged up San Juan Hill, busted corporate monopolies, built the Panama Canal, and created the national parks system. Shot in the chest during a speech in 1912, he finished the speech before going to the hospital.',
     canonicalStoryId: 'theodore-roosevelt-biography',
     wikipediaSlug: 'Theodore_Roosevelt',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Theodore_Roosevelt_by_the_Pach_Bros_%284x5_cropped%29.jpg/330px-Theodore_Roosevelt_by_the_Pach_Bros_%284x5_cropped%29.jpg',
   },
   {
     id: 'antonio-lopez-de-santa-anna',
@@ -1476,6 +1614,7 @@ const _baseEntities: Entity[] = [
     description: 'President of Mexico eleven times across three decades. Led the assault on the Alamo and crushed the garrison, then lost everything at San Jacinto six weeks later. Lost a leg to a French cannonball in the Pastry War. In exile on Staten Island, he accidentally gave an American inventor the idea for chewing gum.',
     canonicalStoryId: 'battle-of-the-alamo',
     wikipediaSlug: 'Antonio_López_de_Santa_Anna',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Antonio_Lopez_de_Santa_Anna_c1853.png/330px-Antonio_Lopez_de_Santa_Anna_c1853.png',
   },
   {
     id: 'william-barret-travis',
@@ -1485,6 +1624,7 @@ const _baseEntities: Entity[] = [
     description: 'The 26-year-old lawyer who commanded the Alamo garrison against Santa Anna\'s thousands. His letter \'To the People of Texas & All Americans in the World\' — signed \'Victory or Death\' — became one of the most famous documents in American history. Whether he drew the legendary line in the sand is debated, but no defender crossed it to leave.',
     canonicalStoryId: 'battle-of-the-alamo',
     wikipediaSlug: 'William_B._Travis',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/William_B._Travis_by_Wiley_Martin.JPG',
   },
   {
     id: 'ranald-mackenzie',
@@ -1494,6 +1634,7 @@ const _baseEntities: Entity[] = [
     description: 'Ulysses Grant called him \'the most promising young officer in the Army.\' Wounded six times in the Civil War, he was sent west to end Comanche resistance and did — destroying their horse herd at Palo Duro Canyon in 1874. By 40 he had descended into severe mental illness and died in an asylum at 48.',
     canonicalStoryId: 'palo-duro-final-stand',
     wikipediaSlug: 'Ranald_S._Mackenzie',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/RSMackenzie.jpg',
   },
   {
     id: 'prince-carl-solms',
@@ -1582,6 +1723,7 @@ const _baseEntities: Entity[] = [
     description: 'Unidentified serial killer who terrorized Northern California and taunted police with encrypted letters. His identity remains one of America\'s greatest unsolved mysteries.',
     canonicalStoryId: 'zodiac-killer',
     wikipediaSlug: 'Zodiac_Killer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Zodiac-Killer.jpg',
   },
   {
     id: 'bonnie-parker',
@@ -1591,6 +1733,7 @@ const _baseEntities: Entity[] = [
     description: 'Dallas waitress turned Depression-era outlaw whose two-year crime spree with Clyde Barrow turned them into folk heroes and ended in a hail of 130 bullets on a Louisiana back road.',
     canonicalStoryId: 'bonnie-and-clyde',
     wikipediaSlug: 'Bonnie_and_Clyde',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bonnie_Parker_and_Clyde_Barrow.jpg/330px-Bonnie_Parker_and_Clyde_Barrow.jpg',
   },
   {
     id: 'clyde-barrow',
@@ -1600,6 +1743,7 @@ const _baseEntities: Entity[] = [
     description: 'Dallas-born outlaw and getaway driver who, with Bonnie Parker, robbed banks and killed lawmen across the South during the Great Depression.',
     canonicalStoryId: 'bonnie-and-clyde',
     wikipediaSlug: 'Bonnie_and_Clyde',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bonnie_Parker_and_Clyde_Barrow.jpg/330px-Bonnie_Parker_and_Clyde_Barrow.jpg',
   },
   {
     id: 'lincoln-county-courthouse',
@@ -1725,6 +1869,7 @@ const _baseEntities: Entity[] = [
     description: 'Carthaginian general who marched war elephants across the Alps and spent 15 years on Italian soil terrorizing Rome. His double envelopment at Cannae is still taught at military academies worldwide.',
     canonicalStoryId: 'hannibal-barca-biography',
     wikipediaSlug: 'Hannibal',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hannibal_Barca_bust_from_Capua_photo.jpg/330px-Hannibal_Barca_bust_from_Capua_photo.jpg',
   },
   {
     id: 'abiquiu',
@@ -1859,6 +2004,7 @@ const _baseEntities: Entity[] = [
     years: '1952–present',
     description: 'The "King of Country" who holds the record for the most number-one hits by any artist in any genre — 44 chart-toppers across a 60-album career. A former Army soldier from Poteet, Texas who never strayed from traditional country.',
     wikipediaSlug: 'George_Strait',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/George_Strait_2014_1.jpg/330px-George_Strait_2014_1.jpg',
   },
   {
     id: 'jesus',
@@ -1868,6 +2014,7 @@ const _baseEntities: Entity[] = [
     description: 'A Galilean preacher whose life, teachings, death, and reported resurrection became the foundation of the world\'s largest religion. Born in Bethlehem, raised in Nazareth, executed in Jerusalem.',
     canonicalStoryId: 'jesus-ministry',
     wikipediaSlug: 'Jesus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Spas_vsederzhitel_sinay_%28cropped1%29.jpg/330px-Spas_vsederzhitel_sinay_%28cropped1%29.jpg',
   },
   {
     id: 'moses',
@@ -1877,6 +2024,7 @@ const _baseEntities: Entity[] = [
     description: 'The prophet who led the Israelites out of Egyptian slavery, received the Ten Commandments on Mount Sinai, and guided his people through forty years in the wilderness — only to die within sight of the Promised Land.',
     canonicalStoryId: 'moses-exodus',
     wikipediaSlug: 'Moses',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Rembrandt_Harmensz._van_Rijn_079.jpg/330px-Rembrandt_Harmensz._van_Rijn_079.jpg',
   },
   {
     id: 'paul-apostle',
@@ -1886,6 +2034,7 @@ const _baseEntities: Entity[] = [
     description: 'Pharisee who persecuted Christians until a blinding vision on the road to Damascus converted him. Traveled 10,000 miles across the Roman Empire planting churches. His letters make up nearly half the New Testament.',
     canonicalStoryId: 'paul-journeys',
     wikipediaSlug: 'Paul_the_Apostle',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Fresco_of_Saint_Paul_at_Ephesus.jpg/330px-Fresco_of_Saint_Paul_at_Ephesus.jpg',
   },
   {
     id: 'abraham',
@@ -1895,6 +2044,7 @@ const _baseEntities: Entity[] = [
     description: 'The patriarch revered as the father of Judaism, Christianity, and Islam. Left the great city of Ur at God\'s command and journeyed to Canaan, where God promised his descendants would become a great nation.',
     canonicalStoryId: 'abraham-journey',
     wikipediaSlug: 'Abraham',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Guercino_Abramo_ripudia_Agar_%28cropped_2%29.jpg/330px-Guercino_Abramo_ripudia_Agar_%28cropped_2%29.jpg',
   },
   {
     id: 'king-david',
@@ -1904,6 +2054,7 @@ const _baseEntities: Entity[] = [
     description: 'Shepherd boy who killed Goliath, became a fugitive, then conquered Jerusalem and made it Israel\'s capital. Credited with writing the Psalms. His affair with Bathsheba and murder of her husband remain the Bible\'s starkest portrait of a flawed ruler.',
     canonicalStoryId: 'king-david-rise',
     wikipediaSlug: 'David',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/King_David%2C_the_King_of_Israel.jpg/330px-King_David%2C_the_King_of_Israel.jpg',
   },
   {
     id: 'comanche-nation',
@@ -1938,6 +2089,7 @@ const _baseEntities: Entity[] = [
     description: 'The prophet who called down fire from heaven on Mount Carmel, outran a chariot in a rainstorm, and was taken up to heaven in a whirlwind. Jews set a place for him at every Passover table.',
     canonicalStoryId: 'elijah-prophet-biography',
     wikipediaSlug: 'Elijah',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Giovanni_Girolamo_Savoldo%2C_Elijah_Fed_by_the_Raven%2C_c._1510%2C_NGA_46134.jpg/330px-Giovanni_Girolamo_Savoldo%2C_Elijah_Fed_by_the_Raven%2C_c._1510%2C_NGA_46134.jpg',
   },
   {
     id: 'alexander-the-great',
@@ -1947,6 +2099,7 @@ const _baseEntities: Entity[] = [
     description: 'King of Macedon who conquered the largest empire the ancient world had ever seen by the age of 30. He never lost a battle, spread Greek culture from Egypt to India, and died in Babylon at 32 under circumstances still debated.',
     canonicalStoryId: 'alexander-the-great-biography',
     wikipediaSlug: 'Alexander_the_Great',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Alexander_Mosaic_detail_of_Alexander_the_Great_%283x4_cropped%29.jpg/330px-Alexander_Mosaic_detail_of_Alexander_the_Great_%283x4_cropped%29.jpg',
   },
   {
     id: 'napoleon-bonaparte',
@@ -1955,6 +2108,7 @@ const _baseEntities: Entity[] = [
     years: '1769–1821',
     description: 'Corsican artillery officer who seized power in a coup at 30, crowned himself Emperor, and conquered most of Europe. His Napoleonic Code still underpins the legal systems of 40 countries. Lost everything at Waterloo and died in exile on St. Helena.',
     wikipediaSlug: 'Napoleon',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg/330px-Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg',
   },
   {
     id: 'hernan-cortes',
@@ -1964,6 +2118,7 @@ const _baseEntities: Entity[] = [
     description: 'Spanish conquistador who arrived in Mexico with 500 men and destroyed the Aztec Empire within two years. Allied with indigenous nations hostile to Aztec rule, laid siege to Tenochtitlan, and built Mexico City on its ruins.',
     canonicalStoryId: 'fall-of-tenochtitlan',
     wikipediaSlug: 'Hernán_Cortés',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Retrato_de_Hern%C3%A1n_Cort%C3%A9s.jpg/330px-Retrato_de_Hern%C3%A1n_Cort%C3%A9s.jpg',
   },
   {
     id: 'mahatma-gandhi',
@@ -1973,6 +2128,7 @@ const _baseEntities: Entity[] = [
     description: 'London-trained lawyer who developed nonviolent mass resistance in South Africa and used it to lead India\'s independence from the British Empire. Assassinated by a Hindu nationalist in 1948.',
     canonicalStoryId: 'mahatma-gandhi-biography',
     wikipediaSlug: 'Mahatma_Gandhi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/330px-Mahatma-Gandhi%2C_studio%2C_1931.jpg',
   },
   {
     id: 'nelson-mandela',
@@ -1982,6 +2138,7 @@ const _baseEntities: Entity[] = [
     description: 'Imprisoned for 27 years on Robben Island, emerged to become South Africa\'s first Black president in 1994. Dismantled apartheid through negotiation with his former captors rather than retribution.',
     canonicalStoryId: 'nelson-mandela-biography',
     wikipediaSlug: 'Nelson_Mandela',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/330px-Nelson_Mandela_1994.jpg',
   },
   {
     id: 'simon-bolivar',
@@ -1991,6 +2148,7 @@ const _baseEntities: Entity[] = [
     description: 'El Libertador — the man who liberated six South American nations from Spanish rule. A Venezuelan aristocrat who dreamed of a united South America, fought across 3,000 miles of mountains and jungle, and died in exile at 47.',
     canonicalStoryId: 'simon-bolivar-biography',
     wikipediaSlug: 'Simón_Bolívar',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sim%C3%B3n_Bol%C3%ADvar._Toro_Moreno%2C_Luis._1922%2C_Legislative_Palace%2C_La_Paz.png/330px-Sim%C3%B3n_Bol%C3%ADvar._Toro_Moreno%2C_Luis._1922%2C_Legislative_Palace%2C_La_Paz.png',
   },
   {
     id: 'che-guevara',
@@ -2000,6 +2158,7 @@ const _baseEntities: Entity[] = [
     description: 'Argentine revolutionary who helped Fidel Castro seize Cuba, then left to spark revolutions across the developing world. Executed in Bolivia at 39, his image became the most reproduced portrait photograph in history.',
     canonicalStoryId: 'che-guevara-biography',
     wikipediaSlug: 'Che_Guevara',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Che_Guevara_-_Guerrillero_Heroico_by_Alberto_Korda.jpg/330px-Che_Guevara_-_Guerrillero_Heroico_by_Alberto_Korda.jpg',
   },
   {
     id: 'fidel-castro',
@@ -2009,6 +2168,7 @@ const _baseEntities: Entity[] = [
     description: 'The lawyer-turned-guerrilla who overthrew a U.S.-backed dictatorship with 12 survivors from a failed landing and ruled Cuba for 49 years, surviving more than 600 assassination attempts.',
     canonicalStoryId: 'fidel-castro-biography',
     wikipediaSlug: 'Fidel_Castro',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Fidel_Castro_1950s.jpg/330px-Fidel_Castro_1950s.jpg',
   },
   {
     id: 'mao-zedong',
@@ -2018,6 +2178,7 @@ const _baseEntities: Entity[] = [
     description: 'Founder of the People\'s Republic of China. A peasant\'s son who led the Long March, defeated the Nationalists, and ruled the world\'s most populous nation for 27 years. His policies caused both industrial transformation and the deadliest famine in human history.',
     canonicalStoryId: 'mao-zedong-biography',
     wikipediaSlug: 'Mao_Zedong',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Mao_Zedong_1950_Portrait_%283x4_cropped%29%282%29.jpg/330px-Mao_Zedong_1950_Portrait_%283x4_cropped%29%282%29.jpg',
   },
   {
     id: 'mustafa-kemal-ataturk',
@@ -2027,6 +2188,7 @@ const _baseEntities: Entity[] = [
     description: 'The military commander who defended Gallipoli, led the Turkish War of Independence, abolished the 1,300-year-old caliphate, and remade the Ottoman remnant into a secular republic with a Latin alphabet.',
     canonicalStoryId: 'mustafa-kemal-ataturk-biography',
     wikipediaSlug: 'Mustafa_Kemal_Atatürk',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Portrait_photograph_of_Mustafa_Kemal_in_military_uniform_1930.jpg/330px-Portrait_photograph_of_Mustafa_Kemal_in_military_uniform_1930.jpg',
   },
   {
     id: 'indira-gandhi',
@@ -2036,6 +2198,7 @@ const _baseEntities: Entity[] = [
     description: 'India\'s first and only female prime minister, who centralized power, fought a war that created Bangladesh, ordered the storming of the Golden Temple, and was assassinated by her own bodyguards in her garden.',
     canonicalStoryId: 'indira-gandhi-biography',
     wikipediaSlug: 'Indira_Gandhi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/IndiraGandhi.png/330px-IndiraGandhi.png',
   },
   {
     id: 'dalai-lama-14',
@@ -2045,6 +2208,7 @@ const _baseEntities: Entity[] = [
     description: 'Spiritual leader of Tibetan Buddhism, identified as the reincarnation of his predecessor at age two. Fled Tibet in 1959 during the Chinese occupation and has led a nonviolent campaign for Tibetan autonomy from exile in India ever since.',
     canonicalStoryId: 'dalai-lama-14-biography',
     wikipediaSlug: '14th_Dalai_Lama',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/The_Dalai_Lama_in_2012.jpg/330px-The_Dalai_Lama_in_2012.jpg',
   },
   {
     id: 'aung-san-suu-kyi',
@@ -2054,6 +2218,7 @@ const _baseEntities: Entity[] = [
     description: 'Burmese politician who spent 15 years under house arrest for opposing military rule and won the Nobel Peace Prize while detained. Daughter of Myanmar\'s independence hero, she became the country\'s de facto leader before being ousted in a 2021 coup.',
     canonicalStoryId: 'aung-san-suu-kyi-biography',
     wikipediaSlug: 'Aung_San_Suu_Kyi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Aung_San_Suu_Kyi_at_the_Enthronement_of_Naruhito_%281%29.jpg/330px-Aung_San_Suu_Kyi_at_the_Enthronement_of_Naruhito_%281%29.jpg',
   },
   {
     id: 'genghis-khan',
@@ -2063,6 +2228,7 @@ const _baseEntities: Entity[] = [
     description: 'Orphaned, enslaved, and left for dead — then unified the Mongol tribes and built the largest contiguous land empire in history. Killed an estimated 40 million people, roughly 10% of the world\'s population.',
     canonicalStoryId: 'genghis-khan-biography',
     wikipediaSlug: 'Genghis_Khan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/YuanEmperorAlbumGenghisPortrait.jpg/330px-YuanEmperorAlbumGenghisPortrait.jpg',
   },
   {
     id: 'peter-the-great',
@@ -2071,6 +2237,7 @@ const _baseEntities: Entity[] = [
     years: '1672–1725',
     description: 'Tsar of Russia who traveled incognito through Europe, worked in Dutch shipyards, built St. Petersburg in a swamp on the bones of 100,000 forced laborers, and transformed Russia from a medieval backwater into a European great power.',
     wikipediaSlug: 'Peter_the_Great',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Inconnu_d%27apr%C3%A8s_J.-M._Nattier%2C_Portrait_de_Pierre_Ier_%28mus%C3%A9e_de_l%E2%80%99Ermitage%29.jpg/330px-Inconnu_d%27apr%C3%A8s_J.-M._Nattier%2C_Portrait_de_Pierre_Ier_%28mus%C3%A9e_de_l%E2%80%99Ermitage%29.jpg',
   },
   {
     id: 'plato',
@@ -2080,6 +2247,7 @@ const _baseEntities: Entity[] = [
     description: 'Athenian philosopher who founded the Academy, wrote the Republic, and established the conceptual framework for Western philosophy. Student of Socrates, teacher of Aristotle.',
     canonicalStoryId: 'plato-biography',
     wikipediaSlug: 'Plato',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Plato_Silanion_Musei_Capitolini_MC1377.png/330px-Plato_Silanion_Musei_Capitolini_MC1377.png',
   },
   {
     id: 'confucius',
@@ -2089,6 +2257,7 @@ const _baseEntities: Entity[] = [
     description: 'Chinese philosopher whose teachings on ethics, family, and governance became the moral foundation of East Asian civilization for 2,500 years. His emphasis on education, filial piety, and meritocratic government shaped China, Korea, Japan, and Vietnam.',
     canonicalStoryId: 'confucius-biography',
     wikipediaSlug: 'Confucius',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Confucius_Tang_Dynasty.jpg/330px-Confucius_Tang_Dynasty.jpg',
   },
   {
     id: 'avicenna',
@@ -2098,6 +2267,7 @@ const _baseEntities: Entity[] = [
     description: 'Persian polymath who memorized the Quran at 10, was treating patients by 16, and wrote The Canon of Medicine — the standard medical textbook at European and Islamic universities for 600 years.',
     canonicalStoryId: 'avicenna-biography',
     wikipediaSlug: 'Avicenna',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Avicenna_Bust%2C_left_profile_%28cropped%29.jpg/330px-Avicenna_Bust%2C_left_profile_%28cropped%29.jpg',
   },
   {
     id: 'rumi',
@@ -2107,6 +2277,7 @@ const _baseEntities: Entity[] = [
     description: 'Persian poet and Sufi mystic who wrote the Masnavi — 25,000 couplets of mystical poetry — and founded the Mevlevi "whirling dervish" order. Born in Afghanistan, lived in Turkey, and is the best-selling poet in 21st-century America.',
     canonicalStoryId: 'rumi-biography',
     wikipediaSlug: 'Rumi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7_%D8%A7%D8%AB%D8%B1_%D8%AD%D8%B3%DB%8C%D9%86_%D8%A8%D9%87%D8%B2%D8%A7%D8%AF_%28cropped%29.jpg/330px-%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7_%D8%A7%D8%AB%D8%B1_%D8%AD%D8%B3%DB%8C%D9%86_%D8%A8%D9%87%D8%B2%D8%A7%D8%AF_%28cropped%29.jpg',
   },
   {
     id: 'mary-mother-jesus',
@@ -2116,6 +2287,7 @@ const _baseEntities: Entity[] = [
     description: 'A young woman from Nazareth told by an angel she would bear the Son of God. Present at the manger, at the wedding in Cana, at the cross, and revered across Christianity as the most honored of all saints.',
     canonicalStoryId: 'jesus-ministry',
     wikipediaSlug: 'Mary,_mother_of_Jesus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Madonna_Advocata.png/330px-Madonna_Advocata.png',
   },
   {
     id: 'aretha-franklin',
@@ -2125,6 +2297,7 @@ const _baseEntities: Entity[] = [
     description: 'The Queen of Soul who turned a floundering career around in one session at FAME Studios in Muscle Shoals, winning 18 Grammys and becoming the first woman inducted into the Rock and Roll Hall of Fame.',
     canonicalStoryId: 'aretha-franklin-biography',
     wikipediaSlug: 'Aretha_Franklin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Aretha_Franklin_1968.jpg/330px-Aretha_Franklin_1968.jpg',
   },
   {
     id: 'anne-boleyn',
@@ -2134,6 +2307,7 @@ const _baseEntities: Entity[] = [
     description: 'The woman for whom Henry VIII broke with the Pope, split from the Catholic Church, and created the Church of England — only to have her beheaded three years later on fabricated charges. Her daughter Elizabeth became England\'s greatest monarch.',
     canonicalStoryId: 'anne-boleyn-biography',
     wikipediaSlug: 'Anne_Boleyn',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/AnneBoleynHever.jpg/330px-AnneBoleynHever.jpg',
   },
   {
     id: 'guy-fawkes',
@@ -2143,6 +2317,7 @@ const _baseEntities: Entity[] = [
     description: 'The Catholic conspirator caught guarding 36 barrels of gunpowder beneath Parliament. His face — via the V for Vendetta mask — became the global symbol of anti-establishment protest four centuries later.',
     canonicalStoryId: 'guy-fawkes-biography',
     wikipediaSlug: 'Guy_Fawkes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/The_Gunpowder_Plot_Conspirators%2C_1605_from_NPG_%28cropped%29.jpg/330px-The_Gunpowder_Plot_Conspirators%2C_1605_from_NPG_%28cropped%29.jpg',
   },
   {
     id: 'isaac-newton',
@@ -2152,6 +2327,7 @@ const _baseEntities: Entity[] = [
     description: 'The reclusive genius who formulated the laws of motion, universal gravitation, and calculus. His Principia Mathematica (1687) is considered the most important scientific work ever published.',
     canonicalStoryId: 'isaac-newton-biography',
     wikipediaSlug: 'Isaac_Newton',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg/330px-Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg',
   },
   {
     id: 'winston-churchill',
@@ -2161,6 +2337,7 @@ const _baseEntities: Entity[] = [
     description: 'Wartime Prime Minister who rallied Britain through the Blitz when it stood alone against Hitler. Also a Nobel Prize-winning author, war correspondent, amateur painter, and bricklayer. Lost the 1945 election immediately after winning the war.',
     canonicalStoryId: 'winston-churchill-biography',
     wikipediaSlug: 'Winston_Churchill',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Sir_Winston_Churchill_-_19086236948_%28restored%29.jpg/330px-Sir_Winston_Churchill_-_19086236948_%28restored%29.jpg',
   },
   {
     id: 'horatio-nelson',
@@ -2170,6 +2347,7 @@ const _baseEntities: Entity[] = [
     description: 'Britain\'s greatest naval hero, who destroyed Napoleon\'s fleet at Trafalgar and died in the moment of victory. His body was preserved in a barrel of brandy for the voyage home. His column still dominates Trafalgar Square.',
     canonicalStoryId: 'horatio-nelson-biography',
     wikipediaSlug: 'Horatio_Nelson,_1st_Viscount_Nelson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/HoratioNelson1.jpg/330px-HoratioNelson1.jpg',
   },
   {
     id: 'marie-curie',
@@ -2179,6 +2357,7 @@ const _baseEntities: Entity[] = [
     description: 'The first woman to win a Nobel Prize and the only person to win Nobels in two different sciences (Physics 1903, Chemistry 1911). Discovered radium in a leaking shed. Her notebooks are still too radioactive to handle without protection.',
     canonicalStoryId: 'marie-curie-biography',
     wikipediaSlug: 'Marie_Curie',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/330px-Marie_Curie_c._1920s.jpg',
   },
   {
     id: 'galileo-galilei',
@@ -2188,6 +2367,7 @@ const _baseEntities: Entity[] = [
     description: 'Used a homemade telescope to observe Jupiter\'s moons and prove the Earth orbits the Sun. The Inquisition forced him to recant and placed him under house arrest for the last nine years of his life.',
     canonicalStoryId: 'galileo-galilei-biography',
     wikipediaSlug: 'Galileo_Galilei',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Galileo_Galilei_%281564-1642%29_RMG_BHC2700.tiff/lossy-page1-330px-Galileo_Galilei_%281564-1642%29_RMG_BHC2700.tiff.jpg',
   },
   {
     id: 'fyodor-dostoevsky',
@@ -2197,6 +2377,7 @@ const _baseEntities: Entity[] = [
     description: 'Russian novelist who survived a mock execution and Siberian hard labor to write Crime and Punishment, The Brothers Karamazov, and The Idiot — the deepest explorations of guilt, faith, and human psychology in literature.',
     canonicalStoryId: 'fyodor-dostoevsky-biography',
     wikipediaSlug: 'Fyodor_Dostoevsky',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Vasily_Perov_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%A4.%D0%9C.%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_-_Google_Art_Project.jpg/330px-Vasily_Perov_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%A4.%D0%9C.%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_-_Google_Art_Project.jpg',
   },
   {
     id: 'leo-tolstoy',
@@ -2206,6 +2387,7 @@ const _baseEntities: Entity[] = [
     description: 'Author of War and Peace and Anna Karenina, considered the greatest novels ever written. Russian aristocrat who renounced his wealth, became a Christian anarchist, influenced Gandhi and MLK, and died in a train station at 82.',
     canonicalStoryId: 'leo-tolstoy-biography',
     wikipediaSlug: 'Leo_Tolstoy',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Leo_Tolstoy_1908_Portrait_%283x4_cropped%29.jpg/330px-Leo_Tolstoy_1908_Portrait_%283x4_cropped%29.jpg',
   },
   {
     id: 'gabriel-garcia-marquez',
@@ -2215,6 +2397,7 @@ const _baseEntities: Entity[] = [
     description: 'Colombian journalist who wrote One Hundred Years of Solitude in 18 months of seclusion, selling 50 million copies and defining Latin American literature. Won the Nobel Prize in 1982. Did not invent magical realism, but perfected it.',
     canonicalStoryId: 'gabriel-garcia-marquez-biography',
     wikipediaSlug: 'Gabriel_García_Márquez',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Gabriel_Garcia_Marquez.jpg/330px-Gabriel_Garcia_Marquez.jpg',
   },
   {
     id: 'pablo-neruda',
@@ -2224,6 +2407,7 @@ const _baseEntities: Entity[] = [
     description: 'Chile\'s greatest poet, a senator, a communist, and the 1971 Nobel laureate. Died 12 days after Pinochet\'s coup under circumstances still disputed. His funeral became one of the first acts of resistance against the dictatorship.',
     canonicalStoryId: 'pablo-neruda-biography',
     wikipediaSlug: 'Pablo_Neruda',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Pablo_Neruda_1963.jpg/330px-Pablo_Neruda_1963.jpg',
   },
   {
     id: 'franz-kafka',
@@ -2233,6 +2417,7 @@ const _baseEntities: Entity[] = [
     description: 'Prague insurance clerk who wrote at night and asked his friend to burn everything after he died. The friend refused. The Trial, The Metamorphosis, and The Castle became among the most influential works of the 20th century. The word "Kafkaesque" entered every major language.',
     canonicalStoryId: 'franz-kafka-biography',
     wikipediaSlug: 'Franz_Kafka',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Franz_Kafka%2C_1923.jpg/330px-Franz_Kafka%2C_1923.jpg',
   },
   {
     id: 'rabindranath-tagore',
@@ -2242,6 +2427,7 @@ const _baseEntities: Entity[] = [
     description: 'Bengali polymath and the first non-European Nobel laureate in Literature (1913). Wrote 2,230 songs including the national anthems of India and Bangladesh. Founded a university that taught classes under trees.',
     canonicalStoryId: 'rabindranath-tagore-biography',
     wikipediaSlug: 'Rabindranath_Tagore',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/1926_Rabindrath_Tagore.jpg/330px-1926_Rabindrath_Tagore.jpg',
   },
   {
     id: 'vincent-van-gogh',
@@ -2251,6 +2437,7 @@ const _baseEntities: Entity[] = [
     description: 'Dutch painter who sold one painting in his lifetime, produced 2,100 artworks in a decade of manic creativity, cut off his ear, and shot himself at 37. His paintings now sell for over $100 million each.',
     canonicalStoryId: 'vincent-van-gogh-biography',
     wikipediaSlug: 'Vincent_van_Gogh',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/330px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg',
   },
   {
     id: 'wolfgang-mozart',
@@ -2260,6 +2447,7 @@ const _baseEntities: Entity[] = [
     description: 'Composed his first symphony at 8 and wrote over 600 works by 35, including The Marriage of Figaro and Don Giovanni. Died in poverty at 35 with his Requiem unfinished; buried in an unmarked communal grave in Vienna.',
     canonicalStoryId: 'wolfgang-mozart-biography',
     wikipediaSlug: 'Wolfgang_Amadeus_Mozart',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg/330px-The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg',
   },
   {
     id: 'bob-marley',
@@ -2269,6 +2457,7 @@ const _baseEntities: Entity[] = [
     description: 'Jamaican singer-songwriter who brought reggae to the world and became the voice of Third World liberation. Survived an assassination attempt, performed at Zimbabwe\'s independence, and died of melanoma at 36.',
     canonicalStoryId: 'bob-marley-biography',
     wikipediaSlug: 'Bob_Marley',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Bob_Marley_1976_press_photo.jpg/330px-Bob_Marley_1976_press_photo.jpg',
   },
   {
     id: 'akira-kurosawa',
@@ -2278,6 +2467,7 @@ const _baseEntities: Entity[] = [
     description: 'Japanese filmmaker whose Seven Samurai, Rashomon, and Yojimbo rewrote the grammar of cinema. George Lucas, Martin Scorsese, and Steven Spielberg all call him their greatest influence.',
     canonicalStoryId: 'akira-kurosawa-biography',
     wikipediaSlug: 'Akira_Kurosawa',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Akirakurosawa-onthesetof7samurai-1953-page88.jpg/330px-Akirakurosawa-onthesetof7samurai-1953-page88.jpg',
   },
   {
     id: 'pele',
@@ -2287,6 +2477,7 @@ const _baseEntities: Entity[] = [
     description: 'The only footballer to win three World Cups. Scored his first professional goal at 15 for Santos FC, reached 1,000 career goals at 29, and was declared a non-exportable national treasure by the Brazilian government.',
     canonicalStoryId: 'pele-biography',
     wikipediaSlug: 'Pelé',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Pele_con_brasil_%28cropped%29.jpg/330px-Pele_con_brasil_%28cropped%29.jpg',
   },
   {
     id: 'leonardo-da-vinci',
@@ -2296,6 +2487,7 @@ const _baseEntities: Entity[] = [
     description: 'Painter of the Mona Lisa and The Last Supper who filled 7,000 notebook pages with designs for flying machines, anatomy studies, and engineering plans. Illegitimate son of a Florentine notary, left-handed, and wrote everything in mirror script.',
     canonicalStoryId: 'leonardo-da-vinci-biography',
     wikipediaSlug: 'Leonardo_da_Vinci',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Francesco_Melzi_-_Portrait_of_Leonardo.png/330px-Francesco_Melzi_-_Portrait_of_Leonardo.png',
   },
   {
     id: 'richard-iii',
@@ -2304,6 +2496,7 @@ const _baseEntities: Entity[] = [
     years: '1452–1485',
     description: 'The king who probably murdered his own nephews to seize the throne — Shakespeare\'s greatest villain. His skeleton was found under a parking lot in Leicester in 2012, 527 years after his death at the Battle of Bosworth Field.',
     wikipediaSlug: 'Richard_III_of_England',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Richard_III_portrait.jpg/330px-Richard_III_portrait.jpg',
   },
   {
     id: 'mussolini',
@@ -2313,6 +2506,7 @@ const _baseEntities: Entity[] = [
     description: 'The founder of Fascism who seized power in 1922 and ruled Italy as dictator until 1943. Allied with Hitler, dragged Italy into World War II, and was shot by partisans and hung upside down at a Milan gas station.',
     canonicalStoryId: 'mussolini-biography',
     wikipediaSlug: 'Benito_Mussolini',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mussolini_mezzobusto.jpg/330px-Mussolini_mezzobusto.jpg',
   },
   {
     id: 'jack-the-ripper',
@@ -2322,6 +2516,7 @@ const _baseEntities: Entity[] = [
     description: 'The unidentified serial killer who murdered at least five women in Whitechapel in 1888 and was never caught. The case created the modern concept of the serial killer and remains the most famous unsolved murder mystery in history.',
     canonicalStoryId: 'jack-the-ripper-biography',
     wikipediaSlug: 'Jack_the_Ripper',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/JacktheRipper1888.jpg/330px-JacktheRipper1888.jpg',
   },
   {
     id: 'spartacus',
@@ -2331,6 +2526,7 @@ const _baseEntities: Entity[] = [
     description: 'The Thracian gladiator who led the largest slave revolt in Roman history, commanding an army of 120,000 escaped slaves that defeated multiple Roman legions before being crushed by Crassus.',
     canonicalStoryId: 'rise-fall-rome',
     wikipediaSlug: 'Spartacus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/%CE%A3%CF%80%CE%AC%CF%81%CF%84%CE%B1%CE%BA%CE%BF%CF%82_Spartacus%2CEspartaco_marble_statue_in_Louvre_%22%CE%9C%CE%B1%CE%B9%CE%B4%CE%BF%CE%B9_clan_-Meadow%22_slave_macedon-greek.jpg/330px-%CE%A3%CF%80%CE%AC%CF%81%CF%84%CE%B1%CE%BA%CE%BF%CF%82_Spartacus%2CEspartaco_marble_statue_in_Louvre_%22%CE%9C%CE%B1%CE%B9%CE%B4%CE%BF%CE%B9_clan_-Meadow%22_slave_macedon-greek.jpg',
   },
   {
     id: 'nero',
@@ -2340,6 +2536,7 @@ const _baseEntities: Entity[] = [
     description: 'The Roman emperor remembered for fiddling while Rome burned (probably a myth), building his Golden Palace on the ashes, and launching the first persecution of Christians. He was declared a public enemy by the Senate and committed suicide at 30.',
     canonicalStoryId: 'rise-fall-rome',
     wikipediaSlug: 'Nero',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Nero_Glyptothek_Munich_321.jpg/330px-Nero_Glyptothek_Munich_321.jpg',
   },
   {
     id: 'michelangelo',
@@ -2349,6 +2546,7 @@ const _baseEntities: Entity[] = [
     description: 'The sculptor who painted the Sistine Chapel ceiling, carved David from a rejected block of marble, and designed St. Peter\'s Basilica dome. The quintessential Renaissance genius, rivaled only by Leonardo da Vinci.',
     canonicalStoryId: 'michelangelo-biography',
     wikipediaSlug: 'Michelangelo',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Michelangelo_Daniele_da_Volterra_%28dettaglio%29.jpg/330px-Michelangelo_Daniele_da_Volterra_%28dettaglio%29.jpg',
   },
   {
     id: 'caravaggio',
@@ -2358,6 +2556,7 @@ const _baseEntities: Entity[] = [
     description: 'The most revolutionary painter of the Baroque era, who invented dramatic chiaroscuro lighting. Also a violent street brawler who killed a man, fled Rome with a death sentence, and died at 38 under mysterious circumstances.',
     canonicalStoryId: 'caravaggio-biography',
     wikipediaSlug: 'Caravaggio',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bild-Ottavio_Leoni%2C_Caravaggio.jpg/330px-Bild-Ottavio_Leoni%2C_Caravaggio.jpg',
   },
   {
     id: 'victor-hugo',
@@ -2367,6 +2566,7 @@ const _baseEntities: Entity[] = [
     description: 'The author of Les Misérables and The Hunchback of Notre-Dame, and France\'s most consequential literary figure. Also a politician, senator, and champion of the poor. Two million people attended his funeral.',
     canonicalStoryId: 'victor-hugo-biography',
     wikipediaSlug: 'Victor_Hugo',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Victor_Hugo_by_%C3%89tienne_Carjat_1876_-_full.jpg/330px-Victor_Hugo_by_%C3%89tienne_Carjat_1876_-_full.jpg',
   },
   {
     id: 'marie-antoinette',
@@ -2376,6 +2576,7 @@ const _baseEntities: Entity[] = [
     description: 'The Austrian-born Queen of France who became the symbol of royal excess during the Revolution. She probably never said "let them eat cake." She was 37 when the guillotine fell.',
     canonicalStoryId: 'french-revolution-paris',
     wikipediaSlug: 'Marie_Antoinette',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Marie-Antoinette%2C_1775_-_Mus%C3%A9e_Antoine_L%C3%A9cuyer.jpg/330px-Marie-Antoinette%2C_1775_-_Mus%C3%A9e_Antoine_L%C3%A9cuyer.jpg',
   },
   {
     id: 'charles-de-gaulle',
@@ -2385,6 +2586,7 @@ const _baseEntities: Entity[] = [
     description: 'The leader of Free France during WWII who walked down the Champs-Élysées under sniper fire, then dominated French politics for three decades as the founder and first president of the Fifth Republic.',
     canonicalStoryId: 'charles-de-gaulle-biography',
     wikipediaSlug: 'Charles_de_Gaulle',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/De_Gaulle-OWI.jpg/330px-De_Gaulle-OWI.jpg',
   },
   {
     id: 'tokugawa-ieyasu',
@@ -2393,6 +2595,7 @@ const _baseEntities: Entity[] = [
     years: '1543–1616',
     description: 'The warlord who unified Japan after a century of civil war and established the Tokugawa shogunate, which ruled for 265 years of peace. The patient strategist who let his rivals destroy each other, then built the world\'s largest city.',
     wikipediaSlug: 'Tokugawa_Ieyasu',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Tokugawa_Ieyasu2.JPG/330px-Tokugawa_Ieyasu2.JPG',
   },
   {
     id: 'yukio-mishima',
@@ -2402,6 +2605,7 @@ const _baseEntities: Entity[] = [
     description: 'Japan\'s most celebrated postwar novelist, three-time Nobel Prize nominee, bodybuilder, actor, and ultranationalist who committed ritual seppuku on live television after a failed coup attempt at age 45.',
     canonicalStoryId: 'yukio-mishima-biography',
     wikipediaSlug: 'Yukio_Mishima',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Yukio_Mishima%2C_1955_%28cropped_850%C3%97950_px%29.jpg/330px-Yukio_Mishima%2C_1955_%28cropped_850%C3%97950_px%29.jpg',
   },
   {
     id: 'cleopatra',
@@ -2411,6 +2615,7 @@ const _baseEntities: Entity[] = [
     description: 'The last pharaoh of Egypt, lover of Julius Caesar and Mark Antony. Spoke nine languages, ruled for 21 years, and chose suicide over Roman captivity. Her death ended 3,000 years of pharaonic civilization.',
     canonicalStoryId: 'cleopatra-biography',
     wikipediaSlug: 'Cleopatra',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Kleopatra-VII.-Altes-Museum-Berlin1.jpg/330px-Kleopatra-VII.-Altes-Museum-Berlin1.jpg',
   },
   {
     id: 'charles-darwin',
@@ -2420,6 +2625,7 @@ const _baseEntities: Entity[] = [
     description: 'The naturalist who explained evolution by natural selection in On the Origin of Species (1859). His five-week visit to the Galápagos at age 26 planted the seed. He delayed publishing for twenty years, fearing the implications.',
     canonicalStoryId: 'charles-darwin-biography',
     wikipediaSlug: 'Charles_Darwin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Charles_Darwin_seated_crop.jpg/330px-Charles_Darwin_seated_crop.jpg',
   },
   {
     id: 'beethoven',
@@ -2429,6 +2635,7 @@ const _baseEntities: Entity[] = [
     description: 'Composed his late string quartets and the Ninth Symphony after going completely deaf. Bridged the Classical and Romantic eras and redefined what a symphony could be. His funeral drew 20,000 mourners in Vienna.',
     canonicalStoryId: 'beethoven-biography',
     wikipediaSlug: 'Ludwig_van_Beethoven',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg/330px-Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg',
   },
   {
     id: 'karl-marx',
@@ -2438,6 +2645,7 @@ const _baseEntities: Entity[] = [
     description: 'The philosopher and economist whose Das Kapital and The Communist Manifesto became the intellectual foundation for revolutions across the globe. Lived in poverty in London while writing about the overthrow of capitalism.',
     canonicalStoryId: 'karl-marx-biography',
     wikipediaSlug: 'Karl_Marx',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png/330px-Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png',
   },
   {
     id: 'martin-luther',
@@ -2447,6 +2655,7 @@ const _baseEntities: Entity[] = [
     description: 'The Augustinian monk whose 95 Theses launched the Protestant Reformation, permanently splitting Western Christianity. His German Bible translation helped standardize the German language.',
     canonicalStoryId: 'martin-luther-biography',
     wikipediaSlug: 'Martin_Luther',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Lucas_Cranach_d.%C3%84._-_Martin_Luther%2C_1528_%28Veste_Coburg%29.jpg/330px-Lucas_Cranach_d.%C3%84._-_Martin_Luther%2C_1528_%28Veste_Coburg%29.jpg',
   },
   {
     id: 'pablo-picasso',
@@ -2456,6 +2665,7 @@ const _baseEntities: Entity[] = [
     description: 'Spanish painter who co-founded Cubism and produced over 50,000 works across seven decades. Painted Guernica in response to the Nazi bombing of a Basque town. It hangs in Madrid\'s Reina Sofia and cannot leave Spain.',
     canonicalStoryId: 'pablo-picasso-biography',
     wikipediaSlug: 'Pablo_Picasso',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Pablo_picasso_1.jpg/330px-Pablo_picasso_1.jpg',
   },
   {
     id: 'ernest-hemingway',
@@ -2465,6 +2675,7 @@ const _baseEntities: Entity[] = [
     description: 'War correspondent, big-game hunter, and Nobel laureate who stripped American prose down to its bones. Survived two plane crashes in Africa, wrote The Old Man and the Sea, and shot himself in Idaho at 61.',
     canonicalStoryId: 'ernest-hemingway-biography',
     wikipediaSlug: 'Ernest_Hemingway',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/ErnestHemingway.jpg/330px-ErnestHemingway.jpg',
   },
   {
     id: 'mark-twain',
@@ -2474,6 +2685,7 @@ const _baseEntities: Entity[] = [
     description: 'America\'s greatest humorist and the voice of the Mississippi River. Adventures of Huckleberry Finn is considered the first great American novel — a book that made the vernacular of ordinary people into literature.',
     canonicalStoryId: 'mark-twain-biography',
     wikipediaSlug: 'Mark_Twain',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mark_Twain_by_AF_Bradley.jpg/330px-Mark_Twain_by_AF_Bradley.jpg',
   },
   {
     id: 'oscar-wilde',
@@ -2483,6 +2695,7 @@ const _baseEntities: Entity[] = [
     description: 'Ireland\'s wittiest writer, whose plays, poems, and novel (The Picture of Dorian Gray) made him the toast of London. Imprisoned for homosexuality, he died penniless in Paris at 46.',
     canonicalStoryId: 'oscar-wilde-biography',
     wikipediaSlug: 'Oscar_Wilde',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph%2C_seated.jpg/330px-Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph%2C_seated.jpg',
   },
   {
     id: 'leonidas',
@@ -2491,6 +2704,7 @@ const _baseEntities: Entity[] = [
     years: 'c. 540–480 BCE',
     description: 'King of Sparta who led the rearguard at Thermopylae, choosing certain death to buy the Greek alliance time to regroup. His epitaph — "Go tell the Spartans that here we lie, obedient to their laws" — became the most famous memorial in Western military history.',
     wikipediaSlug: 'Leonidas_I',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Helmed_Hoplite_Sparta.JPG/330px-Helmed_Hoplite_Sparta.JPG',
   },
   {
     id: 'charles-dickens',
@@ -2500,6 +2714,7 @@ const _baseEntities: Entity[] = [
     description: 'Victorian novelist who reinvented Christmas with A Christmas Carol and exposed child labor in Oliver Twist. Published his novels in weekly serial installments that caused public crowds at the docks awaiting shipments from England.',
     canonicalStoryId: 'charles-dickens-biography',
     wikipediaSlug: 'Charles_Dickens',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Dickens_Gurney_head.jpg/330px-Dickens_Gurney_head.jpg',
   },
   {
     id: 'florence-nightingale',
@@ -2509,6 +2724,7 @@ const _baseEntities: Entity[] = [
     description: 'The founder of modern nursing who used statistics to prove that sanitation saved more lives than medicine. Reduced the death rate at Scutari from 42% to 2%. Also a pioneering data visualization expert.',
     canonicalStoryId: 'florence-nightingale-biography',
     wikipediaSlug: 'Florence_Nightingale',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Florence_Nightingale_%28H_Hering_NPG_x82368%29.jpg/330px-Florence_Nightingale_%28H_Hering_NPG_x82368%29.jpg',
   },
   {
     id: 'sigmund-freud',
@@ -2518,6 +2734,7 @@ const _baseEntities: Entity[] = [
     description: 'The father of psychoanalysis who introduced the concepts of the unconscious mind, the id/ego/superego, and the Oedipus complex. His ideas pervaded 20th-century culture even as many were later challenged by science.',
     canonicalStoryId: 'sigmund-freud-biography',
     wikipediaSlug: 'Sigmund_Freud',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Sigmund_Freud%2C_by_Max_Halberstadt_%28cropped%29.jpg/330px-Sigmund_Freud%2C_by_Max_Halberstadt_%28cropped%29.jpg',
   },
   {
     id: 'joan-of-arc',
@@ -2527,6 +2744,7 @@ const _baseEntities: Entity[] = [
     description: 'The illiterate French peasant girl who claimed divine voices told her to save France. At 17 she convinced a king to give her an army. She lifted the siege of Orléans, turned the Hundred Years\' War, and was burned at the stake at 19. Canonized as a saint in 1920.',
     canonicalStoryId: 'joan-of-arc-biography',
     wikipediaSlug: 'Joan_of_Arc',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Joan_of_Arc_miniature_graded.jpg/330px-Joan_of_Arc_miniature_graded.jpg',
   },
   {
     id: 'johannes-gutenberg',
@@ -2536,6 +2754,7 @@ const _baseEntities: Entity[] = [
     description: 'The German goldsmith who invented the movable-type printing press around 1440, making books affordable and launching the information revolution. Died in poverty after losing his press in a lawsuit.',
     canonicalStoryId: 'johannes-gutenberg-biography',
     wikipediaSlug: 'Johannes_Gutenberg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Mainz_Gutenbergdenkmal_2016_%28cropped%29.jpg/330px-Mainz_Gutenbergdenkmal_2016_%28cropped%29.jpg',
   },
   {
     id: 'nikola-tesla',
@@ -2545,6 +2764,7 @@ const _baseEntities: Entity[] = [
     description: 'The Serbian-American inventor who created the AC electrical system that powers the modern world, held over 300 patents, and envisioned wireless energy transmission. Died alone in a New York hotel room.',
     canonicalStoryId: 'nikola-tesla-biography',
     wikipediaSlug: 'Nikola_Tesla',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Tesla_circa_1890.jpeg/330px-Tesla_circa_1890.jpeg',
   },
   {
     id: 'copernicus',
@@ -2554,6 +2774,7 @@ const _baseEntities: Entity[] = [
     description: 'The Polish astronomer who proposed the heliocentric model — placing the Sun, not Earth, at the center of the solar system. Published his theory on his deathbed in 1543, launching the Scientific Revolution.',
     canonicalStoryId: 'copernicus-biography',
     wikipediaSlug: 'Nicolaus_Copernicus',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Nikolaus_Kopernikus_MOT.jpg/330px-Nikolaus_Kopernikus_MOT.jpg',
   },
   {
     id: 'alexander-hamilton',
@@ -2563,6 +2784,7 @@ const _baseEntities: Entity[] = [
     description: 'The first Secretary of the Treasury, author of the Federalist Papers, and architect of American financial institutions. Shot and killed in a duel by Vice President Aaron Burr at age 47 (or 49).',
     canonicalStoryId: 'alexander-hamilton-biography',
     wikipediaSlug: 'Alexander_Hamilton',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/John_Trumbull_-_Alexander_Hamilton_-_Google_Art_Project.jpg/330px-John_Trumbull_-_Alexander_Hamilton_-_Google_Art_Project.jpg',
   },
   {
     id: 'louis-pasteur',
@@ -2572,6 +2794,7 @@ const _baseEntities: Entity[] = [
     description: 'French chemist who proved germ theory, invented pasteurization, and developed the first vaccines for rabies and anthrax. His work laid the foundation for microbiology and made surgery survivable.',
     canonicalStoryId: 'louis-pasteur-biography',
     wikipediaSlug: 'Louis_Pasteur',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Louis_Pasteur%2C_foto_av_Paul_Nadar%2C_Crisco_edit.jpg/330px-Louis_Pasteur%2C_foto_av_Paul_Nadar%2C_Crisco_edit.jpg',
   },
   {
     id: 'moctezuma-ii',
@@ -2581,6 +2804,7 @@ const _baseEntities: Entity[] = [
     description: 'The ninth Aztec emperor who ruled five to six million people from an island capital and died during the Spanish occupation — whether killed by his own people or by the Spanish remains one of history\'s unsolved questions.',
     canonicalStoryId: 'fall-of-tenochtitlan',
     wikipediaSlug: 'Moctezuma_II',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Moctezuma_Mendoza.jpg/330px-Moctezuma_Mendoza.jpg',
   },
   {
     id: 'juan-diego',
@@ -2590,6 +2814,7 @@ const _baseEntities: Entity[] = [
     description: 'Indigenous Aztec convert who reported four apparitions of the Virgin Mary on Tepeyac Hill and was canonized in 2002 as the first indigenous saint of the Americas.',
     canonicalStoryId: 'virgin-of-guadalupe',
     wikipediaSlug: 'Juan_Diego',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/MIguel_Cabrera_-_Fiel_retrato_do_vener%C3%A1vel_Juan_Diego.jpg/330px-MIguel_Cabrera_-_Fiel_retrato_do_vener%C3%A1vel_Juan_Diego.jpg',
   },
   {
     id: 'richard-wagner',
@@ -2599,6 +2824,7 @@ const _baseEntities: Entity[] = [
     description: 'The composer who built his own opera house to stage his vision. German creator of epic music dramas including the 15-hour Ring cycle, Wagner revolutionized opera with leitmotifs and the concept of the Gesamtkunstwerk. His antisemitic writings remain deeply controversial. He fled Germany as a revolutionary fugitive, was rescued from poverty by a Bavarian king, and died in Venice.',
     canonicalStoryId: 'richard-wagner-biography',
     wikipediaSlug: 'Richard_Wagner',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/RichardWagner.jpg/330px-RichardWagner.jpg',
   },
   {
     id: 'dennis-hopper',
@@ -2608,6 +2834,7 @@ const _baseEntities: Entity[] = [
     description: 'Actor, director, and photographer who co-created Easy Rider (1969), the road movie that launched New Hollywood. A volatile talent blacklisted by studios for a decade, he resurrected his career playing the villain in Blue Velvet and died in Venice, California at 74.',
     canonicalStoryId: 'dennis-hopper-biography',
     wikipediaSlug: 'Dennis_Hopper',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Dennis_Hopper_Cannes_2008_%28cropped%29.jpg',
   },
   {
     id: 'james-cook',
@@ -2616,6 +2843,7 @@ const _baseEntities: Entity[] = [
     years: '1728–1779',
     description: 'The farm boy who mapped more of Earth than anyone before him. A coal-ship apprentice from Yorkshire who turned down a captaincy to join the Royal Navy, Cook led three Pacific voyages that charted New Zealand, eastern Australia, Hawaii, and Antarctica\'s edge. He was killed in Hawaii at 50 during a dispute over a stolen boat.',
     wikipediaSlug: 'James_Cook',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Captainjamescookportrait.jpg/330px-Captainjamescookportrait.jpg',
   },
   {
     id: 'sappho',
@@ -2625,6 +2853,7 @@ const _baseEntities: Entity[] = [
     description: 'The poet who gave her name to female desire. Ancient Greeks called her the Tenth Muse and The Poetess. Of roughly 10,000 lines she composed, only about 650 survive, mostly in fragments. The words \'sapphic\' and \'lesbian\' both derive from her name and her island home of Lesbos.',
     canonicalStoryId: 'sappho-biography',
     wikipediaSlug: 'Sappho',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Malarz_Safony_-_Kalpis_wykonana_technik%C4%85_Six.jpg/330px-Malarz_Safony_-_Kalpis_wykonana_technik%C4%85_Six.jpg',
   },
   {
     id: 'vladimir-putin',
@@ -2634,6 +2863,7 @@ const _baseEntities: Entity[] = [
     description: 'The KGB spy who became Russia\'s modern tsar. A former intelligence officer in Dresden who rose through Saint Petersburg politics to seize the Russian presidency in 2000, Putin has ruled as an increasingly authoritarian leader for over two decades, launching wars in Chechnya, Georgia, and Ukraine.',
     canonicalStoryId: 'vladimir-putin-biography',
     wikipediaSlug: 'Vladimir_Putin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2808-03-2024%29_%28cropped%29_%28higher_res%29.jpg/330px-%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2808-03-2024%29_%28cropped%29_%28higher_res%29.jpg',
   },
   {
     id: 'thomas-jefferson',
@@ -2643,6 +2873,7 @@ const _baseEntities: Entity[] = [
     description: 'The man who wrote "all men are created equal" while owning 600 slaves. Third U.S. president, principal author of the Declaration of Independence, founder of the University of Virginia, and architect of the Louisiana Purchase that doubled America\'s size. Died on July 4, 1826 — the 50th anniversary of the Declaration.',
     canonicalStoryId: 'thomas-jefferson-biography',
     wikipediaSlug: 'Thomas_Jefferson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29.jpg/330px-Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29.jpg',
   },
   {
     id: 'john-adams',
@@ -2652,6 +2883,7 @@ const _baseEntities: Entity[] = [
     description: 'The lawyer who defended British soldiers, then led American independence. John Adams risked his reputation to give the Boston Massacre soldiers a fair trial, co-drafted the Declaration of Independence, and became America\'s second president. He died on the Fourth of July, exactly 50 years after the Declaration was adopted — the same day as Thomas Jefferson.',
     canonicalStoryId: 'john-adams-biography',
     wikipediaSlug: 'John_Adams',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/John_Adams_Portrait.jpg/330px-John_Adams_Portrait.jpg',
   },
 
   // ─── Titanic entities ──────────────────────────────────────────────
@@ -2679,6 +2911,7 @@ const _baseEntities: Entity[] = [
     description: "The lookout who spotted the iceberg that sank Titanic. Fleet rang the bell three times and phoned the bridge, but without binoculars — locked in a cabinet whose key was left ashore — he saw it too late. He survived the sinking and later hanged himself at 77.",
     canonicalStoryId: 'frederick-fleet-biography',
     wikipediaSlug: 'Frederick_Fleet',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/FrederickFleet.April1912.jpg/330px-FrederickFleet.April1912.jpg',
   },
 
   // ─── Vesuvius entities ─────────────────────────────────────────────
@@ -2698,6 +2931,7 @@ const _baseEntities: Entity[] = [
     description: "Roman admiral who sailed toward a volcano and died. Author of the 37-volume Natural History — the ancient world's encyclopedia — Pliny commanded the fleet at Misenum and launched a rescue mission during the eruption of Vesuvius. He collapsed from volcanic gas on the beach at Stabiae.",
     canonicalStoryId: 'pliny-the-elder-biography',
     wikipediaSlug: 'Pliny_the_Elder',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Grande_Illustrazione_del_Lombardo_Veneto_Vol_3_Plinio_Secondo_300dpi.jpg/330px-Grande_Illustrazione_del_Lombardo_Veneto_Vol_3_Plinio_Secondo_300dpi.jpg',
   },
   {
     id: 'pliny-the-younger',
@@ -2707,6 +2941,7 @@ const _baseEntities: Entity[] = [
     description: "The 17-year-old who wrote the only eyewitness account of Vesuvius's eruption. Pliny's two letters to Tacitus describing the 79 AD disaster gave volcanology its founding text and the word 'Plinian' its meaning. He later served as a Roman senator and governor of Bithynia.",
     canonicalStoryId: 'pliny-the-younger-biography',
     wikipediaSlug: 'Pliny_the_Younger',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Pliny_the_Younger_and_his_Mother_at_Misenum%2C_79_A.D.%2C_by_Angelica_Kauffmann%2C_English%2C_1785%2C_oil_on_canvas_-_Princeton_University_Art_Museum_-_DSC06494_%28cropped%29.jpg/330px-thumbnail.jpg',
   },
 
   // ─── Apollo 11 entities ────────────────────────────────────────────
@@ -2718,6 +2953,7 @@ const _baseEntities: Entity[] = [
     description: "First human to walk on the Moon, and the quietest hero of the Space Age. A Korean War combat pilot and test pilot who flew the X-15 to the edge of space, Armstrong commanded Apollo 11 at 38. He gave almost no interviews afterward and lived on a farm in Ohio.",
     canonicalStoryId: 'neil-armstrong-biography',
     wikipediaSlug: 'Neil_Armstrong',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Neil_Armstrong_pose.jpg/330px-Neil_Armstrong_pose.jpg',
   },
   {
     id: 'buzz-aldrin',
@@ -2727,6 +2963,7 @@ const _baseEntities: Entity[] = [
     description: "Second human to walk on the Moon and the first to take Communion there. An MIT-educated fighter pilot who flew 66 combat missions in Korea, Aldrin followed Armstrong down Eagle's ladder and later struggled publicly with depression and alcoholism. He punched a conspiracy theorist on camera at 72.",
     canonicalStoryId: 'buzz-aldrin-biography',
     wikipediaSlug: 'Buzz_Aldrin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Buzz_Aldrin.jpg/330px-Buzz_Aldrin.jpg',
   },
   {
     id: 'michael-collins-astronaut',
@@ -2736,6 +2973,7 @@ const _baseEntities: Entity[] = [
     description: "The loneliest man in history — he orbited the Moon alone while Armstrong and Aldrin walked on it. Collins piloted the command module Columbia for 21.5 hours of solo flight, out of radio contact with Earth for 48 minutes per orbit. He never walked on the Moon and said he never minded.",
     canonicalStoryId: 'michael-collins-astronaut-biography',
     wikipediaSlug: 'Michael_Collins_(astronaut)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Michael_Collins_%28S69-31742%2C_restoration%29.jpg/330px-Michael_Collins_%28S69-31742%2C_restoration%29.jpg',
   },
 
   // ─── Chernobyl entities ────────────────────────────────────────────
@@ -2757,6 +2995,7 @@ const _baseEntities: Entity[] = [
     description: "The teenager who bled to death at the Berlin Wall while the world watched. An 18-year-old East Berlin bricklayer, Fechter was shot trying to cross and lay dying in the death strip for nearly an hour. His death became a symbol of the Wall's brutality.",
     canonicalStoryId: 'peter-fechter-biography',
     wikipediaSlug: 'Peter_Fechter',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Peter_Fechter.jpg/330px-Peter_Fechter.jpg',
   },
   {
     id: 'gunter-schabowski',
@@ -2766,6 +3005,7 @@ const _baseEntities: Entity[] = [
     description: "The bureaucrat who accidentally opened the Berlin Wall. Poorly briefed on a new travel policy, Schabowski told reporters at a press conference that the border was open \"immediately, without delay.\" His fumbled answer triggered the end of the Cold War's most visible symbol.",
     canonicalStoryId: 'gunter-schabowski-biography',
     wikipediaSlug: 'G\u00fcnter_Schabowski',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Bundesarchiv_Bild_183-1982-0504-421%2C_G%C3%BCnter_Schabowski.jpg/330px-Bundesarchiv_Bild_183-1982-0504-421%2C_G%C3%BCnter_Schabowski.jpg',
   },
 
   // ─── Tutankhamun entities ──────────────────────────────────────────
@@ -2777,6 +3017,7 @@ const _baseEntities: Entity[] = [
     description: "The archaeologist who found the most intact pharaoh's tomb ever opened. Self-taught and temperamental, Carter spent six frustrating seasons in the Valley of the Kings before his water boy found a stone step. He spent the next 10 years cataloguing 5,398 objects from four cramped rooms.",
     canonicalStoryId: 'howard-carter-biography',
     wikipediaSlug: 'Howard_Carter',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Howard_carter.jpg/330px-Howard_carter.jpg',
   },
   {
     id: 'lord-carnarvon',
@@ -2786,6 +3027,7 @@ const _baseEntities: Entity[] = [
     description: "The aristocrat whose money funded the discovery of Tutankhamun's tomb — and whose death launched the curse myth. George Herbert, 5th Earl of Carnarvon, financed Howard Carter's excavations for six years. He died five months after the tomb opened, from an infected mosquito bite.",
     canonicalStoryId: 'lord-carnarvon-biography',
     wikipediaSlug: 'George_Herbert,_5th_Earl_of_Carnarvon',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/George_Herbert%2C_5th_Earl_of_Carnarvon%2C_reading_%28cropped%29.jpg/330px-George_Herbert%2C_5th_Earl_of_Carnarvon%2C_reading_%28cropped%29.jpg',
   },
 
   // ─── Trail of Tears entities ───────────────────────────────────────
@@ -2797,6 +3039,7 @@ const _baseEntities: Entity[] = [
     description: "The president who signed the Indian Removal Act and forced 60,000 Native Americans from their land. A frontier war hero who killed a man in a duel, Jackson won the presidency as a populist outsider. His face is on the $20 bill; his legacy is the Trail of Tears.",
     canonicalStoryId: 'andrew-jackson-biography',
     wikipediaSlug: 'Andrew_Jackson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Andrew_jackson_head_%28cropped%29.jpg/330px-Andrew_jackson_head_%28cropped%29.jpg',
   },
 
   // ─── Great Pyramid entities ────────────────────────────────────────
@@ -2808,6 +3051,7 @@ const _baseEntities: Entity[] = [
     description: "The pharaoh who built the largest pyramid ever constructed. Khufu (Cheops in Greek) ruled Egypt for roughly 23 years during the Fourth Dynasty. Almost nothing is known about his life — the only surviving likeness is a 3-inch ivory figurine, the smallest royal sculpture from ancient Egypt.",
     canonicalStoryId: 'khufu-biography',
     wikipediaSlug: 'Khufu',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Statue_of_Khufu_in_the_Cairo_Egyptian_Museum.jpg/330px-Statue_of_Khufu_in_the_Cairo_Egyptian_Museum.jpg',
   },
   {
     id: 'khafre',
@@ -2817,6 +3061,7 @@ const _baseEntities: Entity[] = [
     description: "The pharaoh whose face may be the Great Sphinx. Khafre built the second-largest pyramid at Giza and is widely credited with commissioning the Sphinx, which appears to bear his likeness. His mortuary complex is the best-preserved of the three Giza kings.",
     canonicalStoryId: 'khafre-biography',
     wikipediaSlug: 'Khafre',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Khafre_statue.jpg/330px-Khafre_statue.jpg',
   },
 
   // ─── Rwandan Genocide entities ─────────────────────────────────────
@@ -2828,6 +3073,7 @@ const _baseEntities: Entity[] = [
     description: "The hotel manager who sheltered 1,268 people during the Rwandan genocide. Rusesabagina used the Hotel des Mille Collines as a sanctuary, bribing militia with liquor and calling foreign contacts. He received the Presidential Medal of Freedom in 2005, then was controversially imprisoned by Rwanda's government in 2020.",
     canonicalStoryId: 'paul-rusesabagina-biography',
     wikipediaSlug: 'Paul_Rusesabagina',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Paul_Rusesabagina.jpg',
   },
   {
     id: 'paul-kagame',
@@ -2837,6 +3083,7 @@ const _baseEntities: Entity[] = [
     description: "The rebel commander who ended the Rwandan genocide and has ruled Rwanda since. Kagame led the RPF's military campaign from Uganda, captured Kigali in July 1994, and became president in 2000. He rebuilt Rwanda into Africa's fastest-growing economy while facing criticism for authoritarian rule and suppression of dissent.",
     canonicalStoryId: 'paul-kagame-biography',
     wikipediaSlug: 'Paul_Kagame',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Paul_Kagame_2024_%28cropped%29.jpg/330px-Paul_Kagame_2024_%28cropped%29.jpg',
   },
   {
     id: 'hadrian',
@@ -2846,6 +3093,7 @@ const _baseEntities: Entity[] = [
     description: 'The emperor who built walls at both ends of the world. Hadrian spent half his reign traveling every province of the Roman Empire, built the Pantheon as it stands today, and constructed the wall across Britain that bears his name. He designed his own tomb, which became Castel Sant\'Angelo.',
     canonicalStoryId: 'rise-fall-rome',
     wikipediaSlug: 'Hadrian',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/M%C3%BCnchen_SMAEK_2019-03-23n.jpg/330px-M%C3%BCnchen_SMAEK_2019-03-23n.jpg',
   },
   {
     id: 'bernini',
@@ -2855,6 +3103,7 @@ const _baseEntities: Entity[] = [
     description: 'The sculptor who shaped Baroque Rome more than any other person. Bernini carved the Ecstasy of Saint Teresa at 52, designed St. Peter\'s Square at 58, and completed over 80 commissions for eight popes across a 60-year career. He barely left Rome his entire life.',
     canonicalStoryId: 'baroque-rome',
     wikipediaSlug: 'Gian_Lorenzo_Bernini',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Gian_Lorenzo_Bernini%2C_self-portrait%2C_c1623.jpg/330px-Gian_Lorenzo_Bernini%2C_self-portrait%2C_c1623.jpg',
   },
   {
     id: 'giuseppe-garibaldi',
@@ -2864,6 +3113,7 @@ const _baseEntities: Entity[] = [
     description: 'The guerrilla general who handed a king an entire country. Garibaldi conquered Sicily and Naples with a thousand red-shirted volunteers, then surrendered it all to Victor Emmanuel II. He refused titles, land, and money, and retired to a farm on a small island.',
     canonicalStoryId: 'italian-unification',
     wikipediaSlug: 'Giuseppe_Garibaldi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Garibaldi_%281866%29.jpg/330px-Garibaldi_%281866%29.jpg',
   },
   {
     id: 'federico-fellini',
@@ -2873,6 +3123,7 @@ const _baseEntities: Entity[] = [
     description: 'The director who made Rome a state of mind. Fellini won four Best Foreign Language Film Oscars and gave the world "paparazzi" (from a character in La Dolce Vita). He refused to shoot on location, building his own Rome inside Cinecitta studios.',
     canonicalStoryId: 'modern-rome',
     wikipediaSlug: 'Federico_Fellini',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Federico_Fellini_NYWTS_2.jpg/330px-Federico_Fellini_NYWTS_2.jpg',
   },
   {
     id: 'pope-julius-ii',
@@ -2882,6 +3133,7 @@ const _baseEntities: Entity[] = [
     description: 'The warrior pope who commissioned the Sistine Chapel ceiling and the new St. Peter\'s Basilica. Julius II personally led armies in battle, terrified Michelangelo into accepting the ceiling commission, and hired Bramante and Raphael to rebuild the Vatican. He died before any of it was finished.',
     canonicalStoryId: 'baroque-rome',
     wikipediaSlug: 'Pope_Julius_II',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Pope_Julius_II.jpg/330px-Pope_Julius_II.jpg',
   },
   {
     id: 'vittorio-emanuele-ii',
@@ -2891,6 +3143,7 @@ const _baseEntities: Entity[] = [
     description: 'The first king of unified Italy. Victor Emmanuel II leveraged Cavour\'s diplomacy and Garibaldi\'s conquests to unite a peninsula that had been fragmented for 1,400 years. His tomb dominates the Pantheon; his monument dominates the Roman skyline.',
     canonicalStoryId: 'italian-unification',
     wikipediaSlug: 'Victor_Emmanuel_II',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/VictorEmmanuel2.jpg/330px-VictorEmmanuel2.jpg',
   },
   {
     id: 'giordano-bruno',
@@ -2900,6 +3153,7 @@ const _baseEntities: Entity[] = [
     description: 'The friar who said the universe was infinite and burned for it. Bruno proposed that stars were distant suns with their own planets, rejected the Trinity, and wandered Europe for 16 years before the Inquisition lured him back to Italy and burned him alive in a Roman square.',
     canonicalStoryId: 'baroque-rome',
     wikipediaSlug: 'Giordano_Bruno',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Portrait_of_Giordano_Bruno_in_%22Opere%22_Wellcome_L0015152_%28cropped%29.jpg/330px-Portrait_of_Giordano_Bruno_in_%22Opere%22_Wellcome_L0015152_%28cropped%29.jpg',
   },
   {
     id: 'valentino-garavani',
@@ -2909,6 +3163,7 @@ const _baseEntities: Entity[] = [
     description: 'The couturier who dressed Jackie Kennedy, Elizabeth Taylor, and half of European royalty in his signature red. Valentino opened his first atelier on Via Condotti at 27, built a fashion empire from Rome rather than Paris, and defined Italian alta moda for half a century.',
     canonicalStoryId: 'modern-rome',
     wikipediaSlug: 'Valentino_(fashion_designer)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Valentino_%28cropped%29.jpg',
   },
   {
     id: 'cinecitta-studios',
@@ -2927,6 +3182,7 @@ const _baseEntities: Entity[] = [
     description: "Hunkpapa Lakota holy man who united the Sioux for the largest Native victory over the U.S. Army, then toured with Buffalo Bill's Wild West show before being shot dead by Indian police on the Standing Rock Reservation.",
     canonicalStoryId: 'sitting-bull-biography',
     wikipediaSlug: 'Sitting_Bull',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Sitting_Bull_by_D_F_Barry_ca_1883_Dakota_Territory.jpg/330px-Sitting_Bull_by_D_F_Barry_ca_1883_Dakota_Territory.jpg',
   },
   {
     id: 'tecumseh',
@@ -2936,6 +3192,7 @@ const _baseEntities: Entity[] = [
     description: "Shawnee war chief who built the largest Native confederation in American history to stop U.S. westward expansion. Killed at the Battle of the Thames in Ontario, his death shattered the alliance and opened the Midwest to settlement.",
     canonicalStoryId: 'tecumsehs-war',
     wikipediaSlug: 'Tecumseh',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Tecumseh02.jpg/330px-Tecumseh02.jpg',
   },
   {
     id: 'pachacuti',
@@ -2945,6 +3202,7 @@ const _baseEntities: Entity[] = [
     description: "Inca emperor who transformed a small Andean kingdom into the largest empire in pre-Columbian America, stretching 2,500 miles from Ecuador to Chile. Built Machu Picchu as a royal estate and reshaped Cusco into the capital of Tawantinsuyu.",
     canonicalStoryId: 'pachacuti-biography',
     wikipediaSlug: 'Pachacuti',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Brooklyn_Museum_-_Pachacuti%2C_Tenth_Inca%2C_1_of_14_Portraits_of_Inca_Kings_%28cropped%29.jpg/330px-Brooklyn_Museum_-_Pachacuti%2C_Tenth_Inca%2C_1_of_14_Portraits_of_Inca_Kings_%28cropped%29.jpg',
   },
   {
     id: 'cahokia',
@@ -2980,6 +3238,7 @@ const _baseEntities: Entity[] = [
     description: 'The writer who invented the "nonfiction novel" and destroyed himself doing it. His six-year immersion in the Clutter murder case produced In Cold Blood (1966), the best-selling true crime book ever written. He never completed another book, dying in 1984 of liver failure from alcoholism and drug abuse.',
     canonicalStoryId: 'truman-capote-biography',
     wikipediaSlug: 'Truman_Capote',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Truman_Capote_by_Jack_Mitchell.jpg/330px-Truman_Capote_by_Jack_Mitchell.jpg',
   },
   {
     id: 'perry-smith',
@@ -2989,6 +3248,7 @@ const _baseEntities: Entity[] = [
     description: 'Half-Cherokee drifter who murdered four members of the Clutter family in Holcomb, Kansas on 15 November 1959. A talented artist and autodidact with a brutal childhood, he became the emotional center of Capote\'s In Cold Blood. Hanged at age 36 in 1965.',
     canonicalStoryId: 'in-cold-blood',
     wikipediaSlug: 'Perry_Smith_(murderer)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Perry_Smith_at_car_in_1960_%28cropped%29.jpg/330px-Perry_Smith_at_car_in_1960_%28cropped%29.jpg',
   },
   {
     id: 'dick-hickock',
@@ -2998,6 +3258,7 @@ const _baseEntities: Entity[] = [
     description: 'Perry Smith\'s accomplice in the Clutter family murders. A high school football star turned petty criminal, Hickock masterminded the robbery based on a prison cellmate\'s tip about a safe that did not exist. Hanged alongside Smith on 14 April 1965 in Lansing, Kansas.',
     canonicalStoryId: 'in-cold-blood',
     wikipediaSlug: 'Richard_Hickock',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Richard_Hickock_at_car_in_1960_%28cropped%29.jpg/330px-Richard_Hickock_at_car_in_1960_%28cropped%29.jpg',
   },
   {
     id: 'harper-lee',
@@ -3007,6 +3268,7 @@ const _baseEntities: Entity[] = [
     description: 'The author of To Kill a Mockingbird who served as Truman Capote\'s research partner in Holcomb, Kansas. Her childhood friendship with Capote — she was the model for Dill in her novel — gave her access to suspicious townspeople that Capote alone could never have gained. She published one more novel and died in 2016.',
     canonicalStoryId: 'harper-lee-biography',
     wikipediaSlug: 'Harper_Lee',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Photo_portrait_of_Harper_Lee_%28To_Kill_a_Mockingbird_dust_jacket%2C_1960%29.jpg/330px-Photo_portrait_of_Harper_Lee_%28To_Kill_a_Mockingbird_dust_jacket%2C_1960%29.jpg',
   },
 
   // ─── 1996 Everest Disaster ───────────────────────────────────────────
@@ -3018,6 +3280,7 @@ const _baseEntities: Entity[] = [
     description: 'The journalist who survived the 1996 Everest disaster and wrote Into Thin Air, the definitive account. His magazine assignment to report on commercialized mountaineering became an accidental witness narrative when eight people died around him. Later wrote Into the Wild and Under the Banner of Heaven.',
     canonicalStoryId: '1996-everest-disaster',
     wikipediaSlug: 'Jon_Krakauer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Jon_Krakauer_speaking_in_2009.jpg/330px-Jon_Krakauer_speaking_in_2009.jpg',
   },
   {
     id: 'rob-hall',
@@ -3027,6 +3290,7 @@ const _baseEntities: Entity[] = [
     description: 'New Zealand mountaineer who guided 39 clients to the summit of Everest before the 1996 disaster. Considered the gold standard of commercial guiding, he refused to abandon a struggling client near the summit and died at 8,749 meters after a satellite phone call to his pregnant wife. He was 35.',
     canonicalStoryId: '1996-everest-disaster',
     wikipediaSlug: 'Rob_Hall',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/8/85/Rob_Hall_web.jpg',
   },
   {
     id: 'scott-fischer',
@@ -3036,6 +3300,7 @@ const _baseEntities: Entity[] = [
     description: 'American mountaineer who summited Everest without supplemental oxygen in 1994, then died on the same mountain two years later leading a commercial expedition. Collapsed at 8,400 meters on 10 May 1996 and could not be rescued. He was 40.',
     canonicalStoryId: '1996-everest-disaster',
     wikipediaSlug: 'Scott_Fischer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Scott_on_Fang_%28Wes%29_1984_Cropped.jpg/330px-Scott_on_Fang_%28Wes%29_1984_Cropped.jpg',
   },
   {
     id: 'beck-weathers',
@@ -3045,6 +3310,7 @@ const _baseEntities: Entity[] = [
     description: 'Dallas pathologist left for dead twice on Everest at 7,920 meters during the 1996 disaster. After eighteen hours in the open, hypothermic and blind, he stood up and walked into camp. Lost his nose, both hands, and most of his fingers. Returned to medical practice and wrote Left for Dead.',
     canonicalStoryId: '1996-everest-disaster',
     wikipediaSlug: 'Beck_Weathers',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/KSC00pp1583.jpg/330px-KSC00pp1583.jpg',
   },
 
   // ─── The Devil in the White City ─────────────────────────────────────
@@ -3056,6 +3322,7 @@ const _baseEntities: Entity[] = [
     description: 'The architect who built the White City. As director of works for the 1893 World\'s Columbian Exposition, he transformed 600 acres of Chicago swampland into a neoclassical fantasy that drew 27.5 million visitors. Later created the master plans for Chicago, Washington, D.C., and Manila.',
     canonicalStoryId: 'daniel-burnham-biography',
     wikipediaSlug: 'Daniel_Burnham',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Daniel_Hudson_Burnham.png/330px-Daniel_Hudson_Burnham.png',
   },
   {
     id: 'hh-holmes',
@@ -3065,6 +3332,7 @@ const _baseEntities: Entity[] = [
     description: 'America\'s first documented serial killer. Born Herman Webster Mudgett, he built a three-story "Murder Castle" near the 1893 World\'s Fair with soundproofed rooms, gas lines, and a basement kiln. Confessed to 27 murders but the true count is unknown. Hanged in Philadelphia in 1896 at age 34.',
     canonicalStoryId: 'devil-in-the-white-city',
     wikipediaSlug: 'H._H._Holmes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/53/H._H._Holmes.jpg',
   },
   {
     id: 'george-ferris',
@@ -3074,6 +3342,7 @@ const _baseEntities: Entity[] = [
     description: 'The engineer who invented the Ferris wheel. Built the 264-foot original for the 1893 World\'s Columbian Exposition as America\'s answer to the Eiffel Tower. The wheel earned $726,000 in six months. Ferris died bankrupt and largely forgotten three years later at 37, his invention a victim of patent disputes.',
     canonicalStoryId: 'devil-in-the-white-city',
     wikipediaSlug: 'George_Washington_Gale_Ferris_Jr.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/GWFerris.jpg/330px-GWFerris.jpg',
   },
   {
     id: 'frederick-law-olmsted',
@@ -3083,6 +3352,7 @@ const _baseEntities: Entity[] = [
     description: 'The father of American landscape architecture. Designed Central Park, Prospect Park, the Biltmore Estate grounds, and the 1893 World\'s Fair\'s lagoon-and-canal system in Jackson Park. By the time of the Fair he was 71, ill, and losing his memory; it was his last great project.',
     canonicalStoryId: 'frederick-law-olmsted-biography',
     wikipediaSlug: 'Frederick_Law_Olmsted',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Portrait_of_Frederick_Law_Olmsted.jpg/330px-Portrait_of_Frederick_Law_Olmsted.jpg',
   },
   {
     id: 'carter-harrison-sr',
@@ -3092,6 +3362,7 @@ const _baseEntities: Entity[] = [
     description: 'Five-term mayor of Chicago, assassinated in his own doorway on the closing night of the 1893 World\'s Fair. A populist Democrat who had championed the Fair as proof of Chicago\'s world-class status. Shot three times by a disgruntled office-seeker named Patrick Prendergast.',
     canonicalStoryId: 'devil-in-the-white-city',
     wikipediaSlug: 'Carter_Harrison_Sr.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Carter_Harrison%2C_Sr._-_Brady-Handy.jpg/330px-Carter_Harrison%2C_Sr._-_Brady-Handy.jpg',
   },
 
   // ─── The Shackleton Expedition ───────────────────────────────────────
@@ -3103,6 +3374,7 @@ const _baseEntities: Entity[] = [
     description: 'The polar explorer who lost his ship, saved every man, and became the archetype of crisis leadership. Led the Imperial Trans-Antarctic Expedition (1914-1916), surviving the crushing of the Endurance, five months on ice floes, and an 800-mile open-boat voyage. Died of a heart attack at 47 in South Georgia, the island where he had once stumbled into a whaling station and wept.',
     canonicalStoryId: 'ernest-shackleton-biography',
     wikipediaSlug: 'Ernest_Shackleton',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Ernest_Shackleton_before_1909.jpg/330px-Ernest_Shackleton_before_1909.jpg',
   },
   {
     id: 'frank-worsley',
@@ -3112,6 +3384,7 @@ const _baseEntities: Entity[] = [
     description: 'The New Zealand sea captain whose navigation saved the Endurance expedition. Guided the 22-foot James Caird across 800 miles of Southern Ocean using a sextant from a pitching deck with visibility measured in seconds between wave crests. His calculations were off by less than a degree.',
     canonicalStoryId: 'shackleton-endurance-expedition',
     wikipediaSlug: 'Frank_Worsley',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Frank_Worsley.jpg',
   },
   {
     id: 'tom-crean',
@@ -3121,6 +3394,7 @@ const _baseEntities: Entity[] = [
     description: 'Irish Antarctic explorer who served on three major expeditions — with Scott twice and Shackleton once. Crossed South Georgia\'s uncharted mountains with Shackleton and Worsley in 1916. Retired to Annascaul, County Kerry, where he opened a pub called the South Pole Inn. Rarely spoke of his exploits.',
     canonicalStoryId: 'shackleton-endurance-expedition',
     wikipediaSlug: 'Tom_Crean_(explorer)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Tom_Crean2b.JPG/330px-Tom_Crean2b.JPG',
   },
   {
     id: 'frank-wild',
@@ -3130,6 +3404,7 @@ const _baseEntities: Entity[] = [
     description: 'Shackleton\'s second-in-command, left on Elephant Island with 21 men while the boss sailed for help. Kept the stranded crew alive for four and a half months by maintaining strict routines, rationing seal meat, and rolling out sleeping bags each morning so no one could give up. Led five Antarctic expeditions total.',
     canonicalStoryId: 'shackleton-endurance-expedition',
     wikipediaSlug: 'Frank_Wild',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/FrankWild.png/330px-FrankWild.png',
   },
 
   // ─── The Lost City of Z ──────────────────────────────────────────────
@@ -3141,6 +3416,7 @@ const _baseEntities: Entity[] = [
     description: 'The British explorer who vanished in the Amazon searching for a lost civilization he called "Z." Spent two decades surveying South American borders for the Royal Geographical Society before his final 1925 expedition into the Mato Grosso. Over 100 rescue parties searched for him; at least 13 people died trying. Satellite imagery later revealed pre-Columbian earthworks in the region he described.',
     canonicalStoryId: 'percy-fawcett-biography',
     wikipediaSlug: 'Percy_Fawcett',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/PercyFawcett.jpg/330px-PercyFawcett.jpg',
   },
   {
     id: 'jack-fawcett',
@@ -3150,6 +3426,7 @@ const _baseEntities: Entity[] = [
     description: 'Percy Fawcett\'s eldest son, 21 years old when he accompanied his father on the 1925 expedition into the Mato Grosso. A strong athlete and eager participant, he vanished alongside his father and friend Raleigh Rimmell somewhere in the Xingu region of Brazil.',
     canonicalStoryId: 'lost-city-of-z',
     wikipediaSlug: 'Percy_Fawcett',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/PercyFawcett.jpg/330px-PercyFawcett.jpg',
   },
   // ─── London Seed City Entities ──────────────────────────────────────
   {
@@ -3160,6 +3437,7 @@ const _baseEntities: Entity[] = [
     description: 'The suffragette leader who founded the Women\'s Social and Political Union and endured force-feeding, repeated imprisonment, and the "Cat and Mouse Act" to win women the vote. She was arrested seven times at Buckingham Palace alone. She died on 14 June 1928, weeks before the Equal Franchise Act lowered the voting age for women to 21.',
     canonicalStoryId: 'emmeline-pankhurst-biography',
     wikipediaSlug: 'Emmeline_Pankhurst',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Emmeline_Pankhurst%2C_seated_%281913%29.jpg/330px-Emmeline_Pankhurst%2C_seated_%281913%29.jpg',
   },
   // ─── Paris Seed City Entities ──────────────────────────────────────
   {
@@ -3170,6 +3448,7 @@ const _baseEntities: Entity[] = [
     description: 'The engineer whose name became synonymous with Paris. Eiffel built bridges across five continents before designing the tower that 300 artists petitioned against as a "metal asparagus." He also engineered the internal skeleton of the Statue of Liberty. After retiring he used the tower for weather and radio experiments, living in a private apartment at its summit.',
     canonicalStoryId: 'gustave-eiffel-biography',
     wikipediaSlug: 'Gustave_Eiffel',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gustave_Eiffel_1888_Nadar2.jpg/330px-Gustave_Eiffel_1888_Nadar2.jpg',
   },
   {
     id: 'maximilien-robespierre',
@@ -3179,6 +3458,7 @@ const _baseEntities: Entity[] = [
     description: 'The lawyer who turned the Revolution into the Terror. Robespierre rose from provincial advocate to the most powerful man in France, sent thousands to the guillotine in the name of virtue, and was dragged to the same blade himself within eighteen months. His jaw had been shattered by a pistol shot the night before.',
     canonicalStoryId: 'french-revolution-paris',
     wikipediaSlug: 'Maximilien_Robespierre',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Robespierre.jpg/330px-Robespierre.jpg',
   },
   {
     id: 'coco-chanel',
@@ -3188,6 +3468,7 @@ const _baseEntities: Entity[] = [
     description: 'The orphan who liberated women from corsets and invented modern fashion. Chanel introduced the little black dress, the Chanel No. 5 perfume, and costume jewelry as high style. She collaborated with the Nazis during the Occupation, a fact largely suppressed during her lifetime. She died at the Ritz, where she had lived for 34 years.',
     canonicalStoryId: 'coco-chanel-biography',
     wikipediaSlug: 'Coco_Chanel',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Coco_Chanel_in_Los_Angeles%2C_1931_%28cropped%29.jpg/330px-Coco_Chanel_in_Los_Angeles%2C_1931_%28cropped%29.jpg',
   },
   {
     id: 'shakespeare-and-company',
@@ -3225,6 +3506,7 @@ const _baseEntities: Entity[] = [
     description: 'The 21-year-old sultan who ended the Roman Empire. Mehmed II conquered Constantinople in 1453 by dragging ships overland, then rebuilt the ruined city as his imperial capital. He spoke six languages, patronized Renaissance artists, and built Topkapı Palace and the Grand Bazaar. The Ottomans called him "the Conqueror"; the Greeks called him the Antichrist.',
     canonicalStoryId: 'mehmed-ii-biography',
     wikipediaSlug: 'Mehmed_the_Conqueror',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Bellini%2C_Gentile_-_Sultan_Mehmet_II.jpg/330px-Bellini%2C_Gentile_-_Sultan_Mehmet_II.jpg',
   },
   {
     id: 'justinian-i',
@@ -3234,6 +3516,7 @@ const _baseEntities: Entity[] = [
     description: 'The last emperor who tried to reunite Rome. Justinian reconquered North Africa and Italy, codified Roman law into the Corpus Juris Civilis that still underpins European legal systems, and built Hagia Sophia in just five years. A devastating plague that bears his name killed tens of millions on his watch. He started life as an Illyrian peasant.',
     canonicalStoryId: 'justinian-i-biography',
     wikipediaSlug: 'Justinian_I',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Mosaic_of_Justinianus_I_-_Basilica_San_Vitale_%28Ravenna%29.jpg/330px-Mosaic_of_Justinianus_I_-_Basilica_San_Vitale_%28Ravenna%29.jpg',
   },
   {
     id: 'theodora-byzantine',
@@ -3243,6 +3526,7 @@ const _baseEntities: Entity[] = [
     description: 'From bear-keeper\'s daughter and actress to the most powerful woman in the Roman world. Theodora co-ruled the Byzantine Empire with Justinian, saved his throne during the Nika Riots with a single speech, championed women\'s rights to property and divorce, and built hospitals for the poor. Procopius wrote both her official praise and a scandalous secret history.',
     canonicalStoryId: 'theodora-byzantine-biography',
     wikipediaSlug: 'Theodora_(wife_of_Justinian_I)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Theodora_mosaic_-_Basilica_San_Vitale_%28Ravenna%29_v2.jpg/330px-Theodora_mosaic_-_Basilica_San_Vitale_%28Ravenna%29_v2.jpg',
   },
   {
     id: 'hagia-sophia-place',
@@ -3263,6 +3547,7 @@ const _baseEntities: Entity[] = [
     description: 'Co-founder of the Beatles and author of "Imagine," the anthem that outlived him. After the band split, Lennon retreated to the Dakota in New York with Yoko Ono, baked bread, raised his son Sean, and was shot dead at 40 by a fan holding a copy of The Catcher in the Rye.',
     canonicalStoryId: 'john-lennon-biography',
     wikipediaSlug: 'John_Lennon',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/John_Lennon_%22Walls_and_Bridges%22_1974_press_photo_2_%28color%29_%28cropped%29.jpg/330px-John_Lennon_%22Walls_and_Bridges%22_1974_press_photo_2_%28color%29_%28cropped%29.jpg',
   },
   {
     id: 'bob-dylan',
@@ -3272,6 +3557,7 @@ const _baseEntities: Entity[] = [
     description: 'The songwriter who proved pop lyrics could be literature — and won the Nobel Prize to settle the argument. Dylan arrived in New York at 19 with a guitar and a Woody Guthrie obsession, then reinvented himself so many times that betrayal became his signature move.',
     canonicalStoryId: 'bob-dylan-biography',
     wikipediaSlug: 'Bob_Dylan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/DylanYoungKilkenny140719v2_%2850_of_52%29_%2852246124397%29_%28cropped%29.jpg/330px-DylanYoungKilkenny140719v2_%2850_of_52%29_%2852246124397%29_%28cropped%29.jpg',
   },
   {
     id: 'dj-kool-herc',
@@ -3281,6 +3567,7 @@ const _baseEntities: Entity[] = [
     description: 'The Jamaican-born Bronx DJ who invented hip-hop at a back-to-school party in 1973. Clive Campbell isolated the percussive "break" sections of funk records using two turntables, creating the template for the world\'s dominant popular music genre. He never signed a record deal.',
     canonicalStoryId: 'dj-kool-herc-biography',
     wikipediaSlug: 'DJ_Kool_Herc',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kool_Herc.jpg/330px-Kool_Herc.jpg',
   },
   {
     id: 'statue-of-liberty',
@@ -3328,6 +3615,7 @@ const _baseEntities: Entity[] = [
     description: 'The queen whose painted bust became the most famous face of the ancient world. Co-ruler with Akhenaten during Egypt\'s monotheistic revolution, she wielded unprecedented power for a queen consort. After Akhenaten\'s death she may have ruled alone under a different name. Her mummy has never been conclusively identified.',
     canonicalStoryId: 'nefertiti-biography',
     wikipediaSlug: 'Nefertiti',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Nofretete_Neues_Museum.jpg/330px-Nofretete_Neues_Museum.jpg',
   },
   {
     id: 'ramesses-ii',
@@ -3337,6 +3625,7 @@ const _baseEntities: Entity[] = [
     description: 'The pharaoh who outlived his own legend. Ramesses II ruled for 66 years, fathered over 100 children, built Abu Simbel and the Ramesseum, and signed the world\'s first peace treaty. He lived to roughly 90 in an age when 40 was old. His mummy was issued a modern Egyptian passport to fly to Paris for conservation.',
     canonicalStoryId: 'ramesses-ii-biography',
     wikipediaSlug: 'Ramesses_II',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ramses_II_British_Museum.jpg/330px-Ramses_II_British_Museum.jpg',
   },
   {
     id: 'hatshepsut',
@@ -3346,6 +3635,7 @@ const _baseEntities: Entity[] = [
     description: 'The woman who ruled as pharaoh for 20 years by wearing a false beard. Hatshepsut launched a legendary trade expedition to Punt, built one of Egypt\'s finest temples at Deir el-Bahari, and oversaw two decades of peace. After her death, her successor tried to erase her from history by chiseling her name off monuments.',
     canonicalStoryId: 'hatshepsut-biography',
     wikipediaSlug: 'Hatshepsut',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Seated_Statue_of_Hatshepsut_MET_Hatshepsut2012.jpg/330px-Seated_Statue_of_Hatshepsut_MET_Hatshepsut2012.jpg',
   },
   {
     id: 'al-hakim-mosque',
@@ -3363,6 +3653,7 @@ const _baseEntities: Entity[] = [
     description: 'The army colonel who overthrew Egypt\'s king and became the voice of Arab nationalism. Nasser nationalized the Suez Canal, survived a British-French-Israeli invasion, and united Egypt with Syria. His funeral in Cairo drew five million mourners, the largest gathering in Middle Eastern history.',
     canonicalStoryId: 'gamal-abdel-nasser-biography',
     wikipediaSlug: 'Gamal_Abdel_Nasser',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Stevan_Kragujevic%2C_Gamal_Abdel_Naser_u_Beogradu%2C_1962.jpg/330px-Stevan_Kragujevic%2C_Gamal_Abdel_Naser_u_Beogradu%2C_1962.jpg',
   },
   {
     id: 'forbidden-city',
@@ -3380,6 +3671,7 @@ const _baseEntities: Entity[] = [
     description: 'The Ming emperor who moved China\'s capital to Beijing and built the Forbidden City. Zhu Di seized the throne from his nephew in a civil war, then launched Zheng He\'s treasure fleets across the Indian Ocean. He also commissioned the largest encyclopedia in history, the Yongle Dadian.',
     canonicalStoryId: 'yongle-emperor-biography',
     wikipediaSlug: 'Yongle_Emperor',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Portrait_assis_de_l%27empereur_Ming_Chengzu.jpg/330px-Portrait_assis_de_l%27empereur_Ming_Chengzu.jpg',
   },
   {
     id: 'qianlong-emperor',
@@ -3389,6 +3681,7 @@ const _baseEntities: Entity[] = [
     description: 'The Qing emperor who ruled China for 60 years and presided over its territorial peak. Under Qianlong, China controlled Tibet, Xinjiang, Mongolia, and Taiwan. He was a prolific poet, calligrapher, and art collector who amassed 10,000 paintings. He abdicated rather than reign longer than his grandfather.',
     canonicalStoryId: 'qianlong-emperor-biography',
     wikipediaSlug: 'Qianlong_Emperor',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/%E4%B9%BE%E9%9A%86%E7%9A%87%E5%B8%9D%E6%9C%9D%E6%9C%8D%E5%83%8F%E8%BD%B4.png/330px-%E4%B9%BE%E9%9A%86%E7%9A%87%E5%B8%9D%E6%9C%9D%E6%9C%8D%E5%83%8F%E8%BD%B4.png',
   },
   {
     id: 'cixi',
@@ -3398,6 +3691,7 @@ const _baseEntities: Entity[] = [
     description: 'The concubine who became the most powerful woman in Chinese history. Cixi ruled China for 47 years from behind a silk screen, crushed the Taiping Rebellion, survived the Boxer siege, and modernized the military. She reportedly spent the navy\'s budget on a marble boat for her garden.',
     canonicalStoryId: 'cixi-biography',
     wikipediaSlug: 'Empress_Dowager_Cixi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/The_Ci-Xi_Imperial_Dowager_Empress_%289.2%29.PNG/330px-The_Ci-Xi_Imperial_Dowager_Empress_%289.2%29.PNG',
   },
   {
     id: 'puyi',
@@ -3407,6 +3701,7 @@ const _baseEntities: Entity[] = [
     description: 'The last emperor of China, enthroned at two and abdicated at six. The Japanese made him puppet ruler of Manchukuo; the Soviets captured him; the Communists re-educated him. He ended his life as a gardener in Beijing, tending plants in the city where he once ruled 400 million people.',
     canonicalStoryId: 'puyi-biography',
     wikipediaSlug: 'Puyi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Puyi%2C_Manchukuo_period_%28cropped%29.jpg/330px-Puyi%2C_Manchukuo_period_%28cropped%29.jpg',
   },
   {
     id: 'commodore-perry',
@@ -3416,6 +3711,7 @@ const _baseEntities: Entity[] = [
     description: 'The American naval officer who forced open Japan with four warships. In 1853, Perry steamed into Edo Bay uninvited with cannons loaded and demanded trade. Japan had been sealed to foreigners for 220 years. Perry\'s ultimatum triggered the collapse of the shogunate and the Meiji Restoration.',
     canonicalStoryId: 'commodore-perry-biography',
     wikipediaSlug: 'Matthew_C._Perry',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Commodore_Matthew_Calbraith_Perry.png/330px-Commodore_Matthew_Calbraith_Perry.png',
   },
   {
     id: 'emperor-meiji',
@@ -3425,6 +3721,7 @@ const _baseEntities: Entity[] = [
     description: 'The emperor who transformed Japan from a feudal backwater into a world power in one generation. Meiji abolished the samurai class, built railways and factories, adopted a constitution, and defeated both China and Russia in war. When he died, his general Nogi Maresuke committed ritual suicide in grief.',
     canonicalStoryId: 'emperor-meiji-biography',
     wikipediaSlug: 'Emperor_Meiji',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Meiji_Emperor_%28cropped%29%28b%29.jpg/330px-Meiji_Emperor_%28cropped%29%28b%29.jpg',
   },
   {
     id: 'murasaki-shikibu',
@@ -3434,6 +3731,7 @@ const _baseEntities: Entity[] = [
     description: 'The Heian court lady who wrote the world\'s first novel. The Tale of Genji, composed around 1000 CE, runs to 54 chapters and over 1,000 pages. She wrote it while serving Empress Shoshi, filling her diary with sharp observations of court intrigue. Her real name is unknown; "Murasaki" comes from her own character.',
     canonicalStoryId: 'murasaki-shikibu-biography',
     wikipediaSlug: 'Murasaki_Shikibu',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Murasaki-Shikibu-composing-Genji-Monogatari.png/330px-Murasaki-Shikibu-composing-Genji-Monogatari.png',
   },
   {
     id: 'pericles',
@@ -3443,6 +3741,7 @@ const _baseEntities: Entity[] = [
     description: 'The statesman who built the Parthenon, expanded Athenian democracy, and gave the most famous funeral speech in history. Pericles led Athens through its golden age for 32 years. He died of the plague that devastated Athens during the Peloponnesian War he had championed.',
     canonicalStoryId: 'pericles-biography',
     wikipediaSlug: 'Pericles',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Pericles_Pio-Clementino_Inv269_n2.jpg/330px-Pericles_Pio-Clementino_Inv269_n2.jpg',
   },
   {
     id: 'pheidippides',
@@ -3452,6 +3751,7 @@ const _baseEntities: Entity[] = [
     description: 'The Athenian runner who inspired the marathon. According to legend, Pheidippides ran from Marathon to Athens to announce victory over the Persians, then collapsed and died. Herodotus tells a different story: Pheidippides ran 150 miles to Sparta to request reinforcements, not 26 miles to Athens.',
     canonicalStoryId: 'pheidippides-biography',
     wikipediaSlug: 'Pheidippides',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Statue_of_Pheidippides_along_the_Marathon_Road.jpg/330px-Statue_of_Pheidippides_along_the_Marathon_Road.jpg',
   },
   {
     id: 'parthenon',
@@ -3469,6 +3769,7 @@ const _baseEntities: Entity[] = [
     description: 'The prince who abandoned a palace to sit under a tree. Siddhartha Gautama left his royal life in Kapilavastu, wandered for six years, and attained enlightenment at Bodh Gaya around age 35. His teachings spread across Asia and today claim roughly 500 million adherents worldwide.',
     canonicalStoryId: 'gautama-buddha-biography',
     wikipediaSlug: 'Gautama_Buddha',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Buddha_in_Sarnath_Museum_%28Dhammajak_Mutra%29.jpg/330px-Buddha_in_Sarnath_Museum_%28Dhammajak_Mutra%29.jpg',
   },
   {
     id: 'archimedes',
@@ -3478,6 +3779,7 @@ const _baseEntities: Entity[] = [
     description: 'The mathematician who moved the world with a lever and a bath. Working in Syracuse, he calculated pi, invented the screw pump, and designed war machines that held off Rome for two years. A Roman soldier killed him during the siege despite orders to spare his life.',
     canonicalStoryId: 'archimedes-biography',
     wikipediaSlug: 'Archimedes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Domenico-Fetti_Archimedes_1620.jpg/330px-Domenico-Fetti_Archimedes_1620.jpg',
   },
   {
     id: 'qin-shi-huang',
@@ -3487,6 +3789,7 @@ const _baseEntities: Entity[] = [
     description: 'The first emperor of a unified China and history\'s most paranoid builder. He standardized writing, currency, and weights across warring kingdoms, then linked frontier walls into what became the Great Wall. Buried with 8,000 terracotta soldiers, he died swallowing mercury pills he believed granted immortality.',
     canonicalStoryId: 'qin-shi-huang-biography',
     wikipediaSlug: 'Qin_Shi_Huang',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Assassination_attempt_on_Qin_Shi_Huang_%28Cropped%29.png/330px-Assassination_attempt_on_Qin_Shi_Huang_%28Cropped%29.png',
   },
   {
     id: 'dante-alighieri',
@@ -3496,6 +3799,7 @@ const _baseEntities: Entity[] = [
     description: 'The exile who wrote hell into existence. Banished from Florence on pain of death, Dante spent 19 years wandering Italy and composed the Divine Comedy, a 14,233-line poem that mapped the afterlife and invented modern Italian. He never returned home.',
     canonicalStoryId: 'dante-alighieri-biography',
     wikipediaSlug: 'Dante_Alighieri',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Bargello_-_Kapelle_Fresko_2a.jpg/330px-Bargello_-_Kapelle_Fresko_2a.jpg',
   },
   {
     id: 'marco-polo',
@@ -3505,6 +3809,7 @@ const _baseEntities: Entity[] = [
     description: 'The Venetian merchant who spent 24 years in Asia and made Europe listen. He left Venice at 17, served Kublai Khan for 17 years, and dictated his travels from a Genoese prison cell. His book introduced Europeans to coal, paper money, and a continent they could barely imagine.',
     canonicalStoryId: 'marco-polo-biography',
     wikipediaSlug: 'Marco_Polo',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Marco_Polo_-_costume_tartare.jpg/330px-Marco_Polo_-_costume_tartare.jpg',
   },
   {
     id: 'virgil',
@@ -3514,6 +3819,7 @@ const _baseEntities: Entity[] = [
     description: 'Rome\'s greatest poet and Dante\'s guide through Hell. Virgil spent eleven years writing the Aeneid, an epic commissioned by Augustus that gave Rome a divine origin story. On his deathbed he ordered the unfinished manuscript burned; Augustus overruled him.',
     canonicalStoryId: 'virgil-biography',
     wikipediaSlug: 'Virgil',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Virgil_mosaic_in_the_Bardo_National_Museum_%28Tunis%29_%2812241228546%29.jpg/330px-Virgil_mosaic_in_the_Bardo_National_Museum_%28Tunis%29_%2812241228546%29.jpg',
   },
   {
     id: 'al-khwarizmi',
@@ -3523,6 +3829,7 @@ const _baseEntities: Entity[] = [
     description: 'The scholar who gave algebra its name and algorithms theirs. Working at Baghdad\'s House of Wisdom, al-Khwarizmi wrote al-Kitab al-Mukhtasar, introducing systematic equation-solving to the world. His Latinized name became "algorithm"; his book\'s title became "algebra."',
     canonicalStoryId: 'al-khwarizmi-biography',
     wikipediaSlug: 'Muhammad_ibn_Musa_al-Khwarizmi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/330px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg',
   },
   {
     id: 'ibn-khaldun',
@@ -3532,6 +3839,7 @@ const _baseEntities: Entity[] = [
     description: 'The historian who invented sociology six centuries early. Born in Tunis to Andalusian refugees, Ibn Khaldun served rulers across North Africa before retreating to a desert fortress and writing the Muqaddimah, a theory of civilizational rise and fall that anticipated modern social science.',
     canonicalStoryId: 'ibn-khaldun-biography',
     wikipediaSlug: 'Ibn_Khaldun',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Bust_of_Ibn_Khaldun_%28Casbah_of_Bejaia%2C_Algeria%29.jpg/330px-Bust_of_Ibn_Khaldun_%28Casbah_of_Bejaia%2C_Algeria%29.jpg',
   },
   {
     id: 'sima-qian',
@@ -3541,6 +3849,7 @@ const _baseEntities: Entity[] = [
     description: 'China\'s grand historian who chose castration over silence. When Sima Qian defended a disgraced general, Emperor Wu offered him death or mutilation. He chose to survive and finished the Shiji, a 526,500-character history covering 2,500 years that became the model for all Chinese dynastic histories.',
     canonicalStoryId: 'sima-qian-biography',
     wikipediaSlug: 'Sima_Qian',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Sima_Qian_%28painted_portrait%29.jpg/330px-Sima_Qian_%28painted_portrait%29.jpg',
   },
   {
     id: 'zheng-he',
@@ -3550,6 +3859,7 @@ const _baseEntities: Entity[] = [
     description: 'The Muslim eunuch admiral who commanded the largest fleet the world had seen. Zheng He led seven expeditions across the Indian Ocean with ships five times larger than Columbus\'s, reaching East Africa 87 years before the Portuguese. Then China turned inward and burned the fleet records.',
     canonicalStoryId: 'zheng-he-biography',
     wikipediaSlug: 'Zheng_He',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/2016_Malakka%2C_Stadhuys_%2809%29.jpg/330px-2016_Malakka%2C_Stadhuys_%2809%29.jpg',
   },
   {
     id: 'samuel-de-champlain',
@@ -3559,6 +3869,7 @@ const _baseEntities: Entity[] = [
     description: 'The "Father of New France" who founded Quebec in 1608 and mapped more of North America\'s interior than any European before him. Made 27 Atlantic crossings, forged alliances with Indigenous nations, and governed New France for 25 years. His maps of the Great Lakes and St. Lawrence remained definitive for a century.',
     canonicalStoryId: 'samuel-de-champlain-biography',
     wikipediaSlug: 'Samuel_de_Champlain',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Samchamprifle.jpg/330px-Samchamprifle.jpg',
   },
   {
     id: 'frederick-banting',
@@ -3568,6 +3879,7 @@ const _baseEntities: Entity[] = [
     description: 'The surgeon who co-discovered insulin and became the youngest Nobel laureate in Medicine at 32. Banting sold the patent for $1, believing the drug should be available to everyone. He died in a plane crash in Newfoundland at 49, en route to a wartime mission in England.',
     canonicalStoryId: 'frederick-banting-biography',
     wikipediaSlug: 'Frederick_Banting',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/F._G._Banting_1923.jpg/330px-F._G._Banting_1923.jpg',
   },
   {
     id: 'terry-fox',
@@ -3577,6 +3889,7 @@ const _baseEntities: Entity[] = [
     description: 'The one-legged runner who attempted to cross Canada on a prosthetic to raise money for cancer research. Fox ran 5,373 kilometres in 143 days before the cancer that took his leg spread to his lungs. He died at 22. The annual Terry Fox Run has raised over $850 million worldwide.',
     canonicalStoryId: 'terry-fox-biography',
     wikipediaSlug: 'Terry_Fox',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/TerryFoxToronto19800712.JPG/330px-TerryFoxToronto19800712.JPG',
   },
   {
     id: 'meriwether-lewis',
@@ -3586,6 +3899,7 @@ const _baseEntities: Entity[] = [
     description: 'Thomas Jefferson\'s personal secretary turned explorer who co-led the first American overland expedition to the Pacific. A brilliant naturalist who catalogued 178 new plant species, Lewis struggled with depression after his return and died at 35 on the Natchez Trace under disputed circumstances — likely suicide.',
     canonicalStoryId: 'meriwether-lewis-biography',
     wikipediaSlug: 'Meriwether_Lewis',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Meriwether_Lewis-Charles_Willson_Peale.jpg/330px-Meriwether_Lewis-Charles_Willson_Peale.jpg',
   },
   {
     id: 'william-clark',
@@ -3595,6 +3909,7 @@ const _baseEntities: Entity[] = [
     description: 'Co-leader of the Lewis and Clark Expedition and the practical half of the partnership — mapmaker, negotiator, and field commander. After the expedition, Clark served as Superintendent of Indian Affairs and governor of Missouri Territory. He freed York, the enslaved man who accompanied the journey, roughly a decade after their return.',
     canonicalStoryId: 'william-clark-biography',
     wikipediaSlug: 'William_Clark_(explorer)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/William_Clark-Charles_Willson_Peale.jpg/330px-William_Clark-Charles_Willson_Peale.jpg',
   },
   {
     id: 'william-boeing',
@@ -3604,6 +3919,7 @@ const _baseEntities: Entity[] = [
     description: 'A lumber magnate who saw a barnstormer fly and decided he could build a better airplane. Boeing founded his aircraft company in a Seattle boathouse in 1916 with two seaplanes made of spruce and linen. The company he started now builds 40% of the world\'s commercial aircraft.',
     canonicalStoryId: 'william-boeing-biography',
     wikipediaSlug: 'William_Boeing',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/William_E._Boeing.jpg/330px-William_E._Boeing.jpg',
   },
   {
     id: 'eva-peron',
@@ -3613,6 +3929,7 @@ const _baseEntities: Entity[] = [
     description: 'A small-town actress who became Argentina\'s most powerful woman and its most divisive symbol. As First Lady, she built hospitals, schools, and a political machine for the descamisados — the "shirtless ones." She died of cancer at 33. Her embalmed body was stolen, hidden in Milan for 16 years, and returned to Buenos Aires.',
     canonicalStoryId: 'eva-peron-biography',
     wikipediaSlug: 'Eva_Perón',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Evita_color.jpg/330px-Evita_color.jpg',
   },
   {
     id: 'pablo-escobar',
@@ -3622,6 +3939,7 @@ const _baseEntities: Entity[] = [
     description: 'The Colombian drug lord who controlled 80% of the world\'s cocaine trade and earned an estimated $30 billion. Escobar waged war on the state, bombed a commercial airliner, ran for Congress, built his own prison, and was shot dead on a Medellín rooftop at 44.',
     canonicalStoryId: 'pablo-escobar-biography',
     wikipediaSlug: 'Pablo_Escobar',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Pablo_Escobar_Mug_%28cropped%29%28b%29.jpg/330px-Pablo_Escobar_Mug_%28cropped%29%28b%29.jpg',
   },
   {
     id: 'salvador-allende',
@@ -3631,6 +3949,7 @@ const _baseEntities: Entity[] = [
     description: 'The world\'s first democratically elected Marxist president, who nationalized Chile\'s copper mines and clashed with the CIA-backed opposition. Allende died in La Moneda Palace during Pinochet\'s coup on 11 September 1973, refusing to flee or surrender. A 2011 autopsy confirmed he shot himself with an AK-47 given to him by Fidel Castro.',
     canonicalStoryId: 'salvador-allende-biography',
     wikipediaSlug: 'Salvador_Allende',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Salvador_Allende_Gossens-.jpg',
   },
   {
     id: 'haile-selassie',
@@ -3640,6 +3959,7 @@ const _baseEntities: Entity[] = [
     description: 'Ethiopia\'s last emperor, who traced his lineage to King Solomon and the Queen of Sheba. He warned the League of Nations about fascism, modernized his country, founded the Organization of African Unity, and became the messiah of the Rastafari movement — without endorsing it. Deposed in 1974, he died in custody under mysterious circumstances.',
     canonicalStoryId: 'haile-selassie-biography',
     wikipediaSlug: 'Haile_Selassie',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Haile_Selassie_in_full_dress_%283x4_cropped%29.jpg/330px-Haile_Selassie_in_full_dress_%283x4_cropped%29.jpg',
   },
   // ─── Film locations / Geographic gaps stub entities ──────────────────
   {
@@ -3649,6 +3969,7 @@ const _baseEntities: Entity[] = [
     years: '1908–1974',
     description: 'A German industrialist and Nazi Party member who saved 1,100 Jews during the Holocaust by employing them in his enamelware and armaments factories. He spent his entire fortune bribing officials. After the war he was recognized as Righteous Among the Nations by Yad Vashem.',
     wikipediaSlug: 'Oskar_Schindler',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Schindler%2C_Oskar_%283x4_cropped%29.jpg/330px-Schindler%2C_Oskar_%283x4_cropped%29.jpg',
   },
   {
     id: 'bill-gates',
@@ -3657,6 +3978,7 @@ const _baseEntities: Entity[] = [
     years: '1955–present',
     description: 'Co-founder of Microsoft who built the world\'s dominant PC operating system and became the richest person on Earth. After stepping down from Microsoft, he co-founded the Bill & Melinda Gates Foundation, the largest private charitable foundation in the world.',
     wikipediaSlug: 'Bill_Gates',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg/330px-Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg',
   },
   // ─── Science & Culture ──────────────────────────────────────────
   {
@@ -3667,6 +3989,7 @@ const _baseEntities: Entity[] = [
     description: 'The physicist-turned-biologist who co-discovered the double helix and spent the rest of his life trying to explain consciousness. He and Watson built the DNA model in six weeks, using Rosalind Franklin\'s X-ray data. He won the Nobel Prize at 46 and spent his final decades studying the brain at the Salk Institute.',
     canonicalStoryId: 'francis-crick-biography',
     wikipediaSlug: 'Francis_Crick',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Francis_Crick_crop.jpg/330px-Francis_Crick_crop.jpg',
   },
   {
     id: 'james-watson',
@@ -3676,6 +3999,7 @@ const _baseEntities: Entity[] = [
     description: 'A 25-year-old American postdoc who co-discovered the structure of DNA and wrote the most famous memoir in science. The Double Helix described the race to crack DNA with a candour that enraged colleagues. He ran Cold Spring Harbor Laboratory for 35 years before disgrace over racist remarks ended his public career.',
     canonicalStoryId: 'james-watson-biography',
     wikipediaSlug: 'James_Watson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/James_D._Watson_%28cropped%29.jpg/330px-James_D._Watson_%28cropped%29.jpg',
   },
   {
     id: 'rosalind-franklin',
@@ -3685,6 +4009,7 @@ const _baseEntities: Entity[] = [
     description: 'The X-ray crystallographer whose Photo 51 revealed DNA\'s helical structure — shown to Watson without her knowledge. She died of ovarian cancer at 37, likely caused by radiation exposure. The Nobel committee gave the prize to Crick, Watson, and Wilkins four years later; Nobels are not awarded posthumously.',
     canonicalStoryId: 'rosalind-franklin-biography',
     wikipediaSlug: 'Rosalind_Franklin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Rosalind_Franklin_%28retouched%29.jpg/330px-Rosalind_Franklin_%28retouched%29.jpg',
   },
   {
     id: 'edwin-hubble',
@@ -3694,6 +4019,7 @@ const _baseEntities: Entity[] = [
     description: 'The astronomer who proved the universe extends beyond the Milky Way and is expanding. A Rhodes Scholar and former boxer from Missouri, he used the 100-inch Hooker telescope at Mount Wilson to shatter the static cosmos of Newton and Einstein. NASA named its first great space telescope after him.',
     canonicalStoryId: 'edwin-hubble-biography',
     wikipediaSlug: 'Edwin_Hubble',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Studio_portrait_photograph_of_Edwin_Powell_Hubble_%28cropped%29.JPG/330px-Studio_portrait_photograph_of_Edwin_Powell_Hubble_%28cropped%29.JPG',
   },
   {
     id: 'peter-higgs',
@@ -3703,6 +4029,7 @@ const _baseEntities: Entity[] = [
     description: 'The shy Edinburgh physicist who proposed the mass-giving field in 1964 and waited 48 years for proof. When CERN confirmed the Higgs boson in 2012, he wept in the auditorium. He shared the Nobel Prize with Francois Englert in 2013 and avoided email his entire life.',
     canonicalStoryId: 'peter-higgs-biography',
     wikipediaSlug: 'Peter_Higgs',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Nobel_Prize_24_2013_%28cropped%29.jpg/330px-Nobel_Prize_24_2013_%28cropped%29.jpg',
   },
   {
     id: 'fela-kuti',
@@ -3712,6 +4039,7 @@ const _baseEntities: Entity[] = [
     description: 'The Nigerian musician who invented Afrobeat by fusing jazz, funk, and Yoruba rhythms into marathon protest anthems. He ran his own commune, married 27 women in a single ceremony, and was beaten and jailed repeatedly by the military government. His mother was thrown from a window by soldiers. He performed in his underwear and never stopped fighting.',
     canonicalStoryId: 'fela-kuti-biography',
     wikipediaSlug: 'Fela_Kuti',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Fela_Kuti_circa_1986.jpg/330px-Fela_Kuti_circa_1986.jpg',
   },
   {
     id: 'james-joyce',
@@ -3721,6 +4049,7 @@ const _baseEntities: Entity[] = [
     description: 'The Dubliner who remade the novel and never went home. Ulysses tracked a single day in Dublin with unprecedented interior detail; Finnegans Wake dismantled English itself. He left Ireland at 22, wrote in Trieste, Zurich, and Paris, and went nearly blind doing it. Every 16 June, Dublin celebrates Bloomsday in his honour.',
     canonicalStoryId: 'james-joyce-biography',
     wikipediaSlug: 'James_Joyce',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Revolutionary_Joyce_Better_Contrast.jpg/330px-Revolutionary_Joyce_Better_Contrast.jpg',
   },
   {
     id: 'antoni-gaudi',
@@ -3730,6 +4059,7 @@ const _baseEntities: Entity[] = [
     description: 'The Catalan architect who turned Barcelona into a fever dream of organic stone. His final decades were consumed by the Sagrada Familia, a basilica he knew he would never finish. He was struck by a tram in 1926 and, mistaken for a beggar, was taken to a pauper\'s hospital. He is buried in the crypt of his unfinished church.',
     canonicalStoryId: 'antoni-gaudi-biography',
     wikipediaSlug: 'Antoni_Gaudí',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Antoni_Gaudi_1878.jpg/330px-Antoni_Gaudi_1878.jpg',
   },
   {
     id: 'jorn-utzon',
@@ -3739,6 +4069,7 @@ const _baseEntities: Entity[] = [
     description: 'The Danish architect who won an international competition for the Sydney Opera House at 38, then was forced off the project by politicians before it was finished. He never returned to Australia to see the completed building. In 2003, he won the Pritzker Prize, and the Opera House was declared a UNESCO World Heritage Site.',
     canonicalStoryId: 'jorn-utzon-biography',
     wikipediaSlug: 'Jørn_Utzon',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Jorn_Utzon_2000_by_Ole_Haupt.jpg',
   },
   // ─── Diverse Stories ──────────────────────────────────────────
   {
@@ -3749,6 +4080,7 @@ const _baseEntities: Entity[] = [
     description: 'The Viking who reached North America five centuries before Columbus. Son of Erik the Red, he sailed west from Greenland around 1000 CE and established a short-lived settlement at L\'Anse aux Meadows in Newfoundland. The Norse called it Vinland for its wild grapes.',
     canonicalStoryId: 'leif-erikson-biography',
     wikipediaSlug: 'Leif_Erikson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Leif_Erikson_Statue%2C_Duluth_%2815290644106%29.jpg/330px-Leif_Erikson_Statue%2C_Duluth_%2815290644106%29.jpg',
   },
   {
     id: 'alfred-nobel',
@@ -3758,6 +4090,7 @@ const _baseEntities: Entity[] = [
     description: 'The inventor of dynamite who left his fortune to fund the world\'s most prestigious prizes. Nobel held 355 patents and owned weapons factories across Europe. His decision to create the prizes reportedly came after a French newspaper prematurely published his obituary under the headline "The Merchant of Death Is Dead."',
     canonicalStoryId: 'alfred-nobel-biography',
     wikipediaSlug: 'Alfred_Nobel',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Alfred_Nobel3.jpg/330px-Alfred_Nobel3.jpg',
   },
   {
     id: 'toussaint-louverture',
@@ -3767,6 +4100,7 @@ const _baseEntities: Entity[] = [
     description: 'The formerly enslaved man who led the only successful large-scale slave revolt in history. Toussaint taught himself to read at 30, defeated armies from Spain, Britain, and France, and governed Saint-Domingue as a de facto independent state. Napoleon had him arrested and locked in a freezing Alpine fortress, where he died.',
     canonicalStoryId: 'toussaint-louverture-biography',
     wikipediaSlug: 'Toussaint_Louverture',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Toussaint_Louverture_-_Girardin.jpg/330px-Toussaint_Louverture_-_Girardin.jpg',
   },
   {
     id: 'harold-godwinson',
@@ -3776,6 +4110,7 @@ const _baseEntities: Entity[] = [
     description: 'The last Anglo-Saxon king of England, who won a decisive battle against the Vikings at Stamford Bridge then marched 250 miles south in 13 days to face William the Conqueror at Hastings. He reportedly died with an arrow through his eye, though this may be legend.',
     canonicalStoryId: 'harold-godwinson-biography',
     wikipediaSlug: 'Harold_Godwinson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Bayeux_tapestry_stitches_detail..jpg/330px-Bayeux_tapestry_stitches_detail..jpg',
   },
   {
     id: 'harald-hardrada',
@@ -3785,6 +4120,7 @@ const _baseEntities: Entity[] = [
     description: 'The "last great Viking" who served as a Varangian Guard in Constantinople, fought in Sicily and Bulgaria, and became King of Norway before dying at Stamford Bridge in the final major Viking invasion of England. He was seven feet tall and fought with a two-handed battle axe.',
     canonicalStoryId: 'harald-hardrada-biography',
     wikipediaSlug: 'Harald_Hardrada',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Harold-III-Coin.png/330px-Harold-III-Coin.png',
   },
   {
     id: 'ulugh-beg',
@@ -3794,6 +4130,7 @@ const _baseEntities: Entity[] = [
     description: 'Timur\'s grandson who preferred astronomy to conquest. Ulugh Beg built the greatest observatory of the medieval world in Samarkand and catalogued 1,018 stars with accuracy unmatched until Tycho Brahe 150 years later. His own son had him beheaded on a road outside the city.',
     canonicalStoryId: 'ulugh-beg-biography',
     wikipediaSlug: 'Ulugh_Beg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Ulugh_Beg%2C_Timurid_painting_1425-50.jpg/330px-Ulugh_Beg%2C_Timurid_painting_1425-50.jpg',
   },
   {
     id: 'henry-morgan',
@@ -3803,6 +4140,7 @@ const _baseEntities: Entity[] = [
     description: 'The Welsh privateer who sacked Panama City, tortured prisoners for gold, and was knighted by Charles II for his trouble. Morgan became Lieutenant Governor of Jamaica and spent his final years drinking himself to death at his plantation. Port Royal, his base, sank into the sea four years after he died.',
     canonicalStoryId: 'henry-morgan-biography',
     wikipediaSlug: 'Henry_Morgan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Morgan%2CHenry.jpg/330px-Morgan%2CHenry.jpg',
   },
   // ─── Exploration & Disasters ──────────────────────────────────────────
   {
@@ -3813,6 +4151,7 @@ const _baseEntities: Entity[] = [
     description: 'The pirate queen Elizabeth called "my pirate." A Devon farmer\'s son who became the second man to circumnavigate the globe, Drake raided Spanish treasure fleets, helped defeat the Armada, and died of dysentery off Panama. Spain put a bounty of 20,000 ducats on his head — roughly $6.5 million today.',
     canonicalStoryId: 'francis-drake-biography',
     wikipediaSlug: 'Francis_Drake',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Gheeraerts_Francis_Drake_1591.jpg/330px-Gheeraerts_Francis_Drake_1591.jpg',
   },
   {
     id: 'francisco-pizarro',
@@ -3822,6 +4161,7 @@ const _baseEntities: Entity[] = [
     description: 'The illiterate swineherd who conquered an empire. Pizarro captured the Inca emperor Atahualpa with 168 men, collected history\'s largest ransom, executed him anyway, and founded Lima. He was stabbed to death in his own palace by rival conquistadors.',
     canonicalStoryId: 'francisco-pizarro-biography',
     wikipediaSlug: 'Francisco_Pizarro',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Portrait_of_Francisco_Pizarro.jpg/330px-Portrait_of_Francisco_Pizarro.jpg',
   },
   {
     id: 'david-livingstone',
@@ -3831,6 +4171,7 @@ const _baseEntities: Entity[] = [
     description: 'The cotton-mill boy who walked 29,000 miles across Africa. A Scottish missionary and anti-slavery campaigner, Livingstone was the first European to cross the continent coast to coast and the first to see Victoria Falls. He died kneeling in prayer in a Zambian village; his attendants carried his body 1,500 miles to the coast.',
     canonicalStoryId: 'david-livingstone-biography',
     wikipediaSlug: 'David_Livingstone',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/David_Livingstone_by_Thomas_Annan.jpg/330px-David_Livingstone_by_Thomas_Annan.jpg',
   },
   {
     id: 'henry-morton-stanley',
@@ -3840,6 +4181,7 @@ const _baseEntities: Entity[] = [
     description: 'Welsh workhouse orphan turned journalist turned explorer. Stanley found Livingstone, crossed Africa east to west, traced the Congo River, and opened Central Africa to European colonization under King Leopold II. His expeditions were marked by extraordinary endurance and extraordinary brutality.',
     canonicalStoryId: 'henry-morton-stanley-biography',
     wikipediaSlug: 'Henry_Morton_Stanley',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/No-nb_bldsa_1c051_Henry_Morton_Stanley.jpg/330px-No-nb_bldsa_1c051_Henry_Morton_Stanley.jpg',
   },
   {
     id: 'roald-amundsen',
@@ -3849,6 +4191,7 @@ const _baseEntities: Entity[] = [
     description: 'The first man to reach the South Pole and navigate the Northwest Passage. A Norwegian who slept with his windows open to train for polar cold, Amundsen beat Scott to the pole by learning Inuit survival techniques. He disappeared over the Arctic at 55 while searching for a downed airship crew.',
     canonicalStoryId: 'roald-amundsen-biography',
     wikipediaSlug: 'Roald_Amundsen',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Amundsen_in_fur_skins.jpg/330px-Amundsen_in_fur_skins.jpg',
   },
   {
     id: 'robert-falcon-scott',
@@ -3858,6 +4201,7 @@ const _baseEntities: Entity[] = [
     description: 'The Royal Navy officer whose death made him more famous than any discovery could have. Scott reached the South Pole 34 days after Amundsen and died with four companions on the return trek, 11 miles from a supply depot. His diary, found with his body, contains some of exploration\'s most quoted final words.',
     canonicalStoryId: 'robert-falcon-scott-biography',
     wikipediaSlug: 'Robert_Falcon_Scott',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Scott_of_the_Antarctic.jpg/330px-Scott_of_the_Antarctic.jpg',
   },
   {
     id: 'robert-peary',
@@ -3867,6 +4211,7 @@ const _baseEntities: Entity[] = [
     description: 'The US Navy officer who claimed the North Pole in 1909, though modern analysis suggests he fell 30-60 miles short. Peary made eight Arctic expeditions over 23 years, lost eight toes to frostbite, and relied heavily on Inuit communities and his African American colleague Matthew Henson.',
     canonicalStoryId: 'robert-peary-biography',
     wikipediaSlug: 'Robert_Peary',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Robert_Peary_self-portrait%2C_1909.jpg/330px-Robert_Peary_self-portrait%2C_1909.jpg',
   },
   {
     id: 'matthew-henson',
@@ -3876,6 +4221,7 @@ const _baseEntities: Entity[] = [
     description: 'The African American explorer who may have been the first person to stand at the North Pole. Henson accompanied Peary on seven Arctic expeditions, spoke fluent Inuktitut, and was the only American in the final party who could drive a dog sled. He received no recognition until 1944 and was reburied at Arlington National Cemetery in 1988.',
     canonicalStoryId: 'matthew-henson-biography',
     wikipediaSlug: 'Matthew_Henson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Matthew_Henson_1910.jpg/330px-Matthew_Henson_1910.jpg',
   },
   {
     id: 'douglas-mawson',
@@ -3885,6 +4231,7 @@ const _baseEntities: Entity[] = [
     description: 'The geologist who survived one of exploration\'s most harrowing solo treks. After both companions died on an Antarctic surveying expedition, Mawson walked 100 miles alone with his skin peeling off and the soles of his feet detaching, hauled himself out of a crevasse, and waited a year for rescue at Cape Denison.',
     canonicalStoryId: 'douglas-mawson-biography',
     wikipediaSlug: 'Douglas_Mawson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Douglas_Mawson_1914_1.jpeg/330px-Douglas_Mawson_1914_1.jpeg',
   },
   {
     id: 'thor-heyerdahl',
@@ -3894,6 +4241,7 @@ const _baseEntities: Entity[] = [
     description: 'The Norwegian adventurer who sailed a balsa-wood raft across the Pacific to prove a theory that turned out to be wrong. Heyerdahl\'s 1947 Kon-Tiki voyage made him the most famous explorer of the twentieth century. He later sailed papyrus boats across the Atlantic. His migration theories were disproved by DNA evidence, but his voyages proved the journeys were possible.',
     canonicalStoryId: 'thor-heyerdahl-biography',
     wikipediaSlug: 'Thor_Heyerdahl',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/ThorHeyerdahl.jpg/330px-ThorHeyerdahl.jpg',
   },
   {
     id: 'jacques-piccard',
@@ -3903,6 +4251,7 @@ const _baseEntities: Entity[] = [
     description: 'The Swiss oceanographer who reached the deepest point on Earth. Son of physicist Auguste Piccard, who designed the bathyscaphe, Jacques piloted the Trieste to the bottom of the Mariana Trench in 1960 with Don Walsh. Father and son between them explored the highest altitude by balloon and the deepest point by submersible.',
     canonicalStoryId: 'jacques-piccard-biography',
     wikipediaSlug: 'Jacques_Piccard',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Jacques_Piccard_%281979%29.jpg/330px-Jacques_Piccard_%281979%29.jpg',
   },
   {
     id: 'don-walsh',
@@ -3912,6 +4261,7 @@ const _baseEntities: Entity[] = [
     description: 'The US Navy lieutenant who co-piloted the bathyscaphe Trieste to the bottom of the Challenger Deep in 1960, reaching the deepest point on Earth at 10,916 metres. Walsh and Jacques Piccard stayed 20 minutes at the bottom. No human returned to the Mariana Trench floor for 52 years.',
     canonicalStoryId: 'don-walsh-biography',
     wikipediaSlug: 'Don_Walsh',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/428-GX-USN_1160555_Don_Walsh.jpg/330px-428-GX-USN_1160555_Don_Walsh.jpg',
   },
   // ─── Sports & Culture ──────────────────────────────────────────
   {
@@ -3922,6 +4272,7 @@ const _baseEntities: Entity[] = [
     description: 'The heavyweight champion who shook the world three times and refused to go to Vietnam. Born Cassius Clay in Louisville, he converted to Islam, was stripped of his title for refusing the draft, and won it back at 32 in the Kinshasa jungle. Parkinson\'s disease silenced the fastest mouth in sports but not the myth.',
     canonicalStoryId: 'muhammad-ali-biography',
     wikipediaSlug: 'Muhammad_Ali',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Muhammad_Ali_NYWTS.jpg/330px-Muhammad_Ali_NYWTS.jpg',
   },
   {
     id: 'george-foreman',
@@ -3931,6 +4282,7 @@ const _baseEntities: Entity[] = [
     description: 'The hardest puncher in heavyweight history, who lost his aura of invincibility in eight rounds in Kinshasa. Foreman retired, became a preacher, then returned at 45 to win the title again — the oldest heavyweight champion ever. His eponymous grill has earned him more money than boxing ever did.',
     canonicalStoryId: 'george-foreman-biography',
     wikipediaSlug: 'George_Foreman',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/George_Foreman_%281973%29.jpg/330px-George_Foreman_%281973%29.jpg',
   },
   {
     id: 'bobby-fischer',
@@ -3940,6 +4292,7 @@ const _baseEntities: Entity[] = [
     description: 'The Brooklyn prodigy who became the only American to win the World Chess Championship, then vanished from competitive play for twenty years. Fischer\'s brilliance was matched by his paranoia; he forfeited his title in 1975, lived as a fugitive after violating U.S. sanctions in 1992, and died stateless in Reykjavik.',
     canonicalStoryId: 'bobby-fischer-biography',
     wikipediaSlug: 'Bobby_Fischer',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bobby_Fischer_in_1962_portrait.jpg/330px-Bobby_Fischer_in_1962_portrait.jpg',
   },
   {
     id: 'boris-spassky',
@@ -3949,6 +4302,7 @@ const _baseEntities: Entity[] = [
     description: 'The Soviet world chess champion who lost his crown to Bobby Fischer in the most politicized chess match in history. Spassky was gentlemanly in defeat and later befriended Fischer. He defected to France in 1976, the quiet man on the losing side of the Cold War\'s strangest battlefield.',
     canonicalStoryId: 'boris-spassky-biography',
     wikipediaSlug: 'Boris_Spassky',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Dhr._Boris_Spassky%2C_Bestanddeelnr_932-7320.jpg/330px-Dhr._Boris_Spassky%2C_Bestanddeelnr_932-7320.jpg',
   },
   {
     id: 'tommie-smith',
@@ -3958,6 +4312,7 @@ const _baseEntities: Entity[] = [
     description: 'The fastest man alive in 1968 — world record 19.83 seconds in the 200m — who raised a black-gloved fist on the Olympic podium and was expelled from the Games. Smith spent years in poverty and obscurity before his protest was recognized as one of the defining images of the civil rights era.',
     canonicalStoryId: 'tommie-smith-biography',
     wikipediaSlug: 'Tommie_Smith',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Tommie_Smith-modified_%28cropped%29.jpg/330px-Tommie_Smith-modified_%28cropped%29.jpg',
   },
   {
     id: 'john-carlos',
@@ -3967,6 +4322,7 @@ const _baseEntities: Entity[] = [
     description: 'The bronze medalist who stood beside Tommie Smith with a raised fist in Mexico City and paid for it with his career. Carlos was expelled from the Olympics, blacklisted from track, and worked as a janitor before eventually being hired as a counselor at Palm Springs High School.',
     canonicalStoryId: 'john-carlos-biography',
     wikipediaSlug: 'John_Carlos',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/John_Carlos_%28cropped%29.jpg/330px-John_Carlos_%28cropped%29.jpg',
   },
   {
     id: 'don-bradman',
@@ -3976,6 +4332,7 @@ const _baseEntities: Entity[] = [
     description: 'The greatest statistical outlier in any major sport — a Test batting average of 99.94 when the next-best career average is 61.87. A small, quiet man from Bowral, New South Wales, who played with a stump and a golf ball as a child. Knighted in 1949, he lived reclusive and private until his death at 92.',
     canonicalStoryId: 'don-bradman-biography',
     wikipediaSlug: 'Don_Bradman',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Don_Bradman_1930.jpg/330px-Don_Bradman_1930.jpg',
   },
   {
     id: 'diego-maradona',
@@ -3985,6 +4342,7 @@ const _baseEntities: Entity[] = [
     description: 'The Buenos Aires shantytown kid who became the most gifted and self-destructive footballer who ever lived. In four minutes at the 1986 World Cup, he scored the most controversial goal and the greatest goal in history. Cocaine addiction destroyed his career; Argentina declared three days of national mourning when he died.',
     canonicalStoryId: 'diego-maradona-biography',
     wikipediaSlug: 'Diego_Maradona',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Argentina_celebrando_copa_%28cropped%29.jpg/330px-Argentina_celebrando_copa_%28cropped%29.jpg',
   },
   {
     id: 'nadia-comaneci',
@@ -3994,6 +4352,7 @@ const _baseEntities: Entity[] = [
     description: 'The 14-year-old Romanian who scored the first perfect 10 in Olympic gymnastics — a mark so unexpected that the scoreboard could only display 1.00. Defected to the United States in 1989, weeks before the Romanian Revolution. Lives in Norman, Oklahoma.',
     canonicalStoryId: 'nadia-comaneci-biography',
     wikipediaSlug: 'Nadia_Comăneci',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/25th_Laureus_World_Sports_Awards_-_Comaneci_-_240421_142851-2.jpg/330px-25th_Laureus_World_Sports_Awards_-_Comaneci_-_240421_142851-2.jpg',
   },
   {
     id: 'billie-jean-king',
@@ -4003,6 +4362,7 @@ const _baseEntities: Entity[] = [
     description: 'The tennis champion who beat a self-proclaimed male chauvinist on live television and used the spectacle to advance gender equality in sports. Won 39 Grand Slam titles. Founded the Women\'s Tennis Association and the Women\'s Sports Foundation. The USTA National Tennis Center was renamed in her honor in 2006.',
     canonicalStoryId: 'billie-jean-king-biography',
     wikipediaSlug: 'Billie_Jean_King',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Billie_Jean_King_at_the_2026_Sundance_Film_Festival_02_%28crop_2%29.jpg/330px-Billie_Jean_King_at_the_2026_Sundance_Film_Festival_02_%28crop_2%29.jpg',
   },
   {
     id: 'wilma-rudolph',
@@ -4012,6 +4372,7 @@ const _baseEntities: Entity[] = [
     description: 'The girl who wore a leg brace until age twelve and ran to three Olympic golds by twenty. Born prematurely as the 20th of 22 children in segregated Clarksville, Tennessee, she contracted polio at four. Italian crowds called her "La Gazzella Nera." She died of brain cancer at 54.',
     canonicalStoryId: 'wilma-rudolph-biography',
     wikipediaSlug: 'Wilma_Rudolph',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Wilma_Rudolph_1960.jpg/330px-Wilma_Rudolph_1960.jpg',
   },
   {
     id: 'babe-ruth',
@@ -4021,6 +4382,7 @@ const _baseEntities: Entity[] = [
     description: 'The orphan from Baltimore\'s waterfront who hit 714 home runs and single-handedly saved baseball after the 1919 Black Sox scandal. Ruth hit more home runs in a season than entire teams. He was the first player to earn more than the President of the United States, and when asked about it, reportedly said, "I had a better year."',
     canonicalStoryId: 'babe-ruth-biography',
     wikipediaSlug: 'Babe_Ruth',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Babe_Ruth2.jpg/330px-Babe_Ruth2.jpg',
   },
   {
     id: 'mike-eruzione',
@@ -4030,6 +4392,7 @@ const _baseEntities: Entity[] = [
     description: 'The 25-year-old team captain who scored the winning goal against the Soviet Union in the 1980 "Miracle on Ice." Never played another competitive hockey game — he retired immediately after the Olympics. He still gives motivational speeches about that single night in Lake Placid.',
     canonicalStoryId: 'mike-eruzione-biography',
     wikipediaSlug: 'Mike_Eruzione',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Mike_Eruzione_1984.jpg/330px-Mike_Eruzione_1984.jpg',
   },
   {
     id: 'ray-kroc',
@@ -4039,6 +4402,7 @@ const _baseEntities: Entity[] = [
     description: 'A 52-year-old milkshake mixer salesman who turned a San Bernardino hamburger stand into the most valuable restaurant brand on Earth. Kroc bought McDonald\'s from its founders, cut them out of royalties, and built an empire of 40,000 restaurants by standardizing everything from fry time to pickle placement.',
     canonicalStoryId: 'ray-kroc-biography',
     wikipediaSlug: 'Ray_Kroc',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ray_Kroc_1976.jpg/330px-Ray_Kroc_1976.jpg',
   },
   {
     id: 'walter-gropius',
@@ -4048,6 +4412,7 @@ const _baseEntities: Entity[] = [
     description: 'The architect who founded the Bauhaus and collapsed the wall between art and industry. Gropius believed that buildings, furniture, and teapots all deserved the same design rigor. Fled Nazi Germany in 1934, taught at Harvard, and shaped a generation of American architects. His own house in Lincoln, Massachusetts, is a National Historic Landmark.',
     canonicalStoryId: 'walter-gropius-biography',
     wikipediaSlug: 'Walter_Gropius',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/WalterGropius-1919.jpg/330px-WalterGropius-1919.jpg',
   },
   {
     id: 'christian-dior',
@@ -4057,6 +4422,7 @@ const _baseEntities: Entity[] = [
     description: 'The failed art gallerist who became the most influential fashion designer of the 20th century with a single collection. His 1947 "New Look" used 25 yards of fabric per skirt after years of wartime rationing. Within a year, Dior accounted for 75% of France\'s fashion exports. He died of a heart attack at 52, reportedly after choking on a fishbone.',
     canonicalStoryId: 'christian-dior-biography',
     wikipediaSlug: 'Christian_Dior',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Christian_Dior_1954.jpg/330px-Christian_Dior_1954.jpg',
   },
   {
     id: 'george-lucas',
@@ -4066,6 +4432,7 @@ const _baseEntities: Entity[] = [
     description: 'The Modesto kid who created Star Wars, kept the merchandising rights because the studio thought they were worthless, and built a $7 billion fortune from toy lightsabers. His first film, THX 1138, flopped. His second, American Graffiti, cost $775,000 and grossed $140 million. He sold Lucasfilm to Disney in 2012 for $4.05 billion.',
     canonicalStoryId: 'george-lucas-biography',
     wikipediaSlug: 'George_Lucas',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/George_Lucas_by_Gage_Skidmore.jpg/330px-George_Lucas_by_Gage_Skidmore.jpg',
   },
   {
     id: 'ardeshir-irani',
@@ -4075,6 +4442,7 @@ const _baseEntities: Entity[] = [
     description: 'The Bombay filmmaker who raced to produce India\'s first talkie and launched the Bollywood musical formula. Irani\'s Alam Ara (1931) included seven songs, establishing the song-and-dance convention that defines Indian cinema. He made over 100 films but died in relative obscurity. No prints of Alam Ara survive.',
     canonicalStoryId: 'ardeshir-irani-biography',
     wikipediaSlug: 'Ardeshir_Irani',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Ardeshir_Irani.jpg/330px-Ardeshir_Irani.jpg',
   },
   {
     id: 'john-pemberton',
@@ -4084,6 +4452,7 @@ const _baseEntities: Entity[] = [
     description: 'A Confederate veteran and morphine addict who mixed a syrup in a three-legged brass kettle and inadvertently created the world\'s most recognized brand. Pemberton sold his Coca-Cola rights for a total of $2,300 before dying in poverty. The company is now worth over $250 billion.',
     canonicalStoryId: 'john-pemberton-biography',
     wikipediaSlug: 'John_Stith_Pemberton',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/John_Pemberton.jpg/330px-John_Pemberton.jpg',
   },
   {
     id: 'thomas-keller',
@@ -4093,6 +4462,7 @@ const _baseEntities: Entity[] = [
     description: 'The only American chef to hold three Michelin stars at two restaurants simultaneously — The French Laundry in Yountville and Per Se in New York. Self-taught, he worked his way through restaurant kitchens from Palm Beach to Paris. His "Oysters and Pearls" is one of the most imitated dishes of the last 30 years.',
     canonicalStoryId: 'thomas-keller-biography',
     wikipediaSlug: 'Thomas_Keller',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Thomas_Keller.jpg',
   },
   {
     id: 'auguste-escoffier',
@@ -4102,6 +4472,7 @@ const _baseEntities: Entity[] = [
     description: 'The French chef who organized the modern professional kitchen into the brigade system still used worldwide. Escoffier simplified Carême\'s haute cuisine, codified sauces into five mother sauces, and invented dishes for celebrities: peach Melba for soprano Nellie Melba, Melba toast for the same soprano on a diet.',
     canonicalStoryId: 'auguste-escoffier-biography',
     wikipediaSlug: 'Auguste_Escoffier',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Auguste_Escoffier_01.jpg/330px-Auguste_Escoffier_01.jpg',
   },
   {
     id: 'julia-child',
@@ -4111,6 +4482,7 @@ const _baseEntities: Entity[] = [
     description: 'The 6-foot-2 former OSS spy who taught America to cook French food through sheer enthusiasm and a willingness to drop things on television. Her Mastering the Art of French Cooking (1961) and The French Chef TV show demystified beurre blanc and boeuf bourguignon for a nation raised on TV dinners. Her kitchen is in the Smithsonian.',
     canonicalStoryId: 'julia-child-biography',
     wikipediaSlug: 'Julia_Child',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Julia_Child_portrait_by_%C2%A9Lynn_Gilbert%2C_1978.jpg/330px-Julia_Child_portrait_by_%C2%A9Lynn_Gilbert%2C_1978.jpg',
   },
   {
     id: 'alexander-mcqueen',
@@ -4120,6 +4492,7 @@ const _baseEntities: Entity[] = [
     description: 'The East London tailor\'s son who turned fashion shows into confrontational theater — burning crosses, robotic arms, live wolves. His "Highland Rape" collection scandalized critics; his skull-print scarves became ubiquitous. Appointed CBE, head designer at Givenchy at 27. He took his own life at 40, the day before his mother\'s funeral.',
     canonicalStoryId: 'alexander-mcqueen-biography',
     wikipediaSlug: 'Alexander_McQueen',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Alexander_McQueen_by_FashionWirePress.jpg/330px-Alexander_McQueen_by_FashionWirePress.jpg',
   },
   {
     id: 'steven-spielberg',
@@ -4129,6 +4502,7 @@ const _baseEntities: Entity[] = [
     description: 'The Cincinnati kid who invented the summer blockbuster with a broken mechanical shark. Spielberg\'s Jaws, E.T., Schindler\'s List, and Saving Private Ryan span populist entertainment and prestige cinema with equal command. Three-time Academy Award winner. The most commercially successful director in film history by total gross.',
     canonicalStoryId: 'steven-spielberg-biography',
     wikipediaSlug: 'Steven_Spielberg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/MKr25402_Steven_Spielberg_%28Berlinale_2023%29_%283x4_cropped%29.jpg/330px-MKr25402_Steven_Spielberg_%28Berlinale_2023%29_%283x4_cropped%29.jpg',
   },
   {
     id: 'alexander-graham-bell',
@@ -4138,6 +4512,7 @@ const _baseEntities: Entity[] = [
     description: 'A Scottish speech teacher for the deaf who raced a rival to the patent office and won history\'s most valuable patent — the telephone. Bell\'s mother and wife were both deaf, driving his lifelong work on sound transmission. He co-founded the National Geographic Society and spent his later years experimenting with flight, hydrofoils, and sheep breeding.',
     canonicalStoryId: 'alexander-graham-bell-biography',
     wikipediaSlug: 'Alexander_Graham_Bell',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Alexander_Graham_Bell_1895_NPG_77_363.jpg/330px-Alexander_Graham_Bell_1895_NPG_77_363.jpg',
   },
   {
     id: 'samuel-adams',
@@ -4147,6 +4522,7 @@ const _baseEntities: Entity[] = [
     description: 'The failed brewer and tax collector who became the chief architect of American resistance to British rule. Adams organized the Sons of Liberty, orchestrated the Boston Tea Party, and pushed the Continental Congress toward declaring independence. John Adams called him "the most dangerous man in Massachusetts." He later served as Governor of Massachusetts.',
     canonicalStoryId: 'samuel-adams-biography',
     wikipediaSlug: 'Samuel_Adams',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Samuel_Adams_by_John_Singleton_Copley.jpg/330px-Samuel_Adams_by_John_Singleton_Copley.jpg',
   },
   // ─── Ancient World ──────────────────────────────────────────
   {
@@ -4157,6 +4533,7 @@ const _baseEntities: Entity[] = [
     description: 'The man who measured the Earth with a stick and a shadow. Head librarian at Alexandria, he calculated the planet\'s circumference to within 2% of the modern value using geometry and the angle of sunlight in two cities. He invented the discipline of geography and drew the first world map with latitude and longitude lines.',
     canonicalStoryId: 'eratosthenes-biography',
     wikipediaSlug: 'Eratosthenes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Portrait_of_Eratosthenes.png',
   },
   {
     id: 'euclid',
@@ -4166,6 +4543,7 @@ const _baseEntities: Entity[] = [
     description: 'The father of geometry, whose Elements remained the standard mathematics textbook for over 2,000 years. Almost nothing is known about his life. When Ptolemy I asked if there was a shorter path to geometry, Euclid reportedly replied, "There is no royal road to geometry." Lincoln taught himself logic by studying the Elements by candlelight.',
     canonicalStoryId: 'euclid-biography',
     wikipediaSlug: 'Euclid',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Jusepe_de_Ribera_-_Euclid_-_2001.26_-_J._Paul_Getty_Museum.jpg/330px-Jusepe_de_Ribera_-_Euclid_-_2001.26_-_J._Paul_Getty_Museum.jpg',
   },
   {
     id: 'schliemann',
@@ -4175,6 +4553,7 @@ const _baseEntities: Entity[] = [
     description: 'The self-made millionaire who bet his fortune that Homer was history, not myth. He dug through seven layers of civilization at Hisarlik and declared he had found Troy. His methods were crude — he dynamited through strata that modern archaeologists would have spent decades excavating — but his instinct was right. The site was Troy.',
     canonicalStoryId: 'schliemann-biography',
     wikipediaSlug: 'Heinrich_Schliemann',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Heinrich_Schliemann_%28HeidICON_28763%29_%28cropped%29.jpg/330px-Heinrich_Schliemann_%28HeidICON_28763%29_%28cropped%29.jpg',
   },
   {
     id: 'hulagu-khan',
@@ -4184,6 +4563,7 @@ const _baseEntities: Entity[] = [
     description: 'Genghis Khan\'s grandson who destroyed the Abbasid Caliphate and sacked Baghdad in 1258, ending five centuries of Islamic golden age. His army killed an estimated 200,000 to one million people in a single week. His advance was finally stopped at Ain Jalut in 1260 by the Mamluks, the first major Mongol defeat.',
     canonicalStoryId: 'hulagu-khan-biography',
     wikipediaSlug: 'Hulagu_Khan',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hulagu_Khan.jpg/330px-Hulagu_Khan.jpg',
   },
   {
     id: 'selim-i',
@@ -4193,6 +4573,7 @@ const _baseEntities: Entity[] = [
     description: 'The Ottoman sultan who doubled the empire in eight years by conquering Egypt, Syria, and the Hejaz. He defeated the Mamluks at Marj Dabiq and Ridaniya, claimed the caliphate for the Ottomans, and gained control of Mecca and Medina. His nickname "Yavuz" means "the Stern" — he executed six of his own viziers.',
     canonicalStoryId: 'selim-i-biography',
     wikipediaSlug: 'Selim_I',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Nakka%C5%9F_Selim.jpg/330px-Nakka%C5%9F_Selim.jpg',
   },
   // ─── Modern History ──────────────────────────────────────────
   {
@@ -4203,6 +4584,7 @@ const _baseEntities: Entity[] = [
     description: 'The farm boy who put the world on wheels. Ford did not invent the automobile or the assembly line, but he combined them at Highland Park in 1913, cutting the Model T\'s build time from 12 hours to 93 minutes. He doubled wages to $5 a day and sold 15 million cars. He was also a virulent antisemite whose Dearborn Independent published conspiracy theories that Hitler praised in Mein Kampf.',
     canonicalStoryId: 'henry-ford-biography',
     wikipediaSlug: 'Henry_Ford',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Henry_Ford_portrait_1915_original_%283x4_cropped%29.png/330px-Henry_Ford_portrait_1915_original_%283x4_cropped%29.png',
   },
   {
     id: 'george-stephenson',
@@ -4212,6 +4594,7 @@ const _baseEntities: Entity[] = [
     description: 'The illiterate colliery engineer who built the world\'s first public steam railway. Stephenson taught himself to read at 18, designed his first locomotive at 33, and established the standard rail gauge of 4 feet 8.5 inches still used by most of the world\'s railways.',
     canonicalStoryId: 'george-stephenson-biography',
     wikipediaSlug: 'George_Stephenson',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/George_Stephenson_-_Project_Gutenberg_etext_13103.jpg/330px-George_Stephenson_-_Project_Gutenberg_etext_13103.jpg',
   },
   {
     id: 'yuri-gagarin',
@@ -4221,6 +4604,7 @@ const _baseEntities: Entity[] = [
     description: 'The first human being in space. A foundry worker\'s son from Klushino, Gagarin orbited Earth in 108 minutes on 12 April 1961, became an instant global celebrity, and died in a routine training flight at 34. His ashes are interred in the Kremlin wall.',
     canonicalStoryId: 'yuri-gagarin-biography',
     wikipediaSlug: 'Yuri_Gagarin',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Yuri_Gagarin_with_awards_%28cropped%29.jpg/330px-Yuri_Gagarin_with_awards_%28cropped%29.jpg',
   },
   {
     id: 'emily-davison',
@@ -4230,6 +4614,7 @@ const _baseEntities: Entity[] = [
     description: 'The suffragette who stepped in front of the King\'s horse. Oxford-educated and repeatedly imprisoned, Davison was force-fed 49 times during hunger strikes. She died four days after being struck by the King\'s horse at the 1913 Epsom Derby. Her funeral procession through London drew thousands.',
     canonicalStoryId: 'emily-davison-biography',
     wikipediaSlug: 'Emily_Davison',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Emily_Wilding_Davison_by_Andrew_William_Dron.jpg/330px-Emily_Wilding_Davison_by_Andrew_William_Dron.jpg',
   },
   {
     id: 'nikita-khrushchev',
@@ -4239,6 +4624,7 @@ const _baseEntities: Entity[] = [
     description: 'The Soviet leader who banged his shoe at the UN and stared down Kennedy over Cuba. A coal miner\'s son who rose through the Party, Khrushchev denounced Stalin\'s crimes in a "secret speech" in 1956, crushed the Hungarian revolution, put missiles in Cuba, and was ousted by his own Politburo in 1964. He spent his final years as a pensioner, dictating memoirs that were smuggled to the West.',
     canonicalStoryId: 'nikita-khrushchev-biography',
     wikipediaSlug: 'Nikita_Khrushchev',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/1956_Press_Photo_Communist_Party_Secretary_Nikita_S._Khrushchev_in_Moscow_%28cropped%29.jpg/330px-1956_Press_Photo_Communist_Party_Secretary_Nikita_S._Khrushchev_in_Moscow_%28cropped%29.jpg',
   },
   {
     id: 'wernher-von-braun',
@@ -4248,6 +4634,7 @@ const _baseEntities: Entity[] = [
     description: 'The rocket engineer who built weapons for Hitler and then put Americans on the Moon. Von Braun designed the V-2 rocket using slave labor from Mittelbau-Dora, surrendered to the Americans in 1945, and became NASA\'s chief architect of the Saturn V. Tom Lehrer sang that his loyalties were guided by expedience, not politics.',
     canonicalStoryId: 'wernher-von-braun-biography',
     wikipediaSlug: 'Wernher_von_Braun',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Wernher_von_Braun_crop.jpg/330px-Wernher_von_Braun_crop.jpg',
   },
   {
     id: 'christa-mcauliffe',
@@ -4257,6 +4644,7 @@ const _baseEntities: Entity[] = [
     description: 'The high school teacher chosen from 11,000 applicants to be the first civilian in space. McAuliffe planned to teach two lessons from orbit and keep a journal. She died 73 seconds after launch when Space Shuttle Challenger broke apart on 28 January 1986. Millions of schoolchildren watched the disaster live on television.',
     canonicalStoryId: 'christa-mcauliffe-biography',
     wikipediaSlug: 'Christa_McAuliffe',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/ChristaMcAuliffe_%28cropped%29.jpg/330px-ChristaMcAuliffe_%28cropped%29.jpg',
   },
   {
     id: 'lech-walesa',
@@ -4266,6 +4654,7 @@ const _baseEntities: Entity[] = [
     description: 'The shipyard electrician who climbed over a fence and brought down communism. Walesa led the Solidarity movement from the Gdansk Shipyard, survived martial law and internment, won the Nobel Peace Prize in 1983, and became Poland\'s first democratically elected president in 1990.',
     canonicalStoryId: 'lech-walesa-biography',
     wikipediaSlug: 'Lech_Wałęsa',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Lech_Wa%C5%82%C4%99sa_w_36._rocznic%C4%99_wybor%C3%B3w_4_czerwca_1989_%28cropped_2%29.jpg/330px-Lech_Wa%C5%82%C4%99sa_w_36._rocznic%C4%99_wybor%C3%B3w_4_czerwca_1989_%28cropped_2%29.jpg',
   },
   {
     id: 'alexander-fleming',
@@ -4275,6 +4664,7 @@ const _baseEntities: Entity[] = [
     description: 'The untidy Scottish bacteriologist who saved more lives than any other person in history. Fleming discovered penicillin by accident in 1928 when a mold contaminated a petri dish he had left unwashed before his holiday. He shared the 1945 Nobel Prize with Florey and Chain, who turned his observation into a usable drug.',
     canonicalStoryId: 'alexander-fleming-biography',
     wikipediaSlug: 'Alexander_Fleming',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Synthetic_Production_of_Penicillin_TR1468.jpg/330px-Synthetic_Production_of_Penicillin_TR1468.jpg',
   },
   // ─── Stub entities for cross-draft references ────────────────────────
   {
@@ -4284,6 +4674,7 @@ const _baseEntities: Entity[] = [
     years: '1955–2011',
     description: 'Co-founder of Apple who built the most valuable company on Earth. Jobs was fired from Apple in 1985, returned in 1997, and launched the iMac, iPod, iPhone, and iPad — products that redefined personal computing, music, and mobile communication.',
     wikipediaSlug: 'Steve_Jobs',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/330px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg',
   },
   {
     id: 'jesse-owens',
@@ -4292,6 +4683,7 @@ const _baseEntities: Entity[] = [
     years: '1913–1980',
     description: 'Track and field athlete who won four gold medals at the 1936 Berlin Olympics, embarrassing Hitler\'s vision of Aryan supremacy. At the 1935 Big Ten meet in Ann Arbor, he broke three world records and tied a fourth in 45 minutes — still called the greatest single-day athletic achievement.',
     wikipediaSlug: 'Jesse_Owens',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Jesse_Owens_1936.jpg/330px-Jesse_Owens_1936.jpg',
   },
   {
     id: 'andre-breton',
@@ -4300,6 +4692,7 @@ const _baseEntities: Entity[] = [
     years: '1896–1966',
     description: 'French writer and poet who founded the Surrealist movement. His 1924 Manifesto of Surrealism defined the movement\'s principles, and he held court at Parisian caf\u00e9s where he attracted Dal\u00ed, Ernst, and Magritte to the cause.',
     wikipediaSlug: 'André_Breton',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Andr%C3%A9_Breton.JPG/330px-Andr%C3%A9_Breton.JPG',
   },
   {
     id: 'virginia-woolf',
@@ -4308,6 +4701,7 @@ const _baseEntities: Entity[] = [
     years: '1882–1941',
     description: 'Modernist novelist who pioneered stream-of-consciousness narrative in Mrs Dalloway and To the Lighthouse. Central figure of the Bloomsbury Group, she co-founded the Hogarth Press with her husband Leonard and reshaped English prose before drowning herself in the River Ouse.',
     wikipediaSlug: 'Virginia_Woolf',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg/330px-George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg',
   },
   {
     id: 'gian-lorenzo-bernini',
@@ -4316,6 +4710,7 @@ const _baseEntities: Entity[] = [
     years: '1598–1680',
     description: 'The sculptor and architect who shaped Baroque Rome. Bernini carved the Ecstasy of Saint Teresa at 24, designed St. Peter\'s Square colonnade, and created the Fountain of the Four Rivers in Piazza Navona. Eight popes kept him employed for six decades.',
     wikipediaSlug: 'Gian_Lorenzo_Bernini',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Gian_Lorenzo_Bernini%2C_self-portrait%2C_c1623.jpg/330px-Gian_Lorenzo_Bernini%2C_self-portrait%2C_c1623.jpg',
   },
   {
     id: 'langston-hughes',
@@ -4324,6 +4719,7 @@ const _baseEntities: Entity[] = [
     years: '1901–1967',
     description: 'Poet, novelist, and playwright who became the voice of the Harlem Renaissance. Hughes wrote "The Negro Speaks of Rivers" at 17, coined the term "the dream deferred," and spent four decades chronicling Black American life in jazz-inflected verse.',
     wikipediaSlug: 'Langston_Hughes',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Langston_Hughes_by_Carl_Van_Vechten_Trim.jpg/330px-Langston_Hughes_by_Carl_Van_Vechten_Trim.jpg',
   },
 ];
 

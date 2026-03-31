@@ -71,43 +71,31 @@ async function loadStaticData(): Promise<AppData> {
 // If Supabase fails or returns empty data, we fall back to static files
 // with a console warning so the app still works in offline/dev scenarios.
 
-// Cached promise so Supabase load can continue in the background
-let supabasePromise: Promise<AppData | null> | null = null;
-
 async function loadData(): Promise<AppData> {
-  if (dataSource === 'static') {
-    console.info('[data] Using static files (VITE_DATA_SOURCE=static)');
-    return loadStaticData();
-  }
+  // Always load static data first — it's bundled and fast.
+  // Static includes all content via spread imports from regional files.
+  const staticData = await loadStaticData();
+  console.info('[data] Static data loaded (' + staticData.moments.length + ' moments)');
 
-  // Start Supabase load (or reuse existing promise)
-  if (!supabasePromise) {
-    supabasePromise = (async () => {
-      try {
-        const { loadFromSupabase } = await import('./supabase-loader');
-        const data = await loadFromSupabase();
-        if (data.moments.length === 0) return null;
-        return { ...data, browseableStories: filterBrowseableStories(data.stories) };
-      } catch (err) {
-        console.warn('[data] Supabase load failed:', err);
-        return null;
+  if (dataSource === 'static') return staticData;
+
+  // Fire Supabase load in the background — if it succeeds, TanStack Query
+  // will invalidate and the UI silently upgrades to fresh data.
+  (async () => {
+    try {
+      const { loadFromSupabase } = await import('./supabase-loader');
+      const data = await loadFromSupabase();
+      if (data.moments.length > 0) {
+        const appData = { ...data, browseableStories: filterBrowseableStories(data.stories) };
+        queryClient.setQueryData(['app-data', dataSource], appData);
+        console.info('[data] Supabase upgrade complete (' + data.moments.length + ' moments)');
       }
-    })();
-  }
+    } catch (err) {
+      console.warn('[data] Supabase background load failed (using static):', err);
+    }
+  })();
 
-  // Race: Supabase (8s timeout) vs static data
-  // If Supabase responds within 8s, use it. Otherwise load static immediately.
-  const timeout = new Promise<'timeout'>(r => setTimeout(() => r('timeout'), 8000));
-  const result = await Promise.race([supabasePromise, timeout]);
-
-  if (result !== 'timeout' && result !== null) {
-    console.info('[data] Loaded from Supabase');
-    return result;
-  }
-
-  // Supabase too slow or failed — load static immediately
-  console.info('[data] Supabase slow/failed — loading static data');
-  return loadStaticData();
+  return staticData;
 }
 
 // ─── Inner provider (uses TanStack Query) ────────────────────────────
