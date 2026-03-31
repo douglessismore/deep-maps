@@ -347,11 +347,16 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           interactive: true,
         });
         const tooltipText = scrollHighlightLabel || moment.name;
+        // Auto-detect label direction: place left if moment is in the right half of the viewport
+        const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
+        const sz = map.getSize();
+        const dir = pt.x > sz.x * 0.5 ? 'left' as const : 'right' as const;
+        const off: [number, number] = dir === 'left' ? [-8, 0] : [8, 0];
         marker.bindTooltip(
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;border-left:3px solid ${color};padding-left:6px;margin:-2px -4px;border-radius:2px;">
             <strong>${tooltipText}</strong>
           </div>`,
-          { direction: 'right', offset: [8, 0], className: 'dark-tooltip clickable-tooltip', permanent: true }
+          { direction: dir, offset: off, className: 'dark-tooltip clickable-tooltip', permanent: true }
         );
         const story = momentStoryMap.get(moment.id);
         if (story) {
