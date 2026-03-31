@@ -694,13 +694,18 @@ function PersonCard({
 
 function BackfillDivider() {
   return (
-    <div className="shrink-0 flex items-center self-stretch px-1">
-      <div className="flex flex-col items-center gap-1">
-        <div className="w-px h-6 bg-[rgba(255,255,255,0.12)]" />
-        <span className="text-[8px] font-mono text-[var(--text-muted)] uppercase tracking-wider whitespace-nowrap [writing-mode:vertical-lr] rotate-180 opacity-70">
-          zoom out
-        </span>
-        <div className="w-px h-6 bg-[rgba(255,255,255,0.12)]" />
+    <div className="shrink-0 flex items-center self-stretch px-2">
+      <div className="flex flex-col items-center gap-1.5 py-2">
+        <div className="w-px h-4 bg-[rgba(255,255,255,0.2)]" />
+        <div className="flex flex-col items-center gap-0.5 px-1">
+          <span className="text-[10px] font-mono text-[var(--text-muted)] whitespace-nowrap">
+            Zoom out
+          </span>
+          <span className="text-[9px] text-[var(--text-muted)] opacity-60 whitespace-nowrap">
+            to see more
+          </span>
+        </div>
+        <div className="w-px h-4 bg-[rgba(255,255,255,0.2)]" />
       </div>
     </div>
   );
