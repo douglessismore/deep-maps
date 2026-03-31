@@ -296,15 +296,21 @@ export function ExplorePanel({
       : browseableStories;
     const homeStories = getStoriesInBounds(browseSrc, bounds, momentMap);
     setHomeViewportStories(homeStories);
-    // Backfill stories from expanded bounds when viewport has few
-    if (homeStories.length < 5) {
-      const expanded = getExpandedBounds(bounds, 3);
-      const nearbyStories = getStoriesInBounds(browseSrc, expanded, momentMap);
-      const inViewIds = new Set(homeStories.map(s => s.id));
-      setBackfillStories(nearbyStories.filter(s => !inViewIds.has(s.id)).slice(0, 10 - homeStories.length));
-    } else {
-      setBackfillStories([]);
-    }
+    // Always provide off-screen stories sorted by distance (tap-to-zoom, not scroll-to-zoom)
+    const expanded = getExpandedBounds(bounds, 5);
+    const nearbyStories = getStoriesInBounds(browseSrc, expanded, momentMap);
+    const inViewIds = new Set(homeStories.map(s => s.id));
+    const center = bounds.getCenter();
+    setBackfillStories(
+      nearbyStories
+        .filter(s => !inViewIds.has(s.id))
+        .sort((a, b) => {
+          const aDist = Math.min(...a.moments.map(sm => { const m = momentMap.get(sm.momentId); return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity; }));
+          const bDist = Math.min(...b.moments.map(sm => { const m = momentMap.get(sm.momentId); return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity; }));
+          return aDist - bDist;
+        })
+        .slice(0, 15)
+    );
     setMapZoom(mapInstance.getZoom());
   }, [mapInstance, stories, browseableStories, categoryFilter, momentMap, moments]);
 
@@ -333,11 +339,11 @@ export function ExplorePanel({
     );
   }, [collections, mapInstance, viewportLocations]); // viewportLocations triggers recompute on map move
 
-  // Backfill collections from expanded bounds when viewport has few collections
+  // Always provide off-screen collections sorted by distance (tap-to-zoom)
   const backfillCollections = useMemo(() => {
-    if (viewportCollections.length >= 3 || !mapInstance) return [];
+    if (!mapInstance) return [];
     const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 3); // 3x viewport diagonal
+    const expanded = getExpandedBounds(bounds, 5);
     const inViewIds = new Set(viewportCollections.map(c => c.id));
     // Find collections with at least one moment in the expanded bounds
     const nearby = collections.filter(c => {
@@ -360,7 +366,7 @@ export function ExplorePanel({
       }));
       return aDist - bDist;
     });
-    return nearby.slice(0, 6 - viewportCollections.length);
+    return nearby.slice(0, 15);
   }, [viewportCollections, mapInstance, collections, moments]);
 
   // Scroll-driven navigation (Stories tab + Collections views)
@@ -661,17 +667,17 @@ export function ExplorePanel({
     [viewportEntities]
   );
 
-  // Backfill people from expanded bounds when viewport has few people
+  // Always provide off-screen people sorted by notability (tap-to-zoom)
   const backfillPeople = useMemo(() => {
-    if (personEntities.length >= 5 || !mapInstance) return [];
+    if (!mapInstance) return [];
     const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 3); // 3x viewport diagonal
+    const expanded = getExpandedBounds(bounds, 5);
     const expandedLocs = getLocationsInBounds(stories, expanded, momentMap, moments);
     const expandedIds = new Set(expandedLocs.map((vl) => vl.location.id));
     const inViewIds = new Set(personEntities.map((p) => p.entity.id));
     return getViewportEntities(expandedIds)
       .filter((e) => e.entity.type === 'person' && !inViewIds.has(e.entity.id))
-      .slice(0, 10 - personEntities.length); // fill up to 10 total
+      .slice(0, 15);
   }, [personEntities, mapInstance, stories, momentMap, moments]);
 
   // Alphabetical grouping of people for A-Z mode in Stories tab
@@ -922,6 +928,9 @@ export function ExplorePanel({
     }, 80);
   }, [mapInstance, sheetSnap, isSheetMobile]);
 
+  // Backfill person IDs — skip preserveViewport for off-screen people (let map fly to them)
+  const backfillPersonIds = useMemo(() => new Set((backfillPeople ?? []).map(p => p.entity.id)), [backfillPeople]);
+
   if (panelView === 'home') {
     return (
       <div className="flex flex-col h-full min-h-0 relative">
@@ -947,7 +956,7 @@ export function ExplorePanel({
           }}
           onEntityClick={(entity) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
-            onPreserveViewport?.();
+            if (!backfillPersonIds.has(entity.id)) onPreserveViewport?.(); // stay local only for in-view people
             onPanelViewChange?.('explorer');
             onEntityClick?.(entity);
           }}
