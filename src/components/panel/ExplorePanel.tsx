@@ -333,6 +333,36 @@ export function ExplorePanel({
     );
   }, [collections, mapInstance, viewportLocations]); // viewportLocations triggers recompute on map move
 
+  // Backfill collections from expanded bounds when viewport has few collections
+  const backfillCollections = useMemo(() => {
+    if (viewportCollections.length >= 3 || !mapInstance) return [];
+    const bounds = mapInstance.getBounds();
+    const expanded = getExpandedBounds(bounds, 3); // 3x viewport diagonal
+    const inViewIds = new Set(viewportCollections.map(c => c.id));
+    // Find collections with at least one moment in the expanded bounds
+    const nearby = collections.filter(c => {
+      if (inViewIds.has(c.id)) return false;
+      return c.momentIds.some(mid => {
+        const m = moments.find(mm => mm.id === mid);
+        return m && expanded.contains([m.lat, m.lng]);
+      });
+    });
+    // Sort by distance from map center to nearest moment
+    const center = bounds.getCenter();
+    nearby.sort((a, b) => {
+      const aDist = Math.min(...a.momentIds.map(mid => {
+        const m = moments.find(mm => mm.id === mid);
+        return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity;
+      }));
+      const bDist = Math.min(...b.momentIds.map(mid => {
+        const m = moments.find(mm => mm.id === mid);
+        return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity;
+      }));
+      return aDist - bDist;
+    });
+    return nearby.slice(0, 6 - viewportCollections.length);
+  }, [viewportCollections, mapInstance, collections, moments]);
+
   // Scroll-driven navigation (Stories tab + Collections views)
   useEffect(() => {
     const isStoriesTab = activeTab === 'stories';
@@ -941,6 +971,7 @@ export function ExplorePanel({
           onCategoryFilter={onCategoryFilter}
           viewportStories={homeViewportStories}
           backfillStories={backfillStories}
+          backfillCollections={backfillCollections}
           onStorySelect={(story) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
             onPreserveViewport?.();

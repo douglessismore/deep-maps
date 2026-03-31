@@ -121,6 +121,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const activeOverlayRef = useRef<L.Marker | null>(null);
   const scrollOverlayRef = useRef<L.Marker | null>(null);
+  const zoomOutPillRef = useRef<L.Control | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -416,6 +417,53 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
     };
   }, [activeLocation, map]);
+
+  // ── "Zoom out to explore" pill ──────────────────────────────────────
+  // Shown when scroll highlight has moments but NONE are visible in the viewport.
+  // Only active in soft highlight mode (homepage).
+  useEffect(() => {
+    // Remove existing pill
+    if (zoomOutPillRef.current) {
+      map.removeControl(zoomOutPillRef.current);
+      zoomOutPillRef.current = null;
+    }
+
+    if (!scrollHighlight || scrollHighlight.length === 0 || !softHighlight) return;
+
+    const bounds = map.getBounds();
+    const anyInView = scrollHighlight.some(m => bounds.contains([m.lat, m.lng]));
+    if (anyInView) return;
+
+    // All highlighted moments are off-screen — show a pill
+    const ZoomOutControl = L.Control.extend({
+      onAdd() {
+        const div = L.DomUtil.create('div');
+        div.innerHTML = `<div style="
+          background: rgba(20,20,24,0.85);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 999px;
+          padding: 5px 14px;
+          font-family: 'Space Grotesk','Courier New',monospace;
+          font-size: 11px;
+          color: rgba(255,255,255,0.7);
+          pointer-events: none;
+          white-space: nowrap;
+        ">Zoom out to explore</div>`;
+        return div;
+      },
+    });
+    const ctrl = new ZoomOutControl({ position: 'bottomleft' });
+    ctrl.addTo(map);
+    zoomOutPillRef.current = ctrl;
+
+    return () => {
+      if (zoomOutPillRef.current) {
+        map.removeControl(zoomOutPillRef.current);
+        zoomOutPillRef.current = null;
+      }
+    };
+  }, [scrollHighlight, softHighlight, map]);
 
   return null;
 }

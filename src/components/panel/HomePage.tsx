@@ -49,6 +49,8 @@ interface HomePageProps {
   viewportStories?: Story[];
   /** Backfill stories from expanded bounds */
   backfillStories?: Story[];
+  /** Backfill collections from expanded bounds */
+  backfillCollections?: StoryCollection[];
   /** Story click handler */
   onStorySelect?: (story: Story) => void;
   /** Ref callback for the home scroll container (used by parent to snapshot scroll on nav) */
@@ -439,6 +441,7 @@ function HomeCollectionCard({
   onClick,
   isActive,
   inViewCount,
+  isBackfill,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
@@ -446,6 +449,7 @@ function HomeCollectionCard({
   isActive?: boolean;
   /** How many of this collection's moments are currently visible on the map */
   inViewCount?: number;
+  isBackfill?: boolean;
 }) {
   const total = collection.momentIds.length;
   const hasMore = isActive && inViewCount != null && inViewCount < total;
@@ -476,7 +480,11 @@ function HomeCollectionCard({
           </p>
         </div>
         <div className="mt-auto pt-1 flex items-baseline gap-1.5">
-          {hasMore ? (
+          {isBackfill ? (
+            <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+              {total} events · nearby
+            </span>
+          ) : hasMore ? (
             <>
               <span className="text-[10px] font-mono text-[var(--text-primary)] uppercase tracking-wider">
                 {inViewCount} of {total} in view
@@ -502,10 +510,12 @@ function CollectionGridCard({
   collection,
   imageUrl,
   onClick,
+  isBackfill,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
   onClick: () => void;
+  isBackfill?: boolean;
 }) {
   return (
     <button
@@ -532,7 +542,7 @@ function CollectionGridCard({
           </p>
         </div>
         <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mt-auto pt-1">
-          {collection.momentIds.length} events
+          {collection.momentIds.length} events{isBackfill ? ' · nearby' : ''}
         </span>
       </div>
     </button>
@@ -545,11 +555,13 @@ function HomeStoryCard({
   story,
   inViewCount,
   isActive,
+  isBackfill,
   onClick,
 }: {
   story: Story;
   inViewCount: number;
   isActive?: boolean;
+  isBackfill?: boolean;
   onClick: () => void;
 }) {
   const cat = CATEGORIES[story.category];
@@ -573,9 +585,11 @@ function HomeStoryCard({
         </div>
         <div className="flex items-center justify-between mt-auto pt-1">
           <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {inViewCount < total
-              ? `${inViewCount} of ${total} moments`
-              : `${total} moments`}
+            {isBackfill
+              ? `${total} moments · nearby`
+              : inViewCount < total
+                ? `${inViewCount} of ${total} moments`
+                : `${total} moments`}
           </span>
         </div>
       </div>
@@ -727,7 +741,7 @@ export function HomePage({
   personEntities,
   backfillPeople,
   userLocation,
-  isNearUser,
+  isNearUser: _isNearUser,
   onMomentClick,
   onCollectionSelect,
   onEntityClick,
@@ -740,6 +754,7 @@ export function HomePage({
   allCategoriesInView,
   viewportStories,
   backfillStories,
+  backfillCollections,
   onStorySelect,
   scrollRef,
   onScrollPosition,
@@ -884,7 +899,7 @@ export function HomePage({
 
   // Dynamic title: context-aware
   const isUsingFallback = nearYouMomentsLive.length === 0 && nearestFallback.length > 0;
-  const nearYouTitle = isUsingFallback ? 'Nearest' : (isNearUser ? 'Near You' : 'In View');
+  const nearYouTitle = isUsingFallback ? 'What Happened Nearby' : 'What Happened Here';
 
   // Set of moment IDs visible on the map — used to filter collections
   const viewportMomentIds = useMemo(
@@ -894,7 +909,7 @@ export function HomePage({
 
   // Filtered collections — only show collections that have at least one
   // moment visible on the current map viewport (+ respect category filter).
-  const filteredCollections = useMemo(() => {
+  const viewportFilteredCollections = useMemo(() => {
     return collections.filter((c) => {
       // Must have at least one moment on the map
       const hasVisibleMoment = c.momentIds.some((mid) => viewportMomentIds.has(mid));
@@ -910,6 +925,18 @@ export function HomePage({
     });
   }, [collections, categoryFilter, momentToStoryMap, viewportMomentIds]);
 
+  // Combined collections: viewport + backfill (like stories)
+  const filteredCollections = useMemo(() => {
+    const inView = viewportFilteredCollections;
+    const fill = (backfillCollections ?? []).filter(c => !inView.some(vc => vc.id === c.id));
+    return [...inView, ...fill];
+  }, [viewportFilteredCollections, backfillCollections]);
+
+  const backfillCollectionIds = useMemo(
+    () => new Set((backfillCollections ?? []).map(c => c.id)),
+    [backfillCollections],
+  );
+
   // Combined stories: viewport + backfill (for Stories Near You section)
   const allHomeStories = useMemo(() => {
     const inView = viewportStories ?? [];
@@ -918,9 +945,7 @@ export function HomePage({
   }, [viewportStories, backfillStories]);
 
   const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
-  const storiesSectionTitle = (viewportStories ?? []).length > 0
-    ? (isNearUser ? 'Stories Near You' : 'Stories In View')
-    : (isNearUser ? 'Stories Nearby' : 'Notable Stories');
+  const storiesSectionTitle = (viewportStories ?? []).length > 0 ? 'Stories' : 'Stories Nearby';
 
   // Story in-view counts — how many of each story's moments are visible on the map
   const storyInViewCounts = useMemo(() => {
@@ -967,7 +992,7 @@ export function HomePage({
   }, [filteredPersonEntities, backfillPeople]);
 
   // Title adapts based on whether we're showing backfill people
-  const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Notable People' : 'Notable People Nearby';
+  const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Who Was Here' : 'Who Was Nearby';
 
   // ── Scroll refs for each section ──
   const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
@@ -1423,6 +1448,7 @@ export function HomePage({
                       key={story.id}
                       story={story}
                       isActive={i === storiesActiveIdx}
+                      isBackfill={backfillStoryIds.has(story.id)}
                       inViewCount={storyInViewCounts.get(story.id) ?? 0}
                       onClick={() => onStorySelect?.(story)}
                     />
@@ -1516,6 +1542,7 @@ export function HomePage({
                   <CollectionGridCard
                     key={collection.id}
                     collection={collection}
+                    isBackfill={backfillCollectionIds.has(collection.id)}
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
@@ -1528,6 +1555,7 @@ export function HomePage({
                     key={collection.id}
                     collection={collection}
                     isActive={i === collectionsActiveIdx}
+                    isBackfill={backfillCollectionIds.has(collection.id)}
                     inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
                     onClick={() => onCollectionSelect(collection)}
                   />
@@ -1537,7 +1565,7 @@ export function HomePage({
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[var(--text-muted)] font-mono">
-                {categoryFilter ? 'No collections for this category' : 'No collections available'}
+                {categoryFilter ? 'No collections for this category' : 'Zoom or pan the map to discover collections'}
               </p>
             </div>
           )}
