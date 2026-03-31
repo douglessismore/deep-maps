@@ -79,7 +79,11 @@ async function loadData(): Promise<AppData> {
 
   try {
     const { loadFromSupabase } = await import('./supabase-loader');
-    const data = await loadFromSupabase();
+    // Hard 15s timeout — if Supabase is slow on mobile, fall back to static data
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('Supabase load timed out after 15s')), 15000)
+    );
+    const data = await Promise.race([loadFromSupabase(), timeoutPromise]);
 
     // Guard: if Supabase returned 0 moments, something is wrong — fall back
     if (data.moments.length === 0) {
@@ -100,8 +104,7 @@ function DataLoader({ children }: { children: ReactNode }) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['app-data', dataSource],
     queryFn: loadData,
-    retry: 2,
-    retryDelay: 1000,
+    retry: false, // loadData handles its own retries + timeout + static fallback
   });
 
   // Initialize module-scope helpers once when data arrives.

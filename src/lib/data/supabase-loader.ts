@@ -111,7 +111,7 @@ interface MomentLinkRow {
 
 const PAGE_SIZE = 1000;
 
-async function fetchAll<T>(table: string, retries = 3): Promise<T[]> {
+async function fetchAll<T>(table: string, retries = 2): Promise<T[]> {
   // Supabase server-side max is 1000 rows per request, regardless of .limit().
   // Must paginate with .range() to get all rows. Retries on network failures.
   for (let attempt = 0; attempt < retries; attempt++) {
