@@ -1282,7 +1282,11 @@ export function HomePage({
     if (!container || !onScrollHighlightRef.current) return;
 
     let rafId = 0;
+    // Mount guard: ignore scroll events during first 600ms to prevent
+    // initial layout/render from activating a section highlight
+    const mountTime = Date.now();
     const onScroll = () => {
+      if (Date.now() - mountTime < 600) return;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const containerRect = container.getBoundingClientRect();
