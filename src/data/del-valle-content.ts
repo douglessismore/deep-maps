@@ -456,7 +456,6 @@ export const delValleStories: Story[] = [
     moments: [
       { momentId: 'pilot-knob-eruption' },
       { momentId: 'mckinney-falls-indigenous' },
-      { momentId: 'del-valle-land-grant' },
       { momentId: 'mckinney-homestead-mill' },
       { momentId: 'onion-creek-flood-2013' },
     ],
