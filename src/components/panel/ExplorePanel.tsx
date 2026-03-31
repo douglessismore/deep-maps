@@ -941,7 +941,7 @@ export function ExplorePanel({
           }}
           onCollectionSelect={(collection) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
-            onPreserveViewport?.();
+            // Don't preserve viewport — map should fly to the collection's markers
             onPanelViewChange?.('explorer');
             onCollectionSelect(collection);
           }}
@@ -974,7 +974,7 @@ export function ExplorePanel({
           backfillCollections={backfillCollections}
           onStorySelect={(story) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
-            onPreserveViewport?.();
+            // Don't preserve viewport — map should fly to the story's markers
             onPanelViewChange?.('explorer');
             onStorySelect(story);
           }}

@@ -276,13 +276,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     }
   }, [scrollHighlight, map]);
 
-  // ── Scroll highlight overlay (DOM marker + permanent label) ──────────
-  // Canvas CircleMarkers can't show permanent tooltips, so we overlay a
-  // real DOM marker for the single scroll-highlighted moment. This gives
-  // users a visible ring + the moment name on the map as they scroll.
+  // ── Scroll highlight overlay (DOM marker with inline label) ──────────
+  // Uses a single DivIcon containing BOTH the dot and the label text.
+  // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
   useEffect(() => {
     if (scrollOverlayRef.current) {
-      clearTimeout((scrollOverlayRef.current as any)._tooltipTimerId);
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
     }
@@ -291,105 +289,67 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       const isMulti = scrollHighlight.length > 1;
       const hasLabel = scrollHighlightLabel && isMulti;
 
-      // Helper: add marker to map, then bind tooltip after a delay to prevent flash.
-      // Leaflet renders permanent tooltips at a default position before repositioning.
-      // We delay binding by 60ms so the marker is fully positioned first.
-      const addMarkerWithTooltip = (
-        marker: L.Marker,
-        tooltipHtml: string,
-        tooltipOpts: L.TooltipOptions,
-        clickMoment?: typeof scrollHighlight[0],
-      ) => {
-        marker.addTo(map);
-        scrollOverlayRef.current = marker;
-        const timerId = window.setTimeout(() => {
-          if (!map.hasLayer(marker)) return;
-          marker.bindTooltip(tooltipHtml, tooltipOpts);
-          if (clickMoment) {
-            const story = momentStoryMap.get(clickMoment.id);
-            if (story) {
-              const handler = () => onClickRef.current(clickMoment, story);
-              marker.on('click', handler);
-              marker.on('tooltipopen', () => {
-                const el = marker.getTooltip()?.getElement();
-                if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
-              });
-            }
-          }
-        }, 60);
-        // Store timer so cleanup can clear it
-        (marker as any)._tooltipTimerId = timerId;
-      };
-
       if (hasLabel) {
-        // Multi-moment: show parent name at the center of VISIBLE markers in viewport
+        // Multi-moment: show parent name at the center of VISIBLE markers
         const bounds = map.getBounds();
         const visibleMoments = scrollHighlight.filter(m => bounds.contains([m.lat, m.lng]));
-        // Only show label if at least one marker is in the viewport — skip if all off-screen
         if (visibleMoments.length === 0) return;
-        const labelMoments = visibleMoments;
-        const lats = labelMoments.map(m => m.lat);
-        const lngs = labelMoments.map(m => m.lng);
+        const lats = visibleMoments.map(m => m.lat);
+        const lngs = visibleMoments.map(m => m.lng);
         const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
         const centerLng = (Math.min(...lngs) + Math.max(...lngs)) / 2;
-        const icon = L.divIcon({ className: '', html: '', iconSize: [0, 0] });
-        const marker = L.marker([centerLat, centerLng], {
-          icon,
-          zIndexOffset: 900,
-          interactive: true,
-        });
-        // Auto-detect label direction based on where the cluster center is in the viewport
+        // Detect direction: label goes left or right of center point
         const point = map.latLngToContainerPoint([centerLat, centerLng]);
         const mapSize = map.getSize();
-        const isRightHalf = point.x > mapSize.x * 0.5;
-        const tooltipDir = isRightHalf ? 'left' as const : 'right' as const;
-        const tooltipOffset: [number, number] = isRightHalf ? [-12, 0] : [12, 0];
-        addMarkerWithTooltip(
-          marker,
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;">
-            <strong>${scrollHighlightLabel}</strong>
+        const labelRight = point.x <= mapSize.x * 0.5;
+        const icon = L.divIcon({
+          className: '',
+          html: `<div class="scroll-label-container" style="${labelRight ? '' : 'flex-direction:row-reverse;'}">
+            <div class="scroll-label-dot" style="width:0;height:0;"></div>
+            <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
           </div>`,
-          { direction: tooltipDir, offset: tooltipOffset, className: 'dark-tooltip clickable-tooltip', permanent: true },
-          scrollHighlight[0],
-        );
+          iconSize: [0, 0],
+        });
+        const marker = L.marker([centerLat, centerLng], { icon, zIndexOffset: 900, interactive: true });
+        const firstMoment = scrollHighlight[0];
+        const firstStory = momentStoryMap.get(firstMoment.id);
+        if (firstStory) {
+          marker.on('click', () => onClickRef.current(firstMoment, firstStory));
+        }
+        marker.addTo(map);
+        scrollOverlayRef.current = marker;
       } else {
-        // Single moment: show label only if the moment is inside the current viewport
+        // Single moment: show dot + label inline
         const moment = scrollHighlight[0];
         const vpBounds = map.getBounds();
         if (!vpBounds.contains([moment.lat, moment.lng])) return;
         const category = momentCategoryMap.get(moment.id);
         const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
+        const tooltipText = scrollHighlightLabel || moment.name;
+        const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
+        const sz = map.getSize();
+        const labelRight = pt.x <= sz.x * 0.5;
         const icon = L.divIcon({
           className: '',
-          html: `<div class="story-marker active" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};"></div>`,
+          html: `<div class="scroll-label-container" style="${labelRight ? '' : 'flex-direction:row-reverse;'}">
+            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
+            <div class="scroll-label-text dark-tooltip" style="border-left:3px solid ${color};">${tooltipText}</div>
+          </div>`,
           iconSize: [12, 12],
           iconAnchor: [6, 6],
         });
-        const marker = L.marker([moment.lat, moment.lng], {
-          icon,
-          zIndexOffset: 900,
-          interactive: true,
-        });
-        const tooltipText = scrollHighlightLabel || moment.name;
-        // Auto-detect label direction: place left if moment is in the right half of the viewport
-        const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
-        const sz = map.getSize();
-        const dir = pt.x > sz.x * 0.5 ? 'left' as const : 'right' as const;
-        const off: [number, number] = dir === 'left' ? [-8, 0] : [8, 0];
-        addMarkerWithTooltip(
-          marker,
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;border-left:3px solid ${color};padding-left:6px;margin:-2px -4px;border-radius:2px;">
-            <strong>${tooltipText}</strong>
-          </div>`,
-          { direction: dir, offset: off, className: 'dark-tooltip clickable-tooltip', permanent: true },
-          moment,
-        );
+        const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
+        const story = momentStoryMap.get(moment.id);
+        if (story) {
+          marker.on('click', () => onClickRef.current(moment, story));
+        }
+        marker.addTo(map);
+        scrollOverlayRef.current = marker;
       }
     }
 
     return () => {
       if (scrollOverlayRef.current) {
-        clearTimeout((scrollOverlayRef.current as any)._tooltipTimerId);
         map.removeLayer(scrollOverlayRef.current);
         scrollOverlayRef.current = null;
       }

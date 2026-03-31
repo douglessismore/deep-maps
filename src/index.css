@@ -605,6 +605,25 @@ html, body, #root {
   border-left-color: rgba(139, 92, 246, 0.8) !important;
 }
 
+/* ===== Scroll highlight inline label (no Leaflet tooltip) ===== */
+.scroll-label-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.scroll-label-text {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+  max-width: 220px;
+  white-space: normal;
+  padding: 6px 10px;
+  animation: tooltip-appear 0.2s ease-out;
+}
+
 /* ===== Mobile Timeline Range Input ===== */
 .mobile-timeline-range::-webkit-slider-runnable-track {
   height: 6px;
