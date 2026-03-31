@@ -1182,6 +1182,14 @@ export function HomePage({
     const { moments, label } = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
       onScrollHighlightRef.current(moments, undefined, label ?? undefined);
+      // Pan/zoom map to follow the highlighted content
+      if (onScrollPanRef.current && moments.length > 0) {
+        const lats = moments.map(m => m.lat);
+        const lngs = moments.map(m => m.lng);
+        const centerLat = lats.reduce((a, b) => a + b, 0) / lats.length;
+        const centerLng = lngs.reduce((a, b) => a + b, 0) / lngs.length;
+        onScrollPanRef.current(centerLat, centerLng);
+      }
     }
   }, [activeHomeSection, computeHighlight, highlightDataKey]);
 
