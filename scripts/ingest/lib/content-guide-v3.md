@@ -250,6 +250,8 @@ These rules prevent content sprawl and keep the data model clean.
 
 5. **Collections must have a specific, listable theme.** Every collection name should work as a Wikipedia "List of..." article. Generic themes like "Famous X," "Great Y," or "Notable Z" are too weak. The reader should know exactly what's in the collection before opening it. Good: "Every Place a Nuclear Weapon Has Been Detonated." Bad: "Famous Historical Figures."
 
+6. **Places must NOT have a separate incident story.** Place entities collect their moments via `entityIds` -- that IS the place's story. If a story exists purely to group moments at a single location (e.g., "Circuit of the Americas," "Pike Place Market," "McKinney Falls State Park"), set `storyType: 'place'` to hide it from browse. Only create `incident`/`era`/`biography` stories for narratives that span multiple locations or have a clear arc beyond "things that happened here." The `place` story still exists as infrastructure for moment wiring and `canonicalStoryId` references, but it is invisible to users.
+
 ---
 
 ## Part 4: Metadata Vocabulary
