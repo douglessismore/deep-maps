@@ -1153,17 +1153,34 @@ export function HomePage({
   gridPeopleRef.current = gridPeople;
   const allHomeStoriesRef = useRef(allHomeStories);
   allHomeStoriesRef.current = allHomeStories;
+  // Stable collection/story/person ID refs — store the ID at the active scroll
+  // index so computeHighlight can look up by ID even after the list reshuffles.
+  const activeCollectionIdRef = useRef<string | null>(null);
+  const activeStoryIdRef = useRef<string | null>(null);
+  const activePersonIdRef = useRef<string | null>(null);
 
   type HomeSection = 'people' | 'stories' | 'nearYou' | 'collections' | null;
   // Null on mount — section observer sets it when user scrolls to a section
   const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
+  // Gate: no highlights until the user has explicitly interacted (scroll/swipe).
+  // Prevents initial layout, data loading, and horizontal findCenter() from
+  // triggering map labels before the user interacts.
+  const hasUserScrolledRef = useRef(false);
+  // Enable the flag after 800ms — any index changes after that are user-driven
+  useEffect(() => {
+    const timer = setTimeout(() => { hasUserScrolledRef.current = true; }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Compute highlight for a given section + horizontal index
   const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null } => {
     if (section === 'people') {
       const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
       const idx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
-      const person = people[Math.max(0, idx)];
+      // Look up by stable ID first (survives list reshuffling), fall back to index
+      const person = (activePersonIdRef.current
+        ? people.find(p => p.entity.id === activePersonIdRef.current)
+        : null) ?? people[Math.max(0, idx)];
       if (person) return { moments: getMomentsForEntity(person.entity.id), label: person.entity.name };
     }
     if (section === 'nearYou') {
@@ -1172,8 +1189,11 @@ export function HomePage({
       if (vl) return { moments: [vl.location], label: null }; // single moment — show moment name
     }
     if (section === 'collections') {
+      // Look up by stable ID first (survives list reshuffling), fall back to index
       const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
-      const coll = filteredCollectionsRef.current[Math.max(0, idx)];
+      const coll = (activeCollectionIdRef.current
+        ? filteredCollectionsRef.current.find(c => c.id === activeCollectionIdRef.current)
+        : null) ?? filteredCollectionsRef.current[Math.max(0, idx)];
       if (coll) {
         const moments: Moment[] = [];
         for (const mid of coll.momentIds) {
@@ -1184,7 +1204,10 @@ export function HomePage({
       }
     }
     if (section === 'stories') {
-      const story = allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
+      // Look up by stable ID first (survives list reshuffling), fall back to index
+      const story = (activeStoryIdRef.current
+        ? allHomeStoriesRef.current.find(s => s.id === activeStoryIdRef.current)
+        : null) ?? allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
       if (story) {
         const moments: Moment[] = [];
         for (const sm of story.moments) {
@@ -1201,7 +1224,7 @@ export function HomePage({
   // Also re-fire when data changes (gridPeople/allHomeStories may load async)
   const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${allHomeStories[0]?.id ?? ''}-${nearYouMoments[0]?.location.id ?? ''}-${filteredCollections[0]?.id ?? ''}`;
   useEffect(() => {
-    if (!onScrollHighlightRef.current || !activeHomeSection) return;
+    if (!onScrollHighlightRef.current || !activeHomeSection || !hasUserScrolledRef.current) return;
     const { moments, label } = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
       onScrollHighlightRef.current(moments, undefined, label ?? undefined);
@@ -1219,28 +1242,34 @@ export function HomePage({
   useEffect(() => {
     if (peopleActiveIdx !== prevPeopleIdx.current) {
       prevPeopleIdx.current = peopleActiveIdx;
-      setActiveHomeSection('people');
+      const p = gridPeopleRef.current[Math.max(0, peopleActiveIdx)];
+      activePersonIdRef.current = p?.entity.id ?? null;
+      if (hasUserScrolledRef.current) setActiveHomeSection('people');
     }
   }, [peopleActiveIdx]);
 
   useEffect(() => {
     if (storiesActiveIdx !== prevStoriesIdx.current) {
       prevStoriesIdx.current = storiesActiveIdx;
-      setActiveHomeSection('stories');
+      const s = allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
+      activeStoryIdRef.current = s?.id ?? null;
+      if (hasUserScrolledRef.current) setActiveHomeSection('stories');
     }
   }, [storiesActiveIdx]);
 
   useEffect(() => {
     if (collectionsActiveIdx !== prevCollectionsIdx.current) {
       prevCollectionsIdx.current = collectionsActiveIdx;
-      setActiveHomeSection('collections');
+      const c = filteredCollectionsRef.current[Math.max(0, collectionsActiveIdx)];
+      activeCollectionIdRef.current = c?.id ?? null;
+      if (hasUserScrolledRef.current) setActiveHomeSection('collections');
     }
   }, [collectionsActiveIdx]);
 
   useEffect(() => {
     if (nearYouActiveIdx !== prevNearYouIdx.current) {
       prevNearYouIdx.current = nearYouActiveIdx;
-      setActiveHomeSection('nearYou');
+      if (hasUserScrolledRef.current) setActiveHomeSection('nearYou');
     }
   }, [nearYouActiveIdx]);
 
@@ -1287,6 +1316,7 @@ export function HomePage({
     const mountTime = Date.now();
     const onScroll = () => {
       if (Date.now() - mountTime < 600) return;
+      hasUserScrolledRef.current = true;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const containerRect = container.getBoundingClientRect();
