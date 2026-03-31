@@ -26,7 +26,7 @@ export const delValleMoments: Moment[] = [
     year: 2011,
     date: 'November–December 2011',
     address: '9201 Circuit of the Americas Blvd, Del Valle, TX 78617',
-    entityIds: ['tavo-hellmund', 'cota'],
+    entityIds: ['cota'],
   },
 
   {
@@ -418,7 +418,7 @@ export const delValleMoments: Moment[] = [
     kind: 'event',
     year: 1832,
     address: 'Del Valle, TX',
-    entityIds: ['santiago-del-valle'],
+    entityIds: [],
   },
 ];
 
