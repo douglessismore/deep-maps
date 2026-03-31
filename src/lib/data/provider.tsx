@@ -100,6 +100,8 @@ function DataLoader({ children }: { children: ReactNode }) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['app-data', dataSource],
     queryFn: loadData,
+    retry: 2,
+    retryDelay: 1000,
   });
 
   // Initialize module-scope helpers once when data arrives.

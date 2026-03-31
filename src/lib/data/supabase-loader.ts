@@ -111,23 +111,35 @@ interface MomentLinkRow {
 
 const PAGE_SIZE = 1000;
 
-async function fetchAll<T>(table: string): Promise<T[]> {
+async function fetchAll<T>(table: string, retries = 3): Promise<T[]> {
   // Supabase server-side max is 1000 rows per request, regardless of .limit().
-  // Must paginate with .range() to get all rows.
-  const all: T[] = [];
-  let from = 0;
-  while (true) {
-    const { data, error } = await supabase
-      .from(table)
-      .select('*')
-      .range(from, from + PAGE_SIZE - 1);
-    if (error) throw new Error(`Failed to fetch ${table} at offset ${from}: ${error.message}`);
-    if (!data || data.length === 0) break;
-    all.push(...(data as T[]));
-    if (data.length < PAGE_SIZE) break; // last page
-    from += PAGE_SIZE;
+  // Must paginate with .range() to get all rows. Retries on network failures.
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const all: T[] = [];
+      let from = 0;
+      while (true) {
+        const { data, error } = await supabase
+          .from(table)
+          .select('*')
+          .range(from, from + PAGE_SIZE - 1);
+        if (error) throw new Error(`Failed to fetch ${table} at offset ${from}: ${error.message}`);
+        if (!data || data.length === 0) break;
+        all.push(...(data as T[]));
+        if (data.length < PAGE_SIZE) break; // last page
+        from += PAGE_SIZE;
+      }
+      return all;
+    } catch (err) {
+      if (attempt < retries - 1) {
+        console.warn(`[supabase-loader] Retry ${attempt + 1}/${retries} for ${table}:`, err);
+        await new Promise(r => setTimeout(r, 1000 * (attempt + 1))); // 1s, 2s, 3s backoff
+      } else {
+        throw err;
+      }
+    }
   }
-  return all;
+  return []; // unreachable but satisfies TS
 }
 
 // ─── Main loader ─────────────────────────────────────────────────────
