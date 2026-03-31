@@ -909,25 +909,17 @@ export function ExplorePanel({
   // (prevents Near You cards from reshuffling mid-scroll)
   const handleHomeScrollPan = useCallback((lat: number, lng: number) => {
     if (!mapInstance) return;
+    // Only pan if the moment is within or near the current viewport.
+    // Prevents jarring jumps when scrolling through filtered moments spread across the country.
     const bounds = mapInstance.getBounds();
-    const padded = bounds.pad(0.5);
+    const padded = bounds.pad(0.5); // 50% padding — generous "nearby" zone
+    if (!padded.contains([lat, lng])) return; // too far away, skip pan
     isScrollDriving.current = true;
     clearTimeout(homePanTimeout.current);
-
-    if (padded.contains([lat, lng])) {
-      // In or near viewport — gentle pan
-      homePanTimeout.current = window.setTimeout(() => {
-        panToAboveSheet(mapInstance, [lat, lng], sheetSnap, isSheetMobile, { duration: 0.15 });
-        setTimeout(() => { isScrollDriving.current = false; }, 300);
-      }, 80);
-    } else {
-      // Off-screen backfill item — zoom out to include it (slower, more deliberate)
-      homePanTimeout.current = window.setTimeout(() => {
-        const extended = bounds.extend([lat, lng]);
-        mapInstance.flyToBounds(extended, { duration: 1.2, padding: [30, 30] });
-        setTimeout(() => { isScrollDriving.current = false; }, 1200);
-      }, 200); // longer debounce to avoid rapid zoom changes
-    }
+    homePanTimeout.current = window.setTimeout(() => {
+      panToAboveSheet(mapInstance, [lat, lng], sheetSnap, isSheetMobile, { duration: 0.15 });
+      setTimeout(() => { isScrollDriving.current = false; }, 300);
+    }, 80);
   }, [mapInstance, sheetSnap, isSheetMobile]);
 
   if (panelView === 'home') {
