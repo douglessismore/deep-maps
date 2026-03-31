@@ -378,6 +378,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
   useEffect(() => {
+    // If an arrow-click flyTo is in progress, don't let scroll highlight override it.
+    // The flyTo's own moveend handler will clean up when the target enters viewport.
+    if (arrowFlyRef.current) return;
+
     if (scrollOverlayRef.current) {
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
