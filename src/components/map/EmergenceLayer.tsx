@@ -319,6 +319,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     `;
     div.addEventListener('click', (e) => {
       e.stopPropagation();
+      hideOffScreenArrow();
       map.flyTo([targetLat, targetLng], map.getZoom(), { duration: 1.5 });
     });
     container.appendChild(div);
