@@ -19,6 +19,7 @@ import L from 'leaflet';
 import type { Moment, Story, StoryCategory, StoryCollection } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { getEffectiveNotability, getNotabilityThreshold } from '../../lib/notability';
+import { distanceMiles } from '../../lib/geo';
 import { useAppData } from '../../lib/data/provider';
 
 // ── Zoom-dependent dot radius ──────────────────────────────────────
@@ -285,19 +286,36 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     const target = map.latLngToContainerPoint([targetLat, targetLng]);
     const cx = sz.x / 2;
     const cy = sz.y / 2;
-    // Angle from center to target
-    const angle = Math.atan2(target.y - cy, target.x - cx);
-    // Clamp to edge of map with padding
-    const pad = 40;
-    const edgeX = Math.max(pad, Math.min(sz.x - pad, cx + Math.cos(angle) * (sz.x / 2 - pad)));
-    const edgeY = Math.max(pad, Math.min(sz.y - pad, cy + Math.sin(angle) * (sz.y / 2 - pad)));
-    const degrees = angle * (180 / Math.PI);
+    const dx = target.x - cx;
+    const dy = target.y - cy;
+    if (dx === 0 && dy === 0) return; // target is at center (shouldn't happen)
+
+    // Ray-rectangle intersection: find where the ray from center hits the map edge
+    const pad = 48;
+    const halfW = sz.x / 2 - pad;
+    const halfH = sz.y / 2 - pad;
+    // Scale factor to reach the bounding box edge
+    const scaleX = dx !== 0 ? halfW / Math.abs(dx) : Infinity;
+    const scaleY = dy !== 0 ? halfH / Math.abs(dy) : Infinity;
+    const scale = Math.min(scaleX, scaleY);
+    const edgeX = cx + dx * scale;
+    const edgeY = cy + dy * scale;
+
+    // Arrow rotation: angle from center to target in screen coords
+    const degrees = Math.atan2(dy, dx) * (180 / Math.PI);
+
+    // Distance from map center to target
+    const center = map.getCenter();
+    const dist = distanceMiles(center.lat, center.lng, targetLat, targetLng);
+    const distStr = dist < 1 ? `${(dist * 5280).toFixed(0)} ft` : dist < 10 ? `${dist.toFixed(1)} mi` : `${Math.round(dist)} mi`;
+
     const div = document.createElement('div');
     div.className = 'offscreen-arrow';
-    div.style.cssText = `position:absolute;left:${edgeX}px;top:${edgeY}px;z-index:800;pointer-events:none;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;`;
+    div.style.cssText = `position:absolute;left:${edgeX}px;top:${edgeY}px;z-index:800;pointer-events:none;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;`;
     div.innerHTML = `
-      <div style="transform:rotate(${degrees}deg);font-size:18px;color:rgba(212,168,83,0.9);text-shadow:0 0 8px rgba(212,168,83,0.4);">&#x27A4;</div>
-      ${label ? `<span style="font-family:'Space Grotesk',monospace;font-size:9px;color:rgba(255,255,255,0.6);max-width:80px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</span>` : ''}
+      <div style="transform:rotate(${degrees}deg);font-size:22px;color:rgba(212,168,83,0.95);text-shadow:0 0 10px rgba(212,168,83,0.5);filter:drop-shadow(0 0 4px rgba(212,168,83,0.3));">&#x27A4;</div>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:rgba(212,168,83,0.85);white-space:nowrap;">${distStr}</span>
+      ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:9px;color:rgba(255,255,255,0.5);max-width:90px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</span>` : ''}
     `;
     container.appendChild(div);
     offScreenArrowRef.current = div;
