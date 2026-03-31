@@ -1026,7 +1026,7 @@ function MapController({
       allCoords.push({ lat: m.lat, lng: m.lng, dist: dlat * dlat + dlng * dlng });
     });
     allCoords.sort((a, b) => a.dist - b.dist);
-    const nearest = allCoords.slice(0, 20);
+    const nearest = allCoords.slice(0, 10);
 
     if (nearest.length > 0) {
       const points: [number, number][] = [

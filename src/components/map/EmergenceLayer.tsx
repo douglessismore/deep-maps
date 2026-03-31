@@ -24,7 +24,8 @@ import { useAppData } from '../../lib/data/provider';
 // ── Zoom-dependent dot radius ──────────────────────────────────────
 // Zoom 2: 1px dots (star field). Zoom 14: ~10px (full markers).
 function getRadius(zoom: number): number {
-  return Math.max(1, Math.round((zoom - 1) * 0.8));
+  // Minimum 4px so markers are always visible on satellite view
+  return Math.max(4, Math.round((zoom - 1) * 0.9));
 }
 
 // ── Notability alpha for a moment at given zoom ────────────────────
@@ -35,7 +36,7 @@ function computeAlpha(moment: Moment, zoom: number): number {
   if (notability >= threshold) return 1;
   // Raised minimum from 0.15 to 0.35 so low-notability markers remain visible
   // in sparse areas where they may be the only markers
-  return Math.max(0.35, notability / threshold);
+  return Math.max(0.5, notability / threshold);
 }
 
 // ── Highlight-aware opacity helpers ────────────────────────────────
@@ -193,8 +194,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           fillColor: color,
           fillOpacity: opacity,
           stroke: true,
-          color: 'rgba(255,255,255,0.6)',
-          weight: 1,
+          color: 'rgba(255,255,255,0.9)',
+          weight: 2,
           interactive: true,
           bubblingMouseEvents: false,
         });
