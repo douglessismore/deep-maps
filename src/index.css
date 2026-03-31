@@ -90,11 +90,13 @@ html, body, #root {
 /* ===== Leaflet Overrides for Dark Theme ===== */
 .leaflet-container {
   background: #0a0a0a;
+  overflow: visible !important;
 }
 
-/* Allow tooltips to overflow the map boundary so edge labels aren't clipped */
+/* Allow tooltips and marker labels to overflow the map boundary so edge labels aren't clipped */
 .leaflet-tooltip-pane,
-.leaflet-popup-pane {
+.leaflet-popup-pane,
+.leaflet-marker-pane {
   overflow: visible !important;
 }
 
