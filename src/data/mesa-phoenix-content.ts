@@ -21,7 +21,7 @@ export const mesaPhoenixEntities: Entity[] = [
       'A Phoenix laborer whose botched interrogation reached the Supreme Court and gave every arrested person in America the right to remain silent. Stabbed to death in a bar fight ten years later; his killer was read Miranda rights and released.',
     canonicalStoryId: '', // TODO: no biography story exists yet
     wikipediaSlug: 'Ernesto_Miranda',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Ernesto_Miranda_crop.jpg/300px-Ernesto_Miranda_crop.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ernesto_Miranda_1967.jpg/330px-Ernesto_Miranda_1967.jpg',
   },
   {
     id: 'barry-goldwater',
@@ -32,7 +32,7 @@ export const mesaPhoenixEntities: Entity[] = [
       'The father of modern American conservatism and five-term Arizona senator. A department-store heir who flew 163 different aircraft, set up one of Arizona\'s first radio transmitters at age 13, and spent his final years advocating for gay rights and marijuana legalization.',
     canonicalStoryId: 'barry-goldwater-life',
     wikipediaSlug: 'Barry_Goldwater',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Barry_Goldwater_photo1962.jpg/300px-Barry_Goldwater_photo1962.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Senator_Goldwater_1960.jpg/330px-Senator_Goldwater_1960.jpg',
   },
   {
     id: 'frank-lloyd-wright',

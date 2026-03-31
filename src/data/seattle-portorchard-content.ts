@@ -22,7 +22,7 @@ export const seattleEntities: Entity[] = [
       'The diplomat who chose peace while his people\'s land became a city. Leader of the Suquamish and Duwamish, Si\'ahl navigated white settlement through negotiation rather than war. His 1854 speech to Governor Stevens became one of history\'s most quoted environmental statements. He is buried on the Kitsap Peninsula, nine miles across the water from the skyline named for him.',
     canonicalStoryId: 'chief-seattle-suquamish',
     wikipediaSlug: 'Chief_Seattle',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Chief_si%27ahl.jpg/300px-Chief_si%27ahl.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Chief_seattle.jpg/330px-Chief_seattle.jpg',
   },
   {
     id: 'gary-ridgway',
@@ -33,7 +33,7 @@ export const seattleEntities: Entity[] = [
       'A truck painter who killed at least 49 women over 16 years without detection. Ridgway targeted sex workers along the Pacific Highway South corridor near Sea-Tac airport. He passed a polygraph in 1984 and kept killing until a 1987 DNA sample finally matched three victims in 2001.',
     canonicalStoryId: 'green-river-killer',
     wikipediaSlug: 'Gary_Ridgway',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Gary_Ridgway_in_2011.jpg/300px-Gary_Ridgway_in_2011.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Gary_Ridgway_Mugshot_11302001.jpg/330px-Gary_Ridgway_Mugshot_11302001.jpg',
   },
   {
     id: 'kurt-cobain',
@@ -44,7 +44,7 @@ export const seattleEntities: Entity[] = [
       'The voice that turned a regional punk scene into a global earthquake. Born in Aberdeen, Washington, Cobain formed Nirvana and released "Smells Like Teen Spirit" in 1991, redefining rock music overnight. He died by suicide at his Seattle home on 5 April 1994, age 27.',
     canonicalStoryId: 'seattle-grunge-era',
     wikipediaSlug: 'Kurt_Cobain',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Nirvana_around_1992.jpg/300px-Nirvana_around_1992.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Nirvana_around_1992_%28cropped%29.jpg',
   },
   {
     id: 'db-cooper',
@@ -55,7 +55,7 @@ export const seattleEntities: Entity[] = [
       'The phantom skyjacker who vanished into a rainstorm with $200,000. On Thanksgiving Eve 1971, a man using the alias Dan Cooper hijacked a 727 out of Seattle, collected ransom in $20 bills, and parachuted into the night over southwest Washington. He was never found or identified.',
     canonicalStoryId: 'db-cooper-hijacking',
     wikipediaSlug: 'D._B._Cooper',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/FBI-CompositeB-DBCooper.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/CompositeB-FBI-1973.jpg/330px-CompositeB-FBI-1973.jpg',
   },
   // Demoted entity (tag-only): harry-truman-mtsthelens
   // ID remains in moment entityIds[] for tagging.

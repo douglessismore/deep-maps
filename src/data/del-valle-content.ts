@@ -547,7 +547,7 @@ export const delValleEntities: Entity[] = [
     years: '1985–present',
     description: 'Seven world championships and more race wins than any driver in Formula One history. Hamilton won the inaugural US Grand Prix at COTA in 2012 and made Austin his most dominant circuit, winning there five more times.',
     wikipediaSlug: 'Lewis_Hamilton',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg/300px-Lewis_Hamilton_2016_Malaysia_2.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Prime_Minister_Keir_Starmer_meets_Sir_Lewis_Hamilton_%2854566928382%29_%28cropped%29.jpg/330px-Prime_Minister_Keir_Starmer_meets_Sir_Lewis_Hamilton_%2854566928382%29_%28cropped%29.jpg',
     canonicalStoryId: 'lewis-hamilton-biography',
   },
 
@@ -558,7 +558,7 @@ export const delValleEntities: Entity[] = [
     years: '1997–present',
     description: 'The youngest F1 race winner at 18, Verstappen won four consecutive world championships starting in 2021. His COTA victory that year came before the largest crowd in F1 history — 400,000 over the weekend.',
     wikipediaSlug: 'Max_Verstappen',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Max_Verstappen_2017_Malaysia_3.jpg/300px-Max_Verstappen_2017_Malaysia_3.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/2024-08-25_Motorsport%2C_Formel_1%2C_Gro%C3%9Fer_Preis_der_Niederlande_2024_STP_3973_by_Stepro_%28medium_crop%29.jpg/330px-2024-08-25_Motorsport%2C_Formel_1%2C_Gro%C3%9Fer_Preis_der_Niederlande_2024_STP_3973_by_Stepro_%28medium_crop%29.jpg',
     canonicalStoryId: 'max-verstappen-biography',
   },
 
@@ -569,7 +569,7 @@ export const delValleEntities: Entity[] = [
     years: '1940–present',
     description: 'One of only two drivers to win races in Formula One, IndyCar, and NASCAR. Andretti won the F1 title in 1978, the Indy 500 in 1969, and the Daytona 500 in 1967. He drove the ceremonial first lap at COTA in 2012 at age 72.',
     wikipediaSlug: 'Mario_Andretti',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mario_Andretti_2008_Indy_Japan.jpg/300px-Mario_Andretti_2008_Indy_Japan.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Mario_Andretti_Goodwood_Festival_of_Speed_2021_%28cropped%29.jpg/330px-Mario_Andretti_Goodwood_Festival_of_Speed_2021_%28cropped%29.jpg',
     canonicalStoryId: 'mario-andretti-biography',
   },
 
