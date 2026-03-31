@@ -550,12 +550,14 @@ function HomeStoryCard({
   inViewCount,
   isActive,
   isBackfill,
+  distanceMi,
   onClick,
 }: {
   story: Story;
   inViewCount: number;
   isActive?: boolean;
   isBackfill?: boolean;
+  distanceMi?: number;
   onClick: () => void;
 }) {
   const cat = CATEGORIES[story.category];
@@ -581,7 +583,7 @@ function HomeStoryCard({
           <span className="text-[10px] font-mono text-[var(--text-muted)]">
             {!isBackfill && inViewCount < total
               ? `${inViewCount} of ${total} moments`
-              : `${total} moments`}
+              : `${total} moments`}{distanceMi != null ? ` · ${formatDistance(distanceMi)}` : ''}
           </span>
         </div>
       </div>
@@ -649,11 +651,13 @@ function PersonCard({
   momentCount,
   onClick,
   isActive,
+  distanceMi,
 }: {
   entity: Entity;
   momentCount: number;
   onClick: () => void;
   isActive?: boolean;
+  distanceMi?: number;
 }) {
   return (
     <button
@@ -684,7 +688,7 @@ function PersonCard({
         {entity.name}
       </span>
       <span className="text-[11px] font-mono text-[var(--text-muted)]">
-        {momentCount} events
+        {momentCount} events{distanceMi != null ? ` · ${formatDistance(distanceMi)}` : ''}
       </span>
     </button>
   );
@@ -715,9 +719,11 @@ function BackfillDivider() {
 
 function BackfillHint() {
   return (
-    <p className="text-[10px] font-mono text-[var(--text-muted)] px-4 pb-1 opacity-60">
-      Zoom out to see these on the map
-    </p>
+    <div className="mx-4 mb-2 px-3 py-1.5 rounded-md bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)]">
+      <p className="text-[11px] font-mono text-[var(--text-secondary)]">
+        Not on the map yet — zoom out or tap to explore
+      </p>
+    </div>
   );
 }
 
@@ -912,7 +918,7 @@ export function HomePage({
 
   // Dynamic title: context-aware
   const isUsingFallback = nearYouMomentsLive.length === 0 && nearestFallback.length > 0;
-  const nearYouTitle = isUsingFallback ? 'What Happened Nearby' : 'What Happened Here';
+  const nearYouTitle = isUsingFallback ? 'Moments Nearby' : 'Moments';
 
   // Set of moment IDs visible on the map — used to filter collections
   const viewportMomentIds = useMemo(
@@ -1401,7 +1407,10 @@ export function HomePage({
                         entity={entity}
                         momentCount={momentCount}
                         isActive={i === peopleActiveIdx}
-    
+                        distanceMi={i >= peopleBackfillStart && userLocation ? (() => {
+                          const ms = getMomentsForEntity(entity.id);
+                          return ms.length > 0 ? Math.min(...ms.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : undefined;
+                        })() : undefined}
                         onClick={() => onEntityClick(entity)}
                       />
                     </Fragment>
@@ -1473,6 +1482,10 @@ export function HomePage({
                         isActive={i === storiesActiveIdx}
                         isBackfill={backfillStoryIds.has(story.id)}
                         inViewCount={storyInViewCounts.get(story.id) ?? 0}
+                        distanceMi={i >= storiesBackfillStart && userLocation ? (() => {
+                          const ms = story.moments.map(sm => momentById.get(sm.momentId)).filter(Boolean) as Moment[];
+                          return ms.length > 0 ? Math.min(...ms.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : undefined;
+                        })() : undefined}
                         onClick={() => onStorySelect?.(story)}
                       />
                     </Fragment>

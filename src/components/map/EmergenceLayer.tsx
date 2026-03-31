@@ -309,17 +309,16 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const labelRight = point.x <= mapSize.x * 0.5;
         const nearBottom = point.y > mapSize.y * 0.4;
         const nearTop = point.y < mapSize.y * 0.15;
-        const containerStyle = nearBottom
-          ? 'flex-direction:column-reverse;align-items:center;'
-          : nearTop
-            ? 'flex-direction:column;align-items:center;'
-            : labelRight ? '' : 'flex-direction:row-reverse;';
+        const showLabel = !nearBottom && !nearTop;
+        const containerStyle = labelRight ? '' : 'flex-direction:row-reverse;';
         const icon = L.divIcon({
           className: '',
-          html: `<div class="scroll-label-container" style="${containerStyle}">
-            <div class="scroll-label-dot" style="width:0;height:0;"></div>
-            <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
-          </div>`,
+          html: showLabel
+            ? `<div class="scroll-label-container" style="${containerStyle}">
+                <div class="scroll-label-dot" style="width:0;height:0;"></div>
+                <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
+              </div>`
+            : '<div style="width:0;height:0;"></div>',
           iconSize: [0, 0],
         });
         const marker = L.marker([centerLat, centerLng], { icon, zIndexOffset: 900, interactive: true });
@@ -343,21 +342,18 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const labelRight = pt.x <= sz.x * 0.5;
         const nearBottom = pt.y > sz.y * 0.4;
         const nearTop = pt.y < sz.y * 0.15;
-        // Near bottom/top: label goes above/below the dot; otherwise beside it
-        const containerStyle = nearBottom
-          ? 'flex-direction:column-reverse;align-items:center;'
-          : nearTop
-            ? 'flex-direction:column;align-items:center;'
-            : labelRight ? '' : 'flex-direction:row-reverse;';
-        const borderStyle = nearBottom || nearTop
-          ? `border-bottom:3px solid ${color};padding-bottom:4px;`
-          : `border-left:3px solid ${color};`;
+        // Near edges: skip the text label, just show the dot
+        // This avoids clipping issues with labels extending beyond map bounds
+        const showLabel = !nearBottom && !nearTop;
+        const containerStyle = labelRight ? '' : 'flex-direction:row-reverse;';
         const icon = L.divIcon({
           className: '',
-          html: `<div class="scroll-label-container" style="${containerStyle}">
-            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
-            <div class="scroll-label-text dark-tooltip" style="${borderStyle}">${tooltipText}</div>
-          </div>`,
+          html: showLabel
+            ? `<div class="scroll-label-container" style="${containerStyle}">
+                <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
+                <div class="scroll-label-text dark-tooltip" style="border-left:3px solid ${color};">${tooltipText}</div>
+              </div>`
+            : `<div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 12px ${color};border-radius:50%;"></div>`,
           iconSize: [12, 12],
           iconAnchor: [6, 6],
         });

@@ -976,14 +976,25 @@ function MapController({
       }
       clearFlag();
     } else if (activeCollection) {
-      // Collection selected — zoom to fit all collection moments
-      const sheetPad = getSheetAwarePadding(isMobile, sheetSnap, containerH);
+      // Collection selected — zoom to the nearest collection moment
+      const center = map.getCenter();
       const midSet = new Set(activeCollection.momentIds);
       const coords = allMoments.filter(m => midSet.has(m.id)).map(m => [m.lat, m.lng] as [number, number]);
       if (coords.length > 0) {
-        smartFlyToBounds(map, L.latLngBounds(coords), { ...sheetPad, maxZoom: 14, duration: 1.8 });
+        const nearest = coords.reduce((best, c) => {
+          const bestDist = degreeDistance([center.lat, center.lng], best);
+          const cDist = degreeDistance([center.lat, center.lng], c);
+          return cDist < bestDist ? c : best;
+        }, coords[0]);
+        const targetZoom = Math.max(map.getZoom(), 14);
+        const dist = degreeDistance([center.lat, center.lng], nearest);
+        if (dist > 3) {
+          panToAboveSheet(map, nearest, sheetSnap ?? 'half', isMobile, { animate: false, zoom: targetZoom });
+        } else {
+          panToAboveSheet(map, nearest, sheetSnap ?? 'half', isMobile, { animate: true, duration: 0.8, zoom: targetZoom });
+        }
       }
-      userInteractUntil.current = 0;
+      boundsLockUntil.current = Date.now() + 1200;
       clearFlag();
     } else if (categoryFilter) {
       // Don't pan — just filter markers in place. The user chose their viewport;
