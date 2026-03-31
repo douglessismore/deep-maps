@@ -348,7 +348,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           map.off('move', onMove);
           map.off('moveend', onMoveEnd);
           hideOffScreenArrow();
-          arrowFlyRef.current = null;
+          // Keep arrowFlyRef locked briefly so scroll highlight doesn't
+          // immediately override with wrong label from reshuffled cards
+          setTimeout(() => { arrowFlyRef.current = null; }, 800);
         }
       };
       arrowFlyRef.current = {
