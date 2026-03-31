@@ -57,14 +57,6 @@ export const seattleEntities: Entity[] = [
     wikipediaSlug: 'D._B._Cooper',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/CompositeB-FBI-1973.jpg/330px-CompositeB-FBI-1973.jpg',
   },
-  // stub — demoted from Notable People
-  {
-    id: 'harry-truman-mtsthelens',
-    name: 'Harry R. Truman',
-    type: 'person',
-    description:
-      'The 83-year-old innkeeper of Spirit Lake Lodge who refused to evacuate before the 1980 eruption of Mount St. Helens and was buried under 150 feet of volcanic debris.',
-  },
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────

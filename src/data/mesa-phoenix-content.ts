@@ -61,22 +61,6 @@ export const mesaPhoenixEntities: Entity[] = [
       'The capital of Arizona and fifth-largest city in the United States, built atop Hohokam canal routes in the Salt River Valley.',
     wikipediaSlug: 'Phoenix,_Arizona',
   },
-  // stub — demoted from Notable People
-  {
-    id: 'winnie-ruth-judd',
-    name: 'Winnie Ruth Judd',
-    type: 'person',
-    description:
-      'A Phoenix medical secretary convicted of murdering two friends in 1931 and shipping their bodies by train in trunks. Escaped the Arizona State Asylum seven times over three decades.',
-  },
-  // stub — demoted from Notable People
-  {
-    id: 'don-bolles',
-    name: 'Don Bolles',
-    type: 'person',
-    description:
-      'An Arizona Republic investigative reporter murdered by car bomb in 1976 while pursuing land fraud stories. His death triggered the largest collaborative journalism project in American history.',
-  },
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────

@@ -427,11 +427,11 @@ export const delValleMoments: Moment[] = [
 export const delValleStories: Story[] = [
   {
     id: 'cota-birth-of-f1-in-austin',
-    name: 'Circuit of the Americas',
+    name: 'The Race to Build America\'s F1 Track',
     nickname: 'From Ranchland to Record Crowds',
     years: '2010–2021',
     category: 'everyday-extraordinary',
-    storyType: 'incident',
+    storyType: 'place',
     description: 'A $400 million gamble on empty ranchland, a political feud that nearly killed the project, and a Netflix show that turned a niche European sport into an American phenomenon.',
     tags: ['austin', 'motorsport', 'f1', 'texas', 'sports'],
     moments: [
@@ -541,10 +541,6 @@ export const delValleStories: Story[] = [
 
 // ─── ENTITIES ───────────────────────────────────────────────────────────
 
-// Demoted entities (tag-only, not shown as Notable People cards):
-// tavo-hellmund, kevin-schwantz, thomas-mckinney, john-bergstrom
-// Their IDs remain in moment entityIds[] arrays for tagging.
-
 export const delValleEntities: Entity[] = [
   {
     id: 'lewis-hamilton',
@@ -589,67 +585,5 @@ export const delValleEntities: Entity[] = [
     canonicalStoryId: 'cota-birth-of-f1-in-austin',
   },
 
-  // stub — demoted from Notable People
-  {
-    id: 'tavo-hellmund',
-    name: 'Tavo Hellmund',
-    type: 'person',
-    description: 'Austin promoter who conceived and co-founded Circuit of the Americas before being ousted in a dispute with co-investors.',
-  },
-
-  // stub — demoted from Notable People
-  {
-    id: 'kevin-schwantz',
-    name: 'Kevin Schwantz',
-    type: 'person',
-    description: '1993 500cc motorcycle world champion from Texas who helped promote COTA and rode the ceremonial first lap alongside Andretti.',
-  },
-
-  // stub — demoted from Notable People
-  {
-    id: 'thomas-mckinney',
-    name: 'Thomas F. McKinney',
-    type: 'person',
-    description: 'One of Stephen F. Austin\'s original colonists and financier of the Texas Revolution. His homestead and gristmill gave McKinney Falls its name.',
-  },
-
-  // stub — demoted from Notable People
-  {
-    id: 'john-bergstrom',
-    name: 'John August Earl Bergstrom',
-    type: 'person',
-    description: 'Austin pilot killed at Clark Field hours after Pearl Harbor. The air base and later the airport were named in his honor.',
-  },
-
-  // place entities for moment wiring
-  {
-    id: 'pilot-knob',
-    name: 'Pilot Knob',
-    type: 'place',
-    description: 'Eroded remnant of an 80-million-year-old submarine volcano in southeast Austin, the most visible volcanic feature in the area.',
-  },
-
-  {
-    id: 'onion-creek',
-    name: 'Onion Creek',
-    type: 'place',
-    description: 'Major tributary of the Colorado River flowing through southeast Austin. Its floodplain has been inhabited for 9,000 years.',
-  },
-
-  {
-    id: 'austin-bergstrom-airport',
-    name: 'Austin-Bergstrom International Airport',
-    type: 'place',
-    years: '1999–present',
-    description: 'Austin\'s commercial airport, built on the former Bergstrom Air Force Base. Named for Captain John Bergstrom and featuring the Barbara Jordan Terminal.',
-    canonicalStoryId: 'bergstrom-bombers-to-boarding-passes',
-  },
-
-  {
-    id: 'santiago-del-valle',
-    name: 'Santiago del Valle',
-    type: 'person',
-    description: 'Recipient of a 10-league Mexican land grant in 1832 covering much of southeast Travis County. The Del Valle community bears his name.',
-  },
 
 ];

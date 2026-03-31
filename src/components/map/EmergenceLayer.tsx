@@ -330,7 +330,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         marker.addTo(map);
         scrollOverlayRef.current = marker;
       } else {
-        // Single moment: show moment name on the highlighted pin
+        // Single moment: show label (e.g. person name) if provided, otherwise moment name
         const moment = scrollHighlight[0];
         const category = momentCategoryMap.get(moment.id);
         const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
@@ -345,9 +345,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           zIndexOffset: 900,
           interactive: true,
         });
+        const tooltipText = scrollHighlightLabel || moment.name;
         marker.bindTooltip(
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;border-left:3px solid ${color};padding-left:6px;margin:-2px -4px;border-radius:2px;">
-            <strong>${moment.name}</strong>
+            <strong>${tooltipText}</strong>
           </div>`,
           { direction: 'right', offset: [8, 0], className: 'dark-tooltip clickable-tooltip', permanent: true }
         );
