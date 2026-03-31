@@ -311,12 +311,16 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
     const div = document.createElement('div');
     div.className = 'offscreen-arrow';
-    div.style.cssText = `position:absolute;left:${edgeX}px;top:${edgeY}px;z-index:800;pointer-events:none;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;`;
+    div.style.cssText = `position:absolute;left:${edgeX}px;top:${edgeY}px;z-index:800;cursor:pointer;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;`;
     div.innerHTML = `
       <div style="transform:rotate(${degrees}deg);font-size:22px;color:rgba(212,168,83,0.95);text-shadow:0 0 10px rgba(212,168,83,0.5);filter:drop-shadow(0 0 4px rgba(212,168,83,0.3));">&#x27A4;</div>
       <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:rgba(212,168,83,0.85);white-space:nowrap;">${distStr}</span>
       ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:9px;color:rgba(255,255,255,0.5);max-width:90px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</span>` : ''}
     `;
+    div.addEventListener('click', (e) => {
+      e.stopPropagation();
+      map.flyTo([targetLat, targetLng], map.getZoom(), { duration: 1.5 });
+    });
     container.appendChild(div);
     offScreenArrowRef.current = div;
   };
