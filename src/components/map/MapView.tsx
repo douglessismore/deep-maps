@@ -1016,15 +1016,15 @@ function MapController({
     smartFlyTo(map, [39.5, -98.5], 4, 1.5);
   }, [resetViewKey, map]);
 
-  // Near Me: zoom to nearest ~20 moments
+  // Near Me: zoom to fit the nearest 20 pins to the user's location
   const zoomToNearestMoments = useCallback((loc: { lat: number; lng: number }) => {
-    const allCoords = stories.flatMap(s =>
-      resolveLocationsFromMap(s, momentMap).map(l => ({
-        lat: l.lat,
-        lng: l.lng,
-        dist: Math.sqrt((l.lat - loc.lat) ** 2 + (l.lng - loc.lng) ** 2),
-      }))
-    );
+    // Use ALL moments (not just from stories) so we capture place/biography moments too
+    const allCoords: { lat: number; lng: number; dist: number }[] = [];
+    momentMap.forEach((m) => {
+      const dlat = m.lat - loc.lat;
+      const dlng = (m.lng - loc.lng) * Math.cos(loc.lat * Math.PI / 180); // rough lng correction
+      allCoords.push({ lat: m.lat, lng: m.lng, dist: dlat * dlat + dlng * dlng });
+    });
     allCoords.sort((a, b) => a.dist - b.dist);
     const nearest = allCoords.slice(0, 20);
 
@@ -1033,11 +1033,12 @@ function MapController({
         [loc.lat, loc.lng],
         ...nearest.map(c => [c.lat, c.lng] as [number, number]),
       ];
-      smartFlyToBounds(map, L.latLngBounds(points), { padding: [40, 40], maxZoom: 12, duration: 1.5 });
+      // maxZoom 16 — let it zoom in close if pins are nearby
+      smartFlyToBounds(map, L.latLngBounds(points), { padding: [40, 40], maxZoom: 16, duration: 1.5 });
     } else {
-      smartFlyTo(map, [loc.lat, loc.lng], 8, 1.5);
+      smartFlyTo(map, [loc.lat, loc.lng], 12, 1.5);
     }
-  }, [stories, map]);
+  }, [momentMap, map]);
 
   const hasAutoZoomed = useRef(false);
   useEffect(() => {
