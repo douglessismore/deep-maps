@@ -333,8 +333,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         marker.addTo(map);
         scrollOverlayRef.current = marker;
       } else {
-        // Single moment: show label (e.g. person name) if provided, otherwise moment name
+        // Single moment: show label only if the moment is inside the current viewport
         const moment = scrollHighlight[0];
+        const vpBounds = map.getBounds();
+        if (!vpBounds.contains([moment.lat, moment.lng])) return;
         const category = momentCategoryMap.get(moment.id);
         const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
         const icon = L.divIcon({
