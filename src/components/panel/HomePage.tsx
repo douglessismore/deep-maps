@@ -1166,11 +1166,8 @@ export function HomePage({
   // Prevents initial layout, data loading, and horizontal findCenter() from
   // triggering map labels before the user interacts.
   const hasUserScrolledRef = useRef(false);
-  // Enable the flag after 800ms — any index changes after that are user-driven
-  useEffect(() => {
-    const timer = setTimeout(() => { hasUserScrolledRef.current = true; }, 800);
-    return () => clearTimeout(timer);
-  }, []);
+  // Flag is set ONLY by: (1) vertical scroll observer after 600ms mount guard,
+  // (2) user touch on any scroll container. No auto-enable timeout.
 
   // Compute highlight for a given section + horizontal index
   const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null } => {
@@ -1364,10 +1361,14 @@ export function HomePage({
       });
     };
 
+    // Also enable on any touch — covers horizontal swipes before vertical scroll
+    const onTouch = () => { hasUserScrolledRef.current = true; };
     container.addEventListener('scroll', onScroll, { passive: true });
+    container.addEventListener('touchstart', onTouch, { passive: true, once: true });
     // Don't run on mount — no section should highlight until the user scrolls
     return () => {
       container.removeEventListener('scroll', onScroll);
+      container.removeEventListener('touchstart', onTouch);
       cancelAnimationFrame(rafId);
     };
   }, [expandedSection]);
