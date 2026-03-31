@@ -194,8 +194,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           fillColor: color,
           fillOpacity: opacity,
           stroke: true,
-          color: 'rgba(255,255,255,0.9)',
-          weight: 2,
+          color: 'rgba(255,255,255,0.35)',
+          weight: 1.5,
           interactive: true,
           bubblingMouseEvents: false,
         });
