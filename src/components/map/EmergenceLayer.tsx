@@ -307,19 +307,19 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const point = map.latLngToContainerPoint([centerLat, centerLng]);
         const mapSize = map.getSize();
         const labelRight = point.x <= mapSize.x * 0.5;
-        const nearBottom = point.y > mapSize.y * 0.4;
-        const nearTop = point.y < mapSize.y * 0.15;
-        const showLabel = !nearBottom && !nearTop;
-        const containerStyle = labelRight ? '' : 'flex-direction:row-reverse;';
+        const nearBottom = point.y > mapSize.y * 0.65;
+        const containerStyle = nearBottom
+          ? 'flex-direction:column-reverse;align-items:center;'
+          : labelRight ? '' : 'flex-direction:row-reverse;';
+        const anchorY = nearBottom ? 50 : 0;
         const icon = L.divIcon({
           className: '',
-          html: showLabel
-            ? `<div class="scroll-label-container" style="${containerStyle}">
-                <div class="scroll-label-dot" style="width:0;height:0;"></div>
-                <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
-              </div>`
-            : '<div style="width:0;height:0;"></div>',
+          html: `<div class="scroll-label-container" style="${containerStyle}">
+            <div class="scroll-label-dot" style="width:0;height:0;"></div>
+            <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
+          </div>`,
           iconSize: [0, 0],
+          iconAnchor: [0, anchorY],
         });
         const marker = L.marker([centerLat, centerLng], { icon, zIndexOffset: 900, interactive: true });
         const firstMoment = scrollHighlight[0];
@@ -340,22 +340,25 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
         const sz = map.getSize();
         const labelRight = pt.x <= sz.x * 0.5;
-        const nearBottom = pt.y > sz.y * 0.4;
-        const nearTop = pt.y < sz.y * 0.15;
-        // Near edges: skip the text label, just show the dot
-        // This avoids clipping issues with labels extending beyond map bounds
-        const showLabel = !nearBottom && !nearTop;
-        const containerStyle = labelRight ? '' : 'flex-direction:row-reverse;';
+        const nearBottom = pt.y > sz.y * 0.65;
+        // Near bottom: render label above the dot using column-reverse layout
+        // with a large enough iconAnchor Y offset to pull the whole container up
+        const containerStyle = nearBottom
+          ? 'flex-direction:column-reverse;align-items:center;'
+          : labelRight ? '' : 'flex-direction:row-reverse;';
+        const borderStyle = nearBottom
+          ? `border-bottom:3px solid ${color};padding-bottom:4px;`
+          : `border-left:3px solid ${color};`;
+        // When near bottom, shift anchor down so the container (which grows upward in column-reverse) stays visible
+        const anchorY = nearBottom ? 60 : 6;
         const icon = L.divIcon({
           className: '',
-          html: showLabel
-            ? `<div class="scroll-label-container" style="${containerStyle}">
-                <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
-                <div class="scroll-label-text dark-tooltip" style="border-left:3px solid ${color};">${tooltipText}</div>
-              </div>`
-            : `<div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 12px ${color};border-radius:50%;"></div>`,
+          html: `<div class="scroll-label-container" style="${containerStyle}">
+            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
+            <div class="scroll-label-text dark-tooltip" style="${borderStyle}">${tooltipText}</div>
+          </div>`,
           iconSize: [12, 12],
-          iconAnchor: [6, 6],
+          iconAnchor: [6, anchorY],
         });
         const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
