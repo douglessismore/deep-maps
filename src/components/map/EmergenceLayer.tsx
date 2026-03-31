@@ -121,7 +121,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const activeOverlayRef = useRef<L.Marker | null>(null);
   const scrollOverlayRef = useRef<L.Marker | null>(null);
-  // zoomOutPillRef removed — auto-zoom on backfill scroll replaces it
+  const offScreenArrowRef = useRef<HTMLDivElement | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -276,6 +276,40 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     }
   }, [scrollHighlight, map]);
 
+  // ── Off-screen arrow helper ──────────────────────────────────────────
+  // Shows/hides a directional arrow at the map edge pointing toward off-screen content.
+  const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string) => {
+    hideOffScreenArrow();
+    const container = map.getContainer();
+    const sz = map.getSize();
+    const target = map.latLngToContainerPoint([targetLat, targetLng]);
+    const cx = sz.x / 2;
+    const cy = sz.y / 2;
+    // Angle from center to target
+    const angle = Math.atan2(target.y - cy, target.x - cx);
+    // Clamp to edge of map with padding
+    const pad = 40;
+    const edgeX = Math.max(pad, Math.min(sz.x - pad, cx + Math.cos(angle) * (sz.x / 2 - pad)));
+    const edgeY = Math.max(pad, Math.min(sz.y - pad, cy + Math.sin(angle) * (sz.y / 2 - pad)));
+    const degrees = angle * (180 / Math.PI);
+    const div = document.createElement('div');
+    div.className = 'offscreen-arrow';
+    div.style.cssText = `position:absolute;left:${edgeX}px;top:${edgeY}px;z-index:800;pointer-events:none;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;`;
+    div.innerHTML = `
+      <div style="transform:rotate(${degrees}deg);font-size:18px;color:rgba(212,168,83,0.9);text-shadow:0 0 8px rgba(212,168,83,0.4);">&#x27A4;</div>
+      ${label ? `<span style="font-family:'Space Grotesk',monospace;font-size:9px;color:rgba(255,255,255,0.6);max-width:80px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</span>` : ''}
+    `;
+    container.appendChild(div);
+    offScreenArrowRef.current = div;
+  };
+
+  const hideOffScreenArrow = () => {
+    if (offScreenArrowRef.current) {
+      offScreenArrowRef.current.remove();
+      offScreenArrowRef.current = null;
+    }
+  };
+
   // ── Scroll highlight overlay (DOM marker with inline label) ──────────
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
@@ -284,6 +318,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
     }
+    hideOffScreenArrow();
 
     if (scrollHighlight && scrollHighlight.length >= 1) {
       // Close any open hover tooltips on existing markers to prevent duplicates
@@ -298,7 +333,17 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         // Multi-moment: show parent name at the center of VISIBLE markers
         const bounds = map.getBounds();
         const visibleMoments = scrollHighlight.filter(m => bounds.contains([m.lat, m.lng]));
-        if (visibleMoments.length === 0) return;
+        if (visibleMoments.length === 0) {
+          // All moments off-screen — show directional arrow toward the nearest one
+          const center = bounds.getCenter();
+          const nearest = scrollHighlight.reduce((best, m) => {
+            const bDist = Math.hypot(best.lat - center.lat, best.lng - center.lng);
+            const mDist = Math.hypot(m.lat - center.lat, m.lng - center.lng);
+            return mDist < bDist ? m : best;
+          }, scrollHighlight[0]);
+          showOffScreenArrow(nearest.lat, nearest.lng, scrollHighlightLabel || undefined);
+          return;
+        }
         const lats = visibleMoments.map(m => m.lat);
         const lngs = visibleMoments.map(m => m.lng);
         const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
@@ -333,7 +378,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         // Single moment: show dot + label inline
         const moment = scrollHighlight[0];
         const vpBounds = map.getBounds();
-        if (!vpBounds.contains([moment.lat, moment.lng])) return;
+        if (!vpBounds.contains([moment.lat, moment.lng])) {
+          // Off-screen — show directional arrow
+          showOffScreenArrow(moment.lat, moment.lng, scrollHighlightLabel || moment.name);
+          return;
+        }
         const category = momentCategoryMap.get(moment.id);
         const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
         const tooltipText = scrollHighlightLabel || moment.name;
@@ -375,6 +424,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         map.removeLayer(scrollOverlayRef.current);
         scrollOverlayRef.current = null;
       }
+      hideOffScreenArrow();
     };
   }, [scrollHighlight, scrollHighlightLabel, map, momentCategoryMap]);
 
