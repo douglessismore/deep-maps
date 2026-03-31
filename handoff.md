@@ -352,7 +352,7 @@ NOT from the parent directory. MCP servers, slash commands, and settings only lo
 
 ## Next Steps
 
-1. **Off-screen card UX (needs architecture rethink)** — Scroll-driven zoom causes feedback loops. Options: (A) freeze card list during zoom animation, (B) only zoom on explicit card tap (not scroll), (C) decouple card list from live viewport entirely. Must test on mobile — desktop preview is insufficient.
+1. **Off-screen card UX — tap-to-zoom approach (user's idea, Session 16)** — Always list off-screen people/stories/collections after in-view ones, sorted nearest-to-furthest, with an "out of view" indicator. Scrolling does NOTHING to the map (no feedback loop). Only when user TAPS an off-screen card does the map zoom to include that item's nearest marker, THEN navigate to the detail panel. Implementation: click handler calls `flyToBounds` first, waits for `moveend`, then opens the panel. This avoids the scroll↔zoom feedback loop that failed 3 times.
 2. **Missing entity profile images** — Many entities in Del Valle area have no imageUrl. Run `scripts/update-entity-images.ts` after adding images to Supabase, or add Wikipedia images manually.
 3. **Dangling entity references** — `thomas-mckinney`, `pilot-knob`, `onion-creek` need entity definitions or their entityId refs should be removed from moments.
 4. **Stories and places on homepage** — Deferred; needs dedicated design session.
