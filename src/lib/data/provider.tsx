@@ -71,31 +71,43 @@ async function loadStaticData(): Promise<AppData> {
 // If Supabase fails or returns empty data, we fall back to static files
 // with a console warning so the app still works in offline/dev scenarios.
 
+// Cached promise so Supabase load can continue in the background
+let supabasePromise: Promise<AppData | null> | null = null;
+
 async function loadData(): Promise<AppData> {
   if (dataSource === 'static') {
     console.info('[data] Using static files (VITE_DATA_SOURCE=static)');
     return loadStaticData();
   }
 
-  try {
-    const { loadFromSupabase } = await import('./supabase-loader');
-    // Hard 15s timeout — if Supabase is slow on mobile, fall back to static data
-    const timeoutPromise = new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error('Supabase load timed out after 15s')), 15000)
-    );
-    const data = await Promise.race([loadFromSupabase(), timeoutPromise]);
-
-    // Guard: if Supabase returned 0 moments, something is wrong — fall back
-    if (data.moments.length === 0) {
-      console.warn('[data] Supabase returned 0 moments — falling back to static seed data');
-      return loadStaticData();
-    }
-
-    return { ...data, browseableStories: filterBrowseableStories(data.stories) };
-  } catch (err) {
-    console.warn('[data] Supabase load failed — falling back to static seed data:', err);
-    return loadStaticData();
+  // Start Supabase load (or reuse existing promise)
+  if (!supabasePromise) {
+    supabasePromise = (async () => {
+      try {
+        const { loadFromSupabase } = await import('./supabase-loader');
+        const data = await loadFromSupabase();
+        if (data.moments.length === 0) return null;
+        return { ...data, browseableStories: filterBrowseableStories(data.stories) };
+      } catch (err) {
+        console.warn('[data] Supabase load failed:', err);
+        return null;
+      }
+    })();
   }
+
+  // Race: Supabase (8s timeout) vs static data
+  // If Supabase responds within 8s, use it. Otherwise load static immediately.
+  const timeout = new Promise<'timeout'>(r => setTimeout(() => r('timeout'), 8000));
+  const result = await Promise.race([supabasePromise, timeout]);
+
+  if (result !== 'timeout' && result !== null) {
+    console.info('[data] Loaded from Supabase');
+    return result;
+  }
+
+  // Supabase too slow or failed — load static immediately
+  console.info('[data] Supabase slow/failed — loading static data');
+  return loadStaticData();
 }
 
 // ─── Inner provider (uses TanStack Query) ────────────────────────────
