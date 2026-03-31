@@ -900,39 +900,25 @@ function MapController({
     // a story card is an intentional navigation, not a conflict with map interaction.
     if (mode === 'entity' && entityLocations && entityLocations.length > 0 && !activeLocation) {
       const coords = entityLocations.map(({ location: l }) => [l.lat, l.lng] as [number, number]);
-      if (coords.length === 1) {
-        // Single-moment entity (common for places): zoom directly to it.
-        // Use smartFlyTo-style distance check so far-away points snap instantly
-        // instead of relying on flyTo animation which can fail to complete.
-        const targetZoom = Math.max(map.getZoom(), 14);
-        const center = map.getCenter();
-        const dist = degreeDistance([center.lat, center.lng], coords[0]);
-        if (dist > 3) {
-          // Far away — instant snap, then offset for sheet
-          panToAboveSheet(map, coords[0], sheetSnap ?? 'half', isMobile, { animate: false, zoom: targetZoom });
-        } else {
-          panToAboveSheet(map, coords[0], sheetSnap ?? 'half', isMobile, { animate: true, duration: 0.8, zoom: targetZoom });
-        }
-        boundsLockUntil.current = Date.now() + 1200;
+      // For multi-moment entities, zoom to the NEAREST moment to current map center
+      // instead of fitting all moments (which zooms out to show the whole US for
+      // people like O. Henry with moments spread across the country).
+      const center = map.getCenter();
+      const nearestCoord = coords.length === 1
+        ? coords[0]
+        : coords.reduce((best, c) => {
+            const bestDist = degreeDistance([center.lat, center.lng], best);
+            const cDist = degreeDistance([center.lat, center.lng], c);
+            return cDist < bestDist ? c : best;
+          }, coords[0]);
+      const targetZoom = Math.max(map.getZoom(), 14);
+      const dist = degreeDistance([center.lat, center.lng], nearestCoord);
+      if (dist > 3) {
+        panToAboveSheet(map, nearestCoord, sheetSnap ?? 'half', isMobile, { animate: false, zoom: targetZoom });
       } else {
-        const eBounds = L.latLngBounds(coords);
-        const currentBounds = map.getBounds();
-        const eTargetZoom = map.getBoundsZoom(eBounds, false, L.point(40, 40));
-        const eZoomDiff = Math.abs(map.getZoom() - eTargetZoom);
-        // "Already visible" only counts if zoom is also close — at global zoom
-        // everything is technically visible but useless
-        const eAlreadyVisible = currentBounds.contains(eBounds) && eZoomDiff < 2;
-        const eNearlyThere = eZoomDiff < 1.2 && currentBounds.intersects(eBounds);
-        if (eAlreadyVisible || eNearlyThere) {
-          if (!eAlreadyVisible) {
-            map.fitBounds(eBounds, { ...storyPad, maxZoom: 16, animate: false });
-          }
-          isProgrammaticMove.current = false;
-        } else {
-          smartFlyToBounds(map, eBounds, { ...storyPad, maxZoom: 16, duration: 0.8 });
-          boundsLockUntil.current = Date.now() + 1200;
-        }
+        panToAboveSheet(map, nearestCoord, sheetSnap ?? 'half', isMobile, { animate: true, duration: 0.8, zoom: targetZoom });
       }
+      boundsLockUntil.current = Date.now() + 1200;
       userInteractUntil.current = 0;
       clearFlag();
     } else if (mode === 'story' && activeStory && !activeLocation) {

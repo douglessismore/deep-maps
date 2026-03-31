@@ -706,6 +706,16 @@ function BackfillDivider() {
   );
 }
 
+// ─── Backfill hint (when ALL items are off-screen) ──────────────────
+
+function BackfillHint() {
+  return (
+    <p className="text-[10px] font-mono text-[var(--text-muted)] px-4 pb-1 opacity-60">
+      Zoom out to see these on the map
+    </p>
+  );
+}
+
 // ─── Horizontal scroll container ─────────────────────────────────────
 
 function HScrollRow({
@@ -1377,6 +1387,7 @@ export function HomePage({
               </div>
             ) : (
               <div>
+                {peopleBackfillStart === 0 && gridPeople.length > 0 && <BackfillHint />}
                 <HScrollRow scrollRef={peopleScrollRef}>
                   {gridPeople.map(({ entity, momentCount }, i) => (
                     <Fragment key={entity.id}>
@@ -1446,6 +1457,8 @@ export function HomePage({
                   ))}
                 </div>
               ) : (
+                <>
+                {storiesBackfillStart === 0 && allHomeStories.length > 0 && <BackfillHint />}
                 <HScrollRow scrollRef={storiesScrollRef}>
                   {allHomeStories.map((story, i) => (
                     <Fragment key={story.id}>
@@ -1460,6 +1473,7 @@ export function HomePage({
                     </Fragment>
                   ))}
                 </HScrollRow>
+                </>
               )}
             </div>
             <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
@@ -1554,6 +1568,8 @@ export function HomePage({
               </div>
             ) : (
               // Collapsed: horizontal scroll
+              <>
+              {collectionsBackfillStart === 0 && filteredCollections.length > 0 && <BackfillHint />}
               <HScrollRow scrollRef={collectionsScrollRef}>
                 {filteredCollections.map((collection, i) => (
                   <Fragment key={collection.id}>
@@ -1568,6 +1584,7 @@ export function HomePage({
                   </Fragment>
                 ))}
               </HScrollRow>
+              </>
             )
           ) : (
             <div className="px-4 py-8 text-center">

@@ -302,7 +302,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const point = map.latLngToContainerPoint([centerLat, centerLng]);
         const mapSize = map.getSize();
         const labelRight = point.x <= mapSize.x * 0.5;
-        const nearBottom = point.y > mapSize.y * 0.75;
+        const nearBottom = point.y > mapSize.y * 0.55;
         const nearTop = point.y < mapSize.y * 0.15;
         const containerStyle = nearBottom
           ? 'flex-direction:column-reverse;align-items:center;'
@@ -336,7 +336,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
         const sz = map.getSize();
         const labelRight = pt.x <= sz.x * 0.5;
-        const nearBottom = pt.y > sz.y * 0.75;
+        const nearBottom = pt.y > sz.y * 0.55;
         const nearTop = pt.y < sz.y * 0.15;
         // Near bottom/top: label goes above/below the dot; otherwise beside it
         const containerStyle = nearBottom
