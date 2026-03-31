@@ -378,7 +378,7 @@ export const delValleMoments: Moment[] = [
     year: 1999,
     date: '23 May 1999',
     address: '3600 Presidential Blvd, Austin, TX 78719',
-    entityIds: ['barbara-jordan'],
+    entityIds: [],
     wikiSection: 'History',
   },
 
