@@ -225,7 +225,7 @@ export const delValleMoments: Moment[] = [
     year: -80000000,
     date: 'c. 80 million years ago',
     address: 'Pilot Knob, Del Valle, TX',
-    entityIds: ['pilot-knob'],
+    entityIds: ['pilot-knob', 'mckinney-falls-state-park'],
   },
 
   {
@@ -244,7 +244,7 @@ export const delValleMoments: Moment[] = [
     year: -7000,
     date: 'c. 9,000 years ago – 1830s',
     address: 'McKinney Falls State Park, Austin, TX 78744',
-    entityIds: ['thomas-mckinney'],
+    entityIds: ['thomas-mckinney', 'mckinney-falls-state-park'],
   },
 
   {
@@ -263,7 +263,7 @@ export const delValleMoments: Moment[] = [
     year: 1839,
     date: '1839–1873',
     address: 'McKinney Falls State Park, Austin, TX 78744',
-    entityIds: ['thomas-mckinney'],
+    entityIds: ['thomas-mckinney', 'mckinney-falls-state-park'],
   },
 
   {
@@ -282,7 +282,7 @@ export const delValleMoments: Moment[] = [
     year: 2013,
     date: '31 October 2013',
     address: 'Onion Creek at Pleasant Valley Road, Austin, TX',
-    entityIds: ['onion-creek'],
+    entityIds: ['onion-creek', 'mckinney-falls-state-park'],
   },
 
   // ── Austin-Bergstrom Airport / Bergstrom AFB ────────────────────────
@@ -454,11 +454,11 @@ export const delValleStories: Story[] = [
     description: 'A submarine volcano, 9,000 years of habitation, a Texas Revolution financier\'s gristmill, and a flood that swallowed a thousand homes — all along the same stretch of Onion Creek.',
     tags: ['austin', 'geology', 'archaeology', 'texas', 'state-park', 'flood'],
     moments: [
-      { momentId: 'pilot-knob-eruption', narrativeGlue: 'The story starts 80 million years ago, when this was the bottom of a tropical sea.' },
+      { momentId: 'pilot-knob-eruption' },
       { momentId: 'mckinney-falls-indigenous' },
-      { momentId: 'del-valle-land-grant', narrativeGlue: 'Four years before the Texas Revolution, a Mexican grant claimed the surrounding land.' },
-      { momentId: 'mckinney-homestead-mill', narrativeGlue: 'The first Anglo settler to claim this land had bankrolled the Texas Revolution.' },
-      { momentId: 'onion-creek-flood-2013', narrativeGlue: 'The creek that had sustained people for millennia turned on them.' },
+      { momentId: 'del-valle-land-grant' },
+      { momentId: 'mckinney-homestead-mill' },
+      { momentId: 'onion-creek-flood-2013' },
     ],
     relatedStoryIds: ['cota-birth-of-f1-in-austin', 'bergstrom-bombers-to-boarding-passes', 'battle-of-the-alamo'],
     wikipediaSlug: 'McKinney_Falls_State_Park',
@@ -542,6 +542,16 @@ export const delValleStories: Story[] = [
 // ─── ENTITIES ───────────────────────────────────────────────────────────
 
 export const delValleEntities: Entity[] = [
+  {
+    id: 'mckinney-falls-state-park',
+    name: 'McKinney Falls State Park',
+    type: 'place',
+    years: '1976–present',
+    description: 'A 744-acre state park along Onion Creek in southeast Austin, encompassing volcanic geology, 9,000 years of archaeological evidence, the ruins of Texas Revolution financier Thomas McKinney\'s homestead, and a creek that flooded catastrophically in 2013.',
+    wikipediaSlug: 'McKinney_Falls_State_Park',
+    canonicalStoryId: 'mckinney-falls-nine-thousand-years',
+  },
+
   {
     id: 'lewis-hamilton',
     name: 'Lewis Hamilton',

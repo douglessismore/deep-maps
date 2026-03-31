@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback, Fragment } from 'react';
 import type { Entity, Moment, Story, StoryCategory, StoryCollection, ViewportLocation } from '../../types';
 import type { EntityWithCounts } from '../../lib/entityHelpers';
 import { getMomentsForEntity } from '../../lib/entityHelpers';
@@ -40,6 +40,8 @@ interface HomePageProps {
   onScrollHighlight?: (locations: Moment[], storyId?: string, label?: string) => void;
   /** Scroll-driven map pan — called with lat/lng to gently follow the highlighted card */
   onScrollPan?: (lat: number, lng: number) => void;
+  /** Zoom map out to include a backfill item when user scrolls past divider */
+  onBackfillZoom?: (lat: number, lng: number) => void;
   /** Category filter — synced with App.tsx to also filter map markers */
   categoryFilter: StoryCategory | null;
   onCategoryFilter: (category: StoryCategory | null) => void;
@@ -480,11 +482,7 @@ function HomeCollectionCard({
           </p>
         </div>
         <div className="mt-auto pt-1 flex items-baseline gap-1.5">
-          {isBackfill ? (
-            <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
-              {total} events · nearby
-            </span>
-          ) : hasMore ? (
+          {hasMore && !isBackfill ? (
             <>
               <span className="text-[10px] font-mono text-[var(--text-primary)] uppercase tracking-wider">
                 {inViewCount} of {total} in view
@@ -510,12 +508,10 @@ function CollectionGridCard({
   collection,
   imageUrl,
   onClick,
-  isBackfill,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
   onClick: () => void;
-  isBackfill?: boolean;
 }) {
   return (
     <button
@@ -542,7 +538,7 @@ function CollectionGridCard({
           </p>
         </div>
         <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mt-auto pt-1">
-          {collection.momentIds.length} events{isBackfill ? ' · nearby' : ''}
+          {collection.momentIds.length} events
         </span>
       </div>
     </button>
@@ -585,11 +581,9 @@ function HomeStoryCard({
         </div>
         <div className="flex items-center justify-between mt-auto pt-1">
           <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {isBackfill
-              ? `${total} moments · nearby`
-              : inViewCount < total
-                ? `${inViewCount} of ${total} moments`
-                : `${total} moments`}
+            {!isBackfill && inViewCount < total
+              ? `${inViewCount} of ${total} moments`
+              : `${total} moments`}
           </span>
         </div>
       </div>
@@ -606,13 +600,11 @@ function PersonRow({
   momentCount,
   onClick,
   isActive,
-  isBackfill,
 }: {
   entity: Entity;
   momentCount: number;
   onClick: () => void;
   isActive?: boolean;
-  isBackfill?: boolean;
 }) {
   return (
     <button
@@ -649,9 +641,6 @@ function PersonRow({
         <span className="text-[11px] font-mono text-[var(--text-muted)]">
           {momentCount} events
         </span>
-        {isBackfill && (
-          <span className="text-[9px] font-mono text-[var(--text-muted)] block opacity-60">nearby</span>
-        )}
       </div>
     </button>
   );
@@ -662,13 +651,11 @@ function PersonCard({
   momentCount,
   onClick,
   isActive,
-  isBackfill,
 }: {
   entity: Entity;
   momentCount: number;
   onClick: () => void;
   isActive?: boolean;
-  isBackfill?: boolean;
 }) {
   return (
     <button
@@ -701,10 +688,23 @@ function PersonCard({
       <span className="text-[11px] font-mono text-[var(--text-muted)]">
         {momentCount} events
       </span>
-      {isBackfill && (
-        <span className="text-[9px] font-mono text-[var(--text-muted)] opacity-60">nearby</span>
-      )}
     </button>
+  );
+}
+
+// ─── Backfill divider ────────────────────────────────────────────────
+
+function BackfillDivider() {
+  return (
+    <div className="shrink-0 flex items-center px-1 self-stretch" aria-hidden>
+      <div className="flex flex-col items-center gap-1.5">
+        <div className="w-px h-8 bg-[rgba(255,255,255,0.1)]" />
+        <span className="text-[9px] font-mono text-[var(--text-muted)] uppercase tracking-widest whitespace-nowrap [writing-mode:vertical-lr] rotate-180">
+          more nearby
+        </span>
+        <div className="w-px h-8 bg-[rgba(255,255,255,0.1)]" />
+      </div>
+    </div>
   );
 }
 
@@ -749,6 +749,7 @@ export function HomePage({
   onBrowseAll,
   onScrollHighlight,
   onScrollPan,
+  onBackfillZoom,
   categoryFilter,
   onCategoryFilter,
   allCategoriesInView,
@@ -945,7 +946,7 @@ export function HomePage({
   }, [viewportStories, backfillStories]);
 
   const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
-  const storiesSectionTitle = (viewportStories ?? []).length > 0 ? 'Stories' : 'Stories Nearby';
+  const storiesSectionTitle = 'Stories';
 
   // Story in-view counts — how many of each story's moments are visible on the map
   const storyInViewCounts = useMemo(() => {
@@ -970,16 +971,14 @@ export function HomePage({
     });
   }, [personEntities, categoryFilter, momentToStoryMap]);
 
-  // Section 3: Notable People — sorted by maxNotability, grid of 10
-  // Merge in backfill people (off-screen but nearby) when viewport has few
-  const backfillIds = useMemo(() => new Set((backfillPeople ?? []).map(p => p.entity.id)), [backfillPeople]);
+  // Section 3: Notable People — sorted by maxNotability, with off-screen backfill
 
   const gridPeople = useMemo(() => {
     const inView = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
     const fill = (backfillPeople ?? [])
       .filter(p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id))
       .sort((a, b) => b.maxNotability - a.maxNotability);
-    return [...inView, ...fill].slice(0, 10);
+    return [...inView, ...fill].slice(0, 25);
   }, [filteredPersonEntities, backfillPeople]);
 
   // All people for expanded view
@@ -991,8 +990,24 @@ export function HomePage({
     return [...inView, ...fill];
   }, [filteredPersonEntities, backfillPeople]);
 
+  // Boundary indices: how many in-view items before backfill starts
+  const peopleBackfillStart = useMemo(() => {
+    const inViewCount = filteredPersonEntities.length;
+    return Math.min(inViewCount, gridPeople.length);
+  }, [filteredPersonEntities, gridPeople]);
+
+  const storiesBackfillStart = useMemo(() => {
+    const inViewCount = (viewportStories ?? []).length;
+    return Math.min(inViewCount, allHomeStories.length);
+  }, [viewportStories, allHomeStories]);
+
+  const collectionsBackfillStart = useMemo(() => {
+    const inViewCount = viewportFilteredCollections.length;
+    return Math.min(inViewCount, filteredCollections.length);
+  }, [viewportFilteredCollections, filteredCollections]);
+
   // Title adapts based on whether we're showing backfill people
-  const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Who Was Here' : 'Who Was Nearby';
+  const peopleSectionTitle = 'Who Was Here';
 
   // ── Scroll refs for each section ──
   const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
@@ -1104,6 +1119,8 @@ export function HomePage({
   onScrollHighlightRef.current = onScrollHighlight;
   const onScrollPanRef = useRef(onScrollPan);
   onScrollPanRef.current = onScrollPan;
+  const onBackfillZoomRef = useRef(onBackfillZoom);
+  onBackfillZoomRef.current = onBackfillZoom;
   const nearYouMomentsRef = useRef(nearYouMoments);
   nearYouMomentsRef.current = nearYouMoments;
 
@@ -1182,8 +1199,24 @@ export function HomePage({
     const { moments, label } = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
       onScrollHighlightRef.current(moments, undefined, label ?? undefined);
+
+      // When scrolling into backfill territory, zoom map out to include the item
+      if (onBackfillZoomRef.current && moments.length > 0) {
+        const isInBackfill =
+          (activeHomeSection === 'people' && peopleActiveIdx >= peopleBackfillStart && peopleBackfillStart > 0) ||
+          (activeHomeSection === 'stories' && storiesActiveIdx >= storiesBackfillStart && storiesBackfillStart > 0) ||
+          (activeHomeSection === 'collections' && collectionsActiveIdx >= collectionsBackfillStart && collectionsBackfillStart > 0);
+        if (isInBackfill) {
+          // Zoom to the centroid of highlighted moments
+          const lats = moments.map(m => m.lat);
+          const lngs = moments.map(m => m.lng);
+          const centerLat = lats.reduce((a, b) => a + b, 0) / lats.length;
+          const centerLng = lngs.reduce((a, b) => a + b, 0) / lngs.length;
+          onBackfillZoomRef.current(centerLat, centerLng);
+        }
+      }
     }
-  }, [activeHomeSection, computeHighlight, highlightDataKey]);
+  }, [activeHomeSection, computeHighlight, highlightDataKey, peopleActiveIdx, storiesActiveIdx, collectionsActiveIdx, peopleBackfillStart, storiesBackfillStart, collectionsBackfillStart]);
 
   // Horizontal scroll within a section should activate that section even if
   // the user hasn't scrolled vertically yet. Track the initial index to avoid
@@ -1368,7 +1401,6 @@ export function HomePage({
                     entity={entity}
                     momentCount={momentCount}
                     isActive={i === peopleExpandedActiveIdx}
-                    isBackfill={backfillIds.has(entity.id)}
                     onClick={() => onEntityClick(entity)}
                   />
                 ))}
@@ -1377,14 +1409,17 @@ export function HomePage({
               <div>
                 <HScrollRow scrollRef={peopleScrollRef}>
                   {gridPeople.map(({ entity, momentCount }, i) => (
-                    <PersonCard
-                      key={entity.id}
-                      entity={entity}
-                      momentCount={momentCount}
-                      isActive={i === peopleActiveIdx}
-                      isBackfill={backfillIds.has(entity.id)}
-                      onClick={() => onEntityClick(entity)}
-                    />
+                    <Fragment key={entity.id}>
+                      {i === peopleBackfillStart && peopleBackfillStart > 0 && peopleBackfillStart < gridPeople.length && (
+                        <BackfillDivider />
+                      )}
+                      <PersonCard
+                        entity={entity}
+                        momentCount={momentCount}
+                        isActive={i === peopleActiveIdx}
+                        onClick={() => onEntityClick(entity)}
+                      />
+                    </Fragment>
                   ))}
                 </HScrollRow>
                 {allPeople.length > gridPeople.length && (
@@ -1444,14 +1479,18 @@ export function HomePage({
               ) : (
                 <HScrollRow scrollRef={storiesScrollRef}>
                   {allHomeStories.map((story, i) => (
-                    <HomeStoryCard
-                      key={story.id}
-                      story={story}
-                      isActive={i === storiesActiveIdx}
-                      isBackfill={backfillStoryIds.has(story.id)}
-                      inViewCount={storyInViewCounts.get(story.id) ?? 0}
-                      onClick={() => onStorySelect?.(story)}
-                    />
+                    <Fragment key={story.id}>
+                      {i === storiesBackfillStart && storiesBackfillStart > 0 && storiesBackfillStart < allHomeStories.length && (
+                        <BackfillDivider />
+                      )}
+                      <HomeStoryCard
+                        story={story}
+                        isActive={i === storiesActiveIdx}
+                        isBackfill={backfillStoryIds.has(story.id)}
+                        inViewCount={storyInViewCounts.get(story.id) ?? 0}
+                        onClick={() => onStorySelect?.(story)}
+                      />
+                    </Fragment>
                   ))}
                 </HScrollRow>
               )}
@@ -1542,7 +1581,6 @@ export function HomePage({
                   <CollectionGridCard
                     key={collection.id}
                     collection={collection}
-                    isBackfill={backfillCollectionIds.has(collection.id)}
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
@@ -1551,14 +1589,18 @@ export function HomePage({
               // Collapsed: horizontal scroll
               <HScrollRow scrollRef={collectionsScrollRef}>
                 {filteredCollections.map((collection, i) => (
-                  <HomeCollectionCard
-                    key={collection.id}
-                    collection={collection}
-                    isActive={i === collectionsActiveIdx}
-                    isBackfill={backfillCollectionIds.has(collection.id)}
-                    inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
-                    onClick={() => onCollectionSelect(collection)}
-                  />
+                  <Fragment key={collection.id}>
+                    {i === collectionsBackfillStart && collectionsBackfillStart > 0 && collectionsBackfillStart < filteredCollections.length && (
+                      <BackfillDivider />
+                    )}
+                    <HomeCollectionCard
+                      collection={collection}
+                      isActive={i === collectionsActiveIdx}
+                      isBackfill={backfillCollectionIds.has(collection.id)}
+                      inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
+                      onClick={() => onCollectionSelect(collection)}
+                    />
+                  </Fragment>
                 ))}
               </HScrollRow>
             )

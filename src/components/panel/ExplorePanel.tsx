@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
 import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLocation, StoryCollection } from '../../types';
-import { getLocationsInBounds, getStoriesInBounds, getExpandedBounds, distanceMiles } from '../../lib/geo';
+import { getLocationsInBounds, getStoriesInBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getViewportEntities, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
@@ -296,15 +296,23 @@ export function ExplorePanel({
       : browseableStories;
     const homeStories = getStoriesInBounds(browseSrc, bounds, momentMap);
     setHomeViewportStories(homeStories);
-    // Backfill stories from expanded bounds when viewport has few
-    if (homeStories.length < 5) {
-      const expanded = getExpandedBounds(bounds, 3);
-      const nearbyStories = getStoriesInBounds(browseSrc, expanded, momentMap);
-      const inViewIds = new Set(homeStories.map(s => s.id));
-      setBackfillStories(nearbyStories.filter(s => !inViewIds.has(s.id)).slice(0, 10 - homeStories.length));
-    } else {
-      setBackfillStories([]);
-    }
+    // Always provide off-screen stories sorted by distance from map center
+    // Uses ALL browseable stories globally — not limited to expanded viewport
+    const inViewIds = new Set(homeStories.map(s => s.id));
+    const center = bounds.getCenter();
+    const offScreen = browseSrc
+      .filter(s => !inViewIds.has(s.id))
+      .map(s => {
+        const dist = Math.min(...s.moments.map(sm => {
+          const m = momentMap.get(sm.momentId);
+          return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity;
+        }));
+        return { story: s, dist };
+      })
+      .sort((a, b) => a.dist - b.dist)
+      .slice(0, 20)
+      .map(({ story }) => story);
+    setBackfillStories(offScreen);
     setMapZoom(mapInstance.getZoom());
   }, [mapInstance, stories, browseableStories, categoryFilter, momentMap, moments]);
 
@@ -333,34 +341,25 @@ export function ExplorePanel({
     );
   }, [collections, mapInstance, viewportLocations]); // viewportLocations triggers recompute on map move
 
-  // Backfill collections from expanded bounds when viewport has few collections
+  // Always provide off-screen collections sorted by distance from map center
+  // Uses ALL collections globally — not limited to expanded viewport
   const backfillCollections = useMemo(() => {
-    if (viewportCollections.length >= 3 || !mapInstance) return [];
-    const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 3); // 3x viewport diagonal
+    if (!mapInstance) return [];
+    const center = mapInstance.getBounds().getCenter();
     const inViewIds = new Set(viewportCollections.map(c => c.id));
-    // Find collections with at least one moment in the expanded bounds
-    const nearby = collections.filter(c => {
-      if (inViewIds.has(c.id)) return false;
-      return c.momentIds.some(mid => {
-        const m = moments.find(mm => mm.id === mid);
-        return m && expanded.contains([m.lat, m.lng]);
-      });
-    });
-    // Sort by distance from map center to nearest moment
-    const center = bounds.getCenter();
-    nearby.sort((a, b) => {
-      const aDist = Math.min(...a.momentIds.map(mid => {
-        const m = moments.find(mm => mm.id === mid);
-        return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity;
-      }));
-      const bDist = Math.min(...b.momentIds.map(mid => {
-        const m = moments.find(mm => mm.id === mid);
-        return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity;
-      }));
-      return aDist - bDist;
-    });
-    return nearby.slice(0, 6 - viewportCollections.length);
+    const offScreen = collections
+      .filter(c => !inViewIds.has(c.id))
+      .map(c => {
+        const dist = Math.min(...c.momentIds.map(mid => {
+          const m = moments.find(mm => mm.id === mid);
+          return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity;
+        }));
+        return { collection: c, dist };
+      })
+      .sort((a, b) => a.dist - b.dist)
+      .slice(0, 15)
+      .map(({ collection }) => collection);
+    return offScreen;
   }, [viewportCollections, mapInstance, collections, moments]);
 
   // Scroll-driven navigation (Stories tab + Collections views)
@@ -661,18 +660,27 @@ export function ExplorePanel({
     [viewportEntities]
   );
 
-  // Backfill people from expanded bounds when viewport has few people
+  // Always provide off-screen people sorted by distance from map center
+  // Uses ALL entities globally — not limited to expanded viewport bounds
   const backfillPeople = useMemo(() => {
-    if (personEntities.length >= 5 || !mapInstance) return [];
-    const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 3); // 3x viewport diagonal
-    const expandedLocs = getLocationsInBounds(stories, expanded, momentMap, moments);
-    const expandedIds = new Set(expandedLocs.map((vl) => vl.location.id));
+    if (!mapInstance) return [];
+    const center = mapInstance.getBounds().getCenter();
     const inViewIds = new Set(personEntities.map((p) => p.entity.id));
-    return getViewportEntities(expandedIds)
-      .filter((e) => e.entity.type === 'person' && !inViewIds.has(e.entity.id))
-      .slice(0, 10 - personEntities.length); // fill up to 10 total
-  }, [personEntities, mapInstance, stories, momentMap, moments]);
+    // Get all person entities with their nearest moment distance
+    const allPersonEntities = getViewportEntities(
+      new Set(moments.map(m => m.id)) // pass ALL moment IDs to get all entities
+    ).filter(e => e.entity.type === 'person' && !inViewIds.has(e.entity.id));
+    // Sort by distance from map center (using nearest moment)
+    const withDist = allPersonEntities.map(e => {
+      const entityMoments = getMomentsForEntity(e.entity.id);
+      const dist = entityMoments.length > 0
+        ? Math.min(...entityMoments.map(m => distanceMiles(center.lat, center.lng, m.lat, m.lng)))
+        : Infinity;
+      return { ...e, dist };
+    });
+    withDist.sort((a, b) => a.dist - b.dist);
+    return withDist.slice(0, 20);
+  }, [personEntities, mapInstance, moments]);
 
   // Alphabetical grouping of people for A-Z mode in Stories tab
   const personAlphabeticalGroups = useMemo(
@@ -922,6 +930,23 @@ export function ExplorePanel({
     }, 80);
   }, [mapInstance, sheetSnap, isSheetMobile]);
 
+  // Backfill zoom — smoothly zoom out to include a backfill item's location
+  const backfillZoomTimeout = useRef<number>(0);
+  const handleBackfillZoom = useCallback((lat: number, lng: number) => {
+    if (!mapInstance) return;
+    const bounds = mapInstance.getBounds();
+    // Already visible? Skip zoom.
+    if (bounds.contains([lat, lng])) return;
+    isScrollDriving.current = true;
+    clearTimeout(backfillZoomTimeout.current);
+    backfillZoomTimeout.current = window.setTimeout(() => {
+      // Extend current bounds to include the backfill point, then fit
+      const extended = bounds.extend([lat, lng]);
+      mapInstance.flyToBounds(extended, { duration: 0.8, padding: [40, 40] });
+      setTimeout(() => { isScrollDriving.current = false; }, 800);
+    }, 150);
+  }, [mapInstance]);
+
   if (panelView === 'home') {
     return (
       <div className="flex flex-col h-full min-h-0 relative">
@@ -963,6 +988,7 @@ export function ExplorePanel({
           scrollRef={(el) => { homeScrollElRef.current = el; }}
           onScrollHighlight={onScrollHighlight}
           onScrollPan={handleHomeScrollPan}
+          onBackfillZoom={handleBackfillZoom}
           categoryFilter={categoryFilter}
           allCategoriesInView={allCategoriesInView}
           onScrollPosition={onScrollPosition}

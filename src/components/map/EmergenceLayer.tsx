@@ -121,7 +121,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const activeOverlayRef = useRef<L.Marker | null>(null);
   const scrollOverlayRef = useRef<L.Marker | null>(null);
-  const zoomOutPillRef = useRef<L.Control | null>(null);
+  // zoomOutPillRef removed — auto-zoom on backfill scroll replaces it
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -282,6 +282,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // users a visible ring + the moment name on the map as they scroll.
   useEffect(() => {
     if (scrollOverlayRef.current) {
+      clearTimeout((scrollOverlayRef.current as any)._tooltipTimerId);
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
     }
@@ -289,6 +290,36 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     if (scrollHighlight && scrollHighlight.length >= 1) {
       const isMulti = scrollHighlight.length > 1;
       const hasLabel = scrollHighlightLabel && isMulti;
+
+      // Helper: add marker to map, then bind tooltip after a delay to prevent flash.
+      // Leaflet renders permanent tooltips at a default position before repositioning.
+      // We delay binding by 60ms so the marker is fully positioned first.
+      const addMarkerWithTooltip = (
+        marker: L.Marker,
+        tooltipHtml: string,
+        tooltipOpts: L.TooltipOptions,
+        clickMoment?: typeof scrollHighlight[0],
+      ) => {
+        marker.addTo(map);
+        scrollOverlayRef.current = marker;
+        const timerId = window.setTimeout(() => {
+          if (!map.hasLayer(marker)) return;
+          marker.bindTooltip(tooltipHtml, tooltipOpts);
+          if (clickMoment) {
+            const story = momentStoryMap.get(clickMoment.id);
+            if (story) {
+              const handler = () => onClickRef.current(clickMoment, story);
+              marker.on('click', handler);
+              marker.on('tooltipopen', () => {
+                const el = marker.getTooltip()?.getElement();
+                if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
+              });
+            }
+          }
+        }, 60);
+        // Store timer so cleanup can clear it
+        (marker as any)._tooltipTimerId = timerId;
+      };
 
       if (hasLabel) {
         // Multi-moment: show parent name at the center of VISIBLE markers in viewport
@@ -313,26 +344,14 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const isRightHalf = point.x > mapSize.x * 0.5;
         const tooltipDir = isRightHalf ? 'left' as const : 'right' as const;
         const tooltipOffset: [number, number] = isRightHalf ? [-12, 0] : [12, 0];
-        marker.bindTooltip(
+        addMarkerWithTooltip(
+          marker,
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;">
             <strong>${scrollHighlightLabel}</strong>
           </div>`,
-          { direction: tooltipDir, offset: tooltipOffset, className: 'dark-tooltip clickable-tooltip', permanent: true }
+          { direction: tooltipDir, offset: tooltipOffset, className: 'dark-tooltip clickable-tooltip', permanent: true },
+          scrollHighlight[0],
         );
-        // Click the label → navigate to the first highlighted moment's story
-        const firstMoment = scrollHighlight[0];
-        const firstStory = momentStoryMap.get(firstMoment.id);
-        if (firstStory) {
-          const handler = () => onClickRef.current(firstMoment, firstStory);
-          marker.on('click', handler);
-          // Also make the tooltip text itself clickable (Leaflet tooltips don't propagate clicks to marker)
-          marker.on('tooltipopen', () => {
-            const el = marker.getTooltip()?.getElement();
-            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
-          });
-        }
-        marker.addTo(map);
-        scrollOverlayRef.current = marker;
       } else {
         // Single moment: show label only if the moment is inside the current viewport
         const moment = scrollHighlight[0];
@@ -357,28 +376,20 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const sz = map.getSize();
         const dir = pt.x > sz.x * 0.5 ? 'left' as const : 'right' as const;
         const off: [number, number] = dir === 'left' ? [-8, 0] : [8, 0];
-        marker.bindTooltip(
+        addMarkerWithTooltip(
+          marker,
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;cursor:pointer;border-left:3px solid ${color};padding-left:6px;margin:-2px -4px;border-radius:2px;">
             <strong>${tooltipText}</strong>
           </div>`,
-          { direction: dir, offset: off, className: 'dark-tooltip clickable-tooltip', permanent: true }
+          { direction: dir, offset: off, className: 'dark-tooltip clickable-tooltip', permanent: true },
+          moment,
         );
-        const story = momentStoryMap.get(moment.id);
-        if (story) {
-          const handler = () => onClickRef.current(moment, story);
-          marker.on('click', handler);
-          marker.on('tooltipopen', () => {
-            const el = marker.getTooltip()?.getElement();
-            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
-          });
-        }
-        marker.addTo(map);
-        scrollOverlayRef.current = marker;
       }
     }
 
     return () => {
       if (scrollOverlayRef.current) {
+        clearTimeout((scrollOverlayRef.current as any)._tooltipTimerId);
         map.removeLayer(scrollOverlayRef.current);
         scrollOverlayRef.current = null;
       }
@@ -417,53 +428,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
     };
   }, [activeLocation, map]);
-
-  // ── "Zoom out to explore" pill ──────────────────────────────────────
-  // Shown when scroll highlight has moments but NONE are visible in the viewport.
-  // Only active in soft highlight mode (homepage).
-  useEffect(() => {
-    // Remove existing pill
-    if (zoomOutPillRef.current) {
-      map.removeControl(zoomOutPillRef.current);
-      zoomOutPillRef.current = null;
-    }
-
-    if (!scrollHighlight || scrollHighlight.length === 0 || !softHighlight) return;
-
-    const bounds = map.getBounds();
-    const anyInView = scrollHighlight.some(m => bounds.contains([m.lat, m.lng]));
-    if (anyInView) return;
-
-    // All highlighted moments are off-screen — show a pill
-    const ZoomOutControl = L.Control.extend({
-      onAdd() {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = `<div style="
-          background: rgba(20,20,24,0.85);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255,255,255,0.15);
-          border-radius: 999px;
-          padding: 5px 14px;
-          font-family: 'Space Grotesk','Courier New',monospace;
-          font-size: 11px;
-          color: rgba(255,255,255,0.7);
-          pointer-events: none;
-          white-space: nowrap;
-        ">Zoom out to explore</div>`;
-        return div;
-      },
-    });
-    const ctrl = new ZoomOutControl({ position: 'bottomleft' });
-    ctrl.addTo(map);
-    zoomOutPillRef.current = ctrl;
-
-    return () => {
-      if (zoomOutPillRef.current) {
-        map.removeControl(zoomOutPillRef.current);
-        zoomOutPillRef.current = null;
-      }
-    };
-  }, [scrollHighlight, softHighlight, map]);
 
   return null;
 }

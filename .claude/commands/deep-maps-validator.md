@@ -189,6 +189,44 @@ Verify that entities with `canonicalStoryId` in static data also have non-NULL `
 Verify Supabase `moment_entities` count matches static entity link count.
 - WARNING if counts differ
 
+## Layer 4: Post-Import Guardrails
+
+Run these checks after any Supabase import or content sync. These catch data integrity issues that the ingestion pipeline can introduce.
+
+### Check 4.1: Entity Image Completeness
+For every entity in `src/data/entities.ts` that has a non-null `imageUrl` in Supabase, verify the static file also has `imageUrl`.
+- WARNING if entity has image in Supabase but not in static `entities.ts`
+- To fix: run `npx tsx scripts/update-entity-images.ts`
+
+### Check 4.2: Demoted Entities Not In Arrays
+Check for entities that were demoted (removed from `src/data/entities.ts`) but still referenced in moment `entityIds`:
+- Read all entity IDs from `src/data/entities.ts`
+- Scan all moments in `src/data/moments.ts` for `entityIds` referencing IDs NOT in the entities array
+- WARNING for each dangling entity reference (the entity was likely demoted but moment references weren't cleaned up)
+
+### Check 4.3: Place Stories Hidden From Browse
+Every story with `storyType: 'place'` must NOT appear in the browse UI. Verify:
+- `src/lib/data/provider.tsx` exports `browseableStories` filtered to `storyType === 'incident'`
+- No component references raw `stories` array for user-facing lists (search `browseableStories` is used in ExplorePanel, HomePage, search)
+- CRITICAL if any `storyType: 'place'` story could leak into browse
+
+### Check 4.4: Static Load Performance
+Verify the app can load from static data alone:
+- `src/data/moments.ts` exports an array — count items. CRITICAL if empty.
+- `src/data/entities.ts` exports an array — count items. CRITICAL if empty.
+- `src/data/stories.ts` exports an array — count items. CRITICAL if empty.
+- File sizes: WARNING if any static data file exceeds 5MB (risks slow initial load)
+```bash
+ls -la src/data/moments.ts src/data/entities.ts src/data/stories.ts src/data/collections.ts 2>&1
+```
+
+### Check 4.5: Content Type Boundaries
+After import, verify content type rules are maintained:
+- Every `storyType: 'biography'` story must have exactly one entity with matching `canonicalStoryId`
+- Every `storyType: 'place'` story must have exactly one entity of `type: 'place'` with matching `canonicalStoryId`
+- No entity of `type: 'concept'` should exist in the entities array (concepts are banned per content guide)
+- CRITICAL for violations
+
 ## Output Format
 
 ```
