@@ -100,29 +100,36 @@ function useScrollActiveIndex(
 
     let rafId = 0;
     const findCenter = () => {
-      const cards = container.children;
+      const allChildren = container.children;
       let closestIdx = 0;
       let closestDist = Infinity;
 
       if (mode === 'horizontal') {
-        // Use 30% from left edge as reference — biases toward the first/leftmost visible card
         const rect = container.getBoundingClientRect();
         const referenceX = rect.left + rect.width * 0.3;
-        for (let i = 0; i < cards.length; i++) {
-          const cardRect = cards[i].getBoundingClientRect();
+        for (let i = 0; i < allChildren.length; i++) {
+          const child = allChildren[i] as HTMLElement;
+          // Skip non-card children (e.g., BackfillDivider, BackfillHint)
+          const cardIndex = child.dataset?.cardIndex;
+          if (cardIndex === undefined) continue;
+          const idx = parseInt(cardIndex, 10);
+          const cardRect = child.getBoundingClientRect();
           const cardCenterX = cardRect.left + cardRect.width / 2;
           const dist = Math.abs(cardCenterX - referenceX);
-          if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+          if (dist < closestDist) { closestDist = dist; closestIdx = idx; }
         }
       } else {
-        // Vertical: use the scroll parent's visible area as reference
         const parentRect = scrollTarget.getBoundingClientRect();
-        const targetY = parentRect.top + parentRect.height * 0.35; // 35% from top of visible area
-        for (let i = 0; i < cards.length; i++) {
-          const cardRect = cards[i].getBoundingClientRect();
+        const targetY = parentRect.top + parentRect.height * 0.35;
+        for (let i = 0; i < allChildren.length; i++) {
+          const child = allChildren[i] as HTMLElement;
+          const cardIndex = child.dataset?.cardIndex;
+          if (cardIndex === undefined) continue;
+          const idx = parseInt(cardIndex, 10);
+          const cardRect = child.getBoundingClientRect();
           const cardCenterY = cardRect.top + cardRect.height / 2;
           const dist = Math.abs(cardCenterY - targetY);
-          if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+          if (dist < closestDist) { closestDist = dist; closestIdx = idx; }
         }
       }
       setActiveIndex(closestIdx);
@@ -290,6 +297,7 @@ function NearYouCard({
   onClick,
   isActive,
   contextLine,
+  cardIndex,
 }: {
   location: Moment;
   story: Story | null;
@@ -298,12 +306,14 @@ function NearYouCard({
   isActive?: boolean;
   /** "Serial Killer Crime Scenes" or "3 people · 2 places connected" */
   contextLine?: string | null;
+  cardIndex?: number;
 }) {
   const cat = story ? CATEGORIES[story.category] : undefined;
 
   return (
     <button
       onClick={onClick}
+      data-card-index={cardIndex}
       className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
@@ -442,6 +452,7 @@ function HomeCollectionCard({
   isActive,
   inViewCount,
   isBackfill,
+  cardIndex,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
@@ -450,6 +461,7 @@ function HomeCollectionCard({
   /** How many of this collection's moments are currently visible on the map */
   inViewCount?: number;
   isBackfill?: boolean;
+  cardIndex?: number;
 }) {
   const total = collection.momentIds.length;
   const hasMore = isActive && inViewCount != null && inViewCount < total;
@@ -457,6 +469,7 @@ function HomeCollectionCard({
   return (
     <button
       onClick={onClick}
+      data-card-index={cardIndex}
       className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
       style={cardHighlightStyle(!!isActive)}
     >
@@ -552,6 +565,7 @@ function HomeStoryCard({
   isBackfill,
   distanceMi,
   onClick,
+  cardIndex,
 }: {
   story: Story;
   inViewCount: number;
@@ -559,12 +573,14 @@ function HomeStoryCard({
   isBackfill?: boolean;
   distanceMi?: number;
   onClick: () => void;
+  cardIndex?: number;
 }) {
   const cat = CATEGORIES[story.category];
   const total = story.moments.length;
   return (
     <button
       onClick={onClick}
+      data-card-index={cardIndex}
       className={`w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] ${
         isActive ? 'scale-[1.04] shadow-lg' : ''
       }`}
@@ -652,16 +668,19 @@ function PersonCard({
   onClick,
   isActive,
   distanceMi,
+  cardIndex,
 }: {
   entity: Entity;
   momentCount: number;
   onClick: () => void;
   isActive?: boolean;
   distanceMi?: number;
+  cardIndex?: number;
 }) {
   return (
     <button
       onClick={onClick}
+      data-card-index={cardIndex}
       className="flex flex-col items-center w-[130px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97] card-animate-in"
       style={{
         scrollSnapAlign: 'start',
@@ -1446,6 +1465,7 @@ export function HomePage({
                       <PersonCard
                         entity={entity}
                         momentCount={momentCount}
+                        cardIndex={i}
                         isActive={i === peopleActiveIdx}
                         distanceMi={i >= peopleBackfillStart && userLocation ? (() => {
                           const ms = getMomentsForEntity(entity.id);
@@ -1519,6 +1539,7 @@ export function HomePage({
                       {i === storiesBackfillStart && storiesBackfillStart > 0 && storiesBackfillStart < allHomeStories.length && <BackfillDivider />}
                       <HomeStoryCard
                         story={story}
+                        cardIndex={i}
                         isActive={i === storiesActiveIdx}
                         isBackfill={backfillStoryIds.has(story.id)}
                         inViewCount={storyInViewCounts.get(story.id) ?? 0}
@@ -1578,6 +1599,7 @@ export function HomePage({
                     key={vl.location.id}
                     location={vl.location}
                     story={vl.story}
+                    cardIndex={i}
                     isActive={i === nearYouActiveIdx}
                     contextLine={getMomentContextLine(vl.location)}
                     distance={
@@ -1634,6 +1656,7 @@ export function HomePage({
                     {i === collectionsBackfillStart && collectionsBackfillStart > 0 && collectionsBackfillStart < filteredCollections.length && <BackfillDivider />}
                     <HomeCollectionCard
                       collection={collection}
+                      cardIndex={i}
                       isActive={i === collectionsActiveIdx}
                       isBackfill={backfillCollectionIds.has(collection.id)}
                       inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
