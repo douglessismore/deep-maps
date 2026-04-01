@@ -790,8 +790,9 @@ function HScrollRow({
       }}
     >
       {children}
-      {/* End spacer: allows the last card to scroll to the detection point */}
-      <div className="shrink-0 w-[40vw]" aria-hidden="true" />
+      {/* End spacer: allows the last card to scroll to the detection point.
+          Has snap-start so scroll-snap-type:mandatory allows reaching it. */}
+      <div className="shrink-0 w-[40vw] snap-start" aria-hidden="true" />
     </div>
   );
 }
