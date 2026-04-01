@@ -106,7 +106,11 @@ function useScrollActiveIndex(
 
       if (mode === 'horizontal') {
         const rect = container.getBoundingClientRect();
-        const referenceX = rect.left + rect.width * 0.5;
+        // Cards use scroll-snap-align: start, so the active card's LEFT edge
+        // aligns with the container's left content edge (after padding).
+        // Use 20% from left as reference — catches the snapped card's body,
+        // not the gap between first and second cards.
+        const referenceX = rect.left + rect.width * 0.2;
         for (let i = 0; i < allChildren.length; i++) {
           const child = allChildren[i] as HTMLElement;
           // Skip non-card children (e.g., BackfillDivider, BackfillHint)
@@ -114,8 +118,8 @@ function useScrollActiveIndex(
           if (cardIndex === undefined) continue;
           const idx = parseInt(cardIndex, 10);
           const cardRect = child.getBoundingClientRect();
-          const cardCenterX = cardRect.left + cardRect.width / 2;
-          const dist = Math.abs(cardCenterX - referenceX);
+          // Compare left edge (where snap-start aligns), not center
+          const dist = Math.abs(cardRect.left - referenceX);
           if (dist < closestDist) { closestDist = dist; closestIdx = idx; }
         }
       } else {
