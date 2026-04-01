@@ -87,15 +87,14 @@ function useScrollActiveIndex(
   mode: 'horizontal' | 'vertical' = 'horizontal',
   /** For vertical mode: listen for scroll on this parent instead of containerRef */
   scrollParentRef?: React.RefObject<HTMLElement | null>,
-): number {
+): { index: number; cardId: string | null } {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !enabled || itemCount === 0) return;
 
-    // For vertical mode, scroll events fire on the parent scroll container,
-    // not on the items container itself (which is just a flex-col div).
     const scrollTarget = (mode === 'vertical' && scrollParentRef?.current) ? scrollParentRef.current : container;
 
     let rafId = 0;
@@ -103,24 +102,27 @@ function useScrollActiveIndex(
       const allChildren = container.children;
       let closestIdx = 0;
       let closestDist = Infinity;
+      let closestCardId: string | null = null;
 
       if (mode === 'horizontal') {
         const rect = container.getBoundingClientRect();
-        // Cards use scroll-snap-align: start, so the active card's LEFT edge
-        // aligns with the container's left content edge (after padding).
-        // Use 20% from left as reference — catches the snapped card's body,
-        // not the gap between first and second cards.
-        const referenceX = rect.left + rect.width * 0.2;
+        // Use 30% from left — biased toward the snapped card's body.
+        // Compare card's left edge since cards use snap-start alignment.
+        const referenceX = rect.left + rect.width * 0.3;
         for (let i = 0; i < allChildren.length; i++) {
           const child = allChildren[i] as HTMLElement;
-          // Skip non-card children (e.g., BackfillDivider, BackfillHint)
           const cardIndex = child.dataset?.cardIndex;
           if (cardIndex === undefined) continue;
           const idx = parseInt(cardIndex, 10);
           const cardRect = child.getBoundingClientRect();
-          // Compare left edge (where snap-start aligns), not center
-          const dist = Math.abs(cardRect.left - referenceX);
-          if (dist < closestDist) { closestDist = dist; closestIdx = idx; }
+          // Use left third of card as detection point (not center, not edge)
+          const cardDetectX = cardRect.left + cardRect.width * 0.33;
+          const dist = Math.abs(cardDetectX - referenceX);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIdx = idx;
+            closestCardId = child.dataset?.cardId ?? null;
+          }
         }
       } else {
         const parentRect = scrollTarget.getBoundingClientRect();
@@ -133,10 +135,15 @@ function useScrollActiveIndex(
           const cardRect = child.getBoundingClientRect();
           const cardCenterY = cardRect.top + cardRect.height / 2;
           const dist = Math.abs(cardCenterY - targetY);
-          if (dist < closestDist) { closestDist = dist; closestIdx = idx; }
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIdx = idx;
+            closestCardId = child.dataset?.cardId ?? null;
+          }
         }
       }
       setActiveIndex(closestIdx);
+      setActiveCardId(closestCardId);
     };
 
     const onScroll = () => {
@@ -154,7 +161,7 @@ function useScrollActiveIndex(
     };
   }, [containerRef, scrollParentRef, itemCount, enabled, mode]);
 
-  return activeIndex;
+  return { index: activeIndex, cardId: activeCardId };
 }
 
 // ─── Section heading ─────────────────────────────────────────────────
@@ -302,6 +309,7 @@ function NearYouCard({
   isActive,
   contextLine,
   cardIndex,
+  cardId,
 }: {
   location: Moment;
   story: Story | null;
@@ -311,6 +319,7 @@ function NearYouCard({
   /** "Serial Killer Crime Scenes" or "3 people · 2 places connected" */
   contextLine?: string | null;
   cardIndex?: number;
+  cardId?: string;
 }) {
   const cat = story ? CATEGORIES[story.category] : undefined;
 
@@ -318,6 +327,7 @@ function NearYouCard({
     <button
       onClick={onClick}
       data-card-index={cardIndex}
+      data-card-id={cardId}
       className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
@@ -457,6 +467,7 @@ function HomeCollectionCard({
   inViewCount,
   isBackfill,
   cardIndex,
+  cardId,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
@@ -466,6 +477,7 @@ function HomeCollectionCard({
   inViewCount?: number;
   isBackfill?: boolean;
   cardIndex?: number;
+  cardId?: string;
 }) {
   const total = collection.momentIds.length;
   const hasMore = isActive && inViewCount != null && inViewCount < total;
@@ -474,6 +486,7 @@ function HomeCollectionCard({
     <button
       onClick={onClick}
       data-card-index={cardIndex}
+      data-card-id={cardId}
       className="shrink-0 w-[200px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
       style={cardHighlightStyle(!!isActive)}
     >
@@ -570,6 +583,7 @@ function HomeStoryCard({
   distanceMi,
   onClick,
   cardIndex,
+  cardId,
 }: {
   story: Story;
   inViewCount: number;
@@ -578,6 +592,7 @@ function HomeStoryCard({
   distanceMi?: number;
   onClick: () => void;
   cardIndex?: number;
+  cardId?: string;
 }) {
   const cat = CATEGORIES[story.category];
   const total = story.moments.length;
@@ -585,6 +600,7 @@ function HomeStoryCard({
     <button
       onClick={onClick}
       data-card-index={cardIndex}
+      data-card-id={cardId}
       className={`w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] ${
         isActive ? 'scale-[1.04] shadow-lg' : ''
       }`}
@@ -673,6 +689,7 @@ function PersonCard({
   isActive,
   distanceMi,
   cardIndex,
+  cardId,
 }: {
   entity: Entity;
   momentCount: number;
@@ -680,11 +697,13 @@ function PersonCard({
   isActive?: boolean;
   distanceMi?: number;
   cardIndex?: number;
+  cardId?: string;
 }) {
   return (
     <button
       onClick={onClick}
       data-card-index={cardIndex}
+      data-card-id={cardId}
       className="flex flex-col items-center w-[130px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97] card-animate-in"
       style={{
         scrollSnapAlign: 'start',
@@ -1107,41 +1126,41 @@ export function HomePage({
   }, [restoreScrollTop, onScrollRestored]);
 
   // ── Active index tracking via scroll position ──
-  const nearYouActiveIdx = useScrollActiveIndex(
+  const { index: nearYouActiveIdx, cardId: nearYouActiveCardId } = useScrollActiveIndex(
     nearYouScrollRef,
     nearYouMoments.length,
     expandedSection !== 'nearYou',
     'horizontal',
   );
-  const nearYouExpandedActiveIdx = useScrollActiveIndex(
+  const { index: nearYouExpandedActiveIdx } = useScrollActiveIndex(
     nearYouExpandedRef,
     nearYouMoments.length,
     expandedSection === 'nearYou',
     'vertical',
     homeScrollRef,
   );
-  const collectionsActiveIdx = useScrollActiveIndex(
+  const { index: collectionsActiveIdx, cardId: collectionsActiveCardId } = useScrollActiveIndex(
     collectionsScrollRef,
     filteredCollections.length,
     expandedSection !== 'collections',
     'horizontal',
   );
-  const peopleActiveIdx = useScrollActiveIndex(
+  const { index: peopleActiveIdx, cardId: peopleActiveCardId } = useScrollActiveIndex(
     peopleScrollRef,
     gridPeople.length,
-    expandedSection !== 'people', // active when collapsed (horizontal)
+    expandedSection !== 'people',
     'horizontal',
   );
-  const storiesActiveIdx = useScrollActiveIndex(
+  const { index: storiesActiveIdx, cardId: storiesActiveCardId } = useScrollActiveIndex(
     storiesScrollRef,
     allHomeStories.length,
-    expandedSection !== 'stories', // active when collapsed (horizontal)
+    expandedSection !== 'stories',
     'horizontal',
   );
-  const peopleExpandedActiveIdx = useScrollActiveIndex(
+  const { index: peopleExpandedActiveIdx } = useScrollActiveIndex(
     peopleExpandedRef,
     allPeople.length,
-    expandedSection === 'people', // active when expanded (vertical)
+    expandedSection === 'people',
     'vertical',
     homeScrollRef,
   );
@@ -1192,22 +1211,26 @@ export function HomePage({
   // Flag is set ONLY by: (1) vertical scroll observer after 600ms mount guard,
   // (2) user touch on any scroll container. No auto-enable timeout.
 
-  // Compute highlight for a given section + horizontal index
+  // Compute highlight for a given section using cardId from DOM (primary)
+  // or index fallback. cardId is read directly from the visible card element,
+  // so it's always in sync with what the user sees — immune to array reshuffling.
   const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null; meta: string | null } => {
     if (section === 'people') {
       const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
+      const cardId = peopleActiveCardId;
       const idx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
-      const person = (activePersonIdRef.current
-        ? people.find(p => p.entity.id === activePersonIdRef.current)
-        : null) ?? people[Math.max(0, idx)];
+      const person = (cardId ? people.find(p => p.entity.id === cardId) : null)
+        ?? people[Math.max(0, idx)];
       if (person) {
         const moments = getMomentsForEntity(person.entity.id);
         return { moments, label: person.entity.name, meta: `${moments.length} event${moments.length !== 1 ? 's' : ''} nearby` };
       }
     }
     if (section === 'nearYou') {
+      const cardId = nearYouActiveCardId;
       const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
-      const vl = nearYouMomentsRef.current[Math.max(0, idx)];
+      const vl = (cardId ? nearYouMomentsRef.current.find(v => v.location.id === cardId) : null)
+        ?? nearYouMomentsRef.current[Math.max(0, idx)];
       if (vl) {
         const story = vl.story;
         const year = vl.location.year;
@@ -1216,10 +1239,10 @@ export function HomePage({
       }
     }
     if (section === 'collections') {
+      const cardId = collectionsActiveCardId;
       const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
-      const coll = (activeCollectionIdRef.current
-        ? filteredCollectionsRef.current.find(c => c.id === activeCollectionIdRef.current)
-        : null) ?? filteredCollectionsRef.current[Math.max(0, idx)];
+      const coll = (cardId ? filteredCollectionsRef.current.find(c => c.id === cardId) : null)
+        ?? filteredCollectionsRef.current[Math.max(0, idx)];
       if (coll) {
         const moments: Moment[] = [];
         for (const mid of coll.momentIds) {
@@ -1230,9 +1253,9 @@ export function HomePage({
       }
     }
     if (section === 'stories') {
-      const story = (activeStoryIdRef.current
-        ? allHomeStoriesRef.current.find(s => s.id === activeStoryIdRef.current)
-        : null) ?? allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
+      const cardId = storiesActiveCardId;
+      const story = (cardId ? allHomeStoriesRef.current.find(s => s.id === cardId) : null)
+        ?? allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
       if (story) {
         const moments: Moment[] = [];
         for (const sm of story.moments) {
@@ -1243,7 +1266,7 @@ export function HomePage({
       }
     }
     return { moments: [], label: null, meta: null };
-  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx]);
+  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx, peopleActiveCardId, storiesActiveCardId, collectionsActiveCardId, nearYouActiveCardId]);
 
   // Fire highlight whenever the active section or its horizontal index changes
   // Also re-fire when data changes (gridPeople/allHomeStories may load async)
@@ -1495,6 +1518,7 @@ export function HomePage({
                         entity={entity}
                         momentCount={momentCount}
                         cardIndex={i}
+                        cardId={entity.id}
                         isActive={i === peopleActiveIdx}
                         distanceMi={i >= peopleBackfillStart && userLocation ? (() => {
                           const ms = getMomentsForEntity(entity.id);
@@ -1569,6 +1593,7 @@ export function HomePage({
                       <HomeStoryCard
                         story={story}
                         cardIndex={i}
+                        cardId={story.id}
                         isActive={i === storiesActiveIdx}
                         isBackfill={backfillStoryIds.has(story.id)}
                         inViewCount={storyInViewCounts.get(story.id) ?? 0}
@@ -1629,6 +1654,7 @@ export function HomePage({
                     location={vl.location}
                     story={vl.story}
                     cardIndex={i}
+                    cardId={vl.location.id}
                     isActive={i === nearYouActiveIdx}
                     contextLine={getMomentContextLine(vl.location)}
                     distance={
@@ -1686,6 +1712,7 @@ export function HomePage({
                     <HomeCollectionCard
                       collection={collection}
                       cardIndex={i}
+                      cardId={collection.id}
                       isActive={i === collectionsActiveIdx}
                       isBackfill={backfillCollectionIds.has(collection.id)}
                       inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
