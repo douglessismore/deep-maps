@@ -355,14 +355,38 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       // Lock in this target — prevent scroll highlight from overriding
       const onMove = () => updateArrowPosition(div, targetLat, targetLng, label);
       const onMoveEnd = () => {
-        // If target is now in view, clean up
+        // If target is now in view, clean up and show a label at the target
         if (map.getBounds().contains([targetLat, targetLng])) {
           map.off('move', onMove);
           map.off('moveend', onMoveEnd);
           hideOffScreenArrow();
+          // Show a temporary label at the landed location so the user sees what they clicked
+          if (label && scrollOverlayRef.current === null) {
+            const pt = map.latLngToContainerPoint([targetLat, targetLng]);
+            const sz = map.getSize();
+            const labelRight = pt.x <= sz.x * 0.5;
+            const nearBottom = pt.y > sz.y * 0.65;
+            const containerStyle = nearBottom
+              ? 'flex-direction:column-reverse;align-items:center;'
+              : labelRight ? '' : 'flex-direction:row-reverse;';
+            const anchorY = nearBottom ? 50 : 0;
+            const landedIcon = L.divIcon({
+              className: '',
+              html: `<div class="scroll-label-container" style="${containerStyle}">
+                <div class="scroll-label-text dark-tooltip">
+                  <div>${label}</div>
+                </div>
+              </div>`,
+              iconSize: [0, 0],
+              iconAnchor: [0, anchorY],
+            });
+            const landedMarker = L.marker([targetLat, targetLng], { icon: landedIcon, zIndexOffset: 900, interactive: false });
+            landedMarker.addTo(map);
+            scrollOverlayRef.current = landedMarker;
+          }
           // Keep arrowFlyRef locked briefly so scroll highlight doesn't
           // immediately override with wrong label from reshuffled cards
-          setTimeout(() => { arrowFlyRef.current = null; }, 800);
+          setTimeout(() => { arrowFlyRef.current = null; }, 1200);
         }
       };
       arrowFlyRef.current = {
