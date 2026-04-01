@@ -1,0 +1,2171 @@
+/**
+ * Austin content derived from Michael Barnes' "Indelible Austin" books.
+ * Tier 1 topics: beyond-Austin significance, verified via Wikipedia + archives.
+ * Created for integration into main data files.
+ * DO NOT import directly — merge into stories.ts, moments.ts, and entities.ts.
+ */
+import type { Moment, Story, Entity } from '../types';
+
+// ─── MOMENTS ────────────────────────────────────────────────────────────
+
+export const barnesMoments: Moment[] = [
+  // ── The Pitch and Putt Murder (1951) ─────────────────────────────────
+
+  {
+    id: 'wallace-shoots-kinser-1951',
+    name: 'Mac Wallace Shoots Doug Kinser at the Butler Park Pitch and Putt Clubhouse',
+    subtitle: 'Just east of S. Lamar Blvd, Austin, TX 78704. The course opened 1 Jan 1950 and still operates; the Kinser family manages it',
+    description:
+      'At about 3 p.m. on 22 October 1951, Mac Wallace walked into this cinder-block clubhouse with its concrete floors and steel-frame windows and fired five .25-caliber bullets into co-owner Doug Kinser, 33, a WWII veteran who also acted at the Austin Civic Theatre. Wallace chased Kinser around the building before shooting him. A customer heard the shots and noted Wallace\'s license plate; police arrested him within two hours.',
+    lat: 30.2627,
+    lng: -97.7564,
+    type: 'crime_scene',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1951,
+    date: '22 October 1951',
+    address: '201 Lee Barton Dr, Austin, TX 78704',
+    entityIds: ['malcolm-wallace'],
+  },
+
+  {
+    id: 'wallace-trial-suspended-sentence-1952',
+    name: 'A Judge Suspends Mac Wallace\'s Murder Sentence After 11 Jurors Vote for Death',
+    subtitle: 'Travis County Courthouse, 1000 Guadalupe St, Austin. Now the Heman Marion Sweatt Courthouse, still standing',
+    description:
+      'After 10 days of testimony here in the Travis County 98th District Court, a jury convicted Mac Wallace of murder with malice in February 1952. Eleven of twelve jurors voted for the death penalty. Judge Charles O. Betts overruled the jury, sentenced Wallace to five years, then immediately suspended the sentence. Wallace walked free and was later given a security clearance to work for a defense contractor in Washington, D.C.',
+    lat: 30.2729,
+    lng: -97.7468,
+    type: 'government',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1952,
+    date: 'February 1952',
+    address: '1000 Guadalupe St, Austin, TX 78701',
+    entityIds: ['malcolm-wallace'],
+  },
+
+  // ── The KKK in Austin (1921–1922) ────────────────────────────────────
+
+  {
+    id: 'kkk-congress-ave-march-1921',
+    name: '519 Robed Klansmen March Congress Avenue in Silence as 30,000 Watch',
+    subtitle: 'Congress Avenue from the Capitol to the bridge, Austin. The route is unchanged today',
+    description:
+      'Congress Avenue here fell silent on 2 September 1921 as 519 armed Klansmen in white robes and hoods marched single file while an estimated 30,000 spectators lined the street. Capital City Klan No. 81 had formed earlier that year and would grow to 1,500 members within months, including Sheriff W.D. Miller and Police Commissioner J.D. Copeland. Texas had the largest Klan membership of any state.',
+    lat: 30.2680,
+    lng: -97.7426,
+    type: 'political_event',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1921,
+    date: '2 September 1921',
+    address: 'Congress Avenue, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'kkk-peeler-clayton-murder-1921',
+    name: 'Peeler Clayton Is Killed in a Hail of Bullets Behind the Klan Meeting Hall',
+    subtitle: 'Near SW corner of E. 5th St and San Jacinto Blvd, Austin. The meeting hall was above a grocery store',
+    description:
+      'Peeler Clayton was driving past the Klan\'s meeting hall here on East Fifth Street on the night of 15 December 1921 when he was shot dead. Capital City Klan No. 81 met in this hall just blocks from the Capitol. Anti-Klan lawmen were never able to identify or bring to justice whoever killed Clayton. A grand jury investigation produced zero indictments, reflecting the Klan\'s grip on local law enforcement.',
+    lat: 30.2654,
+    lng: -97.7388,
+    type: 'crime_scene',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'documented',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1921,
+    date: '15 December 1921',
+    address: 'SW corner of E. 5th St and San Jacinto Blvd, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'kkk-republic-square-rally-1922',
+    name: '7,000 Attend a KKK Rally with a Giant Electric Cross at Republic Square',
+    subtitle: '422 Guadalupe St, Austin. Republic Square Park is still here, now a farmers\' market site',
+    description:
+      'On 24 August 1922, an estimated 5,000 to 7,000 people gathered here at Second Ward Park for the Klan\'s largest Austin rally. Over 200 robed members patrolled the crowd beneath a large electric-lit cross. The rally was deliberately held in a heavily Mexican-immigrant neighborhood just before the Diez y Seis de Septiembre celebration — an act of targeted intimidation. Texas had 150,000 Klan members statewide, the largest of any state.',
+    lat: 30.2659,
+    lng: -97.7472,
+    type: 'political_event',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1922,
+    date: '24 August 1922',
+    address: '422 Guadalupe St, Austin, TX',
+    entityIds: [],
+  },
+
+  // ── Austin's Anti-War Movement (1969–1970) ───────────────────────────
+
+  {
+    id: 'austin-vietnam-moratorium-1969',
+    name: '12,000 March from UT to the Capitol in the Largest Anti-War Protest in Texas History',
+    subtitle: 'From the West Mall at UT to the Texas State Capitol. Both locations unchanged',
+    description:
+      'On 15 October 1969, approximately 12,000 people marched here from the UT West Mall to the Texas State Capitol as part of the nationwide Vietnam Moratorium. At noon, 4,500 students gathered to hear speakers; by 3:00 PM the crowd had swelled to 12,000 — sorority members, athletes, professors, and working people. It was the largest anti-war demonstration in Texas history.',
+    lat: 30.2862,
+    lng: -97.7404,
+    type: 'political_event',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1969,
+    date: '15 October 1969',
+    address: 'West Mall, University of Texas at Austin',
+    entityIds: [],
+  },
+
+  {
+    id: 'battle-of-waller-creek-1969',
+    name: 'Students Climb Trees to Block Frank Erwin\'s Bulldozers at Waller Creek',
+    subtitle: 'Waller Creek near Memorial Stadium, UT campus. The creek still runs through campus',
+    description:
+      'Along this stretch of Waller Creek on 21 October 1969, UT Regents chair Frank Erwin ordered 39 trees removed for a stadium expansion. Students climbed into the trees and camped overnight. At dawn, police dragged 27 protesters out with ladders here while bulldozers destroyed the felled trees. Among those arrested was Nancy Folbre, who later won a MacArthur "genius grant." Images ran from Los Angeles to Paris.',
+    lat: 30.2837,
+    lng: -97.7325,
+    type: 'political_event',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1969,
+    date: '21 October 1969',
+    address: 'Waller Creek at Memorial Stadium, UT Austin',
+    entityIds: [],
+  },
+
+  {
+    id: 'kent-state-response-austin-1970',
+    name: '15,000 Anti-War Protesters March to the Texas Capitol After Kent State',
+    subtitle: 'Texas State Capitol, 1100 Congress Ave, Austin. The Capitol grounds hosted the rally',
+    description:
+      'On 8 May 1970, four days after National Guard troops killed four students at Kent State, 15,000 anti-war protesters marched to the Texas Capitol here. When Austin refused to sanction the march, students walked two-by-two on sidewalks until Federal Judge Jack Roberts ruled the city\'s ordinance unconstitutional. Three days earlier, 3,000 students had stormed the Capitol, throwing rocks and setting cars on fire; police used tear gas on the East Mall.',
+    lat: 30.2747,
+    lng: -97.7403,
+    type: 'political_event',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1970,
+    date: '8 May 1970',
+    address: '1100 Congress Ave, Austin, TX',
+    entityIds: [],
+  },
+
+  // ── Spanish Missions at Barton Springs (1730) ────────────────────────
+
+  {
+    id: 'spanish-missions-barton-springs-1730',
+    name: 'Three Spanish Missions Relocate to Barton Springs, 109 Years Before Austin Exists',
+    subtitle: 'Near the south gate of Barton Springs Pool, Zilker Park. A 1936 state historical marker marks the site',
+    description:
+      'In July 1730, three Franciscan missions relocated here from East Texas to a site near these springs on the Colorado River: La Purisima Concepcion, San Jose de los Nazonis, and San Francisco de los Neches. The Spanish government had abolished their protective presidio, leaving them exposed. The missions lasted less than a year before the friars deemed conditions unworkable and petitioned to move to San Antonio.',
+    lat: 30.2630,
+    lng: -97.7702,
+    type: 'religious_site',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1730,
+    date: 'July 1730',
+    address: 'Near Barton Springs Pool, Zilker Park, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'spanish-missions-move-san-antonio-1731',
+    name: 'The Three Barton Springs Missions Abandon Austin and Move to the San Antonio River',
+    subtitle: 'Same site near Barton Springs Pool. No physical remains exist; the missions were temporary structures',
+    description:
+      'By spring 1731, after fewer than nine months, the three Franciscan missions that had settled near these springs abandoned the site and relocated to the San Antonio River. There they were renamed Mission Concepcion, Mission San Juan Capistrano, and Mission San Francisco de la Espada. All three still stand today as UNESCO World Heritage Sites — the most extensive concentration of Spanish mission architecture in the United States.',
+    lat: 30.2630,
+    lng: -97.7702,
+    type: 'religious_site',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1731,
+    date: 'Spring 1731',
+    address: 'Near Barton Springs Pool, Zilker Park, Austin, TX',
+    entityIds: [],
+  },
+
+  // ── Clarksville: Austin's Freedmen's Town (1871–) ────────────────────
+
+  {
+    id: 'clarksville-clark-buys-land-1871',
+    name: 'Charles Clark Buys Two Acres for $100 and Founds One of the Oldest Freedmen\'s Settlements in the West',
+    subtitle: 'Near 1618 W. 10th St, Austin. The Clarksville Historic District was listed on the National Register in 1976',
+    description:
+      'On 11 August 1871, Charles Griffin Clark, born enslaved in Mississippi, bought two acres here for $100 from Nathan G. Shelley, a former state senator and Confederate veteran. The land sat half a mile west of Austin\'s city limits. Clark divided it into lots and sold them to other freedmen at cost, establishing what became one of the oldest surviving freedmen\'s communities west of the Mississippi.',
+    lat: 30.2805,
+    lng: -97.7615,
+    type: 'settlement_site',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1871,
+    date: '11 August 1871',
+    address: 'Near 1618 W. 10th St, Austin, TX 78703',
+    entityIds: ['clarksville-historic-district'],
+  },
+
+  {
+    id: 'clarksville-sweet-home-baptist-1877',
+    name: 'Freedmen Found Sweet Home Missionary Baptist Church in Clarksville',
+    subtitle: '1725 W. 11th St, Austin. The fourth building (1935) still stands as an active congregation and historic landmark',
+    description:
+      'In 1877, Rev. Jacob Fontaine founded Sweet Home Missionary Baptist Church here in the Clarksville freedmen\'s settlement, with early meetings held in the home of Mrs. Mary Smith. The congregation purchased this land in July 1882 for $50 cash. The church became the spiritual and social anchor of Clarksville, surviving the neighborhood\'s near-destruction a century later.',
+    lat: 30.2812,
+    lng: -97.7627,
+    type: 'religious_site',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1877,
+    date: '1877',
+    address: '1725 W. 11th St, Austin, TX 78703',
+    entityIds: ['clarksville-historic-district'],
+  },
+
+  {
+    id: 'clarksville-mopac-destruction-1970s',
+    name: 'MoPac Expressway Construction Destroys One-Third of Clarksville',
+    subtitle: 'Western edge of Clarksville, along MoPac Blvd. The expressway cut through the neighborhood\'s west side',
+    description:
+      'The MoPac Expressway sliced through here in the early 1970s, destroying approximately 30 homes and reducing Clarksville from 162 homes to fewer than 100. Residents filed suit in 1970 to stop construction; the injunction was denied. A proposed crosstown expressway would have leveled more, but Austin City Council cancelled it in 1974 and rezoned Clarksville to prevent further encroachment.',
+    lat: 30.2810,
+    lng: -97.7650,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1970,
+    date: 'Early 1970s',
+    address: 'MoPac Blvd at W. 10th-12th Streets, Austin, TX',
+    entityIds: ['clarksville-historic-district'],
+  },
+
+  // ── The 1888 Texas Capitol Dedication ────────────────────────────────
+
+  {
+    id: 'capitol-cornerstone-1885',
+    name: 'Texas Lays the Capitol Cornerstone on Independence Day, Trading 3 Million Acres for a Building',
+    subtitle: 'Texas State Capitol, 1100 Congress Ave, Austin. The cornerstone is at the southeast corner of the building',
+    description:
+      'Workers laid the cornerstone of the new Texas State Capitol here on 2 March 1885, Texas Independence Day. The state had appropriated 3 million acres of Panhandle land to finance the building, traded to Chicago investors Charles and John Farwell. Their land became the XIT Ranch, once the largest fenced ranch in the world. Architect Elijah E. Myers, who also designed the Michigan and Colorado capitols, drew the Italian Renaissance Revival plans.',
+    lat: 30.2747,
+    lng: -97.7404,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1885,
+    date: '2 March 1885',
+    address: '1100 Congress Ave, Austin, TX 78701',
+    entityIds: ['texas-state-capitol'],
+  },
+
+  {
+    id: 'capitol-dedication-1888',
+    name: '20,000 Attend the Week-Long Dedication of the Largest State Capitol in America',
+    subtitle: 'Texas State Capitol, 1100 Congress Ave, Austin. The Capitol is 14 feet taller than the US Capitol',
+    description:
+      'From 14 to 19 May 1888, an estimated 20,000 people lined Congress Avenue here for the dedication of the new Texas State Capitol. The building stood 302 feet tall — 14 feet higher than the US Capitol in Washington. Temple Houston, son of Sam Houston, delivered the dedication speech on 18 May. Events included military drills, cattle roping, German choral singing, and a Grand Dedication Ball in the House and Senate chambers.',
+    lat: 30.2747,
+    lng: -97.7404,
+    type: 'landmark',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1888,
+    date: '14–19 May 1888',
+    address: '1100 Congress Ave, Austin, TX 78701',
+    entityIds: ['texas-state-capitol'],
+  },
+
+  // ── Economy Furniture Strike (1968–1971) ─────────────────────────────
+
+  {
+    id: 'economy-furniture-strike-begins-1968',
+    name: '252 Workers Walk Out of Economy Furniture in the Longest Strike in Texas History',
+    subtitle: 'Former factory at E. 5th St and Shady Ln, East Austin. Now the Richard Moya Eastside Bus Plaza at 363 Shady Ln',
+    description:
+      'Workers earning $1.75 an hour after 15+ years of service walked off the job here at Economy Furniture on 27 November 1968 after the company refused to recognize their union vote. Ninety percent of the 400 workers were Mexican American. The strike lasted 28 months, the longest in Texas history. UT student activists joined, turning the labor dispute into the Austin Chicano Huelga that galvanized Mexican American political participation.',
+    lat: 30.2625,
+    lng: -97.7218,
+    type: 'landmark',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1968,
+    date: '27 November 1968',
+    address: 'E. 5th St and Shady Ln, Austin, TX',
+    entityIds: [], // Moya was a boycott coordinator but uncertain if physically present at the walkout
+  },
+
+  {
+    id: 'cesar-chavez-economy-furniture-march-1971',
+    name: 'Cesar Chavez Leads 5,000 to the Texas Capitol in Support of Economy Furniture Strikers',
+    subtitle: 'Texas State Capitol, 1100 Congress Ave, Austin. The march ended at the south steps',
+    description:
+      'Cesar Chavez led more than 5,000 people to the south steps of the Capitol here on 6 February 1971, rallying in support of the Economy Furniture strikers after two years on the picket line. The Catholic Church lent support in the wake of Vatican II. Eleven months later, a federal court upheld the NLRB certification of the workers\' union. Back pay reached up to $13,500 per worker.',
+    lat: 30.2747,
+    lng: -97.7403,
+    type: 'political_event',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1971,
+    date: '6 February 1971',
+    address: '1100 Congress Ave, Austin, TX 78701',
+    entityIds: ['richard-moya'],
+  },
+
+  // ── Denise Schmandt-Besserat (Discovery of Writing Origins) ──────────
+
+  {
+    id: 'schmandt-besserat-clay-tokens-1977',
+    name: 'A UT Professor Proves That 10,000-Year-Old Clay Tokens Are the Origin of Writing',
+    subtitle: 'Art Building, UT Austin, 2301 San Jacinto Blvd. Schmandt-Besserat taught here for over 30 years',
+    description:
+      'In 1977, Denise Schmandt-Besserat, a French-born art historian at UT Austin, published a monograph proving that small geometric clay objects found across Near Eastern sites dating to 8000 BCE were accounting tokens — precursors to cuneiform writing. Each shape represented a commodity: cones for grain, spheres for large measures, ovoids for oil. The tokens were pressed into clay envelopes for verification; that reduction from 3D to 2D was the invention of writing.',
+    lat: 30.2860,
+    lng: -97.7331,
+    type: 'university',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1977,
+    date: '1977',
+    address: '2301 San Jacinto Blvd, Austin, TX 78712',
+    entityIds: [],
+  },
+
+  {
+    id: 'schmandt-besserat-scientific-american-1978',
+    name: 'Scientific American Publishes Schmandt-Besserat\'s Theory to a Global Audience',
+    subtitle: 'Art Building, UT Austin, 2301 San Jacinto Blvd. Her book later made American Scientist\'s 100 greatest science books',
+    description:
+      'In June 1978, Scientific American published Schmandt-Besserat\'s article "The Earliest Precursor of Writing," bringing her clay token theory from academic circles to a worldwide audience. Her expanded work, "How Writing Came About" (UT Press, 1996), was later listed among American Scientist\'s "100 Books that Shaped a Century of Science" — the only book by a UT Austin faculty member on the list.',
+    lat: 30.2860,
+    lng: -97.7331,
+    type: 'university',
+    importance: 'minor',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1978,
+    date: 'June 1978',
+    address: '2301 San Jacinto Blvd, Austin, TX 78712',
+    entityIds: [],
+  },
+
+  // ── Green Pastures Integration (1946) ────────────────────────────────
+
+  {
+    id: 'green-pastures-integration-1946',
+    name: 'Green Pastures Restaurant Opens and Serves All Races 18 Years Before the Civil Rights Act',
+    subtitle: '811 W Live Oak St, Austin, TX 78704. Now Mattie\'s at Green Pastures; the 1895 farmhouse still stands on 5.5 acres',
+    description:
+      'In 1946, Mary Faulk Koock converted an 1895 Victorian farmhouse here into Green Pastures restaurant, serving customers of all races from day one — 18 years before the Civil Rights Act of 1964. In Jim Crow Texas, this was extraordinary. Writers J. Frank Dobie and Walter Prescott Webb were regulars. The property was added to the National Register of Historic Places in 1980.',
+    lat: 30.2478,
+    lng: -97.7578,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1946,
+    date: '1946',
+    address: '811 W Live Oak St, Austin, TX 78704',
+    entityIds: [],
+  },
+
+  // ── TIER 2: Standalone moments ────────────────────────────────────────
+
+  // ── Brackenridge Hospital ──────────────────────────────────────────────
+
+  {
+    id: 'brackenridge-hospital-opens-1884',
+    name: 'Austin Opens Its First Public Hospital for $10,000',
+    subtitle: '601 E 15th St, Austin, TX 78701. Demolished 2017-2021; site is now UT Innovation District redevelopment',
+    description:
+      'On 3 July 1884, Austin and Travis County open a two-story hospital here at E. 15th Street in what was then northeast Austin. The $10,000 building is Central Texas\'s first public hospital. Travis County withdrew co-ownership in 1907. The hospital was renamed for board chair Robert J. Brackenridge in 1929. It achieved Austin\'s first intercranial surgery (1948), first open-heart surgery (1961), and first ICU (1960).',
+    lat: 30.2744,
+    lng: -97.7339,
+    type: 'institution',
+    importance: 'major',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1884,
+    date: '3 July 1884',
+    address: '601 E 15th St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  {
+    id: 'brackenridge-hospital-closes-2017',
+    name: 'Brackenridge Hospital Closes After 133 Years of Continuous Operation',
+    subtitle: '601 E 15th St, Austin, TX 78701. Patients transferred to Dell Seton Medical Center; demolition began August 2017',
+    description:
+      'On 21 May 2017, Brackenridge Hospital admits its last patient and closes permanently. Central Texas\'s first public hospital operated continuously for 133 years at this site. Patients transferred to the new Dell Seton Medical Center at UT. Demolition of the 363-bed tower ran from August 2017 through 2021. The site is being redeveloped as part of UT\'s Innovation District — a 4-million-square-foot mixed-use complex on a 99-year lease.',
+    lat: 30.2744,
+    lng: -97.7339,
+    type: 'institution',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2017,
+    date: '21 May 2017',
+    address: '601 E 15th St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  // ── Oakwood Cemetery ──────────────────────────────────────────────────
+
+  {
+    id: 'oakwood-cemetery-founded-1839',
+    name: 'Austin Establishes Its First Municipal Cemetery the Same Year the City Is Founded',
+    subtitle: '1601 Navasota St, Austin, TX 78702. Still an active city cemetery with 23,000+ burials across 40 acres',
+    description:
+      'In 1839 — the same year Austin becomes the capital of the Republic of Texas — the city establishes Oakwood Cemetery on 40 acres east of downtown. The first burial is an enslaved African American man killed while being brought into Texas. The earliest monument memorializes two men killed by Comanche in 1842. The Historic Colored Grounds on the north side hold African American burials, both free and enslaved. Added to the National Register of Historic Places in 1985.',
+    lat: 30.2678,
+    lng: -97.7264,
+    type: 'landmark',
+    importance: 'major',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1839,
+    date: '1839',
+    address: '1601 Navasota St, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  // ── Sonobeat Records / Johnny Winter ──────────────────────────────────
+
+  {
+    id: 'sonobeat-johnny-winter-1968',
+    name: 'Johnny Winter Records His First Album at the Vulcan Gas Company on Congress Avenue',
+    subtitle: '316 Congress Ave, Austin, TX 78701. The Vulcan Gas Company is demolished; the site is now commercial property',
+    description:
+      'In August 1968, blues guitarist Johnny Winter records his debut album, "The Progressive Blues Experiment," live at the Vulcan Gas Company here on Congress Avenue. The Sonobeat Records label, run by father-and-son Bill Josey Sr. and Jr. from their Northwest Austin home studio, releases it later that year. Liberty/Imperial Records picks it up for national distribution in March 1969, launching Winter\'s career. Sonobeat recorded 70+ acts over nine years (1967-1976).',
+    lat: 30.2650,
+    lng: -97.7433,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1968,
+    date: 'August 1968',
+    address: '316 Congress Ave, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  // ── Lammes Candies ────────────────────────────────────────────────────
+
+  {
+    id: 'lammes-candies-reclaimed-1885',
+    name: 'A Son Pays $800 to Reclaim His Father\'s Candy Shop Lost in a Poker Game',
+    subtitle: '919 Congress Ave, Austin, TX 78701. Lammes still operates; flagship now at 5330 Airport Blvd',
+    description:
+      'In 1878, William Wirt Lamme opens the Red Front Candy Factory on the 800 block of Congress Avenue. He loses the business in a poker game. His son David Turner Lamme travels to Austin and pays the $800 gambling debt to reclaim the store, reopening on 10 July 1885 under family ownership. As of 2024, Lammes Candies is Austin\'s oldest continuously operated family business, now in its fifth generation. They sourced pecans from the Colorado River banks and ice from Andrew Zilker.',
+    lat: 30.2712,
+    lng: -97.7440,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1885,
+    date: '10 July 1885',
+    address: '919 Congress Ave, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  // ── Palm School ───────────────────────────────────────────────────────
+
+  {
+    id: 'palm-school-opens-1892',
+    name: 'Austin Opens Palm School, Which Becomes the Center of Mexican American Education for 84 Years',
+    subtitle: 'NW corner of Cesar Chavez St and I-35, Austin, TX 78701. Building is now Travis County Health and Human Services',
+    description:
+      'In 1892, Austin opens the Tenth Ward School — its second elementary — at E. First Street. Renamed in 1902 for Swedish immigrant Swante Palm, it becomes Austin\'s largest elementary by 1923 and serves a predominantly Mexican American student body under segregation. The adjacent Palm Park pool remains whites-only until the 1950s. The school closes in 1976 after 84 years. The building still stands at the northwest corner of Cesar Chavez and I-35.',
+    lat: 30.2621,
+    lng: -97.7368,
+    type: 'institution',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1892,
+    date: '1892',
+    address: '710 E 1st St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  // ── Montopolis ────────────────────────────────────────────────────────
+
+  {
+    id: 'montopolis-founded-1838',
+    name: 'Jesse Tannehill Lays Out an 800-Acre Town One Year Before Austin Is Named',
+    subtitle: 'Govalle Park, 5200 Bolm Rd, Austin, TX 78721. A 2019 Texas Historical Commission marker stands in the park',
+    description:
+      'In 1838, Jesse Cornelius Tannehill surveys an 800-acre townsite he calls Montopolis — combining Latin "mont" and Greek "polis." James Smith settles here the same year. The deed is recorded 2 July 1839. Tannehill lays out Montopolis before Edward Burleson lays out Waterloo, which is subsequently renamed Austin when selected as the Republic of Texas capital. Montopolis aspired to become the capital itself but dissolved by 1841 due to proximity to the growing Austin.',
+    lat: 30.2600,
+    lng: -97.6902,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 30,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1838,
+    date: '1838',
+    address: 'Govalle Park, 5200 Bolm Rd, Austin, TX 78721',
+    entityIds: [],
+  },
+
+  // ── Fort Magruder ─────────────────────────────────────────────────────
+
+  {
+    id: 'fort-magruder-built-1863',
+    name: '500 Enslaved People Are Marched to Austin to Build a Confederate Fort That Is Never Used',
+    subtitle: '3903 S Congress Ave at Krebs Ln, Austin, TX 78704. A 2003 historical marker stands at the intersection; no earthworks remain',
+    description:
+      'In the winter of 1863-64, Confederate Maj. Julius Kellersberg orders construction of an L-shaped earthen fort large enough for 200 soldiers along San Antonio Road. Named for Gen. John Bankhead Magruder, commander of Texas Confederate forces. Due to wartime manpower shortages, 500 enslaved people are marched from La Grange in bitter cold to build it. In early 1864, Union forces attack Texas from the Red River in Louisiana instead. Fort Magruder is abandoned, never completed, and Austin is never attacked.',
+    lat: 30.2252,
+    lng: -97.7626,
+    type: 'battlefield',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1863,
+    date: 'Winter 1863-1864',
+    address: '3903 S Congress Ave, Austin, TX 78704',
+    entityIds: [],
+  },
+
+  // ── First Austin Pride ────────────────────────────────────────────────
+
+  {
+    id: 'austin-first-pride-1990',
+    name: 'Austin Holds Its First Official Pride Celebration with $100 and 2,000 Attendees',
+    subtitle: 'Fiesta Gardens (now Edward Rendon Sr. Park), 2101 Jesse E Segovia St, Austin, TX 78702. Still hosts Pride and other festivals',
+    description:
+      'On 10 June 1990, the Austin Lesbian and Gay Pride Commission holds the first officially sanctioned Pride event at Fiesta Gardens on the shore of Town Lake. The commission has $100 and must purchase liability insurance for 2,000 people in a public park, raising funds through advance $2 ticket sales. The year before, the 1989 March on Austin was the city\'s largest-ever political demonstration.',
+    lat: 30.2497,
+    lng: -97.7248,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1990,
+    date: '10 June 1990',
+    address: '2101 Jesse E Segovia St, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  // ── Richard Moya Burial ─────────────────────────────────────────────
+
+  {
+    id: 'richard-moya-burial-2017',
+    name: 'Richard Moya Is Buried at the Texas State Cemetery Among the State\'s Most Notable Figures',
+    subtitle: 'Texas State Cemetery, 909 Navasota St, Austin, TX 78702. Statesman\'s Meadow, Section 2, Row C, Number 4',
+    description:
+      'Richard Moya, the first Mexican American elected to public office in Travis County, was buried here on 24 February 2017 at age 84. His plot in Statesman\'s Meadow places him among governors, senators, and Texas Rangers. A Korean War veteran and Economy Furniture strike boycott coordinator, Moya served four terms as county commissioner (1970–1986) and later became deputy chief of staff to Governor Ann Richards.',
+    lat: 30.2615,
+    lng: -97.7260,
+    type: 'burial',
+    importance: 'minor',
+    notability: 30,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2017,
+    date: '16 February 2017',
+    address: '909 Navasota St, Austin, TX 78702',
+    entityIds: ['richard-moya'],
+  },
+
+  // ── Andrew Zilker Donates Land ────────────────────────────────────────
+
+  {
+    id: 'zilker-sells-barton-springs-1917',
+    name: 'Ice Manufacturer Andrew Zilker Sells 350 Acres at Barton Springs to the City',
+    subtitle: 'Zilker Metropolitan Park, 2100 Barton Springs Rd, Austin, TX 78704. Named Zilker Park in 1934',
+    description:
+      'Between 1917 and 1934, ice manufacturer Andrew Jackson Zilker sells approximately 366 acres surrounding Barton Springs to the city in phases. Zilker, who arrived in Austin in 1876 at age 18, acquired the land from John Rabb and used it to pasture horses for his ice wagons and Barton Springs water to make ice. In 1917, he sells the first parcel to the Public Free Schools of Austin for a $100,000 school endowment. The park is named for him in 1934.',
+    lat: 30.2639,
+    lng: -97.7700,
+    type: 'natural_feature',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1917,
+    date: '1917',
+    address: '2100 Barton Springs Rd, Austin, TX 78704',
+    entityIds: [],
+  },
+
+  // ── Evergreen Cemetery ────────────────────────────────────────────────
+
+  {
+    id: 'evergreen-cemetery-established-1926',
+    name: 'Austin Establishes a Cemetery Exclusively for African Americans as Segregation Tightens',
+    subtitle: '3304 E 12th St at Airport Blvd, Austin, TX 78721. Still active with 12,000+ burials; receives 100+ annually',
+    description:
+      'In 1926, Austin City Council establishes Evergreen Cemetery — 30 acres designated exclusively for African American burials. Its founding coincides with Austin\'s 1928 Master Plan, which pushes Black residents from neighborhoods like Clarksville and Wheatville to East Austin. Football legend Dick "Night Train" Lane, civil rights figure Willie Mae Kirk, and educator Dr. J.J. Seabrook are buried here. The cemetery remains active with over 12,000 burials.',
+    lat: 30.2746,
+    lng: -97.7070,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1926,
+    date: '1926',
+    address: '3304 E 12th St, Austin, TX 78721',
+    entityIds: [],
+  },
+
+  // ── The 1915 Austin Flood ─────────────────────────────────────────────
+
+  {
+    id: 'austin-flood-rain-1915',
+    name: 'Nine Inches of Rain Falls on Austin in Under an Hour, Sending Waller Creek Over Its Banks',
+    subtitle: 'Waller Creek at E. 6th St, Austin. The creek still runs through downtown; flood control tunnels were completed in 2020',
+    description:
+      'On the evening of 22 April 1915, a storm dropped nine inches of rain on central Austin in less than an hour. Waller Creek, normally a trickle running through downtown, rose 18 feet and exploded over its banks along E. 6th Street. The wall of water swept houses, livestock, and people downstream. Thirty-five people died across Austin and the Colorado River valley, making it the deadliest single weather event in the city\'s history.',
+    lat: 30.2668,
+    lng: -97.7378,
+    type: 'disaster',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1915,
+    date: '22 April 1915',
+    address: 'Waller Creek at E. 6th St, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'austin-flood-whittington-drowns-1915',
+    name: 'George Whittington Drowns at Congress Avenue Bridge as Floodwaters Top the Span',
+    subtitle: 'Congress Avenue Bridge, Austin. The 1910 bridge was replaced by the current structure in 1980',
+    description:
+      'During the catastrophic flood of 22 April 1915, the Colorado River rose so rapidly that water topped the Congress Avenue Bridge. George Whittington, attempting to cross on foot, was swept off the bridge and drowned here. His body was recovered downstream. The flood destroyed the Austin Dam for the second time, plunging the city into darkness and ending Austin\'s experiment with hydroelectric power for over a decade.',
+    lat: 30.2620,
+    lng: -97.7446,
+    type: 'disaster',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1915,
+    date: '22 April 1915',
+    address: 'Congress Avenue Bridge, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'austin-flood-wooldridge-relief-1915',
+    name: 'Mayor Wooldridge Organizes Flood Relief from City Hall as 35 Lie Dead',
+    subtitle: 'Old City Hall, W. 2nd and Colorado Streets, Austin. Demolished; site is now part of the Second Street District',
+    description:
+      'In the hours after the 22 April 1915 flood, Mayor A.P. Wooldridge coordinates rescue and relief operations from City Hall here at W. 2nd and Colorado. With 35 dead, hundreds homeless, and the Austin Dam destroyed, Wooldridge mobilizes city resources and appeals for aid from surrounding counties. The flood prompted Austin\'s first serious investment in flood control infrastructure along Waller Creek and Shoal Creek.',
+    lat: 30.2645,
+    lng: -97.7465,
+    type: 'government',
+    importance: 'contextual',
+    notability: 25,
+    verificationLevel: 'documented',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1915,
+    date: '22 April 1915',
+    address: 'W. 2nd and Colorado St, Austin, TX',
+    entityIds: [],
+  },
+
+  // ── The 1922 Austin Tornadoes ─────────────────────────────────────────
+
+  {
+    id: 'austin-tornadoes-spicewood-1922',
+    name: 'Two Tornadoes Touch Down at Spicewood Springs, Killing 13 in a Predawn Storm',
+    subtitle: 'Near the intersection of Spicewood Springs Rd and Loop 360, NW Austin. Now a residential area',
+    description:
+      'Before dawn on 4 May 1922, two tornadoes struck the farming settlements northwest of Austin near Spicewood Springs. The storms killed 13 people and injured over 50 across Travis and Williamson Counties. Houses were reduced to kindling and livestock hurled across fields. With no warning system and no electricity in the rural settlements, families had no advance notice of the approaching storms.',
+    lat: 30.3900,
+    lng: -97.7900,
+    type: 'disaster',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1922,
+    date: '4 May 1922',
+    address: 'Near Spicewood Springs Rd, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'austin-tornado-bargsley-1922',
+    name: 'The Bargsley Family Dies When a Tornado Levels Their Oak Hill Farmhouse',
+    subtitle: 'Near the Oak Hill Y, US 290 and SH 71, SW Austin. Now a commercial intersection',
+    description:
+      'The second tornado of 4 May 1922 cut through Oak Hill, southwest of Austin, destroying the Bargsley family farmhouse. The parents and their children were killed when the house collapsed. Neighbors found the bodies scattered across the property at first light. The Bargsley family became the public face of the disaster, and their deaths spurred Austin\'s first organized tornado relief effort.',
+    lat: 30.2310,
+    lng: -97.8580,
+    type: 'disaster',
+    importance: 'contextual',
+    notability: 25,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1922,
+    date: '4 May 1922',
+    address: 'Near Oak Hill Y, US 290 and SH 71, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'bargsley-family-plot-present',
+    name: 'The Bargsley Family Plot Remains at Longview Park Cemetery in Oak Hill',
+    subtitle: 'Longview Park Cemetery, 5801 W William Cannon Dr, Austin, TX 78749. Small historic cemetery behind the community park',
+    description:
+      'The Bargsley family, killed in the 4 May 1922 tornado, is buried together here at Longview Park Cemetery in Oak Hill. The small rural cemetery, predating Austin\'s westward expansion, contains graves of early settlers and farming families from the hills southwest of the city. The Bargsley headstones are among the most visited in the cemetery, a quiet reminder of the deadliest tornado in Austin\'s recorded history.',
+    lat: 30.2050,
+    lng: -97.8560,
+    type: 'burial',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'approximate',
+    kind: 'presence',
+    year: 1922,
+    address: '5801 W William Cannon Dr, Austin, TX 78749',
+    entityIds: [],
+  },
+
+  // ── Freedmen's Communities (excluding Clarksville, already exists) ────
+
+  {
+    id: 'pleasant-hill-freedmen-1865',
+    name: 'Freedmen Establish Pleasant Hill on the Eastern Banks of East Avenue',
+    subtitle: 'Near E. 11th St and I-35, East Austin. The community was bisected by I-35 construction in the 1960s',
+    description:
+      'After emancipation in 1865, formerly enslaved families established Pleasant Hill along the eastern side of East Avenue, today\'s I-35 corridor. The settlement grew around two churches and a school. When Austin adopted the 1928 Master Plan designating East Austin as the "negro district," Pleasant Hill was already there. Construction of I-35 in the 1960s destroyed much of the original settlement, severing East Austin from downtown.',
+    lat: 30.2740,
+    lng: -97.7320,
+    type: 'settlement_site',
+    importance: 'minor',
+    notability: 30,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1865,
+    address: 'Near E. 11th St and I-35, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'kincheonville-freedmen-1865',
+    name: 'Charles Kincheon Founds a Freedmen\'s Community South of the Colorado River',
+    subtitle: 'Near S. 1st St and Oltorf, South Austin. Now a residential neighborhood; no markers remain',
+    description:
+      'Charles Kincheon, formerly enslaved, established Kincheonville here south of the Colorado River after emancipation in 1865. The community developed its own churches, schools, and social networks independent of downtown Austin. By the early 20th century, Kincheonville was one of 14 distinct freedmen\'s settlements ringing the city. Suburban development in the mid-20th century gradually absorbed the community, erasing its physical boundaries.',
+    lat: 30.2380,
+    lng: -97.7540,
+    type: 'settlement_site',
+    importance: 'minor',
+    notability: 25,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1865,
+    address: 'Near S. 1st St and Oltorf, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'barton-springs-freedmen-1867',
+    name: 'Freedmen Settle Near Barton Springs on Land Vacated by the Spanish Missions',
+    subtitle: 'South bank of Barton Creek, near Barton Springs Pool. No structures remain; the area is now Zilker Park',
+    description:
+      'By 1867, a small community of freedmen had settled along the south bank of Barton Creek near these springs, on land the Spanish missions had abandoned 136 years earlier. The families farmed, fished, and drew water from the springs. Andrew Zilker\'s later acquisition of the surrounding acreage and its donation to the city displaced this community, which left no physical trace in what became Zilker Park.',
+    lat: 30.2625,
+    lng: -97.7715,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1867,
+    address: 'Near Barton Springs Pool, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'reyna-branch-freedmen-1870',
+    name: 'Freedmen Establish Reyna Branch Along Boggy Creek in East Austin',
+    subtitle: 'Near Rosewood Ave and Chicon St, East Austin. Now part of the Rosewood neighborhood',
+    description:
+      'Around 1870, freedmen settled along a tributary of Boggy Creek here in East Austin, establishing the community known as Reyna Branch. The settlement predated the 1928 Master Plan by nearly 60 years, making it one of the earliest Black neighborhoods east of downtown. Residents built homes, planted gardens, and founded churches in the bottomland along the creek. The community name survives in local memory but has no official marker.',
+    lat: 30.2680,
+    lng: -97.7180,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near Rosewood Ave and Chicon St, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'masontown-freedmen-1870',
+    name: 'The Mason Family Establishes a Freedmen\'s Community Near Onion Creek',
+    subtitle: 'Near McKinney Falls State Park, SE Austin. The area is now residential; no community markers remain',
+    description:
+      'Around 1870, the Mason family and other formerly enslaved people settled along Onion Creek in southeastern Travis County, founding a community known as Masontown. The settlement developed its own school and church, largely self-sufficient and isolated from downtown Austin by several miles of open prairie. Like most of Austin\'s 14 freedmen\'s settlements, Masontown was gradually absorbed by suburban growth in the late 20th century.',
+    lat: 30.1830,
+    lng: -97.7230,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near Onion Creek, SE Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'wheatville-freedmen-1867',
+    name: 'Freedmen Found Wheatville on 20 Acres West of Shoal Creek',
+    subtitle: 'Near W. 24th St and San Gabriel, Austin. The Wheatville neighborhood is now UT-area condos and shops',
+    description:
+      'By 1867, freedmen had established Wheatville on roughly 20 acres west of Shoal Creek, centering around what is now W. 24th and San Gabriel Streets. The community had its own school, churches, and businesses. Wheatville was specifically targeted by Austin\'s 1928 Master Plan, which closed its school and cut off city services to force residents east. The neighborhood was demolished by mid-century; the name survives only in a grocery store sign.',
+    lat: 30.2910,
+    lng: -97.7495,
+    type: 'settlement_site',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1867,
+    address: 'Near W. 24th St and San Gabriel, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'robertson-hill-freedmen-1870',
+    name: 'Freedmen Settle Robertson Hill on the Bluffs Overlooking East Avenue',
+    subtitle: 'Near E. 7th St and I-35, Austin. The hill was graded for I-35 construction; now a commercial corridor',
+    description:
+      'Around 1870, freedmen established Robertson Hill on the limestone bluffs overlooking East Avenue, the road that would become I-35. The elevated terrain provided natural drainage and views of downtown Austin. Robertson Hill was one of the closest freedmen\'s settlements to the Capitol, separated by just a few blocks. Construction of I-35 in the 1960s cut directly through the community, and the bluffs were partially graded for the highway.',
+    lat: 30.2670,
+    lng: -97.7340,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near E. 7th St and I-35, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'belle-hill-freedmen-1870',
+    name: 'Freedmen Establish Belle Hill Near the Headwaters of Waller Creek',
+    subtitle: 'Near Manor Rd and Airport Blvd, Austin. Now residential; no markers remain',
+    description:
+      'Around 1870, formerly enslaved families settled Belle Hill in the gently rolling terrain near the headwaters of Waller Creek, northeast of downtown. The community was among the more isolated of Austin\'s freedmen\'s settlements, separated from the city center by several miles of open land. Belle Hill residents farmed small plots and attended church at nearby Pleasant Hill. Postwar development absorbed the settlement by the 1950s.',
+    lat: 30.2880,
+    lng: -97.7130,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 15,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near Manor Rd and Airport Blvd, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'burditt-prairie-freedmen-1870',
+    name: 'Freedmen Settle Burditt\'s Prairie on the Blackland East of Austin',
+    subtitle: 'Near Springdale Rd and US 183, East Austin. Now commercial and residential development',
+    description:
+      'Around 1870, formerly enslaved families settled the open blackland prairie east of Austin known as Burditt\'s Prairie. The rich soil supported cotton and corn farming, and the community developed independently of downtown Austin. Like many of the 14 freedmen\'s communities surrounding Austin, Burditt\'s Prairie had its own church and informal school before being gradually absorbed by the city\'s eastward expansion in the 20th century.',
+    lat: 30.2700,
+    lng: -97.6950,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 15,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near Springdale Rd and US 183, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'red-river-street-freedmen-1866',
+    name: 'Freedmen Settle Along Red River Street on the Eastern Edge of Downtown',
+    subtitle: 'Red River St between E. 6th and E. 12th, Austin. Now the Red River entertainment district',
+    description:
+      'By 1866, formerly enslaved families began settling along Red River Street on the eastern edge of downtown Austin. The street marked an informal racial boundary: white Austin to the west, freedmen\'s settlements to the east. The community\'s proximity to downtown provided access to labor markets but also made it vulnerable to displacement as the city grew. The area is now Austin\'s live music and nightclub corridor.',
+    lat: 30.2710,
+    lng: -97.7360,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'approximate',
+    kind: 'presence',
+    year: 1866,
+    address: 'Red River St, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'west-side-freedmen-1868',
+    name: 'Freedmen Establish a Community on Austin\'s West Side Near Shoal Creek',
+    subtitle: 'Near W. 5th St and Baylor, Austin. Now part of the Baylor Street residential area',
+    description:
+      'By 1868, a small freedmen\'s community took root on Austin\'s west side near Shoal Creek, south of Clarksville and closer to downtown. The settlement was less documented than its larger neighbor to the north but served as part of the ring of 14 freedmen\'s communities encircling Austin after the Civil War. Residents worked as domestics, laborers, and laundresses for white families in the surrounding neighborhoods.',
+    lat: 30.2710,
+    lng: -97.7550,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 15,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1868,
+    address: 'Near W. 5th St and Baylor, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'gregorytown-freedmen-1870',
+    name: 'Freedmen Establish Gregorytown in the Hills Northeast of Austin',
+    subtitle: 'Near E. 51st St and Manor Rd, Austin. Now part of the Windsor Park neighborhood',
+    description:
+      'Around 1870, freedmen founded Gregorytown in the rolling hills northeast of Austin, establishing a farming community with its own church and school. The community was among the most remote of Austin\'s 14 freedmen\'s settlements, connected to downtown by unpaved roads. Gregorytown\'s distance from the city center provided autonomy but also meant limited access to services. The area was annexed by Austin in the mid-20th century.',
+    lat: 30.3060,
+    lng: -97.7040,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 15,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near E. 51st St and Manor Rd, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'south-side-freedmen-1868',
+    name: 'Freedmen Settle the South Side Along the Colorado River Bottom',
+    subtitle: 'Near S. Congress Ave and Live Oak St, South Austin. Now part of the Bouldin Creek neighborhood',
+    description:
+      'By 1868, freedmen had settled along the south bank of the Colorado River near present-day S. Congress Avenue. The river-bottom land was prone to flooding but available. The community formed part of the crescent of 14 freedmen\'s settlements that ringed Austin after the Civil War, each developing its own institutions independent of the white city center. Bouldin Creek neighborhood development in the 20th century displaced most traces.',
+    lat: 30.2480,
+    lng: -97.7500,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 15,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1868,
+    address: 'Near S. Congress Ave and Live Oak St, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'horst-pasture-freedmen-1870',
+    name: 'Freedmen Settle on Horst\'s Pasture in the Eastern Prairie',
+    subtitle: 'Near Levander Loop and US 183, East Austin. Now the site of Travis County Expo Center',
+    description:
+      'Around 1870, formerly enslaved families established a settlement on open prairie known as Horst\'s Pasture, east of Austin. The flat, fertile land supported subsistence farming and small-scale cotton cultivation. The community was one of the outermost of Austin\'s 14 freedmen\'s settlements, its residents largely self-sufficient. The area was gradually incorporated into East Austin\'s industrial and expo infrastructure in the 20th century.',
+    lat: 30.2580,
+    lng: -97.6820,
+    type: 'settlement_site',
+    importance: 'contextual',
+    notability: 15,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1870,
+    address: 'Near Levander Loop and US 183, Austin, TX',
+    entityIds: [],
+  },
+
+  // ── Pre-Austin & Indigenous (standalone) ──────────────────────────────
+
+  {
+    id: 'tonkawa-camp-republic-square-1830s',
+    name: 'Tonkawa Bands Camp at Republic Square Before the Texas Government Arrives',
+    subtitle: '422 Guadalupe St, Austin. Republic Square Park; a farmers\' market operates on Saturdays',
+    description:
+      'Through the 1830s, Tonkawa bands regularly camped at this high ground near the Colorado River, using the natural springs and river-bottom pecan groves for seasonal hunting. When Edwin Waller arrived in 1839 to lay out the new capital, he found Tonkawa camps here at what he designated Block 133, the public square he named Congress Square (later Republic Square). The Tonkawa were pushed north within a decade.',
+    lat: 30.2690,
+    lng: -97.7485,
+    type: 'archaeological_site',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 1835,
+    address: '422 Guadalupe St, Austin, TX',
+    entityIds: ['edwin-waller'],
+  },
+
+  {
+    id: 'wilbarger-scalping-hornsby-1833',
+    name: 'Josiah Wilbarger Is Scalped Alive by Comanche Near Hornsby Bend and Survives 11 Years',
+    subtitle: 'Near Hornsby Bend, SE Travis County. A Texas Historical Commission marker stands near Walnut Creek',
+    description:
+      'On 15 August 1833, a Comanche war party attacked a surveying party near Hornsby\'s settlement east of Austin. Josiah P. Wilbarger was shot with arrows, scalped alive, and left for dead. He was found the next day, still alive, by a rescue party alerted by Sarah Hornsby, who reportedly dreamed of his location. Wilbarger survived 11 more years with an exposed skull bone, dying in 1845 after bumping his head on a low doorframe.',
+    lat: 30.2300,
+    lng: -97.6400,
+    type: 'battlefield',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1833,
+    date: '15 August 1833',
+    address: 'Near Hornsby Bend, Travis County, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'tonkawa-artifacts-travis-peak-1840s',
+    name: 'Tonkawa Leave Behind Centuries of Artifacts at the Travis Peak Campground',
+    subtitle: 'Near Lake Travis at Bee Creek, Lakeway area. Archaeological material found during 20th-century development',
+    description:
+      'Archaeological excavations at Travis Peak, near the mouth of Bee Creek on what is now Lake Travis, uncovered extensive Tonkawa campsites with projectile points, grinding stones, and fire-cracked rock dating back centuries. The site sat at a natural ford of the Colorado River where game trails converged, making it a reliable seasonal camp. The artifacts demonstrate continuous indigenous occupation of the Austin area long before European contact.',
+    lat: 30.3380,
+    lng: -97.9100,
+    type: 'archaeological_site',
+    importance: 'contextual',
+    notability: 20,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1840,
+    address: 'Near Bee Creek, Lakeway, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'waller-lot-auction-1839',
+    name: 'Edwin Waller Auctions 306 Town Lots to Finance the New Capital of Texas',
+    subtitle: 'Near the NW corner of Congress Ave and Pecan St (now 6th St), Austin. The auction block site is unmarked',
+    description:
+      'On 1 August 1839, Judge Edwin Waller auctions 306 lots he has surveyed for the new capital of the Republic of Texas. Waller had arrived just weeks earlier with a crew of men and wagons, laying out a 14-block grid centered on Congress Avenue with the Capitol at one end and the river at the other. Lots sold for $100 to $300 each. The auction raised $200,000 and established Austin\'s street plan, which remains virtually unchanged today.',
+    lat: 30.2678,
+    lng: -97.7433,
+    type: 'political_event',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1839,
+    date: '1 August 1839',
+    address: 'Congress Ave at Pecan St (6th St), Austin, TX',
+    entityIds: ['edwin-waller'],
+  },
+
+  // ── Building & Infrastructure (standalone) ────────────────────────────
+
+  {
+    id: 'butler-brickyard-1870s',
+    name: 'Jacob Butler Opens a Brickyard That Supplies Most of Early Austin\'s Buildings',
+    subtitle: 'Near the mouth of Barton Creek at the Colorado River, Austin. The brickyard site is now parkland',
+    description:
+      'In the 1870s, former slave Jacob Butler established a brickyard here near the mouth of Barton Creek, using the creek\'s clay deposits to manufacture bricks. Butler\'s bricks built many of early Austin\'s commercial structures along Congress Avenue and beyond. The Butler family became one of the most prominent Black families in post-Civil War Austin. The area where Butler harvested clay is now part of the hike-and-bike trail system.',
+    lat: 30.2600,
+    lng: -97.7560,
+    type: 'industrial_site',
+    importance: 'minor',
+    notability: 30,
+    verificationLevel: 'documented',
+    accuracy: 'general-area',
+    kind: 'presence',
+    year: 1875,
+    address: 'Near Barton Creek at Colorado River, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'conviction-hill-quarry-1880s',
+    name: 'Convict Laborers Quarry Sunset-Red Granite at Conviction Hill for the State Capitol',
+    subtitle: 'Near Marble Falls, Burnet County. The quarry is visible from US 281; now called Granite Mountain',
+    description:
+      'In 1885, contractors began quarrying sunset-red granite from this hill near Marble Falls for the new Texas State Capitol. The initial plan used limestone, but it stained. Convict laborers, both Black and white, cut and dressed the massive granite blocks here. Scottish stonecutters brought from Aberdeen boycotted the convict labor; the contractors replaced them. The quarry, now called Granite Mountain, still bears the scars of the Capitol extraction.',
+    lat: 30.5780,
+    lng: -98.2660,
+    type: 'industrial_site',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1885,
+    address: 'Granite Mountain, near Marble Falls, TX',
+    entityIds: ['texas-state-capitol'],
+  },
+
+  {
+    id: 'calcasieu-lumber-fire-1899',
+    name: 'The Calcasieu Lumber Yard Fire Burns Six Blocks of East Austin in 90 Minutes',
+    subtitle: 'Near E. 4th St and Brazos, Austin. The area was rebuilt; now part of the downtown commercial district',
+    description:
+      'On 9 November 1899, a fire at the Calcasieu Lumber Company here on E. 4th Street spread through six blocks of downtown Austin in 90 minutes, driven by dry cedar and pine lumber stacked in the yard. The blaze destroyed 48 buildings and caused $350,000 in damage. Austin had no professional fire department and relied on volunteer companies. The fire led directly to the creation of Austin\'s first paid fire department in 1901.',
+    lat: 30.2650,
+    lng: -97.7400,
+    type: 'disaster',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1899,
+    date: '9 November 1899',
+    address: 'E. 4th St and Brazos, Austin, TX',
+    entityIds: [],
+  },
+
+  // ── Civil Rights (standalone and story-linked) ────────────────────────
+
+  {
+    id: 'ice-palace-refusal-1962',
+    name: 'The Ice Palace Skating Rink Refuses Entry to Black Students, Sparking Sit-Ins',
+    subtitle: 'Near 1900 block of E. Riverside Dr, Austin. The rink is demolished; the site is now apartments',
+    description:
+      'In the summer of 1962, the Ice Palace skating rink here on E. Riverside Drive refused admission to Black students from Huston-Tillotson College. The refusal sparked a sustained campaign of sit-ins and pickets organized by the Student Non-Violent Coordinating Committee and local NAACP youth. The protests drew attention to the patchwork nature of Austin\'s desegregation, where restaurants and hotels had integrated but recreational facilities had not.',
+    lat: 30.2420,
+    lng: -97.7310,
+    type: 'political_event',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1962,
+    date: 'Summer 1962',
+    address: 'Near 1900 E. Riverside Dr, Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'barton-springs-swim-ins-1963',
+    name: 'Black Students Stage Swim-Ins at Barton Springs Pool to Force Desegregation',
+    subtitle: '2201 Barton Springs Rd, Austin, TX 78746. Barton Springs Pool is now open to all and listed on the National Register',
+    description:
+      'In the summer of 1963, Black students from Huston-Tillotson College and UT Austin staged swim-ins here at Barton Springs Pool, Austin\'s most popular public swimming hole, which remained segregated. Protesters entered the pool in groups while white patrons left in protest. The city quietly desegregated Barton Springs later that summer without a formal announcement, avoiding the violent confrontations that marked pool desegregation in other Southern cities.',
+    lat: 30.2641,
+    lng: -97.7710,
+    type: 'political_event',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1963,
+    date: 'Summer 1963',
+    address: '2201 Barton Springs Rd, Austin, TX 78746',
+    entityIds: [],
+  },
+
+  {
+    id: 'guadalupe-church-bell-1870',
+    name: 'Mexican Families Cast a Church Bell for Our Lady of Guadalupe, East Austin\'s First Catholic Parish',
+    subtitle: '1206 E. 9th St, Austin, TX 78702. The current church (1954) still stands; the original 1907 building was replaced',
+    description:
+      'In the 1870s, Mexican and Tejano families in East Austin began holding Catholic services and collected funds to cast a church bell for what would become the Our Lady of Guadalupe parish. The parish was formally established in 1907 at this site on E. 9th Street, serving as the spiritual anchor of Austin\'s Mexican American community for over a century. The bell from the original church was preserved when the current building was constructed in 1954.',
+    lat: 30.2690,
+    lng: -97.7280,
+    type: 'religious_site',
+    importance: 'contextual',
+    notability: 25,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1870,
+    address: '1206 E. 9th St, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  // ── Notable Misc (standalone) ─────────────────────────────────────────
+
+  {
+    id: 'elisabet-ney-lake-austin-1892',
+    name: 'Elisabet Ney Builds a Studio on the Edge of Austin and Names It Formosa',
+    subtitle: '304 E. 44th St, Austin, TX 78751. Now the Elisabet Ney Museum, free admission, open Wed-Sun',
+    description:
+      'In 1892, Bavarian-born sculptor Elisabet Ney built a stone studio she called Formosa here on a hill overlooking the countryside north of Austin. Ney had already sculpted Bismarck, Garibaldi, and King Ludwig II of Bavaria before emigrating to Texas in 1873. From this studio she carved the marble statues of Sam Houston and Stephen F. Austin that stand in both the Texas Capitol and the U.S. Capitol. She died here in 1907. The studio became Austin\'s first art museum in 1911.',
+    lat: 30.3015,
+    lng: -97.7268,
+    type: 'landmark',
+    importance: 'major',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1892,
+    address: '304 E. 44th St, Austin, TX 78751',
+    entityIds: ['elisabet-ney'],
+  },
+
+  {
+    id: 'custer-mt-bonnell-1866',
+    name: 'George Custer Climbs Mount Bonnell During Reconstruction Occupation of Austin',
+    subtitle: '3800 Mt Bonnell Rd, Austin, TX 78731. The 785-foot summit is accessible via 102 limestone steps',
+    description:
+      'In 1866, Lt. Col. George Armstrong Custer visited Austin as part of the U.S. Army\'s Reconstruction occupation of Texas and climbed Mount Bonnell, the 785-foot limestone bluff overlooking the Colorado River here. Custer was stationed in Texas from late 1865 to early 1866, commanding cavalry troops enforcing federal authority. Ten years later he would die at the Little Bighorn. The summit view he saw is largely unchanged.',
+    lat: 30.3210,
+    lng: -97.7730,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1866,
+    address: '3800 Mt Bonnell Rd, Austin, TX 78731',
+    entityIds: [],
+  },
+
+  {
+    id: 'castle-hill-graffiti-1960s',
+    name: 'Castle Hill Becomes Austin\'s Unofficial Legal Graffiti Wall',
+    subtitle: '1008 Baylor St, Austin, TX 78703. The limestone wall is repainted constantly; HOPE Outdoor Gallery operated here 2011-2019',
+    description:
+      'By the 1960s, this exposed limestone retaining wall on Baylor Street had become Austin\'s unofficial graffiti canvas, repainted almost daily by taggers, artists, and couples. The wall sits at the base of a hill that once held a never-completed castle planned by a Civil War veteran. In 2011, the HOPE Outdoor Gallery formalized the site as a legal street art park, attracting 100,000 visitors annually before closing in 2019 for redevelopment.',
+    lat: 30.2788,
+    lng: -97.7550,
+    type: 'art_installation',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 1960,
+    address: '1008 Baylor St, Austin, TX 78703',
+    entityIds: [],
+  },
+
+  {
+    id: 'rockne-renamed-1931',
+    name: 'A Texas Town Renames Itself Rockne After the Football Coach Dies in a Plane Crash',
+    subtitle: 'Rockne, TX, at FM 20 and FM 535, Bastrop County. The town of ~300 still carries the name; a historical marker stands at the post office',
+    description:
+      'On 31 March 1931, Notre Dame football coach Knute Rockne died in a plane crash in Kansas at age 43. Within weeks, the tiny community of Hog Wallow in Bastrop County, 40 miles southeast of Austin, petitioned to rename itself Rockne in his honor. The Post Office Department approved the change on 6 May 1931. The town of roughly 300 people still bears the name, making it one of the few American towns named for a sports figure.',
+    lat: 30.0050,
+    lng: -97.4970,
+    type: 'landmark',
+    importance: 'contextual',
+    notability: 30,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1931,
+    date: '6 May 1931',
+    address: 'Rockne, TX 78666',
+    entityIds: [],
+  },
+
+  {
+    id: 'faulk-huac-trial-1956',
+    name: 'John Henry Faulk Sues His Blacklisters and Wins, Breaking McCarthy-Era Censorship',
+    subtitle: 'New York Supreme Court, 60 Centre St, New York. Faulk returned to Austin after the trial',
+    description:
+      'On 28 June 1962, an Austin-born humorist won a landmark $3.5 million libel verdict against AWARE, Inc. and Vincent Hartnett, who had blacklisted him from CBS radio in 1956 for alleged Communist sympathies. Faulk\'s attorney, legendary Louis Nizer, proved that AWARE fabricated its charges. The verdict was the first successful legal challenge to McCarthy-era blacklisting and helped end the practice. Faulk returned to Austin and taught at UT until his death in 1990.',
+    lat: 40.7145,
+    lng: -74.0013,
+    type: 'government',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1962,
+    date: '28 June 1962',
+    address: '60 Centre St, New York, NY 10007',
+    entityIds: ['john-henry-faulk'],
+  },
+
+  // ── Elisabet Ney biography moments ────────────────────────────────────
+
+  {
+    id: 'elisabet-ney-sculpts-bismarck-1859',
+    name: 'Elisabet Ney Sculpts Otto von Bismarck in Berlin at Age 26',
+    subtitle: 'Berlin, Germany. The marble bust is now in the Schiller-Nationalmuseum, Marbach',
+    description:
+      'In 1859, Elisabet Ney, just 26, received a commission to sculpt Otto von Bismarck, then Prussia\'s ambassador to the Russian court. Bismarck was so impressed with the young Bavarian sculptor that he granted her multiple sittings. Ney had already studied at the Munich Academy of Fine Arts, one of the first women admitted. Her Berlin studio attracted commissions from Garibaldi, Schopenhauer, and King Ludwig II of Bavaria.',
+    lat: 52.5163,
+    lng: 13.3777,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1859,
+    address: 'Berlin, Germany',
+    entityIds: ['elisabet-ney'],
+  },
+
+  {
+    id: 'elisabet-ney-arrives-texas-1873',
+    name: 'Elisabet Ney Abandons European Fame and Emigrates to a Texas Plantation',
+    subtitle: 'Liendo Plantation, FM 1488, Hempstead, TX. The plantation house still stands and is open for tours',
+    description:
+      'In 1873, Elisabet Ney and her husband Edmund Montgomery left Europe permanently and settled at Liendo Plantation near Hempstead, Texas. Ney, who had sculpted European royalty and revolutionaries, spent the next 19 years in near-total artistic silence, raising cotton and cattle. She refused to use her husband\'s surname and insisted on being called "Miss Ney." Her artistic revival would not come until the 1890s, when she built her Austin studio.',
+    lat: 30.1410,
+    lng: -96.0830,
+    type: 'residence',
+    importance: 'minor',
+    notability: 30,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1873,
+    address: 'Liendo Plantation, FM 1488, Hempstead, TX',
+    entityIds: ['elisabet-ney'],
+  },
+
+  // ── Edwin Waller biography moments ────────────────────────────────────
+
+  {
+    id: 'edwin-waller-san-jacinto-1836',
+    name: 'Edwin Waller Fights at the Battle of San Jacinto and Signs the Texas Declaration',
+    subtitle: 'San Jacinto Battlefield, La Porte, TX. The 567-foot San Jacinto Monument marks the site',
+    description:
+      'Edwin Waller signed the Texas Declaration of Independence at Washington-on-the-Brazos on 2 March 1836 and fought at the Battle of San Jacinto 50 days later on 21 April. The 18-minute battle here won Texas its independence from Mexico. Waller was among the 910 Texian soldiers who routed 1,360 Mexican troops. Three years later, President Mirabeau Lamar appointed Waller to lay out the new capital at the village of Waterloo, soon renamed Austin.',
+    lat: 29.7499,
+    lng: -95.0810,
+    type: 'battlefield',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1836,
+    date: '21 April 1836',
+    address: 'San Jacinto Battlefield, La Porte, TX 77571',
+    entityIds: ['edwin-waller'],
+  },
+
+  {
+    id: 'edwin-waller-lays-out-austin-1839',
+    name: 'Edwin Waller Surveys and Plats the Capital of Texas in Three Months',
+    subtitle: 'Congress Avenue at the Colorado River, Austin. The original 14-block grid is still the downtown street plan',
+    description:
+      'In May 1839, President Mirabeau Lamar appointed Edwin Waller to select a site for the new capital. Waller chose the village of Waterloo on the Colorado River, arriving with a crew of surveyors, laborers, and ox teams. In three months he platted a 14-block grid centered on a broad avenue running from the Capitol site to the river. Waller named the streets, designated public squares, and built temporary government buildings. Austin\'s downtown grid remains essentially unchanged.',
+    lat: 30.2700,
+    lng: -97.7433,
+    type: 'landmark',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1839,
+    date: 'May 1839',
+    address: 'Congress Avenue, Austin, TX',
+    entityIds: ['edwin-waller'],
+  },
+
+  // ── John Henry Faulk biography moments ────────────────────────────────
+
+  {
+    id: 'faulk-born-austin-1913',
+    name: 'John Henry Faulk Is Born in South Austin to a Family of Populist Lawyers',
+    subtitle: 'Near S. 1st St, Austin, TX. The family home no longer stands',
+    description:
+      'John Henry Faulk was born here in South Austin on 21 August 1913 to Henry H. "Judge" Faulk and Martha Menger Faulk. His father, a prominent attorney, defended labor organizers and opposed the Ku Klux Klan in 1920s Texas. Young Faulk grew up listening to his father\'s clients and neighbors, developing the ear for Southern dialect and storytelling that would make him one of America\'s most popular radio humorists.',
+    lat: 30.2460,
+    lng: -97.7520,
+    type: 'residence',
+    importance: 'contextual',
+    notability: 25,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'milestone',
+    year: 1913,
+    date: '21 August 1913',
+    address: 'Near S. 1st St, Austin, TX',
+    entityIds: ['john-henry-faulk'],
+  },
+
+  {
+    id: 'faulk-cbs-radio-show-1951',
+    name: 'John Henry Faulk Launches a CBS Radio Show That Reaches Millions',
+    subtitle: 'CBS Broadcasting, 485 Madison Ave, New York. The building still stands',
+    description:
+      'In 1951, Austin-born humorist John Henry Faulk began hosting a daily show on WCBS Radio in New York, blending Southern storytelling with political commentary. Faulk\'s folksy persona and sharp wit earned him millions of listeners and a devoted following. His success made him a target of AWARE, Inc., the anti-Communist watchdog group that would blacklist him in 1956, triggering the landmark lawsuit that helped end McCarthy-era censorship in broadcasting.',
+    lat: 40.7614,
+    lng: -73.9733,
+    type: 'workplace',
+    importance: 'minor',
+    notability: 30,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1951,
+    address: '485 Madison Ave, New York, NY',
+    entityIds: ['john-henry-faulk'],
+  },
+
+  // ── The Yogurt Shop Murders (1991–2025) ─────────────────────────────
+
+  {
+    id: 'yogurt-shop-murders-1991',
+    name: 'Four Teenagers Are Shot and Killed at a Yogurt Shop on Anderson Lane',
+    subtitle: '2949 W. Anderson Ln, Austin, TX 78757. The shop was demolished; a Schlotzsky\'s now occupies the site',
+    description:
+      'Shortly before midnight on 6 December 1991, someone entered the I Can\'t Believe It\'s Yogurt shop here on Anderson Lane and shot four girls at closing time: Amy Ayers, 13; Sarah Harbison, 15; Eliza Thomas, 17; and Jennifer Harbison, 17. The killer set the shop on fire to destroy evidence. Firefighters found the bodies in the burning building. The case became Austin\'s most notorious unsolved murder, consuming over 50 detectives across three decades.',
+    lat: 30.359,
+    lng: -97.738,
+    type: 'crime_scene',
+    importance: 'major',
+    notability: 70,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1991,
+    date: '6 December 1991',
+    address: '2949 W. Anderson Ln, Austin, TX 78757',
+    entityIds: [],
+  },
+
+  {
+    id: 'yogurt-shop-wrongful-arrests-1999',
+    name: 'Two Men Are Convicted of the Yogurt Shop Murders, Then Exonerated After DNA Fails to Match',
+    subtitle: 'Travis County Courthouse, 1000 Guadalupe St, Austin. Now the Heman Marion Sweatt Courthouse, still standing',
+    description:
+      'Robert Springsteen and Michael Scott were convicted here in the Travis County courthouse in 2001 and 2002 for the 1991 yogurt shop murders based on confessions obtained during lengthy interrogations. Both were sentenced to death or life. DNA evidence tested in 2006 matched neither man nor any known suspect. The Texas Court of Criminal Appeals overturned Springsteen\'s conviction in 2006 and Scott\'s in 2009. Charges were formally dropped in 2009.',
+    lat: 30.2730,
+    lng: -97.7445,
+    type: 'government',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1999,
+    date: '1999–2009',
+    address: '1000 Guadalupe St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  {
+    id: 'yogurt-shop-dna-match-2025',
+    name: 'APD Announces a DNA Match to a Dead Serial Killer, Closing the Yogurt Shop Case After 34 Years',
+    subtitle: 'Austin Police Department HQ, 715 E. 8th St, Austin, TX 78701. Press conference held here',
+    description:
+      'On 6 January 2025, Austin Police announced here at APD headquarters that advanced DNA analysis matched evidence from the 1991 yogurt shop murders to Robert Eugene Brashers, a serial rapist and killer who died during a police standoff in Pittsfield, Missouri, on 30 November 1999. APD had tested the DNA of over 100 suspects before genealogical technology identified Brashers. The case had been open for 34 years.',
+    lat: 30.267,
+    lng: -97.740,
+    type: 'government',
+    importance: 'minor',
+    notability: 65,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 2025,
+    date: '6 January 2025',
+    address: '715 E. 8th St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  // ── Austin City Limits (1974–2009) ──────────────────────────────────
+
+  {
+    id: 'acl-pilot-taping-1974',
+    name: 'Willie Nelson Tapes the Austin City Limits Pilot in a UT Campus Studio',
+    subtitle: '2504 Whitis Ave, Communications Building B (Studio 6A), UT Austin. The studio hosted ACL until 2011',
+    description:
+      'On 17 October 1974, Willie Nelson taped the pilot episode of Austin City Limits here in Studio 6A on the UT campus. The night before, B.W. Stevenson had recorded a set, but technical problems made the tape unusable. Nelson\'s performance aired on PBS in January 1976. The show became the longest-running music series in American television history, producing over 800 episodes across 50 seasons. Studio 6A was a converted classroom with a 300-person capacity.',
+    lat: 30.286,
+    lng: -97.740,
+    type: 'cultural_venue',
+    importance: 'major',
+    notability: 75,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1974,
+    date: '17 October 1974',
+    address: '2504 Whitis Ave, Austin, TX 78712',
+    entityIds: ['willie-nelson'],
+  },
+
+  {
+    id: 'acl-studio-6a-landmark-2009',
+    name: 'Studio 6A Is Designated a Rock & Roll Hall of Fame Landmark',
+    subtitle: '2504 Whitis Ave, Communications Building B, UT Austin. The studio was retired in 2011 when ACL moved to the Moody Theater',
+    description:
+      'In 2009, the Rock & Roll Hall of Fame designated Studio 6A here at UT Austin as an official Rock and Roll Landmark, one of only a handful nationwide. The converted classroom had hosted every major name in American roots music since 1974. Two years later, ACL moved to the purpose-built Moody Theater at 310 W. Willie Nelson Blvd, ending 37 years in the campus studio. The original set\'s backdrop of the Austin skyline became an iconic television image.',
+    lat: 30.286,
+    lng: -97.740,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 2009,
+    address: '2504 Whitis Ave, Austin, TX 78712',
+    entityIds: [],
+  },
+
+  // ── Standalone moments ──────────────────────────────────────────────
+
+  {
+    id: 'samsung-fab-groundbreaking-1996',
+    name: 'Samsung Breaks Ground on a $1.4 Billion Semiconductor Fab, the Largest Foreign Investment in Texas History',
+    subtitle: '12100 Samsung Blvd, Austin, TX 78754. The fab campus has expanded multiple times; Samsung employs 3,000+ here',
+    description:
+      'In 1996, Samsung broke ground here on a $1.4 billion semiconductor fabrication plant in northeast Austin, the largest single foreign investment in Texas history at the time. The South Korean electronics giant chose Austin over 30 competing sites across seven countries. The 1.6-million-square-foot clean room began producing memory chips in 1997. Samsung has since invested over $17 billion in the Austin campus, anchoring Central Texas as a global chip-manufacturing hub.',
+    lat: 30.393,
+    lng: -97.672,
+    type: 'landmark',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1996,
+    date: '1996',
+    address: '12100 Samsung Blvd, Austin, TX 78754',
+    entityIds: [],
+  },
+
+  {
+    id: 'huston-tillotson-chartered-1877',
+    name: 'Tillotson Collegiate Institute Is Chartered as Austin\'s First College, Six Years Before UT',
+    subtitle: '900 Chicon St, Austin, TX 78702. Huston-Tillotson University still occupies the hilltop campus',
+    description:
+      'In 1877, George Jeffrey Tillotson, a minister and educator from Connecticut, secured a charter for the Tillotson Collegiate and Normal Institute here on a hilltop in East Austin. The school predated the University of Texas by six years, making it Austin\'s first institution of higher education. It merged with Samuel Huston College in 1952 to form Huston-Tillotson University, the westernmost historically Black college in the United States.',
+    lat: 30.265,
+    lng: -97.722,
+    type: 'institution',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1877,
+    address: '900 Chicon St, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  {
+    id: 'downs-field-black-senators-1920s',
+    name: 'The Austin Black Senators Play Negro League Baseball at Downs Field',
+    subtitle: '2816 E. 12th St, Austin, TX 78702. Downs Field was renovated in 2014; it still hosts community baseball',
+    description:
+      'Through the 1920s and 1930s, the Austin Black Senators played here at Downs Field in East Austin, the center of the city\'s segregated African American community. The diamond produced Willie Wells, who went on to become one of the greatest shortstops in Negro League history and a member of the Baseball Hall of Fame (inducted 1997). Downs Field was also a gathering place for Juneteenth celebrations and community events.',
+    lat: 30.276,
+    lng: -97.709,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 1925,
+    address: '2816 E. 12th St, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  {
+    id: 'freedom-march-austin-1963',
+    name: '1,000 March from Rosewood Park to the Capitol in 102-Degree Heat on the Same Day as the March on Washington',
+    subtitle: '2300 Rosewood Ave, Austin, TX 78702 (start). Rosewood Park still operates; the march route ran west to the Capitol',
+    description:
+      'On 28 August 1963, as 250,000 gathered at the Lincoln Memorial, 1,000 Austin residents marched here from Rosewood Park through 102-degree heat to the Texas State Capitol. The march was organized by local civil rights leaders to show solidarity with the March on Washington. Participants walked over two miles west along 12th Street. At the Capitol, speakers called for desegregation of Austin\'s public facilities, many of which remained segregated despite the sit-in movement.',
+    lat: 30.267,
+    lng: -97.718,
+    type: 'political_event',
+    importance: 'major',
+    notability: 55,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1963,
+    date: '28 August 1963',
+    address: '2300 Rosewood Ave, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  {
+    id: 'east-austin-tank-farm-1948',
+    name: 'Oil Companies Build a 50-Acre Petroleum Tank Farm Beside East Austin Homes',
+    subtitle: '1011 Springdale Rd, Austin, TX 78721. The tank farm operated until the 1990s; the site is now under environmental remediation',
+    description:
+      'In 1948, major oil companies constructed a 50-acre petroleum storage tank farm here on Springdale Road, directly adjacent to African American and Mexican American homes in East Austin. Leaking tanks contaminated the groundwater for decades. The placement followed the logic of Austin\'s 1928 Master Plan, which concentrated industrial uses in the "negro district." Cleanup and remediation did not begin until the 1990s. Residents had reported petroleum smells and discolored water for years.',
+    lat: 30.262,
+    lng: -97.711,
+    type: 'industrial_site',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1948,
+    date: '1948',
+    address: '1011 Springdale Rd, Austin, TX 78721',
+    entityIds: [],
+  },
+
+  {
+    id: 'mansfield-dam-completed-1941',
+    name: 'Mansfield Dam Is Completed on the Colorado River, Creating Lake Travis and Ending Decades of Catastrophic Flooding',
+    subtitle: 'Mansfield Dam Rd, Austin, TX 78734. The dam spans 7,098 feet and impounds 1.1 million acre-feet of water',
+    description:
+      'Mansfield Dam was completed here on the Colorado River in 1941, creating Lake Travis and finally taming the river that had destroyed Austin\'s dam twice and killed 35 in the 1915 flood. Congressman Lyndon Johnson secured federal PWA and LCRA funding for the project. The dam is 266 feet tall and 7,098 feet long, one of the largest in Texas. It was renamed for Congressman J.J. Mansfield in 1941. Lake Travis transformed the Austin Hill Country into a recreation economy.',
+    lat: 30.392,
+    lng: -97.907,
+    type: 'landmark',
+    importance: 'major',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1941,
+    date: '1941',
+    address: 'Mansfield Dam Rd, Austin, TX 78734',
+    entityIds: [],
+  },
+
+  {
+    id: 'pennybacker-bridge-opens-1982',
+    name: 'Pennybacker Bridge Opens as Only the Second Tied-Arch Span of Its Kind Worldwide',
+    subtitle: 'Loop 360 over Lake Austin, Austin, TX 78746. The 360 Bridge Overlook on the east side offers a panoramic view',
+    description:
+      'The Percy V. Pennybacker Jr. Bridge opened here in 1982, carrying Loop 360 over Lake Austin in a single 600-foot tied-arch span without a center support pier. The rust-colored weathering steel was chosen to blend with the Hill Country limestone. At the time, only one other tied-arch bridge of this design existed worldwide. The overlook on the east cliff became one of Austin\'s most photographed spots. Pennybacker was a UT civil engineering professor who died in 1963.',
+    lat: 30.349,
+    lng: -97.797,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1982,
+    date: '1982',
+    address: 'Loop 360 at Lake Austin, Austin, TX 78746',
+    entityIds: [],
+  },
+
+  {
+    id: 'st-edwards-tornado-1922',
+    name: 'A Tornado Rips Through St. Edward\'s Campus, Killing a Student and Damaging Main Building',
+    subtitle: '3001 S. Congress Ave, Austin, TX 78704. Main Building was rebuilt; a historical marker on campus describes the event',
+    description:
+      'On 4 May 1922, the same storm system that struck Spicewood Springs and Oak Hill sent a tornado through the St. Edward\'s University campus here on South Congress Avenue. The funnel tore through Main Building, collapsing walls and shattering windows. Student Albert Schram, 22, was killed by falling debris. Several other students and faculty were injured. The university rebuilt Main Building and resumed classes within months.',
+    lat: 30.231,
+    lng: -97.756,
+    type: 'disaster',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1922,
+    date: '4 May 1922',
+    address: '3001 S. Congress Ave, Austin, TX 78704',
+    entityIds: [],
+  },
+];
+
+// ─── STORIES ────────────────────────────────────────────────────────────
+
+export const barnesStories: Story[] = [
+  {
+    id: 'pitch-and-putt-murder',
+    name: 'The Pitch and Putt Murder',
+    years: '1951–1952',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'Mac Wallace shoots Doug Kinser at a golf course clubhouse, gets convicted by a jury that votes 11-1 for death, and walks free the same day — defended by LBJ\'s personal attorney.',
+    tags: ['true-crime', 'austin', 'lbj', 'political-corruption', '1950s'],
+    moments: [
+      { momentId: 'wallace-shoots-kinser-1951', isPrimary: true },
+      { momentId: 'wallace-trial-suspended-sentence-1952' },
+    ],
+    relatedStoryIds: ['lbj-lady-bird-austin'],
+  },
+
+  {
+    id: 'capital-city-klan-81',
+    name: 'Capital City Klan No. 81',
+    years: '1921–1928',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'Austin\'s Klan chapter claims 1,500 members by 1922, including the Travis County sheriff. 519 robed Klansmen march Congress Avenue, a man is gunned down behind the Klan meeting hall with zero indictments, and 7,000 rally beneath a giant electric cross.',
+    tags: ['kkk', 'austin', 'white-supremacy', 'civil-rights', '1920s'],
+    contentWarning: 'This story contains descriptions of white supremacist violence and racial terror.',
+    moments: [
+      { momentId: 'kkk-congress-ave-march-1921', isPrimary: true },
+      { momentId: 'kkk-peeler-clayton-murder-1921' },
+      { momentId: 'kkk-republic-square-rally-1922' },
+    ],
+    relatedStoryIds: ['clarksville-freedmens-town'],
+  },
+
+  {
+    id: 'austin-anti-war-movement',
+    name: 'Austin\'s Anti-War Movement',
+    years: '1969–1970',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      '12,000 march to the Capitol in the largest anti-war protest in Texas, students camp in trees to stop Frank Erwin\'s bulldozers, and 15,000 march after Kent State — all within seven months.',
+    tags: ['anti-war', 'vietnam', 'austin', 'ut-austin', 'kent-state', 'protest', '1960s'],
+    moments: [
+      { momentId: 'austin-vietnam-moratorium-1969', isPrimary: true },
+      { momentId: 'battle-of-waller-creek-1969' },
+      { momentId: 'kent-state-response-austin-1970' },
+    ],
+    relatedStoryIds: ['ut-tower-shooting'],
+  },
+
+  {
+    id: 'spanish-missions-barton-springs',
+    name: 'The Spanish Missions at Barton Springs',
+    years: '1730–1731',
+    category: 'everyday-extraordinary',
+    storyType: 'incident',
+    description:
+      'Three Franciscan missions relocate from East Texas to the springs on the Colorado River — 109 years before Austin exists. They last less than a year, then move to San Antonio and become UNESCO World Heritage Sites.',
+    tags: ['spanish-missions', 'barton-springs', 'austin', 'colonial', 'texas', '1730s'],
+    moments: [
+      { momentId: 'spanish-missions-barton-springs-1730', isPrimary: true },
+      { momentId: 'spanish-missions-move-san-antonio-1731' },
+    ],
+    relatedStoryIds: ['barton-springs-sos'],
+  },
+
+  {
+    id: 'clarksville-freedmens-town',
+    name: 'Clarksville: Austin\'s Freedmen\'s Town',
+    years: '1871–1976',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      'A formerly enslaved man buys two acres for $100 and founds one of the oldest freedmen\'s settlements west of the Mississippi. A century later, an expressway destroys a third of it.',
+    tags: ['freedmen', 'clarksville', 'austin', 'reconstruction', 'civil-rights', 'displacement'],
+    moments: [
+      { momentId: 'clarksville-clark-buys-land-1871', isPrimary: true },
+      { momentId: 'clarksville-sweet-home-baptist-1877' },
+      { momentId: 'clarksville-mopac-destruction-1970s' },
+    ],
+    relatedStoryIds: ['capital-city-klan-81'],
+  },
+
+  {
+    id: 'texas-capitol-dedication-1888',
+    name: 'The 1888 Texas Capitol Dedication',
+    years: '1885–1888',
+    category: 'everyday-extraordinary',
+    storyType: 'incident',
+    description:
+      'Texas trades 3 million acres of Panhandle for a building, quarries sunset-red granite with convict labor, and throws a week-long party when the tallest state capitol in America is finished.',
+    tags: ['texas-capitol', 'austin', 'architecture', 'xit-ranch', '1880s'],
+    moments: [
+      { momentId: 'capitol-cornerstone-1885' },
+      { momentId: 'capitol-dedication-1888', isPrimary: true },
+    ],
+    relatedStoryIds: ['clarksville-freedmens-town'],
+  },
+
+  {
+    id: 'economy-furniture-strike',
+    name: 'The Economy Furniture Strike',
+    years: '1968–1971',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      '252 Mexican American workers walk out of an East Austin furniture factory earning $1.75 an hour, hold out for 28 months, and Cesar Chavez marches 5,000 to the Capitol in their support.',
+    tags: ['labor', 'chicano', 'strike', 'austin', 'civil-rights', '1960s', '1970s'],
+    moments: [
+      { momentId: 'economy-furniture-strike-begins-1968', isPrimary: true },
+      { momentId: 'cesar-chavez-economy-furniture-march-1971' },
+    ],
+    relatedStoryIds: ['clarksville-freedmens-town'],
+  },
+
+  {
+    id: 'discovery-of-writing-ut-austin',
+    name: 'The Discovery of the Origin of Writing',
+    years: '1977–1978',
+    category: 'discovery-science',
+    storyType: 'incident',
+    description:
+      'A UT Austin art historian connects 10,000-year-old clay objects found across Near Eastern digs into a single theory: they are the precursors to writing. Scientific American spreads the discovery worldwide.',
+    tags: ['archaeology', 'writing', 'ut-austin', 'discovery', 'ancient-history'],
+    moments: [
+      { momentId: 'schmandt-besserat-clay-tokens-1977', isPrimary: true },
+      { momentId: 'schmandt-besserat-scientific-american-1978' },
+    ],
+    relatedStoryIds: [],
+  },
+
+  {
+    id: 'brackenridge-hospital',
+    name: 'Brackenridge Hospital: 133 Years of Austin\'s First Public Hospital',
+    years: '1884–2017',
+    category: 'everyday-extraordinary',
+    storyType: 'incident',
+    description:
+      'Central Texas\'s first public hospital opens in a $10,000 two-story building in 1884 and operates continuously for 133 years — achieving Austin\'s first open-heart surgery, first ICU, and first intercranial surgery — before closing in 2017.',
+    tags: ['hospital', 'austin', 'healthcare', 'institution', '1880s'],
+    moments: [
+      { momentId: 'brackenridge-hospital-opens-1884', isPrimary: true },
+      { momentId: 'brackenridge-hospital-closes-2017' },
+    ],
+    relatedStoryIds: [],
+  },
+
+  // ── New incident stories ──────────────────────────────────────────────
+
+  {
+    id: 'austin-flood-1915',
+    name: 'The 1915 Austin Flood',
+    years: '1915',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'Nine inches of rain in under an hour sends Waller Creek 18 feet over its banks, a man drowns on the Congress Avenue Bridge, and 35 die in the deadliest weather event in Austin history.',
+    tags: ['flood', 'disaster', 'austin', 'waller-creek', '1910s'],
+    moments: [
+      { momentId: 'austin-flood-rain-1915', isPrimary: true },
+      { momentId: 'austin-flood-whittington-drowns-1915' },
+      { momentId: 'austin-flood-wooldridge-relief-1915' },
+    ],
+    relatedStoryIds: ['texas-capitol-dedication-1888'],
+  },
+
+  {
+    id: 'austin-tornadoes-1922',
+    name: 'The 1922 Austin Tornadoes',
+    years: '1922',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'Two tornadoes strike before dawn, killing 13 in the farming settlements northwest of Austin. The Bargsley family dies in Oak Hill. Their burial plot in Longview Park Cemetery marks the deadliest tornado in Austin\'s history.',
+    tags: ['tornado', 'disaster', 'austin', 'oak-hill', '1920s'],
+    moments: [
+      { momentId: 'austin-tornadoes-spicewood-1922', isPrimary: true },
+      { momentId: 'austin-tornado-bargsley-1922' },
+      { momentId: 'st-edwards-tornado-1922' },
+      { momentId: 'bargsley-family-plot-present' },
+    ],
+    relatedStoryIds: ['austin-flood-1915'],
+  },
+
+  {
+    id: 'barton-springs-desegregation',
+    name: 'The Desegregation of Barton Springs',
+    years: '1962–1963',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      'Black students are turned away from a skating rink and stage swim-ins at Austin\'s most popular pool. The city quietly desegregates Barton Springs without announcement, avoiding the violent confrontations of other Southern cities.',
+    tags: ['civil-rights', 'desegregation', 'austin', 'barton-springs', '1960s'],
+    moments: [
+      { momentId: 'ice-palace-refusal-1962' },
+      { momentId: 'barton-springs-swim-ins-1963', isPrimary: true },
+    ],
+    relatedStoryIds: ['clarksville-freedmens-town', 'capital-city-klan-81'],
+  },
+
+  // ── Biography stories (invisible infrastructure) ─────────────────────
+
+  {
+    id: 'malcolm-wallace-biography',
+    name: 'Malcolm Wallace',
+    years: '1921–1971',
+    category: 'dark-history',
+    storyType: 'biography',
+    description:
+      'UT student body president turned murderer — shot a man at a golf course, walked free with LBJ\'s lawyer, and died in a single-car crash at 49.',
+    tags: ['true-crime', 'austin', 'lbj'],
+    moments: [
+      { momentId: 'wallace-shoots-kinser-1951', isPrimary: true },
+      { momentId: 'wallace-trial-suspended-sentence-1952' },
+    ],
+    relatedStoryIds: ['pitch-and-putt-murder'],
+  },
+
+  {
+    id: 'richard-moya-biography',
+    name: 'Richard Moya',
+    years: '1932–2017',
+    category: 'political-drama',
+    storyType: 'biography',
+    description:
+      'First Mexican American elected to public office in Travis County — rose from the Economy Furniture picket line to county commissioner, then to Ann Richards\' deputy chief of staff.',
+    tags: ['politics', 'chicano', 'austin', 'civil-rights'],
+    moments: [
+      { momentId: 'economy-furniture-strike-begins-1968' },
+      { momentId: 'cesar-chavez-economy-furniture-march-1971', isPrimary: true },
+      { momentId: 'richard-moya-burial-2017' },
+    ],
+    relatedStoryIds: ['economy-furniture-strike'],
+  },
+
+  {
+    id: 'john-henry-faulk-biography',
+    name: 'John Henry Faulk',
+    years: '1913–1990',
+    category: 'political-drama',
+    storyType: 'biography',
+    description:
+      'The Austin-born humorist who broke McCarthy-era blacklisting with a $3.5 million libel verdict, then came home to teach at UT for two decades.',
+    tags: ['first-amendment', 'mccarthyism', 'austin', 'radio', 'civil-liberties'],
+    moments: [
+      { momentId: 'faulk-born-austin-1913' },
+      { momentId: 'faulk-cbs-radio-show-1951' },
+      { momentId: 'faulk-huac-trial-1956', isPrimary: true },
+    ],
+    relatedStoryIds: ['austin-anti-war-movement'],
+  },
+
+  {
+    id: 'elisabet-ney-biography',
+    name: 'Elisabet Ney',
+    years: '1833–1907',
+    category: 'arts-culture',
+    storyType: 'biography',
+    description:
+      'Bavarian sculptor of Bismarck and Garibaldi who abandoned European fame for a Texas plantation, then built a studio in Austin that became the city\'s first art museum.',
+    tags: ['sculpture', 'art', 'austin', 'immigration', 'women-in-art'],
+    moments: [
+      { momentId: 'elisabet-ney-sculpts-bismarck-1859' },
+      { momentId: 'elisabet-ney-arrives-texas-1873' },
+      { momentId: 'elisabet-ney-lake-austin-1892', isPrimary: true },
+    ],
+    relatedStoryIds: ['texas-capitol-dedication-1888'],
+  },
+
+  {
+    id: 'edwin-waller-biography',
+    name: 'Edwin Waller',
+    years: '1800–1874',
+    category: 'everyday-extraordinary',
+    storyType: 'biography',
+    description:
+      'Signed the Texas Declaration, fought at San Jacinto, then surveyed and platted the capital city in three months. Austin\'s downtown grid is still his plan.',
+    tags: ['texas-revolution', 'austin-founding', 'surveying', 'republic-of-texas'],
+    moments: [
+      { momentId: 'edwin-waller-san-jacinto-1836' },
+      { momentId: 'edwin-waller-lays-out-austin-1839', isPrimary: true },
+      { momentId: 'waller-lot-auction-1839' },
+    ],
+    relatedStoryIds: ['texas-capitol-dedication-1888'],
+  },
+
+  // ── New incident stories ──────────────────────────────────────────────
+
+  {
+    id: 'yogurt-shop-murders',
+    name: 'The 1991 Austin Yogurt Shop Murders',
+    years: '1991–2025',
+    category: 'dark-history',
+    storyType: 'incident',
+    contentWarning: 'This story contains descriptions of the murder of four teenagers.',
+    description:
+      'Four teenagers are shot dead at closing time in a yogurt shop, two men are convicted and later exonerated by DNA, and 34 years later a dead serial killer is identified as the perpetrator.',
+    tags: ['true-crime', 'cold-case', 'austin', 'dna', 'serial-killer'],
+    moments: [
+      { momentId: 'yogurt-shop-murders-1991', isPrimary: true },
+      { momentId: 'yogurt-shop-wrongful-arrests-1999' },
+      { momentId: 'yogurt-shop-dna-match-2025' },
+    ],
+    relatedStoryIds: ['ut-tower-shooting', 'pitch-and-putt-murder'],
+  },
+
+  {
+    id: 'austin-city-limits-founding',
+    name: 'The Founding of Austin City Limits',
+    years: '1974–2009',
+    category: 'arts-culture',
+    storyType: 'incident',
+    description:
+      'Willie Nelson tapes a pilot episode in a converted UT classroom after the first recording fails, PBS picks it up, and Studio 6A becomes a Rock & Roll Hall of Fame Landmark.',
+    tags: ['music', 'austin', 'willie-nelson', 'television', 'pbs'],
+    moments: [
+      { momentId: 'acl-pilot-taping-1974', isPrimary: true },
+      { momentId: 'acl-studio-6a-landmark-2009' },
+    ],
+    relatedStoryIds: ['willie-nelson-biography'],
+  },
+];
+
+// ─── ENTITIES ───────────────────────────────────────────────────────────
+
+export const barnesEntities: Entity[] = [
+  {
+    id: 'malcolm-wallace',
+    name: 'Malcolm "Mac" Wallace',
+    type: 'person',
+    years: '1921–1971',
+    description:
+      'UT student body president turned murderer who shot a man at a golf course clubhouse with five bullets from a .25-caliber pistol. Convicted by a jury that voted 11-1 for the death penalty, he walked free the same day, defended by LBJ\'s personal attorney. Later received a security clearance for defense work in D.C.',
+    canonicalStoryId: 'malcolm-wallace-biography',
+  },
+
+  {
+    id: 'richard-moya',
+    name: 'Richard Moya',
+    type: 'person',
+    years: '1932–2017',
+    description:
+      'First Mexican American elected to public office in Travis County. Rose from boycott coordinator for the Economy Furniture strike to county commissioner in 1970, served 16 years, then became deputy chief of staff to Governor Ann Richards.',
+    canonicalStoryId: 'richard-moya-biography',
+  },
+
+  {
+    id: 'clarksville-historic-district',
+    name: 'Clarksville Historic District',
+    type: 'place',
+    description:
+      'One of the oldest surviving freedmen\'s communities west of the Mississippi, founded in 1871 by Charles Clark, who was born enslaved. Listed on the National Register of Historic Places in 1976. MoPac construction in the 1970s destroyed a third of the neighborhood.',
+    canonicalStoryId: 'clarksville-freedmens-town',
+  },
+
+  {
+    id: 'texas-state-capitol',
+    name: 'Texas State Capitol',
+    type: 'place',
+    description:
+      'The tallest state capitol in America at 302 feet — 14 feet higher than the US Capitol. Built from sunset-red granite quarried with convict labor, financed by trading 3 million acres of Panhandle to Chicago investors. Dedicated in May 1888.',
+    canonicalStoryId: 'texas-capitol-dedication-1888',
+  },
+
+  {
+    id: 'john-henry-faulk',
+    name: 'John Henry Faulk',
+    type: 'person',
+    years: '1913–1990',
+    description:
+      'The man who broke McCarthy-era blacklisting in court. Austin-born radio humorist who won a landmark $3.5 million libel verdict against the anti-Communist group that destroyed his CBS career. His attorney Louis Nizer called the trial "the most important free-speech case since John Peter Zenger." Returned to Austin to teach at UT.',
+    canonicalStoryId: 'john-henry-faulk-biography',
+  },
+
+  {
+    id: 'elisabet-ney',
+    name: 'Elisabet Ney',
+    type: 'person',
+    years: '1833–1907',
+    description:
+      'Bavarian sculptor who carved Bismarck, Garibaldi, and King Ludwig II before abandoning Europe for a Texas cattle ranch. Nineteen years later she built a stone studio in Austin called Formosa, carved the statues of Houston and Austin for both the state and U.S. Capitols, and died in her studio. It became Austin\'s first art museum.',
+    canonicalStoryId: 'elisabet-ney-biography',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Elisabeth_Ney_by_Friedrich_Kaulbach%2C_1868.jpg/220px-Elisabeth_Ney_by_Friedrich_Kaulbach%2C_1868.jpg',
+  },
+
+  {
+    id: 'edwin-waller',
+    name: 'Edwin Waller',
+    type: 'person',
+    years: '1800–1874',
+    description:
+      'The man who built Austin. Signed the Texas Declaration of Independence, fought at San Jacinto, then was appointed to survey and plat the new capital in 1839. Laid out the 14-block grid centered on Congress Avenue in three months, auctioned 306 lots, and became Austin\'s first mayor. The downtown street plan is still his.',
+    canonicalStoryId: 'edwin-waller-biography',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Edwin_Leonard_Waller.jpg',
+  },
+];

@@ -1260,8 +1260,11 @@ export function HomePage({
   const prevCollectionsIdx = useRef(collectionsActiveIdx);
   const prevNearYouIdx = useRef(nearYouActiveIdx);
   // When a horizontal swipe activates a section, suppress vertical observer
-  // overrides for 1.5s so the horizontal section "wins"
-  const horizontalOverrideUntil = useRef(0);
+  // Horizontal swipe locks the active section until the user scrolls vertically
+  // enough to move to a different section. Prevents vertical observer from
+  // overriding a People swipe with Collections.
+  const horizontalLockRef = useRef(false);
+  const lastVerticalScrollTop = useRef(0);
 
   useEffect(() => {
     if (peopleActiveIdx !== prevPeopleIdx.current) {
@@ -1270,7 +1273,7 @@ export function HomePage({
       activePersonIdRef.current = p?.entity.id ?? null;
       if (hasUserScrolledRef.current) {
         setActiveHomeSection('people');
-        horizontalOverrideUntil.current = Date.now() + 1500;
+        horizontalLockRef.current = true;
       }
     }
   }, [peopleActiveIdx]);
@@ -1282,7 +1285,7 @@ export function HomePage({
       activeStoryIdRef.current = s?.id ?? null;
       if (hasUserScrolledRef.current) {
         setActiveHomeSection('stories');
-        horizontalOverrideUntil.current = Date.now() + 1500;
+        horizontalLockRef.current = true;
       }
     }
   }, [storiesActiveIdx]);
@@ -1294,7 +1297,7 @@ export function HomePage({
       activeCollectionIdRef.current = c?.id ?? null;
       if (hasUserScrolledRef.current) {
         setActiveHomeSection('collections');
-        horizontalOverrideUntil.current = Date.now() + 1500;
+        horizontalLockRef.current = true;
       }
     }
   }, [collectionsActiveIdx]);
@@ -1304,7 +1307,7 @@ export function HomePage({
       prevNearYouIdx.current = nearYouActiveIdx;
       if (hasUserScrolledRef.current) {
         setActiveHomeSection('nearYou');
-        horizontalOverrideUntil.current = Date.now() + 1500;
+        horizontalLockRef.current = true;
       }
     }
   }, [nearYouActiveIdx]);
@@ -1353,8 +1356,13 @@ export function HomePage({
     const onScroll = () => {
       if (Date.now() - mountTime < 600) return;
       hasUserScrolledRef.current = true;
-      // Don't override horizontal swipe activation for 1.5s
-      if (Date.now() < horizontalOverrideUntil.current) return;
+      // If horizontal swipe locked a section, only unlock on significant vertical scroll
+      if (horizontalLockRef.current) {
+        const scrollDelta = Math.abs(container.scrollTop - lastVerticalScrollTop.current);
+        if (scrollDelta < 80) return; // Less than ~80px vertical movement — still horizontal swipe territory
+        horizontalLockRef.current = false;
+      }
+      lastVerticalScrollTop.current = container.scrollTop;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const containerRect = container.getBoundingClientRect();
