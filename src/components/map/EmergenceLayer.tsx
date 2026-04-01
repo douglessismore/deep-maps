@@ -22,6 +22,14 @@ import { getEffectiveNotability, getNotabilityThreshold } from '../../lib/notabi
 import { distanceMiles } from '../../lib/geo';
 import { useAppData } from '../../lib/data/provider';
 
+// ── Helpers ────────────────────────────────────────────────────────
+function hexToRgba(hex: string, alpha: number): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
 // ── Zoom-dependent dot radius ──────────────────────────────────────
 // Zoom 2: 1px dots (star field). Zoom 14: ~10px (full markers).
 function getRadius(zoom: number): number {
@@ -89,9 +97,11 @@ interface EmergenceLayerProps {
   softHighlight?: boolean;
   /** Label to show on map for multi-moment scroll highlights (e.g., "Lady Bird Johnson") */
   scrollHighlightLabel?: string | null;
+  /** Contextual meta text (e.g., "3 events nearby", "From Ranchland... · 2011") */
+  scrollHighlightMeta?: string | null;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -207,10 +217,12 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         // Tooltip with category color accent
         const storyName = story?.name || '';
         const catColor = category ? CATEGORIES[category]?.color || '#888' : '#888';
+        const yearStr = moment.year;
+        const metaText = storyName ? (yearStr ? `${yearStr} · ${storyName}` : storyName) : (yearStr ? `${yearStr}` : '');
         marker.bindTooltip(
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;border-left:3px solid ${catColor};padding-left:6px;">
+          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;border-left:2px solid ${catColor};padding-left:7px;letter-spacing:0.01em;">
             <strong>${moment.name}</strong>
-            <div style="font-size:11px;color:#999;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${storyName}</div>
+            ${metaText ? `<div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;letter-spacing:0.04em;">${metaText}</div>` : ''}
           </div>`,
           { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
         );
@@ -427,11 +439,20 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           ? 'flex-direction:column-reverse;align-items:center;'
           : labelRight ? '' : 'flex-direction:row-reverse;';
         const anchorY = nearBottom ? 50 : 0;
+        const firstCat = momentCategoryMap.get(scrollHighlight[0]?.id);
+        const multiColor = firstCat ? CATEGORIES[firstCat]?.color || '#888' : '#888';
+        const multiGlow = hexToRgba(multiColor, 0.06);
+        const metaHtml = scrollHighlightMeta ? `<div class="scroll-label-meta">${scrollHighlightMeta}</div>` : '';
+        const multiBorderStyle = nearBottom
+          ? `border-bottom:2px solid ${multiColor};padding-bottom:4px;`
+          : `border-left:2px solid ${multiColor};`;
         const icon = L.divIcon({
           className: '',
           html: `<div class="scroll-label-container" style="${containerStyle}">
-            <div class="scroll-label-dot" style="width:0;height:0;"></div>
-            <div class="scroll-label-text dark-tooltip">${scrollHighlightLabel}</div>
+            <div class="scroll-label-text dark-tooltip" style="${multiBorderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${multiGlow};">
+              <div>${scrollHighlightLabel}</div>
+              ${metaHtml}
+            </div>
           </div>`,
           iconSize: [0, 0],
           iconAnchor: [0, anchorY],
@@ -466,15 +487,32 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           ? 'flex-direction:column-reverse;align-items:center;'
           : labelRight ? '' : 'flex-direction:row-reverse;';
         const borderStyle = nearBottom
-          ? `border-bottom:3px solid ${color};padding-bottom:4px;`
-          : `border-left:3px solid ${color};`;
+          ? `border-bottom:2px solid ${color};padding-bottom:4px;`
+          : `border-left:2px solid ${color};`;
+        const innerGlow = hexToRgba(color, 0.06);
+        const stemStyle = nearBottom
+          ? `width:1px;height:8px;background:${color};opacity:0.35;flex-shrink:0;`
+          : `width:8px;height:1px;background:${color};opacity:0.35;flex-shrink:0;`;
+        // Build meta line: use scrollHighlightMeta if available, else story name + year
+        let singleMeta = scrollHighlightMeta || '';
+        if (!singleMeta) {
+          const story = momentStoryMap.get(moment.id);
+          const storyName = story?.name || '';
+          const year = moment.year;
+          singleMeta = storyName ? (year ? `${storyName} · ${year}` : storyName) : (year ? `${year}` : '');
+        }
+        const singleMetaHtml = singleMeta ? `<div class="scroll-label-meta">${singleMeta}</div>` : '';
         // When near bottom, shift anchor down so the container (which grows upward in column-reverse) stays visible
         const anchorY = nearBottom ? 60 : 6;
         const icon = L.divIcon({
           className: '',
           html: `<div class="scroll-label-container" style="${containerStyle}">
             <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
-            <div class="scroll-label-text dark-tooltip" style="${borderStyle}">${tooltipText}</div>
+            <div style="${stemStyle}"></div>
+            <div class="scroll-label-text dark-tooltip" style="${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};">
+              <div>${tooltipText}</div>
+              ${singleMetaHtml}
+            </div>
           </div>`,
           iconSize: [12, 12],
           iconAnchor: [6, anchorY],
@@ -496,7 +534,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
       hideOffScreenArrow();
     };
-  }, [scrollHighlight, scrollHighlightLabel, map, momentCategoryMap]);
+  }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
   useEffect(() => {

@@ -54,6 +54,7 @@ function App() {
   const [categoryFilter, setCategoryFilter] = useState<StoryCategory | null>(null);
   const [scrollHighlight, setScrollHighlight] = useState<Moment[]>([]);
   const [scrollHighlightLabel, setScrollHighlightLabel] = useState<string | null>(null);
+  const [scrollHighlightMeta, setScrollHighlightMeta] = useState<string | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [activeEntity, setActiveEntity] = useState<Entity | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
@@ -461,7 +462,7 @@ function App() {
   // Deduplicate scrollHighlight — bail when moment IDs haven't changed.
   // Optional storyId shortcuts the expensive story-lookup in scrollHighlightStoryId.
   const scrollHighlightIdsRef = useRef<string>('');
-  const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string, label?: string) => {
+  const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string, label?: string, meta?: string) => {
     // Inside a collection, never allow multi-moment highlights (prevents polylines)
     const safeLocations = activeCollection && locations.length > 1 ? [locations[0]] : locations;
     const key = safeLocations.map(m => m.id).join(',') + (label ? `::${label}` : '');
@@ -470,6 +471,7 @@ function App() {
     setScrollHighlightDirectId(storyId ?? null);
     setScrollHighlight(safeLocations);
     setScrollHighlightLabel(label ?? null);
+    setScrollHighlightMeta(meta ?? null);
   }, [activeCollection]);
 
   const handleCategoryFilter = useCallback((category: StoryCategory | null) => {
@@ -847,6 +849,7 @@ function App() {
               activeLocation={activeLocation}
               scrollHighlight={scrollHighlight}
               scrollHighlightLabel={scrollHighlightLabel}
+              scrollHighlightMeta={scrollHighlightMeta}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}
@@ -880,6 +883,7 @@ function App() {
               activeLocation={activeLocation}
               scrollHighlight={scrollHighlight}
               scrollHighlightLabel={scrollHighlightLabel}
+              scrollHighlightMeta={scrollHighlightMeta}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}

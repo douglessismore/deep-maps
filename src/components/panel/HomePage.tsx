@@ -37,7 +37,7 @@ interface HomePageProps {
   /** Navigate to the explorer/4-tab view */
   onBrowseAll: () => void;
   /** Scroll highlight — called when a card scrolls into view in the horizontal row */
-  onScrollHighlight?: (locations: Moment[], storyId?: string, label?: string) => void;
+  onScrollHighlight?: (locations: Moment[], storyId?: string, label?: string, meta?: string) => void;
   /** Scroll-driven map pan — called with lat/lng to gently follow the highlighted card */
   onScrollPan?: (lat: number, lng: number) => void;
   /** Category filter — synced with App.tsx to also filter map markers */
@@ -1170,23 +1170,29 @@ export function HomePage({
   // (2) user touch on any scroll container. No auto-enable timeout.
 
   // Compute highlight for a given section + horizontal index
-  const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null } => {
+  const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null; meta: string | null } => {
     if (section === 'people') {
       const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
       const idx = expandedSection === 'people' ? peopleExpandedActiveIdx : peopleActiveIdx;
-      // Look up by stable ID first (survives list reshuffling), fall back to index
       const person = (activePersonIdRef.current
         ? people.find(p => p.entity.id === activePersonIdRef.current)
         : null) ?? people[Math.max(0, idx)];
-      if (person) return { moments: getMomentsForEntity(person.entity.id), label: person.entity.name };
+      if (person) {
+        const moments = getMomentsForEntity(person.entity.id);
+        return { moments, label: person.entity.name, meta: `${moments.length} event${moments.length !== 1 ? 's' : ''} nearby` };
+      }
     }
     if (section === 'nearYou') {
       const idx = expandedSection === 'nearYou' ? nearYouExpandedActiveIdx : nearYouActiveIdx;
       const vl = nearYouMomentsRef.current[Math.max(0, idx)];
-      if (vl) return { moments: [vl.location], label: null }; // single moment — show moment name
+      if (vl) {
+        const story = vl.story;
+        const year = vl.location.year;
+        const meta = story ? (year ? `${story.name} · ${year}` : story.name) : (year ? `${year}` : null);
+        return { moments: [vl.location], label: null, meta };
+      }
     }
     if (section === 'collections') {
-      // Look up by stable ID first (survives list reshuffling), fall back to index
       const idx = expandedSection === 'collections' ? 0 : collectionsActiveIdx;
       const coll = (activeCollectionIdRef.current
         ? filteredCollectionsRef.current.find(c => c.id === activeCollectionIdRef.current)
@@ -1197,11 +1203,10 @@ export function HomePage({
           const m = momentByIdRef.current.get(mid);
           if (m) moments.push(m);
         }
-        return { moments, label: coll.name };
+        return { moments, label: coll.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}` };
       }
     }
     if (section === 'stories') {
-      // Look up by stable ID first (survives list reshuffling), fall back to index
       const story = (activeStoryIdRef.current
         ? allHomeStoriesRef.current.find(s => s.id === activeStoryIdRef.current)
         : null) ?? allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
@@ -1211,10 +1216,10 @@ export function HomePage({
           const m = momentByIdRef.current.get(sm.momentId);
           if (m) moments.push(m);
         }
-        return { moments, label: story.name };
+        return { moments, label: story.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}` };
       }
     }
-    return { moments: [], label: null };
+    return { moments: [], label: null, meta: null };
   }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx]);
 
   // Fire highlight whenever the active section or its horizontal index changes
@@ -1222,9 +1227,9 @@ export function HomePage({
   const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${allHomeStories[0]?.id ?? ''}-${nearYouMoments[0]?.location.id ?? ''}-${filteredCollections[0]?.id ?? ''}`;
   useEffect(() => {
     if (!onScrollHighlightRef.current || !activeHomeSection || !hasUserScrolledRef.current) return;
-    const { moments, label } = computeHighlight(activeHomeSection);
+    const { moments, label, meta } = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
-      onScrollHighlightRef.current(moments, undefined, label ?? undefined);
+      onScrollHighlightRef.current(moments, undefined, label ?? undefined, meta ?? undefined);
     }
   }, [activeHomeSection, computeHighlight, highlightDataKey]);
 

@@ -118,6 +118,8 @@ interface MapViewProps {
   preserveViewport?: React.RefObject<boolean>;
   /** Label to show on map for multi-moment scroll highlights (e.g., person name) */
   scrollHighlightLabel?: string | null;
+  /** Contextual meta text for scroll highlight labels (e.g., "3 events nearby") */
+  scrollHighlightMeta?: string | null;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -1195,6 +1197,7 @@ export function MapView(props: MapViewProps) {
             scrollHighlight={props.scrollHighlight}
             softHighlight={props.mode === 'explore'}
             scrollHighlightLabel={props.scrollHighlightLabel}
+            scrollHighlightMeta={props.scrollHighlightMeta}
           />
         )}
       </MapContainer>

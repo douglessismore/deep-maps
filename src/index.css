@@ -532,16 +532,17 @@ html, body, #root {
 /* ===== Dark Tooltip ===== */
 /* ── Map tooltip: glassmorphism portal style ── */
 .dark-tooltip {
-  background: rgba(15, 15, 20, 0.85) !important;
+  background: rgba(12, 12, 16, 0.88) !important;
   backdrop-filter: blur(12px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(12px) saturate(1.4) !important;
   color: #f0f0f0 !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 8px !important;
+  border-radius: 6px !important;
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    0 4px 24px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 20px rgba(255, 255, 255, 0.015) !important;
   padding: 6px 10px !important;
   max-width: 260px !important;
   min-width: 100px !important;
@@ -549,7 +550,7 @@ html, body, #root {
   line-height: 1.35 !important;
   cursor: pointer;
   pointer-events: auto !important;
-  animation: tooltip-appear 0.2s ease-out !important;
+  animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
   transition: background 0.15s, box-shadow 0.2s, border-color 0.2s, transform 0.15s !important;
 }
 
@@ -566,33 +567,35 @@ html, body, #root {
 @keyframes tooltip-appear {
   from {
     opacity: 0;
-    transform: translateY(4px) scale(0.97);
+    transform: translateY(6px) scale(0.94);
+    filter: blur(2px);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
 /* Arrow colors match the glassmorphism background */
 .dark-tooltip::before {
-  border-top-color: rgba(15, 15, 20, 0.85) !important;
+  border-top-color: rgba(12, 12, 16, 0.88) !important;
 }
 
 .leaflet-tooltip-top.dark-tooltip::before {
-  border-top-color: rgba(15, 15, 20, 0.85) !important;
+  border-top-color: rgba(12, 12, 16, 0.88) !important;
 }
 
 .leaflet-tooltip-bottom.dark-tooltip::before {
-  border-bottom-color: rgba(15, 15, 20, 0.85) !important;
+  border-bottom-color: rgba(12, 12, 16, 0.88) !important;
 }
 
 .leaflet-tooltip-right.dark-tooltip::before {
-  border-right-color: rgba(15, 15, 20, 0.85) !important;
+  border-right-color: rgba(12, 12, 16, 0.88) !important;
 }
 
 .leaflet-tooltip-left.dark-tooltip::before {
-  border-left-color: rgba(15, 15, 20, 0.85) !important;
+  border-left-color: rgba(12, 12, 16, 0.88) !important;
 }
 
 /* Permanent/scroll highlight tooltips get a subtle glow */
@@ -620,10 +623,20 @@ html, body, #root {
   font-family: 'Newsreader', Georgia, serif;
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
   max-width: 220px;
   white-space: normal;
   padding: 6px 10px;
-  animation: tooltip-appear 0.2s ease-out;
+  animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.scroll-label-meta {
+  font-family: 'Space Grotesk', 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.04em;
+  margin-top: 1px;
 }
 
 /* ===== Mobile Timeline Range Input ===== */
