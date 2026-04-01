@@ -1259,13 +1259,19 @@ export function HomePage({
   const prevStoriesIdx = useRef(storiesActiveIdx);
   const prevCollectionsIdx = useRef(collectionsActiveIdx);
   const prevNearYouIdx = useRef(nearYouActiveIdx);
+  // When a horizontal swipe activates a section, suppress vertical observer
+  // overrides for 1.5s so the horizontal section "wins"
+  const horizontalOverrideUntil = useRef(0);
 
   useEffect(() => {
     if (peopleActiveIdx !== prevPeopleIdx.current) {
       prevPeopleIdx.current = peopleActiveIdx;
       const p = gridPeopleRef.current[Math.max(0, peopleActiveIdx)];
       activePersonIdRef.current = p?.entity.id ?? null;
-      if (hasUserScrolledRef.current) setActiveHomeSection('people');
+      if (hasUserScrolledRef.current) {
+        setActiveHomeSection('people');
+        horizontalOverrideUntil.current = Date.now() + 1500;
+      }
     }
   }, [peopleActiveIdx]);
 
@@ -1274,7 +1280,10 @@ export function HomePage({
       prevStoriesIdx.current = storiesActiveIdx;
       const s = allHomeStoriesRef.current[Math.max(0, storiesActiveIdx)];
       activeStoryIdRef.current = s?.id ?? null;
-      if (hasUserScrolledRef.current) setActiveHomeSection('stories');
+      if (hasUserScrolledRef.current) {
+        setActiveHomeSection('stories');
+        horizontalOverrideUntil.current = Date.now() + 1500;
+      }
     }
   }, [storiesActiveIdx]);
 
@@ -1283,14 +1292,20 @@ export function HomePage({
       prevCollectionsIdx.current = collectionsActiveIdx;
       const c = filteredCollectionsRef.current[Math.max(0, collectionsActiveIdx)];
       activeCollectionIdRef.current = c?.id ?? null;
-      if (hasUserScrolledRef.current) setActiveHomeSection('collections');
+      if (hasUserScrolledRef.current) {
+        setActiveHomeSection('collections');
+        horizontalOverrideUntil.current = Date.now() + 1500;
+      }
     }
   }, [collectionsActiveIdx]);
 
   useEffect(() => {
     if (nearYouActiveIdx !== prevNearYouIdx.current) {
       prevNearYouIdx.current = nearYouActiveIdx;
-      if (hasUserScrolledRef.current) setActiveHomeSection('nearYou');
+      if (hasUserScrolledRef.current) {
+        setActiveHomeSection('nearYou');
+        horizontalOverrideUntil.current = Date.now() + 1500;
+      }
     }
   }, [nearYouActiveIdx]);
 
@@ -1338,6 +1353,8 @@ export function HomePage({
     const onScroll = () => {
       if (Date.now() - mountTime < 600) return;
       hasUserScrolledRef.current = true;
+      // Don't override horizontal swipe activation for 1.5s
+      if (Date.now() < horizontalOverrideUntil.current) return;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const containerRect = container.getBoundingClientRect();
