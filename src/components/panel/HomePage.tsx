@@ -292,10 +292,12 @@ function cardHighlightStyle(isActive: boolean, categoryColor?: string): React.CS
   if (!isActive) return {};
   const color = categoryColor || '#D4A853';
   return {
-    transform: 'scale(1.05)',
-    borderColor: `${color}88`, // category color at ~53% opacity
-    backgroundColor: 'var(--bg-card-hover)',
-    boxShadow: `0 0 20px ${color}22, 0 4px 16px rgba(0,0,0,0.4), inset 0 0 12px ${color}08`,
+    transform: 'scale(1.06)',
+    borderColor: `${color}cc`, // category color at ~80% opacity
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    boxShadow: `0 0 24px ${color}33, 0 0 8px ${color}22, 0 4px 16px rgba(0,0,0,0.5)`,
+    outline: `1px solid ${color}44`,
+    outlineOffset: '2px',
   };
 }
 

@@ -336,19 +336,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     `;
   };
 
-  // Track the label of the currently displayed arrow
-  const currentArrowLabel = useRef<string | undefined>(undefined);
-
   const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string) => {
     // Don't override an active arrow-click flyTo
     if (arrowFlyRef.current) return;
-    // If an arrow already exists with a DIFFERENT label, it means the data
-    // reshuffled (not a user scroll). Keep the existing arrow.
-    // Only replace if: (a) no arrow exists, (b) same label (position update), or (c) user scrolled to new card
-    if (offScreenArrowRef.current && currentArrowLabel.current && label !== currentArrowLabel.current) {
-      // Different label from a reshuffle — keep existing arrow
-      return;
-    }
+    // Always replace the arrow with current data. The cardId-based lookup
+    // in HomePage ensures scrollHighlight matches the visible card.
     hideOffScreenArrow();
     const container = map.getContainer();
 
@@ -408,7 +400,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     });
     container.appendChild(div);
     offScreenArrowRef.current = div;
-    currentArrowLabel.current = label;
   };
 
   const hideOffScreenArrow = () => {
@@ -420,7 +411,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     if (offScreenArrowRef.current) {
       offScreenArrowRef.current.remove();
       offScreenArrowRef.current = null;
-      currentArrowLabel.current = undefined;
     }
   };
 
@@ -437,20 +427,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       if (!scrollHighlightLabel || scrollHighlightLabel === lockedLabel) return;
       // New card scrolled into view — release the lock
       arrowFlyRef.current = null;
-    }
-
-    // If an off-screen arrow exists with a different label than what's being
-    // requested, this is likely a data reshuffle (not a user scroll). Preserve
-    // the existing arrow so clicking it goes to the right place.
-    if (offScreenArrowRef.current && currentArrowLabel.current
-      && scrollHighlightLabel && scrollHighlightLabel !== currentArrowLabel.current) {
-      // Don't destroy the existing arrow — it has the user's intended target
-      // Just clean up the overlay marker if one exists
-      if (scrollOverlayRef.current) {
-        map.removeLayer(scrollOverlayRef.current);
-        scrollOverlayRef.current = null;
-      }
-      return;
     }
 
     if (scrollOverlayRef.current) {
