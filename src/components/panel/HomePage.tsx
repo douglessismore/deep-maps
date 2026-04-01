@@ -106,7 +106,7 @@ function useScrollActiveIndex(
 
       if (mode === 'horizontal') {
         const rect = container.getBoundingClientRect();
-        const referenceX = rect.left + rect.width * 0.3;
+        const referenceX = rect.left + rect.width * 0.5;
         for (let i = 0; i < allChildren.length; i++) {
           const child = allChildren[i] as HTMLElement;
           // Skip non-card children (e.g., BackfillDivider, BackfillHint)
