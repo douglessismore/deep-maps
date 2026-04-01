@@ -384,9 +384,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             landedMarker.addTo(map);
             scrollOverlayRef.current = landedMarker;
           }
-          // Keep arrowFlyRef locked briefly so scroll highlight doesn't
-          // immediately override with wrong label from reshuffled cards
-          setTimeout(() => { arrowFlyRef.current = null; }, 1200);
+          // Don't auto-clear. The scroll highlight effect will clear it
+          // when scrollHighlight changes (user scrolls to a different card).
         }
       };
       arrowFlyRef.current = {
@@ -404,7 +403,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const hideOffScreenArrow = () => {
     if (arrowFlyRef.current) {
       arrowFlyRef.current.cleanup();
-      arrowFlyRef.current = null;
+      // Don't clear arrowFlyRef here — it's the flyTo lock.
+      // Only the scroll highlight effect clears it when new data arrives.
     }
     if (offScreenArrowRef.current) {
       offScreenArrowRef.current.remove();
@@ -416,9 +416,16 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
   useEffect(() => {
-    // If an arrow-click flyTo is in progress, don't let scroll highlight override it.
-    // The flyTo's own moveend handler will clean up when the target enters viewport.
-    if (arrowFlyRef.current) return;
+    // If an arrow-click flyTo lock is active, only release it when the user
+    // scrolls to a genuinely different card (different label). This prevents
+    // viewport-driven reshuffles from overriding the landed label.
+    if (arrowFlyRef.current) {
+      const lockedLabel = arrowFlyRef.current.label;
+      // If the scroll highlight hasn't changed (same label or no label), keep the lock
+      if (!scrollHighlightLabel || scrollHighlightLabel === lockedLabel) return;
+      // New card scrolled into view — release the lock
+      arrowFlyRef.current = null;
+    }
 
     if (scrollOverlayRef.current) {
       map.removeLayer(scrollOverlayRef.current);
@@ -482,10 +489,16 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           iconAnchor: [0, anchorY],
         });
         const marker = L.marker([centerLat, centerLng], { icon, zIndexOffset: 900, interactive: true });
-        const firstMoment = scrollHighlight[0];
-        const firstStory = momentStoryMap.get(firstMoment.id);
-        if (firstStory) {
-          marker.on('click', () => onClickRef.current(firstMoment, firstStory));
+        // Click navigates to the nearest visible moment, not the first in the array
+        const mapCenter = map.getCenter();
+        const nearestMoment = visibleMoments.reduce((best, m) => {
+          const bDist = Math.hypot(best.lat - mapCenter.lat, best.lng - mapCenter.lng);
+          const mDist = Math.hypot(m.lat - mapCenter.lat, m.lng - mapCenter.lng);
+          return mDist < bDist ? m : best;
+        }, visibleMoments[0]);
+        const nearestStory = momentStoryMap.get(nearestMoment.id);
+        if (nearestStory) {
+          marker.on('click', () => onClickRef.current(nearestMoment, nearestStory));
         }
         marker.addTo(map);
         scrollOverlayRef.current = marker;
