@@ -386,8 +386,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             landedMarker.addTo(map);
             scrollOverlayRef.current = landedMarker;
           }
-          // Don't auto-clear. The scroll highlight effect will clear it
-          // when scrollHighlight changes (user scrolls to a different card).
+          // Clear the lock after 5 seconds. By then the user has either
+          // started interacting (scroll will trigger new highlight) or is
+          // idle (and the highlight will update on next scroll).
+          setTimeout(() => { arrowFlyRef.current = null; }, 5000);
         }
       };
       arrowFlyRef.current = {
@@ -418,16 +420,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
   useEffect(() => {
-    // If an arrow-click flyTo lock is active, only release it when the user
-    // scrolls to a genuinely different card (different label). This prevents
-    // viewport-driven reshuffles from overriding the landed label.
-    if (arrowFlyRef.current) {
-      const lockedLabel = arrowFlyRef.current.label;
-      // If the scroll highlight hasn't changed (same label or no label), keep the lock
-      if (!scrollHighlightLabel || scrollHighlightLabel === lockedLabel) return;
-      // New card scrolled into view — release the lock
-      arrowFlyRef.current = null;
-    }
+    // If an arrow-click flyTo lock is active, block ALL scroll highlight
+    // updates. The lock is cleared by a timeout in the moveEnd handler.
+    // This prevents viewport-driven reshuffles from overriding the landed label.
+    if (arrowFlyRef.current) return;
 
     if (scrollOverlayRef.current) {
       map.removeLayer(scrollOverlayRef.current);
