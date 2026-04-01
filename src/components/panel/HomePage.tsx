@@ -290,12 +290,12 @@ function CategoryFilterPills({
 
 function cardHighlightStyle(isActive: boolean, categoryColor?: string): React.CSSProperties {
   if (!isActive) return {};
-  const catGlow = categoryColor ? `0 -2px 16px ${categoryColor}26` : ''; // 26 = ~15% alpha
+  const color = categoryColor || '#D4A853';
   return {
-    transform: 'scale(1.04)',
-    borderColor: 'rgba(255,255,255,0.35)',
+    transform: 'scale(1.05)',
+    borderColor: `${color}88`, // category color at ~53% opacity
     backgroundColor: 'var(--bg-card-hover)',
-    boxShadow: `0 0 24px rgba(255,255,255,0.12)${catGlow ? `, ${catGlow}` : ''}`,
+    boxShadow: `0 0 20px ${color}22, 0 4px 16px rgba(0,0,0,0.4), inset 0 0 12px ${color}08`,
   };
 }
 
@@ -601,10 +601,8 @@ function HomeStoryCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className={`w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] ${
-        isActive ? 'scale-[1.04] shadow-lg' : ''
-      }`}
-      style={isActive ? { boxShadow: `0 0 24px ${cat?.color ?? '#D4A853'}33` } : undefined}
+      className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]"
+      style={cardHighlightStyle(!!isActive, cat?.color)}
     >
       {/* Category color bar */}
       <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
