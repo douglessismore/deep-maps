@@ -287,6 +287,19 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
       onDismissRef.current?.();
     },
+    dragstart: () => {
+      // User-initiated pan → clear arrow flyTo lock so scroll system
+      // fully resumes. Remove the landed label since user moved away.
+      if (arrowFlyRef.current) {
+        if (scrollOverlayRef.current) {
+          map.removeLayer(scrollOverlayRef.current);
+          scrollOverlayRef.current = null;
+        }
+        arrowFlyRef.current = null;
+        // Lock already released in moveEnd handler; this is a safety net
+        onArrowFlyLockRef.current?.(false);
+      }
+    },
     zoomend: () => {
       // During arrow flyTo, don't update marker highlights from reshuffled data
       if (arrowFlyRef.current) return;
@@ -479,16 +492,20 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               color: isHl ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
             });
           }
-          // Clear the lock after 10 seconds. Also remove the landed label
-          // to prevent stale data when the scroll highlight effect resumes.
+          // Release the App.tsx lock NOW so handleScrollHighlight resumes.
+          // This lets the scroll system update state (arrows, card highlights)
+          // while arrowFlyRef still protects the landed label from being
+          // replaced by the scroll overlay effect.
+          onArrowFlyLockRef.current?.(false);
+          // Clear arrowFlyRef after 3s — removes landed label and lets the
+          // scroll overlay effect fully resume.
           setTimeout(() => {
             if (scrollOverlayRef.current) {
               map.removeLayer(scrollOverlayRef.current);
               scrollOverlayRef.current = null;
             }
             arrowFlyRef.current = null;
-            onArrowFlyLockRef.current?.(false);
-          }, 10000);
+          }, 3000);
         }
       };
       // Snapshot the navigate callback NOW — during flyTo the viewport reshuffles
