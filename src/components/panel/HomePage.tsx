@@ -707,9 +707,8 @@ function PersonCard({
       style={{
         scrollSnapAlign: 'start',
         ...(isActive ? {
-          transform: 'scale(1.06)',
           backgroundColor: 'rgba(139,92,246,0.1)',
-          boxShadow: '0 0 20px rgba(139,92,246,0.35), 0 0 6px rgba(139,92,246,0.2), inset 0 0 0 2px rgba(139,92,246,0.5)',
+          boxShadow: '0 0 16px rgba(139,92,246,0.3), inset 0 0 0 2px rgba(139,92,246,0.5)',
           borderRadius: '12px',
         } : {}),
       }}
@@ -1285,10 +1284,12 @@ export function HomePage({
   // Horizontal scroll within a section should activate that section even if
   // the user hasn't scrolled vertically yet. Track the initial index to avoid
   // triggering on mount (which would highlight LBJ before user interacts).
-  const prevPeopleIdx = useRef(peopleActiveIdx);
-  const prevStoriesIdx = useRef(storiesActiveIdx);
-  const prevCollectionsIdx = useRef(collectionsActiveIdx);
-  const prevNearYouIdx = useRef(nearYouActiveIdx);
+  // Initialize to -1 so the first detection (index 0) registers as a change,
+  // allowing the first visible card to be highlighted after hasUserScrolled.
+  const prevPeopleIdx = useRef(-1);
+  const prevStoriesIdx = useRef(-1);
+  const prevCollectionsIdx = useRef(-1);
+  const prevNearYouIdx = useRef(-1);
   // When a horizontal swipe activates a section, suppress vertical observer
   // Horizontal swipe locks the active section until the user scrolls vertically
   // enough to move to a different section. Prevents vertical observer from

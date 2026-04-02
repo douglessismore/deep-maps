@@ -76,8 +76,8 @@ function getHighlightRadius(
   baseRadius: number,
 ): number {
   if (hasHighlight && highlightIds.has(momentId)) {
-    // Highlighted markers: noticeably bigger but not map-covering
-    return Math.max(baseRadius * 1.4, 6);
+    // Highlighted markers: slightly bigger, main differentiation is stroke + opacity
+    return Math.max(baseRadius + 1, 5);
   }
   // Shrink non-highlighted markers when something is highlighted
   if (hasHighlight) return Math.max(1.5, baseRadius * 0.5);
@@ -135,6 +135,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const markersRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const activeOverlayRef = useRef<L.Marker | null>(null);
   const scrollOverlayRef = useRef<L.Marker | null>(null);
+  const scrollPolylineRef = useRef<L.Polyline | null>(null);
   const offScreenArrowRef = useRef<HTMLDivElement | null>(null);
   // Track active arrow-click flyTo so the arrow tracks during animation
   const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; cleanup: () => void } | null>(null);
@@ -288,8 +289,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         marker.setRadius(radius);
         marker.setStyle({
           fillOpacity: isHighlighted ? 1.0 : opacity,
-          weight: isHighlighted ? 3 : 1.5,
-          color: isHighlighted ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
+          weight: isHighlighted ? 2 : 1.5,
+          color: isHighlighted ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.35)',
         });
       }
     },
@@ -466,6 +467,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
     }
+    if (scrollPolylineRef.current) {
+      map.removeLayer(scrollPolylineRef.current);
+      scrollPolylineRef.current = null;
+    }
 
     if (scrollHighlight && scrollHighlight.length >= 1) {
       // Close any open hover tooltips on existing markers to prevent duplicates
@@ -536,6 +541,23 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         }
         marker.addTo(map);
         scrollOverlayRef.current = marker;
+        // Draw thin polylines from the label center to each visible highlighted moment
+        if (visibleMoments.length > 0) {
+          const catColor = momentCategoryMap.get(visibleMoments[0].id);
+          const lineColor = catColor ? CATEGORIES[catColor]?.color || '#888' : '#888';
+          const lines: L.LatLngExpression[][] = visibleMoments.map(m => [
+            [centerLat, centerLng] as L.LatLngExpression,
+            [m.lat, m.lng] as L.LatLngExpression,
+          ]);
+          const polyline = L.polyline(lines, {
+            color: lineColor,
+            weight: 1,
+            opacity: 0.4,
+            dashArray: '4 4',
+          });
+          polyline.addTo(map);
+          scrollPolylineRef.current = polyline;
+        }
       } else {
         // Single moment: show dot + label inline
         const moment = scrollHighlight[0];
@@ -602,6 +624,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       if (scrollOverlayRef.current) {
         map.removeLayer(scrollOverlayRef.current);
         scrollOverlayRef.current = null;
+      }
+      if (scrollPolylineRef.current) {
+        map.removeLayer(scrollPolylineRef.current);
+        scrollPolylineRef.current = null;
       }
       hideOffScreenArrow();
     };
