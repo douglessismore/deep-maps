@@ -441,15 +441,43 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               iconAnchor: [0, anchorY],
             });
             const landedMarker = L.marker([targetLat, targetLng], { icon: landedIcon, zIndexOffset: 900, interactive: true });
-            landedMarker.on('click', () => {
-              // Use the saved navigate from arrow click time (not current, which
-              // may have been overwritten by viewport reshuffles during flyTo)
-              const nav = arrowFlyRef.current?.navigate;
-              if (nav) nav();
-              else onNavigateRef.current?.();
-            });
             landedMarker.addTo(map);
+            // Use DOM-level click handler with stopPropagation to prevent the
+            // map's click handler from also firing (which removes the overlay).
+            // Leaflet's bubblingMouseEvents doesn't reliably stop propagation
+            // for DivIcon markers with iconSize [0,0].
+            const iconEl = landedMarker.getElement();
+            if (iconEl) {
+              iconEl.style.pointerEvents = 'auto';
+              iconEl.addEventListener('click', (evt) => {
+                evt.stopPropagation();
+                const nav = arrowFlyRef.current?.navigate;
+                if (nav) nav();
+                else onNavigateRef.current?.();
+              });
+            }
             scrollOverlayRef.current = landedMarker;
+          }
+          // Re-apply scroll highlight to all markers after flyTo landing.
+          // During flyTo the marker creation effect doesn't re-run (stable
+          // filteredMoments), so destination markers may have stale opacity.
+          const hl = scrollHighlightRef.current;
+          const hlIds = new Set(hl?.map(m => m.id) ?? []);
+          const hasHl = hlIds.size > 0;
+          const currentZoom = map.getZoom();
+          const baseRad = getRadius(currentZoom);
+          for (const [id, mk] of markersRef.current) {
+            const m = momentById.get(id);
+            if (!m) continue;
+            const isHl = hasHl && hlIds.has(id);
+            const op = getHighlightOpacity(id, hlIds, hasHl, m, currentZoom, !!activeCollection, softHighlightRef.current);
+            const rd = getHighlightRadius(id, hlIds, hasHl, baseRad);
+            mk.setRadius(rd);
+            mk.setStyle({
+              fillOpacity: isHl ? 1.0 : op,
+              weight: isHl ? 3 : 1.5,
+              color: isHl ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
+            });
           }
           // Clear the lock after 10 seconds. Also remove the landed label
           // to prevent stale data when the scroll highlight effect resumes.
@@ -581,14 +609,21 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           return mDist < bDist ? m : best;
         }, visibleMoments[0]);
         const nearestStory = momentStoryMap.get(nearestMoment.id);
-        marker.on('click', () => {
-          if (onNavigateRef.current) {
-            onNavigateRef.current();
-          } else if (nearestStory) {
-            onClickRef.current(nearestMoment, nearestStory);
-          }
-        });
         marker.addTo(map);
+        // DOM-level click with stopPropagation — prevents map click from
+        // dismissing the overlay before navigate can fire.
+        const multiEl = marker.getElement();
+        if (multiEl) {
+          multiEl.style.pointerEvents = 'auto';
+          multiEl.addEventListener('click', (evt) => {
+            evt.stopPropagation();
+            if (onNavigateRef.current) {
+              onNavigateRef.current();
+            } else if (nearestStory) {
+              onClickRef.current(nearestMoment, nearestStory);
+            }
+          });
+        }
         scrollOverlayRef.current = marker;
       } else {
         // Single moment: show dot + label inline
@@ -644,14 +679,21 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         });
         const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
-        marker.on('click', () => {
-          if (onNavigateRef.current) {
-            onNavigateRef.current();
-          } else if (story) {
-            onClickRef.current(moment, story);
-          }
-        });
         marker.addTo(map);
+        // DOM-level click with stopPropagation — prevents map click from
+        // dismissing the overlay before navigate can fire.
+        const singleEl = marker.getElement();
+        if (singleEl) {
+          singleEl.style.pointerEvents = 'auto';
+          singleEl.addEventListener('click', (evt) => {
+            evt.stopPropagation();
+            if (onNavigateRef.current) {
+              onNavigateRef.current();
+            } else if (story) {
+              onClickRef.current(moment, story);
+            }
+          });
+        }
         scrollOverlayRef.current = marker;
       }
     }
