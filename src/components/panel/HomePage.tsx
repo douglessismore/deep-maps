@@ -993,9 +993,13 @@ export function HomePage({
     const base = nearYouMomentsLive.length > 0 ? nearYouMomentsLive : nearestFallback;
     if (!backfillMoments || backfillMoments.length === 0) return base;
     const inViewIds = new Set(base.map(vl => vl.location.id));
-    const fill = backfillMoments.filter(vl => !inViewIds.has(vl.location.id));
+    let fill = backfillMoments.filter(vl => !inViewIds.has(vl.location.id));
+    // Apply category filter to backfill moments
+    if (categoryFilter !== null) {
+      fill = fill.filter(vl => vl.story?.category === categoryFilter);
+    }
     return [...base, ...fill];
-  }, [nearYouMomentsLive, nearestFallback, backfillMoments]);
+  }, [nearYouMomentsLive, nearestFallback, backfillMoments, categoryFilter]);
 
   const frozenNearYou = useRef(nearYouWithBackfill);
   if (!isNearYouScrolling) frozenNearYou.current = nearYouWithBackfill;
@@ -1034,9 +1038,16 @@ export function HomePage({
   // Combined collections: viewport + backfill (like stories)
   const filteredCollections = useMemo(() => {
     const inView = viewportFilteredCollections;
-    const fill = (backfillCollections ?? []).filter(c => !inView.some(vc => vc.id === c.id));
+    let fill = (backfillCollections ?? []).filter(c => !inView.some(vc => vc.id === c.id));
+    // Apply category filter to backfill collections
+    if (categoryFilter !== null) {
+      fill = fill.filter(c => c.momentIds.some(mid => {
+        const parentStory = momentToStoryMap.get(mid);
+        return parentStory?.category === categoryFilter;
+      }));
+    }
     return [...inView, ...fill];
-  }, [viewportFilteredCollections, backfillCollections]);
+  }, [viewportFilteredCollections, backfillCollections, categoryFilter, momentToStoryMap]);
 
   const backfillCollectionIds = useMemo(
     () => new Set((backfillCollections ?? []).map(c => c.id)),
@@ -1046,9 +1057,13 @@ export function HomePage({
   // Combined stories: viewport + backfill (for Stories Near You section)
   const allHomeStories = useMemo(() => {
     const inView = viewportStories ?? [];
-    const fill = (backfillStories ?? []).filter(s => !inView.some(vs => vs.id === s.id));
+    let fill = (backfillStories ?? []).filter(s => !inView.some(vs => vs.id === s.id));
+    // Apply category filter to backfill stories
+    if (categoryFilter !== null) {
+      fill = fill.filter(s => s.category === categoryFilter);
+    }
     return [...inView, ...fill];
-  }, [viewportStories, backfillStories]);
+  }, [viewportStories, backfillStories, categoryFilter]);
 
   const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
   const storiesSectionTitle = 'Stories';
