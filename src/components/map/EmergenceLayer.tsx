@@ -141,8 +141,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const scrollOverlayRef = useRef<L.Marker | null>(null);
   const scrollPolylineRef = useRef<L.Polyline | null>(null);
   const offScreenArrowRef = useRef<HTMLDivElement | null>(null);
-  // Track active arrow-click flyTo so the arrow tracks during animation
-  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; navigate?: () => void; cleanup: () => void } | null>(null);
+  // Track active arrow-click flyTo so the arrow tracks during animation.
+  // `landed` is set after flyTo completes — signals overlay effect to use
+  // label comparison instead of full block.
+  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; navigate?: () => void; cleanup: () => void; landed?: boolean } | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -301,8 +303,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
     },
     zoomend: () => {
-      // During arrow flyTo, don't update marker highlights from reshuffled data
-      if (arrowFlyRef.current) return;
+      // During arrow flyTo animation, don't update markers. After landing, allow.
+      if (arrowFlyRef.current && !arrowFlyRef.current.landed) return;
 
       const zoom = map.getZoom();
       const baseRadius = getRadius(zoom);
@@ -329,10 +331,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
   // ── Scroll highlight: boost highlighted dots, fade others ──────────
   useEffect(() => {
-    // During arrow flyTo, skip — the create/update effect already applies
-    // correct highlight state from scrollHighlightRef (which is stable
-    // because App.tsx blocks handleScrollHighlight during the lock).
-    if (arrowFlyRef.current) return;
+    // During arrow flyTo ANIMATION, skip — the create/update effect applies
+    // correct highlight from scrollHighlightRef. After landing, allow updates.
+    if (arrowFlyRef.current && !arrowFlyRef.current.landed) return;
 
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const hasHighlight = highlightIds.size > 0;
@@ -492,20 +493,12 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               color: isHl ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
             });
           }
+          // Mark flyTo as landed — tells overlay effect to use label comparison
+          // instead of full block. The label persists until user scrolls to a
+          // different card, pans, or taps.
+          if (arrowFlyRef.current) arrowFlyRef.current.landed = true;
           // Release the App.tsx lock NOW so handleScrollHighlight resumes.
-          // This lets the scroll system update state (arrows, card highlights)
-          // while arrowFlyRef still protects the landed label from being
-          // replaced by the scroll overlay effect.
           onArrowFlyLockRef.current?.(false);
-          // Clear arrowFlyRef after 3s — removes landed label and lets the
-          // scroll overlay effect fully resume.
-          setTimeout(() => {
-            if (scrollOverlayRef.current) {
-              map.removeLayer(scrollOverlayRef.current);
-              scrollOverlayRef.current = null;
-            }
-            arrowFlyRef.current = null;
-          }, 3000);
         }
       };
       // Snapshot the navigate callback NOW — during flyTo the viewport reshuffles
@@ -543,12 +536,18 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
   useEffect(() => {
-    // If an arrow-click flyTo lock is active, block ALL scroll highlight
-    // updates. The lock is cleared by a timeout in the moveEnd handler.
-    // This prevents viewport-driven reshuffles from overriding the landed label.
-    // CRITICAL: do NOT call hideOffScreenArrow() here when arrowFlyRef is set —
-    // it would clean up the moveEnd listener that creates the landed label.
-    if (arrowFlyRef.current) return;
+    // During active flyTo animation, block completely — the moveEnd handler
+    // will create the landed label when the animation finishes.
+    if (arrowFlyRef.current && !arrowFlyRef.current.landed) return;
+    // After flyTo landed: keep the label if scroll data is for the SAME entity
+    // (viewport reshuffles produce same card). Replace when user scrolls to
+    // a DIFFERENT card — that means intentional interaction.
+    if (arrowFlyRef.current?.landed) {
+      const sameEntity = scrollHighlightLabel === arrowFlyRef.current.label;
+      if (sameEntity) return; // keep landed label
+      // User scrolled to a different card — clear arrowFlyRef and proceed
+      arrowFlyRef.current = null;
+    }
 
     // Clean up old arrows when processing new scroll highlights
     hideOffScreenArrow();
