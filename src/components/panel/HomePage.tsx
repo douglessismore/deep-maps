@@ -37,7 +37,7 @@ interface HomePageProps {
   /** Navigate to the explorer/4-tab view */
   onBrowseAll: () => void;
   /** Scroll highlight — called when a card scrolls into view in the horizontal row */
-  onScrollHighlight?: (locations: Moment[], storyId?: string, label?: string, meta?: string) => void;
+  onScrollHighlight?: (locations: Moment[], storyId?: string, label?: string, meta?: string, sourceType?: 'entity' | 'story' | 'collection' | 'moment', sourceId?: string) => void;
   /** Scroll-driven map pan — called with lat/lng to gently follow the highlighted card */
   onScrollPan?: (lat: number, lng: number) => void;
   /** Category filter — synced with App.tsx to also filter map markers */
@@ -1260,7 +1260,7 @@ export function HomePage({
   // Compute highlight for a given section using cardId from DOM (primary)
   // or index fallback. cardId is read directly from the visible card element,
   // so it's always in sync with what the user sees — immune to array reshuffling.
-  const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null; meta: string | null } => {
+  const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null; meta: string | null; sourceType: 'entity' | 'story' | 'collection' | 'moment' | null; sourceId: string | null } => {
     if (section === 'people') {
       const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
       const cardId = peopleActiveCardId;
@@ -1269,7 +1269,7 @@ export function HomePage({
         ?? people[Math.max(0, idx)];
       if (person) {
         const moments = getMomentsForEntity(person.entity.id);
-        return { moments, label: person.entity.name, meta: `${moments.length} event${moments.length !== 1 ? 's' : ''} nearby` };
+        return { moments, label: person.entity.name, meta: `${moments.length} event${moments.length !== 1 ? 's' : ''} nearby`, sourceType: 'entity', sourceId: person.entity.id };
       }
     }
     if (section === 'nearYou') {
@@ -1281,7 +1281,7 @@ export function HomePage({
         const story = vl.story;
         const year = vl.location.year;
         const meta = story ? (year ? `${story.name} · ${year}` : story.name) : (year ? `${year}` : null);
-        return { moments: [vl.location], label: null, meta };
+        return { moments: [vl.location], label: null, meta, sourceType: 'moment', sourceId: vl.location.id };
       }
     }
     if (section === 'collections') {
@@ -1295,7 +1295,7 @@ export function HomePage({
           const m = momentByIdRef.current.get(mid);
           if (m) moments.push(m);
         }
-        return { moments, label: coll.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}` };
+        return { moments, label: coll.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}`, sourceType: 'collection', sourceId: coll.id };
       }
     }
     if (section === 'stories') {
@@ -1308,10 +1308,10 @@ export function HomePage({
           const m = momentByIdRef.current.get(sm.momentId);
           if (m) moments.push(m);
         }
-        return { moments, label: story.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}` };
+        return { moments, label: story.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}`, sourceType: 'story', sourceId: story.id };
       }
     }
-    return { moments: [], label: null, meta: null };
+    return { moments: [], label: null, meta: null, sourceType: null, sourceId: null };
   }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx, peopleActiveCardId, storiesActiveCardId, collectionsActiveCardId, nearYouActiveCardId]);
 
   // Fire highlight whenever the active section or its horizontal index changes
@@ -1319,9 +1319,9 @@ export function HomePage({
   const highlightDataKey = `${gridPeople[0]?.entity.id ?? ''}-${allHomeStories[0]?.id ?? ''}-${nearYouMoments[0]?.location.id ?? ''}-${filteredCollections[0]?.id ?? ''}`;
   useEffect(() => {
     if (!onScrollHighlightRef.current || !activeHomeSection || !hasUserScrolledRef.current) return;
-    const { moments, label, meta } = computeHighlight(activeHomeSection);
+    const { moments, label, meta, sourceType, sourceId } = computeHighlight(activeHomeSection);
     if (moments.length > 0) {
-      onScrollHighlightRef.current(moments, undefined, label ?? undefined, meta ?? undefined);
+      onScrollHighlightRef.current(moments, undefined, label ?? undefined, meta ?? undefined, sourceType ?? undefined, sourceId ?? undefined);
     }
   }, [activeHomeSection, computeHighlight, highlightDataKey]);
 

@@ -462,12 +462,14 @@ function App() {
   // Deduplicate scrollHighlight — bail when moment IDs haven't changed.
   // Optional storyId shortcuts the expensive story-lookup in scrollHighlightStoryId.
   const scrollHighlightIdsRef = useRef<string>('');
-  const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string, label?: string, meta?: string) => {
+  const scrollHighlightSourceRef = useRef<{ type: string; id: string } | null>(null);
+  const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string, label?: string, meta?: string, sourceType?: string, sourceId?: string) => {
     // Inside a collection, never allow multi-moment highlights (prevents polylines)
     const safeLocations = activeCollection && locations.length > 1 ? [locations[0]] : locations;
     const key = safeLocations.map(m => m.id).join(',') + (label ? `::${label}` : '');
     if (key === scrollHighlightIdsRef.current) return; // same set + label — skip re-render
     scrollHighlightIdsRef.current = key;
+    scrollHighlightSourceRef.current = sourceType && sourceId ? { type: sourceType, id: sourceId } : null;
     setScrollHighlightDirectId(storyId ?? null);
     setScrollHighlight(safeLocations);
     setScrollHighlightLabel(label ?? null);
@@ -588,6 +590,27 @@ function App() {
     setMode('entity');
     setPanelView('explorer');
   }, [pushNav]);
+
+  // Navigate to the source entity/story/collection from a scroll highlight label click
+  // (e.g., after arrow flyTo lands and user taps the label)
+  const handleScrollHighlightNavigate = useCallback(() => {
+    const source = scrollHighlightSourceRef.current;
+    if (!source) return;
+    if (source.type === 'entity') {
+      const entity = entities.find(e => e.id === source.id);
+      if (entity) handleEntitySelect(entity);
+    } else if (source.type === 'story') {
+      const story = stories.find(s => s.id === source.id);
+      if (story) handleStorySelect(story);
+    } else if (source.type === 'collection') {
+      const coll = collections.find(c => c.id === source.id);
+      if (coll) handleCollectionSelect(coll);
+    } else if (source.type === 'moment') {
+      const story = momentToStoryMap.get(source.id);
+      const moment = moments.find(m => m.id === source.id);
+      if (story && moment) handleLocationSelect(moment, story);
+    }
+  }, [entities, stories, collections, moments, momentToStoryMap, handleEntitySelect, handleStorySelect, handleCollectionSelect, handleLocationSelect]);
 
   // Entity-mode location highlight — used for both scroll-driven and click-driven
   const handleEntityScrollLocationActive = useCallback((moment: Moment, _story: Story) => {
@@ -853,6 +876,7 @@ function App() {
               scrollHighlightLabel={scrollHighlightLabel}
               scrollHighlightMeta={scrollHighlightMeta}
               onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
+              onScrollHighlightNavigate={handleScrollHighlightNavigate}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}
@@ -888,6 +912,7 @@ function App() {
               scrollHighlightLabel={scrollHighlightLabel}
               scrollHighlightMeta={scrollHighlightMeta}
               onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
+              onScrollHighlightNavigate={handleScrollHighlightNavigate}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}

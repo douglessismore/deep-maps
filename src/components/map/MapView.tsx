@@ -121,6 +121,8 @@ interface MapViewProps {
   /** Contextual meta text for scroll highlight labels (e.g., "3 events nearby") */
   scrollHighlightMeta?: string | null;
   onDismissHighlight?: () => void;
+  /** Navigate to the source entity/story/collection when a scroll highlight label is clicked */
+  onScrollHighlightNavigate?: () => void;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -1200,6 +1202,7 @@ export function MapView(props: MapViewProps) {
             scrollHighlightLabel={props.scrollHighlightLabel}
             scrollHighlightMeta={props.scrollHighlightMeta}
             onDismissHighlight={props.onDismissHighlight}
+            onScrollHighlightNavigate={props.onScrollHighlightNavigate}
           />
         )}
       </MapContainer>

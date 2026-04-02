@@ -102,9 +102,11 @@ interface EmergenceLayerProps {
   scrollHighlightMeta?: string | null;
   /** Called when user taps the map to dismiss scroll highlights */
   onDismissHighlight?: () => void;
+  /** Navigate to the source entity/story/collection from a scroll highlight label click */
+  onScrollHighlightNavigate?: () => void;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -261,6 +263,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const onDismissRef = useRef(onDismissHighlight);
   onDismissRef.current = onDismissHighlight;
 
+  const onNavigateRef = useRef(onScrollHighlightNavigate);
+  onNavigateRef.current = onScrollHighlightNavigate;
+
   useMapEvents({
     click: () => {
       // Tap on map background → dismiss all scroll highlights and arrows
@@ -412,7 +417,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               iconSize: [0, 0],
               iconAnchor: [0, anchorY],
             });
-            const landedMarker = L.marker([targetLat, targetLng], { icon: landedIcon, zIndexOffset: 900, interactive: false });
+            const landedMarker = L.marker([targetLat, targetLng], { icon: landedIcon, zIndexOffset: 900, interactive: true });
+            landedMarker.on('click', () => {
+              // Navigate to the source entity/story/collection
+              onNavigateRef.current?.();
+            });
             landedMarker.addTo(map);
             scrollOverlayRef.current = landedMarker;
           }
@@ -536,9 +545,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           return mDist < bDist ? m : best;
         }, visibleMoments[0]);
         const nearestStory = momentStoryMap.get(nearestMoment.id);
-        if (nearestStory) {
-          marker.on('click', () => onClickRef.current(nearestMoment, nearestStory));
-        }
+        marker.on('click', () => {
+          if (onNavigateRef.current) {
+            onNavigateRef.current();
+          } else if (nearestStory) {
+            onClickRef.current(nearestMoment, nearestStory);
+          }
+        });
         marker.addTo(map);
         scrollOverlayRef.current = marker;
       } else {
@@ -595,9 +608,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         });
         const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
-        if (story) {
-          marker.on('click', () => onClickRef.current(moment, story));
-        }
+        marker.on('click', () => {
+          if (onNavigateRef.current) {
+            onNavigateRef.current();
+          } else if (story) {
+            onClickRef.current(moment, story);
+          }
+        });
         marker.addTo(map);
         scrollOverlayRef.current = marker;
       }
