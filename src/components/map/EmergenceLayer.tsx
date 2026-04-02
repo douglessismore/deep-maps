@@ -76,8 +76,8 @@ function getHighlightRadius(
   baseRadius: number,
 ): number {
   if (hasHighlight && highlightIds.has(momentId)) {
-    // Highlighted markers: slightly bigger, main differentiation is stroke + opacity
-    return Math.max(baseRadius + 1, 5);
+    // Highlighted markers: same size, differentiated by opacity + stroke only
+    return baseRadius;
   }
   // Shrink non-highlighted markers when something is highlighted
   if (hasHighlight) return Math.max(1.5, baseRadius * 0.5);

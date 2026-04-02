@@ -88,7 +88,9 @@ function useScrollActiveIndex(
   /** For vertical mode: listen for scroll on this parent instead of containerRef */
   scrollParentRef?: React.RefObject<HTMLElement | null>,
 ): { index: number; cardId: string | null } {
-  const [activeIndex, setActiveIndex] = useState(0);
+  // Start at -1 so the initial findCenter() call (which sets 0) registers as a
+  // state change, enabling the first card to be highlighted.
+  const [activeIndex, setActiveIndex] = useState(-1);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -106,8 +108,9 @@ function useScrollActiveIndex(
 
       if (mode === 'horizontal') {
         const rect = container.getBoundingClientRect();
+        // When scrolled to the very start, the first card is active
+        const atStart = container.scrollLeft < 10;
         // Use 30% from left — biased toward the snapped card's body.
-        // Compare card's left edge since cards use snap-start alignment.
         const referenceX = rect.left + rect.width * 0.3;
         for (let i = 0; i < allChildren.length; i++) {
           const child = allChildren[i] as HTMLElement;
@@ -115,13 +118,20 @@ function useScrollActiveIndex(
           if (cardIndex === undefined) continue;
           const idx = parseInt(cardIndex, 10);
           const cardRect = child.getBoundingClientRect();
-          // Use left third of card as detection point (not center, not edge)
           const cardDetectX = cardRect.left + cardRect.width * 0.33;
           const dist = Math.abs(cardDetectX - referenceX);
           if (dist < closestDist) {
             closestDist = dist;
             closestIdx = idx;
             closestCardId = child.dataset?.cardId ?? null;
+          }
+        }
+        // When scrolled all the way left, force the first card as active
+        if (atStart && allChildren.length > 0) {
+          const firstCard = allChildren[0] as HTMLElement;
+          if (firstCard.dataset?.cardIndex !== undefined) {
+            closestIdx = parseInt(firstCard.dataset.cardIndex, 10);
+            closestCardId = firstCard.dataset?.cardId ?? null;
           }
         }
       } else {
