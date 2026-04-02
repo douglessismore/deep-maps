@@ -175,6 +175,7 @@ export function ExplorePanel({
   const [viewportStories, setViewportStories] = useState<Story[]>([]);
   const [homeViewportStories, setHomeViewportStories] = useState<Story[]>([]);
   const [backfillStories, setBackfillStories] = useState<Story[]>([]);
+  const [backfillMoments, setBackfillMoments] = useState<ViewportLocation[]>([]);
   // activeLocationId comes from props (driven by App.tsx activeLocation)
   const [scrollActiveStoryId, setScrollActiveStoryId] = useState<string | null>(null);
 
@@ -308,6 +309,19 @@ export function ExplorePanel({
           const aDist = Math.min(...a.moments.map(sm => { const m = momentMap.get(sm.momentId); return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity; }));
           const bDist = Math.min(...b.moments.map(sm => { const m = momentMap.get(sm.momentId); return m ? distanceMiles(center.lat, center.lng, m.lat, m.lng) : Infinity; }));
           return aDist - bDist;
+        })
+        .slice(0, 15)
+    );
+    // Backfill moments: off-screen moments from expanded bounds, sorted by notability
+    const expandedMoments = getLocationsInBounds(sourceStories, expanded, momentMap, moments);
+    const inViewMomentIds = new Set(allInBounds.map(vl => vl.location.id));
+    setBackfillMoments(
+      expandedMoments
+        .filter(vl => !inViewMomentIds.has(vl.location.id) && vl.story !== null)
+        .sort((a, b) => {
+          const aN = ('notability' in a.location && typeof a.location.notability === 'number') ? a.location.notability : 30;
+          const bN = ('notability' in b.location && typeof b.location.notability === 'number') ? b.location.notability : 30;
+          return bN - aN || a.distance - b.distance;
         })
         .slice(0, 15)
     );
@@ -980,6 +994,7 @@ export function ExplorePanel({
           onCategoryFilter={onCategoryFilter}
           viewportStories={homeViewportStories}
           backfillStories={backfillStories}
+          backfillMoments={backfillMoments}
           backfillCollections={backfillCollections}
           onStorySelect={(story) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);

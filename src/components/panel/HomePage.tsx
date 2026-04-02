@@ -49,6 +49,8 @@ interface HomePageProps {
   viewportStories?: Story[];
   /** Backfill stories from expanded bounds */
   backfillStories?: Story[];
+  /** Backfill moments from expanded bounds */
+  backfillMoments?: ViewportLocation[];
   /** Backfill collections from expanded bounds */
   backfillCollections?: StoryCollection[];
   /** Story click handler */
@@ -827,6 +829,7 @@ export function HomePage({
   allCategoriesInView,
   viewportStories,
   backfillStories,
+  backfillMoments,
   backfillCollections,
   onStorySelect,
   scrollRef,
@@ -964,11 +967,20 @@ export function HomePage({
       .slice(0, 20);
   }, [nearYouMomentsLive.length, userLocation, allMoments, stories, categoryFilter]);
 
-  const frozenNearYou = useRef(nearYouMomentsLive);
-  if (!isNearYouScrolling) frozenNearYou.current = nearYouMomentsLive;
+  // Merge viewport moments with backfill (off-screen) moments
+  const nearYouWithBackfill = useMemo(() => {
+    const base = nearYouMomentsLive.length > 0 ? nearYouMomentsLive : nearestFallback;
+    if (!backfillMoments || backfillMoments.length === 0) return base;
+    const inViewIds = new Set(base.map(vl => vl.location.id));
+    const fill = backfillMoments.filter(vl => !inViewIds.has(vl.location.id));
+    return [...base, ...fill];
+  }, [nearYouMomentsLive, nearestFallback, backfillMoments]);
+
+  const frozenNearYou = useRef(nearYouWithBackfill);
+  if (!isNearYouScrolling) frozenNearYou.current = nearYouWithBackfill;
   const nearYouMoments = isNearYouScrolling
     ? frozenNearYou.current
-    : (nearYouMomentsLive.length > 0 ? nearYouMomentsLive : nearestFallback);
+    : nearYouWithBackfill;
 
   // Dynamic title: context-aware
   const isUsingFallback = nearYouMomentsLive.length === 0 && nearestFallback.length > 0;
@@ -1066,6 +1078,7 @@ export function HomePage({
   // Backfill boundary indices (where in-view items end and off-screen items begin)
   const peopleBackfillStart = filteredPersonEntities.length;
   const storiesBackfillStart = (viewportStories ?? []).length;
+  const momentsBackfillStart = nearYouMomentsLive.length;
   const collectionsBackfillStart = viewportFilteredCollections.length;
 
   // Title adapts based on whether we're showing backfill people
@@ -1661,28 +1674,33 @@ export function HomePage({
               </div>
             ) : (
               // Collapsed: horizontal scroll
+              <>
+              {momentsBackfillStart === 0 && nearYouMoments.length > 0 && <BackfillHint />}
               <HScrollRow scrollRef={nearYouScrollRef}>
                 {nearYouMoments.map((vl, i) => (
-                  <NearYouCard
-                    key={vl.location.id}
-                    location={vl.location}
-                    story={vl.story}
-                    cardIndex={i}
-                    cardId={vl.location.id}
-                    isActive={i === nearYouActiveIdx}
-                    contextLine={getMomentContextLine(vl.location)}
-                    distance={
-                      userLocation
-                        ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
-                        : 0
-                    }
-                    onClick={() => {
-                      isNavigating.current = true;
-                      if (vl.story) onMomentClick(vl.location, vl.story);
-                    }}
-                  />
+                  <Fragment key={vl.location.id}>
+                    {i === momentsBackfillStart && momentsBackfillStart > 0 && momentsBackfillStart < nearYouMoments.length && <BackfillDivider />}
+                    <NearYouCard
+                      location={vl.location}
+                      story={vl.story}
+                      cardIndex={i}
+                      cardId={vl.location.id}
+                      isActive={i === nearYouActiveIdx}
+                      contextLine={getMomentContextLine(vl.location)}
+                      distance={
+                        userLocation
+                          ? distanceMiles(userLocation.lat, userLocation.lng, vl.location.lat, vl.location.lng)
+                          : 0
+                      }
+                      onClick={() => {
+                        isNavigating.current = true;
+                        if (vl.story) onMomentClick(vl.location, vl.story);
+                      }}
+                    />
+                  </Fragment>
                 ))}
               </HScrollRow>
+              </>
             )
           ) : (
             <div className="px-4 py-8 text-center">

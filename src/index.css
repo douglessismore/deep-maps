@@ -550,7 +550,7 @@ html, body, #root {
   line-height: 1.35 !important;
   cursor: pointer;
   pointer-events: auto !important;
-  animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
+  animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1) both !important;
   transition: background 0.15s, box-shadow 0.2s, border-color 0.2s, transform 0.15s !important;
 }
 
@@ -628,7 +628,7 @@ html, body, #root {
   max-width: 220px;
   white-space: normal;
   padding: 6px 10px;
-  animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+  animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1) both;
 }
 .scroll-label-meta {
   font-family: 'Space Grotesk', 'Courier New', monospace;
