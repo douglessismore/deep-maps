@@ -1129,6 +1129,38 @@ export function HomePage({
     };
   }, []);
 
+  // ── Reset horizontal scroll when viewport data changes (map pan) ──
+  // When the map is panned, in-view cards reshuffle to the beginning of each row.
+  // Reset scrollLeft so the user sees the new in-view cards, not stale backfill.
+  const prevFirstPeopleId = useRef(gridPeople[0]?.entity.id);
+  const prevFirstStoryId = useRef(allHomeStories[0]?.id);
+  const prevFirstMomentId = useRef(nearYouMoments[0]?.location.id);
+  const prevFirstCollectionId = useRef(filteredCollections[0]?.id);
+
+  useEffect(() => {
+    const curPeople = gridPeople[0]?.entity.id;
+    const curStory = allHomeStories[0]?.id;
+    const curMoment = nearYouMoments[0]?.location.id;
+    const curCollection = filteredCollections[0]?.id;
+
+    if (curPeople !== prevFirstPeopleId.current) {
+      prevFirstPeopleId.current = curPeople;
+      if (peopleScrollRef.current) { peopleScrollRef.current.scrollLeft = 0; savedPeopleScrollLeft = 0; }
+    }
+    if (curStory !== prevFirstStoryId.current) {
+      prevFirstStoryId.current = curStory;
+      if (storiesScrollRef.current) storiesScrollRef.current.scrollLeft = 0;
+    }
+    if (curMoment !== prevFirstMomentId.current) {
+      prevFirstMomentId.current = curMoment;
+      if (nearYouScrollRef.current) nearYouScrollRef.current.scrollLeft = 0;
+    }
+    if (curCollection !== prevFirstCollectionId.current) {
+      prevFirstCollectionId.current = curCollection;
+      if (collectionsScrollRef.current) collectionsScrollRef.current.scrollLeft = 0;
+    }
+  }, [gridPeople, allHomeStories, nearYouMoments, filteredCollections]);
+
   // ── Scroll position tracking for back navigation ──
   useEffect(() => {
     const container = homeScrollRef.current;
