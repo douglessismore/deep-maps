@@ -548,20 +548,20 @@ export function EntityPanel({
           <div className="px-4 pt-2 pb-1 flex items-center gap-2">
             <button
               onClick={() => setEntitySort('nearest')}
-              className={`px-2.5 py-1 text-[11px] font-mono rounded-full transition-colors ${
+              className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
                 entitySort === 'nearest'
-                  ? 'bg-white/10 text-[var(--text-primary)]'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                  ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
               }`}
             >
               Nearest
             </button>
             <button
               onClick={() => setEntitySort('timeline')}
-              className={`px-2.5 py-1 text-[11px] font-mono rounded-full transition-colors ${
+              className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
                 entitySort === 'timeline'
-                  ? 'bg-white/10 text-[var(--text-primary)]'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                  ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
               }`}
             >
               Timeline
