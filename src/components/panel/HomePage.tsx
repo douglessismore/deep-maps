@@ -1079,22 +1079,34 @@ export function HomePage({
   // Section 3: Notable People — sorted by maxNotability, grid of 10
   // Merge in backfill people (off-screen, sorted by distance)
 
+  // Apply category filter to backfill people (same logic as filteredPersonEntities)
+  const filteredBackfillPeople = useMemo(() => {
+    if (categoryFilter === null) return backfillPeople ?? [];
+    return (backfillPeople ?? []).filter(({ entity }) => {
+      const entityMoments = getMomentsForEntity(entity.id);
+      return entityMoments.some((m) => {
+        const parentStory = momentToStoryMap.get(m.id);
+        return parentStory?.category === categoryFilter;
+      });
+    });
+  }, [backfillPeople, categoryFilter, momentToStoryMap]);
+
   const gridPeople = useMemo(() => {
     const inView = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
-    const fill = (backfillPeople ?? [])
+    const fill = filteredBackfillPeople
       .filter(p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id))
       .sort((a, b) => b.maxNotability - a.maxNotability);
     return [...inView, ...fill].slice(0, 25);
-  }, [filteredPersonEntities, backfillPeople]);
+  }, [filteredPersonEntities, filteredBackfillPeople]);
 
   // All people for expanded view
   const allPeople = useMemo(() => {
     const inView = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
-    const fill = (backfillPeople ?? [])
+    const fill = filteredBackfillPeople
       .filter(p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id))
       .sort((a, b) => b.maxNotability - a.maxNotability);
     return [...inView, ...fill];
-  }, [filteredPersonEntities, backfillPeople]);
+  }, [filteredPersonEntities, filteredBackfillPeople]);
 
   // Backfill boundary indices (where in-view items end and off-screen items begin)
   const peopleBackfillStart = filteredPersonEntities.length;
