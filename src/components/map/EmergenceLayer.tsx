@@ -140,7 +140,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const scrollPolylineRef = useRef<L.Polyline | null>(null);
   const offScreenArrowRef = useRef<HTMLDivElement | null>(null);
   // Track active arrow-click flyTo so the arrow tracks during animation
-  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; cleanup: () => void } | null>(null);
+  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; navigate?: () => void; cleanup: () => void } | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -303,11 +303,14 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
   // ── Scroll highlight: boost highlighted dots, fade others ──────────
   useEffect(() => {
+    // During arrow flyTo, keep the pre-flyTo marker highlights frozen.
+    // Prevents viewport-driven reshuffles from highlighting the wrong person.
+    if (arrowFlyRef.current) return;
+
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const hasHighlight = highlightIds.size > 0;
     const zoom = map.getZoom();
     const baseRadius = getRadius(zoom);
-
 
     for (const [id, marker] of markersRef.current) {
       const moment = momentById.get(id);
@@ -419,8 +422,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             });
             const landedMarker = L.marker([targetLat, targetLng], { icon: landedIcon, zIndexOffset: 900, interactive: true });
             landedMarker.on('click', () => {
-              // Navigate to the source entity/story/collection
-              onNavigateRef.current?.();
+              // Use the saved navigate from arrow click time (not current, which
+              // may have been overwritten by viewport reshuffles during flyTo)
+              const nav = arrowFlyRef.current?.navigate;
+              if (nav) nav();
+              else onNavigateRef.current?.();
             });
             landedMarker.addTo(map);
             scrollOverlayRef.current = landedMarker;
@@ -436,8 +442,12 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           }, 5000);
         }
       };
+      // Snapshot the navigate callback NOW — during flyTo the viewport reshuffles
+      // and scrollHighlightSourceRef gets overwritten with a different entity.
+      const savedNavigate = onNavigateRef.current;
       arrowFlyRef.current = {
         lat: targetLat, lng: targetLng, label, meta,
+        navigate: savedNavigate || undefined,
         cleanup: () => { map.off('move', onMove); map.off('moveend', onMoveEnd); }
       };
       map.on('move', onMove);
@@ -467,10 +477,12 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     // If an arrow-click flyTo lock is active, block ALL scroll highlight
     // updates. The lock is cleared by a timeout in the moveEnd handler.
     // This prevents viewport-driven reshuffles from overriding the landed label.
-    // Always clean up old arrows (prevents stuck arrows alongside new highlights)
-    hideOffScreenArrow();
-
+    // CRITICAL: do NOT call hideOffScreenArrow() here when arrowFlyRef is set —
+    // it would clean up the moveEnd listener that creates the landed label.
     if (arrowFlyRef.current) return;
+
+    // Clean up old arrows when processing new scroll highlights
+    hideOffScreenArrow();
 
     if (scrollOverlayRef.current) {
       map.removeLayer(scrollOverlayRef.current);
