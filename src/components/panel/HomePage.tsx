@@ -111,7 +111,7 @@ function useScrollActiveIndex(
       if (mode === 'horizontal') {
         const rect = container.getBoundingClientRect();
         // When scrolled to the very start, the first card is active
-        const atStart = container.scrollLeft < 10;
+        const atStart = container.scrollLeft < 20;
         // Use 30% from left — biased toward the snapped card's body.
         const referenceX = rect.left + rect.width * 0.3;
         for (let i = 0; i < allChildren.length; i++) {
@@ -129,11 +129,14 @@ function useScrollActiveIndex(
           }
         }
         // When scrolled all the way left, force the first card as active
-        if (atStart && allChildren.length > 0) {
-          const firstCard = allChildren[0] as HTMLElement;
-          if (firstCard.dataset?.cardIndex !== undefined) {
-            closestIdx = parseInt(firstCard.dataset.cardIndex, 10);
-            closestCardId = firstCard.dataset?.cardId ?? null;
+        if (atStart) {
+          for (let i = 0; i < allChildren.length; i++) {
+            const child = allChildren[i] as HTMLElement;
+            if (child.dataset?.cardIndex !== undefined) {
+              closestIdx = parseInt(child.dataset.cardIndex, 10);
+              closestCardId = child.dataset?.cardId ?? null;
+              break;
+            }
           }
         }
       } else {

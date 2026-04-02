@@ -63,8 +63,8 @@ function getHighlightOpacity(
 ): number {
   if (!hasHighlight) return computeAlpha(moment, zoom);
   if (highlightIds.has(momentId)) return 1;
-  // Soft mode (homepage): dim non-highlighted but keep visible (not 0.08 invisible)
-  if (isSoft) return Math.max(0.12, computeAlpha(moment, zoom) * 0.3);
+  // Soft mode (homepage): dim non-highlighted significantly so highlighted ones pop
+  if (isSoft) return Math.max(0.08, computeAlpha(moment, zoom) * 0.2);
   // Collections: dim other moments gently (still visible). Stories: fade hard.
   return isCollection ? 0.3 : 0.08;
 }
@@ -289,8 +289,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         marker.setRadius(radius);
         marker.setStyle({
           fillOpacity: isHighlighted ? 1.0 : opacity,
-          weight: isHighlighted ? 2 : 1.5,
-          color: isHighlighted ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.35)',
+          weight: 1.5,
+          color: isHighlighted ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.25)',
         });
       }
     },
@@ -541,23 +541,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         }
         marker.addTo(map);
         scrollOverlayRef.current = marker;
-        // Draw thin polylines from the label center to each visible highlighted moment
-        if (visibleMoments.length > 0) {
-          const catColor = momentCategoryMap.get(visibleMoments[0].id);
-          const lineColor = catColor ? CATEGORIES[catColor]?.color || '#888' : '#888';
-          const lines: L.LatLngExpression[][] = visibleMoments.map(m => [
-            [centerLat, centerLng] as L.LatLngExpression,
-            [m.lat, m.lng] as L.LatLngExpression,
-          ]);
-          const polyline = L.polyline(lines, {
-            color: lineColor,
-            weight: 1,
-            opacity: 0.4,
-            dashArray: '4 4',
-          });
-          polyline.addTo(map);
-          scrollPolylineRef.current = polyline;
-        }
       } else {
         // Single moment: show dot + label inline
         const moment = scrollHighlight[0];

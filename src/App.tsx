@@ -582,6 +582,8 @@ function App() {
     setActiveLocation(null);
     setCategoryFilter(null);
     setScrollHighlight([]);
+    setScrollHighlightLabel(null);
+    setScrollHighlightMeta(null);
     scrollHighlightIdsRef.current = '';
     setMode('entity');
     setPanelView('explorer');
