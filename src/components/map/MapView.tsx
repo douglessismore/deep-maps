@@ -123,6 +123,8 @@ interface MapViewProps {
   onDismissHighlight?: () => void;
   /** Navigate to the source entity/story/collection when a scroll highlight label is clicked */
   onScrollHighlightNavigate?: () => void;
+  /** Lock/unlock scroll highlight updates during arrow flyTo */
+  onArrowFlyLock?: (locked: boolean) => void;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -1203,6 +1205,7 @@ export function MapView(props: MapViewProps) {
             scrollHighlightMeta={props.scrollHighlightMeta}
             onDismissHighlight={props.onDismissHighlight}
             onScrollHighlightNavigate={props.onScrollHighlightNavigate}
+            onArrowFlyLock={props.onArrowFlyLock}
           />
         )}
       </MapContainer>

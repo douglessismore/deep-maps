@@ -104,9 +104,11 @@ interface EmergenceLayerProps {
   onDismissHighlight?: () => void;
   /** Navigate to the source entity/story/collection from a scroll highlight label click */
   onScrollHighlightNavigate?: () => void;
+  /** Lock/unlock scroll highlight updates during arrow flyTo */
+  onArrowFlyLock?: (locked: boolean) => void;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate, onArrowFlyLock }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -182,8 +184,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     const radius = getRadius(zoom);
     const nextIds = new Set(filteredMoments.map(m => m.id));
 
-    // Current highlight state — during arrow flyTo, ignore reshuffled data
-    const hl = arrowFlyRef.current ? null : scrollHighlightRef.current;
+    // Always apply scroll highlight to new/updated markers (including during
+    // arrow flyTo — the lock in App.tsx prevents state from changing, so
+    // scrollHighlightRef is stable and correct for the active entity).
+    const hl = scrollHighlightRef.current;
     const highlightIds = new Set(hl?.map(m => m.id) ?? []);
     const hasHighlight = highlightIds.size > 0;
 
@@ -266,6 +270,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const onNavigateRef = useRef(onScrollHighlightNavigate);
   onNavigateRef.current = onScrollHighlightNavigate;
 
+  const onArrowFlyLockRef = useRef(onArrowFlyLock);
+  onArrowFlyLockRef.current = onArrowFlyLock;
+
   useMapEvents({
     click: () => {
       // Tap on map background → dismiss all scroll highlights and arrows
@@ -274,7 +281,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         scrollOverlayRef.current = null;
       }
       hideOffScreenArrow();
-      arrowFlyRef.current = null;
+      if (arrowFlyRef.current) {
+        arrowFlyRef.current = null;
+        onArrowFlyLockRef.current?.(false);
+      }
       onDismissRef.current?.();
     },
     zoomend: () => {
@@ -306,24 +316,10 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
   // ── Scroll highlight: boost highlighted dots, fade others ──────────
   useEffect(() => {
-    // During arrow flyTo, reset ALL markers to default (un-highlighted) state.
-    // This prevents the contrast between old dimmed markers and new full-opacity
-    // markers that creates the "bold gray markers" artifact.
-    if (arrowFlyRef.current) {
-      const zoom = map.getZoom();
-      const baseRadius = getRadius(zoom);
-      for (const [id, marker] of markersRef.current) {
-        const moment = momentById.get(id);
-        if (!moment) continue;
-        marker.setRadius(baseRadius);
-        marker.setStyle({
-          fillOpacity: computeAlpha(moment, zoom),
-          weight: 1.5,
-          color: 'rgba(255,255,255,0.35)',
-        });
-      }
-      return;
-    }
+    // During arrow flyTo, skip — the create/update effect already applies
+    // correct highlight state from scrollHighlightRef (which is stable
+    // because App.tsx blocks handleScrollHighlight during the lock).
+    if (arrowFlyRef.current) return;
 
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const hasHighlight = highlightIds.size > 0;
@@ -463,6 +459,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               scrollOverlayRef.current = null;
             }
             arrowFlyRef.current = null;
+            onArrowFlyLockRef.current?.(false);
           }, 10000);
         }
       };
@@ -474,6 +471,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         navigate: savedNavigate || undefined,
         cleanup: () => { map.off('move', onMove); map.off('moveend', onMoveEnd); }
       };
+      // Lock scroll highlight updates in App.tsx so viewport reshuffles
+      // during flyTo don't overwrite the source ref or trigger effect cleanups.
+      onArrowFlyLockRef.current?.(true);
       map.on('move', onMove);
       map.on('moveend', onMoveEnd);
       map.flyTo([targetLat, targetLng], map.getZoom(), { duration: 1.5 });
@@ -666,6 +666,11 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         scrollPolylineRef.current = null;
       }
       hideOffScreenArrow();
+      // Release arrow fly lock on cleanup (e.g., unmount when entering entity/story mode)
+      if (arrowFlyRef.current) {
+        arrowFlyRef.current = null;
+        onArrowFlyLockRef.current?.(false);
+      }
     };
   }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap]);
 

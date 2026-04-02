@@ -463,7 +463,16 @@ function App() {
   // Optional storyId shortcuts the expensive story-lookup in scrollHighlightStoryId.
   const scrollHighlightIdsRef = useRef<string>('');
   const scrollHighlightSourceRef = useRef<{ type: string; id: string } | null>(null);
+  // Lock: blocks scroll highlight updates during arrow flyTo so that viewport
+  // reshuffles don't overwrite the landed label or navigate source.
+  const arrowFlyLockRef = useRef(false);
+  const handleArrowFlyLock = useCallback((locked: boolean) => {
+    arrowFlyLockRef.current = locked;
+  }, []);
   const handleScrollHighlight = useCallback((locations: Moment[], storyId?: string, label?: string, meta?: string, sourceType?: string, sourceId?: string) => {
+    // During arrow flyTo, block ALL scroll highlight updates. The arrow landing
+    // system manages its own overlay and relies on the pre-flyTo source ref.
+    if (arrowFlyLockRef.current) return;
     // Inside a collection, never allow multi-moment highlights (prevents polylines)
     const safeLocations = activeCollection && locations.length > 1 ? [locations[0]] : locations;
     const key = safeLocations.map(m => m.id).join(',') + (label ? `::${label}` : '');
@@ -596,6 +605,8 @@ function App() {
   const handleScrollHighlightNavigate = useCallback(() => {
     const source = scrollHighlightSourceRef.current;
     if (!source) return;
+    // Release arrow fly lock so scroll highlights resume after navigation
+    arrowFlyLockRef.current = false;
     if (source.type === 'entity') {
       const entity = entities.find(e => e.id === source.id);
       if (entity) handleEntitySelect(entity);
@@ -877,6 +888,7 @@ function App() {
               scrollHighlightMeta={scrollHighlightMeta}
               onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
               onScrollHighlightNavigate={handleScrollHighlightNavigate}
+              onArrowFlyLock={handleArrowFlyLock}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}
@@ -913,6 +925,7 @@ function App() {
               scrollHighlightMeta={scrollHighlightMeta}
               onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
               onScrollHighlightNavigate={handleScrollHighlightNavigate}
+              onArrowFlyLock={handleArrowFlyLock}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}
