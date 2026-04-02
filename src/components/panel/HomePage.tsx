@@ -166,13 +166,31 @@ function useScrollActiveIndex(
       rafId = requestAnimationFrame(findCenter);
     };
 
+    // scrollend fires after scroll-snap animation completes — ensures we
+    // detect the final settled position (critical for first-card detection
+    // when snapping back to scrollLeft=0).
+    let scrollEndTimer: ReturnType<typeof setTimeout>;
+    const onScrollEnd = () => {
+      findCenter();
+    };
+    // Fallback for browsers without scrollend: debounced timer
+    const onScrollFallback = () => {
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(findCenter, 120);
+    };
+
     // Initial calculation
     findCenter();
 
     scrollTarget.addEventListener('scroll', onScroll, { passive: true });
+    scrollTarget.addEventListener('scrollend', onScrollEnd, { passive: true });
+    scrollTarget.addEventListener('scroll', onScrollFallback, { passive: true });
     return () => {
       scrollTarget.removeEventListener('scroll', onScroll);
+      scrollTarget.removeEventListener('scrollend', onScrollEnd);
+      scrollTarget.removeEventListener('scroll', onScrollFallback);
       cancelAnimationFrame(rafId);
+      clearTimeout(scrollEndTimer);
     };
   }, [containerRef, scrollParentRef, itemCount, enabled, mode]);
 
