@@ -293,10 +293,11 @@ function cardHighlightStyle(isActive: boolean, categoryColor?: string): React.CS
   const color = categoryColor || '#D4A853';
   return {
     transform: 'scale(1.06)',
-    borderColor: `${color}cc`, // category color at ~80% opacity
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    boxShadow: `0 0 24px ${color}33, 0 0 8px ${color}22, 0 4px 16px rgba(0,0,0,0.5)`,
-    outline: `1px solid ${color}44`,
+    borderColor: `${color}cc`,
+    borderWidth: '2px',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    boxShadow: `0 0 28px ${color}66, 0 0 10px ${color}44, 0 4px 16px rgba(0,0,0,0.5)`,
+    outline: `2px solid ${color}66`,
     outlineOffset: '2px',
   };
 }
@@ -708,9 +709,12 @@ function PersonCard({
       style={{
         scrollSnapAlign: 'start',
         ...(isActive ? {
-          transform: 'scale(1.04)',
-          backgroundColor: 'rgba(139,92,246,0.06)',
-          boxShadow: '0 0 20px rgba(139,92,246,0.15)',
+          transform: 'scale(1.06)',
+          backgroundColor: 'rgba(139,92,246,0.1)',
+          boxShadow: '0 0 24px rgba(139,92,246,0.4), 0 0 8px rgba(139,92,246,0.25)',
+          outline: '2px solid rgba(139,92,246,0.5)',
+          outlineOffset: '2px',
+          borderRadius: '12px',
         } : {}),
       }}
     >
@@ -718,11 +722,11 @@ function PersonCard({
         <img
           src={entity.imageUrl}
           alt={entity.name}
-          className={`w-14 h-14 rounded-full object-cover ring-1 ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(255,255,255,0.1)]'}`}
+          className={`w-14 h-14 rounded-full object-cover ${isActive ? 'ring-2 ring-[rgba(139,92,246,0.7)]' : 'ring-1 ring-[rgba(255,255,255,0.1)]'}`}
           loading="lazy"
         />
       ) : (
-        <span className={`w-14 h-14 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 flex items-center justify-center text-[16px] font-bold text-[rgba(139,92,246,0.8)] ${isActive ? 'ring-[rgba(139,92,246,0.6)]' : 'ring-[rgba(139,92,246,0.3)]'}`}>
+        <span className={`w-14 h-14 rounded-full bg-[rgba(139,92,246,0.15)] flex items-center justify-center text-[16px] font-bold text-[rgba(139,92,246,0.8)] ${isActive ? 'ring-2 ring-[rgba(139,92,246,0.7)]' : 'ring-1 ring-[rgba(139,92,246,0.3)]'}`}>
           {entity.name[0].toUpperCase()}
         </span>
       )}
@@ -740,7 +744,7 @@ function PersonCard({
 
 function BackfillDivider() {
   return (
-    <div className="shrink-0 flex items-center self-stretch px-2">
+    <div className="shrink-0 flex items-center self-stretch px-2 snap-start">
       <div className="flex flex-col items-center gap-1.5 py-2">
         <div className="w-px h-4 bg-[rgba(255,255,255,0.2)]" />
         <div className="flex flex-col items-center gap-0.5 px-1">

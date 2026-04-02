@@ -850,6 +850,7 @@ function App() {
               scrollHighlight={scrollHighlight}
               scrollHighlightLabel={scrollHighlightLabel}
               scrollHighlightMeta={scrollHighlightMeta}
+              onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}
@@ -884,6 +885,7 @@ function App() {
               scrollHighlight={scrollHighlight}
               scrollHighlightLabel={scrollHighlightLabel}
               scrollHighlightMeta={scrollHighlightMeta}
+              onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
               mode={mode}
               categoryFilter={categoryFilter}
               storyIdFilter={timelineStoryIdFilter}

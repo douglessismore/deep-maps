@@ -120,6 +120,7 @@ interface MapViewProps {
   scrollHighlightLabel?: string | null;
   /** Contextual meta text for scroll highlight labels (e.g., "3 events nearby") */
   scrollHighlightMeta?: string | null;
+  onDismissHighlight?: () => void;
 }
 
 // ── Notability helpers (used for individual pin rendering) ──────────
@@ -1198,6 +1199,7 @@ export function MapView(props: MapViewProps) {
             softHighlight={props.mode === 'explore'}
             scrollHighlightLabel={props.scrollHighlightLabel}
             scrollHighlightMeta={props.scrollHighlightMeta}
+            onDismissHighlight={props.onDismissHighlight}
           />
         )}
       </MapContainer>

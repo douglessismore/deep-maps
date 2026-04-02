@@ -76,7 +76,8 @@ function getHighlightRadius(
   baseRadius: number,
 ): number {
   if (hasHighlight && highlightIds.has(momentId)) {
-    return Math.max(baseRadius, 5);
+    // Highlighted markers: much bigger and bolder
+    return Math.max(baseRadius * 2, 9);
   }
   // Shrink non-highlighted markers when something is highlighted
   if (hasHighlight) return Math.max(1.5, baseRadius * 0.5);
@@ -99,9 +100,11 @@ interface EmergenceLayerProps {
   scrollHighlightLabel?: string | null;
   /** Contextual meta text (e.g., "3 events nearby", "From Ranchland... · 2011") */
   scrollHighlightMeta?: string | null;
+  /** Called when user taps the map to dismiss scroll highlights */
+  onDismissHighlight?: () => void;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -134,7 +137,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   const scrollOverlayRef = useRef<L.Marker | null>(null);
   const offScreenArrowRef = useRef<HTMLDivElement | null>(null);
   // Track active arrow-click flyTo so the arrow tracks during animation
-  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; cleanup: () => void } | null>(null);
+  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; cleanup: () => void } | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -253,7 +256,21 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   }, [filteredMoments, map]);
 
   // ── Zoom-dependent radius + opacity updates ──────────────────────
+  // Stable ref for dismiss callback
+  const onDismissRef = useRef(onDismissHighlight);
+  onDismissRef.current = onDismissHighlight;
+
   useMapEvents({
+    click: () => {
+      // Tap on map background → dismiss all scroll highlights and arrows
+      if (scrollOverlayRef.current) {
+        map.removeLayer(scrollOverlayRef.current);
+        scrollOverlayRef.current = null;
+      }
+      hideOffScreenArrow();
+      arrowFlyRef.current = null;
+      onDismissRef.current?.();
+    },
     zoomend: () => {
       const zoom = map.getZoom();
       const baseRadius = getRadius(zoom);
@@ -265,10 +282,15 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       for (const [id, marker] of markersRef.current) {
         const moment = momentById.get(id);
         if (!moment) continue;
+        const isHighlighted = hasHighlight && highlightIds.has(id);
         const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection, softHighlightRef.current);
         const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
         marker.setRadius(radius);
-        marker.setStyle({ fillOpacity: opacity });
+        marker.setStyle({
+          fillOpacity: isHighlighted ? 1.0 : opacity,
+          weight: isHighlighted ? 3 : 1.5,
+          color: isHighlighted ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
+        });
       }
     },
   });
@@ -284,10 +306,15 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     for (const [id, marker] of markersRef.current) {
       const moment = momentById.get(id);
       if (!moment) continue;
+      const isHighlighted = hasHighlight && highlightIds.has(id);
       const opacity = getHighlightOpacity(id, highlightIds, hasHighlight, moment, zoom, !!activeCollection, softHighlightRef.current);
       const radius = getHighlightRadius(id, highlightIds, hasHighlight, baseRadius);
       marker.setRadius(radius);
-      marker.setStyle({ fillOpacity: opacity });
+      marker.setStyle({
+        fillOpacity: isHighlighted ? 1.0 : opacity,
+        weight: isHighlighted ? 3 : 1.5,
+        color: isHighlighted ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
+      });
     }
   }, [scrollHighlight, map]);
 
@@ -336,7 +363,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     `;
   };
 
-  const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string) => {
+  const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string, meta?: string) => {
     // Don't override an active arrow-click flyTo
     if (arrowFlyRef.current) return;
     // Always replace the arrow with current data. The cardId-based lookup
@@ -372,11 +399,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               ? 'flex-direction:column-reverse;align-items:center;'
               : labelRight ? '' : 'flex-direction:row-reverse;';
             const anchorY = nearBottom ? 50 : 0;
+            const landedMeta = arrowFlyRef.current?.meta || '';
             const landedIcon = L.divIcon({
               className: '',
               html: `<div class="scroll-label-container" style="${containerStyle}">
                 <div class="scroll-label-text dark-tooltip">
                   <div>${label}</div>
+                  ${landedMeta ? `<div class="scroll-label-meta">${landedMeta}</div>` : ''}
                 </div>
               </div>`,
               iconSize: [0, 0],
@@ -386,14 +415,19 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             landedMarker.addTo(map);
             scrollOverlayRef.current = landedMarker;
           }
-          // Clear the lock after 5 seconds. By then the user has either
-          // started interacting (scroll will trigger new highlight) or is
-          // idle (and the highlight will update on next scroll).
-          setTimeout(() => { arrowFlyRef.current = null; }, 5000);
+          // Clear the lock after 5 seconds. Also remove the landed label
+          // to prevent stale data when the scroll highlight effect resumes.
+          setTimeout(() => {
+            if (scrollOverlayRef.current) {
+              map.removeLayer(scrollOverlayRef.current);
+              scrollOverlayRef.current = null;
+            }
+            arrowFlyRef.current = null;
+          }, 5000);
         }
       };
       arrowFlyRef.current = {
-        lat: targetLat, lng: targetLng, label,
+        lat: targetLat, lng: targetLng, label, meta,
         cleanup: () => { map.off('move', onMove); map.off('moveend', onMoveEnd); }
       };
       map.on('move', onMove);
@@ -423,13 +457,15 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     // If an arrow-click flyTo lock is active, block ALL scroll highlight
     // updates. The lock is cleared by a timeout in the moveEnd handler.
     // This prevents viewport-driven reshuffles from overriding the landed label.
+    // Always clean up old arrows (prevents stuck arrows alongside new highlights)
+    hideOffScreenArrow();
+
     if (arrowFlyRef.current) return;
 
     if (scrollOverlayRef.current) {
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
     }
-    hideOffScreenArrow();
 
     if (scrollHighlight && scrollHighlight.length >= 1) {
       // Close any open hover tooltips on existing markers to prevent duplicates
@@ -452,7 +488,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             const mDist = Math.hypot(m.lat - center.lat, m.lng - center.lng);
             return mDist < bDist ? m : best;
           }, scrollHighlight[0]);
-          showOffScreenArrow(nearest.lat, nearest.lng, scrollHighlightLabel || undefined);
+          showOffScreenArrow(nearest.lat, nearest.lng, scrollHighlightLabel || undefined, scrollHighlightMeta || undefined);
           return;
         }
         const lats = visibleMoments.map(m => m.lat);
@@ -506,7 +542,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const vpBounds = map.getBounds();
         if (!vpBounds.contains([moment.lat, moment.lng])) {
           // Off-screen — show directional arrow
-          showOffScreenArrow(moment.lat, moment.lng, scrollHighlightLabel || moment.name);
+          showOffScreenArrow(moment.lat, moment.lng, scrollHighlightLabel || moment.name, scrollHighlightMeta || undefined);
           return;
         }
         const category = momentCategoryMap.get(moment.id);
