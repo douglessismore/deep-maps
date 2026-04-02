@@ -182,8 +182,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     const radius = getRadius(zoom);
     const nextIds = new Set(filteredMoments.map(m => m.id));
 
-    // Current highlight state
-    const hl = scrollHighlightRef.current;
+    // Current highlight state — during arrow flyTo, ignore reshuffled data
+    const hl = arrowFlyRef.current ? null : scrollHighlightRef.current;
     const highlightIds = new Set(hl?.map(m => m.id) ?? []);
     const hasHighlight = highlightIds.size > 0;
 
@@ -278,6 +278,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       onDismissRef.current?.();
     },
     zoomend: () => {
+      // During arrow flyTo, don't update marker highlights from reshuffled data
+      if (arrowFlyRef.current) return;
+
       const zoom = map.getZoom();
       const baseRadius = getRadius(zoom);
 
@@ -399,7 +402,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           map.off('moveend', onMoveEnd);
           hideOffScreenArrow();
           // Show a temporary label at the landed location so the user sees what they clicked
-          if (label && scrollOverlayRef.current === null) {
+          // Clear any pre-existing scroll overlay (from before the arrow click —
+          // the scroll highlight effect preserves it during arrowFlyRef lock)
+          if (scrollOverlayRef.current) {
+            map.removeLayer(scrollOverlayRef.current);
+            scrollOverlayRef.current = null;
+          }
+          if (label) {
             const pt = map.latLngToContainerPoint([targetLat, targetLng]);
             const sz = map.getSize();
             const labelRight = pt.x <= sz.x * 0.5;
