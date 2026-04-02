@@ -122,7 +122,9 @@ interface MapViewProps {
   scrollHighlightMeta?: string | null;
   onDismissHighlight?: () => void;
   /** Navigate to the source entity/story/collection when a scroll highlight label is clicked */
-  onScrollHighlightNavigate?: () => void;
+  onScrollHighlightNavigate?: (overrideSource?: { type: string; id: string }) => void;
+  /** Current scroll highlight source for snapshotting at arrow-click time */
+  scrollHighlightSource?: { type: string; id: string } | null;
   /** Lock/unlock scroll highlight updates during arrow flyTo */
   onArrowFlyLock?: (locked: boolean) => void;
 }
@@ -1205,6 +1207,7 @@ export function MapView(props: MapViewProps) {
             scrollHighlightMeta={props.scrollHighlightMeta}
             onDismissHighlight={props.onDismissHighlight}
             onScrollHighlightNavigate={props.onScrollHighlightNavigate}
+            scrollHighlightSource={props.scrollHighlightSource}
             onArrowFlyLock={props.onArrowFlyLock}
           />
         )}

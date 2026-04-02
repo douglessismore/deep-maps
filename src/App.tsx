@@ -55,6 +55,7 @@ function App() {
   const [scrollHighlight, setScrollHighlight] = useState<Moment[]>([]);
   const [scrollHighlightLabel, setScrollHighlightLabel] = useState<string | null>(null);
   const [scrollHighlightMeta, setScrollHighlightMeta] = useState<string | null>(null);
+  const [scrollHighlightSource, setScrollHighlightSource] = useState<{ type: string; id: string } | null>(null);
   const [activeCollection, setActiveCollection] = useState<StoryCollection | null>(null);
   const [activeEntity, setActiveEntity] = useState<Entity | null>(null);
   const [resetViewKey, setResetViewKey] = useState(0);
@@ -478,7 +479,9 @@ function App() {
     const key = safeLocations.map(m => m.id).join(',') + (label ? `::${label}` : '');
     if (key === scrollHighlightIdsRef.current) return; // same set + label — skip re-render
     scrollHighlightIdsRef.current = key;
-    scrollHighlightSourceRef.current = sourceType && sourceId ? { type: sourceType, id: sourceId } : null;
+    const newSource = sourceType && sourceId ? { type: sourceType, id: sourceId } : null;
+    scrollHighlightSourceRef.current = newSource;
+    setScrollHighlightSource(newSource);
     setScrollHighlightDirectId(storyId ?? null);
     setScrollHighlight(safeLocations);
     setScrollHighlightLabel(label ?? null);
@@ -601,9 +604,11 @@ function App() {
   }, [pushNav]);
 
   // Navigate to the source entity/story/collection from a scroll highlight label click
-  // (e.g., after arrow flyTo lands and user taps the label)
-  const handleScrollHighlightNavigate = useCallback(() => {
-    const source = scrollHighlightSourceRef.current;
+  // (e.g., after arrow flyTo lands and user taps the label).
+  // Optional overrideSource: snapshotted at arrow-click time so viewport reshuffles
+  // during flyTo don't redirect to the wrong entity.
+  const handleScrollHighlightNavigate = useCallback((overrideSource?: { type: string; id: string }) => {
+    const source = overrideSource || scrollHighlightSourceRef.current;
     if (!source) return;
     // Release arrow fly lock so scroll highlights resume after navigation
     arrowFlyLockRef.current = false;
@@ -888,6 +893,7 @@ function App() {
               scrollHighlightMeta={scrollHighlightMeta}
               onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
               onScrollHighlightNavigate={handleScrollHighlightNavigate}
+              scrollHighlightSource={scrollHighlightSource}
               onArrowFlyLock={handleArrowFlyLock}
               mode={mode}
               categoryFilter={categoryFilter}
@@ -925,6 +931,7 @@ function App() {
               scrollHighlightMeta={scrollHighlightMeta}
               onDismissHighlight={() => { setScrollHighlight([]); setScrollHighlightLabel(null); setScrollHighlightMeta(null); }}
               onScrollHighlightNavigate={handleScrollHighlightNavigate}
+              scrollHighlightSource={scrollHighlightSource}
               onArrowFlyLock={handleArrowFlyLock}
               mode={mode}
               categoryFilter={categoryFilter}

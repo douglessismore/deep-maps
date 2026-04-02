@@ -102,13 +102,16 @@ interface EmergenceLayerProps {
   scrollHighlightMeta?: string | null;
   /** Called when user taps the map to dismiss scroll highlights */
   onDismissHighlight?: () => void;
-  /** Navigate to the source entity/story/collection from a scroll highlight label click */
-  onScrollHighlightNavigate?: () => void;
+  /** Navigate to the source entity/story/collection from a scroll highlight label click.
+   *  Optional overrideSource bypasses the ref (used by arrow flyTo to avoid stale data). */
+  onScrollHighlightNavigate?: (overrideSource?: { type: string; id: string }) => void;
+  /** Current scroll highlight source for snapshotting at arrow-click time */
+  scrollHighlightSource?: { type: string; id: string } | null;
   /** Lock/unlock scroll highlight updates during arrow flyTo */
   onArrowFlyLock?: (locked: boolean) => void;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate, onArrowFlyLock }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate, scrollHighlightSource, onArrowFlyLock }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -144,7 +147,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Track active arrow-click flyTo so the arrow tracks during animation.
   // `landed` is set after flyTo completes — signals overlay effect to use
   // label comparison instead of full block.
-  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; navigate?: () => void; cleanup: () => void; landed?: boolean } | null>(null);
+  const arrowFlyRef = useRef<{ lat: number; lng: number; label?: string; meta?: string; navigate?: () => void; sourceSnapshot?: { type: string; id: string } | null; cleanup: () => void; landed?: boolean } | null>(null);
 
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
@@ -465,8 +468,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               iconEl.style.pointerEvents = 'auto';
               iconEl.addEventListener('click', (evt) => {
                 evt.stopPropagation();
-                const nav = arrowFlyRef.current?.navigate;
-                if (nav) nav();
+                // Use snapshotted source for reliable navigation
+                const snap = arrowFlyRef.current?.sourceSnapshot;
+                if (snap) onNavigateRef.current?.(snap);
                 else onNavigateRef.current?.();
               });
             }
@@ -497,16 +501,27 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           // instead of full block. The label persists until user scrolls to a
           // different card, pans, or taps.
           if (arrowFlyRef.current) arrowFlyRef.current.landed = true;
-          // Release the App.tsx lock NOW so handleScrollHighlight resumes.
-          onArrowFlyLockRef.current?.(false);
+          // DON'T release the App.tsx lock here — keep scrollHighlightSourceRef
+          // intact so label click navigates to the correct entity. Lock is
+          // released by: dragstart (pan), click (tap), or label click (navigate).
+          // Auto-navigate to the entity/story after a short delay so the user
+          // sees the label before the panel opens.
+          const sourceSnap = arrowFlyRef.current?.sourceSnapshot;
+          if (sourceSnap) {
+            setTimeout(() => {
+              onNavigateRef.current?.(sourceSnap);
+            }, 600);
+          }
         }
       };
-      // Snapshot the navigate callback NOW — during flyTo the viewport reshuffles
-      // and scrollHighlightSourceRef gets overwritten with a different entity.
+      // Snapshot the navigate callback AND source NOW — during flyTo the viewport
+      // reshuffles and scrollHighlightSourceRef gets overwritten with a different entity.
       const savedNavigate = onNavigateRef.current;
+      const savedSource = scrollHighlightSource ? { ...scrollHighlightSource } : null;
       arrowFlyRef.current = {
         lat: targetLat, lng: targetLng, label, meta,
         navigate: savedNavigate || undefined,
+        sourceSnapshot: savedSource,
         cleanup: () => { map.off('move', onMove); map.off('moveend', onMoveEnd); }
       };
       // Lock scroll highlight updates in App.tsx so viewport reshuffles
