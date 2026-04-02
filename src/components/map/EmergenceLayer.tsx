@@ -76,8 +76,8 @@ function getHighlightRadius(
   baseRadius: number,
 ): number {
   if (hasHighlight && highlightIds.has(momentId)) {
-    // Highlighted markers: much bigger and bolder
-    return Math.max(baseRadius * 2, 9);
+    // Highlighted markers: noticeably bigger but not map-covering
+    return Math.max(baseRadius * 1.4, 6);
   }
   // Shrink non-highlighted markers when something is highlighted
   if (hasHighlight) return Math.max(1.5, baseRadius * 0.5);

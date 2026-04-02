@@ -292,13 +292,11 @@ function cardHighlightStyle(isActive: boolean, categoryColor?: string): React.CS
   if (!isActive) return {};
   const color = categoryColor || '#D4A853';
   return {
-    transform: 'scale(1.06)',
-    borderColor: `${color}cc`,
+    transform: 'scale(1.03)',
+    borderColor: `${color}aa`,
     borderWidth: '2px',
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    boxShadow: `0 0 28px ${color}66, 0 0 10px ${color}44, 0 4px 16px rgba(0,0,0,0.5)`,
-    outline: `2px solid ${color}66`,
-    outlineOffset: '2px',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    boxShadow: `0 0 16px ${color}44, 0 4px 12px rgba(0,0,0,0.4)`,
   };
 }
 
@@ -711,9 +709,7 @@ function PersonCard({
         ...(isActive ? {
           transform: 'scale(1.06)',
           backgroundColor: 'rgba(139,92,246,0.1)',
-          boxShadow: '0 0 24px rgba(139,92,246,0.4), 0 0 8px rgba(139,92,246,0.25)',
-          outline: '2px solid rgba(139,92,246,0.5)',
-          outlineOffset: '2px',
+          boxShadow: '0 0 20px rgba(139,92,246,0.35), 0 0 6px rgba(139,92,246,0.2), inset 0 0 0 2px rgba(139,92,246,0.5)',
           borderRadius: '12px',
         } : {}),
       }}
