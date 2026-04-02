@@ -1,10 +1,10 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-03-31 (Session 16)
+**Last updated:** 2026-04-01 (Session 18)
 **Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** deepmaps.app (Vercel + Supabase)
-**Latest commit:** `ab998a1`
+**Latest commit:** `a468329`
 
 ---
 
@@ -49,7 +49,141 @@ NOT from the parent directory. MCP servers, slash commands, and settings only lo
 
 ---
 
-## What Was Done This Session (2026-03-31 Session 16)
+## What Was Done This Session (2026-04-01 Session 18 — UI/UX Fixes continued)
+
+### Completed
+1. **Card highlighting 2x more prominent** — `cardHighlightStyle` doubled glow, 2px border. PersonCard uses inset box-shadow (not outline, avoids overflow clip).
+2. **Tap map to dismiss labels** — `onDismissHighlight` callback clears all scroll highlights + arrows on map background tap.
+3. **Highlighted marker styling** — Same radius as normal, differentiated by full opacity + white stroke only. Non-highlighted dimmed to 0.08 in soft mode.
+4. **BackfillDivider snap-start** — Cards after "Zoom out" divider are now reachable (snap-start on divider).
+5. **Stuck arrows cleanup** — `hideOffScreenArrow()` runs before `arrowFlyRef` check in effect.
+6. **Stale labels after 5s timeout** — Timeout also removes landed label before clearing lock.
+7. **Landed label shows meta** — Event count, story name shown below the main label.
+8. **Sort toggle larger** — Nearest/Timeline buttons in EntityPanel: 13px, ring, hover state.
+9. **Moments backfill** — Downtown Austin now shows off-screen moments from 5x expanded bounds after in-view ones. BackfillDivider separates them.
+10. **Label flash fix** — `animation-fill-mode: both` on tooltip-appear prevents opacity flash.
+11. **First card detection** — `scrollLeft < 20` forces first card; `useScrollActiveIndex` starts at -1.
+12. **Clear scroll highlight on entity nav** — `scrollHighlightLabel/Meta` cleared when opening EntityPanel.
+
+### Open Issues (prioritized for next session)
+
+**P0 — Bugs still visible on mobile:**
+- **Arrow click → label disappears instead of opening panel** — Clicking Janis Joplin label after arrow flyTo just dismisses it. Should open her entity card. Needs `targetId`/`targetType` threading through scroll highlight system to EmergenceLayer.
+- **First person card STILL can't be highlighted** — The `scrollLeft < 20` fix may not be working. Needs more investigation. The 30% reference point detection bias may be fundamental.
+- **Corner label when scrolling person moments** — After clicking into a person, scrolling through their moments shows a label partially off-screen in the corner. May be from stale scroll overlay or activeLocation overlay positioning.
+- **Gray markers for wrong person after arrow click** — 3 prominent markers appear that don't belong to the person. May be `getMomentsForEntity` returning moments from canonical story, or soft highlight not dimming enough.
+- **Labels hiding their markers** — LBJ label in downtown covers the actual marker dot.
+- **Category filter doesn't filter backfill people** — `backfillPeople` from ExplorePanel is not category-filtered. F1 drivers show under Dark History.
+
+**P1 — Features requested:**
+- **Arrow click → open panel + back button** — After flying to a person via arrow, their panel should open. Back returns to original viewport. Requires threading entity/story/collection ID through scroll highlight.
+- **Polyline connectors from label to pins** — Parked. User wants it but not if buggy.
+- **Endless scroll** — Deferred. Growing lists mid-scroll breaks index-based detection.
+
+**P2 — Lower priority:**
+- **Sort toggle appears intermittently** — Nearest/Timeline toggle in EntityPanel shows for some entities but not others. May be conditional on moment count.
+- **No arrow when map has zero pins** — By design (no section active until scroll), but could show an indicator.
+- **Stories + Collections visual grouping** — User considering merging these sections visually.
+- **Content: more Austin stories needed** — User started separate Claude Code session for neighborhood-by-neighborhood content.
+
+### Key Architecture Decisions
+- **DOM-driven card identity** — `data-card-id` on each card, read by `useScrollActiveIndex`. Array reshuffles don't break highlight.
+- **arrowFlyRef lock** — 5s unconditional timeout after flyTo landing. Prevents stale label overrides.
+- **Soft highlight mode** — Homepage uses `softHighlight=true` so non-highlighted markers stay visible (0.08 opacity).
+- **Moments backfill** — Same pattern as people/stories/collections: 5x expanded bounds, notability-sorted, sliced to 15.
+
+---
+
+## What Was Done This Session (2026-04-01 Session 17b — UI/UX Fixes)
+
+### Scroll Highlight System Overhaul
+
+1. **Off-by-one scroll highlight fixed** — Root cause: BackfillDivider was a DOM child inside scroll containers, throwing off index. Fix: `data-card-index` + `data-card-id` attributes on all card components. `useScrollActiveIndex` reads identity directly from DOM, immune to array reshuffling.
+
+2. **DOM-driven card identity** — `computeHighlight` now uses `cardId` (read from DOM `data-card-id`) for lookups instead of array index. Eliminates all reshuffle-related mismatches.
+
+3. **Arrow flyTo lock simplified** — Removed all label-comparison and reshuffle-guard logic. Lock is now unconditional (`if (arrowFlyRef.current) return;`) with 5s timeout after landing. Prevents any scroll highlight from overriding the landed label.
+
+4. **Horizontal swipe lock** — When user swipes cards horizontally, vertical scroll observer is blocked until 80px+ vertical scroll. Prevents section switching during horizontal browsing.
+
+5. **No highlights on page load** — `hasUserScrolledRef` gate prevents scroll highlights before user interaction.
+
+### Label Redesign ("Archival Portal")
+
+6. **Glassmorphism refined** — Darker bg (rgba(12,12,16,0.88)), tighter 6px radius, inner luminance glow.
+7. **Blur entrance animation** — Labels materialize from depth with filter:blur(2px) → blur(0) over 0.25s.
+8. **Stem connection** — 1px line connects dot to label in category color.
+9. **Contextual meta line** — People show "N events nearby", moments show "Story · Year", collections show "N moments".
+10. **Category inner glow** — `inset 0 0 12px` at 6% opacity in category color.
+
+### Off-Screen Directional Arrows
+
+11. **Gold arrows with distance** — Point toward off-screen content, show "4.2 mi" in real-time.
+12. **Clickable arrows** — Tap to pan to the target with 1.5s animation.
+13. **Arrow tracks during flyTo** — Smoothly slides along map edge with updating distance.
+14. **Landed label on arrival** — After arrow flyTo, shows the correct label at destination for 5s.
+
+### Card Highlighting
+
+15. **Prominent active state** — Category-colored border at 80%, outer outline ring, stronger glow. Applied to ALL card types (People, Stories, Collections, Moments).
+
+### Other Fixes
+
+16. **End spacer in scroll rows** — 40vw snap-start spacer allows last cards (after BackfillDivider) to scroll into detection range.
+17. **Collection click → nearest moment** — Multi-moment label click navigates to nearest visible moment, not first in array.
+
+### Still Pending (for next session)
+
+- **Back button after arrow flyTo** — Should pan back to original viewport
+- **Arrow click → open person/story panel** — After panning to a person, should it open their panel?
+- **Scroll position restore on back** — Clicking a moment card then pressing back should return to that exact horizontal scroll position
+- **Downtown Austin shows only 3 moments** — `viewportLocations` may not update after flyTo; investigate timing of `updateViewport` vs map moveend
+- **Endless scroll for moments** — Continuously load more moments sorted by distance as user scrolls
+- **Nearest/Timeline sort toggle too small** — Needs more prominent UI
+- **Stories + Collections visual grouping** — Consider merging these sections since both are multi-moment containers
+- **Markers dim on load then fill in** — Static data markers appear before Supabase upgrade fills them
+
+---
+
+## What Was Done This Session (2026-04-01 Session 17)
+
+### Barnes "Indelible Austin" Deep Curation (IN PROGRESS)
+
+**Plan approved:** `.claude/plans/ancient-baking-pancake.md`
+
+**ALL COMPLETED:**
+1. Validator skill updated — 3 new checks (1.14 collection-vs-story, 1.15 biographical moments, 1.16 city-scoped stories), biography-as-infrastructure rule
+2. Full PDF sweep of Indelible Austin Book 1 (~300 pages)
+3. 4 grab-bag stories dissolved (local + Supabase)
+4. Concept entity `1900-austin-dam-failure` deleted
+5. **71 new moments** written across 3 batches (Barnes Pass 2 + Neighborhood P1 + Neighborhood P2)
+6. **9 new incident stories** + **3 biography stories** created
+7. **3 new entities** (Faulk, Ney, Waller) with Wikipedia slugs + profile images
+8. **2 new collections** (Deadliest Days: 10 moments, Freedmen's Communities: 18 moments)
+9. **5 profile images** added (Faulk via wikia, Wallace via wikia, Moya via TX State Cemetery, Ney + Waller via Wikipedia)
+10. Full validator pass run — 3 criticals fixed (banned phrases, description length), 7 Wikipedia slugs added
+11. All content imported to Supabase with 0 errors
+12. User coordinates used for all moments where user provided specific lat/lng
+
+**Content now in Supabase from this session:**
+- Barnes Tier 1: KKK, Pitch and Putt Murder, Anti-War, Spanish Missions, Clarksville, Capitol, Economy Furniture, Schmandt-Besserat, Green Pastures
+- Barnes Tier 2: Brackenridge Hospital, Oakwood Cemetery, Sonobeat/Johnny Winter, Lammes Candies, Palm School, Montopolis, Fort Magruder, Pride, Zilker, Evergreen Cemetery
+- Barnes Pass 2: 1915 Flood (3), 1922 Tornadoes (4 incl St. Ed's), Barton Springs Desegregation (2), 14 Freedmen's Communities, Pre-Austin/Indigenous (4), Building/Infrastructure (3), Civil Rights (3), Misc (Ney lake, Custer, Castle Hill, Rockne, Faulk trial)
+- Neighborhood P1: Yogurt Shop Murders (3), ACL founding (2), Samsung, Huston-Tillotson, Downs Field, Freedom March, Tank Farm, Mansfield Dam, Pennybacker Bridge, St. Ed's tornado
+- Neighborhood P2: Joe Stack IRS attack (2), Tesla Cyber Rodeo, Leanderthal Lady, Inner Space Cavern, Hamilton Pool, Twitter SXSW, SXSW Red River crash, Ransom Center Gutenberg Bible, Obama Torchy's, Continental Club, Scoot Inn, Consulate shooting, Eeyore's Birthday, UT missing brains, SH 130 fastest road, Paramount Houdini ceiling
+
+**Key decisions this session:**
+- City-scoped thematic groupings = COLLECTIONS, never stories (validator rule)
+- All 15 freedmen's communities pinned (user decision)
+- Each disaster is its own story, grouped in "Deadliest Days" collection
+- Biography stories are invisible infrastructure; person entities are user-facing
+- Book/media entities (Indelible Austin as `work` entity) deferred to future session
+- Biographical moments > obvious venue moments (birthplace > racetrack)
+- Organization entities (Dell, KKK) deferred until UI supports them
+
+---
+
+## What Was Done Previous Session (2026-03-31 Session 16)
 
 ### Content Fixes
 
@@ -304,6 +438,9 @@ NOT from the parent directory. MCP servers, slash commands, and settings only lo
 46. **Places must not have separate incident stories** — Content guide v3 rule. Place entities get biography stories only; incidents reference the place entity directly. Prevents duplication.
 47. **Nearest 10 pins (not 20)** — Tighter initial zoom for more focused experience. Was 20, felt too zoomed out.
 48. **Min marker radius 4px, min opacity 0.5** — Ensures all markers remain visible even when dimmed. Previous 0.35 was too faint on satellite tiles.
+49. **DivIcon replaces Leaflet tooltip for scroll highlights** — Single DOM element contains both dot and label. Eliminates tooltip flash from repositioning. Label direction auto-detected (left/right of marker). Bottom-edge detection hides labels for markers in lower 40% of map.
+50. **Off-screen directional arrows** — When scroll highlight targets off-screen moments, a gold arrow (➤) appears at the map edge pointing toward the nearest marker. Uses ray-rectangle intersection for correct edge positioning. Shows distance in miles/feet. Pure DOM element, no Leaflet involvement.
+51. **Tap-to-zoom for off-screen cards** — Backfill cards zoom to nearest marker on click, not on scroll. Avoids the scroll↔zoom feedback loop that failed 3 times. Map movement is user-initiated only.
 
 ---
 
@@ -352,7 +489,13 @@ NOT from the parent directory. MCP servers, slash commands, and settings only lo
 
 ## Next Steps
 
-1. **Off-screen card UX — tap-to-zoom approach (user's idea, Session 16)** — Always list off-screen people/stories/collections after in-view ones, sorted nearest-to-furthest, with an "out of view" indicator. Scrolling does NOTHING to the map (no feedback loop). Only when user TAPS an off-screen card does the map zoom to include that item's nearest marker, THEN navigate to the detail panel. Implementation: click handler calls `flyToBounds` first, waits for `moveend`, then opens the panel. This avoids the scroll↔zoom feedback loop that failed 3 times.
+0. **Austin zip code gap analysis** — Find which Austin-area zip codes have 0 pins, research 1-2 moments per empty zip. User wants comprehensive density.
+0b. **Indelible Austin Book 2** — User is scanning. Deep curation pass when PDF available.
+0c. **AI Audio Tour / Proximity Engine** — North star product vision: Merlin-for-history. Location-triggered narration, route-aware narrative weaving, optimal walking route generation. Needs dedicated plan mode session.
+0d. **More Austin content from user's idea list** — Airmen's Cave, LBJ Library Presidential Suite, Treaty Oak expansion, SXSW deep dive, Austin documentaries, fossil map, Gambia coup attempt, Snoop Dogg trooper, Austin Cobra, The Tavern ghost, Walter Tips House, SRV at Lubbock Stubb's. See conversation for full list.
+1. **Off-screen card UX — SHIPPED (Session 16+)** — ✅ Tap-to-zoom: clicking off-screen cards zooms to nearest marker first. ✅ Directional arrows with distance labels point toward off-screen content at map edges. ✅ "Zoom out to see these →" dividers between in-view and backfill cards (People/Stories/Collections). **Still needed:** arrows may not update on map pan (they're only set when scroll highlight changes, not on map move). Consider adding a `moveend` listener to update arrow position/distance in real-time.
+1b. **Proximity Syncing (user's idea, for future session)** — After clicking a moment and then panning the map, the bottom sheet should auto-highlight the moment closest to the map center if one comes into view. Key scenario: pan from one town to another where two moments from the same story both exist — the card list should scroll to the moment that's now in view. Tricky when multiple moment markers are close together. Needs careful debouncing.
+1c. **Arrow distance updates on map pan** — Arrows should show real-time updated mileage as user pans. Currently only set when scroll highlight changes. Add `moveend` listener that recalculates arrow position + distance.
 2. **Missing entity profile images** — Many entities in Del Valle area have no imageUrl. Run `scripts/update-entity-images.ts` after adding images to Supabase, or add Wikipedia images manually.
 3. **Dangling entity references** — `thomas-mckinney`, `pilot-knob`, `onion-creek` need entity definitions or their entityId refs should be removed from moments.
 4. **Stories and places on homepage** — Deferred; needs dedicated design session.
