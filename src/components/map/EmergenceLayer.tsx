@@ -306,9 +306,24 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
   // ── Scroll highlight: boost highlighted dots, fade others ──────────
   useEffect(() => {
-    // During arrow flyTo, keep the pre-flyTo marker highlights frozen.
-    // Prevents viewport-driven reshuffles from highlighting the wrong person.
-    if (arrowFlyRef.current) return;
+    // During arrow flyTo, reset ALL markers to default (un-highlighted) state.
+    // This prevents the contrast between old dimmed markers and new full-opacity
+    // markers that creates the "bold gray markers" artifact.
+    if (arrowFlyRef.current) {
+      const zoom = map.getZoom();
+      const baseRadius = getRadius(zoom);
+      for (const [id, marker] of markersRef.current) {
+        const moment = momentById.get(id);
+        if (!moment) continue;
+        marker.setRadius(baseRadius);
+        marker.setStyle({
+          fillOpacity: computeAlpha(moment, zoom),
+          weight: 1.5,
+          color: 'rgba(255,255,255,0.35)',
+        });
+      }
+      return;
+    }
 
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
     const hasHighlight = highlightIds.size > 0;
@@ -440,7 +455,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             landedMarker.addTo(map);
             scrollOverlayRef.current = landedMarker;
           }
-          // Clear the lock after 5 seconds. Also remove the landed label
+          // Clear the lock after 10 seconds. Also remove the landed label
           // to prevent stale data when the scroll highlight effect resumes.
           setTimeout(() => {
             if (scrollOverlayRef.current) {
@@ -448,7 +463,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               scrollOverlayRef.current = null;
             }
             arrowFlyRef.current = null;
-          }, 5000);
+          }, 10000);
         }
       };
       // Snapshot the navigate callback NOW — during flyTo the viewport reshuffles
