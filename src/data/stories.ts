@@ -3,6 +3,7 @@ import type { Story } from '../types';
 import { delValleStories } from './del-valle-content';
 import { mesaPhoenixStories } from './mesa-phoenix-content';
 import { seattleStories } from './seattle-portorchard-content';
+import { barnesStories } from './austin-barnes-content';
 
 const _baseStories: Story[] = [
   // booker-t-washington-denied-capitol removed — moments remain linked to Booker T entity
@@ -5596,4 +5597,5 @@ export const stories: Story[] = [
   ...delValleStories,
   ...mesaPhoenixStories,
   ...seattleStories,
+  ...barnesStories,
 ];
