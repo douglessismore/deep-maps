@@ -1,7 +1,7 @@
 import type { Entity, Moment, Story } from '../../types';
 import type L from 'leaflet';
 import { CATEGORIES } from '../../lib/categories';
-import { getExpandedBounds, distanceMiles } from '../../lib/geo';
+import { distanceMiles } from '../../lib/geo';
 import {
   getEntityMomentStories,
   getEntityStories,
@@ -61,18 +61,7 @@ export function EntityPanel({
   );
 
   // Sort modes: "nearest" (by distance from map center) or "timeline" (chronological)
-  const hasDistantMoments = useMemo(() => {
-    if (!mapInstance) return false;
-    const bounds = mapInstance.getBounds();
-    const expanded = getExpandedBounds(bounds, 2);
-    const nearby = allMomentEntries.filter(e => expanded.contains([e.moment.lat, e.moment.lng]));
-    return nearby.length > 0 && nearby.length < allMomentEntries.length;
-  }, [allMomentEntries, mapInstance]);
-
-  const [entitySort, setEntitySort] = useState<'nearest' | 'timeline'>(
-    // Default to nearest when there are distant moments (likely came from homepage)
-    hasDistantMoments ? 'nearest' : 'timeline'
-  );
+  const [entitySort, setEntitySort] = useState<'nearest' | 'timeline'>('nearest');
 
   const momentEntries = useMemo(() => {
     if (entitySort === 'timeline' || !mapInstance) return allMomentEntries;
@@ -562,7 +551,7 @@ export function EntityPanel({
         )}
 
         {/* Sort toggle for moments — nearest vs timeline */}
-        {activeTab === 'moments' && hasDistantMoments && (
+        {activeTab === 'moments' && allMomentEntries.length >= 2 && (
           <div className="px-4 pt-2 pb-1 flex items-center gap-2">
             <button
               onClick={() => setEntitySort('nearest')}
