@@ -109,8 +109,8 @@ export function EntityPanel({
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Mobile header collapse — compact by default, expandable on tap
-  const [headerExpanded, setHeaderExpanded] = useState(false);
+  // Mobile header collapse — expanded by default so bio is visible
+  const [headerExpanded, setHeaderExpanded] = useState(true);
 
   // Tab state — moments vs wiki
   type EntityTab = 'moments' | 'wiki';
@@ -122,7 +122,7 @@ export function EntityPanel({
 
   // Reset state when entity changes
   useEffect(() => {
-    setHeaderExpanded(false);
+    setHeaderExpanded(true);
     setActiveTab('moments');
   }, [entity.id]);
 
@@ -341,68 +341,65 @@ export function EntityPanel({
         {/* Entity header — scrolls away (hidden in spotlight peek) */}
         {!isSpotlightPeek && (
           <div className="border-b border-[var(--border-subtle)]">
-            {/* Mobile: compact collapsible header */}
+            {/* Mobile: hero bio header — always visible, collapsible bio text */}
             <div className="lg:hidden">
-              <button
-                onClick={() => setHeaderExpanded(!headerExpanded)}
-                className="w-full flex items-center gap-2 px-4 py-2.5"
-              >
+              {/* Identity row: photo + name + metadata */}
+              <div className="flex items-center gap-3 px-4 pt-3 pb-2">
                 {entity.imageUrl ? (
                   <img src={entity.imageUrl} alt={entity.name}
-                    className="w-8 h-8 rounded-full object-cover shrink-0 ring-1 ring-[rgba(255,255,255,0.15)]"
+                    className="w-12 h-12 rounded-full object-cover shrink-0 ring-2 ring-[rgba(255,255,255,0.12)] shadow-lg"
                     loading="lazy" />
                 ) : (
-                  <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: 'var(--accent-red)' }} />
+                  <div className="w-12 h-12 rounded-full shrink-0 bg-[var(--bg-card)] border border-[var(--border-subtle)] flex items-center justify-center">
+                    <span className="text-lg">{getEntityIcon(entity)}</span>
+                  </div>
                 )}
-                <h2 className="font-serif text-sm font-bold text-white truncate">{entity.name}</h2>
-                <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize shrink-0">{entity.type}</span>
-                {entity.years && (
-                  <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{entity.years}</span>
-                )}
-                {entity.description && !headerExpanded && (
-                  <span className="shrink-0 text-[10px] font-mono text-[var(--text-secondary)] bg-[var(--bg-card)] px-1.5 py-0.5 rounded">
-                    More
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="inline ml-0.5">
-                      <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </span>
-                )}
-                {headerExpanded && (
-                  <span className="shrink-0 text-[10px] font-mono text-[var(--text-muted)] px-1.5 py-0.5 rounded">
-                    Less
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="inline ml-0.5 rotate-180">
-                      <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </span>
-                )}
-              </button>
-              {/* Always show description preview with gradient fade — signals "there's more" */}
-              {entity.description && !headerExpanded && (
-                <div className="relative px-4 pb-2">
-                  <p className="text-xs text-[var(--text-muted)] leading-relaxed max-h-[2.8em] overflow-hidden">{entity.description}</p>
-                  <div className="absolute bottom-2 left-4 right-4 h-[1.2em]" style={{
-                    background: 'linear-gradient(transparent, var(--bg-primary))'
-                  }} />
+                <div className="min-w-0 flex-1">
+                  <h2 className="font-serif text-lg font-bold text-white leading-tight">{entity.name}</h2>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-[10px] font-mono text-[var(--accent-red)] uppercase tracking-wider">{entity.type}</span>
+                    {entity.years && (
+                      <span className="text-[10px] font-mono text-[var(--text-muted)]">{entity.years}</span>
+                    )}
+                  </div>
                 </div>
+              </div>
+
+              {/* Bio section — always visible, tap to collapse long bios */}
+              {entity.description && (
+                <button
+                  onClick={() => setHeaderExpanded(!headerExpanded)}
+                  className="w-full text-left px-4 pb-3"
+                >
+                  <div className="border-l-2 border-[var(--accent-red)] pl-3">
+                    <p className={`text-sm text-[var(--text-secondary)] leading-relaxed ${
+                      !headerExpanded ? 'line-clamp-3' : ''
+                    }`}>
+                      {entity.description}
+                    </p>
+                    {!headerExpanded && (
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] mt-1 inline-block">
+                        Read more ↓
+                      </span>
+                    )}
+                  </div>
+                </button>
               )}
-              {headerExpanded && (
-                <div className="px-4 pb-3 space-y-2">
-                  {entity.description && (
-                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{entity.description}</p>
-                  )}
-                  {entity.wikipediaSlug && (
-                    <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-                        <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
-                      </svg>
-                      Read on Wikipedia
-                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                        <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>
-                  )}
+
+              {/* Wikipedia link — always visible when expanded */}
+              {headerExpanded && entity.wikipediaSlug && (
+                <div className="px-4 pb-3 pl-7">
+                  <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                      <text x="6" y="8.5" textAnchor="middle" fontSize="7" fill="currentColor" fontFamily="serif" fontWeight="bold">W</text>
+                    </svg>
+                    Read on Wikipedia
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                      <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </a>
                 </div>
               )}
             </div>
