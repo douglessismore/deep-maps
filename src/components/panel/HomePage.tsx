@@ -1318,35 +1318,34 @@ export function HomePage({
       .sort((a, b) => a.minDist - b.minDist);
   }, [entities, sortCenter, categoryFilter, momentToStoryMap]);
 
-  // Timeline-sorted people (all people, chronological by birth year)
+  // Timeline-sorted people: in-view first (chronological), then backfill (chronological)
   const allPeopleTimeline = useMemo(() => {
-    const pool = [...filteredPersonEntities, ...filteredBackfillPeople.filter(
-      p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id)
-    )];
-    return pool
-      .map(p => ({ ...p, startYear: parseStartYear(p.entity.years) }))
-      .sort((a, b) => {
-        if (a.startYear === null && b.startYear === null) return 0;
-        if (a.startYear === null) return 1;
-        if (b.startYear === null) return -1;
-        return a.startYear - b.startYear;
-      });
+    const yearSort = (a: { startYear: number | null }, b: { startYear: number | null }) => {
+      if (a.startYear === null && b.startYear === null) return 0;
+      if (a.startYear === null) return 1;
+      if (b.startYear === null) return -1;
+      return a.startYear - b.startYear;
+    };
+    const inView = filteredPersonEntities.map(p => ({ ...p, startYear: parseStartYear(p.entity.years) })).sort(yearSort);
+    const backfill = filteredBackfillPeople
+      .filter(p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id))
+      .map(p => ({ ...p, startYear: parseStartYear(p.entity.years) })).sort(yearSort);
+    return [...inView, ...backfill];
   }, [filteredPersonEntities, filteredBackfillPeople]);
 
-  // Timeline-sorted stories (all stories, chronological by start year)
+  // Timeline-sorted stories: in-view first (chronological), then backfill (chronological)
   const allStoriesTimeline = useMemo(() => {
-    const pool = [...allHomeStories, ...allStoriesSorted.filter(
-      s => !allHomeStories.some(hs => hs.id === s.id)
-    )];
-    return pool
-      .map(s => ({ story: s, startYear: parseStartYear(s.years) }))
-      .sort((a, b) => {
-        if (a.startYear === null && b.startYear === null) return 0;
-        if (a.startYear === null) return 1;
-        if (b.startYear === null) return -1;
-        return a.startYear - b.startYear;
-      })
-      .map(x => x.story);
+    const yearSort = (a: { startYear: number | null }, b: { startYear: number | null }) => {
+      if (a.startYear === null && b.startYear === null) return 0;
+      if (a.startYear === null) return 1;
+      if (b.startYear === null) return -1;
+      return a.startYear - b.startYear;
+    };
+    const inView = allHomeStories.map(s => ({ story: s, startYear: parseStartYear(s.years) })).sort(yearSort);
+    const backfill = allStoriesSorted
+      .filter(s => !allHomeStories.some(hs => hs.id === s.id))
+      .map(s => ({ story: s, startYear: parseStartYear(s.years) })).sort(yearSort);
+    return [...inView, ...backfill].map(x => x.story);
   }, [allHomeStories, allStoriesSorted]);
 
   // Merge existing carousel data with infinite tail

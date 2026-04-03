@@ -2298,6 +2298,7 @@ export const barnesStories: Story[] = [
       { momentId: 'bargsley-family-plot-present' },
     ],
     relatedStoryIds: ['austin-flood-1915'],
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/1922_Austin_tornado_paths.png/800px-1922_Austin_tornado_paths.png',
   },
 
   {
@@ -2314,6 +2315,7 @@ export const barnesStories: Story[] = [
       { momentId: 'barton-springs-swim-ins-1963', isPrimary: true },
     ],
     relatedStoryIds: ['clarksville-freedmens-town', 'capital-city-klan-81'],
+    imageUrl: 'https://npr.brightspotcdn.com/dims4/default/5f40bf4/2147483647/strip/true/crop/2148x1412+0+0/resize/1760x1156!/format/webp/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F95%2Ffb%2F026734a64d0888dde6ad6bf9f1a3%2Fbarton-springs-1940s.png',
   },
 
   // ── Biography stories (invisible infrastructure) ─────────────────────
@@ -2420,6 +2422,7 @@ export const barnesStories: Story[] = [
       { momentId: 'yogurt-shop-dna-match-2025' },
     ],
     relatedStoryIds: ['ut-tower-shooting', 'pitch-and-putt-murder'],
+    imageUrl: 'https://s7d2.scene7.com/is/image/TWCNews/yogurt2FIXED',
   },
 
   {
@@ -2436,6 +2439,7 @@ export const barnesStories: Story[] = [
       { momentId: 'acl-studio-6a-landmark-2009' },
     ],
     relatedStoryIds: ['willie-nelson-biography'],
+    imageUrl: 'https://def8jvn5u7ca0.cloudfront.net/wp-content/uploads/2024/09/Monthly-Product-Sales-6-1024x700.jpg',
   },
 
   {
@@ -2454,6 +2458,31 @@ export const barnesStories: Story[] = [
     ],
     relatedStoryIds: ['ut-tower-shooting', 'yogurt-shop-murders'],
     wikipediaSlug: '2010_Austin_suicide_attack',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Damage_to_Echelon_complex_from_2010_plane_crash_%28cropped%29.jpg/1280px-Damage_to_Echelon_complex_from_2010_plane_crash_%28cropped%29.jpg',
+  },
+
+  {
+    id: 'servant-girl-annihilator',
+    name: 'The Servant Girl Annihilator',
+    nickname: 'America\'s First Serial Killer',
+    years: '1884–1885',
+    category: 'dark-history',
+    storyType: 'incident',
+    contentWarning: 'This story contains graphic descriptions of serial murder and racial violence.',
+    description:
+      'Between 1884 and 1885, someone stalked Austin\'s servants\' quarters, killing at least eight people — mostly Black women — with an axe. The murders terrorized the city, inspired the installation of moonlight towers that still stand today, and may have been connected to Jack the Ripper. The killer was never caught.',
+    tags: ['serial-killer', 'austin', 'true-crime', 'unsolved', '1880s', 'moonlight-towers'],
+    moments: [
+      { momentId: 'annihilator-mollie-smith', isPrimary: true },
+      { momentId: 'annihilator-eliza-shelley' },
+      { momentId: 'annihilator-gracie-vance' },
+      { momentId: 'annihilator-christmas-massacre' },
+      { momentId: 'annihilator-o-henry-letter' },
+      { momentId: 'annihilator-moonlight-tower' },
+    ],
+    relatedStoryIds: ['ut-tower-shooting', 'capital-city-klan-81'],
+    wikipediaSlug: 'Servant_Girl_Annihilator',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Hell_Broke_Loose.jpg/800px-Hell_Broke_Loose.jpg',
   },
 ];
 
