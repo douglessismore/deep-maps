@@ -547,6 +547,34 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     }
   };
 
+  // ── Nuclear unmount cleanup — catches ANY stale DivIcon overlays ────
+  // The scroll overlay system creates L.marker with zIndexOffset 900/1000.
+  // Some are created outside React's effect lifecycle (moveEnd handler),
+  // so effect cleanups can miss them. This runs ONLY on unmount.
+  useEffect(() => {
+    return () => {
+      // Remove all DivIcon overlay markers (zIndexOffset 900 or 1000)
+      map.eachLayer((layer: any) => {
+        if (layer.options?.zIndexOffset === 900 || layer.options?.zIndexOffset === 1000) {
+          map.removeLayer(layer);
+        }
+      });
+      // Also clean refs for good measure
+      scrollOverlayRef.current = null;
+      scrollPolylineRef.current = null;
+      if (offScreenArrowRef.current) {
+        offScreenArrowRef.current.remove();
+        offScreenArrowRef.current = null;
+      }
+      if (arrowFlyRef.current) {
+        arrowFlyRef.current.cleanup();
+        arrowFlyRef.current = null;
+        onArrowFlyLockRef.current?.(false);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map]);
+
   // ── Scroll highlight overlay (DOM marker with inline label) ──────────
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
