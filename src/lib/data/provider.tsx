@@ -86,19 +86,23 @@ async function loadData(): Promise<AppData> {
       const { loadFromSupabase } = await import('./supabase-loader');
       const data = await loadFromSupabase();
       if (data.moments.length > 0) {
-        // Merge static imageUrls into Supabase stories (static is source of truth for images until Supabase has them)
+        // Image merge: Supabase image_url wins; static imageUrl is fallback only
         const staticImageMap = new Map(staticData.stories.filter(s => s.imageUrl).map(s => [s.id, s.imageUrl!]));
         // Also merge static-only stories that don't exist in Supabase (e.g., servant-girl-annihilator)
         const supabaseIds = new Set(data.stories.map(s => s.id));
         const staticOnlyStories = staticData.stories.filter(s => !supabaseIds.has(s.id));
         const mergedStories = [
           ...data.stories.map(s => {
+            // Supabase image_url is source of truth; fall back to static if DB has none
+            if (s.imageUrl) return s;
             const staticImg = staticImageMap.get(s.id);
             return staticImg ? { ...s, imageUrl: staticImg } : s;
           }),
           ...staticOnlyStories,
         ];
-        console.info(`[data] Image merge: ${staticImageMap.size} static images applied, ${staticOnlyStories.length} static-only stories added`);
+        const dbImages = data.stories.filter(s => s.imageUrl).length;
+        const staticFallbacks = mergedStories.filter(s => s.imageUrl).length - dbImages;
+        console.info(`[data] Image merge: ${dbImages} from DB, ${staticFallbacks} static fallbacks, ${staticOnlyStories.length} static-only stories`);
         const appData = { ...data, stories: mergedStories, browseableStories: filterBrowseableStories(mergedStories) };
         queryClient.setQueryData(['app-data', dataSource], appData);
         console.info('[data] Supabase upgrade complete (' + data.moments.length + ' moments)');

@@ -46,6 +46,7 @@ interface StoryRow {
   tags: string[];
   content_warning: string | null;
   wikipedia_slug: string | null;
+  image_url: string | null;
 }
 
 interface EntityRow {
@@ -279,6 +280,7 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     moments: storyMomentsMap.get(r.id) ?? [],
     ...(relatedMap.has(r.id) ? { relatedStoryIds: relatedMap.get(r.id)! } : {}),
     ...(r.wikipedia_slug ? { wikipediaSlug: r.wikipedia_slug } : {}),
+    ...(r.image_url ? { imageUrl: r.image_url } : {}),
   }));
 
   const entities: Entity[] = entityRows.map((r) => ({

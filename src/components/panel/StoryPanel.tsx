@@ -1,10 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Entity, Story, Moment } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getStoryEntities, getEntityIcon } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
+import { queryClient } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
+import { isAdminMode } from '../../lib/admin';
+import { uploadStoryImage } from '../../lib/image-upload';
 import { CategoryBadge } from '../ui/CategoryBadge';
 import { ContentWarning } from '../ui/ContentWarning';
 import { LocationCard } from './LocationCard';
@@ -14,6 +17,92 @@ import type { SheetSnap } from '../ui/BottomSheet';
 import { isV2 } from '../../lib/theme';
 
 type StoryTab = 'locations' | 'wiki';
+
+// ─── Admin image upload section ──────────────────────────────────────
+
+function StoryImageSection({ story }: { story: Story }) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [localUrl, setLocalUrl] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const admin = isAdminMode();
+
+  const displayUrl = localUrl || story.imageUrl;
+
+  const handleUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setError(null);
+    setUploading(true);
+
+    const result = await uploadStoryImage(story.id, file);
+    setUploading(false);
+
+    if (result.error) {
+      setError(result.error);
+      return;
+    }
+
+    // Show image immediately via local state
+    setLocalUrl(result.url!);
+
+    // Update TanStack Query cache so the image persists across navigation
+    queryClient.setQueryData(['app-data', 'supabase'], (prev: unknown) => {
+      if (!prev || typeof prev !== 'object') return prev;
+      const data = prev as { stories: Story[]; [k: string]: unknown };
+      return {
+        ...data,
+        stories: data.stories.map((s: Story) =>
+          s.id === story.id ? { ...s, imageUrl: result.url } : s,
+        ),
+      };
+    });
+  }, [story.id]);
+
+  return (
+    <>
+      {displayUrl && (
+        <div className="mt-3 rounded overflow-hidden relative">
+          <img src={displayUrl} alt="" className="w-full h-32 object-cover opacity-80" />
+          {admin && !uploading && (
+            <button
+              onClick={() => fileRef.current?.click()}
+              className="absolute bottom-1 right-1 px-2 py-0.5 rounded text-[10px] bg-black/60 text-white/80 hover:bg-black/80 transition-colors cursor-pointer"
+            >
+              Change
+            </button>
+          )}
+          {uploading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+              <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+            </div>
+          )}
+        </div>
+      )}
+      {!displayUrl && admin && (
+        <button
+          onClick={() => fileRef.current?.click()}
+          disabled={uploading}
+          className="mt-3 w-full py-2 rounded border border-dashed border-[var(--border-subtle)] text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:border-[var(--text-muted)] transition-colors cursor-pointer"
+        >
+          {uploading ? 'Uploading...' : '+ Add photo'}
+        </button>
+      )}
+      {error && (
+        <p className="mt-1 text-[10px] text-red-400">{error}</p>
+      )}
+      {admin && (
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          className="hidden"
+          onChange={handleUpload}
+        />
+      )}
+    </>
+  );
+}
 
 interface StoryPanelProps {
   story: Story;
@@ -419,11 +508,7 @@ export function StoryPanel({
                         {story.description}
                       </p>
                     </div>
-                    {story.imageUrl && (
-                      <div className="mt-3 rounded overflow-hidden">
-                        <img src={story.imageUrl} alt="" className="w-full h-32 object-cover opacity-80" />
-                      </div>
-                    )}
+                    <StoryImageSection story={story} />
                   </div>
                 </div>
               )}
@@ -473,6 +558,7 @@ export function StoryPanel({
                     <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
                   )}
                   <p className="font-serif text-lg italic text-[var(--text-secondary)] leading-relaxed mt-5">{story.description}</p>
+                  <StoryImageSection story={story} />
                   <div className="flex flex-wrap gap-2 mt-4">
                     {story.tags.map((tag) => (
                       <button
@@ -506,6 +592,7 @@ export function StoryPanel({
                     <div className="mt-3"><ContentWarning warning={story.contentWarning} /></div>
                   )}
                   <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-4">{story.description}</p>
+                  <StoryImageSection story={story} />
                   <div className="flex flex-wrap gap-1 mt-3">
                     {story.tags.map((tag) => (
                       <button

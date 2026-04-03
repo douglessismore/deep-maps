@@ -2,18 +2,11 @@ import { forwardRef, useMemo, useState, useCallback } from 'react';
 import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
+import { isAdminMode } from '../../lib/admin';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
 import { isV2 } from '../../lib/theme';
-
-function isAdminMode(): boolean {
-  try {
-    return localStorage.getItem('deepmaps-admin') === 'true';
-  } catch {
-    return false;
-  }
-}
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
   pinpoint: { label: 'Pinpoint', color: '#10b981', title: 'GPS-verified to within 3 meters of the exact spot' },

@@ -21,6 +21,7 @@ import { buildMomentMap, resolveLocationsFromMap } from './lib/storyHelpers';
 import { getEntityLocations } from './lib/entityHelpers';
 import { distanceMiles } from './lib/geo';
 import { useAppData } from './lib/data/provider';
+import { detectAdminParam } from './lib/admin';
 import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
@@ -86,6 +87,9 @@ function App() {
   const [targetSheetSnap, setTargetSheetSnap] = useState<SheetSnap | undefined>(undefined);
   // Save pre-navigation snap so we can restore it on back
   const preNavSheetSnap = useRef<SheetSnap>('peek');
+
+  // Detect ?admin=true URL param on mount
+  useEffect(() => { detectAdminParam(); }, []);
 
   // Refit map bounds when sheet snap changes in story/entity mode
   // (e.g., user pulls sheet down to peek → show all story pins in the now-larger map area)
