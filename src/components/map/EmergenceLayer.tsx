@@ -13,7 +13,7 @@
  * returns null, manages its own layer lifecycle.
  */
 
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import type { Moment, Story, StoryCategory, StoryCollection } from '../../types';
@@ -550,43 +550,44 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // ── Scroll highlight overlay (DOM marker with inline label) ──────────
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
-  // Shared cleanup for scroll overlay — must be returned from ALL effect paths
-  // (including early returns) so React can clean up on unmount.
-  const scrollOverlayCleanup = useCallback(() => {
-    if (scrollOverlayRef.current) {
-      map.removeLayer(scrollOverlayRef.current);
-      scrollOverlayRef.current = null;
-    }
-    if (scrollPolylineRef.current) {
-      map.removeLayer(scrollPolylineRef.current);
-      scrollPolylineRef.current = null;
-    }
-    hideOffScreenArrow();
-    if (arrowFlyRef.current) {
-      arrowFlyRef.current = null;
-      onArrowFlyLockRef.current?.(false);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map]);
-
   useEffect(() => {
+    // Cleanup function — removes all overlay artifacts from the map.
+    // Defined inside the effect so it's always a fresh closure reading
+    // current ref values. Returned from ALL paths (including early returns)
+    // so React can clean up on unmount.
+    const cleanup = () => {
+      if (scrollOverlayRef.current) {
+        map.removeLayer(scrollOverlayRef.current);
+        scrollOverlayRef.current = null;
+      }
+      if (scrollPolylineRef.current) {
+        map.removeLayer(scrollPolylineRef.current);
+        scrollPolylineRef.current = null;
+      }
+      hideOffScreenArrow();
+      if (arrowFlyRef.current) {
+        arrowFlyRef.current = null;
+        onArrowFlyLockRef.current?.(false);
+      }
+    };
+
     // During active flyTo animation, block completely — the moveEnd handler
     // will create the landed label when the animation finishes.
-    // CRITICAL: still return cleanup so unmount removes the landed label.
-    if (arrowFlyRef.current && !arrowFlyRef.current.landed) return scrollOverlayCleanup;
+    if (arrowFlyRef.current && !arrowFlyRef.current.landed) return cleanup;
     // After flyTo landed: keep the label if scroll data is for the SAME entity
     // (viewport reshuffles produce same card). Replace when user scrolls to
     // a DIFFERENT card — that means intentional interaction.
     if (arrowFlyRef.current?.landed) {
       const sameEntity = scrollHighlightLabel === arrowFlyRef.current.label;
-      if (sameEntity) return scrollOverlayCleanup; // keep landed label but allow cleanup on unmount
+      if (sameEntity) return cleanup; // keep landed label but allow cleanup on unmount
       // User scrolled to a different card — clear arrowFlyRef and proceed
       arrowFlyRef.current = null;
     }
 
-    // Clean up old arrows when processing new scroll highlights
-    hideOffScreenArrow();
-
+    // Eagerly remove any stale overlay BEFORE creating a new one.
+    // This catches labels leaked from the arrow flyTo system that the
+    // React cleanup lifecycle missed (e.g., moveEnd handler created a
+    // marker in scrollOverlayRef outside the effect lifecycle).
     if (scrollOverlayRef.current) {
       map.removeLayer(scrollOverlayRef.current);
       scrollOverlayRef.current = null;
@@ -595,6 +596,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       map.removeLayer(scrollPolylineRef.current);
       scrollPolylineRef.current = null;
     }
+
+    // Clean up old arrows when processing new scroll highlights
+    hideOffScreenArrow();
 
     if (scrollHighlight && scrollHighlight.length >= 1) {
       // Close any open hover tooltips on existing markers to prevent duplicates
@@ -749,8 +753,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
     }
 
-    return scrollOverlayCleanup;
-  }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap, scrollOverlayCleanup]);
+    return cleanup;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
   useEffect(() => {
