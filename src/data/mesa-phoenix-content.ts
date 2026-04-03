@@ -351,13 +351,14 @@ export const mesaPhoenixMoments: Moment[] = [
     subtitle: 'Gila River War Relocation Center site, Sacaton, AZ. Interpretive markers on the Gila River Indian Community',
     description:
       'The U.S. government opened the Gila River War Relocation Center here on the Gila River Indian Reservation in May 1942, 30 miles southeast of Phoenix. At its peak, 13,348 Japanese Americans were confined in two camps named Canal and Butte, making it Arizona\'s fourth-largest city. Internees farmed 7,000 acres of desert land and endured 120-degree summers in tar-paper barracks. The Gila River Indian Community had not been consulted about the camp\'s placement on their land.',
-    lat: 33.0736,
-    lng: -111.7400,
+    lat: 33.065,
+    lng: -111.830556,
     type: 'military_site',
     importance: 'major',
     notability: 55,
     verificationLevel: 'verified',
-    accuracy: 'general-area',
+    geoVerified: true,
+    accuracy: 'exact',
     kind: 'presence',
     year: 1942,
     date: 'May 1942 – November 1945',
@@ -460,6 +461,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['don-bolles-murder'],
     wikipediaSlug: 'Miranda_v._Arizona',
+    imageUrl: 'https://www.thirteen.org/wnet/supremecourt/rights/images/miranda.jpg',
   },
   {
     id: 'great-papago-escape',
@@ -474,6 +476,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-papago-escape-tunnel' }],
     relatedStoryIds: ['japanese-internment-arizona'],
     wikipediaSlug: 'Great_Papago_Escape',
+    imageUrl: 'https://www.warhistoryonline.com/wp-content/uploads/sites/2/2017/10/papago-park-escape-tunnel-entrance.jpg',
   },
   {
     id: 'trunk-murderess',
@@ -491,6 +494,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['don-bolles-murder'],
     wikipediaSlug: 'Winnie_Ruth_Judd',
+    imageUrl: 'https://bloximages.newyork1.vip.townnews.com/tucson.com/content/tncms/assets/v3/editorial/2/12/2126f47e-a42e-11e2-bff8-001a4bcf887a/516b6e8a31283.image.jpg',
   },
   {
     id: 'phoenix-lights-1997',
@@ -508,6 +512,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['roswell'],
     wikipediaSlug: 'Phoenix_Lights',
+    imageUrl: 'https://columnsfairmontstate.com/wp-content/uploads/2019/11/Phoenix-Light-from-fightersweep.com_.jpg',
   },
   {
     id: 'taliesin-west',
@@ -554,6 +559,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-gila-river-camp' }],
     relatedStoryIds: ['great-papago-escape'],
     wikipediaSlug: 'Gila_River_War_Relocation_Center',
+    imageUrl: 'https://saltriverstories.org/files/fullsize/5f9d016430160c0a05967583b5029feb.jpg',
   },
   {
     id: 'don-bolles-murder',
@@ -568,6 +574,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-bolles-bombing' }],
     relatedStoryIds: ['miranda-rights-phoenix'],
     wikipediaSlug: 'Don_Bolles',
+    imageUrl: 'https://www.thestacksreader.com/wp-content/uploads/2020/09/Don-Bolles.jpg',
   },
   {
     id: 'barry-goldwater-life',

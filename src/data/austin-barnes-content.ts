@@ -2298,7 +2298,7 @@ export const barnesStories: Story[] = [
       { momentId: 'bargsley-family-plot-present' },
     ],
     relatedStoryIds: ['austin-flood-1915'],
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/1922_Austin_tornado_paths.png/800px-1922_Austin_tornado_paths.png',
+    imageUrl: 'https://texashistory.unt.edu/ark:/67531/metapth124037/m1/1/med_res/',
   },
 
   {
@@ -2458,7 +2458,7 @@ export const barnesStories: Story[] = [
     ],
     relatedStoryIds: ['ut-tower-shooting', 'yogurt-shop-murders'],
     wikipediaSlug: '2010_Austin_suicide_attack',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Damage_to_Echelon_complex_from_2010_plane_crash_%28cropped%29.jpg/1280px-Damage_to_Echelon_complex_from_2010_plane_crash_%28cropped%29.jpg',
+    imageUrl: 'https://media.npr.org/assets/img/2010/02/18/austin_custom-ba0b02c2ec7eac2ec3a0e3ee5c8a72e065c8c0c9.jpg',
   },
 
   {
@@ -2482,7 +2482,7 @@ export const barnesStories: Story[] = [
     ],
     relatedStoryIds: ['ut-tower-shooting', 'capital-city-klan-81'],
     wikipediaSlug: 'Servant_Girl_Annihilator',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Hell_Broke_Loose.jpg/800px-Hell_Broke_Loose.jpg',
+    imageUrl: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2018/04/servant-girl-annihilator-headline.jpg',
   },
 ];
 

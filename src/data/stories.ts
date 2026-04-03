@@ -774,7 +774,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Angelina_Eberly_statue_in_Austin%2C_Texas.jpg/800px-Angelina_Eberly_statue_in_Austin%2C_Texas.jpg',
+    imageUrl: 'https://www.tsl.texas.gov/sites/default/files/public/tslac/treasures/republic/images/archwar-harpers.jpg',
   },
   {
     id: 'treaty-oak-poisoning',
@@ -787,7 +787,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'nature', 'crime', 'mystery', 'occult'],
     moments: [{ momentId: 'treaty-oak-site' }, { momentId: 'treaty-oak-lab' }],
     wikipediaSlug: 'Treaty_Oak_(Austin,_Texas)',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Treaty_Oak_Austin%2C_TX.jpg/800px-Treaty_Oak_Austin%2C_TX.jpg',
+    imageUrl: 'https://img.texasmonthly.com/2019/06/treaty-oak-poisoning.jpg?auto=compress&crop=faces&fit=crop&fm=pjpg&ixlib=php-3.3.1&q=45&w=800',
   },
   {
     id: 'lajitas-goat-mayor',
@@ -812,7 +812,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
     relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Metapth124011_xl_PICA03960.jpg/800px-Metapth124011_xl_PICA03960.jpg',
+    imageUrl: 'https://texashistory.unt.edu/ark:/67531/metapth124011/m1/1/med_res/',
   },
   {
     id: 'apollo-13-houston',
@@ -849,7 +849,7 @@ const _baseStories: Story[] = [
     contentWarning: 'Graphic violence and mass shooting.',
     moments: [{ momentId: 'uttower-observation-deck' }, { momentId: 'uttower-main-mall' }],
     wikipediaSlug: 'University_of_Texas_tower_shooting',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UT_tower_shooting_background.jpg/800px-UT_tower_shooting_background.jpg',
+    imageUrl: 'https://www.ceasefirepa.org/wp-content/uploads/2024/07/tower-shooting-768x536.jpg',
   },
   {
     id: 'barton-springs-sos',
@@ -1066,7 +1066,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'film', '1970s', 'coming-of-age', 'linklater', 'mcconaughey'],
     moments: [{ momentId: 'dazed-top-notch' }, { momentId: 'dazed-moonlight-party' }, { momentId: 'dazed-bedichek-middle' }],
     wikipediaSlug: 'Dazed_and_Confused_(film)',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/9/95/Dazed_and_Confused_%28poster%29.png',
+    imageUrl: 'https://ew.com/thmb/ApIOaPxl6nXB00eWAYiOXPanfhA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/dazed-confused-2912e23ba082499191b6b742eb546b9f.jpg',
   },
   {
     id: 'jesus-ministry',
