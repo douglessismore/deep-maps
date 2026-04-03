@@ -7,6 +7,45 @@ import { distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { useAppData } from '../../lib/data/provider';
 import { useInViewAnimation } from '../../lib/useInViewAnimation';
+import { ScrollTimeline } from '../ui/ScrollTimeline';
+import type { ScrollTimelineItem } from '../ui/ScrollTimeline';
+
+// ─── Utilities ────────────────────────────────────────────────────────
+
+/** Extract the first 3-4 digit year from a years string like "1862-1910" or "c. 1850" */
+function parseStartYear(years?: string): number | null {
+  if (!years) return null;
+  const match = years.match(/(\d{3,4})/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+// ─── Sort Toggle (shared between People/Stories sections) ────────────
+
+function SortToggle({
+  value,
+  onChange,
+}: {
+  value: 'nearest' | 'timeline';
+  onChange: (v: 'nearest' | 'timeline') => void;
+}) {
+  return (
+    <div className="px-4 pb-2 flex items-center gap-2">
+      {(['nearest', 'timeline'] as const).map(opt => (
+        <button
+          key={opt}
+          onClick={() => onChange(opt)}
+          className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
+            value === opt
+              ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
+          }`}
+        >
+          {opt === 'nearest' ? 'Nearest' : 'Timeline'}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -720,6 +759,7 @@ function PersonCard({
   onClick,
   isActive,
   distanceMi,
+  yearLabel,
   cardIndex,
   cardId,
 }: {
@@ -728,6 +768,7 @@ function PersonCard({
   onClick: () => void;
   isActive?: boolean;
   distanceMi?: number;
+  yearLabel?: string;
   cardIndex?: number;
   cardId?: string;
 }) {
@@ -762,7 +803,10 @@ function PersonCard({
         {entity.name}
       </span>
       <span className="text-[11px] font-mono text-[var(--text-muted)]">
-        {momentCount} events{distanceMi != null ? ` · ${formatDistance(distanceMi)}` : ''}
+        {yearLabel
+          ? `${yearLabel} · ${momentCount} events`
+          : `${momentCount} events${distanceMi != null ? ` · ${formatDistance(distanceMi)}` : ''}`
+        }
       </span>
     </button>
   );
@@ -888,6 +932,10 @@ export function HomePage({
   onScrollRestored,
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
+
+  // Sort mode for People and Stories sections
+  const [peopleSort, setPeopleSort] = useState<'nearest' | 'timeline'>('nearest');
+  const [storiesSort, setStoriesSort] = useState<'nearest' | 'timeline'>('nearest');
 
   // Layout variant switcher — tap hero text 3 times to cycle through orderings
   type LayoutVariant = 'A' | 'B' | 'C' | 'D';
@@ -1095,7 +1143,7 @@ export function HomePage({
   }, [viewportStories, backfillStories, categoryFilter]);
 
   const backfillStoryIds = useMemo(() => new Set((backfillStories ?? []).map(s => s.id)), [backfillStories]);
-  const storiesSectionTitle = 'Stories';
+  const storiesSectionTitle = storiesSort === 'timeline' ? 'Stories Through Time' : 'Stories';
 
   // Story in-view counts — how many of each story's moments are visible on the map
   const storyInViewCounts = useMemo(() => {
@@ -1157,8 +1205,9 @@ export function HomePage({
   }, [filteredPersonEntities, filteredBackfillPeople]);
 
   // Backfill boundary indices (where in-view items end and off-screen items begin)
-  const peopleBackfillStart = filteredPersonEntities.length;
-  const storiesBackfillStart = (viewportStories ?? []).length;
+  // In timeline mode, no backfill divider — it's a flat chronological list
+  const peopleBackfillStart = peopleSort === 'timeline' ? Infinity : filteredPersonEntities.length;
+  const storiesBackfillStart = storiesSort === 'timeline' ? Infinity : (viewportStories ?? []).length;
   const momentsBackfillStart = nearYouMomentsLive.length;
   const collectionsBackfillStart = viewportFilteredCollections.length;
 
@@ -1255,6 +1304,37 @@ export function HomePage({
       .sort((a, b) => a.minDist - b.minDist);
   }, [entities, sortCenter, categoryFilter, momentToStoryMap]);
 
+  // Timeline-sorted people (all people, chronological by birth year)
+  const allPeopleTimeline = useMemo(() => {
+    const pool = [...filteredPersonEntities, ...filteredBackfillPeople.filter(
+      p => !filteredPersonEntities.some(fp => fp.entity.id === p.entity.id)
+    )];
+    return pool
+      .map(p => ({ ...p, startYear: parseStartYear(p.entity.years) }))
+      .sort((a, b) => {
+        if (a.startYear === null && b.startYear === null) return 0;
+        if (a.startYear === null) return 1;
+        if (b.startYear === null) return -1;
+        return a.startYear - b.startYear;
+      });
+  }, [filteredPersonEntities, filteredBackfillPeople]);
+
+  // Timeline-sorted stories (all stories, chronological by start year)
+  const allStoriesTimeline = useMemo(() => {
+    const pool = [...allHomeStories, ...allStoriesSorted.filter(
+      s => !allHomeStories.some(hs => hs.id === s.id)
+    )];
+    return pool
+      .map(s => ({ story: s, startYear: parseStartYear(s.years) }))
+      .sort((a, b) => {
+        if (a.startYear === null && b.startYear === null) return 0;
+        if (a.startYear === null) return 1;
+        if (b.startYear === null) return -1;
+        return a.startYear - b.startYear;
+      })
+      .map(x => x.story);
+  }, [allHomeStories, allStoriesSorted]);
+
   // Merge existing carousel data with infinite tail
   const nearYouDisplay = useMemo(() => {
     const base = nearYouMoments;
@@ -1265,14 +1345,20 @@ export function HomePage({
   }, [nearYouMoments, allMomentsSorted, nearYouPageSize]);
 
   const storiesDisplay = useMemo(() => {
+    if (storiesSort === 'timeline') {
+      return allStoriesTimeline.slice(0, storiesPageSize);
+    }
     const base = allHomeStories;
     if (base.length >= storiesPageSize) return base.slice(0, storiesPageSize);
     const existingIds = new Set(base.map(s => s.id));
     const extra = allStoriesSorted.filter(s => !existingIds.has(s.id));
     return [...base, ...extra].slice(0, storiesPageSize);
-  }, [allHomeStories, allStoriesSorted, storiesPageSize]);
+  }, [allHomeStories, allStoriesSorted, storiesPageSize, storiesSort, allStoriesTimeline]);
 
   const peopleDisplay = useMemo(() => {
+    if (peopleSort === 'timeline') {
+      return allPeopleTimeline.slice(0, peoplePageSize);
+    }
     const base = gridPeople;
     if (base.length >= peoplePageSize) return base.slice(0, peoplePageSize);
     const existingIds = new Set(base.map(p => p.entity.id));
@@ -1280,7 +1366,7 @@ export function HomePage({
       .filter(p => !existingIds.has(p.entity.id))
       .map(p => ({ entity: p.entity, momentCount: p.momentCount, maxNotability: p.maxNotability }));
     return [...base, ...extra].slice(0, peoplePageSize);
-  }, [gridPeople, allPeopleSorted, peoplePageSize]);
+  }, [gridPeople, allPeopleSorted, peoplePageSize, peopleSort, allPeopleTimeline]);
 
   // Load-more callbacks
   const loadMoreNearYou = useCallback(() => {
@@ -1293,8 +1379,50 @@ export function HomePage({
     setPeoplePageSize(prev => prev + LOAD_MORE_BATCH);
   }, []);
 
+  // ── ScrollTimeline label arrays (precomputed, no work during scroll) ──
+  const peopleScrollLabels = useMemo((): ScrollTimelineItem[] => {
+    return peopleDisplay.map((p) => {
+      if (peopleSort === 'timeline') {
+        const yr = parseStartYear(p.entity.years);
+        return { label: yr ? String(yr) : null };
+      }
+      if (!sortCenter) return { label: null };
+      const ms = getMomentsForEntity(p.entity.id);
+      if (ms.length === 0) return { label: null };
+      const minDist = Math.min(...ms.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)));
+      return { label: formatDistance(minDist) };
+    });
+  }, [peopleDisplay, peopleSort, sortCenter]);
+
+  const storiesScrollLabels = useMemo((): ScrollTimelineItem[] => {
+    return storiesDisplay.map((story) => {
+      if (storiesSort === 'timeline') {
+        const yr = parseStartYear(story.years);
+        return { label: yr ? String(yr) : null };
+      }
+      if (!sortCenter) return { label: null };
+      const ms = story.moments.map(sm => momentById.get(sm.momentId)).filter(Boolean) as Moment[];
+      if (ms.length === 0) return { label: null };
+      const minDist = Math.min(...ms.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)));
+      return { label: formatDistance(minDist) };
+    });
+  }, [storiesDisplay, storiesSort, sortCenter, momentById]);
+
+  const momentsScrollLabels = useMemo((): ScrollTimelineItem[] => {
+    return nearYouDisplay.map(vl => {
+      const yr = vl.location.year;
+      const dist = sortCenter ? distanceMiles(sortCenter.lat, sortCenter.lng, vl.location.lat, vl.location.lng) : 0;
+      if (yr && dist > 0) return { label: `${yr} · ${formatDistance(dist)}` };
+      if (yr) return { label: String(yr) };
+      if (dist > 0) return { label: formatDistance(dist) };
+      return { label: null };
+    });
+  }, [nearYouDisplay, sortCenter]);
+
   // Title adapts based on whether we're showing backfill people
-  const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Who Was Here' : 'Who Was Nearby';
+  const peopleSectionTitle = peopleSort === 'timeline'
+    ? 'People Through Time'
+    : (filteredPersonEntities.length > 0 ? 'Who Was Here' : 'Who Was Nearby');
 
   // ── Scroll refs for each section ──
   const homeScrollRef = useRef<HTMLDivElement | null>(null); // main vertical scroll container
@@ -1764,6 +1892,12 @@ export function HomePage({
             expanded={expandedSection === 'people'}
             onToggle={() => toggleSection('people')}
           />
+          {expandedSection !== 'people' && peopleDisplay.length > 1 && (
+            <SortToggle value={peopleSort} onChange={(v) => {
+              setPeopleSort(v);
+              if (peopleScrollRef.current) peopleScrollRef.current.scrollLeft = 0;
+            }} />
+          )}
           {(expandedSection === 'people' ? allPeople : gridPeople).length > 0 ? (
             expandedSection === 'people' ? (
               <div ref={peopleExpandedRef} className="relative flex flex-col">
@@ -1791,7 +1925,8 @@ export function HomePage({
                         cardIndex={i}
                         cardId={entity.id}
                         isActive={i === peopleActiveIdx}
-                        distanceMi={i >= peopleBackfillStart && userLocation ? (() => {
+                        yearLabel={peopleSort === 'timeline' ? (entity.years ?? undefined) : undefined}
+                        distanceMi={peopleSort !== 'timeline' && i >= peopleBackfillStart && userLocation ? (() => {
                           const ms = getMomentsForEntity(entity.id);
                           return ms.length > 0 ? Math.min(...ms.map(m => distanceMiles(userLocation.lat, userLocation.lng, m.lat, m.lng))) : undefined;
                         })() : undefined}
@@ -1800,6 +1935,7 @@ export function HomePage({
                     </Fragment>
                   ))}
                 </HScrollRow>
+                <ScrollTimeline items={peopleScrollLabels} activeIndex={peopleActiveIdx} orientation="horizontal" />
                 {allPeople.length > gridPeople.length && (
                   <button
                     onClick={() => toggleSection('people')}
@@ -1830,6 +1966,12 @@ export function HomePage({
                 expanded={expandedSection === 'stories'}
                 onToggle={() => toggleSection('stories')}
               />
+              {expandedSection !== 'stories' && storiesDisplay.length > 1 && (
+                <SortToggle value={storiesSort} onChange={(v) => {
+                  setStoriesSort(v);
+                  if (storiesScrollRef.current) storiesScrollRef.current.scrollLeft = 0;
+                }} />
+              )}
               {expandedSection === 'stories' ? (
                 <div className="flex flex-col gap-2 px-4">
                   {allHomeStories.map((story) => (
@@ -1877,6 +2019,7 @@ export function HomePage({
                     </Fragment>
                   ))}
                 </HScrollRow>
+                <ScrollTimeline items={storiesScrollLabels} activeIndex={storiesActiveIdx} orientation="horizontal" />
                 </>
               )}
             </div>
@@ -1944,6 +2087,7 @@ export function HomePage({
                   </Fragment>
                 ))}
               </HScrollRow>
+              <ScrollTimeline items={momentsScrollLabels} activeIndex={nearYouActiveIdx} orientation="horizontal" />
               </>
             )
           ) : (

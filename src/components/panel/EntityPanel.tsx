@@ -16,6 +16,8 @@ import { GoDeeperCard } from './GoDeeperCard';
 import { LocationCard } from './LocationCard';
 import { EntityWikiPanel } from './EntityWikiPanel';
 import type { SheetSnap } from '../ui/BottomSheet';
+import { ScrollTimeline } from '../ui/ScrollTimeline';
+import type { ScrollTimelineItem } from '../ui/ScrollTimeline';
 
 interface EntityPanelProps {
   entity: Entity;
@@ -129,6 +131,25 @@ export function EntityPanel({
   // ─── Scroll-driven map highlighting ──────────────────────────────
   const momentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const [scrollActiveId, setScrollActiveId] = useState<string | null>(null);
+
+  // ─── ScrollTimeline labels for vertical moment list ─────────────
+  const momentScrollActiveIndex = useMemo(() => {
+    if (!scrollActiveId) return 0;
+    const idx = momentEntries.findIndex(e => e.moment.id === scrollActiveId);
+    return idx >= 0 ? idx : 0;
+  }, [scrollActiveId, momentEntries]);
+
+  const momentScrollLabels = useMemo((): ScrollTimelineItem[] => {
+    return momentEntries.map(e => {
+      if (entitySort === 'timeline') {
+        return { label: e.moment.year ? String(e.moment.year) : null };
+      }
+      if (!mapInstance) return { label: null };
+      const center = mapInstance.getCenter();
+      const dist = distanceMiles(center.lat, center.lng, e.moment.lat, e.moment.lng);
+      return { label: `${dist < 1 ? dist.toFixed(1) : Math.round(dist)} mi` };
+    });
+  }, [momentEntries, entitySort, mapInstance]);
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const isProgrammaticScroll = useRef(false);
   // Track scroll-driven activeLocationId changes to avoid scroll-into-view loops
@@ -574,7 +595,8 @@ export function EntityPanel({
           {momentEntries.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)] italic">No moments tagged yet</p>
           ) : (
-            <div className="space-y-1" onClick={isSpotlightPeek ? () => onExpandRequest?.() : undefined}>
+            <div className="flex gap-1">
+            <div className="flex-1 min-w-0 space-y-1" onClick={isSpotlightPeek ? () => onExpandRequest?.() : undefined}>
               {(() => {
                 if (isSpotlightPeek) {
                   const activeEntry = scrollActiveId
@@ -634,6 +656,10 @@ export function EntityPanel({
               })()}
 
               {/* Full timeline section removed — replaced by Nearest/Timeline toggle */}
+            </div>
+            {!isSpotlightPeek && momentEntries.length >= 2 && (
+              <ScrollTimeline items={momentScrollLabels} activeIndex={momentScrollActiveIndex} orientation="vertical" />
+            )}
             </div>
           )}
           {/* Bottom padding so last card can scroll fully into view */}
