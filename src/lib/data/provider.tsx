@@ -100,10 +100,18 @@ async function loadData(): Promise<AppData> {
           }),
           ...staticOnlyStories,
         ];
+        // Merge static-only moments (exist in static but not Supabase)
+        const supabaseMomentIds = new Set(data.moments.map(m => m.id));
+        const staticOnlyMoments = staticData.moments.filter(m => !supabaseMomentIds.has(m.id));
+        const mergedMoments = [...data.moments, ...staticOnlyMoments];
+        // Merge static-only entities (exist in static but not Supabase)
+        const supabaseEntityIds = new Set(data.entities.map(e => e.id));
+        const staticOnlyEntities = staticData.entities.filter(e => !supabaseEntityIds.has(e.id));
+        const mergedEntities = [...data.entities, ...staticOnlyEntities];
         const dbImages = data.stories.filter(s => s.imageUrl).length;
         const staticFallbacks = mergedStories.filter(s => s.imageUrl).length - dbImages;
-        console.info(`[data] Image merge: ${dbImages} from DB, ${staticFallbacks} static fallbacks, ${staticOnlyStories.length} static-only stories`);
-        const appData = { ...data, stories: mergedStories, browseableStories: filterBrowseableStories(mergedStories) };
+        console.info(`[data] Merge: ${staticOnlyStories.length} static-only stories, ${staticOnlyMoments.length} static-only moments, ${staticOnlyEntities.length} static-only entities, ${dbImages} DB images, ${staticFallbacks} static image fallbacks`);
+        const appData = { ...data, stories: mergedStories, moments: mergedMoments, entities: mergedEntities, browseableStories: filterBrowseableStories(mergedStories) };
         queryClient.setQueryData(['app-data', dataSource], appData);
         console.info('[data] Supabase upgrade complete (' + data.moments.length + ' moments)');
       }
