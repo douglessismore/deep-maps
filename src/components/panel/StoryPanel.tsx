@@ -67,7 +67,7 @@ export function StoryPanel({
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
-  const [headerExpanded, setHeaderExpanded] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+  const [headerExpanded, setHeaderExpanded] = useState(true);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
@@ -389,52 +389,51 @@ export function StoryPanel({
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar" style={{ overscrollBehavior: 'contain' }}>
           {/* Story Header — scrolls with content (hidden in spotlight peek) */}
           {!isSpotlightPeek && <div className="border-b border-[var(--border-subtle)]">
-            {/* Mobile: compact toggle header */}
+            {/* Mobile: hero bio header — always visible, collapsible description */}
             <div className="lg:hidden">
-              <button
-                onClick={() => setHeaderExpanded(!headerExpanded)}
-                className="w-full flex items-center gap-2 px-4 py-2.5"
-              >
-                <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                <h2 className="font-serif text-sm font-bold text-white truncate">
-                  {story.name}
-                </h2>
-                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0">{story.years}</span>
-                <span className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded transition-colors ${
-                  headerExpanded
-                    ? 'text-[var(--text-muted)]'
-                    : 'text-[var(--text-secondary)] bg-[var(--bg-card)]'
-                }`}>
-                  {headerExpanded ? 'Less' : 'More'}
-                  <svg
-                    width="10" height="10" viewBox="0 0 10 10" fill="none"
-                    className={`inline ml-0.5 transition-transform ${headerExpanded ? 'rotate-180' : ''}`}
-                  >
-                    <path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-              </button>
-
-              {/* Expanded content — flows naturally in scroll, no max-height constraint */}
-              {headerExpanded && (
-                <div className="px-4 pb-3 space-y-2">
-                  {story.nickname && (
-                    <p className="text-xs text-[var(--text-muted)] font-mono italic">{story.nickname}</p>
-                  )}
-                  <div className="flex items-center gap-2">
+              {/* Identity row: category bar + name + years */}
+              <div className="flex items-center gap-3 px-4 pt-3 pb-2">
+                <div className="w-1.5 h-10 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                <div className="min-w-0 flex-1">
+                  <h2 className="font-serif text-lg font-bold text-white leading-tight">{story.name}</h2>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-[10px] font-mono text-[var(--accent-red)] uppercase tracking-wider">{story.years}</span>
                     <CategoryBadge category={story.category} />
-                    {story.storyType && story.storyType !== 'incident' && (
-                      <span className="text-[10px] font-mono text-[var(--text-muted)] capitalize">
-                        {story.storyType}
+                  </div>
+                </div>
+              </div>
+
+              {/* Content warning */}
+              {story.contentWarning && (
+                <div className="px-4 pb-2">
+                  <ContentWarning warning={story.contentWarning} />
+                </div>
+              )}
+
+              {/* Bio section — always visible, tap to collapse long descriptions */}
+              {story.description && (
+                <button
+                  onClick={() => setHeaderExpanded(!headerExpanded)}
+                  className="w-full text-left px-4 pb-3"
+                >
+                  <div className="border-l-2 pl-3" style={{ borderColor: cat.color }}>
+                    <p className={`text-sm text-[var(--text-secondary)] leading-relaxed ${
+                      !headerExpanded ? 'line-clamp-3' : ''
+                    }`}>
+                      {story.description}
+                    </p>
+                    {!headerExpanded && (
+                      <span className="text-[10px] font-mono text-[var(--text-muted)] mt-1 inline-block">
+                        Read more ↓
                       </span>
                     )}
                   </div>
-                  {story.contentWarning && (
-                    <ContentWarning warning={story.contentWarning} />
-                  )}
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {story.description}
-                  </p>
+                </button>
+              )}
+
+              {/* Tags + Wikipedia — visible when expanded */}
+              {headerExpanded && (
+                <div className="px-4 pb-3 pl-7">
                   <div className="flex flex-wrap gap-1">
                     {story.tags.map((tag) => (
                       <button

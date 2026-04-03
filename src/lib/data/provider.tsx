@@ -86,7 +86,10 @@ async function loadData(): Promise<AppData> {
       const { loadFromSupabase } = await import('./supabase-loader');
       const data = await loadFromSupabase();
       if (data.moments.length > 0) {
-        const appData = { ...data, browseableStories: filterBrowseableStories(data.stories) };
+        // Merge static-only fields (e.g., imageUrl) that aren't in Supabase yet
+        const staticImageMap = new Map(staticData.stories.filter(s => s.imageUrl).map(s => [s.id, s.imageUrl!]));
+        const mergedStories = data.stories.map(s => s.imageUrl ? s : { ...s, ...(staticImageMap.get(s.id) ? { imageUrl: staticImageMap.get(s.id) } : {}) });
+        const appData = { ...data, stories: mergedStories, browseableStories: filterBrowseableStories(mergedStories) };
         queryClient.setQueryData(['app-data', dataSource], appData);
         console.info('[data] Supabase upgrade complete (' + data.moments.length + ' moments)');
       }

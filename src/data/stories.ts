@@ -773,7 +773,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Angelina_Eberly.jpg/440px-Angelina_Eberly.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Angelina_Eberly_statue_in_Austin%2C_Texas.jpg/800px-Angelina_Eberly_statue_in_Austin%2C_Texas.jpg',
   },
   {
     id: 'treaty-oak-poisoning',
@@ -786,7 +786,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'nature', 'crime', 'mystery', 'occult'],
     moments: [{ momentId: 'treaty-oak-site' }, { momentId: 'treaty-oak-lab' }],
     wikipediaSlug: 'Treaty_Oak_(Austin,_Texas)',
-    imageUrl: 'https://library.austintexas.gov/sites/default/files/ahc_fav15_treatyoak_PICA22006.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Treaty_Oak_Austin%2C_TX.jpg/800px-Treaty_Oak_Austin%2C_TX.jpg',
   },
   {
     id: 'lajitas-goat-mayor',
@@ -811,7 +811,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
     relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/74/FMIB_33146_Austin_Dam_and_Power-House%2C_Texas_%28cropped%29.jpeg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Metapth124011_xl_PICA03960.jpg/800px-Metapth124011_xl_PICA03960.jpg',
   },
   {
     id: 'apollo-13-houston',
@@ -848,7 +848,7 @@ const _baseStories: Story[] = [
     contentWarning: 'Graphic violence and mass shooting.',
     moments: [{ momentId: 'uttower-observation-deck' }, { momentId: 'uttower-main-mall' }],
     wikipediaSlug: 'University_of_Texas_tower_shooting',
-    imageUrl: 'https://www.gannett-cdn.com/presto/2019/07/31/USAT/1e0aa191-6e0f-4524-aa30-dd57cd3bc037-AP_University_of_Texas_Shooting.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UT_tower_shooting_background.jpg/800px-UT_tower_shooting_background.jpg',
   },
   {
     id: 'barton-springs-sos',
