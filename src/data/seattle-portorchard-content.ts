@@ -57,6 +57,16 @@ export const seattleEntities: Entity[] = [
     wikipediaSlug: 'D._B._Cooper',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/CompositeB-FBI-1973.jpg/330px-CompositeB-FBI-1973.jpg',
   },
+  {
+    id: 'linda-hazzard',
+    name: 'Linda Hazzard',
+    type: 'person',
+    years: '1867–1938',
+    description:
+      'Licensed fasting specialist who operated a sanitarium in Olalla, Washington. Convicted of manslaughter after starving patient Claire Williamson to death while systematically looting her estate. Served two years, was pardoned, and resumed practicing until she died attempting her own fasting cure.',
+    canonicalStoryId: 'starvation-heights',
+    wikipediaSlug: 'Linda_Hazzard',
+  },
 ];
 
 // ─── MOMENTS ─────────────────────────────────────────────────────────
@@ -468,6 +478,151 @@ export const seattleMoments: Moment[] = [
     entityIds: ['chief-seattle'],
     wikiSection: 'Old_Man_House',
   },
+
+  // ── Treaty of Point Elliott ── (add to chief-seattle-suquamish story)
+  {
+    id: 'treaty-point-elliott',
+    name: 'Chief Seattle Signs the Treaty of Point Elliott Ceding Puget Sound Tribal Lands',
+    subtitle: 'Point Elliott, Mukilteo, WA. Waterfront park with treaty monument',
+    description:
+      'On January 22, 1855, Chief Seattle and leaders of the Duwamish, Suquamish, Snoqualmie, and other Puget Sound tribes gathered at Point Elliott — a windswept spit jutting into Possession Sound — to sign a treaty with territorial governor Isaac Stevens. The agreement ceded most of their ancestral lands in exchange for reservation parcels and fishing rights. The signing site is now a small waterfront park in Mukilteo, the treaty monument overlooking the same gray waters where canoes once gathered.',
+    lat: 47.9445,
+    lng: -122.3040,
+    type: 'landmark',
+    importance: 'major',
+    notability: 70,
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1855,
+    date: '22 January 1855',
+    entityIds: ['chief-seattle'],
+    verificationLevel: 'verified',
+  },
+
+  // ── Tacoma Narrows Bridge Collapse ──
+  {
+    id: 'tacoma-narrows-opens',
+    name: 'The Tacoma Narrows Bridge Opens as the Third-Longest Suspension Bridge in the World',
+    subtitle: 'Tacoma Narrows, WA. Current bridge spans the same strait between Tacoma and Gig Harbor',
+    description:
+      'On July 1, 1940, the Tacoma Narrows Bridge opened to traffic, its slender two-lane deck spanning 2,800 feet across the choppy strait between Tacoma and the Kitsap Peninsula. Engineers had designed it to be remarkably narrow and shallow for its length — a cost-saving measure that gave it an elegant, ribbon-like profile. Within weeks, the bridge earned the nickname "Galloping Gertie" from motorists who noticed the deck undulating in moderate winds. State engineers installed cable stays to dampen the motion. They didn\'t work.',
+    lat: 47.2690,
+    lng: -122.5517,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 60,
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1940,
+    date: '1 July 1940',
+    verificationLevel: 'verified',
+  },
+  {
+    id: 'tacoma-narrows-collapse',
+    name: 'Galloping Gertie Tears Itself Apart in 40 MPH Winds as Newsreel Cameras Roll',
+    subtitle: 'Tacoma Narrows, WA. Wreckage still visible on the strait floor; an artificial reef',
+    description:
+      'On the morning of November 7, 1940, sustained 40 mph winds set the Tacoma Narrows Bridge into catastrophic torsional oscillation. The deck twisted violently, rising and falling in waves that reached 28 feet. Professor Farquharson of the University of Washington captured the collapse on film — footage that would become the most famous engineering failure in history. A newspaper editor named Leonard Coatsworth abandoned his car mid-span and crawled to safety. His cocker spaniel Tubby, left in the car, was the only casualty.',
+    lat: 47.2690,
+    lng: -122.5517,
+    type: 'landmark',
+    importance: 'major',
+    notability: 85,
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1940,
+    date: '7 November 1940',
+    verificationLevel: 'verified',
+  },
+  {
+    id: 'tacoma-narrows-rebuilt',
+    name: 'A New Tacoma Narrows Bridge Opens a Decade After Galloping Gertie\'s Collapse',
+    subtitle: 'Tacoma Narrows, WA. The 1950 bridge still carries westbound traffic today',
+    description:
+      'Ten years after the original bridge tore itself apart, a replacement opened on October 14, 1950. Engineers designed it with deep stiffening trusses, open gratings to reduce wind resistance, and a wider deck — every feature a direct response to the lessons of Galloping Gertie. The new bridge was deliberately overbuilt, its utilitarian profile a rebuke to the original\'s fatal elegance. It served as the sole crossing for 57 years until a parallel bridge opened in 2007.',
+    lat: 47.2690,
+    lng: -122.5517,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 50,
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1950,
+    date: '14 October 1950',
+    verificationLevel: 'verified',
+  },
+
+  // ── Starvation Heights ──
+  {
+    id: 'starvation-heights-williamsons',
+    name: 'British Heiresses Claire and Dora Williamson Arrive at Dr. Hazzard\'s Fasting Sanitarium',
+    subtitle: 'Olalla, WA. Rural community on the Kitsap Peninsula, no surviving structures from the sanitarium',
+    description:
+      'In early 1911, wealthy British sisters Claire and Dora Williamson traveled to the remote community of Olalla on the Kitsap Peninsula, seeking treatment from Dr. Linda Hazzard, a licensed fasting specialist. Hazzard prescribed extreme fasts — sometimes just small amounts of tomato and asparagus broth for weeks. Claire died in May weighing under 50 pounds. Dora survived only because the family\'s Australian governess and the British vice-consul intervened. Hazzard had already starved dozens of patients at the isolated property she called "Wilderness Heights."',
+    lat: 47.4325,
+    lng: -122.5655,
+    type: 'institution',
+    importance: 'major',
+    notability: 68,
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1911,
+    entityIds: ['linda-hazzard'],
+    verificationLevel: 'verified',
+  },
+  {
+    id: 'starvation-heights-conviction',
+    name: 'Linda Hazzard Is Convicted of Manslaughter for Starving Claire Williamson to Death',
+    subtitle: 'Kitsap County Courthouse, 614 Division St, Port Orchard. Courthouse still in use',
+    description:
+      'In February 1912, a Kitsap County jury convicted Linda Hazzard of the manslaughter of Claire Williamson. The trial revealed that Hazzard had obtained power of attorney over multiple patients as they starved under her care, systematically looting their assets. She had forged Claire\'s will and was found wearing the dead woman\'s clothing. Despite the verdict, Hazzard served only two years before being pardoned. She returned to Olalla and resumed practicing until 1938, when she died — ironically, while attempting one of her own fasting cures.',
+    lat: 47.5401,
+    lng: -122.6368,
+    type: 'government',
+    importance: 'major',
+    notability: 65,
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1912,
+    address: '614 Division St, Port Orchard, WA 98366',
+    entityIds: ['linda-hazzard'],
+    verificationLevel: 'verified',
+  },
+
+  // ── SS Pacific Sinking ──
+  {
+    id: 'ss-pacific-collision',
+    name: 'SS Pacific Collides with the Ship Orpheus off Cape Flattery and Sinks with 275 Aboard',
+    subtitle: 'Off Cape Flattery, WA. Open Pacific waters, approximate collision site',
+    description:
+      'On the evening of November 4, 1875, the steamship Pacific — overloaded with passengers returning from the Victoria gold rush — collided with the sailing ship Orpheus in rough seas off Cape Flattery. The Pacific sank within an hour. Of approximately 275 people aboard, only two survived — both clinging to wreckage for days before being rescued. The disaster remains the worst maritime loss on the Pacific coast. The Orpheus, though badly damaged, limped into port. An investigation found the Pacific had been unseaworthy and overcrowded.',
+    lat: 48.3547,
+    lng: -124.6850,
+    type: 'natural_feature',
+    importance: 'major',
+    notability: 62,
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1875,
+    date: '4 November 1875',
+    verificationLevel: 'verified',
+  },
+  {
+    id: 'ss-pacific-wreck-found',
+    name: 'The Wreck of the SS Pacific Is Discovered 147 Years After Sinking off Washington Coast',
+    subtitle: 'Off Cape Flattery, WA. Wreck site on the ocean floor, protected as maritime grave',
+    description:
+      'In 2022, maritime researchers located the wreck of the SS Pacific on the ocean floor off the Washington coast, ending a 147-year mystery. Using advanced sonar and remotely operated vehicles, they confirmed the identity of the vessel that had taken nearly 275 lives in 1875. The discovery provided closure to one of the Pacific Northwest\'s oldest cold cases and offered researchers new evidence about the conditions of the sinking. The wreck site is now considered a maritime grave and protected under federal law.',
+    lat: 48.3547,
+    lng: -124.6850,
+    type: 'natural_feature',
+    importance: 'minor',
+    notability: 50,
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 2022,
+    verificationLevel: 'verified',
+  },
 ];
 
 // ─── STORIES ─────────────────────────────────────────────────────────
@@ -485,6 +640,7 @@ export const seattleStories: Story[] = [
     tags: ['indigenous', 'seattle', 'kitsap', 'diplomacy'],
     moments: [
       { momentId: 'sea-chief-seattle-speech' },
+      { momentId: 'treaty-point-elliott' },
       { momentId: 'sea-suquamish-old-man-house' },
       { momentId: 'sea-chief-seattle-grave' },
     ],
@@ -655,5 +811,58 @@ export const seattleStories: Story[] = [
     ],
     relatedStoryIds: ['chief-seattle-suquamish', 'puget-sound-naval-shipyard'],
     wikipediaSlug: 'Port_Orchard,_Washington',
+  },
+  {
+    id: 'tacoma-narrows-bridge',
+    name: 'Tacoma Narrows Bridge Collapse',
+    nickname: 'Galloping Gertie',
+    years: '1940–1950',
+    category: 'discovery-science',
+    storyType: 'incident',
+    description:
+      "They built the third-longest suspension bridge in the world with a deck so thin it rippled like a ribbon in the wind. Motorists called it 'Galloping Gertie' and drove across for the thrill. Four months after opening, 40 mph winds tore it apart — all captured on film shown in every engineering class since. The only casualty was a dog named Tubby.",
+    tags: ['engineering', 'disaster', 'bridges', 'tacoma', 'physics', 'iconic-footage'],
+    moments: [
+      { momentId: 'tacoma-narrows-opens' },
+      { momentId: 'tacoma-narrows-collapse' },
+      { momentId: 'tacoma-narrows-rebuilt' },
+    ],
+    relatedStoryIds: ['boeing-seattle-origins'],
+    wikipediaSlug: 'Tacoma_Narrows_Bridge_(1940)',
+  },
+  {
+    id: 'starvation-heights',
+    name: 'Starvation Heights',
+    nickname: 'The Fasting Cure',
+    years: '1908–1912',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      "Dr. Linda Hazzard was a licensed fasting specialist who ran a sanitarium in the remote woods of Olalla, Washington. Her patients arrived seeking health cures and slowly starved to death — while she forged their wills, looted their bank accounts, and wore their clothing. She was convicted, served two years, and went right back to practicing.",
+    tags: ['true-crime', 'medical-abuse', 'port-orchard', 'kitsap', 'fasting'],
+    contentWarning: 'Contains descriptions of medical abuse and starvation',
+    moments: [
+      { momentId: 'starvation-heights-williamsons' },
+      { momentId: 'starvation-heights-conviction' },
+    ],
+    relatedStoryIds: ['green-river-killer'],
+    wikipediaSlug: 'Linda_Hazzard',
+  },
+  {
+    id: 'ss-pacific-disaster',
+    name: 'The SS Pacific Sinking',
+    nickname: 'The Forgotten Shipwreck',
+    years: '1875–2022',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      "On a November night in 1875, the overloaded steamship Pacific collided with the sailing vessel Orpheus off Cape Flattery and sank within an hour. Nearly 275 people drowned — only two survived. The wreck lay undiscovered for 147 years until researchers located it in 2022.",
+    tags: ['maritime', 'shipwreck', 'disaster', 'cape-flattery', 'washington', 'cold-case'],
+    moments: [
+      { momentId: 'ss-pacific-collision' },
+      { momentId: 'ss-pacific-wreck-found' },
+    ],
+    relatedStoryIds: ['db-cooper-hijacking'],
+    wikipediaSlug: 'SS_Pacific',
   },
 ];
