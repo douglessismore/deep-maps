@@ -2458,7 +2458,7 @@ export const barnesStories: Story[] = [
     ],
     relatedStoryIds: ['ut-tower-shooting', 'yogurt-shop-murders'],
     wikipediaSlug: '2010_Austin_suicide_attack',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Damage_to_Echelon_complex_from_2010_plane_crash_%28cropped%29.jpg/640px-Damage_to_Echelon_complex_from_2010_plane_crash_%28cropped%29.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/2010-suicide-attack.jpg',
   },
 
   {
@@ -2482,7 +2482,7 @@ export const barnesStories: Story[] = [
     ],
     relatedStoryIds: ['ut-tower-shooting', 'capital-city-klan-81'],
     wikipediaSlug: 'Servant_Girl_Annihilator',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Hell_Broke_Loose.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/servant-girl.jpg',
   },
 ];
 

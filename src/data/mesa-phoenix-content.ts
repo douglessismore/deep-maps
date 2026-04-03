@@ -21,7 +21,7 @@ export const mesaPhoenixEntities: Entity[] = [
       'A Phoenix laborer whose botched interrogation reached the Supreme Court and gave every arrested person in America the right to remain silent. Stabbed to death in a bar fight ten years later; his killer was read Miranda rights and released.',
     canonicalStoryId: 'miranda-rights-phoenix',
     wikipediaSlug: 'Ernesto_Miranda',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ernesto_Miranda_1967.jpg/330px-Ernesto_Miranda_1967.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/miranda-arizona.jpg',
   },
   {
     id: 'barry-goldwater',
@@ -461,7 +461,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['don-bolles-murder'],
     wikipediaSlug: 'Miranda_v._Arizona',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ernesto_Miranda_1967.jpg/640px-Ernesto_Miranda_1967.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/miranda-arizona.jpg',
   },
   {
     id: 'great-papago-escape',
@@ -476,7 +476,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-papago-escape-tunnel' }],
     relatedStoryIds: ['japanese-internment-arizona'],
     wikipediaSlug: 'Great_Papago_Escape',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Entrance_to_escape_tunnel_Papago_Park_Arizona_1944.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/papago-escape.jpg',
   },
   {
     id: 'trunk-murderess',
@@ -494,7 +494,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['don-bolles-murder'],
     wikipediaSlug: 'Winnie_Ruth_Judd',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/ed/Winnie_Ruth_Judd_at_her_1932_trial.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/trunk-murderess.jpg',
   },
   {
     id: 'phoenix-lights-1997',
@@ -512,7 +512,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['roswell'],
     wikipediaSlug: 'Phoenix_Lights',
-    imageUrl: 'https://columnsfairmontstate.com/wp-content/uploads/2019/11/Phoenix-Light-from-fightersweep.com_.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/phoenix-lights.jpg',
   },
   {
     id: 'taliesin-west',
@@ -559,7 +559,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-gila-river-camp' }],
     relatedStoryIds: ['great-papago-escape'],
     wikipediaSlug: 'Gila_River_War_Relocation_Center',
-    imageUrl: 'https://saltriverstories.org/files/fullsize/5f9d016430160c0a05967583b5029feb.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/az-internment-camps.jpg',
   },
   {
     id: 'don-bolles-murder',
@@ -574,7 +574,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-bolles-bombing' }],
     relatedStoryIds: ['miranda-rights-phoenix'],
     wikipediaSlug: 'Don_Bolles',
-    imageUrl: 'https://www.thestacksreader.com/wp-content/uploads/2020/09/Don-Bolles.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/don-bolles.jpg',
   },
   {
     id: 'barry-goldwater-life',

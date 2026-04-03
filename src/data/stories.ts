@@ -774,7 +774,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/AustinCapitalVote.png/640px-AustinCapitalVote.png',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/archive-war.png',
   },
   {
     id: 'treaty-oak-poisoning',
@@ -787,7 +787,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'nature', 'crime', 'mystery', 'occult'],
     moments: [{ momentId: 'treaty-oak-site' }, { momentId: 'treaty-oak-lab' }],
     wikipediaSlug: 'Treaty_Oak_(Austin,_Texas)',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Treaty_oak_austin_2015.jpg/640px-Treaty_oak_austin_2015.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/treaty-oak.jpg',
   },
   {
     id: 'lajitas-goat-mayor',
@@ -812,7 +812,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
     relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Austin_Dam_After_the_Break.jpg/640px-Austin_Dam_After_the_Break.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/austin-dam-1900.jpg',
   },
   {
     id: 'apollo-13-houston',
@@ -849,7 +849,7 @@ const _baseStories: Story[] = [
     contentWarning: 'Graphic violence and mass shooting.',
     moments: [{ momentId: 'uttower-observation-deck' }, { momentId: 'uttower-main-mall' }],
     wikipediaSlug: 'University_of_Texas_tower_shooting',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Texas_Tower_Sniper_Glass_Bullet_Hole_Bettmann_Archive_cropped_2_August_1966.jpg/640px-Texas_Tower_Sniper_Glass_Bullet_Hole_Bettmann_Archive_cropped_2_August_1966.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/ut-tower-shooting.jpg',
   },
   {
     id: 'barton-springs-sos',
@@ -1066,7 +1066,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'film', '1970s', 'coming-of-age', 'linklater', 'mcconaughey'],
     moments: [{ momentId: 'dazed-top-notch' }, { momentId: 'dazed-moonlight-party' }, { momentId: 'dazed-bedichek-middle' }],
     wikipediaSlug: 'Dazed_and_Confused_(film)',
-    imageUrl: 'https://ew.com/thmb/ApIOaPxl6nXB00eWAYiOXPanfhA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/dazed-confused-2912e23ba082499191b6b742eb546b9f.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4f/Dazed_and_Confused_%28movie_poster%29.jpg',
   },
   {
     id: 'jesus-ministry',
