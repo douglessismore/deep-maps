@@ -397,9 +397,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     div.style.left = `${edgeX}px`;
     div.style.top = `${edgeY}px`;
     div.innerHTML = `
-      <div style="transform:rotate(${degrees}deg);font-size:28px;color:rgba(212,168,83,1);text-shadow:0 0 14px rgba(212,168,83,0.7),0 0 6px rgba(212,168,83,0.4);filter:drop-shadow(0 0 6px rgba(212,168,83,0.5));">&#x27A4;</div>
-      <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:rgba(212,168,83,1);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,0.7);">${distStr}</span>
-      ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,0.95);max-width:160px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,0.9);">${label}</span>` : ''}
+      <div style="transform:rotate(${degrees}deg);font-size:24px;color:rgba(255,255,255,0.95);filter:drop-shadow(0 0 2px rgba(255,200,100,0.6));">&#x27A4;</div>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:rgba(255,200,100,1);white-space:nowrap;letter-spacing:0.3px;">${distStr}</span>
+      ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,0.95);max-width:160px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</span>` : ''}
     `;
   };
 
@@ -418,7 +418,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
     const div = document.createElement('div');
     div.className = 'offscreen-arrow';
-    div.style.cssText = `position:absolute;z-index:800;cursor:pointer;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;`;
+    div.style.cssText = `position:absolute;z-index:800;cursor:pointer;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:14px;border:1px solid rgba(255,255,255,0.15);box-shadow:0 2px 12px rgba(0,0,0,0.5);`;
     updateArrowPosition(div, targetLat, targetLng, label);
 
     div.addEventListener('click', (e) => {
