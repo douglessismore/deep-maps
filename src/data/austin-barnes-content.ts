@@ -2120,7 +2120,7 @@ export const barnesStories: Story[] = [
       { momentId: 'wallace-trial-suspended-sentence-1952' },
     ],
     relatedStoryIds: ['lbj-lady-bird-austin'],
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7eNzTF-kN_s_vnfsyWQ_MfU9V19LxfRwFQw&s',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/pitch-putt.jpeg',
   },
 
   {
@@ -2139,7 +2139,7 @@ export const barnesStories: Story[] = [
       { momentId: 'kkk-republic-square-rally-1922' },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
-    imageUrl: 'https://s.hdnux.com/photos/01/52/01/73/27795156/6/ratio16x9_1920.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/capital-city-klan.webp',
   },
 
   {
@@ -2157,7 +2157,7 @@ export const barnesStories: Story[] = [
       { momentId: 'kent-state-response-austin-1970' },
     ],
     relatedStoryIds: ['ut-tower-shooting'],
-    imageUrl: 'https://i0.wp.com/www.texastribune.org/wp-content/uploads/2024/05/The20Daily20Texan2019700506_-3-1-scaled.jpg?resize=2000%2C1374&quality=89&ssl=1',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/antiwar-1.webp',
   },
 
   {
@@ -2174,7 +2174,7 @@ export const barnesStories: Story[] = [
       { momentId: 'spanish-missions-move-san-antonio-1731' },
     ],
     relatedStoryIds: ['barton-springs-sos'],
-    imageUrl: 'https://s.hdnux.com/photos/01/51/43/60/27671569/6/ratio16x9_1920.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/spanish-missions.jpg',
   },
 
   {
@@ -2192,7 +2192,7 @@ export const barnesStories: Story[] = [
       { momentId: 'clarksville-mopac-destruction-1970s' },
     ],
     relatedStoryIds: ['capital-city-klan-81'],
-    imageUrl: 'https://images.squarespace-cdn.com/content/v1/5c2d2da955b02c84384fe844/1613841055348-PEAJ4VF4SOSGIZAZBCC6/SweetHomeMissionaryChurch.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/clarksville-freedmens.webp',
   },
 
   {
@@ -2209,7 +2209,7 @@ export const barnesStories: Story[] = [
       { momentId: 'capitol-dedication-1888', isPrimary: true },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
-    imageUrl: 'https://austin.com/wp-content/uploads/2016/01/Texas-State-Capitol-dedication-1888.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/capitol-dedication.jpg',
   },
 
   {
@@ -2226,7 +2226,7 @@ export const barnesStories: Story[] = [
       { momentId: 'cesar-chavez-economy-furniture-march-1971' },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
-    imageUrl: 'https://images.squarespace-cdn.com/content/v1/648868d71f1f7a320fbb6a93/11cbf370-5ddd-49cf-a934-9c2aaae5e76f/Congress+Ave+-+Archive.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/economy-furniture.webp',
   },
 
   {
@@ -2243,7 +2243,7 @@ export const barnesStories: Story[] = [
       { momentId: 'susa-clay-envelopes-3300bce' },
     ],
     relatedStoryIds: [],
-    imageUrl: 'https://sites.utexas.edu/dsb/wp-content/uploads/sites/3043/2015/04/fig5atw.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/origin-writing.jpg',
   },
 
   {
@@ -2279,7 +2279,7 @@ export const barnesStories: Story[] = [
       { momentId: 'austin-flood-wooldridge-relief-1915' },
     ],
     relatedStoryIds: ['texas-capitol-dedication-1888'],
-    imageUrl: 'https://texashistory.unt.edu/ark:/67531/metapth124016/m1/1/med_res/',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/austin-flood-1915.png',
   },
 
   {
@@ -2298,7 +2298,7 @@ export const barnesStories: Story[] = [
       { momentId: 'bargsley-family-plot-present' },
     ],
     relatedStoryIds: ['austin-flood-1915'],
-    imageUrl: 'https://texashistory.unt.edu/ark:/67531/metapth124037/m1/1/med_res/',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/austin-tornado-stedwards.jpg',
   },
 
   {
@@ -2315,7 +2315,7 @@ export const barnesStories: Story[] = [
       { momentId: 'barton-springs-swim-ins-1963', isPrimary: true },
     ],
     relatedStoryIds: ['clarksville-freedmens-town', 'capital-city-klan-81'],
-    imageUrl: 'https://npr.brightspotcdn.com/dims4/default/5f40bf4/2147483647/strip/true/crop/2148x1412+0+0/resize/1760x1156!/format/webp/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F95%2Ffb%2F026734a64d0888dde6ad6bf9f1a3%2Fbarton-springs-1940s.png',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/barton-springs-deseg.webp',
   },
 
   // ── Biography stories (invisible infrastructure) ─────────────────────
@@ -2422,7 +2422,7 @@ export const barnesStories: Story[] = [
       { momentId: 'yogurt-shop-dna-match-2025' },
     ],
     relatedStoryIds: ['ut-tower-shooting', 'pitch-and-putt-murder'],
-    imageUrl: 'https://s7d2.scene7.com/is/image/TWCNews/yogurt2FIXED',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/yogurt-shop.jpeg',
   },
 
   {
@@ -2439,7 +2439,7 @@ export const barnesStories: Story[] = [
       { momentId: 'acl-studio-6a-landmark-2009' },
     ],
     relatedStoryIds: ['willie-nelson-biography'],
-    imageUrl: 'https://def8jvn5u7ca0.cloudfront.net/wp-content/uploads/2024/09/Monthly-Product-Sales-6-1024x700.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/acl-founding.jpg',
   },
 
   {

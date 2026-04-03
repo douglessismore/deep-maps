@@ -774,7 +774,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
-    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/archive-war.png',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/archive-war.webp',
   },
   {
     id: 'treaty-oak-poisoning',
@@ -812,7 +812,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
     relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
-    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/austin-dam-1900.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/austin-dam-1900.jpeg',
   },
   {
     id: 'apollo-13-houston',
@@ -1043,7 +1043,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'music', 'civil-rights', 'african-american', 'blues', 'segregation'],
     moments: [{ momentId: 'victory-grill-opening' }, { momentId: 'victory-doris-miller' }, { momentId: 'victory-charlies-playhouse' }],
     wikipediaSlug: 'Victory_Grill',
-    imageUrl: 'https://www.eastsideatx.com/wp-content/uploads/2019/11/ESM1219_VictoryGrill.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/chitlin-circuit.jpg',
   },
   {
     id: 'broken-spoke-austin',
@@ -1066,7 +1066,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'film', '1970s', 'coming-of-age', 'linklater', 'mcconaughey'],
     moments: [{ momentId: 'dazed-top-notch' }, { momentId: 'dazed-moonlight-party' }, { momentId: 'dazed-bedichek-middle' }],
     wikipediaSlug: 'Dazed_and_Confused_(film)',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4f/Dazed_and_Confused_%28movie_poster%29.jpg',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/dazed-and-confused.jpg',
   },
   {
     id: 'jesus-ministry',
