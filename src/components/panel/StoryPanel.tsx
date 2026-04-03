@@ -37,14 +37,16 @@ function StoryImageSection({ story }: { story: Story }) {
 
     const result = await uploadStoryImage(story.id, file);
     setUploading(false);
+    // Reset file input so re-selecting the same file triggers onChange
+    if (fileRef.current) fileRef.current.value = '';
 
     if (result.error) {
       setError(result.error);
       return;
     }
 
-    // Show image immediately via local state
-    setLocalUrl(result.url!);
+    // Show image immediately — append cache-buster so browser doesn't serve stale version
+    setLocalUrl(result.url! + '?t=' + Date.now());
 
     // Update TanStack Query cache so the image persists across navigation
     queryClient.setQueryData(['app-data', 'supabase'], (prev: unknown) => {
