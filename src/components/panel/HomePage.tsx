@@ -1261,10 +1261,11 @@ export function HomePage({
   }, [allMoments, sortCenter, categoryFilter, momentToStoryMap]);
 
   // Globally-sorted stories by nearest moment distance
+  // MUST use allStories (browseableStories) — NOT raw stories — to exclude biography/place types
   const allStoriesSorted = useMemo(() => {
     if (!sortCenter) return [];
     const storyDist = new Map<string, number>();
-    for (const s of stories) {
+    for (const s of allStories) {
       if (categoryFilter !== null && s.category !== categoryFilter) continue;
       let minDist = Infinity;
       for (const sm of s.moments) {
@@ -1276,10 +1277,10 @@ export function HomePage({
       }
       if (minDist < Infinity) storyDist.set(s.id, minDist);
     }
-    return [...stories]
+    return [...allStories]
       .filter(s => storyDist.has(s.id))
       .sort((a, b) => (storyDist.get(a.id) ?? 0) - (storyDist.get(b.id) ?? 0));
-  }, [stories, sortCenter, categoryFilter, momentById]);
+  }, [allStories, sortCenter, categoryFilter, momentById]);
 
   // Globally-sorted people by nearest moment distance
   const allPeopleSorted = useMemo(() => {
