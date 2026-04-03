@@ -2251,7 +2251,7 @@ export const barnesStories: Story[] = [
     name: 'Brackenridge Hospital: 133 Years of Austin\'s First Public Hospital',
     years: '1884–2017',
     category: 'everyday-extraordinary',
-    storyType: 'incident',
+    storyType: 'place',
     description:
       'Central Texas\'s first public hospital opens in a $10,000 two-story building in 1884 and operates continuously for 133 years — achieving Austin\'s first open-heart surgery, first ICU, and first intercranial surgery — before closing in 2017.',
     tags: ['hospital', 'austin', 'healthcare', 'institution', '1880s'],

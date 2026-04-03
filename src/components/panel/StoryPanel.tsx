@@ -67,7 +67,7 @@ export function StoryPanel({
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
-  const [headerExpanded, setHeaderExpanded] = useState(true);
+  const [headerExpanded] = useState(true);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
@@ -410,25 +410,22 @@ export function StoryPanel({
                 </div>
               )}
 
-              {/* Bio section — always visible, tap to collapse long descriptions */}
+              {/* Bio section — always expanded, prominent hero treatment */}
               {story.description && (
-                <button
-                  onClick={() => setHeaderExpanded(!headerExpanded)}
-                  className="w-full text-left px-4 pb-3"
-                >
-                  <div className="border-l-2 pl-3" style={{ borderColor: cat.color }}>
-                    <p className={`text-sm text-[var(--text-secondary)] leading-relaxed ${
-                      !headerExpanded ? 'line-clamp-3' : ''
-                    }`}>
-                      {story.description}
-                    </p>
-                    {!headerExpanded && (
-                      <span className="text-[10px] font-mono text-[var(--text-muted)] mt-1 inline-block">
-                        Read more ↓
-                      </span>
+                <div className="px-4 pb-3">
+                  <div className="rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] p-3">
+                    <div className="border-l-2 pl-3" style={{ borderColor: cat.color }}>
+                      <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
+                        {story.description}
+                      </p>
+                    </div>
+                    {story.imageUrl && (
+                      <div className="mt-3 rounded overflow-hidden">
+                        <img src={story.imageUrl} alt="" className="w-full h-32 object-cover opacity-80" />
+                      </div>
                     )}
                   </div>
-                </button>
+                </div>
               )}
 
               {/* Tags + Wikipedia — visible when expanded */}
