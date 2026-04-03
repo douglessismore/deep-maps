@@ -397,9 +397,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     div.style.left = `${edgeX}px`;
     div.style.top = `${edgeY}px`;
     div.innerHTML = `
-      <div style="transform:rotate(${degrees}deg);font-size:22px;color:rgba(212,168,83,0.95);text-shadow:0 0 10px rgba(212,168,83,0.5);filter:drop-shadow(0 0 4px rgba(212,168,83,0.3));">&#x27A4;</div>
-      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:rgba(212,168,83,0.85);white-space:nowrap;">${distStr}</span>
-      ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.8);max-width:140px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,0.8);">${label}</span>` : ''}
+      <div style="transform:rotate(${degrees}deg);font-size:28px;color:rgba(212,168,83,1);text-shadow:0 0 14px rgba(212,168,83,0.7),0 0 6px rgba(212,168,83,0.4);filter:drop-shadow(0 0 6px rgba(212,168,83,0.5));">&#x27A4;</div>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:rgba(212,168,83,1);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,0.7);">${distStr}</span>
+      ${label ? `<span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,0.95);max-width:160px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,0.9);">${label}</span>` : ''}
     `;
   };
 

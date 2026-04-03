@@ -1822,7 +1822,7 @@ export function HomePage({
 
         {/* ── Stories Near You ── */}
         <div style={{ order: o('stories') }}>
-        {allHomeStories.length > 0 && (
+        {storiesDisplay.length > 0 && (
           <>
             <div ref={storiesSectionRef} className="pb-4">
               <SectionHeading
