@@ -773,6 +773,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Angelina_Eberly.jpg/440px-Angelina_Eberly.jpg',
   },
   {
     id: 'treaty-oak-poisoning',
@@ -785,6 +786,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'nature', 'crime', 'mystery', 'occult'],
     moments: [{ momentId: 'treaty-oak-site' }, { momentId: 'treaty-oak-lab' }],
     wikipediaSlug: 'Treaty_Oak_(Austin,_Texas)',
+    imageUrl: 'https://library.austintexas.gov/sites/default/files/ahc_fav15_treatyoak_PICA22006.jpg',
   },
   {
     id: 'lajitas-goat-mayor',
@@ -809,6 +811,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
     relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/74/FMIB_33146_Austin_Dam_and_Power-House%2C_Texas_%28cropped%29.jpeg',
   },
   {
     id: 'apollo-13-houston',
@@ -845,6 +848,7 @@ const _baseStories: Story[] = [
     contentWarning: 'Graphic violence and mass shooting.',
     moments: [{ momentId: 'uttower-observation-deck' }, { momentId: 'uttower-main-mall' }],
     wikipediaSlug: 'University_of_Texas_tower_shooting',
+    imageUrl: 'https://www.gannett-cdn.com/presto/2019/07/31/USAT/1e0aa191-6e0f-4524-aa30-dd57cd3bc037-AP_University_of_Texas_Shooting.jpg',
   },
   {
     id: 'barton-springs-sos',
@@ -1030,7 +1034,7 @@ const _baseStories: Story[] = [
   },
   {
     id: 'victory-grill-chitlin',
-    name: 'The Victory Grill & Austin\'s Chitlin\' Circuit',
+    name: 'Austin\'s Chitlin\' Circuit',
     years: '1945–present',
     category: 'arts-culture',
     storyType: 'incident',
@@ -1038,6 +1042,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'music', 'civil-rights', 'african-american', 'blues', 'segregation'],
     moments: [{ momentId: 'victory-grill-opening' }, { momentId: 'victory-doris-miller' }, { momentId: 'victory-charlies-playhouse' }],
     wikipediaSlug: 'Victory_Grill',
+    imageUrl: 'https://www.eastsideatx.com/wp-content/uploads/2019/11/ESM1219_VictoryGrill.jpg',
   },
   {
     id: 'broken-spoke-austin',
@@ -1060,6 +1065,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'film', '1970s', 'coming-of-age', 'linklater', 'mcconaughey'],
     moments: [{ momentId: 'dazed-top-notch' }, { momentId: 'dazed-moonlight-party' }, { momentId: 'dazed-bedichek-middle' }],
     wikipediaSlug: 'Dazed_and_Confused_(film)',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/9/95/Dazed_and_Confused_%28poster%29.png',
   },
   {
     id: 'jesus-ministry',

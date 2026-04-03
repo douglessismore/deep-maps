@@ -2120,6 +2120,7 @@ export const barnesStories: Story[] = [
       { momentId: 'wallace-trial-suspended-sentence-1952' },
     ],
     relatedStoryIds: ['lbj-lady-bird-austin'],
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7eNzTF-kN_s_vnfsyWQ_MfU9V19LxfRwFQw&s',
   },
 
   {
@@ -2138,6 +2139,7 @@ export const barnesStories: Story[] = [
       { momentId: 'kkk-republic-square-rally-1922' },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
+    imageUrl: 'https://s.hdnux.com/photos/01/52/01/73/27795156/6/ratio16x9_1920.jpg',
   },
 
   {
@@ -2155,6 +2157,7 @@ export const barnesStories: Story[] = [
       { momentId: 'kent-state-response-austin-1970' },
     ],
     relatedStoryIds: ['ut-tower-shooting'],
+    imageUrl: 'https://i0.wp.com/www.texastribune.org/wp-content/uploads/2024/05/The20Daily20Texan2019700506_-3-1-scaled.jpg?resize=2000%2C1374&quality=89&ssl=1',
   },
 
   {
@@ -2171,6 +2174,7 @@ export const barnesStories: Story[] = [
       { momentId: 'spanish-missions-move-san-antonio-1731' },
     ],
     relatedStoryIds: ['barton-springs-sos'],
+    imageUrl: 'https://s.hdnux.com/photos/01/51/43/60/27671569/6/ratio16x9_1920.jpg',
   },
 
   {
@@ -2188,6 +2192,7 @@ export const barnesStories: Story[] = [
       { momentId: 'clarksville-mopac-destruction-1970s' },
     ],
     relatedStoryIds: ['capital-city-klan-81'],
+    imageUrl: 'https://images.squarespace-cdn.com/content/v1/5c2d2da955b02c84384fe844/1613841055348-PEAJ4VF4SOSGIZAZBCC6/SweetHomeMissionaryChurch.jpg',
   },
 
   {
@@ -2204,6 +2209,7 @@ export const barnesStories: Story[] = [
       { momentId: 'capitol-dedication-1888', isPrimary: true },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
+    imageUrl: 'https://austin.com/wp-content/uploads/2016/01/Texas-State-Capitol-dedication-1888.jpg',
   },
 
   {
@@ -2220,6 +2226,7 @@ export const barnesStories: Story[] = [
       { momentId: 'cesar-chavez-economy-furniture-march-1971' },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
+    imageUrl: 'https://images.squarespace-cdn.com/content/v1/648868d71f1f7a320fbb6a93/11cbf370-5ddd-49cf-a934-9c2aaae5e76f/Congress+Ave+-+Archive.jpg',
   },
 
   {
@@ -2236,6 +2243,7 @@ export const barnesStories: Story[] = [
       { momentId: 'susa-clay-envelopes-3300bce' },
     ],
     relatedStoryIds: [],
+    imageUrl: 'https://sites.utexas.edu/dsb/wp-content/uploads/sites/3043/2015/04/fig5atw.jpg',
   },
 
   {
@@ -2271,6 +2279,7 @@ export const barnesStories: Story[] = [
       { momentId: 'austin-flood-wooldridge-relief-1915' },
     ],
     relatedStoryIds: ['texas-capitol-dedication-1888'],
+    imageUrl: 'https://texashistory.unt.edu/ark:/67531/metapth124016/m1/1/med_res/',
   },
 
   {

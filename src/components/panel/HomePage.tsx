@@ -677,18 +677,31 @@ function HomeStoryCard({
       className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]"
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
-      {/* Category color bar */}
-      <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
-      <div className="p-3 flex flex-col justify-between h-[110px]">
+      {/* Image or category color bar */}
+      {story.imageUrl ? (
+        <div className="h-[80px] w-full overflow-hidden">
+          <img
+            src={story.imageUrl}
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      ) : (
+        <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
+      )}
+      <div className={`p-3 flex flex-col justify-between ${story.imageUrl ? 'h-[72px]' : 'h-[110px]'}`}>
         <div className="min-w-0">
           <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {story.name}
           </h4>
-          <p className="text-[11px] text-[var(--text-muted)] font-mono mt-1">{story.years}</p>
+          {!story.imageUrl && (
+            <p className="text-[11px] text-[var(--text-muted)] font-mono mt-1">{story.years}</p>
+          )}
         </div>
         <div className="flex items-center justify-between mt-auto pt-1">
           <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {!isBackfill && inViewCount < total
+            {story.imageUrl ? story.years : ''}{story.imageUrl && ' · '}{!isBackfill && inViewCount < total
               ? `${inViewCount} of ${total} moments`
               : `${total} moments`}{distanceMi != null ? ` · ${formatDistance(distanceMi)}` : ''}
           </span>

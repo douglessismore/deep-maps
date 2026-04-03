@@ -50,6 +50,7 @@ export interface Story {
   moments: StoryMoment[];              // NEW: ordered moment references
   relatedStoryIds?: string[];
   wikipediaSlug?: string; // Wikipedia article slug (e.g., "Ed_Gein", "Jeffrey_Dahmer")
+  imageUrl?: string;      // Story card thumbnail (historical photo, illustration, etc.)
 }
 
 export type InteractionMode = 'explore' | 'scroll' | 'story' | 'entity';
