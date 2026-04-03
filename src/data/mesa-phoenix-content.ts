@@ -461,7 +461,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['don-bolles-murder'],
     wikipediaSlug: 'Miranda_v._Arizona',
-    imageUrl: 'https://www.thirteen.org/wnet/supremecourt/rights/images/miranda.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ernesto_Miranda_1967.jpg/640px-Ernesto_Miranda_1967.jpg',
   },
   {
     id: 'great-papago-escape',
@@ -476,7 +476,7 @@ export const mesaPhoenixStories: Story[] = [
     moments: [{ momentId: 'phx-papago-escape-tunnel' }],
     relatedStoryIds: ['japanese-internment-arizona'],
     wikipediaSlug: 'Great_Papago_Escape',
-    imageUrl: 'https://www.warhistoryonline.com/wp-content/uploads/sites/2/2017/10/papago-park-escape-tunnel-entrance.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Entrance_to_escape_tunnel_Papago_Park_Arizona_1944.jpg',
   },
   {
     id: 'trunk-murderess',
@@ -494,7 +494,7 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['don-bolles-murder'],
     wikipediaSlug: 'Winnie_Ruth_Judd',
-    imageUrl: 'https://bloximages.newyork1.vip.townnews.com/tucson.com/content/tncms/assets/v3/editorial/2/12/2126f47e-a42e-11e2-bff8-001a4bcf887a/516b6e8a31283.image.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/ed/Winnie_Ruth_Judd_at_her_1932_trial.jpg',
   },
   {
     id: 'phoenix-lights-1997',

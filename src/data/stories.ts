@@ -774,7 +774,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
-    imageUrl: 'https://www.tsl.texas.gov/sites/default/files/public/tslac/treasures/republic/images/archwar-harpers.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/AustinCapitalVote.png/640px-AustinCapitalVote.png',
   },
   {
     id: 'treaty-oak-poisoning',
@@ -787,7 +787,7 @@ const _baseStories: Story[] = [
     tags: ['austin', 'nature', 'crime', 'mystery', 'occult'],
     moments: [{ momentId: 'treaty-oak-site' }, { momentId: 'treaty-oak-lab' }],
     wikipediaSlug: 'Treaty_Oak_(Austin,_Texas)',
-    imageUrl: 'https://img.texasmonthly.com/2019/06/treaty-oak-poisoning.jpg?auto=compress&crop=faces&fit=crop&fm=pjpg&ixlib=php-3.3.1&q=45&w=800',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Treaty_oak_austin_2015.jpg/640px-Treaty_oak_austin_2015.jpg',
   },
   {
     id: 'lajitas-goat-mayor',
@@ -812,7 +812,7 @@ const _baseStories: Story[] = [
     moments: [{ momentId: 'dam-powerhouse-explosion' }, { momentId: 'dam-red-bud-isle' }],
     relatedStoryIds: ['barton-springs-sos', 'galveston-orphanage-stand'],
     wikipediaSlug: 'Austin_Dam_Failure',
-    imageUrl: 'https://texashistory.unt.edu/ark:/67531/metapth124011/m1/1/med_res/',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Austin_Dam_After_the_Break.jpg/640px-Austin_Dam_After_the_Break.jpg',
   },
   {
     id: 'apollo-13-houston',
@@ -849,7 +849,7 @@ const _baseStories: Story[] = [
     contentWarning: 'Graphic violence and mass shooting.',
     moments: [{ momentId: 'uttower-observation-deck' }, { momentId: 'uttower-main-mall' }],
     wikipediaSlug: 'University_of_Texas_tower_shooting',
-    imageUrl: 'https://www.ceasefirepa.org/wp-content/uploads/2024/07/tower-shooting-768x536.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Texas_Tower_Sniper_Glass_Bullet_Hole_Bettmann_Archive_cropped_2_August_1966.jpg/640px-Texas_Tower_Sniper_Glass_Bullet_Hole_Bettmann_Archive_cropped_2_August_1966.jpg',
   },
   {
     id: 'barton-springs-sos',
