@@ -676,18 +676,18 @@ html, body, #root {
 
 /* ===== Geolocation marker ===== */
 .geo-marker {
-  width: 10px;
-  height: 10px;
-  background: rgba(59, 130, 246, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  width: 14px;
+  height: 14px;
+  background: rgba(59, 130, 246, 0.95);
+  border: 3px solid rgba(255, 255, 255, 0.95);
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
-  animation: geo-pulse 3s ease-in-out infinite;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25), 0 0 12px rgba(59, 130, 246, 0.5);
+  animation: geo-pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes geo-pulse {
-  0%, 100% { box-shadow: 0 0 6px rgba(59, 130, 246, 0.3); }
-  50% { box-shadow: 0 0 14px rgba(59, 130, 246, 0.5); }
+  0%, 100% { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25), 0 0 12px rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.15), 0 0 20px rgba(59, 130, 246, 0.6); }
 }
 
 /* ===== Wikipedia Content Dark Theme ===== */

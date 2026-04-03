@@ -45,7 +45,7 @@ export const delValleMoments: Moment[] = [
     year: 2012,
     date: '21 October 2012',
     address: '9201 Circuit of the Americas Blvd, Del Valle, TX 78617',
-    entityIds: ['mario-andretti', 'kevin-schwantz', 'cota'],
+    entityIds: ['mario-andretti', 'cota'], // Removed kevin-schwantz (no entity definition exists)
   },
 
   {
@@ -225,7 +225,7 @@ export const delValleMoments: Moment[] = [
     year: -80000000,
     date: 'c. 80 million years ago',
     address: 'Pilot Knob, Del Valle, TX',
-    entityIds: ['pilot-knob', 'mckinney-falls-state-park'],
+    entityIds: ['mckinney-falls-state-park'],
   },
 
   {
@@ -244,7 +244,7 @@ export const delValleMoments: Moment[] = [
     year: -7000,
     date: 'c. 9,000 years ago – 1830s',
     address: 'McKinney Falls State Park, Austin, TX 78744',
-    entityIds: ['thomas-mckinney', 'mckinney-falls-state-park'],
+    entityIds: ['mckinney-falls-state-park'],
   },
 
   {
@@ -263,7 +263,7 @@ export const delValleMoments: Moment[] = [
     year: 1839,
     date: '1839–1873',
     address: 'McKinney Falls State Park, Austin, TX 78744',
-    entityIds: ['thomas-mckinney', 'mckinney-falls-state-park'],
+    entityIds: ['mckinney-falls-state-park'],
   },
 
   {
@@ -282,7 +282,7 @@ export const delValleMoments: Moment[] = [
     year: 2013,
     date: '31 October 2013',
     address: 'Onion Creek at Pleasant Valley Road, Austin, TX',
-    entityIds: ['onion-creek', 'mckinney-falls-state-park'],
+    entityIds: ['mckinney-falls-state-park'],
   },
 
   // ── Austin-Bergstrom Airport / Bergstrom AFB ────────────────────────
@@ -303,7 +303,6 @@ export const delValleMoments: Moment[] = [
     year: 1941,
     date: '8 December 1941',
     address: 'Clark Field, Pampanga, Philippines',
-    entityIds: ['john-bergstrom'],
   },
 
   {
@@ -321,7 +320,7 @@ export const delValleMoments: Moment[] = [
     kind: 'event',
     year: 1942,
     address: 'Bergstrom AFB, Del Valle, TX',
-    entityIds: ['john-bergstrom'],
+    entityIds: [], // Bergstrom died in 1941; base was named posthumously
   },
 
   {
@@ -359,7 +358,7 @@ export const delValleMoments: Moment[] = [
     year: 1993,
     date: '30 September 1993',
     address: 'Bergstrom AFB, Del Valle, TX',
-    entityIds: ['john-bergstrom'],
+    entityIds: [], // Bergstrom died in 1941; base closing was 52 years later
   },
 
   {
@@ -398,7 +397,6 @@ export const delValleMoments: Moment[] = [
     year: 2008,
     date: '15 September 2008',
     address: '3600 Presidential Blvd, Austin, TX 78719',
-    entityIds: ['austin-bergstrom-airport'],
   },
 
   // ── Del Valle Land Grant ────────────────────────────────────────────
@@ -419,6 +417,82 @@ export const delValleMoments: Moment[] = [
     year: 1832,
     address: 'Del Valle, TX',
     entityIds: [],
+  },
+
+  // ── F1 Driver Biographical Moments ────────────────────────────────
+
+  {
+    id: 'hamilton-rye-house-karting-1993',
+    name: 'Eight-Year-Old Lewis Hamilton Starts Karting at Rye House',
+    subtitle: 'Rye House Kart Circuit, Rye Rd, Hoddesdon EN11 0EH, UK. The circuit still operates',
+    description:
+      'In 1993, Anthony Hamilton brought his eight-year-old son Lewis to this kart circuit in Hoddesdon, Hertfordshire, for his first races. The elder Hamilton worked multiple jobs — including putting up signs as an IT contractor — to fund the karting. Within a year, Lewis won the British Cadet Kart Championship. The track sits in a flat industrial area beside the River Lea, surrounded by garden centers and warehouses.',
+    lat: 51.7614,
+    lng: -0.0088,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1993,
+    entityIds: ['lewis-hamilton'],
+  },
+
+  {
+    id: 'andretti-born-montona-1940',
+    name: 'Mario Andretti Is Born in Montona, a Hilltop Town That Will Change Countries Twice',
+    subtitle: 'Motovun (formerly Montona), Istria, Croatia. The medieval hilltop town is now a Croatian tourist destination and film festival site',
+    description:
+      'Mario Andretti was born here on 28 February 1940 in this walled hilltop town overlooking the Mirna River valley. At the time, Montona was part of Italy. After WWII, the Paris Peace Treaty of 1947 transferred Istria to Yugoslavia. The Andretti family, ethnic Italians, spent seven years in a displaced persons camp in Lucca before emigrating to Pennsylvania in 1955.',
+    lat: 45.3364,
+    lng: 13.8286,
+    type: 'residence',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1940,
+    date: '28 February 1940',
+    entityIds: ['mario-andretti'],
+  },
+
+  {
+    id: 'andretti-refugee-camp-lucca-1948',
+    name: 'The Andretti Family Arrives as Refugees in Lucca After Losing Their Home to Yugoslavia',
+    subtitle: 'Lucca, Tuscany, Italy. The Andrettis spent seven years in a displaced persons camp inside this Renaissance walled city',
+    description:
+      'In 1948, the Andretti family arrived at a displaced persons camp here in Lucca after their hometown of Montona was transferred from Italy to Yugoslavia. Mario and his twin brother Aldo were eight. They spent seven years in the camp, where the boys first encountered motor racing — watching Alberto Ascari race in nearby Formula One events. In 1955, an uncle in Nazareth, Pennsylvania, sponsored their emigration to the United States.',
+    lat: 43.8430,
+    lng: 10.5027,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 1948,
+    entityIds: ['mario-andretti'],
+  },
+
+  {
+    id: 'verstappen-youngest-f1-driver-melbourne-2015',
+    name: 'Max Verstappen Becomes the Youngest F1 Driver in History at 17 Years and 166 Days',
+    subtitle: 'Albert Park Circuit, Melbourne, Australia. The street circuit around a lake in the city center',
+    description:
+      'On 15 March 2015, Max Verstappen lined up on the grid here at 17 years and 166 days old, the youngest driver to start a Formula One race. Racing for Toro Rosso, the Dutch-Belgian teenager finished the race in 12th. His father Jos had raced in F1 for eight seasons. The record for youngest starter may never be broken — the FIA subsequently raised the minimum super license age to 18.',
+    lat: -37.8497,
+    lng: 144.9680,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2015,
+    date: '15 March 2015',
+    entityIds: ['max-verstappen'],
   },
 ];
 
@@ -489,12 +563,13 @@ export const delValleStories: Story[] = [
   {
     id: 'lewis-hamilton-biography',
     name: 'Lewis Hamilton',
-    years: '2007–present',
+    years: '1993–present',
     category: 'everyday-extraordinary',
     storyType: 'biography',
-    description: 'A rookie\'s first win on an island circuit in Montreal, a three-wheeled finish at Silverstone, and six victories at the Texas track where he introduced F1 to America.',
+    description: 'From a kart circuit in Hoddesdon to seven world championships — the son of an IT contractor who worked multiple jobs to fund karting becomes the most decorated driver in F1 history.',
     tags: ['f1', 'motorsport', 'racing'],
     moments: [
+      { momentId: 'hamilton-rye-house-karting-1993' },
       { momentId: 'lewis-hamilton-first-win-montreal-2007' },
       { momentId: 'cota-first-usgp', isPrimary: true },
       { momentId: 'lewis-hamilton-three-wheels-silverstone-2020' },
@@ -506,12 +581,13 @@ export const delValleStories: Story[] = [
   {
     id: 'max-verstappen-biography',
     name: 'Max Verstappen',
-    years: '2016–present',
+    years: '2015–present',
     category: 'everyday-extraordinary',
     storyType: 'biography',
-    description: 'The youngest F1 winner at 18 in Barcelona, a last-lap championship pass in Abu Dhabi, and a COTA victory before the largest crowd in the sport\'s history.',
+    description: 'The youngest driver to start an F1 race at 17, the youngest winner at 18, and four consecutive world championships — including a COTA victory before the largest crowd in the sport\'s history.',
     tags: ['f1', 'motorsport', 'racing'],
     moments: [
+      { momentId: 'verstappen-youngest-f1-driver-melbourne-2015' },
       { momentId: 'max-verstappen-youngest-winner-barcelona-2016' },
       { momentId: 'cota-attendance-record' },
       { momentId: 'max-verstappen-championship-abu-dhabi-2021', isPrimary: true },
@@ -523,12 +599,14 @@ export const delValleStories: Story[] = [
   {
     id: 'mario-andretti-biography',
     name: 'Mario Andretti',
-    years: '1969–2012',
+    years: '1940–2012',
     category: 'everyday-extraordinary',
     storyType: 'biography',
-    description: 'An Indy 500 victory in a backup car, an F1 championship shadowed by a teammate\'s death at Monza, and a ceremonial first lap at 72 on America\'s newest circuit.',
-    tags: ['f1', 'motorsport', 'racing', 'indycar'],
+    description: 'Born in an Italian hilltop town that became Yugoslavia, raised in a refugee camp in Tuscany, emigrated to Pennsylvania at 15 — then won the Indy 500, the F1 championship, and drove the first lap at America\'s newest circuit at 72.',
+    tags: ['f1', 'motorsport', 'racing', 'indycar', 'refugee'],
     moments: [
+      { momentId: 'andretti-born-montona-1940' },
+      { momentId: 'andretti-refugee-camp-lucca-1948' },
       { momentId: 'mario-andretti-indy-500-1969', isPrimary: true },
       { momentId: 'mario-andretti-f1-championship-monza-1978' },
       { momentId: 'cota-andretti-first-lap' },

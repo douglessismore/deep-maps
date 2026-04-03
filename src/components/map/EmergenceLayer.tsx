@@ -404,6 +404,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   };
 
   const showOffScreenArrow = (targetLat: number, targetLng: number, label?: string, meta?: string) => {
+    // Guard against invalid coordinates
+    if (targetLat == null || targetLng == null || !isFinite(targetLat) || !isFinite(targetLng)) return;
     // Don't override an active arrow-click flyTo
     if (arrowFlyRef.current) return;
     // Always replace the arrow with current data. The cardId-based lookup
@@ -644,11 +646,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         if (visibleMoments.length === 0) {
           // All moments off-screen — show directional arrow toward the nearest one
           const center = bounds.getCenter();
-          const nearest = scrollHighlight.reduce((best, m) => {
+          const validMoments = scrollHighlight.filter(m => m.lat != null && m.lng != null);
+          if (validMoments.length === 0) return cleanup;
+          const nearest = validMoments.reduce((best, m) => {
             const bDist = Math.hypot(best.lat - center.lat, best.lng - center.lng);
             const mDist = Math.hypot(m.lat - center.lat, m.lng - center.lng);
             return mDist < bDist ? m : best;
-          }, scrollHighlight[0]);
+          }, validMoments[0]);
           showOffScreenArrow(nearest.lat, nearest.lng, scrollHighlightLabel || undefined, scrollHighlightMeta || undefined);
           return;
         }
@@ -711,6 +715,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       } else {
         // Single moment: show dot + label inline
         const moment = scrollHighlight[0];
+        if (!moment || moment.lat == null || moment.lng == null) return cleanup;
         const vpBounds = map.getBounds();
         if (!vpBounds.contains([moment.lat, moment.lng])) {
           // Off-screen — show directional arrow

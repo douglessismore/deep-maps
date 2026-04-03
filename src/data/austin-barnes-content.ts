@@ -386,22 +386,20 @@ export const barnesMoments: Moment[] = [
   },
 
   {
-    id: 'schmandt-besserat-scientific-american-1978',
-    name: 'Scientific American Publishes Schmandt-Besserat\'s Theory to a Global Audience',
-    subtitle: 'Art Building, UT Austin, 2301 San Jacinto Blvd. Her book later made American Scientist\'s 100 greatest science books',
+    id: 'susa-clay-envelopes-3300bce',
+    name: 'Scribes at Susa Seal Clay Tokens Inside Envelopes, Inventing the Concept of Written Records',
+    subtitle: 'Susa (modern Shush), Khuzestan Province, Iran. French excavations from the 1880s onward unearthed thousands of clay tokens and sealed envelopes',
     description:
-      'In June 1978, Scientific American published Schmandt-Besserat\'s article "The Earliest Precursor of Writing," bringing her clay token theory from academic circles to a worldwide audience. Her expanded work, "How Writing Came About" (UT Press, 1996), was later listed among American Scientist\'s "100 Books that Shaped a Century of Science" — the only book by a UT Austin faculty member on the list.',
-    lat: 30.2860,
-    lng: -97.7331,
-    type: 'university',
-    importance: 'minor',
-    notability: 45,
+      'Around 3300 BCE, administrators here at Susa — one of the oldest cities in the world — began pressing small clay tokens into hollow clay balls and sealing them shut. Each token shape represented a commodity: cones for grain, spheres for large measures, ovoids for oil. To verify contents without breaking the seal, scribes pressed the tokens into the wet exterior first, creating marks. That reduction from three-dimensional token to two-dimensional impression was, as a UT professor would prove 5,000 years later, the invention of writing.',
+    lat: 32.1877,
+    lng: 48.2569,
+    type: 'discovery_site',
+    importance: 'major',
+    notability: 60,
     verificationLevel: 'verified',
     accuracy: 'approximate',
-    kind: 'event',
-    year: 1978,
-    date: 'June 1978',
-    address: '2301 San Jacinto Blvd, Austin, TX 78712',
+    kind: 'presence',
+    year: -3300,
     entityIds: [],
   },
 
@@ -588,7 +586,7 @@ export const barnesMoments: Moment[] = [
     name: '500 Enslaved People Are Marched to Austin to Build a Confederate Fort That Is Never Used',
     subtitle: '3903 S Congress Ave at Krebs Ln, Austin, TX 78704. A 2003 historical marker stands at the intersection; no earthworks remain',
     description:
-      'In the winter of 1863-64, Confederate Maj. Julius Kellersberg orders construction of an L-shaped earthen fort large enough for 200 soldiers along San Antonio Road. Named for Gen. John Bankhead Magruder, commander of Texas Confederate forces. Due to wartime manpower shortages, 500 enslaved people are marched from La Grange in bitter cold to build it. In early 1864, Union forces attack Texas from the Red River in Louisiana instead. Fort Magruder is abandoned, never completed, and Austin is never attacked.',
+      'In the winter of 1863-64, Confederate Maj. Julius Kellersberg orders construction of an L-shaped earthen fort along San Antonio Road. Named for Gen. John Bankhead Magruder, commander of Texas Confederate forces. Due to wartime manpower shortages, 500 enslaved people are marched from La Grange in bitter cold to build it. In early 1864, Union forces attack Texas from the Red River in Louisiana instead. Fort Magruder is abandoned, never completed, and Austin is never attacked.',
     lat: 30.2252,
     lng: -97.7626,
     type: 'battlefield',
@@ -1367,7 +1365,7 @@ export const barnesMoments: Moment[] = [
     name: 'John Henry Faulk Sues His Blacklisters and Wins, Breaking McCarthy-Era Censorship',
     subtitle: 'New York Supreme Court, 60 Centre St, New York. Faulk returned to Austin after the trial',
     description:
-      'On 28 June 1962, an Austin-born humorist won a landmark $3.5 million libel verdict against AWARE, Inc. and Vincent Hartnett, who had blacklisted him from CBS radio in 1956 for alleged Communist sympathies. Faulk\'s attorney, legendary Louis Nizer, proved that AWARE fabricated its charges. The verdict was the first successful legal challenge to McCarthy-era blacklisting and helped end the practice. Faulk returned to Austin and taught at UT until his death in 1990.',
+      'On 28 June 1962, an Austin-born humorist won a landmark $3.5 million libel verdict against AWARE, Inc. and Vincent Hartnett, who had blacklisted him from CBS radio in 1956 for alleged Communist sympathies. Faulk\'s attorney Louis Nizer proved that AWARE fabricated its charges. The verdict was the first successful legal challenge to McCarthy-era blacklisting and helped end the practice. Faulk returned to Austin and taught at UT until his death in 1990.',
     lat: 40.7145,
     lng: -74.0013,
     type: 'government',
@@ -1594,7 +1592,7 @@ export const barnesMoments: Moment[] = [
     name: 'Studio 6A Is Designated a Rock & Roll Hall of Fame Landmark',
     subtitle: '2504 Whitis Ave, Communications Building B, UT Austin. The studio was retired in 2011 when ACL moved to the Moody Theater',
     description:
-      'In 2009, the Rock & Roll Hall of Fame designated Studio 6A here at UT Austin as an official Rock and Roll Landmark, one of only a handful nationwide. The converted classroom had hosted every major name in American roots music since 1974. Two years later, ACL moved to the purpose-built Moody Theater at 310 W. Willie Nelson Blvd, ending 37 years in the campus studio. The original set\'s backdrop of the Austin skyline became an iconic television image.',
+      'In 2009, the Rock & Roll Hall of Fame designated Studio 6A here at UT Austin as an official Rock and Roll Landmark, one of only a handful nationwide. The converted classroom had hosted every major name in American roots music since 1974. Two years later, ACL moved to the purpose-built Moody Theater at 310 W. Willie Nelson Blvd, ending 37 years in the campus studio. The original set\'s backdrop of the Austin skyline became one of the most recognized images in American television.',
     lat: 30.286,
     lng: -97.740,
     type: 'cultural_venue',
@@ -1767,6 +1765,342 @@ export const barnesMoments: Moment[] = [
     address: '3001 S. Congress Ave, Austin, TX 78704',
     entityIds: [],
   },
+
+  // ── The 2010 Austin Suicide Attack ─────────────────────────────────────
+
+  {
+    id: 'joe-stack-house-fire-2010',
+    name: 'Joe Stack Sets His House on Fire Before Driving to a Suicide Attack',
+    subtitle: '1800 block of Dapplegrey Lane, Scofield Farms, North Austin. The house was rebuilt after the fire',
+    description:
+      'Around 9:18 a.m. on 18 February 2010, software engineer Andrew Joseph Stack III set fire to his two-story home here in the Scofield Farms subdivision of North Austin. His wife and stepdaughter had fled the night before after he became erratic. Firefighters arrived to find the house fully engulfed. Stack was already driving south toward an IRS field office on Research Boulevard, where he would crash his single-engine plane minutes later.',
+    lat: 30.437,
+    lng: -97.680,
+    type: 'residence',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 2010,
+    date: '18 February 2010',
+    address: '1800 block of Dapplegrey Lane, Austin, TX 78727',
+    entityIds: [],
+  },
+
+  {
+    id: 'joe-stack-irs-crash-2010',
+    name: 'Joe Stack Crashes a Piper Dakota into an IRS Office, Killing Himself and Vernon Hunter',
+    subtitle: '9420 Research Blvd (US-183), Austin. The Echelon I building was rebuilt and still stands',
+    description:
+      'At approximately 9:56 a.m. on 18 February 2010, Andrew Joseph Stack III flew his Piper PA-28 Dakota into the second floor of the Echelon I office building here on Research Boulevard. The building housed 190 IRS employees. The impact killed Stack and IRS manager Vernon Hunter, 68, a 20-year Army veteran. Thirteen others were injured. Stack had posted a manifesto online railing against the IRS and the tax code. The FBI investigated but did not classify the attack as terrorism.',
+    lat: 30.3916,
+    lng: -97.7536,
+    type: 'government',
+    importance: 'major',
+    notability: 65,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2010,
+    date: '18 February 2010',
+    address: '9420 Research Blvd, Austin, TX 78759',
+    entityIds: [],
+  },
+
+  // ── Standalone moments ─────────────────────────────────────────────────
+
+  {
+    id: 'tesla-cyber-rodeo-2022',
+    name: 'Tesla Holds a "Cyber Rodeo" Grand Opening at Gigafactory Texas with 15,000 Guests',
+    subtitle: '13101 Harold Green Rd, Del Valle. The factory is active, producing Model Y and Cybertruck',
+    description:
+      'On 7 April 2022, Tesla opened Gigafactory Texas here on Harold Green Road in Del Valle with a party it called the Cyber Rodeo, drawing 15,000 attendees. The $5.8 billion factory spans 10 million square feet on a former sand mine along the Colorado River. By 2024 it employed roughly 22,777 people, making Tesla the largest private employer in greater Austin. The building also serves as Tesla\'s corporate headquarters, relocated from Palo Alto in 2021.',
+    lat: 30.2217,
+    lng: -97.6168,
+    type: 'landmark',
+    importance: 'major',
+    notability: 65,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2022,
+    date: '7 April 2022',
+    address: '13101 Harold Green Rd, Del Valle, TX 78617',
+    entityIds: [],
+  },
+
+  {
+    id: 'leanderthal-lady-discovered-1982',
+    name: 'Archaeologists Uncover a 10,000-Year-Old Skeleton Near Leander, One of North America\'s Oldest',
+    subtitle: 'Wilson-Leonard site near FM 1431 and CR 178, Leander. The site is on private land and not publicly accessible',
+    description:
+      'On 29 December 1982, Texas Highway Department archaeologists excavating the Wilson-Leonard site here near Leander uncovered a nearly complete female skeleton dating to 10,000-13,000 years ago. Dubbed the "Leanderthal Lady," she stood about 5\'3", was roughly 30 years old, and had been buried in a flexed position with a sandstone tool and a limestone slab. The skeleton is one of the oldest and most complete ever found in North America.',
+    lat: 30.5356,
+    lng: -97.7787,
+    type: 'discovery_site',
+    importance: 'major',
+    notability: 60,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1982,
+    date: '29 December 1982',
+    address: 'FM 1431 near CR 178, Leander, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'inner-space-cavern-discovered-1963',
+    name: 'A Highway Drill Team Punches into a Massive Cave System Beneath I-35',
+    subtitle: '4200 S I-35 Frontage Rd, Georgetown. The cavern is open to the public for guided tours',
+    description:
+      'While testing bedrock for an I-35 overpass here in Georgetown, a Texas Highway Department drill team discovered that eight of twenty core samples punched through into empty space. Below lay Inner Space Cavern, a sprawling cave system filled with Ice Age fossils: mammoth bones, saber-tooth cat remains, extinct camels, and giant ground sloths. The cavern opened for public tours in 1966 and remains one of the best-preserved Pleistocene fossil sites in Texas.',
+    lat: 30.607935,
+    lng: -97.688401,
+    type: 'natural_site',
+    importance: 'minor',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1963,
+    address: '4200 S I-35 Frontage Rd, Georgetown, TX 78626',
+    entityIds: [],
+  },
+
+  {
+    id: 'hamilton-pool-cultural-remains',
+    name: 'Archaeological Evidence Reveals 8,000+ Years of Human Habitation Under a Limestone Grotto',
+    subtitle: '24300 Hamilton Pool Rd, Dripping Springs. Now a Travis County preserve; reservations required',
+    description:
+      'Excavations beneath the collapsed limestone grotto here at Hamilton Pool have yielded artifacts spanning more than 8,000 years of continuous human habitation. Tonkawa and Lipan Apache peoples used the natural pool and overhang before European settlement. In the 1880s, the Reimers family, German immigrants, bought the surrounding land. Family legend holds that their 8-year-old son discovered the collapsed dome while exploring the creek bed.',
+    lat: 30.3422,
+    lng: -98.1278,
+    type: 'natural_site',
+    importance: 'minor',
+    notability: 45,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: -6000,
+    address: '24300 Hamilton Pool Rd, Dripping Springs, TX 78620',
+    entityIds: [],
+  },
+
+  {
+    id: 'twitter-sxsw-breakout-2007',
+    name: 'Twitter Wins the SXSW Web Award as Usage Triples to 60,000 Tweets per Day',
+    subtitle: 'Austin Convention Center, 500 E. Cesar Chavez St, Austin. The convention center still hosts SXSW annually',
+    description:
+      'Twitter had launched in July 2006 to modest adoption, but at SXSW Interactive here in the Austin Convention Center on 11 March 2007, usage tripled from 20,000 to 60,000 tweets per day. The company spent $11,000 on two 60-inch plasma screens in the convention center hallways, streaming live tweets for attendees to see themselves on screen. Twitter won the conference\'s Web Award. The stunt turned a niche microblogging tool into a global platform.',
+    lat: 30.2635,
+    lng: -97.7393,
+    type: 'landmark',
+    importance: 'major',
+    notability: 75,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2007,
+    date: '11 March 2007',
+    address: '500 E. Cesar Chavez St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  {
+    id: 'sxsw-red-river-crash-2014',
+    name: 'A Driver Plows into a SXSW Crowd Outside the Mohawk, Killing Four and Injuring 23',
+    subtitle: 'Red River St near E. 9th St, Austin. The Mohawk still operates; a memorial was held at the site',
+    description:
+      'Shortly after 12:30 a.m. on 13 March 2014, Rashad Owens fled a traffic stop and drove the wrong way on East 9th Street here in Austin\'s Red River entertainment district, plowing into a crowd gathered outside the Mohawk venue during SXSW. Four people were killed: Steven Craenmehr, Jamie West, Sandy Thuy Le, and DeAndre Tatum. Twenty-three others were injured. Owens was convicted of capital murder and sentenced to life without parole.',
+    lat: 30.268,
+    lng: -97.736,
+    type: 'crime_scene',
+    importance: 'major',
+    notability: 60,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2014,
+    date: '13 March 2014',
+    address: 'Red River St near E. 9th St, Austin, TX 78701',
+    entityIds: [],
+  },
+
+  {
+    id: 'ransom-center-gutenberg-bible',
+    name: 'One of 21 Complete Gutenberg Bibles Sits on Permanent Display, Free to the Public',
+    subtitle: '300 W 21st St, UT Austin campus. The Bible and the Niépce photograph are in the lobby, free admission',
+    description:
+      'The Harry Ransom Center here on the UT Austin campus holds one of only 21 complete Gutenberg Bibles in the world, displayed in its ground-floor lobby free of charge. Beside it sits the oldest surviving photograph, Joseph Nicéphore Niépce\'s "View from the Window at Le Gras" (c. 1826-27), acquired by the center in 1963 and sealed in a climate-controlled case filled with inert gas. Two of civilization\'s rarest artifacts share a single room.',
+    lat: 30.284351,
+    lng: -97.741243,
+    type: 'institution',
+    importance: 'major',
+    notability: 65,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 1978,
+    address: '300 W 21st St, Austin, TX 78712',
+    entityIds: [],
+  },
+
+  {
+    id: 'obama-torchys-tacos-2016',
+    name: 'President Obama Orders a Democrat, a Republican, and an Independent at Torchy\'s Tacos',
+    subtitle: '2809 S. First St, Austin. This first brick-and-mortar Torchy\'s location closed October 2019',
+    description:
+      'On 11 March 2016, President Barack Obama\'s motorcade stopped at the original Torchy\'s Tacos brick-and-mortar location here on South First Street en route to his SXSW keynote address. He ordered three tacos: a Democrat, a Republican ("because I\'m bipartisan"), and an Independent. The stop made national news and cemented Torchy\'s as an Austin cultural export. The original location closed in October 2019.',
+    lat: 30.236768,
+    lng: -97.762798,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 2016,
+    date: '11 March 2016',
+    address: '2809 S. First St, Austin, TX 78704',
+    entityIds: [],
+  },
+
+  {
+    id: 'continental-club-opens-1955',
+    name: 'The Continental Club Opens as a Private Supper Club on South Congress Avenue',
+    subtitle: '1315 S. Congress Ave, Austin. The club still operates at this address and books live music nightly',
+    description:
+      'The Continental Club opened here at 1315 South Congress Avenue in 1955 as a private supper club. By the 1980s it had become the epicenter of Austin\'s roots music revival. Stevie Ray Vaughan played here every Wednesday night from 1980 until April 1983, just before his career-making Texas Flood tour. Legend holds that during one show he sustained a note so loud a chunk of plaster fell from the ceiling. The club remains one of Austin\'s most storied live music venues.',
+    lat: 30.250515,
+    lng: -97.749101,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'event',
+    year: 1955,
+    address: '1315 S. Congress Ave, Austin, TX 78704',
+    entityIds: [],
+  },
+
+  {
+    id: 'scoot-inn-oldest-bar-1871',
+    name: 'The Building That Becomes Austin\'s Oldest Surviving Bar Is Erected as a Grocery Store',
+    subtitle: '1308 E. 4th St, Austin. The Scoot Inn still operates as a live music venue with a large outdoor stage',
+    description:
+      'The building that houses the Scoot Inn was erected here at 1308 East 4th Street in 1871 as a grocery store serving travelers arriving on the newly built Houston and Texas Central Railway. It holds Austin\'s oldest surviving bar license and the fourth-oldest active liquor license in Texas. The building sits just blocks from where the Servant Girl Annihilator murdered victims in 1884-85, in the same East Austin neighborhood.',
+    lat: 30.262120,
+    lng: -97.729398,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'documented',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 1871,
+    address: '1308 E. 4th St, Austin, TX 78702',
+    entityIds: [],
+  },
+
+  {
+    id: 'mcquilliams-consulate-shooting-2014',
+    name: 'A Gunman Fires 100+ Rounds at Downtown Buildings Before a Mounted Officer Drops Him from 100 Yards',
+    subtitle: 'Near the Mexican Consulate and APD HQ, downtown Austin. The buildings still stand; bullet marks were repaired',
+    description:
+      'Shortly after midnight on 28 November 2014, Larry McQuilliams opened fire on the Mexican Consulate, Austin Police headquarters, and a federal courthouse here in downtown Austin, firing more than 100 rounds over 10 minutes. APD Mounted Patrol Sergeant Adam Johnson, while controlling two agitated horses with one hand, drew his handgun and killed McQuilliams with a single shot from roughly 100 yards. No bystanders were injured.',
+    lat: 30.270482,
+    lng: -97.756580,
+    type: 'crime_scene',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 2014,
+    date: '28 November 2014',
+    address: 'Downtown Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'eeyores-birthday-party-1963',
+    name: 'A UT Grad Student Throws a Spring Picnic Named After Winnie-the-Pooh\'s Gloomy Donkey',
+    subtitle: 'Originally at Eastwoods Park, moved to Pease Park in 1974. Held the last Saturday of April',
+    description:
+      'UT English graduate student Lloyd Birdwell organized a small spring picnic before dead week here in Eastwoods Park in 1963, naming it Eeyore\'s Birthday Party after the melancholy donkey from A.A. Milne\'s Winnie-the-Pooh. The gathering grew into an annual Austin tradition and moved to Pease Park in 1974. It now draws thousands each April for live music, costumes, drum circles, and maypole dancing, making it one of the longest-running unofficial festivals in Texas.',
+    lat: 30.2810,
+    lng: -97.7520,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 35,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 1963,
+    address: 'Eastwoods Park (original), Pease Park (current), Austin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'ut-missing-brains-2002',
+    name: 'UT Discovers That ~100 Preserved Human Brains Have Vanished from a Basement Storage Facility',
+    subtitle: 'UT Animal Resources Center, Austin. The building is on the UT campus; the brains were destroyed as biological waste',
+    description:
+      'Around 2014, UT\'s psychology department discovered that approximately 100 preserved human brains transferred from Austin State Hospital in the 1980s had vanished from a basement storage facility here on campus. An investigation determined the specimens had been destroyed in 2002 as routine biological waste. The collection\'s curator doubted Charles Whitman\'s brain was among them, but the rumor persisted, fueled by the fact that Whitman\'s brain had been studied after the 1966 tower shooting.',
+    lat: 30.291701,
+    lng: -97.736298,
+    type: 'institution',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'event',
+    year: 2002,
+    address: 'UT Animal Resources Center, Austin, TX 78712',
+    entityIds: [],
+  },
+
+  {
+    id: 'sh130-fastest-road-2012',
+    name: 'Texas Opens a Highway with an 85 mph Speed Limit, the Highest in the Western Hemisphere',
+    subtitle: 'SH 130 between SH 45 SE and I-10, east of Austin. The toll road is still open with the 85 mph limit',
+    description:
+      'On 24 October 2012, Texas opened a 41-mile stretch of SH 130 here east of Austin with a posted speed limit of 85 mph, the highest in the Western Hemisphere. TxDOT received a $100 million bonus from the private toll operator, Cintra, specifically for setting the limit that high. The road runs between SH 45 southeast of Austin and I-10 near Seguin, bypassing San Antonio and Austin traffic on I-35. The concessionaire filed for bankruptcy in 2016.',
+    lat: 30.05,
+    lng: -97.55,
+    type: 'landmark',
+    importance: 'minor',
+    notability: 45,
+    verificationLevel: 'verified',
+    accuracy: 'general-area',
+    kind: 'event',
+    year: 2012,
+    date: '24 October 2012',
+    address: 'SH 130, between Austin and Seguin, TX',
+    entityIds: [],
+  },
+
+  {
+    id: 'paramount-houdini-ceiling-1916',
+    name: 'A Hole in the Paramount Theatre Ceiling Is Attributed to Houdini, but Blackstone Sr. Is the Likelier Culprit',
+    subtitle: '713 Congress Ave, Austin. The hole is just left of the Saint Cecilia painting on the ceiling; the theater offers tours',
+    description:
+      'A hole in the ceiling of the Paramount Theatre here at 713 Congress Avenue, just left of the painted image of Saint Cecilia, has long been attributed to Harry Houdini, who performed eight shows at the theater in 1916. But Houdini specialized in escape tricks, not stage illusions requiring overhead rigging. The hole was more likely carved by Harry Blackstone Sr. as a rigging point for a levitation illusion. The theater, built in 1915, still hosts live performances.',
+    lat: 30.269426,
+    lng: -97.742016,
+    type: 'cultural_venue',
+    importance: 'minor',
+    notability: 40,
+    verificationLevel: 'verified',
+    accuracy: 'exact',
+    kind: 'presence',
+    year: 1916,
+    address: '713 Congress Ave, Austin, TX 78701',
+    entityIds: [],
+  },
 ];
 
 // ─── STORIES ────────────────────────────────────────────────────────────
@@ -1899,7 +2233,7 @@ export const barnesStories: Story[] = [
     tags: ['archaeology', 'writing', 'ut-austin', 'discovery', 'ancient-history'],
     moments: [
       { momentId: 'schmandt-besserat-clay-tokens-1977', isPrimary: true },
-      { momentId: 'schmandt-besserat-scientific-american-1978' },
+      { momentId: 'susa-clay-envelopes-3300bce' },
     ],
     relatedStoryIds: [],
   },
@@ -2094,6 +2428,24 @@ export const barnesStories: Story[] = [
     ],
     relatedStoryIds: ['willie-nelson-biography'],
   },
+
+  {
+    id: 'austin-suicide-attack-2010',
+    name: 'The 2010 Austin Suicide Attack',
+    years: '2010',
+    category: 'dark-history',
+    storyType: 'incident',
+    contentWarning: 'Contains details of a suicide attack that killed two people',
+    description:
+      'A software engineer sets his house on fire, flies his single-engine plane into an IRS office building on Research Boulevard, and kills a 20-year Army veteran along with himself.',
+    tags: ['terrorism', 'austin', 'irs', 'suicide-attack'],
+    moments: [
+      { momentId: 'joe-stack-house-fire-2010', isPrimary: true },
+      { momentId: 'joe-stack-irs-crash-2010' },
+    ],
+    relatedStoryIds: ['ut-tower-shooting', 'yogurt-shop-murders'],
+    wikipediaSlug: '2010_Austin_suicide_attack',
+  },
 ];
 
 // ─── ENTITIES ───────────────────────────────────────────────────────────
@@ -2107,6 +2459,7 @@ export const barnesEntities: Entity[] = [
     description:
       'UT student body president turned murderer who shot a man at a golf course clubhouse with five bullets from a .25-caliber pistol. Convicted by a jury that voted 11-1 for the death penalty, he walked free the same day, defended by LBJ\'s personal attorney. Later received a security clearance for defense work in D.C.',
     canonicalStoryId: 'malcolm-wallace-biography',
+    wikipediaSlug: 'Malcolm_Wallace_(murderer)',
   },
 
   {
@@ -2117,6 +2470,7 @@ export const barnesEntities: Entity[] = [
     description:
       'First Mexican American elected to public office in Travis County. Rose from boycott coordinator for the Economy Furniture strike to county commissioner in 1970, served 16 years, then became deputy chief of staff to Governor Ann Richards.',
     canonicalStoryId: 'richard-moya-biography',
+    wikipediaSlug: 'Richard_Moya',
   },
 
   {
@@ -2126,6 +2480,7 @@ export const barnesEntities: Entity[] = [
     description:
       'One of the oldest surviving freedmen\'s communities west of the Mississippi, founded in 1871 by Charles Clark, who was born enslaved. Listed on the National Register of Historic Places in 1976. MoPac construction in the 1970s destroyed a third of the neighborhood.',
     canonicalStoryId: 'clarksville-freedmens-town',
+    wikipediaSlug: 'Clarksville,_Austin,_Texas',
   },
 
   {
@@ -2135,6 +2490,7 @@ export const barnesEntities: Entity[] = [
     description:
       'The tallest state capitol in America at 302 feet — 14 feet higher than the US Capitol. Built from sunset-red granite quarried with convict labor, financed by trading 3 million acres of Panhandle to Chicago investors. Dedicated in May 1888.',
     canonicalStoryId: 'texas-capitol-dedication-1888',
+    wikipediaSlug: 'Texas_State_Capitol',
   },
 
   {
@@ -2145,6 +2501,7 @@ export const barnesEntities: Entity[] = [
     description:
       'The man who broke McCarthy-era blacklisting in court. Austin-born radio humorist who won a landmark $3.5 million libel verdict against the anti-Communist group that destroyed his CBS career. His attorney Louis Nizer called the trial "the most important free-speech case since John Peter Zenger." Returned to Austin to teach at UT.',
     canonicalStoryId: 'john-henry-faulk-biography',
+    wikipediaSlug: 'John_Henry_Faulk',
   },
 
   {
@@ -2155,6 +2512,7 @@ export const barnesEntities: Entity[] = [
     description:
       'Bavarian sculptor who carved Bismarck, Garibaldi, and King Ludwig II before abandoning Europe for a Texas cattle ranch. Nineteen years later she built a stone studio in Austin called Formosa, carved the statues of Houston and Austin for both the state and U.S. Capitols, and died in her studio. It became Austin\'s first art museum.',
     canonicalStoryId: 'elisabet-ney-biography',
+    wikipediaSlug: 'Elisabet_Ney',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Elisabeth_Ney_by_Friedrich_Kaulbach%2C_1868.jpg/220px-Elisabeth_Ney_by_Friedrich_Kaulbach%2C_1868.jpg',
   },
 
@@ -2166,6 +2524,7 @@ export const barnesEntities: Entity[] = [
     description:
       'The man who built Austin. Signed the Texas Declaration of Independence, fought at San Jacinto, then was appointed to survey and plat the new capital in 1839. Laid out the 14-block grid centered on Congress Avenue in three months, auctioned 306 lots, and became Austin\'s first mayor. The downtown street plan is still his.',
     canonicalStoryId: 'edwin-waller-biography',
+    wikipediaSlug: 'Edwin_Waller',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Edwin_Leonard_Waller.jpg',
   },
 ];

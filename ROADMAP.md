@@ -1,242 +1,238 @@
 # Deep Maps Roadmap
 
-> Persistent feature, content, and strategy priorities. Updated each session.
-> For session-specific context, see `handoff.md`.
+> Organized by the 3-gate strategy from the April 2026 market analysis.
+> Full strategy: `~/.gstack/projects/douglessismore-deep-maps/sirdouglas-main-design-20260402-111344.md`
+> Market research: `scripts/output/market-research-2026-04.md`
+> This week's focus: `FOCUS.md`
 
 ---
 
-## Immediate / Quick Wins
+## GATE 1: Content-Market Fit (Target: 10K monthly visitors)
 
-- [ ] **Fix scroll bounce on short stories** — StoryPanel needs same scrollIntoView fix applied to EntityPanel
-- [ ] **Static map on scroll** — Attempted 4x, reverted. Needs holistic rethink — map stays put when scrolling cards, only pan on explicit click.
-- [ ] **Investigate Armstrong/stuck-story bug** — Back button may not properly reset to explore mode
-- [ ] **Fix 3 Evolution moments** — year overflow in Supabase (bigint migration needed for deep-time years)
-- [ ] **LBJ / Lady Bird story split** — currently combined, should be separate person entities
-- [ ] **Thinkers/Sages collection** — only 4 moments, should be 20+
-- [x] ~~**Fix Einstein duplicate moments**~~ — merged (session 2026-03-23)
-- [x] ~~**Fix tenochtitlan-fall moment**~~ — fixed Istanbul subtitle (session 2026-03-23)
-- [x] ~~**Willie Nelson non-Austin markers**~~ — cleaned up (session 2026-03-23)
-- [x] ~~**content-guide-prompt.ts (v2) cleanup**~~ — deprecated (session 2026-03-23)
-- [x] ~~**Wikipedia encoding**~~ — fixed 17 percent-encoded slugs (session 2026-03-24)
-- [x] ~~**Search back button**~~ — clears search query so tabs aren't filtered (session 2026-03-24)
-- [x] ~~**Entity panel jump fix**~~ — no longer jumps to first moment on entry (session 2026-03-24)
+> **The question:** Does anyone engage with this beyond a 3-minute browse?
+> **How we know:** 5K+ visitors from viral collections, 3%+ click into moment details, return visits.
 
----
+### This Week (see FOCUS.md)
+- [ ] Watch 3 people use Deep Maps (10 min each, no helping)
+- [ ] Add Plausible analytics
+- [ ] Post first viral collection to Reddit
 
-## UX / Frontend
+### Viral Collection Posts
+- [ ] Serial Killer Crime Scenes → r/TrueCrime
+- [ ] Nuclear Detonation Sites → r/MapPorn
+- [ ] Famous Assassination Sites → r/history or Show HN
+- [ ] Crash Sites → r/aviation or r/CatastrophicFailure
+- [ ] Film Locations Where Real Events Happened → r/movies
 
-### High Priority
-- [x] ~~**In-app admin panel (`/admin`)**~~ — Full CMS shipped: Overview, Content Queue (2,400+ items, inline editing, ratings, notes, MiniMap, LinkAudit), Roadmap kanban (61 items). Supabase migration 006. (session 2026-03-23)
-- [x] ~~**Admin pin editor (Phases 1-8)**~~ — Draggable markers, satellite toggle, geo verification workflow, source URLs, batch review with auto-advance. Supabase migration 007. (session 2026-03-24)
-- [x] ~~**DeepMaps branding**~~ — "Deep Maps" renamed to "DeepMaps" everywhere: loading screen, HTML title, OG tags, admin panel (session 2026-03-24)
-- [ ] **Admin panel refinements** — User feedback pending, iterate on UX
-- [ ] **User-facing "Report Inaccuracy" button** — Crowdsource accuracy fixes from users (v2)
-- [ ] **Entity type subtabs** — Add type filter row below Stories/Places tabs (All | Biographies | Film | Music | Books | Artifacts). Preserves familiar tab structure, scales to new entity types.
-- [ ] **Place type filtering** — Filter/sort moments by `type_id` (burial, residence, battlefield, landmark, church, cemetery, etc.). Could enable "show me all cemeteries" or "show me all battlefields" browsing. Data already exists in `moment_types` table — needs UI.
-- [ ] **Collection click UX** — Don't zoom out from local view when clicking a collection. Show in-viewport moments. "Show all on map" for explicit zoom-out. Plan at `.claude/plans/adaptive-noodling-deer.md`.
-- [ ] **Notability ranking transparency** — System score visible alongside optional user rating. User disagrees Trump should be #1 → user rating provides ground truth for tuning.
-- [ ] **Story/collection zoom UX** — Maintain zoom level when clicking from zoomed-in view
+### Content Needed for Viral Success
+- [ ] Fix 323 orphan moments (invisible content — wasted assets)
+- [ ] Fix 25 biography wiring issues
+- [ ] Merge overnight content agent drafts (Scandinavia, Central Asia, Oceania, Caribbean)
+- [ ] Scale to 5,000+ moments via LLM pipeline (content density = stickiness)
+- [ ] Rename "Indigenous Peoples: Resistance and Survival" — too stylized
 
-### Medium Priority
-- [ ] **Desktop header layout cleanup** — Category pills + Near Me + Surprise Me + Search crowd the header on desktop. V2 header is cleaner. Flagged session 2026-03-26.
-- [ ] **Timeline bar clarity on mobile** — Nate feedback: confusing on mobile, needs UX rethink
-- [ ] **Near Me / Surprise Me button clarity** — Nate feedback: buttons unclear, improve labels or onboarding
-- [ ] **Pictures for events** — Nate feedback: add images to moment cards (rights/sourcing TBD)
-- [ ] **Hyper-specific pin tier** — Add tier above "exact" for sub-building precision (specific gravesite, specific corner). Visual distinction on map. Parked per user: "not high-pri but the logical conclusion of Deep Maps."
-- [ ] **Place story renaming** — Stories like "Brooklyn Bridge" need narrative names that pass the "So What?" test (e.g., "The Bridge That Killed Its Designer").
-- [x] ~~**Back button prominence**~~ — made more prominent (13px semibold, persistent background) (session 2026-03-23)
-- [ ] **Moment click zoom inconsistency** — some moments don't zoom on click
-- [ ] **SRV single-moment jitter** — scroll-to-top jitter on single-moment stories
-- [ ] **Polyline overshoot** — 16px offset on story path lines
-- [ ] **Splash screen** — user hasn't reviewed variants B and C
-
-### Low Priority / Parked
-- [ ] Sub-moments (Option A: sub-pins for AR/VR better long-term; Option B: separate clustered moments for now)
-- [ ] Dark mode
-- [ ] PWA wrapper for app store distribution
-- [ ] SEO landing pages for collections
-
-### Long-Term / Premium Features
-- [ ] **Tour Guide Mode** — Give your route (A→B), DeepMaps suggests minor detours to pass the most interesting stories. User picks theme preferences ("dark history only", "sports focused", "mix of everything"). LLM generates a geo-coded, geo-triggered narration that strings stories together as a tailored tour — flowing between moments as you walk/drive. Notifications fire at proximity triggers. Could start with simple "what's around me" alerts and build toward the full route-planning + narrative generation. Likely premium feature (LLM token cost per tour). Key tech: PWA geofencing, route optimization, narrative generation pipeline.
-- [ ] **Curated walking tours as collections** — Pre-built walking paths (Rome, Paris, London) ordered by geography so moments flow naturally. Could be the "lite" version of Tour Guide Mode — no LLM generation, just curated sequence.
+### UX Bugs That Hurt First Impressions
+- [ ] Fix scroll bounce on short stories
+- [ ] Investigate Armstrong/stuck-story bug
+- [ ] Moment click zoom inconsistency
+- [ ] Collection click UX — don't zoom out from local view
+- [ ] Timeline bar clarity on mobile (Nate feedback)
+- [ ] Near Me / Surprise Me button clarity (Nate feedback)
 
 ---
 
-## Content Curation
+## GATE 2: Willingness to Pay (Target: 100 subscribers at $20/yr)
 
-### In Progress
-- [ ] **Fix 323 orphan moments** (not in any story or collection)
-- [ ] **25 biography wiring issues**
+> **The question:** Will people pay $20/yr for premium features?
+> **How we know:** 100 paying subscribers within 90 days of paywall launch.
+> **Prerequisites:** Gate 1 passed. Proven engagement. Real traffic.
+
+### Austin Walking Tour Prototype (Phase 1, Track B)
+- [ ] GPS feasibility spike — test `watchPosition` on Android Chrome + iOS Safari
+- [ ] Curate 8-12 moment walking tour for downtown Austin (~2 miles)
+- [ ] Pre-generate TTS audio via OpenAI TTS API (static MP3s)
+- [ ] Build `/walk/austin-history` route (map, pins, polyline, bottom sheet, audio)
+- [ ] Print 80-100 QR codes, hand out on 6th Street on Saturday
+- [ ] Shadow 3-5 users in person
+
+### Audio Narration (table stakes for paid tier)
+- [ ] TTS pipeline for moment descriptions
+- [ ] Auto-play audio on GPS proximity (50m)
+- [ ] Play/pause controls, skip to next
+- [ ] Hands-free travel mode
+
+### Proximity Notifications
+- [ ] Background geolocation watch (`watchPosition`)
+- [ ] Trigger notification within 200m of a moment
+- [ ] Web Push API (Android, iOS 16.4+ installed PWA)
+- [ ] User opt-in flow
+- [ ] Cooldown logic (max 1 per 5 min)
+
+### Offline Mode
+- [ ] Service worker caching for moment data
+- [ ] Download collections/regions for offline use
+- [ ] Offline map tiles (or graceful degradation)
+
+### Subscription Infrastructure
+- [ ] Stripe Checkout + webhook integration
+- [ ] Free tier: browse, read, explore, share
+- [ ] Premium tier: audio, proximity, offline, advanced collections
+- [ ] $20/yr or $4/mo pricing
+
+### SEO Landing Pages
+- [ ] Each collection as an indexed landing page
+- [ ] OG meta tags for social sharing (already partial)
+- [ ] Sitemap generation
+
+### PWA → App Store
+- [ ] TWA wrapper for Android (Google Play)
+- [ ] iOS PWA install prompt optimization
+
+---
+
+## GATE 3: Scalable Revenue (Target: $5K MRR)
+
+> **The question:** Can this generate meaningful revenue beyond subscriptions?
+> **How we know:** $5K MRR from subscription + affiliate + tour sales.
+> **Prerequisites:** Gate 2 passed. 100+ paying subscribers. Proven audio/proximity.
+
+### Dynamic Tour Guide (the novel feature nobody else has)
+- [ ] Route-based tour generation: user enters A→B, LLM scans nearby moments
+- [ ] LLM narrative generation — weave moments into cohesive story
+- [ ] TTS conversion with prefetch strategy (2-3 segments ahead)
+- [ ] GPS-triggered playback of pre-fetched segments
+- [ ] Theme preferences ("dark history only", "sports focused", "mix of everything")
+- [ ] Serendipity mode: wander and discover (always-on GPS + real-time generation)
+
+### Affiliate / Transaction Layer
+- [ ] LocationLink UI in moment cards ("Book a tour", "Stay nearby")
+- [ ] GetYourGuide / Viator affiliate integration (8-12% commission)
+- [ ] Hotel affiliate links near story locations (3-5% commission)
+- [ ] Ticket affiliate links for museums/sites
+
+### Curated Tour Products
+- [ ] Walking tour collections for major cities (Rome, Paris, London, Austin)
+- [ ] Road trip tour collections (Route 66, Pacific Coast Highway)
+- [ ] Per-tour pricing ($5-10 each) alongside subscription
+
+### Community Verification (iNaturalist Model)
+- [ ] User accounts + verification history
+- [ ] Accuracy tiers: Unverified → Admin Verified → Community Verified → Research Grade → Expedition
+- [ ] Points for verifying pins (harder = more points)
+- [ ] Leaderboard, streaks, badges
+- [ ] Bounties on hard-to-verify pins
+- [ ] Invite-only beta verifiers first, then open
+
+### Creator Platform
+- [ ] Michael Barnes CMS use case — journalist story map publishing
+- [ ] Creator accounts with content submission
+- [ ] Editorial review pipeline
+- [ ] Revenue sharing for creator-generated tours
+
+---
+
+## Backlog (not gated — do when relevant or fun)
+
+### Content Expansion
+- [ ] Seed cities batch 3: Mexico City, Delhi, Sydney, Nairobi, Rio de Janeiro
+- [ ] Music Birthplaces (Fela Kuti's Lagos, reggae Jamaica, Tropicalia Sao Paulo)
+- [ ] Ancient Trade Routes (Silk Road, spice routes, amber road)
+- [ ] Olympic Host Cities
+- [ ] Space Launch Sites
+- [ ] Famous Cemeteries collection
+- [ ] US Presidents: Birthplaces (burials done)
+- [ ] Notable Graves by Category
+- [ ] Famous Last Resting Places
+- [ ] Nonfiction/Documentary Locations (29 more from audit)
+- [ ] Indigenous History expansion
+- [ ] Books/Movies entity type
+- [ ] Cool places collection (Nate feedback)
+- [ ] Current events integration (Nate feedback)
+- [ ] Historic concerts, music venues
+- [ ] Texas State Cemetery ArcGIS scrape
+- [ ] Austin local: Barnes stories, music history, civil rights, UT campus
+- [ ] Biblical content audit
+- [ ] South America gap-filling
+- [ ] Grid-based coverage audit
+- [ ] Walking tour collections (Rome, Paris, London)
 - [ ] Write descriptions for ~196 empty biography stories
-- [ ] Merge overnight content agent drafts (Scandinavia/Nordic, Central Asia, Oceania, Caribbean + Science/Culture/Music/Literature)
+- [ ] Thinkers/Sages collection (needs 20+ moments, has 4)
 
-### Collection Fixes
-- [ ] **Rename "Indigenous Peoples: Resistance and Survival"** — too stylized. Should be matter-of-fact so users know what they're filtering to (e.g., "Indigenous History Sites" or similar). Match the directness of other collections.
-- [ ] **Walking tour / road trip collections** — Curate collections for specific walking paths (start with Rome, Paris, London) and road trip routes. Pull from best walking tour guides, compile into geo-sequenced collections. Test with seed cities first.
-- [ ] **Texas State Cemetery ArcGIS scrape** — cemetery.texas.gov uses ArcGIS map with ~3,200 burials. Find REST endpoint, extract notable burials with pinpoint GPS + section/row/plot data. Format subtitles like: "Republic Hill Section 1 Row N Number 6". Source: https://cemetery.texas.gov/locate-a-plot/
-- [x] **US Presidents Burials** — "Where Every US President Is Buried" collection created with all 39 deceased presidents (session 2026-03-25)
+### UX Polish
+- [ ] Entity type subtabs (All | Biographies | Film | Music | Books | Artifacts)
+- [ ] Place type filtering (show all cemeteries / battlefields)
+- [ ] Notability ranking transparency
+- [ ] Story/collection zoom UX
+- [ ] Desktop header layout cleanup
+- [ ] Pictures for events (rights/sourcing TBD)
+- [ ] Hyper-specific pin tier
+- [ ] Place story renaming ("So What?" test)
+- [ ] Static map on scroll (attempted 4x, needs rethink)
+- [ ] SRV single-moment jitter
+- [ ] Polyline overshoot (16px offset)
+- [ ] Splash screen variants B/C
+- [ ] Sub-moments
+- [ ] Dark mode
+- [ ] LBJ / Lady Bird story split
+- [ ] Fix 3 Evolution moments (bigint migration)
+- [ ] User-facing "Report Inaccuracy" button
 
-### Completed This Session (2026-03-23)
-- [x] Crash sites collection — 27 moments (Tenerife, JAL 123, Lockerbie, MH370, Miracle on Hudson, etc.)
-- [x] Seed cities batch 2 — Cairo 22, Beijing 22, Tokyo 20, Athens 20
-- [x] Notable people — 42 moments (Buddha, Archimedes, Qin Shi Huang, Dante, Marco Polo, al-Khwarizmi, Ibn Khaldun, Murasaki Shikibu, Sima Qian, Zheng He)
-- [x] Film locations — Harry Potter 11, Breaking Bad 8, real-event films 9
-- [x] Geographic gaps — Canada 10, Pacific NW 10, Latin America 10, Sub-Saharan Africa 10, Southeast Asia 9
-- [x] Antimeridian fix (markers show when scrolling west to Asia)
-- [x] Moon landing pins moved to Mission Control Houston
-- [x] Biography story leak permanent fix at data layer
-- [x] Place entities (Brooklyn Bridge, Empire State, Broken Spoke) converted
+### Data Quality / Tooling
+- [ ] Duplicate detection (similar names/coordinates)
+- [ ] Biography-story-visibility check in validator
+- [ ] Pin accuracy upgrade pipeline (869 upgradeable moments)
+- [ ] Full entity link audit automation
+- [ ] Reclassify 14 concept entities
 
-### Top-Down Curation (Global Coverage)
-- [x] ~~**Seed cities batch 2**: Cairo, Beijing, Tokyo, Athens~~ — completed (session 2026-03-23)
-- [ ] **Seed cities batch 3**: Mexico City, Delhi, Sydney, Nairobi, Rio de Janeiro
-- [x] ~~**Notable people pipeline**: start with Gautama Buddha~~ — Buddha + 41 others added (session 2026-03-23)
-- [ ] **Biblical content audit** — descriptions too narrative, not atomic enough. Compare to Wikipedia. See `feedback_biblical_content.md`.
-
-### Thematic Collections
-- [ ] **Nonfiction/Documentary Locations** — 29 more from audit (`scripts/output/nonfiction-documentary-stories.md`)
-- [x] ~~**Comprehensive Crash Sites**~~ — 27 crash sites added (session 2026-03-23)
-- [ ] **Music Birthplaces** — Fela Kuti's Lagos, reggae Jamaica, Tropicalia Sao Paulo (fills Africa, Caribbean, South America)
-- [x] ~~**Film Locations Where Real Events Happened**~~ — 28 film locations added (session 2026-03-23)
-- [ ] **Indigenous History expansion** — Wounded Knee, Mesa Verde, plus more beyond current 15 moments
-- [ ] **Ancient Trade Routes** — Silk Road, spice routes, amber road
-- [ ] **Olympic Host Cities** — Every Olympic venue with key moments
-- [ ] **Space Launch Sites** — Cape Canaveral, Baikonur, Wenchang, Tanegashima
-- [ ] **More collections**: historic concerts, music venues
-- [ ] **Books/Movies entity type** — Add as first-class entities (not just stories)
-- [ ] **Cool places collection** — Springs, ruins, trails, natural wonders (Nate feedback)
-- [ ] **Current events integration** — Tie moments to news for retention (Nate feedback)
-- [ ] **Famous Cemeteries collection** — Père Lachaise, Highgate, Hollywood Forever, Green-Wood, Woodlawn, Recoleta, Westminster Abbey. Each cemetery as a strollable cluster of pinpoint burial moments. BG pipeline provides GPS.
-- [ ] **US Presidents: Burials & Birthplaces** — All 46 presidents with pinpoint burial + birthplace coordinates. BG for burials, historical markers for birthplaces. Two sub-collections: "Where Presidents Are Buried" + "Where Presidents Were Born"
-- [ ] **Notable Graves by Category** — Sub-collections: Scientists' Graves, Writers' Graves, Musicians' Graves, Artists' Graves. Each organized by field, every grave GPS-verified via BG.
-- [ ] **Famous Last Resting Places** — Cross-cemetery collection of the most visited individual graves worldwide (Jim Morrison, Elvis, Princess Diana, Marx, Wilde, etc.)
-
-### Geographic Gap-Filling
-- [x] ~~Sub-Saharan Africa~~ — 10 moments added (session 2026-03-23), still underrepresented — more needed
-- [x] ~~Southeast Asia~~ — 9 moments added (session 2026-03-23), still needs more (Angkor Wat, Borobudur, modern history)
-- [ ] South America (beyond Machu Picchu/Rio)
-- [ ] Grid-based coverage audit (split globe into N squares, ensure each land square has content)
-- [ ] Country-by-country coverage (US has ~3,143 counties for fine-grained audit)
-
-### Austin Local
-- [ ] Import Michael Barnes stories (lower notability bar for local content)
-- [ ] Austin music history (Armadillo World HQ, Continental Club, etc.)
-- [ ] Austin civil rights history
-- [ ] UT Austin campus moments
-- [ ] Fix Austin subtitles skipped from session 62 audit
-
----
-
-## Data Quality / Tooling
-
-### Implemented
-- [x] Pre-commit validator (`scripts/validate-data.ts`) — blocks commits with errors
-- [x] Pre-commit hook wired in `.git/hooks/pre-commit`
-- [x] Coordinate sanity check (Earth-only rule) — added session 2026-03-23
-- [x] Ingestion tracker Review tab (accept/reject/feedback workflow)
-- [x] Temporal impossibility detection (dead person on future moment)
-- [x] Entity reference validation + ID uniqueness
-- [x] Content guide v3 with physical presence rule (burial sites, sacred sites, apparitions documented)
-- [x] Validator skill (`/deep-maps-validator`)
-- [x] Entity presence check in tracker (years comparison, temporal violation highlighting)
-- [x] Admin panel with content queue, ratings, notes, MiniMap, LinkAudit
-
-### Needed
-- [ ] **Duplicate detection** — Automated check for similar moment names/coordinates before creating new content
-- [ ] **Biography-story-visibility check** — Add to validator: flag any biography story that could leak into user-facing UI (see TODOS.md #2)
-- [x] ~~**Supabase row count parity check**~~ — `scripts/check-drift.ts` compares counts (session 2026-03-26)
-- [ ] **Pin accuracy upgrade pipeline** — Systematic geocoding for 869 upgradeable moments
-- [ ] **Full entity link audit automation** — Scan ALL moment-entity links for false positives (not just Rome batch)
-- [x] ~~**Content-type boundary enforcement**~~ — Whitelist `browseableStories` in DataProvider, concept entities filtered from Dive Deeper (session 2026-03-26)
-- [ ] **Reclassify 14 concept entities** — Some should be organizations, some should just be stories. 6 have canonicalStoryIds (caught by filter), 8 don't.
-
----
-
-## Architecture / Scaling
-
-### When hitting ~3,000-5,000 moments
-- [ ] Static .ts files -> Supabase-only writes (dump for backup)
+### Architecture / Scaling (at 3,000-5,000 moments)
+- [ ] Static .ts files → Supabase-only writes
 - [ ] Viewport-based loading (PostGIS spatial queries)
-- [ ] Server-side search (Supabase full-text search)
+- [ ] Server-side search (Supabase full-text)
 - [ ] Pre-computed clustering at zoom levels
-- [x] ~~Automated testing~~ — Vitest installed, first tests for content-type filter (session 2026-03-26). Expand coverage.
+- [ ] Expand test coverage
+
+### Long-Term Vision
+- [ ] AR overlays (Meta Ray-Ban, smart glasses)
+- [ ] B2B licensing to tourism boards / DMOs
+- [ ] Data licensing
+- [ ] Reach out to Ken Dodelin (IHH founder) at 3-5K polished moments
 
 ---
 
-## Business / Strategy
+## Business / Strategy Reference
 
-### It Happened Here (Prior Art)
-- Ken Dodelin's app reached #1 iTunes Travel, "Best iPhone Tour App" by Travel+Leisure
-- 2,000+ events across 10 cities (NYC, LA, SF, DC, Chicago, London, Paris, Rome, Berlin, Barcelona), $2.99
-- Pulled due to content cost — **LLM pipeline is Deep Maps' structural advantage**
-- Ken now at Georgetown business school, involved in AI (CXO Talk episode on AI)
-- **Action**: Reach out when Deep Maps hits 3,000-5,000 polished moments
-- **Action**: Add to gstack officehours prompt for strategy discussion
-- Links: ithappenedhere.com, Georgetown profile, Crunchbase, CXO Talk
+### Competitive Landscape (April 2026)
+| Competitor | Content | Model | Status |
+|-----------|---------|-------|--------|
+| ExploreHere | 240K markers (US) | $20/yr subscription | Active, closest competitor |
+| Autio | 25K stories (US) | $36/yr subscription | Active, $10.7M raised |
+| VoiceMap | 2K+ tours (global) | Per-tour marketplace | Active, growing |
+| Questo | 2.5K quests (global) | Per-quest + annual pass | Active, gamified |
+| Clio | 30K entries (US) | Free (nonprofit) | Active, grant-funded |
+| HistoryPin | 365K stories (global) | Grants + institutional | Active, web-only |
+| IHH | 2K events (10 cities) | $0.99/city one-time | Dead — content costs |
+| Detour | 120 tours (13 cities) | Per-tour | Dead — founder pivoted to Descript |
+| Field Trip | Partner databases | Free | Dead — Niantic chose Pokemon Go |
+| Triposo | Open data aggregation | Free | Dead — acqui-hired by Musement/TUI |
 
-### Monetization
-- IHH proved $2.99 works at #1 ranking scale
-- Consider: freemium (free browse, paid offline/premium), one-time purchase, subscription
-- Deep Maps targeting millions of moments vs IHH's 2,000
-- PWA can be wrapped for app stores
+### Deep Maps Moats
+1. **LLM content pipeline** — 300+ moments/day at near-zero marginal cost
+2. **Entity graph interconnection** — people ↔ events ↔ places ↔ stories ↔ collections
+3. **Hyperspecific pin accuracy** — exact locations, not general areas
 
----
-
-## Content Principles (Quick Reference)
-
+### Content Principles (Quick Reference)
 - **Content guide**: `scripts/ingest/lib/content-guide-v3.md`
-- **Physical presence rule**: Person must have been at exact coordinates at some point. Burial sites valid. Sacred sites valid if person was there during their lifetime. Apparitions are judgment calls.
-- **Story naming**: Use most common/official name (Wikipedia article title preferred)
+- **Physical presence rule**: Person must have been at exact coordinates at some point
+- **Story naming**: Wikipedia article title preferred
 - **Biography = invisible infrastructure**: Users see entities, not biography stories
-- **Notability bar**: Recognizable names, or names where the one-liner makes you want to Google them
+- **Notability bar**: Recognizable names, or "one-liner makes you want to Google them"
 - **Moment names = events, not places**: Verb-first, describe WHAT HAPPENED
 - **Collections = lists, not narratives**: Names should read like "List of..." articles
-- **Encyclopedic tone**: Wikipedia's matter-of-fact clarity, not BuzzFeed
-- **Dedup rule**: Always search existing content before creating. Check by name, coordinates, and entity links.
-- **Earth-only coordinates**: Validator blocks non-Earth coordinates (moon landing pins go at Mission Control)
+- **Encyclopedic tone**: Wikipedia's matter-of-fact clarity
+- **Dedup rule**: Always search existing content before creating
+- **Earth-only coordinates**: Moon landing pins go at Mission Control
 
 ---
 
-*Last updated: 2026-03-26*
-
-## Proximity Notifications (PWA Push + Geofencing)
-
-- [ ] Background geolocation watch (Geolocation API watchPosition)
-- [ ] Trigger notification when within 200m of a moment
-- [ ] Web Push API integration (works on Android, iOS 16.4+ with installed PWA)
-- [ ] User opt-in flow: Enable nearby story alerts
-- [ ] Notification content: moment name + one-line description
-- [ ] Cooldown logic (max 1 notification per 5 min)
-- [ ] Proactive tour guide mode for tourists
-
-## Community Verification (iNaturalist Model)
-
-Crowdsourced pin verification with accuracy tiers and gamification.
-
-### Accuracy Tiers
-- **Unverified** — LLM-generated, no human check
-- **Admin Verified** — Doug manually verified
-- **Community Verified** — 2+ users agree on location
-- **Research Grade** — verified with primary source (book, archive, plaque photo)
-- **Expedition** — original research that located something for the first time
-
-### Gamification
-- [ ] User accounts + verification history
-- [ ] Points for verifying pins (harder pins = more points)
-- [ ] Leaderboard: top verifiers
-- [ ] Streaks: verify X pins in a row
-- [ ] Badges: "Verified 100 pins", "Found a new location", "Research Grade contributor"
-- [ ] Bounties on hard-to-verify pins (e.g., exact Chisholm Trail start)
-
-### Inspiration
-- **iNaturalist**: millions of user submissions → research grade data
-- **OpenStreetMap**: community-built map data
-- **Wikipedia**: volunteer knowledge curation
-- **Geocaching**: gamified location discovery
-
-### Implementation Phases
-1. Admin-only verification (current — Rapid Verify tool)
-2. Invite-only beta verifiers (trusted friends/historians)
-3. Open verification with agreement threshold
-4. Bounty system for unverified/hard pins
-5. Expedition mode: guided historical research challenges
+*Last updated: 2026-04-02*
+*Strategy: 3-gate model from April 2026 market analysis + office hours*

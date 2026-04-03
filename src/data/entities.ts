@@ -1919,15 +1919,7 @@ const _baseEntities: Entity[] = [
     description: 'Endangered species found only in the Barton Springs ecosystem. Its protected status became the legal weapon environmentalists used to block development threatening Austin\'s aquifer.',
     wikipediaSlug: 'Barton_Springs_salamander',
   },
-  {
-    id: '1900-austin-dam-failure',
-    name: 'The Great Granite Dam Failure',
-    type: 'concept',
-    years: '1900',
-    description: 'Catastrophic failure of Austin\'s municipal dam on April 7, 1900. A wall of water killed eight workers and destroyed the city\'s power and water systems. Granite blocks remain visible at Red Bud Isle.',
-    canonicalStoryId: '1900-granite-dam-disaster',
-    wikipediaSlug: 'Austin_Dam_(Texas)',
-  },
+  // REMOVED: 1900-austin-dam-failure (concept entity, banned per content guide)
   {
     id: 'ss-grandcamp',
     name: 'SS Grandcamp',

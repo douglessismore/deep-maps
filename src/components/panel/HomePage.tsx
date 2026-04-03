@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useCallback, Fragment } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback, Fragment } from 'react';
 import type { Entity, Moment, Story, StoryCategory, StoryCollection, ViewportLocation } from '../../types';
 import type { EntityWithCounts } from '../../lib/entityHelpers';
 import { getMomentsForEntity } from '../../lib/entityHelpers';
@@ -806,10 +806,39 @@ function BackfillHint() {
 function HScrollRow({
   children,
   scrollRef,
+  onLoadMore,
 }: {
   children: React.ReactNode;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
+  /** Called when user scrolls near the end — triggers loading more items */
+  onLoadMore?: () => void;
 }) {
+  const loadMoreFired = useRef(false);
+  const onLoadMoreRef = useRef(onLoadMore);
+  onLoadMoreRef.current = onLoadMore;
+
+  // Reset the load-more gate when children count changes (new batch loaded)
+  const childCount = React.Children.count(children);
+  useEffect(() => {
+    loadMoreFired.current = false;
+  }, [childCount]);
+
+  useEffect(() => {
+    if (!onLoadMoreRef.current) return;
+    const el = scrollRef?.current;
+    if (!el) return;
+    const onScroll = () => {
+      if (loadMoreFired.current || !onLoadMoreRef.current) return;
+      // Fire when within ~2 card widths (400px) of the end
+      if (el.scrollLeft + el.clientWidth > el.scrollWidth - 400) {
+        loadMoreFired.current = true;
+        onLoadMoreRef.current();
+      }
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [scrollRef, childCount]);
+
   return (
     <div
       ref={scrollRef}
@@ -1097,13 +1126,17 @@ export function HomePage({
   // Apply category filter to backfill people (same logic as filteredPersonEntities)
   const filteredBackfillPeople = useMemo(() => {
     if (categoryFilter === null) return backfillPeople ?? [];
-    return (backfillPeople ?? []).filter(({ entity }) => {
+    const result = (backfillPeople ?? []).filter(({ entity }) => {
       const entityMoments = getMomentsForEntity(entity.id);
-      return entityMoments.some((m) => {
+      const pass = entityMoments.some((m) => {
         const parentStory = momentToStoryMap.get(m.id);
         return parentStory?.category === categoryFilter;
       });
+      if (!pass) console.log(`[backfill-filter] REMOVED ${entity.name} (${entity.id}) — no ${categoryFilter} moments (has ${entityMoments.length} moments)`);
+      return pass;
     });
+    console.log(`[backfill-filter] category=${categoryFilter}, input=${(backfillPeople ?? []).length}, output=${result.length}`);
+    return result;
   }, [backfillPeople, categoryFilter, momentToStoryMap]);
 
   const gridPeople = useMemo(() => {
@@ -1128,6 +1161,137 @@ export function HomePage({
   const storiesBackfillStart = (viewportStories ?? []).length;
   const momentsBackfillStart = nearYouMomentsLive.length;
   const collectionsBackfillStart = viewportFilteredCollections.length;
+
+  // ── Infinite scroll: progressive loading from full dataset ────────
+  // Page sizes grow by 20 as user scrolls near the end of each carousel.
+  const LOAD_MORE_BATCH = 20;
+  const [nearYouPageSize, setNearYouPageSize] = useState(35);
+  const [peoplePageSize, setPeoplePageSize] = useState(25);
+  const [storiesPageSize, setStoriesPageSize] = useState(35);
+  // Collections: only ~29 total, no infinite scroll needed
+
+  // Reset page sizes when map moves (viewport data changes) so we don't
+  // carry a huge page size from a previous pan.
+  const prevVpKey = useRef('');
+  useEffect(() => {
+    const vpKey = `${viewportLocations[0]?.location.id ?? ''}-${viewportLocations.length}`;
+    if (vpKey !== prevVpKey.current) {
+      prevVpKey.current = vpKey;
+      setNearYouPageSize(35);
+      setPeoplePageSize(25);
+      setStoriesPageSize(35);
+    }
+  }, [viewportLocations]);
+
+  // Reference point for distance sorting: userLocation, or centroid of viewport
+  const sortCenter = useMemo(() => {
+    if (userLocation) return userLocation;
+    if (viewportLocations.length === 0) return null;
+    const lats = viewportLocations.map(vl => vl.location.lat);
+    const lngs = viewportLocations.map(vl => vl.location.lng);
+    return {
+      lat: (Math.min(...lats) + Math.max(...lats)) / 2,
+      lng: (Math.min(...lngs) + Math.max(...lngs)) / 2,
+    };
+  }, [userLocation, viewportLocations]);
+
+  // Globally-sorted moments by distance (for near you infinite tail)
+  const allMomentsSorted = useMemo(() => {
+    if (!sortCenter) return [];
+    return allMoments
+      .filter(m => {
+        const s = momentToStoryMap.get(m.id);
+        return s && (categoryFilter === null || s.category === categoryFilter);
+      })
+      .map(m => ({
+        location: m,
+        story: momentToStoryMap.get(m.id) ?? null,
+        distance: distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng),
+      }))
+      .sort((a, b) => a.distance - b.distance);
+  }, [allMoments, sortCenter, categoryFilter, momentToStoryMap]);
+
+  // Globally-sorted stories by nearest moment distance
+  const allStoriesSorted = useMemo(() => {
+    if (!sortCenter) return [];
+    const storyDist = new Map<string, number>();
+    for (const s of stories) {
+      if (categoryFilter !== null && s.category !== categoryFilter) continue;
+      let minDist = Infinity;
+      for (const sm of s.moments) {
+        const m = momentById.get(sm.momentId);
+        if (m) {
+          const d = distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng);
+          if (d < minDist) minDist = d;
+        }
+      }
+      if (minDist < Infinity) storyDist.set(s.id, minDist);
+    }
+    return [...stories]
+      .filter(s => storyDist.has(s.id))
+      .sort((a, b) => (storyDist.get(a.id) ?? 0) - (storyDist.get(b.id) ?? 0));
+  }, [stories, sortCenter, categoryFilter, momentById]);
+
+  // Globally-sorted people by nearest moment distance
+  const allPeopleSorted = useMemo(() => {
+    if (!sortCenter) return [];
+    return entities
+      .filter(e => e.type === 'person')
+      .map(entity => {
+        const ms = getMomentsForEntity(entity.id);
+        if (categoryFilter !== null) {
+          const hasMatch = ms.some(m => {
+            const s = momentToStoryMap.get(m.id);
+            return s?.category === categoryFilter;
+          });
+          if (!hasMatch) return null;
+        }
+        const minDist = ms.length > 0
+          ? Math.min(...ms.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
+          : Infinity;
+        return { entity, momentCount: ms.length, maxNotability: 0, minDist };
+      })
+      .filter((x): x is NonNullable<typeof x> => x !== null && x.minDist < Infinity)
+      .sort((a, b) => a.minDist - b.minDist);
+  }, [entities, sortCenter, categoryFilter, momentToStoryMap]);
+
+  // Merge existing carousel data with infinite tail
+  const nearYouDisplay = useMemo(() => {
+    const base = nearYouMoments;
+    if (base.length >= nearYouPageSize) return base.slice(0, nearYouPageSize);
+    const existingIds = new Set(base.map(vl => vl.location.id));
+    const extra = allMomentsSorted.filter(vl => !existingIds.has(vl.location.id));
+    return [...base, ...extra].slice(0, nearYouPageSize);
+  }, [nearYouMoments, allMomentsSorted, nearYouPageSize]);
+
+  const storiesDisplay = useMemo(() => {
+    const base = allHomeStories;
+    if (base.length >= storiesPageSize) return base.slice(0, storiesPageSize);
+    const existingIds = new Set(base.map(s => s.id));
+    const extra = allStoriesSorted.filter(s => !existingIds.has(s.id));
+    return [...base, ...extra].slice(0, storiesPageSize);
+  }, [allHomeStories, allStoriesSorted, storiesPageSize]);
+
+  const peopleDisplay = useMemo(() => {
+    const base = gridPeople;
+    if (base.length >= peoplePageSize) return base.slice(0, peoplePageSize);
+    const existingIds = new Set(base.map(p => p.entity.id));
+    const extra = allPeopleSorted
+      .filter(p => !existingIds.has(p.entity.id))
+      .map(p => ({ entity: p.entity, momentCount: p.momentCount, maxNotability: p.maxNotability }));
+    return [...base, ...extra].slice(0, peoplePageSize);
+  }, [gridPeople, allPeopleSorted, peoplePageSize]);
+
+  // Load-more callbacks
+  const loadMoreNearYou = useCallback(() => {
+    setNearYouPageSize(prev => prev + LOAD_MORE_BATCH);
+  }, []);
+  const loadMoreStories = useCallback(() => {
+    setStoriesPageSize(prev => prev + LOAD_MORE_BATCH);
+  }, []);
+  const loadMorePeople = useCallback(() => {
+    setPeoplePageSize(prev => prev + LOAD_MORE_BATCH);
+  }, []);
 
   // Title adapts based on whether we're showing backfill people
   const peopleSectionTitle = filteredPersonEntities.length > 0 ? 'Who Was Here' : 'Who Was Nearby';
@@ -1233,7 +1397,7 @@ export function HomePage({
   // ── Active index tracking via scroll position ──
   const { index: nearYouActiveIdx, cardId: nearYouActiveCardId } = useScrollActiveIndex(
     nearYouScrollRef,
-    nearYouMoments.length,
+    nearYouDisplay.length,
     expandedSection !== 'nearYou',
     'horizontal',
   );
@@ -1252,13 +1416,13 @@ export function HomePage({
   );
   const { index: peopleActiveIdx, cardId: peopleActiveCardId } = useScrollActiveIndex(
     peopleScrollRef,
-    gridPeople.length,
+    peopleDisplay.length,
     expandedSection !== 'people',
     'horizontal',
   );
   const { index: storiesActiveIdx, cardId: storiesActiveCardId } = useScrollActiveIndex(
     storiesScrollRef,
-    allHomeStories.length,
+    storiesDisplay.length,
     expandedSection !== 'stories',
     'horizontal',
   );
@@ -1274,8 +1438,8 @@ export function HomePage({
   onScrollHighlightRef.current = onScrollHighlight;
   const onScrollPanRef = useRef(onScrollPan);
   onScrollPanRef.current = onScrollPan;
-  const nearYouMomentsRef = useRef(nearYouMoments);
-  nearYouMomentsRef.current = nearYouMoments;
+  const nearYouMomentsRef = useRef(nearYouDisplay);
+  nearYouMomentsRef.current = nearYouDisplay;
 
   // ── Near You scroll → map highlight ──
   // Use the active index from our hook to drive map highlighting.
@@ -1296,10 +1460,10 @@ export function HomePage({
   momentByIdRef.current = momentById;
   const allPeopleRef = useRef(allPeople);
   allPeopleRef.current = allPeople;
-  const gridPeopleRef = useRef(gridPeople);
-  gridPeopleRef.current = gridPeople;
-  const allHomeStoriesRef = useRef(allHomeStories);
-  allHomeStoriesRef.current = allHomeStories;
+  const gridPeopleRef = useRef(peopleDisplay);
+  gridPeopleRef.current = peopleDisplay;
+  const allHomeStoriesRef = useRef(storiesDisplay);
+  allHomeStoriesRef.current = storiesDisplay;
   // Stable collection/story/person ID refs — store the ID at the active scroll
   // index so computeHighlight can look up by ID even after the list reshuffles.
   const activeCollectionIdRef = useRef<string | null>(null);
@@ -1616,11 +1780,11 @@ export function HomePage({
               </div>
             ) : (
               <div>
-                {peopleBackfillStart === 0 && gridPeople.length > 0 && <BackfillHint />}
-                <HScrollRow scrollRef={peopleScrollRef}>
-                  {gridPeople.map(({ entity, momentCount }, i) => (
+                {peopleBackfillStart === 0 && peopleDisplay.length > 0 && <BackfillHint />}
+                <HScrollRow scrollRef={peopleScrollRef} onLoadMore={loadMorePeople}>
+                  {peopleDisplay.map(({ entity, momentCount }, i) => (
                     <Fragment key={entity.id}>
-                      {i === peopleBackfillStart && peopleBackfillStart > 0 && peopleBackfillStart < gridPeople.length && <BackfillDivider />}
+                      {i === peopleBackfillStart && peopleBackfillStart > 0 && peopleBackfillStart < peopleDisplay.length && <BackfillDivider />}
                       <PersonCard
                         entity={entity}
                         momentCount={momentCount}
@@ -1692,11 +1856,11 @@ export function HomePage({
                 </div>
               ) : (
                 <>
-                {storiesBackfillStart === 0 && allHomeStories.length > 0 && <BackfillHint />}
-                <HScrollRow scrollRef={storiesScrollRef}>
-                  {allHomeStories.map((story, i) => (
+                {storiesBackfillStart === 0 && storiesDisplay.length > 0 && <BackfillHint />}
+                <HScrollRow scrollRef={storiesScrollRef} onLoadMore={loadMoreStories}>
+                  {storiesDisplay.map((story, i) => (
                     <Fragment key={story.id}>
-                      {i === storiesBackfillStart && storiesBackfillStart > 0 && storiesBackfillStart < allHomeStories.length && <BackfillDivider />}
+                      {i === storiesBackfillStart && storiesBackfillStart > 0 && storiesBackfillStart < storiesDisplay.length && <BackfillDivider />}
                       <HomeStoryCard
                         story={story}
                         cardIndex={i}
@@ -1729,7 +1893,7 @@ export function HomePage({
             expanded={expandedSection === 'nearYou'}
             onToggle={() => toggleSection('nearYou')}
           />
-          {nearYouMoments.length > 0 ? (
+          {nearYouDisplay.length > 0 ? (
             expandedSection === 'nearYou' ? (
               // Expanded: vertical list
               <div ref={nearYouExpandedRef} className="flex flex-col gap-2 px-4">
@@ -1755,11 +1919,11 @@ export function HomePage({
             ) : (
               // Collapsed: horizontal scroll
               <>
-              {momentsBackfillStart === 0 && nearYouMoments.length > 0 && <BackfillHint />}
-              <HScrollRow scrollRef={nearYouScrollRef}>
-                {nearYouMoments.map((vl, i) => (
+              {momentsBackfillStart === 0 && nearYouDisplay.length > 0 && <BackfillHint />}
+              <HScrollRow scrollRef={nearYouScrollRef} onLoadMore={loadMoreNearYou}>
+                {nearYouDisplay.map((vl, i) => (
                   <Fragment key={vl.location.id}>
-                    {i === momentsBackfillStart && momentsBackfillStart > 0 && momentsBackfillStart < nearYouMoments.length && <BackfillDivider />}
+                    {i === momentsBackfillStart && momentsBackfillStart > 0 && momentsBackfillStart < nearYouDisplay.length && <BackfillDivider />}
                     <NearYouCard
                       location={vl.location}
                       story={vl.story}

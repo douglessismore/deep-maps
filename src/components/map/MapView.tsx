@@ -1079,8 +1079,8 @@ function MapController({
       const icon = L.divIcon({
         className: '',
         html: '<div class="geo-marker"></div>',
-        iconSize: [14, 14],
-        iconAnchor: [7, 7],
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
       });
       const marker = L.marker([userLocation.lat, userLocation.lng], { icon, interactive: false, zIndexOffset: -1000 });
       marker.addTo(map);

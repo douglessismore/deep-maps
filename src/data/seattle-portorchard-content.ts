@@ -344,7 +344,6 @@ export const seattleMoments: Moment[] = [
     year: 1980,
     date: '18 May 1980',
     address: 'Mount St. Helens, Skamania County, WA 98616',
-    entityIds: ['harry-truman-mtsthelens'],
     wikiSection: '1980_eruption',
   },
   {
@@ -364,7 +363,6 @@ export const seattleMoments: Moment[] = [
     year: 1980,
     date: 'March-May 1980',
     address: 'Spirit Lake, Skamania County, WA 98616',
-    entityIds: ['harry-truman-mtsthelens'],
     wikiSection: 'Pre-eruption_media_attention',
   },
 

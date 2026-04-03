@@ -33,8 +33,11 @@ For every entity in `src/data/entities.ts` with `type: 'person'` that has moment
 
 ### Check 1.2: Physical Presence Rule
 For every moment with `entityIds` containing a person entity:
-- CRITICAL if the person's name (or surname) appears only in a place name, street name, building name, or another person's name in the moment — NOT because they were physically present
-- Look for patterns: surname matching geographic features (Smith → Smith Street, Washington → Washington Monument, Great → Constantine the Great)
+- CRITICAL if the person was NOT physically present at the location during the event. Tag a person ONLY where they were bodily there.
+- CRITICAL if the person was dead before the event occurred (posthumous naming, memorials, statues, buildings named after them, streets, airports). Example: Bergstrom died 1941 → cannot be tagged on "Bergstrom AFB established" (1942) or "Bergstrom AFB closes" (1993).
+- CRITICAL if the person's connection is only through a naming/dedication (Barbara Jordan Terminal, MLK Blvd, etc.)
+- WARNING if physical presence is uncertain/undocumented — remove the tag unless presence can be verified
+- Look for patterns: surname matching geographic features (Smith → Smith Street, Washington → Washington Monument)
 
 ### Check 1.3: Orphaned Moments
 Every moment must belong to at least one story's `moments[]` array OR one collection's `momentIds[]` array.
@@ -109,6 +112,27 @@ For every story and entity, check if multiple moments describe the same event:
 - CRITICAL if moments about atrocities, massacres, terrorism, or mass casualties are categorized in collections with positive/celebratory framing
 - WARNING if moment descriptions use inappropriately casual or flippant language for serious events (genocide, slavery, mass murder)
 - All content about sensitive topics should maintain encyclopedic, factual tone — never sensationalize
+
+### Check 1.14: Grab-Bag Story Detection
+Stories must have a narrative thread, not just group moments by city + theme.
+- CRITICAL if a story name contains a city name + generic category (e.g., "Austin's Civil Rights Milestones", "Chicago's Founding Landmarks", "Seattle's Music Origins"). Users already see city-level grouping by zooming into the map.
+- CRITICAL if a story's moments have no causal or narrative connection to each other — they're just thematically similar events in the same city.
+- A valid story = moments that are causally linked, chronologically connected, or part of the same specific incident/narrative. Example: "Capital City Klan No. 81" (specific chapter, specific events) is valid. "Austin's Dark History" (grab-bag) is not.
+- Collections are the appropriate container for thematic groupings, not stories.
+- City-scoped thematic groupings (e.g., "Austin's Deadliest Days", "Seattle's Music Landmarks", "Chicago's Founding Landmarks") must ALWAYS be **collections**, never stories. Stories require causal/narrative links between moments. Collections are the correct container for "things that happened in the same city and share a theme." This is a hard rule, not a suggestion.
+
+### Check 1.15: Entity Biographical Moment Completeness
+For every person entity, check if they have biographical anchor moments beyond their "famous" moments:
+- INFO if a person entity has moments ONLY at famous/obvious venues (stadiums, racetracks, government buildings) and no biographical moments (birthplace, childhood home, school, workplace, grave)
+- Biographical/obscure location moments are MORE valuable than obvious-venue moments. Standing at a random house knowing someone famous grew up there is a discovery; standing at a racetrack knowing a race happened there is obvious.
+- Priority biographical moments to check for: (1) birthplace — as precise as possible, (2) burial/grave — exact headstone coordinates if available, (3) childhood home or school, (4) workplace, (5) place of death if different from burial
+- This is an INFO-level suggestion, not a blocker — but it should be flagged to prompt content enrichment.
+
+### Check 1.16: Story Scope — Avoid City-Scoped Stories
+Stories should not be scoped to a specific city unless the story IS fundamentally about that city.
+- WARNING if a story name includes "[City]'s [Topic]" or "The [Topic] in [City]" when the topic is a broader phenomenon (e.g., "The KKK in Austin" → should be about the specific local chapter or the broader movement, not "KKK + city name")
+- Users navigate to cities by zooming the map — city-scoped stories duplicate what the map already does spatially.
+- Better: name the story after the specific incident, chapter, or organization (e.g., "Capital City Klan No. 81" instead of "The KKK in Austin")
 
 ## Layer 2: Content Quality (scored checklist)
 
@@ -222,7 +246,7 @@ ls -la src/data/moments.ts src/data/entities.ts src/data/stories.ts src/data/col
 
 ### Check 4.5: Content Type Boundaries
 After import, verify content type rules are maintained:
-- Every `storyType: 'biography'` story must have exactly one entity with matching `canonicalStoryId`
+- Every `storyType: 'biography'` story must have exactly one entity with matching `canonicalStoryId`. Biography stories are BACKEND INFRASTRUCTURE only — they exist to give person entities a `canonicalStoryId`. They are never user-facing (hidden by `browseableStories` whitelist). The person ENTITY is what users see, not the biography story.
 - Every `storyType: 'place'` story must have exactly one entity of `type: 'place'` with matching `canonicalStoryId`
 - No entity of `type: 'concept'` should exist in the entities array (concepts are banned per content guide)
 - CRITICAL for violations

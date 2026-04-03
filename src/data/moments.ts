@@ -11194,7 +11194,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1900,
-    entityIds: ['1900-austin-dam-failure'],
+    entityIds: [],
   },
   {
     id: 'dam-red-bud-isle',
@@ -11210,7 +11210,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'presence',
     year: 1900,
-    entityIds: ['1900-austin-dam-failure'],
+    entityIds: [],
   },
   {
     id: 'ohenry-morley-brothers',

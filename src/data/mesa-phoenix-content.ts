@@ -223,7 +223,6 @@ export const mesaPhoenixMoments: Moment[] = [
     kind: 'event',
     year: 1931,
     date: '16 October 1931',
-    entityIds: ['winnie-ruth-judd'],
   },
   {
     id: 'phx-judd-asylum-escapes',
@@ -240,7 +239,6 @@ export const mesaPhoenixMoments: Moment[] = [
     accuracy: 'approximate',
     kind: 'event',
     year: 1962,
-    entityIds: ['winnie-ruth-judd'],
   },
 
   // ── Story: Phoenix Lights ──
@@ -384,7 +382,6 @@ export const mesaPhoenixMoments: Moment[] = [
     kind: 'event',
     year: 1976,
     date: '2 June 1976',
-    entityIds: ['don-bolles'],
     wikiSection: 'Murder',
   },
 

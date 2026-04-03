@@ -47,6 +47,8 @@ export const collections: StoryCollection[] = [
       'green-river-first-victims-1982', 'sea-green-river-first-body',
       // Aileen Wuornos
       'wuornos-first-victim-1989',
+      // Austin Yogurt Shop Murders
+      'yogurt-shop-murders-1991',
       // Edmund Kemper
       'kemper-grandparents-1964',
       // Charles Manson
@@ -476,5 +478,56 @@ export const collections: StoryCollection[] = [
       'first-michelin-guide-paris-1900',
     ],
     tags: ['food', 'drink', 'culinary', 'invention'],
+  },
+  {
+    id: 'austin-deadliest-days',
+    name: 'Austin\'s Deadliest Days',
+    subtitle: 'Dam bursts, flash floods, tornadoes, and mass shootings — the disasters that shaped a city',
+    description: 'Austin sits at the collision of two creek valleys and the Balcones Escarpment, making it one of the most flood-prone cities in America. Add tornadoes, infrastructure failures, and one of the first mass shootings in U.S. history, and the result is a city shaped as much by catastrophe as by ambition.',
+    momentIds: [
+      // 1900 Dam Collapse
+      'dam-powerhouse-explosion',
+      'dam-red-bud-isle',
+      // 1915 Flood
+      'austin-flood-rain-1915',
+      'austin-flood-whittington-drowns-1915',
+      'austin-flood-wooldridge-relief-1915',
+      // 1922 Tornadoes
+      'austin-tornadoes-spicewood-1922',
+      'austin-tornado-bargsley-1922',
+      'bargsley-family-plot-present',
+      'st-edwards-tornado-1922',
+      // 1966 UT Tower Shooting
+      'uttower-main-mall',
+    ],
+    tags: ['disaster', 'flood', 'tornado', 'austin', 'dark-history'],
+  },
+  {
+    id: 'freedmens-communities-austin',
+    name: 'Freedmen\'s Communities of Austin',
+    subtitle: 'After emancipation, formerly enslaved people built 15 communities ringing Austin — most are now gone',
+    description: 'Between 1865 and 1895, freed slaves established at least 15 distinct communities on the periphery of Austin. They built churches, schools, and cooperative economies from nothing. Most were destroyed by highway construction, urban renewal, and gentrification. A few — Clarksville, Gregorytown — left traces that remain visible today.',
+    momentIds: [
+      'pleasant-hill-freedmen-1865',
+      'kincheonville-freedmen-1865',
+      'barton-springs-freedmen-1867',
+      'reyna-branch-freedmen-1870',
+      'masontown-freedmen-1870',
+      'wheatville-freedmen-1867',
+      'robertson-hill-freedmen-1870',
+      'belle-hill-freedmen-1870',
+      'clarksville-clark-buys-land-1871',
+      'burditt-prairie-freedmen-1870',
+      'red-river-street-freedmen-1866',
+      'west-side-freedmen-1868',
+      'gregorytown-freedmen-1870',
+      'south-side-freedmen-1868',
+      'horst-pasture-freedmen-1870',
+      // Related existing moments
+      'clarksville-sweet-home-baptist-1877',
+      'clarksville-mopac-destruction-1970s',
+      'evergreen-cemetery-established-1926',
+    ],
+    tags: ['civil-rights', 'african-american', 'austin', 'reconstruction', 'freedmen'],
   },
 ];
