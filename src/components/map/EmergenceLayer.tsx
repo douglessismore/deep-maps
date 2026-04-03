@@ -13,7 +13,7 @@
  * returns null, manages its own layer lifecycle.
  */
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import type { Moment, Story, StoryCategory, StoryCollection } from '../../types';
@@ -550,16 +550,36 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // ── Scroll highlight overlay (DOM marker with inline label) ──────────
   // Uses a single DivIcon containing BOTH the dot and the label text.
   // No Leaflet tooltip — eliminates the flash caused by tooltip repositioning.
+  // Shared cleanup for scroll overlay — must be returned from ALL effect paths
+  // (including early returns) so React can clean up on unmount.
+  const scrollOverlayCleanup = useCallback(() => {
+    if (scrollOverlayRef.current) {
+      map.removeLayer(scrollOverlayRef.current);
+      scrollOverlayRef.current = null;
+    }
+    if (scrollPolylineRef.current) {
+      map.removeLayer(scrollPolylineRef.current);
+      scrollPolylineRef.current = null;
+    }
+    hideOffScreenArrow();
+    if (arrowFlyRef.current) {
+      arrowFlyRef.current = null;
+      onArrowFlyLockRef.current?.(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map]);
+
   useEffect(() => {
     // During active flyTo animation, block completely — the moveEnd handler
     // will create the landed label when the animation finishes.
-    if (arrowFlyRef.current && !arrowFlyRef.current.landed) return;
+    // CRITICAL: still return cleanup so unmount removes the landed label.
+    if (arrowFlyRef.current && !arrowFlyRef.current.landed) return scrollOverlayCleanup;
     // After flyTo landed: keep the label if scroll data is for the SAME entity
     // (viewport reshuffles produce same card). Replace when user scrolls to
     // a DIFFERENT card — that means intentional interaction.
     if (arrowFlyRef.current?.landed) {
       const sameEntity = scrollHighlightLabel === arrowFlyRef.current.label;
-      if (sameEntity) return; // keep landed label
+      if (sameEntity) return scrollOverlayCleanup; // keep landed label but allow cleanup on unmount
       // User scrolled to a different card — clear arrowFlyRef and proceed
       arrowFlyRef.current = null;
     }
@@ -729,23 +749,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       }
     }
 
-    return () => {
-      if (scrollOverlayRef.current) {
-        map.removeLayer(scrollOverlayRef.current);
-        scrollOverlayRef.current = null;
-      }
-      if (scrollPolylineRef.current) {
-        map.removeLayer(scrollPolylineRef.current);
-        scrollPolylineRef.current = null;
-      }
-      hideOffScreenArrow();
-      // Release arrow fly lock on cleanup (e.g., unmount when entering entity/story mode)
-      if (arrowFlyRef.current) {
-        arrowFlyRef.current = null;
-        onArrowFlyLockRef.current?.(false);
-      }
-    };
-  }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap]);
+    return scrollOverlayCleanup;
+  }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap, scrollOverlayCleanup]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
   useEffect(() => {
