@@ -1318,8 +1318,8 @@ export const seattleStories: Story[] = [
   },
   {
     id: 'hubbard-hilltop-cabin',
-    name: 'L. Ron Hubbard\'s Hilltop Cabin',
-    nickname: 'Where Scientology Was Born',
+    name: 'The Birth of Scientology',
+    nickname: 'A Pine Cabin, a Typewriter, and an Unpublished Manuscript',
     years: '1936–1940',
     category: 'mystery-unexplained',
     storyType: 'incident',
@@ -1350,11 +1350,11 @@ export const seattleStories: Story[] = [
   },
   {
     id: 'manchester-fort',
-    name: 'Manchester: The Hidden Fortress',
-    nickname: 'Torpedoes, Disappearing Guns, and Fire',
+    name: 'Manchester State Park',
+    nickname: 'The Hidden Fortress on the Sound',
     years: '1901–1945',
     category: 'battles-conflicts',
-    storyType: 'incident',
+    storyType: 'place',
     imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/manchester-fort.jpg',
     description:
       'Just east of Port Orchard, the Navy built a coastal defense complex to protect the Bremerton shipyard — a torpedo warehouse, disappearing gun batteries that popped up to fire and vanished back into the earth, and later a WWII fire-fighting school where sailors trained to battle fuel fires. The ruins still stand in the woods of Manchester State Park.',
@@ -1407,7 +1407,7 @@ export const seattleStories: Story[] = [
     nickname: 'The Port That Vanished',
     years: 'c. 1890–1930s',
     category: 'everyday-extraordinary',
-    storyType: 'incident',
+    storyType: 'place',
     imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/lost-town-colby.png',
     description:
       'A century ago, the South Kitsap community of Colby was a bustling port and lumber town — school, hotel, doctor\'s office, ice cream parlor. When the timber ran out and roads replaced steamers, Colby withered to nothing. Today it\'s barely a crossroads — a ghost town you drive through without knowing it was ever alive.',
