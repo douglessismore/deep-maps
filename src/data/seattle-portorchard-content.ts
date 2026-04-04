@@ -91,15 +91,6 @@ export const seattleEntities: Entity[] = [
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Harry_R._Truman.PNG',
   },
   {
-    id: 'harold-dahl',
-    name: 'Harold Dahl',
-    type: 'person',
-    years: '',
-    description:
-      'Harbor patrolman who reported seeing six doughnut-shaped objects over Maury Island on June 21, 1947, three days before Kenneth Arnold\'s famous sighting. The FBI later determined his account was a fabrication, but the story became foundational UFO folklore.',
-    canonicalStoryId: 'maury-island-ufo',
-  },
-  {
     id: 'kenneth-arnold',
     name: 'Kenneth Arnold',
     type: 'person',
@@ -108,16 +99,6 @@ export const seattleEntities: Entity[] = [
       'Businessman and pilot whose June 24, 1947, report of nine disc-shaped objects near Mount Rainier coined the term "flying saucer" and launched the modern UFO era. He later investigated the Maury Island incident at Harold Dahl\'s invitation.',
     canonicalStoryId: 'maury-island-ufo',
     wikipediaSlug: 'Kenneth_Arnold',
-  },
-  {
-    id: 'bill-speidel',
-    name: 'Bill Speidel',
-    type: 'person',
-    years: '1912–1988',
-    description:
-      'Seattle journalist, historian, and preservationist who rediscovered the city\'s buried underground passages and opened them as a tourist attraction in 1965. His irreverent tours from the Pioneer Building helped save Pioneer Square from demolition.',
-    canonicalStoryId: 'seattle-underground',
-    wikipediaSlug: 'Bill_Speidel',
   },
 ];
 
@@ -694,7 +675,6 @@ export const seattleMoments: Moment[] = [
     kind: 'event',
     year: 1947,
     date: '1947-06-21',
-    entityIds: ['harold-dahl'],
     verificationLevel: 'legendary',
   },
   {
@@ -711,7 +691,6 @@ export const seattleMoments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1947,
-    entityIds: ['harold-dahl'],
     verificationLevel: 'legendary',
   },
   {
@@ -728,7 +707,7 @@ export const seattleMoments: Moment[] = [
     accuracy: 'approximate',
     kind: 'event',
     year: 1947,
-    entityIds: ['kenneth-arnold', 'harold-dahl'],
+    entityIds: ['kenneth-arnold'],
     verificationLevel: 'legendary',
   },
   {
@@ -763,7 +742,6 @@ export const seattleMoments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1947,
-    entityIds: ['harold-dahl'],
     verificationLevel: 'documented',
   },
 
@@ -836,7 +814,6 @@ export const seattleMoments: Moment[] = [
     kind: 'event',
     year: 1965,
     address: '614 1st Ave, Seattle, WA 98104',
-    entityIds: ['bill-speidel'],
     verificationLevel: 'verified',
   },
 
