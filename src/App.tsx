@@ -768,6 +768,7 @@ function App() {
             suppressDetailPan={suppressDetailPan}
             mapInstance={mapInstance}
             onHighlightOnly={(moment) => { setActiveLocation(moment); setZoomToActiveLocation(false); }}
+            onSurpriseMe={handleSurpriseMe}
           />
           </FadeIn>
         ) : mode === 'story' && activeStory ? (
@@ -794,6 +795,8 @@ function App() {
             sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
             suppressDetailPan={suppressDetailPan}
+            onSurpriseMe={handleSurpriseMe}
+            mapInstance={mapInstance}
           />
           </FadeIn>
         ) : (

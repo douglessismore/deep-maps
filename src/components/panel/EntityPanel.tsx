@@ -18,6 +18,7 @@ import { EntityWikiPanel } from './EntityWikiPanel';
 import type { SheetSnap } from '../ui/BottomSheet';
 import { ScrollTimeline } from '../ui/ScrollTimeline';
 import type { ScrollTimelineItem } from '../ui/ScrollTimeline';
+import { SurpriseMeButton } from '../ui/SurpriseMeButton';
 
 interface EntityPanelProps {
   entity: Entity;
@@ -36,6 +37,7 @@ interface EntityPanelProps {
   mapInstance?: L.Map | null;
   /** Highlight a moment on the map without zooming/panning (for stay-local mode) */
   onHighlightOnly?: (moment: Moment) => void;
+  onSurpriseMe?: () => void;
 }
 
 export function EntityPanel({
@@ -54,6 +56,7 @@ export function EntityPanel({
   suppressDetailPan,
   mapInstance,
   onHighlightOnly,
+  onSurpriseMe,
 }: EntityPanelProps) {
   const allMomentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
@@ -651,6 +654,7 @@ export function EntityPanel({
             )}
             </div>
           )}
+          {!isSpotlightPeek && onSurpriseMe && <SurpriseMeButton onClick={onSurpriseMe} />}
           {/* Bottom padding so last card can scroll fully into view */}
           {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
         </div>

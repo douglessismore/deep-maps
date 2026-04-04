@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Entity, Story, Moment } from '../../types';
+import type L from 'leaflet';
 import { CATEGORIES } from '../../lib/categories';
+import { distanceMiles } from '../../lib/geo';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
 import { getStoryEntities, getEntityIcon } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
@@ -14,6 +16,7 @@ import { LocationCard } from './LocationCard';
 import { WikiPanel } from './WikiPanel';
 import { GoDeeperCard } from './GoDeeperCard';
 import type { SheetSnap } from '../ui/BottomSheet';
+import { SurpriseMeButton } from '../ui/SurpriseMeButton';
 import { isV2 } from '../../lib/theme';
 
 type StoryTab = 'locations' | 'wiki';
@@ -123,6 +126,8 @@ interface StoryPanelProps {
   sheetSnap?: SheetSnap;
   onExpandRequest?: () => void;
   suppressDetailPan?: React.RefObject<boolean>;
+  onSurpriseMe?: () => void;
+  mapInstance?: L.Map | null;
 }
 
 export function StoryPanel({
@@ -142,6 +147,8 @@ export function StoryPanel({
   sheetSnap,
   onExpandRequest,
   suppressDetailPan,
+  onSurpriseMe,
+  mapInstance,
 }: StoryPanelProps) {
   const { moments } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
@@ -159,6 +166,7 @@ export function StoryPanel({
   const savedScrollTop = useRef<Record<string, number>>({});
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded] = useState(true);
+  const [momentSort, setMomentSort] = useState<'narrative' | 'nearest' | 'timeline'>('narrative');
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
@@ -651,17 +659,51 @@ export function StoryPanel({
 
           {/* Moments */}
           <div className="p-4">
+            {/* Sort toggle — only for multi-moment stories, hidden in spotlight peek */}
+            {!isSpotlightPeek && resolveLocationsFromMap(story, momentMap).length >= 2 && (
+              <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
+                {(['narrative', 'nearest', 'timeline'] as const).map((mode, i) => (
+                  <span key={mode} className="flex items-center">
+                    {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
+                    <button
+                      onClick={() => setMomentSort(mode)}
+                      className={`transition-colors ${
+                        momentSort === mode
+                          ? 'text-[var(--text-primary)]'
+                          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
+                      }`}
+                    >
+                      {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="space-y-2">
               {(() => {
                 const allLocations = resolveLocationsFromMap(story, momentMap);
+                // Sort based on selected mode
+                const sortedLocations = momentSort === 'narrative' ? allLocations : (() => {
+                  const sorted = [...allLocations];
+                  if (momentSort === 'timeline') {
+                    sorted.sort((a, b) => (a.year ?? 0) - (b.year ?? 0));
+                  } else if (momentSort === 'nearest' && mapInstance) {
+                    const center = mapInstance.getCenter();
+                    sorted.sort((a, b) =>
+                      distanceMiles(center.lat, center.lng, a.lat, a.lng) -
+                      distanceMiles(center.lat, center.lng, b.lat, b.lng)
+                    );
+                  }
+                  return sorted;
+                })();
                 // Spotlight at peek: show only the active card as a rich "now playing" card
                 const locationsToRender = isSpotlightPeek
                   ? (() => {
                       const activeId = currentActiveId;
-                      const active = activeId ? allLocations.find(l => l.id === activeId) : allLocations[0];
-                      return active ? [active] : allLocations.slice(0, 1);
+                      const active = activeId ? sortedLocations.find(l => l.id === activeId) : sortedLocations[0];
+                      return active ? [active] : sortedLocations.slice(0, 1);
                     })()
-                  : allLocations;
+                  : sortedLocations;
 
                 return locationsToRender.map((location) => {
                   const storyMoment = story.moments.find((sm) => sm.momentId === location.id);
@@ -697,6 +739,7 @@ export function StoryPanel({
             </div>
           </div>
 
+          {!isSpotlightPeek && onSurpriseMe && <SurpriseMeButton onClick={onSurpriseMe} />}
           {!isSpotlightPeek && <div className="h-24 lg:h-[40vh]" />}
         </div>
       )}

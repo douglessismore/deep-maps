@@ -951,7 +951,7 @@ const _baseStories: Story[] = [
     name: 'Cadillac Ranch',
     years: '1974–present',
     category: 'arts-culture',
-    storyType: 'incident',
+    storyType: 'place',
     description: 'An eccentric billionaire buried ten Cadillacs nose-first in a wheat field at the exact angle of the Great Pyramid of Giza. It was intended as a tribute to the tailfin, but it became a global site for sanctioned vandalism.',
     tags: ['amarillo', 'art', 'route-66', 'weird-texas', 'history'],
     moments: [{ momentId: 'cad-ranch-site' }, { momentId: 'cad-ant-farm-studio' }, { momentId: 'cad-relocation-spray' }],

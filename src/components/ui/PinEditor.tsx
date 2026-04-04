@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import { supabase } from '../../lib/supabase';
 
@@ -200,12 +201,14 @@ export function PinEditor({
 
   const coordsChanged = draftLat !== lat || draftLng !== lng;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
+      onTouchMove={(e) => e.stopPropagation()}
+      onPointerDown={(e) => e.stopPropagation()}
     >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
@@ -326,6 +329,7 @@ export function PinEditor({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

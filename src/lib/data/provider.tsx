@@ -100,10 +100,22 @@ async function loadData(): Promise<AppData> {
           }),
           ...staticOnlyStories,
         ];
-        // Merge static-only moments (exist in static but not Supabase)
+        // Merge moments: static-only moments get added; for shared moments,
+        // static coordinates override Supabase when they differ (handles coord corrections)
+        const staticMomentMap = new Map(staticData.moments.map(m => [m.id, m]));
         const supabaseMomentIds = new Set(data.moments.map(m => m.id));
         const staticOnlyMoments = staticData.moments.filter(m => !supabaseMomentIds.has(m.id));
-        const mergedMoments = [...data.moments, ...staticOnlyMoments];
+        let coordOverrides = 0;
+        const correctedMoments = data.moments.map(m => {
+          const staticM = staticMomentMap.get(m.id);
+          if (staticM && (staticM.lat !== m.lat || staticM.lng !== m.lng)) {
+            coordOverrides++;
+            return { ...m, lat: staticM.lat, lng: staticM.lng };
+          }
+          return m;
+        });
+        if (coordOverrides > 0) console.info(`[data] Overrode ${coordOverrides} moment coordinates from static data`);
+        const mergedMoments = [...correctedMoments, ...staticOnlyMoments];
         // Merge static-only entities (exist in static but not Supabase)
         const supabaseEntityIds = new Set(data.entities.map(e => e.id));
         const staticOnlyEntities = staticData.entities.filter(e => !supabaseEntityIds.has(e.id));

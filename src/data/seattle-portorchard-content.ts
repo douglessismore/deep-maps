@@ -66,6 +66,7 @@ export const seattleEntities: Entity[] = [
       'Licensed fasting specialist who operated a sanitarium in Olalla, Washington. Convicted of manslaughter after starving patient Claire Williamson to death while systematically looting her estate. Served two years, was pardoned, and resumed practicing until she died attempting her own fasting cure.',
     canonicalStoryId: 'starvation-heights',
     wikipediaSlug: 'Linda_Hazzard',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/43/Linda_Burfield_Hazzard%2C_FS%2C_DO.png',
   },
   {
     id: 'l-ron-hubbard',
@@ -76,6 +77,18 @@ export const seattleEntities: Entity[] = [
       'Pulp fiction writer who became the founder of Scientology. Before the religion, before Dianetics, Hubbard was a struggling author living in a small wooden house he called "The Hilltop" in South Colby, Washington, where he wrote obsessively through the night in a pine cabin his carpenter built in the trees behind the house.',
     canonicalStoryId: 'hubbard-hilltop-cabin',
     wikipediaSlug: 'L._Ron_Hubbard',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/L._Ron_Hubbard_in_1950_%28cropped_3x4%29.jpg/400px-L._Ron_Hubbard_in_1950_%28cropped_3x4%29.jpg',
+  },
+  {
+    id: 'harry-r-truman',
+    name: 'Harry R. Truman',
+    type: 'person',
+    years: '1896–1980',
+    description:
+      'Innkeeper who ran the Mount St. Helens Lodge at Spirit Lake for 52 years. Became a folk hero for refusing to evacuate despite weeks of warnings before the 1980 eruption. Buried under 150 feet of volcanic debris along with his 16 cats.',
+    canonicalStoryId: 'mount-st-helens-eruption',
+    wikipediaSlug: 'Harry_R._Truman',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Harry_R._Truman.PNG',
   },
   {
     id: 'harold-dahl',
@@ -393,6 +406,7 @@ export const seattleMoments: Moment[] = [
     year: 1980,
     date: '18 May 1980',
     address: 'Mount St. Helens, Skamania County, WA 98616',
+    entityIds: ['harry-r-truman'],
     wikiSection: '1980_eruption',
   },
   {
@@ -412,6 +426,7 @@ export const seattleMoments: Moment[] = [
     year: 1980,
     date: 'March-May 1980',
     address: 'Spirit Lake, Skamania County, WA 98616',
+    entityIds: ['harry-r-truman'],
     wikiSection: 'Pre-eruption_media_attention',
   },
 
@@ -1302,7 +1317,7 @@ export const seattleStories: Story[] = [
     nickname: 'The Buried City Beneath the Sidewalk',
     years: '1889–1965',
     category: 'everyday-extraordinary',
-    storyType: 'incident',
+    storyType: 'place',
     imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/seattle-underground.jpg',
     description:
       'When a pot of glue boiled over in 1889, it ignited 25 blocks and leveled Seattle\'s commercial core. The city rebuilt one to two stories higher — burying the original storefronts, sidewalks, and lobbies in a subterranean maze. Forgotten for decades, the underground was rediscovered in the 1960s by a newspaper columnist who turned it into one of Seattle\'s strangest tourist attractions.',

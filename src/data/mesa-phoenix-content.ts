@@ -822,7 +822,7 @@ export const mesaPhoenixStories: Story[] = [
     nickname: 'The Hole That Proved Impact',
     years: '~50,000 BC–present',
     category: 'discovery-science',
-    storyType: 'incident',
+    storyType: 'place',
     description:
       "A 150-foot meteorite hit the Arizona plateau at 26,000 mph and left a mile-wide hole that's still there 50,000 years later. A stubborn mining engineer spent his fortune drilling for iron that had vaporized on impact — but proved the scientific establishment wrong. Then NASA used the crater to train Apollo astronauts for the Moon.",
     tags: ['meteorite', 'geology', 'nasa', 'apollo', 'arizona', 'natural-wonder'],

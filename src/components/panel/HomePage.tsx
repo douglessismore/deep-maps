@@ -9,6 +9,7 @@ import { useAppData } from '../../lib/data/provider';
 import { useInViewAnimation } from '../../lib/useInViewAnimation';
 import { ScrollTimeline } from '../ui/ScrollTimeline';
 import type { ScrollTimelineItem } from '../ui/ScrollTimeline';
+import { SurpriseMeButton } from '../ui/SurpriseMeButton';
 
 // ─── Utilities ────────────────────────────────────────────────────────
 
@@ -1432,6 +1433,32 @@ export function HomePage({
     });
   }, [nearYouDisplay, sortCenter]);
 
+  // Expanded-view scroll labels (use full lists, not paginated display)
+  const peopleExpandedLabels = useMemo((): ScrollTimelineItem[] => {
+    return allPeople.map((p) => {
+      if (peopleSort === 'timeline') {
+        const yr = parseStartYear(p.entity.years);
+        return { label: yr ? String(yr) : null };
+      }
+      if (!sortCenter) return { label: null };
+      const ms = getMomentsForEntity(p.entity.id);
+      if (ms.length === 0) return { label: null };
+      const minDist = Math.min(...ms.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)));
+      return { label: formatDistance(minDist) };
+    });
+  }, [allPeople, peopleSort, sortCenter]);
+
+  const nearYouExpandedLabels = useMemo((): ScrollTimelineItem[] => {
+    return nearYouMoments.map(vl => {
+      const yr = vl.location.year;
+      const dist = sortCenter ? distanceMiles(sortCenter.lat, sortCenter.lng, vl.location.lat, vl.location.lng) : 0;
+      if (yr && dist > 0) return { label: `${yr} · ${formatDistance(dist)}` };
+      if (yr) return { label: String(yr) };
+      if (dist > 0) return { label: formatDistance(dist) };
+      return { label: null };
+    });
+  }, [nearYouMoments, sortCenter]);
+
   // Title adapts based on whether we're showing backfill people
   const peopleSectionTitle = peopleSort === 'timeline'
     ? 'People Through Time'
@@ -1905,7 +1932,7 @@ export function HomePage({
             expanded={expandedSection === 'people'}
             onToggle={() => toggleSection('people')}
           />
-          {expandedSection !== 'people' && peopleDisplay.length > 1 && (
+          {(expandedSection === 'people' ? allPeople.length : peopleDisplay.length) > 1 && (
             <SortToggle value={peopleSort} onChange={(v) => {
               setPeopleSort(v);
               if (peopleScrollRef.current) peopleScrollRef.current.scrollLeft = 0;
@@ -1924,6 +1951,10 @@ export function HomePage({
                     onClick={() => onEntityClick(entity)}
                   />
                 ))}
+                <SurpriseMeButton onClick={onSurpriseMe} />
+                {allPeople.length >= 2 && (
+                  <ScrollTimeline items={peopleExpandedLabels} activeIndex={peopleExpandedActiveIdx} orientation="vertical" />
+                )}
               </div>
             ) : (
               <div>
@@ -1979,7 +2010,7 @@ export function HomePage({
                 expanded={expandedSection === 'stories'}
                 onToggle={() => toggleSection('stories')}
               />
-              {expandedSection !== 'stories' && storiesDisplay.length > 1 && (
+              {(expandedSection === 'stories' ? allHomeStories.length : storiesDisplay.length) > 1 && (
                 <SortToggle value={storiesSort} onChange={(v) => {
                   setStoriesSort(v);
                   if (storiesScrollRef.current) storiesScrollRef.current.scrollLeft = 0;
@@ -2008,6 +2039,7 @@ export function HomePage({
                       </div>
                     </button>
                   ))}
+                  <SurpriseMeButton onClick={onSurpriseMe} />
                 </div>
               ) : (
                 <>
@@ -2052,7 +2084,7 @@ export function HomePage({
           {nearYouDisplay.length > 0 ? (
             expandedSection === 'nearYou' ? (
               // Expanded: vertical list
-              <div ref={nearYouExpandedRef} className="flex flex-col gap-2 px-4">
+              <div ref={nearYouExpandedRef} className="relative flex flex-col gap-2 px-4">
                 {nearYouMoments.map((vl, i) => (
                   <NearYouCardVertical
                     key={vl.location.id}
@@ -2071,6 +2103,10 @@ export function HomePage({
                     }}
                   />
                 ))}
+                <SurpriseMeButton onClick={onSurpriseMe} />
+                {nearYouMoments.length >= 2 && (
+                  <ScrollTimeline items={nearYouExpandedLabels} activeIndex={nearYouExpandedActiveIdx} orientation="vertical" />
+                )}
               </div>
             ) : (
               // Collapsed: horizontal scroll
@@ -2133,6 +2169,9 @@ export function HomePage({
                     onClick={() => onCollectionSelect(collection)}
                   />
                 ))}
+                <div className="col-span-2">
+                  <SurpriseMeButton onClick={onSurpriseMe} />
+                </div>
               </div>
             ) : (
               // Collapsed: horizontal scroll
