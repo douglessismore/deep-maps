@@ -148,7 +148,7 @@ export function ExplorePanel({
   backLabel: backLabelProp,
   panelView = 'explorer',
   onPanelViewChange,
-  onPreserveViewport,
+  onPreserveViewport: _onPreserveViewport,
 }: ExplorePanelProps) {
   const { moments, browseableStories } = useAppData();
   const { variant } = useUIVariant();
@@ -942,8 +942,6 @@ export function ExplorePanel({
     }, 80);
   }, [mapInstance, sheetSnap, isSheetMobile]);
 
-  // Backfill person IDs — skip preserveViewport for off-screen people (let map fly to them)
-  const backfillPersonIds = useMemo(() => new Set((backfillPeople ?? []).map(p => p.entity.id)), [backfillPeople]);
 
   if (panelView === 'home') {
     return (
@@ -958,7 +956,7 @@ export function ExplorePanel({
           onMomentClick={(moment, story) => {
             // Snapshot scroll position before navigating away (passive listener may not have fired)
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
-            onPreserveViewport?.(); // stay local — don't zoom map away
+            // Don't preserve viewport — map should fly to the moment's location
             onPanelViewChange?.('explorer');
             onLocationSelect(moment, story);
           }}
@@ -970,7 +968,8 @@ export function ExplorePanel({
           }}
           onEntityClick={(entity) => {
             if (homeScrollElRef.current) onScrollPosition?.(homeScrollElRef.current.scrollTop);
-            if (!backfillPersonIds.has(entity.id)) onPreserveViewport?.(); // stay local only for in-view people
+            // Don't preserve viewport — map should fly to the entity's locations
+            // (entity zoom already smartly targets the NEAREST moment, not all moments)
             onPanelViewChange?.('explorer');
             onEntityClick?.(entity);
           }}
