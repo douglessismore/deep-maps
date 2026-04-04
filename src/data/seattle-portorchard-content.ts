@@ -1072,6 +1072,7 @@ export const seattleStories: Story[] = [
     name: 'The D.B. Cooper Hijacking',
     nickname: 'The Man Who Jumped and Vanished',
     years: '1971',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/db-cooper-hijacking.jpg',
     category: 'mystery-unexplained',
     storyType: 'incident',
     description:
@@ -1089,6 +1090,7 @@ export const seattleStories: Story[] = [
     name: 'Ted Bundy\'s Seattle Abductions',
     nickname: 'The Charming Volunteer',
     years: '1974',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/bundy-seattle-years.jpg',
     category: 'dark-history',
     storyType: 'incident',
     description:
@@ -1104,6 +1106,7 @@ export const seattleStories: Story[] = [
     name: 'The Green River Killer',
     nickname: 'America\'s Most Prolific Serial Killer Hid in Plain Sight for 19 Years',
     years: '1982–2001',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/green-river-killer.jpg',
     category: 'dark-history',
     storyType: 'incident',
     description:
@@ -1155,6 +1158,7 @@ export const seattleStories: Story[] = [
     name: 'The 1980 Eruption of Mount St. Helens',
     nickname: 'The Mountain That Blew Its Top',
     years: '1980',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/mount-st-helens-eruption.jpg',
     category: 'discovery-science',
     storyType: 'incident',
     description:
@@ -1172,6 +1176,7 @@ export const seattleStories: Story[] = [
     name: 'The 1999 Seattle WTO Protests',
     nickname: 'The Day Protesters Shut Down Global Trade',
     years: '1999',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/battle-of-seattle-wto.jpg',
     category: 'political-drama',
     storyType: 'incident',
     description:
@@ -1217,6 +1222,7 @@ export const seattleStories: Story[] = [
   },
   {
     id: 'tacoma-narrows-bridge',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/tacoma-narrows-bridge.jpg',
     name: 'Tacoma Narrows Bridge Collapse',
     nickname: 'Galloping Gertie',
     years: '1940–1950',
@@ -1238,6 +1244,7 @@ export const seattleStories: Story[] = [
     name: 'Starvation Heights',
     nickname: 'The Fasting Cure',
     years: '1908–1912',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/starvation-heights.webp',
     category: 'dark-history',
     storyType: 'incident',
     description:
@@ -1275,6 +1282,7 @@ export const seattleStories: Story[] = [
     years: '1947',
     category: 'mystery-unexplained',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/maury-island-ufo.jpg',
     description:
       'Three days before Kenneth Arnold\'s famous sighting coined "flying saucer," a harbor patrolman claimed six doughnut-shaped craft rained molten debris onto his boat near Maury Island. The investigation pulled in Arnold himself, two Air Force officers who died in a B-25 crash, and an alleged visit from a "man in a dark suit." The FBI called it the dirtiest hoax in UFO history. The story never died.',
     tags: ['ufo', 'hoax', 'cold-war', 'men-in-black', 'puget-sound', 'washington', '1947', 'cover-up'],
@@ -1295,6 +1303,7 @@ export const seattleStories: Story[] = [
     years: '1889–1965',
     category: 'everyday-extraordinary',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/seattle-underground.jpg',
     description:
       'When a pot of glue boiled over in 1889, it ignited 25 blocks and leveled Seattle\'s commercial core. The city rebuilt one to two stories higher — burying the original storefronts, sidewalks, and lobbies in a subterranean maze. Forgotten for decades, the underground was rediscovered in the 1960s by a newspaper columnist who turned it into one of Seattle\'s strangest tourist attractions.',
     tags: ['seattle', 'fire', 'underground', 'pioneer-square', 'reconstruction', 'tourism', 'architecture'],
@@ -1346,6 +1355,7 @@ export const seattleStories: Story[] = [
     years: '1901–1945',
     category: 'battles-conflicts',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/manchester-fort.jpg',
     description:
       'Just east of Port Orchard, the Navy built a coastal defense complex to protect the Bremerton shipyard — a torpedo warehouse, disappearing gun batteries that popped up to fire and vanished back into the earth, and later a WWII fire-fighting school where sailors trained to battle fuel fires. The ruins still stand in the woods of Manchester State Park.',
     tags: ['military', 'coastal-defense', 'navy', 'wwii', 'ruins', 'kitsap', 'manchester'],
@@ -1363,6 +1373,7 @@ export const seattleStories: Story[] = [
     years: '1857',
     category: 'everyday-extraordinary',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/slaughter-county.jpg',
     description:
       'Before it was Kitsap, it was officially Slaughter County — named in 1857 after Lieutenant William Slaughter, killed in the Puget Sound Indian Wars. Residents hated the name so much they petitioned to change it within months. Every house in South Kitsap sits on land whose first legal identity was "Slaughter County."',
     tags: ['kitsap', 'place-names', 'indian-wars', 'history', 'mind-blowing'],
@@ -1379,6 +1390,7 @@ export const seattleStories: Story[] = [
     years: '1890–1930s',
     category: 'everyday-extraordinary',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/mosquito-fleet.jpg',
     description:
       'Before roads connected Puget Sound, a swarm of private steamers — the "Mosquito Fleet" — served as the primary transportation network. They carried passengers, mail, and freight between every waterfront town. The Carlisle II, built in 1917, is one of the last vessels still running — the backup ferry for the Port Orchard route.',
     tags: ['maritime', 'puget-sound', 'transportation', 'steamship', 'ferry', 'kitsap'],
@@ -1396,6 +1408,7 @@ export const seattleStories: Story[] = [
     years: 'c. 1890–1930s',
     category: 'everyday-extraordinary',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/lost-town-colby.png',
     description:
       'A century ago, the South Kitsap community of Colby was a bustling port and lumber town — school, hotel, doctor\'s office, ice cream parlor. When the timber ran out and roads replaced steamers, Colby withered to nothing. Today it\'s barely a crossroads — a ghost town you drive through without knowing it was ever alive.',
     tags: ['ghost-town', 'lumber', 'kitsap', 'south-colby', 'vanished-town'],
@@ -1412,6 +1425,7 @@ export const seattleStories: Story[] = [
     years: 'c. 11000 BCE–present',
     category: 'everyday-extraordinary',
     storyType: 'incident',
+    imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/suquamish-curley-creek.jpg',
     description:
       'Long before Slaughter County, before the Mosquito Fleet, before the logging boom — the Suquamish people used the mouths of creeks feeding into Yukon Harbor as seasonal camps. A Clovis projectile point found in the Curley Creek area suggests human presence here for over 13,000 years. The fifty-foot cedar war canoes that passed this coast were the highways before there were highways.',
     tags: ['indigenous', 'suquamish', 'archaeology', 'kitsap', 'deep-time', 'curley-creek'],
