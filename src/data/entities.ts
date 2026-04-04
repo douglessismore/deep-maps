@@ -3305,7 +3305,7 @@ const _baseEntities: Entity[] = [
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/KSC00pp1583.jpg/330px-KSC00pp1583.jpg',
   },
 
-  // ─── The Devil in the White City ─────────────────────────────────────
+  // ─── 1893 World's Fair + H.H. Holmes ─────────────────────────────────
   {
     id: 'daniel-burnham',
     name: 'Daniel Burnham',
@@ -3322,7 +3322,7 @@ const _baseEntities: Entity[] = [
     type: 'person',
     years: '1861–1896',
     description: 'America\'s first documented serial killer. Born Herman Webster Mudgett, he built a three-story "Murder Castle" near the 1893 World\'s Fair with soundproofed rooms, gas lines, and a basement kiln. Confessed to 27 murders but the true count is unknown. Hanged in Philadelphia in 1896 at age 34.',
-    canonicalStoryId: 'devil-in-the-white-city',
+    canonicalStoryId: 'hh-holmes-murder-castle',
     wikipediaSlug: 'H._H._Holmes',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/53/H._H._Holmes.jpg',
   },
@@ -3332,7 +3332,7 @@ const _baseEntities: Entity[] = [
     type: 'person',
     years: '1859–1896',
     description: 'The engineer who invented the Ferris wheel. Built the 264-foot original for the 1893 World\'s Columbian Exposition as America\'s answer to the Eiffel Tower. The wheel earned $726,000 in six months. Ferris died bankrupt and largely forgotten three years later at 37, his invention a victim of patent disputes.',
-    canonicalStoryId: 'devil-in-the-white-city',
+    canonicalStoryId: '1893-worlds-columbian-exposition',
     wikipediaSlug: 'George_Washington_Gale_Ferris_Jr.',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/GWFerris.jpg/330px-GWFerris.jpg',
   },
@@ -3352,7 +3352,7 @@ const _baseEntities: Entity[] = [
     type: 'person',
     years: '1825–1893',
     description: 'Five-term mayor of Chicago, assassinated in his own doorway on the closing night of the 1893 World\'s Fair. A populist Democrat who had championed the Fair as proof of Chicago\'s world-class status. Shot three times by a disgruntled office-seeker named Patrick Prendergast.',
-    canonicalStoryId: 'devil-in-the-white-city',
+    canonicalStoryId: '1893-worlds-columbian-exposition',
     wikipediaSlug: 'Carter_Harrison_Sr.',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Carter_Harrison%2C_Sr._-_Brady-Handy.jpg/330px-Carter_Harrison%2C_Sr._-_Brady-Handy.jpg',
   },
