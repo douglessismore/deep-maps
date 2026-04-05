@@ -1,5 +1,6 @@
 // SEED DATA ONLY — Do not edit directly. Use Supabase as source of truth. Run scripts/dump-from-supabase.ts to update.
 import type { Moment } from '../types';
+import { barnesMoments } from './austin-barnes-content';
 import { delValleMoments } from './del-valle-content';
 import { mesaPhoenixMoments } from './mesa-phoenix-content';
 import { seattleMoments } from './seattle-portorchard-content';
@@ -40879,6 +40880,7 @@ const _baseMoments: Moment[] = [
 
 export const moments: Moment[] = [
   ..._baseMoments,
+  ...barnesMoments,
   ...delValleMoments,
   ...mesaPhoenixMoments,
   ...seattleMoments,
