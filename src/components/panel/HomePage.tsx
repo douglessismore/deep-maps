@@ -908,10 +908,10 @@ function WhatsHereStoryCard({
         <div className="flex flex-col h-full">
           <div className="relative w-full flex-1 min-h-0 overflow-hidden">
             <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <span className="wh-type-label absolute top-2 left-2 z-10 !bg-black/50 backdrop-blur-sm" style={{ color: cat?.color ?? '#ccc' }}>Story</span>
             <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
-              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-md">
                 {story.name}
               </h4>
             </div>
@@ -1057,10 +1057,10 @@ function WhatsHerePlaceCard({
         <div className="flex flex-col h-full">
           <div className="relative w-full flex-1 min-h-0 overflow-hidden">
             <img src={entity.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <span className="wh-type-label absolute top-2 left-2 z-10 !bg-black/50 backdrop-blur-sm" style={{ color: 'rgba(5,150,105,0.9)' }}>Place</span>
             <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
-              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-md">
                 {entity.name}
               </h4>
             </div>
