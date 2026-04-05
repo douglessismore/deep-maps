@@ -239,7 +239,7 @@ export function PinEditor({
           )}
         </div>
 
-        {/* Map with overlaid controls */}
+        {/* Map with satellite toggle only */}
         <div className="relative">
           <div ref={mapRef} className="w-full h-[200px] sm:h-[350px]" />
 
@@ -250,26 +250,14 @@ export function PinEditor({
           >
             {satellite ? 'Dark' : 'Satellite'}
           </button>
-
-          {/* Live coordinates + moved badge — bottom overlay on map */}
-          <div className="absolute bottom-0 left-0 right-0 z-[1000] bg-gradient-to-t from-[#111] via-[#111]/90 to-transparent pt-4 pb-2 px-3">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-gray-300">
-                {draftLat.toFixed(6)}, {draftLng.toFixed(6)}
-              </span>
-              {coordsChanged && (
-                <span className="text-[10px] text-yellow-400 font-mono bg-yellow-400/10 px-1.5 py-0.5 rounded">moved</span>
-              )}
-            </div>
-          </div>
         </div>
 
         {/* Controls — below map */}
         <div className="px-4 py-3 space-y-2">
-          {/* Coordinate paste input */}
+          {/* Live coordinates — editable inputs */}
           <div>
-            <label className="block text-[10px] text-gray-500 mb-1">Paste coordinates</label>
-            <div className="flex gap-2">
+            <label className="block text-[10px] text-gray-500 mb-1">Coordinates</label>
+            <div className="flex items-center gap-2">
               <input
                 type="text"
                 value={coordInput}
@@ -285,6 +273,9 @@ export function PinEditor({
               >
                 Apply
               </button>
+              {coordsChanged && (
+                <span className="text-[10px] text-yellow-400 font-mono bg-yellow-400/10 px-1.5 py-0.5 rounded shrink-0">moved</span>
+              )}
             </div>
           </div>
 
