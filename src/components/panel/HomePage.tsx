@@ -896,7 +896,7 @@ function WhatsHereStoryCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] card-animate-in"
+      className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]"
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
       {story.imageUrl ? (
@@ -963,7 +963,7 @@ function WhatsHerePersonCard({
         onClick={onClick}
         data-card-index={cardIndex}
         data-card-id={cardId}
-        className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] card-animate-in"
+        className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]"
         style={{
           ...cardHighlightStyle(!!isActive, `${PURPLE},1)`),
           borderLeft: `3px solid ${PURPLE},0.6)`,
@@ -1021,7 +1021,7 @@ function WhatsHerePersonCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="flex flex-col items-center w-[140px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97] card-animate-in"
+      className="flex flex-col items-center w-[140px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97]"
       style={{
         scrollSnapAlign: 'start',
         borderLeft: `3px solid ${PURPLE},0.4)`,
@@ -1075,7 +1075,7 @@ function WhatsHereMomentCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
+      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
       <div className="p-3 flex flex-col justify-between h-[120px]">
@@ -1134,7 +1134,7 @@ function WhatsHerePlaceCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
+      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
       style={{
         ...cardHighlightStyle(!!isActive, '#059669'),
         borderLeft: '3px solid rgba(5,150,105,0.5)',
