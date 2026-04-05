@@ -1028,6 +1028,7 @@ function WhatsHereMomentCard({
   vl,
   distance,
   isActive,
+  suppressStoryImage,
   onClick,
   cardIndex,
   cardId,
@@ -1035,13 +1036,16 @@ function WhatsHereMomentCard({
   vl: ViewportLocation;
   distance: number;
   isActive?: boolean;
+  /** When true, don't fall back to parent story's image (avoids duplicate with story card) */
+  suppressStoryImage?: boolean;
   onClick: () => void;
   cardIndex?: number;
   cardId?: string;
 }) {
   const cat = vl.story ? CATEGORIES[vl.story.category] : undefined;
-  const heroImage = vl.location.media?.[0]?.type === 'image' ? vl.location.media[0].url
-    : vl.story?.imageUrl ?? null;
+  // Use moment's own media if available; only fall back to story image when not suppressed
+  const ownImage = vl.location.media?.[0]?.type === 'image' ? vl.location.media[0].url : null;
+  const heroImage = ownImage ?? (suppressStoryImage ? null : (vl.story?.imageUrl ?? null));
 
   return (
     <button
@@ -1598,6 +1602,14 @@ export function HomePage({
       .filter((x): x is NonNullable<typeof x> => x !== null);
   }, [entities, viewportMomentIds, sortCenter, categoryFilter, momentToStoryMap]);
 
+  // Stories present in What's Here — used to suppress duplicate hero images on moment cards
+  const whatsHereStoryIds = useMemo(() => {
+    const storiesInView = viewportStories ?? [];
+    return new Set(storiesInView
+      .filter(s => categoryFilter === null || s.category === categoryFilter)
+      .map(s => s.id));
+  }, [viewportStories, categoryFilter]);
+
   const whatsHereItems = useMemo((): WhatsHereItem[] => {
     if (!sortCenter) return [];
     const items: WhatsHereItem[] = [];
@@ -1626,24 +1638,8 @@ export function HomePage({
     }
 
     // 3. Individual moments in viewport
-    // Skip moments that would show the same hero image as their parent story card
-    const storyImagesInCarousel = new Map<string, string | undefined>();
-    for (const s of storiesInView) {
-      if (categoryFilter === null || s.category === categoryFilter) {
-        storyImagesInCarousel.set(s.id, s.imageUrl);
-      }
-    }
     const momentsInView = viewportLocations
       .filter(vl => vl.story !== null)
-      .filter(vl => {
-        const storyImg = storyImagesInCarousel.get(vl.story!.id);
-        if (storyImg === undefined) return true; // story not in carousel, keep moment
-        // Moment's hero: its own media first, then story fallback
-        const momentImg = vl.location.media?.[0]?.type === 'image'
-          ? vl.location.media[0].url : vl.story!.imageUrl;
-        // Suppress only if moment would show same image as the story card
-        return momentImg !== storyImg;
-      })
       .filter(vl => categoryFilter === null || getVlCategory(vl) === categoryFilter);
     for (const vl of momentsInView) {
       const dist = sortCenter
@@ -2560,6 +2556,7 @@ export function HomePage({
                       vl={item.vl}
                       distance={item.distance}
                       isActive={isActive}
+                      suppressStoryImage={!!item.vl.story && whatsHereStoryIds.has(item.vl.story.id)}
                       cardIndex={i}
                       cardId={`moment-${item.vl.location.id}`}
                       onClick={() => {
