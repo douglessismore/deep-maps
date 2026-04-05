@@ -1626,8 +1626,13 @@ export function HomePage({
     }
 
     // 3. Individual moments in viewport
+    // Skip moments whose parent story already has a card — avoids duplicate images
+    const storyIdsInCarousel = new Set(storiesInView
+      .filter(s => categoryFilter === null || s.category === categoryFilter)
+      .map(s => s.id));
     const momentsInView = viewportLocations
       .filter(vl => vl.story !== null)
+      .filter(vl => !storyIdsInCarousel.has(vl.story!.id))
       .filter(vl => categoryFilter === null || getVlCategory(vl) === categoryFilter);
     for (const vl of momentsInView) {
       const dist = sortCenter
