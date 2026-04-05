@@ -893,54 +893,51 @@ function WhatsHereStoryCard({
 }) {
   const cat = CATEGORIES[story.category];
   const total = story.moments.length;
+  const hasImage = !!story.imageUrl;
+
   return (
     <button
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
       className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
-      style={{
-        ...cardHighlightStyle(!!isActive, cat?.color),
-        borderLeft: `3px solid ${cat?.color ?? '#666'}`,
-      }}
+      style={cardHighlightStyle(!!isActive, cat?.color)}
     >
-      <div className="p-3 flex gap-3 h-[130px]">
-        {story.imageUrl ? (
-          <img
-            src={story.imageUrl}
-            alt=""
-            className="w-16 h-16 rounded-lg object-cover shrink-0"
-            loading="lazy"
-          />
-        ) : (
-          <span
-            className="w-16 h-16 rounded-lg flex items-center justify-center text-[20px] shrink-0"
-            style={{ backgroundColor: `${cat?.color}22` }}
-          >
-            📖
-          </span>
+      {/* Hero image top section */}
+      {hasImage ? (
+        <div className="relative w-full h-[100px] overflow-hidden">
+          <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
+          {/* Category color bar at bottom of image */}
+          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: cat?.color }} />
+        </div>
+      ) : (
+        <div className="h-[3px]" style={{ backgroundColor: cat?.color ?? '#666' }} />
+      )}
+
+      {/* Text content */}
+      <div className={`px-3 pb-3 ${hasImage ? 'pt-2' : 'pt-3'}`}>
+        <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
+        <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+          {story.name}
+        </h4>
+        {story.description && (
+          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+            {story.description}
+          </p>
         )}
-        <div className="flex flex-col justify-between min-w-0 flex-1">
-          <div>
-            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
-            <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
-              {story.name}
-            </h4>
-            {story.description && (
-              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
-                {story.description}
-              </p>
-            )}
-          </div>
-          <div className="flex items-center gap-2 mt-auto pt-1">
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {inViewCount < total ? `${inViewCount}/${total}` : total} moments
-            </span>
-            <span className="text-[var(--text-muted)]">&middot;</span>
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {formatDistance(distance)}
-            </span>
-          </div>
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {story.years}
+          </span>
+          <span className="text-[var(--text-muted)]">&middot;</span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {inViewCount < total ? `${inViewCount}/${total}` : total} moments
+          </span>
+          <span className="text-[var(--text-muted)]">&middot;</span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {formatDistance(distance)}
+          </span>
         </div>
       </div>
     </button>
@@ -1037,52 +1034,51 @@ function WhatsHereMomentCard({
   cardId?: string;
 }) {
   const cat = vl.story ? CATEGORIES[vl.story.category] : undefined;
+  const heroImage = vl.location.media?.[0]?.type === 'image' ? vl.location.media[0].url
+    : vl.story?.imageUrl ?? null;
+
   return (
     <button
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
       className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
-      style={{
-        ...cardHighlightStyle(!!isActive, cat?.color),
-        borderLeft: `3px solid ${cat?.color ?? '#666'}`,
-      }}
+      style={cardHighlightStyle(!!isActive, cat?.color)}
     >
-      <div className="p-3 flex gap-3 h-[130px]">
-        <span
-          className="w-16 h-16 rounded-lg flex items-center justify-center shrink-0"
-          style={{ backgroundColor: `${cat?.color ?? '#666'}22` }}
-        >
-          <div
-            className="w-4 h-4 rounded-full"
-            style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
-          />
-        </span>
-        <div className="flex flex-col justify-between min-w-0 flex-1">
-          <div>
-            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
-            <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
-              {vl.location.name}
-            </h4>
-            {vl.story && (
-              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">
-                {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
-              </p>
-            )}
-          </div>
-          <div className="flex items-center gap-2 mt-auto pt-1">
-            {vl.location.year && (
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                {vl.location.year}
-              </span>
-            )}
-            {vl.location.year && distance > 0 && <span className="text-[var(--text-muted)]">&middot;</span>}
-            {distance > 0 && (
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                {formatDistance(distance)}
-              </span>
-            )}
-          </div>
+      {/* Hero image or color bar */}
+      {heroImage ? (
+        <div className="relative w-full h-[100px] overflow-hidden">
+          <img src={heroImage} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: cat?.color }} />
+        </div>
+      ) : (
+        <div className="h-[3px]" style={{ backgroundColor: cat?.color ?? '#666' }} />
+      )}
+
+      {/* Text content */}
+      <div className={`px-3 pb-3 ${heroImage ? 'pt-2' : 'pt-3'}`}>
+        <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
+        <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+          {vl.location.name}
+        </h4>
+        {vl.story && (
+          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">
+            {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
+          </p>
+        )}
+        <div className="flex items-center gap-2 mt-2">
+          {vl.location.year && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {vl.location.year}
+            </span>
+          )}
+          {vl.location.year && distance > 0 && <span className="text-[var(--text-muted)]">&middot;</span>}
+          {distance > 0 && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {formatDistance(distance)}
+            </span>
+          )}
         </div>
       </div>
     </button>
@@ -1106,51 +1102,47 @@ function WhatsHerePlaceCard({
   cardIndex?: number;
   cardId?: string;
 }) {
+  const GREEN = '#059669';
+  const hasImage = !!entity.imageUrl;
+
   return (
     <button
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
       className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
-      style={{
-        ...cardHighlightStyle(!!isActive, '#059669'),
-        borderLeft: '3px solid rgba(5,150,105,0.5)',
-      }}
+      style={cardHighlightStyle(!!isActive, GREEN)}
     >
-      <div className="p-3 flex gap-3 h-[130px]">
-        {entity.imageUrl ? (
-          <img
-            src={entity.imageUrl}
-            alt={entity.name}
-            className="w-16 h-16 rounded-lg object-cover shrink-0 ring-1 ring-[rgba(5,150,105,0.3)]"
-            loading="lazy"
-          />
-        ) : (
-          <span className="w-16 h-16 rounded-lg bg-[rgba(5,150,105,0.1)] ring-1 ring-[rgba(5,150,105,0.3)] flex items-center justify-center text-[20px] shrink-0">
-            📍
-          </span>
+      {/* Hero image or color bar */}
+      {hasImage ? (
+        <div className="relative w-full h-[100px] overflow-hidden">
+          <img src={entity.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: GREEN }} />
+        </div>
+      ) : (
+        <div className="h-[3px]" style={{ backgroundColor: GREEN }} />
+      )}
+
+      {/* Text content */}
+      <div className={`px-3 pb-3 ${hasImage ? 'pt-2' : 'pt-3'}`}>
+        <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
+        <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+          {entity.name}
+        </h4>
+        {entity.description && (
+          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+            {entity.description}
+          </p>
         )}
-        <div className="flex flex-col justify-between min-w-0 flex-1">
-          <div>
-            <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
-            <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
-              {entity.name}
-            </h4>
-            {entity.description && (
-              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
-                {entity.description}
-              </p>
-            )}
-          </div>
-          <div className="flex items-center gap-2 mt-auto pt-1">
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {momentCount} events
-            </span>
-            <span className="text-[var(--text-muted)]">&middot;</span>
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {formatDistance(distance)}
-            </span>
-          </div>
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {momentCount} events
+          </span>
+          <span className="text-[var(--text-muted)]">&middot;</span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {formatDistance(distance)}
+          </span>
         </div>
       </div>
     </button>
