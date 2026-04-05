@@ -17,6 +17,10 @@
   --bg-overlay-subtle: rgba(255, 255, 255, 0.04);
   --bg-overlay-hover: rgba(255, 255, 255, 0.10);
   --bg-overlay-active: rgba(255, 255, 255, 0.08);
+  --accent-gold: #D4A853;
+  --accent-gold-dim: rgba(212, 168, 83, 0.3);
+  --pill-active-bg: rgba(255, 255, 255, 0.12);
+  --pill-active-border: rgba(255, 255, 255, 0.2);
   --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
   --font-serif: 'Newsreader', Georgia, serif;
   --font-mono: 'Space Grotesk', 'Courier New', monospace;
@@ -87,6 +91,10 @@
   --bg-overlay-subtle: rgba(0, 0, 0, 0.03);
   --bg-overlay-hover: rgba(0, 0, 0, 0.06);
   --bg-overlay-active: rgba(0, 0, 0, 0.05);
+  --accent-gold: #996D1F;
+  --accent-gold-dim: rgba(153, 109, 31, 0.25);
+  --pill-active-bg: rgba(0, 0, 0, 0.06);
+  --pill-active-border: rgba(0, 0, 0, 0.12);
 }
 
 /* Light theme: Leaflet overrides */

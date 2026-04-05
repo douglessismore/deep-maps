@@ -309,9 +309,9 @@ function CategoryFilterPills({
         onClick={() => onSelect(null)}
         className="shrink-0 px-3 py-1 rounded-full text-[11px] font-sans font-medium transition-all duration-150"
         style={{
-          backgroundColor: selected === null ? 'rgba(255,255,255,0.12)' : 'transparent',
+          backgroundColor: selected === null ? 'var(--pill-active-bg)' : 'transparent',
           color: selected === null ? 'var(--text-primary)' : 'var(--text-muted)',
-          border: `1px solid ${selected === null ? 'rgba(255,255,255,0.2)' : 'var(--border-subtle)'}`,
+          border: `1px solid ${selected === null ? 'var(--pill-active-border)' : 'var(--border-subtle)'}`,
         }}
       >
         All
@@ -373,8 +373,8 @@ function cardHighlightStyle(isActive: boolean, categoryColor?: string): React.CS
     transform: 'scale(1.03)',
     borderColor: `${color}aa`,
     borderWidth: '2px',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    boxShadow: `0 0 16px ${color}44, 0 4px 12px rgba(0,0,0,0.4)`,
+    backgroundColor: 'var(--bg-overlay-subtle)',
+    boxShadow: `0 0 16px ${color}44, 0 4px 12px var(--bg-overlay-hover)`,
   };
 }
 
@@ -2388,16 +2388,16 @@ export function HomePage({
       <div style={{ minHeight: 'calc(100% + 1px)' }}>
         {/* ── Tagline (tap 3x to cycle layout variants) ── */}
         <div className="px-4 pt-4 pb-4" onClick={handleHeroTap}>
-          <h1 className="text-[28px] lg:text-[36px] font-serif font-bold text-[#f5f0eb] leading-tight tracking-[-0.02em]">
+          <h1 className="text-[28px] lg:text-[36px] font-serif font-bold text-[var(--text-primary)] leading-tight tracking-[-0.02em]">
             Discover what happened{' '}
-            <span className="text-[#D4A853] border-b-2 border-[#D4A853] pb-0.5">here</span>
+            <span className="text-[var(--accent-gold)] border-b-2 border-[var(--accent-gold)] pb-0.5">here</span>
           </h1>
           <p className="text-[14px] text-[var(--text-secondary)] font-sans mt-2">
             The map of everything that ever happened.{' '}
             <span className="whitespace-nowrap">Start anywhere.</span>
           </p>
           {layoutVariant !== 'A' && (
-            <p className="text-[10px] font-mono text-[#D4A853] mt-1 opacity-70">
+            <p className="text-[10px] font-mono text-[var(--accent-gold)] mt-1 opacity-70">
               Layout {layoutVariant}: {LAYOUT_LABELS[layoutVariant]}
             </p>
           )}
@@ -2480,14 +2480,14 @@ export function HomePage({
         {/* ── Dive Deeper: progressive depth transition ── */}
         <div className="px-4 pt-8 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.3)] to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--accent-gold-dim)] to-transparent" />
             <div className="flex flex-col items-center gap-1">
-              <span className="text-[10px] text-[rgba(212,168,83,0.5)]">▼</span>
-              <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-[#D4A853]">
+              <span className="text-[10px] text-[var(--accent-gold)] opacity-50">▼</span>
+              <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-[var(--accent-gold)]">
                 Dive Deeper
               </span>
             </div>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.3)] to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--accent-gold-dim)] to-transparent" />
           </div>
         </div>
 
@@ -2790,14 +2790,14 @@ export function HomePage({
         {/* ── Dive Even Deeper: progressive depth transition ── */}
         <div className="px-4 pt-8 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.25)] to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--accent-gold-dim)] to-transparent" />
             <div className="flex flex-col items-center gap-1">
-              <span className="text-[10px] text-[rgba(212,168,83,0.4)]">▼▼</span>
-              <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-[rgba(212,168,83,0.75)]">
+              <span className="text-[10px] text-[var(--accent-gold)] opacity-40">▼▼</span>
+              <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-[var(--accent-gold)] opacity-75">
                 Dive Even Deeper
               </span>
             </div>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.25)] to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--accent-gold-dim)] to-transparent" />
           </div>
         </div>
 
@@ -2831,9 +2831,9 @@ export function HomePage({
         <div className="px-4 pt-6 pb-8 flex justify-center">
           <button
             onClick={handleSurpriseMe}
-            className="w-[65%] rounded-xl border border-[#D4A853] hover:bg-[#D4A853]/10 transition-all duration-200 active:scale-[0.98] py-3 px-4 text-center group"
+            className="w-[65%] rounded-xl border border-[var(--accent-gold)] hover:bg-[var(--accent-gold-dim)] transition-all duration-200 active:scale-[0.98] py-3 px-4 text-center group"
           >
-            <div className="text-sm font-serif font-bold text-[#D4A853]">
+            <div className="text-sm font-serif font-bold text-[var(--accent-gold)]">
               Surprise Me
             </div>
             <p className="text-[11px] text-[var(--text-muted)] font-sans mt-0.5">
