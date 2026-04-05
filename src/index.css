@@ -111,11 +111,11 @@
   background: #F5F5F5 !important;
 }
 [data-theme="light"] .leaflet-control-attribution {
-  background: rgba(255, 255, 255, 0.85) !important;
-  color: #9CA3AF !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 [data-theme="light"] .leaflet-control-attribution a {
-  color: #6B7280 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 [data-theme="light"] .leaflet-popup-content-wrapper {
   background: #FFFFFF !important;

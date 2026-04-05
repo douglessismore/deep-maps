@@ -25,17 +25,19 @@ function parseStartYear(years?: string): number | null {
 function SortToggle({
   value,
   onChange,
+  inline,
 }: {
   value: 'nearest' | 'timeline';
   onChange: (v: 'nearest' | 'timeline') => void;
+  inline?: boolean;
 }) {
   return (
-    <div className="px-4 pb-2 flex items-center gap-2">
+    <div className={inline ? 'flex items-center gap-1' : 'px-4 pb-2 flex items-center gap-2'}>
       {(['nearest', 'timeline'] as const).map(opt => (
         <button
           key={opt}
           onClick={() => onChange(opt)}
-          className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
+          className={`${inline ? 'px-2 py-1 text-[11px]' : 'px-3 py-1.5 text-[13px]'} font-mono rounded-full transition-colors ${
             value === opt
               ? 'bg-[var(--bg-overlay-active)] text-[var(--text-primary)] ring-1 ring-[var(--border-hover)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-overlay-subtle)]'
@@ -1525,14 +1527,16 @@ export function HomePage({
       .filter((x): x is NonNullable<typeof x> => x !== null);
   }, [entities, viewportMomentIds, sortCenter, categoryFilter, momentToStoryMap]);
 
-  const whatsHereItems = useMemo((): WhatsHereItem[] => {
-    if (!sortCenter) return [];
+  const { whatsHereItems, whatsHereBackfillStart } = useMemo((): { whatsHereItems: WhatsHereItem[]; whatsHereBackfillStart: number } => {
+    if (!sortCenter) return { whatsHereItems: [], whatsHereBackfillStart: Infinity };
     const items: WhatsHereItem[] = [];
 
     // 1. Stories with moments in viewport
     const storiesInView = viewportStories ?? [];
+    const inViewStoryIds = new Set<string>();
     for (const story of storiesInView) {
       if (categoryFilter !== null && story.category !== categoryFilter) continue;
+      inViewStoryIds.add(story.id);
       const storyMoments = story.moments.map(sm => momentById.get(sm.momentId)).filter(Boolean) as Moment[];
       const minDist = storyMoments.length > 0
         ? Math.min(...storyMoments.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
@@ -1543,7 +1547,9 @@ export function HomePage({
 
     // 2. People entities in viewport (top 3 by notability become features)
     const sortedPeople = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
+    const inViewPersonIds = new Set<string>();
     for (const p of sortedPeople) {
+      inViewPersonIds.add(p.entity.id);
       const ms = getMomentsForEntity(p.entity.id);
       const inViewport = ms.filter(m => viewportMomentIds.has(m.id));
       const minDist = inViewport.length > 0
@@ -1560,29 +1566,59 @@ export function HomePage({
       items.push({ kind: 'place', entity: p.entity, momentCount: p.momentCount, distance: p.distance });
     }
 
-    // Sort by distance or timeline
-    if (whatsHereSort === 'timeline') {
-      const getYear = (item: WhatsHereItem): number | null => {
-        if (item.kind === 'story') return parseStartYear(item.story.years);
-        if (item.kind === 'person') return parseStartYear(item.entity.years);
-        if (item.kind === 'moment') return item.vl.location.year ?? parseStartYear(item.vl.story?.years);
-        if (item.kind === 'place') return parseStartYear(item.entity.years);
-        return null;
-      };
-      items.sort((a, b) => {
-        const ya = getYear(a);
-        const yb = getYear(b);
-        if (ya === null && yb === null) return 0;
-        if (ya === null) return 1;
-        if (yb === null) return -1;
-        return ya - yb;
-      });
-    } else {
-      items.sort((a, b) => a.distance - b.distance);
+    const inViewCount = items.length;
+
+    // 5. Backfill stories from outside viewport
+    const backfillS = (backfillStories ?? []).filter(s => !inViewStoryIds.has(s.id));
+    for (const story of backfillS) {
+      if (categoryFilter !== null && story.category !== categoryFilter) continue;
+      const storyMoments = story.moments.map(sm => momentById.get(sm.momentId)).filter(Boolean) as Moment[];
+      const minDist = storyMoments.length > 0
+        ? Math.min(...storyMoments.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
+        : Infinity;
+      items.push({ kind: 'story', story, distance: minDist, inViewCount: 0 });
     }
 
-    return items;
-  }, [sortCenter, viewportStories, filteredPersonEntities, viewportLocations, viewportPlaceEntities, viewportMomentIds, momentById, categoryFilter, momentToStoryMap, whatsHereSort]);
+    // 6. Backfill people from outside viewport
+    const backfillP = filteredBackfillPeople.filter(p => !inViewPersonIds.has(p.entity.id));
+    for (const p of backfillP.slice(0, 10)) {
+      const ms = getMomentsForEntity(p.entity.id);
+      const minDist = ms.length > 0 && sortCenter
+        ? Math.min(...ms.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
+        : Infinity;
+      items.push({ kind: 'person', entity: p.entity, momentCount: p.momentCount, maxNotability: p.maxNotability, distance: minDist });
+    }
+
+    // Sort in-view and backfill segments separately
+    const inView = items.slice(0, inViewCount);
+    const backfill = items.slice(inViewCount);
+
+    const sortFn = whatsHereSort === 'timeline'
+      ? (a: WhatsHereItem, b: WhatsHereItem) => {
+          const getYear = (item: WhatsHereItem): number | null => {
+            if (item.kind === 'story') return parseStartYear(item.story.years);
+            if (item.kind === 'person') return parseStartYear(item.entity.years);
+            if (item.kind === 'moment') return item.vl.location.year ?? parseStartYear(item.vl.story?.years);
+            if (item.kind === 'place') return parseStartYear(item.entity.years);
+            return null;
+          };
+          const ya = getYear(a);
+          const yb = getYear(b);
+          if (ya === null && yb === null) return 0;
+          if (ya === null) return 1;
+          if (yb === null) return -1;
+          return ya - yb;
+        }
+      : (a: WhatsHereItem, b: WhatsHereItem) => a.distance - b.distance;
+
+    inView.sort(sortFn);
+    backfill.sort(sortFn);
+
+    return {
+      whatsHereItems: [...inView, ...backfill],
+      whatsHereBackfillStart: whatsHereSort === 'timeline' ? Infinity : inViewCount,
+    };
+  }, [sortCenter, viewportStories, filteredPersonEntities, viewportLocations, viewportPlaceEntities, viewportMomentIds, momentById, categoryFilter, momentToStoryMap, whatsHereSort, backfillStories, filteredBackfillPeople]);
 
   // ScrollTimeline labels for What's Here
   const whatsHereScrollLabels = useMemo((): ScrollTimelineItem[] => {
@@ -2411,63 +2447,75 @@ export function HomePage({
         {/* ── What's Here: unified carousel (all content types, distance-sorted) ── */}
         {whatsHereItems.length > 0 && (
           <div ref={whatsHereSectionRef} className="pb-4">
-            <div className="px-4 mb-1 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
-              <h2 className="text-[18px] font-serif font-semibold text-[var(--text-primary)] tracking-[-0.01em]">
-                What&apos;s Here
-              </h2>
-              <span className="text-[11px] font-mono text-[var(--text-muted)]">
-                {whatsHereItems.length} nearby
-              </span>
+            <div className="flex items-baseline justify-between px-4 sticky top-0 z-10 bg-[var(--bg-primary)] py-2">
+              <div className="flex items-baseline gap-2">
+                <h2 className="text-[15px] font-serif font-semibold text-[var(--text-primary)] tracking-[-0.01em]">
+                  What&apos;s Here
+                </h2>
+                <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                  {whatsHereBackfillStart < whatsHereItems.length ? `${whatsHereBackfillStart} nearby` : `${whatsHereItems.length} nearby`}
+                </span>
+              </div>
+              {whatsHereItems.length > 1 && (
+                <SortToggle value={whatsHereSort} onChange={(v) => {
+                  setWhatsHereSort(v);
+                  if (whatsHereScrollRef.current) whatsHereScrollRef.current.scrollLeft = 0;
+                }} inline />
+              )}
             </div>
-            {whatsHereItems.length > 1 && (
-              <SortToggle value={whatsHereSort} onChange={(v) => {
-                setWhatsHereSort(v);
-                if (whatsHereScrollRef.current) whatsHereScrollRef.current.scrollLeft = 0;
-              }} />
-            )}
+            {whatsHereBackfillStart === 0 && whatsHereItems.length > 0 && <BackfillHint />}
             <HScrollRow scrollRef={whatsHereScrollRef}>
               {whatsHereItems.map((item, i) => {
                 const isActive = i === whatsHereActiveIdx;
+                const divider = i === whatsHereBackfillStart && whatsHereBackfillStart > 0 && whatsHereBackfillStart < whatsHereItems.length
+                  ? <BackfillDivider />
+                  : null;
                 if (item.kind === 'story') {
                   return (
-                    <WhatsHereStoryCard
-                      key={`story-${item.story.id}`}
-                      story={item.story}
-                      inViewCount={item.inViewCount}
-                      distance={item.distance}
-                      isActive={isActive}
-                      cardIndex={i}
-                      cardId={`story-${item.story.id}`}
-                      onClick={() => onStorySelect?.(item.story)}
-                    />
+                    <Fragment key={`story-${item.story.id}`}>
+                      {divider}
+                      <WhatsHereStoryCard
+                        story={item.story}
+                        inViewCount={item.inViewCount}
+                        distance={item.distance}
+                        isActive={isActive}
+                        cardIndex={i}
+                        cardId={`story-${item.story.id}`}
+                        onClick={() => onStorySelect?.(item.story)}
+                      />
+                    </Fragment>
                   );
                 }
                 if (item.kind === 'person') {
                   return (
-                    <WhatsHerePersonCard
-                      key={`person-${item.entity.id}`}
-                      entity={item.entity}
-                      momentCount={item.momentCount}
-                      distance={item.distance}
-                      isActive={isActive}
-                      cardIndex={i}
-                      cardId={`person-${item.entity.id}`}
-                      onClick={() => onEntityClick(item.entity)}
-                    />
+                    <Fragment key={`person-${item.entity.id}`}>
+                      {divider}
+                      <WhatsHerePersonCard
+                        entity={item.entity}
+                        momentCount={item.momentCount}
+                        distance={item.distance}
+                        isActive={isActive}
+                        cardIndex={i}
+                        cardId={`person-${item.entity.id}`}
+                        onClick={() => onEntityClick(item.entity)}
+                      />
+                    </Fragment>
                   );
                 }
                 if (item.kind === 'place') {
                   return (
-                    <WhatsHerePlaceCard
-                      key={`place-${item.entity.id}`}
-                      entity={item.entity}
-                      momentCount={item.momentCount}
-                      distance={item.distance}
-                      isActive={isActive}
-                      cardIndex={i}
-                      cardId={`place-${item.entity.id}`}
-                      onClick={() => onEntityClick(item.entity)}
-                    />
+                    <Fragment key={`place-${item.entity.id}`}>
+                      {divider}
+                      <WhatsHerePlaceCard
+                        entity={item.entity}
+                        momentCount={item.momentCount}
+                        distance={item.distance}
+                        isActive={isActive}
+                        cardIndex={i}
+                        cardId={`place-${item.entity.id}`}
+                        onClick={() => onEntityClick(item.entity)}
+                      />
+                    </Fragment>
                   );
                 }
                 return null;
@@ -2566,7 +2614,7 @@ export function HomePage({
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[var(--text-muted)] font-mono">
-                {categoryFilter ? 'No people for this category' : 'Pan or zoom the map to see notable people'}
+                {categoryFilter ? 'No people nearby for this category — zoom out to find more' : 'Pan or zoom the map to see notable people'}
               </p>
             </div>
           )}
