@@ -1626,13 +1626,24 @@ export function HomePage({
     }
 
     // 3. Individual moments in viewport
-    // Skip moments whose parent story already has a card — avoids duplicate images
-    const storyIdsInCarousel = new Set(storiesInView
-      .filter(s => categoryFilter === null || s.category === categoryFilter)
-      .map(s => s.id));
+    // Skip moments that would show the same hero image as their parent story card
+    const storyImagesInCarousel = new Map<string, string | undefined>();
+    for (const s of storiesInView) {
+      if (categoryFilter === null || s.category === categoryFilter) {
+        storyImagesInCarousel.set(s.id, s.imageUrl);
+      }
+    }
     const momentsInView = viewportLocations
       .filter(vl => vl.story !== null)
-      .filter(vl => !storyIdsInCarousel.has(vl.story!.id))
+      .filter(vl => {
+        const storyImg = storyImagesInCarousel.get(vl.story!.id);
+        if (storyImg === undefined) return true; // story not in carousel, keep moment
+        // Moment's hero: its own media first, then story fallback
+        const momentImg = vl.location.media?.[0]?.type === 'image'
+          ? vl.location.media[0].url : vl.story!.imageUrl;
+        // Suppress only if moment would show same image as the story card
+        return momentImg !== storyImg;
+      })
       .filter(vl => categoryFilter === null || getVlCategory(vl) === categoryFilter);
     for (const vl of momentsInView) {
       const dist = sortCenter
