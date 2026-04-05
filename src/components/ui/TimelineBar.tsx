@@ -461,7 +461,7 @@ export function TimelineBar({
       <div
         ref={containerRef}
         className="shrink-0"
-        style={{ height: BAR_HEIGHT, background: 'rgba(35,35,35,0.98)' }}
+        style={{ height: BAR_HEIGHT, background: 'var(--timeline-placeholder-bg)' }}
       />
     );
   }
@@ -471,13 +471,13 @@ export function TimelineBar({
   return (
     <div
       ref={containerRef}
-      className="shrink-0 select-none"
+      className="shrink-0 select-none timeline-bar"
       style={{
         height: BAR_HEIGHT,
-        background: 'linear-gradient(180deg, rgba(44,44,44,0.98) 0%, rgba(30,30,30,0.99) 100%)',
-        borderTop: '1px solid rgba(255,255,255,0.15)',
-        borderBottom: '1px solid rgba(255,255,255,0.10)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 6px rgba(0,0,0,0.4)',
+        background: 'linear-gradient(180deg, var(--timeline-bg) 0%, var(--timeline-bg-end) 100%)',
+        borderTop: '1px solid var(--timeline-border)',
+        borderBottom: '1px solid var(--timeline-border-dim)',
+        boxShadow: 'var(--timeline-bar-shadow)',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -539,7 +539,7 @@ export function TimelineBar({
                 y1={2}
                 x2={w.xStart}
                 y2={DOT_H - 2}
-                stroke="rgba(255,255,255,0.08)"
+                stroke="var(--timeline-hairline)"
                 strokeWidth={0.5}
               />
             ) : null
@@ -654,12 +654,12 @@ export function TimelineBar({
             <>
               <defs>
                 <linearGradient id="fadeLeft" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%" stopColor="rgb(37,37,37)" stopOpacity={0.95} />
-                  <stop offset="100%" stopColor="rgb(37,37,37)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="var(--timeline-fade-color)" stopOpacity={0.95} />
+                  <stop offset="100%" stopColor="var(--timeline-fade-color)" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="fadeRight" x1="1" x2="0" y1="0" y2="0">
-                  <stop offset="0%" stopColor="rgb(37,37,37)" stopOpacity={0.95} />
-                  <stop offset="100%" stopColor="rgb(37,37,37)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="var(--timeline-fade-color)" stopOpacity={0.95} />
+                  <stop offset="100%" stopColor="var(--timeline-fade-color)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <rect x={0} y={0} width={20} height={DOT_H} fill="url(#fadeLeft)" />
@@ -711,7 +711,7 @@ export function TimelineBar({
             className="font-mono shrink-0"
             style={{
               fontSize: isMobile ? 9 : 10,
-              color: 'rgba(255,255,255,0.45)',
+              color: 'var(--timeline-text)',
               letterSpacing: '0.3px',
               paddingRight: 2,
             }}
@@ -740,7 +740,7 @@ export function TimelineBar({
           </button>
         )}
         {/* Separator */}
-        <div style={{ width: 1, height: 12, background: 'rgba(255,255,255,0.12)', flexShrink: 0 }} />
+        <div style={{ width: 1, height: 12, background: 'var(--timeline-divider)', flexShrink: 0 }} />
         {/* "All" chip */}
         <EraChip
           label="All"
@@ -807,23 +807,23 @@ function EraChip({
   // Compute border
   let border: string;
   if (isEmphasized) border = '1px solid rgba(234,179,8,0.5)';
-  else if (isHighlighted) border = '1px solid rgba(255,255,255,0.25)';
-  else if (isDefault) border = '1px solid rgba(255,255,255,0.2)';
-  else border = '1px solid rgba(255,255,255,0.12)';
+  else if (isHighlighted) border = '1px solid var(--timeline-chip-border-hl)';
+  else if (isDefault) border = '1px solid var(--timeline-chip-border-default)';
+  else border = '1px solid var(--timeline-chip-border)';
 
   // Compute background
   let bg: string;
   if (isEmphasized) bg = 'rgba(234,179,8,0.2)';
-  else if (isDefault) bg = 'rgba(255,255,255,0.08)';
-  else bg = 'rgba(255,255,255,0.05)';
+  else if (isDefault) bg = 'var(--timeline-chip-bg-default)';
+  else bg = 'var(--timeline-dot-bg-default)';
 
   // Compute text color
   let textColor: string;
   if (isEmphasized) textColor = 'rgba(234,179,8,0.95)';
-  else if (isHighlighted) textColor = 'rgba(255,255,255,0.75)';
-  else if (isDefault) textColor = 'rgba(255,255,255,0.7)';
-  else if (count === 0) textColor = 'rgba(255,255,255,0.2)';
-  else textColor = 'rgba(255,255,255,0.55)';
+  else if (isHighlighted) textColor = 'var(--timeline-chip-text-hl)';
+  else if (isDefault) textColor = 'var(--timeline-chip-text-default)';
+  else if (count === 0) textColor = 'var(--timeline-chip-text-empty)';
+  else textColor = 'var(--timeline-chip-text)';
 
   return (
     <button
@@ -896,15 +896,15 @@ function TooltipOverlay({
       <div
         className="px-2.5 py-1 rounded-md text-[11px] font-mono whitespace-nowrap"
         style={{
-          background: 'rgba(15,15,15,0.95)',
-          border: '1px solid rgba(255,255,255,0.15)',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+          background: 'var(--timeline-tooltip-bg)',
+          border: '1px solid var(--timeline-tooltip-border)',
+          boxShadow: 'var(--timeline-shadow)',
         }}
       >
         <span style={{ color: CATEGORIES[point.category].color, fontWeight: 500 }}>
           {point.name}
         </span>
-        <span style={{ color: 'rgba(255,255,255,0.5)', marginLeft: 6 }}>{years}</span>
+        <span style={{ color: 'var(--timeline-tooltip-year)', marginLeft: 6 }}>{years}</span>
       </div>
     </div>
   );
@@ -940,7 +940,7 @@ function YearIndicator({
         style={{
           fontSize: 9,
           color: 'rgba(234,179,8,0.85)',
-          textShadow: '0 0 4px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.6)',
+          textShadow: 'var(--timeline-year-shadow)',
           letterSpacing: '0.3px',
         }}
       >

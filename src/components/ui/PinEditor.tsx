@@ -215,23 +215,23 @@ export function PinEditor({
 
       {/* Modal */}
       <div
-        className="relative z-10 w-full sm:max-w-md bg-[#111] border border-[#2a2a2a] rounded-t-2xl sm:rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+        className="relative z-10 w-full sm:max-w-md bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-t-2xl sm:rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="px-4 pt-4 pb-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white truncate pr-2">
+            <h3 className="text-sm font-bold text-[var(--text-primary)] truncate pr-2">
               Edit Location
             </h3>
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-white transition-colors text-lg leading-none p-1"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors text-lg leading-none p-1"
             >
               &times;
             </button>
           </div>
-          <p className="text-[11px] text-gray-500 truncate mt-0.5">{momentName}</p>
+          <p className="text-[11px] text-[var(--text-muted)] truncate mt-0.5">{momentName}</p>
           {geoVerified && (
             <span className="inline-block mt-1 px-1.5 py-0.5 text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 rounded">
               Currently verified
@@ -246,7 +246,7 @@ export function PinEditor({
           {/* Satellite toggle — top-left on map */}
           <button
             onClick={handleToggleSatellite}
-            className="absolute top-2 left-2 z-[1000] px-2 py-1 text-[10px] bg-[#111]/90 text-gray-300 border border-[#2a2a2a] rounded hover:bg-[#222] transition-colors"
+            className="absolute top-2 left-2 z-[1000] px-2 py-1 text-[10px] bg-[var(--bg-secondary)]/90 text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded hover:bg-[var(--bg-card-hover)] transition-colors"
           >
             {satellite ? 'Dark' : 'Satellite'}
           </button>
@@ -256,7 +256,7 @@ export function PinEditor({
         <div className="px-4 py-3 space-y-2">
           {/* Live coordinates — editable inputs */}
           <div>
-            <label className="block text-[10px] text-gray-500 mb-1">Coordinates</label>
+            <label className="block text-[10px] text-[var(--text-muted)] mb-1">Coordinates</label>
             <div className="flex items-center gap-2">
               <input
                 type="text"
@@ -265,11 +265,11 @@ export function PinEditor({
                 onBlur={parseCoordInput}
                 onKeyDown={(e) => { if (e.key === 'Enter') parseCoordInput(); }}
                 placeholder="30.179407, -97.792633"
-                className="flex-1 px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50 font-mono"
+                className="flex-1 px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50 font-mono"
               />
               <button
                 onClick={parseCoordInput}
-                className="px-2.5 py-1.5 text-[10px] font-medium bg-white/10 hover:bg-white/15 border border-[#2a2a2a] rounded text-gray-300 transition-colors shrink-0"
+                className="px-2.5 py-1.5 text-[10px] font-medium bg-[var(--bg-overlay-hover)] hover:bg-[var(--bg-overlay-active)] border border-[var(--border-subtle)] rounded text-[var(--text-secondary)] transition-colors shrink-0"
               >
                 Apply
               </button>
@@ -282,23 +282,23 @@ export function PinEditor({
           {/* Address + Source URL — compact 2-column on wider screens */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] text-gray-500 mb-1">Address</label>
+              <label className="block text-[10px] text-[var(--text-muted)] mb-1">Address</label>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="123 Main St, City, State"
-                className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50"
+                className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50"
               />
             </div>
             <div>
-              <label className="block text-[10px] text-gray-500 mb-1">Source URL</label>
+              <label className="block text-[10px] text-[var(--text-muted)] mb-1">Source URL</label>
               <input
                 type="text"
                 value={sourceUrl}
                 onChange={(e) => setSourceUrl(e.target.value)}
                 placeholder="Google Maps link, wiki, etc."
-                className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50"
+                className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50"
               />
             </div>
           </div>
@@ -312,7 +312,7 @@ export function PinEditor({
           <div className="flex gap-2 pt-1">
             <button
               onClick={onClose}
-              className="flex-1 px-3 py-2 text-xs font-medium rounded border border-[#2a2a2a] text-gray-400 hover:text-white hover:border-[#444] transition-colors"
+              className="flex-1 px-3 py-2 text-xs font-medium rounded border border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
             >
               Cancel
             </button>

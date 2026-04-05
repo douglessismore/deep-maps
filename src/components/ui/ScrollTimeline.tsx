@@ -56,7 +56,7 @@ export function ScrollTimeline({ items, activeIndex, orientation }: ScrollTimeli
             : { top: `${clampedPct}%`, right: '18px', transform: 'translateY(-50%)' }
           }
         >
-          <span className="text-[10px] font-mono text-[var(--text-muted)] bg-[rgba(0,0,0,0.5)] backdrop-blur-sm px-1.5 py-0.5 rounded whitespace-nowrap">
+          <span className="text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-primary)]/80 backdrop-blur-sm border border-[var(--border-subtle)] px-1.5 py-0.5 rounded whitespace-nowrap">
             {label}
           </span>
         </div>

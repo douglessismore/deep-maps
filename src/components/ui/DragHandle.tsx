@@ -25,7 +25,8 @@ export const DragHandle = forwardRef<HTMLDivElement>(function DragHandle(_props,
         style={{
           top: 14,
           bottom: 14,
-          background: 'rgba(0,0,0,0.5)',
+          background: 'var(--bg-primary)',
+          opacity: 0.8,
           backdropFilter: 'blur(4px)',
         }}
       />

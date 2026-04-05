@@ -1111,7 +1111,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
   return (
     <div>
       {open ? (
-        <div className="bg-[#1a1a1a] border border-[rgba(255,255,255,0.1)] rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-lg shadow-lg overflow-hidden">
           {styles.map((s) => (
             <button
               key={s.key}
@@ -1119,7 +1119,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
               className={`flex items-center gap-2 px-3 py-2 text-xs font-mono w-full text-left transition-colors ${
                 tileStyle === s.key
                   ? 'bg-[rgba(220,38,38,0.15)] text-white'
-                  : 'text-[#a3a3a3] hover:bg-[var(--bg-overlay-subtle)] hover:text-[var(--text-primary)]'
+                  : 'text-[var(--text-muted)] hover:bg-[var(--bg-overlay-subtle)] hover:text-[var(--text-primary)]'
               }`}
             >
               <span>{s.icon}</span>
@@ -1130,7 +1130,7 @@ function TileSwitcher({ tileStyle, onTileChange }: { tileStyle: TileStyle; onTil
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="bg-[#1a1a1a] border border-[var(--border-subtle)] rounded-lg px-2.5 py-1.5 text-xs font-mono text-[#a3a3a3] hover:text-[var(--text-primary)] hover:bg-[#252525] transition-colors shadow-lg flex items-center gap-1.5"
+          className="bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-lg px-2.5 py-1.5 text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors shadow-lg flex items-center gap-1.5"
           title="Change map style"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

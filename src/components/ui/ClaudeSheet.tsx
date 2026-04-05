@@ -311,18 +311,19 @@ export function ClaudeSheet({
           className="fixed left-1/2 -translate-x-1/2 z-[40] flex items-center gap-1.5 px-3 py-1 rounded-full font-mono select-none"
           style={{
             top: 12,
-            background: 'rgba(0, 0, 0, 0.60)',
+            background: 'var(--bg-primary)',
+            opacity: 0.95,
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-subtle)',
           }}
           onClick={() => setPillExpanded(!pillExpanded)}
         >
-          <span className="text-[11px] text-white/80 truncate max-w-[200px]">
+          <span className="text-[11px] text-[var(--text-primary)] truncate max-w-[200px]">
             {contextLabel}
           </span>
           {contextSublabel && (
-            <span className="text-[11px] text-white/40">
+            <span className="text-[11px] text-[var(--text-muted)]">
               {contextSublabel}
             </span>
           )}
