@@ -654,7 +654,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             return mDist < bDist ? m : best;
           }, validMoments[0]);
           showOffScreenArrow(nearest.lat, nearest.lng, scrollHighlightLabel || undefined, scrollHighlightMeta || undefined);
-          return;
+          return cleanup;
         }
         const lats = visibleMoments.map(m => m.lat);
         const lngs = visibleMoments.map(m => m.lng);
@@ -720,7 +720,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         if (!vpBounds.contains([moment.lat, moment.lng])) {
           // Off-screen — show directional arrow
           showOffScreenArrow(moment.lat, moment.lng, scrollHighlightLabel || moment.name, scrollHighlightMeta || undefined);
-          return;
+          return cleanup;
         }
         const category = momentCategoryMap.get(moment.id);
         const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
@@ -797,7 +797,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
       activeOverlayRef.current = null;
     }
 
-    if (activeLocation) {
+    if (activeLocation && isFinite(activeLocation.lat) && isFinite(activeLocation.lng)) {
       const category = momentCategoryMap.get(activeLocation.id);
       const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
       const icon = L.divIcon({

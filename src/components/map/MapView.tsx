@@ -417,6 +417,8 @@ function MapController({
       const hasActivePin = activeLocation != null;
 
       focusedLocations.forEach(({ location, story }) => {
+        // Skip moments with invalid coordinates — prevents markers at map origin (0,0)
+        if (!isFinite(location.lat) || !isFinite(location.lng)) return;
         const key = `pin-${story?.id ?? 'orphan'}-${location.id}`;
         nextKeys.add(key);
 
@@ -743,8 +745,10 @@ function MapController({
       return ya - yb;
     });
 
-    // Build coordinate array
-    const coords: L.LatLngExpression[] = sorted.map(m => [m.lat, m.lng]);
+    // Build coordinate array — filter out any invalid coords
+    const coords: L.LatLngExpression[] = sorted
+      .filter(m => isFinite(m.lat) && isFinite(m.lng))
+      .map(m => [m.lat, m.lng]);
 
     // Draw the polyline
     const line = L.polyline(coords, {
@@ -962,7 +966,7 @@ function MapController({
       }
       userInteractUntil.current = 0;
       clearFlag();
-    } else if (activeLocation && !isBoundsLocked) {
+    } else if (activeLocation && isFinite(activeLocation.lat) && isFinite(activeLocation.lng) && !isBoundsLocked) {
       // Single-pin pan — respect user interaction guard (don't fight user's drag/zoom)
       // Exception: explicit click-zoom always fires (user tapped a card deliberately)
       if (!zoomToActiveLocation && (isUserDragging.current || Date.now() < userInteractUntil.current)) {

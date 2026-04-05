@@ -303,12 +303,13 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     tags: r.tags,
   }));
 
-  // ── Validate required fields on moments ──
-  const invalidMoments = moments.filter(m => !m.id || !m.name || m.lat == null || m.lng == null);
-  if (invalidMoments.length > 0) {
+  // ── Validate required fields on moments — filter out invalid ones ──
+  const validMoments = moments.filter(m => m.id && m.name && isFinite(m.lat) && isFinite(m.lng));
+  if (validMoments.length < moments.length) {
+    const dropped = moments.length - validMoments.length;
     console.warn(
-      `[supabase-loader] ${invalidMoments.length} moment(s) missing required fields (id, name, lat, lng):`,
-      invalidMoments.map(m => m.id || '(no id)'),
+      `[supabase-loader] Dropped ${dropped} moment(s) missing required fields (id, name, lat, lng):`,
+      moments.filter(m => !m.id || !m.name || !isFinite(m.lat) || !isFinite(m.lng)).map(m => m.id || '(no id)'),
     );
   }
 
@@ -319,7 +320,7 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
   if (momentEntityRows.length === PAGE_SIZE) {
     console.error(`[supabase-loader] WARNING: moment_entities fetch returned exactly ${PAGE_SIZE} rows — pagination may be broken!`);
   }
-  console.log(`[supabase-loader] Loaded ${moments.length} moments, ${entities.length} entities, ${stories.length} stories, ${momentEntityRows.length} entity links`);
+  console.log(`[supabase-loader] Loaded ${validMoments.length} moments, ${entities.length} entities, ${stories.length} stories, ${momentEntityRows.length} entity links`);
 
-  return { moments, stories, entities, collections };
+  return { moments: validMoments, stories, entities, collections };
 }
