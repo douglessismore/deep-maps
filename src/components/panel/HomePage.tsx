@@ -900,46 +900,52 @@ function WhatsHereStoryCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
+      className={`${WHATS_HERE_CARD_W} h-[150px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
-      {/* Hero image top section */}
       {hasImage ? (
-        <div className="relative w-full h-[100px] overflow-hidden">
-          <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
-          {/* Category color bar at bottom of image */}
-          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: cat?.color }} />
+        /* Image card: image fills top, title overlaid at bottom of image */
+        <div className="flex flex-col h-full">
+          <div className="relative w-full flex-1 min-h-0 overflow-hidden">
+            <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
+                {story.name}
+              </h4>
+            </div>
+          </div>
+          <div className="px-3 py-2 flex items-center justify-between">
+            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {story.years} &middot; {inViewCount < total ? `${inViewCount}/${total}` : total} moments &middot; {formatDistance(distance)}
+            </span>
+          </div>
         </div>
       ) : (
-        <div className="h-[3px]" style={{ backgroundColor: cat?.color ?? '#666' }} />
-      )}
-
-      {/* Text content */}
-      <div className={`px-3 pb-3 ${hasImage ? 'pt-2' : 'pt-3'}`}>
-        <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
-        <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
-          {story.name}
-        </h4>
-        {story.description && (
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
-            {story.description}
-          </p>
-        )}
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {story.years}
-          </span>
-          <span className="text-[var(--text-muted)]">&middot;</span>
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {inViewCount < total ? `${inViewCount}/${total}` : total} moments
-          </span>
-          <span className="text-[var(--text-muted)]">&middot;</span>
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {formatDistance(distance)}
-          </span>
+        /* No-image card: color bar + text content */
+        <div className="flex flex-col h-full">
+          <div className="h-[3px] shrink-0" style={{ backgroundColor: cat?.color ?? '#666' }} />
+          <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
+              <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+                {story.name}
+              </h4>
+              {story.description && (
+                <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+                  {story.description}
+                </p>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-auto pt-1">
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                {story.years} &middot; {inViewCount < total ? `${inViewCount}/${total}` : total} moments &middot; {formatDistance(distance)}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </button>
   );
 }
@@ -969,13 +975,13 @@ function WhatsHerePersonCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
+      className={`${WHATS_HERE_CARD_W} h-[150px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
       style={{
         ...cardHighlightStyle(!!isActive, `${PURPLE},1)`),
         borderLeft: `3px solid ${PURPLE},0.6)`,
       }}
     >
-      <div className="p-3 flex gap-3 h-[130px]">
+      <div className="p-3 flex gap-3 h-full">
         {entity.imageUrl ? (
           <img
             src={entity.imageUrl}
@@ -1042,45 +1048,52 @@ function WhatsHereMomentCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
+      className={`${WHATS_HERE_CARD_W} h-[150px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
       style={cardHighlightStyle(!!isActive, cat?.color)}
     >
-      {/* Hero image or color bar */}
       {heroImage ? (
-        <div className="relative w-full h-[100px] overflow-hidden">
-          <img src={heroImage} alt="" className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: cat?.color }} />
+        /* Image card: image fills top, title overlaid */
+        <div className="flex flex-col h-full">
+          <div className="relative w-full flex-1 min-h-0 overflow-hidden">
+            <img src={heroImage} alt="" className="w-full h-full object-cover" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
+                {vl.location.name}
+              </h4>
+            </div>
+          </div>
+          <div className="px-3 py-2 flex items-center justify-between">
+            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {vl.location.year ? `${vl.location.year} · ` : ''}{formatDistance(distance)}
+            </span>
+          </div>
         </div>
       ) : (
-        <div className="h-[3px]" style={{ backgroundColor: cat?.color ?? '#666' }} />
-      )}
-
-      {/* Text content */}
-      <div className={`px-3 pb-3 ${heroImage ? 'pt-2' : 'pt-3'}`}>
-        <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
-        <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
-          {vl.location.name}
-        </h4>
-        {vl.story && (
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">
-            {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
-          </p>
-        )}
-        <div className="flex items-center gap-2 mt-2">
-          {vl.location.year && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {vl.location.year}
-            </span>
-          )}
-          {vl.location.year && distance > 0 && <span className="text-[var(--text-muted)]">&middot;</span>}
-          {distance > 0 && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {formatDistance(distance)}
-            </span>
-          )}
+        /* No-image card: color bar + text */
+        <div className="flex flex-col h-full">
+          <div className="h-[3px] shrink-0" style={{ backgroundColor: cat?.color ?? '#666' }} />
+          <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+                {vl.location.name}
+              </h4>
+              {vl.story && (
+                <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">
+                  {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
+                </p>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-auto pt-1">
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                {vl.location.year ? `${vl.location.year} · ` : ''}{formatDistance(distance)}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </button>
   );
 }
@@ -1110,41 +1123,50 @@ function WhatsHerePlaceCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
+      className={`${WHATS_HERE_CARD_W} h-[150px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
       style={cardHighlightStyle(!!isActive, GREEN)}
     >
-      {/* Hero image or color bar */}
       {hasImage ? (
-        <div className="relative w-full h-[100px] overflow-hidden">
-          <img src={entity.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: GREEN }} />
+        <div className="flex flex-col h-full">
+          <div className="relative w-full flex-1 min-h-0 overflow-hidden">
+            <img src={entity.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
+                {entity.name}
+              </h4>
+            </div>
+          </div>
+          <div className="px-3 py-2 flex items-center justify-between">
+            <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {momentCount} events &middot; {formatDistance(distance)}
+            </span>
+          </div>
         </div>
       ) : (
-        <div className="h-[3px]" style={{ backgroundColor: GREEN }} />
-      )}
-
-      {/* Text content */}
-      <div className={`px-3 pb-3 ${hasImage ? 'pt-2' : 'pt-3'}`}>
-        <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
-        <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
-          {entity.name}
-        </h4>
-        {entity.description && (
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
-            {entity.description}
-          </p>
-        )}
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {momentCount} events
-          </span>
-          <span className="text-[var(--text-muted)]">&middot;</span>
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {formatDistance(distance)}
-          </span>
+        <div className="flex flex-col h-full">
+          <div className="h-[3px] shrink-0" style={{ backgroundColor: GREEN }} />
+          <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
+              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+                {entity.name}
+              </h4>
+              {entity.description && (
+                <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+                  {entity.description}
+                </p>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-auto pt-1">
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                {momentCount} events &middot; {formatDistance(distance)}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </button>
   );
 }
@@ -1241,6 +1263,7 @@ export function HomePage({
   const [peopleSort, setPeopleSort] = useState<'nearest' | 'timeline'>('nearest');
   const [storiesSort, setStoriesSort] = useState<'nearest' | 'timeline'>('nearest');
   const [nearYouSort, setNearYouSort] = useState<'nearest' | 'timeline'>('nearest');
+  const [whatsHereSort, setWhatsHereSort] = useState<'nearest' | 'timeline'>('nearest');
 
   // Layout variant switcher — tap hero text 3 times to cycle through orderings
   type LayoutVariant = 'A' | 'B' | 'C' | 'D';
@@ -1618,15 +1641,41 @@ export function HomePage({
       items.push({ kind: 'place', entity: p.entity, momentCount: p.momentCount, distance: p.distance });
     }
 
-    // Sort by distance
-    items.sort((a, b) => a.distance - b.distance);
+    // Sort by distance or timeline
+    if (whatsHereSort === 'timeline') {
+      const getYear = (item: WhatsHereItem): number | null => {
+        if (item.kind === 'story') return parseStartYear(item.story.years);
+        if (item.kind === 'person') return parseStartYear(item.entity.years);
+        if (item.kind === 'moment') return item.vl.location.year ?? parseStartYear(item.vl.story?.years);
+        if (item.kind === 'place') return parseStartYear(item.entity.years);
+        return null;
+      };
+      items.sort((a, b) => {
+        const ya = getYear(a);
+        const yb = getYear(b);
+        if (ya === null && yb === null) return 0;
+        if (ya === null) return 1;
+        if (yb === null) return -1;
+        return ya - yb;
+      });
+    } else {
+      items.sort((a, b) => a.distance - b.distance);
+    }
 
     return items;
-  }, [sortCenter, viewportStories, filteredPersonEntities, viewportLocations, viewportPlaceEntities, viewportMomentIds, momentById, categoryFilter, momentToStoryMap]);
+  }, [sortCenter, viewportStories, filteredPersonEntities, viewportLocations, viewportPlaceEntities, viewportMomentIds, momentById, categoryFilter, momentToStoryMap, whatsHereSort]);
 
   // ScrollTimeline labels for What's Here
   const whatsHereScrollLabels = useMemo((): ScrollTimelineItem[] => {
     return whatsHereItems.map(item => {
+      if (whatsHereSort === 'timeline') {
+        let yr: number | null = null;
+        if (item.kind === 'story') yr = parseStartYear(item.story.years);
+        else if (item.kind === 'person') yr = parseStartYear(item.entity.years);
+        else if (item.kind === 'moment') yr = item.vl.location.year ?? parseStartYear(item.vl.story?.years);
+        else if (item.kind === 'place') yr = parseStartYear(item.entity.years);
+        return { label: yr ? String(yr) : null };
+      }
       const dist = item.distance;
       if (item.kind === 'moment') {
         const yr = item.vl.location.year;
@@ -1636,7 +1685,7 @@ export function HomePage({
       if (dist > 0) return { label: formatDistance(dist) };
       return { label: null };
     });
-  }, [whatsHereItems]);
+  }, [whatsHereItems, whatsHereSort]);
 
   // Globally-sorted moments by distance (for near you infinite tail)
   const allMomentsSorted = useMemo(() => {
@@ -2443,7 +2492,7 @@ export function HomePage({
         {/* ── What's Here: unified carousel (all content types, distance-sorted) ── */}
         {whatsHereItems.length > 0 && (
           <div ref={whatsHereSectionRef} className="pb-4">
-            <div className="px-4 mb-3 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
+            <div className="px-4 mb-1 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
               <h2 className="text-[18px] font-serif font-semibold text-[var(--text-primary)] tracking-[-0.01em]">
                 What&apos;s Here
               </h2>
@@ -2451,6 +2500,12 @@ export function HomePage({
                 {whatsHereItems.length} nearby
               </span>
             </div>
+            {whatsHereItems.length > 1 && (
+              <SortToggle value={whatsHereSort} onChange={(v) => {
+                setWhatsHereSort(v);
+                if (whatsHereScrollRef.current) whatsHereScrollRef.current.scrollLeft = 0;
+              }} />
+            )}
             <HScrollRow scrollRef={whatsHereScrollRef}>
               {whatsHereItems.map((item, i) => {
                 const isActive = i === whatsHereActiveIdx;
@@ -2618,7 +2673,7 @@ export function HomePage({
         <div style={{ order: o('stories') }}>
         {storiesDisplay.length > 0 && (
           <>
-            <div ref={storiesSectionRef} className="pb-4">
+            <div ref={storiesSectionRef} className="pt-4 pb-4">
               <SectionHeading
                 title={storiesSectionTitle}
                 expanded={expandedSection === 'stories'}
@@ -2682,14 +2737,13 @@ export function HomePage({
                 </>
               )}
             </div>
-            <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
           </>
         )}
         </div>{/* end Stories order wrapper */}
 
         {/* Near You / In View */}
         <div style={{ order: o('moments') }}>
-        <div ref={nearYouSectionRef} className="pb-4">
+        <div ref={nearYouSectionRef} className="pt-4 pb-4">
           <SectionHeading
             title={nearYouTitle}
             expanded={expandedSection === 'nearYou'}
