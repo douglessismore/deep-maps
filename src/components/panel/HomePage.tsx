@@ -872,6 +872,8 @@ type WhatsHereItem =
   | { kind: 'moment'; vl: ViewportLocation; distance: number }
   | { kind: 'place'; entity: Entity; momentCount: number; distance: number };
 
+const WHATS_HERE_CARD_W = 'w-[280px]';
+
 function WhatsHereStoryCard({
   story,
   inViewCount,
@@ -896,39 +898,49 @@ function WhatsHereStoryCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]"
-      style={cardHighlightStyle(!!isActive, cat?.color)}
+      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
+      style={{
+        ...cardHighlightStyle(!!isActive, cat?.color),
+        borderLeft: `3px solid ${cat?.color ?? '#666'}`,
+      }}
     >
-      {story.imageUrl ? (
-        <div className="relative h-[80px] w-full overflow-hidden">
-          <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-          <h4 className="absolute bottom-2 left-3 right-3 text-[13px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
-            {story.name}
-          </h4>
-        </div>
-      ) : (
-        <>
-          <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
-        </>
-      )}
-      <div className={`p-3 flex flex-col justify-between ${story.imageUrl ? 'h-[60px]' : 'h-[100px]'}`}>
-        {!story.imageUrl && (
-          <div className="min-w-0">
-            <h4 className="text-[13px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+      <div className="p-3 flex gap-3 h-[130px]">
+        {story.imageUrl ? (
+          <img
+            src={story.imageUrl}
+            alt=""
+            className="w-16 h-16 rounded-lg object-cover shrink-0"
+            loading="lazy"
+          />
+        ) : (
+          <span
+            className="w-16 h-16 rounded-lg flex items-center justify-center text-[20px] shrink-0"
+            style={{ backgroundColor: `${cat?.color}22` }}
+          >
+            📖
+          </span>
+        )}
+        <div className="flex flex-col justify-between min-w-0 flex-1">
+          <div>
+            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
+            <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
               {story.name}
             </h4>
+            {story.description && (
+              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
+                {story.description}
+              </p>
+            )}
           </div>
-        )}
-        <div className="flex items-center justify-between mt-auto pt-1">
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {story.years} &middot; {inViewCount < total ? `${inViewCount}/${total}` : total} moments
-          </span>
-          {distance > 0 && (
+          <div className="flex items-center gap-2 mt-auto pt-1">
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {inViewCount < total ? `${inViewCount}/${total}` : total} moments
+            </span>
+            <span className="text-[var(--text-muted)]">&middot;</span>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {formatDistance(distance)}
             </span>
-          )}
+          </div>
         </div>
       </div>
     </button>
@@ -940,7 +952,6 @@ function WhatsHerePersonCard({
   momentCount,
   distance,
   isActive,
-  isFeature,
   onClick,
   cardIndex,
   cardId,
@@ -956,100 +967,56 @@ function WhatsHerePersonCard({
 }) {
   const PURPLE = 'rgba(139,92,246';
 
-  if (isFeature) {
-    // Feature-sized person card (200px wide)
-    return (
-      <button
-        onClick={onClick}
-        data-card-index={cardIndex}
-        data-card-id={cardId}
-        className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]"
-        style={{
-          ...cardHighlightStyle(!!isActive, `${PURPLE},1)`),
-          borderLeft: `3px solid ${PURPLE},0.6)`,
-        }}
-      >
-        <div className="p-3 flex gap-3 h-[140px]">
-          {entity.imageUrl ? (
-            <img
-              src={entity.imageUrl}
-              alt={entity.name}
-              className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)]"
-              loading="lazy"
-            />
-          ) : (
-            <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
-              {entity.name[0].toUpperCase()}
-            </span>
-          )}
-          <div className="flex flex-col justify-between min-w-0 flex-1">
-            <div>
-              <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
-                {entity.name}
-              </h4>
-              {entity.years && (
-                <p className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">{entity.years}</p>
-              )}
-              {entity.description && (
-                <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
-                  {entity.description}
-                </p>
-              )}
-            </div>
-            <div className="flex items-center gap-2 mt-auto pt-1">
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                {momentCount} events
-              </span>
-              {distance > 0 && (
-                <>
-                  <span className="text-[var(--text-muted)]">&middot;</span>
-                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {formatDistance(distance)}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </button>
-    );
-  }
-
-  // Standard-sized person card (140px wide)
   return (
     <button
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="flex flex-col items-center w-[140px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97]"
+      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97]`}
       style={{
-        scrollSnapAlign: 'start',
-        borderLeft: `3px solid ${PURPLE},0.4)`,
-        ...(isActive ? {
-          backgroundColor: 'rgba(139,92,246,0.1)',
-          boxShadow: '0 0 16px rgba(139,92,246,0.3), inset 0 0 0 2px rgba(139,92,246,0.5)',
-          borderRadius: '12px',
-        } : {}),
+        ...cardHighlightStyle(!!isActive, `${PURPLE},1)`),
+        borderLeft: `3px solid ${PURPLE},0.6)`,
       }}
     >
-      {entity.imageUrl ? (
-        <img
-          src={entity.imageUrl}
-          alt={entity.name}
-          className={`w-12 h-12 rounded-full object-cover ${isActive ? 'ring-2 ring-[rgba(139,92,246,0.7)]' : 'ring-1 ring-[rgba(255,255,255,0.1)]'}`}
-          loading="lazy"
-        />
-      ) : (
-        <span className={`w-12 h-12 rounded-full bg-[rgba(139,92,246,0.15)] flex items-center justify-center text-[14px] font-bold text-[rgba(139,92,246,0.8)] ${isActive ? 'ring-2 ring-[rgba(139,92,246,0.7)]' : 'ring-1 ring-[rgba(139,92,246,0.3)]'}`}>
-          {entity.name[0].toUpperCase()}
-        </span>
-      )}
-      <span className="mt-1.5 text-[13px] font-serif font-bold text-[var(--text-primary)] w-full text-center truncate px-1">
-        {entity.name}
-      </span>
-      <span className="text-[10px] font-mono text-[var(--text-muted)]">
-        {momentCount} events{distance > 0 ? ` \u00b7 ${formatDistance(distance)}` : ''}
-      </span>
+      <div className="p-3 flex gap-3 h-[130px]">
+        {entity.imageUrl ? (
+          <img
+            src={entity.imageUrl}
+            alt={entity.name}
+            className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)]"
+            loading="lazy"
+          />
+        ) : (
+          <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
+            {entity.name[0].toUpperCase()}
+          </span>
+        )}
+        <div className="flex flex-col justify-between min-w-0 flex-1">
+          <div>
+            <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(139,92,246,0.8)]">Person</span>
+            <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+              {entity.name}
+            </h4>
+            {entity.years && (
+              <p className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">{entity.years}</p>
+            )}
+            {entity.description && (
+              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
+                {entity.description}
+              </p>
+            )}
+          </div>
+          <div className="flex items-center gap-2 mt-auto pt-1">
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {momentCount} events
+            </span>
+            <span className="text-[var(--text-muted)]">&middot;</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {formatDistance(distance)}
+            </span>
+          </div>
+        </div>
+      </div>
     </button>
   );
 }
@@ -1075,37 +1042,47 @@ function WhatsHereMomentCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
-      style={cardHighlightStyle(!!isActive, cat?.color)}
+      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
+      style={{
+        ...cardHighlightStyle(!!isActive, cat?.color),
+        borderLeft: `3px solid ${cat?.color ?? '#666'}`,
+      }}
     >
-      <div className="p-3 flex flex-col justify-between h-[120px]">
-        <div className="min-w-0">
-          <div className="flex items-center gap-1.5 mb-1">
-            <div
-              className="w-2 h-2 rounded-full shrink-0"
-              style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
-            />
+      <div className="p-3 flex gap-3 h-[130px]">
+        <span
+          className="w-16 h-16 rounded-lg flex items-center justify-center shrink-0"
+          style={{ backgroundColor: `${cat?.color ?? '#666'}22` }}
+        >
+          <div
+            className="w-4 h-4 rounded-full"
+            style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
+          />
+        </span>
+        <div className="flex flex-col justify-between min-w-0 flex-1">
+          <div>
+            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
+            <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+              {vl.location.name}
+            </h4>
             {vl.story && (
-              <span className="text-[10px] font-sans text-[var(--text-muted)] truncate">
+              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">
                 {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
+              </p>
+            )}
+          </div>
+          <div className="flex items-center gap-2 mt-auto pt-1">
+            {vl.location.year && (
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                {vl.location.year}
+              </span>
+            )}
+            {vl.location.year && distance > 0 && <span className="text-[var(--text-muted)]">&middot;</span>}
+            {distance > 0 && (
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                {formatDistance(distance)}
               </span>
             )}
           </div>
-          <h4 className="text-[12px] font-serif font-bold text-white leading-tight line-clamp-2">
-            {vl.location.name}
-          </h4>
-        </div>
-        <div className="mt-auto pt-1 flex items-center gap-2">
-          {vl.location.year && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {vl.location.year}
-            </span>
-          )}
-          {distance > 0 && (
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {formatDistance(distance)}
-            </span>
-          )}
         </div>
       </div>
     </button>
@@ -1134,36 +1111,46 @@ function WhatsHerePlaceCard({
       onClick={onClick}
       data-card-index={cardIndex}
       data-card-id={cardId}
-      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start"
+      className={`${WHATS_HERE_CARD_W} shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
       style={{
         ...cardHighlightStyle(!!isActive, '#059669'),
         borderLeft: '3px solid rgba(5,150,105,0.5)',
       }}
     >
-      <div className="p-3 flex flex-col justify-between h-[120px]">
-        <div className="min-w-0">
-          <div className="flex items-center gap-1.5 mb-1">
-            <span className="text-[11px]" aria-hidden>📍</span>
-            <span className="text-[10px] font-mono text-[rgba(5,150,105,0.8)] uppercase tracking-wider">Place</span>
-          </div>
-          <h4 className="text-[12px] font-serif font-bold text-white leading-tight line-clamp-2">
-            {entity.name}
-          </h4>
-          {entity.description && (
-            <p className="text-[10px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
-              {entity.description}
-            </p>
-          )}
-        </div>
-        <div className="mt-auto pt-1 flex items-center gap-2">
-          <span className="text-[10px] font-mono text-[var(--text-muted)]">
-            {momentCount} events
+      <div className="p-3 flex gap-3 h-[130px]">
+        {entity.imageUrl ? (
+          <img
+            src={entity.imageUrl}
+            alt={entity.name}
+            className="w-16 h-16 rounded-lg object-cover shrink-0 ring-1 ring-[rgba(5,150,105,0.3)]"
+            loading="lazy"
+          />
+        ) : (
+          <span className="w-16 h-16 rounded-lg bg-[rgba(5,150,105,0.1)] ring-1 ring-[rgba(5,150,105,0.3)] flex items-center justify-center text-[20px] shrink-0">
+            📍
           </span>
-          {distance > 0 && (
+        )}
+        <div className="flex flex-col justify-between min-w-0 flex-1">
+          <div>
+            <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
+            <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+              {entity.name}
+            </h4>
+            {entity.description && (
+              <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
+                {entity.description}
+              </p>
+            )}
+          </div>
+          <div className="flex items-center gap-2 mt-auto pt-1">
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {momentCount} events
+            </span>
+            <span className="text-[var(--text-muted)]">&middot;</span>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {formatDistance(distance)}
             </span>
-          )}
+          </div>
         </div>
       </div>
     </button>
@@ -1644,12 +1631,6 @@ export function HomePage({
 
     return items;
   }, [sortCenter, viewportStories, filteredPersonEntities, viewportLocations, viewportPlaceEntities, viewportMomentIds, momentById, categoryFilter, momentToStoryMap]);
-
-  // Top 3 people by notability get feature cards
-  const whatsHereTopPeopleIds = useMemo(() => {
-    const sorted = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
-    return new Set(sorted.slice(0, 3).map(p => p.entity.id));
-  }, [filteredPersonEntities]);
 
   // ScrollTimeline labels for What's Here
   const whatsHereScrollLabels = useMemo((): ScrollTimelineItem[] => {
@@ -2496,7 +2477,6 @@ export function HomePage({
                   );
                 }
                 if (item.kind === 'person') {
-                  const isFeature = whatsHereTopPeopleIds.has(item.entity.id);
                   return (
                     <WhatsHerePersonCard
                       key={`person-${item.entity.id}`}
@@ -2504,7 +2484,6 @@ export function HomePage({
                       momentCount={item.momentCount}
                       distance={item.distance}
                       isActive={isActive}
-                      isFeature={isFeature}
                       cardIndex={i}
                       cardId={`person-${item.entity.id}`}
                       onClick={() => onEntityClick(item.entity)}
@@ -2548,13 +2527,16 @@ export function HomePage({
         )}
 
         {/* ── Dive Deeper: progressive depth transition ── */}
-        <div className="px-4 pt-6 pb-2">
+        <div className="px-4 pt-8 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
-            <span className="text-[11px] font-mono tracking-widest uppercase text-[var(--text-muted)]">
-              Dive Deeper
-            </span>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.3)] to-transparent" />
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-[10px] text-[rgba(212,168,83,0.5)]">▼</span>
+              <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-[#D4A853]">
+                Dive Deeper
+              </span>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.3)] to-transparent" />
           </div>
         </div>
 
@@ -2856,13 +2838,16 @@ export function HomePage({
         })()}
 
         {/* ── Dive Even Deeper: progressive depth transition ── */}
-        <div className="px-4 pt-6 pb-2">
+        <div className="px-4 pt-8 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
-            <span className="text-[11px] font-mono tracking-widest uppercase text-[var(--text-muted)]">
-              Dive Even Deeper
-            </span>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.25)] to-transparent" />
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-[10px] text-[rgba(212,168,83,0.4)]">▼▼</span>
+              <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-[rgba(212,168,83,0.75)]">
+                Dive Even Deeper
+              </span>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.25)] to-transparent" />
           </div>
         </div>
 
