@@ -916,7 +916,7 @@ function WhatsHereStoryCard({
             </div>
           </div>
           <div className="px-3 py-2 flex items-center justify-between">
-            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
+            <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Story</span>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {story.years} &middot; {inViewCount < total ? `${inViewCount}/${total}` : total} moments &middot; {formatDistance(distance)}
             </span>
@@ -928,7 +928,7 @@ function WhatsHereStoryCard({
           <div className="h-[3px] shrink-0" style={{ backgroundColor: cat?.color ?? '#666' }} />
           <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
             <div>
-              <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Story</span>
+              <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Story</span>
               <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
                 {story.name}
               </h4>
@@ -981,22 +981,22 @@ function WhatsHerePersonCard({
         borderLeft: `3px solid ${PURPLE},0.6)`,
       }}
     >
-      <div className="p-3 flex gap-3 h-full">
+      <div className="p-3 flex items-start gap-3 h-full">
         {entity.imageUrl ? (
           <img
             src={entity.imageUrl}
             alt={entity.name}
-            className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)]"
+            className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)] mt-0.5"
             loading="lazy"
           />
         ) : (
-          <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
+          <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 mt-0.5">
             {entity.name[0].toUpperCase()}
           </span>
         )}
-        <div className="flex flex-col justify-between min-w-0 flex-1">
+        <div className="flex flex-col justify-between min-w-0 flex-1 h-full">
           <div>
-            <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(139,92,246,0.8)]">Person</span>
+            <span className="wh-type-label" style={{ color: 'rgba(139,92,246,0.9)', backgroundColor: 'rgba(139,92,246,0.12)' }}>Person</span>
             <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
               {entity.name}
             </h4>
@@ -1064,7 +1064,7 @@ function WhatsHereMomentCard({
             </div>
           </div>
           <div className="px-3 py-2 flex items-center justify-between">
-            <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
+            <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Moment</span>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {vl.location.year ? `${vl.location.year} · ` : ''}{formatDistance(distance)}
             </span>
@@ -1076,7 +1076,7 @@ function WhatsHereMomentCard({
           <div className="h-[3px] shrink-0" style={{ backgroundColor: cat?.color ?? '#666' }} />
           <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
             <div>
-              <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: cat?.color ?? 'var(--text-muted)' }}>Moment</span>
+              <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Moment</span>
               <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
                 {vl.location.name}
               </h4>
@@ -1138,7 +1138,7 @@ function WhatsHerePlaceCard({
             </div>
           </div>
           <div className="px-3 py-2 flex items-center justify-between">
-            <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
+            <span className="wh-type-label" style={{ color: 'rgba(5,150,105,0.9)', backgroundColor: 'rgba(5,150,105,0.12)' }}>Place</span>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {momentCount} events &middot; {formatDistance(distance)}
             </span>
@@ -1149,7 +1149,7 @@ function WhatsHerePlaceCard({
           <div className="h-[3px] shrink-0" style={{ backgroundColor: GREEN }} />
           <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
             <div>
-              <span className="text-[9px] font-mono uppercase tracking-wider text-[rgba(5,150,105,0.8)]">Place</span>
+              <span className="wh-type-label" style={{ color: 'rgba(5,150,105,0.9)', backgroundColor: 'rgba(5,150,105,0.12)' }}>Place</span>
               <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
                 {entity.name}
               </h4>

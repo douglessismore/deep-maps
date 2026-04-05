@@ -150,6 +150,19 @@ html, body, #root {
 }
 
 /* ===== Card Entry Animations ===== */
+/* What's Here type label pill */
+.wh-type-label {
+  display: inline-block;
+  font-size: 9px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
 .card-animate-in {
   opacity: 0;
   transform: translateY(12px);
