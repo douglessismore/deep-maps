@@ -1258,9 +1258,10 @@ export function HomePage({
 }: HomePageProps) {
   const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
 
-  // Sort mode for People and Stories sections
+  // Sort mode for People, Stories, and Moments sections
   const [peopleSort, setPeopleSort] = useState<'nearest' | 'timeline'>('nearest');
   const [storiesSort, setStoriesSort] = useState<'nearest' | 'timeline'>('nearest');
+  const [nearYouSort, setNearYouSort] = useState<'nearest' | 'timeline'>('nearest');
 
   // Layout variant switcher — tap hero text 3 times to cycle through orderings
   type LayoutVariant = 'A' | 'B' | 'C' | 'D';
@@ -1411,7 +1412,9 @@ export function HomePage({
 
   // Dynamic title: context-aware
   const isUsingFallback = nearYouMomentsLive.length === 0 && nearestFallback.length > 0;
-  const nearYouTitle = isUsingFallback ? 'Moments Nearby' : 'Moments';
+  const nearYouTitle = nearYouSort === 'timeline'
+    ? 'Moments Through Time'
+    : (isUsingFallback ? 'Moments Nearby' : 'Moments');
 
   // Set of moment IDs visible on the map — used to filter collections
   const viewportMomentIds = useMemo(
@@ -1533,7 +1536,7 @@ export function HomePage({
   // In timeline mode, no backfill divider — it's a flat chronological list
   const peopleBackfillStart = peopleSort === 'timeline' ? Infinity : filteredPersonEntities.length;
   const storiesBackfillStart = storiesSort === 'timeline' ? Infinity : (viewportStories ?? []).length;
-  const momentsBackfillStart = nearYouMomentsLive.length;
+  const momentsBackfillStart = nearYouSort === 'timeline' ? Infinity : nearYouMomentsLive.length;
   const collectionsBackfillStart = viewportFilteredCollections.length;
 
   // ── Infinite scroll: progressive loading from full dataset ────────
@@ -1753,14 +1756,32 @@ export function HomePage({
     return [...inView, ...backfill].map(x => x.story);
   }, [allHomeStories, allStoriesSorted]);
 
+  // Timeline-sorted moments: chronological by year
+  const allMomentsTimeline = useMemo((): ViewportLocation[] => {
+    const yearSort = (a: { startYear: number | null }, b: { startYear: number | null }) => {
+      if (a.startYear === null && b.startYear === null) return 0;
+      if (a.startYear === null) return 1;
+      if (b.startYear === null) return -1;
+      return a.startYear - b.startYear;
+    };
+    const inView = nearYouMoments.map(vl => ({ vl, startYear: vl.location.year ?? parseStartYear(vl.story?.years) })).sort(yearSort);
+    const backfill = allMomentsSorted
+      .filter(vl => !nearYouMoments.some(nm => nm.location.id === vl.location.id))
+      .map(vl => ({ vl, startYear: vl.location.year ?? parseStartYear(vl.story?.years) })).sort(yearSort);
+    return [...inView, ...backfill].map(x => x.vl);
+  }, [nearYouMoments, allMomentsSorted]);
+
   // Merge existing carousel data with infinite tail
   const nearYouDisplay = useMemo(() => {
+    if (nearYouSort === 'timeline') {
+      return allMomentsTimeline.slice(0, nearYouPageSize);
+    }
     const base = nearYouMoments;
     if (base.length >= nearYouPageSize) return base.slice(0, nearYouPageSize);
     const existingIds = new Set(base.map(vl => vl.location.id));
     const extra = allMomentsSorted.filter(vl => !existingIds.has(vl.location.id));
     return [...base, ...extra].slice(0, nearYouPageSize);
-  }, [nearYouMoments, allMomentsSorted, nearYouPageSize]);
+  }, [nearYouMoments, allMomentsSorted, nearYouPageSize, nearYouSort, allMomentsTimeline]);
 
   const storiesDisplay = useMemo(() => {
     if (storiesSort === 'timeline') {
@@ -1828,6 +1849,10 @@ export function HomePage({
 
   const momentsScrollLabels = useMemo((): ScrollTimelineItem[] => {
     return nearYouDisplay.map(vl => {
+      if (nearYouSort === 'timeline') {
+        const yr = vl.location.year ?? parseStartYear(vl.story?.years);
+        return { label: yr ? String(yr) : null };
+      }
       const yr = vl.location.year;
       const dist = sortCenter ? distanceMiles(sortCenter.lat, sortCenter.lng, vl.location.lat, vl.location.lng) : 0;
       if (yr && dist > 0) return { label: `${yr} · ${formatDistance(dist)}` };
@@ -1835,7 +1860,7 @@ export function HomePage({
       if (dist > 0) return { label: formatDistance(dist) };
       return { label: null };
     });
-  }, [nearYouDisplay, sortCenter]);
+  }, [nearYouDisplay, sortCenter, nearYouSort]);
 
   // Expanded-view scroll labels (use full lists, not paginated display)
   const peopleExpandedLabels = useMemo((): ScrollTimelineItem[] => {
@@ -1854,6 +1879,10 @@ export function HomePage({
 
   const nearYouExpandedLabels = useMemo((): ScrollTimelineItem[] => {
     return nearYouMoments.map(vl => {
+      if (nearYouSort === 'timeline') {
+        const yr = vl.location.year ?? parseStartYear(vl.story?.years);
+        return { label: yr ? String(yr) : null };
+      }
       const yr = vl.location.year;
       const dist = sortCenter ? distanceMiles(sortCenter.lat, sortCenter.lng, vl.location.lat, vl.location.lng) : 0;
       if (yr && dist > 0) return { label: `${yr} · ${formatDistance(dist)}` };
@@ -1861,7 +1890,7 @@ export function HomePage({
       if (dist > 0) return { label: formatDistance(dist) };
       return { label: null };
     });
-  }, [nearYouMoments, sortCenter]);
+  }, [nearYouMoments, sortCenter, nearYouSort]);
 
   // Title adapts based on whether we're showing backfill people
   const peopleSectionTitle = peopleSort === 'timeline'
@@ -2518,6 +2547,17 @@ export function HomePage({
           </div>
         )}
 
+        {/* ── Dive Deeper: progressive depth transition ── */}
+        <div className="px-4 pt-6 pb-2">
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
+            <span className="text-[11px] font-mono tracking-widest uppercase text-[var(--text-muted)]">
+              Dive Deeper
+            </span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
+          </div>
+        </div>
+
         {/* ── Sections: order controlled by layoutVariant (tap hero 3x to cycle) ── */}
         {(() => {
           const order = LAYOUT_ORDERS[layoutVariant];
@@ -2681,6 +2721,12 @@ export function HomePage({
             expanded={expandedSection === 'nearYou'}
             onToggle={() => toggleSection('nearYou')}
           />
+          {(expandedSection === 'nearYou' ? nearYouMoments.length : nearYouDisplay.length) > 1 && (
+            <SortToggle value={nearYouSort} onChange={(v) => {
+              setNearYouSort(v);
+              if (nearYouScrollRef.current) nearYouScrollRef.current.scrollLeft = 0;
+            }} />
+          )}
           {nearYouDisplay.length > 0 ? (
             expandedSection === 'nearYou' ? (
               // Expanded: vertical list
@@ -2809,8 +2855,16 @@ export function HomePage({
         </div>); /* end flex container + IIFE */
         })()}
 
-        {/* Divider before encyclopedia */}
-        <div className="mx-4 my-4 border-t border-[var(--border-subtle)]" />
+        {/* ── Dive Even Deeper: progressive depth transition ── */}
+        <div className="px-4 pt-6 pb-2">
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
+            <span className="text-[11px] font-mono tracking-widest uppercase text-[var(--text-muted)]">
+              Dive Even Deeper
+            </span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--border-subtle)] to-transparent" />
+          </div>
+        </div>
 
         {/* ── Section 4: Browse the Encyclopedia ── */}
         <div className="pt-4 pb-4">
