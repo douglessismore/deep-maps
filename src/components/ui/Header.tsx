@@ -4,6 +4,33 @@ import { CATEGORIES } from '../../lib/categories';
 import { SearchOverlay } from './SearchOverlay';
 import { isV2 } from '../../lib/theme';
 
+function ThemeToggle() {
+  const [isLight, setIsLight] = useState(document.documentElement.dataset.theme === 'light');
+  return (
+    <button
+      onClick={() => {
+        const next = isLight ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('dm-theme', next);
+        setIsLight(!isLight);
+      }}
+      className="p-1.5 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay-hover)] transition-colors"
+      title={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        {isLight ? (
+          <path d="M13.4 10.6A6 6 0 015.4 2.6a6 6 0 108 8z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+        ) : (
+          <>
+            <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="1.3"/>
+            <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+          </>
+        )}
+      </svg>
+    </button>
+  );
+}
+
 interface HeaderProps {
   mode: InteractionMode;
   activeStory: Story | null;
@@ -216,6 +243,9 @@ export function Header({
               )}
             </button>
           )}
+
+          {/* Theme toggle */}
+          <ThemeToggle />
 
           {/* Surprise Me — always a standalone button */}
           <button

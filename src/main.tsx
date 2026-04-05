@@ -6,10 +6,20 @@ import App from './App.tsx'
 import { DataProvider } from './lib/data/provider'
 import { UIVariantProvider } from './lib/uiVariant'
 
-// Apply design theme if ?theme=v2 or ?theme=light is in the URL
+// Theme: light by default, ?theme=dark to switch, persisted in localStorage
 const themeParam = new URLSearchParams(window.location.search).get('theme');
-if (themeParam === 'v2' || themeParam === 'light') {
-  document.documentElement.dataset.theme = themeParam;
+if (themeParam === 'v2') {
+  document.documentElement.dataset.theme = 'v2';
+} else if (themeParam === 'dark') {
+  document.documentElement.dataset.theme = 'dark';
+  localStorage.setItem('dm-theme', 'dark');
+} else if (themeParam === 'light') {
+  document.documentElement.dataset.theme = 'light';
+  localStorage.setItem('dm-theme', 'light');
+} else {
+  // No URL param — use stored preference, default to light
+  const stored = localStorage.getItem('dm-theme');
+  document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
 }
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
