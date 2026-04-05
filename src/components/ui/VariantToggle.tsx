@@ -20,7 +20,7 @@ export function VariantToggle() {
   return (
     <button
       onClick={cycle}
-      className="lg:hidden fixed top-2 right-2 z-[100] px-2.5 py-1 rounded-full text-[10px] font-mono text-white/80 bg-black/60 backdrop-blur-sm border border-white/10 active:bg-black/80 transition-colors select-none"
+      className="lg:hidden fixed top-2 right-2 z-[100] px-2.5 py-1 rounded-full text-[10px] font-mono text-[var(--text-secondary)] bg-black/60 backdrop-blur-sm border border-[var(--border-subtle)] active:bg-black/80 transition-colors select-none"
       style={{ WebkitTapHighlightColor: 'transparent' }}
     >
       {LABELS[variant]}

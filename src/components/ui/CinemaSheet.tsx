@@ -316,18 +316,18 @@ export function CinemaSheet({
               />
               <div className="flex-1 min-w-0">
                 {contextLabel && (
-                  <div className="text-[13px] font-semibold text-white/90 truncate leading-tight">
+                  <div className="text-[13px] font-semibold text-[var(--text-primary)] truncate leading-tight">
                     {contextLabel}
                   </div>
                 )}
                 {contextSublabel && (
-                  <div className="text-[11px] font-mono text-white/50 truncate leading-tight mt-0.5">
+                  <div className="text-[11px] font-mono text-[var(--text-muted)] truncate leading-tight mt-0.5">
                     {contextSublabel}
                   </div>
                 )}
               </div>
               {/* Expand chevron */}
-              <div className="shrink-0 ml-2 text-white/30">
+              <div className="shrink-0 ml-2 text-[var(--text-muted)]">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M4 10L8 6L12 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>

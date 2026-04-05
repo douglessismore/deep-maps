@@ -38,8 +38,8 @@ export function PersonCard({ data, onClick, compact = false, distanceMi }: Perso
             </span>
             <div className="flex-1 min-w-0">
               <h3 className={v2
-                ? `font-serif font-bold text-[var(--text-primary)] group-hover:text-white transition-colors ${compact ? 'text-sm' : 'text-lg'}`
-                : `font-serif font-semibold text-[var(--text-primary)] group-hover:text-white transition-colors ${compact ? 'text-sm' : 'text-base'}`
+                ? `font-serif font-bold text-[var(--text-primary)] group-hover:text-[var(--text-primary)] transition-colors ${compact ? 'text-sm' : 'text-lg'}`
+                : `font-serif font-semibold text-[var(--text-primary)] group-hover:text-[var(--text-primary)] transition-colors ${compact ? 'text-sm' : 'text-base'}`
               }>
                 {entity.name}
               </h3>

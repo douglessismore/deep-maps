@@ -14,6 +14,9 @@
   --accent-red-dim: rgba(220, 38, 38, 0.3);
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-hover: rgba(255, 255, 255, 0.12);
+  --bg-overlay-subtle: rgba(255, 255, 255, 0.04);
+  --bg-overlay-hover: rgba(255, 255, 255, 0.10);
+  --bg-overlay-active: rgba(255, 255, 255, 0.08);
   --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
   --font-serif: 'Newsreader', Georgia, serif;
   --font-mono: 'Space Grotesk', 'Courier New', monospace;
@@ -32,9 +35,113 @@
   --accent-red-dim: rgba(194, 112, 58, 0.3);
   --border-subtle: rgba(74, 62, 52, 0.15);
   --border-hover: rgba(74, 62, 52, 0.30);
+  --bg-overlay-subtle: rgba(255, 255, 255, 0.04);
+  --bg-overlay-hover: rgba(255, 255, 255, 0.10);
+  --bg-overlay-active: rgba(255, 255, 255, 0.08);
   --font-serif: 'Newsreader', Georgia, serif;
   --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
   --font-mono: 'Space Grotesk', 'Courier New', monospace;
+}
+
+/* ===== Light Theme — activate via ?theme=light ===== */
+[data-theme="light"] {
+  --bg-primary: #F8F7F4;
+  --bg-secondary: #F0EDE8;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAF8;
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --accent-red: #C0392B;
+  --accent-red-dim: rgba(192, 57, 43, 0.15);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.12);
+  --bg-overlay-subtle: rgba(0, 0, 0, 0.03);
+  --bg-overlay-hover: rgba(0, 0, 0, 0.06);
+  --bg-overlay-active: rgba(0, 0, 0, 0.05);
+}
+
+/* Light theme: Leaflet overrides */
+[data-theme="light"] .leaflet-container {
+  background: #F0EDE8 !important;
+}
+[data-theme="light"] .leaflet-control-zoom a {
+  background: #FFFFFF !important;
+  color: #1A1A1A !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] .leaflet-control-zoom a:hover {
+  background: #F5F5F5 !important;
+}
+[data-theme="light"] .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #9CA3AF !important;
+}
+[data-theme="light"] .leaflet-control-attribution a {
+  color: #6B7280 !important;
+}
+[data-theme="light"] .leaflet-popup-content-wrapper {
+  background: #FFFFFF !important;
+  color: #1A1A1A !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+}
+[data-theme="light"] .leaflet-popup-tip {
+  background: #FFFFFF !important;
+}
+[data-theme="light"] .leaflet-popup-close-button {
+  color: #6B7280 !important;
+}
+
+/* Light theme: remove dark tile filters */
+[data-theme="light"] .leaflet-tile-pane.warm-dark-tiles {
+  filter: none;
+}
+[data-theme="light"] .leaflet-tile-pane.vivid-satellite-tiles {
+  filter: contrast(1.1) saturate(1.2) brightness(1.0);
+}
+
+/* Light theme: map atmosphere vignette */
+[data-theme="light"] .map-atmosphere::after {
+  background: radial-gradient(
+    ellipse 70% 70% at center,
+    transparent 50%,
+    rgba(248, 247, 244, 0.2) 80%,
+    rgba(248, 247, 244, 0.5) 100%
+  ) !important;
+}
+
+/* Light theme: marker adjustments */
+[data-theme="light"] .story-marker {
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+[data-theme="light"] .story-marker:hover {
+  box-shadow: 0 2px 12px rgba(192, 57, 43, 0.3);
+  border-color: rgba(0, 0, 0, 0.4);
+}
+[data-theme="light"] .story-marker.active {
+  border-color: #1A1A1A;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Light theme: scrollbar */
+[data-theme="light"] .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Light theme: constellation nodes */
+[data-theme="light"] .constellation-count {
+  color: #1A1A1A;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+}
+
+/* Light theme: What's Here type labels — dark text on light bg */
+[data-theme="light"] .wh-type-label {
+  font-weight: 600;
 }
 
 /* ===== Base ===== */

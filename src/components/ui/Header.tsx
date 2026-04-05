@@ -108,7 +108,7 @@ export function Header({
                 </div>
                 <div>
                   <h1 className="font-serif text-lg font-bold tracking-tight leading-none">
-                    <span className="text-[#dc2626]">Deep</span><span className="text-white group-hover:text-[var(--text-secondary)] transition-colors">Maps</span>
+                    <span className="text-[#dc2626]">Deep</span><span className="text-[var(--text-primary)] group-hover:text-[var(--text-secondary)] transition-colors">Maps</span>
                   </h1>
                   {mode !== 'story' && mode !== 'entity' && (
                     <p className="hidden sm:block text-[9px] font-mono text-[var(--text-muted)] tracking-widest uppercase leading-none mt-0.5">
@@ -161,7 +161,7 @@ export function Header({
             <>
               <button
                 onClick={activeCollection && !hasNavHistory ? (onClearCollection || onBackToExplore) : (onBack || onBackToExplore)}
-                className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
+                className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-1.5 min-h-[36px] rounded-md text-xs font-mono transition-colors flex items-center gap-1.5 max-w-[160px]"
                 title={activeCollection ? 'Back to Collections' : (backLabel ? `Back to ${backLabel}` : 'Back')}
               >
                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none" className="shrink-0">
@@ -171,7 +171,7 @@ export function Header({
               </button>
               <button
                 onClick={onBackToExplore}
-                className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white px-2 py-1.5 min-h-[36px] rounded-md transition-colors flex items-center"
+                className="bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 min-h-[36px] rounded-md transition-colors flex items-center"
                 title="Home — back to full map"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -191,7 +191,7 @@ export function Header({
                   ? 'bg-blue-600 hover:bg-blue-500 text-white border-blue-500'
                   : geoError
                   ? 'bg-[var(--bg-card)] text-red-400 border-red-400/30'
-                  : 'bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] hover:text-white border-[var(--border-subtle)]'
+                  : 'bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border-[var(--border-subtle)]'
               }`}
               title={geoError || (userLocation ? 'Showing stories near you' : 'Find stories near you')}
             >

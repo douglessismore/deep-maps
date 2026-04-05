@@ -41,7 +41,7 @@ export function GoDeeperCard({
     >
       <span className={`shrink-0 ${isCompact ? '' : 'mt-0.5'}`}>{icon}</span>
       <div className={`min-w-0 ${isCompact ? '' : 'flex-1'} text-left`}>
-        <p className={`${isCompact ? 'text-xs' : 'text-sm'} font-serif font-semibold text-[var(--text-primary)] group-hover:text-white truncate transition-colors leading-tight`}>
+        <p className={`${isCompact ? 'text-xs' : 'text-sm'} font-serif font-semibold text-[var(--text-primary)] group-hover:text-[var(--text-primary)] truncate transition-colors leading-tight`}>
           {label}
         </p>
         <p className="text-[10px] font-mono text-[var(--text-muted)]">{sublabel}</p>

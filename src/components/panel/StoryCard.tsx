@@ -55,8 +55,8 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
                 </span>
               )}
               <h3 className={v2
-                ? `font-serif font-bold text-white group-hover:text-white transition-colors leading-tight ${compact ? 'text-sm' : 'text-lg'}`
-                : `font-serif font-bold text-white group-hover:text-white transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`
+                ? `font-serif font-bold text-[var(--text-primary)] group-hover:text-[var(--text-primary)] transition-colors leading-tight ${compact ? 'text-sm' : 'text-lg'}`
+                : `font-serif font-bold text-[var(--text-primary)] group-hover:text-[var(--text-primary)] transition-colors leading-[1.3] ${compact ? 'text-sm' : 'text-[16px]'}`
               }>
                 {story.name}
               </h3>

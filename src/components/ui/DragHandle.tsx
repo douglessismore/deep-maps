@@ -30,7 +30,7 @@ export const DragHandle = forwardRef<HTMLDivElement>(function DragHandle(_props,
         }}
       />
       {/* Pill indicator */}
-      <div className="w-10 h-1 bg-white/40 rounded-full relative z-10" />
+      <div className="w-10 h-1 bg-[var(--text-muted)] rounded-full relative z-10" />
     </div>
   );
 });

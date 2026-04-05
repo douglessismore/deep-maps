@@ -37,8 +37,8 @@ function SortToggle({
           onClick={() => onChange(opt)}
           className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
             value === opt
-              ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
+              ? 'bg-[var(--bg-overlay-active)] text-[var(--text-primary)] ring-1 ring-[var(--border-hover)]'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-overlay-subtle)]'
           }`}
         >
           {opt === 'nearest' ? 'Nearest' : 'Timeline'}
@@ -424,7 +424,7 @@ function NearYouCard({
               </span>
             </div>
           )}
-          <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[15px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {location.name}
           </h3>
           {(location.subtitle || location.address) && (
@@ -501,7 +501,7 @@ function NearYouCardVertical({
               {story.nickname && story.nickname.includes(' ') ? story.nickname : story.name}
             </span>
           )}
-          <h3 className="text-[15px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[15px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {location.name}
           </h3>
           {(location.subtitle || location.address) && (
@@ -581,7 +581,7 @@ function HomeCollectionCard({
       )}
       <div className="p-3 flex flex-col justify-between" style={{ height: imageUrl ? '90px' : '100px' }}>
         <div className="min-w-0">
-          <h3 className="text-[13px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {collection.name}
           </h3>
           <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
@@ -637,7 +637,7 @@ function CollectionGridCard({
       )}
       <div className="p-3 flex flex-col justify-between" style={{ height: imageUrl ? '80px' : '90px' }}>
         <div className="min-w-0">
-          <h3 className="text-[12px] font-serif font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-[12px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {collection.name}
           </h3>
           <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
@@ -1077,7 +1077,7 @@ function WhatsHerePlaceCard({
           <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
             <div>
               <span className="wh-type-label" style={{ color: 'rgba(5,150,105,0.9)', backgroundColor: 'rgba(5,150,105,0.12)' }}>Place</span>
-              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
+              <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
                 {entity.name}
               </h4>
               {entity.description && (
@@ -2556,7 +2556,7 @@ export function HomePage({
                 {allPeople.length > gridPeople.length && (
                   <button
                     onClick={() => toggleSection('people')}
-                    className="mx-auto block mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-white transition-colors"
+                    className="mx-auto block mt-1 mb-2 px-4 py-1.5 text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   >
                     See all {allPeople.length} people →
                   </button>

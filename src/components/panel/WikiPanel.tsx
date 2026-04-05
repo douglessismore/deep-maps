@@ -279,7 +279,7 @@ export function WikiPanel({
             href={`https://en.wikipedia.org/wiki/${story.wikipediaSlug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block text-xs font-mono text-[var(--text-secondary)] hover:text-white underline mt-2"
+            className="inline-block text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] underline mt-2"
           >
             Open on Wikipedia →
           </a>
@@ -368,7 +368,7 @@ export function WikiPanel({
                   const prev = idx > 0 ? idx - 1 : verifiedGeoAnchors.length - 1;
                   scrollToSection(verifiedGeoAnchors[prev].sectionAnchor);
                 }}
-                className="text-[var(--text-muted)] hover:text-white transition-colors p-1"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors p-1"
                 title="Previous storypoint"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -388,7 +388,7 @@ export function WikiPanel({
                       borderRadius: 3,
                       backgroundColor: activeAnchor === ga.sectionAnchor
                         ? cat.color
-                        : 'rgba(255,255,255,0.15)',
+                        : 'var(--bg-overlay-active)',
                     }}
                     title={`${i + 1}. ${ga.location.name}`}
                   />
@@ -400,7 +400,7 @@ export function WikiPanel({
                   const next = idx < verifiedGeoAnchors.length - 1 ? idx + 1 : 0;
                   scrollToSection(verifiedGeoAnchors[next].sectionAnchor);
                 }}
-                className="text-[var(--text-muted)] hover:text-white transition-colors p-1"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors p-1"
                 title="Next storypoint"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

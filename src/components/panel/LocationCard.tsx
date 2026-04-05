@@ -87,7 +87,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             )}
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline gap-2">
-                <h4 className="text-[13px] font-bold text-white truncate leading-tight">
+                <h4 className="text-[13px] font-bold text-[var(--text-primary)] truncate leading-tight">
                   {location.name}
                 </h4>
                 {location.year && (
@@ -181,8 +181,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline justify-between gap-2">
               <h4 className={v2
-                ? 'font-serif text-base font-bold text-white leading-tight'
-                : 'font-serif text-[14px] font-bold text-white leading-[1.3]'
+                ? 'font-serif text-base font-bold text-[var(--text-primary)] leading-tight'
+                : 'font-serif text-[14px] font-bold text-[var(--text-primary)] leading-[1.3]'
               }>
                 {location.name}
               </h4>

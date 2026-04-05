@@ -341,7 +341,7 @@ export function EntityPanel({
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-[var(--bg-overlay-subtle)] hover:bg-[var(--bg-overlay-hover)]"
           >
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -355,7 +355,7 @@ export function EntityPanel({
           {onHome && (
             <button
               onClick={onHome}
-              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1 shrink-0"
+              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors flex items-center gap-1 shrink-0"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1.5 5L5 1.5L8.5 5M3 4v4h1.5V6.5h3V8H9V4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
@@ -386,7 +386,7 @@ export function EntityPanel({
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <h2 className="font-serif text-lg font-bold text-white leading-tight">{entity.name}</h2>
+                  <h2 className="font-serif text-lg font-bold text-[var(--text-primary)] leading-tight">{entity.name}</h2>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="text-[10px] font-mono text-[var(--accent-red)] uppercase tracking-wider">{entity.type}</span>
                     {entity.years && (
@@ -444,8 +444,8 @@ export function EntityPanel({
                   loading="lazy" />
               )}
               <h2 className={isV2()
-                ? 'font-serif text-4xl font-bold text-white tracking-tight'
-                : 'font-serif text-xl font-bold text-white'
+                ? 'font-serif text-4xl font-bold text-[var(--text-primary)] tracking-tight'
+                : 'font-serif text-xl font-bold text-[var(--text-primary)]'
               }>{entity.name}</h2>
               <div className={isV2() ? 'flex items-center justify-center gap-2 mt-3' : 'flex items-center gap-2 mt-2'}>
                 {isV2() ? (
@@ -472,7 +472,7 @@ export function EntityPanel({
               {entity.wikipediaSlug && (
                 <a href={`https://en.wikipedia.org/wiki/${entity.wikipediaSlug}`} target="_blank" rel="noopener noreferrer"
                   className={isV2()
-                    ? 'inline-flex items-center gap-1.5 mt-4 text-xs font-mono text-[var(--accent-red)] hover:text-white transition-colors'
+                    ? 'inline-flex items-center gap-1.5 mt-4 text-xs font-mono text-[var(--accent-red)] hover:text-[var(--text-primary)] transition-colors'
                     : 'inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors'
                   }>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -505,7 +505,7 @@ export function EntityPanel({
                   <span className="text-base shrink-0">{getEntityIcon(entity)}</span>
                 )}
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-[13px] font-serif font-bold text-white truncate">{entity.name}</h3>
+                  <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] truncate">{entity.name}</h3>
                   <span className="text-[10px] font-mono text-[var(--text-muted)]">
                     {entity.years ? `${entity.years} · ` : ''}{entity.type}
                   </span>
@@ -526,7 +526,7 @@ export function EntityPanel({
                     setContextExpanded(false);
                     scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-white transition-colors"
+                  className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-[var(--text-primary)] transition-colors"
                 >
                   ↑ Back to top
                 </button>
@@ -624,8 +624,8 @@ export function EntityPanel({
               onClick={() => setEntitySort('nearest')}
               className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
                 entitySort === 'nearest'
-                  ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
+                  ? 'bg-[var(--bg-overlay-active)] text-[var(--text-primary)] ring-1 ring-[var(--border-hover)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-overlay-subtle)]'
               }`}
             >
               Nearest
@@ -634,8 +634,8 @@ export function EntityPanel({
               onClick={() => setEntitySort('timeline')}
               className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
                 entitySort === 'timeline'
-                  ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
+                  ? 'bg-[var(--bg-overlay-active)] text-[var(--text-primary)] ring-1 ring-[var(--border-hover)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-overlay-subtle)]'
               }`}
             >
               Timeline

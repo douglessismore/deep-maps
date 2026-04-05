@@ -886,7 +886,7 @@ export function ExplorePanel({
       {/* Name + description */}
       <div className="flex-1 min-w-0">
         <span className={`text-xs font-sans font-semibold transition-colors truncate block ${
-          isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-white'
+          isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-primary)] group-hover:text-[var(--text-primary)]'
         }`}>
           {entity.name}
         </span>
@@ -1015,7 +1015,7 @@ export function ExplorePanel({
         <div className="shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={activeCollection && !hasNavHistory ? onClearCollection : onBack}
-            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-[var(--bg-overlay-subtle)] hover:bg-[var(--bg-overlay-hover)]"
           >
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1025,7 +1025,7 @@ export function ExplorePanel({
           {onHome && (
             <button
               onClick={onHome}
-              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1"
+              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors flex items-center gap-1"
             >
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M2.5 7L7 2.5L11.5 7M4 5.5V11.5h2.5V9h3v2.5H12V5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1038,7 +1038,7 @@ export function ExplorePanel({
         <div className="shrink-0 flex items-center px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onHome}
-            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-[var(--bg-overlay-subtle)] hover:bg-[var(--bg-overlay-hover)]"
           >
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1053,7 +1053,7 @@ export function ExplorePanel({
           onClick={() => setActiveTab('moments')}
           className={`flex-1 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'moments'
-              ? 'text-[var(--text-primary)] bg-white/[0.08]'
+              ? 'text-[var(--text-primary)] bg-[var(--bg-overlay-active)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
@@ -1068,7 +1068,7 @@ export function ExplorePanel({
           onClick={() => setActiveTab('stories')}
           className={`flex-1 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'stories'
-              ? 'text-[var(--text-primary)] bg-white/[0.08]'
+              ? 'text-[var(--text-primary)] bg-[var(--bg-overlay-active)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
@@ -1081,7 +1081,7 @@ export function ExplorePanel({
           onClick={() => setActiveTab('places')}
           className={`flex-1 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'places'
-              ? 'text-[var(--text-primary)] bg-white/[0.08]'
+              ? 'text-[var(--text-primary)] bg-[var(--bg-overlay-active)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
@@ -1094,7 +1094,7 @@ export function ExplorePanel({
           onClick={() => setActiveTab('collections')}
           className={`flex-1 min-w-0 py-2 text-xs font-mono transition-all duration-200 rounded-lg ${
             activeTab === 'collections'
-              ? 'text-[var(--text-primary)] bg-white/[0.08]'
+              ? 'text-[var(--text-primary)] bg-[var(--bg-overlay-active)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
           }`}
         >
@@ -1343,8 +1343,8 @@ export function ExplorePanel({
                   }}
                   className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
                     storySort === mode
-                      ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
-                      : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
+                      ? 'bg-[var(--bg-overlay-active)] text-[var(--text-primary)] ring-1 ring-[var(--border-hover)]'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-overlay-subtle)]'
                   }`}
                 >
                   {mode === 'a-z' ? 'A-Z' : mode.charAt(0).toUpperCase() + mode.slice(1)}

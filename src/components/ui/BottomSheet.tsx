@@ -330,11 +330,11 @@ export function BottomSheet({ children, onSnapChange, targetSnap, contextLabel, 
             }
           }}
         >
-          <div className={`${isSpotlight ? 'w-8' : 'w-10'} h-1 bg-white/30 rounded-full`} />
+          <div className={`${isSpotlight ? 'w-8' : 'w-10'} h-1 bg-[var(--text-muted)] rounded-full`} />
           {isSpotlight && (contextLabel || contextSublabel) && (
             <div className="mt-1.5 text-center px-4 max-w-full">
-              <div className="text-[10px] font-mono text-white/60 truncate leading-tight">
-                {contextLabel && <span className="text-white/80">{contextLabel}</span>}
+              <div className="text-[10px] font-mono text-[var(--text-muted)] truncate leading-tight">
+                {contextLabel && <span className="text-[var(--text-secondary)]">{contextLabel}</span>}
                 {contextLabel && contextSublabel && <span className="mx-1">·</span>}
                 {contextSublabel}
               </div>

@@ -435,7 +435,7 @@ export function StoryPanel({
         }}
         className={`flex-1 py-2 text-xs font-mono transition-colors ${
           activeTab === 'locations'
-            ? 'text-white border-b-2'
+            ? 'text-[var(--text-primary)] border-b-2'
             : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
         }`}
         style={{
@@ -455,7 +455,7 @@ export function StoryPanel({
         }}
         className={`flex-1 py-2 text-xs font-mono transition-colors ${
           activeTab === 'wiki'
-            ? 'text-white border-b-2'
+            ? 'text-[var(--text-primary)] border-b-2'
             : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
         }`}
         style={{
@@ -474,7 +474,7 @@ export function StoryPanel({
         <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]">
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-white transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-white/[0.04] hover:bg-white/10"
+            className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors shrink-0 py-1 px-2 -ml-2 rounded-md bg-[var(--bg-overlay-subtle)] hover:bg-[var(--bg-overlay-hover)]"
           >
             <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3 5l3.5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -488,7 +488,7 @@ export function StoryPanel({
           {onHome && (
             <button
               onClick={onHome}
-              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors flex items-center gap-1 shrink-0"
+              className="ml-auto text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors flex items-center gap-1 shrink-0"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1.5 5L5 1.5L8.5 5M3 4v4h1.5V6.5h3V8H9V4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
@@ -510,7 +510,7 @@ export function StoryPanel({
               <div className="flex items-center gap-3 px-4 pt-3 pb-2">
                 <div className="w-1.5 h-10 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
                 <div className="min-w-0 flex-1">
-                  <h2 className="font-serif text-lg font-bold text-white leading-tight">{story.name}</h2>
+                  <h2 className="font-serif text-lg font-bold text-[var(--text-primary)] leading-tight">{story.name}</h2>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="text-[10px] font-mono text-[var(--accent-red)] uppercase tracking-wider">{story.years}</span>
                     <CategoryBadge category={story.category} />
@@ -567,7 +567,7 @@ export function StoryPanel({
                       {cat.label}
                     </span>
                   </div>
-                  <h2 className="font-serif text-3xl font-bold text-white tracking-tight leading-tight">{story.name}</h2>
+                  <h2 className="font-serif text-3xl font-bold text-[var(--text-primary)] tracking-tight leading-tight">{story.name}</h2>
                   {story.nickname && (
                     <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
                   )}
@@ -601,7 +601,7 @@ export function StoryPanel({
                 /* Default */
                 <>
                   <div className="h-1 rounded-full mb-4" style={{ backgroundColor: cat.color }} />
-                  <h2 className="font-serif text-xl font-bold text-white">{story.name}</h2>
+                  <h2 className="font-serif text-xl font-bold text-[var(--text-primary)]">{story.name}</h2>
                   {story.nickname && (
                     <p className="text-sm text-[var(--text-muted)] font-mono italic mt-1">{story.nickname}</p>
                   )}
@@ -647,7 +647,7 @@ export function StoryPanel({
                 <div className="flex items-center gap-2.5 px-4 py-2">
                   <div className="w-1 h-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-[13px] font-serif font-bold text-white truncate">{story.name}</h3>
+                    <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] truncate">{story.name}</h3>
                     <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
                   </div>
                   <svg
@@ -666,7 +666,7 @@ export function StoryPanel({
                       setContextExpanded(false);
                       scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-white transition-colors"
+                    className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-[var(--text-primary)] transition-colors"
                   >
                     ↑ Back to top
                   </button>
@@ -807,11 +807,11 @@ export function StoryPanel({
             <div className="lg:hidden px-4 py-2.5">
               <div className="flex items-center gap-2">
                 <div className="h-1 w-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                <h2 className="font-serif text-sm font-bold text-white truncate">{story.name}</h2>
+                <h2 className="font-serif text-sm font-bold text-[var(--text-primary)] truncate">{story.name}</h2>
               </div>
             </div>
             <div className="hidden lg:block px-4 py-3">
-              <h2 className="font-serif text-lg font-bold text-white">{story.name}</h2>
+              <h2 className="font-serif text-lg font-bold text-[var(--text-primary)]">{story.name}</h2>
             </div>
           </div>
           <div className="shrink-0">

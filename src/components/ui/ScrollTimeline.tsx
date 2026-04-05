@@ -33,14 +33,14 @@ export function ScrollTimeline({ items, activeIndex, orientation }: ScrollTimeli
       <div
         className={`absolute rounded-full ${
           isHorizontal
-            ? 'left-0 right-0 top-[6px] h-[2px] bg-white/10'
-            : 'top-0 bottom-0 left-[8px] w-[2px] bg-white/10'
+            ? 'left-0 right-0 top-[6px] h-[2px] bg-[var(--bg-overlay-hover)]'
+            : 'top-0 bottom-0 left-[8px] w-[2px] bg-[var(--bg-overlay-hover)]'
         }`}
       />
 
       {/* Active dot */}
       <div
-        className="absolute w-[6px] h-[6px] bg-white/60 rounded-full transition-all duration-200 ease-out"
+        className="absolute w-[6px] h-[6px] bg-[var(--text-muted)] rounded-full transition-all duration-200 ease-out"
         style={isHorizontal
           ? { left: `${pct}%`, top: '4px', transform: 'translateX(-50%)' }
           : { top: `${pct}%`, left: '6px', transform: 'translateY(-50%)' }
