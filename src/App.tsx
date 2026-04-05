@@ -613,9 +613,25 @@ function App() {
   const handleEntitySelect = useCallback((entity: Entity, _fromMoment?: Moment) => {
     pushNav();
 
+    // Find the nearest entity moment to the current map center so the panel
+    // scrolls to the right card (map zoom already handled by MapView)
+    let nearestMoment: Moment | null = null;
+    if (mapInstance) {
+      const center = mapInstance.getCenter();
+      const entLocs = getEntityLocations(entity.id);
+      let minDist = Infinity;
+      for (const { location } of entLocs) {
+        const d = distanceMiles(center.lat, center.lng, location.lat, location.lng);
+        if (d < minDist) {
+          minDist = d;
+          nearestMoment = location;
+        }
+      }
+    }
+
     setActiveEntity(entity);
     setActiveStory(null);
-    setActiveLocation(null);
+    setActiveLocation(nearestMoment);
     setCategoryFilter(null);
     setScrollHighlight([]);
     setScrollHighlightLabel(null);
@@ -623,7 +639,7 @@ function App() {
     scrollHighlightIdsRef.current = '';
     setMode('entity');
     setPanelView('explorer');
-  }, [pushNav]);
+  }, [pushNav, mapInstance]);
 
   // Navigate to the source entity/story/collection from a scroll highlight label click
   // (e.g., after arrow flyTo lands and user taps the label).
