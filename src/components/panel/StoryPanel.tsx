@@ -164,6 +164,9 @@ export function StoryPanel({
   const [expandedLocationKey, setExpandedLocationKey] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
+  const [headerOutOfView, setHeaderOutOfView] = useState(false);
+  const [contextExpanded, setContextExpanded] = useState(false);
+  const headerSentinelRef = useRef<HTMLDivElement>(null);
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded] = useState(true);
   const [momentSort, setMomentSort] = useState<'narrative' | 'nearest' | 'timeline'>('narrative');
@@ -189,6 +192,19 @@ export function StoryPanel({
   const scrollRafId = useRef(0);
 
   // (expandedLocationIdRef removed — no expansion state)
+
+  // Detect when story header scrolls out of view → show sticky context bar
+  useEffect(() => {
+    const sentinel = headerSentinelRef.current;
+    const container = scrollContainerRef.current;
+    if (!sentinel || !container) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeaderOutOfView(!entry.isIntersecting),
+      { root: container, threshold: 0 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [activeTab]);
 
   // Scroll-driven location navigation + header auto-collapse
   // Captured once at mount, before any effect can clear the global ref
@@ -617,7 +633,47 @@ export function StoryPanel({
                 </>
               )}
             </div>
+            {/* Sentinel — triggers sticky context bar when header scrolls out */}
+            <div ref={headerSentinelRef} className="h-0" />
           </div>}
+
+          {/* Sticky context bar — appears when header scrolls out of view */}
+          {headerOutOfView && !isSpotlightPeek && (
+            <div className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)]">
+              <button
+                onClick={() => setContextExpanded(!contextExpanded)}
+                className="w-full text-left"
+              >
+                <div className="flex items-center gap-2.5 px-4 py-2">
+                  <div className="w-1 h-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-[13px] font-serif font-bold text-white truncate">{story.name}</h3>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
+                  </div>
+                  <svg
+                    width="12" height="12" viewBox="0 0 12 12" fill="none"
+                    className={`shrink-0 text-[var(--text-muted)] transition-transform ${contextExpanded ? 'rotate-180' : ''}`}
+                  >
+                    <path d="M3 5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </button>
+              {contextExpanded && story.description && (
+                <div className="px-4 pb-2.5 pl-[26px]">
+                  <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed">{story.description}</p>
+                  <button
+                    onClick={() => {
+                      setContextExpanded(false);
+                      scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-white transition-colors"
+                  >
+                    ↑ Back to top
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Dive Deeper — story-level entities + related stories (hidden in spotlight peek) */}
           {!isSpotlightPeek && (storyEntities.length > 0 || connectedEntries.length > 0) && (
