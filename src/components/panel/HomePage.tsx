@@ -54,6 +54,7 @@ type ExpandedSection = 'nearYou' | 'stories' | 'collections' | 'people' | null;
 
 // Module-level: persists across HomePage unmount/remount so horizontal scroll
 // positions survive back navigation (component unmounts when viewing entity/story).
+let savedWhatsHereScrollLeft = 0;
 let savedPeopleScrollLeft = 0;
 let savedStoriesScrollLeft = 0;
 let savedNearYouScrollLeft = 0;
@@ -863,6 +864,312 @@ function BackfillHint() {
   );
 }
 
+// ─── What's Here unified carousel types + cards ─────────────────────
+
+type WhatsHereItem =
+  | { kind: 'story'; story: Story; distance: number; inViewCount: number }
+  | { kind: 'person'; entity: Entity; momentCount: number; maxNotability: number; distance: number }
+  | { kind: 'moment'; vl: ViewportLocation; distance: number }
+  | { kind: 'place'; entity: Entity; momentCount: number; distance: number };
+
+function WhatsHereStoryCard({
+  story,
+  inViewCount,
+  distance,
+  isActive,
+  onClick,
+  cardIndex,
+  cardId,
+}: {
+  story: Story;
+  inViewCount: number;
+  distance: number;
+  isActive?: boolean;
+  onClick: () => void;
+  cardIndex?: number;
+  cardId?: string;
+}) {
+  const cat = CATEGORIES[story.category];
+  const total = story.moments.length;
+  return (
+    <button
+      onClick={onClick}
+      data-card-index={cardIndex}
+      data-card-id={cardId}
+      className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] card-animate-in"
+      style={cardHighlightStyle(!!isActive, cat?.color)}
+    >
+      {story.imageUrl ? (
+        <div className="relative h-[80px] w-full overflow-hidden">
+          <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+          <h4 className="absolute bottom-2 left-3 right-3 text-[13px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
+            {story.name}
+          </h4>
+        </div>
+      ) : (
+        <>
+          <div className="h-1" style={{ background: cat?.color ?? '#666' }} />
+        </>
+      )}
+      <div className={`p-3 flex flex-col justify-between ${story.imageUrl ? 'h-[60px]' : 'h-[100px]'}`}>
+        {!story.imageUrl && (
+          <div className="min-w-0">
+            <h4 className="text-[13px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+              {story.name}
+            </h4>
+          </div>
+        )}
+        <div className="flex items-center justify-between mt-auto pt-1">
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {story.years} &middot; {inViewCount < total ? `${inViewCount}/${total}` : total} moments
+          </span>
+          {distance > 0 && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {formatDistance(distance)}
+            </span>
+          )}
+        </div>
+      </div>
+    </button>
+  );
+}
+
+function WhatsHerePersonCard({
+  entity,
+  momentCount,
+  distance,
+  isActive,
+  isFeature,
+  onClick,
+  cardIndex,
+  cardId,
+}: {
+  entity: Entity;
+  momentCount: number;
+  distance: number;
+  isActive?: boolean;
+  isFeature?: boolean;
+  onClick: () => void;
+  cardIndex?: number;
+  cardId?: string;
+}) {
+  const PURPLE = 'rgba(139,92,246';
+
+  if (isFeature) {
+    // Feature-sized person card (200px wide)
+    return (
+      <button
+        onClick={onClick}
+        data-card-index={cardIndex}
+        data-card-id={cardId}
+        className="w-[200px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] overflow-hidden text-left transition-all duration-300 active:scale-[0.97] card-animate-in"
+        style={{
+          ...cardHighlightStyle(!!isActive, `${PURPLE},1)`),
+          borderLeft: `3px solid ${PURPLE},0.6)`,
+        }}
+      >
+        <div className="p-3 flex gap-3 h-[140px]">
+          {entity.imageUrl ? (
+            <img
+              src={entity.imageUrl}
+              alt={entity.name}
+              className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)]"
+              loading="lazy"
+            />
+          ) : (
+            <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0">
+              {entity.name[0].toUpperCase()}
+            </span>
+          )}
+          <div className="flex flex-col justify-between min-w-0 flex-1">
+            <div>
+              <h4 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
+                {entity.name}
+              </h4>
+              {entity.years && (
+                <p className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">{entity.years}</p>
+              )}
+              {entity.description && (
+                <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+                  {entity.description}
+                </p>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-auto pt-1">
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                {momentCount} events
+              </span>
+              {distance > 0 && (
+                <>
+                  <span className="text-[var(--text-muted)]">&middot;</span>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                    {formatDistance(distance)}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </button>
+    );
+  }
+
+  // Standard-sized person card (140px wide)
+  return (
+    <button
+      onClick={onClick}
+      data-card-index={cardIndex}
+      data-card-id={cardId}
+      className="flex flex-col items-center w-[140px] shrink-0 snap-start pt-3 pb-2 rounded-xl transition-all duration-200 active:scale-[0.97] card-animate-in"
+      style={{
+        scrollSnapAlign: 'start',
+        borderLeft: `3px solid ${PURPLE},0.4)`,
+        ...(isActive ? {
+          backgroundColor: 'rgba(139,92,246,0.1)',
+          boxShadow: '0 0 16px rgba(139,92,246,0.3), inset 0 0 0 2px rgba(139,92,246,0.5)',
+          borderRadius: '12px',
+        } : {}),
+      }}
+    >
+      {entity.imageUrl ? (
+        <img
+          src={entity.imageUrl}
+          alt={entity.name}
+          className={`w-12 h-12 rounded-full object-cover ${isActive ? 'ring-2 ring-[rgba(139,92,246,0.7)]' : 'ring-1 ring-[rgba(255,255,255,0.1)]'}`}
+          loading="lazy"
+        />
+      ) : (
+        <span className={`w-12 h-12 rounded-full bg-[rgba(139,92,246,0.15)] flex items-center justify-center text-[14px] font-bold text-[rgba(139,92,246,0.8)] ${isActive ? 'ring-2 ring-[rgba(139,92,246,0.7)]' : 'ring-1 ring-[rgba(139,92,246,0.3)]'}`}>
+          {entity.name[0].toUpperCase()}
+        </span>
+      )}
+      <span className="mt-1.5 text-[13px] font-serif font-bold text-[var(--text-primary)] w-full text-center truncate px-1">
+        {entity.name}
+      </span>
+      <span className="text-[10px] font-mono text-[var(--text-muted)]">
+        {momentCount} events{distance > 0 ? ` \u00b7 ${formatDistance(distance)}` : ''}
+      </span>
+    </button>
+  );
+}
+
+function WhatsHereMomentCard({
+  vl,
+  distance,
+  isActive,
+  onClick,
+  cardIndex,
+  cardId,
+}: {
+  vl: ViewportLocation;
+  distance: number;
+  isActive?: boolean;
+  onClick: () => void;
+  cardIndex?: number;
+  cardId?: string;
+}) {
+  const cat = vl.story ? CATEGORIES[vl.story.category] : undefined;
+  return (
+    <button
+      onClick={onClick}
+      data-card-index={cardIndex}
+      data-card-id={cardId}
+      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
+      style={cardHighlightStyle(!!isActive, cat?.color)}
+    >
+      <div className="p-3 flex flex-col justify-between h-[120px]">
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5 mb-1">
+            <div
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{ backgroundColor: cat?.color ?? 'var(--text-muted)' }}
+            />
+            {vl.story && (
+              <span className="text-[10px] font-sans text-[var(--text-muted)] truncate">
+                {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
+              </span>
+            )}
+          </div>
+          <h4 className="text-[12px] font-serif font-bold text-white leading-tight line-clamp-2">
+            {vl.location.name}
+          </h4>
+        </div>
+        <div className="mt-auto pt-1 flex items-center gap-2">
+          {vl.location.year && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {vl.location.year}
+            </span>
+          )}
+          {distance > 0 && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {formatDistance(distance)}
+            </span>
+          )}
+        </div>
+      </div>
+    </button>
+  );
+}
+
+function WhatsHerePlaceCard({
+  entity,
+  momentCount,
+  distance,
+  isActive,
+  onClick,
+  cardIndex,
+  cardId,
+}: {
+  entity: Entity;
+  momentCount: number;
+  distance: number;
+  isActive?: boolean;
+  onClick: () => void;
+  cardIndex?: number;
+  cardId?: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      data-card-index={cardIndex}
+      data-card-id={cardId}
+      className="shrink-0 w-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden snap-start card-animate-in"
+      style={{
+        ...cardHighlightStyle(!!isActive, '#059669'),
+        borderLeft: '3px solid rgba(5,150,105,0.5)',
+      }}
+    >
+      <div className="p-3 flex flex-col justify-between h-[120px]">
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5 mb-1">
+            <span className="text-[11px]" aria-hidden>📍</span>
+            <span className="text-[10px] font-mono text-[rgba(5,150,105,0.8)] uppercase tracking-wider">Place</span>
+          </div>
+          <h4 className="text-[12px] font-serif font-bold text-white leading-tight line-clamp-2">
+            {entity.name}
+          </h4>
+          {entity.description && (
+            <p className="text-[10px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-2">
+              {entity.description}
+            </p>
+          )}
+        </div>
+        <div className="mt-auto pt-1 flex items-center gap-2">
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">
+            {momentCount} events
+          </span>
+          {distance > 0 && (
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">
+              {formatDistance(distance)}
+            </span>
+          )}
+        </div>
+      </div>
+    </button>
+  );
+}
+
 // ─── Horizontal scroll container ─────────────────────────────────────
 
 function HScrollRow({
@@ -1262,6 +1569,99 @@ export function HomePage({
     };
   }, [userLocation, viewportLocations]);
 
+  // ─── What's Here: unified carousel merging all content types ───────
+  // Viewport place entities (same pattern as personEntities but for places)
+  const viewportPlaceEntities = useMemo(() => {
+    return entities
+      .filter(e => e.type === 'place')
+      .map(entity => {
+        const ms = getMomentsForEntity(entity.id);
+        const inViewport = ms.filter(m => viewportMomentIds.has(m.id));
+        if (inViewport.length === 0) return null;
+        if (categoryFilter !== null) {
+          const hasMatch = ms.some(m => {
+            const s = momentToStoryMap.get(m.id);
+            return s?.category === categoryFilter;
+          });
+          if (!hasMatch) return null;
+        }
+        const minDist = sortCenter
+          ? Math.min(...inViewport.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
+          : 0;
+        return { entity, momentCount: ms.length, distance: minDist };
+      })
+      .filter((x): x is NonNullable<typeof x> => x !== null);
+  }, [entities, viewportMomentIds, sortCenter, categoryFilter, momentToStoryMap]);
+
+  const whatsHereItems = useMemo((): WhatsHereItem[] => {
+    if (!sortCenter) return [];
+    const items: WhatsHereItem[] = [];
+
+    // 1. Stories with moments in viewport
+    const storiesInView = viewportStories ?? [];
+    for (const story of storiesInView) {
+      if (categoryFilter !== null && story.category !== categoryFilter) continue;
+      const storyMoments = story.moments.map(sm => momentById.get(sm.momentId)).filter(Boolean) as Moment[];
+      const minDist = storyMoments.length > 0
+        ? Math.min(...storyMoments.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
+        : Infinity;
+      const inViewCount = story.moments.filter(sm => viewportMomentIds.has(sm.momentId)).length;
+      items.push({ kind: 'story', story, distance: minDist, inViewCount });
+    }
+
+    // 2. People entities in viewport (top 3 by notability become features)
+    const sortedPeople = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
+    for (const p of sortedPeople) {
+      const ms = getMomentsForEntity(p.entity.id);
+      const inViewport = ms.filter(m => viewportMomentIds.has(m.id));
+      const minDist = inViewport.length > 0
+        ? Math.min(...inViewport.map(m => distanceMiles(sortCenter.lat, sortCenter.lng, m.lat, m.lng)))
+        : Infinity;
+      items.push({ kind: 'person', entity: p.entity, momentCount: p.momentCount, maxNotability: p.maxNotability, distance: minDist });
+    }
+
+    // 3. Individual moments in viewport
+    const momentsInView = viewportLocations
+      .filter(vl => vl.story !== null)
+      .filter(vl => categoryFilter === null || getVlCategory(vl) === categoryFilter);
+    for (const vl of momentsInView) {
+      const dist = sortCenter
+        ? distanceMiles(sortCenter.lat, sortCenter.lng, vl.location.lat, vl.location.lng)
+        : vl.distance;
+      items.push({ kind: 'moment', vl, distance: dist });
+    }
+
+    // 4. Place entities in viewport
+    for (const p of viewportPlaceEntities) {
+      items.push({ kind: 'place', entity: p.entity, momentCount: p.momentCount, distance: p.distance });
+    }
+
+    // Sort by distance
+    items.sort((a, b) => a.distance - b.distance);
+
+    return items;
+  }, [sortCenter, viewportStories, filteredPersonEntities, viewportLocations, viewportPlaceEntities, viewportMomentIds, momentById, categoryFilter, momentToStoryMap]);
+
+  // Top 3 people by notability get feature cards
+  const whatsHereTopPeopleIds = useMemo(() => {
+    const sorted = [...filteredPersonEntities].sort((a, b) => b.maxNotability - a.maxNotability);
+    return new Set(sorted.slice(0, 3).map(p => p.entity.id));
+  }, [filteredPersonEntities]);
+
+  // ScrollTimeline labels for What's Here
+  const whatsHereScrollLabels = useMemo((): ScrollTimelineItem[] => {
+    return whatsHereItems.map(item => {
+      const dist = item.distance;
+      if (item.kind === 'moment') {
+        const yr = item.vl.location.year;
+        if (yr && dist > 0) return { label: `${yr} \u00b7 ${formatDistance(dist)}` };
+        if (yr) return { label: String(yr) };
+      }
+      if (dist > 0) return { label: formatDistance(dist) };
+      return { label: null };
+    });
+  }, [whatsHereItems]);
+
   // Globally-sorted moments by distance (for near you infinite tail)
   const allMomentsSorted = useMemo(() => {
     if (!sortCenter) return [];
@@ -1473,6 +1873,7 @@ export function HomePage({
 
   // Card entry animations — fade + slide up on first appearance
   useInViewAnimation(homeScrollRef);
+  const whatsHereScrollRef = useRef<HTMLDivElement | null>(null);
   const nearYouScrollRef = useRef<HTMLDivElement | null>(null);
   const nearYouExpandedRef = useRef<HTMLDivElement | null>(null);
   const collectionsScrollRef = useRef<HTMLDivElement | null>(null);
@@ -1482,6 +1883,9 @@ export function HomePage({
 
   // Save all carousel horizontal scroll on unmount, restore on mount
   useEffect(() => {
+    if (whatsHereScrollRef.current && savedWhatsHereScrollLeft > 0) {
+      whatsHereScrollRef.current.scrollLeft = savedWhatsHereScrollLeft;
+    }
     if (peopleScrollRef.current && savedPeopleScrollLeft > 0) {
       peopleScrollRef.current.scrollLeft = savedPeopleScrollLeft;
     }
@@ -1495,6 +1899,9 @@ export function HomePage({
       collectionsScrollRef.current.scrollLeft = savedCollectionsScrollLeft;
     }
     return () => {
+      if (whatsHereScrollRef.current) {
+        savedWhatsHereScrollLeft = whatsHereScrollRef.current.scrollLeft;
+      }
       if (peopleScrollRef.current) {
         savedPeopleScrollLeft = peopleScrollRef.current.scrollLeft;
       }
@@ -1514,6 +1921,7 @@ export function HomePage({
   // When the map is panned, in-view cards reshuffle to the beginning of each row.
   // Reset scrollLeft so the user sees the new in-view cards, not stale backfill.
   // SKIP reset during back navigation so saved positions survive the map restore.
+  const prevFirstWhatsHereId = useRef(whatsHereItems[0] ? (whatsHereItems[0].kind + '-' + (whatsHereItems[0].kind === 'story' ? whatsHereItems[0].story.id : whatsHereItems[0].kind === 'moment' ? whatsHereItems[0].vl.location.id : whatsHereItems[0].entity.id)) : '');
   const prevFirstPeopleId = useRef(gridPeople[0]?.entity.id);
   const prevFirstStoryId = useRef(allHomeStories[0]?.id);
   const prevFirstMomentId = useRef(nearYouMoments[0]?.location.id);
@@ -1522,11 +1930,16 @@ export function HomePage({
   useEffect(() => {
     if (isRestoringFromBack) return; // don't reset during back-nav restore
 
+    const curWhatsHere = whatsHereItems[0] ? (whatsHereItems[0].kind + '-' + (whatsHereItems[0].kind === 'story' ? whatsHereItems[0].story.id : whatsHereItems[0].kind === 'moment' ? whatsHereItems[0].vl.location.id : whatsHereItems[0].entity.id)) : '';
     const curPeople = gridPeople[0]?.entity.id;
     const curStory = allHomeStories[0]?.id;
     const curMoment = nearYouMoments[0]?.location.id;
     const curCollection = filteredCollections[0]?.id;
 
+    if (curWhatsHere !== prevFirstWhatsHereId.current) {
+      prevFirstWhatsHereId.current = curWhatsHere;
+      if (whatsHereScrollRef.current) { whatsHereScrollRef.current.scrollLeft = 0; savedWhatsHereScrollLeft = 0; }
+    }
     if (curPeople !== prevFirstPeopleId.current) {
       prevFirstPeopleId.current = curPeople;
       if (peopleScrollRef.current) { peopleScrollRef.current.scrollLeft = 0; savedPeopleScrollLeft = 0; }
@@ -1543,7 +1956,7 @@ export function HomePage({
       prevFirstCollectionId.current = curCollection;
       if (collectionsScrollRef.current) { collectionsScrollRef.current.scrollLeft = 0; savedCollectionsScrollLeft = 0; }
     }
-  }, [gridPeople, allHomeStories, nearYouMoments, filteredCollections]);
+  }, [whatsHereItems, gridPeople, allHomeStories, nearYouMoments, filteredCollections]);
 
   // ── Scroll position tracking for back navigation ──
   useEffect(() => {
@@ -1586,6 +1999,9 @@ export function HomePage({
       }
       // Re-apply saved horizontal positions after DOM settles (carousel refs may not be ready yet)
       requestAnimationFrame(() => {
+        if (whatsHereScrollRef.current && savedWhatsHereScrollLeft > 0) {
+          whatsHereScrollRef.current.scrollLeft = savedWhatsHereScrollLeft;
+        }
         if (peopleScrollRef.current && savedPeopleScrollLeft > 0) {
           peopleScrollRef.current.scrollLeft = savedPeopleScrollLeft;
         }
@@ -1607,6 +2023,12 @@ export function HomePage({
   }, [restoreScrollTop, onScrollRestored]);
 
   // ── Active index tracking via scroll position ──
+  const { index: whatsHereActiveIdx, cardId: whatsHereActiveCardId } = useScrollActiveIndex(
+    whatsHereScrollRef,
+    whatsHereItems.length,
+    true,
+    'horizontal',
+  );
   const { index: nearYouActiveIdx, cardId: nearYouActiveCardId } = useScrollActiveIndex(
     nearYouScrollRef,
     nearYouDisplay.length,
@@ -1670,6 +2092,8 @@ export function HomePage({
   filteredCollectionsRef.current = filteredCollections;
   const momentByIdRef = useRef(momentById);
   momentByIdRef.current = momentById;
+  const whatsHereItemsRef = useRef(whatsHereItems);
+  whatsHereItemsRef.current = whatsHereItems;
   const allPeopleRef = useRef(allPeople);
   allPeopleRef.current = allPeople;
   const gridPeopleRef = useRef(peopleDisplay);
@@ -1682,7 +2106,7 @@ export function HomePage({
   const activeStoryIdRef = useRef<string | null>(null);
   const activePersonIdRef = useRef<string | null>(null);
 
-  type HomeSection = 'people' | 'stories' | 'nearYou' | 'collections' | null;
+  type HomeSection = 'whatsHere' | 'people' | 'stories' | 'nearYou' | 'collections' | null;
   // Null on mount — section observer sets it when user scrolls to a section
   const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>(null);
   // Gate: no highlights until the user has explicitly interacted (scroll/swipe).
@@ -1696,6 +2120,45 @@ export function HomePage({
   // or index fallback. cardId is read directly from the visible card element,
   // so it's always in sync with what the user sees — immune to array reshuffling.
   const computeHighlight = useCallback((section: HomeSection): { moments: Moment[]; label: string | null; meta: string | null; sourceType: 'entity' | 'story' | 'collection' | 'moment' | null; sourceId: string | null } => {
+    if (section === 'whatsHere') {
+      const items = whatsHereItemsRef.current;
+      // Find the item by cardId or fallback to index
+      const cardId = whatsHereActiveCardId;
+      const idx = Math.max(0, whatsHereActiveIdx);
+      const item = cardId
+        ? items.find(it => {
+            if (it.kind === 'story') return `story-${it.story.id}` === cardId;
+            if (it.kind === 'person') return `person-${it.entity.id}` === cardId;
+            if (it.kind === 'moment') return `moment-${it.vl.location.id}` === cardId;
+            if (it.kind === 'place') return `place-${it.entity.id}` === cardId;
+            return false;
+          })
+        : items[idx];
+      if (item) {
+        if (item.kind === 'story') {
+          const moments: Moment[] = [];
+          for (const sm of item.story.moments) {
+            const m = momentByIdRef.current.get(sm.momentId);
+            if (m) moments.push(m);
+          }
+          return { moments, label: item.story.name, meta: `${moments.length} moment${moments.length !== 1 ? 's' : ''}`, sourceType: 'story', sourceId: item.story.id };
+        }
+        if (item.kind === 'person') {
+          const moments = getMomentsForEntity(item.entity.id);
+          return { moments, label: item.entity.name, meta: `${moments.length} event${moments.length !== 1 ? 's' : ''}`, sourceType: 'entity', sourceId: item.entity.id };
+        }
+        if (item.kind === 'moment') {
+          const story = item.vl.story;
+          const year = item.vl.location.year;
+          const meta = story ? (year ? `${story.name} \u00b7 ${year}` : story.name) : (year ? `${year}` : null);
+          return { moments: [item.vl.location], label: null, meta, sourceType: 'moment', sourceId: item.vl.location.id };
+        }
+        if (item.kind === 'place') {
+          const moments = getMomentsForEntity(item.entity.id);
+          return { moments, label: item.entity.name, meta: `${moments.length} event${moments.length !== 1 ? 's' : ''}`, sourceType: 'entity', sourceId: item.entity.id };
+        }
+      }
+    }
     if (section === 'people') {
       const people = expandedSection === 'people' ? allPeopleRef.current : gridPeopleRef.current;
       const cardId = peopleActiveCardId;
@@ -1747,7 +2210,7 @@ export function HomePage({
       }
     }
     return { moments: [], label: null, meta: null, sourceType: null, sourceId: null };
-  }, [expandedSection, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx, peopleActiveCardId, storiesActiveCardId, collectionsActiveCardId, nearYouActiveCardId]);
+  }, [expandedSection, whatsHereActiveIdx, whatsHereActiveCardId, peopleActiveIdx, peopleExpandedActiveIdx, nearYouActiveIdx, nearYouExpandedActiveIdx, collectionsActiveIdx, storiesActiveIdx, peopleActiveCardId, storiesActiveCardId, collectionsActiveCardId, nearYouActiveCardId]);
 
   // Fire highlight whenever the active section or its horizontal index changes
   // Also re-fire when data changes (gridPeople/allHomeStories may load async)
@@ -1765,6 +2228,7 @@ export function HomePage({
   // triggering on mount (which would highlight LBJ before user interacts).
   // Initialize to -1 so the first detection (index 0) registers as a change,
   // allowing the first visible card to be highlighted after hasUserScrolled.
+  const prevWhatsHereIdx = useRef(-1);
   const prevPeopleIdx = useRef(-1);
   const prevStoriesIdx = useRef(-1);
   const prevCollectionsIdx = useRef(-1);
@@ -1775,6 +2239,16 @@ export function HomePage({
   // overriding a People swipe with Collections.
   const horizontalLockRef = useRef(false);
   const lastVerticalScrollTop = useRef(0);
+
+  useEffect(() => {
+    if (whatsHereActiveIdx !== prevWhatsHereIdx.current) {
+      prevWhatsHereIdx.current = whatsHereActiveIdx;
+      if (hasUserScrolledRef.current) {
+        setActiveHomeSection('whatsHere');
+        horizontalLockRef.current = true;
+      }
+    }
+  }, [whatsHereActiveIdx]);
 
   useEffect(() => {
     if (peopleActiveIdx !== prevPeopleIdx.current) {
@@ -1850,6 +2324,7 @@ export function HomePage({
 
   // ── Vertical scroll → section-aware map highlighting ──
   // As user scrolls the home page vertically, highlight pins for whichever section is in view.
+  const whatsHereSectionRef = useRef<HTMLDivElement>(null);
   const nearYouSectionRef = useRef<HTMLDivElement>(null);
   const collectionsSectionRef = useRef<HTMLDivElement>(null);
   const peopleSectionRef = useRef<HTMLDivElement>(null);
@@ -1880,6 +2355,7 @@ export function HomePage({
 
         // Check which section is at the midpoint
         const sections = [
+          { ref: whatsHereSectionRef, type: 'whatsHere' as const },
           { ref: peopleSectionRef, type: 'people' as const },
           { ref: storiesSectionRef, type: 'stories' as const },
           { ref: nearYouSectionRef, type: 'nearYou' as const },
@@ -1961,6 +2437,86 @@ export function HomePage({
         <div className="pb-3">
           <CategoryFilterPills selected={categoryFilter} onSelect={onCategoryFilter} categoriesInView={allCategoriesInView} />
         </div>
+
+        {/* ── What's Here: unified carousel (all content types, distance-sorted) ── */}
+        {whatsHereItems.length > 0 && (
+          <div ref={whatsHereSectionRef} className="pb-4">
+            <div className="px-4 mb-3 sticky top-0 z-10 bg-[var(--bg-primary)] py-2 -mt-2">
+              <h2 className="text-[18px] font-serif font-semibold text-[var(--text-primary)] tracking-[-0.01em]">
+                What&apos;s Here
+              </h2>
+              <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                {whatsHereItems.length} nearby
+              </span>
+            </div>
+            <HScrollRow scrollRef={whatsHereScrollRef}>
+              {whatsHereItems.map((item, i) => {
+                const isActive = i === whatsHereActiveIdx;
+                if (item.kind === 'story') {
+                  return (
+                    <WhatsHereStoryCard
+                      key={`story-${item.story.id}`}
+                      story={item.story}
+                      inViewCount={item.inViewCount}
+                      distance={item.distance}
+                      isActive={isActive}
+                      cardIndex={i}
+                      cardId={`story-${item.story.id}`}
+                      onClick={() => onStorySelect?.(item.story)}
+                    />
+                  );
+                }
+                if (item.kind === 'person') {
+                  const isFeature = whatsHereTopPeopleIds.has(item.entity.id);
+                  return (
+                    <WhatsHerePersonCard
+                      key={`person-${item.entity.id}`}
+                      entity={item.entity}
+                      momentCount={item.momentCount}
+                      distance={item.distance}
+                      isActive={isActive}
+                      isFeature={isFeature}
+                      cardIndex={i}
+                      cardId={`person-${item.entity.id}`}
+                      onClick={() => onEntityClick(item.entity)}
+                    />
+                  );
+                }
+                if (item.kind === 'moment') {
+                  return (
+                    <WhatsHereMomentCard
+                      key={`moment-${item.vl.location.id}`}
+                      vl={item.vl}
+                      distance={item.distance}
+                      isActive={isActive}
+                      cardIndex={i}
+                      cardId={`moment-${item.vl.location.id}`}
+                      onClick={() => {
+                        if (item.vl.story) onMomentClick(item.vl.location, item.vl.story);
+                      }}
+                    />
+                  );
+                }
+                if (item.kind === 'place') {
+                  return (
+                    <WhatsHerePlaceCard
+                      key={`place-${item.entity.id}`}
+                      entity={item.entity}
+                      momentCount={item.momentCount}
+                      distance={item.distance}
+                      isActive={isActive}
+                      cardIndex={i}
+                      cardId={`place-${item.entity.id}`}
+                      onClick={() => onEntityClick(item.entity)}
+                    />
+                  );
+                }
+                return null;
+              })}
+            </HScrollRow>
+            <ScrollTimeline items={whatsHereScrollLabels} activeIndex={whatsHereActiveIdx} orientation="horizontal" />
+          </div>
+        )}
 
         {/* ── Sections: order controlled by layoutVariant (tap hero 3x to cycle) ── */}
         {(() => {
