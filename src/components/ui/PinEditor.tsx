@@ -239,67 +239,77 @@ export function PinEditor({
           )}
         </div>
 
-        {/* Map */}
-        <div ref={mapRef} className="w-full h-[300px] sm:h-[400px]" />
-
-        {/* Satellite toggle - overlaid on map */}
+        {/* Map with overlaid controls */}
         <div className="relative">
+          <div ref={mapRef} className="w-full h-[200px] sm:h-[350px]" />
+
+          {/* Satellite toggle — top-left on map */}
           <button
             onClick={handleToggleSatellite}
-            className="absolute -top-[calc(300px-8px)] sm:-top-[calc(400px-8px)] left-2 z-[1000] px-2 py-1 text-[10px] bg-[#111]/90 text-gray-300 border border-[#2a2a2a] rounded hover:bg-[#222] transition-colors"
+            className="absolute top-2 left-2 z-[1000] px-2 py-1 text-[10px] bg-[#111]/90 text-gray-300 border border-[#2a2a2a] rounded hover:bg-[#222] transition-colors"
           >
             {satellite ? 'Dark' : 'Satellite'}
           </button>
+
+          {/* Live coordinates + moved badge — bottom overlay on map */}
+          <div className="absolute bottom-0 left-0 right-0 z-[1000] bg-gradient-to-t from-[#111] via-[#111]/90 to-transparent pt-4 pb-2 px-3">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono text-gray-300">
+                {draftLat.toFixed(6)}, {draftLng.toFixed(6)}
+              </span>
+              {coordsChanged && (
+                <span className="text-[10px] text-yellow-400 font-mono bg-yellow-400/10 px-1.5 py-0.5 rounded">moved</span>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Controls */}
-        <div className="px-4 py-3 space-y-2.5">
-          {/* Live coordinates */}
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-mono text-gray-500">
-              {draftLat.toFixed(6)}, {draftLng.toFixed(6)}
-            </span>
-            {coordsChanged && (
-              <span className="text-[10px] text-yellow-400 font-mono">moved</span>
-            )}
-          </div>
-
+        {/* Controls — below map */}
+        <div className="px-4 py-3 space-y-2">
           {/* Coordinate paste input */}
           <div>
-            <label className="block text-[10px] text-gray-500 mb-1">Coordinates</label>
-            <input
-              type="text"
-              value={coordInput}
-              onChange={(e) => setCoordInput(e.target.value)}
-              onBlur={parseCoordInput}
-              onKeyDown={(e) => { if (e.key === 'Enter') parseCoordInput(); }}
-              placeholder="30.179407, -97.792633"
-              className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50 font-mono"
-            />
+            <label className="block text-[10px] text-gray-500 mb-1">Paste coordinates</label>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={coordInput}
+                onChange={(e) => setCoordInput(e.target.value)}
+                onBlur={parseCoordInput}
+                onKeyDown={(e) => { if (e.key === 'Enter') parseCoordInput(); }}
+                placeholder="30.179407, -97.792633"
+                className="flex-1 px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50 font-mono"
+              />
+              <button
+                onClick={parseCoordInput}
+                className="px-2.5 py-1.5 text-[10px] font-medium bg-white/10 hover:bg-white/15 border border-[#2a2a2a] rounded text-gray-300 transition-colors shrink-0"
+              >
+                Apply
+              </button>
+            </div>
           </div>
 
-          {/* Address input */}
-          <div>
-            <label className="block text-[10px] text-gray-500 mb-1">Address</label>
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="123 Main St, City, State"
-              className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50"
-            />
-          </div>
-
-          {/* Source URL input */}
-          <div>
-            <label className="block text-[10px] text-gray-500 mb-1">Source URL</label>
-            <input
-              type="text"
-              value={sourceUrl}
-              onChange={(e) => setSourceUrl(e.target.value)}
-              placeholder="Google Maps link, wiki, etc."
-              className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50"
-            />
+          {/* Address + Source URL — compact 2-column on wider screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[10px] text-gray-500 mb-1">Address</label>
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="123 Main St, City, State"
+                className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50"
+              />
+            </div>
+            <div>
+              <label className="block text-[10px] text-gray-500 mb-1">Source URL</label>
+              <input
+                type="text"
+                value={sourceUrl}
+                onChange={(e) => setSourceUrl(e.target.value)}
+                placeholder="Google Maps link, wiki, etc."
+                className="w-full px-2.5 py-1.5 bg-[#0a0a0a] border border-[#2a2a2a] rounded text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-red-500/50"
+              />
+            </div>
           </div>
 
           {/* Error display */}

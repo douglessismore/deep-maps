@@ -329,15 +329,33 @@ function App() {
     if (activeCollection && !story.moments.some(sm => activeCollection.momentIds.includes(sm.momentId))) {
       setActiveCollection(null);
     }
+
+    // Find the nearest moment to the current map center so the map zooms there
+    // instead of zooming out to fit ALL story moments
+    let nearestMoment: Moment | null = null;
+    if (mapInstance) {
+      const center = mapInstance.getCenter();
+      const storyMoments = resolveLocationsFromMap(story, momentMap);
+      let minDist = Infinity;
+      for (const m of storyMoments) {
+        const d = distanceMiles(center.lat, center.lng, m.lat, m.lng);
+        if (d < minDist) {
+          minDist = d;
+          nearestMoment = m;
+        }
+      }
+    }
+
     setActiveStory(story);
-    setActiveLocation(null);
+    setActiveLocation(nearestMoment);
     setActiveEntity(null);
     setCategoryFilter(null);
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
+    if (nearestMoment) setZoomToActiveLocation(true);
     setMode('story');
     setPanelView('explorer');
-  }, [activeCollection, pushNav]);
+  }, [activeCollection, pushNav, mapInstance, momentMap]);
 
   const handleLocationSelect = useCallback((location: Moment, story: Story) => {
     pushNav();

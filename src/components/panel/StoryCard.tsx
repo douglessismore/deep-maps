@@ -26,8 +26,24 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
           : 'bg-[var(--bg-card)] rounded-[14px] overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg hover:shadow-black/30 active:scale-[0.97]'
         }
       >
-        {/* Category color bar — V2: thicker accent pill */}
-        <div className={v2 ? 'h-1' : 'h-[3px]'} style={{ backgroundColor: cat.color }} />
+        {/* Hero image */}
+        {story.imageUrl && !compact && (
+          <div className="relative w-full h-32 overflow-hidden">
+            <img
+              src={story.imageUrl}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent" />
+            {/* Category color bar overlaid on image bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ backgroundColor: cat.color }} />
+          </div>
+        )}
+        {/* Category color bar — only when no image */}
+        {(!story.imageUrl || compact) && (
+          <div className={v2 ? 'h-1' : 'h-[3px]'} style={{ backgroundColor: cat.color }} />
+        )}
 
         <div className={compact ? 'p-3' : (v2 ? 'p-5' : 'p-4')}>
           {/* Header */}

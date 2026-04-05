@@ -12,6 +12,8 @@ import { panToAboveSheet } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { StoryCard } from './StoryCard';
 import { PersonCard } from './PersonCard';
+import { ScrollTimeline } from '../ui/ScrollTimeline';
+import type { ScrollTimelineItem } from '../ui/ScrollTimeline';
 import { CollectionCard } from './CollectionCard';
 import { LocationCard } from './LocationCard';
 import { HomePage } from './HomePage';
@@ -1329,26 +1331,24 @@ export function ExplorePanel({
           />
         ) : (
           <>
-            {/* Sort toggle */}
-            <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-              {(['notable', 'nearest', 'a-z'] as const).map((mode, i) => (
-                <span key={mode} className="flex items-center">
-                  {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
-                  <button
-                    onClick={() => {
-                      hasManualSort.current = true;
-                      setStorySort(mode);
-                      if (mode === 'nearest' && !userLocation) onRequestGeo?.();
-                    }}
-                    className={`transition-colors ${
-                      storySort === mode
-                        ? 'text-[var(--text-primary)]'
-                        : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                    }`}
-                  >
-                    {mode === 'a-z' ? 'A-Z (People)' : mode.charAt(0).toUpperCase() + mode.slice(1)}
-                  </button>
-                </span>
+            {/* Sort toggle — pill style matching HomePage */}
+            <div className="flex items-center gap-2 mb-3">
+              {(['notable', 'nearest', 'a-z'] as const).map((mode) => (
+                <button
+                  key={mode}
+                  onClick={() => {
+                    hasManualSort.current = true;
+                    setStorySort(mode);
+                    if (mode === 'nearest' && !userLocation) onRequestGeo?.();
+                  }}
+                  className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
+                    storySort === mode
+                      ? 'bg-white/15 text-[var(--text-primary)] ring-1 ring-white/20'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-white/5'
+                  }`}
+                >
+                  {mode === 'a-z' ? 'A-Z' : mode.charAt(0).toUpperCase() + mode.slice(1)}
+                </button>
               ))}
             </div>
             {storySort === 'a-z' ? (
@@ -1382,7 +1382,18 @@ export function ExplorePanel({
               </>
             ) : (
               /* Mixed story + person cards (Notable / Nearest) */
-              mixedList.map((item) => {
+              <>
+              {/* Vertical ScrollTimeline for story list */}
+              {mixedList.length > 3 && (() => {
+                const activeIdx = scrollActiveStoryId
+                  ? mixedList.findIndex(item => item.kind === 'story' ? item.story.id === scrollActiveStoryId : item.data.entity.id === scrollActiveStoryId)
+                  : 0;
+                const timelineItems: ScrollTimelineItem[] = mixedList.map(item => ({
+                  label: item.kind === 'story' ? (item.story.years ?? null) : (item.data.entity.years ?? null),
+                }));
+                return <ScrollTimeline items={timelineItems} activeIndex={Math.max(0, activeIdx)} orientation="vertical" />;
+              })()}
+              {mixedList.map((item) => {
                 if (item.kind === 'story') {
                   return (
                     <div
@@ -1428,7 +1439,8 @@ export function ExplorePanel({
                     </div>
                   );
                 }
-              })
+              })}
+              </>
             )}
           </>
         )}

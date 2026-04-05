@@ -55,6 +55,10 @@ type ExpandedSection = 'nearYou' | 'stories' | 'collections' | 'people' | null;
 // Module-level: persists across HomePage unmount/remount so horizontal scroll
 // positions survive back navigation (component unmounts when viewing entity/story).
 let savedPeopleScrollLeft = 0;
+let savedStoriesScrollLeft = 0;
+let savedNearYouScrollLeft = 0;
+let savedCollectionsScrollLeft = 0;
+let isRestoringFromBack = false; // skip viewport-change scroll reset during back nav
 
 interface HomePageProps {
   /** Viewport-filtered moments sorted by hybridNearestScore */
@@ -1476,14 +1480,32 @@ export function HomePage({
   const peopleScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed people
   const storiesScrollRef = useRef<HTMLDivElement | null>(null); // horizontal scroll for collapsed stories
 
-  // Save people horizontal scroll on unmount, restore on mount
+  // Save all carousel horizontal scroll on unmount, restore on mount
   useEffect(() => {
     if (peopleScrollRef.current && savedPeopleScrollLeft > 0) {
       peopleScrollRef.current.scrollLeft = savedPeopleScrollLeft;
     }
+    if (storiesScrollRef.current && savedStoriesScrollLeft > 0) {
+      storiesScrollRef.current.scrollLeft = savedStoriesScrollLeft;
+    }
+    if (nearYouScrollRef.current && savedNearYouScrollLeft > 0) {
+      nearYouScrollRef.current.scrollLeft = savedNearYouScrollLeft;
+    }
+    if (collectionsScrollRef.current && savedCollectionsScrollLeft > 0) {
+      collectionsScrollRef.current.scrollLeft = savedCollectionsScrollLeft;
+    }
     return () => {
       if (peopleScrollRef.current) {
         savedPeopleScrollLeft = peopleScrollRef.current.scrollLeft;
+      }
+      if (storiesScrollRef.current) {
+        savedStoriesScrollLeft = storiesScrollRef.current.scrollLeft;
+      }
+      if (nearYouScrollRef.current) {
+        savedNearYouScrollLeft = nearYouScrollRef.current.scrollLeft;
+      }
+      if (collectionsScrollRef.current) {
+        savedCollectionsScrollLeft = collectionsScrollRef.current.scrollLeft;
       }
     };
   }, []);
@@ -1491,12 +1513,15 @@ export function HomePage({
   // ── Reset horizontal scroll when viewport data changes (map pan) ──
   // When the map is panned, in-view cards reshuffle to the beginning of each row.
   // Reset scrollLeft so the user sees the new in-view cards, not stale backfill.
+  // SKIP reset during back navigation so saved positions survive the map restore.
   const prevFirstPeopleId = useRef(gridPeople[0]?.entity.id);
   const prevFirstStoryId = useRef(allHomeStories[0]?.id);
   const prevFirstMomentId = useRef(nearYouMoments[0]?.location.id);
   const prevFirstCollectionId = useRef(filteredCollections[0]?.id);
 
   useEffect(() => {
+    if (isRestoringFromBack) return; // don't reset during back-nav restore
+
     const curPeople = gridPeople[0]?.entity.id;
     const curStory = allHomeStories[0]?.id;
     const curMoment = nearYouMoments[0]?.location.id;
@@ -1508,15 +1533,15 @@ export function HomePage({
     }
     if (curStory !== prevFirstStoryId.current) {
       prevFirstStoryId.current = curStory;
-      if (storiesScrollRef.current) storiesScrollRef.current.scrollLeft = 0;
+      if (storiesScrollRef.current) { storiesScrollRef.current.scrollLeft = 0; savedStoriesScrollLeft = 0; }
     }
     if (curMoment !== prevFirstMomentId.current) {
       prevFirstMomentId.current = curMoment;
-      if (nearYouScrollRef.current) nearYouScrollRef.current.scrollLeft = 0;
+      if (nearYouScrollRef.current) { nearYouScrollRef.current.scrollLeft = 0; savedNearYouScrollLeft = 0; }
     }
     if (curCollection !== prevFirstCollectionId.current) {
       prevFirstCollectionId.current = curCollection;
-      if (collectionsScrollRef.current) collectionsScrollRef.current.scrollLeft = 0;
+      if (collectionsScrollRef.current) { collectionsScrollRef.current.scrollLeft = 0; savedCollectionsScrollLeft = 0; }
     }
   }, [gridPeople, allHomeStories, nearYouMoments, filteredCollections]);
 
@@ -1549,14 +1574,33 @@ export function HomePage({
   // ── Restore scroll position after back navigation ──
   // Nudge 100px upward so the clicked card is comfortably in view, not at the bottom edge.
   // Use a short timeout to let the DOM fully render before restoring scroll position.
+  // Set isRestoringFromBack to prevent viewport-change scroll resets during restore.
   useEffect(() => {
     if (restoreScrollTop == null || !homeScrollRef.current) return;
+    isRestoringFromBack = true;
     const timer = setTimeout(() => {
       if (homeScrollRef.current) {
         homeScrollRef.current.scrollTop = Math.max(0, restoreScrollTop - 100);
         // Dispatch scroll event so the section observer detects the restored position
         homeScrollRef.current.dispatchEvent(new Event('scroll'));
       }
+      // Re-apply saved horizontal positions after DOM settles (carousel refs may not be ready yet)
+      requestAnimationFrame(() => {
+        if (peopleScrollRef.current && savedPeopleScrollLeft > 0) {
+          peopleScrollRef.current.scrollLeft = savedPeopleScrollLeft;
+        }
+        if (storiesScrollRef.current && savedStoriesScrollLeft > 0) {
+          storiesScrollRef.current.scrollLeft = savedStoriesScrollLeft;
+        }
+        if (nearYouScrollRef.current && savedNearYouScrollLeft > 0) {
+          nearYouScrollRef.current.scrollLeft = savedNearYouScrollLeft;
+        }
+        if (collectionsScrollRef.current && savedCollectionsScrollLeft > 0) {
+          collectionsScrollRef.current.scrollLeft = savedCollectionsScrollLeft;
+        }
+        // Allow viewport-change resets again after restore settles
+        setTimeout(() => { isRestoringFromBack = false; }, 500);
+      });
       onScrollRestored?.();
     }, 50);
     return () => clearTimeout(timer);
