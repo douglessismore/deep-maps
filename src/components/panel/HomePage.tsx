@@ -909,14 +909,14 @@ function WhatsHereStoryCard({
           <div className="relative w-full flex-1 min-h-0 overflow-hidden">
             <img src={story.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <span className="wh-type-label absolute top-2 left-2 z-10 !bg-black/50 backdrop-blur-sm" style={{ color: cat?.color ?? '#ccc' }}>Story</span>
             <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
               <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
                 {story.name}
               </h4>
             </div>
           </div>
-          <div className="px-3 py-2 flex items-center justify-between">
-            <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Story</span>
+          <div className="px-3 py-2 flex items-center justify-end">
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {story.years} &middot; {inViewCount < total ? `${inViewCount}/${total}` : total} moments &middot; {formatDistance(distance)}
             </span>
@@ -986,11 +986,11 @@ function WhatsHerePersonCard({
           <img
             src={entity.imageUrl}
             alt={entity.name}
-            className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)] mt-0.5"
+            className="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-[rgba(139,92,246,0.3)] mt-4"
             loading="lazy"
           />
         ) : (
-          <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 mt-0.5">
+          <span className="w-16 h-16 rounded-full bg-[rgba(139,92,246,0.15)] ring-1 ring-[rgba(139,92,246,0.3)] flex items-center justify-center text-[18px] font-bold text-[rgba(139,92,246,0.8)] shrink-0 mt-4">
             {entity.name[0].toUpperCase()}
           </span>
         )}
@@ -1024,83 +1024,6 @@ function WhatsHerePersonCard({
   );
 }
 
-function WhatsHereMomentCard({
-  vl,
-  distance,
-  isActive,
-  suppressStoryImage,
-  onClick,
-  cardIndex,
-  cardId,
-}: {
-  vl: ViewportLocation;
-  distance: number;
-  isActive?: boolean;
-  /** When true, don't fall back to parent story's image (avoids duplicate with story card) */
-  suppressStoryImage?: boolean;
-  onClick: () => void;
-  cardIndex?: number;
-  cardId?: string;
-}) {
-  const cat = vl.story ? CATEGORIES[vl.story.category] : undefined;
-  // Use moment's own media if available; only fall back to story image when not suppressed
-  const ownImage = vl.location.media?.[0]?.type === 'image' ? vl.location.media[0].url : null;
-  const heroImage = ownImage ?? (suppressStoryImage ? null : (vl.story?.imageUrl ?? null));
-
-  return (
-    <button
-      onClick={onClick}
-      data-card-index={cardIndex}
-      data-card-id={cardId}
-      className={`${WHATS_HERE_CARD_W} h-[150px] shrink-0 snap-start rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card-hover)] transition-all duration-200 active:scale-[0.97] text-left overflow-hidden`}
-      style={cardHighlightStyle(!!isActive, cat?.color)}
-    >
-      {heroImage ? (
-        /* Image card: image fills top, title overlaid */
-        <div className="flex flex-col h-full">
-          <div className="relative w-full flex-1 min-h-0 overflow-hidden">
-            <img src={heroImage} alt="" className="w-full h-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
-              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
-                {vl.location.name}
-              </h4>
-            </div>
-          </div>
-          <div className="px-3 py-2 flex items-center justify-between">
-            <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Moment</span>
-            <span className="text-[10px] font-mono text-[var(--text-muted)]">
-              {vl.location.year ? `${vl.location.year} · ` : ''}{formatDistance(distance)}
-            </span>
-          </div>
-        </div>
-      ) : (
-        /* No-image card: color bar + text */
-        <div className="flex flex-col h-full">
-          <div className="h-[3px] shrink-0" style={{ backgroundColor: cat?.color ?? '#666' }} />
-          <div className="px-3 pt-2.5 pb-2 flex flex-col justify-between flex-1">
-            <div>
-              <span className="wh-type-label" style={{ color: cat?.color ?? 'var(--text-muted)', backgroundColor: `${cat?.color ?? '#666'}1a` }}>Moment</span>
-              <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2">
-                {vl.location.name}
-              </h4>
-              {vl.story && (
-                <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">
-                  {vl.story.nickname && vl.story.nickname.includes(' ') ? vl.story.nickname : vl.story.name}
-                </p>
-              )}
-            </div>
-            <div className="flex items-center gap-2 mt-auto pt-1">
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                {vl.location.year ? `${vl.location.year} · ` : ''}{formatDistance(distance)}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-    </button>
-  );
-}
 
 function WhatsHerePlaceCard({
   entity,
@@ -1135,14 +1058,14 @@ function WhatsHerePlaceCard({
           <div className="relative w-full flex-1 min-h-0 overflow-hidden">
             <img src={entity.imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent" />
+            <span className="wh-type-label absolute top-2 left-2 z-10 !bg-black/50 backdrop-blur-sm" style={{ color: 'rgba(5,150,105,0.9)' }}>Place</span>
             <div className="absolute bottom-0 left-0 right-0 px-3 pb-1">
               <h4 className="text-[14px] font-serif font-bold text-white leading-tight line-clamp-2 drop-shadow-sm">
                 {entity.name}
               </h4>
             </div>
           </div>
-          <div className="px-3 py-2 flex items-center justify-between">
-            <span className="wh-type-label" style={{ color: 'rgba(5,150,105,0.9)', backgroundColor: 'rgba(5,150,105,0.12)' }}>Place</span>
+          <div className="px-3 py-2 flex items-center justify-end">
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
               {momentCount} events &middot; {formatDistance(distance)}
             </span>
@@ -1602,14 +1525,6 @@ export function HomePage({
       .filter((x): x is NonNullable<typeof x> => x !== null);
   }, [entities, viewportMomentIds, sortCenter, categoryFilter, momentToStoryMap]);
 
-  // Stories present in What's Here — used to suppress duplicate hero images on moment cards
-  const whatsHereStoryIds = useMemo(() => {
-    const storiesInView = viewportStories ?? [];
-    return new Set(storiesInView
-      .filter(s => categoryFilter === null || s.category === categoryFilter)
-      .map(s => s.id));
-  }, [viewportStories, categoryFilter]);
-
   const whatsHereItems = useMemo((): WhatsHereItem[] => {
     if (!sortCenter) return [];
     const items: WhatsHereItem[] = [];
@@ -1637,16 +1552,8 @@ export function HomePage({
       items.push({ kind: 'person', entity: p.entity, momentCount: p.momentCount, maxNotability: p.maxNotability, distance: minDist });
     }
 
-    // 3. Individual moments in viewport
-    const momentsInView = viewportLocations
-      .filter(vl => vl.story !== null)
-      .filter(vl => categoryFilter === null || getVlCategory(vl) === categoryFilter);
-    for (const vl of momentsInView) {
-      const dist = sortCenter
-        ? distanceMiles(sortCenter.lat, sortCenter.lng, vl.location.lat, vl.location.lng)
-        : vl.distance;
-      items.push({ kind: 'moment', vl, distance: dist });
-    }
+    // 3. Moments excluded from What's Here — they live in the dedicated Moments section below.
+    // Stories and people are the navigable units; moments are the detail inside them.
 
     // 4. Place entities in viewport
     for (const p of viewportPlaceEntities) {
@@ -2546,22 +2453,6 @@ export function HomePage({
                       cardIndex={i}
                       cardId={`person-${item.entity.id}`}
                       onClick={() => onEntityClick(item.entity)}
-                    />
-                  );
-                }
-                if (item.kind === 'moment') {
-                  return (
-                    <WhatsHereMomentCard
-                      key={`moment-${item.vl.location.id}`}
-                      vl={item.vl}
-                      distance={item.distance}
-                      isActive={isActive}
-                      suppressStoryImage={!!item.vl.story && whatsHereStoryIds.has(item.vl.story.id)}
-                      cardIndex={i}
-                      cardId={`moment-${item.vl.location.id}`}
-                      onClick={() => {
-                        if (item.vl.story) onMomentClick(item.vl.location, item.vl.story);
-                      }}
                     />
                   );
                 }
