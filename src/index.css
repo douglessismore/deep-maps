@@ -790,6 +790,30 @@ html, body, #root {
   }
 }
 
+/* ===== Inline marker labels (embedded in DivIcon, not Leaflet tooltips) ===== */
+/* These replace permanent Leaflet tooltips to avoid mobile edge-bleeding issues.
+   Labels are clipped by the map container's contain:paint when near edges. */
+.marker-inline-label {
+  white-space: nowrap;
+  width: max-content;
+  max-width: 200px;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .marker-inline-label.dark-tooltip {
+    max-width: 150px !important;
+  }
+}
+.marker-inline-label strong {
+  white-space: normal;
+}
+
+/* Ensure map container clips overflowing labels/tooltips cleanly */
+.leaflet-container {
+  overflow: hidden !important;
+  contain: paint !important;
+}
+
 /* Arrow colors match the glassmorphism background */
 .dark-tooltip::before {
   border-top-color: rgba(12, 12, 16, 0.88) !important;
@@ -831,6 +855,7 @@ html, body, #root {
   pointer-events: auto;
   cursor: pointer;
   white-space: nowrap;
+  width: max-content; /* Escape the 12px DivIcon parent constraint */
 }
 .scroll-label-text {
   font-family: 'Newsreader', Georgia, serif;
@@ -838,8 +863,11 @@ html, body, #root {
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.3;
-  max-width: 260px;
+  width: max-content;
+  min-width: 120px;
+  max-width: min(260px, calc(100vw - 80px));
   white-space: normal;
+  flex-shrink: 0; /* Don't collapse inside the narrow DivIcon flex parent */
   padding: 6px 10px;
   animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1) both;
 }

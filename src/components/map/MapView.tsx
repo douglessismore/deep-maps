@@ -178,6 +178,61 @@ function createMarkerIcon(color: string, size: number, isActive: boolean, isScro
   });
 }
 
+/**
+ * Creates a marker icon with an inline text label embedded in the DivIcon HTML.
+ * Used for permanent labels in focused mode — avoids Leaflet's tooltip positioning
+ * entirely, which solves the mobile label-bleeding-off-screen problem.
+ * The label is positioned absolutely next to the dot and will be clipped by the
+ * map container's overflow:hidden when near edges (clean clip, not bleeding).
+ */
+function createLabeledMarkerIcon(
+  color: string, size: number, isActive: boolean, isScrollHighlighted?: boolean,
+  opacity?: number, label?: number, labelText?: string, labelDir: 'left' | 'right' | 'top' = 'right'
+): L.DivIcon {
+  const displaySize = isScrollHighlighted && !isActive ? Math.max(size * 1.6, 16) : size;
+  const classes = `story-marker${isActive ? ' active pulsing' : isScrollHighlighted ? ' scroll-highlighted' : ''}`;
+  const opacityStyle = opacity !== undefined ? `opacity:${opacity};` : '';
+
+  const numberHtml = label !== undefined && displaySize >= 10
+    ? `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:${Math.max(8, displaySize * 0.55)}px;font-weight:700;font-family:'Space Grotesk','Courier New',monospace;color:#000;opacity:0.8;pointer-events:none;">${label}</span>`
+    : '';
+
+  // The inline label positioned next to the dot — direction-aware to avoid edge clipping
+  const anchorSize = isMobileDevice && displaySize < MIN_TOUCH_TARGET ? MIN_TOUCH_TARGET : displaySize;
+  let posStyle: string;
+  if (labelDir === 'top') {
+    // Center above the marker — safest for mobile, avoids left/right edge clipping
+    posStyle = `bottom:${anchorSize + 4}px;left:50%;transform:translateX(-50%);text-align:center;`;
+  } else if (labelDir === 'right') {
+    posStyle = `left:${anchorSize + 4}px;top:50%;transform:translateY(-50%);`;
+  } else {
+    posStyle = `right:${anchorSize + 4}px;top:50%;transform:translateY(-50%);`;
+  }
+  const textLabelHtml = labelText
+    ? `<div class="marker-inline-label dark-tooltip" style="position:absolute;${posStyle}pointer-events:auto;cursor:pointer;">` +
+      `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${labelText}</strong></div>`
+    : '';
+
+  const dotHtml = `<div class="${classes}" style="position:relative;width:${displaySize}px;height:${displaySize}px;background:${color};color:${color};${opacityStyle}">${numberHtml}</div>`;
+
+  // Wrap in a relative container so the label can be absolutely positioned
+  if (isMobileDevice && displaySize < MIN_TOUCH_TARGET) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="position:relative;width:${MIN_TOUCH_TARGET}px;height:${MIN_TOUCH_TARGET}px;display:flex;align-items:center;justify-content:center;">${dotHtml}${textLabelHtml}</div>`,
+      iconSize: [MIN_TOUCH_TARGET, MIN_TOUCH_TARGET],
+      iconAnchor: [MIN_TOUCH_TARGET / 2, MIN_TOUCH_TARGET / 2],
+    });
+  }
+
+  return L.divIcon({
+    className: '',
+    html: `<div style="position:relative;width:${displaySize}px;height:${displaySize}px;">${dotHtml}${textLabelHtml}</div>`,
+    iconSize: [displaySize, displaySize],
+    iconAnchor: [displaySize / 2, displaySize / 2],
+  });
+}
+
 function createConstellationIcon(
   cluster: ConstellationClusterProps & { point_count: number },
   variant: ConstellationVariant = 'classic',
@@ -445,18 +500,31 @@ function MapController({
             existing.isFaded !== isFaded ||
             existing.effectiveSize !== effectiveSize;
 
-          if (needsRebuild) {
-            existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label));
-          }
-
-          if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
+          if (needsRebuild || existing.permanentTooltip !== permanentTooltip) {
+            // Use labeled icon when permanent label needed; plain icon otherwise
+            if (permanentTooltip) {
+              // Position label where there's most space — top on mobile when sides are tight
+              const pt = map.latLngToContainerPoint([location.lat, location.lng]);
+              const mapSz = map.getSize();
+              const spaceRight = mapSz.x - pt.x;
+              const spaceLeft = pt.x;
+              const minSideSpace = 170; // need ~150px label + marker + gap
+              const labelDir: 'left' | 'right' | 'top' =
+                (spaceRight < minSideSpace && spaceLeft < minSideSpace) ? 'top' :
+                spaceRight >= spaceLeft ? 'right' : 'left';
+              existing.marker.setIcon(createLabeledMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label, location.name, labelDir));
+            } else {
+              existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label));
+            }
+            // Hover tooltip for non-permanent labels only
             existing.marker.unbindTooltip();
-            // Tooltip offset should clear the visible marker, not just the icon edge
-            const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
-            existing.marker.bindTooltip(
-              `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
-              { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
-            );
+            if (!permanentTooltip) {
+              const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
+              existing.marker.bindTooltip(
+                `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
+                { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: false }
+              );
+            }
           }
 
           existing.isActive = isActive;
@@ -466,13 +534,29 @@ function MapController({
           existing.notabilityAlpha = 1;
           existing.effectiveSize = effectiveSize;
         } else {
-          const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
+          // Use labeled icon when permanent label needed; plain icon + hover tooltip otherwise
+          let icon: L.DivIcon;
+          if (permanentTooltip) {
+            const pt = map.latLngToContainerPoint([location.lat, location.lng]);
+            const mapSz = map.getSize();
+            const spaceRight = mapSz.x - pt.x;
+            const spaceLeft = pt.x;
+            const minSideSpace = 170;
+            const labelDir: 'left' | 'right' | 'top' =
+              (spaceRight < minSideSpace && spaceLeft < minSideSpace) ? 'top' :
+              spaceRight >= spaceLeft ? 'right' : 'left';
+            icon = createLabeledMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label, location.name, labelDir);
+          } else {
+            icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
+          }
           const marker = L.marker([location.lat, location.lng], { icon });
-          const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
-          marker.bindTooltip(
-            `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
-            { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
-          );
+          if (!permanentTooltip) {
+            const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
+            marker.bindTooltip(
+              `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
+              { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: false }
+            );
+          }
           marker.on('click', () => { if (story) onLocationClick(location, story); });
           group.addLayer(marker);
           prevMarkers.set(key, {
@@ -780,7 +864,7 @@ function MapController({
       const fromPt = map.latLngToContainerPoint([from.lat, from.lng]);
       const toPt = map.latLngToContainerPoint([to.lat, to.lng]);
       const pixelDist = Math.hypot(toPt.x - fromPt.x, toPt.y - fromPt.y);
-      if (pixelDist < 40) continue; // Too close — arrowhead overlaps markers
+      if (pixelDist < 100) continue; // Too close — arrowhead overlaps markers on mobile
 
       const midLat = (from.lat + to.lat) / 2;
       const midLng = (from.lng + to.lng) / 2;
@@ -792,7 +876,7 @@ function MapController({
       const arrow = L.marker([midLat, midLng], {
         icon: L.divIcon({
           className: '',
-          html: `<div style="transform:rotate(${-angle + 90}deg);color:${pathColor};opacity:0.5;font-size:10px;line-height:1;">▾</div>`,
+          html: `<div style="transform:rotate(${-angle + 90}deg);color:${pathColor};opacity:0.3;font-size:8px;line-height:1;">▾</div>`,
           iconSize: [10, 10],
           iconAnchor: [5, 5],
         }),
