@@ -453,11 +453,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                   if (!user) { setShowLogin(true); return; }
                   setSuggestEditorOpen(true);
                 }}
-                className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                  <circle cx="5" cy="5" r="4" stroke="currentColor" strokeWidth="1" strokeDasharray="2 1.5"/>
-                  <path d="M5 3v4M3 5h4" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round"/>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
+                  <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" strokeDasharray="2.5 2"/>
+                  <path d="M6 4v4M4 6h4" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                 </svg>
                 Suggest a more accurate location
               </button>
