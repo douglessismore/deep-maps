@@ -801,7 +801,7 @@ html, body, #root {
 }
 @media (max-width: 768px) {
   .marker-inline-label.dark-tooltip {
-    max-width: 150px !important;
+    max-width: 180px !important;
   }
 }
 .marker-inline-label strong {

@@ -854,37 +854,10 @@ function MapController({
     // User controls zoom; clicking a story still zooms to its bounds.
     prevPathMomentIds.current = sorted.map(m => m.id).join(',');
 
-    // Add small directional arrows at midpoints of each segment
-    // Skip arrows for very short segments — they overlap markers and look like double dots
-    pathArrowheadsRef.current.addTo(map);
-    for (let i = 0; i < sorted.length - 1; i++) {
-      const from = sorted[i];
-      const to = sorted[i + 1];
-      // Check pixel distance — skip arrow if segment is too short on screen
-      const fromPt = map.latLngToContainerPoint([from.lat, from.lng]);
-      const toPt = map.latLngToContainerPoint([to.lat, to.lng]);
-      const pixelDist = Math.hypot(toPt.x - fromPt.x, toPt.y - fromPt.y);
-      if (pixelDist < 100) continue; // Too close — arrowhead overlaps markers on mobile
-
-      const midLat = (from.lat + to.lat) / 2;
-      const midLng = (from.lng + to.lng) / 2;
-      // Calculate angle for arrow direction
-      const dy = to.lat - from.lat;
-      const dx = to.lng - from.lng;
-      const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-
-      const arrow = L.marker([midLat, midLng], {
-        icon: L.divIcon({
-          className: '',
-          html: `<div style="transform:rotate(${-angle + 90}deg);color:${pathColor};opacity:0.3;font-size:8px;line-height:1;">▾</div>`,
-          iconSize: [10, 10],
-          iconAnchor: [5, 5],
-        }),
-        interactive: false,
-        zIndexOffset: -500,
-      });
-      pathArrowheadsRef.current.addLayer(arrow);
-    }
+    // Path arrowheads removed — dashed polyline communicates direction sufficiently,
+    // and arrowhead markers at segment midpoints were consistently mistaken for
+    // duplicate pins on mobile (6+ rounds of confusion). The layer group ref is
+    // kept for cleanup compatibility but stays empty.
 
     return () => {
       if (pathLineRef.current) {
