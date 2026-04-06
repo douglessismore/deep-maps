@@ -470,9 +470,7 @@ function MapController({
           const marker = L.marker([location.lat, location.lng], { icon });
           const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
           marker.bindTooltip(
-            `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
-              <strong>${location.name}</strong>
-            </div>`,
+            `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
             { direction: 'right', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
           );
           marker.on('click', () => { if (story) onLocationClick(location, story); });

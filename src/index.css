@@ -759,6 +759,7 @@ html, body, #root {
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     inset 0 0 20px rgba(255, 255, 255, 0.015) !important;
   padding: 6px 10px !important;
+  width: max-content !important;
   max-width: 260px !important;
   min-width: 100px !important;
   white-space: normal !important;
@@ -766,7 +767,7 @@ html, body, #root {
   cursor: pointer;
   pointer-events: auto !important;
   animation: tooltip-appear 0.25s cubic-bezier(0.2, 0.9, 0.3, 1) both !important;
-  transition: background 0.15s, box-shadow 0.2s, border-color 0.2s, transform 0.15s !important;
+  transition: background 0.15s, box-shadow 0.2s, border-color 0.2s !important;
 }
 
 .dark-tooltip:hover {
@@ -776,18 +777,15 @@ html, body, #root {
     0 0 20px rgba(139, 92, 246, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(139, 92, 246, 0.35) !important;
-  transform: translateY(-1px);
 }
 
 @keyframes tooltip-appear {
   from {
     opacity: 0;
-    transform: translateY(6px) scale(0.94);
     filter: blur(2px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
     filter: blur(0);
   }
 }
