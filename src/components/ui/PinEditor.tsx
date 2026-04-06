@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import { supabase } from '../../lib/supabase';
+import type { LocationAccuracy } from '../../types';
+import { submitSuggestion } from '../../lib/verification';
 
 const SAT_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const SAT_TILE_ATTR = '&copy; <a href="https://www.esri.com/">Esri</a>';
@@ -22,6 +24,13 @@ const DRAGGABLE_MARKER_ICON = L.divIcon({
   iconAnchor: [9, 9],
 });
 
+const ACCURACY_OPTIONS: { value: LocationAccuracy; label: string }[] = [
+  { value: 'pinpoint', label: 'Pinpoint' },
+  { value: 'exact', label: 'Exact' },
+  { value: 'approximate', label: 'Approx' },
+  { value: 'general-area', label: 'Area' },
+];
+
 interface PinEditorProps {
   momentId: string;
   lat: number;
@@ -33,6 +42,8 @@ interface PinEditorProps {
   momentName: string;
   onClose: () => void;
   onSaved?: (lat: number, lng: number, address: string) => void;
+  /** 'admin' = direct save (default), 'suggest' = creates a community suggestion */
+  mode?: 'admin' | 'suggest';
 }
 
 export function PinEditor({
@@ -40,11 +51,13 @@ export function PinEditor({
   lat,
   lng,
   address: initialAddress,
+  accuracy,
   geoSourceUrl: initialSourceUrl,
   geoVerified,
   momentName,
   onClose,
   onSaved,
+  mode = 'admin',
 }: PinEditorProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -61,6 +74,9 @@ export function PinEditor({
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Suggestion-mode fields
+  const [suggestAccuracy, setSuggestAccuracy] = useState<LocationAccuracy>((accuracy as LocationAccuracy) ?? 'approximate');
+  const [explanation, setExplanation] = useState('');
 
   // Update coord input when marker is dragged
   useEffect(() => {
@@ -156,7 +172,38 @@ export function PinEditor({
     setError('Invalid coordinates. Use format: 30.179407, -97.792633');
   }, [coordInput]);
 
-  // Save handler
+  // Suggestion save handler
+  const handleSuggest = async () => {
+    if (!sourceUrl.trim()) {
+      setError('Source URL is required for suggestions');
+      return;
+    }
+    if (!explanation.trim()) {
+      setError('Please explain why this location is more accurate');
+      return;
+    }
+    setSaving(true);
+    setError(null);
+    try {
+      const result = await submitSuggestion({
+        momentId,
+        lat: draftLat,
+        lng: draftLng,
+        accuracyLevel: suggestAccuracy,
+        explanation: explanation.trim(),
+        sourceUrl: sourceUrl.trim(),
+      });
+      if (result.error) throw new Error(result.error);
+      setSaved(true);
+      setTimeout(() => onClose(), 1200);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Submission failed');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Admin save handler
   const handleSave = async () => {
     setSaving(true);
     setError(null);
@@ -222,7 +269,7 @@ export function PinEditor({
         <div className="px-4 pt-4 pb-2">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-[var(--text-primary)] truncate pr-2">
-              Edit Location
+              {mode === 'suggest' ? 'Suggest Better Location' : 'Edit Location'}
             </h3>
             <button
               onClick={onClose}
@@ -303,6 +350,43 @@ export function PinEditor({
             </div>
           </div>
 
+          {/* Suggestion-mode: accuracy selector + explanation */}
+          {mode === 'suggest' && (
+            <>
+              <div>
+                <label className="block text-[10px] text-[var(--text-muted)] mb-1">Accuracy Level</label>
+                <div className="flex gap-1">
+                  {ACCURACY_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => setSuggestAccuracy(opt.value)}
+                      className={`flex-1 py-1.5 rounded text-[10px] font-medium transition-all border ${
+                        suggestAccuracy === opt.value
+                          ? 'bg-red-500/15 border-red-500/40 text-red-400'
+                          : 'bg-[var(--bg-primary)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--border-hover)]'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] text-[var(--text-muted)] mb-1">
+                  Why is this more accurate? <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  value={explanation}
+                  onChange={(e) => setExplanation(e.target.value)}
+                  placeholder="I found the exact spot using historical aerial photos..."
+                  rows={2}
+                  className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50 resize-none"
+                />
+              </div>
+            </>
+          )}
+
           {/* Error display */}
           {error && (
             <p className="text-[11px] text-red-400">{error}</p>
@@ -317,7 +401,7 @@ export function PinEditor({
               Cancel
             </button>
             <button
-              onClick={handleSave}
+              onClick={mode === 'suggest' ? handleSuggest : handleSave}
               disabled={saving || saved}
               className={`flex-1 px-3 py-2 text-xs font-medium rounded transition-colors disabled:opacity-60 ${
                 saved
@@ -325,7 +409,11 @@ export function PinEditor({
                   : 'bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30'
               }`}
             >
-              {saving ? 'Saving...' : saved ? '\u2713 Saved & Verified' : 'Save & Verify'}
+              {saving
+                ? (mode === 'suggest' ? 'Submitting...' : 'Saving...')
+                : saved
+                  ? (mode === 'suggest' ? '\u2713 Suggestion Submitted' : '\u2713 Saved & Verified')
+                  : (mode === 'suggest' ? 'Submit Suggestion' : 'Save & Verify')}
             </button>
           </div>
         </div>

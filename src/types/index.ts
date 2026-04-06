@@ -152,6 +152,60 @@ export type MomentKind = 'event' | 'milestone' | 'presence';
  *  Applies to the MOMENT's primary claim, not the location. A verified event at a "haunted" location is still verified. */
 export type VerificationLevel = 'verified' | 'documented' | 'traditional' | 'legendary';
 
+// ─── Community Verification Types ────────────────────────────────────
+
+export interface UserProfile {
+  id: string;
+  displayName: string;
+  avatarUrl?: string;
+  createdAt: string;
+  totalSuggestions: number;
+  totalVerifications: number;
+  pinpointCount: number;
+  exactCount: number;
+}
+
+export type SuggestionStatus = 'pending' | 'verified' | 'rejected' | 'superseded';
+export type VoteType = 'agree' | 'disagree';
+
+export interface LocationSuggestion {
+  id: string;
+  momentId: string;
+  userId: string;
+  user?: UserProfile;
+  createdAt: string;
+  lat: number;
+  lng: number;
+  accuracyLevel: LocationAccuracy;
+  explanation: string;
+  sourceUrl: string;
+  sourceDescription?: string;
+  parentSuggestionId?: string;
+  status: SuggestionStatus;
+  verifiedAt?: string;
+  agreeCount: number;
+  votes?: SuggestionVote[];
+  comments?: SuggestionComment[];
+}
+
+export interface SuggestionVote {
+  id: string;
+  suggestionId: string;
+  userId: string;
+  user?: UserProfile;
+  voteType: VoteType;
+  createdAt: string;
+}
+
+export interface SuggestionComment {
+  id: string;
+  suggestionId: string;
+  userId: string;
+  user?: UserProfile;
+  body: string;
+  createdAt: string;
+}
+
 // ─── Admin Types ──────────────────────────────────────────────────────
 
 export type AdminItemType = 'story' | 'entity' | 'moment' | 'collection';

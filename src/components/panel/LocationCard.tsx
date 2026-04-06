@@ -3,9 +3,11 @@ import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from 
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
 import { isAdminMode } from '../../lib/admin';
+import { useAuth } from '../../lib/auth';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
+import { LoginModal } from '../auth/LoginModal';
 import { isV2 } from '../../lib/theme';
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
@@ -55,8 +57,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
   }, ref) {
     const cat = story ? CATEGORIES[story.category] : undefined;
     const [pinEditorOpen, setPinEditorOpen] = useState(false);
+    const [suggestEditorOpen, setSuggestEditorOpen] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
     const [adminSaved, setAdminSaved] = useState(false);
     const admin = useMemo(() => isAdminMode(), []);
+    const { user } = useAuth();
 
     const handlePinSaved = useCallback((_lat: number, _lng: number, _address: string) => {
       setAdminSaved(true);
@@ -325,11 +330,22 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
               {location.description}
             </p>
-            {location.address && (
-              <p className="text-[10px] font-mono text-[var(--text-muted)]">
-                &#128205; {location.address}
-              </p>
-            )}
+            {/* Address as Google Maps link (consolidated) */}
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 1C3.79 1 2 2.79 2 5c0 3 4 6 4 6s4-3 4-6c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/>
+              </svg>
+              {location.address || 'View on map'}
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
+                <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
             {/* Admin: Edit Location button */}
             {admin && (
               <button
@@ -357,22 +373,6 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 onSaved={handlePinSaved}
               />
             )}
-            {/* Google Maps link */}
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1C3.79 1 2 2.79 2 5c0 3 4 6 4 6s4-3 4-6c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/>
-              </svg>
-              Open in Google Maps
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-50">
-                <path d="M6 2L2 6M6 2H3M6 2v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
             {/* Read on Wikipedia link — in-app wiki jump (story context) */}
             {onWikiJump && (
               <button
@@ -444,6 +444,44 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             )}
             {location.media && location.media.length > 0 && (
               <MediaDisplay media={location.media} />
+            )}
+            {/* Community: suggest a better location */}
+            {!admin && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!user) { setShowLogin(true); return; }
+                  setSuggestEditorOpen(true);
+                }}
+                className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <circle cx="5" cy="5" r="4" stroke="currentColor" strokeWidth="1" strokeDasharray="2 1.5"/>
+                  <path d="M5 3v4M3 5h4" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round"/>
+                </svg>
+                Suggest a more accurate location
+              </button>
+            )}
+            {showLogin && (
+              <LoginModal
+                onClose={() => setShowLogin(false)}
+                action="suggest a more accurate location"
+              />
+            )}
+            {suggestEditorOpen && (
+              <PinEditor
+                momentId={location.id}
+                lat={location.lat}
+                lng={location.lng}
+                address={location.address}
+                accuracy={location.accuracy}
+                geoVerified={location.geoVerified}
+                geoSourceUrl={location.geoSourceUrl}
+                momentName={location.name}
+                mode="suggest"
+                onClose={() => setSuggestEditorOpen(false)}
+                onSaved={() => setSuggestEditorOpen(false)}
+              />
             )}
           </div>
         )}
