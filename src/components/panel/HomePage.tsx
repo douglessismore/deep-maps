@@ -2426,7 +2426,7 @@ export function HomePage({
         <div className="px-4 pt-4 pb-4" onClick={handleHeroTap}>
           <h1 className="text-[28px] lg:text-[36px] font-serif font-bold text-[var(--text-primary)] leading-tight tracking-[-0.02em]">
             Discover what happened{' '}
-            <span className="text-[var(--accent-gold)] border-b-2 border-[var(--accent-gold)] pb-0.5">around you</span>
+            <span className="text-[var(--accent-gold)] border-b-2 border-[var(--accent-gold)] pb-0.5">here</span>
           </h1>
           <p className="text-[14px] text-[var(--text-secondary)] font-sans mt-2">
             The map of everything that ever happened.{' '}

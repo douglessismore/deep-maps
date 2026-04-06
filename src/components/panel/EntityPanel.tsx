@@ -106,7 +106,7 @@ export function EntityPanel({
   // Mobile header collapse — expanded by default so bio is visible
   const [headerExpanded, setHeaderExpanded] = useState(true);
   const [headerOutOfView, setHeaderOutOfView] = useState(false);
-  const [contextExpanded, setContextExpanded] = useState(true);
+  // contextExpanded state removed — sticky bar now has fixed height with 1-line description
   const headerSentinelRef = useRef<HTMLDivElement>(null);
 
   // Tab state — moments vs wiki
@@ -121,7 +121,6 @@ export function EntityPanel({
   useEffect(() => {
     setHeaderExpanded(true);
     setHeaderOutOfView(false);
-    setContextExpanded(false);
     setActiveTab('moments');
   }, [entity.id]);
 
@@ -493,36 +492,26 @@ export function EntityPanel({
 
         {/* Sticky context bar — appears when entity header scrolls out of view */}
         {headerOutOfView && !isSpotlightPeek && (
-          <div className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)]">
-            <button
-              onClick={() => setContextExpanded(!contextExpanded)}
-              className="w-full text-left"
-            >
-              <div className="flex items-center gap-2.5 px-4 py-2">
-                {entity.imageUrl ? (
-                  <img src={entity.imageUrl} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
-                ) : (
-                  <span className="text-base shrink-0">{getEntityIcon(entity)}</span>
+          <div
+            className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)] cursor-pointer"
+            onClick={() => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            <div className="flex items-center gap-2.5 px-4 py-2">
+              {entity.imageUrl ? (
+                <img src={entity.imageUrl} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
+              ) : (
+                <span className="text-base shrink-0">{getEntityIcon(entity)}</span>
+              )}
+              <div className="min-w-0 flex-1">
+                <h3 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight">{entity.name}</h3>
+                {entity.description && (
+                  <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">{entity.description}</p>
                 )}
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] truncate">{entity.name}</h3>
-                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {entity.years ? `${entity.years} · ` : ''}{entity.type}
-                  </span>
-                </div>
-                <svg
-                  width="12" height="12" viewBox="0 0 12 12" fill="none"
-                  className={`shrink-0 text-[var(--text-muted)] transition-transform ${contextExpanded ? 'rotate-180' : ''}`}
-                >
-                  <path d="M3 5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </div>
-            </button>
-            {contextExpanded && entity.description && (
-              <div className="px-4 pb-2.5 pl-[42px]">
-                <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed line-clamp-3">{entity.description}</p>
-              </div>
-            )}
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0 text-[var(--text-muted)]">
+                <path d="M6 8l-3-3h6z" fill="currentColor" opacity="0.5"/>
+              </svg>
+            </div>
           </div>
         )}
 

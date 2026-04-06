@@ -165,11 +165,13 @@ export function StoryPanel({
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
   const [headerOutOfView, setHeaderOutOfView] = useState(false);
-  const [contextExpanded, setContextExpanded] = useState(true);
+  // contextExpanded state removed — sticky bar now has fixed height with 1-line description
   const headerSentinelRef = useRef<HTMLDivElement>(null);
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded] = useState(true);
   const [momentSort, setMomentSort] = useState<'narrative' | 'nearest' | 'timeline'>('narrative');
+  // 'narrative' is the default (story order) but not exposed as a button — selecting nearest/timeline
+  // overrides it, and there's no way to go back to narrative (which is fine, story order is initial state)
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 1023px)').matches : false
   );
@@ -639,30 +641,22 @@ export function StoryPanel({
 
           {/* Sticky context bar — appears when header scrolls out of view */}
           {headerOutOfView && !isSpotlightPeek && (
-            <div className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)]">
-              <button
-                onClick={() => setContextExpanded(!contextExpanded)}
-                className="w-full text-left"
-              >
-                <div className="flex items-center gap-2.5 px-4 py-2">
-                  <div className="w-1 h-6 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] truncate">{story.name}</h3>
-                    <span className="text-[10px] font-mono text-[var(--text-muted)]">{story.years}</span>
-                  </div>
-                  <svg
-                    width="12" height="12" viewBox="0 0 12 12" fill="none"
-                    className={`shrink-0 text-[var(--text-muted)] transition-transform ${contextExpanded ? 'rotate-180' : ''}`}
-                  >
-                    <path d="M3 5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+            <div
+              className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)] cursor-pointer"
+              onClick={() => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <div className="flex items-center gap-2.5 px-4 py-2">
+                <div className="w-1 self-stretch rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-[14px] font-serif font-bold text-[var(--text-primary)] leading-tight">{story.name}</h3>
+                  {story.description && (
+                    <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5 line-clamp-1">{story.description}</p>
+                  )}
                 </div>
-              </button>
-              {contextExpanded && story.description && (
-                <div className="px-4 pb-2.5 pl-[26px]">
-                  <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed line-clamp-3">{story.description}</p>
-                </div>
-              )}
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0 text-[var(--text-muted)]">
+                  <path d="M6 8l-3-3h6z" fill="currentColor" opacity="0.5"/>
+                </svg>
+              </div>
             </div>
           )}
 
@@ -708,21 +702,19 @@ export function StoryPanel({
           <div className="p-4">
             {/* Sort toggle — only for multi-moment stories, hidden in spotlight peek */}
             {!isSpotlightPeek && resolveLocationsFromMap(story, momentMap).length >= 2 && (
-              <div className="flex items-center gap-1 mb-2 text-[10px] font-mono">
-                {(['narrative', 'nearest', 'timeline'] as const).map((mode, i) => (
-                  <span key={mode} className="flex items-center">
-                    {i > 0 && <span className="text-[var(--text-muted)] mx-1">·</span>}
-                    <button
-                      onClick={() => setMomentSort(mode)}
-                      className={`transition-colors ${
-                        momentSort === mode
-                          ? 'text-[var(--text-primary)]'
-                          : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
-                      }`}
-                    >
-                      {mode.charAt(0).toUpperCase() + mode.slice(1)}
-                    </button>
-                  </span>
+              <div className="flex items-center gap-2 mb-3">
+                {(['nearest', 'timeline'] as const).map(mode => (
+                  <button
+                    key={mode}
+                    onClick={() => setMomentSort(mode)}
+                    className={`px-3 py-1.5 text-[13px] font-mono rounded-full transition-colors ${
+                      momentSort === mode
+                        ? 'bg-[var(--bg-overlay-active)] text-[var(--text-primary)] ring-1 ring-[var(--border-hover)]'
+                        : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-overlay-subtle)]'
+                    }`}
+                  >
+                    {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                  </button>
                 ))}
               </div>
             )}

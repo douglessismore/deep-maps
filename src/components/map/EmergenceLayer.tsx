@@ -164,7 +164,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Filter moments by active collection, category, and/or timeline era
   const filteredMoments = useMemo(() => {
     // Always filter out moments with invalid coordinates to prevent markers at map origin (0,0)
-    let result = (moments as Moment[]).filter(m => isFinite(m.lat) && isFinite(m.lng));
+    // Also reject null island (0,0) — Supabase rows with missing GeoJSON resolve there
+    let result = (moments as Moment[]).filter(m => isFinite(m.lat) && isFinite(m.lng) && !(m.lat === 0 && m.lng === 0));
     if (activeCollection) {
       const idSet = new Set(activeCollection.momentIds);
       result = result.filter(m => idSet.has(m.id));

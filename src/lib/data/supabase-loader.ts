@@ -304,7 +304,8 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
   }));
 
   // ── Validate required fields on moments — filter out invalid ones ──
-  const validMoments = moments.filter(m => m.id && m.name && isFinite(m.lat) && isFinite(m.lng));
+  // Also reject "null island" (0,0) — Supabase rows with missing GeoJSON resolve to (0,0)
+  const validMoments = moments.filter(m => m.id && m.name && isFinite(m.lat) && isFinite(m.lng) && !(m.lat === 0 && m.lng === 0));
   if (validMoments.length < moments.length) {
     const dropped = moments.length - validMoments.length;
     console.warn(

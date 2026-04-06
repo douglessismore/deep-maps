@@ -451,9 +451,11 @@ function MapController({
 
           if (existing.permanentTooltip !== permanentTooltip || needsRebuild) {
             existing.marker.unbindTooltip();
+            // Tooltip offset should clear the visible marker, not just the icon edge
+            const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
             existing.marker.bindTooltip(
               `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
-              { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
+              { direction: 'right', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
             );
           }
 
@@ -466,11 +468,12 @@ function MapController({
         } else {
           const icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
           const marker = L.marker([location.lat, location.lng], { icon });
+          const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
           marker.bindTooltip(
             `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
               <strong>${location.name}</strong>
             </div>`,
-            { direction: 'right', offset: [8, 0], className: 'dark-tooltip', permanent: permanentTooltip }
+            { direction: 'right', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
           );
           marker.on('click', () => { if (story) onLocationClick(location, story); });
           group.addLayer(marker);
