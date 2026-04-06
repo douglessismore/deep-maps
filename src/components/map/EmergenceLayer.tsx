@@ -163,7 +163,8 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
   // Filter moments by active collection, category, and/or timeline era
   const filteredMoments = useMemo(() => {
-    let result = moments as Moment[];
+    // Always filter out moments with invalid coordinates to prevent markers at map origin (0,0)
+    let result = (moments as Moment[]).filter(m => isFinite(m.lat) && isFinite(m.lng));
     if (activeCollection) {
       const idSet = new Set(activeCollection.momentIds);
       result = result.filter(m => idSet.has(m.id));

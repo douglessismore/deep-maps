@@ -165,7 +165,7 @@ export function StoryPanel({
   const [activeTab, setActiveTab] = useState<StoryTab>('locations');
   const savedScrollTop = useRef<Record<string, number>>({});
   const [headerOutOfView, setHeaderOutOfView] = useState(false);
-  const [contextExpanded, setContextExpanded] = useState(false);
+  const [contextExpanded, setContextExpanded] = useState(true);
   const headerSentinelRef = useRef<HTMLDivElement>(null);
   const [wikiInitialSection, setWikiInitialSection] = useState<string | undefined>(undefined);
   const [headerExpanded] = useState(true);
@@ -660,16 +660,7 @@ export function StoryPanel({
               </button>
               {contextExpanded && story.description && (
                 <div className="px-4 pb-2.5 pl-[26px]">
-                  <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed">{story.description}</p>
-                  <button
-                    onClick={() => {
-                      setContextExpanded(false);
-                      scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-[var(--text-primary)] transition-colors"
-                  >
-                    ↑ Back to top
-                  </button>
+                  <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed line-clamp-3">{story.description}</p>
                 </div>
               )}
             </div>

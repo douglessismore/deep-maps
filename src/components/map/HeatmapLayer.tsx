@@ -62,11 +62,13 @@ export function HeatmapLayer({ categoryFilter, mode }: HeatmapLayerProps) {
       ? moments.filter((m) => momentCategoryMap.get(m.id) === categoryFilter)
       : moments;
 
-    return source.map((m) => {
-      const score = getEffectiveNotability(m);
-      const intensity = Math.max(0.1, Math.min(1, score / MAX_NOTABILITY));
-      return [m.lat, m.lng, intensity] as [number, number, number];
-    });
+    return source
+      .filter((m) => isFinite(m.lat) && isFinite(m.lng))
+      .map((m) => {
+        const score = getEffectiveNotability(m);
+        const intensity = Math.max(0.1, Math.min(1, score / MAX_NOTABILITY));
+        return [m.lat, m.lng, intensity] as [number, number, number];
+      });
   }, [categoryFilter]);
 
   // ── Create / update / destroy the heat layer ──

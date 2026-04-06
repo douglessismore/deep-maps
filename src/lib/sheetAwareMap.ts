@@ -64,6 +64,11 @@ export function panToAboveSheet(
   isMobile: boolean,
   options?: { animate?: boolean; duration?: number; zoom?: number },
 ) {
+  // Guard: reject invalid coordinates to prevent map flying to (0,0) / NaN
+  if (!isFinite(latlng[0]) || !isFinite(latlng[1])) {
+    console.warn('[panToAboveSheet] Ignoring invalid coordinates:', latlng);
+    return;
+  }
   const { zoom, ...panOptions } = options ?? {};
 
   if (!isMobile || sheetSnap === 'full') {

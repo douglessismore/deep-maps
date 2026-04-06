@@ -106,7 +106,7 @@ export function EntityPanel({
   // Mobile header collapse — expanded by default so bio is visible
   const [headerExpanded, setHeaderExpanded] = useState(true);
   const [headerOutOfView, setHeaderOutOfView] = useState(false);
-  const [contextExpanded, setContextExpanded] = useState(false);
+  const [contextExpanded, setContextExpanded] = useState(true);
   const headerSentinelRef = useRef<HTMLDivElement>(null);
 
   // Tab state — moments vs wiki
@@ -520,16 +520,7 @@ export function EntityPanel({
             </button>
             {contextExpanded && entity.description && (
               <div className="px-4 pb-2.5 pl-[42px]">
-                <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed">{entity.description}</p>
-                <button
-                  onClick={() => {
-                    setContextExpanded(false);
-                    scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="mt-1.5 text-[10px] font-mono text-[var(--accent-red)] hover:text-[var(--text-primary)] transition-colors"
-                >
-                  ↑ Back to top
-                </button>
+                <p className="text-[12px] text-[var(--text-secondary)] leading-relaxed line-clamp-3">{entity.description}</p>
               </div>
             )}
           </div>
