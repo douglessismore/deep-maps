@@ -455,7 +455,7 @@ function MapController({
             const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
             existing.marker.bindTooltip(
               `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
-              { direction: 'right', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
+              { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
             );
           }
 
@@ -471,7 +471,7 @@ function MapController({
           const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
           marker.bindTooltip(
             `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
-            { direction: 'right', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
+            { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: permanentTooltip }
           );
           marker.on('click', () => { if (story) onLocationClick(location, story); });
           group.addLayer(marker);
@@ -771,10 +771,17 @@ function MapController({
     prevPathMomentIds.current = sorted.map(m => m.id).join(',');
 
     // Add small directional arrows at midpoints of each segment
+    // Skip arrows for very short segments — they overlap markers and look like double dots
     pathArrowheadsRef.current.addTo(map);
     for (let i = 0; i < sorted.length - 1; i++) {
       const from = sorted[i];
       const to = sorted[i + 1];
+      // Check pixel distance — skip arrow if segment is too short on screen
+      const fromPt = map.latLngToContainerPoint([from.lat, from.lng]);
+      const toPt = map.latLngToContainerPoint([to.lat, to.lng]);
+      const pixelDist = Math.hypot(toPt.x - fromPt.x, toPt.y - fromPt.y);
+      if (pixelDist < 40) continue; // Too close — arrowhead overlaps markers
+
       const midLat = (from.lat + to.lat) / 2;
       const midLng = (from.lng + to.lng) / 2;
       // Calculate angle for arrow direction
