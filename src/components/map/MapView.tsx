@@ -233,6 +233,22 @@ function createLabeledMarkerIcon(
   });
 }
 
+/** Pick label direction based on available space around a marker. */
+function pickLabelDir(
+  map: L.Map, lat: number, lng: number, labelMaxWidth: number = 180
+): 'left' | 'right' | 'top' {
+  const pt = map.latLngToContainerPoint([lat, lng]);
+  const mapSz = map.getSize();
+  // Account for marker width (~32px on mobile) + gap (4px) + label width
+  const needed = labelMaxWidth + 40;
+  const spaceRight = mapSz.x - pt.x;
+  const spaceLeft = pt.x;
+  // If neither side has enough room for the label, go above
+  if (spaceRight < needed && spaceLeft < needed) return 'top';
+  // Pick the side with MORE space
+  return spaceRight >= spaceLeft ? 'right' : 'left';
+}
+
 function createConstellationIcon(
   cluster: ConstellationClusterProps & { point_count: number },
   variant: ConstellationVariant = 'classic',
@@ -471,9 +487,46 @@ function MapController({
       // This makes it clear which moment is currently selected as user scrolls.
       const hasActivePin = activeLocation != null;
 
+      // Pre-compute pixel offsets for overlapping markers.
+      // When two markers are < 20px apart on screen, nudge them apart so they're
+      // visually distinct and don't look like duplicate pins.
+      const offsetMap = new Map<string, { latOff: number; lngOff: number }>();
+      const locs = focusedLocations.map(fl => fl.location);
+      for (let i = 0; i < locs.length; i++) {
+        for (let j = i + 1; j < locs.length; j++) {
+          const ptI = map.latLngToContainerPoint([locs[i].lat, locs[i].lng]);
+          const ptJ = map.latLngToContainerPoint([locs[j].lat, locs[j].lng]);
+          const dist = Math.hypot(ptI.x - ptJ.x, ptI.y - ptJ.y);
+          if (dist < 20) {
+            // Nudge the later marker (j) south-east by ~25px worth of lat/lng
+            const nudgePx = 25;
+            const center = map.getCenter();
+            const centerPt = map.latLngToContainerPoint(center);
+            const nudgedPt = L.point(centerPt.x + nudgePx, centerPt.y + nudgePx);
+            const nudgedLL = map.containerPointToLatLng(nudgedPt);
+            const latPerPx = (nudgedLL.lat - center.lat) / nudgePx;
+            const lngPerPx = (nudgedLL.lng - center.lng) / nudgePx;
+            // Nudge along the line connecting them, or default to south-east
+            const dx = ptJ.x - ptI.x || 1;
+            const dy = ptJ.y - ptI.y || 1;
+            const len = Math.hypot(dx, dy) || 1;
+            const nudgeX = (dx / len) * nudgePx;
+            const nudgeY = (dy / len) * nudgePx;
+            const existing = offsetMap.get(locs[j].id) ?? { latOff: 0, lngOff: 0 };
+            existing.latOff += nudgeY * latPerPx;
+            existing.lngOff += nudgeX * lngPerPx;
+            offsetMap.set(locs[j].id, existing);
+          }
+        }
+      }
+
       focusedLocations.forEach(({ location, story }) => {
         // Skip moments with invalid coordinates — prevents markers at map origin (0,0)
         if (!isFinite(location.lat) || !isFinite(location.lng)) return;
+        // Apply overlap offset if this marker is too close to another
+        const off = offsetMap.get(location.id);
+        const markerLat = location.lat + (off?.latOff ?? 0);
+        const markerLng = location.lng + (off?.lngOff ?? 0);
         const key = `pin-${story?.id ?? 'orphan'}-${location.id}`;
         nextKeys.add(key);
 
@@ -500,18 +553,13 @@ function MapController({
             existing.isFaded !== isFaded ||
             existing.effectiveSize !== effectiveSize;
 
+          // Update position if offset changed (e.g., zoom changed overlap)
+          if (off) existing.marker.setLatLng([markerLat, markerLng]);
+
           if (needsRebuild || existing.permanentTooltip !== permanentTooltip) {
             // Use labeled icon when permanent label needed; plain icon otherwise
             if (permanentTooltip) {
-              // Position label where there's most space — top on mobile when sides are tight
-              const pt = map.latLngToContainerPoint([location.lat, location.lng]);
-              const mapSz = map.getSize();
-              const spaceRight = mapSz.x - pt.x;
-              const spaceLeft = pt.x;
-              const minSideSpace = 170; // need ~150px label + marker + gap
-              const labelDir: 'left' | 'right' | 'top' =
-                (spaceRight < minSideSpace && spaceLeft < minSideSpace) ? 'top' :
-                spaceRight >= spaceLeft ? 'right' : 'left';
+              const labelDir = pickLabelDir(map, markerLat, markerLng);
               existing.marker.setIcon(createLabeledMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label, location.name, labelDir));
             } else {
               existing.marker.setIcon(createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label));
@@ -537,19 +585,12 @@ function MapController({
           // Use labeled icon when permanent label needed; plain icon + hover tooltip otherwise
           let icon: L.DivIcon;
           if (permanentTooltip) {
-            const pt = map.latLngToContainerPoint([location.lat, location.lng]);
-            const mapSz = map.getSize();
-            const spaceRight = mapSz.x - pt.x;
-            const spaceLeft = pt.x;
-            const minSideSpace = 170;
-            const labelDir: 'left' | 'right' | 'top' =
-              (spaceRight < minSideSpace && spaceLeft < minSideSpace) ? 'top' :
-              spaceRight >= spaceLeft ? 'right' : 'left';
+            const labelDir = pickLabelDir(map, markerLat, markerLng);
             icon = createLabeledMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label, location.name, labelDir);
           } else {
             icon = createMarkerIcon(cat.color, effectiveSize, isActive, isHighlighted, markerOpacity, label);
           }
-          const marker = L.marker([location.lat, location.lng], { icon });
+          const marker = L.marker([markerLat, markerLng], { icon });
           if (!permanentTooltip) {
             const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
             marker.bindTooltip(
