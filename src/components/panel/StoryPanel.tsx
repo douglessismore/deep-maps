@@ -425,8 +425,21 @@ export function StoryPanel({
 
   // Tab bar rendered as function to avoid TS control-flow narrowing issues
   // (inside `activeTab === 'locations'` block, TS knows activeTab can't be 'wiki')
+  const contextBarRef = useRef<HTMLDivElement>(null);
+  const [contextBarHeight, setContextBarHeight] = useState(0);
+
+  // Measure context bar height for tab bar offset
+  useEffect(() => {
+    if (!headerOutOfView || !contextBarRef.current) { setContextBarHeight(0); return; }
+    const h = contextBarRef.current.getBoundingClientRect().height;
+    setContextBarHeight(h);
+  }, [headerOutOfView]);
+
   const renderTabBar = (sticky?: boolean) => (
-    <div className={`flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)] ${sticky ? 'sticky top-0 z-10' : ''}`}>
+    <div
+      className={`flex border-b border-[var(--border-subtle)] bg-[var(--bg-primary)] ${sticky ? 'sticky z-[9]' : ''}`}
+      style={sticky ? { top: contextBarHeight } : undefined}
+    >
       <button
         onClick={() => {
           savedScrollTop.current[activeTab] = scrollContainerRef.current?.scrollTop ?? 0;
@@ -642,6 +655,7 @@ export function StoryPanel({
           {/* Sticky context bar — appears when header scrolls out of view */}
           {headerOutOfView && !isSpotlightPeek && (
             <div
+              ref={contextBarRef}
               className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)] cursor-pointer"
               onClick={() => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
             >

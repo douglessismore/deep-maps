@@ -108,6 +108,8 @@ export function EntityPanel({
   const [headerOutOfView, setHeaderOutOfView] = useState(false);
   // contextExpanded state removed — sticky bar now has fixed height with 1-line description
   const headerSentinelRef = useRef<HTMLDivElement>(null);
+  const contextBarRef = useRef<HTMLDivElement>(null);
+  const [contextBarHeight, setContextBarHeight] = useState(0);
 
   // Tab state — moments vs wiki
   type EntityTab = 'moments' | 'wiki';
@@ -123,6 +125,13 @@ export function EntityPanel({
     setHeaderOutOfView(false);
     setActiveTab('moments');
   }, [entity.id]);
+
+  // Measure context bar height for tab bar offset
+  useEffect(() => {
+    if (!headerOutOfView || !contextBarRef.current) { setContextBarHeight(0); return; }
+    const h = contextBarRef.current.getBoundingClientRect().height;
+    setContextBarHeight(h);
+  }, [headerOutOfView]);
 
   // Detect when entity header scrolls out of view → show sticky context bar
   useEffect(() => {
@@ -493,6 +502,7 @@ export function EntityPanel({
         {/* Sticky context bar — appears when entity header scrolls out of view */}
         {headerOutOfView && !isSpotlightPeek && (
           <div
+            ref={contextBarRef}
             className="sticky top-0 z-10 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-b border-[var(--border-subtle)] cursor-pointer"
             onClick={() => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
           >
@@ -560,9 +570,9 @@ export function EntityPanel({
           </div>
         )}
 
-        {/* Sticky tab bar — sticks at top when scrolled past header */}
+        {/* Sticky tab bar — sticks below context bar when scrolled past header */}
         {!isSpotlightPeek && (
-          <div className="sticky top-0 z-10 flex border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
+          <div className="sticky z-[9] flex border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]" style={{ top: contextBarHeight }}>
             <button
               onClick={() => setActiveTab('moments')}
               className={`flex-1 py-2.5 text-xs font-mono transition-colors relative ${
