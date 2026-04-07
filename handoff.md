@@ -1,6 +1,6 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-04-07 (Session 30 — P0 Static/Supabase Reconciliation)
+**Last updated:** 2026-04-07 (Session 30 — P0 Reconciliation + Orphan Tagging + Content Fixes)
 **Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** https://deepmaps.app
@@ -26,6 +26,18 @@ Static files are now dumped directly from Supabase (flat arrays, no regional imp
 5. **Ongoing sync script** (`scripts/sync-to-supabase.ts`) — UPSERT-only, preserves Supabase-only columns, `--dry-run` flag, for use after any static file edit
 6. **Fixed 2 moments** with invalid `importance: 'moderate'` (not a valid enum) — set to 'minor'
 7. **6 new moment_types created**: sighting, hotel, fire_origin, military, maritime, ghost_town
+
+### Orphan Entity Tagging — 148 New Links
+8. **Automated name matching** (`scripts/tag-orphans.ts`) — matched 68 orphans to existing entities by entity name in moment name/subtitle
+9. **Sibling story inference** — matched 40 orphans by inheriting entity links from sibling moments in the same story
+10. **Entity link coverage**: 59.7% → **67.4%** (1,741 of 2,583 moments)
+11. **Remaining orphans**: 842 (most need new entities created, not just wiring)
+
+### Content Fixes
+12. **DB Cooper split** — 3 atomic moments: Portland boarding, Sea-Tac ransom exchange, Columbia River money. Story now has all 3 in correct order.
+13. **DB Cooper subtitle fixed** — `sea-cooper-seatac`: "ransom delivered on tarmac" (was: "terminal where Cooper collected the ransom")
+14. **Miranda SCOTUS unlinked** — removed entity link (no physical presence at Supreme Court)
+15. **Ransom money accuracy** — set to 'exact' (admin edit bug workaround)
 
 ### Data Architecture Change
 - Static files no longer use regional spread imports. `moments.ts`, `stories.ts`, `entities.ts` are complete flat arrays dumped from Supabase.
@@ -60,6 +72,14 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 
 ## Open Issues (prioritized)
 
+### P0 — Admin Edit Doesn't Persist Accuracy (NEW — Session 30)
+- `update_moment_location` RPC in `007_geo_verification.sql` updates coordinates and sets `geo_verified: true` but **never updates the `accuracy` column**
+- RPC doesn't accept a `p_accuracy` parameter
+- PinEditor doesn't pass accuracy to the RPC
+- UI shows green checkmark (verified) but accuracy stays stale
+- **Fix:** Add `p_accuracy` param to RPC, update PinEditor to pass it, update AdminDataProvider's `updateMomentGeo`
+- **Files:** `supabase/migrations/007_geo_verification.sql`, `src/components/ui/PinEditor.tsx`, `src/admin/AdminDataProvider.tsx`
+
 ### P0 — Stray Marker / Wrong Position Bug
 - **Yogurt Shop story** has marker #3 appearing disconnected from polyline, label bleeding off map edge.
 - This is the P0 corner label bug from Sessions 25-27. Lives in MapView.tsx and EmergenceLayer.tsx.
@@ -77,13 +97,27 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 ### P1 — RapidVerify Upgrades
 - POI-first sorting, notability weighting, crosshair picker, note box
 
-### P1 — ~1,005 Orphan Moments (NO LONGER BLOCKED)
-- Sync is fixed. Can now resume orphan entity tagging safely.
+### P1 — ~842 Orphan Moments (updated Session 30)
+- Session 30 tagged 108 moments with 148 entity links (67.4% coverage, was 59.7%)
+- Remaining 842 mostly need **new entities created**, not just wiring
 - ~200 Mexican/Latin American moments → create entities
 - ~150 filming locations → collections
 - ~100 aviation disasters → collections
 - ~300 world history → assess for entity wiring
 - **Planned: entity resolution pipeline** using 2.29M people DB
+
+### P1 — Phoenix Place Entity Showing with Only 4 Moments
+- `phoenix-az` entity (type: place) appears in "What's Here" but only has 4 linked moments
+- City-level entities should either have ALL markers in that city, or not appear at all
+- Consider: dedicated "Places" row on main page? Or filter out city entities with < N moments?
+
+### P1 — Header Sizing (Entity/Story Names vs Moment Names)
+- Story name and entity name should be larger than moment names inside them
+- Currently same size — eyes don't know where the hierarchy starts
+- CSS fix in StoryPanel/EntityPanel header elements
+
+### P2 — Barry Goldwater Content Quality
+- User not satisfied with Goldwater moments — consider hiding this timeline for now
 
 ### P1 — Clean Up Dead Regional Files
 - `src/data/austin-barnes-content.ts`, `del-valle-content.ts`, `mesa-phoenix-content.ts`, `seattle-portorchard-content.ts`
