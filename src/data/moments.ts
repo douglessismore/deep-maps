@@ -251,6 +251,7 @@ const _baseMoments: Moment[] = [
     year: 1603,
     date: '1603',
     address: 'Edo Castle (now Imperial Palace), Tokyo, Japan',
+    entityIds: ['tokugawa-ieyasu'],
   },
   {
     id: 'chopin-winter-mallorca-george-sand',
@@ -591,6 +592,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 1495–1498',
     address: 'Piazza di Santa Maria delle Grazie, Milan, Italy',
     wikiSection: 'First_Milanese_period_(c._1482%E2%80%931499)',
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'shakespeare-attacked-by-greene-london-1592',
@@ -839,6 +841,7 @@ const _baseMoments: Moment[] = [
     date: '1599',
     address: 'New Globe Walk, Bankside, London SE1 9DT',
     wikiSection: 'London_and_theatrical_career',
+    entityIds: ['william-shakespeare'],
   },
   {
     id: 'copernicus-doctorate-ferrara',
@@ -915,6 +918,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Augustine_at_the_school_of_taghaste.jpg', caption: 'Augustine at the school of taghaste' },
     ],
+    entityIds: ['augustine-of-hippo'],
   },
   {
     id: 'annihilator-mollie-smith',
@@ -1030,6 +1034,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: 'White Sands Missile Range, NM',
+    entityIds: ['robert-oppenheimer', 'trinity-site'],
   },
   {
     id: 'vj-sabretech',
@@ -1122,6 +1127,7 @@ const _baseMoments: Moment[] = [
     date: '24 April 387 CE',
     address: 'Cathedral Baptistery, Milan, Italy',
     wikiSection: 'Conversion_to_Christianity',
+    entityIds: ['augustine-of-hippo'],
   },
   {
     id: 'augustine-meets-ambrose-milan-384',
@@ -1140,6 +1146,7 @@ const _baseMoments: Moment[] = [
     date: 'late 384 CE',
     address: 'Milan (Mediolanum), Italy',
     wikiSection: 'Move_to_Carthage,_Rome,_and_Milan',
+    entityIds: ['augustine-of-hippo'],
   },
   {
     id: 'augustine-writes-city-of-god-hippo-413',
@@ -1256,6 +1263,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 1503',
     address: 'Florence, Tuscany, Italy',
     wikiSection: 'Mona_Lisa',
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'mandela-inaugurated-president-1994',
@@ -1435,6 +1443,7 @@ const _baseMoments: Moment[] = [
     date: '2 May 1519',
     address: 'Château du Clos Lucé, 2 Rue du Clos Lucé, Amboise, France',
     wikiSection: 'Final_years_(1513%E2%80%931519)',
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'mao-born-shaoshan',
@@ -1453,6 +1462,7 @@ const _baseMoments: Moment[] = [
     date: 'December 26, 1893',
     address: 'Shaoshan, Hunan, China',
     wikiSection: 'Youth_and_the_Xinhai_Revolution:_1893–1911',
+    entityIds: ['mao-zedong'],
   },
   {
     id: 'annihilator-eliza-shelley',
@@ -1743,6 +1753,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1898,
     address: '601 Lavaca St, Austin, TX 78701',
+    entityIds: ['o-henry'],
   },
   {
     id: 'obama-presidential-center-groundbreaking-chicago-2021',
@@ -1805,6 +1816,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 1466',
     address: 'Via dell\'Agnolo, Florence, Italy',
     wikiSection: 'Verrocchio\'s_workshop',
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'aquinas-born-roccasecca-castle',
@@ -2829,6 +2841,7 @@ const _baseMoments: Moment[] = [
     date: 'September 6, 1566',
     address: 'Szigetvar, Hungary',
     wikiSection: 'Conquests_in_Europe',
+    entityIds: ['suleiman-the-magnificent'],
   },
   {
     id: 'dickens-bleak-house-legal-reform',
@@ -2871,6 +2884,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 582 BC',
     address: 'Temple of Apollo, Delphi, Greece',
     wikiSection: 'Sagacity',
+    entityIds: ['thales-of-miletus'],
   },
   {
     id: 'dickens-father-marshalsea-prison',
@@ -2992,6 +3006,7 @@ const _baseMoments: Moment[] = [
     date: '25 August 1609',
     address: 'Campanile di San Marco, Piazza San Marco, Venice',
     wikiSection: 'Refracting_telescope',
+    entityIds: ['galileo-galilei'],
   },
   {
     id: 'stalin-signs-molotov-ribbentrop-pact-1939',
@@ -3075,6 +3090,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Annunciation_%28Leonardo%29.jpg/960px-Annunciation_%28Leonardo%29.jpg', caption: 'Annunciation (Leonardo)' },
     ],
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'columbus-dies-valladolid-1506',
@@ -3226,6 +3242,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 237 BC',
     address: 'Peñíscola, Castellón, Spain',
     wikiSection: 'Background_and_early_career',
+    entityIds: ['hannibal-barca'],
   },
   {
     id: 'confucius-begins-14-year-exile',
@@ -3453,6 +3470,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Lady_with_an_Ermine_-_Leonardo_da_Vinci_-_Google_Art_Project.jpg/960px-Lady_with_an_Ermine_-_Leonardo_da_Vinci_-_Google_Art_Project.jpg', caption: 'Lady with an Ermine - Leonardo da Vinci - Google Art Project' },
     ],
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'nostradamus-dies-after-predicting-his-own-death',
@@ -3567,6 +3585,7 @@ const _baseMoments: Moment[] = [
     date: '1516',
     address: 'Château du Clos Lucé, 2 Rue du Clos Lucé, 37400 Amboise, France',
     wikiSection: 'France',
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'columbus-departs-palos-1492',
@@ -3721,6 +3740,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Le_Chateau_du_Clos_Luce_a_Amboise.jpg/960px-Le_Chateau_du_Clos_Luce_a_Amboise.jpg', caption: 'Le Chateau du Clos Luce a Amboise' },
     ],
+    entityIds: ['leonardo-da-vinci'],
   },
   {
     id: 'vla-site',
@@ -3737,6 +3757,7 @@ const _baseMoments: Moment[] = [
     kind: 'presence',
     year: 1980,
     address: 'Plains of San Agustin, Socorro County, NM',
+    entityIds: ['very-large-array'],
   },
   {
     id: 'columbus-lands-guanahani-1492',
@@ -3880,6 +3901,7 @@ const _baseMoments: Moment[] = [
     date: 'October 19, 202 BC',
     address: 'Zama, near Siliana, Tunisia',
     wikiSection: 'Battle_of_Zama',
+    entityIds: ['hannibal-barca'],
   },
   {
     id: 'columbus-born-genoa-1451',
@@ -4071,6 +4093,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Veljusa_Monastery_St._Alexander_of_Alexandria.jpg', caption: 'Veljusa Monastery St. Alexander of Alexandria' },
     ],
+    entityIds: ['alexander-the-great'],
   },
   {
     id: 'ohenry-petes-tavern',
@@ -4087,6 +4110,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1905,
     address: '129 E 18th St, New York, NY 10003',
+    entityIds: ['o-henry'],
   },
   {
     id: 'alexander-born-pella',
@@ -4108,6 +4132,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Central_panel_of_the_Stag_Hunt_Mosaic_from_the_House_of_the_Abduction_of_Helen%2C_%28c._300_BC%29%2C_Ancient_Pella_%287059958071%29.jpg/960px-Central_panel_of_the_Stag_Hunt_Mosaic_from_the_House_of_the_Abduction_of_Helen%2C_%28c._300_BC%29%2C_Ancient_Pella_%287059958071%29.jpg', caption: 'Central panel of the Stag Hunt Mosaic from the House of the Abduction of Helen, (c. 300 BC), Ancient Pella (7059958071)' },
     ],
+    entityIds: ['alexander-the-great'],
   },
   {
     id: 'avicenna-isfahan-stable-years',
@@ -4170,6 +4195,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1955,
     address: '454 Dexter Ave, Montgomery, AL 36104',
+    entityIds: ['rosa-parks', 'martin-luther-king-jr'],
   },
   {
     id: 'obama-elected-harvard-law-review-president-1990',
@@ -4205,6 +4231,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1989,
     address: '507 Baylor St, Austin, TX 78703',
+    entityIds: ['treaty-oak'],
   },
   {
     id: 'february-26-incident',
@@ -4240,6 +4267,7 @@ const _baseMoments: Moment[] = [
     date: 'Autumn 335 BC',
     address: 'Thebes, Boeotia (modern Thiva, Greece)',
     wikiSection: 'Heir_of_Philip_II',
+    entityIds: ['alexander-the-great'],
   },
   {
     id: 'alexander-battle-of-hydaspes',
@@ -4258,6 +4286,7 @@ const _baseMoments: Moment[] = [
     date: 'May 326 BC',
     address: 'Hydaspes River (modern Jhelum River, Punjab, Pakistan)',
     wikiSection: 'Battle_of_the_Hydaspes',
+    entityIds: ['alexander-the-great'],
   },
   {
     id: 'aquinas-dies-fossanova-abbey',
@@ -4383,6 +4412,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1961,
     address: '3201 Virginia Park St, Detroit, MI 48206',
+    entityIds: ['rosa-parks'],
   },
   {
     id: 'alexander-battle-of-issus',
@@ -4401,6 +4431,7 @@ const _baseMoments: Moment[] = [
     date: '5 November 333 BC',
     address: 'Issus, Cilicia (near modern İskenderun, Hatay Province, Turkey)',
     wikiSection: 'Battle_of_Issus',
+    entityIds: ['alexander-the-great'],
   },
   {
     id: 'alexander-dies-babylon',
@@ -4419,6 +4450,7 @@ const _baseMoments: Moment[] = [
     date: '10 June 323 BC',
     address: 'Palace of Nebuchadnezzar II, Babylon (near modern Hillah, Iraq)',
     wikiSection: 'Death_and_succession',
+    entityIds: ['alexander-the-great'],
   },
   {
     id: 'hastings-norman-conquest',
@@ -4436,6 +4468,7 @@ const _baseMoments: Moment[] = [
     year: 1066,
     date: 'October 14, 1066',
     address: 'Battle Abbey, Battle, East Sussex, England',
+    entityIds: ['william-the-conqueror', 'harold-godwinson'],
   },
   {
     id: 'timur-dies-otrar-1405',
@@ -4851,6 +4884,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1993,
     address: '1781 Double EE Ranch Rd, Waco, TX 76705',
+    entityIds: ['david-koresh'],
   },
   {
     id: 'muhammad-born-mecca',
@@ -5191,6 +5225,7 @@ const _baseMoments: Moment[] = [
     date: 'October 539 BC',
     address: 'Babylon (modern Hillah, Babil Governorate, Iraq)',
     wikiSection: 'Rise_to_power',
+    entityIds: ['cyrus-the-great'],
   },
   {
     id: 'cyrus-dies-battle-massagetae',
@@ -5897,6 +5932,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 183 BC',
     address: 'Libyssa (modern Gebze), Bithynia, Turkey',
     wikiSection: 'Death',
+    entityIds: ['hannibal-barca'],
   },
   {
     id: 'ww-fault-line',
@@ -6020,6 +6056,7 @@ const _baseMoments: Moment[] = [
     kind: 'presence',
     year: 1990,
     address: '2201 Barton Springs Rd, Austin, TX',
+    entityIds: ['barton-springs-sos', 'save-our-springs-alliance'],
   },
   {
     id: 'chaplin-dies-vevey-1977',
@@ -6123,6 +6160,7 @@ const _baseMoments: Moment[] = [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Tomb_of_Cyrus_the_Great.jpg', caption: 'Tomb of Cyrus the Great' },
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Tomb_of_Cyrus_the_Great.jpg', caption: 'Tomb of Cyrus the Great' },
     ],
+    entityIds: ['cyrus-the-great'],
   },
   {
     id: 'nietzsche-born-rocken',
@@ -6196,6 +6234,7 @@ const _baseMoments: Moment[] = [
     kind: 'milestone',
     year: 1610,
     address: '105 W Palace Ave, Santa Fe, NM',
+    entityIds: ['palace-of-the-governors'],
   },
   {
     id: 'rp-arrest-site',
@@ -6213,6 +6252,7 @@ const _baseMoments: Moment[] = [
     year: 1955,
     address: '252 Montgomery St, Montgomery, AL 36104',
     wikiSection: 'Montgomery_bus_boycott',
+    entityIds: ['rosa-parks'],
   },
   {
     id: 'hnb-tinian-island',
@@ -6381,6 +6421,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 600 BC',
     address: 'Persis (modern Fars Province, Iran)',
     wikiSection: 'Early_and_personal_life',
+    entityIds: ['cyrus-the-great'],
   },
   {
     id: 'picasso-meets-matisse-gertrude-stein-salon-1905',
@@ -6469,6 +6510,7 @@ const _baseMoments: Moment[] = [
     kind: 'presence',
     year: 1907,
     address: '222 W 23rd St, New York, NY 10011',
+    entityIds: ['o-henry'],
   },
   {
     id: 'pokhran-shakti',
@@ -6583,6 +6625,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1973,
     address: 'Dripping Springs, TX',
+    entityIds: ['willie-nelson', 'waylon-jennings'],
   },
   {
     id: 'october-revolution-winter-palace-1917',
@@ -6718,6 +6761,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'approximate',
     kind: 'event',
     year: 1874,
+    entityIds: ['ranald-mackenzie'],
   },
   {
     id: 'nazareth-annunciation',
@@ -7098,6 +7142,7 @@ const _baseMoments: Moment[] = [
     year: 1815,
     date: 'June 18, 1815',
     address: 'Lion\'s Mound, Waterloo, Walloon Brabant, Belgium',
+    entityIds: ['napoleon-bonaparte'],
   },
   {
     id: 'ovid-exiled-to-tomis-ad8',
@@ -7395,6 +7440,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1877,
     address: '1501 Main St, San Elizario, TX 79849',
+    entityIds: ['texas-rangers'],
   },
   {
     id: 'earhart-disappears',
@@ -7431,6 +7477,7 @@ const _baseMoments: Moment[] = [
     date: '550 BC',
     address: 'Ecbatana (modern Hamadan, Iran)',
     wikiSection: 'Succession_to_Media',
+    entityIds: ['cyrus-the-great'],
   },
   {
     id: 'hannibal-crosses-the-alps-with-elephants',
@@ -7449,6 +7496,7 @@ const _baseMoments: Moment[] = [
     date: 'October–November 218 BC',
     address: 'Col de la Traversette, Alps, France/Italy border',
     wikiSection: 'Overland_journey_to_Italy',
+    entityIds: ['hannibal-barca'],
   },
   {
     id: 'charlemagne-crowned-emperor-rome',
@@ -7613,6 +7661,7 @@ const _baseMoments: Moment[] = [
     date: 'February 28, 1984',
     address: '665 W Jefferson Blvd, Los Angeles, CA 90007',
     wikiSection: 'Thriller,_Motown_25:_Yesterday,_Today,_Forever_and_Pepsi_incident_(1981–1984)',
+    entityIds: ['michael-jackson'],
   },
   {
     id: 'trump-convicted-34-felony-counts-new-york',
@@ -7745,6 +7794,7 @@ const _baseMoments: Moment[] = [
     year: -480,
     date: '480 BCE',
     address: 'Thermopylae Pass, Phthiotis, Greece',
+    entityIds: ['leonidas'],
   },
   {
     id: 'van-gogh-moves-to-paris-meets-avant-garde',
@@ -7804,6 +7854,7 @@ const _baseMoments: Moment[] = [
     date: '25 February 1830',
     address: 'Comédie-Française, 1 Place Colette, 75001 Paris, France',
     wikiSection: 'Career',
+    entityIds: ['victor-hugo'],
   },
   {
     id: 'van-gogh-missionary-borinage',
@@ -8073,6 +8124,7 @@ const _baseMoments: Moment[] = [
     year: 1805,
     date: 'October 21, 1805',
     address: 'Off Cape Trafalgar, Cádiz Province, Spain (at sea)',
+    entityIds: ['horatio-nelson'],
   },
   {
     id: 'raphael-arrives-florence-studies-leonardo-1504',
@@ -8194,6 +8246,7 @@ const _baseMoments: Moment[] = [
     year: 1781,
     date: 'October 19, 1781',
     address: 'Yorktown Battlefield, Colonial National Historical Park, Virginia',
+    entityIds: ['george-washington'],
   },
   {
     id: 'london-ve-day',
@@ -8545,6 +8598,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Galileo_Galilei%3B_sidewall_of_his_villa_at_Arcetri._Process_p_Wellcome_V0018709.jpg/960px-Galileo_Galilei%3B_sidewall_of_his_villa_at_Arcetri._Process_p_Wellcome_V0018709.jpg', caption: 'Galileo Galilei; sidewall of his villa at Arcetri. Process p Wellcome V0018709' },
     ],
+    entityIds: ['galileo-galilei'],
   },
   {
     id: 'galileo-discovers-jupiters-moons-1610',
@@ -8563,6 +8617,7 @@ const _baseMoments: Moment[] = [
     date: '7 January 1610',
     address: 'Padua, Republic of Venice (modern Veneto, Italy)',
     wikiSection: 'Jupiter\'s_moons',
+    entityIds: ['galileo-galilei'],
   },
   {
     id: 'galileo-born-pisa-1564',
@@ -8581,6 +8636,7 @@ const _baseMoments: Moment[] = [
     date: '15 February 1564',
     address: 'Pisa, Duchy of Florence (modern Tuscany, Italy)',
     wikiSection: 'Early_life_and_family',
+    entityIds: ['galileo-galilei'],
   },
   {
     id: 'galileo-publishes-dialogue-two-chief-world-systems-1632',
@@ -8599,6 +8655,7 @@ const _baseMoments: Moment[] = [
     date: 'February 1632',
     address: 'Florence, Grand Duchy of Tuscany (modern Tuscany, Italy)',
     wikiSection: 'Dialogue_Concerning_the_Two_Chief_World_Systems',
+    entityIds: ['galileo-galilei'],
   },
   {
     id: 'coyame-crash-site',
@@ -8714,6 +8771,7 @@ const _baseMoments: Moment[] = [
     year: 1947,
     address: 'Roswell, NM',
     wikiSection: '1947_military_balloon_crash',
+    entityIds: ['roswell-army-air-field'],
   },
   {
     id: 'michelangelo-sistine-chapel',
@@ -9105,6 +9163,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 2021,
+    entityIds: ['white-sands-national-park'],
   },
   {
     id: 'okeeffe-abiquiu',
@@ -9155,6 +9214,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1680,
     address: 'Palace of the Governors, Santa Fe, NM',
+    entityIds: ['pope-tewa', 'antonio-de-otermin', 'palace-of-the-governors'],
   },
   {
     id: 'toc-downtown',
@@ -9186,6 +9246,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'presence',
     year: 850,
+    entityIds: ['pueblo-bonito'],
   },
   {
     id: 'blackwater-draw',
@@ -9300,6 +9361,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: 'White Sands Missile Range, NM',
+    entityIds: ['robert-oppenheimer', 'trinity-site'],
   },
   {
     id: 'tri-control-bunker',
