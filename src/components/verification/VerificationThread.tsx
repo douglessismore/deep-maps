@@ -295,6 +295,23 @@ function SuggestionCard({
           <span className="truncate">{s.sourceUrl}</span>
         </a>
 
+        {/* Votes — show who agreed/disagreed */}
+        {s.votes && s.votes.length > 0 && (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            {s.votes.map((v) => (
+              <span key={v.id} className="inline-flex items-center gap-1 text-[10px]">
+                <span className={v.voteType === 'agree' ? 'text-green-400' : 'text-red-400'}>
+                  {v.voteType === 'agree' ? '✓' : '✗'}
+                </span>
+                <span className="text-[var(--text-muted)]">
+                  {v.user?.displayName ?? 'Anonymous'}
+                </span>
+                <span className="text-[var(--text-muted)] opacity-50">{timeAgo(v.createdAt)}</span>
+              </span>
+            ))}
+          </div>
+        )}
+
         {/* Actions */}
         <div className="flex items-center gap-2 pt-1">
           {/* Agree button — prominent green */}
