@@ -16405,6 +16405,7 @@ const _baseMoments: Moment[] = [
     year: 1520,
     date: 'June 30, 1520',
     address: 'Puente de Alvarado area, Mexico City, Mexico',
+    entityIds: ['hernan-cortes'],
   },
   {
     id: 'got-klis-fortress',
@@ -17089,6 +17090,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1936,
     address: 'Olympischer Platz 3, 14053 Berlin, Germany',
+    entityIds: ['jesse-owens'],
   },
   {
     id: 'tolstoy-writes-war-and-peace-yasnaya-polyana',
@@ -17143,6 +17145,7 @@ const _baseMoments: Moment[] = [
     date: 'June 21, 217 BC',
     address: 'Lake Trasimene, Umbria, Italy',
     wikiSection: 'Second_Punic_War_in_Italy_(218–204_BC)',
+    entityIds: ['hannibal-barca'],
   },
   {
     id: 'db-cooper-portland-airport',
@@ -17159,6 +17162,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1971,
     address: 'Portland International Airport, 7000 NE Airport Way, Portland, OR 97218',
+    entityIds: ['db-cooper'],
   },
   {
     id: 'inv-fleming-penicillin',
@@ -17175,6 +17179,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1928,
     address: 'St Mary\'s Hospital, Praed Street, London W2 1NY',
+    entityIds: ['alexander-fleming'],
   },
   {
     id: 'inv-nobel-dynamite',
@@ -17191,6 +17196,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1867,
     address: 'Krümmel, Geesthacht, Schleswig-Holstein, Germany (demolished)',
+    entityIds: ['alfred-nobel'],
   },
   {
     id: 'got-grjotagja-cave',
@@ -17223,6 +17229,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1932,
     address: '1060 W Addison St, Chicago, IL 60613',
+    entityIds: ['babe-ruth'],
   },
   {
     id: 'got-thingvellir',
@@ -17463,6 +17470,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1976,
     address: '2066 Crist Dr, Los Altos, CA 94024',
+    entityIds: ['steve-jobs'],
   },
   {
     id: 'got-alcazar-seville',
@@ -18007,6 +18015,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1876,
     address: '109 Court St (now Cambridge St), Boston, MA (demolished)',
+    entityIds: ['alexander-graham-bell'],
   },
   {
     id: 'dostoevsky-born-moscow-hospital',
@@ -18210,6 +18219,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1913,
     address: '91 Manchester St, Highland Park, MI 48203',
+    entityIds: ['henry-ford'],
   },
   {
     id: 'inv-jenner-vaccination',
@@ -18480,6 +18490,7 @@ const _baseMoments: Moment[] = [
     date: '1535',
     address: 'Baghdad, Iraq',
     wikiSection: 'Ottoman–Safavid_War',
+    entityIds: ['suleiman-the-magnificent'],
   },
   {
     id: 'inv-transistor-bell-labs',
@@ -18530,6 +18541,7 @@ const _baseMoments: Moment[] = [
     date: 'January 661 CE',
     address: '',
     wikiSection: '',
+    entityIds: ['ali-ibn-abi-talib'],
   },
   {
     id: 'dostoevsky-siberian-labor-camp',
@@ -18625,6 +18637,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1973,
     address: 'One Astrodome Way, Houston, TX 77054',
+    entityIds: ['billie-jean-king'],
   },
   {
     id: 'pasteur-disproves-spontaneous-generation',
@@ -18754,6 +18767,7 @@ const _baseMoments: Moment[] = [
     date: 'November 6, 1494',
     address: 'Trabzon, Turkey',
     wikiSection: 'Early_life',
+    entityIds: ['suleiman-the-magnificent'],
   },
   {
     id: 'victoria-diamond-jubilee',
@@ -18978,6 +18992,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 600 BC',
     address: 'Great Pyramid of Giza, Egypt',
     wikiSection: 'Egypt',
+    entityIds: ['thales-of-miletus'],
   },
   {
     id: 'comaneci-perfect-10-montreal-forum-1976',
@@ -18994,6 +19009,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1976,
     address: '2313 Rue Sainte-Catherine O, Montreal, QC H3H 1N2, Canada',
+    entityIds: ['nadia-comaneci'],
   },
   {
     id: 'devils-island-dreyfus',
@@ -19102,6 +19118,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1980,
     address: '2634 Main St, Lake Placid, NY 12946',
+    entityIds: ['mike-eruzione'],
   },
   {
     id: 'freud-dies-in-london-exile',
@@ -19158,6 +19175,7 @@ const _baseMoments: Moment[] = [
     date: '8 February 1831',
     address: 'United States Military Academy, West Point, New York',
     wikiSection: 'Military_career',
+    entityIds: ['edgar-allan-poe'],
   },
   {
     id: 'rousseau-wins-dijon-prize-with-discourse',
@@ -19195,6 +19213,7 @@ const _baseMoments: Moment[] = [
     date: 'August 29, 1526',
     address: 'Mohacs, Hungary',
     wikiSection: 'Conquests_in_Europe',
+    entityIds: ['suleiman-the-magnificent'],
   },
   {
     id: 'eastern-state-capone-cell',
@@ -19265,6 +19284,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1986,
     address: 'Calzada de Tlalpan 3665, Col. Santa Úrsula Coapa, Mexico City 04650, Mexico',
+    entityIds: ['diego-maradona'],
   },
   {
     id: 'poe-publishes-the-raven',
@@ -19283,6 +19303,7 @@ const _baseMoments: Moment[] = [
     date: 'January 1845',
     address: 'New York Evening Mirror, New York City',
     wikiSection: 'Publishing_career',
+    entityIds: ['edgar-allan-poe'],
   },
   {
     id: 'rousseau-dies-at-ermenonville',
@@ -19320,6 +19341,7 @@ const _baseMoments: Moment[] = [
     date: 'Autumn 1529',
     address: 'Vienna, Austria',
     wikiSection: 'Conquests_in_Europe',
+    entityIds: ['suleiman-the-magnificent'],
   },
   {
     id: 'thales-born-in-miletus-ionia',
@@ -19412,6 +19434,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1964,
     address: '1901 Convention Center Dr, Miami Beach, FL 33139',
+    entityIds: ['muhammad-ali'],
   },
   {
     id: 'rousseau-runs-away-from-geneva-at-15',
@@ -19570,6 +19593,7 @@ const _baseMoments: Moment[] = [
     date: '19 January 1809',
     address: 'Boston, Massachusetts',
     wikiSection: 'Early_life,_family_and_education',
+    entityIds: ['edgar-allan-poe'],
   },
   {
     id: 'freud-flees-nazis-to-london',
@@ -19712,6 +19736,7 @@ const _baseMoments: Moment[] = [
     date: 'May 28, 585 BC',
     address: 'Halys River region (modern Kizilirmak), Turkey',
     wikiSection: 'Life',
+    entityIds: ['thales-of-miletus'],
   },
   {
     id: 'alcatraz-1962-escape',
@@ -19765,6 +19790,7 @@ const _baseMoments: Moment[] = [
     date: '16 May 1836',
     address: 'Richmond, Virginia',
     wikiSection: 'Publishing_career',
+    entityIds: ['edgar-allan-poe'],
   },
   {
     id: 'spandau-hess-sole-prisoner',
@@ -19867,6 +19893,7 @@ const _baseMoments: Moment[] = [
     date: 'September 9, 1976',
     address: 'Zhongnanhai, Beijing, China',
     wikiSection: '',
+    entityIds: ['mao-zedong'],
   },
   {
     id: 'nietzsche-writes-zarathustra-in-rapallo',
@@ -19942,6 +19969,7 @@ const _baseMoments: Moment[] = [
     date: 'July 17, 1955',
     address: '1313 Disneyland Drive, Anaheim, California',
     wikiSection: '',
+    entityIds: ['walt-disney'],
   },
   {
     id: 'poe-found-delirious-dies-in-baltimore',
@@ -19960,6 +19988,7 @@ const _baseMoments: Moment[] = [
     date: '7 October 1849',
     address: 'Washington Medical College, Baltimore, Maryland',
     wikiSection: 'Death',
+    entityIds: ['edgar-allan-poe'],
   },
   {
     id: 'franklin-kite-experiment-electricity',
@@ -20016,6 +20045,7 @@ const _baseMoments: Moment[] = [
     date: 'July 23, 1921',
     address: '106 Rue Wantz, French Concession, Shanghai, China',
     wikiSection: '',
+    entityIds: ['mao-zedong'],
   },
   {
     id: 'marie-curie-dies-radiation-exposure',
@@ -20264,6 +20294,7 @@ const _baseMoments: Moment[] = [
     date: '622 CE',
     address: '',
     wikiSection: 'Companionship_of_Muhammad',
+    entityIds: ['ali-ibn-abi-talib', 'muhammad'],
   },
   {
     id: 'bismarck-creates-welfare-state',
@@ -20413,6 +20444,7 @@ const _baseMoments: Moment[] = [
     date: '656 CE',
     address: '',
     wikiSection: '',
+    entityIds: ['ali-ibn-abi-talib'],
   },
   {
     id: 'nero-becomes-emperor-age-16',
@@ -20558,6 +20590,7 @@ const _baseMoments: Moment[] = [
     date: '657 CE',
     address: '',
     wikiSection: '',
+    entityIds: ['ali-ibn-abi-talib'],
   },
   {
     id: 'linnaeus-born-rashult',
@@ -20651,6 +20684,7 @@ const _baseMoments: Moment[] = [
     date: '7 November 1728',
     address: 'Marton, Yorkshire, England',
     wikiSection: 'Early_life,_family_and_education',
+    entityIds: ['james-cook'],
   },
   {
     id: 'marie-curie-founds-radium-institute-paris',
@@ -20812,6 +20846,7 @@ const _baseMoments: Moment[] = [
     date: '22 August 1770',
     address: 'Possession Island, Queensland, Australia',
     wikiSection: '',
+    entityIds: ['james-cook'],
   },
   {
     id: 'chaucer-born-london-vintner',
@@ -20868,6 +20903,7 @@ const _baseMoments: Moment[] = [
     date: '1918–1919',
     address: 'Peking University, Beijing, China',
     wikiSection: 'Beijing,_anarchism,_and_Marxism:_1917–1919',
+    entityIds: ['mao-zedong'],
   },
   {
     id: 'moliere-dies-onstage-imaginary-invalid',
@@ -21016,6 +21052,7 @@ const _baseMoments: Moment[] = [
     date: 'January 1935',
     address: 'Zunyi, Guizhou, China',
     wikiSection: '',
+    entityIds: ['mao-zedong'],
   },
   {
     id: 'moliere-founds-illustre-theatre',
@@ -21199,6 +21236,7 @@ const _baseMoments: Moment[] = [
     date: '1759',
     address: 'Quebec City, Canada',
     wikiSection: 'Seven_Years\'_War',
+    entityIds: ['james-cook'],
   },
   {
     id: 'locke-born-wrington-somerset',
@@ -21306,6 +21344,7 @@ const _baseMoments: Moment[] = [
     date: '25 August 1768',
     address: 'Plymouth, England',
     wikiSection: 'First_voyage_(1768–1771)',
+    entityIds: ['james-cook'],
   },
   {
     id: 'linnaeus-publishes-systema-naturae',
@@ -21568,6 +21607,7 @@ const _baseMoments: Moment[] = [
     date: '14 February 1779',
     address: 'Kealakekua Bay, Hawaii',
     wikiSection: '',
+    entityIds: ['james-cook'],
   },
   {
     id: 'ibn-battuta-reaches-kilwa-gold-trading-hub',
@@ -21717,6 +21757,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 600 CE',
     address: '',
     wikiSection: 'Birth_and_early_life',
+    entityIds: ['ali-ibn-abi-talib'],
   },
   {
     id: 'ataturk-abolishes-caliphate',
@@ -21852,6 +21893,7 @@ const _baseMoments: Moment[] = [
     date: 'early 1047',
     address: 'Val-ès-Dunes, near Caen, Normandy, France',
     wikiSection: 'Challenges',
+    entityIds: ['william-the-conqueror'],
   },
   {
     id: 'raramuri-running-tradition',
@@ -22052,6 +22094,7 @@ const _baseMoments: Moment[] = [
     date: 'January 30, 1882',
     address: 'Springwood, Hyde Park, New York',
     wikiSection: 'Childhood',
+    entityIds: ['franklin-d-roosevelt'],
   },
   {
     id: 'hammurabi-dies-empire-begins-to-collapse',
@@ -22235,6 +22278,7 @@ const _baseMoments: Moment[] = [
     date: 'August 1921',
     address: 'Campobello Island, New Brunswick, Canada',
     wikiSection: '',
+    entityIds: ['franklin-d-roosevelt'],
   },
   {
     id: 'putin-invades-ukraine-2022',
@@ -22345,6 +22389,7 @@ const _baseMoments: Moment[] = [
     date: '25 December 1066',
     address: 'Westminster Abbey, London, England',
     wikiSection: 'Coronation',
+    entityIds: ['william-the-conqueror'],
   },
   {
     id: 'william-the-conqueror-dies-in-rouen',
@@ -22455,6 +22500,7 @@ const _baseMoments: Moment[] = [
     date: '1086',
     address: 'Winchester, England',
     wikiSection: 'Domesday_Book',
+    entityIds: ['william-the-conqueror'],
   },
   {
     id: 'nietzsche-collapses-in-turin',
@@ -22636,6 +22682,7 @@ const _baseMoments: Moment[] = [
     date: 'AD 65',
     address: 'Rome',
     wikiSection: 'Death',
+    entityIds: ['seneca-the-younger'],
   },
   {
     id: 'goya-becomes-prime-court-painter',
@@ -22873,6 +22920,7 @@ const _baseMoments: Moment[] = [
     date: 'March 4, 1933',
     address: 'United States Capitol, Washington, D.C.',
     wikiSection: '',
+    entityIds: ['franklin-d-roosevelt'],
   },
   {
     id: 'chanakya-discovers-chandragupta-playing-king',
@@ -23021,6 +23069,7 @@ const _baseMoments: Moment[] = [
     date: 'April 12, 1945',
     address: 'Little White House, Warm Springs, Georgia',
     wikiSection: '',
+    entityIds: ['franklin-d-roosevelt'],
   },
   {
     id: 'prince-mixes-purple-rain-sunset-sound',
@@ -23160,6 +23209,7 @@ const _baseMoments: Moment[] = [
     date: 'February 24, 1500',
     address: 'Prinsenhof, Ghent, Flanders',
     wikiSection: 'Birth_and_childhood',
+    entityIds: ['charles-v-holy-roman-emperor'],
   },
   {
     id: 'coyame-toxic-convoy',
@@ -23213,6 +23263,7 @@ const _baseMoments: Moment[] = [
     date: 'December 8, 1941',
     address: 'United States Capitol, Washington, D.C.',
     wikiSection: '',
+    entityIds: ['franklin-d-roosevelt'],
   },
   {
     id: 'frida-kahlo-louvre-purchase',
@@ -23323,6 +23374,7 @@ const _baseMoments: Moment[] = [
     date: 'October 25, 1555',
     address: 'Palace of Coudenberg, Brussels',
     wikiSection: 'Abdication',
+    entityIds: ['charles-v-holy-roman-emperor'],
   },
   {
     id: 'epicurus-proposes-atomic-swerve-theory',
@@ -23360,6 +23412,7 @@ const _baseMoments: Moment[] = [
     date: '14 October 1066',
     address: 'Battle, East Sussex, England',
     wikiSection: 'Invasion_of_England',
+    entityIds: ['william-the-conqueror', 'harold-godwinson'],
   },
   {
     id: 'bowie-records-heroes-hansa-berlin',
@@ -23596,6 +23649,7 @@ const _baseMoments: Moment[] = [
     date: 'September 1224',
     address: 'Sanctuary of La Verna, Chiusi della Verna, Tuscany, Italy',
     wikiSection: 'Stigmata',
+    entityIds: ['francis-of-assisi'],
   },
   {
     id: 'goya-paints-third-of-may',
@@ -23701,6 +23755,7 @@ const _baseMoments: Moment[] = [
     date: 'September 21, 1558',
     address: 'Monastery of Yuste, Cuacos de Yuste, Extremadura, Spain',
     wikiSection: 'Abdication',
+    entityIds: ['charles-v-holy-roman-emperor'],
   },
   {
     id: 'francis-assisi-renounces-father',
@@ -23789,6 +23844,7 @@ const _baseMoments: Moment[] = [
     date: '16 April 1210',
     address: 'Lateran Palace, Rome, Italy',
     wikiSection: 'Founding_of_the_Franciscan_Order',
+    entityIds: ['francis-of-assisi'],
   },
   {
     id: 'r66-amblers-texaco-opens',
@@ -23889,6 +23945,7 @@ const _baseMoments: Moment[] = [
     date: '1219',
     address: 'Damietta, Egypt',
     wikiSection: 'Missionary_work_during_the_Fifth_Crusade',
+    entityIds: ['francis-of-assisi'],
   },
   {
     id: 'adams-defends-boston-massacre-soldiers',
@@ -24081,6 +24138,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1964,
     address: '13 Studio One Blvd (formerly 13 Brentford Rd), Kingston, Jamaica',
+    entityIds: ['bob-marley'],
   },
   {
     id: 'kepler-meets-tycho-brahe-prague',
@@ -24275,6 +24333,7 @@ const _baseMoments: Moment[] = [
     date: 'July 1696',
     address: 'Azov, Rostov Oblast, Russia',
     wikiSection: 'Reign',
+    entityIds: ['peter-the-great'],
   },
   {
     id: 'peter-great-dies-winter-palace',
@@ -24293,6 +24352,7 @@ const _baseMoments: Moment[] = [
     date: '8 February 1725',
     address: 'Winter Palace, St. Petersburg, Russia',
     wikiSection: 'Death',
+    entityIds: ['peter-the-great'],
   },
   {
     id: 'peter-great-born-moscow',
@@ -24311,6 +24371,7 @@ const _baseMoments: Moment[] = [
     date: '9 June 1672',
     address: 'Moscow Kremlin, Moscow, Russia',
     wikiSection: 'Early_life',
+    entityIds: ['peter-the-great'],
   },
   {
     id: 'peter-great-works-dutch-shipyard',
@@ -24329,6 +24390,7 @@ const _baseMoments: Moment[] = [
     date: 'August 1697',
     address: 'Zaandam, Netherlands',
     wikiSection: 'Grand_Embassy',
+    entityIds: ['peter-the-great'],
   },
   {
     id: 'elizabeth-ii-ve-day-incognito',
@@ -24420,6 +24482,7 @@ const _baseMoments: Moment[] = [
     date: 'AD 41',
     address: 'Corsica',
     wikiSection: 'Politics_and_exile',
+    entityIds: ['seneca-the-younger'],
   },
   {
     id: 'faraday-discovers-electromagnetic-induction',
@@ -24603,6 +24666,7 @@ const _baseMoments: Moment[] = [
     year: 48,
     date: 'c. 48 CE',
     address: 'Near Hatunsaray (ancient Lystra), Konya Province, Turkey',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'abraham-shechem',
@@ -24913,6 +24977,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 4 BC',
     address: 'Cordoba, Spain',
     wikiSection: 'Early_life,_family_and_adulthood',
+    entityIds: ['seneca-the-younger'],
   },
   {
     id: 'elizabeth-ii-born-mayfair',
@@ -25754,6 +25819,7 @@ const _baseMoments: Moment[] = [
     year: 55,
     date: 'c. 55 CE',
     address: 'Great Theater of Ephesus, Selçuk, Turkey',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'adam-smith-dies-edinburgh',
@@ -25922,6 +25988,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1947,
     wikiSection: '1947_military_balloon_crash',
+    entityIds: ['foster-ranch'],
   },
   {
     id: 'adam-smith-meets-voltaire-geneva',
