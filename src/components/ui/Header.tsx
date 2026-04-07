@@ -137,11 +137,6 @@ export function Header({
                   <h1 className="font-serif text-lg font-bold tracking-tight leading-none">
                     <span className="text-[#dc2626]">Deep</span><span className="text-[var(--text-primary)] group-hover:text-[var(--text-secondary)] transition-colors">Maps</span>
                   </h1>
-                  {mode !== 'story' && mode !== 'entity' && (
-                    <p className="hidden sm:block text-[9px] font-mono text-[var(--text-muted)] tracking-widest uppercase leading-none mt-0.5">
-                      Everything that ever happened happened somewhere
-                    </p>
-                  )}
                 </div>
               </>
           </button>
