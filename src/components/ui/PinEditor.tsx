@@ -247,8 +247,6 @@ export function PinEditor({
     <div
       className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-      onTouchMove={(e) => e.stopPropagation()}
-      onPointerDown={(e) => e.stopPropagation()}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 

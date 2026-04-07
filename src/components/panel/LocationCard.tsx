@@ -441,8 +441,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             {location.media && location.media.length > 0 && (
               <MediaDisplay media={location.media} />
             )}
-            {/* Community verification thread */}
-            {!admin && <VerificationThread moment={location} />}
+            {/* Community verification thread — visible to everyone including admin */}
+            <VerificationThread moment={location} />
           </div>
         )}
       </div>
