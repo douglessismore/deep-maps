@@ -1,18 +1,18 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-04-07 (Session 30 — P0 Reconciliation + Orphan Tagging + Content Fixes)
+**Last updated:** 2026-04-07 (Session 30 continued — Reconciliation + orphan tagging + content enrichment + admin edit bug fix)
 **Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** https://deepmaps.app
 
 ## Current State
-Session 30 resolved the P0 static/Supabase desync. Both sources are now perfectly synchronized:
-- **2,583 moments** (was: 2,492 static / 2,543 Supabase)
-- **628 stories** (was: 526 / 609)
-- **588 entities** (was: 504 / 571)
-- **30 collections** (was: 29 / 30)
-- **1,931 entity links** — zero asymmetry (was: 196 static-only, 293 Supabase-only)
-- **1,887 story_moments** — zero asymmetry (was: 68 static-only, 239 Supabase-only)
+Session 30 resolved the P0 static/Supabase desync and continued with orphan tagging, content enrichment, and bug fixes:
+- **2,584 moments** — 1 new (Olalla Cemetery for Starvation Heights)
+- **617 entities** — 29 new (Mexican history, serial killers, landmarks, cultural figures)
+- **628 stories** — unchanged
+- **30 collections** — unchanged
+- **2,148 entity links** — 70.1% coverage (was 59.7%)
+- **Zero drift** between static and Supabase
 
 Static files are now dumped directly from Supabase (flat arrays, no regional imports). Regional content files (austin-barnes, del-valle, mesa-phoenix, seattle) still exist on disk but are dead code — only referenced by one-time ingest scripts.
 
@@ -40,9 +40,18 @@ Static files are now dumped directly from Supabase (flat arrays, no regional imp
 15. **Ransom money accuracy** — set to 'exact' (admin edit bug workaround)
 
 ### Admin Edit Location Bug — FIXED
-16. **RPC fix** — `update_moment_location` now accepts `p_accuracy TEXT` param, casts to `location_accuracy` enum. Migration `011_fix_geo_rpc_accuracy.sql` deployed to production.
+16. **RPC fix** — `update_moment_location` now accepts `p_accuracy TEXT` param, casts to `location_accuracy` enum. Migration `011_fix_geo_rpc_accuracy.sql` deployed to production. Had to DROP old 4-param version first (ambiguous function name error), then cast `p_accuracy::location_accuracy` (type mismatch error).
 17. **Provider coord override fix** — `provider.tsx` no longer overwrites Supabase coordinates when `geoVerified=true`. Admin-verified coords persist across app reloads.
 18. **PinEditor accuracy pass-through** — admin save now sends `suggestAccuracy` to the RPC.
+
+### More Orphan Entity Work (Session 30 continued)
+19. **29 new entities created** — Mexican history (María Sabina, Porfirio Díaz, Vicente Guerrero, Emperor Maximilian, Subcomandante Marcos, Jacobo Grinberg, Luis Donaldo Colosio), places (Teotihuacán, Chichén Itzá, WTC, Pentagon, Greenwood District, Angkor Wat, Easter Island, Rosetta Stone), serial killers (Ramirez, Fish, Little, DC Snipers, Berkowitz), people (Jesse Washington, James Dean, Brad Will, Buddy Holly, Joe Stack, Mary Leakey, Elvis Presley, George Orwell, John Keats)
+20. **Entity link coverage**: 59.7% → **70.1%** (1,811 of 2,584 moments linked to entities)
+
+### Content Enrichment (Session 30 continued)
+21. **Starvation Heights story expanded** — new Olalla Pioneer Cemetery moment (alleged burial site), sanitarium coords verified (47.4294, -122.5505 from wahauntedhouses.com), courthouse coords updated (47.5378, -122.6384 from kitsap.gov). All three moments validated against content guide v3.
+22. **L. Ron Hubbard cabin** — coords updated to user-verified South Colby location (47.5336, -122.5461). Both moments (cabin writing 1936, Excalibur manuscript 1938) at same location, distinct events. Accuracy: approximate.
+23. **DB Cooper ransom money** — accuracy fixed to 'exact' (admin edit bug had prevented persistence).
 
 ### Data Architecture Change
 - Static files no longer use regional spread imports. `moments.ts`, `stories.ts`, `entities.ts` are complete flat arrays dumped from Supabase.
@@ -84,11 +93,15 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 - **Fix 2:** Provider now skips coord override when `geoVerified=true` — admin-verified coords always win
 - **Fix 3:** PinEditor passes `suggestAccuracy` in admin save path
 
-### P0 — Stray Marker / Wrong Position Bug
-- **Yogurt Shop story** has marker #3 appearing disconnected from polyline, label bleeding off map edge.
-- This is the P0 corner label bug from Sessions 25-27. Lives in MapView.tsx and EmergenceLayer.tsx.
-- Session 27's marker nudge (`3213606`) may be making it worse.
-- **Needs dedicated session** — constrained from modifying MapView.tsx/EmergenceLayer.tsx in current work.
+### P0 — Label Positioning / Marker Accuracy (Sessions 27-31)
+- **Marker nudge REVERTED** (Session 31, commit `cd2aa51`) — the overlap detection from `3213606` was pushing pins to wrong geographic locations (Solomon #6 in the sea, Servant Girl south of the river, APD moment displaced). The "duplicate pin" appearance is actually two real moments at nearly identical coordinates — a data characteristic, not a rendering bug.
+- **DivIcon inline labels** — `createLabeledMarkerIcon()` + `pickLabelDir()` system works (commit `c7f8075`). Labels are embedded in DivIcon HTML with direction-aware positioning (left/right/top based on available viewport space). Still has edge cases where labels clip at screen edges for moments near the map boundary.
+- **Scroll overlay labels fixed** — `width: max-content` on `.scroll-label-container` escapes the 12px DivIcon parent constraint. `flex-shrink: 0` prevents text collapse.
+- **Path arrowheads removed** (commit `073d452`) — were confused for duplicate pins.
+- **Remaining issues:**
+  - Labels can still bleed off screen edges in some scenarios (e.g., last moment in a story near map edge)
+  - Two moments at near-identical coords still look like one fat pin (data issue, not rendering)
+  - `contain: paint` on `.leaflet-container` clips overflow but doesn't reposition labels
 
 ### P0 — Verification Testing
 - Full suggest → agree → verify flow not yet tested between two accounts on production.
@@ -101,14 +114,29 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 ### P1 — RapidVerify Upgrades
 - POI-first sorting, notability weighting, crosshair picker, note box
 
-### P1 — ~842 Orphan Moments (updated Session 30)
-- Session 30 tagged 108 moments with 148 entity links (67.4% coverage, was 59.7%)
-- Remaining 842 mostly need **new entities created**, not just wiring
+### P1 — ~772 Orphan Moments (updated Session 30 continued)
+- Session 30 total: 29 new entities created, 221 entity links added (70.1% coverage, was 59.7%)
+- Three passes: automated name matching (68), sibling story inference (40), manual entity creation + wiring (73)
+- Remaining 772 mostly need **new entities created** or belong to collections (not entity-taggable)
 - ~200 Mexican/Latin American moments → create entities
 - ~150 filming locations → collections
 - ~100 aviation disasters → collections
 - ~300 world history → assess for entity wiring
 - **Planned: entity resolution pipeline** using 2.29M people DB
+
+### P1 — OddStops Content Enrichment (NEW)
+- OddStops.com has pinpoint GPS coordinates and detailed location info for dark history / true crime sites
+- Overlapping stories: Ridgway (Green River Killer), Bundy, Cobain, BTK, Dahmer, and more
+- OddStops blocks automated fetching (403) — must browse via Chrome
+- **Plan:** Browse OddStops pages, extract coords/addresses/facts, add new moments to existing stories, verify coordinates
+- Priority regions: Washington, Arizona, Texas
+- Product question: how to accommodate OddStops-level detail within the atomic moment model (more moments per story? richer descriptions? LocationLinks to external sources?)
+
+### P1 — Private Property / Access Labels (NEW)
+- Currently handled ad-hoc in subtitles ("Private property — not open to the public")
+- Formalize as a field: `accessLevel: 'public' | 'private' | 'restricted' | 'view-from-road'`
+- UI badge showing access status
+- Content guide amendment needed for Section 2.2 (Subtitles)
 
 ### P1 — Phoenix Place Entity Showing with Only 4 Moments
 - `phoenix-az` entity (type: place) appears in "What's Here" but only has 4 linked moments
@@ -127,6 +155,13 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 - `src/data/austin-barnes-content.ts`, `del-valle-content.ts`, `mesa-phoenix-content.ts`, `seattle-portorchard-content.ts`
 - Content is now in main dump files. Regional files only referenced by ingest scripts.
 - Can delete or archive after confirming ingest scripts aren't needed.
+
+### P1 — App Load Speed
+- Delay when clicking back from story/person to main page. User-reported.
+
+### P1 — Encyclopedia People Tab
+- Encyclopedia section needs a separate tab for People (currently mixed with stories).
+- Story cards in encyclopedia section are too large — take up most of the bottomsheet.
 
 ### P2 — Previous Session Issues
 - What's Here too few items when zoomed tight
