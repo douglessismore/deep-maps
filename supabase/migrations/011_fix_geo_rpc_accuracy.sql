@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION update_moment_location(
     geo_source_url = p_source_url,
     geo_verified_at = NOW(),
     updated_at = NOW(),
-    accuracy = COALESCE(p_accuracy, accuracy)
+    accuracy = COALESCE(p_accuracy::location_accuracy, accuracy)
   WHERE id = p_id;
 $$ LANGUAGE SQL SECURITY DEFINER;
 
