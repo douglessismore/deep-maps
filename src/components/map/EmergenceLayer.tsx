@@ -445,21 +445,25 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
             const sz = map.getSize();
             const labelRight = pt.x <= sz.x * 0.5;
             const nearBottom = pt.y > sz.y * 0.65;
-            const containerStyle = nearBottom
-              ? 'flex-direction:column-reverse;align-items:center;'
-              : labelRight ? '' : 'flex-direction:row-reverse;';
-            const anchorY = nearBottom ? 50 : 0;
             const landedMeta = arrowFlyRef.current?.meta || '';
+            let landedLabelPos: string;
+            if (nearBottom) {
+              landedLabelPos = 'bottom:8px;left:50%;transform:translateX(-50%);';
+            } else if (labelRight) {
+              landedLabelPos = 'left:8px;top:0;';
+            } else {
+              landedLabelPos = 'right:8px;top:0;';
+            }
             const landedIcon = L.divIcon({
               className: '',
-              html: `<div class="scroll-label-container" style="${containerStyle}">
-                <div class="scroll-label-text dark-tooltip">
+              html: `<div style="position:relative;width:0;height:0;">
+                <div class="scroll-label-text dark-tooltip" style="position:absolute;${landedLabelPos}white-space:nowrap;">
                   <div>${label}</div>
                   ${landedMeta ? `<div class="scroll-label-meta">${landedMeta}</div>` : ''}
                 </div>
               </div>`,
               iconSize: [0, 0],
-              iconAnchor: [0, anchorY],
+              iconAnchor: [0, 0],
             });
             const landedMarker = L.marker([targetLat, targetLng], { icon: landedIcon, zIndexOffset: 900, interactive: true });
             landedMarker.addTo(map);
@@ -667,27 +671,33 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const mapSize = map.getSize();
         const labelRight = point.x <= mapSize.x * 0.5;
         const nearBottom = point.y > mapSize.y * 0.65;
-        const containerStyle = nearBottom
-          ? 'flex-direction:column-reverse;align-items:center;'
-          : labelRight ? '' : 'flex-direction:row-reverse;';
-        const anchorY = nearBottom ? 50 : 0;
         const firstCat = momentCategoryMap.get(scrollHighlight[0]?.id);
         const multiColor = firstCat ? CATEGORIES[firstCat]?.color || '#888' : '#888';
         const multiGlow = hexToRgba(multiColor, 0.06);
         const metaHtml = scrollHighlightMeta ? `<div class="scroll-label-meta">${scrollHighlightMeta}</div>` : '';
-        const multiBorderStyle = nearBottom
-          ? `border-bottom:2px solid ${multiColor};padding-bottom:4px;`
-          : `border-left:2px solid ${multiColor};`;
+        // Position label absolutely from a zero-size anchor point
+        let multiLabelPos: string;
+        let multiBorderStyle: string;
+        if (nearBottom) {
+          multiLabelPos = 'bottom:8px;left:50%;transform:translateX(-50%);';
+          multiBorderStyle = `border-bottom:2px solid ${multiColor};padding-bottom:4px;`;
+        } else if (labelRight) {
+          multiLabelPos = 'left:8px;top:0;';
+          multiBorderStyle = `border-left:2px solid ${multiColor};`;
+        } else {
+          multiLabelPos = 'right:8px;top:0;';
+          multiBorderStyle = `border-right:2px solid ${multiColor};`;
+        }
         const icon = L.divIcon({
           className: '',
-          html: `<div class="scroll-label-container" style="${containerStyle}">
-            <div class="scroll-label-text dark-tooltip" style="${multiBorderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${multiGlow};">
+          html: `<div style="position:relative;width:0;height:0;">
+            <div class="scroll-label-text dark-tooltip" style="position:absolute;${multiLabelPos}${multiBorderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${multiGlow};white-space:nowrap;">
               <div>${scrollHighlightLabel}</div>
               ${metaHtml}
             </div>
           </div>`,
           iconSize: [0, 0],
-          iconAnchor: [0, anchorY],
+          iconAnchor: [0, 0],
         });
         const marker = L.marker([centerLat, centerLng], { icon, zIndexOffset: 900, interactive: true });
         // Click navigates to the nearest visible moment, not the first in the array
@@ -731,18 +741,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const sz = map.getSize();
         const labelRight = pt.x <= sz.x * 0.5;
         const nearBottom = pt.y > sz.y * 0.65;
-        // Near bottom: render label above the dot using column-reverse layout
-        // with a large enough iconAnchor Y offset to pull the whole container up
-        const containerStyle = nearBottom
-          ? 'flex-direction:column-reverse;align-items:center;'
-          : labelRight ? '' : 'flex-direction:row-reverse;';
-        const borderStyle = nearBottom
-          ? `border-bottom:2px solid ${color};padding-bottom:4px;`
-          : `border-left:2px solid ${color};`;
         const innerGlow = hexToRgba(color, 0.06);
-        const stemStyle = nearBottom
-          ? `width:1px;height:8px;background:${color};opacity:0.35;flex-shrink:0;`
-          : `width:8px;height:1px;background:${color};opacity:0.35;flex-shrink:0;`;
         // Build meta line: use scrollHighlightMeta if available, else story name + year
         let singleMeta = scrollHighlightMeta || '';
         if (!singleMeta) {
@@ -752,20 +751,32 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           singleMeta = storyName ? (year ? `${storyName} · ${year}` : storyName) : (year ? `${year}` : '');
         }
         const singleMetaHtml = singleMeta ? `<div class="scroll-label-meta">${singleMeta}</div>` : '';
-        // When near bottom, shift anchor down so the container (which grows upward in column-reverse) stays visible
-        const anchorY = nearBottom ? 60 : 6;
+        // Position label absolutely so the dot always stays at the iconAnchor point.
+        // Using flex row-reverse moved the dot away from the anchor, causing the
+        // "duplicate pin" misalignment.
+        let labelPos: string;
+        let borderStyle: string;
+        if (nearBottom) {
+          labelPos = 'bottom:20px;left:50%;transform:translateX(-50%);';
+          borderStyle = `border-bottom:2px solid ${color};padding-bottom:4px;`;
+        } else if (labelRight) {
+          labelPos = 'left:20px;top:50%;transform:translateY(-50%);';
+          borderStyle = `border-left:2px solid ${color};`;
+        } else {
+          labelPos = 'right:20px;top:50%;transform:translateY(-50%);';
+          borderStyle = `border-right:2px solid ${color};`;
+        }
         const icon = L.divIcon({
           className: '',
-          html: `<div class="scroll-label-container" style="${containerStyle}">
-            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;flex-shrink:0;"></div>
-            <div style="${stemStyle}"></div>
-            <div class="scroll-label-text dark-tooltip" style="${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};">
+          html: `<div style="position:relative;width:12px;height:12px;">
+            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
+            <div class="scroll-label-text dark-tooltip" style="position:absolute;${labelPos}${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};white-space:nowrap;">
               <div>${tooltipText}</div>
               ${singleMetaHtml}
             </div>
           </div>`,
           iconSize: [12, 12],
-          iconAnchor: [6, anchorY],
+          iconAnchor: [6, 6],
         });
         const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
