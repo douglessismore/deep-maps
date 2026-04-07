@@ -39,6 +39,11 @@ Static files are now dumped directly from Supabase (flat arrays, no regional imp
 14. **Miranda SCOTUS unlinked** — removed entity link (no physical presence at Supreme Court)
 15. **Ransom money accuracy** — set to 'exact' (admin edit bug workaround)
 
+### Admin Edit Location Bug — FIXED
+16. **RPC fix** — `update_moment_location` now accepts `p_accuracy TEXT` param, casts to `location_accuracy` enum. Migration `011_fix_geo_rpc_accuracy.sql` deployed to production.
+17. **Provider coord override fix** — `provider.tsx` no longer overwrites Supabase coordinates when `geoVerified=true`. Admin-verified coords persist across app reloads.
+18. **PinEditor accuracy pass-through** — admin save now sends `suggestAccuracy` to the RPC.
+
 ### Data Architecture Change
 - Static files no longer use regional spread imports. `moments.ts`, `stories.ts`, `entities.ts` are complete flat arrays dumped from Supabase.
 - Regional content files (`austin-barnes-content.ts`, `del-valle-content.ts`, etc.) are now dead code — their content is included in the main dump.
@@ -72,13 +77,12 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 
 ## Open Issues (prioritized)
 
-### P0 — Admin Edit Doesn't Persist Accuracy (NEW — Session 30)
-- `update_moment_location` RPC in `007_geo_verification.sql` updates coordinates and sets `geo_verified: true` but **never updates the `accuracy` column**
-- RPC doesn't accept a `p_accuracy` parameter
-- PinEditor doesn't pass accuracy to the RPC
-- UI shows green checkmark (verified) but accuracy stays stale
-- **Fix:** Add `p_accuracy` param to RPC, update PinEditor to pass it, update AdminDataProvider's `updateMomentGeo`
-- **Files:** `supabase/migrations/007_geo_verification.sql`, `src/components/ui/PinEditor.tsx`, `src/admin/AdminDataProvider.tsx`
+### ~~P0 — Admin Edit Doesn't Persist Accuracy~~ ✅ FIXED Session 30
+- **Root cause 1:** `update_moment_location` RPC didn't accept or save `accuracy` param
+- **Root cause 2:** `provider.tsx` overrode Supabase coords with static coords on every load, even after admin verification
+- **Fix 1:** New migration `011_fix_geo_rpc_accuracy.sql` — adds `p_accuracy` param with `::location_accuracy` cast, deployed to production
+- **Fix 2:** Provider now skips coord override when `geoVerified=true` — admin-verified coords always win
+- **Fix 3:** PinEditor passes `suggestAccuracy` in admin save path
 
 ### P0 — Stray Marker / Wrong Position Bug
 - **Yogurt Shop story** has marker #3 appearing disconnected from polyline, label bleeding off map edge.
@@ -144,9 +148,13 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 - `src/data/stories.ts` — REGENERATED (628 stories)
 - `src/data/entities.ts` — REGENERATED (588 entities)
 - `src/data/collections.ts` — REGENERATED (30 collections)
+- `src/lib/data/provider.tsx` — Skip coord override when `geoVerified=true`
+- `src/components/ui/PinEditor.tsx` — Pass `suggestAccuracy` to RPC in admin save
+- `supabase/migrations/011_fix_geo_rpc_accuracy.sql` — NEW: adds `p_accuracy` to RPC
 - `scripts/reconcile/detailed-drift.ts` — NEW: field-level drift audit
 - `scripts/reconcile/push-static-to-supabase.ts` — NEW: safe UPSERT push
 - `scripts/sync-to-supabase.ts` — NEW: ongoing sync script
+- `scripts/tag-orphans.ts` — NEW: automated orphan entity matching
 - `scripts/dump-from-supabase.ts` — Updated: emits @ts-expect-error for large arrays
 
 ### NOT modified
