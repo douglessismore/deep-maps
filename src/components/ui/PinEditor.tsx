@@ -10,26 +10,43 @@ const SAT_TILE_ATTR = '&copy; <a href="https://www.esri.com/">Esri</a>';
 const DARK_TILE_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 const DARK_TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>';
 
-const DRAGGABLE_MARKER_ICON = L.divIcon({
+// Gray dot showing the current/original location
+const CURRENT_ICON = L.divIcon({
   className: '',
   html: `<div style="
-    width: 18px; height: 18px;
-    background: #ef4444;
-    border: 3px solid #fff;
+    width: 10px; height: 10px;
+    background: #888;
+    border: 2px solid #bbb;
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(0,0,0,0.6);
-    cursor: grab;
+    opacity: 0.8;
   "></div>`,
-  iconSize: [18, 18],
-  iconAnchor: [9, 9],
+  iconSize: [10, 10],
+  iconAnchor: [5, 5],
 });
 
-const ACCURACY_OPTIONS: { value: LocationAccuracy; label: string }[] = [
-  { value: 'pinpoint', label: 'Pinpoint' },
-  { value: 'exact', label: 'Exact' },
-  { value: 'approximate', label: 'Approx' },
-  { value: 'general-area', label: 'Area' },
+// ─── Zoom → Accuracy mapping ────────────────────────────────────────
+const ZOOM_ACCURACY: [number, LocationAccuracy][] = [
+  [18, 'pinpoint'],
+  [16, 'exact'],
+  [13, 'approximate'],
+  [0, 'general-area'],
 ];
+
+function getAccuracyFromZoom(zoom: number): LocationAccuracy {
+  for (const [minZoom, acc] of ZOOM_ACCURACY) {
+    if (zoom >= minZoom) return acc;
+  }
+  return 'general-area';
+}
+
+const ACCURACY_META: Record<LocationAccuracy, { label: string; color: string }> = {
+  pinpoint: { label: 'Pinpoint', color: '#10b981' },
+  exact: { label: 'Exact', color: '#22c55e' },
+  approximate: { label: 'Approx', color: '#eab308' },
+  'general-area': { label: 'Area', color: '#f97316' },
+};
+
+const ACCURACY_OPTIONS: LocationAccuracy[] = ['pinpoint', 'exact', 'approximate', 'general-area'];
 
 interface PinEditorProps {
   momentId: string;
@@ -44,6 +61,8 @@ interface PinEditorProps {
   onSaved?: (lat: number, lng: number, address: string) => void;
   /** 'admin' = direct save (default), 'suggest' = creates a community suggestion */
   mode?: 'admin' | 'suggest';
+  /** For refinement flow — links this suggestion as a child of another */
+  parentSuggestionId?: string;
 }
 
 export function PinEditor({
@@ -53,15 +72,14 @@ export function PinEditor({
   address: initialAddress,
   accuracy,
   geoSourceUrl: initialSourceUrl,
-  geoVerified,
   momentName,
   onClose,
   onSaved,
   mode = 'admin',
+  parentSuggestionId,
 }: PinEditorProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
-  const markerRef = useRef<L.Marker | null>(null);
   const darkTileRef = useRef<L.TileLayer | null>(null);
   const satTileRef = useRef<L.TileLayer | null>(null);
 
@@ -70,20 +88,23 @@ export function PinEditor({
   const [coordInput, setCoordInput] = useState(`${lat}, ${lng}`);
   const [address, setAddress] = useState(initialAddress ?? '');
   const [sourceUrl, setSourceUrl] = useState(initialSourceUrl ?? '');
-  const [satellite, setSatellite] = useState(true); // Start in satellite view
+  const [satellite, setSatellite] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // Suggestion-mode fields
+  // Accuracy
   const [suggestAccuracy, setSuggestAccuracy] = useState<LocationAccuracy>((accuracy as LocationAccuracy) ?? 'approximate');
+  const [manualAccuracy, setManualAccuracy] = useState(false);
+  const [currentZoom, setCurrentZoom] = useState(17);
+  // Suggestion-mode
   const [explanation, setExplanation] = useState('');
 
-  // Update coord input when marker is dragged
+  // Sync coord display
   useEffect(() => {
     setCoordInput(`${draftLat.toFixed(6)}, ${draftLng.toFixed(6)}`);
   }, [draftLat, draftLng]);
 
-  // Initialize map
+  // ── Initialize map with crosshair approach ──
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
@@ -102,37 +123,41 @@ export function PinEditor({
 
     const darkLayer = L.tileLayer(DARK_TILE_URL, { attribution: DARK_TILE_ATTR });
     const satLayer = L.tileLayer(SAT_TILE_URL, { attribution: SAT_TILE_ATTR });
-
-    // Start in satellite
     satLayer.addTo(map);
     darkTileRef.current = darkLayer;
     satTileRef.current = satLayer;
 
-    const marker = L.marker([lat, lng], {
-      icon: DRAGGABLE_MARKER_ICON,
-      draggable: true,
-    }).addTo(map);
+    // Gray dot at original location
+    L.marker([lat, lng], { icon: CURRENT_ICON, interactive: false }).addTo(map);
 
-    marker.on('dragend', () => {
-      const pos = marker.getLatLng();
-      setDraftLat(pos.lat);
-      setDraftLng(pos.lng);
+    // Map center = selected location (crosshair approach)
+    map.on('moveend', () => {
+      const c = map.getCenter();
+      setDraftLat(c.lat);
+      setDraftLng(c.lng);
     });
 
-    markerRef.current = marker;
-    mapInstanceRef.current = map;
+    map.on('zoomend', () => {
+      setCurrentZoom(map.getZoom());
+    });
 
-    // Force a resize after mount (fixes grey tiles in modals)
+    mapInstanceRef.current = map;
     setTimeout(() => map.invalidateSize(), 100);
 
     return () => {
       map.remove();
       mapInstanceRef.current = null;
-      markerRef.current = null;
       darkTileRef.current = null;
       satTileRef.current = null;
     };
   }, [lat, lng]);
+
+  // Auto-detect accuracy from zoom (unless manually overridden)
+  useEffect(() => {
+    if (!manualAccuracy) {
+      setSuggestAccuracy(getAccuracyFromZoom(currentZoom));
+    }
+  }, [currentZoom, manualAccuracy]);
 
   // Toggle satellite/dark
   const handleToggleSatellite = useCallback(() => {
@@ -140,31 +165,21 @@ export function PinEditor({
     const dark = darkTileRef.current;
     const sat = satTileRef.current;
     if (!map || !dark || !sat) return;
-
-    if (satellite) {
-      map.removeLayer(sat);
-      dark.addTo(map);
-    } else {
-      map.removeLayer(dark);
-      sat.addTo(map);
-    }
+    if (satellite) { map.removeLayer(sat); dark.addTo(map); }
+    else { map.removeLayer(dark); sat.addTo(map); }
     setSatellite(!satellite);
   }, [satellite]);
 
-  // Parse coordinate input
+  // Parse coordinate input → pan map (crosshair stays centered)
   const parseCoordInput = useCallback(() => {
-    const trimmed = coordInput.trim();
-    // Accept "lat, lng" or "lat lng"
-    const match = trimmed.match(/^(-?\d+\.?\d*)[,\s]+(-?\d+\.?\d*)$/);
+    const match = coordInput.trim().match(/^(-?\d+\.?\d*)[,\s]+(-?\d+\.?\d*)$/);
     if (match) {
       const newLat = parseFloat(match[1]);
       const newLng = parseFloat(match[2]);
       if (newLat >= -90 && newLat <= 90 && newLng >= -180 && newLng <= 180) {
         setDraftLat(newLat);
         setDraftLng(newLng);
-        // Move marker and map
-        markerRef.current?.setLatLng([newLat, newLng]);
-        mapInstanceRef.current?.panTo([newLat, newLng]);
+        mapInstanceRef.current?.setView([newLat, newLng], mapInstanceRef.current.getZoom());
         setError(null);
         return;
       }
@@ -172,95 +187,71 @@ export function PinEditor({
     setError('Invalid coordinates. Use format: 30.179407, -97.792633');
   }, [coordInput]);
 
-  // Suggestion save handler
+  // Suggestion save
   const handleSuggest = async () => {
-    if (!sourceUrl.trim()) {
-      setError('Source URL is required for suggestions');
-      return;
-    }
-    if (!explanation.trim()) {
-      setError('Please explain why this location is more accurate');
-      return;
-    }
+    if (!sourceUrl.trim()) { setError('Source URL is required'); return; }
+    if (!explanation.trim()) { setError('Please explain why this location is more accurate'); return; }
     setSaving(true);
     setError(null);
     try {
       const result = await submitSuggestion({
-        momentId,
-        lat: draftLat,
-        lng: draftLng,
+        momentId, lat: draftLat, lng: draftLng,
         accuracyLevel: suggestAccuracy,
         explanation: explanation.trim(),
         sourceUrl: sourceUrl.trim(),
+        parentSuggestionId,
       });
       if (result.error) throw new Error(result.error);
-      setSaved(true);
-      setTimeout(() => onClose(), 1200);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Submission failed');
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  // Admin save handler
-  const handleSave = async () => {
-    setSaving(true);
-    setError(null);
-    try {
-      // 1. Update geo via RPC (sets point, marks verified)
-      const { error: rpcError } = await supabase.rpc('update_moment_location', {
-        p_id: momentId,
-        p_lng: draftLng,
-        p_lat: draftLat,
-        p_source_url: sourceUrl || null,
-      });
-      if (rpcError) throw rpcError;
-
-      // 2. Update address via direct update
-      if (address !== (initialAddress ?? '')) {
-        const { error: addrError } = await supabase
-          .from('moments')
-          .update({ address })
-          .eq('id', momentId);
-        if (addrError) throw addrError;
-      }
-
       setSaved(true);
       onSaved?.(draftLat, draftLng, address);
       setTimeout(() => onClose(), 1200);
     } catch (err) {
-      console.error('[PinEditor] Save failed:', err);
+      setError(err instanceof Error ? err.message : 'Submission failed');
+    } finally { setSaving(false); }
+  };
+
+  // Admin save
+  const handleSave = async () => {
+    setSaving(true);
+    setError(null);
+    try {
+      const { error: rpcError } = await supabase.rpc('update_moment_location', {
+        p_id: momentId, p_lng: draftLng, p_lat: draftLat,
+        p_source_url: sourceUrl || null,
+      });
+      if (rpcError) throw rpcError;
+      if (address !== (initialAddress ?? '')) {
+        const { error: addrError } = await supabase.from('moments').update({ address }).eq('id', momentId);
+        if (addrError) throw addrError;
+      }
+      setSaved(true);
+      onSaved?.(draftLat, draftLng, address);
+      setTimeout(() => onClose(), 1200);
+    } catch (err) {
       setError(err instanceof Error ? err.message : 'Save failed');
-    } finally {
-      setSaving(false);
-    }
+    } finally { setSaving(false); }
   };
 
   // Close on escape
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
   const coordsChanged = draftLat !== lat || draftLng !== lng;
+  const autoAcc = getAccuracyFromZoom(currentZoom);
+  const accMeta = ACCURACY_META[suggestAccuracy];
 
   return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       onTouchMove={(e) => e.stopPropagation()}
       onPointerDown={(e) => e.stopPropagation()}
     >
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
-      {/* Modal */}
       <div
         className="relative z-10 w-full sm:max-w-md bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-t-2xl sm:rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
@@ -271,37 +262,72 @@ export function PinEditor({
             <h3 className="text-sm font-bold text-[var(--text-primary)] truncate pr-2">
               {mode === 'suggest' ? 'Suggest Better Location' : 'Edit Location'}
             </h3>
-            <button
-              onClick={onClose}
-              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors text-lg leading-none p-1"
-            >
+            <button onClick={onClose} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors text-lg leading-none p-1">
               &times;
             </button>
           </div>
           <p className="text-[11px] text-[var(--text-muted)] truncate mt-0.5">{momentName}</p>
-          {geoVerified && (
-            <span className="inline-block mt-1 px-1.5 py-0.5 text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 rounded">
-              Currently verified
-            </span>
+          {mode === 'suggest' && (
+            <p className="text-[10px] text-[var(--text-muted)] mt-1">
+              Pan the map to position the crosshair. Zoom in for higher accuracy.
+            </p>
           )}
         </div>
 
-        {/* Map with satellite toggle only */}
+        {/* Map with crosshair overlay */}
         <div className="relative">
-          <div ref={mapRef} className="w-full h-[200px] sm:h-[350px]" />
+          <div ref={mapRef} className="w-full h-[220px] sm:h-[350px]" />
 
-          {/* Satellite toggle — top-left on map */}
+          {/* ── Crosshair overlay ── */}
+          <div className="absolute inset-0 z-[1001] pointer-events-none flex items-center justify-center">
+            {/* Outer circle */}
+            <div className="relative">
+              <div
+                className="w-12 h-12 rounded-full border-2"
+                style={{
+                  borderColor: `${accMeta.color}99`,
+                  boxShadow: `0 0 12px ${accMeta.color}33, inset 0 0 8px ${accMeta.color}11`,
+                }}
+              />
+              {/* Horizontal line */}
+              <div className="absolute top-1/2 left-0 w-full h-px -translate-y-px" style={{ backgroundColor: `${accMeta.color}55` }} />
+              {/* Vertical line */}
+              <div className="absolute left-1/2 top-0 h-full w-px -translate-x-px" style={{ backgroundColor: `${accMeta.color}55` }} />
+              {/* Center dot */}
+              <div
+                className="absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full -translate-x-1/2 -translate-y-1/2"
+                style={{ backgroundColor: accMeta.color }}
+              />
+            </div>
+            {/* Accuracy label below crosshair */}
+            <div
+              className="absolute left-1/2 -translate-x-1/2 text-[10px] font-bold tracking-wider uppercase"
+              style={{ top: 'calc(50% + 32px)', color: accMeta.color, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}
+            >
+              {accMeta.label}
+              {!manualAccuracy && <span className="opacity-50 ml-1 font-normal normal-case">auto</span>}
+            </div>
+          </div>
+
+          {/* Satellite toggle */}
           <button
             onClick={handleToggleSatellite}
-            className="absolute top-2 left-2 z-[1000] px-2 py-1 text-[10px] bg-[var(--bg-secondary)]/90 text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded hover:bg-[var(--bg-card-hover)] transition-colors"
+            className="absolute top-2 left-2 z-[1002] px-2 py-1 text-[10px] bg-black/60 text-white/80 rounded hover:bg-black/80 transition-colors backdrop-blur-sm"
           >
-            {satellite ? 'Dark' : 'Satellite'}
+            {satellite ? 'Map' : 'Satellite'}
           </button>
+
+          {/* Moved indicator */}
+          {coordsChanged && (
+            <div className="absolute top-2 right-2 z-[1002] px-2 py-1 text-[10px] font-mono bg-yellow-500/20 text-yellow-400 rounded backdrop-blur-sm">
+              moved
+            </div>
+          )}
         </div>
 
-        {/* Controls — below map */}
-        <div className="px-4 py-3 space-y-2">
-          {/* Live coordinates — editable inputs */}
+        {/* Controls */}
+        <div className="px-4 py-3 space-y-2.5">
+          {/* Coordinates */}
           <div>
             <label className="block text-[10px] text-[var(--text-muted)] mb-1">Coordinates</label>
             <div className="flex items-center gap-2">
@@ -316,69 +342,89 @@ export function PinEditor({
               />
               <button
                 onClick={parseCoordInput}
-                className="px-2.5 py-1.5 text-[10px] font-medium bg-[var(--bg-overlay-hover)] hover:bg-[var(--bg-overlay-active)] border border-[var(--border-subtle)] rounded text-[var(--text-secondary)] transition-colors shrink-0"
+                className="px-2.5 py-1.5 text-[10px] font-medium bg-[var(--bg-primary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] rounded text-[var(--text-secondary)] transition-colors shrink-0"
               >
-                Apply
+                Go
               </button>
-              {coordsChanged && (
-                <span className="text-[10px] text-yellow-400 font-mono bg-yellow-400/10 px-1.5 py-0.5 rounded shrink-0">moved</span>
-              )}
             </div>
           </div>
 
-          {/* Address + Source URL — compact 2-column on wider screens */}
+          {/* Address + Source URL */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <div>
-              <label className="block text-[10px] text-[var(--text-muted)] mb-1">Address</label>
+            {mode === 'admin' && (
+              <div>
+                <label className="block text-[10px] text-[var(--text-muted)] mb-1">Address</label>
+                <input
+                  type="text" value={address} onChange={(e) => setAddress(e.target.value)}
+                  placeholder="123 Main St, City, State"
+                  className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50"
+                />
+              </div>
+            )}
+            <div className={mode === 'admin' ? '' : 'col-span-full'}>
+              <label className="block text-[10px] text-[var(--text-muted)] mb-1">
+                Source URL {mode === 'suggest' && <span className="text-red-400">*</span>}
+              </label>
               <input
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="123 Main St, City, State"
-                className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50"
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] text-[var(--text-muted)] mb-1">Source URL</label>
-              <input
-                type="text"
-                value={sourceUrl}
-                onChange={(e) => setSourceUrl(e.target.value)}
-                placeholder="Google Maps link, wiki, etc."
+                type="text" value={sourceUrl} onChange={(e) => setSourceUrl(e.target.value)}
+                placeholder="Google Maps link, article, etc."
                 className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50"
               />
             </div>
           </div>
 
-          {/* Suggestion-mode: accuracy selector + explanation */}
+          {/* Suggest mode: accuracy + explanation */}
           {mode === 'suggest' && (
             <>
+              {/* Accuracy selector */}
               <div>
-                <label className="block text-[10px] text-[var(--text-muted)] mb-1">Accuracy Level</label>
-                <div className="flex gap-1">
-                  {ACCURACY_OPTIONS.map((opt) => (
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-[10px] text-[var(--text-muted)]">Accuracy Level</label>
+                  {manualAccuracy && (
                     <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => setSuggestAccuracy(opt.value)}
-                      className={`flex-1 py-1.5 rounded text-[10px] font-medium transition-all border ${
-                        suggestAccuracy === opt.value
-                          ? 'bg-red-500/15 border-red-500/40 text-red-400'
-                          : 'bg-[var(--bg-primary)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--border-hover)]'
-                      }`}
+                      onClick={() => setManualAccuracy(false)}
+                      className="text-[9px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
                     >
-                      {opt.label}
+                      reset to auto
                     </button>
-                  ))}
+                  )}
+                </div>
+                <div className="flex gap-1">
+                  {ACCURACY_OPTIONS.map((acc) => {
+                    const meta = ACCURACY_META[acc];
+                    const isActive = suggestAccuracy === acc;
+                    const isAuto = !manualAccuracy && acc === autoAcc;
+                    return (
+                      <button
+                        key={acc}
+                        type="button"
+                        onClick={() => { setSuggestAccuracy(acc); setManualAccuracy(true); }}
+                        className={`flex-1 py-1.5 rounded text-[10px] font-medium transition-all border ${
+                          isActive
+                            ? 'border-opacity-50'
+                            : 'bg-[var(--bg-primary)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--border-hover)]'
+                        }`}
+                        style={isActive ? {
+                          backgroundColor: `${meta.color}18`,
+                          borderColor: `${meta.color}55`,
+                          color: meta.color,
+                        } : undefined}
+                      >
+                        {meta.label}
+                        {isAuto && !isActive && <span className="opacity-40 ml-0.5">*</span>}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
+
+              {/* Explanation */}
               <div>
                 <label className="block text-[10px] text-[var(--text-muted)] mb-1">
                   Why is this more accurate? <span className="text-red-400">*</span>
                 </label>
                 <textarea
-                  value={explanation}
-                  onChange={(e) => setExplanation(e.target.value)}
+                  value={explanation} onChange={(e) => setExplanation(e.target.value)}
                   placeholder="I found the exact spot using historical aerial photos..."
                   rows={2}
                   className="w-full px-2.5 py-1.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-red-500/50 resize-none"
@@ -387,10 +433,7 @@ export function PinEditor({
             </>
           )}
 
-          {/* Error display */}
-          {error && (
-            <p className="text-[11px] text-red-400">{error}</p>
-          )}
+          {error && <p className="text-[11px] text-red-400">{error}</p>}
 
           {/* Buttons */}
           <div className="flex gap-2 pt-1">
@@ -412,7 +455,7 @@ export function PinEditor({
               {saving
                 ? (mode === 'suggest' ? 'Submitting...' : 'Saving...')
                 : saved
-                  ? (mode === 'suggest' ? '\u2713 Suggestion Submitted' : '\u2713 Saved & Verified')
+                  ? (mode === 'suggest' ? '\u2713 Submitted' : '\u2713 Saved')
                   : (mode === 'suggest' ? 'Submit Suggestion' : 'Save & Verify')}
             </button>
           </div>

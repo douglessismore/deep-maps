@@ -18,10 +18,17 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 );
 
 -- Auto-create profile on signup
-CREATE OR REPLACE FUNCTION handle_new_user()
-RETURNS TRIGGER AS $$
+-- NOTE: SET search_path = public is critical — without it, SECURITY DEFINER
+-- functions can't resolve unqualified table names from auth schema context.
+-- EXCEPTION handler ensures signup never fails even if profile creation does.
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 BEGIN
-  INSERT INTO user_profiles (id, display_name)
+  INSERT INTO public.user_profiles (id, display_name)
   VALUES (
     NEW.id,
     COALESCE(
@@ -31,8 +38,11 @@ BEGIN
   )
   ON CONFLICT (id) DO NOTHING;
   RETURN NEW;
+EXCEPTION WHEN OTHERS THEN
+  RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
+  RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
@@ -97,8 +107,12 @@ CREATE INDEX IF NOT EXISTS idx_comments_suggestion ON suggestion_comments(sugges
 -- 5. Verification trigger — auto-verify on 1+ agree votes
 -- ═══════════════════════════════════════════════════════════════
 
-CREATE OR REPLACE FUNCTION check_verification()
-RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION public.check_verification()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
   agree_total INTEGER;
   suggestion RECORD;
@@ -161,7 +175,7 @@ BEGIN
   END IF;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 DROP TRIGGER IF EXISTS on_vote_cast ON suggestion_votes;
 CREATE TRIGGER on_vote_cast

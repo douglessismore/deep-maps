@@ -3,11 +3,10 @@ import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from 
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
 import { isAdminMode } from '../../lib/admin';
-import { useAuth } from '../../lib/auth';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
-import { LoginModal } from '../auth/LoginModal';
+import { VerificationThread } from '../verification/VerificationThread';
 import { isV2 } from '../../lib/theme';
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
@@ -57,11 +56,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
   }, ref) {
     const cat = story ? CATEGORIES[story.category] : undefined;
     const [pinEditorOpen, setPinEditorOpen] = useState(false);
-    const [suggestEditorOpen, setSuggestEditorOpen] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
     const [adminSaved, setAdminSaved] = useState(false);
     const admin = useMemo(() => isAdminMode(), []);
-    const { user } = useAuth();
 
     const handlePinSaved = useCallback((_lat: number, _lng: number, _address: string) => {
       setAdminSaved(true);
@@ -445,44 +441,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             {location.media && location.media.length > 0 && (
               <MediaDisplay media={location.media} />
             )}
-            {/* Community: suggest a better location */}
-            {!admin && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (!user) { setShowLogin(true); return; }
-                  setSuggestEditorOpen(true);
-                }}
-                className="inline-flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-              >
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
-                  <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" strokeDasharray="2.5 2"/>
-                  <path d="M6 4v4M4 6h4" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-                </svg>
-                Suggest a more accurate location
-              </button>
-            )}
-            {showLogin && (
-              <LoginModal
-                onClose={() => setShowLogin(false)}
-                action="suggest a more accurate location"
-              />
-            )}
-            {suggestEditorOpen && (
-              <PinEditor
-                momentId={location.id}
-                lat={location.lat}
-                lng={location.lng}
-                address={location.address}
-                accuracy={location.accuracy}
-                geoVerified={location.geoVerified}
-                geoSourceUrl={location.geoSourceUrl}
-                momentName={location.name}
-                mode="suggest"
-                onClose={() => setSuggestEditorOpen(false)}
-                onSaved={() => setSuggestEditorOpen(false)}
-              />
-            )}
+            {/* Community verification thread */}
+            {!admin && <VerificationThread moment={location} />}
           </div>
         )}
       </div>

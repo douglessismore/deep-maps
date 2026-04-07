@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { LocationSuggestion, LocationAccuracy, Moment } from '../../types';
 import { useAuth } from '../../lib/auth';
-import { fetchSuggestionsForMoment, castVote, addComment } from '../../lib/verification';
+import { fetchSuggestionsForMoment, castVote, addComment, checkPinpointLocked } from '../../lib/verification';
 import { LoginModal } from '../auth/LoginModal';
-import { SuggestionForm } from './SuggestionForm';
+import { PinEditor } from '../ui/PinEditor';
 
 const ACCURACY_COLORS: Record<LocationAccuracy, string> = {
   pinpoint: '#10b981',
@@ -39,6 +39,7 @@ export function VerificationThread({ moment }: VerificationThreadProps) {
   const { user } = useAuth();
   const [suggestions, setSuggestions] = useState<LocationSuggestion[]>([]);
   const [loading, setLoading] = useState(true);
+  const [pinpointLocked, setPinpointLocked] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [refiningSuggestion, setRefiningSuggestion] = useState<string | undefined>();
@@ -49,43 +50,36 @@ export function VerificationThread({ moment }: VerificationThreadProps) {
 
   const loadSuggestions = useCallback(async () => {
     setLoading(true);
-    const data = await fetchSuggestionsForMoment(moment.id);
+    const [data, locked] = await Promise.all([
+      fetchSuggestionsForMoment(moment.id),
+      checkPinpointLocked(moment.id),
+    ]);
     setSuggestions(data);
+    setPinpointLocked(locked);
     setLoading(false);
   }, [moment.id]);
 
-  useEffect(() => {
-    loadSuggestions();
-  }, [loadSuggestions]);
+  useEffect(() => { loadSuggestions(); }, [loadSuggestions]);
 
-  const handleSuggest = () => {
-    if (!user) {
-      setShowLogin(true);
-      return;
-    }
+  const requireAuth = (action: () => void) => {
+    if (!user) { setShowLogin(true); return; }
+    action();
+  };
+
+  const handleSuggest = () => requireAuth(() => {
     setRefiningSuggestion(undefined);
     setShowForm(true);
-  };
+  });
 
-  const handleRefine = (parentId: string) => {
-    if (!user) {
-      setShowLogin(true);
-      return;
-    }
+  const handleRefine = (parentId: string) => requireAuth(() => {
     setRefiningSuggestion(parentId);
     setShowForm(true);
-  };
+  });
 
   const handleVote = async (suggestionId: string, voteType: 'agree' | 'disagree') => {
-    if (!user) {
-      setShowLogin(true);
-      return;
-    }
+    if (!user) { setShowLogin(true); return; }
     setVotingId(suggestionId);
-    const result = await castVote(suggestionId, voteType);
-    if (result.error) {
-      console.error('Vote failed:', result.error);
-    }
+    await castVote(suggestionId, voteType);
     await loadSuggestions();
     setVotingId(null);
   };
@@ -93,38 +87,46 @@ export function VerificationThread({ moment }: VerificationThreadProps) {
   const handleComment = async (suggestionId: string) => {
     if (!commentText.trim()) return;
     setCommentSubmitting(true);
-    const result = await addComment(suggestionId, commentText.trim());
-    if (result.error) {
-      console.error('Comment failed:', result.error);
-    }
+    await addComment(suggestionId, commentText.trim());
     setCommentText('');
     setCommentSubmitting(false);
     setCommentingId(null);
     await loadSuggestions();
   };
 
-  // ── Empty / loading state: just a subtle inline link ──
+  // ── Empty / loading state ──
   if (loading || suggestions.length === 0) {
     return (
       <div onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={handleSuggest}
-          className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-        >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <circle cx="5" cy="5" r="4" stroke="currentColor" strokeWidth="1" strokeDasharray="2 1.5"/>
-            <path d="M5 3v4M3 5h4" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round"/>
-          </svg>
-          Suggest a more accurate location
-        </button>
+        {pinpointLocked ? (
+          <span className="inline-flex items-center gap-1.5 text-xs text-green-400">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <rect x="3" y="5" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1"/>
+              <path d="M4.5 5V3.5a1.5 1.5 0 013 0V5" stroke="currentColor" strokeWidth="1"/>
+            </svg>
+            Pinpoint verified
+          </span>
+        ) : (
+          <button
+            onClick={(e) => { e.stopPropagation(); handleSuggest(); }}
+            className="inline-flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
+              <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" strokeDasharray="2.5 2"/>
+              <path d="M6 4v4M4 6h4" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+            </svg>
+            Suggest a more accurate location
+          </button>
+        )}
         {showLogin && <LoginModal onClose={() => setShowLogin(false)} action="suggest a location" />}
         {showForm && (
-          <SuggestionForm
+          <PinEditor
             momentId={moment.id} momentName={moment.name}
-            currentLat={moment.lat} currentLng={moment.lng}
-            currentAccuracy={moment.accuracy} parentSuggestionId={refiningSuggestion}
+            lat={moment.lat} lng={moment.lng}
+            accuracy={moment.accuracy} geoSourceUrl={moment.geoSourceUrl}
+            mode="suggest" parentSuggestionId={refiningSuggestion}
             onClose={() => setShowForm(false)}
-            onSubmitted={() => { setShowForm(false); loadSuggestions(); }}
+            onSaved={() => { setShowForm(false); loadSuggestions(); }}
           />
         )}
       </div>
@@ -132,34 +134,43 @@ export function VerificationThread({ moment }: VerificationThreadProps) {
   }
 
   // ── Thread with suggestions ──
-  const pendingSuggestions = suggestions.filter(s => s.status === 'pending');
-  const verifiedSuggestions = suggestions.filter(s => s.status === 'verified');
-  const otherSuggestions = suggestions.filter(s => s.status !== 'pending' && s.status !== 'verified');
+  const sorted = [
+    ...suggestions.filter(s => s.status === 'verified'),
+    ...suggestions.filter(s => s.status === 'pending'),
+    ...suggestions.filter(s => s.status !== 'verified' && s.status !== 'pending'),
+  ];
 
   return (
-    <div
-      className="space-y-2"
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Compact header — only shown when there ARE suggestions */}
+    <div className="space-y-2" onClick={(e) => e.stopPropagation()}>
+      {/* Header */}
       <div className="flex items-center justify-between">
         <span className="text-[10px] font-mono text-[var(--text-muted)] flex items-center gap-1.5">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <circle cx="5" cy="5" r="4" stroke="currentColor" strokeWidth="1"/>
-            <path d="M3.5 5l1.2 1.2L6.5 4" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          {suggestions.length} location {suggestions.length === 1 ? 'suggestion' : 'suggestions'}
+          {pinpointLocked ? (
+            <>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <rect x="2.5" y="4" width="5" height="4" rx="0.8" stroke="#10b981" strokeWidth="0.8"/>
+                <path d="M3.5 4V3a1.5 1.5 0 013 0v1" stroke="#10b981" strokeWidth="0.8"/>
+              </svg>
+              <span className="text-green-400">Pinpoint verified</span>
+            </>
+          ) : (
+            <>
+              {suggestions.length} {suggestions.length === 1 ? 'suggestion' : 'suggestions'}
+            </>
+          )}
         </span>
-        <button
-          onClick={handleSuggest}
-          className="text-[10px] font-mono text-[#e74c3c] hover:text-[#c0392b] transition-colors"
-        >
-          + Suggest
-        </button>
+        {!pinpointLocked && (
+          <button
+            onClick={handleSuggest}
+            className="text-[10px] font-mono text-[#e74c3c] hover:text-[#c0392b] transition-colors"
+          >
+            + Suggest
+          </button>
+        )}
       </div>
 
-      {/* Verified first, then pending, then others */}
-      {[...verifiedSuggestions, ...pendingSuggestions, ...otherSuggestions].map((s) => (
+      {/* Suggestion cards */}
+      {sorted.map((s) => (
         <SuggestionCard
           key={s.id}
           suggestion={s}
@@ -170,6 +181,7 @@ export function VerificationThread({ moment }: VerificationThreadProps) {
           commentingId={commentingId}
           commentText={commentText}
           commentSubmitting={commentSubmitting}
+          pinpointLocked={pinpointLocked}
           onVote={handleVote}
           onRefine={handleRefine}
           onToggleComment={setCommentingId}
@@ -179,32 +191,22 @@ export function VerificationThread({ moment }: VerificationThreadProps) {
       ))}
 
       {/* Modals */}
-      {showLogin && (
-        <LoginModal
-          onClose={() => setShowLogin(false)}
-          action="suggest a location"
-        />
-      )}
+      {showLogin && <LoginModal onClose={() => setShowLogin(false)} action="suggest a location" />}
       {showForm && (
-        <SuggestionForm
-          momentId={moment.id}
-          momentName={moment.name}
-          currentLat={moment.lat}
-          currentLng={moment.lng}
-          currentAccuracy={moment.accuracy}
-          parentSuggestionId={refiningSuggestion}
+        <PinEditor
+          momentId={moment.id} momentName={moment.name}
+          lat={moment.lat} lng={moment.lng}
+          accuracy={moment.accuracy} geoSourceUrl={moment.geoSourceUrl}
+          mode="suggest" parentSuggestionId={refiningSuggestion}
           onClose={() => setShowForm(false)}
-          onSubmitted={() => {
-            setShowForm(false);
-            loadSuggestions();
-          }}
+          onSaved={() => { setShowForm(false); loadSuggestions(); }}
         />
       )}
     </div>
   );
 }
 
-// ─── SuggestionCard sub-component ─────────────────────────────────────
+// ─── SuggestionCard ───────────────────────────────────────────────────
 
 interface SuggestionCardProps {
   suggestion: LocationSuggestion;
@@ -215,6 +217,7 @@ interface SuggestionCardProps {
   commentingId: string | null;
   commentText: string;
   commentSubmitting: boolean;
+  pinpointLocked: boolean;
   onVote: (id: string, type: 'agree' | 'disagree') => void;
   onRefine: (id: string) => void;
   onToggleComment: (id: string | null) => void;
@@ -223,26 +226,15 @@ interface SuggestionCardProps {
 }
 
 function SuggestionCard({
-  suggestion: s,
-  currentLat,
-  currentLng,
-  userId,
-  votingId,
-  commentingId,
-  commentText,
-  commentSubmitting,
-  onVote,
-  onRefine,
-  onToggleComment,
-  onCommentChange,
-  onCommentSubmit,
+  suggestion: s, currentLat, currentLng, userId, votingId,
+  commentingId, commentText, commentSubmitting, pinpointLocked,
+  onVote, onRefine, onToggleComment, onCommentChange, onCommentSubmit,
 }: SuggestionCardProps) {
   const status = STATUS_DISPLAY[s.status];
   const userVoted = s.votes?.some(v => v.userId === userId);
   const isVoting = votingId === s.id;
   const isCommenting = commentingId === s.id;
 
-  // Distance from current pin
   const distMeters = Math.round(
     Math.sqrt(
       Math.pow((s.lat - currentLat) * 111320, 2) +
@@ -268,9 +260,7 @@ function SuggestionCard({
             <span className="text-[11px] font-medium text-[var(--text-primary)]">
               {s.user?.displayName ?? 'Anonymous'}
             </span>
-            <span className="text-[10px] text-[var(--text-muted)]">
-              {timeAgo(s.createdAt)}
-            </span>
+            <span className="text-[10px] text-[var(--text-muted)]">{timeAgo(s.createdAt)}</span>
           </div>
           <span
             className="text-[9px] font-mono font-medium px-1.5 py-0.5 rounded-full"
@@ -280,31 +270,23 @@ function SuggestionCard({
           </span>
         </div>
 
-        {/* Location delta */}
+        {/* Accuracy + distance */}
         <div className="flex items-center gap-3 text-[10px] font-mono text-[var(--text-muted)]">
           <span className="flex items-center gap-1">
-            <span
-              className="w-1.5 h-1.5 rounded-full inline-block"
-              style={{ backgroundColor: ACCURACY_COLORS[s.accuracyLevel] }}
-            />
+            <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ backgroundColor: ACCURACY_COLORS[s.accuracyLevel] }} />
             {s.accuracyLevel}
           </span>
           <span>{distMeters < 1000 ? `${distMeters}m` : `${(distMeters / 1000).toFixed(1)}km`} from current</span>
-          <span className="font-mono text-[9px] opacity-60">
-            {s.lat.toFixed(5)}, {s.lng.toFixed(5)}
-          </span>
         </div>
 
         {/* Explanation */}
-        <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+        <p className="text-xs text-[var(--text-secondary)] leading-relaxed line-clamp-2">
           {s.explanation}
         </p>
 
         {/* Source */}
         <a
-          href={s.sourceUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={s.sourceUrl} target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-[10px] font-mono text-[#3b82f6] hover:text-[#60a5fa] transition-colors truncate max-w-full"
         >
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -312,42 +294,46 @@ function SuggestionCard({
           </svg>
           <span className="truncate">{s.sourceUrl}</span>
         </a>
-        {s.sourceDescription && (
-          <p className="text-[10px] text-[var(--text-muted)] italic">{s.sourceDescription}</p>
-        )}
 
         {/* Actions */}
         <div className="flex items-center gap-2 pt-1">
+          {/* Agree button — prominent green */}
           {s.status === 'pending' && (
-            <>
-              <button
-                onClick={() => onVote(s.id, 'agree')}
-                disabled={isVoting || userVoted}
-                className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium transition-all border ${
-                  userVoted
-                    ? 'bg-green-500/15 text-green-400 border-green-500/30 cursor-default'
-                    : 'bg-[var(--bg-secondary)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:bg-green-500/10 hover:text-green-400 hover:border-green-500/30'
-                } disabled:opacity-50`}
-              >
-                {userVoted ? '\u2713' : ''} Agree {s.agreeCount > 0 ? `(${s.agreeCount})` : ''}
-              </button>
-              <button
-                onClick={() => onRefine(s.id)}
-                className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)] transition-all"
-              >
-                Refine
-              </button>
-            </>
+            <button
+              onClick={() => onVote(s.id, 'agree')}
+              disabled={isVoting || userVoted}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all ${
+                userVoted
+                  ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                  : 'bg-green-600 text-white hover:bg-green-500 shadow-sm shadow-green-900/20'
+              } disabled:opacity-60`}
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 5.5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              {userVoted ? 'Agreed' : 'Agree'}
+              {s.agreeCount > 0 && <span className="opacity-70">({s.agreeCount})</span>}
+            </button>
           )}
+          {/* Refine — only if not pinpoint locked */}
+          {s.status === 'pending' && !pinpointLocked && (
+            <button
+              onClick={() => onRefine(s.id)}
+              className="px-2 py-1 rounded-lg text-[10px] font-medium bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)] transition-all"
+            >
+              Refine
+            </button>
+          )}
+          {/* Discuss */}
           <button
             onClick={() => onToggleComment(isCommenting ? null : s.id)}
-            className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)] transition-all"
+            className="px-2 py-1 rounded-lg text-[10px] font-medium bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)] transition-all"
           >
             Discuss {(s.comments?.length ?? 0) > 0 ? `(${s.comments!.length})` : ''}
           </button>
         </div>
 
-        {/* Comments thread */}
+        {/* Comments */}
         {(isCommenting || (s.comments && s.comments.length > 0)) && (
           <div className="mt-2 pl-3 border-l-2 border-[var(--border-subtle)] space-y-2">
             {s.comments?.map((c) => (
@@ -356,29 +342,21 @@ function SuggestionCard({
                   <span className="text-[10px] font-medium text-[var(--text-primary)]">
                     {c.user?.displayName ?? 'Anonymous'}
                   </span>
-                  <span className="text-[9px] text-[var(--text-muted)]">
-                    {timeAgo(c.createdAt)}
-                  </span>
+                  <span className="text-[9px] text-[var(--text-muted)]">{timeAgo(c.createdAt)}</span>
                 </div>
-                <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">
-                  {c.body}
-                </p>
+                <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">{c.body}</p>
               </div>
             ))}
             {isCommenting && (
               <div className="flex gap-1.5 mt-1">
                 <input
-                  type="text"
-                  value={commentText}
+                  type="text" value={commentText}
                   onChange={(e) => onCommentChange(e.target.value)}
                   placeholder="Add a comment..."
                   autoFocus
                   className="flex-1 px-2 py-1.5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-subtle)] text-xs text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#e74c3c] transition-all"
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      onCommentSubmit(s.id);
-                    }
+                    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onCommentSubmit(s.id); }
                   }}
                 />
                 <button

@@ -81,7 +81,7 @@ export async function fetchSuggestionsForMoment(
     .from('location_suggestions')
     .select(`
       *,
-      user_profiles!location_suggestions_user_id_fkey(*),
+      user_profiles(*),
       suggestion_votes(*, user_profiles(*)),
       suggestion_comments(*, user_profiles(*))
     `)
@@ -141,7 +141,7 @@ export async function submitSuggestion(
     })
     .select(`
       *,
-      user_profiles!location_suggestions_user_id_fkey(*)
+      user_profiles(*)
     `)
     .single();
 
@@ -192,6 +192,22 @@ export async function addComment(
 
   if (error) return { comment: null, error: error.message };
   return { comment: mapComment(row), error: null };
+}
+
+// ─── Pinpoint lock ────────────────────────────────────────────────────
+
+/** Check if a moment has a verified pinpoint suggestion (locked — no more suggestions). */
+export async function checkPinpointLocked(momentId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('location_suggestions')
+    .select('id')
+    .eq('moment_id', momentId)
+    .eq('status', 'verified')
+    .eq('accuracy_level', 'pinpoint')
+    .limit(1);
+
+  if (error || !data) return false;
+  return data.length > 0;
 }
 
 // ─── Leaderboard ──────────────────────────────────────────────────────
