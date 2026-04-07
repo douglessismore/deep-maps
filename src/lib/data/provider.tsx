@@ -101,12 +101,14 @@ async function loadData(): Promise<AppData> {
           ...staticOnlyStories,
         ];
         // Merge moments: static-only moments get added; for shared moments,
-        // static coordinates override Supabase when they differ (handles coord corrections)
+        // static coordinates override Supabase ONLY if the moment has NOT been
+        // geo-verified via admin edit. Once geo_verified is true, Supabase coords win.
         const staticMomentMap = new Map(staticData.moments.map(m => [m.id, m]));
         const supabaseMomentIds = new Set(data.moments.map(m => m.id));
         const staticOnlyMoments = staticData.moments.filter(m => !supabaseMomentIds.has(m.id));
         let coordOverrides = 0;
         const correctedMoments = data.moments.map(m => {
+          if (m.geoVerified) return m; // Admin-verified coords always win
           const staticM = staticMomentMap.get(m.id);
           if (staticM && (staticM.lat !== m.lat || staticM.lng !== m.lng)) {
             coordOverrides++;
@@ -114,7 +116,7 @@ async function loadData(): Promise<AppData> {
           }
           return m;
         });
-        if (coordOverrides > 0) console.info(`[data] Overrode ${coordOverrides} moment coordinates from static data`);
+        if (coordOverrides > 0) console.info(`[data] Overrode ${coordOverrides} non-verified moment coordinates from static data`);
         const mergedMoments = [...correctedMoments, ...staticOnlyMoments];
         // Merge static-only entities (exist in static but not Supabase)
         const supabaseEntityIds = new Set(data.entities.map(e => e.id));

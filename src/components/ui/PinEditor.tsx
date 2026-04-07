@@ -218,6 +218,7 @@ export function PinEditor({
       const { error: rpcError } = await supabase.rpc('update_moment_location', {
         p_id: momentId, p_lng: draftLng, p_lat: draftLat,
         p_source_url: sourceUrl || null,
+        p_accuracy: suggestAccuracy,
       });
       if (rpcError) throw rpcError;
       if (address !== (initialAddress ?? '')) {
