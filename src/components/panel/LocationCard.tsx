@@ -1,4 +1,5 @@
-import { forwardRef, useMemo, useState, useCallback } from 'react';
+import { forwardRef, useMemo, useState, useCallback, useEffect, lazy, Suspense } from 'react';
+import { createPortal } from 'react-dom';
 import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
@@ -6,8 +7,12 @@ import { isAdminMode } from '../../lib/admin';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
-import { VerificationThread } from '../verification/VerificationThread';
+import { fetchSuggestionCount } from '../../lib/verification';
 import { isV2 } from '../../lib/theme';
+
+const VerificationThread = lazy(() =>
+  import('../verification/VerificationThread').then(m => ({ default: m.VerificationThread }))
+);
 
 const ACCURACY_DISPLAY: Record<LocationAccuracy, { label: string; color: string; title: string }> = {
   pinpoint: { label: 'Pinpoint', color: '#10b981', title: 'GPS-verified to within 3 meters of the exact spot' },
@@ -57,7 +62,16 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     const cat = story ? CATEGORIES[story.category] : undefined;
     const [pinEditorOpen, setPinEditorOpen] = useState(false);
     const [adminSaved, setAdminSaved] = useState(false);
+    const [verifyOpen, setVerifyOpen] = useState(false);
+    const [suggestionCount, setSuggestionCount] = useState(0);
     const admin = useMemo(() => isAdminMode(), []);
+
+    // Fetch suggestion count for badge (lightweight, no joins)
+    useEffect(() => {
+      if (isExpanded) {
+        fetchSuggestionCount(location.id).then(setSuggestionCount);
+      }
+    }, [isExpanded, location.id]);
 
     const handlePinSaved = useCallback((_lat: number, _lng: number, _address: string) => {
       setAdminSaved(true);
@@ -415,8 +429,19 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             {location.media && location.media.length > 0 && (
               <MediaDisplay media={location.media} />
             )}
-            {/* Community verification thread — above Dive Deeper */}
-            <VerificationThread moment={location} />
+            {/* Community verification — compact badge, opens modal */}
+            <button
+              onClick={(e) => { e.stopPropagation(); setVerifyOpen(true); }}
+              className="inline-flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
+                <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" strokeDasharray="2.5 2"/>
+                <path d="M6 4v4M4 6h4" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+              </svg>
+              {suggestionCount > 0
+                ? `${suggestionCount} location ${suggestionCount === 1 ? 'suggestion' : 'suggestions'}`
+                : 'Suggest a more accurate location'}
+            </button>
             {/* Dive Deeper — unified entity + story navigation */}
             {(resolvedEntities.length > 0 || navigableStories.length > 0) && (
               <GoDeeperSection>
@@ -444,6 +469,41 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
               </GoDeeperSection>
             )}
           </div>
+        )}
+
+        {/* Verification modal — full thread + suggest form */}
+        {verifyOpen && createPortal(
+          <div
+            className="fixed inset-0 z-[9998] flex items-end sm:items-center justify-center"
+            onClick={() => setVerifyOpen(false)}
+          >
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            <div
+              className="relative z-10 w-full sm:max-w-md bg-[var(--bg-primary)] border border-[var(--border-subtle)] rounded-t-2xl sm:rounded-2xl overflow-hidden max-h-[85vh] flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="px-4 pt-4 pb-3 border-b border-[var(--border-subtle)] flex items-center justify-between shrink-0">
+                <div className="min-w-0">
+                  <h3 className="text-sm font-bold text-[var(--text-primary)]">Location Verification</h3>
+                  <p className="text-[10px] text-[var(--text-muted)] truncate mt-0.5">{location.name}</p>
+                </div>
+                <button
+                  onClick={() => setVerifyOpen(false)}
+                  className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors text-lg leading-none p-1 shrink-0"
+                >
+                  &times;
+                </button>
+              </div>
+              {/* Thread content */}
+              <div className="flex-1 overflow-y-auto p-4">
+                <Suspense fallback={<span className="text-[10px] text-[var(--text-muted)]">Loading...</span>}>
+                  <VerificationThread moment={location} />
+                </Suspense>
+              </div>
+            </div>
+          </div>,
+          document.body
         )}
       </div>
     );
