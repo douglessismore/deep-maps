@@ -73,7 +73,9 @@ function mapSuggestion(row: any): LocationSuggestion {
 
 // ─── Queries ──────────────────────────────────────────────────────────
 
-/** Fetch all suggestions for a moment, with user profiles, votes, and comments. */
+/** Fetch all suggestions for a moment, with user profiles, votes, and comments.
+ *  PostgREST can't join user_profiles via location_suggestions.user_id because
+ *  the FK goes to auth.users, not user_profiles. So we fetch profiles separately. */
 export async function fetchSuggestionsForMoment(
   momentId: string
 ): Promise<LocationSuggestion[]> {
@@ -81,9 +83,8 @@ export async function fetchSuggestionsForMoment(
     .from('location_suggestions')
     .select(`
       *,
-      user_profiles(*),
-      suggestion_votes(*, user_profiles(*)),
-      suggestion_comments(*, user_profiles(*))
+      suggestion_votes(*),
+      suggestion_comments(*)
     `)
     .eq('moment_id', momentId)
     .order('created_at', { ascending: false });
@@ -92,7 +93,36 @@ export async function fetchSuggestionsForMoment(
     console.error('Failed to fetch suggestions:', error);
     return [];
   }
-  return (data ?? []).map(mapSuggestion);
+  if (!data || data.length === 0) return [];
+
+  // Collect all user IDs and batch-fetch profiles
+  const userIds = new Set<string>();
+  for (const s of data) {
+    userIds.add(s.user_id);
+    for (const v of s.suggestion_votes ?? []) userIds.add(v.user_id);
+    for (const c of s.suggestion_comments ?? []) userIds.add(c.user_id);
+  }
+
+  const profileMap = new Map<string, any>();
+  if (userIds.size > 0) {
+    const { data: profiles } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .in('id', [...userIds]);
+    for (const p of profiles ?? []) profileMap.set(p.id, p);
+  }
+
+  // Attach profiles to the data before mapping
+  return data.map((row) => {
+    row.user_profiles = profileMap.get(row.user_id) ?? null;
+    for (const v of row.suggestion_votes ?? []) {
+      v.user_profiles = profileMap.get(v.user_id) ?? null;
+    }
+    for (const c of row.suggestion_comments ?? []) {
+      c.user_profiles = profileMap.get(c.user_id) ?? null;
+    }
+    return mapSuggestion(row);
+  });
 }
 
 /** Fetch suggestion count for a moment (lightweight, no joins). */
@@ -139,10 +169,7 @@ export async function submitSuggestion(
       source_description: data.sourceDescription ?? null,
       parent_suggestion_id: data.parentSuggestionId ?? null,
     })
-    .select(`
-      *,
-      user_profiles(*)
-    `)
+    .select('*')
     .single();
 
   if (error) return { suggestion: null, error: error.message };
