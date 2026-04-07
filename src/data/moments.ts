@@ -29038,7 +29038,7 @@ const _baseMoments: Moment[] = [
     year: 413,
     date: '413',
     address: 'Theodosian Walls, Fatih, Istanbul, Turkey',
-    entityIds: ['hagia-sophia-place'],
+    entityIds: [],
   },
   {
     id: 'nika-riots-hippodrome-532',
@@ -30199,7 +30199,7 @@ const _baseMoments: Moment[] = [
     year: -3100,
     date: 'c. 3100 BCE',
     address: 'Mit Rahina (ancient Memphis), Giza Governorate, Egypt',
-    entityIds: ['ramesses-ii'],
+    entityIds: [],
   },
   {
     id: 'imhotep-step-pyramid-2670bce',
@@ -30631,7 +30631,7 @@ const _baseMoments: Moment[] = [
     year: 1267,
     date: '1267',
     address: 'Beihai Park area, Beijing, China',
-    entityIds: ['genghis-khan'],
+    entityIds: [],
   },
   {
     id: 'forbidden-city-completed-1420',
@@ -31243,7 +31243,7 @@ const _baseMoments: Moment[] = [
     year: -480,
     date: '29 September 480 BCE',
     address: 'Straits of Salamis, near Piraeus, Greece',
-    entityIds: ['pericles'],
+    entityIds: [],
   },
   {
     id: 'pericles-builds-parthenon-447bce',
@@ -31351,7 +31351,7 @@ const _baseMoments: Moment[] = [
     year: -508,
     date: '508 BCE',
     address: 'Pnyx Hill, Athens, Greece',
-    entityIds: ['pericles'],
+    entityIds: [],
   },
   {
     id: 'parthenon-explodes-1687',

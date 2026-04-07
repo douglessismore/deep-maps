@@ -2207,6 +2207,7 @@ export const barnesStories: Story[] = [
     moments: [
       { momentId: 'capitol-cornerstone-1885' },
       { momentId: 'capitol-dedication-1888', isPrimary: true },
+      { momentId: 'conviction-hill-quarry-1880s' },
     ],
     relatedStoryIds: ['clarksville-freedmens-town'],
     imageUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/story-images/capitol-dedication.jpg',
@@ -2400,6 +2401,7 @@ export const barnesStories: Story[] = [
       { momentId: 'edwin-waller-san-jacinto-1836' },
       { momentId: 'edwin-waller-lays-out-austin-1839', isPrimary: true },
       { momentId: 'waller-lot-auction-1839' },
+      { momentId: 'tonkawa-camp-republic-square-1830s' },
     ],
     relatedStoryIds: ['texas-capitol-dedication-1888'],
   },

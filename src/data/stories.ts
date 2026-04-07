@@ -263,7 +263,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: 'The Great Depression\'s most infamous outlaws. Their violent two-year run through the American South turned a pair of Dallas lovers into folk heroes and public enemies, ending in a hail of 130 bullets.',
     tags: ['outlaw', 'dallas', 'depression-era', 'crime'],
-    moments: [{ momentId: 'bac-filling-station' }, { momentId: 'bac-grapevine-site' }, { momentId: 'bac-western-heights' }],
+    moments: [{ momentId: 'bac-filling-station' }, { momentId: 'bac-grapevine-site' }, { momentId: 'bac-western-heights' }, { momentId: 'clyde-western-heights' }],
     relatedStoryIds: ['james-dean-crash'],
     wikipediaSlug: 'Bonnie_and_Clyde',
   },
@@ -366,7 +366,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: 'The self-taught engineers who conquered the sky. From a bicycle shop in Ohio to the wind-swept dunes of North Carolina, they solved the riddle of controlled flight and shrunk the world forever.',
     tags: ['aviation', 'invention', 'ohio', 'north-carolina'],
-    moments: [{ momentId: 'wb-bicycle-shop' }, { momentId: 'wb-kitty-hawk' }, { momentId: 'wb-huffman-prairie' }],
+    moments: [{ momentId: 'wb-bicycle-shop' }, { momentId: 'wb-kitty-hawk' }, { momentId: 'wb-huffman-prairie' }, { momentId: 'inv-wright-dayton-shop' }, { momentId: 'inv-wright-kitty-hawk' }],
     relatedStoryIds: ['dennys-google'],
     wikipediaSlug: 'Wright_brothers',
   },
@@ -1842,7 +1842,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'elizabeth-ii-ve-day-incognito' }, { momentId: 'elizabeth-ii-crowned-westminster' }, { momentId: 'elizabeth-ii-marries-philip-westminster' }, { momentId: 'elizabeth-ii-born-mayfair' }, { momentId: 'elizabeth-ii-dies-balmoral' }],
+    moments: [{ momentId: 'elizabeth-ii-ve-day-incognito' }, { momentId: 'elizabeth-ii-crowned-westminster' }, { momentId: 'elizabeth-ii-marries-philip-westminster' }, { momentId: 'elizabeth-ii-born-mayfair' }, { momentId: 'elizabeth-ii-dies-balmoral' }, { momentId: 'elizabeth-ii-coronation-1953' }],
   },
   {
     id: 'nostradamus-biography',
@@ -2056,7 +2056,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'darwin-galapagos' }],
+    moments: [{ momentId: 'darwin-galapagos' }, { momentId: 'darwin-origin-species-published-1859' }],
     wikipediaSlug: 'Charles_Darwin',
   },
   {
@@ -2188,7 +2188,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'confucius-born-qufu' }, { momentId: 'confucius-appointed-minister-of-crime' }, { momentId: 'confucius-begins-14-year-exile' }, { momentId: 'confucius-teaches-qufu' }],
+    moments: [{ momentId: 'confucius-born-qufu' }, { momentId: 'confucius-appointed-minister-of-crime' }, { momentId: 'confucius-begins-14-year-exile' }, { momentId: 'confucius-teaches-qufu' }, { momentId: 'confucius-temple-beijing-1306' }],
     wikipediaSlug: 'Confucius',
   },
   {
@@ -2243,7 +2243,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'plato-founds-academy' }, { momentId: 'plato-visits-syracuse-dionysius' }],
+    moments: [{ momentId: 'plato-founds-academy' }, { momentId: 'plato-visits-syracuse-dionysius' }, { momentId: 'justinian-closes-academy-529' }],
     wikipediaSlug: 'Plato',
   },
   {
@@ -2276,7 +2276,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'ibn-battuta-leaves-tangier-alone-for-mecca' }, { momentId: 'ibn-battuta-completes-first-hajj-pilgrimage' }, { momentId: 'ibn-battuta-reaches-kilwa-gold-trading-hub' }, { momentId: 'ibn-battuta-visits-mogadishu-at-its-zenith' }, { momentId: 'ibn-battuta-dictates-the-rihla-in-fez' }],
+    moments: [{ momentId: 'ibn-battuta-leaves-tangier-alone-for-mecca' }, { momentId: 'ibn-battuta-completes-first-hajj-pilgrimage' }, { momentId: 'ibn-battuta-reaches-kilwa-gold-trading-hub' }, { momentId: 'ibn-battuta-visits-mogadishu-at-its-zenith' }, { momentId: 'ibn-battuta-dictates-the-rihla-in-fez' }, { momentId: 'ibn-battuta-arrives-cairo-1326' }],
     wikipediaSlug: 'Ibn_Battuta',
   },
   {
@@ -2507,7 +2507,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'oscar-wilde-dies-paris' }],
+    moments: [{ momentId: 'oscar-wilde-dies-paris' }, { momentId: 'wilde-sentenced-old-bailey-1895' }],
     wikipediaSlug: 'Oscar_Wilde',
   },
   {
@@ -2661,7 +2661,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'mao-proclaims-prc' }],
+    moments: [{ momentId: 'mao-proclaims-prc' }, { momentId: 'may-fourth-movement-1919' }],
     wikipediaSlug: 'Mao_Zedong',
   },
   {
@@ -2694,7 +2694,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'genghis-khan-unites-mongols' }],
+    moments: [{ momentId: 'genghis-khan-unites-mongols' }, { momentId: 'genghis-khan-captures-zhongdu-1215' }],
     wikipediaSlug: 'Genghis_Khan',
   },
   {
@@ -2804,7 +2804,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'jack-ripper-whitechapel' }],
+    moments: [{ momentId: 'jack-ripper-whitechapel' }, { momentId: 'ripper-mary-kelly-millers-court-1888' }],
     wikipediaSlug: 'Jack_the_Ripper',
   },
   {
@@ -2859,7 +2859,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'cleopatra-suicide-alexandria' }],
+    moments: [{ momentId: 'cleopatra-suicide-alexandria' }, { momentId: 'cleopatra-enters-cairo-carpet-48bce' }],
     wikipediaSlug: 'Cleopatra',
   },
   {
@@ -3123,7 +3123,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'william-the-conqueror-is-born-at-falaise' }, { momentId: 'william-the-conqueror-dies-in-rouen' }],
+    moments: [{ momentId: 'william-the-conqueror-is-born-at-falaise' }, { momentId: 'william-the-conqueror-dies-in-rouen' }, { momentId: 'william-conqueror-tower-london-1066' }],
     wikipediaSlug: 'William_the_Conqueror',
   },
   {
@@ -3211,7 +3211,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'gaugamela-alexander' }],
+    moments: [{ momentId: 'gaugamela-alexander' }, { momentId: 'alexander-born-pella-356bce' }],
     wikipediaSlug: 'Alexander_the_Great',
   },
   {
@@ -4332,7 +4332,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: 'A prince who usurped his nephew\'s throne, moved the capital to Beijing, built the Forbidden City, and sent the largest fleet in history across the Indian Ocean.',
     tags: ['china', 'ming', 'royalty'],
-    moments: [{ momentId: 'yongle-moves-capital-beijing-1421' }, { momentId: 'forbidden-city-completed-1420' }, { momentId: 'zheng-he-first-voyage-1405' }],
+    moments: [{ momentId: 'yongle-moves-capital-beijing-1421' }, { momentId: 'forbidden-city-completed-1420' }, { momentId: 'zheng-he-first-voyage-1405' }, { momentId: 'temple-of-heaven-built-1420' }],
     relatedStoryIds: ['cixi-biography', 'puyi-biography'],
     wikipediaSlug: 'Yongle_Emperor',
   },
@@ -4428,7 +4428,7 @@ const _baseStories: Story[] = [
     storyType: 'biography',
     description: 'A Heian court lady writes the world\'s first novel in 54 chapters while serving an empress, filling her diary with observations of the court that read like a second masterpiece.',
     tags: ['japan', 'literature', 'heian'],
-    moments: [{ momentId: 'murasaki-writes-genji-1000' }],
+    moments: [{ momentId: 'murasaki-writes-genji-1000' }, { momentId: 'murasaki-enters-court-kyoto' }, { momentId: 'murasaki-writes-genji-kyoto' }, { momentId: 'murasaki-ishiyama-dera-inspiration' }],
     relatedStoryIds: ['emperor-meiji-biography'],
     wikipediaSlug: 'Murasaki_Shikibu',
   },
