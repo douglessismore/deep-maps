@@ -68,6 +68,7 @@ export const mesaPhoenixEntities: Entity[] = [
     years: '1937–2002',
     description:
       'Outlaw country music pioneer who rebelled against Nashville\'s polished production system. Gave up his seat to the Big Bopper on the flight that killed Buddy Holly. Defined the outlaw movement alongside Willie Nelson, Merle Haggard, and Kris Kristofferson.',
+    canonicalStoryId: 'waylon-jennings-biography',
     wikipediaSlug: 'Waylon_Jennings',
   },
 ];
@@ -780,6 +781,19 @@ export const mesaPhoenixStories: Story[] = [
     ],
     relatedStoryIds: ['miranda-rights-phoenix'],
     wikipediaSlug: 'Barry_Goldwater',
+  },
+  {
+    id: 'waylon-jennings-biography',
+    name: 'Waylon Jennings',
+    nickname: undefined,
+    years: '1937–2002',
+    category: 'arts-culture',
+    storyType: 'biography',
+    description: '',
+    tags: [],
+    moments: [{ momentId: 'waylon-jennings-burial' }],
+    relatedStoryIds: ['willie-nelson-biography'],
+    wikipediaSlug: 'Waylon_Jennings',
   },
   {
     id: 'lost-dutchman-gold-mine',
