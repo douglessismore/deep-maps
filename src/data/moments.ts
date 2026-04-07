@@ -9378,6 +9378,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: 'White Sands Missile Range, NM',
+    entityIds: ['robert-oppenheimer', 'trinity-site'],
   },
   {
     id: 'hnb-hiroshima-hypocenter',
@@ -9584,6 +9585,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1993,
     address: '100 Texas Ranger Trail, Waco, TX 76706',
+    entityIds: ['texas-rangers'],
   },
   {
     id: 'bac-grapevine-site',
@@ -9618,6 +9620,7 @@ const _baseMoments: Moment[] = [
     year: 1978,
     address: '661 W Jefferson St, Tallahassee, FL 32304',
     wikiSection: 'Florida_murders_and_arrest',
+    entityIds: ['ted-bundy'],
   },
   {
     id: 'tb-lake-sammamish',
@@ -9634,6 +9637,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1974,
     address: '2000 NW Sammamish Rd, Issaquah, WA 98027',
+    entityIds: ['ted-bundy'],
   },
   {
     id: 'tb-florida-prison',
@@ -9651,6 +9655,7 @@ const _baseMoments: Moment[] = [
     year: 1989,
     address: '23916 NW 83rd Ave, Raiford, FL 32083',
     wikiSection: 'Execution',
+    entityIds: ['ted-bundy'],
   },
   {
     id: 'zk-blue-rock',
@@ -9668,6 +9673,7 @@ const _baseMoments: Moment[] = [
     year: 1969,
     address: '650 Columbus Pkwy, Vallejo, CA 94591',
     wikiSection: 'Blue_Rock_Springs_Park_shooting',
+    entityIds: ['zodiac-killer'],
   },
   {
     id: 'jwg-house-site',
@@ -10079,6 +10085,7 @@ const _baseMoments: Moment[] = [
     year: 1889,
     date: 'March 31, 1889',
     address: 'Eiffel Tower, Champ de Mars, Paris, France',
+    entityIds: ['gustave-eiffel'],
   },
   {
     id: 'wb-bicycle-shop',
@@ -10095,6 +10102,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1892,
     address: '22 S Williams St, Dayton, OH 45402',
+    entityIds: ['orville-wright', 'wilbur-wright'],
   },
   {
     id: 'wb-kitty-hawk',
@@ -10112,6 +10120,7 @@ const _baseMoments: Moment[] = [
     year: 1903,
     address: 'N Croatan Hwy, Kill Devil Hills, NC 27948',
     wikiSection: 'First_powered_flight',
+    entityIds: ['orville-wright', 'wilbur-wright'],
   },
   {
     id: 'wb-huffman-prairie',
@@ -10128,6 +10137,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1904,
     address: 'Pylon Rd, Wright-Patterson AFB, OH 45433',
+    entityIds: ['orville-wright', 'wilbur-wright'],
   },
   {
     id: 'htb-combahee-river',
@@ -10941,6 +10951,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1968,
     address: 'Templo de Santiago Tlatelolco, Mexico City',
+    entityIds: ['santiago-tlatelolco-church'],
   },
   {
     id: 'annihilator-christmas-massacre',
@@ -11225,6 +11236,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1989,
     address: 'College Station, TX',
+    entityIds: ['treaty-oak'],
   },
   {
     id: 'ohenry-first-national-bank',
@@ -11409,6 +11421,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1966,
     address: '110 Inner Campus Dr, Austin, TX',
+    entityIds: ['charles-whitman', 'ut-austin'],
   },
   {
     id: 'uttower-main-mall',
@@ -11424,6 +11437,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1966,
+    entityIds: ['charles-whitman', 'ut-austin'],
   },
   {
     id: 'bats-congress-bridge',
@@ -11490,6 +11504,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1990,
     address: '124 W 8th St, Austin, TX',
+    entityIds: ['save-our-springs-alliance'],
   },
   {
     id: 'lbj-driskill-date',
@@ -11572,6 +11587,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1900,
     address: '6702 Seawall Blvd, Galveston, TX 77551',
+    entityIds: ['sisters-of-charity'],
   },
   {
     id: 'orph-survivor-tree',
@@ -11720,6 +11736,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1947,
+    entityIds: ['ss-grandcamp'],
   },
   {
     id: 'marfa-viewing-area',
@@ -11927,6 +11944,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1874,
     address: 'Palo Duro Canyon State Park, Canyon, TX',
+    entityIds: ['ranald-mackenzie', 'comanche-nation'],
   },
   {
     id: 'waco-horror-square',
@@ -11993,6 +12011,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: '1104 E 11th St, Austin, TX 78702',
+    entityIds: ['victory-grill'],
   },
   {
     id: 'men-rough-riders-bar',
@@ -12025,6 +12044,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 2010,
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'menger-hotel-opening',
@@ -12074,6 +12094,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1860,
     address: '500 W Commerce St, San Antonio, TX 78207',
+    entityIds: ['milam-park-chile-queens'],
   },
   {
     id: 'queen-military-plaza',
@@ -12089,6 +12110,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1880,
+    entityIds: ['milam-park-chile-queens'],
   },
   {
     id: 'clyde-western-heights',
@@ -12122,6 +12144,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1933,
     address: 'Abbott, TX 76621',
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'willie-nashville-fire',
@@ -12137,6 +12160,7 @@ const _baseMoments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1970,
+    entityIds: ['willie-nelson'],
   },
   {
     id: 'pasteur-rabies-vaccine',
@@ -12583,6 +12607,7 @@ const _baseMoments: Moment[] = [
     kind: 'presence',
     year: 1894,
     address: '113 E 7th St, Austin, TX 78701',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-irving-place',
@@ -12599,6 +12624,7 @@ const _baseMoments: Moment[] = [
     kind: 'presence',
     year: 1903,
     address: '55 Irving Pl, New York, NY 10003',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-furnished-room',
@@ -12615,6 +12641,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1904,
     address: 'West 24th St, New York, NY',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-second-marriage',
@@ -12631,6 +12658,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1907,
     address: 'Asheville, NC',
+    entityIds: ['o-henry'],
   },
   {
     id: 'bikini-crossroads-baker',
@@ -13451,6 +13479,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 33,
     address: 'Via Dolorosa, Old City, Jerusalem',
+    entityIds: ['jesus'],
   },
   {
     id: 'evo-ediacara-hills',
@@ -13567,6 +13596,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 630,
     address: 'Masjid al-Haram, Mecca, Saudi Arabia',
+    entityIds: ['abraham', 'muhammad'],
   },
   {
     id: 'medina-prophets-mosque',
@@ -13583,6 +13613,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 622,
     address: 'Al-Masjid an-Nabawi, Medina, Saudi Arabia',
+    entityIds: ['muhammad'],
   },
   {
     id: 'fatima-sanctuary',
@@ -13633,6 +13664,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1626,
     address: 'Piazza San Pietro, Vatican City',
+    entityIds: ['michelangelo', 'bernini'],
   },
   {
     id: 'santiago-compostela',
@@ -14019,6 +14051,7 @@ const _baseMoments: Moment[] = [
     year: 34,
     date: 'c. 34 CE',
     address: 'Street Called Straight (Via Recta), Damascus, Syria',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-antioch-commission',
@@ -14036,6 +14069,7 @@ const _baseMoments: Moment[] = [
     year: 47,
     date: 'c. 47 CE',
     address: 'Antakya (ancient Antioch), Hatay, Turkey',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-cyprus-paphos',
@@ -14053,6 +14087,7 @@ const _baseMoments: Moment[] = [
     year: 47,
     date: 'c. 47 CE',
     address: 'Paphos Archaeological Park, Paphos, Cyprus',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-pisidian-antioch',
@@ -14070,6 +14105,7 @@ const _baseMoments: Moment[] = [
     year: 47,
     date: 'c. 47 CE',
     address: 'Ruins of Pisidian Antioch, near Yalvaç, Turkey',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'moses-water-meribah',
@@ -14105,6 +14141,7 @@ const _baseMoments: Moment[] = [
     year: 50,
     date: 'c. 50 CE',
     address: 'Archaeological site of Philippi, Eastern Macedonia, Greece',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-corinth-gallio',
@@ -14122,6 +14159,7 @@ const _baseMoments: Moment[] = [
     year: 51,
     date: 'c. 51-52 CE',
     address: 'Bema (tribunal platform), Ancient Corinth, Greece',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-arrest-jerusalem',
@@ -14139,6 +14177,7 @@ const _baseMoments: Moment[] = [
     year: 57,
     date: 'c. 57 CE',
     address: 'Temple Mount, Jerusalem',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-shipwreck-malta',
@@ -14156,6 +14195,7 @@ const _baseMoments: Moment[] = [
     year: 60,
     date: 'c. 60 CE',
     address: 'St. Paul\'s Bay, Malta',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'paul-arrives-rome',
@@ -14173,6 +14213,7 @@ const _baseMoments: Moment[] = [
     year: 61,
     date: 'c. 61 CE',
     address: 'Basilica of St. Paul Outside the Walls, Rome, Italy',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'abraham-leaves-ur',
@@ -14208,6 +14249,7 @@ const _baseMoments: Moment[] = [
     year: 50,
     date: 'c. 50 CE',
     address: 'Areopagus (Mars Hill), Athens, Greece',
+    entityIds: ['paul-apostle'],
   },
   {
     id: 'abraham-binding-isaac',
@@ -14504,6 +14546,7 @@ const _baseMoments: Moment[] = [
     year: 1521,
     date: 'August 13, 1521',
     address: 'Templo Mayor (ruins), Mexico City, Mexico',
+    entityIds: ['hernan-cortes'],
   },
   {
     id: 'evo-burgess-shale',
@@ -14944,6 +14987,7 @@ const _baseMoments: Moment[] = [
     year: 1703,
     date: 'May 27, 1703',
     address: 'Peter and Paul Fortress, St. Petersburg, Russia',
+    entityIds: ['peter-the-great'],
   },
   {
     id: 'julius-caesar-assassinated',
@@ -15229,6 +15273,7 @@ const _baseMoments: Moment[] = [
     year: 1483,
     date: 'Summer 1483',
     address: 'Tower of London, London, England',
+    entityIds: ['richard-iii'],
   },
   {
     id: 'anne-boleyn-executed',
