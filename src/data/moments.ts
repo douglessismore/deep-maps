@@ -5408,6 +5408,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1969,
     address: 'Knoxville Rd, Napa County, CA',
+    entityIds: ['zodiac-killer'],
   },
   {
     id: 'octavian-accepts-caesars-will-brundisium',
@@ -12547,6 +12548,7 @@ const _baseMoments: Moment[] = [
     kind: 'event',
     year: 1862,
     address: 'Greensboro, NC',
+    entityIds: ['o-henry'],
   },
   {
     id: 'ohenry-honduras-exile',
