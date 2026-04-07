@@ -7235,7 +7235,7 @@ export const stories: Story[] = [
     description: 'Dr. Linda Hazzard was a licensed fasting specialist who ran a sanitarium in the remote woods of Olalla, Washington. Her patients arrived seeking health cures and slowly starved to death — while she forged their wills, looted their bank accounts, and wore their clothing. She was convicted, served two years, and went right back to practicing.',
     tags: ['true-crime', 'medical-abuse', 'port-orchard', 'kitsap', 'fasting'],
     contentWarning: 'Contains descriptions of medical abuse and starvation',
-    moments: [{ momentId: 'starvation-heights-williamsons' }, { momentId: 'starvation-heights-conviction' }],
+    moments: [{ momentId: 'starvation-heights-williamsons' }, { momentId: 'starvation-heights-conviction' }, { momentId: 'starvation-heights-olalla-cemetery' }],
     relatedStoryIds: ['green-river-killer'],
     wikipediaSlug: 'Linda_Hazzard',
   },
