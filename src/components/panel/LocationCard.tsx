@@ -412,6 +412,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 </a>
               );
             })()}
+            {location.media && location.media.length > 0 && (
+              <MediaDisplay media={location.media} />
+            )}
+            {/* Community verification thread — above Dive Deeper */}
+            <VerificationThread moment={location} />
             {/* Dive Deeper — unified entity + story navigation */}
             {(resolvedEntities.length > 0 || navigableStories.length > 0) && (
               <GoDeeperSection>
@@ -438,11 +443,6 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 })}
               </GoDeeperSection>
             )}
-            {location.media && location.media.length > 0 && (
-              <MediaDisplay media={location.media} />
-            )}
-            {/* Community verification thread — visible to everyone including admin */}
-            <VerificationThread moment={location} />
           </div>
         )}
       </div>
