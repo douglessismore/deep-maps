@@ -3,104 +3,49 @@ import type { StoryCollection } from '../types';
 
 export const collections: StoryCollection[] = [
   {
-    id: 'famous-assassinations',
-    name: 'Famous Assassination Sites',
-    subtitle: 'The exact locations where political leaders and civil rights figures were killed',
-    description: 'Ford\'s Theatre, Dealey Plaza, the Lorraine Motel, the Audubon Ballroom — the buildings, balconies, and streets where assassinations changed history.',
+    id: 'indigenous-peoples-resistance-and-survival',
+    name: 'Indigenous Peoples: Resistance and Survival',
+    subtitle: 'Massacres, last stands, forced marches, and ancient civilizations that European contact could not erase',
+    description: 'From Cahokia to Wounded Knee, the places where indigenous civilizations thrived and where colonial powers tried to destroy them.',
     momentIds: [
-      'la-fords-theatre', 'la-petersen-house', 'la-garrett-farm', 'jfk-dealey-plaza', 'jfk-parkland',
-      'jfk-texas-theatre', 'mlk-lorraine-motel', 'mlk-sniper-nest', 'mx-audubon', 'colosio-lomas-taurinas',
-      'gandhi-assassinated-birla-house-delhi-1948', 'indira-gandhi-assassinated',
-      'julius-caesar-assassinated', 'archduke-assassination-sarajevo-1914',
+      'wkm-monument', 'wkm-mass-grave', 'scm-historic-site', 'little-bighorn-custer', 'mesa-verde-cliff-dwellings',
+      'geronimo-skeleton-canyon', 'indian-removal-act-1830', 'cherokee-trail-of-tears-1838', 'tenochtitlan-fall', 'chichen-el-castillo-equinox',
+      'cahokia-monks-mound-peak', 'cahokia-woodhenge', 'sitting-bull-little-bighorn-vision', 'sitting-bull-assassination-1890', 'tecumseh-prophetstown-1808',
+      'tecumseh-death-thames-1813', 'navajo-code-talkers-iwo-jima-1945', 'navajo-long-walk-bosque-redondo-1864', 'machu-picchu-pachacuti-construction', 'machu-picchu-bingham-discovery-1911',
+      'tikal-peak-population', 'aztec-sun-stone-carving', 'maori-arrival-aotearoa', 'aboriginal-rock-art-kakadu', 'inca-sapa-pachacuti-cusco-expansion',
+      'sea-suquamish-old-man-house', 'sea-chief-seattle-speech', 'phx-hohokam-pueblo-grande',
     ],
-    tags: ['assassination', 'political', 'dark-history'],
+    tags: [],
+  },
+  {
+    id: 'harry-potter-filming-locations',
+    name: 'Harry Potter Filming Locations',
+    subtitle: 'The castles, cathedrals, and railways of England and Scotland that became Hogwarts',
+    description: 'From a decommissioned Rolls-Royce factory in Hertfordshire to a 13th-century abbey in Wiltshire, the Harry Potter films turned medieval England into the wizarding world. Eleven locations across England and Scotland.',
+    momentIds: [
+      'hp-alnwick-castle-2001', 'hp-christ-church-oxford-2001', 'hp-glenfinnan-viaduct-2002', 'hp-kings-cross-platform-2001', 'hp-leadenhall-market-2001',
+      'hp-lacock-abbey-2001', 'hp-gloucester-cathedral-2001', 'hp-bodleian-library-2001', 'hp-leavesden-studios-2000', 'hp-durham-cathedral-2001',
+      'hp-malham-cove-2010',
+    ],
+    tags: [],
   },
   {
     id: 'serial-killer-crime-scenes',
     name: 'Serial Killer Crime Scenes',
-    subtitle: 'The exact murder sites, dump sites, and hunting grounds of the world\'s most notorious serial killers',
+    subtitle: 'The homes, hunting grounds, and burial sites of America\'s most notorious serial killers',
     description: 'The actual locations where serial killers committed their crimes — from Ed Gein\'s Wisconsin farmhouse to Jack the Ripper\'s Whitechapel. Every pin marks a murder site, abduction point, or body dump location.',
     momentIds: [
-      // Crime scenes, murder sites, dump sites ONLY — no arrests, prisons, or executions
-      // Ed Gein
-      'gein-farm', 'gein-worden-store', 'gein-cemetery',
-      // Jeffrey Dahmer
-      'dahmer-apartment', 'dahmer-first-victim',
-      // Ted Bundy
-      'tb-chi-omega', 'tb-lake-sammamish', 'sea-bundy-sammamish',
-      // Zodiac Killer
-      'zk-blue-rock', 'zk-lake-berryessa', 'zk-stine-murder',
-      // John Wayne Gacy
-      'jwg-house-site', 'jwg-des-plaines-bridge',
-      // Servant Girl Annihilator
-      'annihilator-mollie-smith', 'annihilator-christmas-massacre',
-      'annihilator-eliza-shelley', 'annihilator-gracie-vance',
-      // H.H. Holmes
-      'holmes-builds-murder-castle-1892',
-      // Son of Sam
-      'son-of-sam-first-shooting-1976',
-      // Richard Ramirez (Night Stalker)
-      'night-stalker-first-murder-1984',
-      // Dennis Rader (BTK)
-      'btk-otero-murders-1974',
-      // Gary Ridgway (Green River)
-      'green-river-first-victims-1982', 'sea-green-river-first-body',
-      // Aileen Wuornos
-      'wuornos-first-victim-1989',
-      // Austin Yogurt Shop Murders
-      'yogurt-shop-murders-1991',
-      // Edmund Kemper
-      'kemper-grandparents-1964',
-      // Charles Manson
-      'manson-tate-murders-1969', 'manson-labianca-murders-1969', 'manson-spahn-ranch-1969',
-      // Dean Corll (Candy Man)
-      'corll-boat-shed-1973',
-      // Albert Fish
-      'albert-fish-budd-murder-1928',
-      // Samuel Little
-      'samuel-little-confesses-2018', 'samuel-little-convicted-la-2014',
-      // Hillside Stranglers
-      'hillside-strangler-buono-shop-1977',
-      // Wayne Williams (Atlanta Child Murders)
-      'atlanta-child-murders-bridge-1981',
-      // D.C. Snipers
-      'dc-sniper-first-shooting-2002',
-      // Jack the Ripper
-      'ripper-mary-kelly-millers-court-1888',
-      // Andrei Chikatilo
-      'chikatilo-rostov-station-1978',
-      // Harold Shipman (killed patients at his practice)
-      'shipman-practice-hyde-1998',
-      // Gary Heidnik
-      'heidnik-house-of-horrors-1987',
-      // John List
-      'john-list-breeze-knoll-1971',
-      // Israel Keyes
-      'israel-keyes-abduction-anchorage-2012',
+      'gein-farm', 'gein-worden-store', 'gein-cemetery', 'dahmer-apartment', 'dahmer-first-victim',
+      'tb-chi-omega', 'tb-lake-sammamish', 'zk-blue-rock', 'zk-lake-berryessa', 'zk-stine-murder',
+      'jwg-house-site', 'jwg-des-plaines-bridge', 'annihilator-mollie-smith', 'annihilator-christmas-massacre', 'annihilator-eliza-shelley',
+      'annihilator-gracie-vance', 'holmes-builds-murder-castle-1892', 'son-of-sam-first-shooting-1976', 'night-stalker-first-murder-1984', 'btk-otero-murders-1974',
+      'green-river-first-victims-1982', 'wuornos-first-victim-1989', 'kemper-grandparents-1964', 'manson-tate-murders-1969', 'manson-labianca-murders-1969',
+      'manson-spahn-ranch-1969', 'corll-boat-shed-1973', 'albert-fish-budd-murder-1928', 'samuel-little-confesses-2018', 'samuel-little-convicted-la-2014',
+      'hillside-strangler-buono-shop-1977', 'atlanta-child-murders-bridge-1981', 'dc-sniper-first-shooting-2002', 'ripper-mary-kelly-millers-court-1888', 'chikatilo-rostov-station-1978',
+      'shipman-practice-hyde-1998', 'heidnik-house-of-horrors-1987', 'john-list-breeze-knoll-1971', 'israel-keyes-abduction-anchorage-2012', 'sea-bundy-sammamish',
+      'sea-green-river-first-body', 'yogurt-shop-murders-1991',
     ],
     tags: ['serial-killer', 'true-crime', 'dark-history'],
-  },
-  {
-    id: 'aviation-disasters',
-    name: 'Aviation Disasters and Disappearances',
-    subtitle: 'Crash sites, debris fields, and memorials of history\'s deadliest airline disasters',
-    description: 'From Amelia Earhart vanishing over the Pacific to TWA 800 exploding over Long Island to Flight 93 in Shanksville — where aviation met tragedy.',
-    momentIds: [
-      'ae-harbour-grace', 'ae-lae-airfield', 'ae-howland-island', 'twa-smith-point', 'twa-impact-zone',
-      'twa-calverton', 'vj-memorial', 'vj-crash-site', 'vj-sabretech', 'f93-impact',
-      'f93-tower', 'f93-newark',
-      // ── Crash sites batch ──
-      'tenerife-collision-1977', 'jal123-mount-osutaka-1985', 'air-india-182-atlantic-1985',
-      'lockerbie-pan-am-103-1988', 'korean-air-007-sakhalin-1983', 'mh370-disappearance-2014',
-      'mh17-ukraine-2014', 'germanwings-9525-alps-2015', 'ethiopian-302-bishoftu-2019',
-      'lion-air-610-java-sea-2018', 'af447-atlantic-2009', 'alaska-261-pacific-2000',
-      'dc-psa-182-san-diego-1978', 'aa191-chicago-1979', 'iran-air-655-persian-gulf-1988',
-      'charkhi-dadri-collision-1996', 'ermenonville-dc10-1974', 'asiana-214-sfo-2013',
-      'swissair-111-peggy-cove-1998', 'ei-overrun-sioux-city-1989', 'aloha-243-maui-1988',
-      'us-air-1549-hudson-2009', 'buddy-holly-crash-1959', 'andean-flight-571-1972',
-      'ukraine-ps752-tehran-2020', 'egyptair-990-atlantic-1999', 'japan-airlines-350-tokyo-bay-1982',
-    ],
-    tags: ['aviation', 'disaster', 'crash'],
   },
   {
     id: 'outlaw-gunfighter-sites',
@@ -112,6 +57,35 @@ export const collections: StoryCollection[] = [
       'columbus-raid', 'bac-filling-station', 'bac-grapevine-site', 'bac-western-heights',
     ],
     tags: ['outlaw', 'old-west', 'frontier', 'gangster'],
+  },
+  {
+    id: 'famous-assassinations',
+    name: 'Famous Assassination Sites',
+    subtitle: 'The exact locations where political leaders and civil rights figures were killed',
+    description: 'Ford\'s Theatre, Dealey Plaza, the Lorraine Motel, the Audubon Ballroom — the buildings, balconies, and streets where assassinations changed history.',
+    momentIds: [
+      'la-fords-theatre', 'la-petersen-house', 'la-garrett-farm', 'jfk-dealey-plaza', 'jfk-parkland',
+      'jfk-texas-theatre', 'mlk-lorraine-motel', 'mlk-sniper-nest', 'mx-audubon', 'colosio-lomas-taurinas',
+      'gandhi-assassinated-birla-house-delhi-1948', 'indira-gandhi-assassinated', 'julius-caesar-assassinated', 'archduke-assassination-sarajevo-1914',
+    ],
+    tags: ['assassination', 'political', 'dark-history'],
+  },
+  {
+    id: 'aviation-disasters',
+    name: 'Aviation Disasters and Disappearances',
+    subtitle: 'Crash sites, debris fields, and memorials of notable plane crashes and vanished aircraft',
+    description: 'From Amelia Earhart vanishing over the Pacific to TWA 800 exploding over Long Island to Flight 93 in Shanksville — where aviation met tragedy.',
+    momentIds: [
+      'ae-harbour-grace', 'ae-lae-airfield', 'ae-howland-island', 'twa-smith-point', 'twa-impact-zone',
+      'twa-calverton', 'vj-memorial', 'vj-crash-site', 'vj-sabretech', 'f93-impact',
+      'f93-tower', 'f93-newark', 'tenerife-collision-1977', 'jal123-mount-osutaka-1985', 'air-india-182-atlantic-1985',
+      'lockerbie-pan-am-103-1988', 'korean-air-007-sakhalin-1983', 'mh370-disappearance-2014', 'mh17-ukraine-2014', 'germanwings-9525-alps-2015',
+      'ethiopian-302-bishoftu-2019', 'lion-air-610-java-sea-2018', 'af447-atlantic-2009', 'alaska-261-pacific-2000', 'dc-psa-182-san-diego-1978',
+      'aa191-chicago-1979', 'iran-air-655-persian-gulf-1988', 'charkhi-dadri-collision-1996', 'ermenonville-dc10-1974', 'asiana-214-sfo-2013',
+      'swissair-111-peggy-cove-1998', 'ei-overrun-sioux-city-1989', 'aloha-243-maui-1988', 'us-air-1549-hudson-2009', 'buddy-holly-crash-1959',
+      'andean-flight-571-1972', 'ukraine-ps752-tehran-2020', 'egyptair-990-atlantic-1999', 'japan-airlines-350-tokyo-bay-1982',
+    ],
+    tags: ['aviation', 'disaster', 'crash'],
   },
   {
     id: 'nuclear-weapon-sites',
@@ -152,11 +126,40 @@ export const collections: StoryCollection[] = [
       'white-sands-prints', 'pueblo-bonito', 'blackwater-draw', 'hawikku', 'pakal-temple-inscriptions',
       'pakal-museum-anthropology', 'tomb-7-discovery', 'tomb-7-museum', 'teotihuacan-tunnel-entrance', 'teotihuacan-mercury-chamber',
       'chichen-el-castillo-equinox', 'chichen-sacred-cenote', 'chichen-thompson-dredging', 'olmec-tres-zapotes-discovery', 'olmec-san-lorenzo',
-      'olmec-la-venta-museum', 'teotihuacan-pyramid-sun', 'teotihuacan-avenue-dead', 'teotihuacan-burning',
-      // Hohokam + McKinney Falls
-      'phx-hohokam-pueblo-grande', 'phx-hohokam-mesa-grande', 'phx-hohokam-park-canals', 'mckinney-falls-indigenous',
+      'olmec-la-venta-museum', 'teotihuacan-pyramid-sun', 'teotihuacan-avenue-dead', 'teotihuacan-burning', 'phx-hohokam-pueblo-grande',
+      'phx-hohokam-mesa-grande', 'phx-hohokam-park-canals', 'mckinney-falls-indigenous',
     ],
     tags: ['archaeology', 'ancient-history', 'indigenous', 'mesoamerican'],
+  },
+  {
+    id: 'breaking-bad-filming-locations',
+    name: 'Breaking Bad Filming Locations',
+    subtitle: 'The houses, diners, and desert of Albuquerque where Walter White built his empire',
+    description: 'Breaking Bad transformed Albuquerque\'s sun-bleached strip malls, Route 66 motels, and desert scrubland into the backdrop of Walter White\'s descent. Eight filming locations across greater Albuquerque and southern New Mexico.',
+    momentIds: [
+      'bb-walter-white-house-2008', 'bb-car-wash-2008', 'bb-los-pollos-hermanos-2008', 'bb-crossroads-motel-2008', 'bb-tohajilee-reservation-2008',
+      'bb-dog-house-drive-in-2008', 'bb-tuco-hideout-2009', 'bb-superlab-2009',
+    ],
+    tags: [],
+  },
+  {
+    id: 'meteorite-impact-craters',
+    name: 'Every Confirmed Meteorite Impact Crater on Earth',
+    subtitle: 'Craters, strewn fields, and blast zones where objects from space struck the Earth',
+    description: 'From the 2.2-billion-year-old Yarrabubba in Western Australia to the 2007 Carancas crater in Peru — every confirmed place where an object from space struck the Earth and left a mark.',
+    momentIds: [
+      'chicxulub-crater', 'tunguska-event', 'chelyabinsk-meteor', 'vredefort-crater', 'sudbury-basin',
+      'manicouagan-crater', 'popigai-crater', 'chesapeake-bay-crater', 'barringer-meteor-crater', 'nordlinger-ries',
+      'wolfe-creek-crater', 'gosses-bluff', 'lonar-lake', 'kaali-crater', 'pingualuit-crater',
+      'hoba-meteorite', 'campo-del-cielo', 'sikhote-alin', 'siljan-ring', 'tswaing-crater',
+      'morokweng-crater', 'kara-crater', 'puchezh-katunki-crater', 'araguainha-crater', 'acraman-crater',
+      'woodleigh-crater', 'charlevoix-crater', 'mjolnir-crater', 'rochechouart-crater', 'steinheim-basin',
+      'bosumtwi-crater', 'clearwater-lakes-craters', 'haughton-crater', 'manson-crater', 'mistastin-crater',
+      'elgygytgyn-crater', 'boltysh-crater', 'yarrabubba-crater', 'wetumpka-crater', 'upheaval-dome-crater',
+      'roter-kamm-crater', 'zhamanshin-crater', 'henbury-craters', 'steen-river-crater', 'montagnais-crater',
+      'lappajarvi-crater', 'aorounga-crater', 'luizi-crater', 'shoemaker-crater', 'carancas-crater',
+    ],
+    tags: ['meteorite', 'impact-crater', 'geology', 'space'],
   },
   {
     id: 'ufo-sightings-crash-sites',
@@ -166,9 +169,7 @@ export const collections: StoryCollection[] = [
     momentIds: [
       'roswell-debris-field', 'roswell-airfield', 'coyame-crash-site', 'coyame-toxic-convoy', 'marfa-viewing-area',
       'eclipse-ufo-zocalo', 'eclipse-ufo-pyramids', 'diaz-ajusco-sighting', 'diaz-press-demonstration', 'flir-campeche-skies',
-      'flir-press-conference',
-      // Phoenix Lights
-      'phx-lights-piestewa-peak', 'phx-lights-sierra-estrella',
+      'flir-press-conference', 'phx-lights-piestewa-peak', 'phx-lights-sierra-estrella',
     ],
     tags: ['ufo', 'paranormal', 'mystery-unexplained'],
   },
@@ -200,35 +201,13 @@ export const collections: StoryCollection[] = [
     subtitle: 'The fields, beaches, passes, and ridges where history was decided by force',
     description: 'From Thermopylae to Normandy, the specific places where armies clashed and the course of civilization changed. Twenty-one battlefields across six continents and three millennia.',
     momentIds: [
-      'battle-marathon-490bce', 'battle-salamis-480bce',
-      'thermopylae-last-stand', 'gaugamela-alexander', 'cannae-hannibal', 'hastings-norman-conquest', 'agincourt-longbow',
-      'tenochtitlan-fall', 'trafalgar-nelson', 'waterloo-napoleon', 'isandlwana-zulu', 'dien-bien-phu-siege',
-      'yorktown-surrender', 'gettysburg-pickett', 'little-bighorn-custer', 'somme-first-day', 'verdun-attrition',
-      'gallipoli-anzac', 'normandy-dday', 'stalingrad-encirclement', 'midway-ambush', 'el-alamein-montgomery',
-      'iwo-jima-suribachi',
+      'battle-marathon-490bce', 'battle-salamis-480bce', 'thermopylae-last-stand', 'gaugamela-alexander', 'cannae-hannibal',
+      'hastings-norman-conquest', 'agincourt-longbow', 'tenochtitlan-fall', 'trafalgar-nelson', 'waterloo-napoleon',
+      'isandlwana-zulu', 'dien-bien-phu-siege', 'yorktown-surrender', 'gettysburg-pickett', 'little-bighorn-custer',
+      'somme-first-day', 'verdun-attrition', 'gallipoli-anzac', 'normandy-dday', 'stalingrad-encirclement',
+      'midway-ambush', 'el-alamein-montgomery', 'iwo-jima-suribachi',
     ],
     tags: ['battle', 'war', 'military', 'history'],
-  },
-  {
-    id: 'meteorite-impact-craters',
-    name: 'Every Confirmed Meteorite Impact Crater on Earth',
-    subtitle: 'All ~190 confirmed impact structures from the Earth Impact Database — from the 300-km Vredefort dome to the 14-m Carancas hole',
-    description: 'From the 2.2-billion-year-old Yarrabubba in Western Australia to the 2007 Carancas crater in Peru — every confirmed place where an object from space struck the Earth and left a mark.',
-    momentIds: [
-      // ── EXISTING moments (20) ──
-      'chicxulub-crater', 'tunguska-event', 'chelyabinsk-meteor', 'vredefort-crater', 'sudbury-basin',
-      'manicouagan-crater', 'popigai-crater', 'chesapeake-bay-crater', 'barringer-meteor-crater', 'nordlinger-ries',
-      'wolfe-creek-crater', 'gosses-bluff', 'lonar-lake', 'kaali-crater', 'pingualuit-crater',
-      'hoba-meteorite', 'campo-del-cielo', 'sikhote-alin', 'siljan-ring', 'tswaing-crater',
-      // ── BATCH 1: NEW moments (30) ──
-      'morokweng-crater', 'kara-crater', 'puchezh-katunki-crater', 'araguainha-crater', 'acraman-crater',
-      'woodleigh-crater', 'charlevoix-crater', 'mjolnir-crater', 'rochechouart-crater', 'steinheim-basin',
-      'bosumtwi-crater', 'clearwater-lakes-craters', 'haughton-crater', 'manson-crater', 'mistastin-crater',
-      'elgygytgyn-crater', 'boltysh-crater', 'yarrabubba-crater', 'wetumpka-crater', 'upheaval-dome-crater',
-      'roter-kamm-crater', 'zhamanshin-crater', 'henbury-craters', 'steen-river-crater', 'montagnais-crater',
-      'lappajarvi-crater', 'aorounga-crater', 'luizi-crater', 'shoemaker-crater', 'carancas-crater',
-    ],
-    tags: ['meteorite', 'impact-crater', 'geology', 'space', 'asteroid'],
   },
   {
     id: 'got-filming-locations',
@@ -249,15 +228,11 @@ export const collections: StoryCollection[] = [
     subtitle: 'The exact stadiums, tracks, and arenas where Jesse Owens, Pelé, Ali, Jordan, and others made history',
     description: 'From the marble stadium where the modern Olympics were born in 1896 to the Augusta fairway where Tiger Woods wept in 2019 — 18 moments across eight decades, nine sports, and four continents.',
     momentIds: [
-      'athens-1896-first-modern-olympics', 'jesse-owens-four-golds-berlin-1936', 'ali-liston-miami-beach-convention-1964', 'jackie-robinson-debut-ebbets-1947',
-      'bannister-four-minute-mile-oxford-1954', 'pele-1000th-goal-maracana-1969', 'secretariat-belmont-triple-crown-1973',
-      'hank-aaron-715-atlanta-1974', 'miracle-on-ice-lake-placid-1980', 'jordan-last-shot-delta-center-1998',
-      'usain-bolt-958-berlin-2009', 'leicester-city-premier-league-2016', 'tiger-woods-masters-comeback-augusta-2019',
-      // Merged from iconic-sports-moments:
-      'ali-foreman-rumble-in-the-jungle-1974', 'maracana-world-cup-final-1950', 'fischer-spassky-reykjavik-1972',
-      'black-power-salute-mexico-city-1968', 'bradman-last-innings-the-oval-1948', 'nadia-comaneci-perfect-10-montreal-1976',
-      'hand-of-god-azteca-1986', 'babe-ruth-called-shot-wrigley-1932', 'jesse-owens-45-minutes-ann-arbor-1935',
-      'billie-jean-king-battle-of-sexes-1973', 'wilma-rudolph-three-golds-rome-1960', 'mandela-rugby-world-cup-1995',
+      'athens-1896-first-modern-olympics', 'jesse-owens-four-golds-berlin-1936', 'ali-liston-miami-beach-convention-1964', 'jackie-robinson-debut-ebbets-1947', 'bannister-four-minute-mile-oxford-1954',
+      'pele-1000th-goal-maracana-1969', 'secretariat-belmont-triple-crown-1973', 'hank-aaron-715-atlanta-1974', 'miracle-on-ice-lake-placid-1980', 'jordan-last-shot-delta-center-1998',
+      'usain-bolt-958-berlin-2009', 'leicester-city-premier-league-2016', 'tiger-woods-masters-comeback-augusta-2019', 'ali-foreman-rumble-in-the-jungle-1974', 'maracana-world-cup-final-1950',
+      'fischer-spassky-reykjavik-1972', 'black-power-salute-mexico-city-1968', 'bradman-last-innings-the-oval-1948', 'nadia-comaneci-perfect-10-montreal-1976', 'hand-of-god-azteca-1986',
+      'babe-ruth-called-shot-wrigley-1932', 'jesse-owens-45-minutes-ann-arbor-1935', 'billie-jean-king-battle-of-sexes-1973', 'wilma-rudolph-three-golds-rome-1960', 'mandela-rugby-world-cup-1995',
     ],
     tags: [],
   },
@@ -281,8 +256,8 @@ export const collections: StoryCollection[] = [
     description: 'Alcatraz to the Bastille, Robben Island to the Hanoi Hilton — fifteen events at the world\'s most consequential prisons: the morning a raincoat raft vanished into San Francisco Bay, the cell where Mandela spent 18 years, the room where Solzhenitsyn began his war against the Soviet state.',
     momentIds: [
       'alcatraz-capone-arrives', 'alcatraz-1962-escape', 'tower-london-anne-boleyn', 'tower-london-thomas-more', 'chateau-dif-mirabeau',
-      'robben-island-mandela-sentenced', 'devils-island-dreyfus', 'eastern-state-capone-cell', 'lubyanka-solzhenitsyn',
-      'hanoi-hilton-mccain', 'spandau-hess-sole-prisoner', 'san-quentin-cash-concert', 'sing-sing-rosenbergs-execution',
+      'robben-island-mandela-sentenced', 'devils-island-dreyfus', 'eastern-state-capone-cell', 'lubyanka-solzhenitsyn', 'hanoi-hilton-mccain',
+      'spandau-hess-sole-prisoner', 'san-quentin-cash-concert', 'sing-sing-rosenbergs-execution',
     ],
     tags: [],
   },
@@ -358,10 +333,7 @@ export const collections: StoryCollection[] = [
       'inv-bell-telephone', 'inv-edison-lightbulb', 'inv-marconi-radio', 'inv-wright-kitty-hawk', 'inv-wright-dayton-shop',
       'inv-nobel-dynamite', 'inv-ford-assembly-line', 'inv-farnsworth-tv', 'inv-fleming-penicillin', 'inv-eniac-computer',
       'inv-transistor-bell-labs', 'inv-www-cern', 'inv-apple-garage', 'inv-hp-garage', 'inv-google-garage',
-      'inv-amazon-garage',
-      // Merged from inventions-that-connected-the-world:
-      'first-arpanet-message-ucla-1969', 'steve-jobs-iphone-moscone-2007',
-      'edison-phonograph-menlo-park-1877', 'first-text-message-vodafone-1992',
+      'inv-amazon-garage', 'first-arpanet-message-ucla-1969', 'steve-jobs-iphone-moscone-2007', 'edison-phonograph-menlo-park-1877', 'first-text-message-vodafone-1992',
     ],
     tags: [],
   },
@@ -376,108 +348,32 @@ export const collections: StoryCollection[] = [
     tags: [],
   },
   {
-    id: 'london-royal-history',
-    name: 'London\'s Royal History',
-    subtitle: 'Tower of London, Westminster Abbey, and the Palace of Whitehall — five centuries of English monarchy in a square mile',
-    description: 'Two princes vanish from the Tower, a queen loses her head on Tower Green, a Catholic plotter is caught beneath Parliament, a king is beheaded outside his own banqueting house, and an eighteen-year-old girl is crowned empress of a quarter of the world.',
-    momentIds: [
-      'princes-tower-disappear', 'anne-boleyn-executed', 'guy-fawkes-caught', 'charles-i-executed', 'victoria-crowned',
-    ],
-    tags: [],
-  },
-  {
-    id: 'indigenous-peoples-resistance-and-survival',
-    name: 'Indigenous Peoples: Resistance and Survival',
-    subtitle: 'Massacres, last stands, forced marches, and ancient civilizations that European contact could not erase',
-    description: 'From Cahokia to Wounded Knee, the places where indigenous civilizations thrived and where colonial powers tried to destroy them.',
-    momentIds: [
-      // Existing moments cross-linked
-      'wkm-monument',
-      'wkm-mass-grave',
-      'scm-historic-site',
-      'little-bighorn-custer',
-      'mesa-verde-cliff-dwellings',
-      'geronimo-skeleton-canyon',
-      'indian-removal-act-1830',
-      'cherokee-trail-of-tears-1838',
-      'tenochtitlan-fall',
-      'chichen-el-castillo-equinox',
-      // New moments
-      'cahokia-monks-mound-peak',
-      'cahokia-woodhenge',
-      'sitting-bull-little-bighorn-vision',
-      'sitting-bull-assassination-1890',
-      // Suquamish + Hohokam
-      'sea-suquamish-old-man-house', 'sea-chief-seattle-speech', 'phx-hohokam-pueblo-grande',
-      'tecumseh-prophetstown-1808',
-      'tecumseh-death-thames-1813',
-      'navajo-code-talkers-iwo-jima-1945',
-      'navajo-long-walk-bosque-redondo-1864',
-      'machu-picchu-pachacuti-construction',
-      'machu-picchu-bingham-discovery-1911',
-      'tikal-peak-population',
-      'aztec-sun-stone-carving',
-      'maori-arrival-aotearoa',
-      'aboriginal-rock-art-kakadu',
-      'inca-sapa-pachacuti-cusco-expansion',
-    ],
-    tags: ['indigenous', 'colonial-history', 'resistance', 'ancient-civilizations'],
-  },
-
-  {
-    id: 'harry-potter-filming-locations',
-    name: 'Harry Potter Filming Locations',
-    subtitle: 'The castles, cathedrals, and railways of England and Scotland that became Hogwarts',
-    description: 'From a decommissioned Rolls-Royce factory in Hertfordshire to a 13th-century abbey in Wiltshire, the Harry Potter films turned medieval England into the wizarding world. Eleven locations across England and Scotland.',
-    momentIds: [
-      'hp-alnwick-castle-2001',
-      'hp-christ-church-oxford-2001',
-      'hp-glenfinnan-viaduct-2002',
-      'hp-kings-cross-platform-2001',
-      'hp-leadenhall-market-2001',
-      'hp-lacock-abbey-2001',
-      'hp-gloucester-cathedral-2001',
-      'hp-bodleian-library-2001',
-      'hp-leavesden-studios-2000',
-      'hp-durham-cathedral-2001',
-      'hp-malham-cove-2010',
-    ],
-    tags: ['film', 'harry-potter', 'filming-location'],
-  },
-  {
-    id: 'breaking-bad-filming-locations',
-    name: 'Breaking Bad Filming Locations',
-    subtitle: 'The houses, diners, and desert of Albuquerque where Walter White built his empire',
-    description: 'Breaking Bad transformed Albuquerque\'s sun-bleached strip malls, Route 66 motels, and desert scrubland into the backdrop of Walter White\'s descent. Eight filming locations across greater Albuquerque and southern New Mexico.',
-    momentIds: [
-      'bb-walter-white-house-2008',
-      'bb-car-wash-2008',
-      'bb-los-pollos-hermanos-2008',
-      'bb-crossroads-motel-2008',
-      'bb-tohajilee-reservation-2008',
-      'bb-dog-house-drive-in-2008',
-      'bb-tuco-hideout-2009',
-      'bb-superlab-2009',
-    ],
-    tags: ['film', 'breaking-bad', 'filming-location'],
-  },
-  // iconic-sports-moments merged into greatest-sports-moments above
-  // inventions-that-connected-the-world merged into invention-birthplaces above
-  {
     id: 'food-and-drink-origins',
     name: 'Where Iconic Foods and Drinks Were Born',
     subtitle: 'From a brass kettle in Atlanta to a nine-course tasting menu in Napa Valley',
     description: 'The specific counters, kitchens, and pharmacies where the world\'s most recognizable food and drink brands were first served or invented.',
     momentIds: [
-      'coca-cola-first-served-jacobs-pharmacy-1886',
-      'mcdonalds-first-franchise-des-plaines-1955',
-      'prohibition-begins-midnight-1920',
-      'french-laundry-opens-yountville-1994',
-      'escoffier-ritz-paris-1898',
-      'julia-child-le-cordon-bleu-1949',
-      'first-michelin-guide-paris-1900',
+      'coca-cola-first-served-jacobs-pharmacy-1886', 'mcdonalds-first-franchise-des-plaines-1955', 'prohibition-begins-midnight-1920', 'french-laundry-opens-yountville-1994', 'escoffier-ritz-paris-1898',
+      'julia-child-le-cordon-bleu-1949', 'first-michelin-guide-paris-1900',
     ],
-    tags: ['food', 'drink', 'culinary', 'invention'],
+    tags: [],
+  },
+  {
+    id: 'us-presidents-burials',
+    name: 'Where Every US President Is Buried',
+    subtitle: 'From Washington\'s quiet tomb to Kennedy\'s eternal flame — the final resting places of all 39 deceased commanders-in-chief',
+    description: 'Every U.S. president who has died is buried somewhere in America — from humble family plots to grand national memorials. This collection maps all 39 burial sites, revealing the surprising geography of presidential rest: Ohio claims more presidential graves than any other state, while only one president (Wilson) lies inside a church, and only one (JFK) lies beneath an eternal flame. The locations tell stories the history books often skip.',
+    momentIds: [
+      'george-washington-burial', 'john-adams-burial', 'thomas-jefferson-burial', 'james-madison-burial', 'james-monroe-burial',
+      'john-quincy-adams-burial', 'andrew-jackson-burial', 'martin-van-buren-burial', 'william-henry-harrison-burial', 'john-tyler-burial',
+      'james-k-polk-burial', 'zachary-taylor-burial', 'millard-fillmore-burial', 'franklin-pierce-burial', 'james-buchanan-burial',
+      'abraham-lincoln-burial', 'andrew-johnson-burial', 'ulysses-s-grant-burial', 'rutherford-b-hayes-burial', 'james-a-garfield-burial',
+      'chester-a-arthur-burial', 'grover-cleveland-burial', 'benjamin-harrison-burial', 'william-mckinley-burial', 'theodore-roosevelt-burial',
+      'william-howard-taft-burial', 'woodrow-wilson-burial', 'warren-g-harding-burial', 'calvin-coolidge-burial', 'herbert-hoover-burial',
+      'franklin-d-roosevelt-burial', 'harry-s-truman-burial', 'dwight-d-eisenhower-burial', 'john-f-kennedy-burial', 'lyndon-b-johnson-burial',
+      'richard-nixon-burial', 'gerald-ford-burial', 'ronald-reagan-burial', 'jimmy-carter-burial',
+    ],
+    tags: ['presidents', 'american-history', 'burial', 'political-drama'],
   },
   {
     id: 'austin-deadliest-days',
@@ -485,20 +381,8 @@ export const collections: StoryCollection[] = [
     subtitle: 'Dam bursts, flash floods, tornadoes, and mass shootings — the disasters that shaped a city',
     description: 'Austin sits at the collision of two creek valleys and the Balcones Escarpment, making it one of the most flood-prone cities in America. Add tornadoes, infrastructure failures, and one of the first mass shootings in U.S. history, and the result is a city shaped as much by catastrophe as by ambition.',
     momentIds: [
-      // 1900 Dam Collapse
-      'dam-powerhouse-explosion',
-      'dam-red-bud-isle',
-      // 1915 Flood
-      'austin-flood-rain-1915',
-      'austin-flood-whittington-drowns-1915',
-      'austin-flood-wooldridge-relief-1915',
-      // 1922 Tornadoes
-      'austin-tornadoes-spicewood-1922',
-      'austin-tornado-bargsley-1922',
-      'bargsley-family-plot-present',
-      'st-edwards-tornado-1922',
-      // 1966 UT Tower Shooting
-      'uttower-main-mall',
+      'dam-powerhouse-explosion', 'dam-red-bud-isle', 'austin-flood-rain-1915', 'austin-flood-whittington-drowns-1915', 'austin-flood-wooldridge-relief-1915',
+      'austin-tornadoes-spicewood-1922', 'austin-tornado-bargsley-1922', 'bargsley-family-plot-present', 'uttower-main-mall', 'st-edwards-tornado-1922',
     ],
     tags: ['disaster', 'flood', 'tornado', 'austin', 'dark-history'],
   },
@@ -508,26 +392,21 @@ export const collections: StoryCollection[] = [
     subtitle: 'After emancipation, formerly enslaved people built 15 communities ringing Austin — most are now gone',
     description: 'Between 1865 and 1895, freed slaves established at least 15 distinct communities on the periphery of Austin. They built churches, schools, and cooperative economies from nothing. Most were destroyed by highway construction, urban renewal, and gentrification. A few — Clarksville, Gregorytown — left traces that remain visible today.',
     momentIds: [
-      'pleasant-hill-freedmen-1865',
-      'kincheonville-freedmen-1865',
-      'barton-springs-freedmen-1867',
-      'reyna-branch-freedmen-1870',
-      'masontown-freedmen-1870',
-      'wheatville-freedmen-1867',
-      'robertson-hill-freedmen-1870',
-      'belle-hill-freedmen-1870',
-      'clarksville-clark-buys-land-1871',
-      'burditt-prairie-freedmen-1870',
-      'red-river-street-freedmen-1866',
-      'west-side-freedmen-1868',
-      'gregorytown-freedmen-1870',
-      'south-side-freedmen-1868',
-      'horst-pasture-freedmen-1870',
-      // Related existing moments
-      'clarksville-sweet-home-baptist-1877',
-      'clarksville-mopac-destruction-1970s',
-      'evergreen-cemetery-established-1926',
+      'pleasant-hill-freedmen-1865', 'kincheonville-freedmen-1865', 'barton-springs-freedmen-1867', 'reyna-branch-freedmen-1870', 'masontown-freedmen-1870',
+      'wheatville-freedmen-1867', 'robertson-hill-freedmen-1870', 'belle-hill-freedmen-1870', 'clarksville-clark-buys-land-1871', 'burditt-prairie-freedmen-1870',
+      'red-river-street-freedmen-1866', 'west-side-freedmen-1868', 'gregorytown-freedmen-1870', 'south-side-freedmen-1868', 'horst-pasture-freedmen-1870',
+      'clarksville-sweet-home-baptist-1877', 'clarksville-mopac-destruction-1970s', 'evergreen-cemetery-established-1926',
     ],
     tags: ['civil-rights', 'african-american', 'austin', 'reconstruction', 'freedmen'],
+  },
+  {
+    id: 'london-royal-history',
+    name: 'London\'s Royal History',
+    subtitle: 'Tower of London, Westminster Abbey, and the Palace of Whitehall — five centuries of English monarchy in a square mile',
+    description: 'Two princes vanish from the Tower, a queen loses her head on Tower Green, a Catholic plotter is caught beneath Parliament, a king is beheaded outside his own banqueting house, and an eighteen-year-old girl is crowned empress of a quarter of the world.',
+    momentIds: [
+      'princes-tower-disappear', 'anne-boleyn-executed', 'guy-fawkes-caught', 'charles-i-executed', 'victoria-crowned',
+    ],
+    tags: [],
   },
 ];

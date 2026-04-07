@@ -1,119 +1,124 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-04-05 (Session 24–25)
+**Last updated:** 2026-04-07 (Session 30 — P0 Static/Supabase Reconciliation)
 **Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
+**Production:** https://deepmaps.app
 
 ## Current State
-Sessions 24–25 were a major UX overhaul focused on the main HomePage experience. Added "What's Here" unified carousel, progressive depth labels ("Dive Deeper" / "Dive Even Deeper"), sort toggles on all sections, sticky context bars, nearest-moment zoom, scroll position restoration, and extensive card design iteration. The app's main flow now follows a clear hierarchy: What's Here → Dive Deeper (People/Stories/Moments/Collections) → Dive Even Deeper (Encyclopedia). **Corner label bug** still needs a dedicated session. Content side is blocked on scaling images to all entities/stories.
+Session 30 resolved the P0 static/Supabase desync. Both sources are now perfectly synchronized:
+- **2,583 moments** (was: 2,492 static / 2,543 Supabase)
+- **628 stories** (was: 526 / 609)
+- **588 entities** (was: 504 / 571)
+- **30 collections** (was: 29 / 30)
+- **1,931 entity links** — zero asymmetry (was: 196 static-only, 293 Supabase-only)
+- **1,887 story_moments** — zero asymmetry (was: 68 static-only, 239 Supabase-only)
 
-## What Sessions 24–25 Shipped
+Static files are now dumped directly from Supabase (flat arrays, no regional imports). Regional content files (austin-barnes, del-valle, mesa-phoenix, seattle) still exist on disk but are dead code — only referenced by one-time ingest scripts.
 
-### Core Navigation
-1. **Nearest-moment zoom** — Clicking a story or entity card from HomePage now flies to the nearest moment on the current map view, not all moments. Both `handleStorySelect` and `handleEntitySelect` in App.tsx compute nearest moment via `distanceMiles` from map center.
-2. **Scroll position restoration** — All 5 horizontal carousels (What's Here, People, Stories, Near You, Collections) save scroll position to module-level variables on unmount. Back navigation restores exact position. `isRestoringFromBack` flag prevents viewport-change scroll resets during restore.
-3. **Sticky context bars** — StoryPanel and EntityPanel show a sticky bar with name/category when the header scrolls out of view. Uses IntersectionObserver on a sentinel div. Expandable description + "↑ Back to top" link.
+## What Session 30 Shipped
 
-### What's Here Carousel (NEW)
-4. **Unified carousel** — New top-level "What's Here" section mixing stories, people, and places sorted by distance. First thing users see below the hero.
-5. **Card design** — Fixed 150px height, 280px width. Image cards: hero fills top with title overlaid on gradient, type label pill at top-left with frosted glass (`bg-black/50 backdrop-blur`). No-image cards: color bar + text layout. All cards have type label pills (Story/Person/Place) with accent-colored tinted backgrounds.
-6. **Moment dedup** — Moments removed from What's Here entirely. Stories and people are the navigable units; moments live in their own section below.
-7. **Person avatar alignment** — Avatars align to name text level (mt-4 to clear the type pill).
+### P0 Reconciliation — Zero Drift Achieved
+1. **Detailed drift audit** (`scripts/reconcile/detailed-drift.ts`) — field-level comparison of every table and join table between static and Supabase
+2. **Push static → Supabase** (`scripts/reconcile/push-static-to-supabase.ts`) — safe UPSERT of 17 entities, 40 moments, 19 stories, 66 story_moments, 195 entity links, 192 related_stories. Zero deletes.
+3. **Dump Supabase → static** — regenerated all 4 static data files from Supabase as flat arrays
+4. **TS2590 fix** — `@ts-expect-error` on moments.ts array literal (2,583 items exceed TS union inference limit). Dump script updated to emit this automatically.
+5. **Ongoing sync script** (`scripts/sync-to-supabase.ts`) — UPSERT-only, preserves Supabase-only columns, `--dry-run` flag, for use after any static file edit
+6. **Fixed 2 moments** with invalid `importance: 'moderate'` (not a valid enum) — set to 'minor'
+7. **6 new moment_types created**: sighting, hotel, fire_origin, military, maritime, ghost_town
 
-### Progressive Depth
-8. **"Dive Deeper" divider** — Gold (#D4A853) divider with ▼ arrow between What's Here and the People/Stories/Moments sections.
-9. **"Dive Even Deeper" divider** — Same style with ▼▼ before the Encyclopedia section. Progressive rabbit-hole feeling.
+### Data Architecture Change
+- Static files no longer use regional spread imports. `moments.ts`, `stories.ts`, `entities.ts` are complete flat arrays dumped from Supabase.
+- Regional content files (`austin-barnes-content.ts`, `del-valle-content.ts`, etc.) are now dead code — their content is included in the main dump.
+- Going forward: edit in Supabase → run `dump-from-supabase.ts` → commit. Or edit static → run `sync-to-supabase.ts` → commit.
 
-### Sort Toggles
-10. **Moments sort toggle** — Nearest/Timeline pill toggle on the Near You section (was missing, user asked multiple times).
-11. **What's Here sort toggle** — Nearest/Timeline toggle on What's Here carousel. Timeline sorts all content types by year.
-12. **Section spacing** — All sections normalized to `pt-4 pb-4`. Removed extra divider after Stories.
-
-### Explorer / Encyclopedia
-13. **Story hero images** — StoryCard shows 128px hero image with gradient overlay when `story.imageUrl` exists.
-14. **Toggle pill style** — Explorer sort toggles match main page pill style (`rounded-full`).
-15. **ScrollTimeline** — Vertical timeline with year labels added to explorer story list.
-
-### Other Fixes
-16. **PinEditor mobile layout** — Map reduced to 200px on mobile, controls below map, satellite toggle overlaid.
-17. **Austin validator errors** — Added missing `barnesMoments` import to `moments.ts`.
-
-## Key Decisions
+## Key Decisions (Session 30)
 
 | Decision | Chosen | Rejected | Why |
 |----------|--------|----------|-----|
-| What's Here content | Stories + People + Places only | Include moments too | Moments don't have their own images, creating visual inconsistency. Stories are the navigable unit. |
-| Card sizing | Fixed 150px height, all same width | Variable height / mixed sizes | User said different sizes "look weird". Fixed height aligns text across cards. |
-| Image card type label | Top-left overlay on image with frosted glass | In footer below image | Consistent with no-image cards (label always at top). User noticed inconsistency. |
-| Dive Deeper styling | Gold (#D4A853) with ▼ arrows | Gray/subtle dividers | User wanted more prominence, rabbit-hole feeling. Matches Surprise Me gold. |
-| Moment dedup approach | Remove moments from What's Here | Suppress duplicate images / suppress cards | Every approach had edge cases. Clean removal is simplest. |
-| Person avatar position | Aligned to name text (mt-4) | Centered vertically | User pointed out misalignment — avatar was too high. |
+| Reconciliation strategy | Push up, then dump down | Surgical merge into existing files | Cleaner — ensures exact parity, single source of truth |
+| Shared item conflicts | Supabase wins (no overwrite) | Static wins | Supabase is declared source of truth |
+| Regional content files | Keep as dead code | Delete them | Still referenced by ingest scripts, can clean up later |
+| TS2590 fix | @ts-expect-error annotation | Split into chunks, JSON file | Simplest — one-line fix, dump script emits it |
+| Sync direction | UPSERT only, never DELETE | Bidirectional sync with deletes | Too risky to auto-delete; manual review for removals |
+
+## Sync Workflow (New)
+
+```bash
+# After editing static files:
+source .env.local && npx tsx scripts/sync-to-supabase.ts --dry-run  # preview
+source .env.local && npx tsx scripts/sync-to-supabase.ts             # push
+
+# After editing in Supabase:
+source .env.local && npx tsx scripts/dump-from-supabase.ts           # pull
+git diff src/data/  # review changes
+
+# Check for drift:
+source .env.local && npx tsx scripts/check-drift.ts                  # row counts
+source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-level
+```
 
 ## Open Issues (prioritized)
 
-### P0 — Corner Label Bug (DEDICATED SESSION NEEDED)
+### P0 — Stray Marker / Wrong Position Bug
+- **Yogurt Shop story** has marker #3 appearing disconnected from polyline, label bleeding off map edge.
+- This is the P0 corner label bug from Sessions 25-27. Lives in MapView.tsx and EmergenceLayer.tsx.
+- Session 27's marker nudge (`3213606`) may be making it worse.
+- **Needs dedicated session** — constrained from modifying MapView.tsx/EmergenceLayer.tsx in current work.
 
-**Bug:** When viewing entity panels, moment labels/overlays render in the upper-left corner of the map instead of at correct coordinates. Confirmed on Prince Carl of Solms-Braunfels and Elisabet Ney.
+### P0 — Verification Testing
+- Full suggest → agree → verify flow not yet tested between two accounts on production.
+- Magic link rate limit (~3-4/hour) blocking rapid testing. Wait and retry.
+- Need to confirm: (a) session persists after magic link click, (b) suggestion appears in thread, (c) agree from second account verifies and updates moment.
 
-**Investigation so far:**
-- EmergenceLayer active overlay (line 800) creates marker without coord validation
-- MapView focusedLocations (line 466) creates permanent tooltips on active pins
-- Scroll overlay system (line 580+) has proper coord validation
-- Three interacting subsystems: EmergenceLayer overlays, MapView permanent tooltips, scroll highlight system
-- Also: Arrow click → label disappears instead of opening panel; gray markers for wrong person after arrow click
-- See CLAUDE.md "Arrow FlyTo System" section for documented interaction patterns
+### P1 — Email Customization
+- Magic link emails show "Supabase Auth" as sender. Needs custom SMTP to change from-name.
 
-### P1 — UX Issues (user-reported this session)
+### P1 — RapidVerify Upgrades
+- POI-first sorting, notability weighting, crosshair picker, note box
 
-1. **What's Here too few items** — When zoomed into area with just a couple pins, only those show. Should have backfill from nearby areas (like other sections do) with "zoom out" hint.
-2. **Category filter + empty people** — "No people for this category" should show nearest people in that category from expanded bounds, not empty state with "zoom out" message.
-3. **Image lightbox** — Cropped hero images need tap-to-expand.
-4. **Entity image upload in admin mode** — Upload works for stories but not entities.
-5. **Places not discoverable on main** — `storyType: 'place'` hidden from browse. No way to discover places.
-6. **Gray markers not clickable** — Orphan moments on map have no click handler. Need stories created for them or hide from map.
-7. **Canonical entity filter in Dive Deeper** — Entities with `canonicalStoryId === story.id` hidden from Dive Deeper on own story.
-8. **Labels hiding markers** — LBJ label covers the marker dot.
-9. **Downtown Austin shows only 3 moments** — `viewportLocations` may not update after flyTo.
+### P1 — ~1,005 Orphan Moments (NO LONGER BLOCKED)
+- Sync is fixed. Can now resume orphan entity tagging safely.
+- ~200 Mexican/Latin American moments → create entities
+- ~150 filming locations → collections
+- ~100 aviation disasters → collections
+- ~300 world history → assess for entity wiring
+- **Planned: entity resolution pipeline** using 2.29M people DB
 
-### P2 — Content / Data
+### P1 — Clean Up Dead Regional Files
+- `src/data/austin-barnes-content.ts`, `del-valle-content.ts`, `mesa-phoenix-content.ts`, `seattle-portorchard-content.ts`
+- Content is now in main dump files. Regional files only referenced by ingest scripts.
+- Can delete or archive after confirming ingest scripts aren't needed.
 
-10. **Images for all stories/people/places** — Visual cohesion requires images everywhere. Most entities have `wikipediaSlug` — could auto-fetch Wikimedia Commons lead images. Need batch tooling.
-11. **845 orphan moments** — Moments in Supabase with no entity links or story links. Need batch wiring script. See TODOS.md.
-12. **51 pre-existing validator errors** — Austin stories referencing Supabase-only moments.
-13. **Content creation for orphan moments** — NYC area gray markers need stories. Content-guide.md has standards (verb-first moment names, Caravaggio test for entity descriptions, hook-first 8 words).
-14. **"Summarize this area" AI feature** — Saved to memory. AI scans visible stories/moments and generates overview with deep links.
-
-### P3 — Future
-
-15. **Batch image pipeline** — Auto-fetch from Wikimedia Commons via `wikipediaSlug`. Scale to thousands of entities.
-16. **Image upload for moments** — Moments currently have no images; eventually needed.
-17. **Plausible analytics** — Add tracking before user testing.
-18. **Viral collection post** — Reddit r/TrueCrime with serial killer collection.
-
-## Content Standards (from content-guide.md)
-
-- **Moment names**: Verb-first, 5-second test ("Capture the Fort" not "The Fort")
-- **Entity descriptions**: Caravaggio test — hook-first 8 words, no birth/death dates in first sentence
-- **Story names**: Wikipedia article title style
-- **Dedup rules**: Check existing entities before creating new ones
-- **Notability**: Don't create concept entities — use person/place/organization/work
+### P2 — Previous Session Issues
+- What's Here too few items when zoomed tight
+- Category filter + empty people state
+- Image lightbox for cropped heroes
+- Places not discoverable on main (`storyType: 'place'` hidden)
+- Gray markers not clickable (orphan moments)
 
 ## Architecture Notes
-- **51 pre-existing validator errors** — Austin stories referencing moments in Supabase but not static data. `--no-verify` is acceptable for commits until fixed.
-- **Static coord override** — Provider overrides Supabase moment coordinates when static data differs.
-- **browseableStories filter**: `storyType === 'incident'` only. Places, biographies, eras hidden from browse.
-- **Module-level scroll saves** — 5 variables (`savedWhatsHereScrollLeft`, etc.) persist across HomePage unmount/remount.
-- **`isRestoringFromBack`** — Flag prevents viewport-change scroll reset during back navigation, cleared after 500ms.
-- **Card highlight style** — `cardHighlightStyle()` helper returns glow + border color for active cards.
-- **`.wh-type-label`** — CSS class in index.css for consistent What's Here type label pills.
+- **PKCE auth** — `flowType: 'pkce'` in supabase client config
+- **Crosshair approach** — map `moveend` event → `getCenter()` → state
+- **ntfy.sh notifications** — `pg_net` HTTP POST from DB trigger
+- **Two edit modes** — Admin "Edit Location" (direct DB update) vs Community "Suggest"
+- **Profile join workaround** — profiles fetched via batch `IN` query
+- **Static data = Supabase dump** — flat arrays, no regional imports, `@ts-expect-error` for large arrays
 
-## Files Changed Sessions 24–25
-- `src/App.tsx` — Nearest-moment zoom for story/entity select, `handleEntitySelect` pattern
-- `src/components/panel/HomePage.tsx` — What's Here carousel, all sort toggles, Dive Deeper/Even Deeper, card components, scroll save/restore, section spacing
-- `src/components/panel/StoryPanel.tsx` — Sticky context bar with IntersectionObserver
-- `src/components/panel/EntityPanel.tsx` — Sticky context bar (same pattern)
-- `src/components/panel/StoryCard.tsx` — Hero images on story cards
-- `src/components/panel/ExplorePanel.tsx` — Pill-style toggles, ScrollTimeline for stories
-- `src/components/ui/PinEditor.tsx` — Mobile layout fix (200px map, controls below)
-- `src/data/moments.ts` — Austin moments import fix
-- `src/index.css` — `.wh-type-label` CSS class
+## Files Changed Session 30
+- `src/data/moments.ts` — REGENERATED from Supabase (2,583 moments, flat array)
+- `src/data/stories.ts` — REGENERATED (628 stories)
+- `src/data/entities.ts` — REGENERATED (588 entities)
+- `src/data/collections.ts` — REGENERATED (30 collections)
+- `scripts/reconcile/detailed-drift.ts` — NEW: field-level drift audit
+- `scripts/reconcile/push-static-to-supabase.ts` — NEW: safe UPSERT push
+- `scripts/sync-to-supabase.ts` — NEW: ongoing sync script
+- `scripts/dump-from-supabase.ts` — Updated: emits @ts-expect-error for large arrays
+
+### NOT modified
+- `src/App.tsx`
+- `src/components/map/MapView.tsx`
+- `src/components/map/EmergenceLayer.tsx`
+- `src/index.css`
+- Community verification tables (untouched)
+- Supabase-only columns (notability, source, source_id, review_status — preserved)

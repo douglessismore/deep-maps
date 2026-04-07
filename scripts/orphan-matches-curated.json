@@ -1,0 +1,1248 @@
+[
+  {
+    "momentId": "first-folio-published-london-1623",
+    "momentName": "Two Fellow Actors Publish Shakespeare's First Folio, Saving 18 Plays from Oblivion",
+    "year": 1623,
+    "entities": [
+      {
+        "entityId": "william-shakespeare",
+        "entityName": "William Shakespeare",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "tri-ground-zero",
+    "momentName": "The Gadget Detonates at 21 Kilotons, Fusing Desert Sand to Glass",
+    "year": 1945,
+    "entities": [
+      {
+        "entityId": "trinity-site",
+        "entityName": "Trinity Site",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "tutankhamun-mask-display-cairo",
+    "momentName": "Tutankhamun's Death Mask Goes on Display at the Egyptian Museum in Cairo",
+    "year": 1925,
+    "entities": [
+      {
+        "entityId": "tutankhamun",
+        "entityName": "Tutankhamun",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "hank-aaron-715-atlanta-1974",
+    "momentName": "Hank Aaron Hits His 715th Home Run, Passing Babe Ruth's Lifetime Record",
+    "year": 1974,
+    "entities": [
+      {
+        "entityId": "babe-ruth",
+        "entityName": "Babe Ruth",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "brothers-poem-discovered-on-papyrus",
+    "momentName": "Scholars Publish a New Sappho Poem Discovered on Ancient Papyrus",
+    "year": 2014,
+    "entities": [
+      {
+        "entityId": "sappho",
+        "entityName": "Sappho",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "charles-v-troops-sack-rome",
+    "momentName": "Charles V's Unpaid Army Sacks Rome for Eight Days",
+    "year": 1527,
+    "entities": [
+      {
+        "entityId": "charles-v-holy-roman-emperor",
+        "entityName": "Charles V",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "jim-morrison-buried-pere-lachaise-1971",
+    "momentName": "Jim Morrison Is Buried at Pere Lachaise and His Grave Becomes a Pilgrimage Site",
+    "year": 1971,
+    "entities": [
+      {
+        "entityId": "pere-lachaise-cemetery",
+        "entityName": "Père Lachaise Cemetery",
+        "entityType": "place",
+        "matchedIn": [
+          "id overlap"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "einstein-publishes-relativity",
+    "momentName": "Einstein Publishes Four Papers That Rewrite Physics from a Swiss Patent Office",
+    "year": 1905,
+    "entities": [
+      {
+        "entityId": "albert-einstein",
+        "entityName": "Albert Einstein",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "sultan-ahmed-builds-blue-mosque",
+    "momentName": "Sultan Ahmed I Builds the Blue Mosque Directly Opposite Hagia Sophia",
+    "year": 1616,
+    "entities": [
+      {
+        "entityId": "hagia-sophia-place",
+        "entityName": "Hagia Sophia",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "darwin-reads-malthus-london-1838",
+    "momentName": "Darwin Reads Malthus in London and the Theory of Natural Selection Clicks Into Place",
+    "year": 1838,
+    "entities": [
+      {
+        "entityId": "charles-darwin",
+        "entityName": "Charles Darwin",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "newton-woolsthorpe-gravity-1666",
+    "momentName": "Newton Retreats to His Mother's Farm During Plague and Invents Calculus, Optics, and Gravity",
+    "year": 1666,
+    "entities": [
+      {
+        "entityId": "isaac-newton",
+        "entityName": "Isaac Newton",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "victor-hugo-writes-les-miserables-hauteville-1862",
+    "momentName": "Victor Hugo Writes Les Miserables in Exile on a Channel Island",
+    "year": 1862,
+    "entities": [
+      {
+        "entityId": "victor-hugo",
+        "entityName": "Victor Hugo",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "gabriel-garcia-marquez-writes-one-hundred-years-1966",
+    "momentName": "Garcia Marquez Locks Himself in a Mexico City Room for 18 Months and Writes One Hundred Years of Solitude",
+    "year": 1966,
+    "entities": [
+      {
+        "entityId": "gabriel-garcia-marquez",
+        "entityName": "Gabriel García Márquez",
+        "entityType": "person",
+        "matchedIn": [
+          "id overlap"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "penicillin-discovered-1928",
+    "momentName": "Alexander Fleming Notices a Mold Killing Bacteria in a Petri Dish He Forgot to Clean",
+    "year": 1928,
+    "entities": [
+      {
+        "entityId": "alexander-fleming",
+        "entityName": "Alexander Fleming",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "genghis-khan-destroys-bukhara-1220",
+    "momentName": "Genghis Khan Burns Bukhara and Tells Its People \"I Am the Punishment of God\"",
+    "year": 1220,
+    "entities": [
+      {
+        "entityId": "genghis-khan",
+        "entityName": "Genghis Khan",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "columbus-arrives-hispaniola-1492",
+    "momentName": "Columbus Establishes La Navidad, the First European Settlement in the Americas",
+    "year": 1492,
+    "entities": [
+      {
+        "entityId": "christopher-columbus",
+        "entityName": "Christopher Columbus",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "chernobyl-disaster-1986",
+    "momentName": "Reactor No. 4 at Chernobyl Explodes During a Safety Test, Releasing 400 Times More Radiation Than Hiroshima",
+    "year": 1986,
+    "entities": [
+      {
+        "entityId": "chernobyl-npp",
+        "entityName": "Chernobyl Nuclear Power Plant",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "hoover-dam-completed-1936",
+    "momentName": "Workers Complete the Hoover Dam Two Years Ahead of Schedule in 120-Degree Heat",
+    "year": 1936,
+    "entities": [
+      {
+        "entityId": "herbert-hoover",
+        "entityName": "Herbert Hoover",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "library-alexandria-destroyed-48bce",
+    "momentName": "Fire Destroys Part of the Great Library of Alexandria During Caesar's Siege",
+    "year": -48,
+    "entities": [
+      {
+        "entityId": "julius-caesar",
+        "entityName": "Julius Caesar",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "terracotta-army-discovered-1974",
+    "momentName": "Farmers Digging a Well Discover 8,000 Life-Size Terracotta Soldiers Guarding China's First Emperor",
+    "year": 1974,
+    "entities": [
+      {
+        "entityId": "qin-shi-huang",
+        "entityName": "Qin Shi Huang",
+        "entityType": "person",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "eiffel-tower-opens-1889",
+    "momentName": "Gustave Eiffel Climbs 1,710 Steps to Plant a French Flag Atop the Tallest Structure on Earth",
+    "year": 1889,
+    "entities": [
+      {
+        "entityId": "gustave-eiffel",
+        "entityName": "Gustave Eiffel",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "machu-picchu-rediscovered-1911",
+    "momentName": "Hiram Bingham III Reaches Machu Picchu, a Citadel Hidden Above the Clouds for 400 Years",
+    "year": 1911,
+    "entities": [
+      {
+        "entityId": "machu-picchu",
+        "entityName": "Machu Picchu",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "globe-theatre-reconstructed-1997",
+    "momentName": "Sam Wanamaker Rebuilds Shakespeare's Globe 230 Years After It Was Demolished",
+    "year": 1997,
+    "entities": [
+      {
+        "entityId": "william-shakespeare",
+        "entityName": "William Shakespeare",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "giordano-bruno-burned-campo-dei-fiori-1600",
+    "momentName": "The Inquisition Burns Giordano Bruno at the Stake for Arguing the Universe Is Infinite",
+    "year": 1600,
+    "entities": [
+      {
+        "entityId": "giordano-bruno",
+        "entityName": "Giordano Bruno",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "code-of-hammurabi-erected-1754bce",
+    "momentName": "Hammurabi Erects a Stone Code of 282 Laws in the Centre of Babylon",
+    "year": -1754,
+    "entities": [
+      {
+        "entityId": "louvre-museum",
+        "entityName": "The Louvre",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "hammurabi",
+        "entityName": "Hammurabi",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "great-wall-construction-begins-qin",
+    "momentName": "Qin Shi Huang Connects Existing Walls into the First Great Wall of China",
+    "year": -214,
+    "entities": [
+      {
+        "entityId": "qin-shi-huang",
+        "entityName": "Qin Shi Huang",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "library-alexandria-burns-48bce",
+    "momentName": "Caesar's Troops Accidentally Burn Part of the Library of Alexandria",
+    "year": -48,
+    "entities": [
+      {
+        "entityId": "julius-caesar",
+        "entityName": "Julius Caesar",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "execution-charles-i-banqueting-house-1649",
+    "momentName": "Charles I Steps Through a Window of His Own Banqueting House to Be Beheaded",
+    "year": 1649,
+    "entities": [
+      {
+        "entityId": "charles-i",
+        "entityName": "Charles I",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "central-park-olmsted-vaux-1858",
+    "momentName": "Olmsted and Vaux Win the Competition to Design Central Park on a Swamp and Shantytown",
+    "year": 1858,
+    "entities": [
+      {
+        "entityId": "frederick-law-olmsted",
+        "entityName": "Frederick Law Olmsted",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "caravaggio-paintings-san-luigi-dei-francesi-1600",
+    "momentName": "Caravaggio Paints Three Masterpieces in the Church of San Luigi dei Francesi",
+    "year": 1600,
+    "entities": [
+      {
+        "entityId": "caravaggio",
+        "entityName": "Caravaggio",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "caesar-assassinated-ides-march-44bce",
+    "momentName": "Senators Stab Caesar 23 Times on the Floor of Pompey's Theatre",
+    "year": -44,
+    "entities": [
+      {
+        "entityId": "julius-caesar",
+        "entityName": "Julius Caesar",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "socrates-drinks-hemlock-399bce",
+    "momentName": "Socrates Drinks Hemlock in an Athenian Prison Cell After Refusing to Flee",
+    "year": -399,
+    "entities": [
+      {
+        "entityId": "socrates",
+        "entityName": "Socrates",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "cleopatra-suicide-alexandria-30bce",
+    "momentName": "Cleopatra VII Dies in Alexandria, the Last Pharaoh of Independent Egypt",
+    "year": -30,
+    "entities": [
+      {
+        "entityId": "cleopatra",
+        "entityName": "Cleopatra VII",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "parthenon-completed-432bce",
+    "momentName": "Athens Completes the Parthenon After Nine Years of Construction",
+    "year": -432,
+    "entities": [
+      {
+        "entityId": "parthenon",
+        "entityName": "Parthenon",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "pantheon-dome-built-ad-125",
+    "momentName": "Hadrian Builds the Pantheon's Unreinforced Concrete Dome — Still the World's Largest",
+    "year": 125,
+    "entities": [
+      {
+        "entityId": "raphael",
+        "entityName": "Raphael",
+        "entityType": "person",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "hadrian",
+        "entityName": "Hadrian",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "julius-caesar-crosses-rubicon-49bce",
+    "momentName": "Caesar Crosses the Rubicon with the 13th Legion and Triggers Civil War",
+    "year": -49,
+    "entities": [
+      {
+        "entityId": "julius-caesar",
+        "entityName": "Julius Caesar",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "plague-of-athens-430bce",
+    "momentName": "A Plague Kills a Quarter of the Athenian Population, Including Pericles",
+    "year": -430,
+    "entities": [
+      {
+        "entityId": "pericles",
+        "entityName": "Pericles",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "wright-brothers-kitty-hawk-1903",
+    "momentName": "The Wright Brothers Achieve Powered Flight for 12 Seconds at Kill Devil Hills",
+    "year": 1903,
+    "entities": [
+      {
+        "entityId": "wilbur-wright",
+        "entityName": "Wilbur Wright",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      },
+      {
+        "entityId": "orville-wright",
+        "entityName": "Orville Wright",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "titanic-sinking-1912",
+    "momentName": "RMS Titanic Strikes an Iceberg and Sinks on Her Maiden Voyage, Killing 1,517",
+    "year": 1912,
+    "entities": [
+      {
+        "entityId": "rms-titanic",
+        "entityName": "RMS Titanic",
+        "entityType": "work",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "diego-rivera-murals-national-palace-1929",
+    "momentName": "Diego Rivera Paints the History of Mexico on the Walls of the National Palace",
+    "year": 1929,
+    "entities": [
+      {
+        "entityId": "diego-rivera",
+        "entityName": "Diego Rivera",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "dna-structure-discovered-1953",
+    "momentName": "Watson and Crick Walk into a Pub and Announce They Have Found the Secret of Life",
+    "year": 1953,
+    "entities": [
+      {
+        "entityId": "james-watson",
+        "entityName": "James Watson",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "coyoacan-hernan-cortes-hq-1521",
+    "momentName": "Cortés Establishes His Headquarters in Coyoacán After Destroying Tenochtitlan",
+    "year": 1521,
+    "entities": [
+      {
+        "entityId": "hernan-cortes",
+        "entityName": "Hernán Cortés",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "darwin-origin-species-1859",
+    "momentName": "Darwin Publishes On the Origin of Species After Sitting on the Idea for 20 Years",
+    "year": 1859,
+    "entities": [
+      {
+        "entityId": "charles-darwin",
+        "entityName": "Charles Darwin",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "pasteur-rabies-vaccine-1885",
+    "momentName": "Pasteur Risks His Career to Test a Rabies Vaccine on a Nine-Year-Old Boy",
+    "year": 1885,
+    "entities": [
+      {
+        "entityId": "louis-pasteur",
+        "entityName": "Louis Pasteur",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "suleymaniye-mosque-sinan-1557",
+    "momentName": "Master Architect Sinan Builds the Süleymaniye Mosque to Surpass Hagia Sophia",
+    "year": 1557,
+    "entities": [
+      {
+        "entityId": "hagia-sophia-place",
+        "entityName": "Hagia Sophia",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "dahmer-arrested-1991",
+    "momentName": "A Man Escapes Jeffrey Dahmer's Apartment in Handcuffs and Flags Down Police",
+    "year": 1991,
+    "entities": [
+      {
+        "entityId": "jeffrey-dahmer",
+        "entityName": "Jeffrey Dahmer",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "oxford-apartments",
+        "entityName": "Oxford Apartments",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "proust-writes-recherche-boulevard-haussmann",
+    "momentName": "Marcel Proust Writes In Search of Lost Time in a Cork-Lined Bedroom on Boulevard Haussmann",
+    "year": 1909,
+    "entities": [
+      {
+        "entityId": "marcel-proust",
+        "entityName": "Marcel Proust",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "srv-auditorium-shores",
+    "momentName": "Austin Unveils a Bronze Statue of Stevie Ray Vaughan at Auditorium Shores",
+    "year": 1990,
+    "entities": [
+      {
+        "entityId": "stevie-ray-vaughan",
+        "entityName": "Stevie Ray Vaughan",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "green-river-ridgway-home-1982",
+    "momentName": "Gary Ridgway Lives Three Miles from the Green River While Killing for Two Decades",
+    "year": 1982,
+    "entities": [
+      {
+        "entityId": "gary-ridgway",
+        "entityName": "Gary Ridgway",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "austin-susana-dickinson",
+    "momentName": "Susana Dickinson Delivers News of the Alamo's Fall to Sam Houston",
+    "year": 1836,
+    "entities": [
+      {
+        "entityId": "sam-houston",
+        "entityName": "Sam Houston",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "austin-edwin-waller-auction",
+    "momentName": "Judge Edwin Waller Auctions Off the Land That Becomes Downtown Austin",
+    "year": 1839,
+    "entities": [
+      {
+        "entityId": "edwin-waller",
+        "entityName": "Edwin Waller",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "bergstrom-afb-established",
+    "momentName": "Austin Donates 3,000 Acres for Bergstrom Air Force Base",
+    "year": 1942,
+    "entities": [
+      {
+        "entityId": "austin-bergstrom-airport",
+        "entityName": "Austin-Bergstrom International Airport",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "john-bergstrom",
+        "entityName": "John August Earl Bergstrom",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "bergstrom-afb-closes",
+    "momentName": "Bergstrom Air Force Base Closes After 51 Years, Setting the Stage for a New Airport",
+    "year": 1993,
+    "entities": [
+      {
+        "entityId": "john-bergstrom",
+        "entityName": "John August Earl Bergstrom",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "del-valle-land-grant",
+    "momentName": "Santiago del Valle Receives a 10-League Mexican Land Grant in Southeast Travis County",
+    "year": 1832,
+    "entities": [
+      {
+        "entityId": "santiago-del-valle",
+        "entityName": "Santiago del Valle",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "william-barret-travis",
+        "entityName": "William Barret Travis",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "aus-airport-opens",
+    "momentName": "Austin-Bergstrom International Airport Opens on the Old Bomber Base",
+    "year": 1999,
+    "entities": [
+      {
+        "entityId": "barbara-jordan",
+        "entityName": "Barbara Jordan",
+        "entityType": "person",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "austin-bergstrom-airport",
+        "entityName": "Austin-Bergstrom International Airport",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "john-bergstrom",
+        "entityName": "John August Earl Bergstrom",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "austin-vietnam-moratorium-1969",
+    "momentName": "12,000 March from UT to the Capitol in the Largest Anti-War Protest in Texas History",
+    "year": 1969,
+    "entities": [
+      {
+        "entityId": "texas-state-capitol",
+        "entityName": "Texas State Capitol",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "battle-of-waller-creek-1969",
+    "momentName": "Students Climb Trees to Block Frank Erwin's Bulldozers at Waller Creek",
+    "year": 1969,
+    "entities": [
+      {
+        "entityId": "edwin-waller",
+        "entityName": "Edwin Waller",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "kent-state-response-austin-1970",
+    "momentName": "15,000 Anti-War Protesters March to the Texas Capitol After Kent State",
+    "year": 1970,
+    "entities": [
+      {
+        "entityId": "texas-state-capitol",
+        "entityName": "Texas State Capitol",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "economy-furniture-strike-begins-1968",
+    "momentName": "252 Workers Walk Out of Economy Furniture in the Longest Strike in Texas History",
+    "year": 1968,
+    "entities": [
+      {
+        "entityId": "richard-moya",
+        "entityName": "Richard Moya",
+        "entityType": "person",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "austin-flood-rain-1915",
+    "momentName": "Nine Inches of Rain Falls on Austin in Under an Hour, Sending Waller Creek Over Its Banks",
+    "year": 1915,
+    "entities": [
+      {
+        "entityId": "edwin-waller",
+        "entityName": "Edwin Waller",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "masontown-freedmen-1870",
+    "momentName": "The Mason Family Establishes a Freedmen's Community Near Onion Creek",
+    "year": 1870,
+    "entities": [
+      {
+        "entityId": "onion-creek",
+        "entityName": "Onion Creek",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "mckinney-falls-state-park",
+        "entityName": "McKinney Falls State Park",
+        "entityType": "place",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "belle-hill-freedmen-1870",
+    "momentName": "Freedmen Establish Belle Hill Near the Headwaters of Waller Creek",
+    "year": 1870,
+    "entities": [
+      {
+        "entityId": "edwin-waller",
+        "entityName": "Edwin Waller",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "tonkawa-artifacts-travis-peak-1840s",
+    "momentName": "Tonkawa Leave Behind Centuries of Artifacts at the Travis Peak Campground",
+    "year": 1840,
+    "entities": [
+      {
+        "entityId": "william-barret-travis",
+        "entityName": "William Barret Travis",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "mansfield-dam-completed-1941",
+    "momentName": "Mansfield Dam Is Completed on the Colorado River, Creating Lake Travis and Ending Decades of Catastrophic Flooding",
+    "year": 1941,
+    "entities": [
+      {
+        "entityId": "william-barret-travis",
+        "entityName": "William Barret Travis",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "ransom-center-gutenberg-bible",
+    "momentName": "One of 21 Complete Gutenberg Bibles Sits on Permanent Display, Free to the Public",
+    "year": 1978,
+    "entities": [
+      {
+        "entityId": "johannes-gutenberg",
+        "entityName": "Johannes Gutenberg",
+        "entityType": "person",
+        "matchedIn": [
+          "name (last name)"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "confidence": "medium"
+  },
+  {
+    "momentId": "paramount-houdini-ceiling-1916",
+    "momentName": "A Hole in the Paramount Theatre Ceiling Is Attributed to Houdini, but Blackstone Sr. Is the Likelier Culprit",
+    "year": 1916,
+    "entities": [
+      {
+        "entityId": "paramount-theatre-austin",
+        "entityName": "The Paramount Theatre",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "maury-island-sighting",
+    "momentName": "Harbor Patrolman Reports Six \"Doughnut-Shaped\" Craft Over Maury Island",
+    "year": 1947,
+    "entities": [
+      {
+        "entityId": "kenneth-arnold",
+        "entityName": "Kenneth Arnold",
+        "entityType": "person",
+        "matchedIn": [
+          "subtitle (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  },
+  {
+    "momentId": "treaty-oak-boundary",
+    "momentName": "Stephen F. Austin Marks the Treaty Oak as the Western Boundary of Anglo Settlement",
+    "year": 1830,
+    "entities": [
+      {
+        "entityId": "stephen-f-austin",
+        "entityName": "Stephen F. Austin",
+        "entityType": "person",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      },
+      {
+        "entityId": "treaty-oak",
+        "entityName": "Treaty Oak",
+        "entityType": "place",
+        "matchedIn": [
+          "name (full)"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "confidence": "high"
+  }
+]

@@ -196,7 +196,8 @@ async function dumpMoments() {
     return s;
   });
 
-  const out = `${SEED_HEADER}import type { Moment } from '../types';\n\nexport const moments: Moment[] = [\n${items.join(',\n')},\n];\n`;
+  // @ts-expect-error bypasses TS2590 on large array literals (>2000 items exceed TS union inference limit)
+  const out = `${SEED_HEADER}import type { Moment } from '../types';\n\n// @ts-expect-error TS2590: Array literal exceeds TS union inference limit at ~2500 items. Type is correct via annotation.\nexport const moments: Moment[] = [\n${items.join(',\n')},\n];\n`;
   const path = resolve(DATA_DIR, 'moments.ts');
   writeFileSync(path, out, 'utf-8');
   console.log(`  Wrote ${momentRows.length} moments → ${path}`);
