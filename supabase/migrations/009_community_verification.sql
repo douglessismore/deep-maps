@@ -138,9 +138,9 @@ BEGIN
 
       -- If verification happened, update moment's canonical location
       IF FOUND THEN
+        -- Use ST_MakePoint for PostGIS location column (not lat/lng)
         UPDATE moments
-        SET lat = suggestion.lat,
-            lng = suggestion.lng,
+        SET location = ST_SetSRID(ST_MakePoint(suggestion.lng, suggestion.lat), 4326),
             accuracy = suggestion.accuracy_level,
             geo_verified = true,
             geo_source_url = suggestion.source_url,
