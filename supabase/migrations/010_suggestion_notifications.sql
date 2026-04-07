@@ -22,8 +22,9 @@ BEGIN
       'topic', 'deepmaps-suggestions',
       'title', 'New location suggestion on Deep Maps',
       'message', COALESCE(user_name, 'Someone') || ' suggested a more accurate location for "' || COALESCE(moment_name, NEW.moment_id) || '" (' || NEW.accuracy_level || ')',
-      'tags', ARRAY['world_map', 'pin'],
-      'click', 'https://deepmaps.app'
+      'tags', ARRAY['world_map'],
+      'click', 'https://deepmaps.app',
+      'email', 'douglessismore@gmail.com'
     )::text,
     headers := json_build_object('Content-Type', 'application/json')::jsonb
   );
