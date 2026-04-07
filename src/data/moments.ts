@@ -255,6 +255,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1994,
     address: 'Coyoacán, Mexico City',
+    entityIds: ['jacobo-grinberg'],
   },
   {
     id: 'zone-silence-impact',
@@ -2996,6 +2997,7 @@ export const moments: Moment[] = [
     year: 450,
     date: 'c. 200–550 CE',
     address: 'Avenue of the Dead, Teotihuacán, State of Mexico, Mexico',
+    entityIds: ['teotihuacan'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Teotihuac%C3%A1n-5973.JPG', caption: 'The Mercury Underworld of Teotihuacán' },
     ],
@@ -3341,6 +3343,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1916,
     address: '501 Washington Ave, Waco, TX 76701',
+    entityIds: ['jesse-washington'],
   },
   {
     id: 'socrates-executed-plato-witnesses',
@@ -3713,6 +3716,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1955,
     address: 'Huautla de Jiménez, Oaxaca',
+    entityIds: ['maria-sabina'],
   },
   {
     id: 'socrates-defies-thirty-tyrants-leon-salamis',
@@ -3846,6 +3850,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1866,
     address: 'Miahuatlán de Porfirio Díaz, Oaxaca',
+    entityIds: ['porfirio-diaz'],
   },
   {
     id: 'evo-pilbara-stromatolites',
@@ -5018,6 +5023,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2002,
     address: 'Near West and Murray Streets, New York, NY 10007',
+    entityIds: ['world-trade-center'],
   },
   {
     id: 'franklin-runs-away-to-philadelphia',
@@ -5398,6 +5404,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1921,
     address: '319 S Main St, Tulsa, OK',
+    entityIds: ['tulsa-greenwood-district'],
   },
   {
     id: 'wac-mt-carmel',
@@ -5663,6 +5670,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '180 Greenwich St, New York, NY 10007',
+    entityIds: ['world-trade-center'],
   },
   {
     id: 'picasso-dies-mougins-1973',
@@ -5881,6 +5889,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '180 Greenwich St, New York, NY 10007',
+    entityIds: ['world-trade-center'],
   },
   {
     id: 'caligula-born-antium',
@@ -6094,6 +6103,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: 'Pentagon, Arlington, VA 22202',
+    entityIds: ['pentagon'],
   },
   {
     id: 'queen-of-sheba-visits-solomon',
@@ -6934,6 +6944,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '6424 Lincoln Highway, Stoystown, PA 15563',
+    entityIds: ['world-trade-center'],
   },
   {
     id: 'hammurabi-inherits-throne-of-minor-babylon',
@@ -6984,6 +6995,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '180 Greenwich St, New York, NY 10007',
+    entityIds: ['world-trade-center'],
   },
   {
     id: 'hnb-tinian-island',
@@ -7676,6 +7688,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1994,
     address: 'Plaza de la Unidad y la Esperanza, Lomas Taurinas, Tijuana',
+    entityIds: ['luis-donaldo-colosio'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/en/0/05/Luis_Donaldo_Colosio_Murrieta.jpg', caption: 'The Assassination of Luis Donaldo Colosio' },
     ],
@@ -10444,6 +10457,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1921,
     address: 'Greenwood District, Tulsa, OK',
+    entityIds: ['tulsa-greenwood-district'],
     wikiSection: 'Newspaper_coverage',
   },
   {
@@ -10461,6 +10475,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1955,
     address: 'Cholame, CA (Junction of Hwy 46 & 41)',
+    entityIds: ['james-dean'],
     wikiSection: 'Death',
   },
   {
@@ -11528,6 +11543,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '6424 Lincoln Hwy, Stoystown, PA 15563',
+    entityIds: ['world-trade-center'],
     wikiSection: 'Impact',
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/UA93_path.svg/960px-UA93_path.svg.png', caption: 'United Flight 93' },
@@ -11548,6 +11564,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2018,
     address: '6424 Lincoln Hwy, Stoystown, PA 15563',
+    entityIds: ['world-trade-center'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/UA93_path.svg/960px-UA93_path.svg.png', caption: 'United Flight 93' },
     ],
@@ -11585,6 +11602,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1831,
     address: 'Acapulco Harbor, Guerrero',
+    entityIds: ['vicente-guerrero'],
   },
   {
     id: 'guerrero-la-entrega',
@@ -11601,6 +11619,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1831,
     address: 'Playa La Entrega, Huatulco, Oaxaca',
+    entityIds: ['vicente-guerrero'],
   },
   {
     id: 'guerrero-cuilapan-execution',
@@ -11617,6 +11636,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1831,
     address: 'Ex-Convento de Santiago Apóstol, Cuilapan de Guerrero, Oaxaca',
+    entityIds: ['vicente-guerrero'],
   },
   {
     id: 'sabina-home-arson',
@@ -11633,6 +11653,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1970,
     address: 'Huautla de Jiménez, Oaxaca',
+    entityIds: ['maria-sabina'],
   },
   {
     id: 'tomb-7-discovery',
@@ -11685,6 +11706,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2006,
     address: 'Santa Lucía del Camino, Oaxaca',
+    entityIds: ['brad-will'],
   },
   {
     id: 'brad-will-red-cross',
@@ -11701,6 +11723,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2006,
     address: 'Oaxaca City',
+    entityIds: ['brad-will'],
   },
   {
     id: 'marcos-san-cristobal',
@@ -11717,6 +11740,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1994,
     address: 'San Cristóbal de las Casas, Chiapas',
+    entityIds: ['subcomandante-marcos'],
   },
   {
     id: 'marcos-unmasking',
@@ -11733,6 +11757,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1995,
     address: 'Mexico City',
+    entityIds: ['subcomandante-marcos'],
   },
   {
     id: 'pakal-temple-inscriptions',
@@ -11768,6 +11793,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1865,
     address: 'Oaxaca City',
+    entityIds: ['porfirio-diaz'],
   },
   {
     id: 'eclipse-ufo-zocalo',
@@ -11900,6 +11926,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1994,
     address: 'UNAM, Mexico City',
+    entityIds: ['jacobo-grinberg'],
   },
   {
     id: 'zone-silence-ceballos',
@@ -12100,6 +12127,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1867,
     address: 'Templo y Convento de la Santa Cruz, Querétaro',
+    entityIds: ['emperor-maximilian-i-mexico'],
   },
   {
     id: 'maximilian-firing-squad',
@@ -12116,6 +12144,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1867,
     address: 'Cerro de las Campanas, Querétaro',
+    entityIds: ['emperor-maximilian-i-mexico'],
   },
   {
     id: 'monchito-rubble-site',
@@ -12248,6 +12277,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2014,
     address: 'Subterranean Tunnels, Teotihuacán',
+    entityIds: ['teotihuacan'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Teotihuac%C3%A1n-5973.JPG', caption: 'The Mercury Underworld of Teotihuacán' },
     ],
@@ -13346,6 +13376,7 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1916,
+    entityIds: ['jesse-washington'],
   },
   {
     id: 'joan-of-arc-burned',
@@ -13397,6 +13428,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '3 Brewster Rd, Newark, NJ 07114',
+    entityIds: ['world-trade-center'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/UA93_path.svg/960px-UA93_path.svg.png', caption: 'United Flight 93' },
     ],
@@ -14300,6 +14332,7 @@ export const moments: Moment[] = [
     year: 1821,
     date: '23 February 1821',
     address: 'Piazza di Spagna 26, Rome, Italy',
+    entityIds: ['john-keats'],
   },
   {
     id: 'emu-field-black-mist',
@@ -14920,6 +14953,7 @@ export const moments: Moment[] = [
     year: 950,
     date: 'c. 950 CE',
     address: 'El Castillo (Temple of Kukulcán), Chichén Itzá, Yucatán, Mexico',
+    entityIds: ['chichen-itza'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg', caption: 'Chichén Itzá' },
     ],
@@ -15179,6 +15213,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1150,
     address: 'Angkor Archaeological Park, Siem Reap, Cambodia',
+    entityIds: ['angkor-wat'],
   },
   {
     id: 'lourdes-sanctuary',
@@ -16537,6 +16572,7 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: -3660000,
     address: 'Laetoli, Ngorongoro Conservation Area, Tanzania',
+    entityIds: ['mary-leakey'],
   },
   {
     id: 'normandy-dday',
@@ -17311,6 +17347,7 @@ export const moments: Moment[] = [
     year: 1802,
     date: '1802',
     address: 'British Museum, Great Russell Street, London, England',
+    entityIds: ['rosetta-stone'],
   },
   {
     id: 'london-great-exhibition',
@@ -17643,6 +17680,7 @@ export const moments: Moment[] = [
     year: 1821,
     date: 'February 23, 1821',
     address: 'Keats-Shelley House, 26 Piazza di Spagna, Rome, Italy',
+    entityIds: ['john-keats'],
   },
   {
     id: 'allies-liberate-rome',
@@ -18429,6 +18467,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1946,
     address: 'Barnhill, Isle of Jura, Argyll, Scotland, PA60 7XX',
+    entityIds: ['george-orwell'],
   },
   {
     id: 'brinks-mat-heathrow',
@@ -18639,6 +18678,7 @@ export const moments: Moment[] = [
     year: 850,
     date: 'c. 850–1250 CE',
     address: 'Sacred Cenote (Cenote Sagrado), Chichén Itzá, Yucatán, Mexico',
+    entityIds: ['chichen-itza'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg', caption: 'Chichén Itzá' },
     ],
@@ -18659,6 +18699,7 @@ export const moments: Moment[] = [
     year: 1904,
     date: '1904–1911',
     address: 'Sacred Cenote (Cenote Sagrado), Chichén Itzá, Yucatán, Mexico',
+    entityIds: ['chichen-itza'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg', caption: 'Chichén Itzá' },
     ],
@@ -18980,6 +19021,7 @@ export const moments: Moment[] = [
     year: 100,
     date: 'c. 100 CE',
     address: 'Pyramid of the Sun, Teotihuacán, State of Mexico, Mexico',
+    entityIds: ['teotihuacan'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Teotihuac%C3%A1n-5973.JPG', caption: 'The Mercury Underworld of Teotihuacán' },
     ],
@@ -21548,6 +21590,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1978,
     address: 'Site G, Laetoli, Ngorongoro District, Tanzania',
+    entityIds: ['mary-leakey'],
   },
   {
     id: 'rousseau-publishes-social-contract',
@@ -23052,6 +23095,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1959,
     address: 'FLK site, Olduvai Gorge, Ngorongoro Conservation Area, Tanzania',
+    entityIds: ['mary-leakey'],
   },
   {
     id: 'bolivar-born-caracas',
@@ -23533,6 +23577,7 @@ export const moments: Moment[] = [
     year: 550,
     date: 'c. 550 CE',
     address: 'Pyramid of the Moon area, Teotihuacán, State of Mexico, Mexico',
+    entityIds: ['teotihuacan'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Teotihuac%C3%A1n-5973.JPG', caption: 'The Mercury Underworld of Teotihuacán' },
     ],
@@ -24574,6 +24619,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1954,
     address: '706 Union Ave, Memphis, TN 38103',
+    entityIds: ['elvis-presley'],
   },
   {
     id: 'byron-exile-venice',
@@ -25273,6 +25319,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1957,
     address: '1611 Roy Acuff Pl, Nashville, TN 37203',
+    entityIds: ['elvis-presley'],
   },
   {
     id: 'r66-meramec-caverns-barnstorming',
@@ -27904,6 +27951,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2010,
     address: 'Temple of the Feathered Serpent, Teotihuacán',
+    entityIds: ['teotihuacan'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Teotihuac%C3%A1n-5973.JPG', caption: 'The Mercury Underworld of Teotihuacán' },
     ],
@@ -30590,6 +30638,7 @@ export const moments: Moment[] = [
     year: 1799,
     date: '15 July 1799',
     address: 'Fort Julien, Rashid (Rosetta), Egypt',
+    entityIds: ['rosetta-stone'],
   },
   {
     id: 'jonah-nineveh',
@@ -31327,6 +31376,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1400,
     address: 'Rano Raraku, Easter Island (Rapa Nui), Chile',
+    entityIds: ['easter-island'],
   },
   {
     id: 'bb-crossroads-motel-2008',
@@ -32765,6 +32815,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1948,
     address: 'Barnhill, Isle of Jura, Argyll PA60 7XX, Scotland',
+    entityIds: ['george-orwell'],
   },
   {
     id: 'lindisfarne-raid-793',
@@ -32852,6 +32903,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1838,
     address: 'Ahu Tongariki, Easter Island (Rapa Nui), Chile',
+    entityIds: ['easter-island'],
   },
   {
     id: 'lisbon-earthquake-1755',
@@ -35525,6 +35577,7 @@ export const moments: Moment[] = [
     year: 1150,
     date: 'c. 1113–1150',
     address: 'Angkor Wat, Siem Reap, Cambodia',
+    entityIds: ['angkor-wat'],
   },
   {
     id: 'great-pyramid-giza-completed-2560bce',
@@ -37999,6 +38052,7 @@ export const moments: Moment[] = [
     year: 1984,
     date: '28 June 1984',
     address: '2614 Hubbard St, Los Angeles, CA 90065',
+    entityIds: ['night-stalker'],
   },
   {
     id: 'night-stalker-captured-1985',
@@ -38016,6 +38070,7 @@ export const moments: Moment[] = [
     year: 1985,
     date: '31 August 1985',
     address: 'Hubbard St near Mott St, East Los Angeles, CA',
+    entityIds: ['night-stalker'],
   },
   {
     id: 'btk-arrested-park-city-2005',
@@ -38165,6 +38220,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2014,
     address: '210 W Temple St, Los Angeles, CA 90012',
+    entityIds: ['samuel-little'],
   },
   {
     id: 'shipman-practice-hyde-1998',
@@ -38197,6 +38253,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2018,
     address: '301 N Texas Ave, Odessa, TX 79761',
+    entityIds: ['samuel-little'],
   },
   {
     id: 'manson-tate-murders-1969',
@@ -38231,6 +38288,7 @@ export const moments: Moment[] = [
     year: 1977,
     date: '10 August 1977',
     address: '35 Pine St, Yonkers, NY 10701',
+    entityIds: ['son-of-sam'],
   },
   {
     id: 'heidnik-house-of-horrors-1987',
@@ -38316,6 +38374,7 @@ export const moments: Moment[] = [
     year: 2002,
     date: '3 October 2002',
     address: 'Montgomery County, MD',
+    entityIds: ['dc-snipers'],
   },
   {
     id: 'manson-spahn-ranch-1969',
@@ -38383,6 +38442,7 @@ export const moments: Moment[] = [
     year: 2002,
     date: '24 October 2002',
     address: 'I-70 rest area, Myersville, MD 21773',
+    entityIds: ['dc-snipers'],
   },
   {
     id: 'corll-killed-pasadena-1973',
@@ -38435,6 +38495,7 @@ export const moments: Moment[] = [
     year: 1928,
     date: '3 June 1928',
     address: 'Mountain Rd, Irvington, NY (cottage demolished)',
+    entityIds: ['albert-fish'],
   },
   {
     id: 'chikatilo-rostov-station-1978',
@@ -38486,6 +38547,7 @@ export const moments: Moment[] = [
     year: 1936,
     date: '16 January 1936',
     address: '354 Hunter St, Ossining, NY 10562',
+    entityIds: ['albert-fish'],
   },
   {
     id: 'dahmer-arrested-1991',
@@ -39285,6 +39347,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1957,
     address: '1313 W 7th St, Clovis, NM',
+    entityIds: ['buddy-holly'],
   },
   {
     id: 'dennys-google-meeting',
@@ -40275,6 +40338,7 @@ export const moments: Moment[] = [
     year: 1976,
     date: '29 July 1976',
     address: '2860 Buhre Ave, Bronx, NY 10461',
+    entityIds: ['son-of-sam'],
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/David_Berkowitz_Arrested_August_10_1977_Mount_Vernon_Argus.jpg', caption: 'Son of Sam' },
     ],
@@ -43506,8 +43570,8 @@ export const moments: Moment[] = [
     name: 'A Boy Finds $5,800 of Cooper\'s Ransom Money Buried on the Columbia River',
     subtitle: 'Tena Bar, Vancouver, WA. A sandy stretch along the Columbia River where the bills surfaced',
     description: 'Eight-year-old Brian Ingram was digging a campfire pit here on Tena Bar on 10 February 1980 when he uncovered three bundles of deteriorating $20 bills totaling $5,800. The serial numbers matched Cooper\'s ransom. It remains the only physical evidence ever recovered. How the money traveled from Cooper\'s likely jump zone to this riverbank has never been explained. The FBI officially suspended the case in 2016, leaving Cooper\'s identity as the only unsolved skyjacking in U.S. history.',
-    lat: 45.717371883030516,
-    lng: -122.75953449889667,
+    lat: 45.71734403738082,
+    lng: -122.75951417595913,
     type: 'crime_scene',
     importance: 'minor',
     notability: 50,
@@ -43755,8 +43819,8 @@ export const moments: Moment[] = [
     name: 'Ted Bundy Abducts Two Women in Broad Daylight in Front of 40,000 Beachgoers',
     subtitle: 'Lake Sammamish State Park, 2000 NW Sammamish Rd, Issaquah, WA. The park is open to the public',
     description: 'At this crowded public beach on 14 July 1974, Ted Bundy wore a sling and called himself "Ted" as he asked women for help loading a sailboat. Janice Ott, 23, walked away with him around noon. Hours later, Denise Naslund, 19, vanished the same way. An estimated 40,000 people were here that Sunday. Their remains surfaced two months later near Issaquah. He used his real name before tens of thousands.',
-    lat: 47.5617,
-    lng: -122.0619,
+    lat: 47.55840679590119,
+    lng: -122.06328571043674,
     type: 'crime_scene',
     importance: 'major',
     notability: 60,
@@ -44026,25 +44090,6 @@ export const moments: Moment[] = [
     wikiSection: 'Plea_bargain_and_confession',
   },
   {
-    id: 'sea-mtsthelens-harry-truman',
-    name: 'Harry Truman Tells Reporters He Will Not Leave His Mountain and Becomes a Folk Hero',
-    subtitle: 'Spirit Lake Lodge site (destroyed), Spirit Lake, WA. The lodge is buried under volcanic debris',
-    description: 'In the weeks before the eruption, 83-year-old Harry Truman became a national celebrity here at his Spirit Lake Lodge for refusing to evacuate. He had run the lodge for 52 years. Television crews made pilgrimages here to film the cantankerous old man and his 16 cats. On 18 May, a pyroclastic flow traveling over 600 mph reached Spirit Lake in minutes. Truman likely died of heat shock in less than a second.',
-    lat: 46.2726,
-    lng: -122.1533,
-    type: 'residence',
-    importance: 'minor',
-    notability: 50,
-    verificationLevel: 'verified',
-    accuracy: 'general-area',
-    kind: 'milestone',
-    year: 1980,
-    date: 'March-May 1980',
-    address: 'Spirit Lake, Skamania County, WA 98616',
-    entityIds: ['harry-truman-mtsthelens', 'harry-r-truman'],
-    wikiSection: 'Pre-eruption_media_attention',
-  },
-  {
     id: 'kkk-congress-ave-march-1921',
     name: '519 Robed Klansmen March Congress Avenue in Silence as 30,000 Watch',
     subtitle: 'Congress Avenue from the Capitol to the bridge, Austin. The route is unchanged today',
@@ -44130,6 +44175,25 @@ export const moments: Moment[] = [
     year: 1921,
     date: '15 December 1921',
     address: 'SW corner of E. 5th St and San Jacinto Blvd, Austin, TX',
+  },
+  {
+    id: 'sea-mtsthelens-harry-truman',
+    name: 'Harry Truman Tells Reporters He Will Not Leave His Mountain and Becomes a Folk Hero',
+    subtitle: 'Spirit Lake Lodge site (destroyed), Spirit Lake, WA. The lodge is buried under volcanic debris',
+    description: 'In the weeks before the eruption, 83-year-old Harry Truman became a national celebrity here at his Spirit Lake Lodge for refusing to evacuate. He had run the lodge for 52 years. Television crews made pilgrimages here to film the cantankerous old man and his 16 cats. On 18 May, a pyroclastic flow traveling over 600 mph reached Spirit Lake in minutes. Truman likely died of heat shock in less than a second.',
+    lat: 46.26712153493069,
+    lng: -122.15904235839845,
+    type: 'residence',
+    importance: 'minor',
+    notability: 50,
+    verificationLevel: 'verified',
+    accuracy: 'approximate',
+    kind: 'milestone',
+    year: 1980,
+    date: 'March-May 1980',
+    address: 'Spirit Lake, Skamania County, WA 98616',
+    entityIds: ['harry-truman-mtsthelens', 'harry-r-truman'],
+    wikiSection: 'Pre-eruption_media_attention',
   },
   {
     id: 'battle-of-waller-creek-1969',
@@ -45540,6 +45604,7 @@ export const moments: Moment[] = [
     year: 2010,
     date: '18 February 2010',
     address: '1800 block of Dapplegrey Lane, Austin, TX 78727',
+    entityIds: ['joe-stack'],
   },
   {
     id: 'joe-stack-irs-crash-2010',
@@ -45557,6 +45622,7 @@ export const moments: Moment[] = [
     year: 2010,
     date: '18 February 2010',
     address: '9420 Research Blvd, Austin, TX 78759',
+    entityIds: ['joe-stack'],
   },
   {
     id: 'tesla-cyber-rodeo-2022',
@@ -46095,6 +46161,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1889,
+    entityIds: ['chief-seattle'],
   },
   {
     id: 'manchester-disappearing-guns',
@@ -46159,6 +46226,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1907,
+    entityIds: ['chief-seattle'],
   },
   {
     id: 'manchester-wwii-fire-school',
@@ -46222,6 +46290,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1965,
     address: '614 1st Ave, Seattle, WA 98104',
+    entityIds: ['chief-seattle'],
   },
   {
     id: 'suquamish-curley-creek-village',
@@ -46412,6 +46481,7 @@ export const moments: Moment[] = [
     year: 1889,
     date: '1889-06-06',
     address: '1st Ave & Madison St, Seattle, WA 98104',
+    entityIds: ['chief-seattle'],
   },
   {
     id: 'manchester-torpedo-warehouse',
