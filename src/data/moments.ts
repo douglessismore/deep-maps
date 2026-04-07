@@ -5244,6 +5244,7 @@ const _baseMoments: Moment[] = [
     date: 'December 530 BC',
     address: 'Syr Darya river region (modern Uzbekistan/Kazakhstan border)',
     wikiSection: 'Death',
+    entityIds: ['cyrus-the-great'],
   },
   {
     id: 'michelangelo-born-caprese',
@@ -5425,6 +5426,7 @@ const _baseMoments: Moment[] = [
     date: '8 May 44 BC',
     address: 'Brundisium (modern Brindisi), Apulia, Italy',
     wikiSection: 'Heir_to_Caesar',
+    entityIds: ['augustus'],
   },
   {
     id: 'caligula-becomes-emperor-misenum',
@@ -5526,6 +5528,7 @@ const _baseMoments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Temple_of_Mars_Ultor%2C_Rome_MET_DP860365.jpg/960px-Temple_of_Mars_Ultor%2C_Rome_MET_DP860365.jpg', caption: 'Temple of Mars Ultor, Rome MET DP860365' },
     ],
+    entityIds: ['augustus'],
   },
   {
     id: 'solomon-builds-first-temple-jerusalem',
@@ -5567,6 +5570,7 @@ const _baseMoments: Moment[] = [
     year: 1969,
     address: 'Washington St & Cherry St, San Francisco, CA 94118',
     wikiSection: 'Presidio_Heights_shooting',
+    entityIds: ['zodiac-killer'],
   },
   {
     id: 'mlk-dexter-church',
@@ -5643,6 +5647,7 @@ const _baseMoments: Moment[] = [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Tomb_of_Cyrus_the_Great.jpg', caption: 'Tomb of Cyrus the Great' },
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Tomb_of_Cyrus_the_Great.jpg', caption: 'Tomb of Cyrus the Great' },
     ],
+    entityIds: ['cyrus-the-great'],
   },
   {
     id: 'gandhi-assassinated-birla-house-delhi-1948',
@@ -5842,6 +5847,7 @@ const _baseMoments: Moment[] = [
     kind: 'presence',
     year: 1975,
     address: '2915 Guadalupe St, Austin, TX',
+    entityIds: ['stevie-ray-vaughan', 'antones'],
   },
   {
     id: 'victory-charlies-playhouse',
@@ -15907,6 +15913,7 @@ const _baseMoments: Moment[] = [
     year: 1868,
     date: 'November 26, 1868',
     address: 'Imperial Palace (formerly Edo Castle), Tokyo, Japan',
+    entityIds: ['emperor-meiji'],
   },
   {
     id: 'great-kanto-earthquake',
@@ -25802,6 +25809,7 @@ const _baseMoments: Moment[] = [
     date: '165–180',
     address: 'Rome, Roman Empire',
     wikiSection: 'Sources',
+    entityIds: ['marcus-aurelius'],
   },
   {
     id: 'paul-ephesus-riot',
@@ -41049,6 +41057,7 @@ const _baseMoments: Moment[] = [
     date: 'c. 1830',
     address: '507 Baylor St, Austin, TX 78703',
     verificationLevel: 'traditional',
+    entityIds: ['stephen-f-austin'],
   },
 ];
 
