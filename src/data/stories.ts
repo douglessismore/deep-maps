@@ -7807,4 +7807,18 @@ export const stories: Story[] = [
     relatedStoryIds: ['marfa-lights', 'cadillac-ranch-amarillo'],
     wikipediaSlug: 'Lajitas,_Texas',
   },
+  {
+    id: 'nyc-five-families',
+    name: 'The Five Families',
+    nickname: 'Murder, Power, and Betrayal Across Five Boroughs',
+    years: '1906–2019',
+    category: 'dark-history',
+    storyType: 'era',
+    description: 'Anastasia gunned down in a barber chair attacking his killers\' reflections, Gotti watching his predecessor die outside a steakhouse, the DeMeo crew dismembering 200 people in a Flatlands bar — a century of organized crime mapped across New York.',
+    tags: ['mafia', 'organized-crime', 'nyc', 'gambino', 'genovese', 'bonanno', 'lucchese', 'colombo'],
+    contentWarning: 'Contains graphic descriptions of murder and organized crime violence.',
+    moments: [{ momentId: 'nyc-anastasia-barber' }, { momentId: 'nyc-sparks-castellano' }, { momentId: 'nyc-ravenite-club' }, { momentId: 'nyc-umbertos-gallo' }, { momentId: 'nyc-galante-joemary' }, { momentId: 'nyc-gemini-lounge' }, { momentId: 'nyc-gotti-house' }, { momentId: 'nyc-castellano-mansion' }, { momentId: 'nyc-luciano-home' }, { momentId: 'nyc-gambino-house' }, { momentId: 'nyc-the-hole' }, { momentId: 'nyc-triangle-club' }, { momentId: 'nyc-bergin-club' }, { momentId: 'nyc-motion-lounge' }, { momentId: 'nyc-roberts-lounge' }, { momentId: 'nyc-decicco-carbomb' }, { momentId: 'nyc-cali-murder' }, { momentId: 'nyc-palma-boys' }, { momentId: 'nyc-demeo-body' }, { momentId: 'nyc-scarpa-wimpy' }],
+    relatedStoryIds: ['son-of-sam', 'central-park-five', 'galveston-free-state'],
+    wikipediaSlug: 'Five_Families',
+  },
 ];
