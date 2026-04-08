@@ -990,7 +990,7 @@ export const stories: Story[] = [
     description: 'Nirvana plays a converted Tacoma cinema to nobody in 1988, headlines the Paramount with "Teen Spirit" at number one in 1991, and by 2002 both Cobain and Staley are dead. The fastest rise and most tragic fall in rock history.',
     tags: ['music', 'grunge', 'seattle', 'nirvana', 'alice-in-chains'],
     contentWarning: 'Contains references to suicide and drug use.',
-    moments: [{ momentId: 'sea-nirvana-first-gig' }, { momentId: 'sea-nirvana-paramount' }, { momentId: 'sea-cobain-death' }, { momentId: 'sea-staley-death' }],
+    moments: [{ momentId: 'sea-nirvana-first-gig' }, { momentId: 'sea-nirvana-paramount' }, { momentId: 'sea-cobain-rome-od' }, { momentId: 'sea-cobain-shotgun' }, { momentId: 'sea-cobain-death' }, { momentId: 'sea-staley-death' }],
     relatedStoryIds: ['bundy-seattle-years'],
     wikipediaSlug: 'Grunge',
   },
