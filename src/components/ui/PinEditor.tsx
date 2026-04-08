@@ -2,7 +2,9 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import { supabase } from '../../lib/supabase';
-import type { LocationAccuracy } from '../../types';
+import type { LocationAccuracy, Moment } from '../../types';
+import type { AppData } from '../../lib/data/provider';
+import { queryClient, dataSource } from '../../lib/data/provider';
 import { submitSuggestion } from '../../lib/verification';
 
 const SAT_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -225,6 +227,19 @@ export function PinEditor({
         const { error: addrError } = await supabase.from('moments').update({ address }).eq('id', momentId);
         if (addrError) throw addrError;
       }
+      // Patch TanStack Query cache so coords + geoVerified appear instantly
+      queryClient.setQueryData(['app-data', dataSource], (prev: unknown) => {
+        if (!prev || typeof prev !== 'object') return prev;
+        const data = prev as AppData;
+        return {
+          ...data,
+          moments: data.moments.map((m: Moment) =>
+            m.id === momentId
+              ? { ...m, lat: draftLat, lng: draftLng, accuracy: suggestAccuracy, geoVerified: true, address: address || m.address }
+              : m
+          ),
+        };
+      });
       setSaved(true);
       onSaved?.(draftLat, draftLng, address);
       setTimeout(() => onClose(), 1200);
