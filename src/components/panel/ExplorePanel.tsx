@@ -1235,9 +1235,9 @@ export function ExplorePanel({
             /* Active collection — moment list with back header */
             <>
               <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5 flex items-center gap-1.5">
-                <p className="text-[11px] font-mono text-[var(--text-primary)] truncate min-w-0">
+                <h2 className="text-base font-bold font-serif text-[var(--text-primary)] truncate min-w-0">
                   {activeCollection.name}
-                </p>
+                </h2>
                 <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
                   {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
                 </span>

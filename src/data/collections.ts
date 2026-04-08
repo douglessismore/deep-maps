@@ -409,4 +409,17 @@ export const collections: StoryCollection[] = [
     ],
     tags: [],
   },
+  {
+    id: 'nyc-mafia-sites',
+    name: 'NYC Mafia Sites',
+    subtitle: 'A century of organized crime across all five boroughs — from Lucky Luciano\'s tenement to the last Gambino boss shot on his doorstep',
+    description: 'Social clubs, steakhouses, barber shops, and body dumps: the physical map of the Five Families across New York City.',
+    momentIds: [
+      'nyc-anastasia-barber', 'nyc-sparks-castellano', 'nyc-ravenite-club', 'nyc-umbertos-gallo', 'nyc-galante-joemary',
+      'nyc-gemini-lounge', 'nyc-gotti-house', 'nyc-castellano-mansion', 'nyc-luciano-home', 'nyc-gambino-house',
+      'nyc-the-hole', 'nyc-triangle-club', 'nyc-bergin-club', 'nyc-motion-lounge', 'nyc-roberts-lounge',
+      'nyc-decicco-carbomb', 'nyc-cali-murder', 'nyc-palma-boys', 'nyc-demeo-body', 'nyc-scarpa-wimpy',
+    ],
+    tags: ['mafia', 'organized-crime', 'nyc', 'dark-history'],
+  },
 ];

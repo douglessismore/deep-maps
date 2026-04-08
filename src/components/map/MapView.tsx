@@ -479,7 +479,6 @@ function MapController({
 
     const hasHighlight = (scrollHighlight?.length ?? 0) > 0;
     const highlightIds = new Set(scrollHighlight?.map(m => m.id) ?? []);
-    const singleHighlight = (scrollHighlight?.length ?? 0) === 1;
 
     if (focusedLocations) {
       // ── FOCUSED MODE: Direct pin rendering (story/entity view) ──
@@ -501,8 +500,9 @@ function MapController({
         // activeLocation is set and this isn't the active pin.
         const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
                         (hasActivePin && !hasHighlight && !isActive);
-        // Show permanent tooltip only for the active moment
-        const permanentTooltip = isActive || (isHighlighted && singleHighlight);
+        // Show permanent tooltip only for the active moment — NOT for scroll
+        // highlights, because EmergenceLayer owns those labels (avoids duplicates)
+        const permanentTooltip = isActive;
         const markerOpacity = isFaded ? 0.3 : undefined;
         const effectiveSize = isActive ? Math.max(baseSize * 1.4, 16) : baseSize;
         const label = focusedIndexMap?.get(location.id);
@@ -649,7 +649,8 @@ function MapController({
           const isActive = activeLocation?.id === moment.id;
           const isHighlighted = highlightIds.has(moment.id);
           const isFaded = hasHighlight && !isHighlighted && !isActive;
-          const permanentTooltip = isHighlighted && singleHighlight;
+          // EmergenceLayer owns scroll highlight labels — don't duplicate here
+          const permanentTooltip = isActive;
 
           // Notability alpha for continuous opacity
           const notabilityAlpha = computeNotabilityAlpha(moment, currentZoom);
