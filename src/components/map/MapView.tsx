@@ -493,7 +493,8 @@ function MapController({
         nextKeys.add(key);
 
         const cat = story ? CATEGORIES[story.category] : { color: '#ef4444', label: 'Uncategorized' };
-        const baseSize = IMPORTANCE_SIZE[location.importance] || 10;
+        const zoomScale = Math.max(0.6, 1 - (currentZoom - 13) * 0.08);
+        const baseSize = (IMPORTANCE_SIZE[location.importance] || 10) * zoomScale;
         const isActive = activeLocation?.id === location.id;
         const isHighlighted = highlightIds.has(location.id);
         // Fade if: scrollHighlight is set and this pin isn't in it, OR
@@ -501,8 +502,9 @@ function MapController({
         const isFaded = (hasHighlight && !isHighlighted && !isActive) ||
                         (hasActivePin && !hasHighlight && !isActive);
         // Show permanent tooltip only for the active moment — NOT for scroll
-        // highlights, because EmergenceLayer owns those labels (avoids duplicates)
-        const permanentTooltip = isActive;
+        // highlights, because EmergenceLayer owns those labels (avoids duplicates).
+        // When a moment is BOTH active AND scroll-highlighted, EmergenceLayer wins.
+        const permanentTooltip = isActive && !isHighlighted;
         const markerOpacity = isFaded ? 0.3 : undefined;
         const effectiveSize = isActive ? Math.max(baseSize * 1.4, 16) : baseSize;
         const label = focusedIndexMap?.get(location.id);
@@ -645,12 +647,14 @@ function MapController({
           nextKeys.add(key);
 
           const cat = CATEGORIES[story.category];
-          const baseSize = IMPORTANCE_SIZE[moment.importance] || 10;
+          const zoomScale = Math.max(0.6, 1 - (currentZoom - 13) * 0.08);
+          const baseSize = (IMPORTANCE_SIZE[moment.importance] || 10) * zoomScale;
           const isActive = activeLocation?.id === moment.id;
           const isHighlighted = highlightIds.has(moment.id);
           const isFaded = hasHighlight && !isHighlighted && !isActive;
-          // EmergenceLayer owns scroll highlight labels — don't duplicate here
-          const permanentTooltip = isActive;
+          // EmergenceLayer owns scroll highlight labels — don't duplicate here.
+          // When a moment is BOTH active AND scroll-highlighted, EmergenceLayer wins.
+          const permanentTooltip = isActive && !isHighlighted;
 
           // Notability alpha for continuous opacity
           const notabilityAlpha = computeNotabilityAlpha(moment, currentZoom);
