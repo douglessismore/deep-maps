@@ -5405,4 +5405,13 @@ export const entities: Entity[] = [
     canonicalStoryId: 'nyc-five-families',
     wikipediaSlug: 'Albert_Anastasia',
   },
+  {
+    id: 'dylan-thomas',
+    name: 'Dylan Thomas',
+    type: 'person',
+    years: '1914–1953',
+    description: 'The Welsh poet who drank himself to death at 39. Dylan Thomas wrote "Do not go gentle into that good night" and "Under Milk Wood," electrified audiences with barnstorming readings across America, and collapsed after a legendary whisky session at a Greenwich Village tavern.',
+    canonicalStoryId: 'dylan-thomas-biography',
+    wikipediaSlug: 'Dylan_Thomas',
+  },
 ];

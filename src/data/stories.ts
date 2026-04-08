@@ -3069,7 +3069,7 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'hemingway-writes-sun-also-rises-closerie' }, { momentId: 'hemingway-farewell-arms' }],
+    moments: [{ momentId: 'hemingway-writes-sun-also-rises-closerie' }, { momentId: 'hemingway-farewell-arms' }, { momentId: 'chumleys-speakeasy-opens-1922' }],
     wikipediaSlug: 'Ernest_Hemingway',
   },
   {
@@ -3652,7 +3652,7 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'alexander-hamilton-burial' }, { momentId: 'hamilton-killed-duel' }],
+    moments: [{ momentId: 'alexander-hamilton-burial' }, { momentId: 'hamilton-killed-duel' }, { momentId: 'manhattan-well-murder-1800' }],
     wikipediaSlug: 'Alexander_Hamilton',
   },
   {
@@ -7866,5 +7866,17 @@ export const stories: Story[] = [
     moments: [{ momentId: 'nyc-palma-boys' }, { momentId: 'nyc-motion-lounge' }, { momentId: 'nyc-triangle-club' }, { momentId: 'nyc-bergin-club' }],
     relatedStoryIds: ['nyc-five-families', 'castellano-hit', 'murder-inc-nyc'],
     wikipediaSlug: 'Mafia_Commission_Trial',
+  },
+  {
+    id: 'dylan-thomas-biography',
+    name: 'Dylan Thomas',
+    nickname: '',
+    years: '1914–1953',
+    category: 'arts-culture',
+    storyType: 'biography',
+    description: 'Barnstorming poetry readings across America, drunken collapses at Greenwich Village taverns, and a death at 39 that turned a Welsh poet into a literary martyr.',
+    tags: [],
+    moments: [{ momentId: 'dylan-thomas-white-horse-tavern-1953' }],
+    wikipediaSlug: 'Dylan_Thomas',
   },
 ];

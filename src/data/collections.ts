@@ -422,4 +422,23 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['mafia', 'organized-crime', 'nyc', 'dark-history'],
   },
+  {
+    id: 'nyc-hidden-history',
+    name: 'Hidden History of Lower Manhattan',
+    subtitle: 'Buried remains, blind-curve ambushes, speakeasy origins, and a poet\'s last drink — the stories beneath the sidewalks',
+    description: '',
+    icon: '\u{1F5DD}\u{FE0F}',
+    momentIds: [
+      'african-burial-ground-discovery-1991',
+      'doyers-street-bloody-angle-tong-wars',
+      'five-points-notorious-slum-1842',
+      'manhattan-well-murder-1800',
+      'washington-sq-hangmans-elm-1797',
+      'dylan-thomas-white-horse-tavern-1953',
+      'old-st-patricks-catacombs-1815',
+      'chumleys-speakeasy-opens-1922',
+      'triangle-shirtwaist-fire-1911',
+    ],
+    tags: ['nyc', 'dark-history', 'hidden-history', 'lower-manhattan'],
+  },
 ];
