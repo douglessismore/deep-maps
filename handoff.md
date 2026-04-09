@@ -24,6 +24,13 @@ Session 31 focused on OddStops content enrichment, fixing the admin edit propaga
 - **Zero drift** between static and Supabase
 - **136,118 external records** staged (78,344 NTSB aviation + 57,774 Vici.org ancient sites)
 
+## Gotcha — Dedupe/Absorb Scripts Must Be Followed by Dump Sync
+Session 32 discovered: `scripts/dedupe-moments*.ts` and `scripts/absorb-orphans-to-bios.ts`
+only mutate Supabase. The provider's merge logic (`src/lib/data/provider.tsx:108`)
+adds "static-only" moments back in as a fallback, so deleted-from-Supabase losers
+reappear on the frontend as gray unclickable orphans until `npx tsx scripts/dump-from-supabase.ts`
+is run to refresh static files. ALWAYS dump after bulk DB mutations.
+
 ## What Session 32 Shipped
 
 ### Dedupe Round 1 + Round 2 (38 moments deleted)
