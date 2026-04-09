@@ -21,6 +21,8 @@ export interface ClaudeSheetProps {
   children: ReactNode;
   onSnapChange?: (snap: SheetSnap) => void;
   targetSnap?: SheetSnap;
+  /** Bumped on every snap request so re-requesting the same target still fires */
+  snapRequestKey?: number;
   /** Story or entity name for the floating context pill */
   contextLabel?: string;
   /** e.g. "3 of 7 moments" */
@@ -48,6 +50,7 @@ export function ClaudeSheet({
   children,
   onSnapChange,
   targetSnap,
+  snapRequestKey,
   contextLabel,
   contextSublabel,
   momentCount,
@@ -153,16 +156,20 @@ export function ClaudeSheet({
   }, [isMobile]);
 
   // ── Programmatic snap from parent ──
-  const prevTargetSnap = useRef(targetSnap);
+  // Uses snapRequestKey (a monotonic counter bumped by parent on every
+  // request) so that re-requesting the same target still fires this effect.
+  // The old prevTargetSnap-value check silently dropped re-requests, which
+  // stranded orphan-click flows when the user had dragged back to collapsed.
+  const prevSnapRequestKey = useRef(snapRequestKey);
   useEffect(() => {
     if (!isMobile || !initialized.current) return;
-    if (targetSnap && targetSnap !== prevTargetSnap.current) {
-      prevTargetSnap.current = targetSnap;
-      if (currentSnapRef.current !== targetSnap) {
+    if (snapRequestKey !== prevSnapRequestKey.current) {
+      prevSnapRequestKey.current = snapRequestKey;
+      if (targetSnap && currentSnapRef.current !== targetSnap) {
         snapTo(targetSnap);
       }
     }
-  }, [targetSnap, isMobile, snapTo]);
+  }, [snapRequestKey, targetSnap, isMobile, snapTo]);
 
   // ── Touch drag on the entire card top area ──
   useEffect(() => {

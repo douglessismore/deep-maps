@@ -9,6 +9,8 @@ interface BottomSheetProps {
   onSnapChange?: (snap: SheetSnap) => void;
   /** Programmatic snap — when this changes, the sheet animates to this position */
   targetSnap?: SheetSnap;
+  /** Bumped on every snap request so re-requesting the same target still fires */
+  snapRequestKey?: number;
   /** Contextual label for spotlight handle (e.g. story name) */
   contextLabel?: string;
   /** Contextual sublabel for spotlight handle (e.g. "3 of 7 moments") */
@@ -41,7 +43,7 @@ const SNAP_DURATION = 400;
  *    resize events that caused the sheet to jump. The sheet stays at its
  *    pixel position; the user can drag to adjust if needed.
  */
-export function BottomSheet({ children, onSnapChange, targetSnap, contextLabel, contextSublabel, onExpandRequest }: BottomSheetProps) {
+export function BottomSheet({ children, onSnapChange, targetSnap, snapRequestKey, contextLabel, contextSublabel, onExpandRequest }: BottomSheetProps) {
   const { variant } = useUIVariant();
   const sheetRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(() =>
@@ -154,19 +156,19 @@ export function BottomSheet({ children, onSnapChange, targetSnap, contextLabel, 
     initialized.current = true;
   }, [isMobile, variant, peekHeight]);
 
-  // Programmatic snap — parent can tell the sheet to move (e.g., expand on navigation)
-  const prevTargetSnap = useRef(targetSnap);
+  // Programmatic snap — parent can tell the sheet to move (e.g., expand on navigation).
+  // Uses snapRequestKey counter so re-requesting the same target still fires.
+  const prevSnapRequestKey = useRef(snapRequestKey);
   useEffect(() => {
     if (!isMobile || !initialized.current) return;
     if (variant === 'split') return;
-    if (targetSnap && targetSnap !== prevTargetSnap.current) {
-      prevTargetSnap.current = targetSnap;
-      // Only snap if we're not already at the target
-      if (currentSnapRef.current !== targetSnap) {
+    if (snapRequestKey !== prevSnapRequestKey.current) {
+      prevSnapRequestKey.current = snapRequestKey;
+      if (targetSnap && currentSnapRef.current !== targetSnap) {
         snapTo(targetSnap);
       }
     }
-  }, [targetSnap, isMobile, snapTo, variant]);
+  }, [snapRequestKey, targetSnap, isMobile, snapTo, variant]);
 
   // Re-initialize when variant changes (e.g., user toggles from split → current)
   const prevVariant = useRef(variant);

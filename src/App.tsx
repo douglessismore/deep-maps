@@ -83,8 +83,16 @@ function App() {
   // so panToAboveSheet uses no offset. Without this, panels apply peek/half
   // offsets that push pins north and cause the map to pan out of the zoomed area.
   const effectiveSheetSnap: SheetSnap = (variant === 'split' && isMobile) ? 'full' : sheetSnap;
-  // Programmatic snap target — changes trigger sheet animation
-  const [targetSheetSnap, setTargetSheetSnap] = useState<SheetSnap | undefined>(undefined);
+  // Programmatic snap target — changes trigger sheet animation.
+  // snapRequestKey is bumped on every request so that re-requesting the same
+  // target (e.g. clicking a second orphan pin when sheet is already 'half'
+  // intended but user-dragged back to collapsed) still re-fires the effect.
+  const [targetSheetSnap, setTargetSheetSnapRaw] = useState<SheetSnap | undefined>(undefined);
+  const [snapRequestKey, setSnapRequestKey] = useState(0);
+  const setTargetSheetSnap = useCallback((snap: SheetSnap | undefined) => {
+    setTargetSheetSnapRaw(snap);
+    setSnapRequestKey(k => k + 1);
+  }, []);
   // Save pre-navigation snap so we can restore it on back
   const preNavSheetSnap = useRef<SheetSnap>('peek');
 
@@ -698,6 +706,24 @@ function App() {
     setMode('story');
   }, [activeCollection, pushNav]);
 
+  // Orphan moment click — moment has no parent story. Surface it in the
+  // Moments tab, highlight on map, and keep the user in explore mode.
+  const handleOrphanMomentClick = useCallback((location: Moment) => {
+    setActiveEntity(null);
+    setActiveStory(null);
+    setExploreTab('moments');
+    setPanelView('explorer');
+    setActiveLocation(location);
+    setScrollHighlight([location]);
+    setScrollHighlightLabel(location.name);
+    setScrollHighlightMeta(location.year ? String(location.year) : null);
+    setTargetSheetSnap('half');
+    // Gentle pan so the moment is in viewport and sorts first by distance
+    if (mapInstance) {
+      mapInstance.panTo([location.lat, location.lng], { animate: true, duration: 0.4 });
+    }
+  }, [mapInstance]);
+
   // Map pin click — in entity/collection mode, stay in current mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
     if (mode === 'entity') {
@@ -803,6 +829,7 @@ function App() {
             mapInstance={mapInstance}
             onHighlightOnly={(moment) => { setActiveLocation(moment); setZoomToActiveLocation(false); }}
             onSurpriseMe={handleSurpriseMe}
+            onCollectionSelect={handleCollectionSelect}
           />
           </FadeIn>
         ) : mode === 'story' && activeStory ? (
@@ -826,6 +853,7 @@ function App() {
             backLabel={backLabel}
             onHome={handleBackToExplore}
             onEntityClick={handleEntitySelect}
+            onCollectionSelect={handleCollectionSelect}
             sheetSnap={effectiveSheetSnap}
             onExpandRequest={handleExpandRequest}
             suppressDetailPan={suppressDetailPan}
@@ -943,6 +971,7 @@ function App() {
               resetViewKey={resetViewKey}
               onMapReady={setMapInstance}
               onLocationClick={handleMapLocationClick}
+              onOrphanMomentClick={handleOrphanMomentClick}
               onStoryClick={handleStorySelect}
               userLocation={userLocation}
               nearMeZoomKey={nearMeZoomKey}
@@ -981,6 +1010,7 @@ function App() {
               resetViewKey={resetViewKey}
               onMapReady={setMapInstance}
               onLocationClick={handleMapLocationClick}
+              onOrphanMomentClick={handleOrphanMomentClick}
               onStoryClick={handleStorySelect}
               userLocation={userLocation}
               nearMeZoomKey={nearMeZoomKey}
@@ -997,6 +1027,7 @@ function App() {
             <ClaudeSheet
               onSnapChange={setSheetSnap}
               targetSnap={targetSheetSnap}
+              snapRequestKey={snapRequestKey}
               contextLabel={sheetContext.label}
               contextSublabel={sheetContext.sublabel}
               momentCount={sheetContext.momentCount}
@@ -1010,6 +1041,7 @@ function App() {
             <CinemaSheet
               onSnapChange={setSheetSnap}
               targetSnap={targetSheetSnap}
+              snapRequestKey={snapRequestKey}
               contextLabel={sheetContext.label}
               contextSublabel={sheetContext.sublabel}
               momentCount={sheetContext.momentCount}
@@ -1023,6 +1055,7 @@ function App() {
             <BottomSheet
               onSnapChange={setSheetSnap}
               targetSnap={targetSheetSnap}
+              snapRequestKey={snapRequestKey}
               contextLabel={sheetContext.label}
               contextSublabel={sheetContext.sublabel}
               onExpandRequest={handleExpandRequest}

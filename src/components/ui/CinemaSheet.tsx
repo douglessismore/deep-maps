@@ -18,6 +18,8 @@ export interface CinemaSheetProps {
   children: ReactNode;
   onSnapChange?: (snap: SheetSnap) => void;
   targetSnap?: SheetSnap;
+  /** Bumped on every snap request so re-requesting the same target still fires */
+  snapRequestKey?: number;
   /** Story or entity name for the banner */
   contextLabel?: string;
   /** e.g. "3 of 7 moments" */
@@ -43,6 +45,7 @@ export function CinemaSheet({
   children,
   onSnapChange,
   targetSnap,
+  snapRequestKey,
   contextLabel,
   contextSublabel,
   momentCount,
@@ -147,16 +150,17 @@ export function CinemaSheet({
   }, [isMobile]);
 
   // ── Programmatic snap ──
-  const prevTargetSnap = useRef(targetSnap);
+  // Uses snapRequestKey counter so re-requesting the same target still fires.
+  const prevSnapRequestKey = useRef(snapRequestKey);
   useEffect(() => {
     if (!isMobile || !initialized.current) return;
-    if (targetSnap && targetSnap !== prevTargetSnap.current) {
-      prevTargetSnap.current = targetSnap;
-      if (currentSnapRef.current !== targetSnap) {
+    if (snapRequestKey !== prevSnapRequestKey.current) {
+      prevSnapRequestKey.current = snapRequestKey;
+      if (targetSnap && currentSnapRef.current !== targetSnap) {
         snapTo(targetSnap);
       }
     }
-  }, [targetSnap, isMobile, snapTo]);
+  }, [snapRequestKey, targetSnap, isMobile, snapTo]);
 
   // ── Touch events ──
   useEffect(() => {

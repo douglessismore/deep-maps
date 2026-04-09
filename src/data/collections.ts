@@ -153,6 +153,16 @@ export const collections: StoryCollection[] = [
     tags: [],
   },
   {
+    id: 'seattle-dark-history',
+    name: 'Seattle Dark History',
+    subtitle: 'Murders, massacres, and crimes that shook the Emerald City',
+    description: 'Beneath Seattle\'s rain and coffee culture lies a darker story. From gunmen opening fire on partygoers to the crimes that made national headlines, these are the places where the Pacific Northwest\'s shadows gathered. A growing collection — more entries will be added as orphaned moments are wired in.',
+    momentIds: [
+      'sea-capitol-hill-massacre',
+    ],
+    tags: ['seattle', 'dark-history', 'crime', 'murder'],
+  },
+  {
     id: 'biblical-events',
     name: 'Biblical Events and Locations',
     subtitle: 'Where the events of the Bible actually happened — from Genesis to Acts, mapped',

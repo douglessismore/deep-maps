@@ -38938,6 +38938,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1988,
     address: '1932 1st Ave, Seattle, WA',
+    entityIds: ['kurt-cobain'],
   },
   {
     id: 'hemingway-apartment-cardinal-lemoine-1922',
