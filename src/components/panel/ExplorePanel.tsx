@@ -5,7 +5,7 @@ import type { Entity, Story, Moment, StoryCategory, InteractionMode, ViewportLoc
 import { getLocationsInBounds, getStoriesInBounds, getExpandedBounds, distanceMiles } from '../../lib/geo';
 import { getEffectiveNotability } from '../../lib/notability';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getViewportEntities, groupAlphabetically, getMomentsForEntity, type EntityWithCounts } from '../../lib/entityHelpers';
+import { getViewportEntities, groupAlphabetically, getMomentsForEntity, getCollectionsForMoment, type EntityWithCounts } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
 import { panToAboveSheet } from '../../lib/sheetAwareMap';
@@ -540,6 +540,24 @@ export function ExplorePanel({
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
   }, [onScrollPosition]);
+
+  // Auto-scroll the active moment card into view (Moments tab) — fires when
+  // App sets activeLocation from an orphan map-pin click, so the user can see
+  // the card without hunting.
+  useEffect(() => {
+    if (activeTab !== 'moments' || !activeLocationId) return;
+    const raf = requestAnimationFrame(() => {
+      for (const [key, el] of locationCardRefs.current.entries()) {
+        if (key.endsWith(`-${activeLocationId}`)) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          break;
+        }
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+    // sortedMoments intentionally omitted — declared later in component
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeLocationId, activeTab]);
 
   // Restore scroll position when navigating back
   useEffect(() => {
@@ -1173,6 +1191,8 @@ export function ExplorePanel({
                         panToAboveSheet(mapInstance, [moment.lat, moment.lng], sheetSnap, isSheetMobile, { duration: 0.3 });
                       }
                     }}
+                    collections={getCollectionsForMoment(vl.location.id, collections)}
+                    onCollectionSelect={onCollectionSelect}
                     onStoryClick={(story) => onLocationSelect(vl.location, story)}
                     onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
                   />
@@ -1281,6 +1301,8 @@ export function ExplorePanel({
                           onScrollHighlight([m]);
                           onCollectionMomentClick?.(m);
                         }}
+                        collections={getCollectionsForMoment(moment.id, collections)}
+                        onCollectionSelect={onCollectionSelect}
                         onStoryClick={parentStory ? (story) => onLocationSelect(moment, story) : undefined}
                         onEntityClick={onEntityClick ? (entity) => onEntityClick(entity) : undefined}
                       />

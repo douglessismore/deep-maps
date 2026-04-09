@@ -19,7 +19,7 @@ import L from 'leaflet';
 import type { Moment, Story, StoryCategory, StoryCollection } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { getEffectiveNotability, getNotabilityThreshold } from '../../lib/notability';
-import { distanceMiles } from '../../lib/geo';
+import { accuracyTooltipHtml, distanceMiles } from '../../lib/geo';
 import { useAppData } from '../../lib/data/provider';
 
 // ── Helpers ────────────────────────────────────────────────────────
@@ -92,6 +92,9 @@ interface EmergenceLayerProps {
   /** When set, only show moments whose parent story is in this set (timeline era filtering) */
   storyIdFilter?: Set<string> | null;
   onLocationClick: (location: Moment, story: Story) => void;
+  /** Called when a user clicks an orphan moment (moment with no parent story).
+   *  Used to surface the moment in the Moments tab + highlight on map. */
+  onOrphanMomentClick?: (location: Moment) => void;
   activeLocation: Moment | null;
   scrollHighlight?: Moment[];
   /** When true, scroll highlight is "soft" — don't dim non-highlighted markers (homepage mode) */
@@ -111,7 +114,7 @@ interface EmergenceLayerProps {
   onArrowFlyLock?: (locked: boolean) => void;
 }
 
-export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate, scrollHighlightSource, onArrowFlyLock }: EmergenceLayerProps) {
+export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter, onLocationClick, onOrphanMomentClick, activeLocation, scrollHighlight, softHighlight, scrollHighlightLabel, scrollHighlightMeta, onDismissHighlight, onScrollHighlightNavigate, scrollHighlightSource, onArrowFlyLock }: EmergenceLayerProps) {
   const { moments, stories } = useAppData();
 
   // Pre-compute lookups (rebuild when data changes — stable ref from TanStack Query)
@@ -152,6 +155,9 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   // Stable callback ref — avoids marker recreation when parent re-renders
   const onClickRef = useRef(onLocationClick);
   onClickRef.current = onLocationClick;
+
+  const onOrphanClickRef = useRef(onOrphanMomentClick);
+  onOrphanClickRef.current = onOrphanMomentClick;
 
   const softHighlightRef = useRef(softHighlight);
   softHighlightRef.current = softHighlight;
@@ -240,21 +246,24 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;border-left:2px solid ${catColor};padding-left:7px;letter-spacing:0.01em;">
             <strong>${moment.name}</strong>
             ${metaText ? `<div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;letter-spacing:0.04em;">${metaText}</div>` : ''}
+            ${accuracyTooltipHtml(moment.accuracy)}
           </div>`,
           { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
         );
 
-        // Click handler — both marker and tooltip text are clickable
-        if (story) {
-          const m = moment;
-          const s = story;
-          const handler = () => onClickRef.current(m, s);
-          marker.on('click', handler);
-          marker.on('tooltipopen', () => {
-            const el = marker.getTooltip()?.getElement();
-            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
-          });
-        }
+        // Click handler — both marker and tooltip text are clickable.
+        // Story-linked moments navigate into story mode; orphan moments
+        // surface in the Moments tab via onOrphanMomentClick.
+        const m = moment;
+        const s = story;
+        const handler = s
+          ? () => onClickRef.current(m, s)
+          : () => onOrphanClickRef.current?.(m);
+        marker.on('click', handler);
+        marker.on('tooltipopen', () => {
+          const el = marker.getTooltip()?.getElement();
+          if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
+        });
 
         marker.addTo(map);
         currentMarkers.set(moment.id, marker);

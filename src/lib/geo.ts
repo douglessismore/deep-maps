@@ -1,7 +1,20 @@
 import L from 'leaflet';
 import type { LatLngBounds } from 'leaflet';
-import type { Moment, Story, ViewportLocation } from '../types';
+import type { LocationAccuracy, Moment, Story, ViewportLocation } from '../types';
 import { resolveLocationsFromMap } from './storyHelpers';
+
+/**
+ * HTML snippet for an accuracy indicator shown inside map tooltips.
+ * Returns an empty string for 'exact' (the common case — no visual clutter)
+ * or when accuracy is missing. For 'approximate' and 'general-area', returns
+ * a muted chip that warns users the pin isn't a precise location.
+ */
+export function accuracyTooltipHtml(accuracy: LocationAccuracy | undefined | null): string {
+  if (!accuracy || accuracy === 'exact' || accuracy === 'pinpoint') return '';
+  const label =
+    accuracy === 'general-area' ? '\u25EF general area' : '\u25CE approximate location';
+  return `<div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;font-family:'Space Grotesk','Courier New',monospace;letter-spacing:0.04em;font-style:italic;">${label}</div>`;
+}
 
 /** Haversine distance in kilometers */
 export function distanceFromCenter(

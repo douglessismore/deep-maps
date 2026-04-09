@@ -10,6 +10,7 @@ import type { ClusterOrPoint, MomentPointProps, ConstellationClusterProps } from
 import { createConstellationSVG, createConstellationTooltip, computeConstellationSize, createCountLabel, createWispsContent, computeEssenceSize, createEssenceHoverRing, createPalimpsestContent, createPalimpsestPinContent, getVariantRenderMode } from '../../lib/constellation';
 import type { ConstellationVariant } from '../../lib/constellation';
 import { useAppData } from '../../lib/data/provider';
+import { accuracyTooltipHtml } from '../../lib/geo';
 import { getSheetAwarePadding, panToAboveSheet } from '../../lib/sheetAwareMap';
 import type { SheetSnap } from '../../lib/sheetAwareMap';
 import { EmergenceLayer } from './EmergenceLayer';
@@ -106,6 +107,7 @@ interface MapViewProps {
   resetViewKey?: number;
   onMapReady: (map: L.Map) => void;
   onLocationClick: (location: Moment, story: Story) => void;
+  onOrphanMomentClick?: (location: Moment) => void;
   onStoryClick: (story: Story) => void;
   userLocation?: { lat: number; lng: number } | null;
   nearMeZoomKey?: number;
@@ -531,7 +533,7 @@ function MapController({
             if (!permanentTooltip) {
               const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
               existing.marker.bindTooltip(
-                `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
+                `<div style="max-width:220px;"><strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>${accuracyTooltipHtml(location.accuracy)}</div>`,
                 { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: false }
               );
             }
@@ -556,7 +558,7 @@ function MapController({
           if (!permanentTooltip) {
             const tooltipOffset: [number, number] = [effectiveSize / 2 + 4, 0];
             marker.bindTooltip(
-              `<strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>`,
+              `<div style="max-width:220px;"><strong style="font-family:'Newsreader',Georgia,serif;font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${location.name}</strong>${accuracyTooltipHtml(location.accuracy)}</div>`,
               { direction: 'auto', offset: tooltipOffset, className: 'dark-tooltip', permanent: false }
             );
           }
@@ -710,6 +712,7 @@ function MapController({
                 `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
                   <strong>${moment.name}</strong>
                   <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${story.name}</div>
+                  ${accuracyTooltipHtml(moment.accuracy)}
                 </div>`,
                 { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
               );
@@ -741,6 +744,7 @@ function MapController({
               `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;">
                 <strong>${moment.name}</strong>
                 <div style="font-size:11px;color:#bfbfbf;margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;">${story.name}</div>
+                ${accuracyTooltipHtml(moment.accuracy)}
               </div>`,
               { direction: 'top', offset: [0, -displaySize / 2 - 4], className: 'dark-tooltip', permanent: permanentTooltip }
             );
@@ -1275,6 +1279,7 @@ export function MapView(props: MapViewProps) {
             activeCollection={props.activeCollection}
             storyIdFilter={props.storyIdFilter}
             onLocationClick={props.onLocationClick}
+            onOrphanMomentClick={props.onOrphanMomentClick}
             activeLocation={props.activeLocation}
             scrollHighlight={props.scrollHighlight}
             softHighlight={props.mode === 'explore'}
