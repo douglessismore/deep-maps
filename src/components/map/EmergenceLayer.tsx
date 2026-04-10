@@ -65,8 +65,10 @@ function getHighlightOpacity(
   if (highlightIds.has(momentId)) return 1;
   // Soft mode (homepage): dim non-highlighted significantly so highlighted ones pop
   if (isSoft) return Math.max(0.08, computeAlpha(moment, zoom) * 0.2);
-  // Collections: dim other moments gently (still visible). Stories: fade hard.
-  return isCollection ? 0.3 : 0.08;
+  // Collections: dim other moments gently (still visible).
+  // Stories/orphans: dim but keep navigable — 0.08 was nearly invisible,
+  // making it hard to find other pins while one is highlighted.
+  return isCollection ? 0.3 : 0.18;
 }
 
 function getHighlightRadius(
