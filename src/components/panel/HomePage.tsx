@@ -2431,8 +2431,9 @@ export function HomePage({
             <span className="text-[var(--accent-gold)] border-b-2 border-[var(--accent-gold)] pb-0.5">here</span>
           </h1>
           <p className="text-[14px] text-[var(--text-secondary)] font-sans mt-2">
-            The map of everything that ever happened.{' '}
-            <span className="whitespace-nowrap">Start anywhere.</span>
+            {/* Previous: "The map of everything that ever happened. Start anywhere." */}
+            The past is all around you.{' '}
+            <span className="whitespace-nowrap">Start anywhere to explore.</span>
           </p>
           {layoutVariant !== 'A' && (
             <p className="text-[10px] font-mono text-[var(--accent-gold)] mt-1 opacity-70">

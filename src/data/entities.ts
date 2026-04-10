@@ -2633,13 +2633,13 @@ export const entities: Entity[] = [
     wikipediaSlug: 'Hollywood_Forever_Cemetery',
   },
   {
-    id: 'barton-springs-sos',
-    name: 'The Barton Springs Development Fights',
+    id: 'barton-springs-pool',
+    name: 'Barton Springs Pool',
     type: 'place',
-    years: '1990',
-    description: 'In a single night, 800 citizens spoke at a city council meeting for 15 straight hours to save a swimming hole from corporate development. This grassroots explosion birthed the Save Our Springs (SOS) Alliance and reshaped Austin\'s environmental politics for a generation.',
-    canonicalStoryId: 'barton-springs-sos',
-    wikipediaSlug: 'Save_Our_Springs_Alliance',
+    years: '1837–present',
+    description: 'A three-acre natural spring-fed swimming pool in Zilker Park that holds 32 million gallons of 68°F water year-round. Sacred to the Tonkawa, commercialized in the 1900s, desegregated in 1963, and nearly destroyed by development in 1990 — Barton Springs is the place Austinites will fight hardest to protect.',
+    canonicalStoryId: 'barton-springs-place',
+    wikipediaSlug: 'Barton_Springs_Pool',
   },
   {
     id: 'virgil',
@@ -5406,6 +5406,24 @@ export const entities: Entity[] = [
     wikipediaSlug: 'William_Clark_(explorer)',
   },
   {
+    id: 'josiah-wilbarger',
+    name: 'Josiah Wilbarger',
+    type: 'person',
+    years: '1801–1845',
+    description: 'The man who survived his own scalping and lived eleven years with an exposed skull. A Missouri surveyor who helped Stephen F. Austin map the upper Colorado colony, Wilbarger was shot, stripped, and scalped alive by Comanche in 1832. He died in 1845 after bumping his bare skull on a low door frame.',
+    canonicalStoryId: 'josiah-wilbarger-biography',
+    wikipediaSlug: 'Josiah_Wilbarger',
+  },
+  {
+    id: 'sarah-hornsby',
+    name: 'Sarah Hornsby',
+    type: 'person',
+    years: '1800s',
+    description: 'The frontier woman whose dream saved a dead man. When riders reported Josiah Wilbarger scalped and killed, Sarah Hornsby woke her husband twice insisting she had seen Wilbarger alive. She roused the household before dawn and forced a rescue party north — they found him breathing under a post oak tree.',
+    canonicalStoryId: 'sarah-hornsby-biography',
+    wikipediaSlug: 'Reuben_Hornsby',
+  },
+  {
     id: 'james-watson',
     name: 'James Watson',
     type: 'person',
@@ -5413,5 +5431,17 @@ export const entities: Entity[] = [
     description: 'A 25-year-old American postdoc who co-discovered the structure of DNA and wrote the most famous memoir in science. The Double Helix described the race to crack DNA with a candour that enraged colleagues. He ran Cold Spring Harbor Laboratory for 35 years before disgrace over racist remarks ended his public career.',
     canonicalStoryId: 'james-watson-biography',
     wikipediaSlug: 'James_Watson',
+  },
+
+  // ─── Penn Field ──────────────────────────────────────────────────────
+  {
+    id: 'penn-field',
+    name: 'Penn Field',
+    type: 'place',
+    years: '1918–1919',
+    description:
+      'A WWI airfield that became Austin\'s first aviation playground. Named for cadet Eugene Doak Penn, killed training in Italy in 1918, the field on South Congress hosted the UT School of Military Aeronautics. After the Army left in 1919, the hangars were repurposed, but pilots kept using the site for years. Today it\'s an office campus where several original hangars survive as adaptive reuse buildings.',
+    canonicalStoryId: 'penn-field-early-aviation',
+    wikipediaSlug: 'Penn_Field_(Airfield)',
   },
 ];

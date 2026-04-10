@@ -100,8 +100,10 @@ Check for collections that cover overlapping themes:
 ### Check 1.11: False Entity Link Detection (Substring Matching)
 For every moment with entityIds, verify the tagged person was actually at the location:
 - CRITICAL if the entity's surname appears in the moment only as part of a DIFFERENT person's name (e.g., "John Wright" moment tagged with 'orville-wright', "Adam Smith" moment tagged with 'adam-smith' when the Smith in the moment is a different person)
-- CRITICAL if the entity's name appears only in a place name, street name, or building name (e.g., "Washington Monument" tagged with 'george-washington' when Washington wasn't physically at the monument's construction)
-- Pattern to watch: common surnames (Wright, Smith, Johnson, Brown, Wilson, Davis, Clark, Lewis, Walker, King) are high-risk for false matches
+- CRITICAL if the entity's name appears only in a place name, street name, building name, or geographic feature (e.g., "Washington Monument" tagged with 'george-washington', "Waller Creek" tagged with 'edwin-waller', "Travis County" tagged with 'william-b-travis')
+- CRITICAL if the entity's death year precedes the moment's year — the person cannot be physically present at an event that happened after they died. This is the strongest signal for false matches. Check: entity.years end year < moment.year → CRITICAL.
+- Pattern to watch: common surnames (Wright, Smith, Johnson, Brown, Wilson, Davis, Clark, Lewis, Walker, King, Waller, Travis, Lamar, Houston) are high-risk for false matches — especially in Texas where many geographic features are named after Republic-era figures who died in the 1840s-1860s
+- **Geographic feature name matching is the #1 source of false entity links.** When a person entity's surname matches a creek, street, county, park, or building in the moment's name/subtitle/address, the link is almost certainly wrong unless the moment specifically describes that person's actions at that location during their lifetime.
 
 ### Check 1.12: Duplicate Moment Detection Within Stories/Entities
 For every story and entity, check if multiple moments describe the same event:
@@ -212,6 +214,22 @@ Verify that entities with `canonicalStoryId` in static data also have non-NULL `
 ### Check 3.3: moment_entities Sync
 Verify Supabase `moment_entities` count matches static entity link count.
 - WARNING if counts differ
+
+### Check 3.4: Sync Staleness
+After any content edit, static files MUST be synced to Supabase. Check for drift:
+```bash
+pushd /Users/sirdouglas/Documents/claude-code-projects/deep-maps && source .env.local && npx tsx scripts/reconcile/detailed-drift.ts 2>&1 | tail -20; popd
+```
+- CRITICAL if static-only moments/entities/stories exist that are NOT in Supabase (content is invisible on the live site)
+- CRITICAL if entity links in static don't match Supabase (wrong "Dive Deeper" connections on live site)
+- If drift exists, the validator MUST instruct: `source .env.local && npx tsx scripts/sync-to-supabase.ts`
+- A content task is NOT complete until sync is verified. This is the #1 cause of "content not propagating" bugs.
+
+### Check 3.5: Stale Entity Links in Supabase
+The sync script uses UPSERT (insert/update only, never deletes). When entity links are REMOVED from static files, the stale links persist in Supabase.
+- After removing entity links from static, the stale Supabase rows must be deleted manually
+- WARNING if Supabase `moment_entities` count is HIGHER than static entity link count (indicates stale links)
+- To fix: identify which links exist in Supabase but not static, and delete them
 
 ## Layer 4: Post-Import Guardrails
 

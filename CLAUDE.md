@@ -104,7 +104,12 @@ type StoryCategory = 'dark-history' | 'last-stands' | 'discovery-science' |
 //   contentWarning?, locations[], relatedStoryIds?, wikipediaSlug?
 
 // StoryLocation has: id, name, subtitle, description, lat, lng, type, importance,
-//   accuracy, year?, date?, address?, media?, wikiSection?, links?
+//   accuracy, year?, date?, address?, media?, wikiSection?, links?, narrativeContext?
+
+// narrativeContext: Rich background context not rendered in UI. For future AI tour guide.
+//   Written in user-facing-ready voice. Emphasize hyperspecific location details:
+//   what's physically there today, exact addresses, what you'd see standing on the spot.
+//   Supabase column: narrative_context (TEXT). Synced via sync-to-supabase.ts.
 
 // StoryCollection has: id, name, subtitle, description, icon (emoji), storyIds[],
 //   featuredLocationIds?, tags[]
@@ -122,11 +127,22 @@ npx tsc --noEmit     # type-check only
 ```
 
 ## Adding New Stories
-New stories go directly in `src/data/stories.ts`. No database — all data is compile-time static.
+New stories go directly in `src/data/stories.ts`. Static files are the canonical source of truth.
 - Every location MUST have `accuracy` field (exact/approximate/general-area)
 - `wikiSection` MUST be verified against actual Wikipedia heading IDs or omitted
 - `relatedStoryIds` should reference existing story IDs when connections exist
 - Location IDs should be prefixed with story abbreviation (e.g., `btk-courthouse`)
+
+## Syncing Static ↔ Supabase (MANDATORY)
+After editing ANY data file (`moments.ts`, `entities.ts`, `stories.ts`, `collections.ts`), you MUST sync to Supabase:
+```bash
+source .env.local && npx tsx scripts/sync-to-supabase.ts --dry-run  # preview
+source .env.local && npx tsx scripts/sync-to-supabase.ts            # live
+```
+- The sync script uses UPSERT only — it never deletes. If you REMOVE entity links or moments, you must delete the stale rows from Supabase manually.
+- The live site (`deepmaps.app`) loads from Supabase. If you skip this step, new content is invisible to users.
+- After sync, optionally run `npx tsx scripts/reconcile/detailed-drift.ts` to verify zero drift.
+- Do NOT consider a content task complete until sync is done and verified.
 
 ## Adding New Collections
 Collections go in `src/data/collections.ts`. A collection only references story IDs — no data duplication.

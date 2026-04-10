@@ -150,6 +150,7 @@ async function syncMoments() {
           address: m.address ?? null,
           verification_level: m.verificationLevel ?? 'documented',
           wiki_section: (m as any).wikiSection ?? null,
+          narrative_context: (m as any).narrativeContext ?? null,
         },
         { onConflict: 'id', ignoreDuplicates: false },
       );

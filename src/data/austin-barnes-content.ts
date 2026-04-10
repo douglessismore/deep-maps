@@ -1101,25 +1101,7 @@ export const barnesMoments: Moment[] = [
     entityIds: ['edwin-waller'],
   },
 
-  {
-    id: 'wilbarger-scalping-hornsby-1833',
-    name: 'Josiah Wilbarger Is Scalped Alive by Comanche Near Hornsby Bend and Survives 11 Years',
-    subtitle: 'Near Hornsby Bend, SE Travis County. A Texas Historical Commission marker stands near Walnut Creek',
-    description:
-      'On 15 August 1833, a Comanche war party attacked a surveying party near Hornsby\'s settlement east of Austin. Josiah P. Wilbarger was shot with arrows, scalped alive, and left for dead. He was found the next day, still alive, by a rescue party alerted by Sarah Hornsby, who reportedly dreamed of his location. Wilbarger survived 11 more years with an exposed skull bone, dying in 1845 after bumping his head on a low doorframe.',
-    lat: 30.2300,
-    lng: -97.6400,
-    type: 'battlefield',
-    importance: 'minor',
-    notability: 40,
-    verificationLevel: 'documented',
-    accuracy: 'general-area',
-    kind: 'event',
-    year: 1833,
-    date: '15 August 1833',
-    address: 'Near Hornsby Bend, Travis County, TX',
-    entityIds: [],
-  },
+  // MIGRATED to moments.ts as wilbarger-scalping-1832 (date corrected to 1832, coords improved, full story wired)
 
   {
     id: 'tonkawa-artifacts-travis-peak-1840s',

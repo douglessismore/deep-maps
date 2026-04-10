@@ -109,6 +109,7 @@ export interface Moment {
   geoVerified?: boolean;
   geoSourceUrl?: string;
   geoVerifiedAt?: string;
+  narrativeContext?: string;             // Rich background context (not rendered in UI). For future AI tour guide.
 }
 
 /** A story's reference to a shared moment, with optional narrative framing.
