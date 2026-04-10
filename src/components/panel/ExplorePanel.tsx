@@ -584,10 +584,10 @@ export function ExplorePanel({
     const raf = requestAnimationFrame(() => {
       let foundKey: string | null = null;
       let foundEl: HTMLElement | null = null;
-      // Exact-match the card key (previously used endsWith which could collide
-      // on shared id suffixes). Card key format: `${storyId ?? 'no-story'}-${locationId}`.
+      // Exact-match the card key. Key format: `${storyId ?? 'no-story'}::${locationId}`.
+      // Uses :: separator (not -) because both storyId and locationId contain dashes.
       for (const [key, el] of locationCardRefs.current.entries()) {
-        const locId = key.slice(key.indexOf('-') + 1);
+        const locId = key.slice(key.indexOf('::') + 2);
         if (locId === activeLocationId) {
           foundKey = key;
           foundEl = el;
@@ -691,7 +691,7 @@ export function ExplorePanel({
 
         if (closestKey && closestKey !== lastScrollPanKeyRef.current) {
           const vl = viewportLocationsRef.current.find(
-            (v) => `${v.story?.id ?? 'no-story'}-${v.location.id}` === closestKey
+            (v) => `${v.story?.id ?? 'no-story'}::${v.location.id}` === closestKey
           );
           if (vl) {
             lastScrollPanKeyRef.current = closestKey;
@@ -1233,7 +1233,7 @@ export function ExplorePanel({
                 ))}
               </div>
               {sortedMoments.map((vl) => {
-                const key = `${vl.story?.id ?? 'no-story'}-${vl.location.id}`;
+                const key = `${vl.story?.id ?? 'no-story'}::${vl.location.id}`;
                 return (
                   <LocationCard
                     key={key}

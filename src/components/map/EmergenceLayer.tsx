@@ -769,52 +769,23 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         }
         const singleMetaHtml = singleMeta ? `<div class="scroll-label-meta">${singleMeta}</div>` : '';
 
-        // Build the DivIcon with orientation computed from CURRENT map state.
-        // Returns the icon + an "orientation key" so moveend can skip rebuild
-        // when the label wouldn't move — preventing jitter from rapid panTo
-        // calls (scroll-driven pans fire moveend ~every 80ms).
-        type IconOrient = { icon: L.DivIcon; key: string };
-        const buildIcon = (): IconOrient => {
-          const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
-          const sz = map.getSize();
-          const labelRight = pt.x <= sz.x * 0.5;
-          const nearBottom = pt.y > sz.y * 0.65;
-          let labelPos: string;
-          let borderStyle: string;
-          let orientKey: string;
-          if (nearBottom) {
-            labelPos = 'bottom:20px;left:50%;transform:translateX(-50%);';
-            borderStyle = `border-bottom:2px solid ${color};padding-bottom:4px;`;
-            orientKey = 'bottom';
-          } else if (labelRight) {
-            labelPos = 'left:20px;top:50%;transform:translateY(-50%);';
-            borderStyle = `border-left:2px solid ${color};`;
-            orientKey = 'right';
-          } else {
-            labelPos = 'right:20px;top:50%;transform:translateY(-50%);';
-            borderStyle = `border-right:2px solid ${color};`;
-            orientKey = 'left';
-          }
-          return {
-            icon: L.divIcon({
-              className: '',
-              html: `<div style="position:relative;width:12px;height:12px;">
-                <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
-                <div class="scroll-label-text dark-tooltip" style="position:absolute;${labelPos}${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};max-width:260px;white-space:normal;word-wrap:break-word;">
-                  <div>${tooltipText}</div>
-                  ${singleMetaHtml}
-                </div>
-              </div>`,
-              iconSize: [12, 12],
-              iconAnchor: [6, 6],
-            }),
-            key: orientKey,
-          };
-        };
+        // Label always centered below the dot via translateX(-50%).
+        // No left/right orientation logic — eliminates edge-bleed and removes
+        // the need for a moveend handler to reposition after panTo.
+        const icon = L.divIcon({
+          className: '',
+          html: `<div style="position:relative;width:12px;height:12px;">
+            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
+            <div class="scroll-label-text dark-tooltip" style="position:absolute;top:20px;left:50%;transform:translateX(-50%);border-top:2px solid ${color};padding-top:4px;box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};max-width:220px;white-space:normal;word-wrap:break-word;text-align:center;">
+              <div>${tooltipText}</div>
+              ${singleMetaHtml}
+            </div>
+          </div>`,
+          iconSize: [12, 12],
+          iconAnchor: [6, 6],
+        });
 
-        const initialOrient = buildIcon();
-        let currentOrientKey = initialOrient.key;
-        const marker = L.marker([moment.lat, moment.lng], { icon: initialOrient.icon, zIndexOffset: 900, interactive: true });
+        const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
         marker.addTo(map);
 
@@ -835,29 +806,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         };
         attachClickHandler();
 
-        // Reposition label on moveend — fixes the bleed-off-left bug where
-        // handleOrphanMomentClick's panTo runs AFTER this effect, leaving the
-        // label styled for the pre-pan dot position. Only rebuilds when the
-        // orientation (left/right/bottom) actually changes — prevents jitter
-        // from rapid scroll-driven panTo calls.
-        const onMoveEnd = () => {
-          if (!scrollOverlayRef.current) return;
-          const next = buildIcon();
-          if (next.key === currentOrientKey) return;
-          currentOrientKey = next.key;
-          marker.setIcon(next.icon);
-          attachClickHandler();
-        };
-        map.on('moveend', onMoveEnd);
-
         scrollOverlayRef.current = marker;
-
-        // Augment cleanup: remove the moveend listener when effect re-runs
-        const prevCleanup = cleanup;
-        return () => {
-          map.off('moveend', onMoveEnd);
-          prevCleanup();
-        };
       }
     }
 
