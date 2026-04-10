@@ -1,4 +1,4 @@
-import type { Entity, Moment, Story } from '../../types';
+import type { Entity, Moment, Story, StoryCollection } from '../../types';
 import type L from 'leaflet';
 import { CATEGORIES } from '../../lib/categories';
 import { distanceMiles } from '../../lib/geo';
@@ -8,8 +8,10 @@ import {
   getNotableFigures,
   getKeyLocations,
   getEntityIcon,
+  getCollectionsForMoment,
 } from '../../lib/entityHelpers';
 import { isV2 } from '../../lib/theme';
+import { useAppData } from '../../lib/data/provider';
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { useUIVariant } from '../../lib/uiVariant';
 import { GoDeeperCard } from './GoDeeperCard';
@@ -38,6 +40,7 @@ interface EntityPanelProps {
   /** Highlight a moment on the map without zooming/panning (for stay-local mode) */
   onHighlightOnly?: (moment: Moment) => void;
   onSurpriseMe?: () => void;
+  onCollectionSelect?: (collection: StoryCollection) => void;
 }
 
 export function EntityPanel({
@@ -57,7 +60,9 @@ export function EntityPanel({
   mapInstance,
   onHighlightOnly,
   onSurpriseMe,
+  onCollectionSelect,
 }: EntityPanelProps) {
+  const { collections } = useAppData();
   const allMomentEntries = useMemo(
     () => getEntityMomentStories(entity.id),
     [entity.id]
@@ -665,6 +670,8 @@ export function EntityPanel({
                         parentStories={activeEntry.stories}
                         excludeEntityIds={[entity.id]}
                         onClick={() => onExpandRequest?.()}
+                        collections={getCollectionsForMoment(activeEntry.moment.id, collections)}
+                        onCollectionSelect={onCollectionSelect}
                         onStoryClick={(story) => onStoryClick(story, activeEntry.moment)}
                         onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
                       />
@@ -694,6 +701,8 @@ export function EntityPanel({
                       parentStories={stories}
                       excludeEntityIds={[entity.id]}
                       onClick={isSpotlightPeek ? () => onExpandRequest?.() : () => handleMomentClick(moment, stories)}
+                      collections={getCollectionsForMoment(moment.id, collections)}
+                      onCollectionSelect={onCollectionSelect}
                       onStoryClick={(story) => onStoryClick(story, moment)}
                       onEntityClick={(e, fromMoment) => onEntityClick(e, fromMoment)}
                     />

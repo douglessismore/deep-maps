@@ -1,4 +1,4 @@
-import type { Entity, Moment, Story } from '../types';
+import type { Entity, Moment, Story, StoryCollection } from '../types';
 import { getEffectiveNotability } from './notability';
 
 // ─── Module-scope data (set once via initEntityHelpers) ──────────────
@@ -225,11 +225,11 @@ export function getViewportEntities(
 
 /**
  * Whitelist filter: only incident stories are browseable by users.
- * Biography, place, and era stories are invisible infrastructure.
+ * Biography and place stories are invisible infrastructure.
  * Uses a whitelist (not blacklist) so new story types are hidden by default.
  */
 export function filterBrowseableStories(stories: Story[]): Story[] {
-  return stories.filter(s => s.storyType === 'incident');
+  return stories.filter(s => s.storyType === 'incident' || s.storyType === 'era');
 }
 
 /** Entity type → icon emoji. Handles `work` subtypes (film, book, etc.) */
@@ -261,6 +261,11 @@ export function getInitial(name: string): string {
     return words[0][0].toUpperCase();
   }
   return words[0][0].toUpperCase();
+}
+
+/** Collections that include the given moment ID. */
+export function getCollectionsForMoment(momentId: string, collections: StoryCollection[]): StoryCollection[] {
+  return collections.filter(c => c.momentIds?.includes(momentId));
 }
 
 /** Group entities alphabetically by first letter of name. */

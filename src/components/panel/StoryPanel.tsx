@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Entity, Story, Moment } from '../../types';
+import type { Entity, Story, Moment, StoryCollection } from '../../types';
 import type L from 'leaflet';
 import { CATEGORIES } from '../../lib/categories';
 import { distanceMiles } from '../../lib/geo';
 import { buildMomentMap, resolveLocationsFromMap } from '../../lib/storyHelpers';
-import { getStoryEntities, getEntityIcon } from '../../lib/entityHelpers';
+import { getStoryEntities, getEntityIcon, getCollectionsForMoment } from '../../lib/entityHelpers';
 import { useAppData } from '../../lib/data/provider';
 import { queryClient } from '../../lib/data/provider';
 import { useUIVariant } from '../../lib/uiVariant';
@@ -123,6 +123,7 @@ interface StoryPanelProps {
   backLabel?: string;
   onHome?: () => void;
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
+  onCollectionSelect?: (collection: StoryCollection) => void;
   sheetSnap?: SheetSnap;
   onExpandRequest?: () => void;
   suppressDetailPan?: React.RefObject<boolean>;
@@ -144,13 +145,14 @@ export function StoryPanel({
   backLabel,
   onHome,
   onEntityClick,
+  onCollectionSelect,
   sheetSnap,
   onExpandRequest,
   suppressDetailPan,
   onSurpriseMe,
   mapInstance,
 }: StoryPanelProps) {
-  const { moments } = useAppData();
+  const { moments, collections } = useAppData();
   const momentMap = useMemo(() => buildMomentMap(moments), [moments]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const locationRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -782,6 +784,8 @@ export function StoryPanel({
                         onWikiJump={hasWiki ? handleWikiJump : undefined}
                         narrativeGlue={storyMoment?.narrativeGlue}
                         alsoInStories={momentStoryMap.get(location.id)}
+                        collections={getCollectionsForMoment(location.id, collections)}
+                        onCollectionSelect={onCollectionSelect}
                         onStoryClick={onRelatedStoryClick}
                         onEntityClick={onEntityClick}
                       />

@@ -32,16 +32,16 @@ describe('filterBrowseableStories', () => {
     expect(filterBrowseableStories(stories)).toHaveLength(0);
   });
 
-  it('blocks era stories', () => {
+  it('allows era stories', () => {
     const stories = [makeStory({ id: 'era', storyType: 'era' })];
-    expect(filterBrowseableStories(stories)).toHaveLength(0);
+    expect(filterBrowseableStories(stories)).toHaveLength(1);
   });
 
   it('returns empty array for empty input', () => {
     expect(filterBrowseableStories([])).toHaveLength(0);
   });
 
-  it('filters mixed array to only incidents', () => {
+  it('filters mixed array to incidents and eras', () => {
     const stories = [
       makeStory({ id: 'incident-1', storyType: 'incident' }),
       makeStory({ id: 'bio-1', storyType: 'biography' }),
@@ -50,8 +50,8 @@ describe('filterBrowseableStories', () => {
       makeStory({ id: 'era-1', storyType: 'era' }),
     ];
     const result = filterBrowseableStories(stories);
-    expect(result).toHaveLength(2);
-    expect(result.map(s => s.id)).toEqual(['incident-1', 'incident-2']);
+    expect(result).toHaveLength(3);
+    expect(result.map(s => s.id)).toEqual(['incident-1', 'incident-2', 'era-1']);
   });
 
   it('blocks unknown/future story types (whitelist safety)', () => {

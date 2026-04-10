@@ -1,11 +1,76 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-04-09 (Session 32 — Orphan cleanup pass: dedupe + biography absorbs + accuracy indicators)
+**Last updated:** 2026-04-09 (Session 33 — Orphan click sheet fix, 3 Seattle wirings, Vercel deploy pending)
 **Branch:** `main`
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** https://deepmaps.app
 
-## Current State (Session 32)
+## Current State (Session 33)
+
+### ⚠️ OPEN: Vercel Deploy Not Confirmed for Commit `e367a7f`
+
+All Session 33 fixes are committed and pushed, but as of last check the deployed bundle on deepmaps.app was still `index-BQa_uxGH.js` (pre-fix, `snapRequestKey` absent). The HTML edge cache had `age: 42931` (~11.9 hours) and `x-vercel-cache: HIT`. Query-string cache-busting didn't invalidate. User confirmed "nothing improved" which is consistent with the deploy not having shipped.
+
+**Before debugging further next session: verify the deployed bundle actually contains the fix.**
+
+```bash
+# Must return a bundle path that DIFFERS from BQa_uxGH:
+curl -s https://deepmaps.app/ | grep -oE 'assets/index-[a-zA-Z0-9_-]+\.js' | head -1
+# Then grep the bundle for the fix identifier:
+curl -s https://deepmaps.app/<bundle-path> | grep -o 'snapRequestKey' | head -1
+```
+
+If Vercel still hasn't deployed, trigger a redeploy manually via the Vercel dashboard or push an empty commit. Only debug the click behavior AFTER confirming the new bundle is live.
+
+### What Session 33 Actually Shipped (committed, push confirmed)
+
+**Commit `e367a7f`**: "Fix programmatic sheet snap dropping re-requests; wire 3 Seattle orphans"
+
+1. **Sheet programmatic-snap bug fix (root cause for the orphan-click UX issue)**
+   - File: `src/App.tsx`, `src/components/ui/{BottomSheet,ClaudeSheet,CinemaSheet}.tsx`
+   - Root cause: all three sheets used `prevTargetSnap.current !== targetSnap` to guard the programmatic-snap effect. When App called `setTargetSheetSnap('half')` and the state was already `'half'` (e.g. user had dragged back to collapsed after a previous half-snap), React didn't re-render, the effect didn't run, and the sheet stayed put. Orphan-pin clicks fired `handleOrphanMomentClick` but the sheet was silently stuck.
+   - Fix: added `snapRequestKey` counter in App.tsx, bumped on every `setTargetSheetSnap` call. All three sheets now key their effect off `snapRequestKey` instead of the value, so repeat requests always re-fire.
+   - This ALSO fixes any other programmatic snap that was silently dropping on repeat (several: entity select, collection select, story select paths).
+
+2. **Three Seattle orphan wirings (Supabase writes, then dumped to static)**
+   - `grunge-sub-pop-seattle-1988` → `seattle-grunge-era` story (sort_order 8) + `kurt-cobain` entity tag. Script: `scripts/wire-sub-pop.ts`
+   - New incident story `seattle-general-strike-1919` ("The Seattle General Strike", category political-drama, 1919, wikipedia_slug Seattle_General_Strike) created and the existing orphan moment wired as primary. Script: `scripts/create-general-strike-story.ts`
+   - New collection `seattle-dark-history` ("Seattle Dark History") created, `sea-capitol-hill-massacre` wired. Subagent scanned broader Puget Sound + text-searched; only the capitol hill massacre met strict dark-history criteria. **Collection is currently 1-moment**. Script: `scripts/create-seattle-dark-history-collection.ts`
+   - Post-dump: 2593 moments, **634 stories** (+1), 624 entities, **34 collections** (+1)
+
+### Remaining Gray-Pin Reports From User (ALL TO BE RE-VERIFIED POST-DEPLOY)
+
+User reported the following pins were still gray + non-clickable after pushing `e367a7f` — but the push predated deploy confirmation. MANY of these should be wired once the commit deploys:
+
+**Should no longer be gray after deploy (already wired in `e367a7f`):**
+- Capitol Hill rave after-party gunman (`sea-capitol-hill-massacre`) — wired to Seattle Dark History collection
+- Sub Pop grunge single (`grunge-sub-pop-seattle-1988`) — wired to Grunge Explosion story
+- Seattle General Strike 1919 (`seattle-general-strike-1919`) — has new incident story
+
+**Should be CLICKABLE after deploy (orphan + sheet fix):** Even if still gray, clicking should now open the Moments tab card:
+- Original Starbucks `sea-original-starbucks` (1971) — orphan. Confirmed in Supabase as orphan; has a gold-pin duplicate right next to it per user (🔴 DUPE SUSPECT — needs investigation).
+- Bezos/Amazon garage `inv-amazon-garage` — orphan
+- Ridgway lives three miles — orphan
+- Five bodies surface in Green River — orphan
+- Oregon Trail ends — orphan
+- Celilo Falls fishing — orphan
+- Hanford plutonium — orphan (user: "could be added to atomic bombing of japan story, with all the locations that came together")
+- Austin's many gray dots — not enumerated
+
+**Starbucks duplicate investigation needed**: User saw two pins with the same title side-by-side, one gray and one gold. The gold one opens its bottom sheet card; the gray one does not. Both share the name "Three Friends Open a Coffee Bean Shop Near Pike Place and Call It Starbucks". My Supabase query found exactly ONE moment with that name (`sea-original-starbucks`), which is an orphan. The gold duplicate must be a differently-named moment in the same location (e.g. a moment titled differently but at 47.6101, -122.3426). Needs a coordinate-proximity dedupe check next session. Possible candidates: another Starbucks-related moment wired into a story.
+
+### Code Paths Traced This Session (for faster onboarding next time)
+
+- **Click path**: `EmergenceLayer.tsx:259-261` binds a per-marker click handler at creation time via `onOrphanClickRef.current?.(m)` → `App.tsx:711 handleOrphanMomentClick` → sets `exploreTab='moments'`, `panelView='explorer'`, `activeLocation`, `scrollHighlight`, and calls `setTargetSheetSnap('half')`.
+- **Sheet response path**: `ClaudeSheet.tsx:156-165` (and equivalents in BottomSheet, CinemaSheet) run a `useEffect` on `targetSnap` change. The pre-fix code compared the new value to `prevTargetSnap.current` — if equal, effect no-op. With the fix, they key on `snapRequestKey` (monotonic counter) instead.
+- **Moments tab rendering**: `ExplorePanel.tsx:1140-1204`. Builds `sortedMoments` from `viewportLocations`, which is populated via `getLocationsInBounds(stories, bounds, momentMap, moments)` at `ExplorePanel.tsx:274-294`. Crucially, `getLocationsInBounds` at `src/lib/geo.ts:92-102` DOES include story-less moments (orphans) as `{ location: m, story: null }`. So orphans appear in the moments list — the auto-scroll effect at `ExplorePanel.tsx:547-560` scrolls the clicked orphan into view.
+- **Marker-color ("gray pin") logic**: `EmergenceLayer.tsx:217-218`. Gray = `momentCategoryMap.get(moment.id)` returns undefined, which happens when NO story in the `stories` array (i.e., browseable incident+era stories) contains the moment. Collection membership alone does NOT color a pin. This means the capitol-hill-massacre pin will stay gray even after being wired into the Seattle Dark History collection — a collection is not a story. **This is worth fixing separately**: either color pins by collection category when no story category is available, or make the "clickable orphan → Moments tab" UX the first-class affordance for collection-only moments.
+
+### Deferred: Marker Click-Handler Staleness Bug (Not Yet Fixed)
+
+`EmergenceLayer.tsx:222-225` — when a marker is reused across data updates (same moment.id), the effect calls `setRadius` + `setStyle` but does NOT rebind `marker.on('click', ...)`. The original click handler captured `story` in closure at creation time. If a moment gets newly wired to a story after the marker was created (e.g. via the dump-from-supabase → static refresh during a running session), the old click handler still routes to `onOrphanMomentClick` instead of `onLocationClick`. Fix: remove old handler + re-bind on the `existing` branch, OR rebuild the marker when story changes. Low priority — it only affects hot-reload dev sessions, not production.
+
+## Previous State (Session 32)
 Orphan moment cleanup pass. Started with 896 orphans (flagged by buggy script that ignored collection_moments). After fixing the orphan definition, deleting 38 dupes, and absorbing 92 biography moments, **orphan count is now 416** (down from a real starting count of 537).
 
 - **-38 duplicate moments** deleted (9 round-1 + 29 round-2 pairs), refs migrated winner-takes-wiring
@@ -170,11 +235,13 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 ### P1 — Email Customization
 - Magic link emails show "Supabase Auth" as sender
 
-### P1 — 416 Orphan Moments (down from 537)
-- Session 32 deleted 38 dupes + absorbed 92 into biographies
+### P1 — ~413 Orphan Moments (down from 416)
+- Session 32 deleted 38 dupes + absorbed 92 into biographies → 416
+- Session 33 wired 3 more (grunge-sub-pop, general-strike, capitol-hill-massacre) → ~413
 - Next: HMDB net-new notable moments analysis
 - Next: fully-isolated orphan clusters (Tokyo, Mexico City, Istanbul) — need themed collections or standalone stories
 - Create UNAM, Palacio de Bellas Artes, Templo Mayor, etc. as **place entities** (not stories) when processing Mexico City batch
+- Hanford plutonium orphan → wire into Manhattan Project / atomic bombing story (user suggestion: flesh out "all the locations that came together to make it happen")
 
 ### P1 — Private Property / Access Labels
 - Formalize `accessLevel` field
@@ -207,6 +274,25 @@ source .env.local && npx tsx scripts/reconcile/detailed-drift.ts     # field-lev
 - **Static data = Supabase dump** — flat arrays, no regional imports, `@ts-expect-error` for large arrays
 - **Content staging pipeline** — external datasets → `scripts/staging/sources/` → filter → promote → live data
 - **Coordinate offset policy** — all externally-sourced coords offset ~1m (±0.00001°) from source
+
+## Files Changed Session 33
+- `src/App.tsx` — added `snapRequestKey` counter, wrapped `setTargetSheetSnap`, passed counter to all 3 sheet variants
+- `src/components/ui/BottomSheet.tsx` — snapRequestKey-keyed effect
+- `src/components/ui/ClaudeSheet.tsx` — snapRequestKey-keyed effect
+- `src/components/ui/CinemaSheet.tsx` — snapRequestKey-keyed effect
+- `src/data/{moments,stories,entities,collections}.ts` — dumped from Supabase after wiring (634 stories +1, 34 collections +1)
+- `scripts/wire-sub-pop.ts` — NEW, Sub Pop → grunge era wiring script
+- `scripts/create-general-strike-story.ts` — NEW, creates incident story + wires moment
+- `scripts/create-seattle-dark-history-collection.ts` — NEW, creates collection + wires moment
+- `scripts/investigate-gray-pins.ts` — NEW, investigation helper
+
+### NOT modified in Session 33 (but present in working tree from prior sessions — leave alone or commit separately)
+- `CLAUDE.md`
+- `src/components/panel/EntityPanel.tsx`
+- `src/components/panel/LocationCard.tsx`
+- `src/components/panel/StoryPanel.tsx`
+- `src/lib/entityHelpers.ts`
+- `src/lib/__tests__/entityHelpers.test.ts`
 
 ## Files Changed Session 31
 - `src/data/moments.ts` — 12 new moments, 1 deleted, 3 corrected, 18 geoVerified

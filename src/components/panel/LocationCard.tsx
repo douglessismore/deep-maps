@@ -1,6 +1,6 @@
 import { forwardRef, useMemo, useState, useCallback, useEffect, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
-import type { Entity, Moment, Story, LocationAccuracy, VerificationLevel } from '../../types';
+import type { Entity, Moment, Story, StoryCollection, LocationAccuracy, VerificationLevel } from '../../types';
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
 import { isAdminMode } from '../../lib/admin';
@@ -47,6 +47,10 @@ interface LocationCardProps {
   skipCanonicalFilter?: boolean;
   onStoryClick?: (story: Story) => void;
   onEntityClick?: (entity: Entity, fromMoment?: Moment) => void;
+  /** Collections this moment belongs to */
+  collections?: StoryCollection[];
+  /** Called when a collection chip is clicked */
+  onCollectionSelect?: (collection: StoryCollection) => void;
   /** Compact mode — dense row for mobile bottom sheet (name + subtitle + year only) */
   compact?: boolean;
 }
@@ -57,7 +61,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     showStoryName = false, index, onWikiJump, narrativeGlue,
     alsoInStories, parentStories, excludeEntityIds,
     showExpandChevron, skipCanonicalFilter, onStoryClick, onEntityClick,
-    compact,
+    collections: collectionsProp, onCollectionSelect, compact,
   }, ref) {
     const cat = story ? CATEGORIES[story.category] : undefined;
     const [pinEditorOpen, setPinEditorOpen] = useState(false);
@@ -322,6 +326,23 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                       {getEntityIcon(entity)}
                     </span>
                     <span className="truncate max-w-[120px]">{entity.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {collectionsProp && collectionsProp.length > 0 && onCollectionSelect && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {collectionsProp.map((col) => (
+                  <button
+                    key={col.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onCollectionSelect(col);
+                    }}
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border border-[rgba(168,85,247,0.25)] hover:border-[rgba(168,85,247,0.5)] bg-[rgba(168,85,247,0.08)] transition-all truncate max-w-[200px]"
+                  >
+                    {col.icon && <span className="text-[9px]">{col.icon}</span>}
+                    <span className="truncate">{col.name}</span>
                   </button>
                 ))}
               </div>
