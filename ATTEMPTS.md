@@ -66,6 +66,64 @@ Tracks what we've tried so we don't repeat failed approaches.
 - `npm test` ✅ 14/14
 - User manual test: pending
 
+### Attempt 4 — PLAN OF ATTACK (not yet implemented)
+
+**Bugs reported after Attempt 3:**
+1. **Label still bleeds off left edge** (Tesla pin example) — orientation key fix doesn't help when label is simply too long for max-width.
+2. **Wrong-moment on re-click** (CRITICAL) — First click on Josiah works. After panning, re-clicking Josiah shows Obama or Mason Family moment in the panel. Also observed after a fresh refresh + Josiah click landing on Mason Family.
+3. **Map jitter/jumping** between different labels — frequent throughout session. User says "wasn't happening earlier today, what changed?" → regression signal.
+
+---
+
+**Theories investigated (documented so we don't re-explore dead ends):**
+
+- **Theory A — re-click early-return in auto-scroll effect (HIGH CONFIDENCE, likely root cause of Bug 2):**
+  `ExplorePanel`'s auto-scroll effect guards with `lastScrolledLocationIdRef.current === activeLocationId`. On the SECOND click of the same pin, `activeLocationId` doesn't change, so the guard early-returns and the card is NOT re-centered. Meanwhile the user has scrolled/panned in the interim, so the visible "top" card in the sheet is whatever drifted into view (Mason Family, Obama). User perceives this as "wrong moment selected" — but `activeLocation` in state is actually correct. This is a UX/rendering bug, not a data bug. **Verify:** add console log in `handleOrphanMomentClick` and in ExplorePanel auto-scroll effect to confirm activeLocation.id matches what user clicked but scroll is skipped.
+
+- **Theory B — scroll-overlay label click uses stale `onNavigateRef` (RULED OUT for orphans):**
+  Read `handleScrollHighlightNavigate` at App.tsx:668. For `source.type === 'moment'`, it calls `momentToStoryMap.get(source.id)`. If the moment is orphan, `story` is undefined → early return, no navigation. So clicking the scroll overlay LABEL for an orphan does nothing wrong — it's a no-op. Bug 2 is NOT this path.
+
+- **Theory C — card-key `endsWith` collision in ExplorePanel (UNLIKELY but cheap to fix):**
+  Auto-scroll effect iterates `locationCardRefs.current.entries()` and matches via `key.endsWith(\`-${activeLocationId}\`)`. If two moment IDs share a suffix (e.g., `xyz-123` and `abc-123`), wrong card could match. Switch to exact match using the full key format `${storyId ?? 'no-story'}-${locationId}`. Low likelihood given ID generation but easy belt-and-suspenders.
+
+- **Theory D — stale closure in EmergenceLayer marker click handler (RULED OUT):**
+  Marker creation effect depends on `[filteredMoments, map]`. Cleanup runs on every re-run, removing all markers. Fresh closures on re-creation. The `existing` branch only triggers for intra-run duplicates. Click handler captures the correct moment object.
+
+- **Theory E — scroll-driven `onScrollHighlight` racing with pin click (MEDIUM, likely cause of Bug 3 jitter):**
+  When `handleOrphanMomentClick` fires, `mapInstance.panTo(...)` animates. During animation, `moveend` does NOT fire (only on settle), but the pan causes viewportLocations to change → ExplorePanel re-renders → `onScroll` handler may fire if sheet scroll position shifts → calls `onScrollHighlight(otherMoment, ...)` → sets `scrollHighlight` to a DIFFERENT moment → EmergenceLayer rebuilds scroll overlay at the NEW location → moveend handler may trigger another pan via `panToAboveSheet`. Loop: pan → scroll → highlight → pan → scroll → ...
+  `arrowFlyLockRef` blocks `handleScrollHighlight` but NOT the panel's internal `onScrollHighlight` → `setScrollHighlight` path.
+
+---
+
+**Plan of attack:**
+
+**Fix #1 — Label bleed (Bug 1):**
+Stop playing orientation whack-a-mole. In `EmergenceLayer`'s single-moment scroll overlay `buildIcon()`, ALWAYS anchor the label centered below the dot (no left/right/smart positioning). Use CSS `transform: translateX(-50%)` on an inner span so it self-centers horizontally around the pin regardless of screen position. Reduce `max-width` to something that fits even on narrow phones (~220px). Drop the orientation key logic entirely — overlay never needs to re-orient on moveend because it's always centered. Eliminates moveend icon rebuild (also helps Bug 3).
+
+**Fix #2 — Wrong-moment re-click (Bug 2, CRITICAL):**
+Introduce a `snapRequestKey` counter in App.tsx — bump it on EVERY orphan/location click. Pass as a prop to `ExplorePanel`. Auto-scroll effect depends on `[activeLocationId, activeTab, snapRequestKey]`. Remove the `lastScrolledLocationIdRef === activeLocationId` guard — instead, only skip when `snapRequestKey` is unchanged AND id unchanged. This mirrors the `snapRequestKey` pattern already used elsewhere (see commit `ac7d7fa`). Also apply exact-match (not `endsWith`) on card keys to close Theory C.
+
+**Fix #3 — Map jitter (Bug 3):**
+Two-part:
+(a) Eliminate the overlay moveend handler entirely (Fix #1 removes the need).
+(b) Extend `arrowFlyLockRef` semantics to ALSO block `ExplorePanel`'s internal scroll-driven `onScrollHighlight` during pin-click pan animations. Add a new prop `scrollPanLocked: boolean` to ExplorePanel derived from `arrowFlyLockRef.current`. When locked, `onScroll` handler early-returns (same as `programmaticScrollRef`). This breaks the pan → scroll → highlight → pan feedback loop.
+(c) If jitter persists, increase the scroll-driven `panToAboveSheet` debounce from 80ms → 200ms to give pans time to settle.
+
+**Verification order:**
+1. Implement Fix #1 (label center) — visual check on Tesla pin, check moveend handler removal.
+2. Implement Fix #2 (snapRequestKey) — re-click Josiah, confirm card re-scrolls into view.
+3. Implement Fix #3 (lock extension) — click several pins in rapid succession, confirm no jitter.
+4. `npm run build` + `npm test` + manual mobile test before commit.
+
+**What changed between "earlier today" and now (regression investigation):**
+- Attempt 2 added `ExplorePanel`'s `programmaticScrollRef` + `lastScrolledLocationIdRef` guards. The guards are the likely source of the re-click bug.
+- Attempt 3 added the moveend orientation-key icon rebuild in `EmergenceLayer`. The rebuild is likely the source of jitter (changes icon → forces marker layer redraw → map reflow).
+- Prior to Attempt 2, there was no guard, so re-click always re-scrolled (buggy in a different way — infinite loops — but not "wrong moment" symptom).
+- Prior to Attempt 3, scroll overlay icon was built once and never rebuilt.
+
+**Open question — do we need the guards at all?**
+The original reason for `lastScrolledLocationIdRef` was to prevent the auto-scroll effect from re-firing when `viewportLocations` changes (added as a dep in Attempt 2). Alternative: keep the guard but bump the counter pattern so intentional clicks bypass it. This is what Fix #2 does.
+
 ## Rules
 - Do NOT patch symptoms. Go for root cause.
 - Do NOT add a lock ref without a clear release path.

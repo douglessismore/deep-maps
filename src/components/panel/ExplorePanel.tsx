@@ -58,6 +58,10 @@ interface ExplorePanelProps {
   onCollectionScrollHighlight?: (moment: Moment) => void;
   /** Currently active location ID (for highlighting collection moment cards) */
   activeLocationId?: string | null;
+  /** Monotonic counter bumped by App on every user-initiated location click.
+   * Used by the moments auto-scroll effect to force re-centering even when
+   * activeLocationId is unchanged (e.g., re-clicking the same pin). */
+  locationSnapKey?: number;
   /** Back button handler — shown when nav history exists */
   onBack?: () => void;
   onHome?: () => void;
@@ -144,6 +148,7 @@ export function ExplorePanel({
   onCollectionMomentClick,
   onCollectionScrollHighlight,
   activeLocationId,
+  locationSnapKey,
   onBack,
   onHome,
   hasNavHistory,
@@ -208,10 +213,6 @@ export function ExplorePanel({
   // True while a programmatic scrollIntoView is animating — the scroll-driven
   // onScroll handler bails so it doesn't hijack the highlight mid-animation.
   const programmaticScrollRef = useRef(false);
-  // Tracks the last activeLocationId we successfully scrolled a card into view
-  // for. Prevents re-scrolling the same target on every viewport recompute,
-  // and enables the auto-scroll effect to retry once the new viewport renders.
-  const lastScrolledLocationIdRef = useRef<string | null>(null);
   // Tracks the last card key the scroll-driven pan targeted — prevents
   // re-firing panToAboveSheet for the same card, which can cause jitter
   // when moveend events cascade back into the scroll handler.
@@ -553,43 +554,71 @@ export function ExplorePanel({
   }, [onScrollPosition]);
 
   // Auto-scroll the active moment card into view (Moments tab) — fires when
-  // App sets activeLocation from an orphan map-pin click, so the user can see
-  // the card without hunting.
+  // App sets activeLocation from a map-pin click, so the user can see the
+  // card without hunting.
   //
-  // Race condition previously: this effect ran BEFORE viewportLocations had
-  // recomputed after panTo, so the target card's ref didn't exist yet. Now we
-  // also depend on viewportLocations, and use lastScrolledLocationIdRef to
-  // guard against re-scrolling the same target on every viewport recompute.
-  // When activeLocationId changes, the guard resets so a new target can scroll.
+  // Guard: `lastSnappedKeyRef` stores the last (activeLocationId, locationSnapKey)
+  // pair we snapped. locationSnapKey is a monotonic counter bumped by App on
+  // every user-initiated pin click, so re-clicking the same pin releases the
+  // guard and re-centers the card (fixes the "wrong moment on re-click" bug
+  // where scroll drift left a neighbor card looking like the selection).
+  //
+  // If the card's ref doesn't exist yet (viewport hasn't recomputed after
+  // panTo), we do NOT mark as snapped — the effect retries when viewportLocations
+  // updates. Diagnostic logs identify which branch ran.
   //
   // Sets programmaticScrollRef before scrollIntoView so the scroll-driven
   // highlight handler doesn't hijack to a neighbor card mid-animation.
-  const prevActiveLocationIdRef = useRef<string | null | undefined>(activeLocationId);
+  // Guard: the last (activeLocationId, locationSnapKey) pair we successfully
+  // scrolled into view. Re-clicking the same pin bumps locationSnapKey, so the
+  // guard releases and the card re-centers even though activeLocationId is
+  // unchanged. Previously we keyed on activeLocationId alone, which caused the
+  // "wrong moment on re-click" symptom — the sheet had scroll-drifted to a
+  // neighbor card, the guard blocked re-centering, and the user saw the wrong
+  // card appear "selected".
+  const lastSnappedKeyRef = useRef<string | null>(null);
   useEffect(() => {
     if (activeTab !== 'moments' || !activeLocationId) return;
-    // Reset guard when activeLocationId changes so a new target can scroll
-    if (prevActiveLocationIdRef.current !== activeLocationId) {
-      lastScrolledLocationIdRef.current = null;
-      prevActiveLocationIdRef.current = activeLocationId;
-    }
-    if (lastScrolledLocationIdRef.current === activeLocationId) return;
+    const snapKey = `${activeLocationId}#${locationSnapKey ?? 0}`;
+    if (lastSnappedKeyRef.current === snapKey) return;
     const raf = requestAnimationFrame(() => {
+      let foundKey: string | null = null;
+      let foundEl: HTMLElement | null = null;
+      // Exact-match the card key (previously used endsWith which could collide
+      // on shared id suffixes). Card key format: `${storyId ?? 'no-story'}-${locationId}`.
       for (const [key, el] of locationCardRefs.current.entries()) {
-        if (key.endsWith(`-${activeLocationId}`)) {
-          programmaticScrollRef.current = true;
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          lastScrolledLocationIdRef.current = activeLocationId;
-          // Release programmatic-scroll guard after smooth scroll settles
-          window.setTimeout(() => { programmaticScrollRef.current = false; }, 700);
+        const locId = key.slice(key.indexOf('-') + 1);
+        if (locId === activeLocationId) {
+          foundKey = key;
+          foundEl = el;
           break;
         }
+      }
+      if (foundEl) {
+        programmaticScrollRef.current = true;
+        foundEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        lastSnappedKeyRef.current = snapKey;
+        // eslint-disable-next-line no-console
+        console.log('[ExplorePanel] auto-scroll snapped', { activeLocationId, locationSnapKey, foundKey });
+        window.setTimeout(() => { programmaticScrollRef.current = false; }, 700);
+      } else {
+        // Card not yet registered — do NOT mark as snapped so the effect
+        // retries when viewportLocations updates (e.g., after panTo moveend
+        // recomputes the in-viewport list).
+        // eslint-disable-next-line no-console
+        console.log('[ExplorePanel] auto-scroll bailed: card not found', {
+          activeLocationId,
+          locationSnapKey,
+          refCount: locationCardRefs.current.size,
+          sampleKeys: Array.from(locationCardRefs.current.keys()).slice(0, 5),
+        });
       }
     });
     return () => cancelAnimationFrame(raf);
     // viewportLocations added so effect retries after panTo → moveend →
-    // updateViewport → new card refs. sortedMoments omitted (declared later).
+    // updateViewport → new card refs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeLocationId, activeTab, viewportLocations]);
+  }, [activeLocationId, activeTab, viewportLocations, locationSnapKey]);
 
   // Restore scroll position when navigating back
   useEffect(() => {

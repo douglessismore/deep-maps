@@ -89,6 +89,12 @@ function App() {
   // intended but user-dragged back to collapsed) still re-fires the effect.
   const [targetSheetSnap, setTargetSheetSnapRaw] = useState<SheetSnap | undefined>(undefined);
   const [snapRequestKey, setSnapRequestKey] = useState(0);
+  // Monotonic counter bumped on every user-initiated location click. Passed to
+  // ExplorePanel so the moments auto-scroll effect re-fires even when the user
+  // re-clicks the same pin (activeLocationId unchanged). Fixes the
+  // "wrong-moment on re-click" bug — see ATTEMPTS.md Attempt 4.
+  const [locationSnapKey, setLocationSnapKey] = useState(0);
+  const bumpLocationSnapKey = useCallback(() => setLocationSnapKey(k => k + 1), []);
   const setTargetSheetSnap = useCallback((snap: SheetSnap | undefined) => {
     setTargetSheetSnapRaw(snap);
     setSnapRequestKey(k => k + 1);
@@ -373,6 +379,7 @@ function App() {
     }
     setActiveStory(story);
     setActiveLocation(location);
+    setLocationSnapKey(k => k + 1);
     setActiveEntity(null);
     setScrollHighlight([]);
     scrollHighlightIdsRef.current = '';
@@ -729,6 +736,8 @@ function App() {
   // 4. arrowFlyLockRef blocks the ExplorePanel scroll-driven highlight handler
   //    from hijacking during panTo animation (same pattern as arrow flyTo).
   const handleOrphanMomentClick = useCallback((location: Moment) => {
+    // eslint-disable-next-line no-console
+    console.log('[App] handleOrphanMomentClick', { id: location.id, name: location.name });
     pushNav();
     setActiveEntity(null);
     setActiveStory(null);
@@ -736,6 +745,7 @@ function App() {
     setExploreTab('moments');
     setPanelView('explorer');
     setActiveLocation(location);
+    bumpLocationSnapKey();
     setScrollHighlight([location]);
     setScrollHighlightLabel(location.name);
     setScrollHighlightMeta(location.year ? String(location.year) : null);
@@ -750,21 +760,23 @@ function App() {
     } else {
       arrowFlyLockRef.current = false;
     }
-  }, [mapInstance, pushNav]);
+  }, [mapInstance, pushNav, bumpLocationSnapKey]);
 
   // Map pin click — in entity/collection mode, stay in current mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
     if (mode === 'entity') {
       // Just highlight — EntityPanel reacts via activeLocationId
       setActiveLocation(location);
+      bumpLocationSnapKey();
     } else if (activeCollection) {
       // Collection mode — zoom to the clicked moment without leaving collection
       setActiveLocation(location);
+      bumpLocationSnapKey();
       setZoomToActiveLocation(true);
     } else {
       handleLocationSelect(location, story);
     }
-  }, [mode, activeCollection, handleLocationSelect]);
+  }, [mode, activeCollection, handleLocationSelect, bumpLocationSnapKey]);
 
   // Entity locations for map display
   const entityLocations = useMemo(() => {
@@ -922,6 +934,7 @@ function App() {
             onCollectionMomentClick={handleCollectionMomentClick}
             onCollectionScrollHighlight={handleCollectionScrollHighlight}
             activeLocationId={activeLocation?.id ?? null}
+            locationSnapKey={locationSnapKey}
             onBack={handleBack}
             onHome={handleBackToExplore}
             hasNavHistory={navHistory.length > 0}
