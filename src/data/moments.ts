@@ -35098,7 +35098,7 @@ export const moments: Moment[] = [
   },
   {
     id: 'susa-clay-envelopes-3300bce',
-    name: 'Scribes at Susa Seal Clay Tokens Inside Envelopes, Inventing the Concept of Written Records',
+    name: 'Scribes at Susa Invent Written Records by Pressing Clay Tokens Into Sealed Envelopes',
     subtitle: 'Susa (modern Shush), Khuzestan Province, Iran. French excavations from the 1880s onward unearthed thousands of clay tokens and sealed envelopes',
     description: 'Around 3300 BCE, administrators here at Susa — one of the oldest cities in the world — began pressing small clay tokens into hollow clay balls and sealing them shut. Each token shape represented a commodity: cones for grain, spheres for large measures, ovoids for oil. To verify contents without breaking the seal, scribes pressed the tokens into the wet exterior first, creating marks. That reduction from three-dimensional token to two-dimensional impression was, as a UT professor would prove 5,000 years later, the invention of writing.',
     lat: 32.1877,
