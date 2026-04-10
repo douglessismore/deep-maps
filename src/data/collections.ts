@@ -14,6 +14,7 @@ export const collections: StoryCollection[] = [
       'tecumseh-death-thames-1813', 'navajo-code-talkers-iwo-jima-1945', 'navajo-long-walk-bosque-redondo-1864', 'machu-picchu-pachacuti-construction', 'machu-picchu-bingham-discovery-1911',
       'tikal-peak-population', 'aztec-sun-stone-carving', 'maori-arrival-aotearoa', 'aboriginal-rock-art-kakadu', 'inca-sapa-pachacuti-cusco-expansion',
       'sea-suquamish-old-man-house', 'sea-chief-seattle-speech', 'phx-hohokam-pueblo-grande',
+      'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937', 'colorado-river-burials-reveal-trade-networks',
     ],
     tags: [],
   },
@@ -453,5 +454,21 @@ export const collections: StoryCollection[] = [
       'princes-tower-disappear', 'anne-boleyn-executed', 'guy-fawkes-caught', 'charles-i-executed', 'victoria-crowned',
     ],
     tags: [],
+  },
+  {
+    id: 'ancient-austin',
+    name: '10,000 Years Under Austin',
+    subtitle: 'Burials, camp sites, and stone tools — what archaeologists keep finding beneath the pavement',
+    description: 'Archaeological evidence of the people who lived here long before Austin was imagined.',
+    momentIds: [
+      // Lake Travis burials
+      'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937', 'colorado-river-burials-reveal-trade-networks',
+      // Project Connect archaeology
+      'coke-bottle-house-41tv2620', 'lavaca-cistern-privy-41tv1374', 'block-15-convention-center-41tv1497',
+      'block-183-hotel-41tv1790', 'austin-state-hospital-archaeology-41tv2562', 'project-connect-precontact-lithics',
+      // Existing indigenous/archaeological Austin moments
+      'mckinney-falls-indigenous', 'tonkawa-camp-republic-square-1830s',
+    ],
+    tags: ['archaeology', 'indigenous', 'prehistoric', 'austin'],
   },
 ];

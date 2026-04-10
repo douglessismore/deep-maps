@@ -1124,9 +1124,19 @@ export const stories: Story[] = [
     category: 'political-drama',
     storyType: 'biography',
     description: 'The Austin-born humorist who broke McCarthy-era blacklisting with a $3.5 million libel verdict, then came home to teach at UT for two decades.',
-    tags: ['first-amendment', 'mccarthyism', 'austin', 'radio', 'civil-liberties'],
-    moments: [{ momentId: 'faulk-born-austin-1913' }, { momentId: 'faulk-cbs-radio-show-1951' }, { momentId: 'faulk-huac-trial-1956', isPrimary: true }],
-    relatedStoryIds: ['austin-anti-war-movement'],
+    tags: ['first-amendment', 'mccarthyism', 'austin', 'radio', 'civil-liberties', 'folklore', 'barton-springs'],
+    moments: [
+      { momentId: 'faulk-born-austin-1913' },
+      { momentId: 'faulk-ut-folklore-1932', narrativeGlue: 'Faulk found his voice at UT, studying under the men who defined Texas folklore.' },
+      { momentId: 'faulk-cbs-radio-show-1951' },
+      { momentId: 'faulk-klbj-rebroadcast-1950s', narrativeGlue: 'Back in Austin, his childhood friend kept him on the air by bending the rules.' },
+      { momentId: 'faulk-aware-blacklist-1957', narrativeGlue: 'Then the blacklisters came for him.' },
+      { momentId: 'faulk-huac-trial-1956', isPrimary: true },
+      { momentId: 'faulk-barton-springs-return-1962', narrativeGlue: 'He won the verdict but lost the career. Faulk went home to Austin.' },
+      { momentId: 'faulk-city-council-speech-1986', narrativeGlue: 'For his last act, he turned Austin\'s obscenity debate into a First Amendment masterclass.' },
+      { momentId: 'faulk-library-named-1995', narrativeGlue: 'Austin named its library after the man who fought for the right to speak freely.' },
+    ],
+    relatedStoryIds: ['faulk-breaks-blacklist', 'austin-anti-war-movement'],
     wikipediaSlug: 'John_Henry_Faulk',
   },
   {
@@ -8003,5 +8013,59 @@ export const stories: Story[] = [
     ],
     relatedStoryIds: ['barton-springs-sos', 'barton-springs-desegregation'],
     wikipediaSlug: 'Barton_Springs_Pool',
+  },
+
+  // ─── Battle of the San Gabriels & Steinheimer's Buried Treasure ─────
+  {
+    id: 'battle-san-gabriels-steinheimer',
+    name: 'The Battle of the San Gabriels and Steinheimer\'s Lost Gold',
+    nickname: 'The Pirate\'s Buried Fortune',
+    years: '1839',
+    category: 'mystery-unexplained',
+    storyType: 'incident',
+    description:
+      'A deer hunt becomes a three-day chase that exposes a foreign conspiracy. A 24-year-old Ranger stumbles onto eighty horsemen carrying bribes for a secret rebellion. When the shooting starts, a German ex-pirate slips away with ten mules of gold and buries it where three streams meet. No one has found it in 185 years.',
+    tags: ['texas', 'treasure', 'rangers', 'republic-of-texas', 'buried-gold', 'cordova-rebellion', 'frontier', 'williamson-county', 'bell-county'],
+    moments: [
+      {
+        momentId: 'flores-spotted-onion-creek-1839',
+        narrativeGlue: 'It began with a deer hunt gone sideways. On a warm May afternoon in 1839, a young Ranger lieutenant spotted something that wasn\'t deer.',
+      },
+      {
+        momentId: 'rangers-retreat-cedar-brake-1839',
+        narrativeGlue: 'The next day, the Rangers closed the gap — then nearly let the quarry escape.',
+      },
+      {
+        momentId: 'flores-killed-san-gabriel-1839',
+        isPrimary: true,
+        narrativeGlue: 'On the third morning, Rice caught Flores on a bluff above the river. The battle lasted seconds.',
+      },
+      {
+        momentId: 'steinheimer-buries-gold-three-forks-1839',
+        narrativeGlue: 'But someone had slipped away before the first shot. And he was carrying a fortune.',
+      },
+    ],
+    relatedStoryIds: [],
+    wikipediaSlug: 'Battle_of_the_San_Gabriels',
+  },
+
+  // ─── John Henry Faulk — Incident Story ──────────────────────────────
+  {
+    id: 'faulk-breaks-blacklist',
+    name: 'The Man Who Broke the Blacklist',
+    nickname: 'Faulk v. AWARE',
+    years: '1957–1962',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      'An Austin radio host lost everything to McCarthy-era blacklisting, then won the largest libel judgment in history. CBS never took him back.',
+    tags: ['first-amendment', 'mccarthyism', 'blacklist', 'libel', 'civil-liberties', 'austin', 'cbs', 'radio'],
+    moments: [
+      { momentId: 'faulk-aware-blacklist-1957', isPrimary: true },
+      { momentId: 'faulk-huac-trial-1956', narrativeGlue: 'After five years of poverty and legal preparation, Faulk and Nizer finally got their day in court.' },
+      { momentId: 'faulk-barton-springs-return-1962', narrativeGlue: 'The verdict was a triumph, but CBS never called. Faulk went home to Austin.' },
+    ],
+    relatedStoryIds: ['john-henry-faulk-biography'],
+    wikipediaSlug: 'John_Henry_Faulk',
   },
 ];

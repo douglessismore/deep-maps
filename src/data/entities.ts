@@ -5444,4 +5444,78 @@ export const entities: Entity[] = [
     canonicalStoryId: 'penn-field-early-aviation',
     wikipediaSlug: 'Penn_Field_(Airfield)',
   },
+
+  // ─── Battle of the San Gabriels & Steinheimer ───────────────────────
+  {
+    id: 'manuel-flores',
+    name: 'Manuel Flores',
+    type: 'person',
+    years: '?–1839',
+    description:
+      'A Mexican government agent killed by Texas Rangers on the North San Gabriel River in May 1839. Flores was carrying correspondence and ammunition intended to bribe Plains Indian tribes into attacking Texan settlers as part of the Cordova Rebellion. His death and the captured documents exposed the conspiracy and triggered the Cherokee War.',
+    wikipediaSlug: 'Battle_of_the_San_Gabriels',
+  },
+  {
+    id: 'james-o-rice',
+    name: 'James O. Rice',
+    type: 'person',
+    years: '1815–?',
+    description:
+      'A 24-year-old Texas Ranger lieutenant who led the pursuit and final charge against Manuel Flores in May 1839. Rice stumbled onto Flores\'s column while deer hunting on Onion Creek and chased the party for three days across Travis and Williamson counties before attacking on the North San Gabriel River.',
+  },
+  {
+    id: 'karl-steinheimer',
+    name: 'Karl Steinheimer',
+    type: 'person',
+    years: '?–1839',
+    description:
+      'A German-born former pirate and gold miner who allegedly buried ten mule-loads of treasure in central Texas in May 1839 while fleeing the Battle of the San Gabriels. He supposedly wrote a letter to his sweetheart in St. Louis describing the burial location before dying of wounds. The treasure has never been found.',
+  },
+
+  // ─── John Henry Faulk — New Entities ────────────────────────────────
+  {
+    id: 'cactus-pryor',
+    name: 'Cactus Pryor',
+    type: 'person',
+    years: '1923–2011',
+    description:
+      'Austin\'s irreplaceable broadcaster for six decades. Richard "Cactus" Pryor hosted radio and TV on KLBJ, emceed LBJ\'s political events, and was one of the few who publicly defended John Henry Faulk during the blacklist years.',
+    wikipediaSlug: 'Cactus_Pryor',
+  },
+  {
+    id: 'j-frank-dobie',
+    name: 'J. Frank Dobie',
+    type: 'person',
+    years: '1888–1964',
+    description:
+      'Texas folklore\'s loudest champion and fiercest iconoclast. UT professor who collected cowboy tales, Mexican legends, and ranch lore, and mentored John Henry Faulk. Fired by UT regents in 1947 for defending academic freedom.',
+    wikipediaSlug: 'J._Frank_Dobie',
+  },
+  {
+    id: 'edward-r-murrow',
+    name: 'Edward R. Murrow',
+    type: 'person',
+    years: '1908–1965',
+    description:
+      'The broadcast journalist who took on McCarthy. CBS anchor who exposed Senator Joseph McCarthy on See It Now in 1954 and quietly bankrolled John Henry Faulk\'s libel lawsuit with $7,500 when no one else would help.',
+    wikipediaSlug: 'Edward_R._Murrow',
+  },
+  {
+    id: 'louis-nizer',
+    name: 'Louis Nizer',
+    type: 'person',
+    years: '1902–1994',
+    description:
+      'The trial lawyer who dismantled the blacklist in court. Nizer represented John Henry Faulk in Faulk v. AWARE and won the largest libel judgment in American history at that time. He called it the most important free-speech case since Zenger.',
+    wikipediaSlug: 'Louis_Nizer',
+  },
+  {
+    id: 'aware-inc',
+    name: 'AWARE Inc.',
+    type: 'organization',
+    years: '1953–1962',
+    description:
+      'The anti-Communist blacklisting operation that destroyed careers with fabricated dossiers. Founded by Vincent Hartnett, AWARE published bulletins accusing entertainers of Communist ties, pressuring sponsors to drop them from radio and television.',
+    wikipediaSlug: 'AWARE',
+  },
 ];
