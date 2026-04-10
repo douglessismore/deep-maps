@@ -68,6 +68,9 @@ interface ExplorePanelProps {
   hasNavHistory?: boolean;
   /** Dynamic back button label (e.g. "Home", "Stories", entity name) */
   backLabel?: string;
+  /** Ref that, when true, blocks the scroll-driven highlight handler.
+   * Used by App.tsx to prevent scroll→highlight→pan feedback during pin-click pans. */
+  scrollLockRef?: React.RefObject<boolean>;
   /** Panel view: 'home' shows the curated home page, 'explorer' shows the tab-based explorer */
   panelView?: 'home' | 'explorer';
   /** Callback when panel view changes (e.g., user taps a card on home page) */
@@ -153,6 +156,7 @@ export function ExplorePanel({
   onHome,
   hasNavHistory,
   backLabel: backLabelProp,
+  scrollLockRef,
   panelView = 'explorer',
   onPanelViewChange,
   onPreserveViewport: _onPreserveViewport,
@@ -662,7 +666,10 @@ export function ExplorePanel({
     const onScroll = () => {
       // Skip closest-card / highlight logic while a programmatic scrollIntoView
       // is animating — otherwise it hijacks the highlight to a neighbor card.
+      // Also skip when scrollLockRef is set (pin-click pan in progress) — breaks
+      // the pan→scroll→highlight→pan feedback loop (Theory E in ATTEMPTS.md).
       if (programmaticScrollRef.current) return;
+      if (scrollLockRef?.current) return;
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
         // Suppress viewport updates while scrolling — prevents the moments list

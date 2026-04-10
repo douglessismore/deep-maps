@@ -935,6 +935,7 @@ function App() {
             onCollectionScrollHighlight={handleCollectionScrollHighlight}
             activeLocationId={activeLocation?.id ?? null}
             locationSnapKey={locationSnapKey}
+            scrollLockRef={arrowFlyLockRef}
             onBack={handleBack}
             onHome={handleBackToExplore}
             hasNavHistory={navHistory.length > 0}
