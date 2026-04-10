@@ -62,6 +62,7 @@ let savedStoriesScrollLeft = 0;
 let savedNearYouScrollLeft = 0;
 let savedCollectionsScrollLeft = 0;
 let isRestoringFromBack = false; // skip viewport-change scroll reset during back nav
+let restoreFromBackTimer: ReturnType<typeof setTimeout> | null = null;
 
 interface HomePageProps {
   /** Viewport-filtered moments sorted by hybridNearestScore */
@@ -1936,7 +1937,22 @@ export function HomePage({
   const prevFirstCollectionId = useRef(filteredCollections[0]?.id);
 
   useEffect(() => {
-    if (isRestoringFromBack) return; // don't reset during back-nav restore
+    if (isRestoringFromBack) {
+      // Viewport data changed during back-nav restore. Re-arm the debounce timer:
+      // keep blocking resets until data stops changing for 1s after the flyTo settles.
+      if (restoreFromBackTimer) clearTimeout(restoreFromBackTimer);
+      restoreFromBackTimer = setTimeout(() => {
+        isRestoringFromBack = false;
+        restoreFromBackTimer = null;
+        // Sync prev-first refs to current data so next real viewport change resets correctly
+        prevFirstWhatsHereId.current = whatsHereItems[0] ? (whatsHereItems[0].kind + '-' + (whatsHereItems[0].kind === 'story' ? whatsHereItems[0].story.id : whatsHereItems[0].kind === 'moment' ? whatsHereItems[0].vl.location.id : whatsHereItems[0].entity.id)) : '';
+        prevFirstPeopleId.current = gridPeople[0]?.entity.id;
+        prevFirstStoryId.current = allHomeStories[0]?.id;
+        prevFirstMomentId.current = nearYouMoments[0]?.location.id;
+        prevFirstCollectionId.current = filteredCollections[0]?.id;
+      }, 1000);
+      return; // don't reset during back-nav restore
+    }
 
     const curWhatsHere = whatsHereItems[0] ? (whatsHereItems[0].kind + '-' + (whatsHereItems[0].kind === 'story' ? whatsHereItems[0].story.id : whatsHereItems[0].kind === 'moment' ? whatsHereItems[0].vl.location.id : whatsHereItems[0].entity.id)) : '';
     const curPeople = gridPeople[0]?.entity.id;
@@ -2022,8 +2038,8 @@ export function HomePage({
         if (collectionsScrollRef.current && savedCollectionsScrollLeft > 0) {
           collectionsScrollRef.current.scrollLeft = savedCollectionsScrollLeft;
         }
-        // Allow viewport-change resets again after restore settles
-        setTimeout(() => { isRestoringFromBack = false; }, 500);
+        // isRestoringFromBack stays true until viewport data stops changing
+        // (debounced in the viewport-change effect above). No hardcoded timeout needed.
       });
       onScrollRestored?.();
     }, 50);
