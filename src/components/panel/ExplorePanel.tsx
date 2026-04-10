@@ -71,8 +71,6 @@ interface ExplorePanelProps {
   /** Ref that, when true, blocks the scroll-driven highlight handler.
    * Used by App.tsx to prevent scroll→highlight→pan feedback during pin-click pans. */
   scrollLockRef?: React.RefObject<boolean>;
-  /** Debug toast callback — temporary, for mobile diagnostics */
-  pushDebug?: (msg: string) => void;
   /** Panel view: 'home' shows the curated home page, 'explorer' shows the tab-based explorer */
   panelView?: 'home' | 'explorer';
   /** Callback when panel view changes (e.g., user taps a card on home page) */
@@ -159,7 +157,6 @@ export function ExplorePanel({
   hasNavHistory,
   backLabel: backLabelProp,
   scrollLockRef,
-  pushDebug,
   panelView = 'explorer',
   onPanelViewChange,
   onPreserveViewport: _onPreserveViewport,
@@ -612,7 +609,6 @@ export function ExplorePanel({
         lastSnappedKeyRef.current = snapKey;
         // eslint-disable-next-line no-console
         console.log('[ExplorePanel] auto-scroll snapped', { activeLocationId, locationSnapKey, foundKey });
-        pushDebug?.(`SNAP ${foundKey?.split('::')[1]?.slice(0, 30) ?? '?'}`);
         // Reset timer on each snap/re-snap. 1500ms covers mobile smooth scroll
         // duration — 700ms was too short, letting the scroll handler hijack.
         if (programmaticScrollTimerRef.current) clearTimeout(programmaticScrollTimerRef.current);
@@ -628,7 +624,6 @@ export function ExplorePanel({
           refCount: locationCardRefs.current.size,
           sampleKeys: Array.from(locationCardRefs.current.keys()).slice(0, 5),
         });
-        pushDebug?.(`BAIL ${activeLocationId?.slice(0, 30)} (${locationCardRefs.current.size} refs)`);
       }
     });
     return () => cancelAnimationFrame(raf);
@@ -716,7 +711,6 @@ export function ExplorePanel({
           if (vl) {
             lastScrollPanKeyRef.current = closestKey;
             setScrollActiveMomentKey(closestKey);
-            pushDebug?.(`SCROLL→ ${vl.location.name.slice(0, 35)}`);
             onScrollHighlight([vl.location], vl.story?.id);
             clearTimeout(panTimeout.current);
             panTimeout.current = window.setTimeout(() => {

@@ -95,12 +95,6 @@ function App() {
   // "wrong-moment on re-click" bug — see ATTEMPTS.md Attempt 4.
   const [locationSnapKey, setLocationSnapKey] = useState(0);
   const bumpLocationSnapKey = useCallback(() => setLocationSnapKey(k => k + 1), []);
-  // ── Debug toast for mobile diagnostics (temporary) ──
-  const [debugLines, setDebugLines] = useState<string[]>([]);
-  const pushDebug = useCallback((msg: string) => {
-    const ts = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    setDebugLines(prev => [`${ts} ${msg}`, ...prev].slice(0, 8));
-  }, []);
   const setTargetSheetSnap = useCallback((snap: SheetSnap | undefined) => {
     setTargetSheetSnapRaw(snap);
     setSnapRequestKey(k => k + 1);
@@ -744,7 +738,6 @@ function App() {
   const handleOrphanMomentClick = useCallback((location: Moment) => {
     // eslint-disable-next-line no-console
     console.log('[App] handleOrphanMomentClick', { id: location.id, name: location.name });
-    pushDebug(`TAP ${location.name.slice(0, 40)}`);
     pushNav();
     setActiveEntity(null);
     setActiveStory(null);
@@ -767,7 +760,7 @@ function App() {
     } else {
       arrowFlyLockRef.current = false;
     }
-  }, [mapInstance, pushNav, bumpLocationSnapKey, pushDebug]);
+  }, [mapInstance, pushNav, bumpLocationSnapKey]);
 
   // Map pin click — in entity/collection mode, stay in current mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {
@@ -943,7 +936,6 @@ function App() {
             activeLocationId={activeLocation?.id ?? null}
             locationSnapKey={locationSnapKey}
             scrollLockRef={arrowFlyLockRef}
-            pushDebug={pushDebug}
             onBack={handleBack}
             onHome={handleBackToExplore}
             hasNavHistory={navHistory.length > 0}
@@ -1113,19 +1105,6 @@ function App() {
               {panelContent}
             </BottomSheet>
           )}
-        </div>
-      )}
-      {/* Debug toast — temporary diagnostic overlay for mobile testing */}
-      {debugLines.length > 0 && (
-        <div style={{
-          position: 'fixed', top: 48, left: 4, right: 4, zIndex: 99999,
-          background: 'rgba(0,0,0,0.85)', color: '#0f0', fontSize: 11,
-          fontFamily: 'monospace', padding: '6px 8px', borderRadius: 6,
-          pointerEvents: 'none', lineHeight: 1.4, maxHeight: 160, overflow: 'hidden',
-        }}>
-          {debugLines.map((line, i) => (
-            <div key={i} style={{ opacity: i === 0 ? 1 : 0.6 }}>{line}</div>
-          ))}
         </div>
       )}
     </div>
