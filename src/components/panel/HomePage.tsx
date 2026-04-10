@@ -16,7 +16,7 @@ import { SurpriseMeButton } from '../ui/SurpriseMeButton';
 /** Extract the first 3-4 digit year from a years string like "1862-1910" or "c. 1850" */
 function parseStartYear(years?: string): number | null {
   if (!years) return null;
-  const match = years.match(/(\d{3,4})/);
+  const match = years.match(/(-?\d+)/);
   return match ? parseInt(match[1], 10) : null;
 }
 
