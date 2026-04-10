@@ -212,6 +212,10 @@ export function ExplorePanel({
   // for. Prevents re-scrolling the same target on every viewport recompute,
   // and enables the auto-scroll effect to retry once the new viewport renders.
   const lastScrolledLocationIdRef = useRef<string | null>(null);
+  // Tracks the last card key the scroll-driven pan targeted — prevents
+  // re-firing panToAboveSheet for the same card, which can cause jitter
+  // when moveend events cascade back into the scroll handler.
+  const lastScrollPanKeyRef = useRef<string | null>(null);
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
@@ -656,11 +660,12 @@ export function ExplorePanel({
           }
         });
 
-        if (closestKey) {
+        if (closestKey && closestKey !== lastScrollPanKeyRef.current) {
           const vl = viewportLocationsRef.current.find(
             (v) => `${v.story?.id ?? 'no-story'}-${v.location.id}` === closestKey
           );
           if (vl) {
+            lastScrollPanKeyRef.current = closestKey;
             setScrollActiveMomentKey(closestKey);
             onScrollHighlight([vl.location], vl.story?.id);
             clearTimeout(panTimeout.current);

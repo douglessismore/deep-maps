@@ -396,6 +396,13 @@ function App() {
 
   // Back: pop from navigation history, or fall back to explore
   const handleBack = useCallback(() => {
+    // Always clear scroll highlight on back — otherwise other pins stay dimmed
+    // because getHighlightOpacity drops non-highlighted moments to 0.08 when
+    // scrollHighlight is set.
+    setScrollHighlight([]);
+    setScrollHighlightLabel(null);
+    setScrollHighlightMeta(null);
+    scrollHighlightIdsRef.current = '';
     setNavHistory((prev) => {
       if (prev.length === 0) {
         // No history — go to home page (full reset including timeline + collection)
@@ -453,6 +460,11 @@ function App() {
     setSearchQuery('');
     setNavHistory([]);
     setTimelineViewRange(null);
+    // Clear scroll highlight — otherwise other pins stay dimmed
+    setScrollHighlight([]);
+    setScrollHighlightLabel(null);
+    setScrollHighlightMeta(null);
+    scrollHighlightIdsRef.current = '';
     setMode('explore');
     setPanelView('home');
     setResetViewKey((k) => k + 1);

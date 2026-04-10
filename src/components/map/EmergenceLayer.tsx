@@ -188,6 +188,13 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
     return result;
   }, [categoryFilter, activeCollection, storyIdFilter, moments, momentStoryMap, momentCategoryMap]);
 
+  // Touch devices synthesize mouseover events on tap, which causes Leaflet
+  // to pop open the pin's hover tooltip alongside the scroll-overlay label —
+  // producing the "duplicate label flash" bug on mobile. Skip tooltip binding
+  // entirely on touch devices. Desktop still gets hover tooltips.
+  const isTouchDevice = typeof window !== 'undefined' &&
+    (('ontouchstart' in window) || (navigator.maxTouchPoints ?? 0) > 0);
+
   // ── Create / update / destroy circle markers ──────────────────────
   // Uses scrollHighlightRef so newly created/updated markers respect
   // the current highlight state from the start (no flash of full opacity).
@@ -237,33 +244,38 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           bubblingMouseEvents: false,
         });
 
-        // Tooltip with category color accent
-        const storyName = story?.name || '';
-        const catColor = category ? CATEGORIES[category]?.color || '#888' : '#888';
-        const yearStr = moment.year;
-        const metaText = storyName ? (yearStr ? `${yearStr} · ${storyName}` : storyName) : (yearStr ? `${yearStr}` : '');
-        marker.bindTooltip(
-          `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;border-left:2px solid ${catColor};padding-left:7px;letter-spacing:0.01em;">
-            <strong>${moment.name}</strong>
-            ${metaText ? `<div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;letter-spacing:0.04em;">${metaText}</div>` : ''}
-            ${accuracyTooltipHtml(moment.accuracy)}
-          </div>`,
-          { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
-        );
-
         // Click handler — both marker and tooltip text are clickable.
         // Story-linked moments navigate into story mode; orphan moments
         // surface in the Moments tab via onOrphanMomentClick.
         const m = moment;
         const s = story;
         const handler = s
-          ? () => onClickRef.current(m, s)
-          : () => onOrphanClickRef.current?.(m);
+          ? () => { marker.closeTooltip?.(); onClickRef.current(m, s); }
+          : () => { marker.closeTooltip?.(); onOrphanClickRef.current?.(m); };
         marker.on('click', handler);
-        marker.on('tooltipopen', () => {
-          const el = marker.getTooltip()?.getElement();
-          if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
-        });
+
+        // Tooltip with category color accent — DESKTOP ONLY. On touch devices
+        // mobile Safari emits synthetic mouseover on tap, which opens the
+        // tooltip alongside the scroll-overlay label and causes a visible
+        // dupe-label flash. See ATTEMPTS.md.
+        if (!isTouchDevice) {
+          const storyName = story?.name || '';
+          const catColor = category ? CATEGORIES[category]?.color || '#888' : '#888';
+          const yearStr = moment.year;
+          const metaText = storyName ? (yearStr ? `${yearStr} · ${storyName}` : storyName) : (yearStr ? `${yearStr}` : '');
+          marker.bindTooltip(
+            `<div style="font-family:'Newsreader',Georgia,serif;font-size:13px;max-width:220px;border-left:2px solid ${catColor};padding-left:7px;letter-spacing:0.01em;">
+              <strong>${moment.name}</strong>
+              ${metaText ? `<div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;font-family:'Space Grotesk','Courier New',monospace;letter-spacing:0.04em;">${metaText}</div>` : ''}
+              ${accuracyTooltipHtml(moment.accuracy)}
+            </div>`,
+            { direction: 'top', offset: [0, -radius - 2], className: 'dark-tooltip' }
+          );
+          marker.on('tooltipopen', () => {
+            const el = marker.getTooltip()?.getElement();
+            if (el) { el.style.cursor = 'pointer'; el.onclick = handler; }
+          });
+        }
 
         marker.addTo(map);
         currentMarkers.set(moment.id, marker);
@@ -758,41 +770,51 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const singleMetaHtml = singleMeta ? `<div class="scroll-label-meta">${singleMeta}</div>` : '';
 
         // Build the DivIcon with orientation computed from CURRENT map state.
-        // Hoisted into a helper so we can re-run it on moveend (after panTo
-        // completes) to prevent the label from bleeding off-screen when the
-        // dot is recentered by handleOrphanMomentClick's panTo.
-        const buildIcon = () => {
+        // Returns the icon + an "orientation key" so moveend can skip rebuild
+        // when the label wouldn't move — preventing jitter from rapid panTo
+        // calls (scroll-driven pans fire moveend ~every 80ms).
+        type IconOrient = { icon: L.DivIcon; key: string };
+        const buildIcon = (): IconOrient => {
           const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
           const sz = map.getSize();
           const labelRight = pt.x <= sz.x * 0.5;
           const nearBottom = pt.y > sz.y * 0.65;
           let labelPos: string;
           let borderStyle: string;
+          let orientKey: string;
           if (nearBottom) {
             labelPos = 'bottom:20px;left:50%;transform:translateX(-50%);';
             borderStyle = `border-bottom:2px solid ${color};padding-bottom:4px;`;
+            orientKey = 'bottom';
           } else if (labelRight) {
             labelPos = 'left:20px;top:50%;transform:translateY(-50%);';
             borderStyle = `border-left:2px solid ${color};`;
+            orientKey = 'right';
           } else {
             labelPos = 'right:20px;top:50%;transform:translateY(-50%);';
             borderStyle = `border-right:2px solid ${color};`;
+            orientKey = 'left';
           }
-          return L.divIcon({
-            className: '',
-            html: `<div style="position:relative;width:12px;height:12px;">
-              <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
-              <div class="scroll-label-text dark-tooltip" style="position:absolute;${labelPos}${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};max-width:260px;white-space:normal;word-wrap:break-word;">
-                <div>${tooltipText}</div>
-                ${singleMetaHtml}
-              </div>
-            </div>`,
-            iconSize: [12, 12],
-            iconAnchor: [6, 6],
-          });
+          return {
+            icon: L.divIcon({
+              className: '',
+              html: `<div style="position:relative;width:12px;height:12px;">
+                <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
+                <div class="scroll-label-text dark-tooltip" style="position:absolute;${labelPos}${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};max-width:260px;white-space:normal;word-wrap:break-word;">
+                  <div>${tooltipText}</div>
+                  ${singleMetaHtml}
+                </div>
+              </div>`,
+              iconSize: [12, 12],
+              iconAnchor: [6, 6],
+            }),
+            key: orientKey,
+          };
         };
 
-        const marker = L.marker([moment.lat, moment.lng], { icon: buildIcon(), zIndexOffset: 900, interactive: true });
+        const initialOrient = buildIcon();
+        let currentOrientKey = initialOrient.key;
+        const marker = L.marker([moment.lat, moment.lng], { icon: initialOrient.icon, zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
         marker.addTo(map);
 
@@ -815,10 +837,15 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
 
         // Reposition label on moveend — fixes the bleed-off-left bug where
         // handleOrphanMomentClick's panTo runs AFTER this effect, leaving the
-        // label styled for the pre-pan dot position.
+        // label styled for the pre-pan dot position. Only rebuilds when the
+        // orientation (left/right/bottom) actually changes — prevents jitter
+        // from rapid scroll-driven panTo calls.
         const onMoveEnd = () => {
           if (!scrollOverlayRef.current) return;
-          marker.setIcon(buildIcon());
+          const next = buildIcon();
+          if (next.key === currentOrientKey) return;
+          currentOrientKey = next.key;
+          marker.setIcon(next.icon);
           attachClickHandler();
         };
         map.on('moveend', onMoveEnd);

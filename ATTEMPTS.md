@@ -41,6 +41,31 @@ Tracks what we've tried so we don't repeat failed approaches.
 - `npm test` ✅ (14/14)
 - User manual test: pending
 
+### Attempt 3 — follow-up regressions (IMPLEMENTED)
+
+**Bugs reported after Attempt 2:**
+- Dupe label flash STILL happening on orphan click (mobile)
+- All pins dimmed after clicking orphan → Home, only fixes with hard refresh
+- Austin jitter: map shakes, two labels flashing between each other
+
+**Root causes found (fresh):**
+- **RC-C (dupe label flash):** `EmergenceLayer` pin loop calls `bindTooltip` unconditionally. On touch devices, mobile Safari emits synthetic `mouseover` on tap, which pops the tooltip alongside the scroll-overlay label. The existing `eachLayer → closeTooltip` sweep runs AFTER React renders, so both coexist for ~1 frame. **NOT the same as the past MapView fix** (`permanentTooltip = isActive && !isHighlighted`) — that covered the focused-locations path in MapView, not the emergence layer.
+- **RC-D (pin dim persistence):** `getHighlightOpacity` drops non-highlighted moments to 0.08 opacity when `scrollHighlight` is set. `handleBack` / `handleBackToExplore` never clear `scrollHighlight`, so dimming persists.
+- **RC-E (jitter vector 1):** My Attempt-2 moveend listener rebuilt the scroll overlay icon on EVERY map move, even when orientation didn't change.
+- **RC-E (jitter vector 2):** Scroll-driven `panToAboveSheet` re-fires for the same card if moveend cascades back into the scroll handler.
+
+**Fixes:**
+- `EmergenceLayer.tsx`: skip `bindTooltip` on touch devices (`'ontouchstart' in window || navigator.maxTouchPoints > 0`). Click handler now also calls `marker.closeTooltip?.()` synchronously as a belt-and-suspenders fallback.
+- `App.tsx handleBack`: clear `scrollHighlight`, `scrollHighlightLabel`, `scrollHighlightMeta`, `scrollHighlightIdsRef`.
+- `App.tsx handleBackToExplore`: same scroll highlight clears.
+- `EmergenceLayer.tsx` moveend reposition: `buildIcon()` now returns `{icon, key}` where `key` is `'left' | 'right' | 'bottom'`. `onMoveEnd` compares key and skips `setIcon` if unchanged.
+- `ExplorePanel.tsx`: `lastScrollPanKeyRef` guards scroll-driven `onScrollHighlight` + `panToAboveSheet` from firing for the same card twice in a row.
+
+### Verification (Attempt 3)
+- `npm run build` ✅
+- `npm test` ✅ 14/14
+- User manual test: pending
+
 ## Rules
 - Do NOT patch symptoms. Go for root cause.
 - Do NOT add a lock ref without a clear release path.
