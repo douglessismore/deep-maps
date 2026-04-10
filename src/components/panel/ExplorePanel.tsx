@@ -584,10 +584,15 @@ export function ExplorePanel({
   // neighbor card, the guard blocked re-centering, and the user saw the wrong
   // card appear "selected".
   const lastSnappedKeyRef = useRef<string | null>(null);
+  const programmaticScrollTimerRef = useRef<number | null>(null);
   useEffect(() => {
     if (activeTab !== 'moments' || !activeLocationId) return;
     const snapKey = `${activeLocationId}#${locationSnapKey ?? 0}`;
-    if (lastSnappedKeyRef.current === snapKey) return;
+    // Allow re-snap during programmatic scroll window: panTo → moveend →
+    // viewportLocations re-sorts → cards reorder under scroll position →
+    // the card we just snapped to physically moved. Re-scrolling fixes it.
+    // Once the window closes (1500ms), block re-snaps for this snapKey.
+    if (lastSnappedKeyRef.current === snapKey && !programmaticScrollRef.current) return;
     const raf = requestAnimationFrame(() => {
       let foundKey: string | null = null;
       let foundEl: HTMLElement | null = null;
@@ -608,7 +613,10 @@ export function ExplorePanel({
         // eslint-disable-next-line no-console
         console.log('[ExplorePanel] auto-scroll snapped', { activeLocationId, locationSnapKey, foundKey });
         pushDebug?.(`SNAP ${foundKey?.split('::')[1]?.slice(0, 30) ?? '?'}`);
-        window.setTimeout(() => { programmaticScrollRef.current = false; }, 700);
+        // Reset timer on each snap/re-snap. 1500ms covers mobile smooth scroll
+        // duration — 700ms was too short, letting the scroll handler hijack.
+        if (programmaticScrollTimerRef.current) clearTimeout(programmaticScrollTimerRef.current);
+        programmaticScrollTimerRef.current = window.setTimeout(() => { programmaticScrollRef.current = false; }, 1500);
       } else {
         // Card not yet registered — do NOT mark as snapped so the effect
         // retries when viewportLocations updates (e.g., after panTo moveend
