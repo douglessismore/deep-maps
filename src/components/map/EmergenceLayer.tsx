@@ -33,8 +33,9 @@ function hexToRgba(hex: string, alpha: number): string {
 // ── Zoom-dependent dot radius ──────────────────────────────────────
 // Zoom 2: 1px dots (star field). Zoom 14: ~10px (full markers).
 function getRadius(zoom: number): number {
-  // Minimum 4px so markers are always visible on satellite view
-  return Math.max(4, Math.round((zoom - 1) * 0.9));
+  // Min 4px so markers are visible on satellite. Max 8px so they don't
+  // dominate at high zoom (street level). Linear growth between z3–z12.
+  return Math.min(8, Math.max(4, Math.round((zoom - 1) * 0.9)));
 }
 
 // ── Notability alpha for a moment at given zoom ────────────────────
@@ -43,9 +44,8 @@ function computeAlpha(moment: Moment, zoom: number): number {
   if (threshold <= 0) return 1;
   const notability = getEffectiveNotability(moment);
   if (notability >= threshold) return 1;
-  // Raised minimum from 0.15 to 0.35 so low-notability markers remain visible
-  // in sparse areas where they may be the only markers
-  return Math.max(0.5, notability / threshold);
+  // Minimum 0.6 so markers are always clearly visible against satellite tiles
+  return Math.max(0.6, notability / threshold);
 }
 
 // ── Highlight-aware opacity helpers ────────────────────────────────
