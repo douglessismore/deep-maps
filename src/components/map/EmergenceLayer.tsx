@@ -746,10 +746,6 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         const category = momentCategoryMap.get(moment.id);
         const color = category ? CATEGORIES[category]?.color || '#fff' : '#fff';
         const tooltipText = scrollHighlightLabel || moment.name;
-        const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
-        const sz = map.getSize();
-        const labelRight = pt.x <= sz.x * 0.5;
-        const nearBottom = pt.y > sz.y * 0.65;
         const innerGlow = hexToRgba(color, 0.06);
         // Build meta line: use scrollHighlightMeta if available, else story name + year
         let singleMeta = scrollHighlightMeta || '';
@@ -760,42 +756,53 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
           singleMeta = storyName ? (year ? `${storyName} · ${year}` : storyName) : (year ? `${year}` : '');
         }
         const singleMetaHtml = singleMeta ? `<div class="scroll-label-meta">${singleMeta}</div>` : '';
-        // Position label absolutely so the dot always stays at the iconAnchor point.
-        // Using flex row-reverse moved the dot away from the anchor, causing the
-        // "duplicate pin" misalignment.
-        let labelPos: string;
-        let borderStyle: string;
-        if (nearBottom) {
-          labelPos = 'bottom:20px;left:50%;transform:translateX(-50%);';
-          borderStyle = `border-bottom:2px solid ${color};padding-bottom:4px;`;
-        } else if (labelRight) {
-          labelPos = 'left:20px;top:50%;transform:translateY(-50%);';
-          borderStyle = `border-left:2px solid ${color};`;
-        } else {
-          labelPos = 'right:20px;top:50%;transform:translateY(-50%);';
-          borderStyle = `border-right:2px solid ${color};`;
-        }
-        const icon = L.divIcon({
-          className: '',
-          html: `<div style="position:relative;width:12px;height:12px;">
-            <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
-            <div class="scroll-label-text dark-tooltip" style="position:absolute;${labelPos}${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};white-space:nowrap;">
-              <div>${tooltipText}</div>
-              ${singleMetaHtml}
-            </div>
-          </div>`,
-          iconSize: [12, 12],
-          iconAnchor: [6, 6],
-        });
-        const marker = L.marker([moment.lat, moment.lng], { icon, zIndexOffset: 900, interactive: true });
+
+        // Build the DivIcon with orientation computed from CURRENT map state.
+        // Hoisted into a helper so we can re-run it on moveend (after panTo
+        // completes) to prevent the label from bleeding off-screen when the
+        // dot is recentered by handleOrphanMomentClick's panTo.
+        const buildIcon = () => {
+          const pt = map.latLngToContainerPoint([moment.lat, moment.lng]);
+          const sz = map.getSize();
+          const labelRight = pt.x <= sz.x * 0.5;
+          const nearBottom = pt.y > sz.y * 0.65;
+          let labelPos: string;
+          let borderStyle: string;
+          if (nearBottom) {
+            labelPos = 'bottom:20px;left:50%;transform:translateX(-50%);';
+            borderStyle = `border-bottom:2px solid ${color};padding-bottom:4px;`;
+          } else if (labelRight) {
+            labelPos = 'left:20px;top:50%;transform:translateY(-50%);';
+            borderStyle = `border-left:2px solid ${color};`;
+          } else {
+            labelPos = 'right:20px;top:50%;transform:translateY(-50%);';
+            borderStyle = `border-right:2px solid ${color};`;
+          }
+          return L.divIcon({
+            className: '',
+            html: `<div style="position:relative;width:12px;height:12px;">
+              <div class="scroll-label-dot" style="width:12px;height:12px;background:${color};box-shadow:0 0 8px ${color};border-radius:50%;"></div>
+              <div class="scroll-label-text dark-tooltip" style="position:absolute;${labelPos}${borderStyle}box-shadow:0 4px 24px rgba(0,0,0,0.65),inset 0 0 12px ${innerGlow};max-width:260px;white-space:normal;word-wrap:break-word;">
+                <div>${tooltipText}</div>
+                ${singleMetaHtml}
+              </div>
+            </div>`,
+            iconSize: [12, 12],
+            iconAnchor: [6, 6],
+          });
+        };
+
+        const marker = L.marker([moment.lat, moment.lng], { icon: buildIcon(), zIndexOffset: 900, interactive: true });
         const story = momentStoryMap.get(moment.id);
         marker.addTo(map);
-        // DOM-level click with stopPropagation — prevents map click from
-        // dismissing the overlay before navigate can fire.
-        const singleEl = marker.getElement();
-        if (singleEl) {
-          singleEl.style.pointerEvents = 'auto';
-          singleEl.addEventListener('click', (evt) => {
+
+        // Attach click handler to the marker's DOM element. We re-attach on
+        // every icon swap via a small helper because setIcon recreates the el.
+        const attachClickHandler = () => {
+          const el = marker.getElement();
+          if (!el) return;
+          el.style.pointerEvents = 'auto';
+          el.addEventListener('click', (evt) => {
             evt.stopPropagation();
             if (onNavigateRef.current) {
               onNavigateRef.current();
@@ -803,8 +810,27 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
               onClickRef.current(moment, story);
             }
           });
-        }
+        };
+        attachClickHandler();
+
+        // Reposition label on moveend — fixes the bleed-off-left bug where
+        // handleOrphanMomentClick's panTo runs AFTER this effect, leaving the
+        // label styled for the pre-pan dot position.
+        const onMoveEnd = () => {
+          if (!scrollOverlayRef.current) return;
+          marker.setIcon(buildIcon());
+          attachClickHandler();
+        };
+        map.on('moveend', onMoveEnd);
+
         scrollOverlayRef.current = marker;
+
+        // Augment cleanup: remove the moveend listener when effect re-runs
+        const prevCleanup = cleanup;
+        return () => {
+          map.off('moveend', onMoveEnd);
+          prevCleanup();
+        };
       }
     }
 
@@ -813,11 +839,17 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
   }, [scrollHighlight, scrollHighlightLabel, scrollHighlightMeta, map, momentCategoryMap]);
 
   // ── Active location overlay (single DOM marker for pulse animation) ──
+  // Skipped when scrollHighlight already covers the same moment — the scroll
+  // overlay paints its own dot + label, so rendering both causes a dupe-label
+  // flash on orphan moment click.
   useEffect(() => {
     if (activeOverlayRef.current) {
       map.removeLayer(activeOverlayRef.current);
       activeOverlayRef.current = null;
     }
+
+    const coveredByScroll = !!(activeLocation && scrollHighlight?.some(m => m.id === activeLocation.id));
+    if (coveredByScroll) return;
 
     if (activeLocation && isFinite(activeLocation.lat) && isFinite(activeLocation.lng)) {
       const category = momentCategoryMap.get(activeLocation.id);
@@ -843,7 +875,7 @@ export function EmergenceLayer({ categoryFilter, activeCollection, storyIdFilter
         activeOverlayRef.current = null;
       }
     };
-  }, [activeLocation, map]);
+  }, [activeLocation, map, scrollHighlight]);
 
   return null;
 }

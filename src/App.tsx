@@ -708,21 +708,37 @@ function App() {
 
   // Orphan moment click — moment has no parent story. Surface it in the
   // Moments tab, highlight on map, and keep the user in explore mode.
+  //
+  // Mirrors handleLocationSelect pattern:
+  // 1. pushNav() first — captures savedMapView so "< Home" restores viewport
+  // 2. Sets activeLocation so ExplorePanel auto-scrolls the card into view
+  // 3. Sets scrollHighlight as the ONLY overlay source (EmergenceLayer
+  //    dedupes active-location overlay when scrollHighlight covers same moment)
+  // 4. arrowFlyLockRef blocks the ExplorePanel scroll-driven highlight handler
+  //    from hijacking during panTo animation (same pattern as arrow flyTo).
   const handleOrphanMomentClick = useCallback((location: Moment) => {
+    pushNav();
     setActiveEntity(null);
     setActiveStory(null);
+    setActiveCollection(null);
     setExploreTab('moments');
     setPanelView('explorer');
     setActiveLocation(location);
     setScrollHighlight([location]);
     setScrollHighlightLabel(location.name);
     setScrollHighlightMeta(location.year ? String(location.year) : null);
+    scrollHighlightIdsRef.current = location.id;
     setTargetSheetSnap('half');
-    // Gentle pan so the moment is in viewport and sorts first by distance
+    // Block scroll-driven highlight + viewport reshuffles while panTo animates.
+    // Released after pan completes + a safety buffer for auto-scroll to land.
+    arrowFlyLockRef.current = true;
     if (mapInstance) {
       mapInstance.panTo([location.lat, location.lng], { animate: true, duration: 0.4 });
+      setTimeout(() => { arrowFlyLockRef.current = false; }, 900);
+    } else {
+      arrowFlyLockRef.current = false;
     }
-  }, [mapInstance]);
+  }, [mapInstance, pushNav]);
 
   // Map pin click — in entity/collection mode, stay in current mode; otherwise normal behavior
   const handleMapLocationClick = useCallback((location: Moment, story: Story) => {

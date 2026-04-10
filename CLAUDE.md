@@ -27,7 +27,7 @@ interconnected stories make you say "I had no idea."
 - **Wikipedia integration**: WikiPanel with storypoint navigator, auto-validated pills, scroll tracking
 - **Ref pattern for callbacks**: `const ref = useRef(fn); ref.current = fn;` to avoid useCallback dep churn
 - **Collections**: Curated groupings of stories by theme. `StoryCollection` references story IDs. Selecting a collection filters map + story list to only those stories. Third tab in ExplorePanel.
-- **browseableStories whitelist**: DataProvider exports `stories` (all types) + `browseableStories` (incident-only). Browse tabs, search, and related stories use `browseableStories`. Entity panels and admin use `stories`. Whitelist: `storyType === 'incident'` — new types hidden by default.
+- **browseableStories whitelist**: DataProvider exports `stories` (all types) + `browseableStories` (incident + era). Browse tabs, search, and related stories use `browseableStories`. Entity panels and admin use `stories`. Whitelist: `storyType === 'incident' || 'era'` — new types hidden by default.
 - **Concept entities filtered from Dive Deeper**: `entity.type !== 'concept'` in LocationCard + StoryPanel. Concepts are abstract labels, not navigable.
 
 ## Key Decisions (and Why)
@@ -43,7 +43,7 @@ interconnected stories make you say "I had no idea."
 - **CSS.escape() for wiki selectors**: Handles apostrophes and special chars in Wikipedia heading IDs
 - **Collections are just references**: `StoryCollection.storyIds` points to existing stories — no data duplication
 - **LocationLink type for monetization**: `links?: LocationLink[]` on StoryLocation, not yet used in UI but available for affiliate/tour/stay links
-- **browseableStories at DataProvider level**: Only incident stories in browse/search. Never use raw `stories` for user-facing lists.
+- **browseableStories at DataProvider level**: Only incident + era stories in browse/search. Never use raw `stories` for user-facing lists.
 - **Concept entities are not navigable**: Filtered from Dive Deeper. Don't create concept entities — use person/place/organization/work.
 
 ## Negative Constraints

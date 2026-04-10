@@ -205,6 +205,13 @@ export function ExplorePanel({
   const collectionListCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const placesCardRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollDriving = useRef(false);
+  // True while a programmatic scrollIntoView is animating — the scroll-driven
+  // onScroll handler bails so it doesn't hijack the highlight mid-animation.
+  const programmaticScrollRef = useRef(false);
+  // Tracks the last activeLocationId we successfully scrolled a card into view
+  // for. Prevents re-scrolling the same target on every viewport recompute,
+  // and enables the auto-scroll effect to retry once the new viewport renders.
+  const lastScrolledLocationIdRef = useRef<string | null>(null);
   const scrollTimeout = useRef<number | null>(null);
   const scrollRafId = useRef(0);
   const panTimeout = useRef(0);
@@ -544,20 +551,41 @@ export function ExplorePanel({
   // Auto-scroll the active moment card into view (Moments tab) — fires when
   // App sets activeLocation from an orphan map-pin click, so the user can see
   // the card without hunting.
+  //
+  // Race condition previously: this effect ran BEFORE viewportLocations had
+  // recomputed after panTo, so the target card's ref didn't exist yet. Now we
+  // also depend on viewportLocations, and use lastScrolledLocationIdRef to
+  // guard against re-scrolling the same target on every viewport recompute.
+  // When activeLocationId changes, the guard resets so a new target can scroll.
+  //
+  // Sets programmaticScrollRef before scrollIntoView so the scroll-driven
+  // highlight handler doesn't hijack to a neighbor card mid-animation.
+  const prevActiveLocationIdRef = useRef<string | null | undefined>(activeLocationId);
   useEffect(() => {
     if (activeTab !== 'moments' || !activeLocationId) return;
+    // Reset guard when activeLocationId changes so a new target can scroll
+    if (prevActiveLocationIdRef.current !== activeLocationId) {
+      lastScrolledLocationIdRef.current = null;
+      prevActiveLocationIdRef.current = activeLocationId;
+    }
+    if (lastScrolledLocationIdRef.current === activeLocationId) return;
     const raf = requestAnimationFrame(() => {
       for (const [key, el] of locationCardRefs.current.entries()) {
         if (key.endsWith(`-${activeLocationId}`)) {
+          programmaticScrollRef.current = true;
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          lastScrolledLocationIdRef.current = activeLocationId;
+          // Release programmatic-scroll guard after smooth scroll settles
+          window.setTimeout(() => { programmaticScrollRef.current = false; }, 700);
           break;
         }
       }
     });
     return () => cancelAnimationFrame(raf);
-    // sortedMoments intentionally omitted — declared later in component
+    // viewportLocations added so effect retries after panTo → moveend →
+    // updateViewport → new card refs. sortedMoments omitted (declared later).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeLocationId, activeTab]);
+  }, [activeLocationId, activeTab, viewportLocations]);
 
   // Restore scroll position when navigating back
   useEffect(() => {
@@ -599,6 +627,9 @@ export function ExplorePanel({
     if (!container) return;
 
     const onScroll = () => {
+      // Skip closest-card / highlight logic while a programmatic scrollIntoView
+      // is animating — otherwise it hijacks the highlight to a neighbor card.
+      if (programmaticScrollRef.current) return;
       cancelAnimationFrame(scrollRafId.current);
       scrollRafId.current = requestAnimationFrame(() => {
         // Suppress viewport updates while scrolling — prevents the moments list
