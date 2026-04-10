@@ -1741,11 +1741,13 @@ export function HomePage({
       if (b.startYear === null) return -1;
       return a.startYear - b.startYear;
     };
-    const inView = nearYouMoments.map(vl => ({ vl, startYear: vl.location.year ?? parseStartYear(vl.story?.years) })).sort(yearSort);
+    const inView = nearYouMoments.map(vl => ({ vl, startYear: vl.location.year ?? parseStartYear(vl.story?.years) }));
     const backfill = allMomentsSorted
       .filter(vl => !nearYouMoments.some(nm => nm.location.id === vl.location.id))
-      .map(vl => ({ vl, startYear: vl.location.year ?? parseStartYear(vl.story?.years) })).sort(yearSort);
-    return [...inView, ...backfill].map(x => x.vl);
+      .map(vl => ({ vl, startYear: vl.location.year ?? parseStartYear(vl.story?.years) }));
+    // Sort the combined list as one — otherwise ancient backfill events
+    // (far away but very old) always appear after all nearby events.
+    return [...inView, ...backfill].sort(yearSort).map(x => x.vl);
   }, [nearYouMoments, allMomentsSorted]);
 
   // Merge existing carousel data with infinite tail
