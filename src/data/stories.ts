@@ -2182,7 +2182,7 @@ export const stories: Story[] = [
     storyType: 'place',
     description: 'A submarine volcano, 9,000 years of habitation, a Texas Revolution financier\'s gristmill, and a flood that swallowed a thousand homes — all along the same stretch of Onion Creek.',
     tags: ['austin', 'geology', 'archaeology', 'texas', 'state-park', 'flood'],
-    moments: [{ momentId: 'pilot-knob-eruption', narrativeGlue: 'The story starts 80 million years ago, when this was the bottom of a tropical sea.' }, { momentId: 'mckinney-falls-indigenous' }, { momentId: 'del-valle-land-grant', narrativeGlue: 'Four years before the Texas Revolution, a Mexican grant claimed the surrounding land.' }, { momentId: 'mckinney-homestead-mill', narrativeGlue: 'The first Anglo settler to claim this land had bankrolled the Texas Revolution.' }, { momentId: 'onion-creek-flood-2013', narrativeGlue: 'The creek that had sustained people for millennia turned on them.' }],
+    moments: [{ momentId: 'pilot-knob-eruption', narrativeGlue: 'The story starts 80 million years ago, when this was the bottom of a tropical sea.' }, { momentId: 'mckinney-falls-indigenous' }, { momentId: 'mckinney-falls-camino-real', narrativeGlue: 'Spanish carts wore ruts into the limestone at the creek crossing.' }, { momentId: 'del-valle-land-grant', narrativeGlue: 'Four years before the Texas Revolution, a Mexican grant claimed the surrounding land.' }, { momentId: 'mckinney-homestead-mill', narrativeGlue: 'The first Anglo settler to claim this land had bankrolled the Texas Revolution.' }, { momentId: 'mckinney-enslaved-labor-ranch', narrativeGlue: 'Enslaved workers built the home and mill whose ruins hikers walk past today.' }, { momentId: 'mckinney-dam-gristmill', narrativeGlue: 'Iron rod stubs from his dam still protrude from the creek bedrock.' }, { momentId: 'mckinney-death-capitol-funeral', narrativeGlue: 'The man who bankrolled Texas independence died owing more than he owned.' }, { momentId: 'mckinney-falls-archaeological-survey-1974', narrativeGlue: 'Archaeologists found 12 sites in just one-third of the park.' }, { momentId: 'mckinney-falls-park-opens-1976', narrativeGlue: 'The ranch became a state park, preserving 9,000 years of history.' }, { momentId: 'onion-creek-flood-2013', narrativeGlue: 'The creek that had sustained people for millennia turned on them.' }],
     relatedStoryIds: ['cota-birth-of-f1-in-austin', 'bergstrom-bombers-to-boarding-passes', 'battle-of-the-alamo'],
     wikipediaSlug: 'McKinney_Falls_State_Park',
   },
@@ -8067,5 +8067,104 @@ export const stories: Story[] = [
     ],
     relatedStoryIds: ['john-henry-faulk-biography'],
     wikipediaSlug: 'John_Henry_Faulk',
+  },
+  // ── Camp Mabry ─────────────────────────────────────────────────────────
+  {
+    id: 'camp-mabry-plantations-to-parade-grounds',
+    name: 'From Plantations to Parade Grounds',
+    nickname: 'The Plantations Under Camp Mabry',
+    years: '1855–1913',
+    category: 'dark-history',
+    storyType: 'era',
+    description:
+      'A 22-room mansion hosts a hundred guests while 41 enslaved people build its walls. The Civil War kills one owner and bankrupts the other. A limemaker builds a chapel in the ruins. The land reverts to wilderness until the National Guard turns it into a parade ground.',
+    tags: ['texas', 'austin', 'slavery', 'plantation', 'civil-war', 'national-guard', 'camp-mabry', 'mount-bonnell', 'travis-county'],
+    contentWarning: 'Contains descriptions of enslaved people and plantation slavery.',
+    moments: [
+      {
+        momentId: 'townes-builds-edgemont-1855',
+        narrativeGlue: 'In 1855, a planter from Brazoria County chose a bluff overlooking the Colorado River to build his empire.',
+      },
+      {
+        momentId: 'maben-purchases-adjacent-tract-1855',
+        narrativeGlue: 'Next door, his associate claimed the northern half of the same land.',
+      },
+      {
+        momentId: 'townes-wife-dies-confederacy-falls-1864',
+        isPrimary: true,
+        narrativeGlue: 'Then the war came, and everything they built collapsed in eighteen months.',
+      },
+      {
+        momentId: 'hancock-buys-maben-land-1865',
+        narrativeGlue: 'A San Jacinto veteran bought the wreckage at postwar prices.',
+      },
+      {
+        momentId: 'deison-chapel-built-1878',
+        narrativeGlue: 'The plantation\'s former limemaker was the only one who stayed.',
+      },
+      {
+        momentId: 'texas-guard-acquires-camp-mabry-1892',
+        narrativeGlue: 'By 1892, the plantations had reverted to wilderness. The state had other plans for the land.',
+      },
+    ],
+    relatedStoryIds: [],
+    wikipediaSlug: 'Camp_Mabry',
+  },
+  // ── Motheral Land Scandal ──────────────────────────────────────────────
+  {
+    id: 'motheral-land-scandal',
+    name: 'Motheral\'s Land Gamble',
+    nickname: 'The Highway Insider',
+    years: '1933–1949',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      'Austin\'s City Engineer buys five acres in the path of a highway he helped plan, his name appears on a public deed list, and his own mentor fires him in a closed-door session. The highway gets rerouted. No charges are filed. A street bears his name.',
+    tags: ['austin', 'texas', 'corruption', 'highways', 'i-35', 'insider-knowledge', 'political-scandal', 'north-austin', 'post-war'],
+    moments: [
+      {
+        momentId: 'motheral-appointed-engineer-1933',
+        narrativeGlue: 'Before the scandal, there were sixteen years of quiet public service.',
+      },
+      {
+        momentId: 'motheral-right-of-way-list-1949',
+        isPrimary: true,
+        narrativeGlue: 'Then a routine deed list made the rounds at the courthouse, and one name jumped off the page.',
+      },
+      {
+        momentId: 'motheral-forced-resign-1949',
+        narrativeGlue: 'Within weeks, the man who hired him sixteen years earlier was asking for his resignation.',
+      },
+      {
+        momentId: 'motheral-highway-rerouted-1949',
+        narrativeGlue: 'The highway moved. Motheral kept the land. And the city moved on.',
+      },
+    ],
+    relatedStoryIds: ['austin-1928-plan'],
+    wikipediaSlug: 'Interstate_35_in_Texas',
+  },
+  // ── Dead Man's Holes ───────────────────────────────────────────────────
+  {
+    id: 'dead-mans-holes-central-texas',
+    name: 'The Dead Man\'s Holes of Central Texas',
+    nickname: 'Where the Hill Country Buried Its Secrets',
+    years: '1860s–1999',
+    category: 'dark-history',
+    storyType: 'incident',
+    description:
+      'Confederate vigilantes hang Unionists from an oak tree and drop them into a 155-foot sinkhole, cattle rustlers drown with weights in a creek pool, and a horseman rides into a bottomless basin and never comes out. Three holes within 100 miles of Austin, each named for its dead.',
+    tags: ['civil-war', 'texas', 'hill-country', 'vigilante-justice', 'sinkhole', 'burnet-county', 'blanco-county', 'hays-county', 'dark-history', 'reconstruction'],
+    contentWarning: 'Descriptions of murder, lynching, and disposal of bodies during the Civil War and Reconstruction era.',
+    moments: [
+      { momentId: 'dmh-burnet-judge-scott-killed-1861', isPrimary: true, narrativeGlue: 'Burnet County voted against secession, but the fire eaters didn\'t care about votes.' },
+      { momentId: 'dmh-burnet-flaugher-hanged-1860s', narrativeGlue: 'The oak tree over the hole became a gallows. Henry Flaugher was cutting fence posts when his trial began and ended in the same field.' },
+      { momentId: 'dmh-burnet-hoppe-chase-1860s', narrativeGlue: 'Hoppe watched Flaugher die, was acquitted, and then ran for his life anyway.' },
+      { momentId: 'dmh-burnet-spelunkers-1950s', narrativeGlue: 'For nearly a century, gas kept anyone from going down. Then the spelunkers came.' },
+      { momentId: 'dmh-burnet-opened-public-1999', narrativeGlue: 'The hole that once terrified a county became a roadside park with a metal door and a plaque.' },
+      { momentId: 'dmh-blanco-rustlers-1870s', narrativeGlue: 'Forty miles southeast, a different kind of Dead Man\'s Hole served a different kind of justice.' },
+      { momentId: 'dmh-hays-horseman-drowned-1800s', narrativeGlue: 'The prettiest of the three holes earned its name not from murder but from a drowning.' },
+    ],
+    relatedStoryIds: ['dallas-fire-1860', 'clarksville-freedmens-town', 'texas-state-cemetery'],
+    wikipediaSlug: 'Dead_Man%27s_Hole',
   },
 ];

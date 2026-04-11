@@ -3447,7 +3447,9 @@ export const entities: Entity[] = [
     id: 'thomas-mckinney',
     name: 'Thomas F. McKinney',
     type: 'person',
+    years: '1801–1873',
     description: 'One of Stephen F. Austin\'s original colonists and financier of the Texas Revolution. His homestead and gristmill gave McKinney Falls its name.',
+    canonicalStoryId: 'mckinney-falls-nine-thousand-years',
     wikipediaSlug: 'Thomas_F._McKinney',
   },
   {
@@ -5517,5 +5519,100 @@ export const entities: Entity[] = [
     description:
       'The anti-Communist blacklisting operation that destroyed careers with fabricated dossiers. Founded by Vincent Hartnett, AWARE published bulletins accusing entertainers of Communist ties, pressuring sponsors to drop them from radio and television.',
     wikipediaSlug: 'AWARE',
+  },
+  // ── Camp Mabry entities ────────────────────────────────────────────────
+  {
+    id: 'robert-j-townes',
+    name: 'Robert J. Townes',
+    type: 'person',
+    years: '~1806–1865',
+    description:
+      'A Virginia-born planter and lawyer who built the 22-room Edgemont mansion near Mount Bonnell on 1,100 acres worked by 41 enslaved people. Served as Texas Secretary of State during the Civil War. Died in October 1865, leaving seven orphaned children. Half of his plantation became Camp Mabry.',
+    wikipediaSlug: 'Camp_Mabry',
+  },
+  {
+    id: 'william-p-maben',
+    name: 'William P. Maben',
+    type: 'person',
+    years: '~1816–?',
+    description:
+      'A Virginia-born slaveholder who owned 27 enslaved people on a 200-acre plantation adjacent to Edgemont, on land that became the northern half of Camp Mabry. His oldest son died serving in the Confederate army in 1862. After the war destroyed his fortune, Maben sold everything and disappears from the record.',
+  },
+  {
+    id: 'george-duncan-hancock',
+    name: 'George Duncan Hancock',
+    type: 'person',
+    years: '1809–1879',
+    description:
+      'A San Jacinto veteran, Austin merchant, and land speculator who accumulated vast real estate holdings in Travis County. Fought at San Jacinto in 1836, opened a store in downtown Austin in 1845. A committed Unionist who closed his business during the Civil War but kept buying land. His son Lewis became mayor of Austin.',
+    wikipediaSlug: 'George_Duncan_Hancock',
+  },
+  {
+    id: 'charles-w-deison',
+    name: 'Charles W. Deison',
+    type: 'person',
+    years: '~1819–~1890',
+    description:
+      'A Virginia-born limemaker who worked at the Edgemont plantation in 1860 and later built "Deison\'s Chapel" near Camp Mabry. After the Civil War he scraped together 35 acres and in 1885 bought 253 acres of the old Maben tract. His son Clint became locally famous for using mule teams to pull up Austin\'s old trolley tracks.',
+  },
+  {
+    id: 'camp-mabry-place',
+    name: 'Camp Mabry',
+    type: 'place',
+    years: '1892–present',
+    description:
+      'The third-oldest active military installation in Texas, covering 375 acres in northwest Austin. Before the Texas Volunteer Guard arrived in 1892, the land held two slave plantations. Slave cabin remains were reportedly visible on the grounds as late as 1962. Added to the National Register of Historic Places in 1996.',
+    canonicalStoryId: 'camp-mabry-plantations-to-parade-grounds',
+    wikipediaSlug: 'Camp_Mabry',
+  },
+  // ── Motheral entities ──────────────────────────────────────────────────
+  {
+    id: 'james-motheral',
+    name: 'James E. Motheral',
+    type: 'person',
+    years: '1902–1995',
+    description:
+      'Austin\'s City Engineer who bought land in the path of the highway he was planning. Motheral ran Austin\'s public works for sixteen years during its post-WWII boom, then resigned in August 1949 after his name appeared on an I-35 right-of-way deed list. No charges were filed. He lived quietly in Austin until age 93.',
+    wikipediaSlug: 'Interstate_35_in_Texas',
+  },
+  {
+    id: 'guiton-morgan',
+    name: 'Guiton Morgan',
+    type: 'person',
+    years: '?–?',
+    description:
+      'Austin\'s City Manager during the Tom Miller era who hired James Motheral in 1933, mentored him for sixteen years, and then asked for his resignation in August 1949 when Motheral\'s insider land purchase became public.',
+    wikipediaSlug: 'Austin,_Texas',
+  },
+  // ── Dead Man's Hole entities ───────────────────────────────────────────
+  {
+    id: 'dead-mans-hole-burnet',
+    name: 'Dead Man\'s Hole (Burnet County)',
+    type: 'place',
+    years: '1860s–present',
+    description:
+      'A 155-foot sinkhole south of Marble Falls where Confederate "fire eaters" hanged Unionists from an oak tree and dropped them in. Between 17 and 36 people were reportedly killed here during the Civil War and Reconstruction. Now a Burnet County park with a Texas Historical Marker.',
+    canonicalStoryId: 'dead-mans-holes-central-texas',
+    wikipediaSlug: 'Dead_Man%27s_Hole',
+  },
+  {
+    id: 'dead-mans-hole-blanco',
+    name: 'Dead Man\'s Hole (Blanco County)',
+    type: 'place',
+    years: '1870s',
+    description:
+      'An underwater pool in Miller Creek north of Blanco where cattle rustlers were allegedly drowned with weights during the 1870s county troubles. Partially silted in by floods but still visible as a deep blue-green section of the creek.',
+    canonicalStoryId: 'dead-mans-holes-central-texas',
+    wikipediaSlug: 'Blanco_County,_Texas',
+  },
+  {
+    id: 'dead-mans-hole-hays',
+    name: 'Dead Man\'s Hole (Hays County)',
+    type: 'place',
+    years: '1870s–present',
+    description:
+      'A natural sink pool north of Dripping Springs where a creek drops 30 feet into a horseshoe-shaped basin on the Pedernales River. Named for a horseman who allegedly drowned here. Resembles Hamilton Pool. On private land but frequently visited by swimmers.',
+    canonicalStoryId: 'dead-mans-holes-central-texas',
+    wikipediaSlug: 'Hays_County,_Texas',
   },
 ];
