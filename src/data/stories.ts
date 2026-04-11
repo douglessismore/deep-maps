@@ -8052,8 +8052,8 @@ export const stories: Story[] = [
   // ─── John Henry Faulk — Incident Story ──────────────────────────────
   {
     id: 'faulk-breaks-blacklist',
-    name: 'The Man Who Broke the Blacklist',
-    nickname: 'Faulk v. AWARE',
+    name: 'Faulk v. AWARE: The Trial That Broke the Blacklist',
+    nickname: '',
     years: '1957–1962',
     category: 'political-drama',
     storyType: 'incident',

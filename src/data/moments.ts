@@ -47151,7 +47151,8 @@ export const moments: Moment[] = [
     verificationLevel: 'verified',
     accuracy: 'general-area',
     kind: 'event',
-    year: 2022,
+    year: -5000,
+    date: 'Archaic period (est. 7000+ years ago)',
     narrativeContext:
       'Multiple precontact (pre-European contact) archaeological sites were identified during the Project Connect Blue and Orange Line archaeological survey. These include lithic scatters (concentrations of worked stone debris from tool-making) and camp sites indicating sustained indigenous habitation along the waterways and ridgelines that the rail corridor follows. The sites date back thousands of years and complement other known precontact sites in the Austin area, including 41TV410 at McKinney Falls State Park (9,000 years of habitation) and the Wilson-Leonard site near Leander (10,000-13,000 years). Coordinates are approximate and represent a central point along the rail corridor; the actual sites are distributed across multiple locations.',
   },
@@ -47379,8 +47380,8 @@ export const moments: Moment[] = [
     verificationLevel: 'documented',
     accuracy: 'approximate',
     kind: 'event',
-    year: 2006,
-    date: '27 August 2006',
+    year: 650,
+    date: 'circa AD 650',
     narrativeContext:
       'The Carpenter Bend site (41TV2242) was recorded after David Houston reported the find. LCRA ranger Arturo Ordonez shuttled the excavation team to the site by boat. The burial was a single adult male in tightly flexed position, oriented east-west, covered by limestone slabs. AMS radiocarbon dating yielded a calibrated range of AD 638-706. The individual stood approximately 6\'1", unusually tall for the period. Pathologies included advanced osteoarthritis, severe dental attrition and caries, and a possible cranial neoplasm (brain tumor) — one of very few such cases documented in prehistoric North American populations. The site is part of a broader pattern of 33 burial sites with reported human remains along the central Colorado River basin.',
   },
@@ -47398,7 +47399,8 @@ export const moments: Moment[] = [
     verificationLevel: 'documented',
     accuracy: 'general-area',
     kind: 'event',
-    year: 1937,
+    year: -2000,
+    date: 'Late Archaic period',
     narrativeContext:
       'Sites 41LL4 and 41SS2 were excavated by A.T. Jackson in 1937 as part of broader survey work along the Colorado River basin. The Fall Creek sites contained multiple burials across shelters and crevices. Grave goods at one burial included a bone awl, deer antler, projectile points, scrapers, knives, a metate, manos, and approximately 50 mussel shells — suggesting the individual held some status or the community practiced rich mortuary traditions. One skull had a spot of asphaltum (natural tar) applied above the right eye, possibly decorative or ritual. One deposit was interpreted as a possible cremation, with associated remains that early 20th-century investigators described as evidence of a "cannibal feast," though modern archaeologists treat such interpretations with skepticism. Six poorly preserved infant burials were also found, consistent with the broader Colorado River pattern of infant interment in burned rock middens.',
   },
@@ -47416,7 +47418,8 @@ export const moments: Moment[] = [
     verificationLevel: 'documented',
     accuracy: 'general-area',
     kind: 'event',
-    year: 1700,
+    year: -3000,
+    date: 'Archaic through Late Prehistoric periods',
     narrativeContext:
       'This moment synthesizes a broader archaeological pattern across the central Colorado River drainage. The 33 burial sites with reported human remains form a distribution spanning thousands of years of continuous habitation. The presence of European trade goods (glass beads, ceramic beads, metal ornaments) at some sites demonstrates that indigenous communities in the Hill Country interior were connected to coastal and frontier trade networks in the post-contact period (roughly 1600s-1700s onward), well before Spanish missions or Anglo settlement penetrated the region. The year 1700 is an approximation for the post-contact trade period; individual burials at these sites range from deep prehistory to the historic era. The coordinates center the moment in the Hill Country between the Lake Travis and Lake Buchanan areas where the densest cluster of documented sites occurs.',
   },

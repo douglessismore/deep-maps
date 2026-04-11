@@ -461,13 +461,12 @@ export const collections: StoryCollection[] = [
     subtitle: 'Burials, camp sites, and stone tools — what archaeologists keep finding beneath the pavement',
     description: 'Archaeological evidence of the people who lived here long before Austin was imagined.',
     momentIds: [
-      // Lake Travis burials
+      // Prehistoric burials
       'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937', 'colorado-river-burials-reveal-trade-networks',
-      // Project Connect archaeology
-      'coke-bottle-house-41tv2620', 'lavaca-cistern-privy-41tv1374', 'block-15-convention-center-41tv1497',
-      'block-183-hotel-41tv1790', 'austin-state-hospital-archaeology-41tv2562', 'project-connect-precontact-lithics',
-      // Existing indigenous/archaeological Austin moments
-      'mckinney-falls-indigenous', 'tonkawa-camp-republic-square-1830s',
+      // Precontact lithic scatters
+      'project-connect-precontact-lithics',
+      // Existing indigenous/archaeological
+      'mckinney-falls-indigenous',
     ],
     tags: ['archaeology', 'indigenous', 'prehistoric', 'austin'],
   },
