@@ -123,7 +123,19 @@ Stories must have a narrative thread, not just group moments by city + theme.
 - Collections are the appropriate container for thematic groupings, not stories.
 - City-scoped thematic groupings (e.g., "Austin's Deadliest Days", "Seattle's Music Landmarks", "Chicago's Founding Landmarks") must ALWAYS be **collections**, never stories. Stories require causal/narrative links between moments. Collections are the correct container for "things that happened in the same city and share a theme." This is a hard rule, not a suggestion.
 
-### Check 1.15: Entity Biographical Moment Completeness
+### Check 1.15: narrativeContext Quality
+For every moment that has a non-empty `narrativeContext` field:
+- WARNING if narrativeContext is fewer than 50 words (too thin for audio narration)
+- WARNING if narrativeContext exceeds 500 words (too long for a single audio clip)
+- WARNING if narrativeContext contains none of: a street name/address, a cardinal direction (north/south/east/west), or a physical description of what's currently at the location ("now a...", "today this is...", "you'll see...", "currently...", "stands...", "replaced by...")
+- INFO if narrativeContext lacks connective tissue (no reference to related moments, entities, or stories). Check for entity names or story names appearing in the text.
+- INFO if narrativeContext uses third person ("the visitor will see") instead of second person ("you'll see"). Second person is the target voice.
+- INFO if narrativeContext opens with generic historical context ("In the 1800s, Austin was...") instead of a physical anchor ("You're standing in front of...")
+
+For moments in Tier 1 audio collections (Servant Girl Annihilator, Austin Music History, Keep Austin Weird, Haunted Austin, Hidden Beneath Austin) that have EMPTY narrativeContext:
+- WARNING: "Tier 1 audio moment missing narrativeContext — needs content sprint before TTS generation"
+
+### Check 1.15b: Entity Biographical Moment Completeness
 For every person entity, check if they have biographical anchor moments beyond their "famous" moments:
 - INFO if a person entity has moments ONLY at famous/obvious venues (stadiums, racetracks, government buildings) and no biographical moments (birthplace, childhood home, school, workplace, grave)
 - Biographical/obscure location moments are MORE valuable than obvious-venue moments. Standing at a random house knowing someone famous grew up there is a discovery; standing at a racetrack knowing a race happened there is obvious.

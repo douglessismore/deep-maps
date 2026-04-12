@@ -583,7 +583,9 @@ export function ExplorePanel({
   const lastSnappedKeyRef = useRef<string | null>(null);
   const programmaticScrollTimerRef = useRef<number | null>(null);
   useEffect(() => {
-    if (activeTab !== 'moments' || !activeLocationId) return;
+    const isCollectionTab = activeTab === 'collections' && activeCollection != null;
+    if (activeTab !== 'moments' && !isCollectionTab) return;
+    if (!activeLocationId) return;
     const snapKey = `${activeLocationId}#${locationSnapKey ?? 0}`;
     // Allow re-snap during programmatic scroll window: panTo → moveend →
     // viewportLocations re-sorts → cards reorder under scroll position →
@@ -593,22 +595,33 @@ export function ExplorePanel({
     const raf = requestAnimationFrame(() => {
       let foundKey: string | null = null;
       let foundEl: HTMLElement | null = null;
-      // Exact-match the card key. Key format: `${storyId ?? 'no-story'}::${locationId}`.
-      // Uses :: separator (not -) because both storyId and locationId contain dashes.
-      for (const [key, el] of locationCardRefs.current.entries()) {
-        const locId = key.slice(key.indexOf('::') + 2);
-        if (locId === activeLocationId) {
-          foundKey = key;
+
+      if (isCollectionTab) {
+        // Collection cards are keyed by moment.id directly in cardRefs
+        const el = cardRefs.current.get(activeLocationId);
+        if (el) {
+          foundKey = activeLocationId;
           foundEl = el;
-          break;
+        }
+      } else {
+        // Moments tab: exact-match the card key. Key format: `${storyId ?? 'no-story'}::${locationId}`.
+        // Uses :: separator (not -) because both storyId and locationId contain dashes.
+        for (const [key, el] of locationCardRefs.current.entries()) {
+          const locId = key.slice(key.indexOf('::') + 2);
+          if (locId === activeLocationId) {
+            foundKey = key;
+            foundEl = el;
+            break;
+          }
         }
       }
+
       if (foundEl) {
         programmaticScrollRef.current = true;
         foundEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
         lastSnappedKeyRef.current = snapKey;
         // eslint-disable-next-line no-console
-        console.log('[ExplorePanel] auto-scroll snapped', { activeLocationId, locationSnapKey, foundKey });
+        console.log('[ExplorePanel] auto-scroll snapped', { activeLocationId, locationSnapKey, foundKey, tab: activeTab });
         // Reset timer on each snap/re-snap. 1500ms covers mobile smooth scroll
         // duration — 700ms was too short, letting the scroll handler hijack.
         if (programmaticScrollTimerRef.current) clearTimeout(programmaticScrollTimerRef.current);
@@ -621,16 +634,17 @@ export function ExplorePanel({
         console.log('[ExplorePanel] auto-scroll bailed: card not found', {
           activeLocationId,
           locationSnapKey,
-          refCount: locationCardRefs.current.size,
-          sampleKeys: Array.from(locationCardRefs.current.keys()).slice(0, 5),
+          tab: activeTab,
+          refCount: isCollectionTab ? cardRefs.current.size : locationCardRefs.current.size,
+          sampleKeys: Array.from((isCollectionTab ? cardRefs : locationCardRefs).current.keys()).slice(0, 5),
         });
       }
     });
     return () => cancelAnimationFrame(raf);
     // viewportLocations added so effect retries after panTo → moveend →
-    // updateViewport → new card refs.
+    // updateViewport → new card refs. displayMoments added for collection card registration.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeLocationId, activeTab, viewportLocations, locationSnapKey]);
+  }, [activeLocationId, activeTab, activeCollection, viewportLocations, locationSnapKey, displayMoments]);
 
   // Restore scroll position when navigating back
   useEffect(() => {
@@ -775,9 +789,16 @@ export function ExplorePanel({
     return result;
   }, [viewportLocations, searchQuery]);
 
-  // People entities — mixed into Stories tab
+  // People entities — mixed into Stories tab.
+  // Entity browse threshold: hide minor figures (D-tier) from people card browse.
+  // They remain accessible via Dive Deeper pills on moments.
+  // Entity.notability (manual override) takes precedence over maxNotability (derived from moments).
+  const ENTITY_BROWSE_THRESHOLD = 35;
   const personEntities = useMemo(
-    () => viewportEntities.filter((e) => e.entity.type === 'person'),
+    () => viewportEntities.filter((e) =>
+      e.entity.type === 'person' &&
+      (e.entity.notability ?? e.maxNotability ?? 30) >= ENTITY_BROWSE_THRESHOLD
+    ),
     [viewportEntities]
   );
 

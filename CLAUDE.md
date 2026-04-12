@@ -106,10 +106,30 @@ type StoryCategory = 'dark-history' | 'last-stands' | 'discovery-science' |
 // StoryLocation has: id, name, subtitle, description, lat, lng, type, importance,
 //   accuracy, year?, date?, address?, media?, wikiSection?, links?, narrativeContext?
 
-// narrativeContext: Rich background context not rendered in UI. For future AI tour guide.
-//   Written in user-facing-ready voice. Emphasize hyperspecific location details:
-//   what's physically there today, exact addresses, what you'd see standing on the spot.
+// narrativeContext: Rich background context for AI audio narration + future tour guide.
+//   NOT rendered in UI yet. Will be source material for TTS audio clips.
 //   Supabase column: narrative_context (TEXT). Synced via sync-to-supabase.ts.
+//   
+//   STRUCTURE (5 parts, natural paragraph flow, 100-200 words total):
+//   1. Physical anchor (1-2 sentences): What you'd see standing on this exact spot TODAY.
+//      Be absurdly specific: building name, current use, what replaced the original structure.
+//      "You're standing in front of a beige strip mall at 912 Congress Ave. In 1885, this
+//      was the home of Eliza Shelly, the Annihilator's sixth victim."
+//   2. What happened (2-4 sentences): The event with narrative tension. Human moment, not
+//      Wikipedia summary. Sensory details when sources support them.
+//   3. Connective tissue (1-2 sentences): How this links to other moments/entities/stories.
+//      "The detective who investigated this murder also handled the Treaty Oak poisoning."
+//   4. Hyperspecific location detail (1-2 sentences): Exact address, cardinal direction,
+//      which side of the street, what's across the road, how to find the exact spot.
+//   5. Hook (1 sentence, optional): Surprising fact or unanswered question that pulls you
+//      to the next moment. "Nobody was ever charged. The murders just... stopped."
+//   
+//   VOICE: Conversational second person ("you're standing where..."). Knowledgeable friend,
+//   not encyclopedia. NOT: generic historical context, birth/death dates unless relevant,
+//   citations, textbook tone.
+//   
+//   VALIDATOR: narrativeContext must be 50-500 words. Must contain at least one of:
+//   address/street name, cardinal direction, or physical description of current state.
 
 // StoryCollection has: id, name, subtitle, description, icon (emoji), storyIds[],
 //   featuredLocationIds?, tags[]
@@ -192,3 +212,23 @@ The auto-navigate (600ms after landing) and label click both pass this snapshot 
 **Key architectural pattern:** Leaflet markers created outside React effects (e.g., in map
 event handlers like `moveend`) are invisible to React's cleanup lifecycle. Always pair
 such markers with a nuclear cleanup effect that runs on unmount.
+
+## Skill routing
+
+When the user's request matches an available skill, ALWAYS invoke it using the Skill
+tool as your FIRST action. Do NOT answer directly, do NOT use other tools first.
+The skill has specialized workflows that produce better results than ad-hoc answers.
+
+Key routing rules:
+- Product ideas, "is this worth building", brainstorming -> invoke office-hours
+- Bugs, errors, "why is this broken", 500 errors -> invoke investigate
+- Ship, deploy, push, create PR -> invoke ship
+- QA, test the site, find bugs -> invoke qa
+- Code review, check my diff -> invoke review
+- Update docs after shipping -> invoke document-release
+- Weekly retro -> invoke retro
+- Design system, brand -> invoke design-consultation
+- Visual audit, design polish -> invoke design-review
+- Architecture review -> invoke plan-eng-review
+- Save progress, checkpoint, resume -> invoke checkpoint
+- Code quality, health check -> invoke health
