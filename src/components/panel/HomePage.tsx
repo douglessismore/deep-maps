@@ -584,12 +584,12 @@ function HomeCollectionCard({
           />
         </div>
       )}
-      <div className="p-3 flex flex-col justify-between overflow-hidden" style={{ height: imageUrl ? '90px' : '100px' }}>
-        <div className="min-w-0 min-h-0 overflow-hidden">
+      <div className="p-3 flex flex-col justify-between overflow-hidden" style={{ height: imageUrl ? '100px' : '130px' }}>
+        <div className="min-w-0 min-h-0 overflow-hidden flex-1">
           <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {collection.name}
           </h3>
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-1">
+          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
             {collection.subtitle}
           </p>
         </div>
