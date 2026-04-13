@@ -4138,6 +4138,7 @@ export const entities: Entity[] = [
     description: 'The father of modern American conservatism and five-term Arizona senator. A department-store heir who flew 163 different aircraft, set up one of Arizona\'s first radio transmitters at age 13, and spent his final years advocating for gay rights and marijuana legalization.',
     canonicalStoryId: 'barry-goldwater-life',
     wikipediaSlug: 'Barry_Goldwater',
+    notability: 10,
   },
   {
     id: 'gertrude-stein',
@@ -5531,14 +5532,6 @@ export const entities: Entity[] = [
     wikipediaSlug: 'Camp_Mabry',
   },
   {
-    id: 'william-p-maben',
-    name: 'William P. Maben',
-    type: 'person',
-    years: '~1816–?',
-    description:
-      'A Virginia-born slaveholder who owned 27 enslaved people on a 200-acre plantation adjacent to Edgemont, on land that became the northern half of Camp Mabry. His oldest son died serving in the Confederate army in 1862. After the war destroyed his fortune, Maben sold everything and disappears from the record.',
-  },
-  {
     id: 'george-duncan-hancock',
     name: 'George Duncan Hancock',
     type: 'person',
@@ -5546,14 +5539,6 @@ export const entities: Entity[] = [
     description:
       'A San Jacinto veteran, Austin merchant, and land speculator who accumulated vast real estate holdings in Travis County. Fought at San Jacinto in 1836, opened a store in downtown Austin in 1845. A committed Unionist who closed his business during the Civil War but kept buying land. His son Lewis became mayor of Austin.',
     wikipediaSlug: 'George_Duncan_Hancock',
-  },
-  {
-    id: 'charles-w-deison',
-    name: 'Charles W. Deison',
-    type: 'person',
-    years: '~1819–~1890',
-    description:
-      'A Virginia-born limemaker who worked at the Edgemont plantation in 1860 and later built "Deison\'s Chapel" near Camp Mabry. After the Civil War he scraped together 35 acres and in 1885 bought 253 acres of the old Maben tract. His son Clint became locally famous for using mule teams to pull up Austin\'s old trolley tracks.',
   },
   {
     id: 'camp-mabry-place',
@@ -5614,5 +5599,55 @@ export const entities: Entity[] = [
       'A natural sink pool north of Dripping Springs where a creek drops 30 feet into a horseshoe-shaped basin on the Pedernales River. Named for a horseman who allegedly drowned here. Resembles Hamilton Pool. On private land but frequently visited by swimmers.',
     canonicalStoryId: 'dead-mans-holes-central-texas',
     wikipediaSlug: 'Hays_County,_Texas',
+  },
+
+  // ========== BATCH 5: Roosevelt Austin Visit + Shoal Creek ==========
+  {
+    id: 's-w-t-lanham',
+    name: 'S.W.T. Lanham',
+    type: 'person',
+    years: '1846–1908',
+    description:
+      'The last Confederate veteran to serve as Governor of Texas (1903–1907). Greeted Roosevelt at the Austin train depot and rode in the presidential carriage up Congress Avenue.',
+    wikipediaSlug: 'S._W._T._Lanham',
+  },
+  {
+    id: 'george-armstrong-custer',
+    name: 'George Armstrong Custer',
+    type: 'person',
+    years: '1839–1876',
+    description:
+      'Civil War cavalry hero turned frontier commander, famously killed at Little Bighorn. Used the Neill-Cochran House in Austin as his Union Army headquarters during Reconstruction, and climbed Mount Bonnell during his Texas posting.',
+    wikipediaSlug: 'George_Armstrong_Custer',
+  },
+  {
+    id: 'clara-driscoll',
+    name: 'Clara Driscoll',
+    type: 'person',
+    years: '1881–1945',
+    description:
+      'Texas businesswoman and preservationist who saved the Alamo at age 18 with $70,000 of her own money. Built Laguna Gloria mansion in Austin on a site Stephen F. Austin chose for himself, then donated it as an art gallery.',
+    wikipediaSlug: 'Clara_Driscoll_(philanthropist)',
+  },
+  {
+    id: 'west-sixth-street-bridge',
+    name: 'West Sixth Street Bridge',
+    type: 'place',
+    years: '1887–present',
+    description:
+      'Austin\'s oldest masonry arch bridge, hand-built from local limestone in 1887. Predates the Capitol building. Listed on the National Register of Historic Places in 2014.',
+    wikipediaSlug: 'West_Sixth_Street_Bridge',
+  },
+
+  // ========== BATCH 5b: Sweatt v. Painter ==========
+  {
+    id: 'heman-sweatt',
+    name: 'Heman Marion Sweatt',
+    type: 'person',
+    years: '1912–1982',
+    description:
+      'Houston mail carrier who became a civil rights pioneer by refusing to accept a basement law school. His Supreme Court case cracked segregation in higher education four years before Brown v. Board.',
+    canonicalStoryId: 'sweatt-v-painter',
+    wikipediaSlug: 'Heman_Marion_Sweatt',
   },
 ];

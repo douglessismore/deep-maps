@@ -985,7 +985,7 @@ export const stories: Story[] = [
     description: 'Teddy Roosevelt recruited the "Rough Riders" in the bar of this hotel, allegedly buying them enough whiskey to convince them to charge up San Juan Hill. Patrons still report seeing a man in a Victorian uniform sitting in the corner.',
     tags: ['san-antonio', 'history', 'military', 'paranormal', 'haunted'],
     moments: [{ momentId: 'men-rough-riders-bar', isPrimary: true }, { momentId: 'menger-hotel-opening' }, { momentId: 'menger-sallie-white' }],
-    relatedStoryIds: ['battle-of-the-alamo'],
+    relatedStoryIds: ['battle-of-the-alamo', 'roosevelt-austin-visit-1905'],
     wikipediaSlug: 'Menger_Hotel',
   },
   {
@@ -3849,7 +3849,7 @@ export const stories: Story[] = [
     storyType: 'incident',
     description: 'A 13-day siege that became a global symbol of heroic resistance. A small band of Texian defenders held out against thousands of Mexican troops, creating a rallying cry that birthed a Republic.',
     tags: ['texas-revolution', 'san-antonio', 'frontier', 'military-history'],
-    moments: [{ momentId: 'ala-shrine' }, { momentId: 'ala-long-barrack' }, { momentId: 'ala-san-fernando' }],
+    moments: [{ momentId: 'ala-shrine' }, { momentId: 'ala-long-barrack' }, { momentId: 'ala-san-fernando' }, { momentId: 'clara-driscoll-saves-alamo-laguna-gloria', narrativeGlue: 'Seventy years after the battle, a teenager spent her fortune to save the building.' }],
     wikipediaSlug: 'Battle_of_the_Alamo',
   },
   {
@@ -4462,7 +4462,7 @@ export const stories: Story[] = [
     storyType: 'incident',
     description: 'An innkeeper named Angelina Eberly fired a six-pound cannon at the General Land Office to stop the secret, middle-of-the-night removal of the Republic of Texas archives. Her actions prevented President Sam Houston from moving the capital back to Houston.',
     tags: ['austin', 'history', 'revolution', 'sam-houston', 'archives'],
-    moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }],
+    moments: [{ momentId: 'archive-war-land-office' }, { momentId: 'archive-war-cannon-site' }, { momentId: 'french-legation-built-1841', narrativeGlue: 'France had just built a diplomatic outpost in Austin when the capital moved to Houston \u2014 making the building obsolete before it was ever used.' }],
     relatedStoryIds: ['battle-of-the-alamo'],
     wikipediaSlug: 'Texas_Archive_War',
   },
@@ -4571,7 +4571,8 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: '',
     tags: [],
-    moments: [{ momentId: 'men-rough-riders-bar' }, { momentId: 'theodore-roosevelt-burial' }],
+    moments: [{ momentId: 'men-rough-riders-bar' }, { momentId: 'btw-white-house-dinner' }, { momentId: 'roosevelt-tx-legislature-speech-1905' }, { momentId: 'theodore-roosevelt-burial' }],
+    relatedStoryIds: ['roosevelt-austin-visit-1905', 'menger-hotel-rough-riders'],
     wikipediaSlug: 'Theodore_Roosevelt',
   },
   {
@@ -5627,7 +5628,7 @@ export const stories: Story[] = [
     description: 'Frank Lloyd Wright spends two decades building and rebuilding his Scottsdale compound with desert masonry mixed from local rock. Canvas roofs filter the light. Now a UNESCO World Heritage Site.',
     tags: ['architecture', 'scottsdale', 'frank-lloyd-wright', 'unesco'],
     moments: [{ momentId: 'phx-taliesin-west' }],
-    relatedStoryIds: ['barry-goldwater-life', 'frank-lloyd-wright-biography'],
+    relatedStoryIds: ['frank-lloyd-wright-biography'],
     wikipediaSlug: 'Taliesin_West',
   },
   {
@@ -6826,7 +6827,7 @@ export const stories: Story[] = [
     description: 'Black students are turned away from a skating rink and stage swim-ins at Austin\'s most popular pool. The city quietly desegregates Barton Springs without announcement, avoiding the violent confrontations of other Southern cities.',
     tags: ['civil-rights', 'desegregation', 'austin', 'barton-springs', '1960s'],
     moments: [{ momentId: 'ice-palace-refusal-1962' }, { momentId: 'barton-springs-swim-ins-1963', isPrimary: true }],
-    relatedStoryIds: ['clarksville-freedmens-town', 'capital-city-klan-81'],
+    relatedStoryIds: ['clarksville-freedmens-town', 'capital-city-klan-81', 'sweatt-v-painter'],
     wikipediaSlug: 'Barton_Springs_Pool',
   },
   {
@@ -8086,21 +8087,9 @@ export const stories: Story[] = [
         narrativeGlue: 'In 1855, a planter from Brazoria County chose a bluff overlooking the Colorado River to build his empire.',
       },
       {
-        momentId: 'maben-purchases-adjacent-tract-1855',
-        narrativeGlue: 'Next door, his associate claimed the northern half of the same land.',
-      },
-      {
         momentId: 'townes-wife-dies-confederacy-falls-1864',
         isPrimary: true,
         narrativeGlue: 'Then the war came, and everything they built collapsed in eighteen months.',
-      },
-      {
-        momentId: 'hancock-buys-maben-land-1865',
-        narrativeGlue: 'A San Jacinto veteran bought the wreckage at postwar prices.',
-      },
-      {
-        momentId: 'deison-chapel-built-1878',
-        narrativeGlue: 'The plantation\'s former limemaker was the only one who stayed.',
       },
       {
         momentId: 'texas-guard-acquires-camp-mabry-1892',
@@ -8166,5 +8155,47 @@ export const stories: Story[] = [
     ],
     relatedStoryIds: ['dallas-fire-1860', 'clarksville-freedmens-town', 'texas-state-cemetery'],
     wikipediaSlug: 'Dead_Man%27s_Hole',
+  },
+
+  // ========== BATCH 5: Roosevelt 1905 Austin Visit ==========
+  {
+    id: 'roosevelt-austin-visit-1905',
+    name: 'Three Hours in Austin: Teddy Roosevelt\'s 1905 Whirlwind Tour',
+    nickname: 'The President Comes to Austin',
+    years: '1905',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      'On April 6, 1905, President Theodore Roosevelt arrived by train at 2 PM and left at 5:05 PM — three hours to parade up Congress Avenue, address the Texas Legislature, speak at UT, detour through the state asylum, and shake every hand within reach. The Statesman called it a day that will live in history. Organizer S.E. Rosengren ran the entire visit within one minute of schedule.',
+    tags: ['austin', 'presidents', 'teddy-roosevelt', 'congress-avenue', 'texas-capitol', 'ut-austin', 'political-history', '1905'],
+    moments: [
+      { momentId: 'roosevelt-train-arrives-austin-1905', isPrimary: true, narrativeGlue: 'It was his first visit to Austin, and the city had been preparing for weeks.' },
+      { momentId: 'roosevelt-congress-ave-parade-1905', narrativeGlue: 'The Avenue was torn up for paving, but nobody cared.' },
+      { momentId: 'roosevelt-tx-legislature-speech-1905', narrativeGlue: 'In the House chamber, Roosevelt delivered his "doctrine of the square deal."' },
+      { momentId: 'roosevelt-ut-campus-speech-1905', narrativeGlue: 'Then the procession wound north to the University.' },
+      { momentId: 'roosevelt-state-asylum-detour-1905', narrativeGlue: 'With 25 spare minutes, the organizer improvised a detour nobody expected.' },
+    ],
+    relatedStoryIds: ['menger-hotel-rough-riders', 'theodore-roosevelt-biography'],
+  },
+
+  // ========== BATCH 5b: Sweatt v. Painter ==========
+  {
+    id: 'sweatt-v-painter',
+    name: 'Sweatt v. Painter: The Basement School That Broke Segregation',
+    nickname: 'The Case That Cracked Jim Crow at UT',
+    years: '1946–1950',
+    category: 'political-drama',
+    storyType: 'incident',
+    description:
+      'When Houston mail carrier Heman Sweatt applied to UT Law in 1946, Texas built an entire fake law school in a basement rather than let a Black man sit in a white classroom. The NAACP took the case to the Supreme Court, where Thurgood Marshall argued that no separate school could ever be equal. The Court agreed unanimously in 1950, gutting "separate but equal" in higher education and laying the groundwork for Brown v. Board four years later.',
+    tags: ['austin', 'civil-rights', 'ut-austin', 'supreme-court', 'desegregation', 'naacp', 'thurgood-marshall', '1950s'],
+    contentWarning: 'Descriptions of racial segregation and institutional racism.',
+    moments: [
+      { momentId: 'sweatt-applies-ut-law-1946', isPrimary: true, narrativeGlue: 'The NAACP had been looking for the perfect plaintiff. They found him in Houston.' },
+      { momentId: 'sweatt-basement-school-1947', narrativeGlue: 'Rather than integrate, Texas built a law school that was separate and laughably unequal.' },
+      { momentId: 'sweatt-v-painter-supreme-court-1950', narrativeGlue: 'Thurgood Marshall took the case all the way to Washington.' },
+    ],
+    relatedStoryIds: ['barton-springs-desegregation'],
+    wikipediaSlug: 'Sweatt_v._Painter',
   },
 ];

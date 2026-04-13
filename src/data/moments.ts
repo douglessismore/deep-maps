@@ -42309,7 +42309,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     kind: 'milestone',
     year: 1949,
-    entityIds: ['barry-goldwater'],
+    entityIds: [],
   },
   {
     id: 'sea-psns-established',
@@ -43018,7 +43018,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     kind: 'presence',
     year: 1994,
-    entityIds: ['barry-goldwater'],
+    entityIds: [],
   },
   {
     id: 'sea-wto-protests',
