@@ -1,8 +1,8 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-04-12 (Session 35 — Office hours monetization strategy + audio content sprint)
+**Last updated:** 2026-04-12 (Session 35 — Audio playback MVP shipped + monetization strategy)
 **Branch:** `main`
-**Latest commit:** Uncommitted — 5 new collections, 31 narrativeContext fields, collection scroll fix, CLAUDE.md updates
+**Latest commit:** `810298d` — Audio badge on homepage cards
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** https://deepmaps.app
 
@@ -13,46 +13,63 @@
 **Monetization Strategy (Office Hours)**
 - Ran /office-hours in startup mode. Approved design doc: `~/.gstack/projects/douglessismore-deep-maps/sirdouglas-main-design-20260411-223526.md`
 - **Plan: Phase A ($2 audio test) then Phase B (freemium $20/yr)**
-- Phase A: Pre-generate TTS for 30-50 Austin moments, add play button to LocationCard, $2 Stripe gate after 5 free plays, test with strangers via Reddit + in-person at Austin Visitor Center
 - Key finding: Le Walk ($4.1M seed), Odisea (free AI audio), Herodot are all doing AI audio tours. "AI audio" is table stakes. Deep Maps differentiates on entity graph + hyper-precise coordinates + content depth.
-- Tours are NOT a separate data type — collections become tours when user is physically there. Future: `orderedLocationIds` field for narrative-arc ordering.
+- Tours are NOT a separate data type — collections become tours when user is physically there.
+
+**Audio Playback MVP — SHIPPED AND LIVE**
+- `audioUrl` field on Moment type
+- `audioPlayer.ts`: singleton HTML5 audio manager, one-at-a-time playback, localStorage gate (5 free plays, then $2 paywall), Plausible event tracking
+- `AudioGateModal`: $2 Stripe Payment Link + email waitlist capture
+- `/audio-unlocked` route: post-payment redirect sets localStorage unlock
+- Play/pause button on LocationCard (compact + normal views)
+- **118 moments with TTS audio** (OpenAI nova voice, 1.1x speed, $1.37 total API cost)
+- TTS preprocessing: abbreviation expansion (W→West, St→Street, etc.)
+- `generate-tts.ts`: batch TTS generation with rate limiting
+- `upload-audio.ts`: Supabase Storage upload + audioUrl patching
+- Audio badge (🎵 Audio) on homepage WhatsHereStoryCard, ExplorePanel StoryCard, and CollectionCard
 
 **Bug Fix: Collection marker click scroll**
-- Root cause: auto-scroll effect in ExplorePanel only fired on `activeTab === 'moments'`, but collection view sets tab to `'collections'`. Also, collection cards use `cardRefs` (keyed by moment.id) not `locationCardRefs` (keyed by storyId::locationId).
-- Fix: Extended auto-scroll effect to also run for collections tab, looking up cards in `cardRefs`.
+- Root cause: auto-scroll effect only fired on moments tab, but collection view uses collections tab with separate `cardRefs` map.
+- Fix: Extended auto-scroll effect for collections tab.
 
-**5 New Collections Created:**
-1. **Servant Girl Annihilator Trail** (10 moments) — 1884-1885 serial killer, moonlight towers
-2. **Austin Music History** (21 moments) — Continental Club, Threadgill's, Broken Spoke, Armadillo, ACL, SRV, Janis, Willie
-3. **Keep Austin Weird** (12 moments) — Treaty Oak poisoning, moonlight towers, Dazed & Confused, Dell dorm room, Eeyore's
-4. **Hidden Beneath Austin** (9 moments) — Ice Age fossils, buried houses, cisterns, stone tools, Pilot Knob volcano
-5. **Haunted Austin** (5 moments) — Driskill Hotel ghosts, Annihilator overlap. Thin — needs research for The Tavern, more locations.
+**5 New Collections:**
+1. **Servant Girl Annihilator Trail** (10 moments) — verified coords against Google My Maps KML source
+2. **Austin Music History** (21 moments)
+3. **Keep Austin Weird** (12 moments)
+4. **Hidden Beneath Austin** (9 moments)
+5. **Haunted Austin** (5 moments, thin — needs research)
 
-**narrativeContext Content Sprint:**
-- 31 moments now have rich narrativeContext (10 Annihilator + 21 Music History)
-- 118 total moments with narrativeContext across the codebase
-- All follow the 5-part spec: physical anchor, what happened, connective tissue, hyperspecific location, hook
-- narrativeContext spec added to CLAUDE.md Data Model section
-- Validator skill updated with Check 1.15 for narrativeContext quality
+**Content Sprint:**
+- 118 moments with narrativeContext (Annihilator, Music, plus 87 from prior sessions)
+- narrativeContext 5-part spec added to CLAUDE.md
+- Validator Check 1.15 for narrativeContext quality
 
-**CLAUDE.md Updates:**
-- narrativeContext 5-part spec added to Data Model section
-- Skill routing rules added (office-hours, investigate, ship, qa, review, etc.)
+**Data Integrity Fixes:**
+- Annihilator coords verified against KML source (6/7 within 20m, christmas-massacre fixed)
+- Exact street addresses added from KML (302 East Cypress, 302 East Linden, 300 East Cedar, etc.)
+- 3 false "exact" accuracy tags downgraded to general-area/approximate
+- 446 geoVerified flags restored from Supabase (sync was clobbering them)
+- Sync script fixed to not overwrite geo_verified=true with null
+- Supabase `audio_url` column added, loader updated to read it
+- Duplicate Boeing moment deleted (sea-boeing-red-barn)
+- Duplicate Vietnam moratorium moment renamed
+- Barry Goldwater hidden from frontend (entity links removed, notability below threshold)
 
 ### Key Decisions (and WHY)
-- **Audio is the delivery medium, not the moat:** Le Walk/Odisea proved AI audio tours are table stakes. The moat is content depth + entity graph + hyper-precise coordinates.
-- **Serendipitous mode is the north star, not the first feature:** Always-on AI guide activated by location is the 10-star product, but it requires GPS, real-time generation, and months of work. Start with audio on cards.
-- **Collections, not tours:** Tours are a UI mode, not a data type. Don't create "tour" dupes of existing collections. Existing `StoryCollection` works; future `orderedLocationIds` field handles narrative ordering.
-- **Phase A before Phase B:** $2 audio test with strangers this weekend before building full freemium. Even $10 from strangers is more valuable than a beautiful product nobody pays for.
-- **Annihilator Trail is the lead Reddit post:** 10 mapped murder sites, moonlight towers still standing, r/TrueCrime gold.
+- **Audio is the delivery medium, not the moat:** Le Walk/Odisea proved AI audio tours are table stakes.
+- **Serendipitous mode is the north star, not the first feature.**
+- **Collections, not tours:** Tours are a UI mode, not a data type.
+- **Phase A before Phase B:** $2 audio test with strangers before building full freemium.
+- **OpenAI TTS over ElevenLabs:** $0.35 for 31 moments vs $5+/month. ElevenLabs has better voice quality but OpenAI scales to all 2,679 moments for ~$30.
+- **narrativeContext as standalone clips:** Each moment works standalone. "Killer was never caught" only in final Annihilator moment. Story intro on first moment only is a Phase B feature.
 
 ### Next Steps (in order)
-1. **Sync to Supabase** — new collections + narrativeContext need to be synced
-2. **Phase A prep:** Set up Plausible analytics + Stripe $2 Payment Link
-3. **Build audio player:** `audioUrl` field on Moment type, play button on LocationCard, localStorage gate
-4. **Generate TTS:** Run 31 narrativeContext fields through OpenAI TTS, host MP3s on Supabase Storage
-5. **Test:** Reddit post (r/Austin, r/TrueCrime) + in-person at Austin Visitor Center
-6. **Content expansion:** Write narrativeContext for Keep Austin Weird + Hidden Beneath moments
+1. **Set up Stripe Payment Link** — create in Stripe Dashboard, update `STRIPE_PAYMENT_LINK` constant in AudioGateModal.tsx, set return URL to `https://deepmaps.app/audio-unlocked`
+2. **Test with strangers** — Reddit (r/Austin, r/TrueCrime) for demand signal + in-person (Austin Visitor Center, Del Valle neighborhood Facebook) for experience observation
+3. **Content expansion** — Write narrativeContext + generate TTS for Keep Austin Weird, Hidden Beneath, and remaining Austin moments
+4. **New collections from AI council brainstorm** — Guy Town (red-light district), Austin's Secret Missiles, Shoal Creek Treasure Hunt are top priorities (see CONTENT-IDEAS.md)
+5. **Story intro audio** — Play story context overview on first moment only, track `Set<storyId>` of played intros
+6. **More prominent moment count on cards** — Make it clearer that clicking opens a deep dive
 
 ### Previous Session Context (Session 34)
 
