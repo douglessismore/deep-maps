@@ -8,9 +8,10 @@ interface StoryCardProps {
   onClick: (story: Story) => void;
   compact?: boolean;
   distanceMi?: number; // Distance in miles from user location
+  hasAudio?: boolean; // At least one moment in this story has audioUrl
 }
 
-export function StoryCard({ story, onClick, compact = false, distanceMi }: StoryCardProps) {
+export function StoryCard({ story, onClick, compact = false, distanceMi, hasAudio }: StoryCardProps) {
   const cat = CATEGORIES[story.category];
   const locationCount = story.moments.length;
   const v2 = isV2();
@@ -100,6 +101,12 @@ export function StoryCard({ story, onClick, compact = false, distanceMi }: Story
                     : distanceMi < 100
                     ? `${Math.round(distanceMi)} mi`
                     : `${Math.round(distanceMi).toLocaleString()} mi`}
+                </span>
+              )}
+              {hasAudio && (
+                <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                  Audio
                 </span>
               )}
               <span className="text-[10px] text-[var(--text-muted)] font-mono">

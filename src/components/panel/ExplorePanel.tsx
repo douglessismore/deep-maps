@@ -1425,6 +1425,10 @@ export function ExplorePanel({
                 </p>
                 {viewportCollections.map((collection) => {
                   const momentCount = collection.momentIds.length;
+                  const collHasAudio = collection.momentIds.some(mid => {
+                    const m = momentMap.get(mid);
+                    return m?.audioUrl;
+                  });
                   return (
                     <div
                       key={collection.id}
@@ -1440,6 +1444,7 @@ export function ExplorePanel({
                         collection={collection}
                         momentCount={momentCount}
                         onClick={onCollectionSelect}
+                        hasAudio={collHasAudio}
                       />
                     </div>
                   );
@@ -1538,6 +1543,10 @@ export function ExplorePanel({
                             ? nearestDistance(item.story, userLocation.lat, userLocation.lng, momentMap)
                             : undefined
                         }
+                        hasAudio={item.story.moments.some(sm => {
+                          const m = momentMap.get(sm.momentId);
+                          return m?.audioUrl;
+                        })}
                       />
                     </div>
                   );

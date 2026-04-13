@@ -5,9 +5,10 @@ interface CollectionCardProps {
   collection: StoryCollection;
   momentCount: number;
   onClick: (collection: StoryCollection) => void;
+  hasAudio?: boolean;
 }
 
-export function CollectionCard({ collection, momentCount, onClick }: CollectionCardProps) {
+export function CollectionCard({ collection, momentCount, onClick, hasAudio }: CollectionCardProps) {
   const v2 = isV2();
 
   return (
@@ -41,6 +42,12 @@ export function CollectionCard({ collection, momentCount, onClick }: CollectionC
 
       {/* Stats row */}
       <div className={v2 ? 'flex items-center gap-3 mt-3' : 'flex items-center gap-3 mt-2.5'}>
+        {hasAudio && (
+          <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            Audio
+          </span>
+        )}
         <span className={v2
           ? 'text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider'
           : 'text-[10px] font-mono text-[var(--text-muted)]'
