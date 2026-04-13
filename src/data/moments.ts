@@ -45683,7 +45683,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1978,
     address: '300 W 21st St, Austin, TX 78712',
-    entityIds: ['johannes-gutenberg'],
+    entityIds: [],
   },
   {
     id: 'eeyores-birthday-party-1963',
