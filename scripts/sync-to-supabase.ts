@@ -2,8 +2,8 @@
  * Safe ongoing sync: push static TypeScript content → Supabase.
  *
  * Rules:
- * - UPSERT only — NEVER deletes anything
- * - Preserves Supabase-only columns (notability, source, source_id, review_status)
+ * - UPSERT for all tables + DELETE stale rows from join tables
+ * - Preserves Supabase-only columns (source, source_id, review_status)
  * - Skips community verification tables (location_suggestions, suggestion_votes, etc.)
  * - Logs every change for audit trail
  * - Use --dry-run to preview changes
@@ -67,6 +67,10 @@ const stats = {
   collectionsUpserted: 0,
   collectionMomentsUpserted: 0,
   momentTypesCreated: 0,
+  staleMomentEntitiesDeleted: 0,
+  staleStoryMomentsDeleted: 0,
+  staleCollectionMomentsDeleted: 0,
+  staleRelatedStoriesDeleted: 0,
   errors: 0,
 };
 
@@ -100,8 +104,8 @@ async function syncEntities() {
   console.log('\n--- ENTITIES ---');
   for (const e of entities) {
     if (!DRY_RUN) {
-      // UPSERT: insert if new, update name/type/years/description/wikipedia_slug
-      // Does NOT touch: notability, source, source_id, review_status (Supabase-only)
+      // UPSERT: insert if new, update name/type/years/description/wikipedia_slug/notability
+      // Does NOT touch: source, source_id, review_status (Supabase-only)
       const { error } = await supabase.from('entities').upsert(
         {
           id: e.id,
@@ -110,6 +114,7 @@ async function syncEntities() {
           years: e.years ?? null,
           description: cleanStr(e.description) || null,
           wikipedia_slug: e.wikipediaSlug ?? null,
+          notability: e.notability ?? null,
           // canonical_story_id handled separately after stories
         },
         { onConflict: 'id' },
@@ -341,6 +346,104 @@ async function syncCollections() {
   console.log(`  ${stats.collectionsUpserted} collections, ${stats.collectionMomentsUpserted} collection_moments upserted`);
 }
 
+// ─── STALE LINK CLEANUP ─────────────────────────────────────────────
+
+async function cleanupStaleLinks() {
+  console.log('\n--- STALE LINK CLEANUP ---');
+
+  // 1. moment_entities
+  const expectedME = new Set<string>();
+  for (const m of moments) {
+    for (const eid of (m.entityIds ?? [])) {
+      expectedME.add(`${m.id}::${eid}`);
+    }
+  }
+  const dbME = await fetchAll<{ moment_id: string; entity_id: string }>('moment_entities', 'moment_id, entity_id');
+  const staleME = dbME.filter(row => !expectedME.has(`${row.moment_id}::${row.entity_id}`));
+  if (staleME.length > 0) {
+    for (const stale of staleME) {
+      console.log(`  DELETE moment_entities: ${stale.moment_id} ↔ ${stale.entity_id}`);
+      if (!DRY_RUN) {
+        const { error } = await supabase.from('moment_entities').delete()
+          .eq('moment_id', stale.moment_id)
+          .eq('entity_id', stale.entity_id);
+        if (error) { console.error(`    ERROR: ${error.message}`); stats.errors++; }
+      }
+    }
+  }
+  stats.staleMomentEntitiesDeleted = staleME.length;
+  console.log(`  ${staleME.length} stale moment_entities ${DRY_RUN ? 'would be' : ''} deleted`);
+
+  // 2. story_moments
+  const expectedSM = new Set<string>();
+  for (const s of stories) {
+    for (const sm of s.moments) {
+      expectedSM.add(`${s.id}::${sm.momentId}`);
+    }
+  }
+  const dbSM = await fetchAll<{ story_id: string; moment_id: string }>('story_moments', 'story_id, moment_id');
+  const staleSM = dbSM.filter(row => !expectedSM.has(`${row.story_id}::${row.moment_id}`));
+  if (staleSM.length > 0) {
+    for (const stale of staleSM) {
+      console.log(`  DELETE story_moments: ${stale.story_id} ↔ ${stale.moment_id}`);
+      if (!DRY_RUN) {
+        const { error } = await supabase.from('story_moments').delete()
+          .eq('story_id', stale.story_id)
+          .eq('moment_id', stale.moment_id);
+        if (error) { console.error(`    ERROR: ${error.message}`); stats.errors++; }
+      }
+    }
+  }
+  stats.staleStoryMomentsDeleted = staleSM.length;
+  console.log(`  ${staleSM.length} stale story_moments ${DRY_RUN ? 'would be' : ''} deleted`);
+
+  // 3. collection_moments
+  const expectedCM = new Set<string>();
+  for (const c of collections) {
+    for (const mid of c.momentIds) {
+      expectedCM.add(`${c.id}::${mid}`);
+    }
+  }
+  const dbCM = await fetchAll<{ collection_id: string; moment_id: string }>('collection_moments', 'collection_id, moment_id');
+  const staleCM = dbCM.filter(row => !expectedCM.has(`${row.collection_id}::${row.moment_id}`));
+  if (staleCM.length > 0) {
+    for (const stale of staleCM) {
+      console.log(`  DELETE collection_moments: ${stale.collection_id} ↔ ${stale.moment_id}`);
+      if (!DRY_RUN) {
+        const { error } = await supabase.from('collection_moments').delete()
+          .eq('collection_id', stale.collection_id)
+          .eq('moment_id', stale.moment_id);
+        if (error) { console.error(`    ERROR: ${error.message}`); stats.errors++; }
+      }
+    }
+  }
+  stats.staleCollectionMomentsDeleted = staleCM.length;
+  console.log(`  ${staleCM.length} stale collection_moments ${DRY_RUN ? 'would be' : ''} deleted`);
+
+  // 4. related_stories
+  const expectedRS = new Set<string>();
+  for (const s of stories) {
+    for (const relId of (s.relatedStoryIds ?? [])) {
+      expectedRS.add(`${s.id}::${relId}`);
+    }
+  }
+  const dbRS = await fetchAll<{ story_id: string; related_story_id: string }>('related_stories', 'story_id, related_story_id');
+  const staleRS = dbRS.filter(row => !expectedRS.has(`${row.story_id}::${row.related_story_id}`));
+  if (staleRS.length > 0) {
+    for (const stale of staleRS) {
+      console.log(`  DELETE related_stories: ${stale.story_id} ↔ ${stale.related_story_id}`);
+      if (!DRY_RUN) {
+        const { error } = await supabase.from('related_stories').delete()
+          .eq('story_id', stale.story_id)
+          .eq('related_story_id', stale.related_story_id);
+        if (error) { console.error(`    ERROR: ${error.message}`); stats.errors++; }
+      }
+    }
+  }
+  stats.staleRelatedStoriesDeleted = staleRS.length;
+  console.log(`  ${staleRS.length} stale related_stories ${DRY_RUN ? 'would be' : ''} deleted`);
+}
+
 // ─── CANONICAL_STORY_ID ─────────────────────────────────────────────
 
 async function syncCanonicalStoryIds() {
@@ -371,7 +474,7 @@ async function main() {
 
   await loadTypes();
 
-  // Order matters: entities → moments → stories → links → collections
+  // Order matters: entities → moments → stories → links → collections → cleanup
   await syncEntities();
   await syncMoments();
   await syncStories();
@@ -380,6 +483,7 @@ async function main() {
   await syncRelatedStories();
   await syncCollections();
   await syncCanonicalStoryIds();
+  await cleanupStaleLinks();
 
   console.log(`\n${'═'.repeat(60)}`);
   console.log(`  RESULTS ${DRY_RUN ? '(DRY RUN — nothing written)' : ''}`);
@@ -392,6 +496,11 @@ async function main() {
   console.log(`  Collections:        ${stats.collectionsUpserted}`);
   console.log(`  Collection-Moments: ${stats.collectionMomentsUpserted}`);
   console.log(`  Moment types:       ${stats.momentTypesCreated}`);
+  console.log(`  ── Stale deletions ──`);
+  console.log(`  Stale moment_entities:    ${stats.staleMomentEntitiesDeleted}`);
+  console.log(`  Stale story_moments:      ${stats.staleStoryMomentsDeleted}`);
+  console.log(`  Stale collection_moments: ${stats.staleCollectionMomentsDeleted}`);
+  console.log(`  Stale related_stories:    ${stats.staleRelatedStoriesDeleted}`);
   console.log(`  Errors:             ${stats.errors}`);
   console.log(`${'═'.repeat(60)}\n`);
 
