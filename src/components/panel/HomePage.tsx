@@ -584,16 +584,16 @@ function HomeCollectionCard({
           />
         </div>
       )}
-      <div className="p-3 flex flex-col justify-between" style={{ height: imageUrl ? '90px' : '100px' }}>
-        <div className="min-w-0">
+      <div className="p-3 flex flex-col justify-between overflow-hidden" style={{ height: imageUrl ? '90px' : '100px' }}>
+        <div className="min-w-0 min-h-0 overflow-hidden">
           <h3 className="text-[13px] font-serif font-bold text-[var(--text-primary)] leading-tight line-clamp-2">
             {collection.name}
           </h3>
-          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-2">
+          <p className="text-[11px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-1">
             {collection.subtitle}
           </p>
         </div>
-        <div className="mt-auto pt-1 flex items-center gap-1.5">
+        <div className="shrink-0 pt-1 flex items-center gap-1.5">
           {hasAudio && (
             <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
