@@ -46,6 +46,7 @@ function trackEvent(name: string, momentId?: string | null) {
 export function isAudioGated(): boolean {
   if (typeof window === 'undefined') return false;
   if (localStorage.getItem(UNLOCKED_KEY) === 'true') return false;
+  if (localStorage.getItem('deepmaps-admin') === 'true') return false;
   const plays = parseInt(localStorage.getItem(PLAYS_KEY) || '0', 10);
   return plays >= FREE_PLAYS;
 }
