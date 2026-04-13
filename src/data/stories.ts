@@ -2064,7 +2064,7 @@ export const stories: Story[] = [
     storyType: 'place',
     description: 'A timber baron takes one flying lesson, builds a seaplane in a boathouse, and founds a company in a red barn on the Duwamish River. The barn was nearly demolished, then floated downriver by barge.',
     tags: ['aviation', 'seattle', 'boeing', 'industry'],
-    moments: [{ momentId: 'sea-boeing-red-barn' }],
+    moments: [{ momentId: 'boeing-red-barn-seattle-1916' }],
     relatedStoryIds: ['puget-sound-naval-shipyard'],
     wikipediaSlug: 'Boeing',
   },
@@ -2959,7 +2959,7 @@ export const stories: Story[] = [
     storyType: 'biography',
     description: 'A lumber baron who built two seaplanes in a boathouse and founded the company that would produce the B-17, the 747, and dominate global aviation.',
     tags: [],
-    moments: [{ momentId: 'boeing-red-barn-seattle-1916' }, { momentId: 'sea-boeing-red-barn' }],
+    moments: [{ momentId: 'boeing-red-barn-seattle-1916' }],
     wikipediaSlug: 'William_Boeing',
   },
   {
