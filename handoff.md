@@ -1,8 +1,8 @@
 # Deep Maps — Session Handoff
 
-**Last updated:** 2026-04-12 (Session 35 — Audio playback MVP shipped + monetization strategy)
+**Last updated:** 2026-04-13 (Session 35 continued — Collections, sync fixes, content sprint)
 **Branch:** `main`
-**Latest commit:** `810298d` — Audio badge on homepage cards
+**Latest commit:** `1364ab7` — Enum fixes + card height fix
 **Deploy:** Vercel via GitHub (repo: douglessismore/deep-maps)
 **Production:** https://deepmaps.app
 
@@ -63,13 +63,40 @@
 - **OpenAI TTS over ElevenLabs:** $0.35 for 31 moments vs $5+/month. ElevenLabs has better voice quality but OpenAI scales to all 2,679 moments for ~$30.
 - **narrativeContext as standalone clips:** Each moment works standalone. "Killer was never caught" only in final Annihilator moment. Story intro on first moment only is a Phase B feature.
 
+### Additional work (Day 2 of Session 35, 2026-04-13)
+
+**New Collections Shipped:**
+- **Haunted Austin** expanded from 5→12 moments (Tavern ghost Emily, Clay Pit typhoid child, Littlefield House attic screams, Governor's Mansion Sam Houston ghost, Buffalo Billiards Fox News ghost, Driskill Samantha)
+- **Austin's Secret Missiles** (5 moments) — Nike Hercules sites on Bee Cave Rd + Cuernavaca Dr, Elroy launcher, Zilker Park fallout shelter, "Target Austin" propaganda film
+- **Guy Town: Austin's Buried Red-Light District** (8 moments) — district formation, Iron Front Saloon gunfight, Caroline Robinson freedwoman property, Ben Thompson marshal, Annihilator connection, police containment, 10K-artifact archaeological dig, 1915 closure
+- **Merged** "10,000 Years Under Austin" + "Hidden Beneath Austin" into single "Hidden Beneath Austin: 10,000 Years Under Your Feet" (12 moments)
+
+**Sync Infrastructure Fixed:**
+- Added `notability` column to Supabase entities table
+- Sync script now DELETES stale rows from moment_entities, story_moments, collection_moments, related_stories (the "never deletes" problem that caused Barry Goldwater persistence)
+- Supabase loader now reads entity notability (enables browse threshold on live site)
+- Fixed enum mismatch: importance 'notable' → 'minor', kind 'era' → 'event' (caused 5 moments to fail sync)
+- Deleted stale `ancient-austin` collection from Supabase after merge
+
+**UI Fixes:**
+- Admin users bypass audio gate (unlimited plays)
+- Audio badge added to ALL card types (homepage story, homepage collection, homepage collection grid, ExplorePanel story, ExplorePanel collection)
+- Collection card height increased from 100px→130px to fit title + subtitle + audio badge
+- Overflow-hidden on collection cards to prevent audio badge bleed
+
+**Content Fixes:**
+- Deleted duplicate Boeing moment (sea-boeing-red-barn)
+- 446 geoVerified flags restored from Supabase (sync was clobbering them)
+
 ### Next Steps (in order)
-1. **Set up Stripe Payment Link** — create in Stripe Dashboard, update `STRIPE_PAYMENT_LINK` constant in AudioGateModal.tsx, set return URL to `https://deepmaps.app/audio-unlocked`
-2. **Test with strangers** — Reddit (r/Austin, r/TrueCrime) for demand signal + in-person (Austin Visitor Center, Del Valle neighborhood Facebook) for experience observation
-3. **Content expansion** — Write narrativeContext + generate TTS for Keep Austin Weird, Hidden Beneath, and remaining Austin moments
-4. **New collections from AI council brainstorm** — Guy Town (red-light district), Austin's Secret Missiles, Shoal Creek Treasure Hunt are top priorities (see CONTENT-IDEAS.md)
-5. **Story intro audio** — Play story context overview on first moment only, track `Set<storyId>` of played intros
-6. **More prominent moment count on cards** — Make it clearer that clicking opens a deep dive
+1. **Stripe Payment Link** — waiting on Stripe account verification. Update `STRIPE_PAYMENT_LINK` constant in AudioGateModal.tsx when ready.
+2. **Test with strangers** — Reddit (r/Austin, r/TrueCrime) for demand signal + Del Valle neighborhood Facebook page (Sundays) + $5 screen recording offer (10 people)
+3. **Share with Rob Reinold** — casual: "I couldn't help myself... deepmaps.app". Ask: "What's the first thing you'd change?"
+4. **Share with Michael Barnes / history buffs** — show specific Austin story, ask "did we get this right?"
+5. **Sync imageUrl from Supabase into static file** — 55 stories have images in Supabase but static file has 0. Images ARE uploaded and showing on live site, just not in static.
+6. **Content expansion** — Shoal Creek Treasure Hunt, Prohibition Austin, Austin Punk (Raul's) collections from CONTENT-IDEAS.md
+7. **Story intro audio** — Play story context overview on first moment only
+8. **narrativeContext voice modes** — "you're standing" for walking tours, "you're passing" for driving tours
 
 ### Previous Session Context (Session 34)
 
