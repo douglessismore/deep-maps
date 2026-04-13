@@ -1355,13 +1355,20 @@ export function ExplorePanel({
           activeCollection ? (
             /* Active collection — moment list with back header */
             <>
-              <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5 flex items-center gap-1.5">
-                <h2 className="text-base font-bold font-serif text-[var(--text-primary)] truncate min-w-0">
-                  {activeCollection.name}
-                </h2>
-                <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
-                  {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
-                </span>
+              <div className="sticky -top-3 z-10 -mx-3 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)] px-3 py-1.5">
+                <div className="flex items-center gap-1.5">
+                  <h2 className="text-base font-bold font-serif text-[var(--text-primary)] truncate min-w-0">
+                    {activeCollection.name}
+                  </h2>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 ml-auto">
+                    {displayMoments.length} {displayMoments.length === 1 ? 'moment' : 'moments'}
+                  </span>
+                </div>
+                {activeCollection.description && (
+                  <p className="text-[12px] text-[var(--text-secondary)] leading-snug mt-1 line-clamp-3">
+                    {activeCollection.description}
+                  </p>
+                )}
               </div>
               {displayMoments.length === 0 ? (
                 <div className="py-12 text-center">
