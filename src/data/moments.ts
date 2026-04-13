@@ -386,6 +386,8 @@ export const moments: Moment[] = [
     year: 1945,
     address: '1104 E 11th St, Austin, TX 78702',
     entityIds: ['victory-grill'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dante-born-florence',
@@ -530,6 +532,8 @@ export const moments: Moment[] = [
     year: 1911,
     address: 'Musée du Louvre, Rue de Rivoli, 75001 Paris, France',
     entityIds: ['louvre-museum'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'van-gogh-cuts-ear',
@@ -565,6 +569,8 @@ export const moments: Moment[] = [
     year: 1969,
     date: '28 June 1969',
     address: '51-53 Christopher St, New York, NY 10014',
+    geoVerified: true,
+    geoSourceUrl: 'wiki',
   },
   {
     id: 'ashoka-edicts-carved-girnar',
@@ -635,6 +641,8 @@ export const moments: Moment[] = [
     year: 1987,
     address: '316 15th Ave E, Seattle, WA 98112',
     entityIds: ['layne-staley'],
+    geoVerified: true,
+    geoSourceUrl: 'https://magpiewithacamera.tumblr.com/post/649749241673170944/the-guys-are-standing-outside-the-music-bank-on',
   },
   {
     id: 'tiberius-born-in-rome-to-claudian-family',
@@ -711,6 +719,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1860,
     entityIds: ['mount-bonnell-austin'],
+    geoVerified: true,
   },
   {
     id: 'nero-great-fire-rome',
@@ -1033,6 +1042,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: '42 Bull\'s Head Passage, Leadenhall Market, London EC3V 1LT, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'francis-founds-franciscan-order',
@@ -1176,6 +1187,7 @@ export const moments: Moment[] = [
     date: '22 October 1951',
     address: '201 Lee Barton Dr, Austin, TX 78704',
     entityIds: ['malcolm-wallace'],
+    geoVerified: true,
   },
   {
     id: 'sappho-composes-lyric-poetry-on-lesbos',
@@ -1216,6 +1228,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Hell_Broke_Loose.jpg', caption: 'The Servant Girl Annihilator' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'elizabeth-ii-coronation-1953',
@@ -1293,6 +1307,8 @@ export const moments: Moment[] = [
     date: '23 February 1855',
     address: 'Albanifriedhof, Kasseler Landstraße, 37081 Göttingen, Niedersachsen, Germany',
     entityIds: ['carl-friedrich-gauss'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/15574400',
   },
   {
     id: 'vasco-da-gama-arrives-kozhikode-india',
@@ -1328,6 +1344,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1939,
     address: '400 Oak St, Kingman, AZ 86401',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tsukiji-hongwanji-indian-temple-1934',
@@ -1362,6 +1380,8 @@ export const moments: Moment[] = [
     year: 1836,
     address: '300 Alamo Plaza, San Antonio, TX 78205',
     entityIds: ['william-barret-travis'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sophocles-dies-406bc',
@@ -1484,6 +1504,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Bonnie_Parker_and_Clyde_Barrow.jpg', caption: 'Bonnie and Clyde' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/Clyde-C-Barrow/503307',
   },
   {
     id: 'ibn-battuta-reaches-kilwa-gold-trading-hub',
@@ -1538,6 +1560,8 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     kind: 'event',
     year: 1891,
+    geoVerified: true,
+    geoSourceUrl: 'https://www.thelostdutchmangoldmine.com/forum/viewtopic.php?t=1218',
   },
   {
     id: 'jericho-walls-fall',
@@ -1662,6 +1686,8 @@ export const moments: Moment[] = [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Plaza_de_la_Merced_15-16%2C_M%C3%A1laga.jpg/960px-Plaza_de_la_Merced_15-16%2C_M%C3%A1laga.jpg', caption: 'Plaza de la Merced 15-16, Málaga' },
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Plaza_de_la_Merced_15-16%2C_M%C3%A1laga.jpg/960px-Plaza_de_la_Merced_15-16%2C_M%C3%A1laga.jpg', caption: 'Plaza de la Merced 15-16, Málaga' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sex-pistols-first-gig-1975',
@@ -1679,6 +1705,8 @@ export const moments: Moment[] = [
     year: 1975,
     date: '6 November 1975',
     address: '107 Charing Cross Road, London WC2H',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mh17-ukraine-2014',
@@ -2141,6 +2169,7 @@ export const moments: Moment[] = [
     year: 2005,
     date: '25 February 2005',
     address: '6220 N Independence St, Park City, KS 67219',
+    geoVerified: true,
   },
   {
     id: 'voltaire-born-paris-1694',
@@ -2182,6 +2211,8 @@ export const moments: Moment[] = [
     year: 1950,
     address: '2300 Rosewood Ave, Austin, TX 78702',
     entityIds: ['victory-grill'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'voltaire-imprisoned-bastille-1717',
@@ -2290,6 +2321,8 @@ export const moments: Moment[] = [
     date: '14 April 1965',
     address: 'Mount Muncie Cemetery, 100 Muncie Road, Leavenworth, KS 66048, United States',
     entityIds: ['dick-hickock'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/580504',
   },
   {
     id: 'caesar-declared-dictator-for-life-44bc',
@@ -2346,6 +2379,8 @@ export const moments: Moment[] = [
     date: 'December 12, 1939',
     address: 'Hollywood Forever Cemetery, Los Angeles, California, United States',
     entityIds: ['douglas-fairbanks', 'hollywood-forever-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/11029758',
   },
   {
     id: 'parthenon-explodes-1687',
@@ -2653,6 +2688,8 @@ export const moments: Moment[] = [
     year: 1916,
     address: '501 Washington Ave, Waco, TX 76701',
     entityIds: ['jesse-washington'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'pliny-younger-misenum-79',
@@ -2778,6 +2815,8 @@ export const moments: Moment[] = [
     address: '1319 Punahou St, Honolulu, HI 96826',
     entityIds: ['barack-obama'],
     wikiSection: 'Early_life_and_career',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-amazon-garage',
@@ -2794,6 +2833,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1994,
     address: '10704 NE 28th St, Bellevue, WA 98004',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ae-lae-airfield',
@@ -2856,6 +2897,8 @@ export const moments: Moment[] = [
     year: 1964,
     address: '3201 S Lamar Blvd, Austin, TX 78704',
     entityIds: ['broken-spoke'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'r66-okc-bombing',
@@ -2872,6 +2915,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1995,
     address: '620 N Harvey Ave, Oklahoma City, OK 73102',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'titanic-departs-southampton-1912',
@@ -3164,6 +3209,7 @@ export const moments: Moment[] = [
     date: 'March 1975',
     address: 'Washington State Route 18, Taylor Mountain, WA 98027',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'bach-st-matthew-passion-premiere-1727',
@@ -3530,6 +3576,8 @@ export const moments: Moment[] = [
     address: '300 E Green St, Pasadena, CA 91101',
     entityIds: ['michael-jackson'],
     wikiSection: 'Thriller,_Motown_25:_Yesterday,_Today,_Forever_and_Pepsi_incident_(1981–1984)',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'titanic-survivors-new-york-1912',
@@ -3621,6 +3669,8 @@ export const moments: Moment[] = [
     year: 1905,
     address: '129 E 18th St, New York, NY 10003',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'noahs-ark-ararat',
@@ -3805,6 +3855,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1953,
     address: '354 Hunter St, Ossining, NY 10562',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dickens-warrens-blacking-warehouse',
@@ -4012,6 +4064,7 @@ export const moments: Moment[] = [
     address: '9404 E Marginal Way S, Seattle, WA (Museum of Flight)',
     entityIds: ['william-boeing'],
     wikiSection: 'Formation',
+    geoVerified: true,
   },
   {
     id: 'bb-walter-white-house-2008',
@@ -4141,6 +4194,7 @@ export const moments: Moment[] = [
     date: '8 December 1980',
     address: '1 W 72nd St, New York, NY 10023',
     entityIds: ['john-lennon'],
+    geoVerified: true,
   },
   {
     id: 'raphael-orphaned-joins-perugino-workshop-1494',
@@ -4614,6 +4668,7 @@ export const moments: Moment[] = [
     date: '1957–1976',
     address: '2230 Ocean Parkway, Brooklyn, NY 11223',
     entityIds: ['carlo-gambino'],
+    geoVerified: true,
   },
   {
     id: 'saladin-appointed-vizier-egypt',
@@ -4655,6 +4710,8 @@ export const moments: Moment[] = [
     year: 1936,
     date: '23 November 1936',
     address: '205 E Houston St, San Antonio, TX 78205, USA',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'yorktown-surrender',
@@ -4727,6 +4784,8 @@ export const moments: Moment[] = [
     year: 1963,
     address: '1026 N Beckley Ave, Dallas, TX 75203',
     entityIds: ['lee-harvey-oswald'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'evo-strelley-pool',
@@ -4832,6 +4891,8 @@ export const moments: Moment[] = [
     address: '25-28 Rue du Docteur Roux, Paris, France',
     entityIds: ['louis-pasteur'],
     wikiSection: 'Career',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'vj-sabretech',
@@ -5001,6 +5062,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1959,
     address: 'Main St, San Quentin, CA 94964',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'caravaggio-kills-ranuccio',
@@ -5081,6 +5144,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King%2C_Jr..jpg', caption: 'Martin Luther King Jr.' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'secretariat-belmont-triple-crown-1973',
@@ -5097,6 +5162,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1973,
     address: '2150 Hempstead Tpke, Elmont, NY 11003',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'chernobyl-firefighters-1986',
@@ -5356,6 +5423,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Tyler%2C_John%2C_by_Healy_%281842%2C_NPG_2019_13%29.jpg', caption: 'John Tyler' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/63142101',
   },
   {
     id: 'ohenry-chelsea-hotel',
@@ -5373,6 +5442,8 @@ export const moments: Moment[] = [
     year: 1907,
     address: '222 W 23rd St, New York, NY 10011',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'vasco-da-gama-fleet-departs-lisbon',
@@ -5414,6 +5485,8 @@ export const moments: Moment[] = [
     year: 1975,
     address: '2915 Guadalupe St, Austin, TX',
     entityIds: ['antones', 'stevie-ray-vaughan'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'thales-born-in-miletus-ionia',
@@ -5502,6 +5575,7 @@ export const moments: Moment[] = [
     date: '25 October 1957',
     address: '870 7th Avenue, Manhattan, NY 10019',
     entityIds: ['carlo-gambino', 'albert-anastasia'],
+    geoVerified: true,
   },
   {
     id: 'nyc-sparks-castellano',
@@ -5520,6 +5594,7 @@ export const moments: Moment[] = [
     date: '16 December 1985',
     address: '210 East 46th Street, Manhattan, NY 10017',
     entityIds: ['john-gotti', 'paul-castellano'],
+    geoVerified: true,
   },
   {
     id: 'mao-born-shaoshan',
@@ -5774,6 +5849,8 @@ export const moments: Moment[] = [
     year: 1971,
     address: 'Portland International Airport, 7000 NE Airport Way, Portland, OR 97218',
     entityIds: ['db-cooper'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cyrus-tomb-pasargadae',
@@ -5815,6 +5892,7 @@ export const moments: Moment[] = [
     date: '11 December 1990',
     address: '247 Mulberry Street, Manhattan, NY 10012',
     entityIds: ['john-gotti'],
+    geoVerified: true,
   },
   {
     id: 'million-dollar-quartet-sun-studio',
@@ -6029,6 +6107,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1980,
     address: 'Hwy 285, Damascus, AR 72039',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'michelangelo-pieta-commissioned-rome',
@@ -6175,6 +6255,8 @@ export const moments: Moment[] = [
     year: 1973,
     address: 'Dripping Springs, TX',
     entityIds: ['waylon-jennings', 'willie-nelson'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'vivaldi-publishes-lestro-armonico',
@@ -6357,6 +6439,8 @@ export const moments: Moment[] = [
     year: 1878,
     address: '1281 Gruene Rd, New Braunfels, TX 78130',
     entityIds: ['willie-nelson', 'george-strait'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'victoria-becomes-empress-india',
@@ -6869,6 +6953,7 @@ export const moments: Moment[] = [
     year: 2006,
     date: '25 March 2006',
     address: '2112 East Republican Street, Seattle, WA 98112',
+    geoVerified: true,
   },
   {
     id: 'mlk-lorraine-motel',
@@ -6924,6 +7009,7 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2024,
     address: 'Peralta Rd, Gold Canyon, AZ 85118',
+    geoVerified: true,
   },
   {
     id: 'stalin-great-purge-executions-1936-1938',
@@ -7139,6 +7225,7 @@ export const moments: Moment[] = [
     year: 1972,
     date: '7 April 1972',
     address: '129 Mulberry Street, Manhattan, NY 10013',
+    geoVerified: true,
   },
   {
     id: 'ovid-writes-tristia-exile-poetry-ad9-12',
@@ -7231,6 +7318,7 @@ export const moments: Moment[] = [
     year: 1979,
     date: '12 July 1979',
     address: '205 Knickerbocker Avenue, Brooklyn, NY 11237',
+    geoVerified: true,
   },
   {
     id: 'carancas-crater',
@@ -7302,6 +7390,8 @@ export const moments: Moment[] = [
     address: '1100 S Ocean Blvd, Palm Beach, FL 33480',
     entityIds: ['donald-trump'],
     wikiSection: 'Golf_clubs',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'clearwater-lakes-craters',
@@ -7354,6 +7444,8 @@ export const moments: Moment[] = [
     date: '12 July 1804',
     address: 'Trinity Churchyard, 74 Trinity Place, New York, NY 10006, United States',
     entityIds: ['alexander-hamilton'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/160253956',
   },
   {
     id: 'van-gogh-born-groot-zundert',
@@ -7467,6 +7559,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2014,
     address: 'Real Alcázar, Plaza del Triunfo, 41004 Seville, Spain',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'moses-golden-calf',
@@ -7621,6 +7715,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2008,
     address: '4257 Isleta Blvd SW, Albuquerque, NM 87105',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'elizabeth-ii-marries-philip-westminster',
@@ -7794,6 +7890,8 @@ export const moments: Moment[] = [
     year: 2015,
     date: '13 November 2015',
     address: '50 Boulevard Voltaire, Paris 75011, France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'manson-crater',
@@ -7867,6 +7965,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1923,
     address: '2nd St, Cedar Key, FL 32625',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'beethoven-baptism-bonn-1770',
@@ -8034,6 +8134,7 @@ export const moments: Moment[] = [
     year: 1980,
     date: '1970s–1983',
     address: '4021 Flatlands Avenue, Brooklyn, NY 11234',
+    geoVerified: true,
   },
   {
     id: 'lho-police-hq',
@@ -8051,6 +8152,8 @@ export const moments: Moment[] = [
     year: 1963,
     address: '2014 Main St, Dallas, TX 75201',
     entityIds: ['lee-harvey-oswald', 'jack-ruby'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'washington-ambush-jumonville-glen',
@@ -8269,6 +8372,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1947,
     address: 'Sullivan Place & McKeever Place, Brooklyn, NY 11225',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'roswell-airfield',
@@ -8308,6 +8413,7 @@ export const moments: Moment[] = [
     date: '1985–1990',
     address: '160-11 85th Street, Queens, NY 11414',
     entityIds: ['john-gotti'],
+    geoVerified: true,
   },
   {
     id: 'theodosius-ii-builds-walls-constantinople',
@@ -8611,6 +8717,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Jeffrey_Dahmer_Milwaukee_Police_1991_mugshot.jpg', caption: 'Jeffrey Dahmer' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mehmed-converts-hagia-sophia-1453',
@@ -8773,6 +8881,8 @@ export const moments: Moment[] = [
     year: 1953,
     address: 'Ocean Ave, Newport, RI 02840',
     entityIds: ['john-f-kennedy'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'blackwater-draw',
@@ -8952,6 +9062,7 @@ export const moments: Moment[] = [
     date: '19 March 1988',
     address: '5441 S M Street, Tacoma, WA 98408',
     entityIds: ['kurt-cobain'],
+    geoVerified: true,
   },
   {
     id: 'reagan-warner-bros-contract-hollywood',
@@ -8971,6 +9082,8 @@ export const moments: Moment[] = [
     address: 'Warner Bros. Studios, 4000 Warner Blvd, Burbank, CA 91522',
     entityIds: ['ronald-reagan'],
     wikiSection: 'Radio_and_film',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sitting-bull-little-bighorn-vision',
@@ -9181,6 +9294,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Zodiac-Killer.jpg', caption: 'The Zodiac Killer' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'charlemagne-crowned-king-of-franks',
@@ -9293,6 +9408,8 @@ export const moments: Moment[] = [
     year: 1993,
     address: '100 Texas Ranger Trail, Waco, TX 76706',
     entityIds: ['david-koresh', 'texas-rangers'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jwg-greyhound',
@@ -9310,6 +9427,8 @@ export const moments: Moment[] = [
     year: 1975,
     address: '630 W Harrison St, Chicago, IL 60607',
     entityIds: ['john-wayne-gacy'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'scm-historic-site',
@@ -9387,6 +9506,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Martin_Van_Buren_by_Mathew_Brady_c1855-58-%284%29.jpg', caption: 'Martin Van Buren' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/28175925',
   },
   {
     id: 'voltaire-dies-paris-1778',
@@ -9423,6 +9544,8 @@ export const moments: Moment[] = [
     year: 1947,
     address: '1 Einstein Dr, Princeton, NJ 08540',
     entityIds: ['robert-oppenheimer'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'hp-glenfinnan-viaduct-2002',
@@ -9582,6 +9705,8 @@ export const moments: Moment[] = [
     year: 1931,
     address: '333 Christian St, Wallingford, CT 06492',
     entityIds: ['john-f-kennedy'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'first-text-message-vodafone-1992',
@@ -9900,6 +10025,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Rosa_Parks%2C_November_1956_%28cropped%29.jpg', caption: 'Rosa Parks' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'guerrero-acapulco-lure',
@@ -9995,6 +10122,7 @@ export const moments: Moment[] = [
     date: '5 April 2002',
     address: '4528 8th Ave NE, Seattle, WA 98105',
     entityIds: ['layne-staley'],
+    geoVerified: true,
   },
   {
     id: 'tutankhamun-burial-chamber-1923',
@@ -10154,6 +10282,7 @@ export const moments: Moment[] = [
     date: '24 November 1946',
     address: '346 Shelburne Road, Burlington, VT 05401',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'nyc-castellano-mansion',
@@ -10172,6 +10301,7 @@ export const moments: Moment[] = [
     date: '1976–1985',
     address: '177 Benedict Road, Staten Island, NY 10304',
     entityIds: ['paul-castellano'],
+    geoVerified: true,
   },
   {
     id: 'albert-fish-executed-sing-sing-1936',
@@ -10190,6 +10320,8 @@ export const moments: Moment[] = [
     date: '16 January 1936',
     address: '354 Hunter St, Ossining, NY 10562',
     entityIds: ['albert-fish'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jfk-parkland',
@@ -10210,6 +10342,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/59/JFK_Motorcade_GettyImages-517330536.jpg', caption: 'The JFK Assassination' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inca-sapa-pachacuti-cusco-expansion',
@@ -10332,6 +10466,8 @@ export const moments: Moment[] = [
     year: 1839,
     address: 'Cherokee Square, Tahlequah, OK 74464',
     entityIds: ['andrew-jackson', 'white-house'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cobalt-medical-theft',
@@ -10422,6 +10558,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/John_Wayne_Gacy_1978_mugshot.jpg', caption: 'John Wayne Gacy' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'genghis-khan-captures-zhongdu-1215',
@@ -10534,6 +10672,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Elizabeth_Eckford.jpg', caption: 'The Little Rock Nine' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'atizapan-house-horrors',
@@ -10605,6 +10745,8 @@ export const moments: Moment[] = [
     year: 1968,
     address: '900 Guadalupe St, Austin, TX 78701',
     entityIds: ['armadillo-world-hq'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'victor-hugo-born-besancon',
@@ -10663,6 +10805,8 @@ export const moments: Moment[] = [
     year: 1970,
     address: '525 Barton Springs Rd, Austin, TX 78704',
     entityIds: ['armadillo-world-hq'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'archive-war-cannon-site',
@@ -10732,6 +10876,8 @@ export const moments: Moment[] = [
     year: 1884,
     address: 'East 8th St, Austin, TX',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'ala-san-fernando',
@@ -10749,6 +10895,8 @@ export const moments: Moment[] = [
     year: 1836,
     address: '115 Main Plaza, San Antonio, TX 78205',
     entityIds: ['antonio-lopez-de-santa-anna'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'alexander-battle-of-issus',
@@ -10870,6 +11018,8 @@ export const moments: Moment[] = [
     year: 1892,
     address: '22 S Williams St, Dayton, OH 45402',
     entityIds: ['wilbur-wright', 'orville-wright'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'stranger-planting-site',
@@ -10903,6 +11053,7 @@ export const moments: Moment[] = [
     year: 1981,
     date: '5 May 1981',
     address: 'Ruby Street, Queens, NY 11414',
+    geoVerified: true,
   },
   {
     id: 'puyi-enthroned-age-two-1908',
@@ -10994,6 +11145,8 @@ export const moments: Moment[] = [
     year: 1984,
     address: '9505 Arboretum Blvd, Austin, TX',
     entityIds: ['michael-dell', 'dell'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dell-dobie-room',
@@ -11011,6 +11164,8 @@ export const moments: Moment[] = [
     year: 1984,
     address: '2021 Guadalupe St, Austin, TX',
     entityIds: ['ut-austin', 'michael-dell'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'marcos-san-cristobal',
@@ -11270,6 +11425,8 @@ export const moments: Moment[] = [
     year: 1961,
     address: 'Bernauer Strasse, 13355 Berlin, Germany',
     entityIds: ['ronald-reagan', 'gunter-schabowski', 'peter-fechter'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'joan-of-arc-siege-orleans-lifted',
@@ -11510,6 +11667,8 @@ export const moments: Moment[] = [
     year: 1898,
     address: '204 Alamo Plaza, San Antonio, TX 78205',
     entityIds: ['theodore-roosevelt', 'menger-hotel-rough-riders'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tiberius-becomes-emperor-after-augustus-dies',
@@ -11677,6 +11836,8 @@ export const moments: Moment[] = [
     year: 1915,
     address: '713 Congress Ave, Austin, TX 78701',
     entityIds: ['paramount-theatre-austin'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cartier-plants-cross-at-gaspe-claims-land-for-france',
@@ -11866,6 +12027,8 @@ export const moments: Moment[] = [
     year: 1872,
     address: '100 E Queen St, Hampton, VA 23668',
     entityIds: ['booker-t-washington'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jal123-mount-osutaka-1985',
@@ -11900,6 +12063,8 @@ export const moments: Moment[] = [
     year: 1881,
     address: '1200 W Montgomery Rd, Tuskegee, AL 36088',
     entityIds: ['booker-t-washington'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'btw-virginia-birth',
@@ -11969,6 +12134,8 @@ export const moments: Moment[] = [
     year: 1903,
     address: '55 Irving Pl, New York, NY 10003',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'uttower-main-mall',
@@ -12019,6 +12186,8 @@ export const moments: Moment[] = [
     year: 1862,
     address: 'Greensboro, NC',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'ohenry-new-york-death',
@@ -12070,6 +12239,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1923,
     address: '644 Lenox Ave, New York, NY 10030',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cad-ant-farm-studio',
@@ -12154,6 +12325,7 @@ export const moments: Moment[] = [
     date: '1969–1974',
     address: '4143 12th Ave NE, Seattle, WA 98105',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'enewetak-ivy-mike',
@@ -12189,6 +12361,8 @@ export const moments: Moment[] = [
     year: 1993,
     address: '909 Navasota St, Austin, TX 78702',
     entityIds: ['texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cemetery-johnston-monument',
@@ -12206,6 +12380,8 @@ export const moments: Moment[] = [
     year: 1905,
     address: '909 Navasota St, Austin, TX 78702',
     entityIds: ['texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'btw-wooldridge-square',
@@ -12256,6 +12432,8 @@ export const moments: Moment[] = [
     year: 2006,
     address: '909 Navasota St, Austin, TX 78702',
     entityIds: ['texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'montebello-hurricane',
@@ -12365,6 +12543,8 @@ export const moments: Moment[] = [
     address: '1585 Massachusetts Ave, Cambridge, MA 02138',
     entityIds: ['barack-obama'],
     wikiSection: 'Community_organizer_and_Harvard_Law_School',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'keats-dies-spanish-steps-1821',
@@ -12647,6 +12827,8 @@ export const moments: Moment[] = [
     year: 1941,
     address: '2107 Seawall Blvd, Galveston, TX',
     entityIds: ['maceo-syndicate', 'texas-rangers'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sudbury-basin',
@@ -12701,6 +12883,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Tampico_main_street.jpg/960px-Tampico_main_street.jpg', caption: 'Tampico main street' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'nyc-triangle-club',
@@ -12718,6 +12902,7 @@ export const moments: Moment[] = [
     year: 1981,
     date: '1981–2003',
     address: '208 Sullivan Street, Manhattan, NY 10012',
+    geoVerified: true,
   },
   {
     id: 'gutenberg-fust-lawsuit',
@@ -12837,6 +13022,8 @@ export const moments: Moment[] = [
     year: 1911,
     address: '1100 Congress Ave, Austin, TX',
     entityIds: ['booker-t-washington'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sabina-home-arson',
@@ -13329,6 +13516,7 @@ export const moments: Moment[] = [
     year: 1981,
     date: '1976–1981',
     address: '420 Graham Avenue, Brooklyn, NY 11211',
+    geoVerified: true,
   },
   {
     id: 'jesus-raises-lazarus',
@@ -13571,6 +13759,7 @@ export const moments: Moment[] = [
     year: 1978,
     date: 'December 1978',
     address: '114-45 Lefferts Boulevard, Queens, NY 11420',
+    geoVerified: true,
   },
   {
     id: 'inv-watt-soho',
@@ -13836,6 +14025,7 @@ export const moments: Moment[] = [
     year: 1986,
     date: '13 April 1986',
     address: '1455 86th Street, Brooklyn, NY 11228',
+    geoVerified: true,
   },
   {
     id: 'in-ekker-beryl',
@@ -13999,6 +14189,7 @@ export const moments: Moment[] = [
     year: 2019,
     date: '13 March 2019',
     address: '25 Hilltop Terrace, Staten Island, NY 10304',
+    geoVerified: true,
   },
   {
     id: 'castro-enters-havana',
@@ -14037,6 +14228,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King%2C_Jr..jpg', caption: 'Martin Luther King Jr.' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tower-of-babel',
@@ -14105,6 +14298,8 @@ export const moments: Moment[] = [
     year: 1960,
     address: '311 N 9th St, Garden City, KS',
     entityIds: ['dick-hickock', 'perry-smith', 'truman-capote'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'agincourt-longbow',
@@ -14178,6 +14373,7 @@ export const moments: Moment[] = [
     year: 1985,
     date: '1983–1985',
     address: '416 East 115th Street, Manhattan, NY 10029',
+    geoVerified: true,
   },
   {
     id: 'josephine-baker-paris',
@@ -14251,6 +14447,8 @@ export const moments: Moment[] = [
     year: 1934,
     address: '1617 Fort Worth Ave, Dallas, TX 75208',
     entityIds: ['bonnie-parker', 'clyde-barrow'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'everest-hillary-step-bottleneck-1996',
@@ -14389,6 +14587,8 @@ export const moments: Moment[] = [
     year: 1886,
     address: '1607 San Jacinto Blvd, Austin, TX 78701',
     entityIds: ['scholz-garden', 'o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'teotihuacan-burning',
@@ -14444,6 +14644,7 @@ export const moments: Moment[] = [
     date: '10 January 1983',
     address: '2806 Emmons Avenue, Brooklyn, NY 11235',
     entityIds: ['paul-castellano'],
+    geoVerified: true,
   },
   {
     id: 'jesus-feeds-five-thousand',
@@ -14593,6 +14794,7 @@ export const moments: Moment[] = [
     year: 1984,
     date: '1970s–1994',
     address: '7506 13th Avenue, Brooklyn, NY 11228',
+    geoVerified: true,
   },
   {
     id: 'david-flees-ein-gedi',
@@ -14966,6 +15168,8 @@ export const moments: Moment[] = [
     year: 1993,
     address: '6800 Bill Hughes Rd, Austin, TX 78745',
     entityIds: ['moonlight-towers'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'norrmalmstorg-kreditbanken',
@@ -15541,6 +15745,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/UA93_path.svg/960px-UA93_path.svg.png', caption: 'United Flight 93' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: '47-ronin-sengakuji',
@@ -15702,6 +15908,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/A_City_Plan_for_Austin%2C_Texas.pdf/page1-1270px-A_City_Plan_for_Austin%2C_Texas.pdf.jpg', caption: 'The 1928 Master Plan' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'anne-frank-writes-diary-prinsengracht',
@@ -16616,6 +16824,8 @@ export const moments: Moment[] = [
     year: 1536,
     date: '1536-1541',
     address: 'Charterhouse, Charterhouse Square, London EC1M 6AN',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'titanic-iceberg-spotted-1912',
@@ -16689,6 +16899,8 @@ export const moments: Moment[] = [
     year: 1962,
     address: '1106 W 22nd St, Austin, TX',
     entityIds: ['janis-joplin'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'alexander-destroys-thebes',
@@ -17022,6 +17234,8 @@ export const moments: Moment[] = [
     year: 1894,
     address: '601 Congress Ave, Austin, TX',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'timur-arrow-wounds-disable-him',
@@ -17093,6 +17307,8 @@ export const moments: Moment[] = [
     year: 1837,
     address: '48 Doughty Street, London WC1N 2LX, England',
     entityIds: ['charles-dickens'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-eniac-computer',
@@ -17109,6 +17325,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: 'Moore School Building, 200 S 33rd St, Philadelphia, PA 19104',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bannister-four-minute-mile-oxford-1954',
@@ -17125,6 +17343,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1954,
     address: 'Iffley Road Sports Complex, Oxford OX4 1EQ, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'zk-stine-murder',
@@ -17513,6 +17733,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2300_Jackson_Street_Yuksel.jpg/960px-2300_Jackson_Street_Yuksel.jpg', caption: '2300 Jackson Street Yuksel' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'marco-polo-departs-venice',
@@ -17585,6 +17807,8 @@ export const moments: Moment[] = [
     year: 1913,
     address: '91 Manchester St, Highland Park, MI 48203',
     entityIds: ['henry-ford'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'got-jesuit-staircase',
@@ -17659,6 +17883,8 @@ export const moments: Moment[] = [
     year: 1985,
     address: '1109 N 5th St, Milwaukee, WI',
     entityIds: ['ambrosia-chocolate-factory', 'jeffrey-dahmer'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-farnsworth-tv',
@@ -17818,6 +18044,8 @@ export const moments: Moment[] = [
     year: 1987,
     address: 'Pariser Platz, 10117 Berlin, Germany',
     entityIds: ['ronald-reagan'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mao-discovers-marxism-peking-university',
@@ -18127,6 +18355,8 @@ export const moments: Moment[] = [
     year: 1990,
     address: '124 W 8th St, Austin, TX',
     entityIds: ['save-our-springs-alliance', 'barton-springs-pool'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'descartes-dreams-in-stove-room-neuburg',
@@ -18389,6 +18619,8 @@ export const moments: Moment[] = [
     address: '100 N Carolwood Dr, Los Angeles, CA 90077',
     entityIds: ['michael-jackson'],
     wikiSection: 'Death_and_memorial_(2009)',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'constantine-proclaimed-emperor-at-york',
@@ -18682,6 +18914,8 @@ export const moments: Moment[] = [
     address: '255-257 Pearl Street, New York, NY',
     entityIds: ['thomas-edison'],
     wikiSection: 'Electric_light',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'herod-antipas-beheads-john-the-baptist-at-machaerus',
@@ -19193,6 +19427,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1847,
     address: 'Church Street, Haworth, West Yorkshire BD22 8DR, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'constantine-issues-edict-of-milan',
@@ -19646,6 +19882,8 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: 1958,
     address: '815 E Route 66 Blvd, Tucumcari, NM 88401',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bismarck-creates-welfare-state',
@@ -19904,6 +20142,8 @@ export const moments: Moment[] = [
     address: '3448 Pinkney St, Omaha, NE 68111',
     entityIds: ['malcolm-x'],
     wikiSection: 'Early_years',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'brothers-poem-discovered-on-papyrus',
@@ -20165,6 +20405,8 @@ export const moments: Moment[] = [
     address: '20 Maresfield Gardens, Hampstead, London',
     entityIds: ['sigmund-freud'],
     wikiSection: 'Escape_from_Nazism',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'byron-exile-venice',
@@ -20499,6 +20741,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1998,
     address: '301 W South Temple, Salt Lake City, UT 84101',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'annihilator-moonlight-tower',
@@ -20782,6 +21026,8 @@ export const moments: Moment[] = [
     address: '1313 Disneyland Drive, Anaheim, California',
     entityIds: ['walt-disney'],
     wikiSection: '',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ohenry-austin-jail',
@@ -20799,6 +21045,8 @@ export const moments: Moment[] = [
     year: 1898,
     address: '11th St and Brazos St, Austin, TX',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'mx-audubon',
@@ -20820,6 +21068,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Malcolm_X_1963_press_photo.jpg', caption: 'Malcolm X' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cook-killed-kealakekua-bay',
@@ -21306,6 +21556,8 @@ export const moments: Moment[] = [
     year: 1859,
     address: '204 Alamo Plaza, San Antonio, TX 78205',
     entityIds: ['menger-hotel-rough-riders'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jericho-first-settlement',
@@ -21943,6 +22195,8 @@ export const moments: Moment[] = [
     address: 'East 57th Street, Manhattan, New York',
     entityIds: ['frida-kahlo'],
     wikiSection: 'Return_to_Mexico_City_and_international_recognition',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-google-garage',
@@ -22289,6 +22543,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1936,
     address: 'Main St, Stroud, OK 74079',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'visigoths-sack-rome',
@@ -22415,6 +22671,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/02/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959_%28cropped%29%283%29.jpg', caption: 'Dwight D. Eisenhower' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/128607630',
   },
   {
     id: 'rosalind-franklin-photo-51-1952',
@@ -22454,6 +22712,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/William_Howard_Taft_by_Pach_Brothers_%283x4_ropped%29.jpg', caption: 'William Howard Taft' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/9747962',
   },
   {
     id: 'james-madison-burial',
@@ -22735,6 +22995,8 @@ export const moments: Moment[] = [
     date: '13 January 1898',
     address: '142 Rue Montmartre, Paris, France',
     entityIds: ['moulin-rouge'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sitting-bull-assassination-1890',
@@ -23013,6 +23275,8 @@ export const moments: Moment[] = [
     year: 1994,
     address: '2 KN 6 Ave, Kigali, Rwanda',
     entityIds: ['paul-rusesabagina'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'prince-mixes-purple-rain-sunset-sound',
@@ -23264,6 +23528,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Elizabeth_Eckford.jpg', caption: 'The Little Rock Nine' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'garcia-marquez-writes-solitude',
@@ -23359,6 +23625,8 @@ export const moments: Moment[] = [
     date: '14 September 1321',
     address: 'Via Dante Alighieri 9, Ravenna, Italy',
     entityIds: ['dante-alighieri'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'htb-auburn-home',
@@ -23379,6 +23647,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Carte-de-visite_portrait_of_Harriet_Tubman_%28cropped%29.jpg', caption: 'Harriet Tubman' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'arc-de-triomphe-unknown-soldier-1921',
@@ -23431,6 +23701,8 @@ export const moments: Moment[] = [
     year: 1969,
     date: '5 July 1969',
     address: 'Hyde Park, London W2',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'peter-great-born-moscow',
@@ -23675,6 +23947,8 @@ export const moments: Moment[] = [
     address: 'Royal Institution, 21 Albemarle Street, London',
     entityIds: ['michael-faraday'],
     wikiSection: 'Later_life',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'confucius-teaches-qufu',
@@ -23713,6 +23987,8 @@ export const moments: Moment[] = [
     year: 1845,
     address: 'Landa Park Dr, New Braunfels, TX 78130',
     entityIds: ['prince-carl-solms'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'seneca-exiled-corsica',
@@ -23855,6 +24131,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1951,
     address: '454 West 20th Street, Chelsea, Manhattan, NY 10011, USA',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cemetery-barbara-jordan',
@@ -23871,6 +24149,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1996,
     entityIds: ['barbara-jordan', 'texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://cemetery.texas.gov/locate-a-plot/',
   },
   {
     id: 'grand-central-terminal-opens-1913',
@@ -24037,6 +24317,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Hell_Broke_Loose.jpg', caption: 'The Servant Girl Annihilator' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'rainbow-warrior-sinking-1985',
@@ -24770,6 +25052,8 @@ export const moments: Moment[] = [
     year: 1912,
     address: '614 Division St, Port Orchard, WA 98366',
     entityIds: ['linda-hazzard'],
+    geoVerified: true,
+    geoSourceUrl: 'https://www.kitsap.gov/clerk/Pages/Courthouse-History.aspx',
   },
   {
     id: 'elizabeth-ii-dies-balmoral',
@@ -24843,6 +25127,8 @@ export const moments: Moment[] = [
     year: 1845,
     address: '401 W Lincoln St, New Braunfels, TX 78130',
     entityIds: ['prince-carl-solms'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'magellan-born-sabrosa-portugal',
@@ -25115,6 +25401,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/A_City_Plan_for_Austin%2C_Texas.pdf/page1-1270px-A_City_Plan_for_Austin%2C_Texas.pdf.jpg', caption: 'The 1928 Master Plan' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ataturk-introduces-latin-alphabet',
@@ -25194,6 +25482,8 @@ export const moments: Moment[] = [
     year: 2001,
     address: '1400 Smith St, Houston, TX 77002',
     entityIds: ['enron'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'andersen-publishes-first-fairy-tales',
@@ -25232,6 +25522,8 @@ export const moments: Moment[] = [
     year: 1980,
     address: '525 Barton Springs Rd, Austin, TX',
     entityIds: ['armadillo-world-hq'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'monarch-urquhart-discovery',
@@ -25414,6 +25706,8 @@ export const moments: Moment[] = [
     year: 1898,
     address: '601 Lavaca St, Austin, TX 78701',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'swissair-111-peggy-cove-1998',
@@ -25504,6 +25798,8 @@ export const moments: Moment[] = [
     year: 1911,
     date: '25 March 1911',
     address: '23-29 Washington Pl, New York, NY 10003',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mcdonalds-first-franchise-des-plaines-1955',
@@ -25525,6 +25821,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Ray_Kroc_1976.jpg', caption: 'Ray Kroc' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cervantes-publishes-don-quixote',
@@ -25756,6 +26054,8 @@ export const moments: Moment[] = [
     year: 1976,
     address: '2066 Crist Dr, Los Altos, CA 94024',
     entityIds: ['steve-jobs'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'andersen-born-odense',
@@ -25846,6 +26146,7 @@ export const moments: Moment[] = [
     date: '31 January 1974',
     address: '5517 12th Avenue NE, Seattle, WA 98105',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'confucius-appointed-minister-of-crime',
@@ -26416,6 +26717,8 @@ export const moments: Moment[] = [
     year: 1972,
     address: '525 Barton Springs Rd, Austin, TX',
     entityIds: ['armadillo-world-hq', 'willie-nelson'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'francis-assisi-renounces-father',
@@ -26599,6 +26902,8 @@ export const moments: Moment[] = [
     date: '11 August 1973',
     address: '1520 Sedgwick Ave, Bronx, NY 10453',
     entityIds: ['dj-kool-herc'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'brooklyn-bridge-opens-1883',
@@ -26738,6 +27043,7 @@ export const moments: Moment[] = [
     date: '15 February 1978',
     address: 'West Cross Street, Pensacola, FL 32505',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'bolivar-secures-haitian-support',
@@ -26791,6 +27097,8 @@ export const moments: Moment[] = [
     year: 1906,
     address: '909 Navasota St, Austin, TX 78702',
     entityIds: ['texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'buddha-dies-kushinagar',
@@ -26931,6 +27239,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1879,
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'jesus-ascension-olives',
@@ -27548,6 +27858,7 @@ export const moments: Moment[] = [
     date: '1906–1936',
     address: '265 East 10th Street, Manhattan, NY 10009',
     entityIds: ['lucky-luciano'],
+    geoVerified: true,
   },
   {
     id: 'plaszow-camp-krakow-1943',
@@ -28104,6 +28415,8 @@ export const moments: Moment[] = [
     year: 1851,
     address: '909 Navasota St, Austin, TX 78702',
     entityIds: ['stephen-f-austin', 'texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ramesses-peace-treaty-hittites',
@@ -28538,6 +28851,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1653,
     address: 'Wall Street, New York, NY 10005',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'pushkin-marries-natalia-goncharova-moscow',
@@ -29287,6 +29602,8 @@ export const moments: Moment[] = [
     year: 79,
     address: 'Via Villa dei Misteri 2, 80045 Pompei NA, Italy',
     entityIds: ['mount-vesuvius'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'copernicus-deathbed',
@@ -29389,6 +29706,8 @@ export const moments: Moment[] = [
     address: 'Comédie-Française, 1 Place Colette, 75001 Paris, France',
     entityIds: ['victor-hugo'],
     wikiSection: 'Career',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'beatles-rooftop-concert',
@@ -29407,6 +29726,8 @@ export const moments: Moment[] = [
     date: 'January 30, 1969',
     address: '3 Savile Row, Mayfair, London, England',
     entityIds: ['the-beatles'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'brinks-mat-heathrow',
@@ -29459,6 +29780,8 @@ export const moments: Moment[] = [
     address: '27 rue de Fleurus, Paris 75006, France',
     entityIds: ['pablo-picasso'],
     wikiSection: 'Rose_Period:_1904–1906',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jefferson-founds-university-of-virginia',
@@ -29495,6 +29818,8 @@ export const moments: Moment[] = [
     year: 79,
     address: 'Corso Resina 187, 80056 Ercolano NA, Italy',
     entityIds: ['mount-vesuvius'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'suleiman-fails-to-take-vienna',
@@ -29531,6 +29856,8 @@ export const moments: Moment[] = [
     year: 1919,
     date: '6 February 1919',
     address: '2800 1st Ave, Seattle, WA',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'twain-mississippi',
@@ -29549,6 +29876,8 @@ export const moments: Moment[] = [
     date: '1863 (pen name adopted)',
     address: 'Mark Twain Boyhood Home, 206 Hill St, Hannibal, MO',
     entityIds: ['mark-twain'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'zanzibar-stone-town-slave-market',
@@ -29598,6 +29927,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1809,
     address: 'Winchester Road, Chawton, Hampshire GU34 1SD, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'choctaw-removal-1831',
@@ -29667,6 +29998,8 @@ export const moments: Moment[] = [
     year: 2015,
     date: '7 January 2015',
     address: '10 Rue Nicolas-Appert, Paris 75011, France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'chernobyl-reactor-4-explosion-1986',
@@ -29702,6 +30035,8 @@ export const moments: Moment[] = [
     date: 'September 2, 1867',
     address: 'Highgate Cemetery, Highgate, England, United Kingdom',
     entityIds: ['michael-faraday', 'highgate-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/84076267',
   },
   {
     id: 'chopin-dies-paris-place-vendome',
@@ -29721,6 +30056,8 @@ export const moments: Moment[] = [
     address: '12 Place Vendôme, Paris, France',
     entityIds: ['frederic-chopin'],
     wikiSection: 'Death',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'chichen-thompson-dredging',
@@ -29777,6 +30114,8 @@ export const moments: Moment[] = [
     date: 'July 27, 1946',
     address: 'Cimetière Père-Lachaise, Paris, Île-de-France, France',
     entityIds: ['gertrude-stein', 'pere-lachaise-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/144827560',
   },
   {
     id: 'marcel-proust-burial',
@@ -29795,6 +30134,8 @@ export const moments: Moment[] = [
     date: 'November 22, 1922',
     address: 'Cimetière Père-Lachaise, Paris, Île-de-France, France',
     entityIds: ['marcel-proust', 'pere-lachaise-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/34053417',
   },
   {
     id: 'olmec-tres-zapotes-discovery',
@@ -29958,6 +30299,8 @@ export const moments: Moment[] = [
     year: 1862,
     address: '38 Hauteville, St Peter Port, Guernsey GY1 1DQ',
     entityIds: ['victor-hugo'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'kafka-born-old-town-square-prague-1883',
@@ -30372,6 +30715,8 @@ export const moments: Moment[] = [
     year: 841,
     address: 'Wood Quay, Dublin 8, Ireland',
     entityIds: ['leif-erikson', 'harold-godwinson', 'harald-hardrada'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-wright-dayton-shop',
@@ -30407,6 +30752,8 @@ export const moments: Moment[] = [
     date: '20 June 1789',
     address: 'Salle du Jeu de Paume, Rue du Jeu de Paume, 78000 Versailles, France',
     entityIds: ['marie-antoinette', 'maximilien-robespierre'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'cern-higgs-boson-discovery-2012',
@@ -30550,6 +30897,8 @@ export const moments: Moment[] = [
     address: 'New Place, Chapel Street, Stratford-upon-Avon, CV37 6EP',
     entityIds: ['william-shakespeare'],
     wikiSection: 'Later_years_and_death',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'orwell-writes-1984-jura-1948',
@@ -30585,6 +30934,7 @@ export const moments: Moment[] = [
     date: '7 June 1977',
     address: '506 E Main Street, Aspen, CO 81611',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'aloha-243-maui-1988',
@@ -30971,6 +31321,8 @@ export const moments: Moment[] = [
     date: '20 April 1995',
     address: 'Place du Panthéon, Paris 75005, France',
     entityIds: ['marie-curie'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'reagan-reykjavik-summit-gorbachev',
@@ -31044,6 +31396,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1994,
     entityIds: ['texas-state-cemetery'],
+    geoVerified: true,
   },
   {
     id: 'tunguska-event-1908',
@@ -31078,6 +31431,8 @@ export const moments: Moment[] = [
     year: 1666,
     date: '4 September 1666',
     address: 'Seething Lane, City of London, EC3N 4AX',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'suleiman-captures-baghdad',
@@ -31378,6 +31733,8 @@ export const moments: Moment[] = [
     date: '2 August 1793',
     address: '2 Boulevard du Palais, Paris 75001, France',
     entityIds: ['marie-antoinette'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'victoria-diamond-jubilee',
@@ -31504,6 +31861,8 @@ export const moments: Moment[] = [
     year: 1948,
     date: '16 December 1948',
     address: '1000 Fifth Ave, New York, NY 10028',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-niepce-photograph',
@@ -31646,6 +32005,8 @@ export const moments: Moment[] = [
     year: 1974,
     address: '755 Hank Aaron Dr SW, Atlanta, GA 30315',
     entityIds: ['babe-ruth'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'maracana-world-cup-final-1950',
@@ -31846,6 +32207,8 @@ export const moments: Moment[] = [
     year: 1983,
     date: '8 February 1983',
     address: '23 Cranley Gardens, Muswell Hill, London N10 3LN',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'miracle-on-ice-lake-placid-1980',
@@ -31937,6 +32300,8 @@ export const moments: Moment[] = [
     year: 1778,
     address: '13 Rue de l\'Ancienne Comédie, Paris 75006, France',
     entityIds: ['voltaire'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'london-great-plague',
@@ -32079,6 +32444,8 @@ export const moments: Moment[] = [
     date: 'January 25, 1959',
     address: 'Hollywood Forever Cemetery, Los Angeles, California, United States',
     entityIds: ['hollywood-forever-cemetery', 'cecil-b-demille'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/44254377',
   },
   {
     id: 'bradman-last-innings-the-oval-1948',
@@ -32170,6 +32537,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1971,
     address: 'The Queen\'s Walk, London SE1 2JH',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'alcatraz-capone-arrives',
@@ -32204,6 +32573,8 @@ export const moments: Moment[] = [
     date: 'January 1933',
     address: 'Green-Wood Cemetery, Brooklyn, New York, United States',
     entityIds: ['louis-comfort-tiffany', 'green-wood-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/5784601',
   },
   {
     id: 'hanoi-hilton-mccain',
@@ -32314,6 +32685,8 @@ export const moments: Moment[] = [
     year: 1976,
     date: '20 September 1976',
     address: '100 Oxford Street, London W1D 1LL',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'spandau-hess-sole-prisoner',
@@ -32351,6 +32724,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/25th_Laureus_World_Sports_Awards_-_Comaneci_-_240421_142851-2.jpg', caption: 'Nadia Comaneci' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bob-dylan-gerdes-folk-city-1961',
@@ -32369,6 +32744,8 @@ export const moments: Moment[] = [
     date: '11 April 1961',
     address: '11 W 4th St, New York, NY 10012',
     entityIds: ['bob-dylan'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'brick-lane-huguenots-to-bengalis',
@@ -32385,6 +32762,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1743,
     address: '59 Brick Lane, London E1 6QL',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'locke-dies-oates-essex',
@@ -32739,6 +33118,8 @@ export const moments: Moment[] = [
     date: 'c. 1647-1652',
     address: 'Santa Maria della Vittoria, Via XX Settembre 17, Rome, Italy',
     entityIds: ['bernini'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'great-pyramid-giza-completed-2560bce',
@@ -33912,6 +34293,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Ted_Bundy_headshot.jpg', caption: 'Ted Bundy' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sun-tzu-born-in-state-of-qi',
@@ -34155,6 +34538,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1963,
     address: '800 S San Marcial St, El Paso, TX 79905',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ataturk-abolishes-caliphate',
@@ -34195,6 +34580,8 @@ export const moments: Moment[] = [
     date: 'June 11, 2004',
     address: 'Ronald Reagan Presidential Library, Simi Valley, California',
     entityIds: ['ronald-reagan'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/31911863',
   },
   {
     id: 'japan-defeats-russia-1905',
@@ -34448,6 +34835,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Rosa_Parks%2C_November_1956_%28cropped%29.jpg', caption: 'Rosa Parks' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'frida-kahlo-detroit-paintings',
@@ -34621,6 +35010,8 @@ export const moments: Moment[] = [
     year: 1993,
     address: '7525 Burnet Rd, Austin, TX 78757',
     entityIds: ['moonlight-towers'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'hp-malham-cove-2010',
@@ -34749,6 +35140,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/James_Monroe_White_House_portrait_1819_%28cropped%29%282%29.jpg', caption: 'James Monroe' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/52098146',
   },
   {
     id: 'marcus-aurelius-marcomannic-wars',
@@ -34874,6 +35267,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Zachary_Taylor_restored_and_cropped_%283.5x4.5_cropped%29.jpg', caption: 'Zachary Taylor' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/37813513',
   },
   {
     id: 'borges-buenos-aires-palermo-1899',
@@ -34912,6 +35307,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/JQA_Photo_Crop_%28cropped%29.jpg', caption: 'John Quincy Adams' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/21008130',
   },
   {
     id: 'leibniz-dies-alone-hanover',
@@ -34952,6 +35349,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Pach_Brothers_-_Benjamin_Harrison_%28cropped%29_%28cropped%29.jpg', caption: 'Benjamin Harrison' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/38847181',
   },
   {
     id: 'notre-dame-fire',
@@ -35024,6 +35423,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/President_Hoover_portrait.jpg', caption: 'Herbert Hoover' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/88656646',
   },
   {
     id: 'xochimilco-floating-gardens-aztec',
@@ -35230,6 +35631,7 @@ export const moments: Moment[] = [
     date: '11 June 1974',
     address: '4549 17th Ave NE, Seattle, WA 98105',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'sea-ridgway-house',
@@ -35248,6 +35650,7 @@ export const moments: Moment[] = [
     date: '1982–1999',
     address: '21859 32nd Place South, SeaTac, WA 98198',
     entityIds: ['gary-ridgway'],
+    geoVerified: true,
   },
   {
     id: 'mosquito-fleet-heyday',
@@ -35263,6 +35666,7 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1890,
+    geoVerified: true,
   },
   {
     id: 'tiananmen-tank-man-1989',
@@ -35315,6 +35719,7 @@ export const moments: Moment[] = [
     date: '4 January 1974',
     address: '4325 8th Avenue NE, Seattle, WA 98105',
     entityIds: ['ted-bundy'],
+    geoVerified: true,
   },
   {
     id: 'r66-santa-monica-endpoint',
@@ -35431,6 +35836,8 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: 1929,
     address: '10820 Riverview Dr, St. Louis, MO 63137',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'fawcett-rgs-presentation-1910',
@@ -35448,6 +35855,8 @@ export const moments: Moment[] = [
     year: 1910,
     address: '1 Kensington Gore, London SW7',
     entityIds: ['percy-fawcett'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'pont-neuf-completed-1607',
@@ -35556,6 +35965,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Rosa_Parks%2C_November_1956_%28cropped%29.jpg', caption: 'Rosa Parks' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'genghis-khan-dies-1227',
@@ -35698,6 +36109,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1945,
     address: 'Lubyanka Square, Moscow 101000, Russia',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'frida-bus-accident',
@@ -35786,6 +36199,8 @@ export const moments: Moment[] = [
     year: 1974,
     date: '15 January 1974',
     address: '803 N Edgemoor St, Wichita, KS 67208',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'samuel-little-convicted-la-2014',
@@ -35803,6 +36218,8 @@ export const moments: Moment[] = [
     year: 2014,
     address: '210 W Temple St, Los Angeles, CA 90012',
     entityIds: ['samuel-little'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'shipman-practice-hyde-1998',
@@ -35819,6 +36236,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1998,
     address: '21 Market St, Hyde, Greater Manchester SK14 1HE, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'nordlinger-ries',
@@ -35885,6 +36304,8 @@ export const moments: Moment[] = [
     year: 2018,
     address: '301 N Texas Ave, Odessa, TX 79761',
     entityIds: ['samuel-little'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'julia-child-le-cordon-bleu-1949',
@@ -35906,6 +36327,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Julia_Child_portrait_by_%C2%A9Lynn_Gilbert%2C_1978.jpg', caption: 'Julia Child' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'guadalupe-tepeyac-apparition',
@@ -35979,6 +36402,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/26/Franz_Kafka%2C_1923.jpg', caption: 'Franz Kafka' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dotd-mixquic-alumbrada',
@@ -36032,6 +36457,8 @@ export const moments: Moment[] = [
     year: 1987,
     date: '24 March 1987',
     address: '3520 N Marshall St, Philadelphia, PA 19140',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'kurosawa-seven-samurai',
@@ -36102,6 +36529,8 @@ export const moments: Moment[] = [
     year: 1969,
     date: '10 August 1969',
     address: '3301 Waverly Drive, Los Angeles, CA 90027',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'john-list-breeze-knoll-1971',
@@ -36189,6 +36618,8 @@ export const moments: Moment[] = [
     year: 2012,
     date: '1 February 2012',
     address: '630 E Tudor Rd, Anchorage, AK 99503',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dc-sniper-first-shooting-2002',
@@ -36704,6 +37135,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2008,
     address: '1001 Central Ave NE, Albuquerque, NM 87106',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'adam-smith-meets-voltaire-geneva',
@@ -36739,6 +37172,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1969,
     address: 'Santa Susana Pass Rd, Chatsworth, CA 91311',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ryoan-ji-rock-garden-1499',
@@ -36773,6 +37208,7 @@ export const moments: Moment[] = [
     year: 1991,
     date: '9 January 1991',
     address: '5812 S Ridgewood Ave, Port Orange, FL 32127',
+    geoVerified: true,
   },
   {
     id: 'puchezh-katunki-crater',
@@ -36858,6 +37294,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/TRUMAN_58-766-06_%28cropped%29.jpg', caption: 'Harry S. Truman' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/168147381',
   },
   {
     id: 'steinheim-basin',
@@ -37234,6 +37672,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Billie_Jean_King_at_the_2026_Sundance_Film_Festival_02_%28crop_2%29.jpg', caption: 'Billie Jean King' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'lalibela-rock-churches-ethiopia',
@@ -37285,6 +37725,8 @@ export const moments: Moment[] = [
     year: 1976,
     date: '16 June 1976',
     address: '8287 Khumalo St, Orlando West, Soweto, Johannesburg, South Africa',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'henbury-craters',
@@ -37455,6 +37897,8 @@ export const moments: Moment[] = [
     date: '10 March 1876',
     address: '109 Court St, Boston, MA',
     entityIds: ['alexander-graham-bell'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'place-de-la-concorde-louis-xvi-guillotined-1793',
@@ -37985,6 +38429,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Carte-de-visite_portrait_of_Harriet_Tubman_%28cropped%29.jpg', caption: 'Harriet Tubman' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'thomas-edison-burial',
@@ -38003,6 +38449,8 @@ export const moments: Moment[] = [
     date: '18 October 1931',
     address: 'Glenmont Estate, Thomas Edison National Historical Park, West Orange, NJ 07052, United States',
     entityIds: ['thomas-edison'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/123606843',
   },
   {
     id: 'wailers-record-simmer-down-studio-one-kingston',
@@ -38042,6 +38490,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Jesse_Jackson_in_Ida_Noyes.jpg/960px-Jesse_Jackson_in_Ida_Noyes.jpg', caption: 'Jesse Jackson in Ida Noyes' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bornholmer-strasse-opens-1989',
@@ -38059,6 +38509,8 @@ export const moments: Moment[] = [
     year: 1989,
     address: 'Bornholmer Strasse, 10439 Berlin, Germany',
     entityIds: ['gunter-schabowski', 'ronald-reagan', 'peter-fechter'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'faraday-hired-royal-institution',
@@ -38078,6 +38530,8 @@ export const moments: Moment[] = [
     address: '21 Albemarle Street, London W1S 4BS',
     entityIds: ['michael-faraday'],
     wikiSection: 'Adult_life',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dennys-google-meeting',
@@ -38094,6 +38548,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1998,
     address: '4256 El Camino Real, Palo Alto, CA',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'apollo-11-mission-control-1969',
@@ -38111,6 +38567,8 @@ export const moments: Moment[] = [
     year: 1969,
     address: '2101 E NASA Parkway, Houston, TX 77058',
     entityIds: ['nasa'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'leonardo-dies-amboise-1519',
@@ -38133,6 +38591,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Le_Chateau_du_Clos_Luce_a_Amboise.jpg/960px-Le_Chateau_du_Clos_Luce_a_Amboise.jpg', caption: 'Le Chateau du Clos Luce a Amboise' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'stravinsky-rite-of-spring-riot-1913',
@@ -38150,6 +38610,8 @@ export const moments: Moment[] = [
     year: 1913,
     date: '29 May 1913',
     address: '15 Avenue Montaigne, 75008 Paris, France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'gein-mendota',
@@ -38169,6 +38631,8 @@ export const moments: Moment[] = [
     address: '301 Troy Dr, Madison, WI',
     entityIds: ['ed-gein'],
     wikiSection: 'Trial',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'norman-petty-studios',
@@ -38186,6 +38650,8 @@ export const moments: Moment[] = [
     year: 1957,
     address: '1313 W 7th St, Clovis, NM',
     entityIds: ['buddy-holly'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'peary-henson-north-pole-1909',
@@ -38221,6 +38687,8 @@ export const moments: Moment[] = [
     year: 1904,
     address: 'West 24th St, New York, NY',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'inv-wright-kitty-hawk',
@@ -38238,6 +38706,8 @@ export const moments: Moment[] = [
     year: 1903,
     address: '1000 N. Croatan Hwy, Kill Devil Hills, NC 27948',
     entityIds: ['orville-wright'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'freud-dies-in-london-exile',
@@ -38257,6 +38727,8 @@ export const moments: Moment[] = [
     address: '20 Maresfield Gardens, Hampstead, London',
     entityIds: ['sigmund-freud'],
     wikiSection: 'Death',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'first-impressionist-exhibition-1874',
@@ -38275,6 +38747,8 @@ export const moments: Moment[] = [
     date: '15 April 1874',
     address: '35 Boulevard des Capucines, Paris 75002, France',
     entityIds: ['moulin-rouge'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'ohenry-marriage-athol',
@@ -38292,6 +38766,8 @@ export const moments: Moment[] = [
     year: 1887,
     address: '1316 W 6th St, Austin, TX 78703',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'london-olympics-opening-2012',
@@ -38309,6 +38785,8 @@ export const moments: Moment[] = [
     year: 2012,
     date: '27 July 2012',
     address: 'Queen Elizabeth Olympic Park, London E20 2ST',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'reagan-assassination-attempt-washington',
@@ -38331,6 +38809,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Photograph_of_chaos_outside_the_Washington_Hilton_Hotel_after_the_assassination_attempt_on_President_Reagan_%28white_border_removed%29.png/960px-Photograph_of_chaos_outside_the_Washington_Hilton_Hotel_after_the_assassination_attempt_on_President_Reagan_%28white_border_removed%29.png', caption: 'Photograph of chaos outside the Washington Hilton Hotel after the assassination attempt on President Reagan (white border removed)' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'willie-nelson-records-arlyn-austin',
@@ -38353,6 +38833,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Willie_UK2K7_2.JPG', caption: 'Willie Nelson' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'louvre-opens-as-museum-1793',
@@ -38371,6 +38853,8 @@ export const moments: Moment[] = [
     date: '10 August 1793',
     address: 'Musee du Louvre, Rue de Rivoli, Paris 75001, France',
     entityIds: ['marie-antoinette', 'maximilien-robespierre', 'louvre-museum'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'shakespeare-company-opens-1919',
@@ -38389,6 +38873,8 @@ export const moments: Moment[] = [
     date: 'November 1919',
     address: '12 Rue de l\'Odeon, Paris 75006, France',
     entityIds: ['shakespeare-and-company'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'apollo-mission-control',
@@ -38406,6 +38892,8 @@ export const moments: Moment[] = [
     year: 1970,
     address: '2101 NASA Pkwy, Houston, TX 77058',
     entityIds: ['nasa'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'soho-john-snow-cholera-pump-1854',
@@ -38439,6 +38927,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1922,
     address: '6 Gateway Drive, Great Neck, NY 11021, USA',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'gagarin-first-human-space-1961',
@@ -38475,6 +38965,8 @@ export const moments: Moment[] = [
     date: '2 February 1922',
     address: '12 Rue de l\'Odeon, Paris 75006, France',
     entityIds: ['shakespeare-and-company'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'r66-wigwam-motel-closed-bypass',
@@ -38491,6 +38983,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1974,
     address: '811 W Hopi Dr, Holbrook, AZ 86025',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'janis-threadgills',
@@ -38510,6 +39004,8 @@ export const moments: Moment[] = [
     year: 1963,
     address: '6416 N Lamar Blvd, Austin, TX 78752',
     entityIds: ['threadgills', 'janis-joplin'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'indira-gandhi-assassinated',
@@ -38531,6 +39027,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/IndiraGandhi.png', caption: 'Indira Gandhi' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sea-cobain-shotgun',
@@ -38549,6 +39047,7 @@ export const moments: Moment[] = [
     date: '30 March 1994',
     address: '10000 Lake City Way NE, Seattle, WA',
     entityIds: ['kurt-cobain'],
+    geoVerified: true,
   },
   {
     id: 'zilker-sells-barton-springs-1917',
@@ -38656,6 +39155,8 @@ export const moments: Moment[] = [
     year: 1894,
     address: '113 E 7th St, Austin, TX 78701',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jro-tech-area',
@@ -38673,6 +39174,8 @@ export const moments: Moment[] = [
     year: 1943,
     address: 'Trinity Dr, Los Alamos, NM 87544',
     entityIds: ['robert-oppenheimer', 'manhattan-project'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'times-square-ball-drop-1907',
@@ -38690,6 +39193,8 @@ export const moments: Moment[] = [
     year: 1907,
     date: '31 December 1907',
     address: 'One Times Square, New York, NY 10036',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'topkapi-harem-ottoman-power',
@@ -38760,6 +39265,8 @@ export const moments: Moment[] = [
     year: 2010,
     address: '301 W 2nd St, Austin, TX',
     entityIds: ['cathedral-of-junk'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'palace-santa-fe',
@@ -38777,6 +39284,8 @@ export const moments: Moment[] = [
     year: 1610,
     address: '105 W Palace Ave, Santa Fe, NM',
     entityIds: ['palace-of-the-governors'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'sputnik-launch-baikonur-1957',
@@ -38812,6 +39321,8 @@ export const moments: Moment[] = [
     date: 'July 20, 1989',
     address: '54 University Avenue, Rangoon (Yangon), Myanmar',
     entityIds: ['aung-san-suu-kyi'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'east-india-company-founded-1600',
@@ -38829,6 +39340,8 @@ export const moments: Moment[] = [
     year: 1600,
     date: '31 December 1600',
     address: 'Leadenhall Street, City of London, EC3V',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'hp-christ-church-oxford-2001',
@@ -38845,6 +39358,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: 'Christ Church, St Aldates, Oxford OX1 1DP, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'french-laundry-opens-yountville-1994',
@@ -38866,6 +39381,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Thomas_Keller.jpg', caption: 'Thomas Keller' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mistastin-crater',
@@ -38900,6 +39417,8 @@ export const moments: Moment[] = [
     date: '10 August 1977',
     address: '35 Pine St, Yonkers, NY 10701',
     entityIds: ['son-of-sam'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mandela-rivonia-speech-1964',
@@ -38939,6 +39458,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/David_Berkowitz_Arrested_August_10_1977_Mount_Vernon_Argus.jpg', caption: 'Son of Sam' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'grunge-sub-pop-seattle-1988',
@@ -38956,6 +39477,8 @@ export const moments: Moment[] = [
     year: 1988,
     address: '1932 1st Ave, Seattle, WA',
     entityIds: ['kurt-cobain'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'hemingway-apartment-cardinal-lemoine-1922',
@@ -38973,6 +39496,8 @@ export const moments: Moment[] = [
     year: 1922,
     address: '74 Rue du Cardinal Lemoine, Paris 75005, France',
     entityIds: ['ernest-hemingway'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'leicester-city-premier-league-2016',
@@ -38989,6 +39514,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2016,
     address: 'Filbert Way, Leicester LE2 7FL, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'berlin-airlift-tempelhof-1948',
@@ -39022,6 +39549,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1984,
     address: 'I-40 & Grand Canyon Blvd, Williams, AZ 86046',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'marco-polo-reaches-xanadu',
@@ -39077,6 +39606,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Jeffrey_Dahmer_Milwaukee_Police_1991_mugshot.jpg', caption: 'Jeffrey Dahmer' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tuol-sleng-prison-cambodia-1976',
@@ -39127,6 +39658,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1875,
     date: '4 November 1875',
+    geoVerified: true,
+    geoSourceUrl: 'https://www.shipwreckworld.com/maps/ss-pacific#:~:text=HistoryLink.org%2C%20a%20Washington%20state,Diving%20Pacific%20would%20be%20impossible.',
   },
   {
     id: 'dostoevsky-siberian-labor-camp',
@@ -39163,6 +39696,8 @@ export const moments: Moment[] = [
     year: 1997,
     address: '909 Navasota St, Austin, TX 78702',
     entityIds: ['texas-state-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'niagara-falls-blondin-tightrope-1859',
@@ -39245,6 +39780,8 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: 1926,
     address: '99 E Adams St, Chicago, IL 60603',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mario-andretti-f1-championship-monza-1978',
@@ -39281,6 +39818,8 @@ export const moments: Moment[] = [
     date: '1 April 1976',
     address: '2066 Crist Drive, Los Altos, CA 94024',
     entityIds: ['steve-jobs'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'coyoacan-hernan-cortes-hq-1521',
@@ -39318,6 +39857,8 @@ export const moments: Moment[] = [
     address: '700 Market Street, Philadelphia, Pennsylvania',
     entityIds: ['thomas-jefferson'],
     wikiSection: 'Declaration_of_Independence',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'abolition-slavery-british-empire-1833',
@@ -39373,6 +39914,8 @@ export const moments: Moment[] = [
     year: 1990,
     address: '800 W Riverside Dr, Austin, TX',
     entityIds: ['stevie-ray-vaughan'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'leonardo-dies-amboise-france-1519',
@@ -39392,6 +39935,8 @@ export const moments: Moment[] = [
     address: 'Château du Clos Lucé, 2 Rue du Clos Lucé, Amboise, France',
     entityIds: ['leonardo-da-vinci'],
     wikiSection: 'Final_years_(1513%E2%80%931519)',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bac-filling-station',
@@ -39412,6 +39957,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Bonnie_Parker_and_Clyde_Barrow.jpg', caption: 'Bonnie and Clyde' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'oregon-trail-end-oregon-city',
@@ -39428,6 +39975,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1843,
     address: '1726 Washington St, Oregon City, OR',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bauhaus-opens-weimar-1919',
@@ -39446,6 +39995,8 @@ export const moments: Moment[] = [
     date: 'April 1919',
     address: 'Geschwister-Scholl-Straße 8, 99423 Weimar, Germany',
     entityIds: ['walter-gropius'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'louvre-becomes-public-museum-1793',
@@ -39464,6 +40015,8 @@ export const moments: Moment[] = [
     date: '10 August 1793',
     address: 'Musée du Louvre, Rue de Rivoli, Paris 75001, France',
     entityIds: ['louvre-museum'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'kigali-genocide-memorial-2004',
@@ -39481,6 +40034,8 @@ export const moments: Moment[] = [
     year: 2004,
     address: 'KG 14 Ave, Gisozi, Kigali, Rwanda',
     entityIds: ['paul-rusesabagina', 'paul-kagame'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'borghese-gallery-bernini-apollo-daphne',
@@ -39550,6 +40105,8 @@ export const moments: Moment[] = [
     date: '1 January 1979',
     address: '819 116th Ave NE, Bellevue, WA',
     entityIds: ['bill-gates'],
+    geoVerified: true,
+    geoSourceUrl: 'https://www.historylink.org/File/21161',
   },
   {
     id: 'suleymaniye-mosque-sinan-1557',
@@ -39588,6 +40145,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/en/8/81/Immediate_Aftermath_of_the_King_Assassination_on_April_4%2C_1968.jpg', caption: 'The Assassination of Martin Luther King Jr.' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'r66-amblers-texaco-opens',
@@ -39604,6 +40163,8 @@ export const moments: Moment[] = [
     kind: 'milestone',
     year: 1933,
     address: '417 W Waupansie St, Dwight, IL 60420',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mexico-city-sinking-lakebed',
@@ -39638,6 +40199,8 @@ export const moments: Moment[] = [
     year: 1977,
     address: '8-10 Basing Street, London W11 1ET, England',
     entityIds: ['bob-marley'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'first-michelin-guide-paris-1900',
@@ -39655,6 +40218,8 @@ export const moments: Moment[] = [
     year: 1900,
     date: 'August 1900',
     address: '97 Boulevard Pereire, Paris 75017, France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'harry-winston-paris-heist',
@@ -39671,6 +40236,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2008,
     address: '29 Avenue Montaigne, 75008 Paris, France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tenochtitlan-causeways-1325',
@@ -39721,6 +40288,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2019,
     address: '2604 Washington Rd, Augusta, GA 30904',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'palace-fine-arts-mexico-city-1934',
@@ -39792,6 +40361,8 @@ export const moments: Moment[] = [
     address: '17 Bruton Street, Mayfair, London',
     entityIds: ['elizabeth-ii'],
     wikiSection: 'Early_life',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'charlevoix-crater',
@@ -39826,6 +40397,7 @@ export const moments: Moment[] = [
     date: 'November–December 2011',
     address: '9201 Circuit of the Americas Blvd, Del Valle, TX 78617',
     entityIds: ['cota'],
+    geoVerified: true,
   },
   {
     id: 'holmes-builds-murder-castle-1892',
@@ -39864,6 +40436,8 @@ export const moments: Moment[] = [
     date: 'December 18, 1799',
     address: 'Mount Comfort Cemetery, Alexandria, Virginia',
     entityIds: ['george-washington'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/53226756',
   },
   {
     id: 'luizi-crater',
@@ -39915,6 +40489,8 @@ export const moments: Moment[] = [
     address: 'Château du Clos Lucé, 2 Rue du Clos Lucé, 37400 Amboise, France',
     entityIds: ['leonardo-da-vinci'],
     wikiSection: 'France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'thriller-wins-8-grammys-record-single-night',
@@ -39934,6 +40510,8 @@ export const moments: Moment[] = [
     address: '665 W Jefferson Blvd, Los Angeles, CA 90007',
     entityIds: ['michael-jackson'],
     wikiSection: 'Thriller,_Motown_25:_Yesterday,_Today,_Forever_and_Pepsi_incident_(1981–1984)',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tower-bridge-opens-1894',
@@ -39951,6 +40529,8 @@ export const moments: Moment[] = [
     year: 1894,
     date: '30 June 1894',
     address: 'Tower Bridge Road, London SE1 2UP',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'chikatilo-captured-1990',
@@ -39985,6 +40565,8 @@ export const moments: Moment[] = [
     year: 1977,
     date: '26 April 1977',
     address: '254 W 54th St, New York, NY 10019',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'pasteur-rabies-vaccine-1885',
@@ -40021,6 +40603,8 @@ export const moments: Moment[] = [
     date: '5 January 1914',
     address: '91 Manchester St, Highland Park, MI 48203',
     entityIds: ['henry-ford'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'upheaval-dome-crater',
@@ -40056,6 +40640,8 @@ export const moments: Moment[] = [
     address: 'Nationaltheater, Max-Joseph-Platz 2, Munich, Germany',
     entityIds: ['richard-wagner'],
     wikiSection: 'Tristan_und_Isolde',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'hitler-bunker-suicide-1945',
@@ -40073,6 +40659,8 @@ export const moments: Moment[] = [
     year: 1945,
     date: '30 April 1945',
     address: 'Gertrud-Kolmar-Strasse, 10117 Berlin, Germany',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'rwandan-genocide-1994',
@@ -40090,6 +40678,8 @@ export const moments: Moment[] = [
     year: 1994,
     date: '7 April – July 1994',
     address: 'Kigali Genocide Memorial, KG 14 Ave, Kigali, Rwanda',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'lewis-hamilton-first-win-montreal-2007',
@@ -40129,6 +40719,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King%2C_Jr..jpg', caption: 'Martin Luther King Jr.' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'aorounga-crater',
@@ -40161,6 +40753,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1939,
     address: '367 Addison Ave, Palo Alto, CA 94301',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'jfk-dealey-plaza',
@@ -40181,6 +40775,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/5/59/JFK_Motorcade_GettyImages-517330536.jpg', caption: 'The JFK Assassination' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'hemingway-writes-sun-also-rises-closerie',
@@ -40201,6 +40797,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Generation_timeline_simple.svg/960px-Generation_timeline_simple.svg.png', caption: 'The Lost Generation in Paris' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'einstein-flees-germany-princeton-1933',
@@ -40220,6 +40818,8 @@ export const moments: Moment[] = [
     address: '112 Mercer Street, Princeton, New Jersey, USA',
     entityIds: ['albert-einstein'],
     wikiSection: 'Emigration_to_the_United_States',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'btk-death',
@@ -40241,6 +40841,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Billy_the_Kid_tintype%2C_Fort_Sumner%2C_1879-80-Edit2.jpg', caption: 'Billy the Kid' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'http://www.historyshomes.com/detail.cfm?id=346',
   },
   {
     id: 'btk-burial-fort-sumner',
@@ -40277,6 +40879,8 @@ export const moments: Moment[] = [
     date: '07 October 1849',
     address: '519 W Fayette St, Baltimore, MD 21201, United States',
     entityIds: ['edgar-allan-poe'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/1924245',
   },
   {
     id: 'proust-writes-recherche-boulevard-haussmann',
@@ -40294,6 +40898,8 @@ export const moments: Moment[] = [
     year: 1909,
     address: '102 Boulevard Haussmann, 75008 Paris, France',
     entityIds: ['marcel-proust'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'abraham-lincoln-burial',
@@ -40312,6 +40918,8 @@ export const moments: Moment[] = [
     date: '15 April 1865',
     address: 'Oak Ridge Cemetery, 1441 Monument Ave, Springfield, IL 62702, United States',
     entityIds: ['abraham-lincoln'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/34176450',
   },
   {
     id: 'charles-dickens-burial',
@@ -40330,6 +40938,8 @@ export const moments: Moment[] = [
     date: '09 June 1870',
     address: 'Westminster Abbey, 20 Deans Yard, Westminster, London SW1P 3PA, United Kingdom',
     entityIds: ['charles-dickens', 'westminster-abbey'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/96532787',
   },
   {
     id: 'british-museum-opens-1759',
@@ -40347,6 +40957,8 @@ export const moments: Moment[] = [
     year: 1759,
     date: '15 January 1759',
     address: 'Great Russell Street, London WC1B 3DG',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'judy-garland-burial',
@@ -40365,6 +40977,8 @@ export const moments: Moment[] = [
     date: 'June 27, 1969',
     address: 'Hollywood Forever Cemetery, Los Angeles, California, United States',
     entityIds: ['judy-garland', 'hollywood-forever-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/67694441',
   },
   {
     id: 'muhammad-ali-burial',
@@ -40383,6 +40997,8 @@ export const moments: Moment[] = [
     date: '10 June 2016',
     address: 'Cave Hill Cemetery, 701 Baxter Avenue, Louisville, KY 40204, United States',
     entityIds: ['muhammad-ali'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/40127728',
   },
   {
     id: 'harlem-renaissance-langston-hughes-1926',
@@ -40400,6 +41016,8 @@ export const moments: Moment[] = [
     year: 1926,
     address: '20 East 127th Street, Harlem, Manhattan, NY 10035',
     entityIds: ['langston-hughes'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'theodore-roosevelt-burial',
@@ -40421,6 +41039,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/7/7d/Theodore_Roosevelt_by_the_Pach_Bros_%284x5_cropped%29.jpg', caption: 'Theodore Roosevelt' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/34198707',
   },
   {
     id: 'rosa-parks-burial',
@@ -40439,6 +41059,8 @@ export const moments: Moment[] = [
     date: '24 October 2005',
     address: '19975 Woodward Ave, Detroit, MI 48203, United States',
     entityIds: ['rosa-parks'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/46710158',
   },
   {
     id: 'daniel-burnham-burial',
@@ -40457,6 +41079,8 @@ export const moments: Moment[] = [
     date: '01 June 1912',
     address: 'Graceland Cemetery, 4001 N Clark St, Chicago, IL 60613, United States',
     entityIds: ['daniel-burnham'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/14636698',
   },
   {
     id: 'winston-churchill-burial',
@@ -40475,6 +41099,8 @@ export const moments: Moment[] = [
     date: '24 January 1965',
     address: 'St Martin\'s Church, Church Road, Bladon, Woodstock, Oxfordshire OX20 1RS, United Kingdom',
     entityIds: ['winston-churchill'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/70732791',
   },
   {
     id: 'steve-jobs-iphone-moscone-2007',
@@ -40496,6 +41122,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg', caption: 'Steve Jobs' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'richard-moya-burial-2017',
@@ -40532,6 +41160,8 @@ export const moments: Moment[] = [
     date: 'December 7, 2006',
     address: 'Highgate Cemetery, Highgate, England, United Kingdom',
     entityIds: ['highgate-cemetery', 'alexander-litvinenko'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/99080095',
   },
   {
     id: 'gein-worden-store',
@@ -40554,6 +41184,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Ed-Gein.jpeg', caption: 'Ed Gein' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'david-livingstone-burial',
@@ -40572,6 +41204,8 @@ export const moments: Moment[] = [
     date: '01 May 1873',
     address: 'Westminster Abbey, 20 Broad Sanctuary, Westminster, London SW1P 3PA, United Kingdom',
     entityIds: ['westminster-abbey', 'david-livingstone'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/55770339',
   },
   {
     id: 'via-veneto-paparazzi-era-1960',
@@ -40588,6 +41222,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1960,
     address: 'Via Vittorio Veneto, Rome 00187, Italy',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'irving-berlin-burial',
@@ -40606,6 +41242,8 @@ export const moments: Moment[] = [
     date: 'September 1989',
     address: 'Woodlawn Cemetery, Bronx, New York, United States',
     entityIds: ['irving-berlin', 'woodlawn-cemetery-bronx'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/26107394',
   },
   {
     id: 'elizabeth-cady-stanton-burial',
@@ -40624,6 +41262,8 @@ export const moments: Moment[] = [
     date: 'October 29, 1902',
     address: 'Woodlawn Cemetery, Bronx, New York, United States',
     entityIds: ['woodlawn-cemetery-bronx', 'elizabeth-cady-stanton'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/20266196',
   },
   {
     id: 'joseph-pulitzer-burial',
@@ -40642,6 +41282,8 @@ export const moments: Moment[] = [
     date: 'November 1, 1911',
     address: 'Woodlawn Cemetery, Bronx, New York, United States',
     entityIds: ['joseph-pulitzer', 'woodlawn-cemetery-bronx'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/20301909',
   },
   {
     id: 'fiorello-la-guardia-burial',
@@ -40660,6 +41302,8 @@ export const moments: Moment[] = [
     date: 'September 25, 1947',
     address: 'Woodlawn Cemetery, Bronx, New York, United States',
     entityIds: ['fiorello-la-guardia', 'woodlawn-cemetery-bronx'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/90210691',
   },
   {
     id: 'leonard-bernstein-burial',
@@ -40678,6 +41322,8 @@ export const moments: Moment[] = [
     date: 'October 19',
     address: 'Green-Wood Cemetery, Brooklyn, New York, United States',
     entityIds: ['leonard-bernstein', 'green-wood-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/2766377',
   },
   {
     id: 'luna-park-coney-island-opens-1903',
@@ -40695,6 +41341,8 @@ export const moments: Moment[] = [
     year: 1903,
     date: '16 May 1903',
     address: 'Surf Ave, Coney Island, Brooklyn, NY 11224',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'mickey-rooney-burial',
@@ -40713,6 +41361,8 @@ export const moments: Moment[] = [
     date: 'April 2014',
     address: 'Hollywood Forever Cemetery, Los Angeles, California, United States',
     entityIds: ['mickey-rooney', 'hollywood-forever-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/42004778',
   },
   {
     id: 'johnny-ramone-burial',
@@ -40731,6 +41381,8 @@ export const moments: Moment[] = [
     date: 'September 2004',
     address: 'Hollywood Forever Cemetery, Los Angeles, California, United States',
     entityIds: ['johnny-ramone', 'hollywood-forever-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/35290362',
   },
   {
     id: 'thomas-jefferson-burial',
@@ -40749,6 +41401,8 @@ export const moments: Moment[] = [
     date: 'July 5, 1826',
     address: 'Monticello Graveyard, Charlottesville, Virginia',
     entityIds: ['thomas-jefferson'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/15170148',
   },
   {
     id: 'andrew-jackson-burial',
@@ -40770,6 +41424,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Andrew_jackson_head_%28cropped%29.jpg', caption: 'Andrew Jackson' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/55669973',
   },
   {
     id: 'lyndon-b-johnson-burial',
@@ -40791,6 +41447,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/7/70/Lyndon_B._Johnson%2C_photo_portrait%2C_color_%283x4_cropped%29%283%29.jpg', caption: 'LBJ and Lady Bird\'s Austin' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/13128845',
   },
   {
     id: 'sacre-coeur-construction-begins-1875',
@@ -40808,6 +41466,8 @@ export const moments: Moment[] = [
     year: 1875,
     date: '24 July 1873',
     address: '35 Rue du Chevalier de la Barre, Paris 75018, France',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'karl-marx-burial',
@@ -40826,6 +41486,8 @@ export const moments: Moment[] = [
     date: '14 March 1883',
     address: 'Highgate Cemetery East, Swain\'s Lane, London N6 6PJ, United Kingdom',
     entityIds: ['karl-marx', 'highgate-cemetery'],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/19356901',
   },
   {
     id: 'franklin-d-roosevelt-burial',
@@ -40847,6 +41509,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/FDR-1944-Campaign-Portrait_%283x4_retouched%2C_cropped%29.jpg', caption: 'Franklin D. Roosevelt' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/19918401',
   },
   {
     id: 'yoyogi-park-washington-heights-1964',
@@ -40864,6 +41528,8 @@ export const moments: Moment[] = [
     year: 1964,
     date: '1964',
     address: 'Yoyogi Park, 2-1 Yoyogi-Kamizonocho, Shibuya, Tokyo, Japan',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'chaplin-born-walworth-1889',
@@ -40883,6 +41549,8 @@ export const moments: Moment[] = [
     address: 'East Street, Walworth, London SE17',
     entityIds: ['charlie-chaplin'],
     wikiSection: 'Background_and_childhood_hardship',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'franklin-pierce-burial',
@@ -40904,6 +41572,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Mathew_Brady_-_Franklin_Pierce_-_alternate_crop_%28cropped%29%282%29.jpg', caption: 'Franklin Pierce' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/27102891',
   },
   {
     id: 'calvin-coolidge-burial',
@@ -40925,6 +41595,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/President_Calvin_Coolidge%2C_1924_portrait_photograph_%283x4_cropped%29.jpeg', caption: 'Calvin Coolidge' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/98437152',
   },
   {
     id: 'hp-kings-cross-platform-2001',
@@ -40941,6 +41613,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 2001,
     address: 'King\'s Cross Station, Euston Road, London N1C 4QP, England',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'bb-dog-house-drive-in-2008',
@@ -40957,6 +41631,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 2008,
     address: '1216 Central Ave SW, Albuquerque, NM 87104',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'nyc-bergin-club',
@@ -40975,6 +41651,7 @@ export const moments: Moment[] = [
     date: '1977–2005',
     address: '98-04 101st Avenue, Queens, NY 11416',
     entityIds: ['john-gotti'],
+    geoVerified: true,
   },
   {
     id: 'james-buchanan-burial',
@@ -41017,6 +41694,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/9/98/Ulysses_S._Grant_1870-1880_%28cropped%29.jpg', caption: 'Ulysses S. Grant' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/50405903',
   },
   {
     id: 'millard-fillmore-burial',
@@ -41038,6 +41717,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/4/43/Millard_Fillmore_Better_Crop.jpg', caption: 'Millard Fillmore' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/19160779',
   },
   {
     id: 'grover-cleveland-burial',
@@ -41059,6 +41740,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/3/36/StephenGroverCleveland.jpg', caption: 'Grover Cleveland' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/34895612',
   },
   {
     id: 'acl-studio-6a-landmark-2009',
@@ -41095,6 +41778,8 @@ export const moments: Moment[] = [
     year: 1969,
     date: '15 August 1969',
     address: 'Hurd Road, Bethel, NY 12720, USA',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'dior-new-look-debut-1947',
@@ -41113,6 +41798,8 @@ export const moments: Moment[] = [
     date: '12 February 1947',
     address: '30 Avenue Montaigne, Paris 75008, France',
     entityIds: ['christian-dior'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'andrew-johnson-burial',
@@ -41134,6 +41821,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Andrew_Johnson_photo_portrait_head_and_shoulders%2C_c1870-1880-Edit1.jpg', caption: 'Andrew Johnson' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'https://billiongraves.com/grave/r/29692985',
   },
   {
     id: 'btk-born-nyc-1859',
@@ -41268,6 +41957,8 @@ export const moments: Moment[] = [
     year: 1964,
     address: '1901 Convention Center Dr, Miami Beach, FL 33139',
     entityIds: ['muhammad-ali'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'woodrow-wilson-burial',
@@ -41323,6 +42014,8 @@ export const moments: Moment[] = [
     year: 1949,
     date: '4 April 1949',
     address: '1301 Constitution Ave NW, Washington, DC 20004',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'tyson-childhood-home-brownsville',
@@ -41357,6 +42050,8 @@ export const moments: Moment[] = [
     year: 1920,
     date: '17 January 1920',
     address: '2950 S Wabash Ave, Chicago, IL',
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'john-f-kennedy-burial',
@@ -41468,6 +42163,8 @@ export const moments: Moment[] = [
     date: 'July 1923',
     address: 'Plaza del Castillo, 31001 Pamplona, Navarra, Spain',
     entityIds: ['ernest-hemingway'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'gerald-ford-burial',
@@ -41507,6 +42204,7 @@ export const moments: Moment[] = [
     date: '4 March 1994',
     address: 'Via Vittorio Veneto 125, 00187 Rome, Italy',
     entityIds: ['kurt-cobain'],
+    geoVerified: true,
   },
   {
     id: 'jimmy-carter-burial',
@@ -41587,6 +42285,8 @@ export const moments: Moment[] = [
     year: 1887,
     address: '112 E 11th St, Austin, TX 78701',
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'picasso-paints-guernica',
@@ -41621,6 +42321,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1890,
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'annihilator-irene-cross',
@@ -41641,6 +42343,8 @@ export const moments: Moment[] = [
     year: 1885,
     date: 'May 23, 1885',
     entityIds: ['moonlight-towers'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'annihilator-fourth-victim',
@@ -41661,6 +42365,8 @@ export const moments: Moment[] = [
     year: 1885,
     date: 'August 30, 1885',
     entityIds: ['moonlight-towers'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'annihilator-eula-phillips',
@@ -41681,6 +42387,8 @@ export const moments: Moment[] = [
     year: 1885,
     date: 'December 24, 1885',
     entityIds: ['moonlight-towers'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'annihilator-christmas-massacre',
@@ -41703,6 +42411,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Hell_Broke_Loose.jpg', caption: 'The Servant Girl Annihilator' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'ohenry-harrell-residence',
@@ -41719,6 +42429,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1884,
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'ohenry-lindsay-street-school',
@@ -41735,6 +42447,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1876,
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'ohenry-driskill-quartette',
@@ -41751,6 +42465,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1888,
     entityIds: ['o-henry', 'driskill-hotel'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'gein-cemetery',
@@ -41806,6 +42522,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1897,
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'austin-tejano-neighborhood',
@@ -41821,6 +42539,8 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1880,
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'doyers-street-bloody-angle-tong-wars',
@@ -41872,6 +42592,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1910,
     entityIds: ['o-henry'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'austin-wooldridge-bandstand',
@@ -41887,6 +42609,8 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1909,
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'five-points-notorious-slum-1842',
@@ -41938,6 +42662,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1836,
     entityIds: ['sam-houston'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'austin-lamar-buffalo-hunt',
@@ -41953,6 +42679,8 @@ export const moments: Moment[] = [
     accuracy: 'exact',
     kind: 'event',
     year: 1838,
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'austin-edwin-waller-auction',
@@ -41969,6 +42697,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1839,
     entityIds: ['edwin-waller'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'janis-joplin-vulcan-gas',
@@ -41987,6 +42717,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1966,
     entityIds: ['janis-joplin'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'emperor-wu-han-confucianism-official',
@@ -42075,6 +42807,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1933,
     entityIds: ['threadgills'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'threadgills-gulf-station',
@@ -42093,6 +42827,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1933,
     entityIds: ['threadgills'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'janis-joplin-residence',
@@ -42111,6 +42847,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1962,
     entityIds: ['janis-joplin'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'pilot-knob-eruption',
@@ -42148,6 +42886,8 @@ export const moments: Moment[] = [
     year: 1886,
     date: 'February 1886',
     entityIds: ['moonlight-towers'],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'trump-tower-opens-midtown-manhattan',
@@ -42188,6 +42928,7 @@ export const moments: Moment[] = [
     date: '21 October 2012',
     address: '9201 Circuit of the Americas Blvd, Del Valle, TX 78617',
     entityIds: ['cota', 'mario-andretti'],
+    geoVerified: true,
   },
   {
     id: 'cota-first-usgp',
@@ -42207,6 +42948,7 @@ export const moments: Moment[] = [
     address: '9201 Circuit of the Americas Blvd, Del Valle, TX 78617',
     entityIds: ['cota', 'lewis-hamilton'],
     wikiSection: 'United_States_Grand_Prix',
+    geoVerified: true,
   },
   {
     id: 'annihilator-mollie-smith',
@@ -42229,6 +42971,8 @@ export const moments: Moment[] = [
     media: [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Hell_Broke_Loose.jpg', caption: 'The Servant Girl Annihilator' },
     ],
+    geoVerified: true,
+    geoSourceUrl: 'user-spreadsheet-verified',
   },
   {
     id: 'cota-attendance-record',
@@ -42247,6 +42991,7 @@ export const moments: Moment[] = [
     date: 'October 2021',
     address: '9201 Circuit of the Americas Blvd, Del Valle, TX 78617',
     entityIds: ['max-verstappen', 'cota'],
+    geoVerified: true,
   },
   {
     id: 'phx-lights-sierra-estrella',
@@ -42265,6 +43010,7 @@ export const moments: Moment[] = [
     date: '13 March 1997',
     entityIds: ['phoenix-az'],
     wikiSection: 'Explanations',
+    geoVerified: true,
   },
   {
     id: 'phx-taliesin-west',
@@ -42283,6 +43029,7 @@ export const moments: Moment[] = [
     address: '12621 N Frank Lloyd Wright Blvd, Scottsdale, AZ 85259',
     entityIds: ['frank-lloyd-wright'],
     wikiSection: 'Design_and_construction',
+    geoVerified: true,
   },
   {
     id: 'phx-goldwater-store',
@@ -42369,6 +43116,7 @@ export const moments: Moment[] = [
     date: '23 December 1944',
     entityIds: ['phoenix-az'],
     wikiSection: 'The_escape',
+    geoVerified: true,
   },
   {
     id: 'phx-judd-murder-scene',
@@ -42386,6 +43134,8 @@ export const moments: Moment[] = [
     year: 1931,
     date: '16 October 1931',
     entityIds: ['winnie-ruth-judd'],
+    geoVerified: true,
+    geoSourceUrl: 'https://commons.wikimedia.org/wiki/File:Phoenix-House-Winnie_Judd-Trunk_Murderess_House-3.jpg',
   },
   {
     id: 'bergstrom-queen-concorde',
@@ -42456,6 +43206,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1962,
     entityIds: ['winnie-ruth-judd'],
+    geoVerified: true,
   },
   {
     id: 'churchill-war-rooms',
@@ -42527,6 +43278,7 @@ export const moments: Moment[] = [
     date: 'c. 1100–1400 AD',
     address: '1000 N Date, Mesa, AZ 85201',
     entityIds: ['hohokam-civilization'],
+    geoVerified: true,
   },
   {
     id: 'sea-nirvana-paramount',
@@ -42545,6 +43297,7 @@ export const moments: Moment[] = [
     date: '31 October 1991',
     address: '911 Pine St, Seattle, WA 98101',
     entityIds: ['kurt-cobain'],
+    geoVerified: true,
   },
   {
     id: 'old-st-patricks-catacombs-1815',
@@ -42618,6 +43371,7 @@ export const moments: Moment[] = [
     date: '13 March 1997',
     entityIds: ['phoenix-az'],
     wikiSection: 'Events',
+    geoVerified: true,
   },
   {
     id: 'phx-hohokam-park-canals',
@@ -42636,6 +43390,7 @@ export const moments: Moment[] = [
     date: 'c. 1450 AD',
     address: '1710 N Horne, Mesa, AZ 85203',
     entityIds: ['hohokam-civilization'],
+    geoVerified: true,
   },
   {
     id: 'sea-cobain-death',
@@ -42655,6 +43410,7 @@ export const moments: Moment[] = [
     address: '171 Lake Washington Blvd E, Seattle, WA 98112',
     entityIds: ['kurt-cobain'],
     wikiSection: 'Death',
+    geoVerified: true,
   },
   {
     id: 'aus-snake-blackout',
@@ -42691,6 +43447,8 @@ export const moments: Moment[] = [
     address: 'Old Man House Park, Suquamish, WA 98392',
     entityIds: ['chief-seattle'],
     wikiSection: 'Old_Man_House',
+    geoVerified: true,
+    geoSourceUrl: 'https://qmackie.com/wp-content/uploads/2018/09/poster-for-web-page-jpg-oct.jpg',
   },
   {
     id: 'sea-chief-seattle-grave',
@@ -42727,6 +43485,8 @@ export const moments: Moment[] = [
     date: '10 February 1980',
     entityIds: ['db-cooper'],
     wikiSection: 'Physical_evidence',
+    geoVerified: true,
+    geoSourceUrl: 'https://ericulis.com/pages/tena-bar-money-find-spot',
   },
   {
     id: 'phx-miranda-arrest',
@@ -42745,6 +43505,7 @@ export const moments: Moment[] = [
     date: '13 March 1963',
     entityIds: ['ernesto-miranda'],
     wikiSection: 'Arrest_and_conviction',
+    geoVerified: true,
   },
   {
     id: 'sea-port-orchard-founding',
@@ -42796,6 +43557,7 @@ export const moments: Moment[] = [
     year: 1966,
     date: '13 June 1966',
     wikiSection: 'Decision',
+    geoVerified: true,
   },
   {
     id: 'sea-missouri-mothball',
@@ -42831,6 +43593,7 @@ export const moments: Moment[] = [
     date: '15 July 1982',
     entityIds: ['gary-ridgway'],
     wikiSection: 'Murders',
+    geoVerified: true,
   },
   {
     id: 'freud-interpretation-dreams',
@@ -42903,6 +43666,7 @@ export const moments: Moment[] = [
     date: 'May 1942 – November 1945',
     entityIds: ['phoenix-az'],
     wikiSection: 'History',
+    geoVerified: true,
   },
   {
     id: 'white-city-opens-jackson-park-1893',
@@ -42938,6 +43702,7 @@ export const moments: Moment[] = [
     date: '2 June 1976',
     entityIds: ['don-bolles'],
     wikiSection: 'Murder',
+    geoVerified: true,
   },
   {
     id: 'sea-mtsthelens-eruption',
@@ -43026,6 +43791,7 @@ export const moments: Moment[] = [
     date: '30 November 1999',
     address: '705 Pike St, Seattle, WA 98101',
     wikiSection: 'Timeline',
+    geoVerified: true,
   },
   {
     id: 'shelley-writes-frankenstein-diodati',
@@ -43078,6 +43844,7 @@ export const moments: Moment[] = [
     date: '24 November 1971',
     entityIds: ['db-cooper'],
     wikiSection: 'Hijacking',
+    geoVerified: true,
   },
   {
     id: 'moliere-dies-onstage-imaginary-invalid',
@@ -43114,6 +43881,7 @@ export const moments: Moment[] = [
     year: 1947,
     address: '776 Commerce St, Tacoma, WA 98402',
     entityIds: ['kenneth-arnold'],
+    geoVerified: true,
   },
   {
     id: 'sea-bundy-sammamish',
@@ -43132,6 +43900,8 @@ export const moments: Moment[] = [
     date: '14 July 1974',
     entityIds: ['ted-bundy'],
     wikiSection: 'Pacific_Northwest_murders',
+    geoVerified: true,
+    geoSourceUrl: 'https://www.reddit.com/r/serialkillers/s/EPkOE9IRtP',
   },
   {
     id: 'max-verstappen-championship-abu-dhabi-2021',
@@ -43242,6 +44012,7 @@ export const moments: Moment[] = [
     address: '1491 Mill Run Rd, Mill Run, PA 15464',
     entityIds: ['frank-lloyd-wright'],
     wikiSection: 'History',
+    geoVerified: true,
   },
   {
     id: 'phx-miranda-stabbed',
@@ -43260,6 +44031,8 @@ export const moments: Moment[] = [
     date: '31 January 1976',
     entityIds: ['ernesto-miranda'],
     wikiSection: 'Death',
+    geoVerified: true,
+    geoSourceUrl: 'https://www.city-data.com/forum/attachments/phoenix-area/108421d1362597578-how-do-you-remember-phoenix-stories-la-amapola-bar.jpg',
   },
   {
     id: 'phx-hohokam-pueblo-grande',
@@ -43279,6 +44052,7 @@ export const moments: Moment[] = [
     address: '4619 E Washington St, Phoenix, AZ 85034',
     entityIds: ['hohokam-civilization'],
     wikiSection: 'Irrigation',
+    geoVerified: true,
   },
   {
     id: 'sea-ridgway-arrest',
@@ -43298,6 +44072,7 @@ export const moments: Moment[] = [
     address: '10630 SE 192nd St, Renton, WA 98055',
     entityIds: ['gary-ridgway'],
     wikiSection: 'Arrest',
+    geoVerified: true,
   },
   {
     id: 'kkk-peeler-clayton-murder-1921',
@@ -43351,6 +44126,7 @@ export const moments: Moment[] = [
     address: '516 Third Ave, Seattle, WA 98104',
     entityIds: ['gary-ridgway'],
     wikiSection: 'Plea_bargain_and_confession',
+    geoVerified: true,
   },
   {
     id: 'austin-vietnam-moratorium-1969',
@@ -43406,6 +44182,7 @@ export const moments: Moment[] = [
     address: '1071 Fifth Ave, New York, NY 10128',
     entityIds: ['frank-lloyd-wright'],
     wikiSection: 'History',
+    geoVerified: true,
   },
   {
     id: 'kkk-congress-ave-march-1921',
@@ -43442,6 +44219,8 @@ export const moments: Moment[] = [
     address: 'Spirit Lake, Skamania County, WA 98616',
     entityIds: ['harry-truman-mtsthelens', 'harry-r-truman'],
     wikiSection: 'Pre-eruption_media_attention',
+    geoVerified: true,
+    geoSourceUrl: 'https://en.wikipedia.org/wiki/Harry_R._Truman',
   },
   {
     id: 'clarksville-clark-buys-land-1871',
@@ -45039,6 +45818,8 @@ export const moments: Moment[] = [
     year: 1976,
     address: '1212 N Center St, Mesa, AZ 85201',
     entityIds: ['ernesto-miranda'],
+    geoVerified: true,
+    geoSourceUrl: 'https://www.findagrave.com/memorial/10165/ernesto_arturo-miranda',
   },
   {
     id: 'lost-dutchman-adolph-ruth',
@@ -45054,6 +45835,8 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1931,
+    geoVerified: true,
+    geoSourceUrl: 'https://superstitionmountaintomkollenborn.blogspot.com/2002/06/the-final-chapter-in-adolph-ruth-tragedy.html?m=1',
   },
   {
     id: 'mcquilliams-consulate-shooting-2014',
@@ -45089,6 +45872,7 @@ export const moments: Moment[] = [
     date: '25 January 1961',
     address: '115 MacDougal Street, Greenwich Village, Manhattan, NY 10012',
     entityIds: ['bob-dylan'],
+    geoVerified: true,
   },
   {
     id: 'meteor-crater-apollo-training',
@@ -45120,6 +45904,8 @@ export const moments: Moment[] = [
     kind: 'presence',
     year: 1943,
     address: '1212 N Center St, Mesa, AZ 85201',
+    geoVerified: true,
+    geoSourceUrl: 'https://apps.mesaaz.gov/gravelocator#',
   },
   {
     id: 'tacoma-narrows-collapse',
@@ -45136,6 +45922,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1940,
     date: '7 November 1940',
+    geoVerified: true,
   },
   {
     id: 'tacoma-narrows-rebuilt',
@@ -45152,6 +45939,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1950,
     date: '14 October 1950',
+    geoVerified: true,
   },
   {
     id: 'falcon-field-opens-1941',
@@ -45168,6 +45956,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1941,
     address: '4800 E Falcon Dr, Mesa, AZ 85215',
+    geoVerified: true,
   },
   {
     id: 'waylon-jennings-burial',
@@ -45185,6 +45974,7 @@ export const moments: Moment[] = [
     year: 2002,
     address: '1212 N Center St, Mesa, AZ 85201',
     entityIds: ['waylon-jennings'],
+    geoVerified: true,
   },
   {
     id: 'seattle-rebuild-higher',
@@ -45265,6 +46055,7 @@ export const moments: Moment[] = [
     year: 1947,
     date: '1947-06-21',
     entityIds: ['kenneth-arnold'],
+    geoVerified: true,
   },
   {
     id: 'seattle-underground-condemned',
@@ -45314,6 +46105,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: -11000,
     entityIds: ['chief-seattle'],
+    geoVerified: true,
   },
   {
     id: 'tacoma-narrows-opens',
@@ -45330,6 +46122,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1940,
     date: '1 July 1940',
+    geoVerified: true,
   },
   {
     id: 'maury-island-men-in-black',
@@ -45346,6 +46139,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1947,
     entityIds: ['kenneth-arnold'],
+    geoVerified: true,
   },
   {
     id: 'po-murder-cremation-1937',
@@ -45361,6 +46155,8 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 1937,
+    geoVerified: true,
+    geoSourceUrl: 'https://content.libraries.wsu.edu/digital/collection/clipping/id/140082/',
   },
   {
     id: 'mosquito-fleet-carlisle-ii',
@@ -45376,6 +46172,7 @@ export const moments: Moment[] = [
     accuracy: 'approximate',
     kind: 'event',
     year: 1917,
+    geoVerified: true,
   },
   {
     id: 'southpark-meadows-concerts',
@@ -45407,6 +46204,8 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1911,
     entityIds: ['linda-hazzard'],
+    geoVerified: true,
+    geoSourceUrl: 'https://www.wahauntedhouses.com/real-haunt/starvation-heights.html',
   },
   {
     id: 'maury-island-b25-crash',
@@ -45424,6 +46223,8 @@ export const moments: Moment[] = [
     year: 1947,
     date: '1947-08-01',
     entityIds: ['kenneth-arnold'],
+    geoVerified: true,
+    geoSourceUrl: 'https://cdnc.ucr.edu/?a=d&d=SPNP19470801.2.47&e=-------en--20--1--txt-txIN--------',
   },
   {
     id: 'maury-island-fbi-hoax',
@@ -45440,6 +46241,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1947,
     entityIds: ['kenneth-arnold'],
+    geoVerified: true,
   },
   {
     id: 'slaughter-county-named',
@@ -45486,6 +46288,8 @@ export const moments: Moment[] = [
     accuracy: 'general-area',
     kind: 'event',
     year: 2022,
+    geoVerified: true,
+    geoSourceUrl: 'https://www.shipwreckworld.com/maps/ss-pacific#:~:text=HistoryLink.org%2C%20a%20Washington%20state,Diving%20Pacific%20would%20be%20impossible.',
   },
   {
     id: 'seattle-great-fire',
@@ -45536,6 +46340,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1936,
     entityIds: ['l-ron-hubbard'],
+    geoVerified: true,
   },
   {
     id: 'starvation-heights-olalla-cemetery',
@@ -45553,6 +46358,8 @@ export const moments: Moment[] = [
     year: 1911,
     address: 'Olalla Valley Road, Olalla, WA 98359',
     entityIds: ['linda-hazzard'],
+    geoVerified: true,
+    geoSourceUrl: 'https://www.findagrave.com/cemetery/2256418/olalla-pioneer-cemetery',
   },
   {
     id: 'constantine-baptized-and-dies-at-nicomedia',
@@ -45588,6 +46395,7 @@ export const moments: Moment[] = [
     kind: 'event',
     year: 1938,
     entityIds: ['l-ron-hubbard'],
+    geoVerified: true,
   },
   {
     id: 'chopin-winter-mallorca-george-sand',
@@ -46531,6 +47339,8 @@ export const moments: Moment[] = [
     date: '2nd-5th century CE',
     address: 'Via Appia Antica 110-126, Rome, Italy',
     entityIds: ['spartacus', 'nero', 'hadrian'],
+    geoVerified: true,
+    geoSourceUrl: 'nominatim-batch-geocode',
   },
   {
     id: 'oscar-wilde-dies-paris',
