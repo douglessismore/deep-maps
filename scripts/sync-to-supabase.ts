@@ -151,6 +151,7 @@ async function syncMoments() {
           verification_level: m.verificationLevel ?? 'documented',
           wiki_section: (m as any).wikiSection ?? null,
           narrative_context: (m as any).narrativeContext ?? null,
+          audio_url: (m as any).audioUrl ?? null,
         },
         { onConflict: 'id', ignoreDuplicates: false },
       );

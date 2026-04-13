@@ -31,6 +31,8 @@ interface MomentRow {
   geo_verified: boolean;
   geo_source_url: string | null;
   geo_verified_at: string | null;
+  narrative_context: string | null;
+  audio_url: string | null;
 }
 
 interface StoryRow {
@@ -265,6 +267,8 @@ export async function loadFromSupabase(): Promise<SupabaseData> {
     ...(r.geo_verified ? { geoVerified: true } : {}),
     ...(r.geo_source_url ? { geoSourceUrl: r.geo_source_url } : {}),
     ...(r.geo_verified_at ? { geoVerifiedAt: r.geo_verified_at } : {}),
+    ...(r.narrative_context ? { narrativeContext: r.narrative_context } : {}),
+    ...(r.audio_url ? { audioUrl: r.audio_url } : {}),
   }));
 
   const stories: Story[] = storyRows.map((r) => ({
