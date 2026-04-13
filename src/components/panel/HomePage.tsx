@@ -550,6 +550,7 @@ function HomeCollectionCard({
   isBackfill,
   cardIndex,
   cardId,
+  hasAudio,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
@@ -560,6 +561,7 @@ function HomeCollectionCard({
   isBackfill?: boolean;
   cardIndex?: number;
   cardId?: string;
+  hasAudio?: boolean;
 }) {
   const total = collection.momentIds.length;
   const hasMore = isActive && inViewCount != null && inViewCount < total;
@@ -591,7 +593,13 @@ function HomeCollectionCard({
             {collection.subtitle}
           </p>
         </div>
-        <div className="mt-auto pt-1 flex items-baseline gap-1.5">
+        <div className="mt-auto pt-1 flex items-center gap-1.5">
+          {hasAudio && (
+            <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              Audio
+            </span>
+          )}
           {hasMore && !isBackfill ? (
             <>
               <span className="text-[10px] font-mono text-[var(--text-primary)] uppercase tracking-wider">
@@ -618,10 +626,12 @@ function CollectionGridCard({
   collection,
   imageUrl,
   onClick,
+  hasAudio,
 }: {
   collection: StoryCollection;
   imageUrl?: string;
   onClick: () => void;
+  hasAudio?: boolean;
 }) {
   return (
     <button
@@ -647,9 +657,17 @@ function CollectionGridCard({
             {collection.subtitle}
           </p>
         </div>
-        <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mt-auto pt-1">
-          {collection.momentIds.length} events
-        </span>
+        <div className="flex items-center gap-1.5 mt-auto pt-1">
+          {hasAudio && (
+            <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              Audio
+            </span>
+          )}
+          <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+            {collection.momentIds.length} events
+          </span>
+        </div>
       </div>
     </button>
   );
@@ -2834,6 +2852,7 @@ export function HomePage({
                     key={collection.id}
                     collection={collection}
                     onClick={() => onCollectionSelect(collection)}
+                    hasAudio={collection.momentIds.some(mid => momentAudioSet.has(mid))}
                   />
                 ))}
                 <div className="col-span-2">
@@ -2856,6 +2875,7 @@ export function HomePage({
                       isBackfill={backfillCollectionIds.has(collection.id)}
                       inViewCount={collection.momentIds.filter((mid) => viewportMomentIds.has(mid)).length}
                       onClick={() => onCollectionSelect(collection)}
+                      hasAudio={collection.momentIds.some(mid => momentAudioSet.has(mid))}
                     />
                   </Fragment>
                 ))}
