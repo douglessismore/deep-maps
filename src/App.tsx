@@ -22,7 +22,7 @@ import { getEntityLocations } from './lib/entityHelpers';
 import { distanceMiles } from './lib/geo';
 import { useAppData } from './lib/data/provider';
 import { detectAdminParam } from './lib/admin';
-import { setGateHandler } from './lib/audioPlayer';
+import { setGateHandler, stopAudio } from './lib/audioPlayer';
 import { AudioGateModal } from './components/ui/AudioGateModal';
 import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
@@ -407,6 +407,8 @@ function App() {
 
   // Back: pop from navigation history, or fall back to explore
   const handleBack = useCallback(() => {
+    // Stop any playing audio on navigation
+    stopAudio();
     // Always clear scroll highlight on back — otherwise other pins stay dimmed
     // because getHighlightOpacity drops non-highlighted moments to 0.08 when
     // scrollHighlight is set.
@@ -463,6 +465,7 @@ function App() {
   // Full reset → clears everything including collection, history, and timeline filter
   // Returns to the home page view
   const handleBackToExplore = useCallback(() => {
+    stopAudio();
     setActiveStory(null);
     setActiveLocation(null);
     setActiveEntity(null);

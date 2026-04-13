@@ -103,6 +103,15 @@ export function pauseAudio(): void {
   }
 }
 
+export function stopAudio(): void {
+  if (!audio) return;
+  audio.pause();
+  audio.currentTime = 0;
+  currentUrl = null;
+  currentMomentId = null;
+  notifySubscribers();
+}
+
 export function isPlaying(url: string): boolean {
   if (!audio || currentUrl !== url) return false;
   return !audio.paused;
