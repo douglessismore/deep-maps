@@ -41,16 +41,16 @@ export function CollectionCard({ collection, momentCount, onClick, hasAudio }: C
       </div>
 
       {/* Stats row */}
-      <div className={v2 ? 'flex items-center gap-3 mt-3' : 'flex items-center gap-3 mt-2.5'}>
+      <div className={v2 ? 'flex items-center gap-2 mt-3 overflow-hidden shrink-0' : 'flex items-center gap-2 mt-2.5 overflow-hidden shrink-0'}>
         {hasAudio && (
-          <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5">
+          <span className="text-[10px] font-mono text-[#e74c3c] flex items-center gap-0.5 shrink-0">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             Audio
           </span>
         )}
         <span className={v2
-          ? 'text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider'
-          : 'text-[10px] font-mono text-[var(--text-muted)]'
+          ? 'text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider truncate'
+          : 'text-[10px] font-mono text-[var(--text-muted)] truncate'
         }>
           {momentCount} {momentCount === 1 ? 'moment' : 'moments'}
         </span>
