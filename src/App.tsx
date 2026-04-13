@@ -22,6 +22,8 @@ import { getEntityLocations } from './lib/entityHelpers';
 import { distanceMiles } from './lib/geo';
 import { useAppData } from './lib/data/provider';
 import { detectAdminParam } from './lib/admin';
+import { setGateHandler } from './lib/audioPlayer';
+import { AudioGateModal } from './components/ui/AudioGateModal';
 import type { Entity, Story, Moment, StoryCategory, StoryCollection, InteractionMode } from './types';
 import L from 'leaflet';
 import type { Map as LeafletMap } from 'leaflet';
@@ -75,6 +77,7 @@ function App() {
   const [restoreScrollTop, setRestoreScrollTop] = useState<number | null>(null);
   const [zoomToActiveLocation, setZoomToActiveLocation] = useState(false);
   const [panelView, setPanelView] = useState<'home' | 'explorer'>('home');
+  const [showAudioGate, setShowAudioGate] = useState(false);
   const autoGeoRequested = useRef(false);
 
   // Bottom sheet snap state (mobile only)
@@ -104,6 +107,7 @@ function App() {
 
   // Detect ?admin=true URL param on mount
   useEffect(() => { detectAdminParam(); }, []);
+  useEffect(() => { setGateHandler(() => setShowAudioGate(true)); }, []);
 
   // Refit map bounds when sheet snap changes in story/entity mode
   // (e.g., user pulls sheet down to peek → show all story pins in the now-larger map area)
@@ -1107,6 +1111,7 @@ function App() {
           )}
         </div>
       )}
+      {showAudioGate && <AudioGateModal onClose={() => setShowAudioGate(false)} />}
     </div>
   );
 }

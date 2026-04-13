@@ -110,6 +110,7 @@ export interface Moment {
   geoSourceUrl?: string;
   geoVerifiedAt?: string;
   narrativeContext?: string;             // Rich background context (not rendered in UI). For future AI tour guide.
+  audioUrl?: string;                     // MP3 URL on Supabase Storage (generated from narrativeContext via TTS)
 }
 
 /** A story's reference to a shared moment, with optional narrative framing.
@@ -131,6 +132,7 @@ export interface Entity {
   years?: string;                      // For people: '1862–1910'
   description?: string;                // Brief bio/description
   canonicalStoryId?: string;           // Their "main" story: 'o-henry-life'
+  notability?: number;                 // 0-100. Manual override for browse visibility. If unset, derived from max moment notability.
   wikipediaSlug?: string;              // Entity's own Wikipedia article
   imageUrl?: string;                   // Wikipedia thumbnail URL (backfilled)
 }

@@ -4,6 +4,7 @@ import type { Entity, Moment, Story, StoryCollection, LocationAccuracy, Verifica
 import { CATEGORIES } from '../../lib/categories';
 import { entityMap, getEntityMomentStories, getEntityIcon } from '../../lib/entityHelpers';
 import { isAdminMode } from '../../lib/admin';
+import { playAudio, pauseAudio, isPlaying, onAudioStateChange } from '../../lib/audioPlayer';
 import { MediaDisplay } from './MediaDisplay';
 import { GoDeeperCard, GoDeeperSection } from './GoDeeperCard';
 import { PinEditor } from '../ui/PinEditor';
@@ -81,6 +82,27 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
       setAdminSaved(true);
     }, []);
 
+    // ── Audio playback state ──
+    const hasAudio = !!location.audioUrl;
+    const [audioPlaying, setAudioPlaying] = useState(false);
+    useEffect(() => {
+      if (!hasAudio) return;
+      const unsub = onAudioStateChange(() => {
+        setAudioPlaying(isPlaying(location.audioUrl!));
+      });
+      return unsub;
+    }, [hasAudio, location.audioUrl]);
+
+    const handleAudioToggle = useCallback((e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (!location.audioUrl) return;
+      if (audioPlaying) {
+        pauseAudio();
+      } else {
+        playAudio(location.audioUrl, location.id);
+      }
+    }, [location.audioUrl, location.id, audioPlaying]);
+
     // ── Compact mode: dense row for mobile bottom sheet ──
     // When expanded, fall through to full card rendering
     if (compact && !isExpanded) {
@@ -96,6 +118,23 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           style={{ borderLeftColor: isActive ? cat?.color ?? 'var(--text-muted)' : 'transparent' }}
         >
           <div className="flex items-center gap-2">
+            {hasAudio && (
+              <button
+                onClick={handleAudioToggle}
+                className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+                  audioPlaying
+                    ? 'bg-[#e74c3c] text-white shadow-[0_0_0_3px_rgba(231,76,60,0.2)]'
+                    : 'bg-[var(--bg-secondary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+                title={audioPlaying ? 'Pause narration' : 'Play narration'}
+              >
+                {audioPlaying ? (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></svg>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                )}
+              </button>
+            )}
             {typeof index === 'number' && cat && (
               <span
                 className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold"
@@ -187,8 +226,25 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
           boxShadow: isActive && v2 ? `0 0 20px ${cat?.color ?? 'transparent'}1a` : undefined,
         }}
       >
-        {/* Number + Name + optional chevron */}
+        {/* Audio + Number + Name + optional chevron */}
         <div className="flex items-start gap-2">
+          {hasAudio && (
+            <button
+              onClick={handleAudioToggle}
+              className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all mt-0.5 ${
+                audioPlaying
+                  ? 'bg-[#e74c3c] text-white shadow-[0_0_0_3px_rgba(231,76,60,0.2)]'
+                  : 'bg-[var(--bg-secondary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+              title={audioPlaying ? 'Pause narration' : 'Play narration'}
+            >
+              {audioPlaying ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              )}
+            </button>
+          )}
           {typeof index === 'number' && cat && !v2 && (
             <span
               className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold mt-0.5"

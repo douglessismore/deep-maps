@@ -1200,7 +1200,8 @@ export const moments: Moment[] = [
     name: 'Eliza Shelley Killed in Her Cabin in the Second Attack',
     subtitle: 'East Austin, approximate location. The servant quarters where Shelley was killed are long gone',
     description: 'On May 7, 1885, the peace of a quiet Austin spring was shattered when Eliza Shelley, a Black cook, was found brutally murdered in her cabin behind the Hancock house. She had been struck with an axe, her face mutilated with chilling precision. While the earlier murder of Mollie Smith had been dismissed by many as an isolated domestic tragedy, Shelley\'s death sent a wave of terror through the city. It was the moment Austin realized it wasn\'t dealing with a common criminal, but a predator stalking the night.',
-    narrativeContext: 'You\'re in the general area of East Austin where Eliza Shelley\'s servant quarters once stood behind the Hancock house. The exact address was never well documented, and the entire block has been rebuilt. Today it\'s a mix of residential and commercial buildings east of Congress Avenue. On May 7, 1885, Eliza Shelley, a Black cook, was found murdered with an axe in her cabin. The first victim, Mollie Smith, had been killed five months earlier about a mile west of here, but many dismissed that as a one-off. Shelley\'s murder changed everything. Austin realized a pattern was emerging, and fear spread through the Black community especially, since all the early victims were African American servants. The killer targeted people sleeping in servants\' quarters behind the main houses of their employers. That detail matters: the victims were the most vulnerable people in the city, and the police barely investigated.',
+    narrativeContext: 'You\'re somewhere in East Austin, east of Congress Avenue, in a neighborhood that\'s been rebuilt from the ground up. The exact address of the Hancock house where Eliza Shelley worked as a cook was never well documented, and the entire block is now residential infill and small commercial buildings. Five months of peace had passed since Mollie Smith\'s murder. People had moved on. Then, on May 7, 1885, Shelley was found dead in her servant quarters out back, killed with an axe in the same manner as Smith. That\'s when Austin realized this wasn\'t a one-time crime. A pattern was forming. Fear spread through the Black community with particular intensity — both victims had been African American domestic workers, attacked in the small quarters behind their employers\' homes. The police response was minimal. No meaningful investigation. No suspects. The servants who cooked meals, cleaned houses, and raised children for Austin\'s white families were being hunted in their sleep, and the city\'s institutions seemed indifferent. The attacks would continue to accelerate from here.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-eliza-shelley.mp3',
     lat: 30.264685,
     lng: -97.741227,
     type: 'crime_scene',
@@ -2842,6 +2843,7 @@ export const moments: Moment[] = [
     subtitle: '3201 S Lamar Blvd, Austin. The original tin building still operates with its sawdust dance floor',
     description: 'James White opened the Broken Spoke in 1964 when South Lamar was just a dusty road on the outskirts of town. He built the original tin structure himself, serving chicken-fried steak and hosting legendary acts like Bob Wills and Tex Ritter. The original sawdust floor and low ceilings have remained unchanged for six decades.',
     narrativeContext: 'You\'re at 3201 South Lamar Boulevard, standing in front of a low tin building that looks like it wandered out of 1964 and refused to leave. That\'s because it did. James White built this structure himself, and the sawdust dance floor inside is the original. Walk in and you\'ll smell decades of chicken-fried steak and spilled beer baked into the wood. White opened the Broken Spoke when South Lamar was a dusty two-lane road on the edge of town, surrounded by open fields. Bob Wills played here. Tex Ritter played here. A young, unknown George Strait would play here for beer money in the late 1970s. The ceilings are low enough that a tall person has to duck near the stage. The walls are covered in framed photos of every country legend who walked through the door. Five-story luxury apartments now tower over the building on every side, which makes the Spoke look even more defiant. James White refused millions in buyout offers before he died in 2021. His family still runs it. You can walk in tonight, order a Lone Star, and two-step on the same floor.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/spoke-opening-night.mp3',
     lat: 30.240878,
     lng: -97.78523,
     type: 'cultural_venue',
@@ -4912,6 +4914,7 @@ export const moments: Moment[] = [
     subtitle: '1607 San Jacinto Blvd, Austin. Scholz Garten has operated continuously since 1866, Austin\'s oldest bar',
     description: 'In 1866, German immigrant and former Confederate soldier August Scholz opened a boarding house and beer garden on San Jacinto Boulevard. It immediately became the social hub for the city\'s thriving German population. In 1879, it became the home of the Austin Saengerrunde, a German singing society that still owns the building today. The garden survived Prohibition by selling "near beer" and bratwurst.',
     narrativeContext: 'You\'re at 1607 San Jacinto Boulevard, and you\'re standing in or near the oldest continuously operating bar in Austin. Scholz Garten has been pouring beer at this address since 1866. August Scholz was a German immigrant who\'d fought for the Confederacy, and when the war ended he opened a boarding house and beer garden here, one year after Appomattox. The German community in Austin was substantial in the 1860s, and Scholz\'s place became their social headquarters. In 1879, the Austin Saengerrunde -- a German singing society -- took over ownership, and they still own the building today. That\'s over 140 years of continuous ownership by a singing club. Scholz\'s survived Prohibition by selling near beer and bratwurst, which is either clever or desperate depending on your view. The beer garden out back is shaded by live oaks and looks like it belongs in Bavaria. UT football fans have used it as a pregame gathering spot for decades -- the stadium is a few blocks east. Walk in on a Saturday afternoon in October and you\'ll find 500 people in burnt orange drinking pitchers under the trees. The building has been modified over 160 years but the bones are original.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/scholz-opening-1866.mp3',
     lat: 30.2777,
     lng: -97.7363,
     type: 'cultural_venue',
@@ -5397,6 +5400,7 @@ export const moments: Moment[] = [
     subtitle: '2915 Guadalupe St, Austin. Antone\'s original location is gone; the club now operates at 305 E 5th St',
     description: 'Stevie Ray Vaughan was a fixture at Clifford Antone\'s original blues club on 6th Street. He spent his youth watching legends like Muddy Waters and Albert King perform, eventually developing the explosive, heavy-stringed style that would change rock history. The club served as his primary musical education and the home of the Austin blues resurgence.',
     narrativeContext: 'You\'re at 2915 Guadalupe Street, the original location of Antone\'s. The building is gone now -- the club has moved several times and currently operates at 305 East 5th Street. But this was the address where a teenage Stevie Ray Vaughan got his real education. Clifford Antone, a Lebanese-American kid from Port Arthur (same hometown as Janis Joplin, oddly enough), opened the club in 1975 specifically to bring touring blues legends to Austin. SRV would sit in the front row watching Muddy Waters, Albert King, Buddy Guy, and Jimmy Reed play sets that most Texas kids his age never got to see. Then he\'d go home and practice until his fingers bled. He used heavy-gauge strings that most guitarists couldn\'t bend, which gave him that signature thick, howling tone. Antone\'s wasn\'t just where SRV watched -- he started playing here too, backing up the legends and eventually headlining. The club on Guadalupe was small, loud, and sweaty. The blues revival that made Austin famous started in this room.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/srv-antones-6th.mp3',
     lat: 30.295751,
     lng: -97.7421551,
     type: 'cultural_site',
@@ -10587,6 +10591,7 @@ export const moments: Moment[] = [
     subtitle: '900 Guadalupe St, Austin. Wooldridge Square is still a public park with its original bandstand',
     description: 'Local musicians held a benefit at Wooldridge Square to raise money for a new venue. Artist Jim Franklin designed a poster featuring an armadillo, which became the instantly recognizable mascot for the city\'s counter-culture. This event inspired Eddie Wilson to name his new venue "The Armadillo World Headquarters."',
     narrativeContext: 'You\'re at Wooldridge Square, 900 Guadalupe Street, and the park is still here with its original bandstand. It\'s a small downtown green space, easy to miss between the courthouse and the commercial strip. In 1968, local musicians held a benefit concert right here to raise money for a new venue. Artist Jim Franklin designed the poster, and he put an armadillo on it. That image became the mascot for Austin\'s entire counterculture. Eddie Wilson saw it and named his new venue the Armadillo World Headquarters, which opened two years later in a National Guard armory on Barton Springs Road. The armadillo as Austin\'s spirit animal started in this park. You can sit on the same benches where the crowd watched the benefit. The bandstand has been restored. Guadalupe runs along the west side, and if you walk south about a mile you\'ll hit the Armadillo\'s former site at 525 Barton Springs Road, now a high-rise. The poster that started it all is one of the most collected pieces of Austin concert art.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/armadillo-wooldridge-poster.mp3',
     lat: 30.27239,
     lng: -97.745643,
     type: 'cultural_site',
@@ -10644,6 +10649,7 @@ export const moments: Moment[] = [
     subtitle: '525 Barton Springs Rd, Austin. The armory was demolished in 1981; a high-rise office tower stands here now',
     description: 'Opened in 1970 in an old National Guard armory, the Armadillo World Headquarters became an Austin cultural phenomenon. It was a venue where diverse acts like Frank Zappa, AC/DC, and Willie Nelson performed in the same room. The venue\'s closure in 1980 to make way for a high-rise office building is often cited as the moment \'Old Austin\' began its transition into commercialization.',
     narrativeContext: 'You\'re at 525 Barton Springs Road, and you\'re looking at a high-rise office tower. There\'s nothing left of the Armadillo World Headquarters. The National Guard armory that Eddie Wilson converted into a music hall in 1970 was demolished in 1981, and the office building went up in its place. But stand here and try to imagine a cavernous concrete room with no air conditioning, a flat floor with no seats, and 1,500 people packed in to see Frank Zappa one night and Willie Nelson the next. AC/DC played here. The Clash played here. Commander Cody and Asleep at the Wheel played the final show on New Year\'s Eve 1980. The Armadillo was born from the same counterculture energy as the Vulcan Gas Company on Congress Avenue, and it died when Austin real estate got expensive enough to make live music venues uneconomic. Walk north from here and you\'re at Auditorium Shores, where the SRV statue stands. Walk south and you\'re at Barton Springs. The Armadillo sat right in the middle of what is now Austin\'s most valuable real estate corridor.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/armadillo-venue-site.mp3',
     lat: 30.2584022,
     lng: -97.7494013,
     type: 'cultural_site',
@@ -10695,6 +10701,7 @@ export const moments: Moment[] = [
     subtitle: 'UT Austin Main Mall area. No marker exists, but the Joplin statue is at the Paramount Theatre downtown',
     description: 'In late 1962, Alpha Phi Omega\'s annual charity contest took a cruel turn when someone launched a write-in campaign nominating art student Janis Joplin for "Ugliest Man on Campus." She did not win -- that went to Lonnie "the Hunch" Farrell -- but the humiliation became national legend. Her sister Laura later suggested Joplin may have nominated herself as a joke. Within weeks, Joplin left UT for San Francisco. She never graduated.',
     narrativeContext: 'You\'re on the UT Main Mall, the broad pedestrian walkway between the Tower and the South Mall fountains. Somewhere in this stretch of live oaks and limestone, in late 1962, Alpha Phi Omega\'s charity contest results went up and art student Janis Joplin\'s name appeared under a write-in nomination for the grotesquely named prize. She didn\'t win -- that went to a guy called Lonnie the Hunch -- but the cruelty stuck. Her sister Laura later claimed Janis may have nominated herself, which is either heartbreaking or defiant depending on how you read it. Within weeks, Joplin was gone. She hitchhiked to San Francisco and never finished her degree. No marker exists on this campus for her, though there\'s a bronze statue at the Paramount Theatre downtown on Congress Avenue. The UT campus gave Janis Joplin a blues education at Threadgill\'s on North Lamar and a Victorian rooming house on West 22nd. It also gave her a reason to leave. She was dead eight years later at 27.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/janis-ut-campus.mp3',
     lat: 30.285,
     lng: -97.734,
     type: 'cultural_site',
@@ -11439,7 +11446,8 @@ export const moments: Moment[] = [
     name: 'William Sydney Porter Coins the Name \'Servant Girl Annihilators\'',
     subtitle: 'Downtown Austin, near the crime scenes. Porter lived blocks away; his cottage no longer stands',
     description: 'Living just blocks from the scenes of the Servant Girl Annihilator murders in 1885, Austin bank clerk William Sydney Porter—later famous as O. Henry—coined the term \'Annihilator.\' In a letter to his friend Dave Hall, he wrote: \'Town is fearfully dull... except for the frequent raids of the Servant Girl Annihilators who make things lively in the dull hours of the night.\' This offhand remark became one of the first American serial killer nicknames.',
-    narrativeContext: 'You\'re in downtown Austin near 5th and Brazos, in the blocks where William Sydney Porter lived and worked as a bank clerk in 1885. His cottage is long gone — the area is now office towers and restaurants. Porter was 23 years old, living blocks from active crime scenes, when he wrote a letter to his friend Dave Hall that casually coined one of America\'s first serial killer nicknames. He\'d later become famous as O. Henry, one of the most celebrated short story writers in American literature, but in 1885 he was just a young Texan with a dark sense of humor living through a nightmare. The letter\'s tone is striking — almost flippant about the murders happening in his neighborhood. Porter\'s Austin years shaped his writing profoundly: the city\'s characters, its corruption, its contradictions all fed into his fiction. The O. Henry Museum sits a few blocks south on East 5th Street in the cottage where he later lived with his wife. Standing here, you\'re in the overlap between Austin\'s darkest chapter and the early life of one of its most famous residents.',
+    narrativeContext: 'You\'re in downtown Austin near 5th Street and Brazos Street, surrounded by office towers and restaurants. In 1885, a 23-year-old bank clerk named William Sydney Porter lived and worked in these blocks. His cottage is gone. But something he wrote from here survived. In a letter to his friend Dave Hall, Porter casually referred to the killer terrorizing Austin as a "Servant Girl Annihilator." The tone of the letter is striking — almost joking, flippant, the dark humor of a young man living in the middle of an active crime spree and processing it the only way he knew how. That offhand phrase became one of America\'s first serial killer nicknames, decades before the term "serial killer" even existed. Porter would later become famous as O. Henry, one of the most celebrated short story writers in American literature. His Austin years — the murders, the city\'s contradictions, the characters he met — fed directly into his fiction. The O. Henry Museum sits a few blocks south on East 5th Street, in a cottage where he later lived with his wife. Stand at 5th and Brazos and you\'re in the overlap between Austin\'s darkest year and the origin story of one of its most famous residents.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-o-henry-letter.mp3',
     lat: 30.2647,
     lng: -97.7412,
     type: 'historic_home',
@@ -11692,6 +11700,7 @@ export const moments: Moment[] = [
     subtitle: '3201 S Lamar Blvd, Austin. The tin honky-tonk is now dwarfed by five-story luxury apartments on all sides',
     description: 'By the early 2000s, the land under the Broken Spoke was worth tens of millions of dollars. Developers built five-story luxury apartment complexes that now tower over the small tin building, literally surrounding it on all sides. James White famously refused every buyout offer. After his death in 2021, his family continued to run the hall, maintaining the tradition of live country music every night.',
     narrativeContext: 'You\'re at 3201 South Lamar, and the visual here tells the whole story. Look up. Five-story luxury apartment buildings surround the Broken Spoke on every side, towering over the little tin honky-tonk like office buildings around a prairie church. The developers came with checkbooks in the early 2000s when South Lamar was being transformed from a dusty commercial strip into one of Austin\'s most expensive corridors. James White told them all no. The offers reportedly reached into the tens of millions. He kept saying no. White had built this building with his own hands in 1964 and he wasn\'t selling. He died in 2021, and his family kept the doors open. Live country music still plays here every night on the same stage where George Strait played for beer money. The sawdust floor is the original. The apartments charge two thousand a month for a studio. The Broken Spoke charges twelve dollars at the door and serves Lone Stars in the can. It\'s the most photographed architectural contrast in Austin and a monument to stubbornness.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/spoke-survival-battle.mp3',
     lat: 30.2405,
     lng: -97.7856,
     type: 'cultural_venue',
@@ -11760,6 +11769,7 @@ export const moments: Moment[] = [
     subtitle: '3201 S Lamar Blvd, Austin. The Broken Spoke is still open; its walls are a photo museum of performers',
     description: 'In the late 1970s, a young and unknown George Strait played the Broken Spoke regularly with his Ace in the Hole Band. Long before he was selling out stadiums, he was playing for a few hundred dollars and a pitcher of beer. The walls of the Spoke are now a museum of country music history, covered in photos of Strait, Dolly Parton, and Kris Kristofferson.',
     narrativeContext: 'You\'re inside the Broken Spoke at 3201 South Lamar, and the stage you\'re looking at is the same one George Strait played when nobody knew his name. In the late 1970s, Strait and his Ace in the Hole Band were regulars here, playing for a few hundred dollars and whatever beer was flowing. The room holds maybe 200 people if they squeeze. The ceiling is barely eight feet high near the back. Look at the walls -- they\'re covered in framed photos of performers going back decades. Strait is up there now, alongside Dolly Parton, Kris Kristofferson, and Willie Nelson. But when he played here, he was just another good-looking kid from San Marcos trying to get noticed. James White, who built this building with his own hands in 1964, booked Strait because the kid could sing and the band could play real country. Within a few years, Strait had a record deal and was filling arenas. He never forgot the Spoke. The room hasn\'t changed. Same stage, same sawdust floor, same low tin roof that makes every guitar sound twice as loud.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/spoke-george-strait.mp3',
     lat: 30.2405,
     lng: -97.7856,
     type: 'cultural_venue',
@@ -16682,6 +16692,7 @@ export const moments: Moment[] = [
     subtitle: '1106 W 22nd St, Austin. The Victorian house still stands in the UT campus area',
     description: 'During her time in Austin, Joplin lived at a rooming house known as the "Pink Palace" or the "Ghetto Mansion." It was a hub for the local folk and blues scene, where musicians lived in squalor but constant creative collaboration. The building was a Victorian house that has since been a central point of Austin music pilgrimages.',
     narrativeContext: 'You\'re looking at 1106 West 22nd Street, and the Victorian house is still standing. It\'s in the UT campus area, a block north of the Drag, and it still looks like a place where broke musicians would crash. During Joplin\'s Austin years in 1962 and 1963, this was the Pink Palace, also called the Ghetto Mansion -- a rooming house where folk and blues musicians lived in creative squalor, sharing instruments, songs, and cheap wine. Joplin had a room here while she attended UT, or at least showed up to UT occasionally. The real education was happening in this house and at Threadgill\'s gas station on North Lamar, where she sang for beer on Wednesday nights. The Pink Palace was walking distance from the Main Mall where a fraternity would nominate her for their ugly contest. It was also walking distance from the Vulcan Gas Company on Congress Avenue, where she performed before leaving for San Francisco. The house has been a private residence since, and it\'s not marked. But it\'s unmistakable -- look for the Victorian gingerbread trim on the west side of 22nd.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/janis-pink-palace.mp3',
     lat: 30.2859208,
     lng: -97.750221,
     type: 'residence',
@@ -20509,7 +20520,8 @@ export const moments: Moment[] = [
     name: 'Austin Installs 165-Foot \'Moonlight Towers\' to Deter Serial Killer',
     subtitle: '9th and Guadalupe St, Austin. Seventeen of the original 31 towers still stand and operate nightly',
     description: 'In 1894, the city of Austin purchased 31 165-foot towers to illuminate the streets and deny the \'Servant Girl Annihilator\' serial killer the cover of darkness. While the murders had stopped years earlier, the trauma remained. Austin is now the only city in the world that still operates these moonlight towers, which serve as a haunting architectural legacy of the 1884–1885 crime spree.',
-    narrativeContext: 'You\'re at 9th and Guadalupe, and if you look up, you\'ll see it: a 165-foot iron tower with a ring of lights at the top, still operational, still glowing every single night. Austin is the only city in the world that still runs moonlight towers. Seventeen of the original 31 survive and they turn on at dusk without fail. The city bought them in 1894 from Detroit, which was getting rid of them. Austin\'s motivation was unique — flood the streets with light so bright that a serial killer would have nowhere to hide. The murders had actually stopped by then, but the trauma hadn\'t. These towers are the physical legacy of the Servant Girl Annihilator, infrastructure born from terror that outlived its purpose and became beloved. The one at Zilker Park is famous from the Dazed and Confused keg party scene. Stand under the tower at 9th and Guadalupe at night, look up at the mercury vapor lamps 165 feet above you, and consider: you\'re standing beneath a structure built because a serial killer was never caught. That\'s 140 years of continuous operation, and Austin has no plans to stop.',
+    narrativeContext: 'You\'re at 9th Street and Guadalupe Street, and if you look up, you\'ll see it: a 165-foot iron tower with a ring of lights at the top, glowing right now. Austin is the only city in the world that still operates moonlight towers. Seventeen of the original 31 survive, and they turn on at dusk every single night without fail. The city purchased them in 1894 from Detroit, which was getting rid of them. Austin\'s motivation was unique — flood the streets with artificial moonlight so bright that a killer would have nowhere to hide. The Servant Girl Annihilator had terrorized Austin from 1884 to 1885, murdering at least eight people and attacking more. The killings stopped on their own. No arrest was ever made. The killer was never caught. These towers are a monument to unsolved terror — infrastructure born from a city\'s desperation that somehow outlived its purpose and became beloved. The one at Zilker Park is famous from the Dazed and Confused keg party scene. Stand under the tower at 9th and Guadalupe at night. Look up at the mercury vapor lamps 165 feet above you. You\'re beneath a structure built because an entire city was afraid of the dark. Over 130 years later, Austin still hasn\'t turned them off.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-moonlight-tower.mp3',
     lat: 30.2713,
     lng: -97.7461,
     type: 'landmark',
@@ -24024,7 +24036,8 @@ export const moments: Moment[] = [
     name: 'Serial Killer Attacks Gracie Vance and Orange Washington',
     subtitle: 'North Austin, near present-day Hyde Park. The residential area has been fully redeveloped',
     description: 'On the night of August 30, 1885, the killer\'s boldness reached a new peak. Gracie Vance was murdered with an axe while her companion, Orange Washington, was also viciously attacked. By this point, the African American community was in a state of total siege; businesses closed at sunset, and groups of armed men patrolled the neighborhoods. The failure of the police to make an arrest led to accusations of systemic neglect, and many Black residents abandoned their homes in Austin entirely.',
-    narrativeContext: 'You\'re in what is now the Hyde Park neighborhood, one of Austin\'s most desirable residential areas. Tree-lined streets, craftsman homes, coffee shops. In 1885, this was the northern edge of Austin\'s settlement, and on the night of August 30, it became a crime scene. Gracie Vance was killed with an axe. Orange Washington, attacked alongside her, survived but was severely wounded. The same night, an eleven-year-old girl was attacked in a separate location south of here — two strikes in one night. That double attack broke something in the city. Armed citizen patrols formed immediately. Black-owned businesses began closing at sunset. Families who had built lives in Austin started leaving altogether, fleeing a city whose police force seemed unable or unwilling to protect them. The area north of 38th Street near Avenue G puts you in the right zone. Every house around you sits on land where people once kept watch through the night with loaded guns.',
+    narrativeContext: 'You\'re in Hyde Park, one of Austin\'s most desirable neighborhoods. Tree-lined streets, craftsman bungalows, families walking dogs. In 1885, this was the ragged northern edge of the city\'s settlement. On the night of August 30, Gracie Vance was murdered here with an axe. Orange Washington, attacked alongside her, was beaten so severely he barely survived. The response was immediate and desperate. Armed citizen patrols formed that same night — groups of men walking the streets with rifles and lanterns. Black-owned businesses started closing at sunset. Families who had spent years building lives in Austin packed up and left, fleeing a city whose police seemed unable or unwilling to protect them. The Black community bore the heaviest burden of fear: every victim so far had been African American. People slept in shifts. Doors were barricaded. And still no arrest. The area north of 38th Street near Avenue G puts you in the approximate zone. Look at the quiet porches and tidy yards around you and imagine them in lamplight, watched by armed neighbors who didn\'t know if dawn would bring another murder.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-gracie-vance.mp3',
     lat: 30.288446,
     lng: -97.7421,
     type: 'crime_scene',
@@ -25221,6 +25234,7 @@ export const moments: Moment[] = [
     subtitle: '525 Barton Springs Rd, Austin, TX. Demolished 1981; a high-rise office tower stands on the site',
     description: 'On New Year\'s Eve 1980, the Armadillo World Headquarters held its last show here on Barton Springs Road. Asleep at the Wheel and Commander Cody played until sunrise as thousands mourned the loss of Austin\'s cultural heart. The former National Guard armory, converted into a music hall in 1970, was demolished in 1981 for a high-rise office tower. Its closure marked Austin\'s shift from sleepy college town to commercialised tech hub.',
     narrativeContext: 'You\'re at 525 Barton Springs Road, staring at an office tower that replaced what many Austinites still call the soul of the city. On New Year\'s Eve 1980, the Armadillo World Headquarters held its final concert. Asleep at the Wheel and Commander Cody played until sunrise. The crowd knew it was over. The building\'s owners had sold the land to developers, and the old National Guard armory that Eddie Wilson had converted into a music hall in 1970 was going to be demolished. It came down in 1981. People wept. The Armadillo had hosted Willie Nelson\'s first Austin show in 1972, where cowboys and hippies danced together for the first time. Frank Zappa, AC/DC, the Clash -- they all played this room. The poster art by Jim Franklin, inspired by a benefit concert at Wooldridge Square, had turned the armadillo into Austin\'s mascot. When the wrecking ball hit, people said Old Austin died. They were probably right. The high-rise that replaced it is aggressively forgettable. Walk north to the SRV statue at Auditorium Shores and raise a beer facing south.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/armadillo-final-concert.mp3',
     lat: 30.2584022,
     lng: -97.7494013,
     type: 'cultural_venue',
@@ -26404,6 +26418,7 @@ export const moments: Moment[] = [
     subtitle: '525 Barton Springs Rd, Austin. The armory was demolished in 1981; a high-rise stands here now',
     description: 'On 12 August 1972, Willie Nelson took the stage at the Armadillo World Headquarters, a converted National Guard armory on Barton Springs Road. He opened with "Crazy" and "Hello Walls," playing nearly three hours with bassist Bee Spears and drummer Paul English. Half the crowd of 400 had come for opening act Greezy Wheels; the other half split between honky-tonk regulars and longhaired rock fans. By closing time, cowboys and hippies were sharing the dance floor -- the birth of what Austin would call the "cosmic cowboy" movement.',
     narrativeContext: 'You\'re at 525 Barton Springs Road, where a high-rise office tower now stands on the exact site of the Armadillo World Headquarters. On August 12, 1972, only about 400 people showed up for this show. Half of them came for the opening act, Greezy Wheels. Willie Nelson was not yet Willie Nelson. He\'d moved to Austin from Nashville, growing his hair long and pissing off the country establishment. The Armadillo was a converted National Guard armory with no air conditioning and a flat concrete floor. Willie played for nearly three hours with bassist Bee Spears and drummer Paul English. Here\'s what mattered: by the end of the night, the cowboys in boots and the hippies in sandals were dancing together. Nobody had seen that before. Austin journalists started calling it the cosmic cowboy movement. This one show changed Willie\'s career trajectory, gave Austin its musical identity, and proved that the cultural walls between country and rock were thinner than Nashville thought. The building is gone. The moment isn\'t.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/armadillo-willie-1972.mp3',
     lat: 30.25808,
     lng: -97.74977,
     type: 'cultural_venue',
@@ -38337,6 +38352,7 @@ export const moments: Moment[] = [
     subtitle: '200 Academy Dr, Austin, TX — still operating; founded 1984 by Nelson\'s nephew Freddy Fletcher',
     description: 'In the mid-1970s, Willie Nelson and partner Tim O\'Connor opened the Austin Opera House at 200 Academy Drive, a South Congress Avenue venue that anchored Austin\'s outlaw country scene. In 1984, Nelson\'s nephew Freddy Fletcher built Arlyn Studios in the 7,000-square-foot attached space — creating a facility that became Austin\'s primary commercial recording destination. Artists recorded at Arlyn include Stevie Ray Vaughan, Ray Charles, Neil Young, Etta James, and Sublime. Nelson has continued using the studio throughout his career. The venue represents the transition from Austin\'s live music identity to its role as a recording destination.',
     narrativeContext: 'You\'re at 200 Academy Drive, just off South Congress Avenue, and Arlyn Studios is still operating inside. In the mid-1970s, Willie Nelson and promoter Tim O\'Connor opened the Austin Opera House at this address, anchoring the south Austin music scene. In 1984, Willie\'s nephew Freddy Fletcher built a 7,000-square-foot recording studio in the attached space. The list of artists who\'ve recorded here reads like a hall of fame: Stevie Ray Vaughan, Ray Charles, Neil Young, Etta James, Sublime. Willie himself has used the studio throughout his career. This building represents a pivot in Austin music history -- from a city known for live performance to one that could also capture and export its sound. The Continental Club is a short walk north on South Congress. The old Armadillo site on Barton Springs Road is just across the river. Arlyn sits in the middle of what became Austin\'s most storied music corridor. The studio is still booking sessions. The Opera House venue is gone, but the recording rooms that Freddy Fletcher built are intact and working.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/willie-nelson-records-arlyn-austin.mp3',
     lat: 30.2526552,
     lng: -97.7471286,
     type: 'cultural_venue',
@@ -38496,6 +38512,7 @@ export const moments: Moment[] = [
     subtitle: '6416 N Lamar Blvd, Austin, TX. The building has been rebuilt and operates as Threadgill\'s restaurant',
     description: 'Janis Joplin honed her raw vocal style here at Kenneth Threadgill\'s converted Gulf gas station on North Lamar Boulevard. Threadgill, who held Austin\'s first post-Prohibition beer license, hosted weekly hootenannies where the young Joplin would sing for a pitcher of beer. Her performances became local legend before she left for San Francisco in 1963, where she joined Big Brother and the Holding Company and became one of the era\'s defining voices.',
     narrativeContext: 'You\'re at 6416 North Lamar, the same address where Janis Joplin sang for pitchers of beer at Kenneth Threadgill\'s converted gas station. The weekly hootenanny was Wednesday night. Joplin would walk up, sometimes barefoot, and belt blues numbers that silenced the room. Threadgill, a big man with a gentle voice and a love of Jimmie Rodgers yodeling, became her mentor and one of the few people in Austin who made her feel welcome. At UT, fraternity brothers had nominated her for an ugly contest. Here, she was the star. The deal was simple: you sing, you drink free. Joplin took the deal. She left Austin for San Francisco in 1963 and never really came back. But she always credited Threadgill with giving her permission to be loud. The building has been rebuilt as Threadgill\'s restaurant, but the address is exact. If you stand in the parking lot facing the front door, you\'re roughly where the gas pumps were. The hootenanny stage was inside, to the left.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/janis-threadgills.mp3',
     lat: 30.3323397,
     lng: -97.7226296,
     type: 'cultural_site',
@@ -39358,6 +39375,7 @@ export const moments: Moment[] = [
     subtitle: '800 W Riverside Dr, Austin, TX. The statue faces Lady Bird Lake and is freely accessible',
     description: 'In 1993, Austin unveiled a bronze statue of Stevie Ray Vaughan here at Auditorium Shores, near the site of many of his celebrated performances. Vaughan died in a helicopter crash after a concert in Wisconsin on 27 August 1990, aged 35. The statue depicts him in his signature wide-brimmed hat and cape. It has become one of Austin\'s most visited landmarks, a pilgrimage site where fans leave guitar picks, flowers, and notes at its base.',
     narrativeContext: 'You\'re at Auditorium Shores, 800 West Riverside Drive, facing Lady Bird Lake. The bronze statue of Stevie Ray Vaughan is right here on the trail, life-size plus a bit, depicting him in the wide-brimmed hat and cape he wore on stage. Look at the base and you\'ll see guitar picks. Hundreds of them, left by fans who\'ve made the pilgrimage. Some are wedged into the bronze folds of the cape. SRV died on August 27, 1990, when the helicopter carrying him from a concert at Alpine Valley in Wisconsin crashed into a ski hill in fog. He was 35. The statue was unveiled three years later. It faces the lake, roughly in the direction of the Continental Club on South Congress where he played every Wednesday, and Antone\'s original location on Guadalupe where he learned his craft watching Muddy Waters and Albert King. This is the most visited landmark in Austin that isn\'t the Capitol. It\'s freely accessible, twenty-four hours a day, and it\'s never not surrounded by people. Walk south from here and you\'re at the site of the old Armadillo World Headquarters.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/srv-auditorium-shores.mp3',
     lat: 30.261894,
     lng: -97.751342,
     type: 'landmark',
@@ -41062,6 +41080,7 @@ export const moments: Moment[] = [
     subtitle: '2504 Whitis Ave, Communications Building B, UT Austin. The studio was retired in 2011 when ACL moved to the Moody Theater',
     description: 'In 2009, the Rock & Roll Hall of Fame designated Studio 6A here at UT Austin as an official Rock and Roll Landmark, one of only a handful nationwide. The converted classroom had hosted every major name in American roots music since 1974. Two years later, ACL moved to the purpose-built Moody Theater at 310 W. Willie Nelson Blvd, ending 37 years in the campus studio. The original set\'s backdrop of the Austin skyline became one of the most recognized images in American television.',
     narrativeContext: 'You\'re at the same building on Whitis Avenue where Willie Nelson taped the ACL pilot in 1974, and in 2009 the Rock and Roll Hall of Fame came here and put a plaque on it. Studio 6A became one of only a handful of official Rock and Roll Landmarks in the country. The designation recognized what everyone already knew: this converted classroom on a university campus had hosted more consequential performances in American roots music than almost any room in the nation. Two years after the landmark designation, ACL moved to the Moody Theater at 310 West Willie Nelson Boulevard downtown, ending 37 years in this studio. The original set\'s backdrop -- a painted Austin skyline that changed as the real skyline grew behind it -- became iconic enough that people recognized it who\'d never been to Texas. The building is still here on the UT campus, Communications Building B. The studio hosted over 800 episodes. It started as a classroom and ended as a national landmark. Not bad for a room with 300 folding chairs.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/acl-studio-6a-landmark-2009.mp3',
     lat: 30.286,
     lng: -97.74,
     type: 'cultural_venue',
@@ -41622,7 +41641,8 @@ export const moments: Moment[] = [
     name: 'Irene Cross Killed in the Third Attack on Austin\'s East Side',
     subtitle: '',
     description: 'On May 23, 1885, Irene Cross became the third victim in the series of brutal attacks that terrorized Austin, Texas. Cross, a domestic servant, was found murdered in her quarters in the predawn hours. Like the previous victims, she had been attacked while sleeping. The killing followed the same pattern that had begun with Mollie Smith in December 1884 and continued with Eliza Shelley, deepening the panic among Austin residents and particularly the city\'s African American community, whose members made up the majority of early victims.',
-    narrativeContext: 'You\'re standing in East Austin, in a neighborhood that\'s been almost completely transformed by gentrification over the past two decades. Craft cocktail bars and renovated bungalows line streets where, in 1885, Black servants lived in small quarters behind their employers\' homes. Irene Cross was the third victim in five months. She was killed in her sleep, following the exact pattern of Mollie Smith and Eliza Shelley before her. The killer was specifically targeting African American domestic workers on the east side, and by this point the Black community was in a state of raw terror. No arrest had been made. Police barely investigated the first two killings. Cross\'s murder deepened the pattern that would define Austin\'s darkest year. The exact address of her quarters is lost to time, but the approximate location places her in the same east-of-Congress corridor where the other early victims lived and worked. The area around East 6th and Chicon gives you the right feel for the neighborhood\'s geography.',
+    narrativeContext: 'You\'re in East Austin, where craft cocktail bars and renovated bungalows now line blocks that looked completely different in 1885. Back then, Black servants lived in small wooden quarters behind their employers\' homes along these streets. Irene Cross was killed on May 23, 1885 — just sixteen days after Eliza Shelley. The pace was quickening. Three women dead in five months, all Black domestic workers, all attacked in their sleep in servants\' quarters on the east side. The racial dimension was impossible to ignore. Austin\'s African American community was being terrorized, and the police had produced nothing — no suspects, no arrests, no protection. Cross\'s murder confirmed what many already feared: someone was systematically hunting the most vulnerable people in the city. The exact address is lost to time and redevelopment, but the area around East 6th Street and Chicon Street puts you in the right corridor. Look around at the condos and coffee shops. These blocks were once home to the people Austin failed to protect. And the violence was far from over.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-irene-cross.mp3',
     lat: 30.278136,
     lng: -97.73596,
     type: 'crime_scene',
@@ -41640,7 +41660,8 @@ export const moments: Moment[] = [
     name: 'An 11-Year-Old Girl Attacked as the Killings Escalate',
     subtitle: '',
     description: 'On August 30, 1885, an eleven-year-old girl became the fourth known victim in the Austin serial attacks. She was assaulted in her bed during the night, sustaining severe injuries. The attack on a child intensified public outrage and fear across the city. Authorities had made little progress identifying a suspect despite months of investigation, and the brazenness of the crimes — targeting victims in their own homes under cover of darkness — left Austin residents feeling deeply vulnerable. The assault prompted renewed calls for increased police patrols.',
-    narrativeContext: 'You\'re near the center of 1880s Austin, south of the Capitol building. The block has been completely redeveloped — no trace of the house where an eleven-year-old girl was attacked in her bed remains. What makes this moment chilling is the escalation. The killer had targeted adult women for months. Now a child. And this wasn\'t an isolated strike — the same night, just hours later, Gracie Vance and Orange Washington were attacked in a separate location north of here. Two attacks in a single night meant the killer was accelerating, growing bolder. Nine months of murders and police had nothing. No suspect, no leads, no forensic evidence. The child survived but was severely injured. The double-strike pattern of August 30 was a turning point: it proved this wasn\'t opportunistic violence but something systematic and terrifying.',
+    narrativeContext: 'You\'re south of the Texas Capitol building, in blocks that have been completely redeveloped. No trace of the house where this happened remains. On August 30, 1885, an eleven-year-old girl was attacked in her bed. She survived, but barely. The escalation to a child shocked even a city that had grown grimly accustomed to the killings. And this was not the only attack that night. Hours later, Gracie Vance and Orange Washington were struck at a separate location north of here. Two attacks in one night — the killer was getting bolder, more reckless, more confident. The double strike proved this wasn\'t random violence. It was systematic. Calculated. And nine months in, the police still had nothing. No suspects, no forensic evidence, no leads. The approximate location is a few blocks south of the Capitol along Congress Avenue. The neighborhood was residential in 1885, home to working families. Today it\'s state office buildings and parking lots. The ground remembers what the buildings don\'t.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-fourth-victim.mp3',
     lat: 30.265689,
     lng: -97.740807,
     type: 'crime_scene',
@@ -41658,7 +41679,8 @@ export const moments: Moment[] = [
     name: 'Eula Phillips Killed in the Christmas Eve Double Murder',
     subtitle: '',
     description: 'On the night of December 24, 1885, Eula Phillips became the eighth victim of the serial killer terrorizing Austin. Phillips, a young white woman, was found murdered outside her home after being dragged from her bed. Her husband, Jimmy Phillips, was discovered bloodied and dazed inside the house, claiming he had been struck unconscious by an intruder. The attack on Eula Phillips occurred the same night as the murder of Susan Hancock across town, marking the most violent single night in the spree. Jimmy Phillips was briefly suspected but never convicted.',
-    narrativeContext: 'You\'re in downtown Austin, in the blocks west of Congress Avenue where affluent white families lived in the 1880s. The buildings here now are offices and condos — nothing remains of the Phillips residence. Christmas Eve, 1885. Eula Phillips was the first white victim. That fact is the ugly hinge of the entire story. Black servants had been murdered for a full year — Mollie Smith, Eliza Shelley, Irene Cross, Gracie Vance — and the city\'s response was minimal. The moment the killer crossed the color line, everything changed. Her husband Jimmy was found bloodied inside the house, claiming an intruder had knocked him unconscious. He was arrested, tried, and acquitted. Many historians suspect he may have committed a copycat killing. Across town that same night, Susan Hancock was murdered at 9th and Lavaca. Two white women dead on Christmas Eve finally forced Austin\'s hand: the city hired Pinkertons and eventually built the moonlight towers. The killer was never caught.',
+    narrativeContext: 'You\'re in downtown Austin, west of Congress Avenue, where affluent white families kept homes in the 1880s. The Phillips residence is long gone — offices and condominiums fill these blocks now. Christmas Eve, 1885. Eula Phillips became the first white victim. That fact is the ugly hinge of the entire story. Black servants had been murdered for a full year and the city\'s response had been minimal. The moment the killer crossed the color line, everything changed. Eula\'s husband Jimmy was found inside the house, bloodied and dazed, claiming an intruder had knocked him unconscious. He was arrested, tried, and acquitted — but many historians suspect a copycat. The ambiguity around Jimmy Phillips adds a layer of doubt to the entire case. Was this the same killer, or did a husband use the Annihilator\'s reign of terror as cover? Either way, the racial shift forced the city\'s hand in ways that a year of Black victims never had. The approximate location is in the blocks between Congress Avenue and Lavaca Street, south of the Capitol. That same night, another woman was killed across town.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-eula-phillips.mp3',
     lat: 30.270961,
     lng: -97.744722,
     type: 'crime_scene',
@@ -41676,7 +41698,8 @@ export const moments: Moment[] = [
     name: 'Serial Killer Murders Two Women on Christmas Eve',
     subtitle: '9th and Lavaca St, Austin. The downtown residential blocks were redeveloped; no markers remain',
     description: 'On Christmas Eve 1885, the killer struck two separate households within an hour. Susan Hancock and Eula Phillips were both killed in their homes near the downtown core. These were the first white victims, and the public outcry forced the city to take drastic measures, including hiring the Pinkerton Detective Agency and lighting the entire city with "artificial moonlight."',
-    narrativeContext: 'You\'re at the intersection of 9th and Lavaca in downtown Austin. Today it\'s government buildings and parking garages. On Christmas Eve 1885, Susan Hancock was murdered here — dragged from her bed and killed in her backyard. Less than an hour later, Eula Phillips was killed in a separate house a few blocks north. Two women, two locations, one night. This was the night that broke Austin. The killings had been going on for over a year, but the victims had all been Black servants. When white women died on the holiest night of the year, the entire power structure mobilized overnight. The city hired the Pinkerton Detective Agency. Newspapers across the country picked up the story. And within a few years, Austin purchased 31 moonlight towers — 165-foot structures designed to flood the streets with light so bright the killer would have nowhere to hide. Stand at 9th and Lavaca, look up at the modern skyline, and know that this corner is where Austin\'s most famous infrastructure project began: born not from civic pride, but from terror.',
+    narrativeContext: 'You\'re at the intersection of 9th Street and Lavaca Street in downtown Austin. Government buildings and parking garages surround you now. On Christmas Eve 1885, Susan Hancock was dragged from her bed and killed in her backyard on this block. The same night, Eula Phillips was murdered at a separate house a few blocks away. Two women, two homes, one hour. This was the night that broke Austin. The city hired the Pinkerton Detective Agency. Newspapers across the country picked up the story. Politicians who had ignored a year of killings suddenly demanded action. The double murder on Christmas Eve did what months of terror in the Black community could not: it made the powerful care. Within a few years, Austin purchased 31 moonlight towers from Detroit — 165-foot iron structures designed to flood the streets with light so bright the killer would have nowhere to hide. No historical marker stands at 9th and Lavaca. No plaque, no memorial. Just a downtown corner where two worlds collided on the holiest night of the year. The infrastructure born from this night still glows above Austin every evening.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-christmas-massacre.mp3',
     lat: 30.262748,
     lng: -97.742955,
     type: 'crime_scene',
@@ -41964,6 +41987,7 @@ export const moments: Moment[] = [
     subtitle: '',
     description: 'During 1965 and 1966, Janis Joplin performed at Austin music venues including the Vulcan Gas Company, a psychedelic music hall on Congress Avenue that became one of the city\'s most important counterculture spaces. Joplin had been building a local following through her appearances at Threadgill\'s and other Austin venues, developing the explosive blues-rock vocal style that would soon make her famous. Shortly after this period, Joplin left Austin for San Francisco, where she joined Big Brother and the Holding Company and rocketed to national stardom. Her Austin years remained a formative chapter in her artistic development.',
     narrativeContext: 'You\'re on Congress Avenue near 4th Street, in what\'s now the heart of Austin\'s bar district. The Vulcan Gas Company is long gone -- it operated here from 1967 to 1970 as a psychedelic music hall with light shows, poster art, and a crowd that mixed UT students with genuine freaks. Joplin performed here in 1965 and 1966, before the venue was even officially the Vulcan, when the space was hosting underground shows. She\'d already been honing her voice at Threadgill\'s on North Lamar and living at the Pink Palace on West 22nd, but the Congress Avenue scene was where Austin\'s counterculture was coalescing. The Vulcan was one of the first venues to give that scene a permanent room. Shortly after her time here, Joplin left for San Francisco, joined Big Brother and the Holding Company, and became a star. The building that housed the Vulcan has been replaced by commercial storefronts. Nothing marks the spot. But this stretch of Congress was where Austin\'s music scene shifted from folk hootenannies to full-blown psychedelic rock, and Joplin was in the room when it happened.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/janis-joplin-vulcan-gas.mp3',
     lat: 30.270706,
     lng: -97.735392,
     type: 'landmark',
@@ -42051,6 +42075,7 @@ export const moments: Moment[] = [
     subtitle: '',
     description: 'In 1933, when Prohibition was repealed with the ratification of the Twenty-First Amendment, Kenneth Threadgill stood in line all night at the Travis County courthouse to secure the very first beer license issued in the county. Threadgill, who had operated as a bootlegger during Prohibition, was determined to be the first legitimate beer seller in the area. His persistence paid off, and the license he obtained that day became the foundation for what would eventually grow into Threadgill\'s, one of the most important music venues in Austin\'s history and a cradle of the city\'s live music culture.',
     narrativeContext: 'You\'re at the Travis County courthouse complex on West 11th Street, where Kenneth Threadgill stood in line all night in December 1933. Prohibition had just been repealed, and this former bootlegger was determined to be the first person in Travis County to go legit. He got Austin\'s very first beer license the next morning. What he did with that license mattered more than the license itself. Threadgill took it up to his Gulf gas station at 6416 North Lamar and started selling beer alongside gasoline. Then he started playing his yodeling records. Then musicians started showing up. By the 1960s, a teenage Janis Joplin was singing there for a pitcher of beer. The courthouse itself has been rebuilt and expanded since 1933, but it\'s the same institution on the same block. Threadgill didn\'t just buy a beer license that night. He accidentally founded Austin\'s live music economy.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/threadgills-first-license.mp3',
     lat: 30.271961,
     lng: -97.743065,
     type: 'landmark',
@@ -42068,6 +42093,7 @@ export const moments: Moment[] = [
     subtitle: '',
     description: 'In 1933, Kenneth Threadgill opened a Gulf gas station on North Lamar Boulevard in Austin, Texas. What started as a simple filling station gradually evolved into an informal music venue as Threadgill, an avid yodeler and country music enthusiast, began hosting jam sessions for local musicians. By the 1960s, the gas station had become a full-fledged music venue that attracted a new generation of folk and blues performers, including a young Janis Joplin, who was a regular performer there during her time at the University of Texas. Threadgill\'s became a legendary institution in Austin\'s live music scene and helped establish the city\'s reputation as the Live Music Capital of the World.',
     narrativeContext: 'You\'re at 6416 North Lamar Boulevard, and the building here is Threadgill\'s restaurant, rebuilt on the site of the original Gulf gas station. The gas pumps are gone but the address is the same. In 1933, Kenneth Threadgill opened this filling station armed with Austin\'s very first post-Prohibition beer license, which he\'d stood in line all night at the Travis County courthouse to get. Threadgill was a yodeler. He\'d play Jimmie Rodgers records and pick up his guitar between oil changes. Musicians started drifting in. By the early 1960s, the weekly hootenannies here had become the most important gathering in Austin folk music. A young UT student named Janis Joplin was a regular, singing for a pitcher of beer while Threadgill mentored her. The gas station became a music venue without anyone quite planning it. The building you see now was rebuilt as a restaurant, but the location is exact. North Lamar was the edge of town in 1933. Now it\'s deep inside the city, which is the story of Austin in one address.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/threadgills-gulf-station.mp3',
     lat: 30.33234,
     lng: -97.72254,
     type: 'landmark',
@@ -42085,6 +42111,7 @@ export const moments: Moment[] = [
     subtitle: '',
     description: 'In 1962, Janis Joplin moved to Austin, Texas, where she immersed herself in the city\'s burgeoning folk and blues scene. Living near the University of Texas campus, Joplin frequented venues like Threadgill\'s gas station, where owner Kenneth Threadgill hosted weekly jam sessions that welcomed the young singer. Austin provided Joplin with her first real audience and a community of musicians who encouraged her raw, powerful vocal style. Her time in Austin was formative, exposing her to the blues and folk traditions that would define her later career as one of the most iconic rock vocalists of the 1960s.',
     narrativeContext: 'You\'re in the general area west of the UT campus where Joplin lived during her Austin years, though no single well-documented address survives. She moved to Austin in 1962 from Port Arthur, Texas, a refinery town she couldn\'t wait to escape. The neighborhood here -- between the Drag and Lamar Boulevard, north of campus -- was full of cheap rooming houses and apartments where students and musicians overlapped. Joplin bounced between places, including the Pink Palace at 1106 West 22nd Street, soaking up Austin\'s folk and blues scene. Her circuit was small: Threadgill\'s gas station on North Lamar for the Wednesday hootenanny, the Vulcan Gas Company area on Congress Avenue for the psychedelic shows, and whatever living room had a guitar and a bottle of wine. Austin gave her a stage before anyone else would. She left for San Francisco in 1963, came back briefly, left again for good. The specific addresses of her Austin life are mostly lost to time, but the neighborhood is recognizable.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/janis-joplin-residence.mp3',
     lat: 30.30022,
     lng: -97.74238,
     type: 'residence',
@@ -42119,7 +42146,8 @@ export const moments: Moment[] = [
     name: 'A Violent Attack at an East Austin Saloon Amid the City\'s Climate of Fear',
     subtitle: 'A separate assault in February 1886 at what is now the Scoot Inn — not confirmed as the serial killer',
     description: 'In February 1886, a woman was dragged from a saloon on East Fourth Street and violently beaten in an attack that bore similarities to the Servant Girl Annihilator killings. The location is now the site of the Scoot Inn, one of the oldest bars in Austin still in operation. While this attack did not result in death, it occurred during the period of heightened anxiety following the Christmas Eve double murder and was widely attributed to the same perpetrator. The incident demonstrated that the violence had expanded beyond private residences into public spaces.',
-    narrativeContext: 'You\'re standing at 1308 East 4th Street, and unlike most Annihilator locations, the building is still here. The Scoot Inn is one of the oldest bars still operating in Austin — the structure dates to 1871, when it was built as a grocery store for travelers arriving on the Houston and Texas Central Railway. Today it\'s a beloved live music venue with a big outdoor stage. In February 1886, a woman was dragged from a saloon at this location and beaten in an attack that echoed the Annihilator\'s methods. It was never confirmed as the same killer, but it happened during the peak of the city\'s terror, just weeks after the Christmas Eve double murders. The attack showed the violence spreading from private homes into public spaces. Walk inside, order a beer, and look at the original walls. You\'re in one of the only places in Austin where you can physically touch a structure that existed during the Servant Girl Annihilator era. The building has seen 155 years of Austin history from this same East Side corner.',
+    narrativeContext: 'You\'re standing at 1308 East 4th Street, and unlike every other Annihilator location, the building is still here. The Scoot Inn is one of the oldest bars still operating in Austin. The structure dates to 1871, built as a grocery store for travelers arriving on the Houston and Texas Central Railway. Today it\'s a live music venue with a big outdoor stage and cold beer. In February 1886, a woman was dragged from a saloon at this spot and beaten in an attack that echoed the Annihilator\'s methods. It was never confirmed as the same killer, but it happened during the peak of the city\'s terror, just weeks after the Christmas Eve double murders that had finally forced Austin to act. What made this attack different was the location — not a private home, not servants\' quarters, but a public establishment. The violence had expanded into spaces where people gathered openly. Walk inside the Scoot Inn tonight, order a drink, and run your hand along the walls. You\'re touching a structure that stood here during Austin\'s darkest chapter. The building at 1308 East 4th Street is the only place left where you can physically stand inside the Annihilator era.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-scoot-inn-attack.mp3',
     lat: 30.262092,
     lng: -97.729405,
     type: 'crime_scene',
@@ -42196,7 +42224,8 @@ export const moments: Moment[] = [
     name: 'Mollie Smith Becomes the First Victim of Austin\'s Serial Killer',
     subtitle: '901 W Pecan St (now W 6th St), Austin. The W.K. Hall residence where the murder occurred has been demolished',
     description: 'On December 30, 1884, a servant named Mollie Smith was dragged from her bed and murdered with an axe in the backyard of the W.K. Hall residence at 901 W Pecan Street. This was the first of eight brutal murders that would paralyze the city for a year, with the killer eventually striking multiple times in a single night.',
-    narrativeContext: 'You\'re standing on West 6th Street near the 900 block, which used to be called Pecan Street. There\'s nothing here now that hints at what happened. The W.K. Hall residence is long gone, replaced by the bars and restaurants of the Sixth Street entertainment district. On the night of December 30, 1884, a servant named Mollie Smith was dragged from her bed in the servants\' quarters out back and killed with an axe. Her companion, Walter Spencer, was found unconscious with a bloody head wound. Nobody in the main house heard a thing. This was the first of eight attacks that would terrorize Austin for a full year. The killer would never be caught, and the city\'s response — building 165-foot moonlight towers to eliminate the darkness — still lights these streets tonight. The exact site is on the south side of W 6th Street, between Baylor and West Avenue. Walk three blocks east and you\'re standing under one of those towers.',
+    narrativeContext: 'You\'re standing on West 6th Street in Austin\'s entertainment district. Neon signs, bar patios, weekend crowds. This block used to be called Pecan Street, and the 900 block looked nothing like this. The W.K. Hall residence stood here — a proper house with servants\' quarters out back. On the night of December 30, 1884, a servant named Mollie Smith was dragged from her bed in those quarters and killed with an axe in the backyard. Her companion, Walter Spencer, was found unconscious nearby with a gash in his skull. Nobody in the main house heard a thing. Not a scream, not a struggle. The household woke up to a murder scene just steps from where they\'d been sleeping. Police treated it as a one-off domestic crime. They were wrong. The attacks would escalate over the next year in ways nobody could have predicted. The exact site sits on the south side of West 6th Street, between Baylor Street and West Avenue. Stand on the sidewalk outside the bars and look south — that\'s where the servants\' quarters were. This was only the beginning.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/annihilator-mollie-smith.mp3',
     lat: 30.270954,
     lng: -97.752963,
     type: 'crime_scene',
@@ -44422,6 +44451,7 @@ export const moments: Moment[] = [
       { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Indian_Depredations_in_Texas_-_Scalping_of_Josiah_Wilbarger.jpg/300px-Indian_Depredations_in_Texas_-_Scalping_of_Josiah_Wilbarger.jpg', caption: 'Scalping of Josiah Wilbarger, from Indian Depredations in Texas (1890), signed T.J. Owen' },
     ],
     narrativeContext: 'Josiah Wilbarger and his wife Margaret Barker had emigrated from Pike County, Missouri, landing in Matagorda on 26 December 1827. In spring 1830 he accompanied Stephen F. Austin to survey the upper Colorado River colony, where he befriended fellow surveyor Reuben Hornsby and secured a land grant at the mouth of what is now Wilbarger Creek. Two years later Hornsby occupied a tract about a mile to the west along the river.\n\nOn an August day in 1832, Wilbarger agreed to guide four men — Standifer, Haynie, Christian, and Strother — on a land tour northwest from Hornsby\'s farm. Near upper Walnut Creek, they spotted a lone Indian observing them from a ridge. Wilbarger signaled the man to approach but was ignored. The Indian pointed toward smoke rising from cedars at the base of a hill, then fled. The men gave chase but lost him near the head of Walnut Creek, at what is now the southwest corner of Braker Lane and MoPac Expressway.\n\nSpooked, the party turned back toward Hornsby\'s farm. At noon they stopped at a spring — Pecan Springs — several miles from home. Wilbarger urged them to keep riding, but the others insisted on eating. Wilbarger, Christian, and Strother unsaddled and hobbled their horses. Standifer and Haynie, showing more caution, staked theirs but left the saddles on.\n\nRifle fire cracked from the brush. Strother fell mortally wounded. Christian took a ball through the thigh, shattering the bone. Wilbarger propped him against a tree, primed the man\'s rifle, and in the process took an arrow through each calf and a minor hip wound. As he dove for cover, a rifle ball pierced the back of his neck and exited through his chin. He fell, paralyzed but conscious.\n\nStandifer and Haynie each sprang for his horse. Wilbarger pleaded to ride double, but they fled without him. The Indians rushed in, slit the throats of Christian and Strother, then turned to Wilbarger. Seeing a motionless man bristling with arrows, they deemed a throat-cutting unnecessary. Instead, one stripped him naked, grabbed his hair, and sliced away his scalp. Wilbarger felt no pain — only a sound like distant thunder — before losing consciousness.\n\nHe awoke desperately thirsty. He dragged himself to a chilly pool of spring water, lay in it for an hour, crawled back out, slept, returned to drink again, then began crawling southeast through the prairie toward Hornsby\'s farm six miles away. Maggots were already feasting in his wounds. This realization gave him strength enough to stand, and he stumbled about a quarter mile before collapsing under a large post oak tree at what is now the intersection of 51st Street and Old Manor Road.\n\nThe five men had left from Hornsby\'s farm that morning heading northwest. The attack site is behind what is now the Austin-Travis County Combined Traffic and Emergency Communications Center, near the dry bed of Pecan Springs. The spring was behind the apartment complex now at 5020 Manor Road. The fight occurred about half a mile upstream along Tannehill Branch Creek, approximately where the creek crosses 51st Street as it exits Bartholomew District Park.\n\nThe post oak tree where Wilbarger was found stood at what is now the intersection of 51st Street and Old Manor Road. The 1927 monument erected by his granddaughter was originally placed on a knoll halfway between the attack site and the rescue tree. It was moved to Bartholomew District Park at Berkman Drive and 51st Street in 1985, then removed entirely circa 2023 after neighborhood residents petitioned the city council.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/wilbarger-scalping-1832.mp3',
   },
   {
     id: 'wilbarger-rescue-hornsby-dream-1832',
@@ -44441,6 +44471,7 @@ export const moments: Moment[] = [
     address: 'Webberville Rd near FM 973, Hornsby Bend, Austin, TX',
     entityIds: ['josiah-wilbarger', 'sarah-hornsby'],
     narrativeContext: 'The Hornsby homestead was one of the first Anglo settlements east of what would become Austin. Reuben and Sarah Hornsby were known for their hospitality, welcoming prospective settlers who brought news from the United States and added numbers for defense against Indian attack. The farm sat on a riverfront tract along the Colorado River, about a mile west of Wilbarger\'s own homestead at the mouth of Wilbarger Creek.\n\nSarah Hornsby\'s dream is one of the most famous episodes in early Texas frontier lore. Her brother-in-law J.W. Wilbarger devoted most of the first chapter of Indian Depredations in Texas (1890) to this account. The dream\'s details vary across sources, but most agree: she woke Reuben twice, he dismissed her the first time, and she refused to let anyone sleep until the rescue party rode out at dawn.\n\nAnother layer of the supernatural: as Wilbarger lay under the post oak tree through a tortured night, he reportedly saw his sister Margaret Clifton appear before him. "Brother Josiah," she told him, "you are too weak to go by yourself. Remain here, and friends will come to take care of you before the setting of the sun." Unknown to Josiah at the time, Margaret had died the day before in Florissant, Missouri.\n\nBack at the farm, Sarah Hornsby assumed nursing duties. She applied bear grease to Wilbarger\'s wounds as a healing salve. Reuben\'s son Billy and Josiah\'s father-in-law Leman Barker constructed a sled to convey the recovering man back to his own homestead a mile downriver a few days later.\n\nThe Hornsby homestead area today is largely rural — farmland, the Hornsby Bend Biosolids facility, and scattered properties along Webberville Road. A 1936 Texas Centennial marker stands on Webberville Road about 0.2 miles east of FM 973, commemorating the homestead. The Colorado River bends nearby, and the landscape retains some of its original character — open fields with scattered live oaks along the river.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/wilbarger-rescue-hornsby-dream-1832.mp3',
   },
   {
     id: 'wilbarger-found-post-oak-1832',
@@ -44460,6 +44491,7 @@ export const moments: Moment[] = [
     address: 'E 51st St at Old Manor Rd, Austin, TX 78723',
     entityIds: ['josiah-wilbarger'],
     narrativeContext: 'This intersection is in what is now the Windsor Park neighborhood of East Austin. The post oak tree is long gone — the area was developed residentially in the mid-20th century. The rescue site is about a quarter mile southeast of the attack site (near Tannehill Branch Creek) and about half a mile north of the 1927 monument\'s original location.\n\nWilbarger\'s recovery was remarkable by any era\'s standards. Sarah Hornsby nursed him with bear grease applied directly to the wounds. Scar tissue covered much of his exposed skull, but a small central spot remained permanently bare. He wore a silk cap over it for the rest of his life. He became a local celebrity — visitors to the region sought him out and found a congenial man who had carried on as if nothing had happened.\n\nThe fatal irony came twelve years later. In 1844, Wilbarger accidentally struck his unprotected skull on a low door frame. The impact cracked the deteriorated bone. He became delirious and died several weeks later, finally killed by the wound the Comanche had inflicted in 1832.\n\nAn additional footnote: three years after the scalping, Indians attacked the Hibbins family near DeWitt\'s Colony on the Colorado River. Sarah Hibbins escaped her kidnappers by wading through Shoal Creek to the Colorado. When rangers overtook the Indians and recovered stolen gear, one picked up a rifle with a broken stock — later returned to its original owner, Josiah Wilbarger.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/wilbarger-found-post-oak-1832.mp3',
   },
   {
     id: 'wilbarger-monument-erected-1927',
@@ -44479,6 +44511,7 @@ export const moments: Moment[] = [
     address: 'Berkman Dr at E 51st St, Bartholomew District Park, Austin, TX 78723',
     entityIds: ['josiah-wilbarger'],
     narrativeContext: 'The Wilbarger monument has a complex history of its own. It was the first historical marker erected in Travis County — roughly a decade older than the 1936 Centennial markers. The original location was on a small knoll near the old Pecan Springs, on land belonging to Judge George Calhoun. The stone was designed by L.W. Stolz, a stone-mason of La Grange, and executed in native Texas granite. It stands six feet high on a four-foot base.\n\nIn 1966, the Travis County Historical Survey Committee requested the marker be moved to Mueller Municipal Airport "where more people could see it and appreciate the fact that wild Indians used to roam where jet aircraft now zoom into the sky." This request went unfulfilled. Development finally caught up in 1985, when it was moved to the western edge of Bartholomew District Park at the intersection of Berkman Drive and 51st Street.\n\nThe monument faced modern reckoning when East Austin residents, including neighborhood resident Jacqueline Galván and a local Indigenous man known as White Snake, petitioned for its removal. White Snake noted: "The monument depicts the aboriginals, my ancestors, as having committed some crime, as if they scalped this guy minding his own business. What he was doing was no different from coming into your home and taking measurements."\n\nCouncil Member Chito Vela supported removal, suggesting it be displayed at the Austin History Center with context about how opinions have changed. White Snake offered a different solution: "I\'m OK with it being left where it\'s at, as long as it\'s tipped over and buried."\n\nThe monument was ultimately removed and relocated to the Wilbarger family plot in Fairview Cemetery, Bastrop, TX. A separate Wilbarger burial marker exists on FM 969 in Bastrop County, near his original homestead burial site before he was reinterred at the Texas State Cemetery.\n\nToday at the Berkman/51st corner there is a park entrance, playground, and basketball court. Most Austinites who drive by have no idea about the bloody history that unfolded here almost 200 years ago — or the decades-long argument about how to remember it.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/wilbarger-monument-erected-1927.mp3',
   },
   {
     id: 'wilbarger-reinterred-state-cemetery',
@@ -44500,6 +44533,7 @@ export const moments: Moment[] = [
       { type: 'image', url: 'https://texashistory.unt.edu/ark:/67531/metapth1241408/m1/1/', caption: 'Josiah and Margaret Wilbarger. Note the hairline and silk cap covering his scalping wound.' },
     ],
     narrativeContext: 'The Texas State Cemetery at 909 Navasota Street is a 22-acre site east of I-35, about a mile from the Capitol. Often called the "Arlington of Texas," it holds over 3,000 gravesites of notable Texans spanning the Republic era to the present.\n\nWilbarger\'s original burial site was at the Wilbarger Cemetery in Bastrop County, on the homestead he had settled in 1830 at the mouth of Wilbarger Creek. A granite marker on FM 969 still marks that original burial location. His reinterment at the State Cemetery placed him among the Republic-era figures he had known personally — including Stephen F. Austin, with whom he had surveyed the upper Colorado colony in 1830.\n\nThe photograph of Josiah and Margaret Wilbarger is one of only a handful of images from the early Texas Republic period. Margaret Barker Wilbarger married Josiah in Pike County, Missouri, before they emigrated to Texas in 1827. For eleven years she sewed the silk caps he wore over the bare spot on his skull where scar tissue never fully formed. The photograph — published in Frontier Times Magazine — shows Josiah with a visible hairline abnormality and what appears to be the cap or covering.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/wilbarger-reinterred-state-cemetery.mp3',
   },
   {
     id: 'elisabet-ney-lake-austin-1892',
@@ -44628,6 +44662,7 @@ export const moments: Moment[] = [
     subtitle: '2504 Whitis Ave, Communications Building B (Studio 6A), UT Austin. The studio hosted ACL until 2011',
     description: 'On 17 October 1974, Willie Nelson taped the pilot episode of Austin City Limits here in Studio 6A on the UT campus. The night before, B.W. Stevenson had recorded a set, but technical problems made the tape unusable. Nelson\'s performance aired on PBS in January 1976. The show became the longest-running music series in American television history, producing over 800 episodes across 50 seasons. Studio 6A was a converted classroom with a 300-person capacity.',
     narrativeContext: 'You\'re at 2504 Whitis Avenue on the UT campus, Communications Building B. Studio 6A is inside -- a converted classroom that held about 300 people. On October 17, 1974, Willie Nelson taped the pilot episode of Austin City Limits here. The night before, B.W. Stevenson had recorded a set, but the tape was unusable due to technical problems. So Willie got the call, and the result became the longest-running music series in American television history. The studio was tiny by TV standards. The Austin skyline backdrop behind the stage became one of the most recognized images in American music television. ACL taped here for 37 years before moving to the purpose-built Moody Theater at 310 West Willie Nelson Boulevard in 2011. In 2009, the Rock and Roll Hall of Fame designated this studio as an official landmark, one of only a handful nationwide. The building is still on campus. The studio is no longer used for ACL, but you can stand outside and know that every major name in American roots music walked through this door.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/acl-pilot-taping-1974.mp3',
     lat: 30.286,
     lng: -97.74,
     type: 'cultural_venue',
@@ -44937,6 +44972,7 @@ export const moments: Moment[] = [
     subtitle: '1315 S. Congress Ave, Austin. The club still operates at this address and books live music nightly',
     description: 'The Continental Club opened here at 1315 South Congress Avenue in 1955 as a private supper club. By the 1980s it had become the epicenter of Austin\'s roots music revival. Stevie Ray Vaughan played here every Wednesday night from 1980 until April 1983, just before his career-making Texas Flood tour. Legend holds that during one show he sustained a note so loud a chunk of plaster fell from the ceiling. The club remains one of Austin\'s most storied live music venues.',
     narrativeContext: 'You\'re standing in front of the Continental Club at 1315 South Congress Avenue, and the neon sign is probably already on. The building looks like it hasn\'t changed since Eisenhower was president because it mostly hasn\'t. Walk inside tonight and you\'ll see the same low stage, the same narrow room where Stevie Ray Vaughan played every Wednesday from 1980 to 1983. During one of those sets, SRV hit a note so hard a chunk of plaster fell from the ceiling. Nobody patched it for years. The club opened as a private supper club in 1955, back when South Congress was still a rough stretch of motor courts and diners. By the 1980s it was the nerve center of Austin\'s roots music revival, the room where SRV sharpened the sound that became Texas Flood. You can walk the same route he did from the Broken Spoke on South Lamar, through the Continental, up to Antone\'s on Guadalupe. That triangle was his Austin. The door charge tonight is probably twelve bucks. The plaster is holding.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/continental-club-opens-1955.mp3',
     lat: 30.250515,
     lng: -97.749101,
     type: 'cultural_venue',
@@ -46868,6 +46904,7 @@ export const moments: Moment[] = [
     ],
     narrativeContext:
       'Penn Field was a WWI-era military airfield in south Austin, home to the UT School of Military Aeronautics. The field was bordered by South Congress, Woodward St, and Ben White Blvd. Named for Eugene Doak Penn, an Austin flyer killed in training near Foggia, Italy in 1918. Training flights regularly circled nearby St. Edward\'s College. The fact that a dog was in the plane speaks to how informal early aviation was — pets rode along on military drills. Coach Gardner\'s eyewitness account from St. Edward\'s campus confirms the proximity of the crash to the college buildings.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/penn-field-cadet-crash-1921.mp3',
   },
   {
     id: 'penn-field-kelly-stunts-1918',
@@ -46887,6 +46924,7 @@ export const moments: Moment[] = [
     entityIds: ['penn-field'],
     narrativeContext:
       'The newspaper headline read: "AUSTIN SEES HAIR RAISING AIR STUNTS OF VARIOUS KINDS / Kelly Field Bird Man Does About Everything in the Book. EVEN INVENTS SOME NEW TRICKS." Kelly Field was the primary Army Air Service training base near San Antonio. Pilots would fly up to Austin for demonstrations. Dropping fireworks that exploded like bombs was considered entertainment, not a safety hazard. The stunt culture at these early airfields was as much about recruitment and public morale as training.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/penn-field-kelly-stunts-1918.mp3',
   },
   {
     id: 'penn-field-baseball-airdrop-1919',
@@ -46907,6 +46945,7 @@ export const moments: Moment[] = [
     entityIds: ['penn-field'],
     narrativeContext:
       'Clark Field was UT\'s original baseball stadium, opened in 1887 at the southeast corner of 24th Street and Speedway. It was famous for a limestone cliff in the outfield. The Kelly Field Flyers were a military baseball team from Kelly Field near San Antonio. Flying twenty planes in formation from San Antonio to Austin — roughly 80 miles — was itself a significant feat in 1919. Penn Field served as their landing strip since it was the only proper airfield in Austin. Dropping baseballs from biplanes onto fielders was a stunt that perfectly captured the giddy recklessness of early aviation culture.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/penn-field-baseball-airdrop-1919.mp3',
   },
   {
     id: 'penn-field-halloween-stunt-1922',
@@ -46928,6 +46967,7 @@ export const moments: Moment[] = [
     entityIds: ['penn-field'],
     narrativeContext:
       'The Halloween parade was a major Austin civic event in the 1920s, running along Congress Avenue toward the Capitol. That a pilot chose to perform death-defying stunts over a packed crowd for two hours — dropping explosive fireworks — and that the newspaper reported it as good fun, shows how differently early aviation risk was perceived. No one called the police; the spectacle was the point.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/penn-field-halloween-stunt-1922.mp3',
   },
   {
     id: 'austin-bans-stunt-flying-1926',
@@ -46947,6 +46987,7 @@ export const moments: Moment[] = [
     entityIds: ['penn-field'],
     narrativeContext:
       'The UT Aeronautic Society was formed by current and former UT flyers and continued performing stunts and parachute drops outside the city limits well into the 1930s. WWII put an informal end to the club — its members went to war for real. The 1926 ban is notable because it marks the exact moment Austin stopped treating the sky over downtown as a playground. Federal aviation regulation was still years away; this was purely a local police decision.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/austin-bans-stunt-flying-1926.mp3',
   },
 
   // ─── 1938 Austin Cab Driver Crime Spree ──────────────────────────────
@@ -46969,6 +47010,7 @@ export const moments: Moment[] = [
     address: '400 block of Congress Ave, Austin, TX 78701',
     narrativeContext:
       'Frank Anthony was simply sitting in his parked car on the 400 block of Congress Avenue when two men opened the door and put a gun on him. They picked up a third man in a nearby alley. The three were William Weems (blond, under 21), Robert Sanders (slim, dark), and Richard Stamnitz — all former Yellow Cab and City Cab drivers in Austin. They drove Anthony out Barton Springs Road, turned right, tied his hands with his belt, took $3-4, and slugged him over the head. Anthony regained consciousness and stumbled to a nearby tourist camp to call police at 1am.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/cab-spree-congress-carjack-1938.mp3',
   },
   {
     id: 'cab-spree-barton-springs-dump-1938',
@@ -46989,6 +47031,7 @@ export const moments: Moment[] = [
     address: 'Near Barton Springs Rd, Austin, TX 78704',
     narrativeContext:
       'The location is described as "out Barton Springs Road" and then a right turn. Anthony regained consciousness and went to a nearby tourist camp to call police. Tourist camps (the predecessors of motels) dotted Barton Springs Road in the 1930s, serving travelers on the highway.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/cab-spree-barton-springs-dump-1938.mp3',
   },
   {
     id: 'cab-spree-georgetown-1938',
@@ -47009,6 +47052,7 @@ export const moments: Moment[] = [
     address: 'Georgetown, TX',
     narrativeContext:
       'H.B. Hurt\'s filling station was held up at approximately 1:30am. Wells Hurt (son of owner) and Don Russell (truck driver) were kidnapped, robbed of $25, stripped of their clothing, slugged unconscious, and dumped 1.5 miles north of Georgetown. The stripping of victims was a recurring pattern — the robbers took both money and clothing throughout the night.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/cab-spree-georgetown-1938.mp3',
   },
   {
     id: 'cab-spree-fredericksburg-1938',
@@ -47029,6 +47073,7 @@ export const moments: Moment[] = [
     address: 'Fredericksburg, TX',
     narrativeContext:
       'A.C. Keffeler\'s filling station in Fredericksburg was held up first, though newspaper accounts initially sequenced it differently. The robbers took $17, kidnapped Keffeler, and drove him 20 miles on State Highway 20 toward Harper before releasing him. This was the mildest of their attacks — no stripping, no beating.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/cab-spree-fredericksburg-1938.mp3',
   },
   {
     id: 'cab-spree-fort-worth-arrest-1938',
@@ -47049,6 +47094,7 @@ export const moments: Moment[] = [
     address: 'Fort Worth, TX',
     narrativeContext:
       'The stolen car was spotted by squad car patrolmen in Fort Worth. Two chases followed — officers fired five shots, but the car eluded them. The car was later found abandoned. A taxi driver (of all people) tipped police to the hotel where they were staying. One suspect reached for a gun and was knocked down by Detective Ed Weatherford. All three were arrested. Sanders and Weems got two concurrent 99-year sentences. Stamnitz got 6 years (no prior record). Weems was paroled in 1953 after serving 14 years. Prior records: Weems had a 1935 suspended sentence for car theft; Sanders had been sentenced to Gatesville reform school in 1933 for stealing a car.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/cab-spree-fort-worth-arrest-1938.mp3',
   },
   {
     id: 'cab-spree-jail-interview-1938',
@@ -47069,6 +47115,7 @@ export const moments: Moment[] = [
     address: '1000 Guadalupe St, Austin, TX 78701',
     narrativeContext:
       'The jail interview on 7 December produced vivid quotes. "It wasn\'t easy," drawled blond Weems. "Yeah, wasn\'t easy," chimed in slim, dark Sanders. Asked why they did it: "Money." "We didn\'t have any plans. We weren\'t going no where." Stamnitz asked, "Has my girl called?" The jailer replied, "Several people have called about you boys." "Yeah, but none of \'em have come to see us." "There just ain\'t much to say." The three were under 21, former cab drivers for Yellow Cab and City Cab in Austin. Weems had a 1935 suspended sentence for car theft. Sanders had been sent to Gatesville reform school in 1933 for stealing a car. Only Stamnitz had no prior record, which earned him a lighter sentence of 6 years versus the 99-year terms the other two received.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/cab-spree-jail-interview-1938.mp3',
   },
 
   // ─── Austin Project Connect Archaeological Sites ─────────────────────
@@ -47096,6 +47143,7 @@ export const moments: Moment[] = [
     ],
     narrativeContext:
       'Site 41TV2620. Artifacts included amber bottle glass, window glass, hobbleskirt Coca-Cola bottle fragments, architectural glass, ceramic and metal pipe fragments, tile sherds, roofing material, and machine-made red bricks. The push pile and large brick scatter indicated deliberate demolition. Property ownership: 1826 Spanish land grant > Hemphill family after 1929 > John Joseph ~1978 > Dunsmuir Properties 1980 > demolished and buried early 1980s. The site is within the Airport Commerce Park development area, covered by industrial warehouses and parking lots.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/coke-bottle-house-41tv2620.mp3',
   },
   {
     id: 'lavaca-cistern-privy-41tv1374',
@@ -47114,6 +47162,7 @@ export const moments: Moment[] = [
     year: 2022,
     narrativeContext:
       'Site 41TV1374. Located on Lavaca Street between W 13th and W 14th Streets. Remains included a cistern and privy showing two periods of construction. Artifacts: glass and metal fragments found within the privy. All archaeological features had been destroyed by modern street and utility construction prior to the survey. The site is in the heart of downtown Austin, near the state Capitol complex.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/lavaca-cistern-privy-41tv1374.mp3',
   },
   {
     id: 'block-15-convention-center-41tv1497',
@@ -47132,6 +47181,7 @@ export const moments: Moment[] = [
     year: 2022,
     narrativeContext:
       'Site 41TV1497. Block 15 from the original Austin townsite laid out by Edwin Waller in 1839. Features documented: limestone foundations, brick piers, limestone retaining wall, cisterns, probable stone-lined well, privies, and dump areas. The Crowell House (a standing historic wood-frame home) was relocated prior to excavation. The site was determined eligible for National Register of Historic Places listing, but was destroyed first by a surface parking lot and then by construction of the Austin Convention Center. The NRHP eligibility makes this the most archaeologically significant of the Project Connect survey sites.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/block-15-convention-center-41tv1497.mp3',
   },
   {
     id: 'block-183-hotel-41tv1790',
@@ -47150,6 +47200,7 @@ export const moments: Moment[] = [
     year: 2022,
     narrativeContext:
       'Site 41TV1790. Block 183 from the original Austin townsite. A 19th-20th century residential and commercial area. Artifacts recovered: shallow pit feature containing whiteware ceramics, glass, wire nails, iron pipe, and limestone cobbles. The site was covered first by commercial development and then by a hotel (Austin Marriott Downtown, 304 E Cesar Chavez St). The proximity to Site 41TV1497 (Block 15) underscores how much of Austin\'s original townsite infrastructure lies beneath modern downtown.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/block-183-hotel-41tv1790.mp3',
   },
   {
     id: 'austin-state-hospital-archaeology-41tv2562',
@@ -47168,6 +47219,7 @@ export const moments: Moment[] = [
     year: 2022,
     narrativeContext:
       'Site 41TV2562. Austin State Hospital is a large mental healthcare institution dating to 1856 (opened 1861), still in continuous operation. The survey area along Guadalupe Street from W 41st to W 38th Streets revealed original extant buildings plus foundations of demolished dormitories, a tuberculosis hospital, and industrial buildings. Artifacts: building materials, glass, ceramics, metal, personal items, coinage, lithics (prehistoric stone tools), and woven objects. The lithics suggest the hospital grounds overlay a much older indigenous occupation site. The hospital is undergoing a major campus rebuild as part of the state\'s mental health infrastructure modernization.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/austin-state-hospital-archaeology-41tv2562.mp3',
   },
   {
     id: 'project-connect-precontact-lithics',
@@ -47187,6 +47239,7 @@ export const moments: Moment[] = [
     date: 'Archaic period (est. 7000+ years ago)',
     narrativeContext:
       'Multiple precontact (pre-European contact) archaeological sites were identified during the Project Connect Blue and Orange Line archaeological survey. These include lithic scatters (concentrations of worked stone debris from tool-making) and camp sites indicating sustained indigenous habitation along the waterways and ridgelines that the rail corridor follows. The sites date back thousands of years and complement other known precontact sites in the Austin area, including 41TV410 at McKinney Falls State Park (9,000 years of habitation) and the Wilson-Leonard site near Leander (10,000-13,000 years). Coordinates are approximate and represent a central point along the rail corridor; the actual sites are distributed across multiple locations.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/project-connect-precontact-lithics.mp3',
   },
 
   // ─── Battle of the San Gabriels & Steinheimer's Buried Treasure ──────
@@ -47210,6 +47263,7 @@ export const moments: Moment[] = [
     entityIds: ['manuel-flores', 'james-o-rice'],
     narrativeContext:
       'Lt. James O. Rice was only 24 years old. The Rangers were part of Col. Edward Burleson\'s ranging company, stationed near Austin during a period of intense frontier conflict. Flores\'s party of roughly 80 Mexicans and Indians was traveling from Matamoros northward to deliver ammunition, powder, and correspondence to Plains Indian tribes. The Cordova Rebellion was a coordinated Mexican plan to use Native American allies to destabilize the Republic of Texas from within. That Rice stumbled onto the column while deer hunting is one of those accidents that changed Texas history.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/flores-spotted-onion-creek-1839.mp3',
   },
   {
     id: 'rangers-retreat-cedar-brake-1839',
@@ -47231,6 +47285,7 @@ export const moments: Moment[] = [
     entityIds: ['manuel-flores', 'james-o-rice'],
     narrativeContext:
       'Captain Andrews\'s horse was going lame, which likely influenced his decision to retreat. The cedar brakes south of the Colorado were dense thickets of Ashe juniper that made ambush easy and cavalry movement difficult. Adkisson\'s one-man mutiny is one of the great small moments of Texas Ranger lore: a private riding ahead of his own retreating column, turning his horse to block the trail, and shaming his captain into turning around. After the confrontation, Rice effectively took command of the pursuit since Andrews could no longer keep pace on his injured horse. Only about 17-18 Rangers continued the chase.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/rangers-retreat-cedar-brake-1839.mp3',
   },
   {
     id: 'flores-killed-san-gabriel-1839',
@@ -47252,6 +47307,7 @@ export const moments: Moment[] = [
     entityIds: ['manuel-flores', 'james-o-rice'],
     narrativeContext:
       'The captured correspondence was the real prize. Letters between Flores and Vicente Cordova, along with instructions from Mexican General Valentin Canalizo, laid bare the entire conspiracy: Mexico was arming Plains Indian tribes to wage guerrilla war against Texas settlers from the interior while the Mexican Army pressured the border. The intelligence proved that Cherokee leaders including Chief Bowles were involved, directly triggering the Cherokee War weeks later. Historian J.W. Wilbarger called this the second-most important strategic battle in Texas after San Jacinto. The bluff above the North San Gabriel was a natural defensive position, but Flores\'s force was caught off guard by the speed of Rice\'s charge. Wallace\'s kill shot ended the battle in seconds.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/flores-killed-san-gabriel-1839.mp3',
   },
   {
     id: 'steinheimer-buries-gold-three-forks-1839',
@@ -47273,6 +47329,7 @@ export const moments: Moment[] = [
     entityIds: ['karl-steinheimer'],
     narrativeContext:
       'Karl Steinheimer (sometimes spelled Steinheiner) was a German-born adventurer and former privateer based in Galveston before 1820 who later moved south to mine gold and silver in Mexico. Learning that his childhood sweetheart was living unmarried in St. Louis, he packed his fortune onto ten mules and headed north, joining Flores\'s armed column for protection through dangerous territory. The traditional identification of "Three Forks" places the burial at the confluence of Nolan Creek, the Lampasas River, and the Leon River near Belton, where they form the Little River. However, some treasure hunters argue the gold was buried farther south in Travis or Williamson County, closer to where Steinheimer actually separated from Flores. The letter to his sweetheart supposedly described the burial location in enough detail to find it, but it was passed through multiple hands and the original has never been authenticated. Despite 185 years of searching and the expenditure of considerable fortunes, no part of the treasure has ever been confirmed found.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/steinheimer-buries-gold-three-forks-1839.mp3',
   },
 
   // ─── John Henry Faulk — New Moments ─────────────────────────────────
@@ -47295,6 +47352,7 @@ export const moments: Moment[] = [
     entityIds: ['john-henry-faulk', 'j-frank-dobie', 'ut-austin'],
     narrativeContext:
       'Faulk studied under three men who formed Austin\'s intellectual aristocracy: Dobie the folklorist, Webb the frontier historian, and Bedichek the naturalist. They called themselves "the triumvirate" and met regularly at Barton Springs. Faulk\'s master\'s thesis collected and analyzed sermons from Black churches in central Texas, unusual academic work for the 1930s South. As a teaching fellow he taught English I by performing the stories rather than lecturing, drawing standing-room crowds. Dobie later said Faulk was the best student he ever had. This period cemented Faulk\'s identity as a storyteller rooted in Texas oral tradition.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/faulk-ut-folklore-1932.mp3',
   },
   {
     id: 'faulk-aware-blacklist-1957',
@@ -47315,6 +47373,7 @@ export const moments: Moment[] = [
     entityIds: ['john-henry-faulk', 'aware-inc'],
     narrativeContext:
       'Faulk had been elected second vice president of AFTRA (American Federation of Television and Radio Artists) in late 1955 on a "middle-of-the-road" anti-blacklist slate. AWARE Inc., run by Vincent Hartnett and supported by Laurence Johnson, a Syracuse supermarket magnate who pressured sponsors, immediately targeted Faulk with a bulletin listing fabricated Communist associations. Edward R. Murrow quietly gave Faulk $7,500 to help fund the lawsuit. Faulk later wrote: "I am a loyal American. You can go to hell!" CBS never formally fired him but simply let his contract lapse as sponsors pulled out one by one.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/faulk-aware-blacklist-1957.mp3',
   },
   {
     id: 'faulk-klbj-rebroadcast-1950s',
@@ -47335,6 +47394,7 @@ export const moments: Moment[] = [
     entityIds: ['john-henry-faulk', 'cactus-pryor'],
     narrativeContext:
       'Cactus Pryor was Austin\'s beloved radio and TV personality for decades, first at KTBC (later KLBJ), Lady Bird Johnson\'s station. He and Faulk had been friends since childhood in Austin. Pryor later said of Faulk: "It was like bringing Mark Twain home for supper." The rebroadcast was technically unauthorized, but Pryor treated it as a family favor. KLBJ/KTBC was the foundation of the Johnson family broadcasting empire that helped finance Lyndon Johnson\'s political career. During the blacklist years, Pryor was one of the few Texas broadcasters who stood by Faulk, and he would say: "Cactus, boy, I just don\'t know how we are going to make it," revealing how dire Faulk\'s financial situation had become.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/faulk-klbj-rebroadcast-1950s.mp3',
   },
   {
     id: 'faulk-barton-springs-return-1962',
@@ -47355,6 +47415,7 @@ export const moments: Moment[] = [
     entityIds: ['john-henry-faulk', 'j-frank-dobie'],
     narrativeContext:
       'The return to Barton Springs carried deep symbolic weight. Faulk had grown up swimming here with the Dobie-Webb-Bedichek circle, Austin\'s intellectual elite. After a decade of litigation, poverty, and exile in New York, coming back to Barton Springs meant coming back to the life he had before ambition took him to CBS. As his biographer noted: "The Faulk family came back home to wait. Back to Austin. Back to Barton Springs and J. Frank Dobie." The $3.5 million verdict was later reduced to $500,000 on appeal, and Faulk collected far less after legal fees. He was never bitter about CBS — he was bitter about the cowardice of the sponsors who abandoned him.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/faulk-barton-springs-return-1962.mp3',
   },
   {
     id: 'faulk-city-council-speech-1986',
@@ -47376,6 +47437,7 @@ export const moments: Moment[] = [
     entityIds: ['john-henry-faulk'],
     narrativeContext:
       'Faulk\'s full preamble: he was born in South Austin, "not a quarter mile from where the dirty movie theatre stands on Congress Avenue." He then said he had been asked to comment on the effects of pornography on the neighborhood and delivered the immortal line about masturbation in South Austin predating the theater. Molly Ivins helped popularize the story. The speech captured Faulk\'s lifelong method: using ribald Texas humor to make serious First Amendment arguments. He had, after all, spent a decade in court defending free expression. The dirty movie theater was the Capitol Theater on South Congress, which showed adult films in the 1970s and 1980s.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/faulk-city-council-speech-1986.mp3',
   },
   {
     id: 'faulk-library-named-1995',
@@ -47395,6 +47457,7 @@ export const moments: Moment[] = [
     address: '800 Guadalupe St, Austin, TX 78701',
     narrativeContext:
       'The library at 800 Guadalupe was Austin\'s main public library from 1979 until the new Central Library opened on Cesar Chavez in 2017. The 1995 renaming came after a campaign by Faulk\'s friends and admirers, including Cactus Pryor. The choice was symbolically perfect: a free public library named for a man who fought a decade-long legal battle for free expression. The building was converted to the Austin History Center in 2017 and still bears Faulk\'s name. His papers are archived at the Dolph Briscoe Center for American History at UT Austin.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/faulk-library-named-1995.mp3',
   },
 
   // ─── Lake Travis Burials ─────────────────────────────────────────────
@@ -47416,6 +47479,7 @@ export const moments: Moment[] = [
     date: 'circa AD 650',
     narrativeContext:
       'The Carpenter Bend site (41TV2242) was recorded after David Houston reported the find. LCRA ranger Arturo Ordonez shuttled the excavation team to the site by boat. The burial was a single adult male in tightly flexed position, oriented east-west, covered by limestone slabs. AMS radiocarbon dating yielded a calibrated range of AD 638-706. The individual stood approximately 6\'1", unusually tall for the period. Pathologies included advanced osteoarthritis, severe dental attrition and caries, and a possible cranial neoplasm (brain tumor) — one of very few such cases documented in prehistoric North American populations. The site is part of a broader pattern of 33 burial sites with reported human remains along the central Colorado River basin.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/jet-skier-finds-ancient-burial-lake-travis-2006.mp3',
   },
   {
     id: 'jackson-excavates-fall-creek-burials-1937',
@@ -47435,6 +47499,7 @@ export const moments: Moment[] = [
     date: 'Late Archaic period',
     narrativeContext:
       'Sites 41LL4 and 41SS2 were excavated by A.T. Jackson in 1937 as part of broader survey work along the Colorado River basin. The Fall Creek sites contained multiple burials across shelters and crevices. Grave goods at one burial included a bone awl, deer antler, projectile points, scrapers, knives, a metate, manos, and approximately 50 mussel shells — suggesting the individual held some status or the community practiced rich mortuary traditions. One skull had a spot of asphaltum (natural tar) applied above the right eye, possibly decorative or ritual. One deposit was interpreted as a possible cremation, with associated remains that early 20th-century investigators described as evidence of a "cannibal feast," though modern archaeologists treat such interpretations with skepticism. Six poorly preserved infant burials were also found, consistent with the broader Colorado River pattern of infant interment in burned rock middens.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/jackson-excavates-fall-creek-burials-1937.mp3',
   },
   {
     id: 'colorado-river-burials-reveal-trade-networks',
@@ -47454,6 +47519,7 @@ export const moments: Moment[] = [
     date: 'Archaic through Late Prehistoric periods',
     narrativeContext:
       'This moment synthesizes a broader archaeological pattern across the central Colorado River drainage. The 33 burial sites with reported human remains form a distribution spanning thousands of years of continuous habitation. The presence of European trade goods (glass beads, ceramic beads, metal ornaments) at some sites demonstrates that indigenous communities in the Hill Country interior were connected to coastal and frontier trade networks in the post-contact period (roughly 1600s-1700s onward), well before Spanish missions or Anglo settlement penetrated the region. The year 1700 is an approximation for the post-contact trade period; individual burials at these sites range from deep prehistory to the historic era. The coordinates center the moment in the Hill Country between the Lake Travis and Lake Buchanan areas where the densest cluster of documented sites occurs.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/colorado-river-burials-reveal-trade-networks.mp3',
   },
   // ── South Congress Avenue ──────────────────────────────────────────────
   {
@@ -47476,6 +47542,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Standing at 1200 S Congress today, you are looking at the oldest commercial building south of the river in Austin. It is now a Billy Reid clothing and gift store. The three-ton safe Leonard Eck ordered from MacNeal and Urban of St. Louis is reportedly still in the cellar — too heavy to remove, Eck simply built a room around it with doors too small for it to pass through. The building originally had a pawn shop counter, a livery stable and blacksmith next door. Eck moved here from 106 East Pecan Street (now East 6th Street). His daughter Jennie Eck Stewart recalled in a 1965 Statesman article that the building was "lively and from time to time filled with at least a few fairly dubious characters." The Eck family also founded the town of Teck, TX, a now-vanished settlement in western Travis County near what is today Hudson Bend on Lake Travis.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/eck-first-business-south-river-1889.mp3',
   },
   {
     id: 'ben-thompson-leaves-ring-eck-safe-1884',
@@ -47497,6 +47564,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The timeline here is tricky. Ben Thompson was killed on 11 March 1884, and Eck did not buy the land at 1200 S Congress until May 1888. The pawn shop relationship began at Eck\'s earlier location at 106 East Pecan Street (now East 6th Street). The three-ton safe that held Thompson\'s ring was later moved to 1200 S Congress, where it remains in the cellar today. Thompson was elected Austin city marshal in 1881 and was considered one of the deadliest gunfighters of the Old West — Bat Masterson ranked him the best. He had killed Vaudeville Theatre owner Jack Harris in 1882 and was acquitted, but his brazen return to the same theatre two years later with King Fisher ended in ambush. According to Jennie Eck Stewart\'s 1965 account, Thompson\'s furniture — including a hall tree and a secretary — still stood in the building decades later. The pin is placed at 1200 S Congress where the safe and ring ended up, though the transaction occurred at the 6th Street location.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/ben-thompson-leaves-ring-eck-safe-1884.mp3',
   },
   {
     id: 'stewarts-build-austin-motel-1938',
@@ -47518,6 +47586,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The Austin Motel sits at 1220 S Congress Ave, one of Austin\'s most recognizable landmarks. The original 1938 neon sign — reading "Austin Motel" with "So Close, Yet So Far Out" — is a fixture of the South Congress streetscape. Ernest Stewart ran for Travis County Commissioner in 1952, listing his resume as including 9 years in machine shop work, owning a grocery store (sold 1935), and building the motel. In 1954, the Stewarts planned a $200,000 expansion designed by Niggli and Gustafson architects, adding 20 units, a cafe, television lounge, and swimming pool. The Stewarts owned the entire block bounded by Nellie, Eva, James streets and South Congress, with 384 feet of Congress frontage. Ernest and Jennie divorced in 1958. The motel was sold in 1961 to John O. Thompson and Katherine Thompson, educators from East Texas. Their daughter Dottye Dean — a UC Berkeley graduate and professional opera singer — managed it from 1993 until her death in 2011. Her son Mark Dean ran it until Greenfield Partners LLC purchased the property and Liz Lambert\'s Bunkhouse took over management in 2016. The motel has 41 rooms, a restaurant, bar, and a 1950s-style pool renovated in 1998.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/stewarts-build-austin-motel-1938.mp3',
   },
   // ── McKinney Falls ─────────────────────────────────────────────────────
   {
@@ -47540,6 +47609,7 @@ export const moments: Moment[] = [
     entityIds: ['mckinney-falls-state-park'],
     narrativeContext:
       'El Camino Real de los Tejas was not a single road but a network of routes. The crossing at the Lower Falls was a high-traffic segment because it offered a natural limestone ford across Onion Creek. A half-dozen documented Spanish expeditions crossed here in the 18th century. The visible wheel ruts in the limestone bedrock are one of the most tangible physical traces of the Spanish colonial road system in Texas. The NPS designates McKinney Falls as a site along the El Camino Real de los Tejas National Historic Trail. Standing at the Lower Falls today, you can see the spidery arteries of worn ruts stretching across the wide limestone shelves. Soil swales on the far bank trace the old road alignment uphill toward the McKinney homestead ruins.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mckinney-falls-camino-real.mp3',
   },
   {
     id: 'mckinney-enslaved-labor-ranch',
@@ -47561,6 +47631,7 @@ export const moments: Moment[] = [
     entityIds: ['thomas-mckinney', 'mckinney-falls-state-park'],
     narrativeContext:
       'McKinney purchased the property along Onion Creek around 1850, near the crossing of El Camino Real. He was Kentucky-born and had settled in San Felipe de Austin in 1824 before moving to Galveston. The ranch grew to include cotton fields, livestock herds, and the racetrack. The gristmill was powered by water diverted through a dam McKinney built just above the Upper Falls. McKinney owned and bred thoroughbred racehorses. The horse trainer had his own cabin on the property (site 41TV307), still partially standing when archaeologists surveyed it in 1974. Rock fences on the south side of Onion Creek likely corralled cattle, sheep, horses, and mules. The two-story limestone house was lived in continuously until the 1940s when it burned. Today visitors walk the Homestead Trail past the stabilized ruins of both the house and gristmill. The mill turbine was excavated to a depth of nearly 4 meters by Parks and Wildlife personnel in 1974.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mckinney-enslaved-labor-ranch.mp3',
   },
   {
     id: 'mckinney-dam-gristmill',
@@ -47582,6 +47653,7 @@ export const moments: Moment[] = [
     entityIds: ['thomas-mckinney', 'mckinney-falls-state-park'],
     narrativeContext:
       'The mill (site 41TV289) sat on a flat expanse of exposed McKown limestone. The dam was constructed with notches 30 cm wide cut into the bedrock to secure timber ends, with iron rods drilled into the rock between notches. The dam was between 1 and 2 meters high. A wing dam on the east bank diverted water into the millrace. The mill had a wheel pit roughly 6 by 9 meters and nearly 4 meters deep, with a protruding iron shaft connected to the turbine at the bottom. The 1974 excavation by Parks and Wildlife personnel exposed the turbine using rescue pulleys and a front-end loader to haul fill from the pit in garbage cans. The machine room fill contained glass, metal artifacts, horseshoes, and a metal plaque that had been affixed to a wall. Ant burrows and the roots of a large persimmon tree had disturbed portions of the deposit.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mckinney-dam-gristmill.mp3',
   },
   {
     id: 'mckinney-death-capitol-funeral',
@@ -47603,6 +47675,7 @@ export const moments: Moment[] = [
     entityIds: ['thomas-mckinney'],
     narrativeContext:
       'McKinney died at the ranch house on Onion Creek on 2 October 1873. Despite financing the Texas Revolution through the McKinney-Williams firm, lending over $150,000 (more than 10 percent of total revolution costs), and serving as a senator in the first Texas legislature, McKinney died deeply in debt. His widow Anna later sold the property to James Woods Smith. Members of the Smith family owned and farmed the land for several generations before donating it to the State of Texas in 1970. Oakwood Cemetery is Austin\'s oldest city-owned cemetery, established in 1839. McKinney is buried among other Texas Republic and Civil War-era figures.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mckinney-death-capitol-funeral.mp3',
   },
   {
     id: 'mckinney-falls-archaeological-survey-1974',
@@ -47624,6 +47697,7 @@ export const moments: Moment[] = [
     entityIds: ['mckinney-falls-state-park'],
     narrativeContext:
       'The eight-day TAS field school excavated 69 units at the mill site (41TV289), mostly 1x1 meter squares. The wheel pit excavation was dangerous: heavy pick work on fallen building stone endangered workers, and a wooden bridge was built around the mill shaft to prevent shifting. Parks and Wildlife resumed digging after the field school, using a large garbage can hoisted by nylon climbing rope and rescue pulley to remove fill from the 3.7-meter-deep pit. The turbine was found at the water table at 143 meters elevation. In the survey of the northern park area, site types ranged from prehistoric lithic scatters and rock shelters (41TV309 had arrow points and a spring piped to a trough) to the horse trainer\'s cabin (41TV307, over 50% still standing in 1974) and a 1930s wood-frame house (41TV312) near the park entrance. The results were published in the Bulletin of the Texas Archeological Society in 1980.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mckinney-falls-archaeological-survey-1974.mp3',
   },
   {
     id: 'mckinney-falls-park-opens-1976',
@@ -47645,6 +47719,7 @@ export const moments: Moment[] = [
     entityIds: ['mckinney-falls-state-park'],
     narrativeContext:
       'The Smith family donated the land in 1970. Between donation and opening, Texas Parks and Wildlife conducted the 1974 archaeological survey and began stabilizing the historic structures. The park today offers hiking trails past the homestead ruins and gristmill, swimming at the Upper and Lower Falls, camping, and interpretive programs about the Native American, Spanish colonial, and antebellum history layered across the site. The park address is 5808 McKinney Falls Parkway, accessed from US 183 South. The homestead ruins are on the Homestead Trail, which requires crossing the creek at the Lower Falls.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mckinney-falls-park-opens-1976.mp3',
   },
   // ── Camp Mabry ─────────────────────────────────────────────────────────
   {
@@ -47667,6 +47742,7 @@ export const moments: Moment[] = [
     entityIds: ['robert-j-townes', 'camp-mabry-place'],
     narrativeContext:
       'Edgemont was named for its position on a bluff overlooking the Colorado. The mansion\'s dining room could seat a hundred guests, and the plantation became known across central Texas for lavish southern hospitality. Townes had been a district judge in Brazoria County and was already a wealthy planter before moving to Austin. His mother Effie Townes, still in Mississippi, supplied the enslaved workers through a formal contract — a common arrangement among planter families expanding westward. By 1860, forty-one enslaved people toiled at Edgemont, including eighteen belonging to Townes\'s sister-in-law Bettie. Four working-class white households also lived near the mansion, including a limemaker named Charles Deison whose family would remain in the area for decades. The slave quarters were stone buildings; their remains could reportedly still be seen on the Camp Mabry grounds as late as 1962.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/townes-builds-edgemont-1855.mp3',
   },
   {
     id: 'townes-wife-dies-confederacy-falls-1864',
@@ -47688,6 +47764,7 @@ export const moments: Moment[] = [
     entityIds: ['robert-j-townes', 'george-duncan-hancock', 'camp-mabry-place'],
     narrativeContext:
       'Townes had reached the peak of his political career during the war, serving as Secretary of State from September 1862 to May 1865 — and signed the address calling for Texas\'s Secession Convention in 1860. But his personal life collapsed. After Pattie\'s death, he knew his own was coming. In August 1865, Maben formally papered their previously verbal agreement splitting the 1855 purchase. In September, Townes executed a deed of trust placing all property in the hands of his brother-in-law Evard T. Eggleston as guardian for his seven children. Townes died in early October 1865. Eggleston then utterly failed in his duties. A lawsuit filed in 1873 by Townes\'s eldest daughter Mila alleged Eggleston had "with the utmost indifference allowed said property to take care of itself" while the minor children lived "as best they could." The court divided the estate in 1874. One son, Evard, left Texas at age nineteen in 1881 and was never heard from again.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/townes-wife-dies-confederacy-falls-1864.mp3',
   },
   {
     id: 'texas-guard-acquires-camp-mabry-1892',
@@ -47709,6 +47786,7 @@ export const moments: Moment[] = [
     entityIds: ['camp-mabry-place'],
     narrativeContext:
       'The 85-acre parcel the Guard acquired had been Mila Townes Morris\'s share of her father\'s estate, awarded in the 1874 court settlement. By 1892, the property had "reportedly reverted to a wild state." The camp was initially just open ground for summer encampments — tents, not buildings. It was used as a mobilization area during the Spanish-American War in 1898. During World War I, the U.S. Army built over a dozen barracks and support buildings in a six-week construction blitz. The camp also served as headquarters for the Texas Defense Guard during World War II and as a training facility for the Texas Rangers and DPS until 1953. The 1996 National Register listing recognized the architectural and historical significance of its WWI-era buildings. Today Camp Mabry is the third-oldest active military installation in Texas, behind Fort Sam Houston and Fort Bliss, and houses the Texas Military Forces Museum.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/texas-guard-acquires-camp-mabry-1892.mp3',
   },
   // ── Motheral Land Scandal ──────────────────────────────────────────────
   {
@@ -47731,6 +47809,7 @@ export const moments: Moment[] = [
     entityIds: ['james-motheral'],
     narrativeContext:
       'The deed list was submitted to the County Commissioners Court by the Texas Highway Department. It covered 2,331 acres of right-of-way running from the north city limits along the middle Fiskville Road to Capital Memorial Park on the Dallas Highway. Biggest landowners included Frank Scofield (30 acres), S. W. Brogren (18 acres), and J. C. Bryant (17 acres). Motheral\'s 5.537 acres was modest by comparison, but his name was the one that mattered. As City Engineer and Director of Public Works, he had supervised nine divisions including street planning, engineering, surveying, and airport operations. He was the person most likely to know where the highway would go before anyone else.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/motheral-right-of-way-list-1949.mp3',
   },
   {
     id: 'motheral-forced-resign-1949',
@@ -47752,6 +47831,7 @@ export const moments: Moment[] = [
     entityIds: ['james-motheral', 'guiton-morgan'],
     narrativeContext:
       'The resignation letter was careful and diplomatic. Motheral claimed he had been planning to leave for some time to enter private enterprise. His $8,500 annual salary (roughly $110,000 in 2024 dollars) would have been comfortable but not extravagant. Morgan, as City Manager, had sole authority to hire and fire department heads under the City Charter -- the Council could not interfere even if they wanted to. Two candidates were mentioned as successors: C. G. Levander (assistant director of public works) and Noble E. Latson (paving engineer). The Statesman noted with mild understatement that Motheral had been "unavailable for comment at his office or at his home." Morgan\'s position was agonizing: the man he had to fire was the man he had personally recruited and promoted through sixteen years of Austin\'s most explosive growth.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/motheral-forced-resign-1949.mp3',
   },
   {
     id: 'motheral-highway-rerouted-1949',
@@ -47773,6 +47853,7 @@ export const moments: Moment[] = [
     entityIds: ['james-motheral'],
     narrativeContext:
       'Motheral claimed he purchased the land on 30 April 1949 and did not know the exact route. This is difficult to square with the fact that he had been City Engineer for sixteen years and road planning was one of his primary responsibilities. The Statesman\'s coverage was remarkably restrained -- the scandal was reported in roughly four articles over a month, with minimal editorial commentary. The reroute may or may not have been finalized; I-35 construction through this stretch was not completed until the mid-1950s, and the final alignment could have shifted multiple times. Motheral Drive, a short fragmented road just east of Braker and N. Lamar, was named for him at some point -- it appears as a dirt road in 1958 aerial photos. By 1951, Motheral and George Nalle owned 97 acres between Rundberg and Braker that became the Mockingbird Hill subdivision. Nalle accused the City Council of "some sort of retaliation" toward Motheral over a land appraisal that year.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/motheral-highway-rerouted-1949.mp3',
   },
   {
     id: 'motheral-appointed-engineer-1933',
@@ -47793,6 +47874,7 @@ export const moments: Moment[] = [
     entityIds: ['james-motheral', 'guiton-morgan'],
     narrativeContext:
       'A 1936 Statesman profile described Motheral as "amiable, modest, mild-mannered" and noted that he "never seems to lose his temper." He spoke in a "quiet, modulated voice, sometimes hardly audible." Outside work he ran the Kennelwood Boat Club on Lake Austin and was active in the Austin Yacht Club. His wife Zylpha was involved with the Austin Symphony Orchestra and local music organizations. They had three children. The profile paints a picture of a competent, well-liked bureaucrat who did his job quietly -- the kind of person whose downfall makes a good story precisely because nobody saw it coming.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/motheral-appointed-engineer-1933.mp3',
   },
   // ── Dead Man's Holes ───────────────────────────────────────────────────
   {
@@ -47815,6 +47897,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-burnet'],
     narrativeContext:
       'Judge Scott was the first county judge of Burnet County, a founding resident of the community of Oatmeal. Despite his four sons serving in the Confederate army, local fire eaters considered him a Union sympathizer. He was accompanied in his flight by another Unionist, James McMasters. The irony of a county that voted against secession murdering its own judge for Unionism captures the Civil War\'s fracturing of the Texas Hill Country. Scott had made his fortune in the California gold rush before settling in Burnet County. The hole sits on limestone karst of the Honeycut Formation of the Ellenburger Group.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-burnet-judge-scott-killed-1861.mp3',
   },
   {
     id: 'dmh-burnet-flaugher-hanged-1860s',
@@ -47836,6 +47919,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-burnet'],
     narrativeContext:
       'Flaugher tried to keep his pro-Union sentiments private, but several of his relatives -- including a daughter and her husband -- had already fled the area, drawing suspicion. The "trial" was conducted in the field where the men were cutting fence posts. Hoppe, a German immigrant who had arrived in Burnet County roughly 20 years earlier escaping economic depression, was let go by the ranger but then pursued by the fire eaters on their own initiative. Hoppe\'s family found a piece of his harness near the hole after his riderless horses returned home. The oak tree\'s rope scars were visible for decades until the tree finally disappeared.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-burnet-flaugher-hanged-1860s.mp3',
   },
   {
     id: 'dmh-burnet-hoppe-chase-1860s',
@@ -47857,6 +47941,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-burnet'],
     narrativeContext:
       'The chase is the most literary element of the Dead Man\'s Hole stories. Hoppe had been formally acquitted by the ranger who presided over Flaugher\'s mock trial, but the fire eaters pursued him on their own authority. The detail of the riderless horses returning home is the classic Western tragedy motif. The harness fragment near the hole is the only physical evidence linking Hoppe to the pit. He may have been killed in the brush and dragged to the hole, or thrown in alive. The 101 Highland Lakes article dramatizes the chase as a horseback flight through the oaks, which matches period accounts.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-burnet-hoppe-chase-1860s.mp3',
   },
   {
     id: 'dmh-burnet-spelunkers-1950s',
@@ -47878,6 +47963,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-burnet'],
     narrativeContext:
       'The Texas Speleological Society formally platted the cave in 1968. The "bad air" was likely carbon dioxide accumulation in the lower sections, a common hazard in deep limestone sinkholes. At least five skeletons had been recovered from the hole before the spelunkers arrived -- some families had retrieved their loved ones during the Civil War and Reconstruction years despite the danger. The TSHA notes that the original historical marker contained errors: Ferdinand Leuders did not discover the hole in 1821 (he did not arrive in Texas until 1836), and he was not an entomologist. The marker has since been corrected.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-burnet-spelunkers-1950s.mp3',
   },
   {
     id: 'dmh-burnet-opened-public-1999',
@@ -47898,6 +47984,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-burnet'],
     narrativeContext:
       'The site sat on private land for over 130 years before Roper\'s donation. The metal door that now covers the entrance replaced earlier attempts to block access. Modern photos suggest the upper portion may have been partially filled with gravel. The Texas Historical Marker was erected a year before the land was deeded. Visitors today can drive down CR 401, park, and look at the covered entrance. The hole looks and sounds almost harmless today, but during the 1860s it was a place of terror. The warning "you\'ll end up in Dead Man\'s Hole" persisted as a local expression well into the 20th century.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-burnet-opened-public-1999.mp3',
   },
   {
     id: 'dmh-blanco-rustlers-1870s',
@@ -47919,6 +48006,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-blanco'],
     narrativeContext:
       'The Blanco County troubles of the 1870s involved widespread cattle rustling and vigilante justice. The WPA writer Marjorie K described the pool in the 1930s as "good for swimming but said to be bottomless," with tales of criminals drowned with weights. Her grandfather was a nester involved in the county troubles, making her account a family oral history. A Phelps family, among the first settlers, built a mill at the site -- hence "Mill Seat." The spring beneath the old mill structure still flows. The creek has changed significantly since the 1870s: a small dam downstream now backs water up about 2 feet, and silt from floods has reduced the pool\'s depth. The blue-green color persists where the deeper water remains.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-blanco-rustlers-1870s.mp3',
   },
   {
     id: 'dmh-hays-horseman-drowned-1800s',
@@ -47940,6 +48028,7 @@ export const moments: Moment[] = [
     entityIds: ['dead-mans-hole-hays'],
     narrativeContext:
       'This Dead Man\'s Hole resembles nearby Hamilton Pool and Westcave Preserve -- a collapsed grotto with a waterfall, cypresses, and cottonwoods. The 1929 schoolgirl account describes it as "one of the prettiest places I ever saw." The 1878 newspaper account of the decomposed body near the hole is the earliest documented death in the area, though the body was found a mile away on a saddle path and showed no violence. About 20 years ago, Lance Armstrong built a dam on the creek that released sediments and turned the pool cloudy. Neighbors formed a nonprofit, and the Texas Commission on Environmental Quality investigated but cleared Armstrong. The next flood cleaned the pool naturally. People swim here despite private property signs and armed landowners.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/dmh-hays-horseman-drowned-1800s.mp3',
   },
   // ── Spinach Farm ───────────────────────────────────────────────────────
   {
@@ -47962,6 +48051,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Standing in Butler Park today, you are on what was once the largest spinach farm in the world. The entire stretch from the Pitch and Putt course west to S. Lamar and east to South 1st Street was solid spinach fields. The Colorado River ran lower before Longhorn Dam was built in 1960, exposing more fertile floodplain along the banks. In 1920s photographs, you can see the Seaholm Power Plant tower across the river, two Moon Towers in the distance, and the Driskill Hotel on the skyline. Train cars from the Union Pacific line hauled the spinach to distant markets. Boggy Creek Farm at 3414 Lyons Rd in East Austin is the last remnant of this era, growing spinach continuously for over 100 years.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/austin-spinach-farm-1920s.mp3',
   },
   {
     id: 'spinach-heist-east-austin-1926',
@@ -47983,6 +48073,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The 1926 spinach heist happened in East Austin, not at the massive 1,000-acre farm south of the river, which makes the crime even stranger — someone raided a small residential spinach patch rather than the industrial-scale operation. The Statesman\'s front-page account noted that Detective Rex Fowler was initially skeptical until he investigated the stripped acre himself. The geographic radius of the theft was remarkably small: the spinach patch on Garden Street, the wood yard on E. 12th Street, and the chicken coop and vacant house were all within a few blocks of each other. The case was never solved, and no stolen property was ever recovered.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/spinach-heist-east-austin-1926.mp3',
   },
 
   // ========== BATCH 5: Roosevelt 1905 Austin Visit ==========
@@ -48005,6 +48096,7 @@ export const moments: Moment[] = [
     entityIds: ['theodore-roosevelt', 's-w-t-lanham'],
     narrativeContext:
       'The I&GN depot stood where the Convention Center area is today, near 4th and Red River. By noon, special trains from across the state had filled the main streets with crowds. The militia under Major General W.H. Stacy kept order as thousands pressed toward the depot. Roosevelt arrived during his Southern tour, fresh from his second inauguration one month earlier, en route to a Rough Rider reunion in San Antonio. It was his first visit to Austin.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/roosevelt-train-arrives-austin-1905.mp3',
   },
   {
     id: 'roosevelt-congress-ave-parade-1905',
@@ -48025,6 +48117,7 @@ export const moments: Moment[] = [
     entityIds: ['theodore-roosevelt', 's-w-t-lanham'],
     narrativeContext:
       'Congress Avenue was under construction — paving promoters had torn it up — but nobody cared. The colored school children were lined along the west side of the avenue in front of the site of the old temporary capitol. As the president entered the capitol gates, several thousand school children sang "America" and threw bluebonnets in his path. Roosevelt waved and smiled at the children in gracious acknowledgment.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/roosevelt-congress-ave-parade-1905.mp3',
   },
   {
     id: 'roosevelt-tx-legislature-speech-1905',
@@ -48045,6 +48138,7 @@ export const moments: Moment[] = [
     entityIds: ['theodore-roosevelt', 's-w-t-lanham'],
     narrativeContext:
       'The Hall of Representatives was bedecked with flowers. Thousands who couldn\'t fit inside stood outside waiting. Roosevelt was introduced to Representative Sharpe of El Paso, the only Republican in the house. "Ah, is that so," Roosevelt said. "I am indeed delighted to know you." After the indoor speech, Roosevelt took the capitol elevator to the second floor for a reception, then walked outside to deliver a second address from a stand on the capitol campus.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/roosevelt-tx-legislature-speech-1905.mp3',
   },
   {
     id: 'roosevelt-ut-campus-speech-1905',
@@ -48065,6 +48159,7 @@ export const moments: Moment[] = [
     entityIds: ['theodore-roosevelt'],
     narrativeContext:
       'The drive route to UT went north on the Speedway to 21st Street, west to the south entrance. After the speech, the party exited through the north entrance onto Whitis Avenue, then west on 27th to Guadalupe, south to 8th, west to San Antonio, south to 7th, east to Lavaca, north to 10th, east to Colorado, north to 11th, east to Congress — a winding tour of downtown Austin neighborhoods before heading to the State Insane Asylum.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/roosevelt-ut-campus-speech-1905.mp3',
   },
   {
     id: 'roosevelt-state-asylum-detour-1905',
@@ -48085,6 +48180,7 @@ export const moments: Moment[] = [
     entityIds: ['theodore-roosevelt'],
     narrativeContext:
       'The Austin State Lunatic Asylum (now Austin State Hospital) occupied beautiful grounds north of 38th Street. Rosengren\'s improvisation reveals how tightly the three-hour visit was choreographed — every carriage was pre-assigned, the militia escort ran on schedule, and the entire program finished within one minute of the plan. Roosevelt personally complimented Rosengren on the arrangements.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/roosevelt-state-asylum-detour-1905.mp3',
   },
 
   // ========== BATCH 5: Shoal Creek Historical Places ==========
@@ -48106,6 +48202,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Shoal Creek was Austin\'s original western boundary when the settlement of Waterloo became the capital in 1839. Everything west of the creek was effectively cut off from downtown. This narrow iron footbridge was the first attempt to bridge that divide, but its inability to carry wagons meant western development remained limited until the stone bridge of 1887.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/first-bridge-austin-1865.mp3',
   },
   {
     id: 'west-6th-bridge-built-1887',
@@ -48126,6 +48223,7 @@ export const moments: Moment[] = [
     wikipediaSlug: 'West_Sixth_Street_Bridge',
     narrativeContext:
       'The bridge\'s 80-foot width was not an engineering choice but a legal one — it had to match Waller\'s 1839 street grid. That width later accommodated mule-drawn streetcar tracks (Austin\'s first streetcars ran in 1875). The three voussoir arches each span 24 feet, with two 4-foot-thick piers standing directly in the creek bed on stone footings resting on bedrock. A stone parapet lines the south edge; the north side lost its parapet at some point and now has a concrete curb with metal guard rail.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/west-6th-bridge-built-1887.mp3',
   },
   {
     id: 'house-park-donation-1903',
@@ -48145,6 +48243,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Colonel Edward M. House was one of the most powerful political operatives in American history — Woodrow Wilson\'s closest advisor and a key architect of the Treaty of Versailles. But his Austin connection was simpler: he owned a horse pasture along Shoal Creek. The stadium that bears his name has hosted Austin high school football for over 80 years.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/house-park-donation-1903.mp3',
   },
   {
     id: 'neill-cochran-custer-hq-1865',
@@ -48164,6 +48263,7 @@ export const moments: Moment[] = [
     entityIds: ['george-armstrong-custer'],
     narrativeContext:
       'The Neill-Cochran House is one of Austin\'s finest surviving antebellum buildings. Abner Cook designed both it and the Governor\'s Mansion in Greek Revival style — massive columns, symmetrical facades, wide porches. Custer was stationed in Texas from late 1865 to early 1866 during Reconstruction. The cholera burial-and-disinterment story is one of Austin\'s grislier footnotes: flood waters literally washing the dead from their graves decades later.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/neill-cochran-custer-hq-1865.mp3',
   },
   {
     id: 'beth-israel-congregation-1876',
@@ -48183,6 +48283,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Phineas de Cordova and his half-brother Jacob arrived in Austin in 1849 — just ten years after the city was founded. They were part of a small but significant Jewish presence in early Texas. The original synagogue near 11th and San Jacinto was one of the earliest Jewish houses of worship in the state. Henry Hirshfeld\'s home was nearby.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/beth-israel-congregation-1876.mp3',
   },
   {
     id: 'clara-driscoll-saves-alamo-laguna-gloria',
@@ -48203,6 +48304,7 @@ export const moments: Moment[] = [
     wikipediaSlug: 'Laguna_Gloria',
     narrativeContext:
       'The Laguna Gloria site has layers of history: Stephen F. Austin originally selected it for his own homestead in the 1830s. Clara and Hal Servier built their Italian-style villa here around 1916. The property sits at a bend in the Colorado River (now Lake Austin) with stunning water views. Clara Driscoll\'s Alamo salvation is one of the great preservation stories in American history — a teenager writing personal checks to save the most famous building in Texas.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/clara-driscoll-saves-alamo-laguna-gloria.mp3',
   },
   {
     id: 'pease-elementary-school-1876',
@@ -48222,6 +48324,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Pease Elementary\'s 2020 closure after 144 years was controversial in Austin. The school sits in the Shoal Creek watershed, part of the dense historic fabric west of Congress Avenue. Governor Elisha Pease also donated the land for Pease Park in 1875, one year before this school opened — both gifts reflected a brief window of civic investment during Reconstruction.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/pease-elementary-school-1876.mp3',
   },
 
   // ========== BATCH 5b: Sweatt v. Painter ==========
@@ -48243,6 +48346,7 @@ export const moments: Moment[] = [
     entityIds: ['heman-sweatt'],
     narrativeContext:
       'The building was deliberately located near the Capitol — close enough to claim legitimacy but separate enough to maintain Jim Crow. The state eventually created a full "Texas State University for Negroes" (now Texas Southern University) in Houston, but Sweatt refused to attend either substitute, insisting on UT itself. The basement school is one of the most nakedly cynical artifacts of segregation in Texas history.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/sweatt-basement-school-1947.mp3',
   },
   {
     id: 'sweatt-v-painter-supreme-court-1950',
@@ -48264,6 +48368,7 @@ export const moments: Moment[] = [
     wikipediaSlug: 'Sweatt_v._Painter',
     narrativeContext:
       'Thurgood Marshall argued the case for the NAACP. The defendant, Theophilis Painter, was UT\'s president. The case was part of Marshall\'s deliberate strategy to chip away at Plessy by demonstrating inequality in professional schools before tackling K-12. Sweatt enrolled at UT Law but struggled with harassment and health issues, eventually withdrawing. He never practiced law, but his case helped dismantle American apartheid.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/sweatt-v-painter-supreme-court-1950.mp3',
   },
   {
     id: 'sweatt-applies-ut-law-1946',
@@ -48284,6 +48389,7 @@ export const moments: Moment[] = [
     entityIds: ['heman-sweatt'],
     narrativeContext:
       'The NAACP\'s strategy was precise: find a qualified Black applicant for a prestigious white graduate school, get rejected, and litigate. Sweatt was recruited by NAACP leaders in Houston. His calm demeanor and clean record made him the perfect test case. UT\'s registrar directed him to President Painter, who denied the application citing state law. The rejection letter became Exhibit A.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/sweatt-applies-ut-law-1946.mp3',
   },
 
   // ========== BATCH 5b: Clio Austin Landmarks ==========
@@ -48305,6 +48411,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'German immigration to Central Texas was one of the defining demographic forces of the mid-1800s. The free school movement reflected German Enlightenment values about public education. This building connects to a broader thread of German-Texan institutions in Austin: Scholz Garden (1866), Lundberg Bakery (1876), Schneider Store (1873), and Hirshfeld\'s mercantile businesses.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/german-free-school-1858.mp3',
   },
   {
     id: 'hirshfeld-house-cottage-1873',
@@ -48324,6 +48431,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The Hirshfeld House directly connects to the Beth Israel congregation moment. Henry Hirshfeld was one of many German immigrants who arrived in Austin in the mid-1800s and built the city\'s commercial infrastructure. His wife Jennie\'s family was already successful in the same trade — an arranged alliance of merchant families. The Austin National Bank he founded was one of the city\'s first financial institutions.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/hirshfeld-house-cottage-1873.mp3',
   },
   {
     id: 'schneider-store-lamberts-1873',
@@ -48343,6 +48451,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The 50-wagon yard is the detail that makes this building special — it reveals Austin as a frontier trading post where ranchers drove wagons for days to buy supplies. Schneider was part of the same German immigrant merchant class as Hirshfeld, Scholz, and Lundberg. The building\'s conversion to Lamberts barbecue continues its commercial purpose in a very Austin way.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/schneider-store-lamberts-1873.mp3',
   },
 
   // ========== BATCH 5c: Clio Austin — High-value additions ==========
@@ -48365,6 +48474,7 @@ export const moments: Moment[] = [
     wikipediaSlug: 'French_Legation_(Austin,_Texas)',
     narrativeContext:
       'The French Legation is a window into the brief period when Texas was an independent nation courting European recognition. France was one of the first nations to recognize the Republic. Saligny was a controversial figure — he was involved in the "Pig War," a farcical diplomatic incident involving his neighbor\'s pigs eating his corn, which nearly severed Franco-Texan relations. The Rogers-Bell House next door sits on former Robertson family land.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/french-legation-built-1841.mp3',
   },
   {
     id: 'limerick-frazier-house-1876',
@@ -48384,6 +48494,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The Frazier boarding house reveals the hidden infrastructure of segregation — Black travelers needed a network of private homes, because hotels wouldn\'t take them. Samuel Huston College (now Huston-Tillotson) was one of Austin\'s historically Black colleges. The neighborhood transitioned from European immigrant to African American as segregation pushed Black residents east of I-35.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/limerick-frazier-house-1876.mp3',
   },
   {
     id: 'austin-vietnam-moratorium-capitol-1969',
@@ -48404,6 +48515,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The Austin moratorium was remarkable for its size in a state where patriotism and military service were deeply valued. 12,000 people in 1969 Austin (population ~250,000) meant roughly 5% of the city marched. The protest took place on the same Congress Avenue that had hosted Roosevelt\'s patriotic parade 64 years earlier — a shift in how Austinites related to the federal government.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/austin-vietnam-moratorium-capitol-1969.mp3',
   },
   {
     id: 'ut-stand-ins-movie-theaters-1960',
@@ -48423,6 +48535,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The "stand-in" tactic was an Austin innovation on the sit-in model. The Texas Theater on Guadalupe was a popular student hangout — its segregation was especially galling because it sat across from a university that was itself just beginning to integrate after Sweatt v. Painter. Eleanor Roosevelt\'s involvement gave the student protesters national legitimacy.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/ut-stand-ins-movie-theaters-1960.mp3',
   },
   {
     id: 'carver-library-colored-branch-1926',
@@ -48442,6 +48555,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The Carver Library\'s forced relocation is a concrete artifact of the 1928 Plan — the same plan that created Austin\'s racial geography. When the city moved Black residents east, it moved their institutions too. The library and museum together form one of the most important African American cultural sites in Austin, directly connected to the 1928 Plan story already in Deep Maps.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/carver-library-colored-branch-1926.mp3',
   },
   {
     id: 'webster-massacre-1839',
@@ -48462,6 +48576,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'The Webster Massacre happened the same year Austin was founded — 1839. While Edwin Waller was platting downtown streets, thirty miles north, settlers were being killed on the frontier. This juxtaposition captures the Texas Republic\'s fundamental tension: building a capital city while the territory was still actively contested by Comanche, Apache, and other indigenous peoples.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/webster-massacre-1839.mp3',
   },
   {
     id: 'hamilton-pool-dome-collapse',
@@ -48481,6 +48596,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Hamilton Pool is geologically related to the same Edwards Limestone formations that create Barton Springs, Jacob\'s Well, and the Hill Country\'s other famous swimming holes. The collapse event happened during the Pleistocene. Today the preserve limits visitors to protect the golden-cheeked warbler habitat in the surrounding canyon.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/hamilton-pool-dome-collapse.mp3',
   },
   {
     id: 'deep-eddy-pool-1902',
@@ -48500,6 +48616,7 @@ export const moments: Moment[] = [
     entityIds: [],
     narrativeContext:
       'Deep Eddy and Barton Springs are Austin\'s two iconic natural pools, but they have different characters. Barton Springs is the political pool (Save Our Springs, desegregation swim-ins), while Deep Eddy is the neighborhood pool. The WPA bathhouse connects it to New Deal public works infrastructure across Austin.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/deep-eddy-pool-1902.mp3',
   },
   {
     id: 'mccallum-house-suffrage-1920s',
@@ -48520,5 +48637,6 @@ export const moments: Moment[] = [
     wikipediaSlug: 'Jane_Y._McCallum',
     narrativeContext:
       'McCallum\'s discovery of the Texas Declaration of Independence is a remarkable detail — a suffragist who literally preserved the state\'s founding document while holding its highest administrative office. The "Petticoat Lobby" label was meant as a dismissal but became a badge of honor. Her house is in Old West Austin, near the Shoal Creek watershed.',
+    audioUrl: 'https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/mccallum-house-suffrage-1920s.mp3',
   },
 ];
