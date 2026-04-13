@@ -612,4 +612,29 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['austin', 'paranormal', 'haunted', 'ghosts', 'dark-history', 'driskill-hotel'],
   },
+  {
+    id: 'austins-secret-missiles',
+    name: 'Austin\'s Secret Missiles',
+    subtitle: 'Nuclear warheads aimed at the sky from your neighborhood — and you had no idea',
+    description: 'During the Cold War, the U.S. Army stationed Nike Hercules missiles in the hills around Austin to defend Bergstrom Air Force Base from Soviet bombers. Two battery sites with nuclear-capable missiles operated from 1960 to 1966. The city built a fallout shelter in Zilker Park and aired a propaganda film teaching residents how to survive a nuclear strike. Most of these sites are still standing — hidden in plain sight.',
+    icon: '☢️',
+    momentIds: [
+      'coldwar-nike-bg80-ifc', 'coldwar-nike-bg80-launcher', 'coldwar-nike-bg40-launcher',
+      'coldwar-zilker-fallout-shelter', 'coldwar-target-austin-film',
+    ],
+    tags: ['austin', 'cold-war', 'military', 'nuclear', 'nike-missile', 'civil-defense'],
+  },
+  {
+    id: 'guy-town-vice-district',
+    name: 'Guy Town: Austin\'s Buried Red-Light District',
+    subtitle: 'Your office building sits on top of four decades of brothels, gunfights, and political hypocrisy. The archaeology proves it.',
+    description: 'From the 1870s through 1915, an eight-block area just west of Congress Avenue was Austin\'s official vice district. Ben Thompson killed a man in a Christmas Eve gunfight and got elected city marshal anyway. Police spent their nights here instead of catching a serial killer. When the city finally built City Hall on the site, archaeologists pulled 10,000 artifacts from the buried district.',
+    icon: '🪔',
+    momentIds: [
+      'guytown-district-forms', 'guytown-iron-front-saloon', 'guytown-caroline-robinson-property',
+      'guytown-ben-thompson-marshal', 'guytown-annihilator-connection', 'guytown-police-containment',
+      'guytown-bozeth-house-dig', 'guytown-closure-1915',
+    ],
+    tags: ['austin', 'vice', 'red-light-district', 'archaeology', 'dark-history', 'second-street'],
+  },
 ];
