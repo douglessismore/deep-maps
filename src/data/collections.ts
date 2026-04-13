@@ -457,19 +457,23 @@ export const collections: StoryCollection[] = [
     tags: [],
   },
   {
-    id: 'ancient-austin',
-    name: '10,000 Years Under Austin',
-    subtitle: 'Burials, camp sites, and stone tools — what archaeologists keep finding beneath the pavement',
-    description: 'Archaeological evidence of the people who lived here long before Austin was imagined.',
+    id: 'hidden-beneath-austin',
+    name: 'Hidden Beneath Austin: 10,000 Years Under Your Feet',
+    subtitle: 'Ice Age mammoths, ancient burials, buried houses, 19th-century cisterns, and an 80-million-year-old underwater volcano — all under the pavement',
+    description: 'Beneath Austin\'s parking lots, convention centers, and highways lie Ice Age fossil beds, indigenous settlements spanning millennia, colonial-era cisterns, and entire houses buried by development. From a jet-skier who stumbled onto a 1,300-year-old burial to stone tools found during rail construction, most of it was discovered by accident.',
+    icon: '⛏️',
     momentIds: [
-      // Prehistoric burials
-      'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937', 'colorado-river-burials-reveal-trade-networks',
-      // Precontact lithic scatters
-      'project-connect-precontact-lithics',
-      // Existing indigenous/archaeological
-      'mckinney-falls-indigenous',
+      // Prehistoric & indigenous
+      'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937',
+      'colorado-river-burials-reveal-trade-networks', 'mckinney-falls-indigenous',
+      // Geological
+      'inner-space-cavern-discovered-1963', 'pilot-knob-eruption',
+      // Urban archaeology
+      'project-connect-precontact-lithics', 'lavaca-cistern-privy-41tv1374',
+      'block-15-convention-center-41tv1497', 'block-183-hotel-41tv1790',
+      'austin-state-hospital-archaeology-41tv2562', 'coke-bottle-house-41tv2620',
     ],
-    tags: ['archaeology', 'indigenous', 'prehistoric', 'austin'],
+    tags: ['austin', 'archaeology', 'underground', 'fossils', 'hidden-history', 'prehistoric', 'indigenous'],
   },
 
   // ========== BATCH 5: Shoal Creek Walking Tour ==========
@@ -582,21 +586,7 @@ export const collections: StoryCollection[] = [
     ],
     tags: ['austin', 'weird', 'counterculture', 'film-locations', 'tech-history'],
   },
-  {
-    id: 'hidden-beneath-austin',
-    name: 'Hidden Beneath Austin',
-    subtitle: 'Ice Age mammoths, buried houses, 19th-century cisterns, and stone tools under the rail line — what\'s under your feet right now',
-    description: 'Beneath Austin\'s parking lots, convention centers, and highways lie Ice Age fossil beds, indigenous settlements spanning millennia, colonial-era cisterns, and entire houses buried by development. Most of it was discovered by accident.',
-    icon: '⛏️',
-    momentIds: [
-      'inner-space-cavern-discovered-1963', 'pilot-knob-eruption',
-      'mckinney-falls-indigenous', 'project-connect-precontact-lithics',
-      'lavaca-cistern-privy-41tv1374', 'block-15-convention-center-41tv1497',
-      'block-183-hotel-41tv1790', 'austin-state-hospital-archaeology-41tv2562',
-      'coke-bottle-house-41tv2620',
-    ],
-    tags: ['austin', 'archaeology', 'underground', 'fossils', 'hidden-history', 'prehistoric'],
-  },
+  // MERGED: hidden-beneath-austin merged into ancient-austin → now 'hidden-beneath-austin' with combined moments (Session 35)
   {
     id: 'haunted-austin',
     name: 'Haunted Austin',
