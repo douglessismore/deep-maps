@@ -32,7 +32,7 @@ async function main() {
 // Parse args
 const args = process.argv.slice(2);
 const voiceIdx = args.indexOf('--voice');
-const voice = voiceIdx !== -1 ? args[voiceIdx + 1] : 'nova';
+const voice = voiceIdx !== -1 ? args[voiceIdx + 1] : 'ash';
 const momentIdx = args.indexOf('--moment');
 const singleMoment = momentIdx !== -1 ? args[momentIdx + 1] : null;
 const force = args.includes('--force');
@@ -93,10 +93,10 @@ for (const moment of eligible) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'tts-1-hd',
+        model: 'gpt-4o-mini-tts',
         voice,
         input: text,
-        speed: 1.1,
+        instructions: 'You\'re a true crime podcaster who just moved to Austin and is losing their mind over what they\'re discovering. Every location makes you more obsessed. You talk like someone leaving a voice memo for a friend at midnight because you just found out something incredible and can\'t wait until morning. Natural, raw, real. Not polished — urgent. Breathe. React to what you\'re saying. If something is horrifying, sound horrified. If something is ironic, let yourself almost laugh. This is not a performance. This is someone who genuinely cannot believe what happened right here.',
         response_format: 'mp3',
       }),
     });
