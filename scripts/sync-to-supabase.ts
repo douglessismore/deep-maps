@@ -15,10 +15,15 @@
  *   export SUPABASE_SERVICE_ROLE_KEY=... && npx tsx scripts/sync-to-supabase.ts --dry-run
  */
 import { createClient } from '@supabase/supabase-js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { moments } from '../src/data/moments';
 import { entities } from '../src/data/entities';
 import { stories } from '../src/data/stories';
 import { collections } from '../src/data/collections';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const SUPABASE_URL = 'https://fhxyaoaaeztrycfoppeu.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -28,8 +33,100 @@ if (!SUPABASE_KEY) {
 }
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const DRY_RUN = process.argv.includes('--dry-run');
+const PULL_VERIFIED = process.argv.includes('--pull-verified');
 
 const PAGE_SIZE = 1000;
+
+// Moment IDs where Supabase has geo_verified=true — we must NOT overwrite their coords
+let geoVerifiedIds: Set<string> = new Set();
+
+async function loadGeoVerifiedIds() {
+  const rows = await fetchAll<{ id: string }>('moments', 'id');
+  // Fetch geo_verified separately (PostGIS columns can complicate selects)
+  const verified = await fetchAll<{ id: string; geo_verified: boolean }>(
+    'moments',
+    'id, geo_verified',
+  );
+  for (const row of verified) {
+    if (row.geo_verified) geoVerifiedIds.add(row.id);
+  }
+  if (geoVerifiedIds.size > 0) {
+    console.log(`  Found ${geoVerifiedIds.size} geo-verified moments in Supabase (coords protected)`);
+  }
+}
+
+/** --pull-verified: dump Supabase-verified coords back into moments.ts so static file stays in sync */
+async function pullVerifiedCoords() {
+  if (!PULL_VERIFIED) return;
+  console.log('\n--- PULL VERIFIED COORDS ---');
+
+  // Fetch verified moments with their PostGIS coords
+  const { data, error } = await supabase
+    .from('moments')
+    .select('id, geo_verified, location')
+    .eq('geo_verified', true);
+
+  if (error) {
+    console.error(`  ERROR fetching verified coords: ${error.message}`);
+    return;
+  }
+  if (!data || data.length === 0) {
+    console.log('  No geo-verified moments found in Supabase.');
+    return;
+  }
+
+  // Parse PostGIS POINT strings: "SRID=4326;POINT(lng lat)" or raw "POINT(lng lat)"
+  const updates: { id: string; lat: number; lng: number }[] = [];
+  for (const row of data) {
+    const loc = row.location as string;
+    if (!loc) continue;
+    const match = loc.match(/POINT\(\s*([-\d.]+)\s+([-\d.]+)\s*\)/);
+    if (!match) continue;
+    const lng = parseFloat(match[1]);
+    const lat = parseFloat(match[2]);
+    updates.push({ id: row.id, lat, lng });
+  }
+
+  if (updates.length === 0) {
+    console.log('  No parseable coords found.');
+    return;
+  }
+
+  // Read moments.ts, apply coord updates
+  const { readFileSync, writeFileSync: writeFs } = await import('fs');
+  const { join } = await import('path');
+  const momentsPath = join(__dirname, '..', 'src', 'data', 'moments.ts');
+  let src = readFileSync(momentsPath, 'utf-8');
+  let applied = 0;
+
+  for (const u of updates) {
+    // Find the moment block by id and update lat/lng
+    // Match: id: 'moment-id' followed by lat: and lng: within the same object
+    const idPattern = new RegExp(
+      `(id:\\s*'${u.id}'[\\s\\S]*?)(lat:\\s*)([-\\d.]+)(,[\\s\\S]*?)(lng:\\s*)([-\\d.]+)`,
+    );
+    const m = src.match(idPattern);
+    if (m) {
+      const oldLat = parseFloat(m[3]);
+      const oldLng = parseFloat(m[6]);
+      if (Math.abs(oldLat - u.lat) > 0.000001 || Math.abs(oldLng - u.lng) > 0.000001) {
+        src = src.replace(
+          idPattern,
+          `$1$2${u.lat}$4$5${u.lng}`,
+        );
+        console.log(`  ${u.id}: (${oldLat}, ${oldLng}) → (${u.lat}, ${u.lng})`);
+        applied++;
+      }
+    }
+  }
+
+  if (applied > 0) {
+    writeFs(momentsPath, src);
+    console.log(`  Updated ${applied} moment coords in moments.ts`);
+  } else {
+    console.log('  All static coords already match Supabase verified coords.');
+  }
+}
 
 async function fetchAll<T = any>(table: string, selectCols: string = '*'): Promise<T[]> {
   const all: T[] = [];
@@ -134,32 +231,43 @@ async function syncEntities() {
 
 async function syncMoments() {
   console.log('\n--- MOMENTS ---');
+  let protectedCount = 0;
   for (const m of moments) {
     const typeId = await ensureType(m.type || 'historical_site');
+    const isVerifiedInSupabase = geoVerifiedIds.has(m.id);
+    if (isVerifiedInSupabase) protectedCount++;
     if (!DRY_RUN) {
       // UPSERT: insert if new, update text fields + coordinates
       // Does NOT touch: notability, source, source_id, review_status
+      // If Supabase has geo_verified=true, skip location to preserve manually verified coords
+      const payload: Record<string, any> = {
+        id: m.id,
+        name: cleanStr(m.name),
+        subtitle: cleanStr(m.subtitle) || null,
+        description: cleanStr(m.description) || null,
+        type_id: typeId,
+        importance: m.importance || 'minor',
+        accuracy: m.accuracy || 'approximate',
+        kind: m.kind || 'event',
+        year: m.year ?? null,
+        date: (m as any).date ?? null,
+        address: m.address ?? null,
+        verification_level: m.verificationLevel ?? 'documented',
+        wiki_section: (m as any).wikiSection ?? null,
+        narrative_context: (m as any).narrativeContext ?? null,
+        audio_url: (m as any).audioUrl ?? null,
+        ...(m.geoVerified ? { geo_verified: true } : {}),
+        ...(m.geoSourceUrl ? { geo_source_url: m.geoSourceUrl } : {}),
+      };
+
+      if (isVerifiedInSupabase) {
+        // Do NOT overwrite coords — Supabase has manually verified position
+      } else {
+        payload.location = `SRID=4326;POINT(${m.lng} ${m.lat})`;
+      }
+
       const { error } = await supabase.from('moments').upsert(
-        {
-          id: m.id,
-          name: cleanStr(m.name),
-          subtitle: cleanStr(m.subtitle) || null,
-          description: cleanStr(m.description) || null,
-          location: `SRID=4326;POINT(${m.lng} ${m.lat})`,
-          type_id: typeId,
-          importance: m.importance || 'minor',
-          accuracy: m.accuracy || 'approximate',
-          kind: m.kind || 'event',
-          year: m.year ?? null,
-          date: (m as any).date ?? null,
-          address: m.address ?? null,
-          verification_level: m.verificationLevel ?? 'documented',
-          wiki_section: (m as any).wikiSection ?? null,
-          narrative_context: (m as any).narrativeContext ?? null,
-          audio_url: (m as any).audioUrl ?? null,
-          ...(m.geoVerified ? { geo_verified: true } : {}),
-          ...(m.geoSourceUrl ? { geo_source_url: m.geoSourceUrl } : {}),
-        },
+        payload,
         { onConflict: 'id', ignoreDuplicates: false },
       );
       if (error) {
@@ -170,7 +278,7 @@ async function syncMoments() {
     }
     stats.momentsUpserted++;
   }
-  console.log(`  ${stats.momentsUpserted} moments upserted`);
+  console.log(`  ${stats.momentsUpserted} moments upserted (${protectedCount} geo-verified coords protected)`);
 }
 
 // ─── STORIES ────────────────────────────────────────────────────────
@@ -473,6 +581,13 @@ async function main() {
   console.log(`${'═'.repeat(60)}`);
 
   await loadTypes();
+  await loadGeoVerifiedIds();
+
+  // If --pull-verified, dump Supabase-verified coords into moments.ts and exit
+  if (PULL_VERIFIED) {
+    await pullVerifiedCoords();
+    return;
+  }
 
   // Order matters: entities → moments → stories → links → collections → cleanup
   await syncEntities();

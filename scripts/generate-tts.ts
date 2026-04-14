@@ -32,7 +32,7 @@ async function main() {
 // Parse args
 const args = process.argv.slice(2);
 const voiceIdx = args.indexOf('--voice');
-const voice = voiceIdx !== -1 ? args[voiceIdx + 1] : 'ash';
+const voice = voiceIdx !== -1 ? args[voiceIdx + 1] : 'fable';
 const momentIdx = args.indexOf('--moment');
 const singleMoment = momentIdx !== -1 ? args[momentIdx + 1] : null;
 const force = args.includes('--force');
@@ -96,7 +96,7 @@ for (const moment of eligible) {
         model: 'gpt-4o-mini-tts',
         voice,
         input: text,
-        instructions: 'You\'re a true crime podcaster who just moved to Austin and is losing their mind over what they\'re discovering. Every location makes you more obsessed. You talk like someone leaving a voice memo for a friend at midnight because you just found out something incredible and can\'t wait until morning. Natural, raw, real. Not polished — urgent. Breathe. React to what you\'re saying. If something is horrifying, sound horrified. If something is ironic, let yourself almost laugh. This is not a performance. This is someone who genuinely cannot believe what happened right here.',
+        instructions: 'You\'re narrating a noir documentary about real crimes in real places. Your tone is cinematic but grounded — think of the best true crime documentaries where the narrator sounds like they\'ve personally walked every block and read every court transcript. Measured pacing. Let certain words land with weight. You\'re not rushing — every sentence matters. When something is horrifying, you don\'t shout. You get quieter. The contrast between the ordinary present-day street and what happened there should feel electric in your delivery.',
         response_format: 'mp3',
       }),
     });

@@ -56,10 +56,37 @@
 - [ ] Shadow 3-5 users in person
 
 ### Audio Narration (table stakes for paid tier)
-- [ ] TTS pipeline for moment descriptions
+- [x] TTS pipeline for moment descriptions (137 moments, Fable noir voice)
+- [x] Play/pause controls on moment cards
+- [x] $2 payment gate (5 free plays, Stripe Payment Link)
 - [ ] Auto-play audio on GPS proximity (50m)
-- [ ] Play/pause controls, skip to next
+- [ ] Skip to next moment control
 - [ ] Hands-free travel mode
+
+### Interactive Deep Dive Audio (Phase B — the differentiator)
+> **Concept:** Short clip (title + description, ~20s) is free. "Go Deeper" generates
+> 1-2 min narration on demand from verified sources (description + Wikipedia + entities +
+> related moments). Strict system prompt: narrate ONLY from provided sources.
+> **Why it wins:** Le Walk / Odisea pre-record everything. Deep Maps generates on demand
+> from a knowledge graph — every new moment instantly gets audio. Depth adapts to source quality.
+>
+> **Interactive Q&A after deep dive (NotebookLM-inspired):**
+> After the deep narration finishes, present 2-3 follow-up options:
+> - Ask a question about what you just heard (voice or text → LLM → TTS response)
+> - Go to the next moment in this story
+> - Go to the nearest moment (if sorted by proximity)
+> User stays in audio flow without touching the screen. Post-dive Q&A, not mid-narration
+> interruption — keeps the experience focused.
+>
+> **Gate:** Free users get short clip. Paid users unlock "Go Deeper" + Q&A.
+> Much more compelling than play-count gate.
+- [ ] Source aggregation: collect description + wiki + entities + related moments per moment
+- [ ] Strict narration prompt (zero hallucination — only narrate from provided sources)
+- [ ] Real-time LLM → TTS streaming pipeline
+- [ ] "Go Deeper" button on moment cards (paid tier)
+- [ ] Post-narration Q&A: 2-3 suggested follow-ups + freeform question
+- [ ] Q&A → LLM → TTS response loop
+- [ ] "Next moment" / "Nearest moment" voice navigation
 
 ### Proximity Notifications
 - [ ] Background geolocation watch (`watchPosition`)

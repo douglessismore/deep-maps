@@ -39,7 +39,7 @@ interface ScoreBreakdown {
   momentId: string;
   momentName: string;
   effectiveScore: number;
-  oldScore: number;         // v0.1 pageview-only score for comparison
+  oldScore: number;         // v0.2 score for comparison
   isPrimary: boolean;
   parentStoryId: string | null;
   parentStoryName: string | null;
@@ -50,6 +50,10 @@ interface ScoreBreakdown {
     stability: number;      // 0-100, from CV of monthly pageviews
     cv: number;             // raw coefficient of variation
     crossRefDensity: number;
+    surprise: number;        // 0-100, v0.3 surprise factor
+    surpriseGap: number;     // obscurity-significance gap sub-signal
+    surpriseStructure: number; // structure-gone sub-signal
+    surpriseType: number;    // type-mismatch sub-signal
     manualOverride: number | null;
   };
   sourceSlug: string | null;
@@ -70,6 +74,10 @@ const MAX_SCORE = 100;
 const WEIGHT_SITELINKS = 0.45;
 const WEIGHT_PAGEVIEWS = 0.35;
 const WEIGHT_CROSSREF = 0.20;
+
+// v0.3 surprise factor — computed and tracked in signals but NOT in composite formula yet.
+// Surprise infrastructure is built and ready; weights need tuning before activation.
+const WEIGHT_SURPRISE = 0.0; // tracked only, not in formula
 
 // Date range for pageviews: last 12 months
 const endDate = new Date();
@@ -427,6 +435,75 @@ function getCrossRefScore(
   return clamp(base + storyCount * 3 + entityCount * 2 + collectionCount * 4, MIN_SCORE, 70);
 }
 
+// ── Surprise factor (v0.3) ────────────────────────────────────────────
+
+// Keywords that indicate the original structure is gone or transformed
+const STRUCTURE_GONE_KEYWORDS = [
+  'demolished', 'torn down', 'parking lot', 'now a ', 'no longer',
+  'replaced by', 'nothing remains', 'was torn', 'site is now',
+  'building is gone', 'has since been', 'was later replaced',
+  'no trace', 'long gone', 'razed',
+];
+const STRUCTURE_STANDS_KEYWORDS = [
+  'still stands', 'still in use', 'still open', 'still operates',
+  'still carries', 'still serves', 'now a museum', 'now houses',
+  'is now a', 'still intact',
+];
+
+// Moment types that are "dramatic" when found at mundane locations
+const DRAMATIC_TYPES = new Set([
+  'political_event', 'crime_scene', 'battlefield', 'execution_site',
+]);
+const MUNDANE_TYPES = new Set([
+  'residence', 'institution', 'cultural_site', 'landmark',
+]);
+
+function computeSurpriseScore(
+  moment: (typeof moments)[0],
+  sitelinksScore: number,
+  pvScore: number
+): { surprise: number; gap: number; structure: number; typeMismatch: number } {
+  // 1. Obscurity-Significance Gap (60% of surprise)
+  // High sitelinks + low pageviews = historically significant but not commonly known
+  const rawGap = sitelinksScore - pvScore;
+  // Normalize: gap of +50 → 100, gap of -50 → 0, gap of 0 → 50
+  const gapScore = clamp(Math.round((rawGap + 50) / 100 * 100), 0, 100);
+
+  // 2. Structure-Gone Bonus (25% of surprise)
+  const subtitle = (moment.subtitle || '').toLowerCase();
+  const description = (moment.description || '').toLowerCase();
+  const text = subtitle + ' ' + description;
+  let structureScore: number;
+  if (STRUCTURE_GONE_KEYWORDS.some(kw => text.includes(kw))) {
+    structureScore = 80;
+  } else if (STRUCTURE_STANDS_KEYWORDS.some(kw => text.includes(kw))) {
+    structureScore = 20;
+  } else {
+    structureScore = 40;
+  }
+
+  // 3. Type Mismatch Bonus (15% of surprise)
+  let typeScore = 30; // default
+  if (DRAMATIC_TYPES.has(moment.type)) {
+    // Dramatic event type gets a bonus
+    typeScore = 60;
+  }
+  // Extra bonus if moment has content warning (implies dramatic content)
+  // Note: contentWarning lives on stories, not moments — check if this moment's
+  // parent story has one. For now, use type as proxy.
+  if (moment.type === 'crime_scene' || moment.type === 'execution_site' || moment.type === 'battlefield') {
+    typeScore = 70;
+  }
+
+  const surprise = Math.round(
+    gapScore * 0.60 +
+    structureScore * 0.25 +
+    typeScore * 0.15
+  );
+
+  return { surprise: clamp(surprise, 0, 100), gap: gapScore, structure: structureScore, typeMismatch: typeScore };
+}
+
 // ── Validation: flag primary moment mismatches ─────────────────────────
 
 interface PrimaryMismatch {
@@ -540,7 +617,7 @@ async function main() {
   const entityMap = new Map(entities.map(e => [e.id, e]));
 
   // 6. Score each moment with composite formula
-  console.log('\n6. Scoring moments (composite: sitelinks×0.45 + pageviews×0.35 + crossRef×0.20)...');
+  console.log('\n6. Scoring moments (composite: sitelinks×0.45 + pageviews×0.35 + crossRef×0.20 [surprise tracked but not in formula])...');
   const scoreBreakdowns: ScoreBreakdown[] = [];
 
   for (const moment of moments) {
@@ -616,6 +693,10 @@ async function main() {
       oldScore = clamp(Math.round(oldScore * SUPPORTING_MULTIPLIER), MIN_SCORE, MAX_SCORE);
     }
 
+    // v0.3: Compute surprise factor
+    const { surprise: surpriseScore, gap: surpriseGap, structure: surpriseStructure, typeMismatch: surpriseType } =
+      computeSurpriseScore(moment, sitelinksScore, pvScore);
+
     // Composite score: weighted blend of all signals
     // CV is tracked as diagnostic only — not in the formula
     // (legitimate topics spike for good reasons: Jesus at Easter, Einstein at anniversaries)
@@ -626,6 +707,7 @@ async function main() {
         sitelinksScore * WEIGHT_SITELINKS +
         pvScore * WEIGHT_PAGEVIEWS +
         crossRef * WEIGHT_CROSSREF
+        // surpriseScore tracked in signals but not in formula until weights are tuned
       );
     } else {
       // No Wikipedia/Wikidata data at all — fall back to cross-ref density only
@@ -653,6 +735,10 @@ async function main() {
         stability: stabilityScore,
         cv: Math.round(cv * 1000) / 1000,  // 3 decimal places
         crossRefDensity: crossRef,
+        surprise: surpriseScore,
+        surpriseGap,
+        surpriseStructure,
+        surpriseType,
         manualOverride: null,
       },
       sourceSlug: slug,

@@ -109,6 +109,7 @@ export interface Moment {
   geoVerified?: boolean;
   geoSourceUrl?: string;
   geoVerifiedAt?: string;
+  sources?: string[];                     // Citation strings (e.g., 'Bulletin of the Texas Archeological Society, Vol 47, 1976')
   narrativeContext?: string;             // Rich background context (not rendered in UI). For future AI tour guide.
   audioUrl?: string;                     // MP3 URL on Supabase Storage (generated from narrativeContext via TTS)
 }

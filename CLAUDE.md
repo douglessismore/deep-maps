@@ -153,6 +153,15 @@ New stories go directly in `src/data/stories.ts`. Static files are the canonical
 - `relatedStoryIds` should reference existing story IDs when connections exist
 - Location IDs should be prefixed with story abbreviation (e.g., `btk-courthouse`)
 
+## Content Validation (MANDATORY)
+After adding new moments/entities/stories, changing entity links, modifying collection membership,
+or changing coordinates, you MUST run `/deep-maps-validator` BEFORE syncing to Supabase.
+- Invoke the validator skill: `/deep-maps-validator` (incremental mode validates only changed items)
+- Fix all CRITICAL issues before syncing. WARNINGs should be addressed but are not blockers.
+- Skip validation ONLY for trivial edits (typo fixes, minor wording changes, year corrections).
+- The user may also invoke `/deep-maps-validator` directly — always respect its output.
+- Do NOT consider content ingestion complete until the validator has passed.
+
 ## Syncing Static ↔ Supabase (MANDATORY)
 After editing ANY data file (`moments.ts`, `entities.ts`, `stories.ts`, `collections.ts`), you MUST sync to Supabase:
 ```bash

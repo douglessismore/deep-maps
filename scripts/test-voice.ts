@@ -24,7 +24,7 @@ async function main() {
     },
     body: JSON.stringify({
       model: 'gpt-4o-mini-tts',
-      voice: 'ash',
+      voice: 'fable',
       input: text,
       instructions,
       speed: 1.1,

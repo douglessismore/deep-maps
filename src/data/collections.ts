@@ -458,7 +458,7 @@ export const collections: StoryCollection[] = [
   },
   {
     id: 'hidden-beneath-austin',
-    name: 'Hidden Beneath Austin: 10,000 Years Under Your Feet',
+    name: 'Hidden Beneath the Austin Area: 10,000 Years Under Your Feet',
     subtitle: 'Ice Age mammoths, ancient burials, buried houses, 19th-century cisterns, and an 80-million-year-old underwater volcano — all under the pavement',
     description: 'Beneath Austin\'s parking lots, convention centers, and highways lie Ice Age fossil beds, indigenous settlements spanning millennia, colonial-era cisterns, and entire houses buried by development. From a jet-skier who stumbled onto a 1,300-year-old burial to stone tools found during rail construction, most of it was discovered by accident.',
     icon: '⛏️',
@@ -466,8 +466,12 @@ export const collections: StoryCollection[] = [
       // Prehistoric & indigenous
       'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937',
       'colorado-river-burials-reveal-trade-networks', 'mckinney-falls-indigenous',
+      // Salvage archaeology
+      'jetta-court-site-41tv151', 'millican-bench-41tv163',
       // Geological
       'inner-space-cavern-discovered-1963', 'pilot-knob-eruption',
+      // Historic trail crossings
+      'camino-real-montopolis-crossing', 'chisholm-trail-congress-ave-crossing',
       // Urban archaeology
       'project-connect-precontact-lithics', 'lavaca-cistern-privy-41tv1374',
       'block-15-convention-center-41tv1497', 'block-183-hotel-41tv1790',
@@ -502,6 +506,7 @@ export const collections: StoryCollection[] = [
     icon: '🍺',
     momentIds: [
       'german-free-school-1858',
+      'scholz-opening-1866',
       'hirshfeld-house-cottage-1873',
       'schneider-store-lamberts-1873',
       'beth-israel-congregation-1876',
@@ -522,7 +527,6 @@ export const collections: StoryCollection[] = [
       'ice-palace-refusal-1962',
       'barton-springs-swim-ins-1963',
       'limerick-frazier-house-1876',
-      'mccallum-house-suffrage-1920s',
     ],
     tags: ['austin', 'civil-rights', 'desegregation', 'protest', 'ut-austin', 'suffrage'],
   },
@@ -535,7 +539,6 @@ export const collections: StoryCollection[] = [
     momentIds: [
       'deep-eddy-pool-1902',
       'hamilton-pool-dome-collapse',
-      'hamilton-pool-cultural-remains',
     ],
     tags: ['austin', 'swimming', 'natural-features', 'hill-country', 'geology'],
   },
@@ -596,7 +599,6 @@ export const collections: StoryCollection[] = [
     momentIds: [
       'driskill-poker-loss', 'driskill-room-525', 'haunted-driskill-samantha',
       'annihilator-moonlight-tower', 'annihilator-christmas-massacre',
-      'paramount-majestic-opening', 'oakwood-cemetery-founded-1839',
       'haunted-tavern-emily', 'haunted-clay-pit-bertram', 'haunted-littlefield-house',
       'haunted-governors-mansion', 'haunted-buffalo-billiards',
     ],
@@ -626,5 +628,26 @@ export const collections: StoryCollection[] = [
       'guytown-bozeth-house-dig', 'guytown-closure-1915',
     ],
     tags: ['austin', 'vice', 'red-light-district', 'archaeology', 'dark-history', 'second-street'],
+  },
+  {
+    id: 'before-austin-indigenous-central-texas',
+    name: 'Before Austin: Indigenous Sites of Central Texas',
+    subtitle: 'Ten thousand years of habitation before the first surveyor arrived',
+    description: 'Central Texas was continuously inhabited for at least 10,000 years before Anglo settlers arrived in the 1830s. This collection maps the archaeological sites, trail crossings, Comanche raids, and ancient burials that reveal a deep indigenous presence across the region — from stratified campsites along the Colorado River to the scalping of Josiah Wilbarger just miles from the new capital.',
+    icon: '🏹',
+    momentIds: [
+      // Archaeological sites
+      'jetta-court-site-41tv151', 'millican-bench-41tv163', 'hamilton-pool-cultural-remains',
+      'mckinney-falls-indigenous',
+      // Ancient burials and excavations
+      'jet-skier-finds-ancient-burial-lake-travis-2006', 'jackson-excavates-fall-creek-burials-1937',
+      'colorado-river-burials-reveal-trade-networks',
+      // Comanche encounters
+      'comanche-peak-lake-travis', 'simpson-children-abduction-1844',
+      'defeat-hollow-comanche-skirmish', 'santa-monica-springs-campground',
+      // Wilbarger incident
+      'wilbarger-scalping-1832',
+    ],
+    tags: ['austin', 'indigenous', 'comanche', 'tonkawa', 'archaeology', 'central-texas', 'pre-contact'],
   },
 ];
