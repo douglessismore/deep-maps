@@ -647,7 +647,11 @@ export const collections: StoryCollection[] = [
       'defeat-hollow-comanche-skirmish', 'santa-monica-springs-campground',
       // Wilbarger incident
       'wilbarger-scalping-1832',
+      // Settler violence / forced removal
+      'tonkawa-forced-removal-shoal-creek-1855', 'battle-brushy-creek-1839',
+      // Tonkawa presence
+      'tonkawa-camp-republic-square-1830s',
     ],
-    tags: ['austin', 'indigenous', 'comanche', 'tonkawa', 'archaeology', 'central-texas', 'pre-contact'],
+    tags: ['austin', 'indigenous', 'comanche', 'tonkawa', 'archaeology', 'central-texas', 'pre-contact', 'forced-removal'],
   },
 ];

@@ -5650,4 +5650,22 @@ export const entities: Entity[] = [
     canonicalStoryId: 'sweatt-v-painter',
     wikipediaSlug: 'Heman_Marion_Sweatt',
   },
+  // ═══════════════════════════════════════════════════════════════════════
+  // INDIGENOUS NATIONS — AUSTIN AREA
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    id: 'tonkawa-nation',
+    name: 'Tonkawa',
+    type: 'organization',
+    description: 'Southern Plains people who inhabited Central Texas for centuries before European contact. Allies of the Texas Republic against Comanche raids, they were nonetheless forcibly removed from Austin in the 1850s and from the Brazos Reserve in 1859 — what the tribe calls their Trail of Tears.',
+    wikipediaSlug: 'Tonkawa',
+  },
+  {
+    id: 'edward-burleson',
+    name: 'Edward Burleson',
+    type: 'person',
+    years: '1798–1851',
+    description: 'Vice President of the Republic of Texas and Indian fighter who laid out Waterloo (pre-Austin) in 1838 and commanded the ceremonies establishing Austin as capital. Spent 1830–1842 in continuous campaigns against indigenous peoples along the Colorado River corridor.',
+    wikipediaSlug: 'Edward_Burleson',
+  },
 ];

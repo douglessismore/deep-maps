@@ -261,11 +261,10 @@ async function syncMoments() {
         ...(m.geoSourceUrl ? { geo_source_url: m.geoSourceUrl } : {}),
       };
 
-      if (isVerifiedInSupabase) {
-        // Do NOT overwrite coords — Supabase has manually verified position
-      } else {
-        payload.location = `SRID=4326;POINT(${m.lng} ${m.lat})`;
-      }
+      // Always include location — the DB trigger (protect_verified_location_trigger)
+      // silently preserves verified coords even if the sync sends stale values.
+      // We must include location because PostgreSQL upsert validates NOT NULL on INSERT.
+      payload.location = `SRID=4326;POINT(${m.lng} ${m.lat})`;
 
       const { error } = await supabase.from('moments').upsert(
         payload,
