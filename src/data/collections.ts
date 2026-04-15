@@ -29,6 +29,7 @@ export const collections: StoryCollection[] = [
       'nyc-gemini-lounge', 'nyc-gotti-house', 'nyc-castellano-mansion', 'nyc-luciano-home', 'nyc-gambino-house',
       'nyc-the-hole', 'nyc-triangle-club', 'nyc-bergin-club', 'nyc-motion-lounge', 'nyc-roberts-lounge',
       'nyc-decicco-carbomb', 'nyc-cali-murder', 'nyc-palma-boys', 'nyc-demeo-body', 'nyc-scarpa-wimpy',
+      'nyc-napoli-e-notte-cafe', 'nyc-toyland-social-club',
     ],
     tags: ['mafia', 'organized-crime', 'nyc', 'dark-history'],
   },
@@ -40,6 +41,9 @@ export const collections: StoryCollection[] = [
     momentIds: [
       'african-burial-ground-discovery-1991', 'doyers-street-bloody-angle-tong-wars', 'five-points-notorious-slum-1842', 'manhattan-well-murder-1800', 'washington-sq-hangmans-elm-1797',
       'dylan-thomas-white-horse-tavern-1953', 'old-st-patricks-catacombs-1815', 'chumleys-speakeasy-opens-1922', 'triangle-shirtwaist-fire-1911',
+      'etan-patz-disappearance-1979', 'bobby-driscoll-found-dead-1968', 'rifkin-bresciani-murder-1993',
+      'ghostbusters-firehouse-tribeca', 'naudet-films-first-plane-9-11', 'heath-ledger-death-soho-2008',
+      'sid-vicious-overdose-greenwich-1979', 'groovy-murders-east-village-1967', 'marilyn-monroe-subway-grate-1954',
     ],
     tags: ['nyc', 'dark-history', 'hidden-history', 'lower-manhattan'],
   },
@@ -653,5 +657,25 @@ export const collections: StoryCollection[] = [
       'tonkawa-camp-republic-square-1830s',
     ],
     tags: ['austin', 'indigenous', 'comanche', 'tonkawa', 'archaeology', 'central-texas', 'pre-contact', 'forced-removal'],
+  },
+  {
+    id: 'soho-art-district-that-almost-wasnt',
+    name: 'SoHo: The Art District That Almost Wasn\'t',
+    subtitle: 'One woman killed a ten-lane highway and saved the neighborhood that changed art forever',
+    description: 'Robert Moses wanted to bulldoze SoHo for an expressway. Jane Jacobs stopped him. What followed was the most important art migration in American history — Judd, Basquiat, Haring, Bowie, and a hundred galleries that turned truck-loading docks into the center of the global art world.',
+    icon: '🎨',
+    momentIds: [
+      'jane-jacobs-defeats-lomex-1969',
+      'judd-buys-101-spring-street-1968', 'basquiat-studio-great-jones-1983',
+      'haring-pop-shop-lafayette-1986', 'soho-gallery-explosion-420-broadway-1971',
+      'haughwout-building-first-elevator-1857', 'bowie-soho-apartment-1999',
+      'ear-inn-oldest-bar-manhattan-1817', 'tribeca-film-festival-founded-2002',
+      'city-hall-station-abandoned-1945',
+      // Existing moments in the area
+      'ghostbusters-firehouse-tribeca', 'stonewall-riots-1969',
+      'hendrix-builds-electric-lady-studios', 'cbgb-opens-1973',
+      'greenwich-village-dylan-cafe-wha-1961',
+    ],
+    tags: ['soho', 'tribeca', 'nyc', 'art', 'music', 'culture', 'architecture', 'lower-manhattan'],
   },
 ];
