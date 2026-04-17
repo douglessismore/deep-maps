@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    {
+      "source": "/audio/:filename",
+      "destination": "https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/:filename"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
