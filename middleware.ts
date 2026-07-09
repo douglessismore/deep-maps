@@ -25,6 +25,8 @@ function isBot(userAgent: string): boolean {
 }
 
 // ── Route Parsing ──
+type DeepLinkTable = 'collections' | 'stories' | 'entities';
+
 type DeepLink =
   | { type: 'collection'; id: string; table: 'collections' }
   | { type: 'story'; id: string; table: 'stories' }
@@ -47,13 +49,23 @@ const SUPABASE_ANON_KEY =
 interface OgData {
   title: string;
   description: string;
+  years?: string;
+  image?: string;
 }
+
+// Collections has no years/image_url columns — selecting them would 400 the
+// whole query and degrade the card to the generic fallback.
+const SELECT_COLUMNS: Record<DeepLinkTable, string> = {
+  stories: 'name,description,years,image_url',
+  entities: 'name,description,years,image_url',
+  collections: 'name,description',
+};
 
 async function fetchOgData(link: DeepLink): Promise<OgData | null> {
   if (!link) return null;
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/${link.table}?id=eq.${encodeURIComponent(link.id)}&select=name,description`,
+      `${SUPABASE_URL}/rest/v1/${link.table}?id=eq.${encodeURIComponent(link.id)}&select=${SELECT_COLUMNS[link.table]}`,
       {
         headers: {
           apikey: SUPABASE_ANON_KEY,
@@ -65,7 +77,12 @@ async function fetchOgData(link: DeepLink): Promise<OgData | null> {
     if (!res.ok) return null;
     const rows = await res.json();
     if (!rows?.[0]) return null;
-    return { title: rows[0].name || 'DeepMaps', description: rows[0].description || '' };
+    return {
+      title: rows[0].name || 'DeepMaps',
+      description: rows[0].description || '',
+      years: typeof rows[0].years === 'string' ? rows[0].years : undefined,
+      image: typeof rows[0].image_url === 'string' && rows[0].image_url ? rows[0].image_url : undefined,
+    };
   } catch {
     return null; // Timeout or network error → fallback
   }
@@ -77,11 +94,13 @@ const esc = (s: string) =>
 
 // ── OG HTML ──
 function buildOgHtml(data: OgData | null, url: string): string {
-  const title = data ? `${data.title} — DeepMaps` : 'DeepMaps';
+  const years = data?.years ? ` (${data.years})` : '';
+  const title = data ? `${data.title}${years} — DeepMaps` : 'DeepMaps';
   const desc = data?.description || 'Everything that ever happened, happened somewhere. Explore history pinned to the exact coordinates where it happened.';
   // Truncate description to 200 chars for OG tags
   const shortDesc = desc.length > 200 ? desc.slice(0, 197) + '...' : desc;
   const origin = new URL(url).origin;
+  const image = data?.image || `${origin}/og-default.png`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -91,14 +110,14 @@ function buildOgHtml(data: OgData | null, url: string): string {
 <meta name="description" content="${esc(shortDesc)}"/>
 <meta property="og:title" content="${esc(title)}"/>
 <meta property="og:description" content="${esc(shortDesc)}"/>
-<meta property="og:image" content="${origin}/og-default.png"/>
+<meta property="og:image" content="${esc(image)}"/>
 <meta property="og:url" content="${esc(url)}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="DeepMaps"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${esc(title)}"/>
 <meta name="twitter:description" content="${esc(shortDesc)}"/>
-<meta name="twitter:image" content="${origin}/og-default.png"/>
+<meta name="twitter:image" content="${esc(image)}"/>
 </head>
 <body></body>
 </html>`;

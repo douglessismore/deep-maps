@@ -4,39 +4,6 @@
       "source": "/audio/:filename",
       "destination": "https://fhxyaoaaeztrycfoppeu.supabase.co/storage/v1/object/public/moment-audio/:filename"
     },
-    {
-      "source": "/s/:id",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|Twitterbot|Slackbot|WhatsApp|LinkedInBot|Discordbot|TelegramBot|Applebot|SkypeUriPreview|Pinterestbot|redditbot).*"
-        }
-      ],
-      "destination": "/api/share?type=s&id=:id"
-    },
-    {
-      "source": "/e/:id",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|Twitterbot|Slackbot|WhatsApp|LinkedInBot|Discordbot|TelegramBot|Applebot|SkypeUriPreview|Pinterestbot|redditbot).*"
-        }
-      ],
-      "destination": "/api/share?type=e&id=:id"
-    },
-    {
-      "source": "/c/:id",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|Twitterbot|Slackbot|WhatsApp|LinkedInBot|Discordbot|TelegramBot|Applebot|SkypeUriPreview|Pinterestbot|redditbot).*"
-        }
-      ],
-      "destination": "/api/share?type=c&id=:id"
-    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
