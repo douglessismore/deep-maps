@@ -270,8 +270,8 @@ export function Header({
                   onFocus={() => setSearchFocused(true)}
                   placeholder={v2 ? 'Search for secrets...' : 'Search...'}
                   className={v2
-                    ? 'bg-[var(--bg-card-hover)] border-none rounded-full px-4 py-1.5 text-xs w-32 sm:w-44 placeholder:text-[var(--text-muted)]/50 focus:outline-none focus:ring-1 focus:ring-[var(--accent-red-dim)] font-sans'
-                    : 'bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-md px-3 py-1 text-sm w-32 sm:w-44 placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-red-dim)] font-mono text-xs'
+                    ? 'bg-[var(--bg-card-hover)] border-none rounded-full px-4 py-1.5 text-xs w-24 sm:w-44 placeholder:text-[var(--text-muted)]/50 focus:outline-none focus:ring-1 focus:ring-[var(--accent-red-dim)] font-sans'
+                    : 'bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-md px-3 py-1 text-sm w-24 sm:w-44 placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-red-dim)] font-mono text-xs'
                   }
                 />
                 {searchQuery && (

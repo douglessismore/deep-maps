@@ -245,8 +245,17 @@ export function ExplorePanel({
     }
   }, [activeCollection]);
 
-  // Clear scroll highlight + active collection when switching tabs
+  // Clear scroll highlight + active collection when switching tabs.
+  // Must NOT fire on mount: this panel mounts during deep-link activation, and
+  // an unconditional onModeChange('explore') here would stomp the story/entity
+  // mode the deep link just set (leaving activeStory set but mode 'explore').
+  const prevTabRef = useRef<PanelTab | null>(null);
   useEffect(() => {
+    if (prevTabRef.current === null || prevTabRef.current === activeTab) {
+      prevTabRef.current = activeTab;
+      return;
+    }
+    prevTabRef.current = activeTab;
     if (activeTab !== 'stories' && activeTab !== 'collections') setScrollActiveStoryId(null);
     if (activeTab !== 'places') setScrollActiveEntityId(null);
     // Clear collection when leaving collections tab — collection is a destination, not a filter

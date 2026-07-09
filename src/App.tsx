@@ -245,6 +245,7 @@ function App() {
   // When the user navigates inside the app, update the URL to match.
   // This makes the URL shareable and enables browser back/forward.
   const suppressUrlPush = useRef(false); // Prevents loops during deep link activation
+  const lastStatePath = useRef('/'); // path implied by the default (nothing-active) state
   useEffect(() => {
     if (suppressUrlPush.current) { suppressUrlPush.current = false; return; }
     let newPath = '/';
@@ -255,9 +256,16 @@ function App() {
     } else if (activeCollection) {
       newPath = `/c/${activeCollection.id}`;
     }
-    // Only push if the path actually changed (avoids history spam)
-    if (newPath !== location) {
-      setLocation(newPath, { replace: false });
+    // Push only when the STATE-derived path changes — never in reaction to the
+    // URL itself. Comparing against `location` alone wipes a fresh deep-link
+    // URL: on first render the default state implies '/' while the URL still
+    // holds /s/:id waiting for data to load and activation to run. Wiping it
+    // also remounts App (different <Route> in main.tsx), losing all state.
+    if (newPath !== lastStatePath.current) {
+      lastStatePath.current = newPath;
+      if (newPath !== location) {
+        setLocation(newPath, { replace: false });
+      }
     }
   }, [mode, activeStory, activeEntity, activeCollection, location, setLocation]);
 
