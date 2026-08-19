@@ -1230,13 +1230,13 @@ export function HomePage({
   // Layout variant switcher — tap hero text 3 times to cycle through orderings
   type LayoutVariant = 'A' | 'B' | 'C' | 'D';
   const LAYOUT_LABELS: Record<LayoutVariant, string> = {
-    A: 'People → Stories → Moments → Collections',
+    A: 'Moments → People → Stories → Collections',
     B: 'Stories → People → Moments → Collections',
     C: 'Moments → People → Stories → Collections',
     D: 'Collections → People → Stories → Moments',
   };
   const LAYOUT_ORDERS: Record<LayoutVariant, string[]> = {
-    A: ['people', 'stories', 'moments', 'collections'],
+    A: ['moments', 'people', 'stories', 'collections'],
     B: ['stories', 'people', 'moments', 'collections'],
     C: ['moments', 'people', 'stories', 'collections'],
     D: ['collections', 'people', 'stories', 'moments'],
